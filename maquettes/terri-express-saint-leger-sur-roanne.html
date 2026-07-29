@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terri Express — Déménagement, transport express et garde-meubles à Roanne</title>
+<meta name="description" content="Terri Express, déménageur à Saint-Léger-sur-Roanne depuis 2011. Estimez votre volume et votre devis en ligne, particuliers, professionnels, gendarmes et militaires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TERRI EXPRESS — maquette de démonstration
+   ------------------------------------------------------------
+   CHARTE : le site actuel (terriexpress.fr) interdit l'accès
+   automatisé (robots.txt), les couleurs et la typographie
+   exactes n'ont donc pas pu être relevées. Les valeurs
+   ci-dessous sont une approximation construite à partir de
+   l'univers de l'entreprise (bâches de camion, carton kraft,
+   gilets haute visibilité). Tout se règle ici, en une ligne.
+   ============================================================ */
+:root{
+  /* --- Couleurs --- */
+  --route:#12233A;        /* bleu nuit dominant */
+  --route-2:#1B3252;
+  --route-3:#28496F;
+  --kraft:#C87F3C;        /* accent principal : carton, scotch */
+  --kraft-clair:#E7B37B;
+  --kraft-sourd:#8E5B2A;
+  --hivis:#D8F04E;        /* haute visibilité : jauges, focus */
+  --bulle:#EDF0F4;        /* fond clair, papier bulle */
+  --bulle-2:#DFE5EC;
+  --blanc:#FFFFFF;
+  --encre:#14202C;
+  --gris:#657686;
+  --gris-clair:#95A3B1;
+  --vert:#2E8B62;
+  --rouge:#C0483C;
+
+  /* --- Typographie --- */
+  --display:'Barlow Condensed',"Haettenschweiler","Arial Narrow",sans-serif;
+  --texte:'Barlow',"Segoe UI",system-ui,sans-serif;
+  --data:'IBM Plex Mono',ui-monospace,"Courier New",monospace;
+
+  --t-xs:clamp(.72rem,.7rem + .1vw,.78rem);
+  --t-sm:clamp(.84rem,.8rem + .2vw,.92rem);
+  --t-md:clamp(.98rem,.94rem + .25vw,1.08rem);
+  --t-lg:clamp(1.15rem,1.05rem + .5vw,1.4rem);
+  --t-xl:clamp(1.6rem,1.3rem + 1.4vw,2.4rem);
+  --t-2xl:clamp(2.2rem,1.6rem + 2.6vw,3.6rem);
+  --t-3xl:clamp(2.9rem,1.9rem + 4.6vw,5.6rem);
+
+  /* --- Rythme --- */
+  --sp-1:clamp(.3rem,.28rem + .1vw,.4rem);
+  --sp-2:clamp(.55rem,.5rem + .25vw,.75rem);
+  --sp-3:clamp(.9rem,.8rem + .4vw,1.2rem);
+  --sp-4:clamp(1.3rem,1.1rem + .8vw,2rem);
+  --sp-5:clamp(2rem,1.6rem + 1.6vw,3.2rem);
+  --sp-6:clamp(3rem,2.2rem + 3vw,5.5rem);
+
+  --r-sm:4px; --r-md:8px; --r-lg:14px;
+  --ombre-1:0 1px 2px rgba(18,35,58,.10);
+  --ombre-2:0 6px 18px -6px rgba(18,35,58,.20);
+  --ombre-3:0 22px 48px -18px rgba(18,35,58,.38);
+  --duree:260ms;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ressort:cubic-bezier(.34,1.4,.64,1);
+  --max:1180px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bulle);color:var(--encre);
+  font-family:var(--texte);font-size:var(--t-md);line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+button,input,select{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;font-family:var(--display);font-weight:800;line-height:.98;letter-spacing:-.005em;text-transform:uppercase}
+p{margin:0 0 var(--sp-3)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--hivis);outline-offset:3px;border-radius:2px}
+
+.wrap{width:min(100% - 2.4rem,var(--max));margin-inline:auto}
+.mono{font-family:var(--data);font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Bandeau démo ---------- */
+.demo-bar{
+  background:repeating-linear-gradient(135deg,var(--route) 0 14px,var(--route-2) 14px 28px);
+  color:var(--kraft-clair);font-family:var(--data);font-size:var(--t-xs);
+  letter-spacing:.06em;text-align:center;padding:.45rem 1rem;
+}
+.demo-bar b{color:var(--hivis);font-weight:600}
+
+/* ---------- Barre de progression lecture ---------- */
+.progress{position:fixed;inset:0 auto auto 0;height:3px;width:100%;z-index:60;background:transparent;pointer-events:none}
+.progress i{display:block;height:100%;width:0;background:var(--kraft);transition:width 90ms linear}
+
+/* ---------- En-tête ---------- */
+.entete{
+  position:sticky;top:0;z-index:50;background:rgba(18,35,58,.92);
+  backdrop-filter:blur(12px) saturate(150%);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  transition:padding var(--duree) var(--ease),background var(--duree) var(--ease);
+  padding:.85rem 0;
+}
+.entete.compact{padding:.42rem 0;background:rgba(18,35,58,.97)}
+.entete .wrap{display:flex;align-items:center;gap:var(--sp-4)}
+.marque{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:0}
+.marque .cube{
+  width:34px;height:34px;flex-shrink:0;border-radius:3px;
+  background:linear-gradient(150deg,var(--kraft-clair),var(--kraft));
+  position:relative;transition:transform var(--duree) var(--ressort);
+}
+.marque .cube::before,.marque .cube::after{content:"";position:absolute;background:rgba(20,32,44,.34)}
+.marque .cube::before{inset:0 0 auto 0;height:2px;top:12px}
+.marque .cube::after{inset:0 auto 0 50%;width:2px;transform:translateX(-1px)}
+.marque:hover .cube{transform:rotate(-8deg) scale(1.05)}
+.marque span{font-family:var(--display);font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.marque span i{color:var(--kraft-clair);font-style:normal}
+.entete.compact .marque .cube{width:28px;height:28px}
+.nav{display:flex;gap:1.3rem;margin-left:auto;align-items:center}
+.nav a{
+  color:rgba(255,255,255,.82);text-decoration:none;font-size:var(--t-sm);font-weight:500;
+  position:relative;padding:.2rem 0;transition:color var(--duree) var(--ease);
+}
+.nav a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--kraft);transition:width var(--duree) var(--ease)}
+.nav a:hover{color:#fff}
+.nav a:hover::after{width:100%}
+.tel-entete{font-family:var(--data);font-size:var(--t-sm);color:var(--hivis);text-decoration:none;white-space:nowrap}
+.burger{display:none;margin-left:auto;background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:var(--r-sm);padding:.4rem .6rem;cursor:pointer}
+
+/* ---------- Boutons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;justify-content:center;
+  font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  font-size:1.02rem;padding:.72rem 1.5rem;border-radius:var(--r-sm);border:2px solid transparent;
+  cursor:pointer;text-decoration:none;line-height:1.1;
+  transition:transform 140ms var(--ressort),background var(--duree) var(--ease),color var(--duree) var(--ease),box-shadow var(--duree) var(--ease);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn-kraft{background:var(--kraft);color:#fff;box-shadow:var(--ombre-2)}
+.btn-kraft:hover{background:var(--kraft-sourd);box-shadow:var(--ombre-3)}
+.btn-fant{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-fant:hover{border-color:var(--hivis);color:var(--hivis)}
+.btn-sombre{background:var(--route);color:#fff}
+.btn-sombre:hover{background:var(--route-2)}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.btn-petit{font-size:.88rem;padding:.5rem 1rem}
+
+/* ---------- Héros ---------- */
+.hero{position:relative;background:var(--route);color:#fff;overflow:hidden;padding:var(--sp-6) 0 var(--sp-5)}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(1100px 480px at 82% 12%,rgba(200,127,60,.28),transparent 62%),
+    radial-gradient(700px 400px at 8% 92%,rgba(40,73,111,.65),transparent 60%);
+}
+.hero-route{position:absolute;left:0;right:0;bottom:0;height:112px;opacity:.5}
+.hero .wrap{position:relative;z-index:2}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:var(--sp-5);align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;font-family:var(--data);font-size:var(--t-xs);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--kraft-clair);margin-bottom:var(--sp-3);
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--kraft)}
+.hero h1{font-size:var(--t-3xl);letter-spacing:-.015em}
+.hero h1 .stress{color:var(--hivis);display:inline-block}
+.hero-sous{font-size:var(--t-lg);color:rgba(255,255,255,.8);max-width:34ch;margin:var(--sp-3) 0 var(--sp-4);font-weight:400;line-height:1.5}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.hero-stats{display:flex;gap:var(--sp-4);margin-top:var(--sp-5);flex-wrap:wrap}
+.stat b{display:block;font-family:var(--data);font-size:clamp(1.6rem,1.2rem + 1.6vw,2.5rem);font-weight:600;color:#fff;line-height:1}
+.stat span{font-size:var(--t-xs);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);font-family:var(--data)}
+.stat b em{font-style:normal;color:var(--kraft-clair);font-size:.6em}
+
+/* Camion héros */
+.camion-hero{position:relative}
+.camion-hero svg{width:100%;height:auto;filter:drop-shadow(0 26px 40px rgba(0,0,0,.42))}
+
+/* ---------- Bandeau défilant ---------- */
+.ticker{background:var(--hivis);color:var(--route);overflow:hidden;border-block:2px solid var(--route);padding:.5rem 0}
+.ticker-piste{display:flex;gap:0;width:max-content;animation:defile 42s linear infinite}
+.ticker-piste ul{display:flex;gap:2.4rem;list-style:none;margin:0;padding:0 1.2rem;align-items:center}
+.ticker li{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:1.02rem;white-space:nowrap;display:flex;align-items:center;gap:.7rem}
+.ticker li::after{content:"";width:6px;height:6px;background:var(--route);border-radius:50%;opacity:.55}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker:hover .ticker-piste{animation-play-state:paused}
+
+/* ---------- Sections ---------- */
+.sect{padding:var(--sp-6) 0}
+.sect-nuit{background:var(--route);color:#fff}
+.sect-nuit h2,.sect-nuit h3{color:#fff}
+.titre-bloc{max-width:62ch;margin-bottom:var(--sp-5)}
+.titre-bloc h2{font-size:var(--t-2xl)}
+.titre-bloc p{color:var(--gris);margin-top:var(--sp-2);font-size:var(--t-lg);line-height:1.5}
+.sect-nuit .titre-bloc p{color:rgba(255,255,255,.72)}
+
+/* ---------- Outil : estimateur ---------- */
+.outil{background:var(--route);color:#fff;position:relative;overflow:hidden}
+.outil::before{content:"";position:absolute;inset:0;background:radial-gradient(900px 460px at 15% 0%,rgba(200,127,60,.22),transparent 60%)}
+.outil .wrap{position:relative;z-index:2}
+.outil-cadre{
+  background:var(--blanc);color:var(--encre);border-radius:var(--r-lg);
+  box-shadow:var(--ombre-3);overflow:hidden;
+  display:grid;grid-template-columns:1.35fr .85fr;
+}
+.outil-corps{padding:var(--sp-5) var(--sp-4);min-height:520px;display:flex;flex-direction:column}
+.outil-cote{background:var(--bulle);border-left:1px solid var(--bulle-2);padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-3)}
+
+/* Fil des étapes */
+.fil{display:flex;gap:.4rem;margin-bottom:var(--sp-4);flex-wrap:wrap}
+.fil button{
+  flex:1 1 0;min-width:96px;background:none;border:0;border-top:3px solid var(--bulle-2);
+  padding:.55rem .2rem 0;text-align:left;cursor:pointer;
+  font-family:var(--data);font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--gris-clair);
+  transition:color var(--duree) var(--ease),border-color var(--duree) var(--ease);
+}
+.fil button:hover{color:var(--encre)}
+.fil button[aria-current="true"]{border-color:var(--kraft);color:var(--route)}
+.fil button.fait{border-color:var(--vert);color:var(--vert)}
+
+.etape{display:none;animation:entre 380ms var(--ease) both}
+.etape.actif{display:block}
+.etape.arriere{animation-name:entre-rev}
+@keyframes entre{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:none}}
+@keyframes entre-rev{from{opacity:0;transform:translateX(-22px)}to{opacity:1;transform:none}}
+.etape h3{font-size:var(--t-xl);margin-bottom:.3rem}
+.etape > p.intro{color:var(--gris);font-size:var(--t-sm);margin-bottom:var(--sp-4)}
+
+/* Choix rapides */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:var(--sp-4)}
+.chip{
+  background:var(--bulle);border:1.5px solid var(--bulle-2);border-radius:999px;
+  padding:.42rem 1rem;cursor:pointer;font-size:var(--t-sm);font-weight:500;
+  transition:all 180ms var(--ease);
+}
+.chip:hover{border-color:var(--kraft);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--route);border-color:var(--route);color:#fff}
+.chip .m3{font-family:var(--data);font-size:.8em;opacity:.65;margin-left:.35rem}
+
+/* Pièces */
+.pieces{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:var(--sp-3);border-bottom:1px solid var(--bulle-2);padding-bottom:.6rem}
+.onglet{
+  background:none;border:0;border-radius:var(--r-sm);padding:.4rem .8rem;cursor:pointer;
+  font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:.98rem;letter-spacing:.03em;
+  color:var(--gris);transition:all 180ms var(--ease);position:relative;
+}
+.onglet:hover{color:var(--encre);background:var(--bulle)}
+.onglet[aria-selected="true"]{background:var(--route);color:#fff}
+.onglet .pastille{
+  position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;border-radius:999px;
+  background:var(--kraft);color:#fff;font-family:var(--data);font-size:.62rem;font-weight:600;
+  display:none;align-items:center;justify-content:center;padding:0 4px;
+}
+.onglet.rempli .pastille{display:flex}
+
+.objets{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.5rem}
+.objet{
+  display:flex;align-items:center;gap:.6rem;background:var(--bulle);border:1px solid transparent;
+  border-radius:var(--r-md);padding:.5rem .6rem;transition:all 180ms var(--ease);
+}
+.objet.on{background:#fff;border-color:var(--kraft);box-shadow:var(--ombre-1)}
+.objet .nom{flex:1;min-width:0;font-size:var(--t-sm);line-height:1.25}
+.objet .nom em{display:block;font-style:normal;font-family:var(--data);font-size:.7rem;color:var(--gris-clair)}
+.compteur{display:flex;align-items:center;gap:.15rem;background:#fff;border:1px solid var(--bulle-2);border-radius:999px;padding:2px}
+.compteur button{
+  width:26px;height:26px;border-radius:999px;border:0;background:var(--bulle);color:var(--route);
+  font-size:1rem;font-weight:700;line-height:1;cursor:pointer;display:grid;place-items:center;
+  transition:all 150ms var(--ease);
+}
+.compteur button:hover{background:var(--route);color:#fff}
+.compteur button:active{transform:scale(.85)}
+.compteur output{width:26px;text-align:center;font-family:var(--data);font-size:.9rem;font-weight:600}
+
+/* Champs */
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--sp-3)}
+.champ{display:flex;flex-direction:column;gap:.28rem}
+.champ label{font-family:var(--data);font-size:var(--t-xs);letter-spacing:.08em;text-transform:uppercase;color:var(--gris)}
+.champ input,.champ select{
+  background:var(--bulle);border:1.5px solid var(--bulle-2);border-radius:var(--r-sm);
+  padding:.6rem .75rem;font-size:var(--t-md);transition:border-color 180ms var(--ease),background 180ms var(--ease);
+}
+.champ input:focus,.champ select:focus{background:#fff;border-color:var(--kraft);outline:none}
+.champ .aide{font-size:.74rem;color:var(--gris-clair)}
+.interrupteurs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--sp-3)}
+.bascule{display:inline-flex;align-items:center;gap:.5rem;background:var(--bulle);border:1.5px solid var(--bulle-2);border-radius:999px;padding:.4rem .9rem;cursor:pointer;font-size:var(--t-sm);transition:all 180ms var(--ease)}
+.bascule:hover{border-color:var(--kraft)}
+.bascule input{accent-color:var(--kraft);width:16px;height:16px;margin:0}
+.bascule.on{background:var(--route);color:#fff;border-color:var(--route)}
+
+/* Formules */
+.formules{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin-top:var(--sp-3)}
+.formule{
+  text-align:left;background:var(--bulle);border:2px solid var(--bulle-2);border-radius:var(--r-md);
+  padding:.9rem;cursor:pointer;transition:all 200ms var(--ease);
+}
+.formule:hover{transform:translateY(-3px);border-color:var(--kraft-clair)}
+.formule[aria-pressed="true"]{background:#fff;border-color:var(--kraft);box-shadow:var(--ombre-2)}
+.formule b{display:block;font-family:var(--display);font-size:1.2rem;text-transform:uppercase;letter-spacing:.02em}
+.formule small{display:block;color:var(--gris);font-size:.8rem;line-height:1.4;margin-top:.2rem}
+
+/* Colonne de droite : le camion */
+.jauge-titre{font-family:var(--data);font-size:var(--t-xs);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.jauge-valeur{font-family:var(--data);font-size:clamp(2.1rem,1.6rem + 2vw,3rem);font-weight:600;line-height:1;color:var(--route)}
+.jauge-valeur em{font-style:normal;font-size:.42em;color:var(--gris)}
+.camion-jauge svg{width:100%;height:auto}
+.remplissage{transition:height 520ms var(--ressort),y 520ms var(--ressort),fill 320ms var(--ease)}
+.carton-anim{opacity:0;transform-box:fill-box;transform-origin:center;animation:pop 420ms var(--ressort) forwards}
+@keyframes pop{from{opacity:0;transform:translateY(-14px) scale(.7)}to{opacity:1;transform:none}}
+.recap-ligne{display:flex;justify-content:space-between;gap:1rem;font-size:var(--t-sm);padding:.35rem 0;border-bottom:1px dashed var(--bulle-2)}
+.recap-ligne span:last-child{font-family:var(--data);font-weight:600;white-space:nowrap}
+.recap-total{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-top:.5rem;padding-top:.6rem;border-top:2px solid var(--route)}
+.recap-total b{font-family:var(--data);font-size:1.5rem;font-weight:600;color:var(--route);white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--data);font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;background:var(--hivis);color:var(--route);padding:.22rem .6rem;border-radius:var(--r-sm);font-weight:600}
+.badge.vert{background:rgba(46,139,98,.15);color:var(--vert)}
+.badge.kraft{background:rgba(200,127,60,.16);color:var(--kraft-sourd)}
+
+/* Bloc militaire */
+.encart-mil{border:2px solid var(--route);border-radius:var(--r-md);overflow:hidden;margin-top:var(--sp-3)}
+.encart-mil-tete{background:var(--route);color:#fff;padding:.7rem 1rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.encart-mil-tete h4{font-family:var(--display);font-size:1.2rem;text-transform:uppercase;margin:0;letter-spacing:.02em}
+.encart-mil-corps{padding:var(--sp-3) 1rem}
+.barre-cubage{height:26px;background:var(--bulle);border-radius:var(--r-sm);position:relative;overflow:hidden;margin:.6rem 0 .3rem;border:1px solid var(--bulle-2)}
+.barre-cubage i{display:block;height:100%;background:linear-gradient(90deg,var(--kraft-clair),var(--kraft));transition:width 620ms var(--ressort)}
+.barre-cubage .seuil{position:absolute;top:0;bottom:0;width:2px;background:var(--route)}
+.barre-cubage .seuil.gauche::after{left:auto;right:6px}
+.barre-cubage .seuil::after{content:attr(data-lab);position:absolute;top:-1px;left:5px;font-family:var(--data);font-size:.62rem;color:var(--route);white-space:nowrap;line-height:26px}
+.resultat-mil{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-top:var(--sp-3)}
+.tuile{background:var(--bulle);border-radius:var(--r-md);padding:.75rem}
+.tuile b{display:block;font-family:var(--data);font-size:1.32rem;font-weight:600;color:var(--route);line-height:1.1}
+.tuile span{font-size:.76rem;color:var(--gris);line-height:1.35;display:block;margin-top:.15rem}
+.tuile.vert{background:rgba(46,139,98,.12)}
+.tuile.vert b{color:var(--vert)}
+
+/* Récapitulatif final */
+.devis{background:var(--bulle);border-radius:var(--r-md);padding:var(--sp-3);border-left:4px solid var(--kraft)}
+.devis dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;font-size:var(--t-sm)}
+.devis dt{font-family:var(--data);font-size:var(--t-xs);letter-spacing:.06em;text-transform:uppercase;color:var(--gris);align-self:center}
+.devis dd{margin:0;font-weight:600}
+.checklist{list-style:none;margin:var(--sp-3) 0 0;padding:0;display:grid;gap:.3rem}
+.checklist li{display:flex;gap:.5rem;font-size:var(--t-sm);align-items:flex-start}
+.checklist li::before{content:"✓";color:var(--vert);font-weight:700;flex-shrink:0}
+
+.nav-etapes{display:flex;gap:.6rem;margin-top:auto;padding-top:var(--sp-4);flex-wrap:wrap}
+
+/* ---------- Cartes services ---------- */
+.cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:var(--sp-3)}
+.carte{
+  background:#fff;border-radius:var(--r-md);padding:var(--sp-4);box-shadow:var(--ombre-1);
+  border-top:3px solid var(--kraft);transition:transform var(--duree) var(--ease),box-shadow var(--duree) var(--ease);
+}
+.carte:hover{transform:translateY(-5px);box-shadow:var(--ombre-2)}
+.carte h3{font-size:var(--t-lg);margin-bottom:.4rem}
+.carte p{color:var(--gris);font-size:var(--t-sm);margin:0}
+.carte .num{font-family:var(--data);font-size:var(--t-xs);color:var(--kraft);letter-spacing:.12em}
+
+/* ---------- Garde-meubles ---------- */
+.boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem}
+.box{
+  background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.14);border-radius:var(--r-md);
+  padding:var(--sp-3);text-align:left;cursor:pointer;color:#fff;
+  transition:all 220ms var(--ease);
+}
+.box:hover{border-color:var(--kraft);transform:translateY(-4px)}
+.box[aria-pressed="true"]{background:var(--kraft);border-color:var(--kraft)}
+.box b{display:block;font-family:var(--data);font-size:1.7rem;font-weight:600;line-height:1}
+.box span{font-size:.8rem;color:rgba(255,255,255,.65);display:block;margin-top:.25rem}
+.box[aria-pressed="true"] span{color:rgba(255,255,255,.9)}
+.box.conseille{border-color:var(--hivis)}
+
+/* ---------- Avis ---------- */
+.avis-grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:var(--sp-3)}
+.avis{background:#fff;border-radius:var(--r-md);padding:var(--sp-4);box-shadow:var(--ombre-1);display:flex;flex-direction:column;gap:.5rem}
+.etoiles{color:var(--kraft);letter-spacing:.1em;font-size:1rem}
+.avis p{margin:0;font-size:var(--t-sm);line-height:1.55}
+.avis cite{font-style:normal;font-family:var(--data);font-size:var(--t-xs);color:var(--gris);letter-spacing:.05em;margin-top:auto}
+.note-globale{display:flex;align-items:center;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+.note-globale .gros{font-family:var(--data);font-size:clamp(2.6rem,2rem + 2.4vw,3.8rem);font-weight:600;line-height:1;color:var(--route)}
+
+/* ---------- Infos pratiques ---------- */
+.infos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:var(--sp-4)}
+.infos h3{font-size:var(--t-lg);color:var(--kraft-clair);margin-bottom:.5rem}
+.infos p,.infos li{color:rgba(255,255,255,.8);font-size:var(--t-sm)}
+.horaires{list-style:none;margin:0;padding:0}
+.horaires li{display:flex;justify-content:space-between;gap:1rem;padding:.28rem 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.horaires li span:last-child{font-family:var(--data);color:#fff}
+.horaires li.ferme span:last-child{color:var(--gris-clair)}
+.horaires li.aujourdhui{color:#fff}
+.horaires li.aujourdhui span:first-child::after{content:" ● aujourd'hui";color:var(--hivis);font-size:.7rem;font-family:var(--data)}
+.lien-contact{display:block;color:#fff;text-decoration:none;font-family:var(--data);font-size:var(--t-md);padding:.2rem 0;transition:color var(--duree) var(--ease)}
+.lien-contact:hover{color:var(--hivis)}
+
+/* ---------- Pied ---------- */
+.pied{background:#0C1926;color:rgba(255,255,255,.6);padding:var(--sp-5) 0 var(--sp-4);font-size:var(--t-sm)}
+.pied .wrap{display:grid;gap:var(--sp-3)}
+.mention{
+  border:1px dashed rgba(255,255,255,.22);border-radius:var(--r-md);padding:var(--sp-3);
+  font-size:var(--t-xs);line-height:1.65;font-family:var(--data);color:rgba(255,255,255,.62);
+}
+.mention b{color:var(--kraft-clair)}
+
+/* ---------- Révélations au scroll ---------- */
+.rev{opacity:0;transform:translateY(26px);transition:opacity 700ms var(--ease),transform 700ms var(--ease)}
+.rev.vu{opacity:1;transform:none}
+.rev.d1{transition-delay:90ms}.rev.d2{transition-delay:180ms}.rev.d3{transition-delay:270ms}.rev.d4{transition-delay:360ms}
+
+/* ---------- Entrée de page ---------- */
+.load{opacity:0;transform:translateY(20px)}
+body.pret .load{opacity:1;transform:none;transition:opacity 780ms var(--ease),transform 780ms var(--ease)}
+body.pret .load.l1{transition-delay:60ms}
+body.pret .load.l2{transition-delay:180ms}
+body.pret .load.l3{transition-delay:300ms}
+body.pret .load.l4{transition-delay:420ms}
+body.pret .load.l5{transition-delay:540ms}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .hero-grid{grid-template-columns:1fr}
+  .camion-hero{order:-1;max-width:460px}
+  .outil-cadre{grid-template-columns:1fr}
+  .outil-cote{border-left:0;border-top:1px solid var(--bulle-2)}
+  .nav{display:none}
+  .nav.ouvert{display:flex;position:absolute;top:100%;left:0;right:0;background:var(--route);flex-direction:column;gap:0;padding:.5rem 1.2rem 1rem;border-bottom:2px solid var(--kraft)}
+  .nav.ouvert a{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .burger{display:block}
+  .tel-entete{display:none}
+  .entete .wrap{position:relative}
+}
+@media (max-width:560px){
+  .hero-stats{gap:var(--sp-3)}
+  .objets{grid-template-columns:1fr}
+  .fil button{min-width:0;flex:1 1 40%}
+}
+
+/* ---------- Mouvement réduit ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .rev{opacity:1;transform:none}
+  .load{opacity:1;transform:none}
+  .ticker-piste{animation:none}
+}
+@media print{.entete,.demo-bar,.ticker,.progress{display:none}}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i id="jaugeLecture"></i></div>
+
+<div class="demo-bar">
+  MAQUETTE DE DÉMONSTRATION — <b>Terri Express</b> — proposition non contractuelle, aucune donnée n'est envoyée
+</div>
+
+<header class="entete" id="entete">
+  <div class="wrap">
+    <a class="marque" href="#haut">
+      <span class="cube" aria-hidden="true"></span>
+      <span>Terri<i>Express</i></span>
+    </a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="#estimateur">Estimer mon déménagement</a>
+      <a href="#militaires">Gendarmes &amp; militaires</a>
+      <a href="#prestations">Nos prestations</a>
+      <a href="#garde-meubles">Garde-meubles</a>
+      <a href="#infos">Infos pratiques</a>
+    </nav>
+    <a class="tel-entete" href="tel:+33688272974">06 88 27 29 74</a>
+  </div>
+</header>
+
+<!-- ================= HÉROS ================= -->
+<section class="hero" id="haut">
+  <svg class="hero-route" viewBox="0 0 1200 112" preserveAspectRatio="none" aria-hidden="true">
+    <rect x="0" y="70" width="1200" height="42" fill="#0C1926"/>
+    <g stroke="#D8F04E" stroke-width="4" stroke-dasharray="46 34" opacity=".55">
+      <line x1="0" y1="91" x2="1200" y2="91"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow load l1">Saint-Léger-sur-Roanne · depuis 2011</p>
+        <h1 class="load l2">Votre déménagement<br><span class="stress">sans stress</span><br>avec Terri Express</h1>
+        <p class="hero-sous load l3">Particuliers, professionnels, gendarmes et militaires. Régional, national, international&nbsp;— de 20 à 100&nbsp;m³, cartons fournis.</p>
+        <div class="hero-cta load l4">
+          <a class="btn btn-kraft" href="#estimateur">Estimer mon volume en 2 min</a>
+          <a class="btn btn-fant" href="tel:+33688272974">06 88 27 29 74</a>
+        </div>
+        <div class="hero-stats load l5">
+          <div class="stat"><b data-compte="15">0</b><span>ans de métier</span></div>
+          <div class="stat"><b data-compte="5" data-dec="1">0</b><span>sur 68 avis Google</span></div>
+          <div class="stat"><b data-compte="21"><em></em>0</b><span>mètres de nacelle</span></div>
+          <div class="stat"><b data-compte="100"><em>jusqu'à </em>0</b><span>m³ transportés</span></div>
+        </div>
+      </div>
+      <div class="camion-hero load l3">
+        <svg viewBox="0 0 520 300" role="img" aria-label="Camion de déménagement Terri Express">
+          <defs>
+            <linearGradient id="caisse" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F3F6FA"/><stop offset="1" stop-color="#C9D4E0"/>
+            </linearGradient>
+            <linearGradient id="cab" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E7B37B"/><stop offset="1" stop-color="#C87F3C"/>
+            </linearGradient>
+          </defs>
+          <!-- caisse -->
+          <rect x="34" y="66" width="300" height="148" rx="6" fill="url(#caisse)"/>
+          <rect x="34" y="66" width="300" height="148" rx="6" fill="none" stroke="#0C1926" stroke-width="4"/>
+          <g stroke="#AFBECD" stroke-width="2">
+            <line x1="94" y1="72" x2="94" y2="208"/><line x1="154" y1="72" x2="154" y2="208"/>
+            <line x1="214" y1="72" x2="214" y2="208"/><line x1="274" y1="72" x2="274" y2="208"/>
+          </g>
+          <!-- lettrage -->
+          <text x="184" y="132" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-size="42" font-weight="800" fill="#12233A" letter-spacing="1">TERRI</text>
+          <text x="184" y="170" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-size="42" font-weight="800" fill="#C87F3C" letter-spacing="1">EXPRESS</text>
+          <rect x="112" y="182" width="144" height="4" fill="#D8F04E"/>
+          <!-- cabine -->
+          <path d="M334 106 h58 l46 52 v56 h-104 z" fill="url(#cab)" stroke="#0C1926" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M340 116 h48 l34 40 h-82 z" fill="#12233A"/>
+          <rect x="334" y="196" width="104" height="18" fill="#0C1926" opacity=".2"/>
+          <!-- châssis -->
+          <rect x="30" y="212" width="412" height="12" rx="3" fill="#0C1926"/>
+          <!-- roues -->
+          <g fill="#0C1926">
+            <circle cx="106" cy="230" r="26"/><circle cx="168" cy="230" r="26"/><circle cx="396" cy="230" r="26"/>
+          </g>
+          <g fill="#8296AA">
+            <circle cx="106" cy="230" r="11"/><circle cx="168" cy="230" r="11"/><circle cx="396" cy="230" r="11"/>
+          </g>
+          <!-- sol -->
+          <rect x="0" y="256" width="520" height="3" fill="#0C1926" opacity=".35"/>
+          <!-- cartons au sol -->
+          <g opacity=".95">
+            <rect x="452" y="212" width="44" height="44" rx="2" fill="#E7B37B" stroke="#0C1926" stroke-width="3"/>
+            <line x1="474" y1="212" x2="474" y2="256" stroke="#0C1926" stroke-width="3"/>
+            <rect x="460" y="176" width="34" height="34" rx="2" fill="#C87F3C" stroke="#0C1926" stroke-width="3"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BANDEAU ================= -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-piste">
+    <ul>
+      <li>Cartons, bulle et scotch fournis</li><li>Monte-meubles jusqu'au 7ᵉ étage</li>
+      <li>Démontage et remontage</li><li>Déménagements de 20 à 100 m³</li>
+      <li>Gendarmes &amp; militaires</li><li>France et international</li>
+      <li>Garde-meubles en box sécurisé</li><li>Transport express le jour même</li>
+    </ul>
+    <ul>
+      <li>Cartons, bulle et scotch fournis</li><li>Monte-meubles jusqu'au 7ᵉ étage</li>
+      <li>Démontage et remontage</li><li>Déménagements de 20 à 100 m³</li>
+      <li>Gendarmes &amp; militaires</li><li>France et international</li>
+      <li>Garde-meubles en box sécurisé</li><li>Transport express le jour même</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= ESTIMATEUR ================= -->
+<section class="sect outil" id="estimateur">
+  <div class="wrap">
+    <div class="titre-bloc rev">
+      <p class="eyebrow">L'outil</p>
+      <h2 style="color:#fff">Votre volume et votre devis,<br>sans attendre notre passage</h2>
+      <p style="color:rgba(255,255,255,.72)">Pièce par pièce ou en une sélection rapide. Le camion se remplit, le volume s'affiche, la fourchette de prix suit. Nous nous déplaçons toujours gratuitement pour confirmer&nbsp;— mais vous n'avez plus besoin d'attendre ce rendez-vous pour savoir où vous allez.</p>
+    </div>
+
+    <div class="outil-cadre rev d1">
+      <div class="outil-corps">
+        <div class="fil" role="tablist" aria-label="Étapes de l'estimation">
+          <button role="tab" data-aller="1" aria-current="true">01 · Ce que j'emporte</button>
+          <button role="tab" data-aller="2">02 · Le trajet</button>
+          <button role="tab" data-aller="3">03 · Mutation</button>
+          <button role="tab" data-aller="4">04 · Ma demande</button>
+        </div>
+
+        <!-- ÉTAPE 1 -->
+        <div class="etape actif" id="et1">
+          <h3>Ce que vous emportez</h3>
+          <p class="intro">Partez d'un logement type, puis ajustez meuble par meuble. Chaque ajout remplit le camion à droite.</p>
+          <div class="chips" id="chipsLogement" role="group" aria-label="Logement type"></div>
+          <div class="pieces" id="onglets" role="tablist" aria-label="Pièces du logement"></div>
+          <div class="objets" id="objets"></div>
+          <div class="nav-etapes">
+            <button class="btn btn-kraft" data-aller="2">Le trajet →</button>
+            <button class="btn btn-petit btn-sombre" id="raz" style="background:transparent;color:var(--gris);border-color:var(--bulle-2)">Tout remettre à zéro</button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 2 -->
+        <div class="etape" id="et2">
+          <h3>Le trajet et les accès</h3>
+          <p class="intro">Ce sont les accès qui font la différence sur un devis&nbsp;: l'étage, l'ascenseur, la distance de portage.</p>
+          <div class="champs">
+            <div class="champ">
+              <label for="depart">Départ</label>
+              <input id="depart" type="text" value="Roanne (42300)" autocomplete="off">
+            </div>
+            <div class="champ">
+              <label for="arrivee">Arrivée</label>
+              <input id="arrivee" type="text" placeholder="Ville d'arrivée" autocomplete="off">
+            </div>
+            <div class="champ">
+              <label for="distance">Distance (km)</label>
+              <input id="distance" type="number" min="0" max="2000" step="10" value="300">
+              <span class="aide">Trajet routier le plus direct</span>
+            </div>
+            <div class="champ">
+              <label for="dateDem">Date souhaitée</label>
+              <input id="dateDem" type="date">
+            </div>
+            <div class="champ">
+              <label for="etageDep">Étage au départ</label>
+              <select id="etageDep"></select>
+            </div>
+            <div class="champ">
+              <label for="etageArr">Étage à l'arrivée</label>
+              <select id="etageArr"></select>
+            </div>
+          </div>
+          <div class="interrupteurs">
+            <label class="bascule" data-bascule><input type="checkbox" id="ascDep"> Ascenseur au départ</label>
+            <label class="bascule" data-bascule><input type="checkbox" id="ascArr"> Ascenseur à l'arrivée</label>
+            <label class="bascule" data-bascule><input type="checkbox" id="monte"> Monte-meubles (nacelle 21 m)</label>
+            <label class="bascule" data-bascule><input type="checkbox" id="portage"> Portage supérieur à 30 m</label>
+          </div>
+
+          <h3 style="margin-top:var(--sp-4);font-size:var(--t-lg)">Votre formule</h3>
+          <div class="formules" id="formules"></div>
+
+          <div class="nav-etapes">
+            <button class="btn btn-fant" style="color:var(--gris);border-color:var(--bulle-2)" data-aller="1">← Retour</button>
+            <button class="btn btn-kraft" data-aller="3">Mutation militaire →</button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 3 -->
+        <div class="etape" id="et3">
+          <h3>Vous êtes gendarme ou militaire&nbsp;?</h3>
+          <p class="intro">Nous transférons des gendarmes et des militaires partout en France. Voici ce que l'administration prendra en charge, et ce qu'il vous restera.</p>
+
+          <label class="bascule" data-bascule style="font-family:var(--display);text-transform:uppercase;font-size:1.05rem;letter-spacing:.03em">
+            <input type="checkbox" id="estMil"> Je déménage suite à une mutation
+          </label>
+
+          <div id="blocMil" hidden>
+            <div class="champs" style="margin-top:var(--sp-3)">
+              <div class="champ">
+                <label for="anciennete">Ancienneté de service</label>
+                <select id="anciennete">
+                  <option value="0">Moins de 15 ans</option>
+                  <option value="1">15 ans et plus</option>
+                </select>
+              </div>
+              <div class="champ">
+                <label for="situation">Situation familiale</label>
+                <select id="situation">
+                  <option value="seul">Célibataire</option>
+                  <option value="couple">Marié ou pacsé</option>
+                </select>
+              </div>
+              <div class="champ">
+                <label for="enfants">Enfants à charge</label>
+                <select id="enfants">
+                  <option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                  <option value="3">3</option><option value="4">4 et plus</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="encart-mil">
+              <div class="encart-mil-tete">
+                <h4>Droit au cubage</h4>
+                <span class="badge" id="badgeCubage">—</span>
+              </div>
+              <div class="encart-mil-corps">
+                <p style="font-size:var(--t-sm);color:var(--gris);margin-bottom:.2rem">Volume maximum pris en charge, comparé à votre volume estimé.</p>
+                <div class="barre-cubage"><i id="barreVol" style="width:0"></i><span class="seuil" id="seuilCubage" data-lab="droit" style="left:0"></span></div>
+                <p class="mono" id="txtCubage" style="font-size:var(--t-xs);color:var(--gris);margin:0"></p>
+
+                <div class="resultat-mil">
+                  <div class="tuile"><b id="milPlafond">—</b><span>Plafond de remboursement estimé</span></div>
+                  <div class="tuile"><b id="milDevis">—</b><span>Notre estimation pour ce déménagement</span></div>
+                  <div class="tuile vert" id="tuileReste"><b id="milReste">—</b><span id="milResteLab">Différence</span></div>
+                </div>
+
+                <p style="font-size:.78rem;color:var(--gris);margin:var(--sp-3) 0 0;line-height:1.55">
+                  Calcul indicatif d'après la formule de l'arrêté du 30 avril 2007 modifié (métropole)&nbsp;:
+                  <span class="mono">P = [V × Mo] + [V × D × (0,144 − (V−1) × B)] + S</span>, avec un plancher de 20 m³ et 25 km.
+                  Les coefficients évoluent par arrêté&nbsp;; le montant exact vous sera confirmé par votre unité.
+                </p>
+              </div>
+            </div>
+
+            <ul class="checklist">
+              <li>L'administration demande <strong>au moins deux devis</strong> de déménageurs différents.</li>
+              <li>Chaque devis doit porter le volume, la distance, les adresses de départ et d'arrivée et la date prévue&nbsp;— c'est exactement ce que produit l'étape suivante.</li>
+              <li>Si notre prix reste sous le plafond, une allocation d'accompagnement peut vous être versée&nbsp;: la moitié de la différence.</li>
+            </ul>
+          </div>
+
+          <div class="nav-etapes">
+            <button class="btn btn-fant" style="color:var(--gris);border-color:var(--bulle-2)" data-aller="2">← Retour</button>
+            <button class="btn btn-kraft" data-aller="4">Voir ma demande →</button>
+          </div>
+        </div>
+
+        <!-- ÉTAPE 4 -->
+        <div class="etape" id="et4">
+          <h3>Votre demande de devis</h3>
+          <p class="intro">Tout est prérempli. Vous n'avez plus qu'à laisser vos coordonnées&nbsp;— nous confirmons sous 24&nbsp;h ouvrées, et le déplacement de vérification reste gratuit.</p>
+
+          <div class="devis">
+            <dl>
+              <dt>Volume</dt><dd id="rVolume">—</dd>
+              <dt>Trajet</dt><dd id="rTrajet">—</dd>
+              <dt>Date</dt><dd id="rDate">—</dd>
+              <dt>Accès</dt><dd id="rAcces">—</dd>
+              <dt>Formule</dt><dd id="rFormule">—</dd>
+              <dt>Estimation</dt><dd id="rPrix">—</dd>
+              <dt id="rMilDt" hidden>Mutation</dt><dd id="rMil" hidden>—</dd>
+            </dl>
+          </div>
+
+          <div class="champs" style="margin-top:var(--sp-3)">
+            <div class="champ"><label for="nom">Nom et prénom</label><input id="nom" type="text" autocomplete="name"></div>
+            <div class="champ"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+            <div class="champ"><label for="mail">E-mail</label><input id="mail" type="email" autocomplete="email"></div>
+          </div>
+
+          <div class="nav-etapes">
+            <button class="btn btn-kraft" id="envoyer">Envoyer ma demande</button>
+            <button class="btn btn-fant" style="color:var(--route);border-color:var(--route)" id="telecharger">Télécharger le récapitulatif</button>
+            <button class="btn btn-fant" style="color:var(--gris);border-color:var(--bulle-2)" data-aller="3">← Retour</button>
+          </div>
+          <p id="confirmation" class="mono" style="display:none;margin-top:var(--sp-3);color:var(--vert);font-size:var(--t-sm)"></p>
+        </div>
+      </div>
+
+      <!-- COLONNE CAMION -->
+      <aside class="outil-cote">
+        <div>
+          <p class="jauge-titre">Volume estimé</p>
+          <p class="jauge-valeur"><span id="volTotal">0</span><em> m³</em></p>
+        </div>
+        <div class="camion-jauge">
+          <svg viewBox="0 0 300 210" role="img" aria-label="Remplissage du camion">
+            <defs>
+              <clipPath id="dedans"><rect x="16" y="24" width="196" height="122" rx="3"/></clipPath>
+            </defs>
+            <!-- caisse ouverte -->
+            <rect x="16" y="24" width="196" height="122" rx="3" fill="#EDF0F4"/>
+            <g id="grads" stroke="#C6D1DD" stroke-width="1" opacity=".8"><line x1="16" y1="115" x2="212" y2="115"/><line x1="16" y1="85" x2="212" y2="85"/><line x1="16" y1="55" x2="212" y2="55"/></g>
+            <g clip-path="url(#dedans)">
+              <rect class="remplissage" id="remplissage" x="16" y="146" width="196" height="0" fill="#C87F3C"/>
+              <g id="cartons"></g>
+            </g>
+            <rect x="16" y="24" width="196" height="122" rx="3" fill="none" stroke="#12233A" stroke-width="4"/>
+            <!-- graduations -->
+                        <!-- cabine -->
+            <path d="M212 60 h34 l30 34 v52 h-64 z" fill="#C87F3C" stroke="#12233A" stroke-width="4" stroke-linejoin="round"/>
+            <path d="M217 68 h27 l22 26 h-49 z" fill="#12233A"/>
+            <rect x="12" y="146" width="270" height="8" rx="2" fill="#12233A"/>
+            <g fill="#12233A"><circle cx="66" cy="164" r="17"/><circle cx="112" cy="164" r="17"/><circle cx="248" cy="164" r="17"/></g>
+            <g fill="#8296AA"><circle cx="66" cy="164" r="7"/><circle cx="112" cy="164" r="7"/><circle cx="248" cy="164" r="7"/></g>
+            <line x1="0" y1="184" x2="300" y2="184" stroke="#12233A" stroke-width="2" opacity=".3"/>
+            <text id="txtCamion" x="150" y="203" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" fill="#657686">un fourgon de 12 m³ suffit</text>
+          </svg>
+        </div>
+
+        <div>
+          <div class="recap-ligne"><span>Formule</span><span id="cFormule">Standard</span></div>
+          <div class="recap-ligne"><span>Distance</span><span id="cDistance">300 km</span></div>
+          <div class="recap-ligne"><span>Suppléments d'accès</span><span id="cSupp">0 €</span></div>
+          <div class="recap-ligne"><span>Cartons et protections</span><span>inclus</span></div>
+          <div class="recap-total"><span class="jauge-titre">Fourchette</span><b id="cPrix">—</b></div>
+          <p class="mono" style="font-size:.68rem;color:var(--gris-clair);margin-top:.5rem;line-height:1.5">Estimation indicative, TTC, non contractuelle. Le devis ferme est établi après vérification, gratuite et sans engagement.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MILITAIRES ================= -->
+<section class="sect" id="militaires">
+  <div class="wrap">
+    <div class="titre-bloc rev">
+      <p class="eyebrow" style="color:var(--kraft-sourd)">Notre spécialité</p>
+      <h2>Mutés à l'autre bout de la France</h2>
+      <p>Depuis des années, nous transférons des gendarmes et des militaires sur tout le territoire national. La contrainte est toujours la même&nbsp;: l'ordre de mutation tombe, il faut deux devis rapidement, et personne n'a le temps d'attendre trois rendez-vous à domicile.</p>
+    </div>
+    <div class="cartes">
+      <div class="carte rev"><p class="num">01</p><h3>Un devis à distance</h3><p>Le volume s'estime en ligne, le devis part par mail le jour même, avec toutes les mentions exigées par votre unité.</p></div>
+      <div class="carte rev d1"><p class="num">02</p><h3>Le cubage vérifié</h3><p>Nous comparons votre volume réel à votre droit au cubage et vous alertons avant le chargement si vous le dépassez.</p></div>
+      <div class="carte rev d2"><p class="num">03</p><h3>Sous le plafond</h3><p>Nous calons notre prix sur le plafond de remboursement quand c'est possible&nbsp;: c'est ce qui déclenche l'allocation d'accompagnement.</p></div>
+      <div class="carte rev d3"><p class="num">04</p><h3>Partout, y compris outre-mer</h3><p>France entière et international, avec repli du mobilier en garde-meubles quand l'affectation l'impose.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRESTATIONS ================= -->
+<section class="sect sect-nuit" id="prestations">
+  <div class="wrap">
+    <div class="titre-bloc rev">
+      <p class="eyebrow">Déménagement à la carte</p>
+      <h2>Vous choisissez ce que vous nous laissez</h2>
+      <p>Cartons, papier bulle et scotch fournis dans tous les cas. Le reste se module&nbsp;: avec ou sans emballage, avec ou sans démontage, prise en charge totale ou grosses pièces uniquement.</p>
+    </div>
+    <div class="cartes">
+      <div class="carte rev" style="background:rgba(255,255,255,.05);border-top-color:var(--hivis)"><h3 style="color:#fff">Économique</h3><p style="color:rgba(255,255,255,.7)">Vous emballez, nous chargeons, transportons et livrons. Les grosses pièces restent à notre charge.</p></div>
+      <div class="carte rev d1" style="background:rgba(255,255,255,.05)"><h3 style="color:#fff">Standard</h3><p style="color:rgba(255,255,255,.7)">Emballage de la vaisselle et du fragile, démontage et remontage des meubles courants, protection du mobilier.</p></div>
+      <div class="carte rev d2" style="background:rgba(255,255,255,.05);border-top-color:var(--kraft-clair)"><h3 style="color:#fff">Clé en main</h3><p style="color:rgba(255,255,255,.7)">Nous emballons tout, nous démontons tout, nous remontons tout. Vous ouvrez la porte, puis vous rangez.</p></div>
+      <div class="carte rev d3" style="background:rgba(255,255,255,.05)"><h3 style="color:#fff">Transport express</h3><p style="color:rgba(255,255,255,.7)">Enlèvement et livraison le jour même, vrac ou palette, avec nos véhicules de 8 à 22 m³. France et étranger.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GARDE-MEUBLES ================= -->
+<section class="sect" id="garde-meubles" style="background:var(--route-2);color:#fff">
+  <div class="wrap">
+    <div class="titre-bloc rev">
+      <p class="eyebrow">Garde-meubles</p>
+      <h2 style="color:#fff">Le box qui correspond à votre volume</h2>
+      <p style="color:rgba(255,255,255,.72)">Site sous vidéosurveillance et alarme, contrat sans durée imposée. D'après votre estimation, voici le format conseillé&nbsp;— vous pouvez évidemment en choisir un autre.</p>
+    </div>
+    <div class="boxes" id="boxes" role="group" aria-label="Formats de box"></div>
+    <p class="mono" id="conseilBox" style="margin-top:var(--sp-3);color:var(--hivis);font-size:var(--t-sm)"></p>
+  </div>
+</section>
+
+<!-- ================= AVIS ================= -->
+<section class="sect">
+  <div class="wrap">
+    <div class="note-globale rev">
+      <span class="gros">5,0</span>
+      <div>
+        <p class="etoiles" style="margin:0">★★★★★</p>
+        <p style="margin:0;color:var(--gris);font-size:var(--t-sm)">68 avis Google · 21 avis PagesJaunes</p>
+      </div>
+      <div style="margin-left:auto"><span class="badge kraft">Le bouche-à-oreille depuis 2011</span></div>
+    </div>
+    <div class="avis-grille">
+      <div class="avis rev"><p class="etoiles">★★★★★</p><p>Une équipe rapide, organisée et ponctuelle, du premier contact jusqu'au dernier carton posé.</p><cite>Avis Google</cite></div>
+      <div class="avis rev d1"><p class="etoiles">★★★★★</p><p>Déménagement de ma mère vers une résidence senior mené proprement, avec beaucoup d'attention.</p><cite>Avis Google</cite></div>
+      <div class="avis rev d2"><p class="etoiles">★★★★★</p><p>Un canapé monté au 5ᵉ étage grâce au monte-meubles, contact immédiat et vraie réactivité.</p><cite>Avis Google</cite></div>
+    </div>
+    <p class="mono" style="font-size:.7rem;color:var(--gris-clair);margin-top:var(--sp-3)">Témoignages reformulés à partir des avis publics, à remplacer par les avis exacts avec l'accord de leurs auteurs.</p>
+  </div>
+</section>
+
+<!-- ================= INFOS ================= -->
+<section class="sect sect-nuit" id="infos">
+  <div class="wrap">
+    <div class="titre-bloc rev"><p class="eyebrow">Infos pratiques</p><h2 style="color:#fff">Nous joindre</h2></div>
+    <div class="infos">
+      <div class="rev">
+        <h3>L'adresse</h3>
+        <p>964, chemin de l'Aérodrome<br>42155 Saint-Léger-sur-Roanne</p>
+        <a class="lien-contact" href="tel:+33688272974">06 88 27 29 74</a>
+        <a class="lien-contact" href="mailto:terri.express@gmail.com">terri.express@gmail.com</a>
+      </div>
+      <div class="rev d1">
+        <h3>Horaires</h3>
+        <ul class="horaires" id="horaires"></ul>
+      </div>
+      <div class="rev d2">
+        <h3>Zone d'intervention</h3>
+        <p>Roanne, Le Coteau, Riorges, Mably, Villerest, Perreux et tout le Roannais pour les déménagements locaux et le transport express.</p>
+        <p>France entière et international pour les déménagements longue distance et les mutations.</p>
+      </div>
+      <div class="rev d3">
+        <h3>L'entreprise</h3>
+        <p>Terri Express, SAS créée en 2011, dirigée par Cédric Genty. Une équipe d'une dizaine de personnes, un dépôt et un site de stockage à Saint-Léger-sur-Roanne.</p>
+        <p class="mono" style="font-size:.7rem;color:var(--gris-clair)">SIRET 530 154 772 00046 · Transports routiers de fret de proximité</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="pied">
+  <div class="wrap">
+    <p style="margin:0"><strong style="color:#fff;font-family:var(--display);font-size:1.3rem;text-transform:uppercase">Terri Express</strong> — déménagement, transport express et garde-meubles à Saint-Léger-sur-Roanne.</p>
+    <div class="mention">
+      <b>Maquette de démonstration.</b> Ce document a été réalisé à titre de proposition et n'est pas le site officiel de Terri Express. Aucun formulaire n'envoie de données&nbsp;: tout fonctionne en local, dans votre navigateur.<br>
+      <b>Prix indicatifs et non contractuels.</b> Les fourchettes affichées sont des ordres de grandeur reconstitués à partir des pratiques du marché du déménagement, pas les barèmes de l'entreprise. Le calcul du plafond militaire suit la formule publiée de l'arrêté du 30 avril 2007 modifié, avec des coefficients approchés&nbsp;: il ne remplace ni un devis ni la décision de l'administration.<br>
+      <b>Couleurs et typographie approchées.</b> Le site actuel bloque l'accès automatisé&nbsp;; la palette et les polices ci-dessus ont été reconstituées et sont regroupées en tête de fichier pour être remplacées en quelques lignes par la charte réelle.
+    </div>
+  </div>
+</footer>
+<script>
+(function(){
+"use strict";
+var $ = function(s,c){return (c||document).querySelector(s);};
+var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s));};
+var doux = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* =========================================================
+   1. CATALOGUE DES VOLUMES (m³ par objet, usage déménageur)
+   ========================================================= */
+var PIECES = [
+  {id:"salon", nom:"Salon", objets:[
+    {id:"canape3",n:"Canapé 3 places",v:1.5},
+    {id:"canape2",n:"Canapé 2 places / clic-clac",v:1.1},
+    {id:"fauteuil",n:"Fauteuil",v:.5},
+    {id:"tablebasse",n:"Table basse",v:.3},
+    {id:"meubletv",n:"Meuble TV",v:.5},
+    {id:"biblio",n:"Bibliothèque",v:.8},
+    {id:"buffet",n:"Buffet, vaisselier",v:1},
+    {id:"cartonSalon",n:"Cartons (livres, déco)",v:.1}
+  ]},
+  {id:"cuisine", nom:"Cuisine", objets:[
+    {id:"frigo",n:"Réfrigérateur",v:.7},
+    {id:"lavelinge",n:"Lave-linge",v:.4},
+    {id:"lavevaisselle",n:"Lave-vaisselle",v:.4},
+    {id:"cuisiniere",n:"Cuisinière, four",v:.4},
+    {id:"tablemanger",n:"Table à manger",v:.8},
+    {id:"chaise",n:"Chaise",v:.15},
+    {id:"meublecuisine",n:"Meuble de cuisine",v:.5},
+    {id:"cartonCuisine",n:"Cartons vaisselle",v:.1}
+  ]},
+  {id:"chambre", nom:"Chambres", objets:[
+    {id:"lit2",n:"Lit 2 places + matelas",v:1.6},
+    {id:"lit1",n:"Lit 1 place",v:.9},
+    {id:"armoire2",n:"Armoire 2 portes",v:1.5},
+    {id:"armoire3",n:"Armoire 3 portes",v:2.2},
+    {id:"commode",n:"Commode",v:.6},
+    {id:"chevet",n:"Table de chevet",v:.2},
+    {id:"cartonPenderie",n:"Cartons penderie",v:.3},
+    {id:"cartonChambre",n:"Cartons (linge)",v:.1}
+  ]},
+  {id:"bureau", nom:"Bureau, enfants", objets:[
+    {id:"bureau",n:"Bureau",v:.6},
+    {id:"chaiseBureau",n:"Chaise de bureau",v:.3},
+    {id:"etagere",n:"Étagère",v:.5},
+    {id:"litEnfant",n:"Lit enfant",v:.8},
+    {id:"coffreJouets",n:"Coffre à jouets",v:.3},
+    {id:"cartonBureau",n:"Cartons (dossiers)",v:.1}
+  ]},
+  {id:"cave", nom:"Cave, garage", objets:[
+    {id:"etabli",n:"Établi",v:.8},
+    {id:"velo",n:"Vélo",v:.5},
+    {id:"tondeuse",n:"Tondeuse",v:.3},
+    {id:"congelo",n:"Congélateur coffre",v:.6},
+    {id:"etagereMetal",n:"Étagère métal",v:.4},
+    {id:"cartonCave",n:"Cartons divers",v:.1}
+  ]},
+  {id:"exterieur", nom:"Extérieur", objets:[
+    {id:"salonJardin",n:"Salon de jardin",v:1.2},
+    {id:"barbecue",n:"Barbecue",v:.3},
+    {id:"parasol",n:"Parasol",v:.1},
+    {id:"bacPlante",n:"Bac à plantes",v:.15},
+    {id:"abriJardin",n:"Coffre de jardin",v:.8}
+  ]},
+  {id:"special", nom:"Objets lourds", objets:[
+    {id:"piano",n:"Piano droit",v:1.5},
+    {id:"coffreFort",n:"Coffre-fort",v:.4},
+    {id:"oeuvre",n:"Œuvre, miroir encadré",v:.3},
+    {id:"moto",n:"Moto, scooter",v:.8}
+  ]}
+];
+
+var CATALOGUE = {};
+PIECES.forEach(function(p){ p.objets.forEach(function(o){ CATALOGUE[o.id] = o; }); });
+
+var PRESETS = [
+  {id:"studio", nom:"Studio", items:{canape2:1,tablebasse:1,meubletv:1,lit1:1,armoire2:1,commode:1,chevet:1,frigo:1,lavelinge:1,tablemanger:1,chaise:2,etagere:1,velo:1,cartonSalon:10,cartonCuisine:8,cartonChambre:8,cartonPenderie:2}},
+  {id:"t2", nom:"2 pièces", items:{canape3:1,fauteuil:1,tablebasse:1,meubletv:1,biblio:1,lit2:1,armoire2:1,commode:1,chevet:2,frigo:1,lavelinge:1,lavevaisselle:1,cuisiniere:1,tablemanger:1,chaise:4,meublecuisine:1,bureau:1,chaiseBureau:1,velo:1,cartonSalon:14,cartonCuisine:12,cartonChambre:10,cartonPenderie:4}},
+  {id:"t3", nom:"3 pièces", items:{canape3:1,fauteuil:2,tablebasse:1,meubletv:1,biblio:2,buffet:1,lit2:1,lit1:1,armoire2:1,armoire3:1,commode:2,chevet:2,frigo:1,lavelinge:1,lavevaisselle:1,cuisiniere:1,tablemanger:1,chaise:6,meublecuisine:2,bureau:1,chaiseBureau:1,etagere:2,velo:2,etagereMetal:1,cartonSalon:18,cartonCuisine:16,cartonChambre:14,cartonPenderie:6,cartonBureau:6}},
+  {id:"t4", nom:"4 pièces", items:{canape3:1,canape2:1,fauteuil:2,tablebasse:1,meubletv:1,biblio:2,buffet:1,lit2:1,lit1:2,armoire3:2,commode:2,chevet:3,frigo:1,lavelinge:1,lavevaisselle:1,cuisiniere:1,tablemanger:1,chaise:6,meublecuisine:2,bureau:1,chaiseBureau:1,etagere:3,litEnfant:1,velo:2,etabli:1,etagereMetal:2,tondeuse:1,cartonSalon:22,cartonCuisine:18,cartonChambre:18,cartonPenderie:8,cartonBureau:8,cartonCave:8}},
+  {id:"maison", nom:"Maison", items:{canape3:1,canape2:1,fauteuil:2,tablebasse:2,meubletv:1,biblio:3,buffet:2,lit2:1,lit1:2,litEnfant:1,armoire3:2,armoire2:1,commode:3,chevet:4,frigo:1,congelo:1,lavelinge:1,lavevaisselle:1,cuisiniere:1,tablemanger:1,chaise:8,meublecuisine:3,bureau:2,chaiseBureau:2,etagere:4,velo:3,etabli:1,etagereMetal:3,tondeuse:1,salonJardin:1,barbecue:1,abriJardin:1,cartonSalon:26,cartonCuisine:22,cartonChambre:24,cartonPenderie:10,cartonBureau:10,cartonCave:14}}
+];
+
+var FORMULES = [
+  {id:"eco", nom:"Économique", cf:28, txt:"Vous emballez, nous chargeons, transportons et livrons. Grosses pièces prises en charge."},
+  {id:"standard", nom:"Standard", cf:45, txt:"Emballage du fragile, démontage et remontage des meubles courants, protection du mobilier."},
+  {id:"cle", nom:"Clé en main", cf:68, txt:"Nous emballons, démontons et remontons tout. Vous ouvrez la porte, puis vous rangez."}
+];
+
+var CAMIONS = [
+  {c:8,  t:"un fourgon de 8 m³ suffit"},
+  {c:10, t:"un fourgon de 10 m³ suffit"},
+  {c:12, t:"un fourgon de 12 m³ suffit"},
+  {c:14, t:"un camion de 14 m³ suffit"},
+  {c:22, t:"un camion de 22 m³ suffit"},
+  {c:30, t:"un 22 m³ et un fourgon"},
+  {c:44, t:"deux camions de 22 m³"},
+  {c:66, t:"trois camions de 22 m³"},
+  {c:88, t:"quatre camions de 22 m³"},
+  {c:120,t:"au-delà de nos 100 m³ habituels"}
+];
+
+/* =========================================================
+   2. ÉTAT
+   ========================================================= */
+var etat = {
+  items:{}, piece:"salon", preset:null, etape:1,
+  distance:300, etageDep:0, etageArr:0, ascDep:false, ascArr:false,
+  monte:false, portage:false, formule:"standard",
+  mil:false, anciennete:0, situation:"seul", enfants:0,
+  box:null
+};
+
+/* =========================================================
+   3. CALCULS
+   ========================================================= */
+function volume(){
+  var v=0;
+  for(var k in etat.items){ if(CATALOGUE[k]) v += CATALOGUE[k].v * etat.items[k]; }
+  return Math.round(v*10)/10;
+}
+function volumePreset(p){
+  var v=0;
+  for(var k in p.items){ if(CATALOGUE[k]) v += CATALOGUE[k].v * p.items[k]; }
+  return Math.round(v);
+}
+function formuleActive(){
+  return FORMULES.filter(function(f){return f.id===etat.formule;})[0];
+}
+function coefKm(V){ return V<=30 ? .085 : (V<=60 ? .075 : .065); }
+
+function supplements(V){
+  var s=0;
+  if(!etat.ascDep) s += etat.etageDep * V * 2;
+  if(!etat.ascArr) s += etat.etageArr * V * 2;
+  if(etat.monte) s += 290;
+  if(etat.portage) s += 160;
+  return Math.round(s);
+}
+function prix(){
+  var V = volume(); if(V<=0) return null;
+  var D = etat.distance||0;
+  var base = V*formuleActive().cf + V*D*coefKm(V);
+  var total = Math.max(450, base + supplements(V));
+  return {bas:Math.round(total*.88/10)*10, haut:Math.round(total*1.12/10)*10, moyen:Math.round(total)};
+}
+
+/* Plafond militaire — arrêté du 30 avril 2007 modifié, métropole */
+function coefB(V){ return V<=15?.00140 : (V<=30?.00120 : (V<=50?.00100 : .00085)); }
+function plafondMil(V,D){
+  var v = Math.max(V,20), d = Math.max(D,25), Mo = 45.2;
+  var t = .144 - (v-1)*coefB(v);
+  if(t < .02) t = .02;
+  var s = (etat.monte?290:0) + (etat.portage?160:0);
+  return Math.round(v*Mo + v*d*t + s);
+}
+function droitCubage(){
+  var base = etat.situation==="couple" ? (etat.anciennete?45:35) : (etat.anciennete?25:20);
+  return base + etat.enfants*5;
+}
+
+function euros(n){ return n.toLocaleString("fr-FR")+" €"; }
+
+/* =========================================================
+   4. RENDU — étape 1
+   ========================================================= */
+function rendreChips(){
+  var c = $("#chipsLogement"); c.innerHTML="";
+  PRESETS.forEach(function(p){
+    var b=document.createElement("button");
+    b.className="chip"; b.type="button"; b.setAttribute("aria-pressed", etat.preset===p.id);
+    b.innerHTML = p.nom+'<span class="m3">≈ '+volumePreset(p)+' m³</span>';
+    b.addEventListener("click",function(){
+      etat.items = {}; for(var k in p.items) etat.items[k]=p.items[k];
+      etat.preset = p.id; rendreChips(); rendreObjets(); rendreOnglets(); tout();
+    });
+    c.appendChild(b);
+  });
+}
+function rendreOnglets(){
+  var c = $("#onglets"); c.innerHTML="";
+  PIECES.forEach(function(p){
+    var n=0; p.objets.forEach(function(o){ n += etat.items[o.id]||0; });
+    var b=document.createElement("button");
+    b.className="onglet"+(n?" rempli":""); b.type="button"; b.setAttribute("role","tab");
+    b.setAttribute("aria-selected", etat.piece===p.id);
+    b.innerHTML = p.nom + '<span class="pastille">'+n+'</span>';
+    b.addEventListener("click",function(){ etat.piece=p.id; rendreOnglets(); rendreObjets(); });
+    c.appendChild(b);
+  });
+}
+function rendreObjets(){
+  var piece = PIECES.filter(function(p){return p.id===etat.piece;})[0];
+  var c = $("#objets"); c.innerHTML="";
+  piece.objets.forEach(function(o){
+    var n = etat.items[o.id]||0;
+    var d = document.createElement("div");
+    d.className = "objet"+(n?" on":"");
+    d.innerHTML =
+      '<span class="nom">'+o.n+'<em>'+o.v.toString().replace(".",",")+' m³ / unité</em></span>'+
+      '<span class="compteur">'+
+        '<button type="button" data-op="-" aria-label="Retirer un '+o.n+'">−</button>'+
+        '<output>'+n+'</output>'+
+        '<button type="button" data-op="+" aria-label="Ajouter un '+o.n+'">+</button>'+
+      '</span>';
+    d.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click",function(){
+        var cur = etat.items[o.id]||0;
+        cur += (b.dataset.op==="+"?1:-1);
+        if(cur<0) cur=0; if(cur>99) cur=99;
+        if(cur) etat.items[o.id]=cur; else delete etat.items[o.id];
+        etat.preset=null; rendreChips();
+        d.querySelector("output").textContent = cur;
+        d.classList.toggle("on", cur>0);
+        rendreOnglets(); tout();
+      });
+    });
+    c.appendChild(d);
+  });
+}
+
+/* =========================================================
+   5. RENDU — camion, prix, garde-meubles
+   ========================================================= */
+var cartonsPoses = 0;
+function rendreCamion(V){
+  var cam = CAMIONS.filter(function(c){return V<=c.c;})[0] || CAMIONS[CAMIONS.length-1];
+  var ratio = V<=0 ? 0 : Math.min(1, V/cam.c);
+  $("#txtCamion").textContent = V<=0 ? "ajoutez vos meubles" : cam.t;
+
+  var cases = 48, vises = V<=0 ? 0 : Math.max(1, Math.round(ratio*cases));
+  var g = $("#cartons");
+  if(vises > cartonsPoses){
+    for(var i=cartonsPoses;i<vises;i++){
+      var col=i%8, row=Math.floor(i/8);
+      var r=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      r.setAttribute("x", 18+col*24); r.setAttribute("y", 144-(row+1)*20);
+      r.setAttribute("width",22); r.setAttribute("height",18); r.setAttribute("rx",1.5);
+      r.setAttribute("fill", row%2 ? "#E7B37B" : "#C87F3C");
+      r.setAttribute("stroke","#12233A"); r.setAttribute("stroke-width","1.4");
+      if(doux){ r.setAttribute("class","carton-anim"); r.style.animationDelay = Math.min(240,(i-cartonsPoses)*22)+"ms"; }
+      g.appendChild(r);
+    }
+  } else if(vises < cartonsPoses){
+    for(var j=cartonsPoses;j>vises;j--){ if(g.lastChild) g.removeChild(g.lastChild); }
+  }
+  cartonsPoses = vises;
+
+  var rem = $("#remplissage");
+  var h = 122*ratio;
+  rem.setAttribute("y", 146-h); rem.setAttribute("height", h);
+  rem.setAttribute("fill", ratio>.92 ? "#8E5B2A" : "#C87F3C");
+  rem.setAttribute("opacity", .18);
+}
+function rendreBoxes(V){
+  var c = $("#boxes"); if(!c) return;
+  var tailles=[20,40,60,80];
+  var conseil = tailles.filter(function(t){return V<=t;})[0] || 80;
+  c.innerHTML="";
+  tailles.forEach(function(t){
+    var b=document.createElement("button");
+    b.className="box"+(t===conseil?" conseille":""); b.type="button";
+    b.setAttribute("aria-pressed", etat.box===t);
+    b.innerHTML='<b>'+t+' m³</b><span>'+(t===conseil?"conseillé pour vos "+(V||0).toString().replace(".",",")+" m³":"")+'</span>';
+    b.addEventListener("click",function(){ etat.box=t; rendreBoxes(volume()); });
+    c.appendChild(b);
+  });
+  $("#conseilBox").textContent = V>0
+    ? "Vos "+String(V).replace(".",",")+" m³ tiennent dans un box de "+conseil+" m³."
+    : "Estimez d'abord votre volume : le format conseillé s'affichera ici.";
+}
+
+/* =========================================================
+   6. RENDU — militaire
+   ========================================================= */
+function rendreMil(V,p){
+  if(!etat.mil){ $("#blocMil").hidden = true; return; }
+  $("#blocMil").hidden = false;
+  var droit = droitCubage();
+  var plaf = plafondMil(V, etat.distance);
+  var echelle = Math.max(V, droit) * 1.2;
+
+  $("#badgeCubage").textContent = droit + " m³ pris en charge";
+  $("#barreVol").style.width = (V/echelle*100).toFixed(1)+"%";
+  $("#seuilCubage").style.left = (droit/echelle*100).toFixed(1)+"%";
+  $("#seuilCubage").setAttribute("data-lab", "votre droit : "+droit+" m³");
+  $("#seuilCubage").classList.toggle("gauche", droit/echelle > .5);
+  $("#txtCubage").textContent = V<=0 ? "" : (V>droit
+    ? "Votre volume dépasse le droit au cubage de "+(Math.round((V-droit)*10)/10).toString().replace(".",",")+" m³ : le surplus reste à votre charge."
+    : "Votre volume tient dans votre droit au cubage.");
+
+  $("#milPlafond").textContent = euros(plaf);
+  $("#milDevis").textContent = p ? euros(p.moyen) : "—";
+
+  var tuile = $("#tuileReste");
+  if(!p){ $("#milReste").textContent="—"; $("#milResteLab").textContent="Différence"; return; }
+  if(p.moyen <= plaf){
+    var alloc = Math.min(3400, Math.round((plaf - p.moyen)/2));
+    tuile.className="tuile vert";
+    $("#milReste").textContent = euros(alloc);
+    $("#milResteLab").textContent = "Allocation d'accompagnement possible (moitié de l'écart, plafonnée)";
+  } else {
+    tuile.className="tuile";
+    $("#milReste").textContent = euros(p.moyen - plaf);
+    $("#milResteLab").textContent = "Au-delà du plafond, à votre charge";
+  }
+}
+
+/* =========================================================
+   7. RÉCAPITULATIF
+   ========================================================= */
+function acces(){
+  var t=[];
+  t.push("départ "+(etat.etageDep?("étage "+etat.etageDep):"rez-de-chaussée")+(etat.etageDep?(etat.ascDep?" avec ascenseur":" sans ascenseur"):""));
+  t.push("arrivée "+(etat.etageArr?("étage "+etat.etageArr):"rez-de-chaussée")+(etat.etageArr?(etat.ascArr?" avec ascenseur":" sans ascenseur"):""));
+  if(etat.monte) t.push("monte-meubles");
+  if(etat.portage) t.push("portage > 30 m");
+  return t.join(", ");
+}
+function dateFr(){
+  var v = $("#dateDem").value;
+  if(!v) return "à définir";
+  var d = new Date(v+"T12:00:00");
+  return d.toLocaleDateString("fr-FR",{day:"2-digit",month:"long",year:"numeric"});
+}
+function rendreRecap(V,p){
+  $("#rVolume").textContent = V>0 ? String(V).replace(".",",")+" m³" : "à estimer";
+  $("#rTrajet").textContent = ($("#depart").value||"—")+" → "+($("#arrivee").value||"à préciser")+" · "+etat.distance+" km";
+  $("#rDate").textContent = dateFr();
+  $("#rAcces").textContent = acces();
+  $("#rFormule").textContent = formuleActive().nom;
+  $("#rPrix").textContent = p ? (euros(p.bas)+" à "+euros(p.haut)) : "—";
+  var aff = etat.mil;
+  $("#rMilDt").hidden = !aff; $("#rMil").hidden = !aff;
+  if(aff) $("#rMil").textContent = "droit au cubage "+droitCubage()+" m³ · plafond estimé "+euros(plafondMil(V,etat.distance));
+}
+function texteRecap(){
+  var V=volume(), p=prix();
+  var l=[];
+  l.push("TERRI EXPRESS — DEMANDE DE DEVIS (maquette de démonstration)");
+  l.push("964, chemin de l'Aérodrome — 42155 Saint-Léger-sur-Roanne");
+  l.push("06 88 27 29 74 — terri.express@gmail.com");
+  l.push("");
+  l.push("Adresse de départ  : "+($("#depart").value||"—"));
+  l.push("Adresse d'arrivée  : "+($("#arrivee").value||"—"));
+  l.push("Distance           : "+etat.distance+" km");
+  l.push("Date prévue        : "+dateFr());
+  l.push("Volume estimé      : "+String(V).replace(".",",")+" m³");
+  l.push("Accès              : "+acces());
+  l.push("Formule            : "+formuleActive().nom);
+  l.push("Estimation         : "+(p?(euros(p.bas)+" à "+euros(p.haut)+" TTC"):"—"));
+  if(etat.mil){
+    l.push("");
+    l.push("MUTATION MILITAIRE / GENDARMERIE");
+    l.push("Droit au cubage    : "+droitCubage()+" m³");
+    l.push("Plafond estimé     : "+euros(plafondMil(V,etat.distance)));
+    l.push("(estimation d'après l'arrêté du 30 avril 2007 modifié, à confirmer par l'unité)");
+  }
+  l.push("");
+  l.push("DÉTAIL DU MOBILIER");
+  PIECES.forEach(function(pc){
+    var lignes = pc.objets.filter(function(o){return etat.items[o.id];});
+    if(!lignes.length) return;
+    l.push("— "+pc.nom);
+    lignes.forEach(function(o){ l.push("   "+etat.items[o.id]+" × "+o.n+"  ("+(Math.round(o.v*etat.items[o.id]*10)/10).toString().replace(".",",")+" m³)"); });
+  });
+  l.push("");
+  l.push("Estimation indicative, non contractuelle. Devis ferme après vérification gratuite.");
+  return l.join("\n");
+}
+
+/* =========================================================
+   8. MISE À JOUR GLOBALE
+   ========================================================= */
+function tout(){
+  var V = volume(), p = prix();
+  $("#volTotal").textContent = String(V).replace(".",",");
+  rendreCamion(V);
+  rendreBoxes(V);
+  $("#cFormule").textContent = formuleActive().nom;
+  $("#cDistance").textContent = etat.distance+" km";
+  $("#cSupp").textContent = euros(supplements(V));
+  $("#cPrix").textContent = p ? (euros(p.bas)+" – "+euros(p.haut)) : "—";
+  rendreMil(V,p);
+  rendreRecap(V,p);
+}
+
+/* =========================================================
+   9. ÉTAPES
+   ========================================================= */
+function aller(n){
+  n = Math.max(1, Math.min(4, n));
+  var sens = n > etat.etape ? "avant" : "arriere";
+  etat.etape = n;
+  $$(".etape").forEach(function(e,i){
+    e.classList.toggle("actif", i===n-1);
+    e.classList.toggle("arriere", i===n-1 && sens==="arriere");
+  });
+  $$(".fil button").forEach(function(b){
+    var i = parseInt(b.dataset.aller,10);
+    b.setAttribute("aria-current", i===n);
+    b.classList.toggle("fait", i<n);
+  });
+  var cadre = $(".outil-cadre");
+  if(cadre.getBoundingClientRect().top < 0) cadre.scrollIntoView({behavior: doux?"smooth":"auto", block:"start"});
+}
+
+/* =========================================================
+   10. INITIALISATION
+   ========================================================= */
+function init(){
+  /* étages */
+  ["etageDep","etageArr"].forEach(function(id){
+    var s = $("#"+id);
+    for(var i=0;i<=8;i++){
+      var o=document.createElement("option");
+      o.value=i; o.textContent = i===0 ? "Rez-de-chaussée" : (i+"ᵉ étage").replace("1ᵉ","1ᵉʳ");
+      s.appendChild(o);
+    }
+  });
+  /* formules */
+  var fc = $("#formules");
+  FORMULES.forEach(function(f){
+    var b=document.createElement("button");
+    b.className="formule"; b.type="button"; b.setAttribute("aria-pressed", etat.formule===f.id);
+    b.innerHTML="<b>"+f.nom+"</b><small>"+f.txt+"</small>";
+    b.addEventListener("click",function(){
+      etat.formule=f.id;
+      $$(".formule").forEach(function(x){x.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true"); tout();
+    });
+    fc.appendChild(b);
+  });
+  /* date par défaut : dans un mois */
+  var d = new Date(); d.setDate(d.getDate()+30);
+  $("#dateDem").value = d.toISOString().slice(0,10);
+
+  /* champs */
+  $("#distance").addEventListener("input",function(){ etat.distance = Math.max(0, parseInt(this.value,10)||0); tout(); });
+  $("#etageDep").addEventListener("change",function(){ etat.etageDep=+this.value; tout(); });
+  $("#etageArr").addEventListener("change",function(){ etat.etageArr=+this.value; tout(); });
+  ["depart","arrivee","dateDem"].forEach(function(id){ $("#"+id).addEventListener("input",tout); });
+
+  $$("[data-bascule]").forEach(function(l){
+    var i = l.querySelector("input");
+    i.addEventListener("change",function(){
+      l.classList.toggle("on", i.checked);
+      if(i.id==="ascDep") etat.ascDep=i.checked;
+      if(i.id==="ascArr") etat.ascArr=i.checked;
+      if(i.id==="monte") etat.monte=i.checked;
+      if(i.id==="portage") etat.portage=i.checked;
+      if(i.id==="estMil") etat.mil=i.checked;
+      tout();
+    });
+  });
+  ["anciennete","situation","enfants"].forEach(function(id){
+    $("#"+id).addEventListener("change",function(){
+      if(id==="anciennete") etat.anciennete=+this.value;
+      if(id==="situation") etat.situation=this.value;
+      if(id==="enfants") etat.enfants=+this.value;
+      tout();
+    });
+  });
+
+  /* navigation étapes */
+  $$("[data-aller]").forEach(function(b){
+    b.addEventListener("click",function(){ aller(parseInt(b.dataset.aller,10)); });
+  });
+  $("#raz").addEventListener("click",function(){
+    etat.items={}; etat.preset=null; cartonsPoses=0; $("#cartons").innerHTML="";
+    rendreChips(); rendreOnglets(); rendreObjets(); tout();
+  });
+
+  /* envoi et téléchargement */
+  $("#envoyer").addEventListener("click",function(){
+    var c = $("#confirmation");
+    c.style.display="block";
+    c.textContent = volume()<=0
+      ? "Ajoutez d'abord vos meubles à l'étape 1."
+      : "✓ Demande prête. Dans le site réel, elle partirait à terri.express@gmail.com avec le détail du mobilier. Ici, rien n'est envoyé.";
+  });
+  $("#telecharger").addEventListener("click",function(){
+    var blob = new Blob([texteRecap()], {type:"text/plain;charset=utf-8"});
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "terri-express-estimation.txt";
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 2000);
+  });
+
+  /* horaires */
+  var H = [
+    {j:"Lundi", h:"08:00–12:00 · 14:00–18:00"},
+    {j:"Mardi", h:"08:00–12:00 · 14:00–18:00"},
+    {j:"Mercredi", h:"08:00–12:00 · 14:00–18:00"},
+    {j:"Jeudi", h:"08:00–12:00 · 14:00–18:00"},
+    {j:"Vendredi", h:"08:00–12:00 · 14:00–18:00"},
+    {j:"Samedi", h:"Fermé", f:true},
+    {j:"Dimanche", h:"Fermé", f:true}
+  ];
+  var jour = (new Date().getDay()+6)%7;
+  var ul = $("#horaires");
+  H.forEach(function(x,i){
+    var li=document.createElement("li");
+    li.className = (x.f?"ferme ":"")+(i===jour?"aujourdhui":"");
+    li.innerHTML = "<span>"+x.j+"</span><span>"+x.h+"</span>";
+    ul.appendChild(li);
+  });
+
+  /* menu mobile */
+  $("#burger").addEventListener("click",function(){
+    var n = $("#nav"), o = n.classList.toggle("ouvert");
+    this.setAttribute("aria-expanded", o);
+  });
+  $$("#nav a").forEach(function(a){ a.addEventListener("click",function(){ $("#nav").classList.remove("ouvert"); }); });
+
+  rendreChips(); rendreOnglets(); rendreObjets(); tout();
+}
+
+/* =========================================================
+   11. MOUVEMENT : en-tête, progression, révélations, compteurs
+   ========================================================= */
+function mouvement(){
+  var entete = $("#entete"), jauge = $("#jaugeLecture");
+  var tic = false;
+  function scroll(){
+    var y = window.scrollY || 0;
+    entete.classList.toggle("compact", y>90);
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    jauge.style.width = (h>0 ? Math.min(100,(y/h)*100) : 0)+"%";
+    tic = false;
+  }
+  window.addEventListener("scroll",function(){ if(!tic){ tic=true; requestAnimationFrame(scroll); } },{passive:true});
+  scroll();
+
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("vu"); io.unobserve(e.target); } });
+    },{threshold:.12, rootMargin:"0px 0px -8% 0px"});
+    $$(".rev").forEach(function(el){ io.observe(el); });
+
+    var ioc = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        ioc.unobserve(e.target); compte(e.target);
+      });
+    },{threshold:.5});
+    $$("[data-compte]").forEach(function(el){ ioc.observe(el); });
+  } else {
+    $$(".rev").forEach(function(el){ el.classList.add("vu"); });
+    $$("[data-compte]").forEach(compte);
+  }
+
+  function compte(el){
+    var cible = parseFloat(el.dataset.compte), dec = parseInt(el.dataset.dec||"0",10);
+    var prefixe = el.querySelector("em") ? el.querySelector("em").outerHTML : "";
+    if(!doux){ el.innerHTML = prefixe + cible.toFixed(dec).replace(".",","); return; }
+    var t0 = null, duree = 1300;
+    function pas(t){
+      if(!t0) t0=t;
+      var p = Math.min(1,(t-t0)/duree);
+      var e = 1-Math.pow(1-p,3);
+      el.innerHTML = prefixe + (cible*e).toFixed(dec).replace(".",",");
+      if(p<1) requestAnimationFrame(pas);
+    }
+    requestAnimationFrame(pas);
+  }
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  init(); mouvement();
+  requestAnimationFrame(function(){ document.body.classList.add("pret"); });
+});
+})();
+</script>
+</body>
+</html>

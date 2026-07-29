@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Grisard — Boucher, charcutier, traiteur à Roanne</title>
+<meta name="description" content="Maison Grisard, boucherie-charcuterie et traiteur à Roanne depuis 1968. Deux boutiques : quartier Arsenal et Halles Diderot.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..700&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   MAISON GRISARD — maquette de démonstration
+   -------------------------------------------------------------------------
+   TOUS LES RÉGLAGES VISUELS SONT REGROUPÉS ICI.
+   La charte exacte de la Maison (codes couleurs du logo, polices de la
+   devanture) n'a pas pu être récupérée : les valeurs ci-dessous sont une
+   approximation construite à partir des matériaux du métier — carrelage
+   émaillé, laiton des barres à crochets, rouge sang de bœuf, bleu du
+   tablier rayé. Elles s'ajustent en modifiant uniquement ce bloc.
+   ========================================================================= */
+:root{
+  /* --- Couleurs --- */
+  --carreau:      #EFF1EF;   /* fond général : blanc légèrement froid, émail */
+  --carreau-joint:#E2E6E3;   /* trait de joint du carrelage */
+  --blanc:        #FFFFFF;   /* surfaces, cartes */
+  --ardoise:      #16181C;   /* encre principale / fonds sombres */
+  --ardoise-2:    #23262C;   /* second niveau sombre */
+  --sang:         #7E1620;   /* accent principal : rouge sang de bœuf */
+  --sang-clair:   #A32A33;   /* survols, états actifs */
+  --laiton:       #B08D46;   /* filets, crochets, détails précieux */
+  --laiton-pale:  #E3D3AF;   /* laiton sur fond sombre, texte secondaire */
+  --tablier:      #24405E;   /* bleu du tablier rayé : information, liens */
+  --forez:        #55663F;   /* vert : origine locale, statut « ouvert » */
+  --ficelle:      #D8CDB8;   /* ficelle à rôti : séparateurs discrets */
+  --gris:         #6B7078;   /* texte secondaire */
+
+  /* --- Typographie --- */
+  --display: "Bodoni Moda", "Bodoni MT", Didot, "Didot LT STD", Georgia, serif;
+  --texte:   "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --etiquette:"DM Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* --- Rythme --- */
+  --page: 1180px;
+  --gouttiere: clamp(20px, 5vw, 56px);
+  --bloc: clamp(64px, 9vw, 128px);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--carreau);
+  color:var(--ardoise);
+  font-family:var(--texte);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:400;line-height:1.05}
+
+.enveloppe{max-width:var(--page);margin:0 auto;padding-left:var(--gouttiere);padding-right:var(--gouttiere)}
+/* ancres : les titres ne passent pas sous l'entête collante */
+section[id],main[id]{scroll-margin-top:96px}
+
+/* --- Étiquette de rayon : petit label mono, repris partout --- */
+.etiquette{
+  font-family:var(--etiquette);
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--sang);
+}
+.etiquette--clair{color:var(--laiton)}
+
+/* =========================== BANDEAU DÉMO =============================== */
+.demo{
+  background:var(--laiton);
+  color:#2A2008;
+  font-family:var(--etiquette);
+  font-size:11.5px;
+  letter-spacing:.09em;
+  text-align:center;
+  padding:7px 16px;
+}
+
+/* =============================== ENTÊTE ================================= */
+.entete{
+  position:sticky; top:0; z-index:60;
+  background:rgba(239,241,239,.88);
+  backdrop-filter:saturate(1.5) blur(10px);
+  border-bottom:1px solid var(--carreau-joint);
+  transition:padding .25s ease, box-shadow .25s ease;
+}
+.entete__in{
+  display:flex; align-items:center; gap:28px;
+  padding-top:16px;padding-bottom:16px;
+  transition:padding .25s ease;
+}
+.entete.is-reduite .entete__in{padding-top:9px;padding-bottom:9px}
+.marque{display:flex;align-items:baseline;gap:10px;text-decoration:none;flex:0 0 auto}
+.marque__nom{
+  font-family:var(--display);
+  font-size:clamp(20px,2.4vw,27px);
+  letter-spacing:.005em;
+}
+.marque__depuis{
+  font-family:var(--etiquette);font-size:10.5px;letter-spacing:.16em;
+  color:var(--gris);text-transform:uppercase;
+}
+.nav{margin-left:auto;display:flex;gap:22px;align-items:center}
+.nav a{
+  text-decoration:none;font-size:14.5px;color:var(--ardoise);
+  padding:4px 0;position:relative;white-space:nowrap;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;
+  background:var(--laiton);transition:right .28s cubic-bezier(.2,.7,.3,1);
+}
+.nav a:hover::after,.nav a:focus-visible::after,.nav a.is-active::after{right:0}
+.nav a.is-active{color:var(--sang)}
+.entete .bouton--appel{margin-left:6px}
+.tel-court{display:none}
+@media (max-width:940px){
+  .nav{display:none}
+  .entete .bouton--appel{margin-left:auto}
+}
+@media (max-width:620px){
+  .entete__in{gap:14px}
+  .marque{flex:0 1 auto;min-width:0}
+  .marque__depuis{display:none}
+  .tel-long{display:none}
+  .tel-court{display:inline}
+}
+
+/* =============================== BOUTONS ================================ */
+.bouton{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--texte);font-size:15px;font-weight:600;
+  padding:13px 22px;border-radius:2px;border:1.5px solid transparent;
+  text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:transform .18s ease, background .2s ease, color .2s ease, border-color .2s ease;
+}
+.bouton:active{transform:translateY(1px)}
+.bouton--plein{background:var(--sang);color:#fff}
+.bouton--plein:hover{background:var(--sang-clair)}
+.bouton--trait{border-color:var(--ardoise);color:var(--ardoise);background:transparent}
+.bouton--trait:hover{background:var(--ardoise);color:var(--carreau)}
+.bouton--laiton{border-color:var(--laiton);color:var(--laiton-pale);background:transparent}
+.bouton--laiton:hover{background:var(--laiton);color:#2A2008}
+.bouton--appel{
+  border:1.5px solid var(--laiton);color:var(--ardoise);background:transparent;
+  padding:9px 16px;font-size:14px;
+}
+.bouton--appel:hover{background:var(--laiton);color:#2A2008}
+:focus-visible{outline:2.5px solid var(--tablier);outline-offset:3px}
+
+/* ================================ HERO ================================== */
+.hero{
+  position:relative;background:var(--ardoise);color:var(--carreau);
+  overflow:hidden;
+}
+/* carrelage : grille de joints très discrète */
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.045) 1px, transparent 1px);
+  background-size:46px 46px;
+  mask-image:radial-gradient(120% 90% at 20% 0%, #000 30%, transparent 78%);
+}
+.hero__in{
+  position:relative;
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,5vw,72px);
+  padding-top:clamp(56px,7vw,96px);padding-bottom:clamp(48px,6vw,80px);
+  align-items:start;
+}
+@media (max-width:900px){.hero__in{grid-template-columns:1fr}}
+
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(46px,8.2vw,104px);
+  line-height:.92;letter-spacing:-.012em;margin:16px 0 0;
+}
+.hero h1 em{font-style:italic;color:var(--laiton-pale)}
+.hero__metier{
+  font-family:var(--texte);font-size:clamp(17px,2vw,21px);
+  color:var(--laiton-pale);margin:22px 0 0;max-width:34ch;line-height:1.5;
+}
+.hero__note{
+  margin:18px 0 0;color:#9AA1A9;font-size:15px;max-width:44ch;
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+
+/* --- Tableau des deux maisons : la pièce centrale du hero --- */
+.tableau{
+  border:1px solid rgba(224,211,175,.28);
+  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+  padding:6px;
+}
+.tableau__titre{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 14px 10px;border-bottom:1px solid rgba(224,211,175,.22);
+}
+.tableau__heure{font-family:var(--etiquette);font-size:11.5px;color:#8D949C}
+.maison{
+  padding:18px 14px;border-bottom:1px dashed rgba(224,211,175,.2);
+}
+.maison:last-child{border-bottom:0}
+.maison__haut{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.maison__nom{font-family:var(--display);font-size:24px}
+.maison__statut{
+  font-family:var(--etiquette);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+}
+.pastille{width:8px;height:8px;border-radius:50%;background:var(--gris);flex:0 0 auto}
+.est-ouvert .pastille{background:#7FB069;box-shadow:0 0 0 0 rgba(127,176,105,.55);animation:pouls 2.6s ease-out infinite}
+.est-ouvert{color:#9FCB8A}
+.est-ferme{color:#B98A8A}
+.est-ferme .pastille{background:#8E4B4B}
+@keyframes pouls{
+  0%{box-shadow:0 0 0 0 rgba(127,176,105,.5)}
+  70%{box-shadow:0 0 0 9px rgba(127,176,105,0)}
+  100%{box-shadow:0 0 0 0 rgba(127,176,105,0)}
+}
+@media (prefers-reduced-motion: reduce){.est-ouvert .pastille{animation:none}}
+.maison__adresse{color:#9AA1A9;font-size:14.5px;margin:6px 0 0}
+.maison__suite{font-family:var(--etiquette);font-size:12.5px;color:var(--laiton-pale);margin:10px 0 0}
+.maison__tel{
+  display:inline-block;margin-top:12px;font-family:var(--etiquette);font-size:14px;
+  color:var(--carreau);text-decoration:none;border-bottom:1px solid var(--laiton);padding-bottom:2px;
+}
+.maison__tel:hover{color:var(--laiton-pale)}
+
+/* ============================== SECTIONS ================================ */
+.section{padding:var(--bloc) 0}
+.section--blanc{background:var(--blanc)}
+.section__tete{max-width:60ch;margin-bottom:clamp(32px,4vw,54px)}
+.section__tete h2{
+  font-family:var(--display);
+  font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-.01em;margin:14px 0 0;
+}
+.section__tete p{color:var(--gris);margin:16px 0 0;font-size:17.5px}
+
+/* filet laiton discret */
+.filet{height:1px;background:linear-gradient(to right,var(--laiton),transparent);margin:0 0 14px;width:120px}
+
+/* --- Familles de produits : étiquettes de rayon --- */
+.rayons{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--carreau-joint);border:1px solid var(--carreau-joint)}
+@media (max-width:900px){.rayons{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.rayons{grid-template-columns:1fr}}
+.rayon{background:var(--blanc);padding:26px 24px 28px;position:relative;transition:background .25s ease}
+.rayon:hover{background:#FBFBF9}
+.rayon__num{font-family:var(--etiquette);font-size:11px;color:var(--laiton);letter-spacing:.14em}
+.rayon h3{font-family:var(--display);font-size:26px;margin:10px 0 8px}
+.rayon p{margin:0;color:var(--gris);font-size:15.5px;line-height:1.55}
+.rayon::after{
+  content:"";position:absolute;left:24px;right:24px;bottom:0;height:2px;
+  background:var(--sang);transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1);
+}
+.rayon:hover::after{transform:scaleX(1)}
+
+/* --- Bande photos à fournir --- */
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+@media (max-width:760px){.photos{grid-template-columns:1fr}}
+.photo{
+  aspect-ratio:4/3;border:1.5px dashed var(--ficelle);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-family:var(--etiquette);font-size:11.5px;letter-spacing:.1em;color:#A79C86;
+  text-transform:uppercase;padding:18px;background:#FAFAF7;
+}
+
+/* ========================= LE CARNET (outil) ============================ */
+.carnet{background:var(--ardoise-2);color:var(--carreau)}
+.carnet .section__tete h2{color:var(--carreau)}
+.carnet .section__tete p{color:#9AA1A9}
+.carnet__grille{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,4vw,54px);align-items:start}
+@media (max-width:940px){.carnet__grille{grid-template-columns:1fr}}
+
+.onglets{display:flex;gap:0;margin-bottom:26px;border-bottom:1px solid rgba(224,211,175,.24)}
+.onglet{
+  appearance:none;background:none;border:0;border-bottom:2px solid transparent;
+  color:#9AA1A9;font-family:var(--texte);font-size:15.5px;font-weight:600;
+  padding:11px 18px 12px;cursor:pointer;transition:color .2s ease,border-color .2s ease;
+}
+.onglet[aria-selected="true"]{color:var(--carreau);border-bottom-color:var(--laiton)}
+.onglet:hover{color:var(--carreau)}
+
+.champ{margin-bottom:18px}
+.champ > label,.legende{
+  display:block;font-family:var(--etiquette);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--laiton);margin-bottom:9px;
+}
+.saisie,select,textarea{
+  width:100%;font-family:var(--texte);font-size:15.5px;color:var(--carreau);
+  background:rgba(255,255,255,.05);border:1px solid rgba(224,211,175,.26);
+  border-radius:2px;padding:11px 13px;transition:border-color .2s ease,background .2s ease;
+}
+.saisie:focus,select:focus,textarea:focus{border-color:var(--laiton);background:rgba(255,255,255,.09)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--laiton) 50%),linear-gradient(135deg,var(--laiton) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 12px) 50%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+select option{background:var(--ardoise-2);color:var(--carreau)}
+textarea{min-height:78px;resize:vertical}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.trio{display:grid;grid-template-columns:1.5fr .7fr .9fr;gap:10px;align-items:end}
+@media (max-width:560px){.duo,.trio{grid-template-columns:1fr}}
+.aide{font-size:13.5px;color:#8D949C;margin:-8px 0 18px}
+
+/* --- Le bon : papier de boucher agrafé à la barre en laiton --- */
+.bon{position:relative;background:#FBFAF5;color:var(--ardoise);padding:0 0 26px;box-shadow:0 22px 48px rgba(0,0,0,.34)}
+/* bord supérieur détaché du carnet : encoches mordues dans le papier */
+.bon::before{
+  content:"";display:block;height:13px;
+  background:radial-gradient(circle at 7px 0, var(--ardoise-2) 5.6px, transparent 6.2px) 0 0/14px 13px repeat-x;
+}
+.bon__clip{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  width:66px;height:22px;border:2px solid var(--laiton);border-bottom:0;
+  border-radius:11px 11px 0 0;background:linear-gradient(180deg,#D9BE83,#A87F35);
+}
+.bon__tete{padding:20px 26px 14px;border-bottom:2px solid var(--ardoise)}
+.bon__maison{font-family:var(--display);font-size:23px}
+.bon__soustitre{font-family:var(--etiquette);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:4px}
+.bon__corps{padding:16px 26px 0;min-height:190px}
+.bon__vide{font-family:var(--etiquette);font-size:13px;color:#9A958A;padding:38px 0;text-align:center;line-height:1.8}
+.ligne{
+  display:flex;align-items:baseline;gap:10px;padding:9px 0;
+  border-bottom:1px dotted #C9C3B3;font-family:var(--etiquette);font-size:14px;
+}
+.ligne--entre{animation:pose .34s cubic-bezier(.2,.8,.3,1) both}
+@keyframes pose{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.ligne--entre{animation:none}}
+.ligne__q{color:var(--sang);font-weight:500;flex:0 0 auto;min-width:74px}
+.ligne__n{flex:1 1 auto}
+.ligne__p{display:block;font-family:var(--texte);font-size:12.5px;color:var(--gris);line-height:1.4;margin-top:2px}
+.ligne__x{
+  appearance:none;background:none;border:0;cursor:pointer;color:#B0AA9B;
+  font-size:17px;line-height:1;padding:2px 4px;flex:0 0 auto;
+}
+.ligne__x:hover{color:var(--sang)}
+.bon__pied{padding:16px 26px 0;font-family:var(--etiquette);font-size:12.5px;color:var(--gris);line-height:1.7}
+.bon__actions{display:flex;flex-wrap:wrap;gap:10px;padding:18px 26px 0}
+.bon__actions .bouton{font-size:14px;padding:11px 17px}
+.bon__mention{padding:16px 26px 0;font-size:12.5px;color:#8C8778;line-height:1.6}
+
+.recap{margin-top:26px;font-family:var(--etiquette);font-size:12.5px;color:#8D949C}
+
+/* ============================== TRAITEUR ================================ */
+.occasions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.occasion{
+  font-family:var(--etiquette);font-size:12.5px;letter-spacing:.06em;
+  border:1px solid var(--ficelle);padding:9px 15px;border-radius:999px;color:var(--ardoise);
+  background:var(--blanc);
+}
+.deux-colonnes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:start}
+@media (max-width:860px){.deux-colonnes{grid-template-columns:1fr}}
+.prose p{margin:0 0 16px;font-size:17px;color:#3A3E45}
+.prose p:last-child{margin-bottom:0}
+
+/* =============================== HISTOIRE =============================== */
+.frise{border-left:1px solid var(--ficelle);margin-top:8px}
+.jalon{position:relative;padding:0 0 30px 30px}
+.jalon::before{
+  content:"";position:absolute;left:-4.5px;top:9px;width:8px;height:8px;
+  background:var(--laiton);border-radius:50%;
+}
+.jalon__an{font-family:var(--etiquette);font-size:13px;color:var(--sang);letter-spacing:.1em}
+.jalon p{margin:5px 0 0;font-size:16px;color:#3A3E45;max-width:52ch}
+
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--carreau-joint);border:1px solid var(--carreau-joint);margin-top:34px}
+.chiffre{background:var(--blanc);padding:24px 20px}
+.chiffre b{display:block;font-family:var(--display);font-size:44px;line-height:1;font-weight:500}
+.chiffre span{display:block;font-family:var(--etiquette);font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--gris);margin-top:9px}
+
+/* =============================== MAGASINS =============================== */
+.boutiques{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--carreau-joint);border:1px solid var(--carreau-joint)}
+@media (max-width:820px){.boutiques{grid-template-columns:1fr}}
+.boutique{background:var(--blanc);padding:clamp(26px,3.4vw,40px)}
+.boutique h3{font-family:var(--display);font-size:32px;margin-bottom:4px}
+.boutique__statut{margin:12px 0 0}
+.boutique .est-ouvert{color:var(--forez)}
+.boutique .est-ferme{color:var(--sang)}
+.boutique .est-ouvert .pastille{background:var(--forez)}
+.boutique .est-ferme .pastille{background:var(--sang)}
+.boutique address{font-style:normal;color:var(--gris);margin:14px 0 0;font-size:16px}
+.horaires{width:100%;border-collapse:collapse;margin-top:20px;font-size:15px}
+.horaires th,.horaires td{text-align:left;padding:7px 0;border-bottom:1px solid var(--carreau-joint);vertical-align:top}
+.horaires th{font-weight:500;width:38%;color:#3A3E45}
+.horaires td{font-family:var(--etiquette);font-size:13.5px;color:var(--gris)}
+.horaires tr.est-aujourdhui th{color:var(--sang);font-weight:700}
+.horaires tr.est-aujourdhui td{color:var(--ardoise)}
+.boutique__liens{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+
+/* ================================ PIED ================================== */
+.pied{background:var(--ardoise);color:#9AA1A9;padding:clamp(48px,6vw,76px) 0 34px}
+.pied a{color:var(--laiton-pale)}
+.pied__haut{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;align-items:start}
+@media (max-width:820px){.pied__haut{grid-template-columns:1fr}}
+.pied__nom{font-family:var(--display);font-size:32px;color:var(--carreau)}
+.pied h4{font-family:var(--etiquette);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--laiton);margin-bottom:12px}
+.pied ul{list-style:none;margin:0;padding:0}
+.pied li{margin-bottom:7px;font-size:15px}
+.pied__bas{
+  margin-top:44px;padding-top:22px;border-top:1px solid rgba(224,211,175,.18);
+  font-size:13px;line-height:1.75;color:#7C838B;
+}
+
+/* --- Révélations au défilement --- */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.est-vu{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+}
+.hero .reveal{transition-duration:.8s}
+
+/* --- Impression du bon --- */
+@media print{
+  .demo,.entete,.hero,.section:not(.carnet),.pied,.onglets,.formulaires,.bon__actions,.bon__clip{display:none !important}
+  body{background:#fff}
+  .carnet{background:#fff;color:#000;padding:0}
+  .bon{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte non officielle, non contractuelle</div>
+
+<header class="entete" id="entete">
+  <div class="enveloppe entete__in">
+    <a class="marque" href="#haut">
+      <span class="marque__nom">Maison Grisard</span>
+      <span class="marque__depuis">Roanne · depuis 1968</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#boucherie">Boucherie / Charcuterie</a>
+      <a href="#carnet">Commander</a>
+      <a href="#traiteur">Traiteur</a>
+      <a href="#receptions">Mariages / Réceptions</a>
+      <a href="#maison">La Maison</a>
+      <a href="#magasins">Nos magasins</a>
+    </nav>
+    <a class="bouton bouton--appel" href="tel:+33477702144"><span class="tel-long">04 77 70 21 44</span><span class="tel-court">Appeler</span></a>
+  </div>
+</header>
+
+<main id="haut">
+
+  <!-- ============================ HERO ============================== -->
+  <section class="hero">
+    <div class="enveloppe hero__in">
+      <div>
+        <p class="etiquette etiquette--clair reveal">Boucherie · Charcuterie · Traiteur — Roanne</p>
+        <h1 class="reveal">Deux boutiques,<br><em>un seul laboratoire.</em></h1>
+        <p class="hero__metier reveal">Bouchers, charcutiers et cuisiniers sous le même toit, quartier Arsenal et Halles Diderot, depuis plus d'un demi-siècle.</p>
+        <p class="hero__note reveal">Nos viandes viennent d'élevages de la région, nos charcuteries et nos plats traiteur sont fabriqués dans notre laboratoire, à Roanne.</p>
+        <div class="hero__actions reveal">
+          <a class="bouton bouton--plein" href="#carnet">Préparer ma commande</a>
+          <a class="bouton bouton--laiton" href="#devis">Demander un devis traiteur</a>
+        </div>
+      </div>
+
+      <!-- Tableau des deux maisons : statut calculé en direct -->
+      <aside class="tableau reveal" aria-label="État des deux boutiques">
+        <div class="tableau__titre">
+          <span class="etiquette etiquette--clair">Aujourd'hui</span>
+          <span class="tableau__heure" id="pendule">—</span>
+        </div>
+
+        <article class="maison" data-boutique="arsenal">
+          <div class="maison__haut">
+            <h2 class="maison__nom">Arsenal</h2>
+            <span class="maison__statut" data-statut><span class="pastille"></span><span data-statut-texte>…</span></span>
+          </div>
+          <p class="maison__adresse">10, avenue Centrale — quartier Arsenal</p>
+          <p class="maison__suite" data-suite>—</p>
+          <a class="maison__tel" href="tel:+33477683405">04 77 68 34 05</a>
+        </article>
+
+        <article class="maison" data-boutique="diderot">
+          <div class="maison__haut">
+            <h2 class="maison__nom">Halles Diderot</h2>
+            <span class="maison__statut" data-statut><span class="pastille"></span><span data-statut-texte>…</span></span>
+          </div>
+          <p class="maison__adresse">221, Halles Diderot — centre-ville</p>
+          <p class="maison__suite" data-suite>—</p>
+          <a class="maison__tel" href="tel:+33477702144">04 77 70 21 44</a>
+        </article>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ========================= BOUCHERIE ============================ -->
+  <section class="section section--blanc" id="boucherie">
+    <div class="enveloppe">
+      <div class="section__tete reveal">
+        <div class="filet"></div>
+        <p class="etiquette">Nos rayons</p>
+        <h2>Boucherie &amp; charcuterie</h2>
+        <p>Ce que l'on trouve dans les deux boutiques. Les pièces se préparent et se réservent : dites-nous ce qu'il vous faut, on s'occupe de la découpe.</p>
+      </div>
+
+      <div class="rayons reveal">
+        <article class="rayon">
+          <span class="rayon__num">Bœuf</span>
+          <h3>Viandes de bœuf</h3>
+          <p>Des élevages de la région. Pièces à griller, à rôtir, à mijoter — préparées à la demande.</p>
+        </article>
+        <article class="rayon">
+          <span class="rayon__num">Veau &amp; porc</span>
+          <h3>Veau et porc</h3>
+          <p>Rôtis, côtes, filets, pièces à farcir. La base de la maison depuis l'ouverture.</p>
+        </article>
+        <article class="rayon">
+          <span class="rayon__num">Volailles</span>
+          <h3>Volailles fines du Forez</h3>
+          <p>Volailles et lapins du Forez, à commander à l'avance pour les fêtes et les grandes tablées.</p>
+        </article>
+        <article class="rayon">
+          <span class="rayon__num">Charcuterie</span>
+          <h3>Charcuteries de fabrication maison</h3>
+          <p>Saucissons, boudins, et les charcuteries artisanales préparées dans notre laboratoire roannais.</p>
+        </article>
+        <article class="rayon">
+          <span class="rayon__num">Traiteur</span>
+          <h3>Terrines et pâtés</h3>
+          <p>Terrines et pâtés maison, à la coupe ou en pièce entière selon le nombre de convives.</p>
+        </article>
+        <article class="rayon">
+          <span class="rayon__num">À emporter</span>
+          <h3>Plats traiteur à emporter</h3>
+          <p>La cuisine du traiteur, en portions à emporter — à réserver la veille pour être sûr de l'avoir.</p>
+        </article>
+      </div>
+
+      <div class="photos reveal" aria-hidden="true">
+        <div class="photo">Emplacement photo — vitrine Halles Diderot</div>
+        <div class="photo">Emplacement photo — l'équipe au labo</div>
+        <div class="photo">Emplacement photo — charcuteries maison</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== LE CARNET (OUTIL) ====================== -->
+  <section class="section carnet" id="carnet">
+    <div class="enveloppe">
+      <div class="section__tete reveal">
+        <div class="filet"></div>
+        <p class="etiquette etiquette--clair">Le carnet de commande</p>
+        <h2>Préparez votre commande<br>avant de passer</h2>
+        <p>Aujourd'hui, tout se règle par téléphone, aux heures d'ouverture. Ce carnet permet de poser sa commande ou sa demande de réception à n'importe quelle heure : il rédige le bon, vous n'avez plus qu'à l'envoyer ou à l'apporter.</p>
+      </div>
+
+      <div class="carnet__grille">
+        <div>
+          <div class="onglets" role="tablist" aria-label="Type de demande">
+            <button class="onglet" role="tab" id="onglet-boucherie" aria-controls="volet-boucherie" aria-selected="true">Commande boucherie</button>
+            <button class="onglet" role="tab" id="onglet-traiteur" aria-controls="volet-traiteur" aria-selected="false">Devis traiteur</button>
+          </div>
+
+          <div class="formulaires">
+            <!-- ---- Volet boucherie ---- -->
+            <div role="tabpanel" id="volet-boucherie" aria-labelledby="onglet-boucherie">
+              <div class="champ">
+                <span class="legende">1. Ce qu'il vous faut</span>
+                <div class="trio">
+                  <select id="b-article" aria-label="Article">
+                    <option>Viande de bœuf</option>
+                    <option>Veau</option>
+                    <option>Porc</option>
+                    <option>Volaille fine du Forez</option>
+                    <option>Lapin</option>
+                    <option>Saucisson</option>
+                    <option>Boudin</option>
+                    <option>Charcuterie maison</option>
+                    <option>Terrine ou pâté</option>
+                    <option>Plat traiteur à emporter</option>
+                  </select>
+                  <input class="saisie" id="b-quantite" type="number" min="0.1" step="0.1" value="1" aria-label="Quantité" inputmode="decimal">
+                  <select id="b-unite" aria-label="Unité">
+                    <option value="kg">kg</option>
+                    <option value="pièce(s)">pièce(s)</option>
+                    <option value="personne(s)">personne(s)</option>
+                    <option value="tranche(s)">tranche(s)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="champ">
+                <label for="b-precision">2. Précisions pour le boucher <span style="text-transform:none;letter-spacing:0;color:#8D949C">(facultatif)</span></label>
+                <input class="saisie" id="b-precision" type="text" placeholder="Ex. : rôti ficelé, épaisseur des côtes, pièce entière…">
+              </div>
+              <button class="bouton bouton--plein" id="b-ajouter" type="button">Ajouter au bon</button>
+
+              <div class="champ" style="margin-top:30px">
+                <span class="legende">3. Où et quand vous passez</span>
+                <div class="duo">
+                  <select id="b-boutique" aria-label="Boutique">
+                    <option value="arsenal">Arsenal — 10, av. Centrale</option>
+                    <option value="diderot">Halles Diderot — 221</option>
+                  </select>
+                  <input class="saisie" id="b-date" type="date" aria-label="Jour de retrait">
+                </div>
+              </div>
+              <p class="aide" id="b-aide">Choisissez un jour : les horaires de la boutique s'affichent ici.</p>
+
+              <div class="duo">
+                <div class="champ"><label for="b-nom">Votre nom</label><input class="saisie" id="b-nom" type="text" placeholder="Nom et prénom"></div>
+                <div class="champ"><label for="b-tel">Votre téléphone</label><input class="saisie" id="b-tel" type="tel" placeholder="06 …"></div>
+              </div>
+            </div>
+
+            <!-- ---- Volet traiteur ---- -->
+            <div role="tabpanel" id="volet-traiteur" aria-labelledby="onglet-traiteur" hidden>
+              <div class="champ">
+                <label for="t-occasion">L'occasion</label>
+                <select id="t-occasion">
+                  <option>Mariage</option>
+                  <option>Baptême</option>
+                  <option>Anniversaire</option>
+                  <option>Repas de fête des classes</option>
+                  <option>Réception</option>
+                  <option>Séminaire</option>
+                  <option>Buffet froid</option>
+                  <option>Apéritif dînatoire</option>
+                </select>
+              </div>
+              <div class="duo">
+                <div class="champ"><label for="t-convives">Nombre de convives</label><input class="saisie" id="t-convives" type="number" min="1" step="1" value="40" inputmode="numeric"></div>
+                <div class="champ"><label for="t-date">Date de la réception</label><input class="saisie" id="t-date" type="date"></div>
+              </div>
+              <div class="champ">
+                <label for="t-formule">Formule envisagée</label>
+                <select id="t-formule">
+                  <option>Service sur place, avec personnel</option>
+                  <option>Livraison des plats</option>
+                  <option>À emporter, retrait en boutique</option>
+                  <option>Je ne sais pas encore</option>
+                </select>
+              </div>
+              <div class="champ">
+                <label for="t-notes">Ce que vous avez en tête <span style="text-transform:none;letter-spacing:0;color:#8D949C">(facultatif)</span></label>
+                <textarea id="t-notes" placeholder="Lieu, horaire, plats souhaités, régimes particuliers, budget indicatif…"></textarea>
+              </div>
+              <div class="duo">
+                <div class="champ"><label for="t-nom">Votre nom</label><input class="saisie" id="t-nom" type="text" placeholder="Nom et prénom"></div>
+                <div class="champ"><label for="t-tel">Votre téléphone</label><input class="saisie" id="t-tel" type="tel" placeholder="06 …"></div>
+              </div>
+              <button class="bouton bouton--plein" id="t-poser" type="button">Reporter sur le bon</button>
+            </div>
+          </div>
+
+          <p class="recap">Aucun prix n'est calculé ici : les tarifs se confirment avec la Maison, en boutique ou par téléphone.</p>
+        </div>
+
+        <!-- ---- Le bon ---- -->
+        <div class="bon reveal" id="devis">
+          <span class="bon__clip" aria-hidden="true"></span>
+          <div class="bon__tete">
+            <div class="bon__maison">Maison Grisard</div>
+            <div class="bon__soustitre" id="bon-type">Bon de commande — boucherie</div>
+          </div>
+          <div class="bon__corps" id="bon-corps">
+            <p class="bon__vide">Le bon est vide.<br>Ajoutez ce qu'il vous faut, il se remplit ici.</p>
+          </div>
+          <div class="bon__pied" id="bon-pied"></div>
+          <div class="bon__actions">
+            <a class="bouton bouton--plein" id="bon-mail" href="mailto:maison-grisard@wanadoo.fr">Envoyer par mail</a>
+            <button class="bouton bouton--trait" id="bon-copier" type="button">Copier le bon</button>
+            <button class="bouton bouton--trait" id="bon-imprimer" type="button">Imprimer</button>
+          </div>
+          <p class="bon__mention">Le bon part sur maison-grisard@wanadoo.fr. Il vaut demande, pas confirmation : la Maison vous rappelle pour valider.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== TRAITEUR ============================ -->
+  <section class="section section--blanc" id="traiteur">
+    <div class="enveloppe">
+      <div class="deux-colonnes">
+        <div class="reveal">
+          <div class="filet"></div>
+          <p class="etiquette">Traiteur</p>
+          <h2 style="font-family:var(--display);font-size:clamp(34px,4.6vw,58px);line-height:1.02;margin:14px 0 22px">Du comptoir<br>à la salle des fêtes</h2>
+          <div class="prose">
+            <p>L'activité traiteur s'est développée à partir des années 1990, à côté de la boucherie. Elle s'appuie sur le même laboratoire, agrandi en 1998, et sur les mêmes fournisseurs que les rayons.</p>
+            <p>Deux cuisiniers travaillent à l'année dans l'équipe ; pour les grosses prestations, une cinquantaine d'extras interviennent régulièrement aux côtés des permanents.</p>
+          </div>
+        </div>
+        <div class="reveal" id="receptions">
+          <p class="etiquette">Les occasions que nous préparons</p>
+          <div class="occasions">
+            <span class="occasion">Mariages</span>
+            <span class="occasion">Baptêmes</span>
+            <span class="occasion">Anniversaires</span>
+            <span class="occasion">Repas de fête des classes</span>
+            <span class="occasion">Réceptions</span>
+            <span class="occasion">Séminaires</span>
+            <span class="occasion">Buffets froids</span>
+            <span class="occasion">Apéritifs dînatoires</span>
+            <span class="occasion">Traiteur à emporter</span>
+          </div>
+          <p style="margin-top:26px;color:var(--gris);font-size:16px">Chaque réception se chiffre au cas par cas. Le carnet ci-dessus met votre demande en forme ; nous revenons vers vous avec une proposition.</p>
+          <a class="bouton bouton--plein" href="#carnet" style="margin-top:20px">Décrire ma réception</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== LA MAISON ========================== -->
+  <section class="section" id="maison">
+    <div class="enveloppe">
+      <div class="deux-colonnes">
+        <div class="reveal">
+          <div class="filet"></div>
+          <p class="etiquette">La Maison</p>
+          <h2 style="font-family:var(--display);font-size:clamp(34px,4.6vw,58px);line-height:1.02;margin:14px 0 26px">Cinquante ans<br>de Roanne</h2>
+          <div class="frise">
+            <div class="jalon"><span class="jalon__an">1968</span><p>La Maison Grisard s'installe à Roanne.</p></div>
+            <div class="jalon"><span class="jalon__an">1986</span><p>Lucien Grisard ouvre une seconde boucherie aux Halles Diderot, en centre-ville.</p></div>
+            <div class="jalon"><span class="jalon__an">1988</span><p>Christophe Grisard, fils de Lucien, rejoint la maison. Le magasin de la zone piétonne ferme, celui du quartier Arsenal ouvre.</p></div>
+            <div class="jalon"><span class="jalon__an">Années 1990</span><p>L'activité traiteur se développe à côté de la boucherie.</p></div>
+            <div class="jalon"><span class="jalon__an">1998</span><p>Agrandissement du laboratoire de production, toujours en service aujourd'hui.</p></div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="etiquette">Nos équipes</p>
+          <div class="chiffres">
+            <div class="chiffre"><b>19</b><span>salariés permanents</span></div>
+            <div class="chiffre"><b>7</b><span>bouchers</span></div>
+            <div class="chiffre"><b>4</b><span>charcutiers</span></div>
+            <div class="chiffre"><b>2</b><span>cuisiniers</span></div>
+            <div class="chiffre"><b>2</b><span>vendeurs</span></div>
+            <div class="chiffre"><b>~50</b><span>extras sur les réceptions</span></div>
+          </div>
+          <p style="margin-top:24px;color:var(--gris);font-size:16px">Aux 19 permanents s'ajoute une cinquantaine d'extras qui interviennent régulièrement sur les prestations traiteur.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== MAGASINS =========================== -->
+  <section class="section section--blanc" id="magasins">
+    <div class="enveloppe">
+      <div class="section__tete reveal">
+        <div class="filet"></div>
+        <p class="etiquette">Nos magasins</p>
+        <h2>Deux boutiques, deux rythmes</h2>
+        <p>Les Halles Diderot ouvrent le dimanche matin, l'Arsenal ouvre dès 6 h 30 du lundi au samedi. Le jour en cours est surligné.</p>
+      </div>
+
+      <div class="boutiques reveal">
+        <article class="boutique" data-boutique="arsenal">
+          <h3>Quartier Arsenal</h3>
+          <p class="maison__statut boutique__statut" data-statut><span class="pastille"></span><span data-statut-texte>…</span></p>
+          <address>10, avenue Centrale<br>42300 Roanne</address>
+          <table class="horaires" data-horaires>
+            <caption class="etiquette" style="text-align:left;padding-bottom:8px">Horaires d'ouverture</caption>
+            <tbody></tbody>
+          </table>
+          <div class="boutique__liens">
+            <a class="bouton bouton--plein" href="tel:+33477683405">04 77 68 34 05</a>
+            <a class="bouton bouton--trait" href="#carnet">Commander ici</a>
+          </div>
+        </article>
+
+        <article class="boutique" data-boutique="diderot">
+          <h3>Halles Diderot</h3>
+          <p class="maison__statut boutique__statut" data-statut><span class="pastille"></span><span data-statut-texte>…</span></p>
+          <address>221, Halles Diderot<br>42300 Roanne</address>
+          <table class="horaires" data-horaires>
+            <caption class="etiquette" style="text-align:left;padding-bottom:8px">Horaires d'ouverture</caption>
+            <tbody></tbody>
+          </table>
+          <div class="boutique__liens">
+            <a class="bouton bouton--plein" href="tel:+33477702144">04 77 70 21 44</a>
+            <a class="bouton bouton--trait" href="#carnet">Commander ici</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================== PIED ============================== -->
+<footer class="pied">
+  <div class="enveloppe">
+    <div class="pied__haut">
+      <div>
+        <div class="pied__nom">Maison Grisard</div>
+        <p style="margin:12px 0 0;max-width:38ch">Boucher, charcutier et traiteur à Roanne depuis 1968. Deux boutiques, un laboratoire.</p>
+      </div>
+      <div>
+        <h4>Quartier Arsenal</h4>
+        <ul>
+          <li>10, avenue Centrale — 42300 Roanne</li>
+          <li><a href="tel:+33477683405">04 77 68 34 05</a></li>
+        </ul>
+        <h4 style="margin-top:22px">Halles Diderot</h4>
+        <ul>
+          <li>221, Halles Diderot — 42300 Roanne</li>
+          <li><a href="tel:+33477702144">04 77 70 21 44</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Écrire à la Maison</h4>
+        <ul>
+          <li><a href="mailto:maison-grisard@wanadoo.fr">maison-grisard@wanadoo.fr</a></li>
+        </ul>
+        <h4 style="margin-top:22px">Aller plus loin</h4>
+        <ul>
+          <li><a href="#carnet">Préparer une commande</a></li>
+          <li><a href="#carnet">Demander un devis traiteur</a></li>
+          <li><a href="#magasins">Horaires des deux boutiques</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="pied__bas">
+      Maquette de démonstration réalisée à partir d'informations publiques (coordonnées, horaires, historique, composition des équipes). Elle n'est ni officielle ni contractuelle et n'affiche volontairement aucun prix, aucun avis client et aucune certification.
+      Les couleurs et les typographies sont une approximation : la charte exacte de la Maison n'a pas pu être récupérée et reste entièrement ajustable.
+      Les emplacements photo sont à remplir avec les visuels de la Maison.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     HORAIRES RÉELS DES DEUX BOUTIQUES
+     Format : par jour (0 = dimanche), liste de créneaux [début, fin] en
+     minutes depuis minuit. Un tableau vide = fermé.
+     ===================================================================== */
+  var h = function(hh, mm){ return hh*60 + (mm||0); };
+
+  var BOUTIQUES = {
+    arsenal: {
+      nom: "Arsenal",
+      tel: "04 77 68 34 05",
+      adresse: "10, avenue Centrale — 42300 Roanne",
+      jours: [
+        [],                              /* dimanche */
+        [[h(6,30), h(12,30)]],           /* lundi */
+        [[h(6,30), h(12,30)], [h(15,30), h(19,0)]],
+        [[h(6,30), h(12,30)], [h(15,30), h(19,0)]],
+        [[h(6,30), h(12,30)], [h(15,30), h(19,0)]],
+        [[h(6,30), h(12,30)], [h(15,30), h(19,0)]],
+        [[h(6,30), h(12,30)]]            /* samedi */
+      ]
+    },
+    diderot: {
+      nom: "Halles Diderot",
+      tel: "04 77 70 21 44",
+      adresse: "221, Halles Diderot — 42300 Roanne",
+      jours: [
+        [[h(9,0), h(12,0)]],             /* dimanche */
+        [],                              /* lundi */
+        [[h(8,0), h(12,30)], [h(15,0), h(19,0)]],
+        [[h(8,0), h(12,30)], [h(15,0), h(19,0)]],
+        [[h(8,0), h(12,30)], [h(15,0), h(19,0)]],
+        [[h(8,0), h(12,30)], [h(15,0), h(19,30)]],
+        [[h(8,0), h(12,30)], [h(15,0), h(19,30)]]
+      ]
+    }
+  };
+
+  var JOURS = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+
+  function hhmm(min){
+    var hr = Math.floor(min/60), mn = min%60;
+    return mn === 0 ? (hr + " h") : (hr + " h " + (mn < 10 ? "0"+mn : mn));
+  }
+  function creneauxTexte(liste){
+    if(!liste.length) return "Fermé";
+    return liste.map(function(c){ return hhmm(c[0]) + " – " + hhmm(c[1]); }).join("  ·  ");
+  }
+
+  /* --- État d'une boutique à un instant donné --- */
+  function etat(cle, quand){
+    var b = BOUTIQUES[cle];
+    var jour = quand.getDay();
+    var mnt = quand.getHours()*60 + quand.getMinutes();
+    var aujourdhui = b.jours[jour];
+
+    for(var i=0;i<aujourdhui.length;i++){
+      if(mnt >= aujourdhui[i][0] && mnt < aujourdhui[i][1]){
+        return { ouvert:true, suite:"Ferme à " + hhmm(aujourdhui[i][1]) };
+      }
+    }
+    /* prochaine ouverture, dans les 8 jours */
+    for(var d=0; d<8; d++){
+      var j = (jour + d) % 7;
+      var creneaux = b.jours[j];
+      for(var k=0;k<creneaux.length;k++){
+        if(d > 0 || creneaux[k][0] > mnt){
+          var quand2 = d === 0 ? "aujourd'hui" : (d === 1 ? "demain" : JOURS[j].toLowerCase());
+          return { ouvert:false, suite:"Ouvre " + quand2 + " à " + hhmm(creneaux[k][0]) };
+        }
+      }
+    }
+    return { ouvert:false, suite:"Horaires à confirmer" };
+  }
+
+  /* --- Peindre tous les indicateurs de statut --- */
+  function rafraichir(){
+    var maintenant = new Date();
+    var pendule = document.getElementById("pendule");
+    if(pendule){
+      pendule.textContent = JOURS[maintenant.getDay()] + " · " +
+        (maintenant.getHours() < 10 ? "0" : "") + maintenant.getHours() + ":" +
+        (maintenant.getMinutes() < 10 ? "0" : "") + maintenant.getMinutes();
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-boutique]"), function(bloc){
+      var cle = bloc.getAttribute("data-boutique");
+      if(!BOUTIQUES[cle]) return;
+      var e = etat(cle, maintenant);
+
+      var st = bloc.querySelector("[data-statut]");
+      if(st){
+        st.classList.toggle("est-ouvert", e.ouvert);
+        st.classList.toggle("est-ferme", !e.ouvert);
+        st.querySelector("[data-statut-texte]").textContent = e.ouvert ? "Ouvert" : "Fermé";
+      }
+      var suite = bloc.querySelector("[data-suite]");
+      if(suite) suite.textContent = e.suite;
+    });
+  }
+
+  /* --- Tables d'horaires --- */
+  function peindreHoraires(){
+    Array.prototype.forEach.call(document.querySelectorAll("[data-boutique]"), function(bloc){
+      var table = bloc.querySelector("[data-horaires] tbody");
+      if(!table) return;
+      var cle = bloc.getAttribute("data-boutique");
+      var b = BOUTIQUES[cle];
+      var jourCourant = new Date().getDay();
+      var ordre = [1,2,3,4,5,6,0];
+      table.innerHTML = "";
+      ordre.forEach(function(j){
+        var tr = document.createElement("tr");
+        if(j === jourCourant) tr.className = "est-aujourdhui";
+        var th = document.createElement("th");
+        th.scope = "row";
+        th.textContent = JOURS[j];
+        var td = document.createElement("td");
+        td.textContent = creneauxTexte(b.jours[j]);
+        tr.appendChild(th); tr.appendChild(td);
+        table.appendChild(tr);
+      });
+    });
+  }
+
+  peindreHoraires();
+  rafraichir();
+  setInterval(rafraichir, 30000);
+
+  /* =====================================================================
+     LE CARNET
+     ===================================================================== */
+  var lignes = [];              /* commande boucherie */
+  var traiteur = null;          /* demande de réception */
+  var mode = "boucherie";
+
+  var corps    = document.getElementById("bon-corps");
+  var piedBon  = document.getElementById("bon-pied");
+  var typeBon  = document.getElementById("bon-type");
+  var lienMail = document.getElementById("bon-mail");
+
+  function nettoyer(s){ return (s || "").toString().trim(); }
+
+  function dateFr(valeur){
+    if(!valeur) return "";
+    var p = valeur.split("-");
+    if(p.length !== 3) return valeur;
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    return JOURS[d.getDay()] + " " + p[2] + "/" + p[1] + "/" + p[0];
+  }
+
+  /* --- Texte brut du bon, pour le mail, le copier et l'impression --- */
+  function texteDuBon(){
+    var l = [];
+    if(mode === "boucherie"){
+      var boutique = BOUTIQUES[document.getElementById("b-boutique").value];
+      l.push("COMMANDE — MAISON GRISARD");
+      l.push("Boutique : " + boutique.nom + " (" + boutique.adresse + ")");
+      var jour = nettoyer(document.getElementById("b-date").value);
+      if(jour) l.push("Retrait souhaité : " + dateFr(jour));
+      l.push("");
+      if(!lignes.length){ l.push("(aucun article)"); }
+      lignes.forEach(function(a){
+        l.push("- " + a.q + " " + a.u + "  " + a.nom + (a.p ? "  [" + a.p + "]" : ""));
+      });
+      l.push("");
+      var nom = nettoyer(document.getElementById("b-nom").value);
+      var tel = nettoyer(document.getElementById("b-tel").value);
+      l.push("De la part de : " + (nom || "—"));
+      l.push("Téléphone : " + (tel || "—"));
+      l.push("");
+      l.push("Demande envoyée depuis le site. Aucun prix n'a été calculé.");
+    } else {
+      l.push("DEMANDE DE DEVIS TRAITEUR — MAISON GRISARD");
+      if(!traiteur){ l.push("(demande non renseignée)"); return l.join("\n"); }
+      l.push("Occasion : " + traiteur.occasion);
+      l.push("Convives : " + traiteur.convives);
+      if(traiteur.date) l.push("Date : " + dateFr(traiteur.date));
+      l.push("Formule : " + traiteur.formule);
+      if(traiteur.notes){ l.push(""); l.push("Précisions : " + traiteur.notes); }
+      l.push("");
+      l.push("De la part de : " + (traiteur.nom || "—"));
+      l.push("Téléphone : " + (traiteur.tel || "—"));
+      l.push("");
+      l.push("Demande envoyée depuis le site. Aucun prix n'a été calculé.");
+    }
+    return l.join("\n");
+  }
+
+  function peindreBon(nouvelleLigne){
+    corps.innerHTML = "";
+
+    if(mode === "boucherie"){
+      typeBon.textContent = "Bon de commande — boucherie";
+      if(!lignes.length){
+        var vide = document.createElement("p");
+        vide.className = "bon__vide";
+        vide.innerHTML = "Le bon est vide.<br>Ajoutez ce qu'il vous faut, il se remplit ici.";
+        corps.appendChild(vide);
+      } else {
+        lignes.forEach(function(a, i){
+          var ligne = document.createElement("div");
+          ligne.className = "ligne" + (nouvelleLigne && i === lignes.length-1 ? " ligne--entre" : "");
+
+          var q = document.createElement("span");
+          q.className = "ligne__q";
+          q.textContent = a.q + " " + a.u;
+
+          var n = document.createElement("span");
+          n.className = "ligne__n";
+          n.textContent = a.nom;
+          if(a.p){
+            var p = document.createElement("span");
+            p.className = "ligne__p";
+            p.textContent = a.p;
+            n.appendChild(p);
+          }
+
+          var x = document.createElement("button");
+          x.className = "ligne__x";
+          x.type = "button";
+          x.setAttribute("aria-label", "Retirer " + a.nom + " du bon");
+          x.textContent = "×";
+          x.addEventListener("click", function(){
+            lignes.splice(i,1);
+            peindreBon(false);
+          });
+
+          ligne.appendChild(q); ligne.appendChild(n); ligne.appendChild(x);
+          corps.appendChild(ligne);
+        });
+      }
+
+      var boutique = BOUTIQUES[document.getElementById("b-boutique").value];
+      var jour = nettoyer(document.getElementById("b-date").value);
+      piedBon.innerHTML =
+        "Retrait : " + boutique.nom + (jour ? " — " + dateFr(jour) : " — jour à préciser") +
+        "<br>" + boutique.adresse +
+        "<br>Tél. " + boutique.tel;
+
+    } else {
+      typeBon.textContent = "Demande de devis — traiteur";
+      if(!traiteur){
+        var vide2 = document.createElement("p");
+        vide2.className = "bon__vide";
+        vide2.innerHTML = "Rien de reporté pour l'instant.<br>Décrivez la réception, elle s'inscrit ici.";
+        corps.appendChild(vide2);
+        piedBon.innerHTML = "";
+      } else {
+        [["Occasion", traiteur.occasion],
+         ["Convives", traiteur.convives + " personne" + (traiteur.convives > 1 ? "s" : "")],
+         ["Date", traiteur.date ? dateFr(traiteur.date) : "à définir"],
+         ["Formule", traiteur.formule]].forEach(function(paire, i){
+          var ligne = document.createElement("div");
+          ligne.className = "ligne" + (nouvelleLigne ? " ligne--entre" : "");
+          ligne.style.animationDelay = (i*60) + "ms";
+          var q = document.createElement("span");
+          q.className = "ligne__q";
+          q.style.minWidth = "96px";
+          q.textContent = paire[0];
+          var n = document.createElement("span");
+          n.className = "ligne__n";
+          n.textContent = paire[1];
+          ligne.appendChild(q); ligne.appendChild(n);
+          corps.appendChild(ligne);
+        });
+        if(traiteur.notes){
+          var note = document.createElement("p");
+          note.className = "bon__vide";
+          note.style.textAlign = "left";
+          note.style.padding = "14px 0 0";
+          note.style.color = "#6B655A";
+          note.textContent = "« " + traiteur.notes + " »";
+          corps.appendChild(note);
+        }
+        piedBon.innerHTML = "Réponse de la Maison sous quelques jours.<br>Tél. 04 77 70 21 44 — maison-grisard@wanadoo.fr";
+      }
+    }
+
+    var sujet = mode === "boucherie" ? "Commande boucherie — via le site" : "Demande de devis traiteur — via le site";
+    lienMail.href = "mailto:maison-grisard@wanadoo.fr?subject=" +
+      encodeURIComponent(sujet) + "&body=" + encodeURIComponent(texteDuBon());
+  }
+
+  /* --- Onglets --- */
+  var ongletB = document.getElementById("onglet-boucherie");
+  var ongletT = document.getElementById("onglet-traiteur");
+  var voletB  = document.getElementById("volet-boucherie");
+  var voletT  = document.getElementById("volet-traiteur");
+
+  function basculer(vers){
+    mode = vers;
+    var estB = vers === "boucherie";
+    ongletB.setAttribute("aria-selected", estB);
+    ongletT.setAttribute("aria-selected", !estB);
+    voletB.hidden = !estB;
+    voletT.hidden = estB;
+    peindreBon(false);
+  }
+  ongletB.addEventListener("click", function(){ basculer("boucherie"); });
+  ongletT.addEventListener("click", function(){ basculer("traiteur"); });
+
+  /* --- Ajout d'un article --- */
+  document.getElementById("b-ajouter").addEventListener("click", function(){
+    var q = parseFloat(document.getElementById("b-quantite").value);
+    if(!(q > 0)) q = 1;
+    lignes.push({
+      nom: document.getElementById("b-article").value,
+      q: (Math.round(q*10)/10).toString().replace(".", ","),
+      u: document.getElementById("b-unite").value,
+      p: nettoyer(document.getElementById("b-precision").value)
+    });
+    document.getElementById("b-precision").value = "";
+    peindreBon(true);
+  });
+
+  /* --- Aide horaires selon boutique + jour choisi --- */
+  var champBoutique = document.getElementById("b-boutique");
+  var champDate = document.getElementById("b-date");
+  var aide = document.getElementById("b-aide");
+
+  function majAide(){
+    var b = BOUTIQUES[champBoutique.value];
+    var v = champDate.value;
+    if(!v){
+      aide.textContent = "Choisissez un jour : les horaires de la boutique s'affichent ici.";
+    } else {
+      var p = v.split("-");
+      var d = new Date(+p[0], +p[1]-1, +p[2]);
+      var creneaux = b.jours[d.getDay()];
+      aide.textContent = creneaux.length
+        ? JOURS[d.getDay()] + ", " + b.nom + " est ouvert " + creneauxTexte(creneaux) + "."
+        : JOURS[d.getDay()] + ", " + b.nom + " est fermé. Choisissez un autre jour.";
+    }
+    peindreBon(false);
+  }
+  champBoutique.addEventListener("change", majAide);
+  champDate.addEventListener("change", majAide);
+  ["b-nom","b-tel"].forEach(function(id){
+    document.getElementById(id).addEventListener("input", function(){ peindreBon(false); });
+  });
+
+  /* --- Report de la demande traiteur --- */
+  document.getElementById("t-poser").addEventListener("click", function(){
+    var n = parseInt(document.getElementById("t-convives").value, 10);
+    traiteur = {
+      occasion: document.getElementById("t-occasion").value,
+      convives: (n > 0 ? n : 1),
+      date: document.getElementById("t-date").value,
+      formule: document.getElementById("t-formule").value,
+      notes: nettoyer(document.getElementById("t-notes").value),
+      nom: nettoyer(document.getElementById("t-nom").value),
+      tel: nettoyer(document.getElementById("t-tel").value)
+    };
+    peindreBon(true);
+  });
+
+  /* --- Copier / imprimer --- */
+  document.getElementById("bon-copier").addEventListener("click", function(){
+    var bouton = this;
+    var texte = texteDuBon();
+    var fini = function(){
+      var avant = bouton.textContent;
+      bouton.textContent = "Copié";
+      setTimeout(function(){ bouton.textContent = avant; }, 1800);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(texte).then(fini, fini);
+    } else {
+      var zone = document.createElement("textarea");
+      zone.value = texte;
+      document.body.appendChild(zone);
+      zone.select();
+      try{ document.execCommand("copy"); }catch(e){}
+      document.body.removeChild(zone);
+      fini();
+    }
+  });
+  document.getElementById("bon-imprimer").addEventListener("click", function(){ window.print(); });
+
+  peindreBon(false);
+
+  /* =====================================================================
+     ENTÊTE, NAVIGATION, RÉVÉLATIONS
+     ===================================================================== */
+  var entete = document.getElementById("entete");
+  var liensNav = Array.prototype.slice.call(document.querySelectorAll(".nav a"));
+
+  window.addEventListener("scroll", function(){
+    entete.classList.toggle("is-reduite", window.scrollY > 70);
+  }, {passive:true});
+
+  var doux = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if("IntersectionObserver" in window && !doux){
+    var oeil = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("est-vu"); oeil.unobserve(e.target); }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:.08});
+
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function(el, i){
+      if(el.closest(".hero")) el.style.transitionDelay = (i*90) + "ms";
+      oeil.observe(el);
+    });
+  } else {
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function(el){
+      el.classList.add("est-vu");
+    });
+  }
+
+  if("IntersectionObserver" in window){
+    var sections = liensNav.map(function(a){
+      return document.querySelector(a.getAttribute("href"));
+    }).filter(Boolean);
+
+    var espion = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){
+        if(!e.isIntersecting) return;
+        liensNav.forEach(function(a){
+          a.classList.toggle("is-active", a.getAttribute("href") === "#" + e.target.id);
+        });
+      });
+    }, {rootMargin:"-18% 0px -74% 0px"});
+    sections.forEach(function(s){ espion.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>

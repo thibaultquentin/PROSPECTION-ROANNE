@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Immo Factory — Agence immobilière à Roanne · Estimez votre bien en 60 secondes</title>
+<meta name="description" content="Agence immobilière indépendante au 3 rue Alsace Lorraine à Roanne. Estimation en ligne en 60 secondes, biens à vendre et à louer sur le Roannais, simulateur de financement, visites réservables en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   IMMO FACTORY — maquette de site
+   Direction : « le plan d'atelier ». Tout est dessiné comme un plan technique :
+   trame millimétrée, tracés au trait, cotes en monospace, laiton pour la clé.
+   Palette et typographies centralisées ci-dessous : pour caler sur la charte
+   exacte de l'agence, il suffit de changer ces variables.
+   ========================================================================== */
+
+:root{
+  --nuit:#0E1C28;
+  --bleu:#1B3D57;
+  --acier:#64798A;
+  --laiton:#B4831F;
+  --laiton-clair:#E2B45C;
+  --brique:#9E4630;
+  --papier:#E9ECE9;
+  --craie:#FBFBF9;
+  --trait:rgba(14,28,40,.16);
+  --trait-fin:rgba(14,28,40,.08);
+  --ombre:0 1px 0 rgba(14,28,40,.06), 0 12px 34px -22px rgba(14,28,40,.5);
+
+  --display:"Bricolage Grotesque", "Helvetica Neue", sans-serif;
+  --corps:"Public Sans", system-ui, sans-serif;
+  --cote:"IBM Plex Mono", ui-monospace, monospace;
+
+  --large:1240px;
+  --r:4px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--papier);
+  color:var(--nuit);
+  font-family:var(--corps);
+  font-size:16.5px;
+  line-height:1.62;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--laiton);outline-offset:3px}
+
+.wrap{max-width:var(--large);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+
+/* --- trame millimétrée, motif de fond -------------------------------------- */
+.trame{
+  background-image:
+    linear-gradient(to right, var(--trait-fin) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--trait-fin) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+.trame--sombre{
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.055) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+
+/* --- typographie ----------------------------------------------------------- */
+.display{
+  font-family:var(--display);
+  font-weight:800;
+  line-height:1.02;
+  letter-spacing:-.025em;
+  margin:0;
+  font-size:clamp(2.1rem,4.4vw,3.5rem);
+}
+.display--xl{font-size:clamp(2.6rem,6.2vw,4.7rem)}
+.display--s{font-size:clamp(1.5rem,2.6vw,2.05rem)}
+.cote{
+  font-family:var(--cote);
+  font-size:.7rem;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--acier);
+  display:inline-flex;
+  align-items:center;
+  gap:.55em;
+}
+.cote::before{
+  content:"";width:16px;height:1px;background:currentColor;opacity:.7;
+}
+.cote--nu::before{display:none}
+.lede{font-size:clamp(1.02rem,1.5vw,1.18rem);color:#2C4356;max-width:60ch;font-weight:300}
+h2,h3,h4{font-family:var(--display);font-weight:600;letter-spacing:-.015em;margin:0}
+
+/* --- boutons --------------------------------------------------------------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  font-family:var(--display);font-weight:600;font-size:.94rem;letter-spacing:-.01em;
+  padding:.86em 1.5em;border:1px solid var(--nuit);border-radius:var(--r);
+  background:var(--nuit);color:var(--craie);cursor:pointer;text-decoration:none;
+  transition:transform .16s ease, background .16s ease, color .16s ease;
+}
+.btn:hover{transform:translateY(-1px);background:var(--bleu);border-color:var(--bleu)}
+.btn--laiton{background:var(--laiton);border-color:var(--laiton);color:#1A1206}
+.btn--laiton:hover{background:var(--laiton-clair);border-color:var(--laiton-clair);color:#1A1206}
+.btn--fant{background:transparent;color:var(--nuit)}
+.btn--fant:hover{background:var(--nuit);color:var(--craie)}
+.btn--sm{padding:.6em 1.05em;font-size:.85rem}
+.btn[disabled]{opacity:.35;cursor:not-allowed;transform:none}
+
+/* --- bandeau démo ---------------------------------------------------------- */
+.demo{
+  background:var(--nuit);color:#CBD6DE;font-family:var(--cote);font-size:.72rem;
+  letter-spacing:.04em;padding:.6rem clamp(18px,4vw,40px);
+  display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;
+}
+.demo b{color:var(--laiton-clair);font-weight:500}
+.demo button{
+  background:none;border:1px solid rgba(255,255,255,.3);color:inherit;
+  border-radius:var(--r);padding:.25em .8em;cursor:pointer;font-family:var(--cote);font-size:.7rem;
+}
+
+/* --- en-tête --------------------------------------------------------------- */
+.hdr{
+  position:sticky;top:0;z-index:60;background:rgba(233,236,233,.93);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--trait);
+}
+.hdr__in{
+  max-width:var(--large);margin:0 auto;padding:.7rem clamp(18px,4vw,40px);
+  display:flex;align-items:center;gap:1.4rem;
+}
+.marque{display:flex;align-items:center;gap:.7rem;text-decoration:none;margin-right:auto}
+.marque img{height:38px;width:auto}
+.marque__txt{font-family:var(--display);font-weight:800;font-size:1.02rem;letter-spacing:-.02em;line-height:1.05}
+.marque__txt span{display:block;font-family:var(--cote);font-size:.6rem;font-weight:400;letter-spacing:.16em;color:var(--acier);text-transform:uppercase}
+.nav{display:flex;gap:1.35rem;align-items:center}
+.nav a{
+  text-decoration:none;font-size:.9rem;font-weight:500;padding:.25rem 0;
+  border-bottom:1px solid transparent;transition:border-color .16s;
+}
+.nav a:hover{border-color:var(--laiton)}
+.hdr__tel{font-family:var(--cote);font-size:.82rem;text-decoration:none;white-space:nowrap}
+.selecteur{
+  position:relative;background:none;border:1px solid var(--trait);border-radius:var(--r);
+  padding:.5em .9em;cursor:pointer;font-family:var(--cote);font-size:.75rem;white-space:nowrap;
+}
+.selecteur b{color:var(--laiton);font-weight:500}
+.burger{display:none;background:none;border:1px solid var(--trait);border-radius:var(--r);padding:.55em .7em;cursor:pointer}
+.burger span{display:block;width:18px;height:1.5px;background:var(--nuit);margin:3.5px 0}
+
+/* --- héros ----------------------------------------------------------------- */
+.hero{position:relative;background:var(--nuit);color:var(--craie);overflow:hidden}
+.hero__fond{position:absolute;inset:0;opacity:.2}
+.hero__fond img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+.hero__voile{position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,28,40,.96) 42%,rgba(14,28,40,.62))}
+.hero__in{position:relative;padding:clamp(48px,7vw,86px) 0 clamp(38px,5vw,60px);display:grid;gap:clamp(28px,4vw,54px);grid-template-columns:1.05fr .95fr;align-items:start}
+.hero .cote{color:var(--laiton-clair)}
+.hero h1{color:var(--craie);margin:1rem 0 1.1rem;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--laiton-clair)}
+.hero__p{color:#B9C7D2;font-weight:300;max-width:44ch;font-size:1.05rem}
+.hero__chiffres{display:flex;gap:2.2rem;margin-top:2.2rem;flex-wrap:wrap}
+.hero__chiffres div{border-left:1px solid rgba(255,255,255,.22);padding-left:.9rem}
+.hero__chiffres b{display:block;font-family:var(--display);font-size:1.6rem;font-weight:800;letter-spacing:-.03em}
+.hero__chiffres span{font-family:var(--cote);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:#8FA3B2}
+
+/* --- module double intention ----------------------------------------------- */
+.module{background:var(--craie);color:var(--nuit);border-radius:var(--r);box-shadow:var(--ombre);overflow:hidden}
+.onglets{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--trait)}
+.onglets button{
+  background:#DFE3E0;border:0;padding:1.05em .8em;cursor:pointer;
+  font-family:var(--display);font-weight:600;font-size:.95rem;color:#4A5F70;
+  border-bottom:2px solid transparent;transition:background .16s,color .16s;
+}
+.onglets button[aria-selected="true"]{background:var(--craie);color:var(--nuit);border-bottom-color:var(--laiton)}
+.module__corps{padding:clamp(20px,2.6vw,30px)}
+
+/* --- champs ---------------------------------------------------------------- */
+.champs{display:grid;grid-template-columns:repeat(2,1fr);gap:.85rem}
+.champ{display:flex;flex-direction:column;gap:.32rem}
+.champ--large{grid-column:1/-1}
+.champ label,.etiq{
+  font-family:var(--cote);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--acier);
+}
+.champ input,.champ select,.champ textarea{
+  background:var(--papier);border:1px solid var(--trait);border-radius:var(--r);
+  padding:.72em .8em;font-size:.95rem;width:100%;
+}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--bleu);outline:none;box-shadow:0 0 0 3px rgba(27,61,87,.12)}
+.aide{font-size:.78rem;color:var(--acier);margin:.5rem 0 0}
+.err{color:var(--brique);font-size:.85rem;margin:.6rem 0 0;min-height:1.2em}
+
+/* pastilles de choix */
+.pastilles{display:flex;flex-wrap:wrap;gap:.45rem}
+.pastille{
+  background:var(--papier);border:1px solid var(--trait);border-radius:var(--r);
+  padding:.5em .85em;cursor:pointer;font-size:.88rem;transition:.14s;
+}
+.pastille:hover{border-color:var(--acier)}
+.pastille[aria-pressed="true"],.pastille.sel{background:var(--nuit);border-color:var(--nuit);color:var(--craie)}
+
+/* --- sections -------------------------------------------------------------- */
+section{scroll-margin-top:74px}
+.sec{padding:clamp(58px,7vw,104px) 0}
+.sec--craie{background:var(--craie)}
+.sec--nuit{background:var(--nuit);color:var(--craie)}
+.sec--nuit .lede{color:#AFC0CC}
+.sec--nuit .cote{color:var(--laiton-clair)}
+.sec__tete{max-width:66ch;margin-bottom:clamp(28px,3.4vw,46px)}
+.sec__tete h2{margin:.85rem 0 .8rem}
+
+/* --- estimateur : l'instrument --------------------------------------------- */
+.estim{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(24px,3.6vw,52px);align-items:start}
+.etapes{display:flex;gap:.4rem;margin-bottom:1.4rem}
+.etapes i{
+  flex:1;height:2px;background:var(--trait);position:relative;font-style:normal;
+}
+.etapes i.on{background:var(--laiton)}
+.etape{display:none}
+.etape.on{display:block;animation:monte .32s ease both}
+@keyframes monte{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.etape h3{font-size:1.24rem;margin-bottom:.25rem}
+.etape p.aide{margin-bottom:1rem}
+.nav-etapes{display:flex;gap:.6rem;margin-top:1.3rem;flex-wrap:wrap}
+
+.jauge{
+  background:var(--nuit);color:var(--craie);border-radius:var(--r);
+  padding:clamp(22px,2.6vw,32px);position:relative;overflow:hidden;
+}
+.jauge__vide{text-align:center;padding:2.4rem 1rem;color:#7C93A4}
+.jauge__vide svg{margin:0 auto 1rem;display:block;opacity:.5}
+.jauge__prix{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.1rem);letter-spacing:-.035em;line-height:1;color:var(--laiton-clair)}
+.jauge__sous{font-family:var(--cote);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:#8FA3B2;margin:.5rem 0 0}
+.regle{position:relative;height:74px;margin:2rem 0 .4rem}
+.regle__axe{position:absolute;left:0;right:0;top:34px;height:1px;background:rgba(255,255,255,.24)}
+.regle__grad{position:absolute;top:28px;width:1px;height:7px;background:rgba(255,255,255,.24)}
+.regle__zone{
+  position:absolute;top:28px;height:13px;background:rgba(226,180,92,.22);
+  border-left:1px solid var(--laiton-clair);border-right:1px solid var(--laiton-clair);
+  transition:left .6s cubic-bezier(.22,1,.36,1), width .6s cubic-bezier(.22,1,.36,1);
+}
+.regle__aig{
+  position:absolute;top:14px;width:1px;height:41px;background:var(--laiton-clair);
+  transition:left .7s cubic-bezier(.22,1,.36,1);
+}
+.regle__aig::after{
+  content:"";position:absolute;top:-6px;left:-4px;width:9px;height:9px;
+  background:var(--laiton-clair);transform:rotate(45deg);
+}
+.regle__lb{position:absolute;top:52px;font-family:var(--cote);font-size:.68rem;color:#8FA3B2;transform:translateX(-50%);white-space:nowrap}
+.jauge__lignes{border-top:1px solid rgba(255,255,255,.14);margin-top:1.2rem;padding-top:1.1rem;display:grid;gap:.55rem}
+.jauge__ligne{display:flex;justify-content:space-between;gap:1rem;font-size:.88rem}
+.jauge__ligne span:first-child{color:#9FB2C0}
+.jauge__ligne span:last-child{font-family:var(--cote);font-size:.84rem}
+.jauge__note{font-size:.76rem;color:#7C93A4;margin:1.1rem 0 0;line-height:1.5}
+
+/* --- plan dessiné (vignette des biens) ------------------------------------- */
+.plan{background:var(--bleu);position:relative;aspect-ratio:4/3;overflow:hidden}
+.plan svg{position:absolute;inset:0;width:100%;height:100%}
+.plan__cote{
+  position:absolute;left:14px;bottom:12px;font-family:var(--cote);font-size:.68rem;
+  color:rgba(255,255,255,.8);letter-spacing:.08em;
+}
+.plan__type{
+  position:absolute;right:12px;top:12px;font-family:var(--cote);font-size:.62rem;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.72);
+}
+
+/* --- catalogue ------------------------------------------------------------- */
+.filtres{
+  display:flex;flex-wrap:wrap;gap:.55rem;align-items:center;
+  padding-bottom:1.3rem;margin-bottom:1.9rem;border-bottom:1px solid var(--trait);
+}
+.filtres select,.filtres input{
+  background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:.55em .75em;font-size:.88rem;
+}
+.filtres .compte{margin-left:auto;font-family:var(--cote);font-size:.75rem;color:var(--acier)}
+.grille-biens{display:grid;grid-template-columns:repeat(auto-fill,minmax(276px,1fr));gap:1.4rem}
+.bien{
+  background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);
+  overflow:hidden;display:flex;flex-direction:column;cursor:pointer;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.bien:hover{transform:translateY(-3px);box-shadow:var(--ombre)}
+.bien__corps{padding:1rem 1.05rem 1.15rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.bien__prix{font-family:var(--display);font-weight:800;font-size:1.32rem;letter-spacing:-.03em}
+.bien__prix small{font-family:var(--cote);font-size:.68rem;font-weight:400;letter-spacing:.08em;color:var(--acier);margin-left:.35em}
+.bien__titre{font-size:.95rem;line-height:1.4;font-weight:500}
+.bien__lieu{font-family:var(--cote);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acier)}
+.bien__specs{display:flex;gap:.9rem;flex-wrap:wrap;font-family:var(--cote);font-size:.74rem;color:var(--bleu);margin-top:auto;padding-top:.5rem;border-top:1px solid var(--trait-fin)}
+.bien__coeur{
+  position:absolute;right:10px;bottom:10px;background:rgba(251,251,249,.92);border:1px solid var(--trait);
+  border-radius:var(--r);width:34px;height:34px;display:grid;place-items:center;cursor:pointer;padding:0;
+}
+.bien__coeur svg{width:16px;height:16px;stroke:var(--nuit);fill:none;stroke-width:1.6}
+.bien__coeur[aria-pressed="true"] svg{fill:var(--brique);stroke:var(--brique)}
+.etiqs{display:flex;gap:.35rem;flex-wrap:wrap}
+.tag{
+  font-family:var(--cote);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--trait);border-radius:2px;padding:.22em .5em;color:var(--bleu);
+}
+.tag--ex{background:var(--brique);border-color:var(--brique);color:#fff}
+.tag--loc{background:var(--bleu);border-color:var(--bleu);color:#fff}
+.dpe{
+  font-family:var(--cote);font-size:.62rem;letter-spacing:.08em;border:1px solid var(--trait);
+  border-radius:2px;padding:.22em .5em;color:var(--acier);
+}
+.dpe--c{background:#C8D64B;border-color:#C8D64B;color:#22300A}
+.vide{
+  grid-column:1/-1;text-align:center;padding:3rem 1rem;border:1px dashed var(--trait);border-radius:var(--r);
+}
+.vide h3{font-size:1.15rem;margin-bottom:.4rem}
+
+/* --- modale ---------------------------------------------------------------- */
+.modale{
+  position:fixed;inset:0;z-index:90;background:rgba(14,28,40,.72);
+  display:none;align-items:flex-start;justify-content:center;padding:clamp(10px,3vw,44px);overflow:auto;
+}
+.modale.on{display:flex}
+.modale__boite{
+  background:var(--papier);border-radius:var(--r);max-width:960px;width:100%;
+  position:relative;box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+}
+.modale__fermer{
+  position:absolute;right:12px;top:12px;z-index:3;background:var(--craie);border:1px solid var(--trait);
+  border-radius:var(--r);width:36px;height:36px;cursor:pointer;font-size:1.1rem;line-height:1;
+}
+.fiche{display:grid;grid-template-columns:1fr 1fr}
+.fiche__droite{padding:clamp(20px,2.6vw,34px)}
+.fiche h3{font-size:clamp(1.3rem,2.4vw,1.75rem);font-weight:800;letter-spacing:-.025em;margin:.6rem 0 .5rem}
+.fiche__prix{font-family:var(--display);font-weight:800;font-size:2rem;letter-spacing:-.035em;color:var(--bleu)}
+.fiche__grille{display:grid;grid-template-columns:repeat(2,1fr);gap:.1rem 1.2rem;margin:1.1rem 0;border-top:1px solid var(--trait);padding-top:.9rem}
+.fiche__grille div{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px solid var(--trait-fin);font-size:.88rem}
+.fiche__grille span:last-child{font-family:var(--cote);font-size:.82rem}
+.fiche__desc{font-size:.92rem;color:#2C4356;max-height:170px;overflow:auto;padding-right:.5rem}
+.fiche__actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.3rem}
+.mini-fin{background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:1rem;margin-top:1.2rem}
+.mini-fin__res{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.03em;color:var(--bleu)}
+
+/* --- financement ----------------------------------------------------------- */
+.fin{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,3.4vw,48px);align-items:start}
+.resultat{background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:clamp(20px,2.6vw,30px)}
+.sec--nuit .resultat{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.16)}
+.resultat__gros{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.4vw,2.9rem);letter-spacing:-.035em;line-height:1;color:var(--laiton-clair)}
+.resultat__lignes{margin-top:1.4rem;display:grid;gap:.5rem}
+.resultat__ligne{display:flex;justify-content:space-between;gap:1rem;font-size:.9rem;padding-bottom:.5rem;border-bottom:1px solid rgba(255,255,255,.12)}
+.resultat__ligne b{font-family:var(--cote);font-size:.86rem;font-weight:500}
+.barre-endet{height:6px;background:rgba(255,255,255,.14);border-radius:3px;margin-top:1.4rem;overflow:hidden}
+.barre-endet i{display:block;height:100%;background:var(--laiton-clair);transition:width .5s ease}
+.barre-endet.trop i{background:var(--brique)}
+
+/* --- étapes de vente (timeline) -------------------------------------------- */
+.jalons{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.6rem;counter-reset:j}
+.jalon{position:relative;padding-top:1.7rem;border-top:1px solid var(--trait)}
+.jalon::before{
+  counter-increment:j;content:counter(j,decimal-leading-zero);
+  position:absolute;top:.75rem;left:0;font-family:var(--cote);font-size:.7rem;color:var(--laiton);letter-spacing:.1em;
+}
+.jalon h4{font-size:1.02rem;margin:.6rem 0 .35rem}
+.jalon p{font-size:.88rem;color:#42586A;margin:0}
+.sec--nuit .jalon{border-color:rgba(255,255,255,.2)}
+.sec--nuit .jalon p{color:#A9BCC9}
+
+/* --- équipe ---------------------------------------------------------------- */
+.equipe{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem}
+.pers{background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);overflow:hidden;display:flex;gap:1rem;align-items:stretch}
+.pers__ph{width:132px;flex:0 0 132px;background:var(--bleu)}
+.pers__ph img{width:100%;height:100%;object-fit:cover;object-position:top center}
+.pers__txt{padding:1.1rem 1.1rem 1.1rem 0;display:flex;flex-direction:column;gap:.3rem}
+.pers__txt h4{font-size:1.06rem}
+.pers__role{font-family:var(--cote);font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;color:var(--laiton)}
+.pers__txt p{font-size:.85rem;color:#42586A;margin:.2rem 0}
+.pers__liens{display:flex;flex-direction:column;gap:.15rem;margin-top:auto;font-family:var(--cote);font-size:.76rem}
+.pers__liens a{text-decoration:none;border-bottom:1px solid var(--trait)}
+
+/* --- avis ------------------------------------------------------------------ */
+.note{display:flex;align-items:center;gap:1rem;border:1px solid var(--trait);border-radius:var(--r);padding:1rem 1.2rem;background:var(--craie);max-width:420px}
+.note b{font-family:var(--display);font-size:2.2rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.note span{font-size:.85rem;color:#42586A}
+.note a{color:var(--bleu)}
+
+/* --- contact --------------------------------------------------------------- */
+.contact{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,3.6vw,52px);align-items:start}
+.horaires{list-style:none;margin:1.2rem 0;padding:0;display:grid;gap:.3rem;max-width:330px}
+.horaires li{display:flex;justify-content:space-between;gap:1rem;font-size:.88rem;padding:.32rem 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.horaires li b{font-family:var(--cote);font-size:.8rem;font-weight:400}
+.horaires li.auj{color:var(--laiton-clair)}
+.statut{font-family:var(--cote);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5em}
+.statut i{width:7px;height:7px;border-radius:50%;background:#4FA97C;display:inline-block}
+.statut.ferme i{background:var(--brique)}
+.coord{display:grid;gap:.35rem;margin-top:1.4rem;font-family:var(--cote);font-size:.85rem}
+.coord a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);width:fit-content}
+
+/* --- créneaux -------------------------------------------------------------- */
+.jours{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.4rem}
+.jour{
+  flex:0 0 auto;background:var(--papier);border:1px solid var(--trait);border-radius:var(--r);
+  padding:.55em .8em;cursor:pointer;text-align:center;min-width:62px;line-height:1.25;
+}
+.jour b{display:block;font-family:var(--display);font-size:1.05rem;font-weight:800}
+.jour span{font-family:var(--cote);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--acier)}
+.jour.sel{background:var(--nuit);border-color:var(--nuit);color:var(--craie)}
+.jour.sel span{color:#9FB2C0}
+.creneaux{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+
+/* --- pied ------------------------------------------------------------------ */
+.pied{background:var(--nuit);color:#9FB2C0;padding:clamp(44px,5vw,68px) 0 1.6rem;font-size:.88rem}
+.pied__grille{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem}
+.pied h4{font-family:var(--cote);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--laiton-clair);font-weight:400;margin-bottom:.8rem}
+.pied ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.pied a{text-decoration:none}
+.pied a:hover{color:var(--craie)}
+.pied__bas{
+  margin-top:2.6rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:var(--cote);font-size:.7rem;letter-spacing:.06em;
+}
+.pied__legal{font-size:.74rem;line-height:1.7;color:#7C93A4;max-width:62ch}
+.pied__legal mark{background:rgba(226,180,92,.18);color:var(--laiton-clair);padding:0 .25em;border-radius:2px}
+
+/* --- barre mobile ---------------------------------------------------------- */
+.mob{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
+  background:var(--nuit);border-top:1px solid rgba(255,255,255,.16);
+}
+.mob a{
+  flex:1;text-align:center;padding:.95rem .5rem;text-decoration:none;color:var(--craie);
+  font-family:var(--display);font-weight:600;font-size:.92rem;
+}
+.mob a.p{background:var(--laiton);color:#1A1206}
+
+/* --- révélation ------------------------------------------------------------ */
+.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1)}
+.rv.vu{opacity:1;transform:none}
+
+/* --- responsive ------------------------------------------------------------ */
+@media (max-width:980px){
+  .hero__in,.estim,.fin,.contact,.fiche{grid-template-columns:1fr}
+  .fiche .plan{aspect-ratio:16/9}
+  .pied__grille{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .nav,.hdr__tel{display:none}
+  .burger{display:block}
+  .nav.ouvert{
+    display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+    background:var(--craie);padding:1.1rem clamp(18px,4vw,40px);gap:.9rem;border-bottom:1px solid var(--trait);
+  }
+  .mob{display:flex}
+  body{padding-bottom:56px}
+  .champs{grid-template-columns:1fr}
+  .fiche__grille{grid-template-columns:1fr}
+  .pied__grille{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body class="trame">
+
+<!-- ====================== BANDEAU DE DÉMONSTRATION ====================== -->
+<div class="demo" id="demo">
+  <span><b>Maquette de travail</b> — construite à partir du site actuel d'Immo Factory : vos biens, vos tarifs, votre équipe. Les photos des biens se branchent automatiquement depuis votre logiciel de gestion.</span>
+  <button onclick="document.getElementById('demo').remove()">Masquer</button>
+</div>
+
+<!-- ============================== EN-TÊTE ============================== -->
+<header class="hdr">
+  <div class="hdr__in">
+    <a class="marque" href="#haut">
+      <img src="https://www.immofactoryroanne.com/office20/immofa_2207281020/catalog/images/Logo1.png" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+      <span class="marque__txt">Immo Factory<span>Agence immobilière · Roanne</span></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#estimer">Estimer mon bien</a>
+      <a href="#biens">Nos biens</a>
+      <a href="#financer">Financer</a>
+      <a href="#vendre">Vendre</a>
+      <a href="#equipe">L'équipe</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="hdr__tel" href="tel:0970669476">09 70 66 94 76</a>
+    <button class="selecteur" id="btnSelection" aria-label="Ouvrir ma sélection">Ma sélection <b id="nbSelection">0</b></button>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- =============================== HÉROS =============================== -->
+<section class="hero" id="haut">
+  <div class="hero__fond"><img src="https://www.immofactoryroanne.com/office20/immofa_2207281020/catalog/images/Home1a-min.jpg" alt="" referrerpolicy="no-referrer" onerror="this.parentNode.style.display='none'"></div>
+  <div class="hero__voile"></div>
+  <div class="hero__in wrap trame--sombre">
+    <div>
+      <span class="cote">3 rue Alsace Lorraine · Roanne</span>
+      <h1 class="display display--xl">Votre bien vaut <em>combien</em> ?</h1>
+      <p class="hero__p">Réponse en 60 secondes, sans laisser votre numéro. Ensuite seulement, Mickaël passe le voir — c'est la visite qui fait le vrai prix.</p>
+      <div class="hero__chiffres">
+        <div><b>5,0</b><span>68 avis Google</span></div>
+        <div><b>2022</b><span>agence indépendante</span></div>
+        <div><b>48 h</b><span>pour une estimation signée</span></div>
+      </div>
+    </div>
+
+    <div class="module">
+      <div class="onglets" role="tablist">
+        <button role="tab" id="ongVendre" aria-selected="true" aria-controls="volVendre">J'estime mon bien</button>
+        <button role="tab" id="ongAcheter" aria-selected="false" aria-controls="volAcheter">Je cherche un bien</button>
+      </div>
+
+      <div class="module__corps" id="volVendre" role="tabpanel" aria-labelledby="ongVendre">
+        <p class="etiq" style="margin:0 0 .8rem">Estimation immédiate — 5 questions</p>
+        <div class="champs">
+          <div class="champ">
+            <label for="hType">Type de bien</label>
+            <select id="hType"><option>Maison</option><option>Appartement</option></select>
+          </div>
+          <div class="champ">
+            <label for="hVille">Commune</label>
+            <select id="hVille"></select>
+          </div>
+          <div class="champ">
+            <label for="hSurf">Surface habitable (m²)</label>
+            <input id="hSurf" type="number" min="9" max="900" placeholder="95">
+          </div>
+          <div class="champ">
+            <label for="hPieces">Nombre de pièces</label>
+            <input id="hPieces" type="number" min="1" max="20" placeholder="4">
+          </div>
+        </div>
+        <button class="btn btn--laiton" id="hGo" style="width:100%;margin-top:1rem">Lancer mon estimation</button>
+        <p class="aide">Gratuit, sans inscription. Vous décidez ensuite si vous voulez nous parler.</p>
+      </div>
+
+      <div class="module__corps" id="volAcheter" role="tabpanel" aria-labelledby="ongAcheter" hidden>
+        <p class="etiq" style="margin:0 0 .8rem">Nos biens disponibles</p>
+        <div class="champs">
+          <div class="champ">
+            <label for="hOp">Je veux</label>
+            <select id="hOp"><option value="vente">Acheter</option><option value="location">Louer</option></select>
+          </div>
+          <div class="champ">
+            <label for="hTypeA">Type</label>
+            <select id="hTypeA"><option value="">Tous</option><option>Maison</option><option>Appartement</option><option>Immeuble</option></select>
+          </div>
+          <div class="champ champ--large">
+            <label for="hBudget">Budget maximum</label>
+            <input id="hBudget" type="number" placeholder="200000" step="5000">
+          </div>
+        </div>
+        <button class="btn btn--laiton" id="hGoA" style="width:100%;margin-top:1rem">Voir les biens qui correspondent</button>
+        <p class="aide">Rien ne correspond ? Créez une alerte : vous serez prévenu avant la mise en ligne.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ESTIMATION ============================ -->
+<section class="sec sec--craie" id="estimer">
+  <div class="wrap">
+    <div class="sec__tete rv">
+      <span class="cote">Estimation</span>
+      <h2 class="display">Une fourchette tout de suite, un prix juste après la visite.</h2>
+      <p class="lede">Les estimateurs en ligne des grands portails vous demandent votre numéro avant de vous donner un chiffre. Ici, le chiffre vient d'abord. Il s'appuie sur les prix médians du secteur — c'est un ordre de grandeur, pas une expertise.</p>
+    </div>
+
+    <div class="estim">
+      <div class="rv">
+        <div class="etapes" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+
+        <div class="etape on" data-etape="1">
+          <h3>Quel type de bien ?</h3>
+          <p class="aide">On commence par le plus simple.</p>
+          <div class="pastilles" id="eType">
+            <button class="pastille sel" data-v="Maison">Maison</button>
+            <button class="pastille" data-v="Appartement">Appartement</button>
+          </div>
+        </div>
+
+        <div class="etape" data-etape="2">
+          <h3>Où se trouve-t-il ?</h3>
+          <p class="aide">Nos secteurs d'intervention sur le Roannais et le Charolais-Brionnais.</p>
+          <div class="champ"><label for="eVille">Commune</label><select id="eVille"></select></div>
+        </div>
+
+        <div class="etape" data-etape="3">
+          <h3>Ses dimensions</h3>
+          <p class="aide">La surface habitable — celle qui compte pour le prix au m².</p>
+          <div class="champs">
+            <div class="champ"><label for="eSurf">Surface habitable (m²)</label><input id="eSurf" type="number" min="9" max="900" value="95"></div>
+            <div class="champ"><label for="ePieces">Pièces</label><input id="ePieces" type="number" min="1" max="20" value="4"></div>
+            <div class="champ champ--large" id="wrapTerrain"><label for="eTerrain">Terrain (m²) — laissez vide si sans</label><input id="eTerrain" type="number" min="0" max="20000" placeholder="700"></div>
+          </div>
+        </div>
+
+        <div class="etape" data-etape="4">
+          <h3>Dans quel état ?</h3>
+          <p class="aide">C'est le critère qui fait bouger le prix le plus fort.</p>
+          <div class="pastilles" id="eEtat">
+            <button class="pastille" data-v="-0.20">À rénover entièrement</button>
+            <button class="pastille" data-v="-0.08">Travaux à prévoir</button>
+            <button class="pastille sel" data-v="0">Habitable en l'état</button>
+            <button class="pastille" data-v="0.10">Rénové récemment</button>
+            <button class="pastille" data-v="0.18">Neuf ou refait à neuf</button>
+          </div>
+          <p class="etiq" style="margin:1.4rem 0 .5rem">Diagnostic énergie</p>
+          <div class="pastilles" id="eDpe">
+            <button class="pastille" data-v="0.06">A ou B</button>
+            <button class="pastille sel" data-v="0">C ou D</button>
+            <button class="pastille" data-v="-0.06">E</button>
+            <button class="pastille" data-v="-0.13">F ou G</button>
+            <button class="pastille" data-v="0">Je ne sais pas</button>
+          </div>
+        </div>
+
+        <div class="etape" data-etape="5">
+          <h3>Ce qui fait la différence</h3>
+          <p class="aide">Cochez tout ce que le bien possède.</p>
+          <div class="pastilles" id="eAtouts">
+            <button class="pastille" aria-pressed="false" data-v="0.07">Jardin privatif</button>
+            <button class="pastille" aria-pressed="false" data-v="0.035">Terrasse ou balcon</button>
+            <button class="pastille" aria-pressed="false" data-v="0.03">Garage</button>
+            <button class="pastille" aria-pressed="false" data-v="0.06">Piscine</button>
+            <button class="pastille" aria-pressed="false" data-v="0.02">Stationnement privé</button>
+            <button class="pastille" aria-pressed="false" data-v="0.04">Vue dégagée</button>
+          </div>
+        </div>
+
+        <div class="nav-etapes">
+          <button class="btn btn--fant btn--sm" id="ePrec" disabled>Revenir</button>
+          <button class="btn btn--sm" id="eSuiv">Continuer</button>
+        </div>
+        <p class="err" id="eErr"></p>
+      </div>
+
+      <div class="jauge rv" id="jauge">
+        <div class="jauge__vide" id="jaugeVide">
+          <svg width="54" height="54" viewBox="0 0 54 54" fill="none" stroke="#8FA3B2" stroke-width="1.2">
+            <rect x="4" y="16" width="46" height="30"/><path d="M4 16 27 4l23 12"/><path d="M20 46V30h14v16"/>
+          </svg>
+          <p style="margin:0;font-size:.9rem">Répondez aux 5 questions : la fourchette s'affiche ici, en direct.</p>
+        </div>
+
+        <div id="jaugePlein" hidden>
+          <span class="cote" style="color:var(--laiton-clair)">Fourchette indicative</span>
+          <p class="jauge__prix" id="jPrix">—</p>
+          <p class="jauge__sous" id="jSous">—</p>
+
+          <div class="regle" id="regle">
+            <div class="regle__axe"></div>
+            <div class="regle__zone" id="rZone"></div>
+            <div class="regle__aig" id="rAig"></div>
+            <span class="regle__lb" id="rBas">—</span>
+            <span class="regle__lb" id="rHaut" style="right:0;left:auto;transform:none">—</span>
+          </div>
+
+          <div class="jauge__lignes">
+            <div class="jauge__ligne"><span>Prix au m² retenu</span><span id="jM2">—</span></div>
+            <div class="jauge__ligne"><span>Effet état + énergie</span><span id="jEtat">—</span></div>
+            <div class="jauge__ligne"><span>Atouts du bien</span><span id="jAtouts">—</span></div>
+            <div class="jauge__ligne" id="ligneTerrain"><span>Terrain</span><span id="jTerrain">—</span></div>
+          </div>
+
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.5rem">
+            <a class="btn btn--laiton btn--sm" href="#contact" id="jRdv">Faire venir Mickaël</a>
+            <button class="btn btn--fant btn--sm" id="jRecommencer" style="color:var(--craie);border-color:rgba(255,255,255,.35)">Recommencer</button>
+          </div>
+
+          <p class="jauge__note">
+            Base de calcul : prix médians constatés à Roanne en juillet 2026 (1 350 €/m² en appartement, 1 898 €/m² en maison), pondérés par un coefficient de secteur, puis par l'état, l'énergie et les atouts du bien. Fourchette à ±7 %.
+            Un logement ne se vend jamais au prix d'un tableur : seule la visite fixe le vrai prix.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="comparables" class="rv" style="margin-top:clamp(30px,4vw,52px)" hidden>
+      <span class="cote">Dans votre commune</span>
+      <h3 class="display display--s" style="margin:.7rem 0 1.2rem">Ce que nous vendons actuellement sur ce secteur</h3>
+      <div class="grille-biens" id="listeComparables"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CATALOGUE ============================= -->
+<section class="sec" id="biens">
+  <div class="wrap">
+    <div class="sec__tete rv">
+      <span class="cote">À vendre &amp; à louer</span>
+      <h2 class="display">Nos biens, filtrables sans recharger la page.</h2>
+      <p class="lede">Mettez un bien de côté avec le cœur : votre sélection vous suit, et vous pouvez comparer deux ou trois biens ligne à ligne avant de choisir lequel visiter.</p>
+    </div>
+
+    <div class="filtres rv">
+      <select id="fOp"><option value="">Vente et location</option><option value="vente">À vendre</option><option value="location">À louer</option></select>
+      <select id="fType"><option value="">Tous les types</option></select>
+      <select id="fVille"><option value="">Toutes les communes</option></select>
+      <select id="fPieces"><option value="">Toutes tailles</option><option value="1">1 pièce et +</option><option value="2">2 pièces et +</option><option value="3">3 pièces et +</option><option value="4">4 pièces et +</option><option value="5">5 pièces et +</option></select>
+      <select id="fPrix">
+        <option value="">Tous les budgets</option>
+        <option value="60000">Jusqu'à 60 000 €</option>
+        <option value="100000">Jusqu'à 100 000 €</option>
+        <option value="160000">Jusqu'à 160 000 €</option>
+        <option value="250000">Jusqu'à 250 000 €</option>
+        <option value="400000">Jusqu'à 400 000 €</option>
+      </select>
+      <button class="btn btn--fant btn--sm" id="fRaz">Effacer</button>
+      <span class="compte" id="fCompte"></span>
+    </div>
+
+    <div class="grille-biens" id="listeBiens"></div>
+  </div>
+</section>
+
+<!-- ============================ FINANCEMENT ============================ -->
+<section class="sec sec--nuit trame--sombre" id="financer">
+  <div class="wrap">
+    <div class="sec__tete rv">
+      <span class="cote">Financement</span>
+      <h2 class="display" style="color:var(--craie)">Avant de visiter, sachez ce que vous pouvez acheter.</h2>
+      <p class="lede">Deux calculs, un seul écran : ce que coûte un bien précis, et ce que votre budget permet réellement — frais de notaire compris, parce que c'est là que les projets se cassent.</p>
+    </div>
+
+    <div class="fin">
+      <div class="rv">
+        <div class="pastilles" id="finMode" style="margin-bottom:1.5rem">
+          <button class="pastille sel" data-v="capacite" style="background:var(--laiton);border-color:var(--laiton);color:#1A1206">Ce que je peux emprunter</button>
+          <button class="pastille" data-v="mensualite" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22);color:var(--craie)">Ce que coûte un bien</button>
+        </div>
+
+        <div id="finCapacite">
+          <div class="champs">
+            <div class="champ"><label for="cRevenus">Revenus nets du foyer (€ / mois)</label><input id="cRevenus" type="number" value="3600" step="100"></div>
+            <div class="champ"><label for="cCharges">Crédits en cours (€ / mois)</label><input id="cCharges" type="number" value="0" step="50"></div>
+            <div class="champ"><label for="cApport">Apport disponible (€)</label><input id="cApport" type="number" value="20000" step="1000"></div>
+            <div class="champ"><label for="cDuree">Durée</label><select id="cDuree"><option value="15">15 ans</option><option value="20" selected>20 ans</option><option value="25">25 ans</option></select></div>
+            <div class="champ"><label for="cTaux">Taux hors assurance (%)</label><input id="cTaux" type="number" value="3.40" step="0.05"></div>
+            <div class="champ"><label for="cAssur">Assurance (% / an)</label><input id="cAssur" type="number" value="0.34" step="0.02"></div>
+          </div>
+        </div>
+
+        <div id="finMensualite" hidden>
+          <div class="champs">
+            <div class="champ"><label for="mPrix">Prix du bien (€)</label><input id="mPrix" type="number" value="147000" step="1000"></div>
+            <div class="champ"><label for="mApport">Apport (€)</label><input id="mApport" type="number" value="20000" step="1000"></div>
+            <div class="champ"><label for="mDuree">Durée</label><select id="mDuree"><option value="15">15 ans</option><option value="20" selected>20 ans</option><option value="25">25 ans</option></select></div>
+            <div class="champ"><label for="mTaux">Taux hors assurance (%)</label><input id="mTaux" type="number" value="3.40" step="0.05"></div>
+            <div class="champ"><label for="mAssur">Assurance (% / an)</label><input id="mAssur" type="number" value="0.34" step="0.02"></div>
+            <div class="champ"><label for="mNeuf">Type de vente</label><select id="mNeuf"><option value="0.08">Ancien (≈ 8 % de frais)</option><option value="0.025">Neuf (≈ 2,5 % de frais)</option></select></div>
+          </div>
+        </div>
+        <p class="aide" style="color:#8FA3B2">Taux moyens de marché de juillet 2026 (≈ 3,40 % sur 20 ans). Simulation indicative : seule votre banque ou votre courtier engage un taux.</p>
+      </div>
+
+      <div class="resultat rv">
+        <span class="cote" style="color:var(--laiton-clair)" id="resTitre">Budget d'achat maximum</span>
+        <p class="resultat__gros" id="resGros">—</p>
+        <div class="resultat__lignes" id="resLignes"></div>
+        <div class="barre-endet" id="barreEndet"><i style="width:0"></i></div>
+        <p class="aide" id="resNote" style="color:#8FA3B2;margin-top:.9rem"></p>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem">
+          <a class="btn btn--laiton btn--sm" href="#contact">En parler avec l'agence</a>
+          <a class="btn btn--fant btn--sm" href="#biens" style="color:var(--craie);border-color:rgba(255,255,255,.35)">Voir les biens dans ce budget</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== ALERTE ============================== -->
+<section class="sec sec--craie" id="alerte">
+  <div class="wrap">
+    <div class="estim">
+      <div class="rv">
+        <span class="cote">Alerte nouveautés</span>
+        <h2 class="display" style="margin:.8rem 0 .9rem">Les meilleurs biens partent avant d'être en ligne.</h2>
+        <p class="lede">Sur le Roannais, un bien correctement estimé se vend souvent en deux visites. Dites-nous ce que vous cherchez : nous vous écrivons dès qu'un mandat rentre, avant sa publication sur les portails.</p>
+        <p class="aide">Une adresse e-mail suffit. Vous vous désinscrivez en un clic, et nous ne transmettons rien à personne.</p>
+      </div>
+
+      <div class="rv" style="background:var(--papier);border:1px solid var(--trait);border-radius:var(--r);padding:clamp(20px,2.6vw,30px)">
+        <div class="champs">
+          <div class="champ"><label for="aType">Je cherche</label><select id="aType"><option>Une maison</option><option>Un appartement</option><option>Un immeuble ou un local</option><option>Un terrain</option><option>Peu importe</option></select></div>
+          <div class="champ"><label for="aOp">Pour</label><select id="aOp"><option>Acheter</option><option>Louer</option></select></div>
+          <div class="champ"><label for="aVille">Secteur</label><select id="aVille"></select></div>
+          <div class="champ"><label for="aBudget">Budget maximum (€)</label><input id="aBudget" type="number" placeholder="180000" step="5000"></div>
+          <div class="champ champ--large"><label for="aMail">Votre e-mail</label><input id="aMail" type="email" placeholder="prenom@exemple.fr"></div>
+        </div>
+        <button class="btn btn--laiton" id="aGo" style="width:100%;margin-top:1.1rem">Créer mon alerte</button>
+        <p class="err" id="aErr"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== VENDRE =============================== -->
+<section class="sec" id="vendre">
+  <div class="wrap">
+    <div class="sec__tete rv">
+      <span class="cote">Vendre avec nous</span>
+      <h2 class="display">Cinq étapes, et vous savez toujours où en est votre vente.</h2>
+      <p class="lede">Mickaël a passé douze ans comme négociateur avant d'ouvrir Immo Factory en septembre 2022. Marine suit les ventes depuis cinq ans. À deux, on ne prend pas plus de mandats qu'on ne peut en défendre.</p>
+    </div>
+
+    <div class="jalons rv">
+      <div class="jalon">
+        <h4>L'estimation</h4>
+        <p>Une fourchette en ligne en 60 secondes, puis une visite sur place sous 48 h. Rapport écrit, comparables à l'appui, sans engagement.</p>
+      </div>
+      <div class="jalon">
+        <h4>La mise en valeur</h4>
+        <p>Photos, plan coté, diagnostic. On corrige ce qui coûte cher à l'écran avant de publier : un bien mal photographié perd des visites.</p>
+      </div>
+      <div class="jalon">
+        <h4>La diffusion</h4>
+        <p>Envoi d'abord à notre fichier d'acquéreurs en alerte, puis publication sur les portails. Les premiers jours font le prix final.</p>
+      </div>
+      <div class="jalon">
+        <h4>Les visites</h4>
+        <p>Créneaux réservables en ligne par les acquéreurs. Après chaque visite, vous recevez le retour écrit : ce qui a plu, ce qui a bloqué.</p>
+      </div>
+      <div class="jalon">
+        <h4>Jusqu'à la signature</h4>
+        <p>Négociation, montage du dossier, suivi du financement et des délais notaire. On vous appelle avant que vous ayez à demander.</p>
+      </div>
+    </div>
+
+    <div class="rv" style="margin-top:clamp(34px,4vw,54px);display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem">
+      <div style="background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:1.4rem">
+        <span class="cote">Transaction</span>
+        <h4 style="margin:.7rem 0 .4rem">Achat, vente, exclusivités</h4>
+        <p style="font-size:.9rem;color:#42586A;margin:0">Maisons, appartements, immeubles de rapport, terrains et locaux, sur Roanne, la Côte roannaise et jusqu'au Brionnais.</p>
+      </div>
+      <div style="background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:1.4rem">
+        <span class="cote">Location</span>
+        <h4 style="margin:.7rem 0 .4rem">Mise en location</h4>
+        <p style="font-size:.9rem;color:#42586A;margin:0">Recherche de locataires, constitution et vérification des dossiers, rédaction du bail, état des lieux d'entrée et de sortie.</p>
+      </div>
+      <div style="background:var(--craie);border:1px solid var(--trait);border-radius:var(--r);padding:1.4rem">
+        <span class="cote">Gestion</span>
+        <h4 style="margin:.7rem 0 .4rem">Gestion locative</h4>
+        <p style="font-size:.9rem;color:#42586A;margin:0">Quittances, révisions de loyer, régularisation des charges, suivi des travaux et des impayés. Mickaël s'en occupe de bout en bout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== ÉQUIPE =============================== -->
+<section class="sec sec--craie" id="equipe">
+  <div class="wrap">
+    <div class="sec__tete rv">
+      <span class="cote">L'équipe</span>
+      <h2 class="display">Deux personnes. Vous savez toujours qui vous appelle.</h2>
+    </div>
+
+    <div class="equipe rv">
+      <article class="pers">
+        <div class="pers__ph"><img src="https://v2.immo-facile.com/office20/immofa_2207281020/catalog/images/perso/Mickael.png" alt="Mickaël Gay" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.style.display='none'"></div>
+        <div class="pers__txt" style="padding-left:1.1rem">
+          <span class="pers__role">Directeur d'agence</span>
+          <h4>Mickaël Gay</h4>
+          <p>BTS Profession immobilière en 2010, douze ans négociateur, puis la création d'Immo Factory en septembre 2022. Transaction, location et gestion.</p>
+          <div class="pers__liens">
+            <a href="tel:0676955124">06 76 95 51 24</a>
+            <a href="mailto:mickael.gay@immofactoryroanne.com">mickael.gay@immofactoryroanne.com</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="pers">
+        <div class="pers__ph"><img src="https://v2.immo-facile.com/office20/immofa_2207281020/catalog/images/perso/Marine.png" alt="Marine Auplat" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.style.display='none'"></div>
+        <div class="pers__txt" style="padding-left:1.1rem">
+          <span class="pers__role">Conseillère immobilier</span>
+          <h4>Marine Auplat</h4>
+          <p>Cinq ans en transaction, un DUT Techniques de commercialisation et un bachelor immobilier. L'écoute et la disponibilité comme méthode.</p>
+          <div class="pers__liens">
+            <a href="tel:0632167882">06 32 16 78 82</a>
+            <a href="mailto:marine.auplat@immofactoryroanne.com">marine.auplat@immofactoryroanne.com</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="note rv" style="margin-top:2rem">
+      <b>5,0</b>
+      <span>sur 5 — 68 avis Google.<br><a href="https://www.google.com/maps/search/Immo+Factory+Roanne" target="_blank" rel="noopener">Lire les avis</a></span>
+    </div>
+  </div>
+</section>
+
+<!-- =============================== CONTACT =============================== -->
+<section class="sec sec--nuit trame--sombre" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="rv">
+        <span class="cote">Rendez-vous</span>
+        <h2 class="display" style="color:var(--craie);margin:.8rem 0 .9rem">On se voit quand ?</h2>
+        <p class="lede">Choisissez un créneau : vous recevez la confirmation par e-mail, et nous, l'essentiel de votre projet avant même de nous rencontrer.</p>
+
+        <span class="statut" id="statut"></span>
+        <ul class="horaires" id="horaires"></ul>
+
+        <div class="coord">
+          <a href="https://www.google.com/maps/search/Immo+Factory+3+rue+Alsace+Lorraine+Roanne" target="_blank" rel="noopener">3 rue Alsace Lorraine — 42300 Roanne</a>
+          <a href="tel:0970669476">09 70 66 94 76</a>
+          <a href="mailto:immofactoryroanne@gmail.com">immofactoryroanne@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="rv" style="background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.16);border-radius:var(--r);padding:clamp(20px,2.6vw,32px)">
+        <div id="rdvForm">
+          <p class="etiq" style="color:#8FA3B2;margin:0 0 .6rem">Objet du rendez-vous</p>
+          <div class="pastilles" id="rObjet">
+            <button class="pastille sel" data-v="Estimation de mon bien" style="background:var(--laiton);border-color:var(--laiton);color:#1A1206">Estimation de mon bien</button>
+            <button class="pastille" data-v="Visite d'un bien" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22);color:var(--craie)">Visite d'un bien</button>
+            <button class="pastille" data-v="Location ou gestion" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.22);color:var(--craie)">Location ou gestion</button>
+          </div>
+
+          <p class="etiq" style="color:#8FA3B2;margin:1.5rem 0 .6rem">Jour</p>
+          <div class="jours" id="rJours"></div>
+
+          <p class="etiq" style="color:#8FA3B2;margin:1.4rem 0 .6rem">Heure</p>
+          <div class="creneaux" id="rCreneaux"></div>
+
+          <div class="champs" style="margin-top:1.5rem">
+            <div class="champ"><label for="rNom" style="color:#8FA3B2">Nom et prénom</label><input id="rNom" type="text" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:var(--craie)"></div>
+            <div class="champ"><label for="rTel" style="color:#8FA3B2">Téléphone</label><input id="rTel" type="tel" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:var(--craie)"></div>
+            <div class="champ champ--large"><label for="rMail" style="color:#8FA3B2">E-mail</label><input id="rMail" type="email" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:var(--craie)"></div>
+            <div class="champ champ--large"><label for="rMot" style="color:#8FA3B2">Adresse du bien ou précisions (facultatif)</label><textarea id="rMot" rows="2" style="background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.2);color:var(--craie)"></textarea></div>
+          </div>
+          <p class="err" id="rErr"></p>
+          <button class="btn btn--laiton" id="rGo" style="width:100%;margin-top:.8rem">Confirmer le rendez-vous</button>
+          <p class="aide" style="color:#8FA3B2">Vos coordonnées servent uniquement à ce rendez-vous. Elles ne sont ni revendues, ni transmises.</p>
+        </div>
+
+        <div id="rdvOk" hidden style="text-align:center;padding:1.6rem .5rem">
+          <span class="cote" style="color:var(--laiton-clair)">C'est noté</span>
+          <h3 class="display display--s" id="rOkTitre" style="color:var(--craie);margin:.9rem 0 .6rem">—</h3>
+          <p id="rOkTxt" style="color:#AFC0CC;font-size:.95rem">—</p>
+          <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.3rem">
+            <button class="btn btn--laiton btn--sm" id="rIcs">Ajouter à mon agenda</button>
+            <button class="btn btn--fant btn--sm" id="rAutre" style="color:var(--craie);border-color:rgba(255,255,255,.35)">Prendre un autre créneau</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================ PIED ================================ -->
+<footer class="pied">
+  <div class="wrap">
+    <div class="pied__grille">
+      <div>
+        <span class="marque__txt" style="font-size:1.3rem;color:var(--craie)">Immo Factory</span>
+        <p style="max-width:34ch;margin:.9rem 0 0">Agence immobilière indépendante à Roanne. Transaction, location et gestion locative sur le bassin roannais depuis 2022.</p>
+      </div>
+      <div>
+        <h4>Naviguer</h4>
+        <ul>
+          <li><a href="#estimer">Estimer mon bien</a></li>
+          <li><a href="#biens">Biens à vendre</a></li>
+          <li><a href="#biens">Biens à louer</a></li>
+          <li><a href="#financer">Simulateur de financement</a></li>
+          <li><a href="#alerte">Créer une alerte</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>L'agence</h4>
+        <ul>
+          <li><a href="#equipe">Mickaël et Marine</a></li>
+          <li><a href="#vendre">Notre méthode</a></li>
+          <li><a href="#contact">Prendre rendez-vous</a></li>
+          <li><a href="https://www.immofactoryroanne.com/segments/immo/catalog/images/manufacturers_bareme/347403.pdf" target="_blank" rel="noopener">Nos honoraires</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Nous trouver</h4>
+        <ul>
+          <li>3 rue Alsace Lorraine<br>42300 Roanne</li>
+          <li><a href="tel:0970669476">09 70 66 94 76</a></li>
+          <li><a href="mailto:immofactoryroanne@gmail.com">Nous écrire</a></li>
+          <li><a href="https://www.facebook.com/ImmoFactoryRoanne" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/immo_factory_roanne/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="pied__legal" style="margin-top:2.4rem">
+      IMMO FACTORY — SAS au capital de <mark>à compléter</mark> — SIREN 914 778 519, RCS Roanne — Carte professionnelle CPI <mark>à compléter</mark> — Garantie financière <mark>à compléter</mark>.
+      Honoraires, barème et modalités disponibles en agence et en téléchargement. Les prix affichés sont exprimés FAI (frais d'agence inclus) sauf mention contraire.
+    </p>
+
+    <div class="pied__bas">
+      <span>© <span id="an"></span> Immo Factory — Roanne</span>
+      <span>Mentions légales · Politique de confidentialité · Gestion des cookies</span>
+    </div>
+  </div>
+</footer>
+
+<nav class="mob">
+  <a href="tel:0970669476">Appeler</a>
+  <a class="p" href="#estimer">Estimer mon bien</a>
+</nav>
+
+<!-- ============================== MODALES ============================== -->
+<div class="modale" id="modaleFiche" role="dialog" aria-modal="true" aria-label="Détail du bien">
+  <div class="modale__boite">
+    <button class="modale__fermer" data-fermer aria-label="Fermer">×</button>
+    <div class="fiche" id="ficheCorps"></div>
+  </div>
+</div>
+
+<div class="modale" id="modaleSelection" role="dialog" aria-modal="true" aria-label="Ma sélection">
+  <div class="modale__boite" style="max-width:820px">
+    <button class="modale__fermer" data-fermer aria-label="Fermer">×</button>
+    <div style="padding:clamp(22px,3vw,34px)">
+      <span class="cote">Ma sélection</span>
+      <h3 class="display display--s" style="margin:.7rem 0 1.2rem">Comparez avant de vous déplacer</h3>
+      <div id="selectionCorps"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================================
+   1. DONNÉES
+   ========================================================================= */
+
+/* Coefficient de secteur, base 1,00 = Roanne.
+   À AJUSTER AVEC VOS PROPRES VENTES : une ligne par commune, c'est tout. */
+const COMMUNES = [
+  ["Roanne",1.00],["Riorges",1.10],["Le Coteau",0.92],["Mably",0.95],["Villerest",1.25],
+  ["Commelle-Vernay",1.05],["Perreux",0.95],["Saint-Léger-sur-Roanne",1.00],["Ouches",1.00],
+  ["Villemontais",0.95],["Renaison",1.05],["Saint-André-d'Apchon",1.02],["Saint-Alban-les-Eaux",1.08],
+  ["Saint-Jodard",0.88],["Saint-Priest-la-Roche",0.85],["La Pacaudière",0.80],["Briennon",0.85],
+  ["Coutouvre",0.90],["Pouilly-sous-Charlieu",0.95],["Charlieu",0.90],["Melay (71)",0.95],
+  ["Thizy-les-Bourgs (69)",0.85],["Une autre commune du secteur",0.92]
+];
+
+/* Prix médians constatés à Roanne, juillet 2026. */
+const M2 = { Maison:1898, Appartement:1350 };
+
+const BIENS = [
+  { id:"v1", op:"vente", type:"Maison", ville:"Saint-Alban-les-Eaux", cp:"42370",
+    prix:330000, surf:125, pieces:5, ch:3, terrain:null, dpe:null,
+    tags:["Achevée en 2025","Piscine","Plain-pied"],
+    titre:"Maison neuve de plain-pied avec piscine, sur la Côte roannaise",
+    desc:"Vaste pièce de vie : séjour-salon très lumineux grâce à ses baies vitrées, cuisine ouverte équipée avec îlot central, prolongée par une terrasse couverte. Cellier-buanderie avec accès direct au terrain. Côté nuit, trois chambres avec parquet flottant, salle d'eau avec douche à l'italienne et double vasque, WC séparé. Garage attenant entièrement carrelé, porte motorisée. Menuiseries aluminium double vitrage, volets électriques ou BSO, chauffage par pompe à chaleur air pulsé avec thermostat réglable dans chaque pièce. À l'extérieur, une piscine de 7 × 4 m et ses 300 m² de plage en béton désactivé, une vue dégagée sur la montagne, un terrain entièrement clos et un portail électrique." },
+
+  { id:"v2", op:"vente", type:"Maison", ville:"Mably", cp:"42300",
+    prix:239000, surf:140, pieces:6, ch:4, terrain:706, dpe:null,
+    tags:["Poêle à bois","Suite parentale"],
+    titre:"Maison de 140 m² au bourg de Mably, terrain clos de 706 m²",
+    desc:"Au rez-de-chaussée : salon, séjour et salle à manger avec poêle à bois, cuisine, suite parentale avec salle d'eau et WC, buanderie et dressing. À l'étage : dégagement, trois chambres, salle de bains avec WC. Cave et chaufferie en sous-sol. Terrain clos d'environ 706 m² avec cour, appentis et puits." },
+
+  { id:"v3", op:"vente", type:"Maison", ville:"Melay (71)", cp:"71340",
+    prix:260000, surf:141, pieces:6, ch:3, terrain:1020, dpe:null,
+    tags:["Terrain 1 020 m²"],
+    titre:"Maison individuelle de 141 m² sur 1 020 m² de terrain",
+    desc:"Maison individuelle agréable sur la commune de Melay : six pièces dont trois chambres, environ 141 m² habitables, sur un terrain de 1 020 m²." },
+
+  { id:"v4", op:"vente", type:"Immeuble", ville:"Saint-Priest-la-Roche", cp:"42590",
+    prix:150000, surf:250, pieces:12, ch:null, terrain:null, dpe:null,
+    tags:["Exclusivité","Investisseurs"],
+    titre:"Immeuble de rapport de 250 m², trois logements, redécoupage possible",
+    desc:"Sur une commune très touristique, immeuble d'environ 250 m² habitables composé d'un logement d'environ 83 m² (salon-séjour avec cuisine ouverte aménagée, terrasse, dégagement, trois chambres, salle d'eau, WC séparé) avec terrain attenant, garage, atelier et cave ; d'un type 3 à rénover au premier étage avec garage en dessous ; et d'un type 4 à rénover au rez-de-chaussée avec terrain attenant. Redécoupage possible, travaux à prévoir. Idéal investisseurs ou profession libérale." },
+
+  { id:"v5", op:"vente", type:"Appartement", ville:"Roanne", cp:"42300",
+    prix:147000, surf:95, pieces:4, ch:2, terrain:null, dpe:"C",
+    tags:["Résidence sécurisée","Ascenseur"],
+    titre:"Appartement de 95 m² au 5ᵉ étage, vue dégagée, centre-ville",
+    desc:"Au sein d'une résidence sécurisée idéalement située : hall d'entrée, cuisine indépendante aménagée, salle de séjour-salon, dégagement menant à deux chambres, un dressing, une salle d'eau et un WC séparé. Cave en sous-sol. Ce bien séduit par ses volumes généreux, son emplacement au cœur du centre-ville et sa vue dégagée ; il conserve un vrai potentiel de rénovation. Proche gare, transports et commerces." },
+
+  { id:"v6", op:"vente", type:"Appartement", ville:"Roanne", cp:"42300",
+    prix:79900, surf:71, pieces:4, ch:2, terrain:null, dpe:null,
+    tags:["Deux balcons","Copropriété rénovée"],
+    titre:"Appartement de 71 m² avec deux balcons, résidence Les Peupliers",
+    desc:"Au premier étage : entrée desservant une agréable pièce de vie lumineuse ouvrant sur un balcon, et une pièce attenante au séjour également dotée d'un accès au balcon — à conserver ouverte pour agrandir l'espace de vie, ou à aménager en troisième chambre. Cuisine indépendante, deux chambres avec rangements, salle d'eau, WC séparé. Chauffage individuel au gaz. L'isolation thermique par l'extérieur a été réalisée et le ravalement de façade est en cours d'achèvement ; aucun autre travaux important n'est prévu à ce jour dans la copropriété. À proximité immédiate des commerces, des transports, des écoles et de l'hôpital." },
+
+  { id:"v7", op:"vente", type:"Appartement", ville:"Roanne", cp:"42300",
+    prix:44000, surf:20, pieces:1, ch:1, terrain:null, dpe:null,
+    tags:["Rénové","Faibles charges"],
+    titre:"T1 bis rénové en rez-de-chaussée, petite copropriété",
+    desc:"Séjour-cuisine, coin nuit, salle d'eau avec WC. Chauffage électrique individuel, syndic bénévole, charges de copropriété faibles." },
+
+  { id:"v8", op:"vente", type:"Appartement", ville:"Pouilly-sous-Charlieu", cp:"42720",
+    prix:95000, surf:62, pieces:3, ch:2, terrain:null, dpe:null,
+    tags:["Proche commerces"],
+    titre:"Appartement de trois pièces au cœur du bourg",
+    desc:"Appartement de trois pièces d'environ 62 m², dont deux chambres, à proximité de tous commerces." },
+
+  { id:"v9", op:"vente", type:"Appartement", ville:"Une autre commune du secteur", cp:"83230",
+    prix:159000, surf:36, pieces:3, ch:2, terrain:null, dpe:null,
+    tags:["Exclusivité","Bormes-les-Mimosas"],
+    titre:"Appartement au quartier de La Favière, Bormes-les-Mimosas",
+    desc:"En exclusivité, sur la commune de Bormes-les-Mimosas (Var), au quartier de La Favière : appartement d'environ 36 m²." },
+
+  { id:"l1", op:"location", type:"Appartement", ville:"Roanne", cp:"42300",
+    prix:765, surf:75, pieces:3, ch:2, terrain:null, dpe:null,
+    tags:["Jardin privatif","Cuisine équipée"],
+    titre:"T3 de 75 m² avec terrain privatif",
+    desc:"Hall d'entrée, dégagement desservant un séjour double lumineux donnant sur un petit balcon, cuisine indépendante aménagée et équipée, deux belles chambres, salle d'eau et WC indépendant. À l'extérieur, un terrain privatif, idéal pour profiter des beaux jours." },
+
+  { id:"l2", op:"location", type:"Appartement", ville:"Saint-André-d'Apchon", cp:"42370",
+    prix:350, surf:30, pieces:1, ch:1, terrain:null, dpe:null,
+    tags:["Rénové","Cave privative"],
+    titre:"T1 rénové sur la place du village",
+    desc:"En rez-de-chaussée : belle pièce de vie avec cuisine américaine aménagée et équipée, coin nuit avec placard de rangement, salle d'eau avec WC et espace buanderie. Grande cave privative. Appartement entièrement isolé et rénové." },
+
+  { id:"l3", op:"location", type:"Appartement", ville:"Roanne", cp:"42300",
+    prix:310, surf:20, pieces:1, ch:1, terrain:null, dpe:null,
+    tags:["Cour intérieure"],
+    titre:"Studio en rez-de-chaussée, rue de Villemontais",
+    desc:"Pièce de vie avec cuisine ouverte aménagée et équipée, salle d'eau avec WC, coin nuit donnant sur cour intérieure." }
+];
+
+/* =========================================================================
+   2. OUTILS
+   ========================================================================= */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const eur = n => new Intl.NumberFormat("fr-FR",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n);
+const nb  = n => new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(n);
+const coef = v => (COMMUNES.find(c=>c[0]===v)||["",1])[1];
+
+$("#an").textContent = new Date().getFullYear();
+
+/* --- plan dessiné : partition déterministe du volume ---------------------- */
+function alea(graine){
+  let s=7; for(const c of graine) s=(s*31 + c.charCodeAt(0)) % 99991;
+  return ()=>{ s = (s*1103515245 + 12345) % 2147483648; return s/2147483648; };
+}
+function decouper(r,n,rand,horiz,out){
+  if(n<=1 || r.w<26 || r.h<22){ out.push(r); return; }
+  const a=Math.ceil(n/2), b=n-a;
+  const f=Math.min(.72,Math.max(.28, a/n * (.86+rand()*.3)));
+  if(horiz){
+    const c=r.w*f;
+    decouper({x:r.x,y:r.y,w:c,h:r.h},a,rand,false,out);
+    decouper({x:r.x+c,y:r.y,w:r.w-c,h:r.h},b,rand,false,out);
+  }else{
+    const c=r.h*f;
+    decouper({x:r.x,y:r.y,w:r.w,h:c},a,rand,true,out);
+    decouper({x:r.x,y:r.y+c,w:r.w,h:r.h-c},b,rand,true,out);
+  }
+}
+function planSVG(b){
+  const W=200,H=150, rand=alea(b.id+b.titre);
+  const jardin = b.terrain && b.op==="vente";
+  const m = jardin ? 26 : 16;
+  const pieces = Math.min(7, Math.max(1, b.pieces||3));
+  const salles=[]; decouper({x:m,y:m,w:W-2*m,h:H-2*m}, pieces, rand, true, salles);
+
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Plan schématique du bien">`;
+  s += `<g stroke="rgba(255,255,255,.09)" stroke-width=".5">`;
+  for(let x=0;x<=W;x+=10) s+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}"/>`;
+  for(let y=0;y<=H;y+=10) s+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}"/>`;
+  s += `</g>`;
+  if(jardin) s += `<rect x="9" y="9" width="${W-18}" height="${H-18}" fill="none" stroke="rgba(226,180,92,.55)" stroke-width=".8" stroke-dasharray="4 3"/>`;
+  s += `<rect x="${m}" y="${m}" width="${W-2*m}" height="${H-2*m}" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.75)" stroke-width="1.6"/>`;
+  salles.forEach((r,i)=>{
+    s += `<rect x="${r.x.toFixed(1)}" y="${r.y.toFixed(1)}" width="${r.w.toFixed(1)}" height="${r.h.toFixed(1)}" fill="${i===0?"rgba(226,180,92,.16)":"none"}" stroke="rgba(255,255,255,.5)" stroke-width=".8"/>`;
+  });
+  const px = m + (W-2*m)*.30;
+  s += `<path d="M${px} ${H-m} v-13 a13 13 0 0 1 13 13" fill="none" stroke="rgba(226,180,92,.9)" stroke-width="1"/>`;
+  s += `<line x1="${px}" y1="${H-m}" x2="${px+13}" y2="${H-m}" stroke="var(--nuit)" stroke-width="2.4"/>`;
+  s += `</svg>`;
+  return s;
+}
+
+/* =========================================================================
+   3. EN-TÊTE, RÉVÉLATION, LISTES DE COMMUNES
+   ========================================================================= */
+$("#burger").onclick = e => {
+  const n=$("#nav"), o=n.classList.toggle("ouvert");
+  e.currentTarget.setAttribute("aria-expanded", o);
+};
+$$("#nav a").forEach(a=>a.onclick=()=>$("#nav").classList.remove("ouvert"));
+
+const obs = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add("vu"); obs.unobserve(e.target); }
+}),{threshold:.12});
+$$(".rv").forEach(el=>obs.observe(el));
+
+["#hVille","#eVille","#aVille"].forEach(sel=>{
+  const el=$(sel); if(!el) return;
+  el.innerHTML = COMMUNES.map(c=>`<option>${c[0]}</option>`).join("");
+});
+$("#fVille").innerHTML = `<option value="">Toutes les communes</option>` +
+  [...new Set(BIENS.map(b=>b.ville))].sort().map(v=>`<option>${v}</option>`).join("");
+$("#fType").innerHTML = `<option value="">Tous les types</option>` +
+  [...new Set(BIENS.map(b=>b.type))].sort().map(v=>`<option>${v}</option>`).join("");
+
+/* =========================================================================
+   4. HÉROS : DEUX INTENTIONS
+   ========================================================================= */
+function onglet(actif){
+  const v = actif==="vendre";
+  $("#ongVendre").setAttribute("aria-selected", v);
+  $("#ongAcheter").setAttribute("aria-selected", !v);
+  $("#volVendre").hidden = !v;
+  $("#volAcheter").hidden = v;
+}
+$("#ongVendre").onclick = ()=>onglet("vendre");
+$("#ongAcheter").onclick = ()=>onglet("acheter");
+
+$("#hGo").onclick = ()=>{
+  const surf = parseFloat($("#hSurf").value);
+  E.type   = $("#hType").value;
+  E.ville  = $("#hVille").value;
+  if(surf>0) $("#eSurf").value = surf;
+  if($("#hPieces").value) $("#ePieces").value = $("#hPieces").value;
+  $("#eVille").value = E.ville;
+  $$("#eType .pastille").forEach(p=>p.classList.toggle("sel", p.dataset.v===E.type));
+  majTerrain(); allerEtape(4); calculer();
+  $("#estimer").scrollIntoView({behavior:"smooth"});
+};
+$("#hGoA").onclick = ()=>{
+  $("#fOp").value = $("#hOp").value;
+  $("#fType").value = $("#hTypeA").value;
+  const b = parseFloat($("#hBudget").value);
+  if(b>0){
+    const paliers=[60000,100000,160000,250000,400000];
+    const p = paliers.find(x=>x>=b); $("#fPrix").value = p ? String(p) : "";
+  }
+  dessinerBiens();
+  $("#biens").scrollIntoView({behavior:"smooth"});
+};
+
+/* =========================================================================
+   5. L'ESTIMATEUR
+   ========================================================================= */
+const E = { etape:1, type:"Maison", ville:"Roanne", etat:0, dpe:0, atouts:[] };
+
+function allerEtape(n){
+  E.etape = Math.min(5, Math.max(1, n));
+  $$(".etape").forEach(el=>el.classList.toggle("on", +el.dataset.etape===E.etape));
+  $$(".etapes i").forEach((el,i)=>el.classList.toggle("on", i < E.etape));
+  $("#ePrec").disabled = E.etape===1;
+  $("#eSuiv").textContent = E.etape===5 ? "Voir mon estimation" : "Continuer";
+  $("#eErr").textContent = "";
+}
+function majTerrain(){ $("#wrapTerrain").style.display = E.type==="Maison" ? "" : "none"; }
+
+$$("#eType .pastille").forEach(p=>p.onclick=()=>{
+  $$("#eType .pastille").forEach(x=>x.classList.remove("sel"));
+  p.classList.add("sel"); E.type=p.dataset.v; majTerrain(); calculer();
+});
+$$("#eEtat .pastille").forEach(p=>p.onclick=()=>{
+  $$("#eEtat .pastille").forEach(x=>x.classList.remove("sel"));
+  p.classList.add("sel"); E.etat=parseFloat(p.dataset.v); calculer();
+});
+$$("#eDpe .pastille").forEach(p=>p.onclick=()=>{
+  $$("#eDpe .pastille").forEach(x=>x.classList.remove("sel"));
+  p.classList.add("sel"); E.dpe=parseFloat(p.dataset.v); calculer();
+});
+$$("#eAtouts .pastille").forEach(p=>p.onclick=()=>{
+  const on = p.getAttribute("aria-pressed")==="true";
+  p.setAttribute("aria-pressed", !on);
+  p.classList.toggle("sel", !on);
+  E.atouts = $$('#eAtouts .pastille[aria-pressed="true"]').map(x=>parseFloat(x.dataset.v));
+  calculer();
+});
+["#eVille","#eSurf","#ePieces","#eTerrain"].forEach(s=>$(s).oninput = calculer);
+$("#eVille").onchange = ()=>{ E.ville=$("#eVille").value; calculer(); };
+
+$("#eSuiv").onclick = ()=>{
+  if(E.etape===3){
+    const s=parseFloat($("#eSurf").value);
+    if(!(s>=9)){ $("#eErr").textContent="Indiquez une surface habitable, même approximative."; return; }
+  }
+  if(E.etape===5){ calculer(true); return; }
+  allerEtape(E.etape+1); calculer();
+};
+$("#ePrec").onclick = ()=>allerEtape(E.etape-1);
+$("#jRecommencer").onclick = ()=>{
+  allerEtape(1);
+  $("#jaugePlein").hidden = true; $("#jaugeVide").hidden = false;
+  $("#comparables").hidden = true;
+};
+
+function calculer(final){
+  const surf = parseFloat($("#eSurf").value);
+  if(!(surf>=9)) return;
+  const ville = $("#eVille").value;
+  const c = coef(ville);
+  let m2 = M2[E.type] * c;
+
+  /* effet de taille : les petites surfaces se vendent plus cher au m² */
+  if(surf<30) m2*=1.45; else if(surf<45) m2*=1.25; else if(surf<65) m2*=1.08;
+  else if(surf>150) m2*=0.92; else if(surf>110) m2*=0.97;
+
+  const bati = m2 * surf;
+  const kEtat = 1 + E.etat + E.dpe;
+  const kAtouts = 1 + E.atouts.reduce((a,b)=>a+b,0);
+
+  let terrainVal = 0;
+  const t = parseFloat($("#eTerrain").value);
+  if(E.type==="Maison" && t>300) terrainVal = Math.min(t-300, 2500) * 12 * c;
+
+  const prix = Math.round((bati*kEtat*kAtouts + terrainVal)/1000)*1000;
+  const bas  = Math.round(prix*0.93/1000)*1000;
+  const haut = Math.round(prix*1.07/1000)*1000;
+
+  $("#jaugeVide").hidden = true; $("#jaugePlein").hidden = false;
+  $("#jPrix").textContent = eur(prix);
+  $("#jSous").textContent = `${E.type} · ${nb(surf)} m² · ${ville}`;
+  $("#jM2").textContent = `${nb(Math.round((prix - terrainVal)/surf))} €/m²`;
+  const pc = v => (v>=0?"+":"") + Math.round(v*100) + " %";
+  $("#jEtat").textContent = pc(E.etat + E.dpe);
+  $("#jAtouts").textContent = pc(E.atouts.reduce((a,b)=>a+b,0));
+  $("#ligneTerrain").style.display = terrainVal>0 ? "" : "none";
+  $("#jTerrain").textContent = terrainVal>0 ? "+ "+eur(Math.round(terrainVal/1000)*1000) : "—";
+
+  /* la règle graduée */
+  const min = bas*0.82, max = haut*1.18, ech = v => ((v-min)/(max-min))*100;
+  $("#rZone").style.left  = ech(bas)+"%";
+  $("#rZone").style.width = (ech(haut)-ech(bas))+"%";
+  $("#rAig").style.left   = ech(prix)+"%";
+  $("#rBas").textContent  = eur(bas);
+  $("#rHaut").textContent = eur(haut);
+  const regle = $("#regle");
+  if(!regle.dataset.grad){
+    for(let i=0;i<=10;i++){
+      const g=document.createElement("span"); g.className="regle__grad";
+      g.style.left=(i*10)+"%"; regle.appendChild(g);
+    }
+    regle.dataset.grad="1";
+  }
+
+  if(final){
+    const proches = BIENS.filter(b=>b.op==="vente" && b.ville===ville);
+    $("#comparables").hidden = proches.length===0;
+    if(proches.length) $("#listeComparables").innerHTML = proches.map(carte).join("");
+    $("#comparables").classList.add("vu");
+    brancherCartes();
+    $("#jauge").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+}
+$("#jRdv").onclick = ()=>{
+  choisirObjet("Estimation de mon bien");
+  $("#rMot").value = `${E.type} de ${$("#eSurf").value} m² à ${$("#eVille").value} — estimation en ligne : ${$("#jPrix").textContent}`;
+};
+
+/* =========================================================================
+   6. LE CATALOGUE
+   ========================================================================= */
+let selection = [];
+
+function carte(b){
+  const loc = b.op==="location";
+  const dpe = b.dpe ? `<span class="dpe dpe--${b.dpe.toLowerCase()}">DPE ${b.dpe}</span>`
+                    : `<span class="dpe">DPE à renseigner</span>`;
+  return `
+  <article class="bien" data-id="${b.id}" tabindex="0">
+    <div class="plan">
+      ${planSVG(b)}
+      <span class="plan__type">${b.type}${b.terrain?" · terrain":""}</span>
+      <span class="plan__cote">${nb(b.surf)} m²${b.pieces?" · "+b.pieces+" p.":""}${b.terrain?" · "+nb(b.terrain)+" m² ter.":""}</span>
+      <button class="bien__coeur" data-coeur="${b.id}" aria-pressed="${selection.includes(b.id)}" aria-label="Mettre de côté">
+        <svg viewBox="0 0 24 24"><path d="M12 20.5S3.5 15 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 5.8-8.5 11.3-8.5 11.3z"/></svg>
+      </button>
+    </div>
+    <div class="bien__corps">
+      <div class="etiqs">
+        ${loc?`<span class="tag tag--loc">À louer</span>`:``}
+        ${b.tags.map(t=>`<span class="tag${t==="Exclusivité"?" tag--ex":""}">${t}</span>`).join("")}
+      </div>
+      <p class="bien__prix">${eur(b.prix)}${loc?`<small>/ mois CC</small>`:``}</p>
+      <p class="bien__titre">${b.titre}</p>
+      <p class="bien__lieu">${b.ville} · ${b.cp}</p>
+      <div class="bien__specs">
+        <span>${nb(b.surf)} m²</span>
+        ${b.pieces?`<span>${b.pieces} pièces</span>`:``}
+        ${b.ch?`<span>${b.ch} ch.</span>`:``}
+        ${dpe}
+      </div>
+    </div>
+  </article>`;
+}
+
+function filtrer(){
+  const op=$("#fOp").value, ty=$("#fType").value, vi=$("#fVille").value;
+  const pi=parseFloat($("#fPieces").value)||0, px=parseFloat($("#fPrix").value)||Infinity;
+  return BIENS.filter(b =>
+    (!op || b.op===op) && (!ty || b.type===ty) && (!vi || b.ville===vi) &&
+    (!pi || (b.pieces||0)>=pi) &&
+    (px===Infinity || b.op==="location" || b.prix<=px)
+  );
+}
+function dessinerBiens(){
+  const l = filtrer();
+  $("#fCompte").textContent = l.length + (l.length>1?" biens":" bien");
+  $("#listeBiens").innerHTML = l.length ? l.map(carte).join("") : `
+    <div class="vide">
+      <h3>Aucun bien ne correspond — pour l'instant.</h3>
+      <p class="aide" style="margin-bottom:1.1rem">Nos mandats rentrent chaque semaine. Créez une alerte : vous serez prévenu avant la mise en ligne.</p>
+      <a class="btn btn--sm" href="#alerte">Créer mon alerte</a>
+    </div>`;
+  brancherCartes();
+}
+["#fOp","#fType","#fVille","#fPieces","#fPrix"].forEach(s=>$(s).onchange=dessinerBiens);
+$("#fRaz").onclick = ()=>{ ["#fOp","#fType","#fVille","#fPieces","#fPrix"].forEach(s=>$(s).value=""); dessinerBiens(); };
+
+function brancherCartes(){
+  $$(".bien").forEach(el=>{
+    el.onclick = e => { if(!e.target.closest("[data-coeur]")) ouvrirFiche(el.dataset.id); };
+    el.onkeydown = e => { if(e.key==="Enter") ouvrirFiche(el.dataset.id); };
+  });
+  $$("[data-coeur]").forEach(b=>b.onclick = e => {
+    e.stopPropagation();
+    const id=b.dataset.coeur;
+    selection.includes(id) ? selection=selection.filter(x=>x!==id) : selection.push(id);
+    $$(`[data-coeur="${id}"]`).forEach(x=>x.setAttribute("aria-pressed", selection.includes(id)));
+    $("#nbSelection").textContent = selection.length;
+  });
+}
+
+/* --- fiche détaillée ------------------------------------------------------ */
+function mensualite(capital, tauxAn, annees){
+  const i = tauxAn/100/12, n = annees*12;
+  return i===0 ? capital/n : capital*i/(1-Math.pow(1+i,-n));
+}
+function ouvrirFiche(id){
+  const b = BIENS.find(x=>x.id===id); if(!b) return;
+  const loc = b.op==="location";
+  const frais = loc ? 0 : Math.round(b.prix*0.08);
+  const empr  = loc ? 0 : Math.max(0, b.prix + frais - 20000);
+  const mens  = loc ? 0 : mensualite(empr, 3.40, 20) + empr*0.0034/12;
+
+  $("#ficheCorps").innerHTML = `
+    <div class="plan" style="aspect-ratio:auto">
+      ${planSVG(b)}
+      <span class="plan__type">${b.type}</span>
+      <span class="plan__cote">Plan schématique — les photos du bien s'affichent ici</span>
+    </div>
+    <div class="fiche__droite">
+      <div class="etiqs">${loc?`<span class="tag tag--loc">À louer</span>`:``}${b.tags.map(t=>`<span class="tag${t==="Exclusivité"?" tag--ex":""}">${t}</span>`).join("")}</div>
+      <h3>${b.titre}</h3>
+      <p class="fiche__prix">${eur(b.prix)}${loc?` <span style="font-family:var(--cote);font-size:.8rem;color:var(--acier)">/ mois charges comprises</span>`:``}</p>
+      <div class="fiche__grille">
+        <div><span>Commune</span><span>${b.ville}</span></div>
+        <div><span>Surface</span><span>${nb(b.surf)} m²</span></div>
+        <div><span>Pièces</span><span>${b.pieces||"—"}</span></div>
+        <div><span>Chambres</span><span>${b.ch||"—"}</span></div>
+        <div><span>Terrain</span><span>${b.terrain?nb(b.terrain)+" m²":"—"}</span></div>
+        <div><span>Énergie</span><span>${b.dpe?"Classe "+b.dpe:"À renseigner"}</span></div>
+      </div>
+      <p class="fiche__desc">${b.desc}</p>
+      ${loc?"":`
+      <div class="mini-fin">
+        <span class="cote cote--nu">Ce que ça représente par mois</span>
+        <p class="mini-fin__res">${eur(Math.round(mens))} <span style="font-family:var(--cote);font-size:.8rem;font-weight:400;color:var(--acier)">/ mois</span></p>
+        <p class="aide" style="margin:.3rem 0 0">Sur 20 ans à 3,40 % assurance comprise, avec 20 000 € d'apport et ${eur(frais)} de frais de notaire estimés. À ajuster dans le simulateur.</p>
+      </div>`}
+      <div class="fiche__actions">
+        <button class="btn btn--laiton btn--sm" data-visite="${b.id}">${loc?"Demander une visite":"Réserver une visite"}</button>
+        <button class="btn btn--fant btn--sm" data-ajouter="${b.id}">${selection.includes(b.id)?"Retirer de ma sélection":"Ajouter à ma sélection"}</button>
+        ${loc?"":`<button class="btn btn--fant btn--sm" data-financer="${b.prix}">Simuler mon financement</button>`}
+      </div>
+    </div>`;
+
+  $("#modaleFiche").classList.add("on");
+  document.body.style.overflow="hidden";
+
+  $("[data-visite]").onclick = ()=>{
+    fermerModales();
+    choisirObjet("Visite d'un bien");
+    $("#rMot").value = `${b.titre} — ${b.ville} (${eur(b.prix)})`;
+    $("#contact").scrollIntoView({behavior:"smooth"});
+  };
+  $("[data-ajouter]").onclick = e=>{
+    selection.includes(b.id) ? selection=selection.filter(x=>x!==b.id) : selection.push(b.id);
+    $("#nbSelection").textContent = selection.length;
+    $$(`[data-coeur="${b.id}"]`).forEach(x=>x.setAttribute("aria-pressed", selection.includes(b.id)));
+    e.currentTarget.textContent = selection.includes(b.id)?"Retirer de ma sélection":"Ajouter à ma sélection";
+  };
+  const f = $("[data-financer]");
+  if(f) f.onclick = ()=>{
+    fermerModales(); modeFin("mensualite");
+    $("#mPrix").value = b.prix; calculFin();
+    $("#financer").scrollIntoView({behavior:"smooth"});
+  };
+}
+function fermerModales(){
+  $$(".modale").forEach(m=>m.classList.remove("on"));
+  document.body.style.overflow="";
+}
+$$("[data-fermer]").forEach(b=>b.onclick=fermerModales);
+$$(".modale").forEach(m=>m.onclick=e=>{ if(e.target===m) fermerModales(); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") fermerModales(); });
+
+/* --- comparateur ---------------------------------------------------------- */
+$("#btnSelection").onclick = ()=>{
+  const l = selection.map(id=>BIENS.find(b=>b.id===id)).filter(Boolean);
+  $("#selectionCorps").innerHTML = l.length ? `
+    <div style="overflow:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:.9rem">
+        <tr><td style="padding:.6rem 0"></td>${l.map(b=>`<th style="text-align:left;padding:.6rem .8rem;font-family:var(--display);font-size:.95rem">${b.titre}</th>`).join("")}</tr>
+        ${[
+          ["Prix", b=>eur(b.prix)+(b.op==="location"?" / mois":"")],
+          ["Commune", b=>b.ville],
+          ["Surface", b=>nb(b.surf)+" m²"],
+          ["Prix au m²", b=>b.op==="location"?"—":nb(Math.round(b.prix/b.surf))+" €/m²"],
+          ["Pièces", b=>b.pieces||"—"],
+          ["Chambres", b=>b.ch||"—"],
+          ["Terrain", b=>b.terrain?nb(b.terrain)+" m²":"—"],
+          ["Énergie", b=>b.dpe?"Classe "+b.dpe:"À renseigner"]
+        ].map(([k,f])=>`<tr style="border-top:1px solid var(--trait)">
+          <td style="padding:.6rem .8rem .6rem 0;font-family:var(--cote);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acier);white-space:nowrap">${k}</td>
+          ${l.map(b=>`<td style="padding:.6rem .8rem;font-family:var(--cote);font-size:.84rem">${f(b)}</td>`).join("")}
+        </tr>`).join("")}
+      </table>
+    </div>
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.6rem">
+      <button class="btn btn--laiton btn--sm" id="selVisite">Réserver une visite groupée</button>
+      <button class="btn btn--fant btn--sm" id="selVider">Vider ma sélection</button>
+    </div>`
+  : `<p class="aide" style="margin:0 0 1.2rem">Votre sélection est vide. Sur chaque bien, le cœur en bas à droite le met de côté — vous les comparez ensuite ligne à ligne.</p>
+     <a class="btn btn--sm" href="#biens" onclick="document.querySelectorAll('.modale').forEach(m=>m.classList.remove('on'));document.body.style.overflow=''">Parcourir les biens</a>`;
+
+  $("#modaleSelection").classList.add("on");
+  document.body.style.overflow="hidden";
+
+  const sv=$("#selVisite"), vd=$("#selVider");
+  if(sv) sv.onclick = ()=>{
+    fermerModales(); choisirObjet("Visite d'un bien");
+    $("#rMot").value = "Je souhaite visiter : " + l.map(b=>`${b.titre} (${b.ville})`).join(" ; ");
+    $("#contact").scrollIntoView({behavior:"smooth"});
+  };
+  if(vd) vd.onclick = ()=>{
+    selection=[]; $("#nbSelection").textContent="0";
+    $$("[data-coeur]").forEach(x=>x.setAttribute("aria-pressed","false"));
+    fermerModales();
+  };
+};
+
+/* =========================================================================
+   7. FINANCEMENT
+   ========================================================================= */
+let modeF = "capacite";
+function modeFin(m){
+  modeF = m;
+  $$("#finMode .pastille").forEach(p=>{
+    const on = p.dataset.v===m;
+    p.classList.toggle("sel", on);
+    p.style.background = on ? "var(--laiton)" : "rgba(255,255,255,.06)";
+    p.style.borderColor = on ? "var(--laiton)" : "rgba(255,255,255,.22)";
+    p.style.color = on ? "#1A1206" : "var(--craie)";
+  });
+  $("#finCapacite").hidden = m!=="capacite";
+  $("#finMensualite").hidden = m!=="mensualite";
+  calculFin();
+}
+$$("#finMode .pastille").forEach(p=>p.onclick=()=>modeFin(p.dataset.v));
+
+function calculFin(){
+  const L = [];
+  if(modeF==="capacite"){
+    const rev=+$("#cRevenus").value||0, ch=+$("#cCharges").value||0, ap=+$("#cApport").value||0;
+    const d=+$("#cDuree").value, t=+$("#cTaux").value, as=+$("#cAssur").value;
+    const mensMax = Math.max(0, rev*0.35 - ch);
+    const i=t/100/12, n=d*12;
+    /* la mensualité comprend l'assurance calculée sur le capital emprunté */
+    const facteur = (i===0 ? 1/n : i/(1-Math.pow(1+i,-n))) + as/100/12;
+    const capital = mensMax/facteur;
+    const budget = Math.max(0, (capital + ap)/1.08);   /* on retire les frais de notaire */
+    const coutTotal = mensMax*n - capital;
+
+    $("#resTitre").textContent = "Budget d'achat maximum";
+    $("#resGros").textContent = eur(Math.round(budget/1000)*1000);
+    L.push(["Mensualité maximale (35 %)", eur(Math.round(mensMax))]);
+    L.push(["Capital empruntable", eur(Math.round(capital/1000)*1000)]);
+    L.push(["Apport mobilisé", eur(ap)]);
+    L.push(["Frais de notaire estimés", eur(Math.round(budget*0.08))]);
+    L.push(["Coût total du crédit", eur(Math.round(coutTotal))]);
+    $("#barreEndet").querySelector("i").style.width = rev>0 ? Math.min(100,(mensMax/rev)*100)+"%" : "0";
+    $("#barreEndet").classList.remove("trop");
+    $("#resNote").textContent = "Le taux d'endettement est plafonné à 35 % des revenus nets, assurance comprise — la règle appliquée par les banques depuis 2022.";
+  } else {
+    const prix=+$("#mPrix").value||0, ap=+$("#mApport").value||0;
+    const d=+$("#mDuree").value, t=+$("#mTaux").value, as=+$("#mAssur").value, tf=+$("#mNeuf").value;
+    const frais = prix*tf;
+    const capital = Math.max(0, prix + frais - ap);
+    const m = mensualite(capital, t, d) + capital*as/100/12;
+    const cout = m*d*12 - capital;
+
+    $("#resTitre").textContent = "Mensualité, assurance comprise";
+    $("#resGros").textContent = eur(Math.round(m)) + " / mois";
+    L.push(["Prix du bien", eur(prix)]);
+    L.push(["Frais de notaire estimés", eur(Math.round(frais))]);
+    L.push(["Apport", "− "+eur(ap)]);
+    L.push(["Montant à emprunter", eur(Math.round(capital))]);
+    L.push(["Coût total du crédit", eur(Math.round(cout))]);
+    const revNec = m/0.35;
+    L.push(["Revenus nets nécessaires", eur(Math.round(revNec))+" / mois"]);
+    $("#barreEndet").querySelector("i").style.width = "35%";
+    $("#resNote").textContent = "Il faut environ " + eur(Math.round(revNec)) + " de revenus nets mensuels pour rester sous les 35 % d'endettement sur ce projet.";
+  }
+  $("#resLignes").innerHTML = L.map(([k,v])=>`<div class="resultat__ligne"><span>${k}</span><b>${v}</b></div>`).join("");
+}
+$$("#finCapacite input,#finCapacite select,#finMensualite input,#finMensualite select").forEach(el=>el.oninput=calculFin);
+$$("#finCapacite select,#finMensualite select").forEach(el=>el.onchange=calculFin);
+
+/* =========================================================================
+   8. ALERTE
+   ========================================================================= */
+$("#aGo").onclick = ()=>{
+  const mail = $("#aMail").value.trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){
+    $("#aErr").textContent = "Il nous faut une adresse e-mail valide pour vous prévenir."; return;
+  }
+  $("#aErr").textContent = "";
+  const b = $("#aBudget").value ? " jusqu'à " + eur(+$("#aBudget").value) : "";
+  $("#aGo").outerHTML = `<p style="font-family:var(--display);font-weight:600;font-size:1.02rem;margin:1.1rem 0 0;color:var(--bleu)">
+    Alerte créée. Dès qu'un bien correspond à « ${$("#aType").value.toLowerCase()} à ${$("#aVille").value}${b} », vous recevez un e-mail avant la mise en ligne.</p>`;
+};
+
+/* =========================================================================
+   9. RENDEZ-VOUS
+   ========================================================================= */
+const HORAIRES = [
+  ["Lundi","9 h – 12 h · 14 h – 18 h 30"],["Mardi","9 h – 12 h · 14 h – 18 h 30"],
+  ["Mercredi","9 h – 12 h · 14 h – 18 h 30"],["Jeudi","9 h – 12 h · 14 h – 18 h 30"],
+  ["Vendredi","9 h – 12 h · 14 h – 18 h 30"],["Samedi","Sur rendez-vous"],["Dimanche","Fermé"]
+];
+const maintenant = new Date();
+const jourAuj = (maintenant.getDay()+6)%7;
+$("#horaires").innerHTML = HORAIRES.map((h,i)=>
+  `<li class="${i===jourAuj?"auj":""}"><span>${h[0]}</span><b>${h[1]}</b></li>`).join("");
+
+(function statut(){
+  const h = maintenant.getHours() + maintenant.getMinutes()/60;
+  const ouvert = jourAuj<5 && ((h>=9&&h<12)||(h>=14&&h<18.5));
+  const el = $("#statut");
+  el.className = "statut" + (ouvert?"":" ferme");
+  el.innerHTML = `<i></i>${ouvert ? "Ouvert en ce moment" : "Fermé — laissez-nous un créneau"}`;
+})();
+
+const R = { objet:"Estimation de mon bien", date:null, heure:null };
+function choisirObjet(v){
+  R.objet = v;
+  $$("#rObjet .pastille").forEach(p=>{
+    const on = p.dataset.v===v;
+    p.classList.toggle("sel", on);
+    p.style.background = on ? "var(--laiton)" : "rgba(255,255,255,.06)";
+    p.style.borderColor = on ? "var(--laiton)" : "rgba(255,255,255,.22)";
+    p.style.color = on ? "#1A1206" : "var(--craie)";
+  });
+}
+$$("#rObjet .pastille").forEach(p=>p.onclick=()=>choisirObjet(p.dataset.v));
+
+const JOURS_L = ["dim","lun","mar","mer","jeu","ven","sam"];
+const MOIS_L = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+(function jours(){
+  const z = $("#rJours"); let d = new Date(); let n = 0;
+  while(n<8){
+    d = new Date(d.getTime()+86400000);
+    if(d.getDay()===0) continue;                    /* fermé le dimanche */
+    const iso = d.toISOString().slice(0,10);
+    const b = document.createElement("button");
+    b.className="jour"; b.dataset.iso=iso;
+    b.innerHTML = `<span>${JOURS_L[d.getDay()]}</span><b>${d.getDate()}</b>`;
+    b.onclick = ()=>{
+      $$("#rJours .jour").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel"); R.date=iso; R.heure=null; creneaux(new Date(iso));
+    };
+    z.appendChild(b); n++;
+  }
+})();
+function creneaux(d){
+  const sam = d.getDay()===6;
+  const h = sam ? ["9:30","10:15","11:00"] : ["9:00","9:45","10:30","11:15","14:00","14:45","15:30","16:15","17:00","17:45"];
+  $("#rCreneaux").innerHTML = h.map(x=>`<button class="pastille" data-h="${x}">${x.replace(":"," h ")}</button>`).join("");
+  $$("#rCreneaux .pastille").forEach(b=>b.onclick=()=>{
+    $$("#rCreneaux .pastille").forEach(x=>x.classList.remove("sel"));
+    b.classList.add("sel"); R.heure=b.dataset.h;
+  });
+}
+$("#rCreneaux").innerHTML = `<p class="aide" style="color:#8FA3B2;margin:0">Choisissez d'abord un jour.</p>`;
+
+function dateLongue(iso){
+  const d = new Date(iso);
+  return `${["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"][d.getDay()]} ${d.getDate()} ${MOIS_L[d.getMonth()]}`;
+}
+$("#rGo").onclick = ()=>{
+  const nom=$("#rNom").value.trim(), tel=$("#rTel").value.trim(), mail=$("#rMail").value.trim();
+  const e=$("#rErr");
+  if(!R.date || !R.heure){ e.textContent="Choisissez un jour et une heure."; return; }
+  if(nom.length<2){ e.textContent="Indiquez votre nom, pour qu'on sache qui accueillir."; return; }
+  if(tel.replace(/\D/g,"").length<9){ e.textContent="Un numéro de téléphone valide nous permet de confirmer."; return; }
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){ e.textContent="Une adresse e-mail valide, pour la confirmation écrite."; return; }
+  e.textContent="";
+  $("#rdvForm").hidden = true; $("#rdvOk").hidden = false;
+  $("#rOkTitre").textContent = "À " + dateLongue(R.date) + ", " + nom.split(" ")[0];
+  $("#rOkTxt").innerHTML = `${R.objet} — ${R.heure.replace(":"," h ")} au 3 rue Alsace Lorraine.<br>Mickaël ou Marine vous confirme dans la journée. Un rappel part 24 h avant.`;
+};
+$("#rAutre").onclick = ()=>{ $("#rdvOk").hidden=true; $("#rdvForm").hidden=false; };
+$("#rIcs").onclick = ()=>{
+  const d = new Date(R.date);
+  const [hh,mm] = R.heure.split(":").map(Number);
+  d.setHours(hh,mm,0,0);
+  const fin = new Date(d.getTime()+45*60000);
+  const f = x => x.toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
+  const ics = [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Immo Factory//FR","BEGIN:VEVENT",
+    "DTSTART:"+f(d),"DTEND:"+f(fin),
+    "SUMMARY:"+R.objet+" — Immo Factory",
+    "LOCATION:3 rue Alsace Lorraine, 42300 Roanne",
+    "DESCRIPTION:Immo Factory — 09 70 66 94 76",
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+  const a = document.createElement("a");
+  a.href = "data:text/calendar;charset=utf-8,"+encodeURIComponent(ics);
+  a.download = "rendez-vous-immo-factory.ics"; a.click();
+};
+
+/* =========================================================================
+   10. DÉMARRAGE
+   ========================================================================= */
+majTerrain();
+dessinerBiens();
+calculFin();
+</script>
+</body>
+</html>

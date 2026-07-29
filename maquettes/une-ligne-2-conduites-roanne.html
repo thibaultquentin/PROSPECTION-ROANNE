@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Une Ligne 2 Conduites — Auto-école à Roanne</title>
+<meta name="description" content="Auto-école Une Ligne 2 Conduites, 25 rue Noëlas à Roanne. Permis B, boîte automatique, conduite accompagnée et supervisée. Premières leçons sur simulateur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MAQUETTE DE DÉMONSTRATION — Une Ligne 2 Conduites (Roanne)
+   ------------------------------------------------------------
+   Tous les réglages visuels sont regroupés ici.
+   Le site actuel de l'auto-école n'ayant pas pu être analysé
+   automatiquement, les couleurs ci-dessous sont une proposition,
+   pas une reprise fidèle de la charte existante.
+   Elles s'ajustent en modifiant uniquement ce bloc.
+   ============================================================ */
+:root{
+  /* --- Palette --- */
+  --asphalte:      #141E2B;  /* fond sombre : bitume au crépuscule */
+  --asphalte-2:    #1D2A3B;  /* fond sombre secondaire, cartes      */
+  --asphalte-3:    #2A3A4E;  /* bordures sur fond sombre            */
+  --craie:         #F4F6F5;  /* fond clair : blanc de marquage      */
+  --craie-2:       #E7EBEA;  /* fond clair secondaire               */
+  --encre:         #14202C;  /* texte sur fond clair                */
+  --encre-doux:    #55677A;  /* texte secondaire                    */
+  --signal:        #F2B21B;  /* accent principal : jaune signal     */
+  --signal-fonce:  #C98F06;
+  --feu-vert:      #2FA86B;  /* validation, feu vert                */
+  --feu-rouge:     #D0433B;  /* erreur                              */
+
+  /* --- Typographie --- */
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-texte:   'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --f-data:    'DM Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* --- Rythme --- */
+  --rayon: 14px;
+  --rayon-s: 8px;
+  --pad-section: clamp(56px, 8vw, 104px);
+  --largeur: 1140px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--craie);
+  color:var(--encre);
+  font-family:var(--f-texte);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--signal);outline-offset:3px;border-radius:4px}
+
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;line-height:1.08;letter-spacing:-0.02em;font-weight:700}
+h2{font-size:clamp(28px,4vw,44px)}
+h3{font-size:clamp(20px,2.4vw,25px);letter-spacing:-0.015em}
+p{margin:0 0 1em}
+
+.wrap{width:min(100% - 40px, var(--largeur));margin-inline:auto}
+
+/* --- Eyebrow : petite étiquette de section --- */
+.eyebrow{
+  font-family:var(--f-data);
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--signal-fonce);
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 14px;
+}
+.eyebrow::before{
+  content:"";width:26px;height:3px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--signal) 0 7px,transparent 7px 11px);
+}
+.sombre .eyebrow{color:var(--signal)}
+
+/* ============ Bandeau maquette ============ */
+.bandeau-demo{
+  background:var(--signal);
+  color:#2A1F00;
+  font-family:var(--f-data);
+  font-size:12.5px;
+  letter-spacing:.04em;
+  text-align:center;
+  padding:8px 16px;
+  position:relative;
+  z-index:60;
+}
+.bandeau-demo strong{font-weight:500}
+
+/* ============ En-tête ============ */
+.entete{
+  position:sticky;top:0;z-index:50;
+  background:rgba(244,246,245,.86);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s ease, background .25s ease;
+}
+.entete.pose{border-bottom-color:var(--craie-2)}
+.entete-in{display:flex;align-items:center;gap:24px;height:70px}
+
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--asphalte);
+  display:grid;place-items:center;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.logo-mark span{
+  width:4px;height:26px;border-radius:2px;
+  background:repeating-linear-gradient(180deg,var(--signal) 0 7px,transparent 7px 12px);
+  transform:rotate(-18deg);
+}
+.logo-txt{font-family:var(--f-display);font-weight:800;font-size:15.5px;line-height:1.1;letter-spacing:-.02em}
+.logo-txt em{display:block;font-style:normal;font-family:var(--f-data);font-size:10.5px;letter-spacing:.14em;color:var(--encre-doux);font-weight:400;text-transform:uppercase}
+
+.nav{display:flex;gap:4px;margin-left:auto;align-items:center}
+.nav a{
+  text-decoration:none;font-size:15px;font-weight:500;
+  padding:9px 13px;border-radius:var(--rayon-s);
+  color:var(--encre);position:relative;
+}
+.nav a::after{
+  content:"";position:absolute;left:13px;right:13px;bottom:5px;height:2px;
+  background:var(--signal);transform:scaleX(0);transform-origin:left;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1);
+}
+.nav a:hover::after{transform:scaleX(1)}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--f-display);font-weight:700;font-size:15px;letter-spacing:-.01em;
+  padding:12px 20px;border-radius:var(--rayon-s);
+  border:2px solid transparent;cursor:pointer;text-decoration:none;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-signal{background:var(--signal);color:#241A00}
+.btn-signal:hover{background:#FFC53D}
+.btn-sombre{background:var(--asphalte);color:var(--craie)}
+.btn-sombre:hover{background:#22344A}
+.btn-fantome{background:transparent;border-color:currentColor}
+.btn-fantome:hover{background:rgba(255,255,255,.08)}
+.btn-large{padding:15px 26px;font-size:16.5px}
+
+.burger{display:none;margin-left:auto;background:none;border:0;cursor:pointer;padding:10px}
+.burger span{display:block;width:22px;height:2px;background:var(--encre);margin:4px 0;transition:.2s}
+
+/* ============ Héro ============ */
+.hero{
+  background:var(--asphalte);
+  color:var(--craie);
+  position:relative;overflow:hidden;
+  padding:clamp(60px,9vw,108px) 0 clamp(56px,7vw,88px);
+}
+.hero::before{ /* halo de phares */
+  content:"";position:absolute;inset:-30% -10% auto -20%;height:120%;
+  background:radial-gradient(60% 50% at 22% 10%, rgba(242,178,27,.16), transparent 70%);
+  pointer-events:none;
+}
+/* la ligne : élément signature, reprend le nom de l'auto-école */
+.route{
+  position:absolute;left:0;right:0;bottom:0;height:170px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.35));
+  pointer-events:none;overflow:hidden;
+}
+.route i{
+  position:absolute;left:-10%;right:-10%;height:5px;border-radius:3px;
+  background:repeating-linear-gradient(90deg,rgba(244,246,245,.72) 0 46px,transparent 46px 92px);
+  animation:defile 2.6s linear infinite;
+}
+.route i:nth-child(1){bottom:34px;opacity:.9}
+.route i:nth-child(2){bottom:74px;height:3px;opacity:.4;animation-duration:4s}
+.route i:nth-child(3){bottom:104px;height:2px;opacity:.2;animation-duration:6.5s}
+@keyframes defile{to{transform:translateX(-92px)}}
+
+.hero-in{position:relative;z-index:2;max-width:760px}
+.hero h1{
+  font-size:clamp(38px,6.4vw,72px);font-weight:800;letter-spacing:-.035em;
+  margin:0 0 22px;
+}
+.hero h1 .surligne{
+  color:var(--signal);position:relative;white-space:nowrap;
+}
+.hero-chapo{font-size:clamp(17px,2vw,20px);color:#C7D2DC;max-width:56ch;margin-bottom:30px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ Bandeau de faits ============ */
+.faits{background:var(--asphalte-2);color:var(--craie);border-top:1px solid var(--asphalte-3)}
+.faits-in{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--asphalte-3)}
+.fait{background:var(--asphalte-2);padding:26px 24px}
+.fait b{
+  display:block;font-family:var(--f-display);font-size:clamp(22px,2.6vw,29px);
+  font-weight:800;letter-spacing:-.03em;color:var(--signal);margin-bottom:4px;
+}
+.fait span{font-size:14px;color:#A8B6C4;line-height:1.4;display:block}
+
+/* ============ Sections génériques ============ */
+.section{padding:var(--pad-section) 0}
+.section.sombre{background:var(--asphalte);color:var(--craie)}
+.section.douce{background:var(--craie-2)}
+.section-tete{max-width:62ch;margin-bottom:clamp(32px,4vw,48px)}
+.section-tete p{color:var(--encre-doux);font-size:17.5px;margin-bottom:0}
+.sombre .section-tete p{color:#AFBDC9}
+
+/* ============ Configurateur de parcours (pièce centrale) ============ */
+.parcours{position:relative}
+.parcours-grille{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(24px,3vw,44px);align-items:start}
+
+.etapes{border-left:3px solid var(--craie-2);padding-left:26px;position:relative}
+.etapes::before{
+  content:"";position:absolute;left:-3px;top:0;width:3px;
+  background:var(--signal);border-radius:2px;
+  height:var(--avancee,0%);transition:height .5s cubic-bezier(.2,.7,.3,1);
+}
+.etape{margin-bottom:30px}
+.etape:last-child{margin-bottom:0}
+.etape-num{
+  font-family:var(--f-data);font-size:11.5px;letter-spacing:.14em;
+  color:var(--encre-doux);text-transform:uppercase;margin-bottom:9px;display:block;
+}
+.etape h3{margin-bottom:14px}
+.choix{display:flex;flex-wrap:wrap;gap:10px}
+.choix button{
+  background:#fff;border:2px solid var(--craie-2);border-radius:var(--rayon-s);
+  padding:11px 16px;cursor:pointer;font-size:15px;font-weight:500;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+  text-align:left;line-height:1.3;
+}
+.choix button small{display:block;font-size:12.5px;color:var(--encre-doux);font-weight:400;margin-top:2px}
+.choix button:hover{border-color:var(--encre-doux);transform:translateY(-1px)}
+.choix button[aria-pressed="true"]{border-color:var(--signal);background:#FFF8E6}
+.choix button[aria-pressed="true"] small{color:var(--signal-fonce)}
+
+/* Carte résultat */
+.resultat{
+  background:var(--asphalte);color:var(--craie);border-radius:var(--rayon);
+  padding:clamp(24px,3vw,34px);position:sticky;top:96px;overflow:hidden;
+}
+.resultat::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+  background:repeating-linear-gradient(90deg,var(--signal) 0 22px,transparent 22px 40px);
+}
+.resultat-vide{color:#93A3B2;font-size:15.5px}
+.resultat h3{color:var(--signal);margin-bottom:6px}
+.resultat .sous{font-family:var(--f-data);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:#8FA0B0;margin-bottom:18px}
+.res-bloc{border-top:1px solid var(--asphalte-3);padding-top:16px;margin-top:16px}
+.res-bloc h4{font-size:13px;font-family:var(--f-data);font-weight:400;letter-spacing:.13em;text-transform:uppercase;color:#8FA0B0;margin-bottom:10px}
+.res-bloc ol{margin:0;padding-left:18px}
+.res-bloc ol li{margin-bottom:6px;font-size:15.5px;color:#DCE4EB}
+.res-bloc ul{margin:0;padding:0;list-style:none}
+.res-bloc ul li{font-size:15.5px;color:#DCE4EB;padding-left:22px;position:relative;margin-bottom:6px}
+.res-bloc ul li::before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:50%;background:var(--feu-vert)}
+.res-heures{display:flex;align-items:baseline;gap:10px;margin-bottom:2px}
+.res-heures b{font-family:var(--f-display);font-size:44px;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1}
+.res-heures span{font-size:14.5px;color:#A8B6C4;max-width:22ch}
+.resultat .btn{margin-top:20px;width:100%}
+.note-fine{font-size:12.5px;color:#8FA0B0;margin:12px 0 0;line-height:1.45}
+
+/* ============ Formations ============ */
+.cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+.carte{
+  background:#fff;border:1px solid var(--craie-2);border-radius:var(--rayon);
+  padding:26px 24px;position:relative;overflow:hidden;
+  transition:transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease;
+}
+.carte::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:var(--signal);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1);
+}
+.carte:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(20,32,44,.45)}
+.carte:hover::before{transform:scaleX(1)}
+.carte h3{margin-bottom:10px}
+.carte p{font-size:15.5px;color:var(--encre-doux);margin-bottom:14px}
+.carte .tag{
+  display:inline-block;font-family:var(--f-data);font-size:11.5px;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--craie-2);color:var(--encre-doux);
+  padding:5px 10px;border-radius:100px;
+}
+
+/* ============ Simulateur ============ */
+.simu{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:center}
+.simu-visuel{
+  background:var(--asphalte-2);border:1px solid var(--asphalte-3);
+  border-radius:var(--rayon);aspect-ratio:4/3;position:relative;overflow:hidden;
+  display:grid;place-items:center;
+}
+.simu-visuel .horizon{
+  position:absolute;left:0;right:0;top:46%;height:1px;background:rgba(242,178,27,.4);
+}
+.simu-visuel .voie{
+  position:absolute;left:50%;top:46%;bottom:0;width:2px;transform-origin:top;
+  background:repeating-linear-gradient(180deg,rgba(244,246,245,.55) 0 18px,transparent 18px 34px);
+}
+.simu-visuel .voie.g{transform:translateX(-50%) rotate(-26deg)}
+.simu-visuel .voie.d{transform:translateX(-50%) rotate(26deg)}
+.simu-visuel .voie.c{transform:translateX(-50%);animation:defile-v 1.6s linear infinite}
+@keyframes defile-v{to{background-position-y:34px}}
+.simu-visuel .etiquette{
+  position:relative;z-index:2;font-family:var(--f-data);font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--signal);
+  border:1px solid rgba(242,178,27,.35);padding:8px 14px;border-radius:100px;
+  background:rgba(20,30,43,.7);
+}
+.simu-liste{list-style:none;margin:22px 0 0;padding:0}
+.simu-liste li{padding-left:30px;position:relative;margin-bottom:13px;font-size:16px}
+.simu-liste li::before{
+  content:"";position:absolute;left:0;top:8px;width:16px;height:3px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--signal) 0 5px,transparent 5px 8px);
+}
+
+/* ============ Quiz code ============ */
+.quiz{
+  background:#fff;border:1px solid var(--craie-2);border-radius:var(--rayon);
+  padding:clamp(24px,3.2vw,38px);max-width:760px;
+}
+.quiz-tete{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.quiz-compteur{font-family:var(--f-data);font-size:13px;letter-spacing:.1em;color:var(--encre-doux)}
+.quiz-barre{height:5px;background:var(--craie-2);border-radius:3px;overflow:hidden;margin-bottom:24px}
+.quiz-barre i{display:block;height:100%;background:var(--signal);width:0;transition:width .35s cubic-bezier(.2,.7,.3,1)}
+.quiz-question{font-family:var(--f-display);font-size:clamp(19px,2.2vw,24px);font-weight:700;letter-spacing:-.015em;margin-bottom:20px;line-height:1.25}
+.quiz-reponses{display:grid;gap:10px}
+.quiz-reponses button{
+  text-align:left;background:var(--craie);border:2px solid var(--craie-2);
+  border-radius:var(--rayon-s);padding:13px 16px;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;gap:12px;
+  transition:border-color .18s ease, background .18s ease;
+}
+.quiz-reponses button .lettre{
+  font-family:var(--f-data);font-size:13px;width:26px;height:26px;flex-shrink:0;
+  display:grid;place-items:center;border-radius:6px;background:#fff;
+  border:1px solid var(--craie-2);
+}
+.quiz-reponses button:hover:not(:disabled){border-color:var(--encre-doux)}
+.quiz-reponses button.juste{border-color:var(--feu-vert);background:#EAF7F0}
+.quiz-reponses button.juste .lettre{background:var(--feu-vert);color:#fff;border-color:var(--feu-vert)}
+.quiz-reponses button.faux{border-color:var(--feu-rouge);background:#FBEDEC}
+.quiz-reponses button.faux .lettre{background:var(--feu-rouge);color:#fff;border-color:var(--feu-rouge)}
+.quiz-reponses button:disabled{cursor:default}
+.quiz-explication{
+  margin-top:18px;padding:14px 16px;border-left:3px solid var(--signal);
+  background:#FFFAEE;border-radius:0 var(--rayon-s) var(--rayon-s) 0;font-size:15px;
+}
+.quiz-pied{margin-top:22px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.quiz-score{font-family:var(--f-display);font-size:26px;font-weight:800;letter-spacing:-.03em}
+
+/* ============ Financement ============ */
+.finance{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.finance-carte{
+  background:var(--asphalte-2);border:1px solid var(--asphalte-3);
+  border-radius:var(--rayon);padding:26px 24px;
+}
+.finance-carte h3{color:#fff;margin-bottom:12px}
+.finance-carte p{color:#B7C4D0;font-size:15.5px}
+.finance-carte .montants{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 12px}
+.finance-carte .montants span{
+  font-family:var(--f-data);font-size:14px;padding:7px 12px;border-radius:var(--rayon-s);
+  background:var(--asphalte);border:1px solid var(--asphalte-3);color:var(--signal);
+}
+.source{font-size:12.5px;color:#8194A6;margin:0}
+
+/* ============ Rendez-vous ============ */
+.rdv-grille{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,3vw,44px);align-items:start}
+.rdv-boite{background:#fff;border:1px solid var(--craie-2);border-radius:var(--rayon);padding:clamp(22px,3vw,32px)}
+.champ{margin-bottom:18px}
+.champ label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px}
+.champ input,.champ select,.champ textarea{
+  width:100%;padding:12px 14px;border:2px solid var(--craie-2);
+  border-radius:var(--rayon-s);background:var(--craie);font-size:16px;
+  transition:border-color .18s ease;
+}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--signal);outline:none}
+.creneaux{display:flex;flex-wrap:wrap;gap:8px}
+.creneaux button{
+  background:var(--craie);border:2px solid var(--craie-2);border-radius:var(--rayon-s);
+  padding:9px 14px;cursor:pointer;font-family:var(--f-data);font-size:14px;
+  transition:border-color .18s ease, background .18s ease;
+}
+.creneaux button:hover{border-color:var(--encre-doux)}
+.creneaux button[aria-pressed="true"]{border-color:var(--signal);background:#FFF8E6}
+.creneaux .vide{font-size:14.5px;color:var(--encre-doux);font-family:var(--f-texte)}
+.rdv-recap{
+  background:#FFF8E6;border:1px dashed var(--signal-fonce);border-radius:var(--rayon-s);
+  padding:14px 16px;font-size:15px;margin-bottom:18px;
+}
+
+.coord{list-style:none;margin:0;padding:0}
+.coord li{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--craie-2);align-items:flex-start}
+.coord li:last-child{border-bottom:0}
+.coord .cle{
+  font-family:var(--f-data);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--encre-doux);width:92px;flex-shrink:0;padding-top:3px;
+}
+.coord .val{font-size:16px}
+.coord .val a{color:var(--encre);text-decoration:none;border-bottom:2px solid var(--signal)}
+.coord .val a:hover{background:#FFF8E6}
+.horaires{margin:0;font-family:var(--f-data);font-size:14px;line-height:1.9}
+.horaires b{font-weight:500;display:inline-block;width:82px;color:var(--encre-doux)}
+
+/* ============ Pied ============ */
+.pied{background:var(--asphalte);color:#93A3B2;padding:48px 0 34px;font-size:14.5px}
+.pied-in{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:30px;padding-bottom:30px;border-bottom:1px solid var(--asphalte-3)}
+.pied h4{font-family:var(--f-data);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#6F8093;margin:0 0 12px;font-weight:400}
+.pied a{color:#C7D2DC;text-decoration:none}
+.pied a:hover{color:var(--signal)}
+.pied ul{list-style:none;margin:0;padding:0}
+.pied ul li{margin-bottom:8px}
+.pied-bas{padding-top:22px;font-size:12.5px;color:#6F8093;line-height:1.6}
+.pied-bas strong{color:#93A3B2;font-weight:500}
+
+/* ============ Révélation au défilement ============ */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1)}
+.reveal.vu{opacity:1;transform:none}
+
+/* ============ Responsive ============ */
+@media (max-width:980px){
+  .parcours-grille,.rdv-grille,.simu{grid-template-columns:1fr}
+  .resultat{position:static}
+  .faits-in{grid-template-columns:repeat(2,1fr)}
+  .pied-in{grid-template-columns:1fr 1fr}
+}
+@media (max-width:720px){
+  body{font-size:16px}
+  .nav{
+    display:none;position:absolute;top:70px;left:0;right:0;
+    background:var(--craie);flex-direction:column;align-items:stretch;
+    padding:12px;gap:2px;border-bottom:1px solid var(--craie-2);
+  }
+  .nav.ouvert{display:flex}
+  .nav .btn{margin-top:8px}
+  .burger{display:block}
+  .faits-in{grid-template-columns:1fr}
+  .pied-in{grid-template-columns:1fr}
+  .coord li{flex-direction:column;gap:4px}
+  .coord .cle{width:auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bandeau-demo">
+  <strong>Maquette de démonstration</strong> — proposition non officielle, réalisée à partir d'informations publiques. Aucune inscription réelle n'est enregistrée.
+</div>
+
+<header class="entete" id="entete">
+  <div class="wrap entete-in">
+    <a class="logo" href="#haut">
+      <span class="logo-mark" aria-hidden="true"><span></span></span>
+      <span class="logo-txt">Une Ligne 2 Conduites<em>Auto-école · Roanne</em></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav" id="nav">
+      <a href="#parcours">Mon parcours</a>
+      <a href="#formations">Formations</a>
+      <a href="#simulateur">Le simulateur</a>
+      <a href="#code">Tester son code</a>
+      <a href="#financement">Financement</a>
+      <a href="#rendezvous" class="btn btn-signal">Prendre rendez-vous</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+  <!-- ================= HÉRO ================= -->
+  <section class="hero">
+    <div class="route" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap"><div class="hero-in">
+      <h1>Le permis se prépare<br>ici, <span class="surligne">pas au téléphone</span>.</h1>
+      <p class="hero-chapo">
+        Une auto-école à taille humaine, en centre-ville de Roanne. Trouvez le parcours qui
+        vous correspond, testez votre code, et réservez votre rendez-vous d'évaluation —
+        même un dimanche soir, quand l'agence est fermée.
+      </p>
+      <div class="hero-actions">
+        <a href="#parcours" class="btn btn-signal btn-large">Trouver mon parcours</a>
+        <a href="#rendezvous" class="btn btn-fantome btn-large">Réserver une évaluation</a>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ================= FAITS ================= -->
+  <section class="faits">
+    <div class="wrap">
+      <div class="faits-in">
+        <div class="fait"><b>2020</b><span>Reprise et création par Marylin et Xavier Coissy</span></div>
+        <div class="fait"><b>40 ans</b><span>D'expérience cumulée dans les auto-écoles du Roannais</span></div>
+        <div class="fait"><b>Label</b><span>École Conduite Qualité</span></div>
+        <div class="fait"><b>Simulateur</b><span>Les premières leçons se font en salle, sans émission de CO₂</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONFIGURATEUR ================= -->
+  <section class="section parcours" id="parcours">
+    <div class="wrap">
+      <div class="section-tete reveal">
+        <p class="eyebrow">Le cœur de la maquette</p>
+        <h2>Trois questions, et vous savez où vous allez.</h2>
+        <p>
+          Entre la conduite accompagnée, la conduite supervisée, la boîte manuelle et la boîte
+          automatique, il est difficile de savoir par où commencer. Répondez à trois questions :
+          le parcours, le minimum d'heures imposé par la réglementation et les aides auxquelles
+          vous pouvez prétendre s'affichent au fur et à mesure.
+        </p>
+      </div>
+
+      <div class="parcours-grille">
+        <div class="etapes reveal" id="etapes">
+
+          <div class="etape">
+            <span class="etape-num">Question 1 sur 3</span>
+            <h3>Quel âge aurez-vous au moment de l'inscription ?</h3>
+            <div class="choix" data-groupe="age">
+              <button type="button" data-val="15-17" aria-pressed="false">15 à 17 ans<small>Encore au lycée</small></button>
+              <button type="button" data-val="18-25" aria-pressed="false">18 à 25 ans<small>Majeur·e</small></button>
+              <button type="button" data-val="26+" aria-pressed="false">26 ans ou plus</button>
+            </div>
+          </div>
+
+          <div class="etape">
+            <span class="etape-num">Question 2 sur 3</span>
+            <h3>Boîte manuelle ou boîte automatique ?</h3>
+            <div class="choix" data-groupe="boite">
+              <button type="button" data-val="manuelle" aria-pressed="false">Boîte manuelle<small>Permis B classique</small></button>
+              <button type="button" data-val="auto" aria-pressed="false">Boîte automatique<small>Permis B « BEA »</small></button>
+              <button type="button" data-val="indecis" aria-pressed="false">Je ne sais pas encore<small>On en parle à l'évaluation</small></button>
+            </div>
+          </div>
+
+          <div class="etape">
+            <span class="etape-num">Question 3 sur 3</span>
+            <h3>Comment envisagez-vous de financer votre permis ?</h3>
+            <div class="choix" data-groupe="financement">
+              <button type="button" data-val="1euro" aria-pressed="false">Permis à 1 € par jour<small>Prêt à taux zéro</small></button>
+              <button type="button" data-val="cpf" aria-pressed="false">Compte formation (CPF)</button>
+              <button type="button" data-val="perso" aria-pressed="false">Financement personnel</button>
+              <button type="button" data-val="voir" aria-pressed="false">À étudier ensemble</button>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="resultat reveal" id="resultat" aria-live="polite">
+          <p class="resultat-vide" id="resultatVide">
+            Votre parcours s'affichera ici dès la première réponse. Rien n'est envoyé,
+            rien n'est enregistré : c'est un repère, pas un formulaire.
+          </p>
+          <div id="resultatContenu" hidden></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FORMATIONS ================= -->
+  <section class="section douce" id="formations">
+    <div class="wrap">
+      <div class="section-tete reveal">
+        <p class="eyebrow">Nos formations</p>
+        <h2>Quatre chemins vers le même permis.</h2>
+        <p>Permis B en boîte manuelle ou automatique, conduite accompagnée, conduite supervisée
+          et stages de perfectionnement. Le contenu se cale sur votre évaluation de départ.</p>
+      </div>
+      <div class="cartes">
+        <article class="carte reveal">
+          <span class="tag">20 h minimum</span>
+          <h3 style="margin-top:14px">Permis B — boîte manuelle</h3>
+          <p>La formation classique. La réglementation impose au minimum 20 heures de conduite
+             avant de se présenter à l'examen pratique ; le volume réel dépend de votre progression.</p>
+          <a href="#rendezvous" class="btn btn-sombre">En parler</a>
+        </article>
+        <article class="carte reveal">
+          <span class="tag">13 h minimum</span>
+          <h3 style="margin-top:14px">Permis B — boîte automatique</h3>
+          <p>Le permis « BEA » permet de conduire les véhicules à boîte automatique. Depuis 2017,
+             l'examen peut être présenté au terme des 13 heures de formation requises.</p>
+          <a href="#rendezvous" class="btn btn-sombre">En parler</a>
+        </article>
+        <article class="carte reveal">
+          <span class="tag">Dès 15 ans</span>
+          <h3 style="margin-top:14px">Conduite accompagnée (AAC)</h3>
+          <p>Après la formation initiale, au moins un an et 3 000 km avec un accompagnateur,
+             ponctués de rendez-vous pédagogiques. À la clé, une période probatoire réduite à deux ans.</p>
+          <a href="#rendezvous" class="btn btn-sombre">En parler</a>
+        </article>
+        <article class="carte reveal">
+          <span class="tag">Dès 18 ans</span>
+          <h3 style="margin-top:14px">Conduite supervisée &amp; perfectionnement</h3>
+          <p>Pour prendre de l'expérience avant l'examen, ou reprendre le volant après une longue
+             pause. Un rendez-vous préalable fixe le cadre avec vous et votre accompagnateur.</p>
+          <a href="#rendezvous" class="btn btn-sombre">En parler</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIMULATEUR ================= -->
+  <section class="section sombre" id="simulateur">
+    <div class="wrap">
+      <div class="simu">
+        <div class="simu-visuel reveal" aria-hidden="true">
+          <span class="horizon"></span>
+          <span class="voie g"></span>
+          <span class="voie d"></span>
+          <span class="voie c"></span>
+          <span class="etiquette">Première leçon · en salle</span>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Ce qui se passe avant la route</p>
+          <h2>On commence assis, moteur éteint.</h2>
+          <p style="color:#AFBDC9;font-size:17.5px">
+            Les premières leçons se déroulent sur un simulateur de conduite. La prise en main du
+            véhicule — pédales, embrayage, regard, trajectoire — s'apprend au calme, sans la
+            pression de la circulation et sans émission de CO₂.
+          </p>
+          <ul class="simu-liste">
+            <li>On recommence un exercice autant de fois qu'il le faut, sans mobiliser une voiture.</li>
+            <li>Les erreurs se font en salle plutôt qu'au premier carrefour.</li>
+            <li>La première sortie sur route arrive avec les bons réflexes déjà en place.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUIZ CODE ================= -->
+  <section class="section" id="code">
+    <div class="wrap">
+      <div class="section-tete reveal">
+        <p class="eyebrow">Six questions pour voir</p>
+        <h2>Où en êtes-vous, sur le code ?</h2>
+        <p>L'examen du code compte 40 questions et tolère 5 erreurs. En voici six, tirées des
+           règles que l'on revoit le plus souvent en salle.</p>
+      </div>
+
+      <div class="quiz reveal" id="quiz">
+        <div class="quiz-tete">
+          <span class="quiz-compteur" id="quizCompteur">Question 1 / 6</span>
+          <span class="quiz-compteur" id="quizFautes">0 faute</span>
+        </div>
+        <div class="quiz-barre"><i id="quizBarre"></i></div>
+        <p class="quiz-question" id="quizQuestion"></p>
+        <div class="quiz-reponses" id="quizReponses"></div>
+        <div class="quiz-explication" id="quizExplication" hidden></div>
+        <div class="quiz-pied" id="quizPied" hidden>
+          <button type="button" class="btn btn-sombre" id="quizSuivant">Question suivante</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINANCEMENT ================= -->
+  <section class="section sombre" id="financement">
+    <div class="wrap">
+      <div class="section-tete reveal">
+        <p class="eyebrow">Financement</p>
+        <h2>Deux dispositifs, aucun frais de dossier caché.</h2>
+      </div>
+      <div class="finance">
+        <div class="finance-carte reveal">
+          <h3>Le permis à 1 € par jour</h3>
+          <p>Un prêt à taux zéro dont les intérêts sont pris en charge par l'État, ouvert aux
+             15–25 ans révolus. Le remboursement se fait sur la base de 30 € par mois, d'où son nom.</p>
+          <div class="montants"><span>600 €</span><span>800 €</span><span>1 000 €</span><span>1 200 €</span></div>
+          <p class="source">Montants et conditions fixés par l'État — à confirmer auprès de l'auto-école et de l'organisme prêteur.</p>
+        </div>
+        <div class="finance-carte reveal">
+          <h3>Le compte personnel de formation</h3>
+          <p>Le permis B peut être financé via le CPF. Les droits disponibles se consultent sur
+             votre espace personnel, et le dossier se monte avec l'auto-école.</p>
+          <p class="source" style="margin-top:16px">Éligibilité et reste à charge à vérifier au cas par cas.</p>
+        </div>
+        <div class="finance-carte reveal">
+          <h3>Les tarifs de l'école</h3>
+          <p>Les forfaits et le prix de l'heure sont détaillés sur la page Tarifs du site actuel
+             et remis lors du rendez-vous d'évaluation, une fois le volume d'heures estimé.</p>
+          <p class="source" style="margin-top:16px">Aucun tarif n'est affiché dans cette maquette : ils seront repris tels que l'auto-école les pratique.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RENDEZ-VOUS ================= -->
+  <section class="section douce" id="rendezvous">
+    <div class="wrap">
+      <div class="section-tete reveal">
+        <p class="eyebrow">Rendez-vous d'évaluation</p>
+        <h2>Choisissez un créneau, l'agence vous rappelle.</h2>
+        <p>Les créneaux proposés correspondent aux horaires d'ouverture de l'auto-école. Une fois
+           validé, le rendez-vous s'ajoute à votre agenda et un message pré-rempli part vers
+           l'école — plus besoin d'attendre l'heure d'ouverture pour appeler.</p>
+      </div>
+
+      <div class="rdv-grille">
+        <div class="rdv-boite reveal">
+          <div class="champ">
+            <label for="rdvJour">Jour souhaité</label>
+            <select id="rdvJour">
+              <option value="">— Choisir un jour —</option>
+            </select>
+          </div>
+          <div class="champ">
+            <label>Créneau</label>
+            <div class="creneaux" id="rdvCreneaux">
+              <span class="vide">Sélectionnez d'abord un jour.</span>
+            </div>
+          </div>
+          <div class="champ">
+            <label for="rdvNom">Votre nom</label>
+            <input type="text" id="rdvNom" placeholder="Prénom et nom" autocomplete="name">
+          </div>
+          <div class="champ">
+            <label for="rdvTel">Votre téléphone</label>
+            <input type="tel" id="rdvTel" placeholder="06 __ __ __ __" autocomplete="tel">
+          </div>
+          <div class="champ">
+            <label for="rdvMot">Un mot sur votre situation (facultatif)</label>
+            <textarea id="rdvMot" rows="3" placeholder="Conduite accompagnée, boîte automatique, reprise après une pause…"></textarea>
+          </div>
+
+          <div class="rdv-recap" id="rdvRecap" hidden></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button type="button" class="btn btn-signal btn-large" id="rdvValider">Ajouter à mon agenda</button>
+            <button type="button" class="btn btn-sombre btn-large" id="rdvMail">Envoyer la demande</button>
+          </div>
+          <p class="note-fine" style="color:var(--encre-doux)">
+            Dans cette maquette, « Ajouter à mon agenda » télécharge un fichier .ics et « Envoyer la
+            demande » ouvre votre messagerie avec un message pré-rempli. Rien n'est transmis
+            automatiquement à l'auto-école.
+          </p>
+        </div>
+
+        <div class="reveal">
+          <ul class="coord">
+            <li>
+              <span class="cle">Adresse</span>
+              <span class="val">
+                <a href="https://maps.google.com/?q=25+rue+No%C3%ABlas+42300+Roanne" target="_blank" rel="noopener">25 rue Noëlas<br>42300 Roanne</a>
+              </span>
+            </li>
+            <li>
+              <span class="cle">Téléphone</span>
+              <span class="val"><a href="tel:+33477683411">04 77 68 34 11</a><br><a href="tel:+33666976981">06 66 97 69 81</a></span>
+            </li>
+            <li>
+              <span class="cle">E-mail</span>
+              <span class="val"><a href="mailto:contact@uneligne2conduites.com">contact@uneligne2conduites.com</a></span>
+            </li>
+            <li>
+              <span class="cle">Horaires</span>
+              <span class="val">
+                <p class="horaires">
+                  <b>Lundi</b> 14 h – 18 h<br>
+                  <b>Mardi</b> 9 h – 12 h · 14 h – 18 h<br>
+                  <b>Mercredi</b> 9 h – 12 h · 14 h – 17 h<br>
+                  <b>Jeudi</b> 9 h – 12 h · 14 h – 18 h<br>
+                  <b>Vendredi</b> 9 h – 12 h · 14 h – 18 h
+                </p>
+              </span>
+            </li>
+            <li>
+              <span class="cle">En ligne</span>
+              <span class="val">
+                <a href="https://www.uneligne2conduites.com" target="_blank" rel="noopener">uneligne2conduites.com</a><br>
+                <a href="https://www.facebook.com/uneligne2conduites" target="_blank" rel="noopener">Facebook</a> ·
+                <a href="https://www.instagram.com/autoecoleuneligne2conduites/" target="_blank" rel="noopener">Instagram</a>
+              </span>
+            </li>
+            <li>
+              <span class="cle">Autour</span>
+              <span class="val">En centre-ville, à proximité des lycées Jean Puy, Saint-Paul, Carnot,
+                Albert Thomas et Sainte-Anne, de l'IUT, de l'IFSI et du technopole.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pied">
+  <div class="wrap">
+    <div class="pied-in">
+      <div>
+        <a class="logo" href="#haut" style="margin-bottom:14px">
+          <span class="logo-mark" aria-hidden="true"><span></span></span>
+          <span class="logo-txt" style="color:var(--craie)">Une Ligne 2 Conduites<em style="color:#6F8093">Auto-école · Roanne</em></span>
+        </a>
+        <p style="max-width:34ch">Auto-école à taille humaine, conviviale et engagée dans la
+          réussite de ses élèves. Labellisée École Conduite Qualité.</p>
+      </div>
+      <div>
+        <h4>La formation</h4>
+        <ul>
+          <li><a href="#parcours">Trouver mon parcours</a></li>
+          <li><a href="#formations">Nos formations</a></li>
+          <li><a href="#simulateur">Le simulateur</a></li>
+          <li><a href="#code">Tester son code</a></li>
+          <li><a href="#financement">Financement</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Nous joindre</h4>
+        <ul>
+          <li>25 rue Noëlas, 42300 Roanne</li>
+          <li><a href="tel:+33477683411">04 77 68 34 11</a></li>
+          <li><a href="mailto:contact@uneligne2conduites.com">contact@uneligne2conduites.com</a></li>
+          <li><a href="#rendezvous">Prendre rendez-vous</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="pied-bas">
+      <strong>Maquette de démonstration</strong> — page conçue à titre de proposition, sans lien
+      officiel avec l'auto-école à ce stade. Coordonnées, horaires, formations et labels repris
+      d'informations publiques et à faire valider par l'école. Le site actuel n'ayant pas pu être
+      analysé automatiquement, les couleurs et la typographie sont une proposition approchée,
+      entièrement ajustable. Aucun tarif n'est affiché ; les montants du permis à 1 € par jour
+      sont ceux fixés par l'État. Aucune donnée saisie sur cette page n'est transmise ni conservée.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Menu mobile ---------- */
+  var burger = document.getElementById('burger');
+  var nav = document.getElementById('nav');
+  burger.addEventListener('click', function(){
+    var ouvert = nav.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+  });
+  nav.addEventListener('click', function(e){
+    if (e.target.tagName === 'A') { nav.classList.remove('ouvert'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ---------- En-tête au défilement ---------- */
+  var entete = document.getElementById('entete');
+  window.addEventListener('scroll', function(){
+    entete.classList.toggle('pose', window.scrollY > 8);
+  }, {passive:true});
+
+  /* ---------- Révélation au défilement ---------- */
+  var aReveler = [].slice.call(document.querySelectorAll('.reveal'));
+  function toutReveler(){ aReveler.forEach(function(el){ el.classList.add('vu'); }); }
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vu'); obs.unobserve(e.target); } });
+    }, {threshold:0, rootMargin:'0px 0px -60px 0px'});
+    aReveler.forEach(function(el){ obs.observe(el); });
+    /* Filet de sécurité : rien ne doit rester invisible, quoi qu'il arrive. */
+    setTimeout(toutReveler, 3000);
+  } else {
+    toutReveler();
+  }
+
+  /* ============================================================
+     CONFIGURATEUR DE PARCOURS
+     ============================================================ */
+  var rep = {age:null, boite:null, financement:null};
+
+  var LIB_BOITE = {
+    manuelle: {nom:'boîte manuelle', heures:20, note:'minimum légal avant de présenter l’examen pratique'},
+    auto:     {nom:'boîte automatique', heures:13, note:'minimum légal pour le permis B « BEA »'},
+    indecis:  {nom:'boîte à définir', heures:null, note:''}
+  };
+
+  document.querySelectorAll('.choix').forEach(function(groupe){
+    var cle = groupe.dataset.groupe;
+    groupe.addEventListener('click', function(e){
+      var b = e.target.closest('button');
+      if(!b) return;
+      groupe.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      rep[cle] = b.dataset.val;
+      majAvancee();
+      majResultat();
+    });
+  });
+
+  function majAvancee(){
+    var n = ['age','boite','financement'].filter(function(k){ return rep[k]; }).length;
+    document.getElementById('etapes').style.setProperty('--avancee', (n/3*100) + '%');
+  }
+
+  function parcoursConseille(){
+    if(rep.age === '15-17'){
+      return {
+        titre:'Conduite accompagnée (AAC)',
+        sous:'Le parcours ouvert dès 15 ans',
+        texte:'La formation initiale se fait à l’école, puis vient une période d’au moins un an et 3 000 km au volant avec un accompagnateur, ponctuée de rendez-vous pédagogiques. À la sortie, la période probatoire est de deux ans au lieu de trois.',
+        etapes:[
+          'Rendez-vous d’évaluation à l’auto-école',
+          'Formation au code, puis examen du code',
+          'Leçons de conduite — les premières sur simulateur',
+          'Rendez-vous préalable avec votre accompagnateur',
+          'Un an et 3 000 km minimum en conduite accompagnée',
+          'Examen pratique, puis permis probatoire de deux ans'
+        ]
+      };
+    }
+    if(rep.age === '18-25' || rep.age === '26+'){
+      return {
+        titre:'Permis B, ou conduite supervisée',
+        sous:'Deux options à trancher à l’évaluation',
+        texte:'Le parcours classique mène directement à l’examen une fois le volume d’heures atteint. Si vous préférez accumuler de l’expérience avant de vous présenter, la conduite supervisée permet de rouler avec un accompagnateur après un rendez-vous préalable à l’école.',
+        etapes:[
+          'Rendez-vous d’évaluation à l’auto-école',
+          'Formation au code, puis examen du code',
+          'Leçons de conduite — les premières sur simulateur',
+          'Option : rendez-vous préalable et période de conduite supervisée',
+          'Examen pratique, puis permis probatoire de trois ans'
+        ]
+      };
+    }
+    return null;
+  }
+
+  function aides(){
+    var l = [];
+    if(rep.age === '15-17' || rep.age === '18-25'){
+      l.push('Permis à 1 € par jour : prêt à taux zéro ouvert aux 15–25 ans révolus, remboursé 30 € par mois.');
+    } else if(rep.age === '26+'){
+      l.push('Permis à 1 € par jour : le dispositif s’arrête à 25 ans révolus — à vérifier selon votre date de naissance.');
+    }
+    if(rep.financement === 'cpf'){
+      l.push('CPF : le permis B est finançable par le compte personnel de formation, dossier monté avec l’école.');
+    } else if(rep.financement === 'perso'){
+      l.push('Financement personnel : le détail des forfaits vous est remis au rendez-vous d’évaluation.');
+    } else if(rep.financement === 'voir'){
+      l.push('À étudier ensemble : les possibilités se regardent au cas par cas lors de l’évaluation.');
+    } else if(rep.financement === '1euro'){
+      l.push('L’auto-école propose le dispositif permis à 1 € par jour ; l’éligibilité se confirme à l’inscription.');
+    }
+    return l;
+  }
+
+  function majResultat(){
+    var p = parcoursConseille();
+    var vide = document.getElementById('resultatVide');
+    var box = document.getElementById('resultatContenu');
+    if(!p){ vide.hidden = false; box.hidden = true; return; }
+    vide.hidden = true; box.hidden = false;
+
+    var h = '';
+    h += '<h3>' + p.titre + '</h3>';
+    h += '<p class="sous">' + p.sous + '</p>';
+    h += '<p style="color:#DCE4EB;font-size:15.5px">' + p.texte + '</p>';
+
+    if(rep.boite){
+      var b = LIB_BOITE[rep.boite];
+      h += '<div class="res-bloc"><h4>Volume de conduite</h4>';
+      if(b.heures){
+        h += '<div class="res-heures"><b>' + b.heures + ' h</b><span>' + b.note + ', en ' + b.nom + '.</span></div>';
+        h += '<p class="note-fine">Le nombre d’heures réellement nécessaire dépend de votre progression : il s’estime au rendez-vous d’évaluation.</p>';
+      } else {
+        h += '<p class="note-fine" style="margin-top:0">20 heures minimum en boîte manuelle, 13 heures en boîte automatique. Le choix se fait souvent après l’évaluation de départ.</p>';
+      }
+      h += '</div>';
+    }
+
+    h += '<div class="res-bloc"><h4>Les étapes</h4><ol>';
+    p.etapes.forEach(function(e){ h += '<li>' + e + '</li>'; });
+    h += '</ol></div>';
+
+    var a = aides();
+    if(a.length){
+      h += '<div class="res-bloc"><h4>Financement</h4><ul>';
+      a.forEach(function(x){ h += '<li>' + x + '</li>'; });
+      h += '</ul></div>';
+    }
+
+    h += '<a href="#rendezvous" class="btn btn-signal">Réserver mon évaluation</a>';
+    h += '<p class="note-fine">Récapitulatif indicatif, établi à partir des règles nationales en vigueur. Il ne remplace pas l’évaluation de départ réalisée par l’école.</p>';
+    box.innerHTML = h;
+  }
+
+  /* ============================================================
+     QUIZ CODE DE LA ROUTE
+     ============================================================ */
+  var QUESTIONS = [
+    {
+      q:"Sur autoroute, un conducteur en période probatoire ne doit pas dépasser :",
+      r:["130 km/h","120 km/h","110 km/h","90 km/h"],
+      bonne:2,
+      exp:"Pendant la période probatoire, la vitesse est limitée à 110 km/h sur autoroute, contre 130 km/h pour les autres conducteurs."
+    },
+    {
+      q:"Quel taux d'alcoolémie maximal s'applique en période probatoire ?",
+      r:["0,5 g/L de sang","0,2 g/L de sang","0,8 g/L de sang","Aucune limite spécifique"],
+      bonne:1,
+      exp:"Le seuil est abaissé à 0,2 g/L de sang pour les conducteurs en permis probatoire et les apprentis conducteurs — soit, en pratique, zéro verre."
+    },
+    {
+      q:"À l'examen du code, combien de fautes au maximum pour être reçu ?",
+      r:["3 fautes","5 fautes","8 fautes","10 fautes"],
+      bonne:1,
+      exp:"L'épreuve compte 40 questions : il faut au moins 35 bonnes réponses, soit 5 erreurs tolérées au maximum."
+    },
+    {
+      q:"À partir de quel âge peut-on démarrer la conduite accompagnée (AAC) ?",
+      r:["14 ans","15 ans","16 ans","17 ans"],
+      bonne:1,
+      exp:"La formation en conduite accompagnée peut débuter dès 15 ans."
+    },
+    {
+      q:"Combien d'heures de conduite au minimum avant de présenter l'examen en boîte manuelle ?",
+      r:["13 heures","15 heures","20 heures","30 heures"],
+      bonne:2,
+      exp:"La réglementation impose 20 heures minimum en boîte manuelle. En boîte automatique, le minimum est de 13 heures."
+    },
+    {
+      q:"Après un permis obtenu en conduite accompagnée, la période probatoire dure :",
+      r:["1 an","2 ans","3 ans","4 ans"],
+      bonne:1,
+      exp:"La période probatoire est réduite à deux ans après un permis obtenu en conduite accompagnée, contre trois ans dans le parcours classique."
+    }
+  ];
+
+  var idx = 0, fautes = 0, repondu = false;
+  var eQ = document.getElementById('quizQuestion');
+  var eR = document.getElementById('quizReponses');
+  var eE = document.getElementById('quizExplication');
+  var eP = document.getElementById('quizPied');
+  var eC = document.getElementById('quizCompteur');
+  var eF = document.getElementById('quizFautes');
+  var eB = document.getElementById('quizBarre');
+  var eSuivant = document.getElementById('quizSuivant');
+  var LETTRES = ['A','B','C','D'];
+
+  function afficheQuestion(){
+    repondu = false;
+    var q = QUESTIONS[idx];
+    eC.textContent = 'Question ' + (idx+1) + ' / ' + QUESTIONS.length;
+    eF.textContent = fautes + (fautes > 1 ? ' fautes' : ' faute');
+    eB.style.width = (idx / QUESTIONS.length * 100) + '%';
+    eQ.textContent = q.q;
+    eR.innerHTML = '';
+    q.r.forEach(function(txt, i){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.innerHTML = '<span class="lettre">' + LETTRES[i] + '</span><span>' + txt + '</span>';
+      b.addEventListener('click', function(){ repond(i); });
+      eR.appendChild(b);
+    });
+    eE.hidden = true;
+    eP.hidden = true;
+  }
+
+  function repond(i){
+    if(repondu) return;
+    repondu = true;
+    var q = QUESTIONS[idx];
+    var boutons = eR.querySelectorAll('button');
+    boutons.forEach(function(b, j){
+      b.disabled = true;
+      if(j === q.bonne) b.classList.add('juste');
+      else if(j === i) b.classList.add('faux');
+    });
+    if(i !== q.bonne) fautes++;
+    eF.textContent = fautes + (fautes > 1 ? ' fautes' : ' faute');
+    eE.textContent = q.exp;
+    eE.hidden = false;
+    eB.style.width = ((idx+1) / QUESTIONS.length * 100) + '%';
+    eSuivant.textContent = (idx === QUESTIONS.length - 1) ? 'Voir mon résultat' : 'Question suivante';
+    eP.hidden = false;
+  }
+
+  eSuivant.addEventListener('click', function(){
+    if(idx < QUESTIONS.length - 1){ idx++; afficheQuestion(); return; }
+    finQuiz();
+  });
+
+  function finQuiz(){
+    var justes = QUESTIONS.length - fautes;
+    eC.textContent = 'Terminé';
+    eQ.textContent = fautes <= 1
+      ? 'Solide. Le code est presque là.'
+      : (fautes <= 3 ? 'Bonne base, quelques points à revoir.' : 'Il y a de quoi travailler — c’est justement le rôle de la salle de code.');
+    eR.innerHTML = '<p class="quiz-score">' + justes + ' / ' + QUESTIONS.length + ' bonnes réponses</p>';
+    eE.hidden = true;
+    eP.innerHTML = '<a href="#rendezvous" class="btn btn-signal">Prendre rendez-vous</a>' +
+                   '<button type="button" class="btn btn-sombre" id="quizRejouer">Recommencer</button>';
+    eP.hidden = false;
+    document.getElementById('quizRejouer').addEventListener('click', function(){
+      idx = 0; fautes = 0;
+      eP.innerHTML = '';
+      eP.appendChild(eSuivant);
+      eSuivant.textContent = 'Question suivante';
+      afficheQuestion();
+    });
+  }
+
+  afficheQuestion();
+
+  /* ============================================================
+     PRISE DE RENDEZ-VOUS
+     ============================================================ */
+  /* Horaires d'ouverture réels de l'agence (0 = dimanche) */
+  var OUVERTURE = {
+    1: [['14:00','18:00']],
+    2: [['09:00','12:00'],['14:00','18:00']],
+    3: [['09:00','12:00'],['14:00','17:00']],
+    4: [['09:00','12:00'],['14:00','18:00']],
+    5: [['09:00','12:00'],['14:00','18:00']]
+  };
+  var JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  var MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+
+  var selJour = document.getElementById('rdvJour');
+  var boxCreneaux = document.getElementById('rdvCreneaux');
+  var recap = document.getElementById('rdvRecap');
+  var choixHeure = null;
+  var choixDate = null;
+
+  /* Les 15 prochains jours ouvrés */
+  (function remplirJours(){
+    var d = new Date();
+    d.setHours(0,0,0,0);
+    var ajoutes = 0, garde = 0;
+    while(ajoutes < 15 && garde < 40){
+      d.setDate(d.getDate() + 1);
+      garde++;
+      if(!OUVERTURE[d.getDay()]) continue;
+      var o = document.createElement('option');
+      o.value = d.toISOString().slice(0,10);
+      o.textContent = JOURS[d.getDay()] + ' ' + d.getDate() + ' ' + MOIS[d.getMonth()];
+      selJour.appendChild(o);
+      ajoutes++;
+    }
+  })();
+
+  selJour.addEventListener('change', function(){
+    choixHeure = null;
+    choixDate = selJour.value || null;
+    boxCreneaux.innerHTML = '';
+    if(!choixDate){
+      boxCreneaux.innerHTML = '<span class="vide">Sélectionnez d’abord un jour.</span>';
+      majRecap();
+      return;
+    }
+    var d = new Date(choixDate + 'T12:00:00');
+    var plages = OUVERTURE[d.getDay()] || [];
+    plages.forEach(function(pl){
+      var deb = enMinutes(pl[0]), fin = enMinutes(pl[1]);
+      for(var m = deb; m + 30 <= fin; m += 30){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = enTexte(m);
+        b.setAttribute('aria-pressed','false');
+        b.addEventListener('click', function(){
+          boxCreneaux.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+          b.setAttribute('aria-pressed','true');
+          choixHeure = b.textContent;
+          majRecap();
+        });
+        boxCreneaux.appendChild(b);
+      }
+    });
+    majRecap();
+  });
+
+  function enMinutes(s){ var p = s.split(':'); return (+p[0])*60 + (+p[1]); }
+  function enTexte(m){
+    var h = Math.floor(m/60), mn = m%60;
+    return (h<10?'0':'') + h + 'h' + (mn<10?'0':'') + mn;
+  }
+
+  function majRecap(){
+    if(!choixDate || !choixHeure){ recap.hidden = true; return; }
+    var d = new Date(choixDate + 'T12:00:00');
+    recap.hidden = false;
+    recap.innerHTML = '<strong>Rendez-vous d’évaluation</strong><br>' +
+      JOURS[d.getDay()] + ' ' + d.getDate() + ' ' + MOIS[d.getMonth()] + ' à ' + choixHeure +
+      ' — 25 rue Noëlas, Roanne. Durée prévue : 45 minutes.';
+  }
+
+  function verifie(){
+    if(!choixDate || !choixHeure){
+      alert('Choisissez d’abord un jour et un créneau.');
+      return false;
+    }
+    return true;
+  }
+
+  document.getElementById('rdvValider').addEventListener('click', function(){
+    if(!verifie()) return;
+    var hm = choixHeure.split('h');
+    var debut = new Date(choixDate + 'T' + hm[0] + ':' + hm[1] + ':00');
+    var fin = new Date(debut.getTime() + 45*60000);
+    var nom = (document.getElementById('rdvNom').value || '').trim();
+
+    var ics = [
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Une Ligne 2 Conduites//Maquette//FR',
+      'BEGIN:VEVENT',
+      'UID:' + debut.getTime() + '@uneligne2conduites',
+      'DTSTAMP:' + zulu(new Date()),
+      'DTSTART:' + local(debut),
+      'DTEND:' + local(fin),
+      'SUMMARY:Rendez-vous d\'évaluation - Une Ligne 2 Conduites',
+      'LOCATION:25 rue Noëlas\\, 42300 Roanne',
+      'DESCRIPTION:Rendez-vous d\'évaluation' + (nom ? ' pour ' + nom : '') +
+        '. Auto-école Une Ligne 2 Conduites\\, 04 77 68 34 11. Créneau issu d\'une maquette de démonstration : à confirmer avec l\'école.',
+      'BEGIN:VALARM','TRIGGER:-PT60M','ACTION:DISPLAY','DESCRIPTION:Rendez-vous auto-école','END:VALARM',
+      'END:VEVENT','END:VCALENDAR'
+    ].join('\r\n');
+
+    var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'rendez-vous-une-ligne-2-conduites.ics';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 3000);
+  });
+
+  document.getElementById('rdvMail').addEventListener('click', function(){
+    if(!verifie()) return;
+    var d = new Date(choixDate + 'T12:00:00');
+    var nom = (document.getElementById('rdvNom').value || '').trim();
+    var tel = (document.getElementById('rdvTel').value || '').trim();
+    var mot = (document.getElementById('rdvMot').value || '').trim();
+    var corps =
+      'Bonjour,\n\nJe souhaite un rendez-vous d\'évaluation le ' +
+      JOURS[d.getDay()] + ' ' + d.getDate() + ' ' + MOIS[d.getMonth()] + ' à ' + choixHeure + '.\n\n' +
+      (nom ? 'Nom : ' + nom + '\n' : '') +
+      (tel ? 'Téléphone : ' + tel + '\n' : '') +
+      (mot ? '\n' + mot + '\n' : '') +
+      '\nMerci de me confirmer ce créneau.\n';
+    window.location.href = 'mailto:contact@uneligne2conduites.com' +
+      '?subject=' + encodeURIComponent('Demande de rendez-vous d\'évaluation') +
+      '&body=' + encodeURIComponent(corps);
+  });
+
+  function pad(n){ return (n<10?'0':'') + n; }
+  function local(d){
+    return '' + d.getFullYear() + pad(d.getMonth()+1) + pad(d.getDate()) + 'T' +
+           pad(d.getHours()) + pad(d.getMinutes()) + '00';
+  }
+  function zulu(d){
+    return '' + d.getUTCFullYear() + pad(d.getUTCMonth()+1) + pad(d.getUTCDate()) + 'T' +
+           pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z';
+  }
+})();
+</script>
+</body>
+</html>

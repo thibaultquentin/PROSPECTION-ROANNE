@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison J.B. Clair — Côte Roannaise — Méthode Traditionnelle</title>
+<style>
+/* =========================================================================
+   MAISON J.B. CLAIR — maquette de démonstration
+   -------------------------------------------------------------------------
+   Toutes les couleurs et les polices sont regroupées ici.
+   La charte exacte de la maison (logo, codes couleurs, typographie) n'a pas
+   pu etre recuperee automatiquement : les valeurs ci-dessous sont approchees
+   et se remplacent en quelques lignes.
+   Reperes utilises : le granit des coteaux de la Cote Roannaise (Loire
+   volcanique), la pierre des caves voutees de 1896, la robe du gamay et
+   celle du rose effervescent.
+   ========================================================================= */
+:root{
+  --granit:        #262B30;   /* fonds sombres, pied de page */
+  --granit-2:      #363D44;   /* nuance intermediaire */
+  --granit-3:      #5C666F;   /* textes secondaires sur clair */
+  --pierre:        #F5F2EC;   /* fond general */
+  --pierre-2:      #EAE4DA;   /* cartes, separations */
+  --encre:         #1A1D20;   /* texte courant */
+  --gamay:         #8E2438;   /* accent principal : rouge de la Cote Roannaise */
+  --gamay-clair:   #B03A50;
+  --rose-brut:     #DE9A95;   /* accent secondaire : rose effervescent */
+  --or:            #B99333;   /* filets, bulles, details */
+  --vert-ok:       #2F6B4F;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  --ombre: 0 1px 2px rgba(38,43,48,.06), 0 8px 24px rgba(38,43,48,.08);
+  --rayon: 3px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--pierre); color:var(--encre);
+  font-family:var(--sans); font-size:17px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+h1,h2,h3,h4{font-family:var(--serif); font-weight:600; line-height:1.2; margin:0}
+a{color:var(--gamay)}
+
+/* ---------- bandeau de demonstration ---------- */
+.demo-bar{
+  background:var(--granit); color:#DCD6CB; font-size:12.5px; letter-spacing:.04em;
+  text-align:center; padding:7px 14px; font-family:var(--sans);
+}
+.demo-bar b{color:#fff; font-weight:600}
+
+/* ---------- entete ---------- */
+header.site{
+  position:sticky; top:0; z-index:40; background:rgba(245,242,236,.94);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--pierre-2);
+  transition:box-shadow .25s ease;
+}
+header.site.scrolled{box-shadow:0 1px 0 var(--pierre-2), 0 10px 24px -18px rgba(38,43,48,.5)}
+.bandeau{max-width:1140px; margin:0 auto; padding:12px 22px; display:flex; align-items:center; gap:24px}
+.marque{display:flex; align-items:baseline; gap:10px; text-decoration:none; color:var(--encre)}
+.marque .nom{font-family:var(--serif); font-size:22px; letter-spacing:.02em}
+.marque .lieu{font-size:11.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--granit-3)}
+nav.principal{margin-left:auto; display:flex; gap:6px; flex-wrap:wrap}
+nav.principal a{
+  position:relative; text-decoration:none; color:var(--granit-2); font-size:14.5px;
+  padding:7px 11px; border-radius:var(--rayon); transition:color .18s ease;
+}
+nav.principal a::after{
+  content:""; position:absolute; left:11px; right:11px; bottom:3px; height:1.5px;
+  background:var(--gamay); transform:scaleX(0); transform-origin:left; transition:transform .28s cubic-bezier(.2,.8,.2,1);
+}
+nav.principal a:hover{color:var(--gamay)}
+nav.principal a:hover::after, nav.principal a.actif::after{transform:scaleX(1)}
+nav.principal a.actif{color:var(--gamay)}
+.tel-entete{font-size:14px; color:var(--granit-3); white-space:nowrap}
+.tel-entete a{text-decoration:none}
+
+/* ---------- premier ecran ---------- */
+.hero{
+  position:relative; overflow:hidden; background:var(--granit);
+  color:#EFEAE1; padding:88px 22px 96px; text-align:center;
+}
+.hero .voute{position:absolute; inset:0; opacity:.20; pointer-events:none}
+.hero .grain{
+  position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.10), transparent 62%);
+}
+.hero-in{position:relative; max-width:820px; margin:0 auto}
+.sur-titre{
+  font-size:11.5px; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--rose-brut); margin-bottom:22px;
+}
+.hero h1{font-size:clamp(34px,6.2vw,60px); letter-spacing:.01em}
+.hero h1 em{font-style:normal; color:var(--or)}
+.hero .baseline{
+  margin:20px auto 0; max-width:640px; font-size:18px; color:#C9C2B6;
+}
+.filet{width:64px; height:1px; background:var(--or); margin:30px auto; opacity:.8}
+.hero-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:8px}
+.btn{
+  display:inline-flex; align-items:center; gap:9px; border:none; cursor:pointer;
+  font-family:var(--sans); font-size:15px; padding:13px 22px; border-radius:var(--rayon);
+  text-decoration:none; transition:transform .16s ease, background .2s ease, box-shadow .2s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-plein{background:var(--gamay); color:#fff}
+.btn-plein:hover{background:var(--gamay-clair); box-shadow:0 6px 18px -8px rgba(142,36,56,.9)}
+.btn-ligne{background:transparent; color:#EFEAE1; border:1px solid rgba(239,234,225,.4)}
+.btn-ligne:hover{border-color:var(--or); color:var(--or)}
+.btn-sombre{background:var(--granit); color:#fff}
+.btn-sombre:hover{background:var(--granit-2)}
+.btn-clair{background:#fff; color:var(--encre); border:1px solid var(--pierre-2)}
+.btn-clair:hover{border-color:var(--granit-3)}
+.btn[disabled]{opacity:.45; cursor:not-allowed}
+
+/* bulles du premier ecran */
+.bulles{position:absolute; inset:0; pointer-events:none; overflow:hidden}
+.bulle{
+  position:absolute; bottom:-24px; border-radius:50%;
+  background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.85), rgba(255,255,255,.14) 62%, rgba(255,255,255,0) 68%);
+  animation:monte linear infinite;
+}
+@keyframes monte{
+  0%{transform:translateY(0) translateX(0); opacity:0}
+  12%{opacity:.75}
+  100%{transform:translateY(-105vh) translateX(var(--derive)); opacity:0}
+}
+@media (prefers-reduced-motion: reduce){ .bulle{display:none} }
+
+/* ---------- rubriques ---------- */
+section{padding:76px 22px}
+.large{max-width:1140px; margin:0 auto}
+.etroit{max-width:760px; margin:0 auto}
+.titre-rubrique{text-align:center; margin-bottom:14px}
+.titre-rubrique .chapeau{
+  font-size:11.5px; letter-spacing:.28em; text-transform:uppercase; color:var(--gamay); margin-bottom:12px;
+}
+.titre-rubrique h2{font-size:clamp(26px,3.6vw,38px)}
+.titre-rubrique p.sous{color:var(--granit-3); margin:14px auto 0; max-width:620px}
+.sep{width:44px; height:1px; background:var(--or); margin:26px auto 46px}
+
+/* presentation */
+.presentation{background:var(--pierre)}
+.deux-colonnes{display:grid; grid-template-columns:1.1fr .9fr; gap:52px; align-items:start}
+.chiffres{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:26px}
+.chiffre{background:#fff; border:1px solid var(--pierre-2); border-radius:var(--rayon); padding:20px}
+.chiffre .val{font-family:var(--serif); font-size:30px; color:var(--gamay); line-height:1}
+.chiffre .lib{font-size:13.5px; color:var(--granit-3); margin-top:7px}
+
+/* historique */
+.historique{background:var(--granit); color:#E4DED4}
+.historique .titre-rubrique h2{color:#fff}
+.historique .titre-rubrique .chapeau{color:var(--rose-brut)}
+.frise{position:relative; margin-top:10px; padding-left:34px}
+.frise::before{content:""; position:absolute; left:9px; top:6px; bottom:6px; width:1px; background:rgba(185,147,51,.45)}
+.jalon{position:relative; padding:0 0 34px 0}
+.jalon:last-child{padding-bottom:0}
+.jalon::before{
+  content:""; position:absolute; left:-30px; top:9px; width:11px; height:11px; border-radius:50%;
+  background:var(--granit); border:1.5px solid var(--or);
+  transition:background .3s ease, transform .3s ease;
+}
+.jalon.vu::before{background:var(--or); transform:scale(1.15)}
+.jalon .an{font-family:var(--serif); font-size:24px; color:var(--or)}
+.jalon p{margin:6px 0 0; color:#C3BCB1; max-width:640px}
+
+/* ---------- outil central ---------- */
+.caveau{background:var(--pierre-2); position:relative; overflow:hidden}
+.arche{
+  position:relative; background:#fff; border:1px solid #DED6C9; border-radius:var(--rayon);
+  box-shadow:var(--ombre); overflow:hidden;
+}
+.arche::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--gamay), var(--or), var(--rose-brut), var(--gamay));
+}
+.onglets{display:flex; border-bottom:1px solid var(--pierre-2); background:#FBF9F5}
+.onglet{
+  flex:1; border:none; background:transparent; cursor:pointer; font-family:var(--sans);
+  padding:18px 14px; font-size:15.5px; color:var(--granit-3); position:relative;
+  transition:color .2s ease, background .2s ease;
+}
+.onglet:hover{color:var(--encre); background:#fff}
+.onglet.actif{color:var(--gamay); background:#fff}
+.onglet.actif::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--gamay)}
+.onglet .petit{display:block; font-size:12.5px; color:var(--granit-3); margin-top:2px}
+.panneau{display:none; padding:30px}
+.panneau.actif{display:block; animation:apparait .32s ease}
+@keyframes apparait{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+
+.commande{display:grid; grid-template-columns:1.55fr 1fr; gap:30px; align-items:start}
+.famille{margin-bottom:26px}
+.famille > h4{
+  font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--granit-3);
+  border-bottom:1px solid var(--pierre-2); padding-bottom:8px; margin-bottom:6px;
+}
+.ligne-vin{
+  display:flex; align-items:center; gap:16px; padding:14px 10px; border-radius:var(--rayon);
+  transition:background .18s ease;
+}
+.ligne-vin:hover{background:#FBF9F5}
+.ligne-vin.choisi{background:#FBF6F2; box-shadow:inset 2px 0 0 var(--gamay)}
+.flacon{width:15px; height:46px; flex:none; border-radius:4px 4px 2px 2px; position:relative; opacity:.9}
+.flacon::before{content:""; position:absolute; top:-9px; left:4.5px; width:6px; height:11px; border-radius:2px; background:inherit}
+.f-rose{background:var(--rose-brut)} .f-blanc{background:#D9CFA8}
+.f-rouge{background:var(--gamay)} .f-or{background:var(--or)}
+.vin-nom{font-family:var(--serif); font-size:18.5px}
+.vin-det{font-size:13.5px; color:var(--granit-3); margin-top:2px}
+.vin-prix{margin-left:auto; text-align:right; white-space:nowrap}
+.vin-prix .p{font-family:var(--serif); font-size:18px}
+.vin-prix .u{font-size:12px; color:var(--granit-3)}
+.compteur{display:flex; align-items:center; gap:2px; margin-left:14px}
+.compteur button{
+  width:32px; height:32px; border:1px solid var(--pierre-2); background:#fff; cursor:pointer;
+  font-size:17px; line-height:1; color:var(--granit-2); border-radius:var(--rayon);
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+.compteur button:hover{border-color:var(--gamay); color:var(--gamay)}
+.compteur input{
+  width:44px; height:32px; text-align:center; border:1px solid var(--pierre-2); border-radius:var(--rayon);
+  font-family:var(--sans); font-size:15px; margin:0 2px; -moz-appearance:textfield;
+}
+.compteur input::-webkit-outer-spin-button,.compteur input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* le casier */
+.panier{position:sticky; top:88px}
+.casier-boite{background:#FBF9F5; border:1px solid var(--pierre-2); border-radius:var(--rayon); padding:22px}
+.casier-boite h3{font-size:20px; margin-bottom:4px}
+.casier-note{font-size:13px; color:var(--granit-3); margin-bottom:16px}
+.casier{
+  display:grid; grid-template-columns:repeat(6,1fr); gap:5px;
+  background:var(--granit); padding:9px; border-radius:2px; margin-bottom:8px;
+}
+.case{
+  aspect-ratio:1/2.1; border-radius:2px; background:rgba(255,255,255,.06);
+  display:flex; align-items:flex-end; justify-content:center; overflow:hidden;
+}
+.case i{
+  display:block; width:62%; height:0; border-radius:2px 2px 1px 1px;
+  transition:height .32s cubic-bezier(.2,.8,.2,1);
+}
+.case.pleine i{height:88%}
+.jauge-carton{font-size:13px; color:var(--granit-3); margin-bottom:18px; min-height:20px}
+.jauge-carton b{color:var(--gamay)}
+.recap-ligne{display:flex; justify-content:space-between; gap:12px; font-size:14.5px; padding:5px 0}
+.recap-ligne span:first-child{color:var(--granit-2)}
+.recap-vide{color:var(--granit-3); font-size:14px; font-style:italic; padding:8px 0}
+.trait{height:1px; background:var(--pierre-2); margin:14px 0}
+.total{display:flex; justify-content:space-between; align-items:baseline; font-family:var(--serif); font-size:24px}
+.total .eur{color:var(--gamay)}
+.choix-retrait{display:grid; gap:8px; margin:18px 0 6px}
+.opt{
+  display:flex; gap:11px; align-items:flex-start; padding:11px 13px; border:1px solid var(--pierre-2);
+  border-radius:var(--rayon); cursor:pointer; background:#fff; transition:border-color .18s ease, background .18s ease;
+}
+.opt:hover{border-color:var(--granit-3)}
+.opt.coche{border-color:var(--gamay); background:#FBF6F2}
+.opt input{margin-top:4px; accent-color:var(--gamay)}
+.opt .t{font-size:14.5px}
+.opt .d{font-size:12.5px; color:var(--granit-3)}
+.avert{
+  font-size:13px; background:#FDF6E9; border:1px solid #EEDFBE; color:#6B5518;
+  padding:10px 12px; border-radius:var(--rayon); margin-top:14px;
+}
+
+/* reservation de visite */
+.visite{display:grid; grid-template-columns:1fr 1fr; gap:34px}
+.champ{margin-bottom:18px}
+.champ label{display:block; font-size:13px; letter-spacing:.04em; color:var(--granit-2); margin-bottom:7px}
+.champ input[type=text],.champ input[type=date],.champ input[type=email],.champ input[type=tel],.champ select,.champ textarea{
+  width:100%; padding:11px 13px; border:1px solid var(--pierre-2); border-radius:var(--rayon);
+  font-family:var(--sans); font-size:15px; background:#fff; transition:border-color .18s ease, box-shadow .18s ease;
+}
+.champ input:focus,.champ select:focus,.champ textarea:focus{
+  outline:none; border-color:var(--gamay); box-shadow:0 0 0 3px rgba(142,36,56,.10);
+}
+.creneaux{display:flex; flex-wrap:wrap; gap:8px}
+.creneau{
+  border:1px solid var(--pierre-2); background:#fff; border-radius:var(--rayon); padding:9px 14px;
+  font-family:var(--sans); font-size:14.5px; cursor:pointer; transition:all .16s ease;
+}
+.creneau:hover{border-color:var(--gamay); color:var(--gamay)}
+.creneau.pris{background:var(--gamay); border-color:var(--gamay); color:#fff}
+.creneau[disabled]{opacity:.35; cursor:not-allowed; text-decoration:line-through}
+.plage{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--granit-3); margin:16px 0 8px}
+.fiche-visite{background:#FBF9F5; border:1px solid var(--pierre-2); border-radius:var(--rayon); padding:22px}
+.fiche-visite h3{font-size:20px; margin-bottom:12px}
+.groupe-alerte{
+  display:none; font-size:13.5px; background:#FBF6F2; border:1px solid #E7CDD3; color:#6E2231;
+  padding:11px 13px; border-radius:var(--rayon); margin-top:10px;
+}
+.groupe-alerte.visible{display:block}
+.message-ok{
+  display:none; margin-top:16px; padding:14px 16px; border-radius:var(--rayon);
+  background:#EEF5F1; border:1px solid #CBE0D5; color:var(--vert-ok); font-size:14.5px;
+}
+.message-ok.visible{display:block; animation:apparait .3s ease}
+
+/* plan d'acces */
+.acces{background:var(--pierre)}
+.blocs-acces{display:grid; grid-template-columns:repeat(3,1fr); gap:22px}
+.bloc{background:#fff; border:1px solid var(--pierre-2); border-radius:var(--rayon); padding:24px}
+.bloc h4{font-size:19px; margin-bottom:12px}
+.bloc p{margin:0 0 6px; font-size:15px; color:var(--granit-2)}
+.bloc a{text-decoration:none}
+.horaire{display:flex; justify-content:space-between; font-size:14.5px; padding:5px 0; border-bottom:1px dotted var(--pierre-2)}
+.horaire:last-child{border-bottom:none}
+.horaire .j{color:var(--granit-2)}
+.horaire .h{color:var(--encre)}
+
+/* pied de page */
+footer.site{background:var(--granit); color:#A8A197; padding:52px 22px 34px; font-size:14px}
+footer.site .large{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:34px}
+footer.site h5{font-family:var(--serif); color:#EFEAE1; font-size:18px; margin:0 0 12px; font-weight:600}
+footer.site a{color:#C6BFB4; text-decoration:none}
+footer.site a:hover{color:var(--or)}
+.mention{
+  max-width:1140px; margin:36px auto 0; padding-top:20px; border-top:1px solid rgba(255,255,255,.10);
+  font-size:12.5px; color:#8B857C; line-height:1.7;
+}
+
+@media (max-width:980px){
+  .deux-colonnes,.commande,.visite{grid-template-columns:1fr}
+  .blocs-acces{grid-template-columns:1fr}
+  footer.site .large{grid-template-columns:1fr}
+  .panier{position:static}
+  nav.principal{display:none}
+  .bandeau{gap:14px}
+}
+@media (max-width:560px){
+  section{padding:56px 18px}
+  .panneau{padding:20px 16px}
+  .chiffres{grid-template-columns:1fr}
+  .ligne-vin{flex-wrap:wrap}
+  .vin-prix{margin-left:0}
+  .compteur{margin-left:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">
+  <b>Maquette de démonstration</b> — proposition de site pour la Maison J.B. Clair. Aucune commande n'est réellement transmise, les prix affichés sont indicatifs.
+</div>
+
+<header class="site" id="entete">
+  <div class="bandeau">
+    <a class="marque" href="#haut">
+      <span class="nom">Maison J.B. Clair</span>
+      <span class="lieu">Renaison</span>
+    </a>
+    <nav class="principal">
+      <a href="#presentation">Présentation</a>
+      <a href="#historique">Historique</a>
+      <a href="#caveau">Nos vins</a>
+      <a href="#caveau">Commander</a>
+      <a href="#acces">Plan d'accès</a>
+    </nav>
+    <div class="tel-entete"><a href="tel:+33477644001">04 77 64 40 01</a></div>
+  </div>
+</header>
+
+<!-- ============================ PREMIER ECRAN ============================ -->
+<div class="hero" id="haut">
+  <svg class="voute" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="pierre" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#9AA2A9" stop-opacity=".55"/>
+        <stop offset="100%" stop-color="#9AA2A9" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g fill="none" stroke="url(#pierre)" stroke-width="1.4">
+      <path d="M100 420 L100 220 A200 200 0 0 1 500 220 L500 420"/>
+      <path d="M160 420 L160 240 A140 140 0 0 1 440 240 L440 420"/>
+      <path d="M700 420 L700 220 A200 200 0 0 1 1100 220 L1100 420"/>
+      <path d="M760 420 L760 240 A140 140 0 0 1 1040 240 L1040 420"/>
+      <path d="M400 420 L400 260 A200 200 0 0 1 800 260 L800 420"/>
+    </g>
+  </svg>
+  <div class="grain"></div>
+  <div class="bulles" id="bulles" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="sur-titre">Côte Roannaise · Méthode Traditionnelle</div>
+    <h1>Depuis 1536, la vigne.<br>Depuis 1896, les <em>bulles</em>.</h1>
+    <p class="baseline">
+      Les premiers effervescents de la Côte Roannaise sont nés ici, sous les caves voûtées
+      bâties par Jean-Baptiste Clair. Claudine Clair et Guido D'Antonio les élaborent toujours
+      selon la même méthode, à Chez Chambon, sur les coteaux de granit de Renaison.
+    </p>
+    <div class="filet"></div>
+    <div class="hero-actions">
+      <a class="btn btn-plein" href="#caveau">Composer ma commande</a>
+      <a class="btn btn-ligne" href="#visite-onglet" id="lien-visite">Réserver la visite des caves</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================ PRESENTATION ============================ -->
+<section class="presentation" id="presentation">
+  <div class="large">
+    <div class="deux-colonnes">
+      <div>
+        <div class="titre-rubrique" style="text-align:left">
+          <div class="chapeau">Présentation</div>
+          <h2>Une maison de famille, six hectares et demi de coteaux</h2>
+        </div>
+        <p>
+          La Maison J.B. Clair est installée au lieu-dit Chez Chambon, à Renaison, au cœur de
+          l'AOC Côte Roannaise. Guido D'Antonio et Claudine Clair conduisent le domaine depuis
+          2007 : six hectares et demi de vignes réparties sur trois communes, sur les coteaux
+          de granit qui regardent la Loire.
+        </p>
+        <p>
+          Le domaine produit les rouges et rosés d'appellation Côte Roannaise, issus du gamay
+          saint-romain, un blanc en Vin de Pays d'Urfé, et surtout les effervescents élaborés
+          en méthode traditionnelle — la même que celle des champagnes — en brut et demi-sec,
+          en blanc et en rosé.
+        </p>
+        <p>
+          La visite des caves voûtées, la dégustation et la vente se font au domaine, tous les
+          jours, et sur rendez-vous les samedis, dimanches et jours fériés.
+        </p>
+      </div>
+      <div>
+        <div class="chiffres">
+          <div class="chiffre"><div class="val">1536</div><div class="lib">Première vigne achetée à la Croix Saint-Paul par Anthoine Clerc</div></div>
+          <div class="chiffre"><div class="val">1896</div><div class="lib">Construction des caves voûtées et premiers effervescents de la Côte Roannaise</div></div>
+          <div class="chiffre"><div class="val">6,5 ha</div><div class="lib">De vignes sur trois communes de l'appellation</div></div>
+          <div class="chiffre"><div class="val">50 000</div><div class="lib">Bouteilles élaborées chaque année au domaine</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HISTORIQUE ============================ -->
+<section class="historique" id="historique">
+  <div class="etroit">
+    <div class="titre-rubrique">
+      <div class="chapeau">Historique</div>
+      <h2>De 1536 à nos jours</h2>
+      <p class="sous" style="color:#B6AFA4">
+        Cinq siècles de vigne à Renaison, et une idée d'avance prise en 1896.
+      </p>
+    </div>
+    <div class="sep"></div>
+    <div class="frise">
+      <div class="jalon"><div class="an">1536</div>
+        <p>Anthoine Clerc, vigneron à Renaison, achète une vigne au lieu-dit la Croix Saint-Paul. La famille ne quittera plus le coteau.</p></div>
+      <div class="jalon"><div class="an">1635</div>
+        <p>Un descendant s'installe au lieu-dit Chambon, là où le domaine reçoit encore ses visiteurs aujourd'hui.</p></div>
+      <div class="jalon"><div class="an">1896</div>
+        <p>Jean-Baptiste Clair fait bâtir des caves surmontées de vastes celliers par les maçons qui travaillaient au barrage du Chartrain. Sous ces voûtes naissent les premiers vins effervescents de la Côte Roannaise.</p></div>
+      <div class="jalon"><div class="an">1994</div>
+        <p>La Côte Roannaise obtient son appellation d'origine contrôlée. Le domaine y inscrit ses rouges et ses rosés.</p></div>
+      <div class="jalon"><div class="an">2007</div>
+        <p>Claudine Clair et Guido D'Antonio prennent la suite. Même méthode, mêmes caves, même coteau de granit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= OUTIL CENTRAL : LE CAVEAU ======================= -->
+<section class="caveau" id="caveau">
+  <div class="large">
+    <div class="titre-rubrique">
+      <div class="chapeau">Nos vins</div>
+      <h2>Le caveau, ouvert aussi en ligne</h2>
+      <p class="sous">
+        Composez votre carton et réservez votre visite sans avoir à imprimer quoi que ce soit.
+        Retrait au domaine ou expédition, à votre convenance.
+      </p>
+    </div>
+    <div class="sep"></div>
+
+    <div class="arche">
+      <div class="onglets" role="tablist">
+        <button class="onglet actif" id="commande-onglet" data-panneau="p-commande" role="tab">
+          Composer ma commande
+          <span class="petit">Les sept vins du domaine</span>
+        </button>
+        <button class="onglet" id="visite-onglet" data-panneau="p-visite" role="tab">
+          Réserver la visite des caves
+          <span class="petit">Dégustation offerte jusqu'à 10 personnes</span>
+        </button>
+      </div>
+
+      <!-- ---------------- panneau commande ---------------- -->
+      <div class="panneau actif" id="p-commande" role="tabpanel">
+        <div class="commande">
+          <div>
+            <div class="famille">
+              <h4>Méthode traditionnelle — vins effervescents</h4>
+              <div id="liste-effervescents"></div>
+            </div>
+            <div class="famille">
+              <h4>Côte Roannaise &amp; Vin de Pays d'Urfé — vins tranquilles</h4>
+              <div id="liste-tranquilles"></div>
+            </div>
+          </div>
+
+          <div class="panier">
+            <div class="casier-boite">
+              <h3>Votre casier</h3>
+              <div class="casier-note">Les vins s'expédient par carton de six bouteilles.</div>
+              <div class="casier" id="casier"></div>
+              <div class="jauge-carton" id="jauge"></div>
+
+              <div id="recap"></div>
+
+              <div class="trait"></div>
+              <div class="choix-retrait">
+                <label class="opt coche">
+                  <input type="radio" name="livraison" value="caveau" checked>
+                  <span>
+                    <span class="t">Retrait au caveau</span>
+                    <span class="d">Chez Chambon, Renaison — dégustation à l'enlèvement</span>
+                  </span>
+                </label>
+                <label class="opt">
+                  <input type="radio" name="livraison" value="expedition">
+                  <span>
+                    <span class="t">Expédition</span>
+                    <span class="d">France métropolitaine — franco à partir de 24 bouteilles</span>
+                  </span>
+                </label>
+              </div>
+              <div class="recap-ligne" id="ligne-port" style="display:none">
+                <span>Frais d'expédition</span><span id="port">—</span>
+              </div>
+
+              <div class="trait"></div>
+              <div class="total"><span>Total</span><span class="eur" id="total">0,00 €</span></div>
+
+              <button class="btn btn-plein" id="valider" style="width:100%; justify-content:center; margin-top:18px" disabled>
+                Valider ma commande
+              </button>
+              <div class="message-ok" id="ok-commande"></div>
+
+              <div class="avert">
+                Prix indicatifs, non contractuels — à remplacer par le tarif réel du domaine.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------------- panneau visite ---------------- -->
+      <div class="panneau" id="p-visite" role="tabpanel">
+        <div class="visite">
+          <div>
+            <div class="champ">
+              <label for="v-date">Jour de la visite</label>
+              <input type="date" id="v-date">
+            </div>
+
+            <div class="plage">Matin — 8h30 à 12h30</div>
+            <div class="creneaux" id="creneaux-matin"></div>
+            <div class="plage">Après-midi — 14h30 à 18h30</div>
+            <div class="creneaux" id="creneaux-aprem"></div>
+
+            <div class="champ" style="margin-top:22px">
+              <label for="v-nb">Nombre de personnes</label>
+              <select id="v-nb">
+                <option value="2" selected>2 personnes</option>
+                <option value="1">1 personne</option>
+                <option value="3">3 personnes</option>
+                <option value="4">4 personnes</option>
+                <option value="5">5 personnes</option>
+                <option value="6">6 personnes</option>
+                <option value="8">8 personnes</option>
+                <option value="10">10 personnes</option>
+                <option value="15">Plus de 10 personnes</option>
+              </select>
+              <div class="groupe-alerte" id="alerte-groupe">
+                Au-delà de dix personnes, la visite s'organise avec vous par téléphone :
+                appelez le 06 66 04 69 81 et nous calons la date ensemble.
+              </div>
+            </div>
+            <div class="champ">
+              <label for="v-nom">Votre nom</label>
+              <input type="text" id="v-nom" placeholder="Nom et prénom">
+            </div>
+            <div class="champ">
+              <label for="v-tel">Téléphone</label>
+              <input type="tel" id="v-tel" placeholder="06 00 00 00 00">
+            </div>
+          </div>
+
+          <div>
+            <div class="fiche-visite">
+              <h3>Votre visite</h3>
+              <div class="recap-ligne"><span>Jour</span><span id="r-jour">—</span></div>
+              <div class="recap-ligne"><span>Heure</span><span id="r-heure">—</span></div>
+              <div class="recap-ligne"><span>Personnes</span><span id="r-nb">2</span></div>
+              <div class="recap-ligne"><span>Durée estimée</span><span>45 min à 1 h</span></div>
+              <div class="recap-ligne"><span>Dégustation</span><span id="r-degust">Offerte</span></div>
+              <div class="trait"></div>
+              <p style="font-size:14px; color:var(--granit-3); margin:0 0 18px">
+                La visite passe par les caves voûtées de 1896 et se termine par la dégustation
+                des effervescents et des vins d'appellation. Prévoyez une petite laine : il fait
+                frais sous les voûtes toute l'année.
+              </p>
+              <button class="btn btn-sombre" id="reserver" style="width:100%; justify-content:center" disabled>
+                Réserver ce créneau
+              </button>
+              <button class="btn btn-clair" id="ics" style="width:100%; justify-content:center; margin-top:9px" disabled>
+                Ajouter à mon agenda
+              </button>
+              <div class="message-ok" id="ok-visite"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PLAN D'ACCES ============================ -->
+<section class="acces" id="acces">
+  <div class="large">
+    <div class="titre-rubrique">
+      <div class="chapeau">Plan d'accès</div>
+      <h2>Nous trouver</h2>
+    </div>
+    <div class="sep"></div>
+    <div class="blocs-acces">
+      <div class="bloc">
+        <h4>Le domaine</h4>
+        <p>Maison J.B. Clair</p>
+        <p>100 passage du Chambon</p>
+        <p>42370 Renaison</p>
+        <p style="margin-top:14px"><a href="tel:+33477644001">04 77 64 40 01</a></p>
+        <p><a href="tel:+33666046981">06 66 04 69 81</a> · <a href="tel:+33685921082">06 85 92 10 82</a></p>
+      </div>
+      <div class="bloc">
+        <h4>Horaires</h4>
+        <div class="horaire"><span class="j">Tous les jours</span><span class="h">8h30 – 12h30</span></div>
+        <div class="horaire"><span class="j"></span><span class="h">14h30 – 18h30</span></div>
+        <div class="horaire"><span class="j">Samedi, dimanche, fériés</span><span class="h">sur rendez-vous</span></div>
+        <p style="margin-top:14px; font-size:14px; color:var(--granit-3)">
+          Portes ouvertes au printemps, en été et à l'approche de Noël : visites guidées des
+          caves, dégustations, animations et concerts.
+        </p>
+      </div>
+      <div class="bloc">
+        <h4>Sur la route des vins</h4>
+        <p style="font-size:15px; color:var(--granit-2)">
+          Renaison se trouve à une dizaine de minutes de Roanne, au pied des coteaux de
+          l'appellation Côte Roannaise. Le domaine est au lieu-dit Chez Chambon, à l'écart
+          du bourg.
+        </p>
+        <p style="margin-top:14px"><a href="#caveau">Réserver une visite →</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="large">
+    <div>
+      <h5>Maison J.B. Clair</h5>
+      <p>Côte Roannaise · Méthode Traditionnelle<br>100 passage du Chambon, 42370 Renaison</p>
+      <p>Claudine Clair et Guido D'Antonio</p>
+    </div>
+    <div>
+      <h5>Nos vins</h5>
+      <p><a href="#caveau">Effervescents méthode traditionnelle</a></p>
+      <p><a href="#caveau">Côte Roannaise rouge et rosé</a></p>
+      <p><a href="#caveau">Vin de Pays d'Urfé blanc</a></p>
+    </div>
+    <div>
+      <h5>Le domaine</h5>
+      <p><a href="#presentation">Présentation</a></p>
+      <p><a href="#historique">Historique</a></p>
+      <p><a href="#acces">Plan d'accès</a></p>
+    </div>
+  </div>
+  <div class="mention">
+    Maquette de démonstration réalisée à partir des informations publiques du domaine. Les prix,
+    les frais d'expédition et les disponibilités affichés sont des ordres de grandeur destinés à
+    illustrer le fonctionnement de l'outil : ils ne sont pas contractuels. Les couleurs et la
+    typographie sont approchées — la charte exacte du domaine n'a pas pu être récupérée
+    automatiquement — et se règlent en quelques lignes en tête du fichier.
+    <br>L'abus d'alcool est dangereux pour la santé, à consommer avec modération.
+  </div>
+</footer>
+
+<script>
+/* =========================================================================
+   Données du domaine.
+   Les prix sont des ordres de grandeur : un seul endroit à corriger.
+   ========================================================================= */
+const VINS = [
+  {id:'mt-brut-rose',  fam:'eff', nom:'Méthode Traditionnelle — Brut Rosé',   det:'Pinot noir · vif et fruité',              prix:9.50,  cl:'f-rose'},
+  {id:'mt-brut-blanc', fam:'eff', nom:'Méthode Traditionnelle — Brut Blanc',  det:'Bulle fine · apéritif',                   prix:9.50,  cl:'f-blanc'},
+  {id:'mt-demi-sec',   fam:'eff', nom:'Méthode Traditionnelle — Demi-Sec',    det:'Doux · desserts et fin de repas',         prix:9.50,  cl:'f-or'},
+  {id:'speciale',      fam:'eff', nom:'Spéciale Cuvée — Brut Millésimé 2020', det:'Cuvée millésimée · élevage prolongé',     prix:11.00, cl:'f-or'},
+  {id:'cr-rouge',      fam:'tra', nom:'Côte Roannaise — Rouge',               det:'Gamay saint-romain · coteaux de granit',  prix:7.50,  cl:'f-rouge'},
+  {id:'cr-rose',       fam:'tra', nom:'Côte Roannaise — Rosé',                det:'Gamay saint-romain · sec',                prix:7.50,  cl:'f-rose'},
+  {id:'urfe-blanc',    fam:'tra', nom:"Vin de Pays d'Urfé — Blanc",           det:'Sec · vif',                               prix:8.00,  cl:'f-blanc'}
+];
+const PORT = {6:15, 12:19, 18:24}; /* franco à partir de 24 bouteilles */
+
+const panier = {};
+VINS.forEach(v => panier[v.id] = 0);
+
+/* ---------- construction des lignes de vin ---------- */
+function ligne(v){
+  const el = document.createElement('div');
+  el.className = 'ligne-vin';
+  el.dataset.id = v.id;
+  el.innerHTML =
+    '<span class="flacon '+v.cl+'"></span>'+
+    '<span><span class="vin-nom">'+v.nom+'</span><div class="vin-det">'+v.det+'</div></span>'+
+    '<span class="vin-prix"><div class="p">'+euro(v.prix)+'</div><div class="u">la bouteille</div></span>'+
+    '<span class="compteur">'+
+      '<button type="button" data-pas="-1" aria-label="Retirer une bouteille">−</button>'+
+      '<input type="number" min="0" max="999" value="0" aria-label="'+v.nom+'">'+
+      '<button type="button" data-pas="1" aria-label="Ajouter une bouteille">+</button>'+
+    '</span>';
+  const champ = el.querySelector('input');
+  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const n = Math.max(0, (panier[v.id] || 0) + Number(b.dataset.pas));
+    panier[v.id] = n; champ.value = n; majPanier();
+  }));
+  champ.addEventListener('input', () => {
+    panier[v.id] = Math.max(0, parseInt(champ.value || '0', 10)); majPanier();
+  });
+  return el;
+}
+VINS.forEach(v => {
+  document.getElementById(v.fam === 'eff' ? 'liste-effervescents' : 'liste-tranquilles').appendChild(ligne(v));
+});
+
+function euro(n){ return n.toFixed(2).replace('.', ',') + ' €'; }
+
+/* ---------- le casier ---------- */
+function majPanier(){
+  const total = Object.values(panier).reduce((a,b) => a+b, 0);
+  const sousTotal = VINS.reduce((s,v) => s + v.prix * panier[v.id], 0);
+
+  /* cases du casier : 6 par rangée, on montre au moins une rangée */
+  const casier = document.getElementById('casier');
+  const rangees = Math.max(1, Math.ceil(total / 6));
+  const cases = rangees * 6;
+  if (casier.children.length !== cases){
+    casier.innerHTML = '';
+    for (let i = 0; i < cases; i++){
+      const c = document.createElement('div');
+      c.className = 'case'; c.innerHTML = '<i></i>';
+      casier.appendChild(c);
+    }
+  }
+  /* on remplit les cases dans l'ordre des vins, avec leur couleur */
+  const couleurs = [];
+  VINS.forEach(v => { for (let i=0; i<panier[v.id]; i++) couleurs.push(v.cl); });
+  [...casier.children].forEach((c,i) => {
+    const rempli = i < couleurs.length;
+    c.classList.toggle('pleine', rempli);
+    const teinte = {'f-rose':'var(--rose-brut)','f-blanc':'#D9CFA8','f-rouge':'var(--gamay)','f-or':'var(--or)'};
+    c.querySelector('i').style.background = rempli ? teinte[couleurs[i]] : 'transparent';
+  });
+
+  /* jauge de carton */
+  const jauge = document.getElementById('jauge');
+  if (total === 0){
+    jauge.textContent = 'Votre casier est vide.';
+  } else {
+    const reste = (6 - (total % 6)) % 6;
+    jauge.innerHTML = reste === 0
+      ? '<b>' + (total/6) + ' carton' + (total/6 > 1 ? 's' : '') + ' complet' + (total/6 > 1 ? 's' : '') + '</b> — ' + total + ' bouteilles.'
+      : total + ' bouteille' + (total>1?'s':'') + ' — il en manque <b>' + reste + '</b> pour compléter le carton.';
+  }
+
+  /* récapitulatif */
+  const recap = document.getElementById('recap');
+  recap.innerHTML = '';
+  const choisis = VINS.filter(v => panier[v.id] > 0);
+  if (!choisis.length){
+    recap.innerHTML = '<div class="recap-vide">Choisissez vos bouteilles à gauche.</div>';
+  } else {
+    choisis.forEach(v => {
+      const l = document.createElement('div');
+      l.className = 'recap-ligne';
+      l.innerHTML = '<span>' + panier[v.id] + ' × ' + v.nom.replace('Méthode Traditionnelle — ','MT ').replace('Côte Roannaise — ','CR ') + '</span>' +
+                    '<span>' + euro(v.prix * panier[v.id]) + '</span>';
+      recap.appendChild(l);
+    });
+  }
+
+  /* expédition */
+  const mode = document.querySelector('input[name=livraison]:checked').value;
+  const ligneport = document.getElementById('ligne-port');
+  let port = 0;
+  if (mode === 'expedition' && total > 0){
+    if (total >= 24) port = 0;
+    else if (total <= 6) port = PORT[6];
+    else if (total <= 12) port = PORT[12];
+    else port = PORT[18];
+    ligneport.style.display = 'flex';
+    document.getElementById('port').textContent = port === 0 ? 'offerts' : euro(port);
+  } else {
+    ligneport.style.display = 'none';
+  }
+
+  document.getElementById('total').textContent = euro(sousTotal + port);
+  document.getElementById('valider').disabled = total === 0;
+
+  /* surlignage des lignes retenues */
+  document.querySelectorAll('.ligne-vin').forEach(l => {
+    l.classList.toggle('choisi', panier[l.dataset.id] > 0);
+  });
+}
+
+document.querySelectorAll('input[name=livraison]').forEach(r => {
+  r.addEventListener('change', () => {
+    document.querySelectorAll('.opt').forEach(o => o.classList.toggle('coche', o.contains(document.querySelector('input[name=livraison]:checked'))));
+    majPanier();
+  });
+});
+
+document.getElementById('valider').addEventListener('click', () => {
+  const total = Object.values(panier).reduce((a,b) => a+b, 0);
+  const mode = document.querySelector('input[name=livraison]:checked').value;
+  const ok = document.getElementById('ok-commande');
+  ok.innerHTML = 'Commande de <b>' + total + ' bouteille' + (total>1?'s':'') + '</b> enregistrée — ' +
+    (mode === 'caveau'
+      ? 'à retirer au caveau, Chez Chambon. Le domaine vous confirme le jour d\'enlèvement.'
+      : 'expédiée sous quelques jours en France métropolitaine.') +
+    '<br><span style="color:var(--granit-3)">(démonstration : rien n\'est réellement transmis)</span>';
+  ok.classList.add('visible');
+});
+
+majPanier();
+
+/* ---------- onglets ---------- */
+document.querySelectorAll('.onglet').forEach(o => {
+  o.addEventListener('click', () => {
+    document.querySelectorAll('.onglet').forEach(x => x.classList.remove('actif'));
+    document.querySelectorAll('.panneau').forEach(x => x.classList.remove('actif'));
+    o.classList.add('actif');
+    document.getElementById(o.dataset.panneau).classList.add('actif');
+  });
+});
+document.getElementById('lien-visite').addEventListener('click', e => {
+  e.preventDefault();
+  document.getElementById('visite-onglet').click();
+  document.getElementById('caveau').scrollIntoView({behavior:'smooth'});
+});
+
+/* ---------- réservation de visite ---------- */
+const MATIN = ['9h00','9h45','10h30','11h15','12h00'];
+const APREM = ['14h30','15h15','16h00','16h45','17h30','18h15'];
+let creneau = null;
+
+function remplirCreneaux(){
+  const faire = (id, liste) => {
+    const zone = document.getElementById(id);
+    zone.innerHTML = '';
+    liste.forEach(h => {
+      const b = document.createElement('button');
+      b.className = 'creneau'; b.type = 'button'; b.textContent = h;
+      b.addEventListener('click', () => {
+        document.querySelectorAll('.creneau').forEach(c => c.classList.remove('pris'));
+        b.classList.add('pris'); creneau = h; majVisite();
+      });
+      zone.appendChild(b);
+    });
+  };
+  faire('creneaux-matin', MATIN);
+  faire('creneaux-aprem', APREM);
+}
+remplirCreneaux();
+
+const champDate = document.getElementById('v-date');
+const demain = new Date(); demain.setDate(demain.getDate() + 1);
+champDate.value = demain.toISOString().slice(0,10);
+champDate.min = new Date().toISOString().slice(0,10);
+
+function joursFr(d){
+  const j = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const m = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return j[d.getDay()] + ' ' + d.getDate() + ' ' + m[d.getMonth()];
+}
+
+function majVisite(){
+  const d = champDate.value ? new Date(champDate.value + 'T12:00:00') : null;
+  const nb = parseInt(document.getElementById('v-nb').value, 10);
+  document.getElementById('r-jour').textContent = d ? joursFr(d) : '—';
+  document.getElementById('r-heure').textContent = creneau || '—';
+  document.getElementById('r-nb').textContent = nb > 10 ? 'plus de 10' : nb;
+  document.getElementById('r-degust').textContent = nb > 10 ? 'à convenir' : 'Offerte';
+  document.getElementById('alerte-groupe').classList.toggle('visible', nb > 10);
+
+  const weekend = d && (d.getDay() === 0 || d.getDay() === 6);
+  const note = document.getElementById('note-weekend');
+  if (note) note.remove();
+  if (weekend){
+    const p = document.createElement('div');
+    p.id = 'note-weekend'; p.className = 'avert'; p.style.marginTop = '10px';
+    p.textContent = 'Samedi, dimanche et jours fériés, la visite se fait sur rendez-vous : votre demande est confirmée par téléphone.';
+    document.getElementById('creneaux-aprem').after(p);
+  }
+
+  const pret = d && creneau && nb <= 10;
+  document.getElementById('reserver').disabled = !pret;
+  document.getElementById('ics').disabled = !pret;
+}
+champDate.addEventListener('change', () => { majVisite(); });
+document.getElementById('v-nb').addEventListener('change', majVisite);
+majVisite();
+
+document.getElementById('reserver').addEventListener('click', () => {
+  const ok = document.getElementById('ok-visite');
+  const d = new Date(champDate.value + 'T12:00:00');
+  ok.innerHTML = 'Visite demandée le <b>' + joursFr(d) + ' à ' + creneau + '</b> pour ' +
+    document.getElementById('v-nb').value + ' personne(s). Le domaine confirme par téléphone.' +
+    '<br><span style="color:var(--granit-3)">(démonstration : rien n\'est réellement transmis)</span>';
+  ok.classList.add('visible');
+});
+
+/* export .ics — le visiteur repart avec le rendez-vous dans son agenda */
+document.getElementById('ics').addEventListener('click', () => {
+  const [h, m] = creneau.replace('h', ':').split(':');
+  const debut = new Date(champDate.value + 'T' + h.padStart(2,'0') + ':' + (m || '00') + ':00');
+  const fin = new Date(debut.getTime() + 60*60*1000);
+  const fmt = d => d.toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+  const ics = [
+    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Maison J.B. Clair//Maquette//FR','BEGIN:VEVENT',
+    'DTSTART:' + fmt(debut), 'DTEND:' + fmt(fin),
+    'SUMMARY:Visite des caves — Maison J.B. Clair',
+    'LOCATION:100 passage du Chambon, 42370 Renaison',
+    'DESCRIPTION:Visite des caves voûtées de 1896 et dégustation. Tél. 06 66 04 69 81',
+    'END:VEVENT','END:VCALENDAR'
+  ].join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([ics], {type:'text/calendar'}));
+  a.download = 'visite-maison-jb-clair.ics';
+  a.click();
+});
+
+/* ---------- entête au défilement + frise ---------- */
+const entete = document.getElementById('entete');
+addEventListener('scroll', () => entete.classList.toggle('scrolled', scrollY > 10), {passive:true});
+
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vu'); });
+}, {threshold:.6});
+document.querySelectorAll('.jalon').forEach(j => obs.observe(j));
+
+const rubriques = [...document.querySelectorAll('section[id], div.hero')];
+const liens = [...document.querySelectorAll('nav.principal a')];
+const obs2 = new IntersectionObserver(es => {
+  es.forEach(e => {
+    if (e.isIntersecting){
+      liens.forEach(l => l.classList.toggle('actif', l.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, {threshold:.35});
+rubriques.forEach(r => obs2.observe(r));
+
+/* ---------- bulles ---------- */
+const zone = document.getElementById('bulles');
+for (let i = 0; i < 26; i++){
+  const b = document.createElement('span');
+  const t = 4 + Math.random() * 9;
+  b.className = 'bulle';
+  b.style.left = (Math.random() * 100) + '%';
+  b.style.width = t + 'px';
+  b.style.height = t + 'px';
+  b.style.setProperty('--derive', (Math.random() * 60 - 30) + 'px');
+  b.style.animationDuration = (9 + Math.random() * 11) + 's';
+  b.style.animationDelay = (-Math.random() * 18) + 's';
+  zone.appendChild(b);
+}
+</script>
+</body>
+</html>

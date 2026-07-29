@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roanne Piscines — Pisciniste au Coteau, près de Roanne</title>
+<meta name="description" content="Roanne Piscines, pisciniste au Coteau depuis 2014. Piscines coque polyester Aboral, rénovation, entretien, spas et abris de jardin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   ROANNE PISCINES — maquette de démonstration
+   --------------------------------------------------------------------------
+   TOUTES les couleurs et les polices du site sont regroupées ici.
+   Le site actuel (roanne-piscines.fr) refuse la lecture automatisée depuis
+   l'outil qui a servi à construire cette page : la palette ci-dessous est
+   une approche fondée sur l'univers du métier (gelcoat, eau, margelle,
+   terre de terrassement), pas un relevé de la charte réelle.
+   Pour l'aligner sur la vraie charte : remplacer les six valeurs du bloc
+   COULEURS et les trois familles du bloc TYPOGRAPHIE. Rien d'autre à toucher.
+   ========================================================================== */
+:root{
+  /* --- COULEURS ------------------------------------------------------- */
+  --eau-profonde:#0A3A46;   /* bleu-pétrole du bassin vu en profondeur      */
+  --eau:#1B8CA6;            /* turquoise gelcoat — accent principal          */
+  --reflet:#8FD8E0;         /* reflet de surface — survols, lueurs           */
+  --margelle:#EDF1F0;       /* blanc-gris froid de la margelle — fond clair  */
+  --pierre:#56676D;         /* gris terrain — texte secondaire               */
+  --ocre:#C07C33;           /* terre de terrassement — réservé aux montants  */
+
+  /* --- TYPOGRAPHIE ---------------------------------------------------- */
+  --f-titre:'Archivo',system-ui,sans-serif;
+  --f-texte:'Public Sans',system-ui,sans-serif;
+  --f-cote:'IBM Plex Mono',ui-monospace,monospace;
+
+  /* --- MESURES -------------------------------------------------------- */
+  --large:1180px;
+  --bord:14px;
+  --trait:1px solid color-mix(in srgb,var(--eau-profonde) 14%,transparent);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--margelle);
+  color:var(--eau-profonde);
+  font:400 17px/1.65 var(--f-texte);
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+
+/* Fond « plan de géomètre » : une grille métrique très discrète */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right,color-mix(in srgb,var(--eau-profonde) 5%,transparent) 1px,transparent 1px),
+    linear-gradient(to bottom,color-mix(in srgb,var(--eau-profonde) 5%,transparent) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:linear-gradient(to bottom,#000 0,transparent 70vh);
+}
+.enveloppe{position:relative;z-index:1}
+
+.contenu{width:min(100% - 40px,var(--large));margin-inline:auto}
+
+/* ---------- Bandeau de démonstration ---------- */
+.bandeau-demo{
+  background:var(--eau-profonde);color:var(--reflet);
+  font:500 12.5px/1.4 var(--f-cote);letter-spacing:.02em;
+  padding:9px 0;text-align:center;position:relative;z-index:60;
+}
+.bandeau-demo b{color:#fff;font-weight:500}
+
+/* ---------- En-tête ---------- */
+.entete{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--margelle) 88%,transparent);
+  backdrop-filter:blur(14px);
+  border-bottom:var(--trait);
+  transition:box-shadow .3s ease;
+}
+.entete.pose{box-shadow:0 10px 30px -22px var(--eau-profonde)}
+.entete .contenu{display:flex;align-items:center;gap:28px;min-height:74px}
+
+.marque{display:flex;align-items:baseline;gap:9px;text-decoration:none;flex:0 0 auto}
+.marque .nom{font:800 20px/1 var(--f-titre);letter-spacing:-.025em}
+.marque .nom em{font-style:normal;color:var(--eau)}
+.marque .lieu{font:400 11px/1 var(--f-cote);color:var(--pierre);letter-spacing:.14em;text-transform:uppercase}
+
+.nav{margin-left:auto;display:flex;align-items:center;gap:2px}
+.nav .tel-nav{display:none}
+.nav a{
+  text-decoration:none;font:500 14.5px/1 var(--f-texte);white-space:nowrap;
+  padding:10px 11px;border-radius:8px;color:var(--eau-profonde);
+  position:relative;transition:color .2s ease,background .2s ease;
+}
+.nav a::after{
+  content:"";position:absolute;left:12px;right:12px;bottom:5px;height:1.5px;
+  background:var(--eau);transform:scaleX(0);transform-origin:left;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1);
+}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+.nav a.actif{color:var(--eau)}
+.nav a.actif::after{transform:scaleX(1)}
+
+.tel-entete{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font:500 14.5px/1 var(--f-cote);
+  background:var(--eau-profonde);color:#fff;
+  padding:12px 16px;border-radius:10px;white-space:nowrap;
+  transition:background .2s ease,transform .2s ease;
+}
+.tel-entete:hover{background:var(--eau);transform:translateY(-1px)}
+
+.burger{display:none;margin-left:auto;background:none;border:var(--trait);border-radius:9px;padding:9px 12px;cursor:pointer;font:500 14px/1 var(--f-texte)}
+
+/* ---------- Hero ---------- */
+.hero{padding:76px 0 26px;position:relative}
+.hero .contenu{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.chapeau{
+  font:500 11.5px/1 var(--f-cote);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--eau);display:flex;align-items:center;gap:10px;margin-bottom:22px;
+}
+.chapeau::before{content:"";width:34px;height:1.5px;background:var(--eau)}
+.hero h1{
+  font:700 clamp(38px,5.1vw,60px)/1.03 var(--f-titre);
+  letter-spacing:-.035em;margin:0 0 22px;
+}
+.hero h1 .trait{
+  position:relative;white-space:nowrap;
+}
+.hero h1 .trait::after{
+  content:"";position:absolute;left:0;right:0;bottom:.06em;height:.11em;
+  background:var(--reflet);z-index:-1;
+  transform:scaleX(0);transform-origin:left;
+  animation:souligne .9s .5s cubic-bezier(.2,.7,.3,1) forwards;
+}
+@keyframes souligne{to{transform:scaleX(1)}}
+.hero p.intro{font-size:18.5px;color:var(--pierre);max-width:46ch;margin:0 0 30px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+
+.bouton{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;
+  font:600 15.5px/1 var(--f-texte);padding:16px 24px;border-radius:11px;border:0;
+  background:var(--eau);color:#fff;
+  transition:transform .18s ease,box-shadow .25s ease,background .2s ease;
+}
+.bouton:hover{transform:translateY(-2px);box-shadow:0 14px 28px -14px var(--eau);background:#177C93}
+.bouton.creux{background:transparent;color:var(--eau-profonde);border:1.5px solid color-mix(in srgb,var(--eau-profonde) 22%,transparent)}
+.bouton.creux:hover{background:#fff;border-color:var(--eau);color:var(--eau);box-shadow:none}
+.bouton .fleche{transition:transform .25s ease}
+.bouton:hover .fleche{transform:translateX(4px)}
+
+.hero-plan{position:relative}
+.hero-plan svg{width:100%;height:auto;display:block;overflow:visible}
+.hero-legende{
+  font:400 12px/1.5 var(--f-cote);color:var(--pierre);
+  margin-top:14px;text-align:center;
+}
+
+/* ---------- Ruban de repères (faits vérifiables uniquement) ---------- */
+.reperes{
+  border-top:var(--trait);border-bottom:var(--trait);
+  margin-top:52px;background:color-mix(in srgb,#fff 55%,transparent);
+}
+.reperes .contenu{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.repere{padding:22px 24px;border-left:var(--trait)}
+.repere:first-child{border-left:0;padding-left:0}
+.repere .val{font:600 15px/1.25 var(--f-titre);letter-spacing:-.01em}
+.repere .lab{font:400 12px/1.4 var(--f-cote);color:var(--pierre);margin-top:5px}
+
+/* ---------- Rythme des sections ---------- */
+.section{padding:88px 0}
+.section.sombre{background:var(--eau-profonde);color:var(--margelle)}
+.section.sombre .titre-sec h2{color:#fff}
+.section.sombre .titre-sec p{color:color-mix(in srgb,var(--reflet) 78%,transparent)}
+
+.titre-sec{max-width:60ch;margin-bottom:44px}
+.titre-sec .num{
+  font:500 11.5px/1 var(--f-cote);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--eau);margin-bottom:14px;display:block;
+}
+.titre-sec h2{font:700 clamp(28px,3.6vw,42px)/1.1 var(--f-titre);letter-spacing:-.03em;margin:0 0 14px}
+.titre-sec p{color:var(--pierre);margin:0;font-size:17.5px}
+
+/* ---------- Le plan (outil central) ---------- */
+.outil{
+  display:grid;grid-template-columns:340px 1fr;gap:0;
+  background:#fff;border:var(--trait);border-radius:var(--bord);overflow:hidden;
+  box-shadow:0 40px 70px -60px var(--eau-profonde);
+}
+.reglages{padding:28px;border-right:var(--trait);background:color-mix(in srgb,var(--margelle) 55%,#fff)}
+.reglage{margin-bottom:24px}
+.reglage:last-child{margin-bottom:0}
+.reglage > label,.reglage .intitule{
+  display:block;font:500 11.5px/1 var(--f-cote);letter-spacing:.11em;text-transform:uppercase;
+  color:var(--pierre);margin-bottom:11px;
+}
+.paire{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.champ{position:relative}
+.champ input[type=number]{
+  width:100%;padding:13px 40px 13px 13px;border-radius:9px;
+  border:1.5px solid color-mix(in srgb,var(--eau-profonde) 15%,transparent);
+  background:#fff;font:500 16px/1 var(--f-cote);
+  transition:border-color .2s ease,box-shadow .2s ease;
+}
+.champ input:focus{outline:0;border-color:var(--eau);box-shadow:0 0 0 3px color-mix(in srgb,var(--eau) 16%,transparent)}
+.champ .unite{position:absolute;right:12px;top:50%;transform:translateY(-50%);font:400 13px/1 var(--f-cote);color:var(--pierre);pointer-events:none}
+
+.segments{display:flex;background:color-mix(in srgb,var(--eau-profonde) 6%,transparent);border-radius:10px;padding:4px;gap:4px}
+.segments button{
+  flex:1;border:0;background:transparent;border-radius:7px;padding:10px 6px;cursor:pointer;
+  font:500 13px/1.2 var(--f-texte);color:var(--pierre);transition:all .2s ease;
+}
+.segments button[aria-pressed=true]{background:#fff;color:var(--eau-profonde);box-shadow:0 2px 8px -3px var(--eau-profonde)}
+
+.curseur{width:100%;accent-color:var(--eau);margin:2px 0 0}
+.curseur-val{font:500 14px/1 var(--f-cote);color:var(--eau-profonde);float:right}
+
+.options{display:grid;gap:9px}
+.opt{
+  display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:9px;cursor:pointer;
+  border:1.5px solid color-mix(in srgb,var(--eau-profonde) 12%,transparent);background:#fff;
+  font-size:14.5px;transition:border-color .2s ease,background .2s ease;
+}
+.opt:hover{border-color:color-mix(in srgb,var(--eau) 45%,transparent)}
+.opt input{accent-color:var(--eau);width:17px;height:17px;flex:0 0 auto}
+.opt:has(input:checked){border-color:var(--eau);background:color-mix(in srgb,var(--reflet) 16%,#fff)}
+
+/* Zone de dessin */
+.dessin{padding:28px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.dessin-entete{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;justify-content:space-between}
+.dessin-entete h3{font:700 24px/1.15 var(--f-titre);letter-spacing:-.02em;margin:0}
+.dessin-entete .cotes{font:500 13.5px/1 var(--f-cote);color:var(--eau);white-space:nowrap}
+.cadre-plan{
+  position:relative;border-radius:11px;overflow:hidden;
+  background:color-mix(in srgb,var(--margelle) 70%,#fff);
+  border:var(--trait);
+}
+.cadre-plan svg{width:100%;height:auto;display:block}
+
+.verdict{
+  display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;
+  padding:20px 22px;border-radius:11px;
+  background:var(--eau-profonde);color:var(--margelle);
+}
+.verdict .details{font-size:14.5px;line-height:1.55;color:color-mix(in srgb,var(--reflet) 82%,transparent)}
+.verdict .details strong{color:#fff;font-weight:600}
+.budget-bloc{text-align:right;white-space:nowrap}
+.budget-bloc .lab{font:400 11px/1 var(--f-cote);letter-spacing:.13em;text-transform:uppercase;color:color-mix(in srgb,var(--reflet) 70%,transparent);margin-bottom:7px}
+.budget-bloc .montant{font:700 clamp(22px,2.6vw,30px)/1 var(--f-titre);letter-spacing:-.025em;color:var(--ocre)}
+.budget-bloc .mention{font:400 11px/1.4 var(--f-cote);color:color-mix(in srgb,var(--reflet) 55%,transparent);margin-top:7px}
+
+.aucun{padding:20px 22px;border-radius:11px;background:color-mix(in srgb,var(--ocre) 12%,#fff);border:1.5px solid color-mix(in srgb,var(--ocre) 35%,transparent);font-size:15px}
+
+/* Les modèles qui rentrent */
+.qui-rentrent{margin-top:26px}
+.qui-rentrent h4{font:500 11.5px/1 var(--f-cote);letter-spacing:.13em;text-transform:uppercase;color:var(--pierre);margin:0 0 14px}
+.rang{display:grid;gap:8px}
+.ligne-modele{
+  display:grid;grid-template-columns:auto 1fr auto auto;gap:16px;align-items:center;
+  padding:12px 15px;border-radius:9px;background:#fff;border:var(--trait);cursor:pointer;
+  text-align:left;width:100%;transition:border-color .2s ease,transform .2s ease;
+}
+.ligne-modele:hover{border-color:var(--eau);transform:translateX(3px)}
+.ligne-modele[aria-current=true]{border-color:var(--eau);background:color-mix(in srgb,var(--reflet) 15%,#fff)}
+.ligne-modele .pastille{width:34px;height:22px;border-radius:5px;background:linear-gradient(160deg,var(--reflet),var(--eau));flex:0 0 auto}
+.ligne-modele .nm{font:600 15px/1.2 var(--f-titre);letter-spacing:-.01em}
+.ligne-modele .dm,.ligne-modele .sf{font:400 13px/1 var(--f-cote);color:var(--pierre);white-space:nowrap}
+
+/* ---------- Catalogue ---------- */
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.filtre{
+  border:1.5px solid color-mix(in srgb,var(--eau-profonde) 15%,transparent);background:#fff;
+  border-radius:99px;padding:9px 17px;cursor:pointer;font:500 14px/1 var(--f-texte);
+  transition:all .2s ease;
+}
+.filtre:hover{border-color:var(--eau);color:var(--eau)}
+.filtre[aria-pressed=true]{background:var(--eau-profonde);border-color:var(--eau-profonde);color:#fff}
+
+.grille-modeles{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:16px}
+.carte-modele{
+  background:#fff;border:var(--trait);border-radius:var(--bord);padding:20px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s ease,border-color .2s ease;
+}
+.carte-modele:hover{transform:translateY(-4px);box-shadow:0 26px 44px -34px var(--eau-profonde);border-color:color-mix(in srgb,var(--eau) 40%,transparent)}
+.carte-modele .silhouette{background:color-mix(in srgb,var(--margelle) 65%,#fff);border-radius:9px;padding:10px}
+.carte-modele .silhouette svg{width:100%;height:auto;display:block}
+.carte-modele .nm{font:700 20px/1.1 var(--f-titre);letter-spacing:-.02em;margin:0}
+.carte-modele .tag{font:400 11px/1 var(--f-cote);letter-spacing:.1em;text-transform:uppercase;color:var(--eau)}
+.carte-modele dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:14px}
+.carte-modele dt{color:var(--pierre);font:400 12.5px/1.5 var(--f-cote)}
+.carte-modele dd{margin:0;font:500 13.5px/1.5 var(--f-cote);text-align:right}
+.carte-modele .note{font-size:13.5px;color:var(--pierre);margin:0;line-height:1.5}
+.carte-modele .essayer{
+  margin-top:auto;background:none;border:0;padding:0;cursor:pointer;text-align:left;
+  font:600 14px/1 var(--f-texte);color:var(--eau);display:inline-flex;align-items:center;gap:7px;
+}
+.carte-modele .essayer:hover{gap:11px}
+.catalogue-note{margin-top:24px;font-size:14.5px;color:var(--pierre);max-width:70ch}
+
+/* ---------- Prestations ---------- */
+.grille-presta{display:grid;grid-template-columns:repeat(3,1fr);gap:0 32px;border-top:1px solid color-mix(in srgb,var(--reflet) 22%,transparent)}
+@media (max-width:900px){.grille-presta{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grille-presta{grid-template-columns:1fr}}
+.presta{padding:30px 28px 30px 0;border-bottom:1px solid color-mix(in srgb,var(--reflet) 22%,transparent)}
+.presta h3{font:600 19px/1.25 var(--f-titre);letter-spacing:-.015em;margin:0 0 10px;color:#fff}
+.presta ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.presta li{font-size:15px;color:color-mix(in srgb,var(--reflet) 80%,transparent);padding-left:18px;position:relative}
+.presta li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:1.5px;background:var(--eau)}
+
+/* ---------- Déroulé de chantier ---------- */
+.etapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0;counter-reset:e}
+.etape{padding:26px 24px 26px 0;border-top:2px solid color-mix(in srgb,var(--eau-profonde) 12%,transparent);position:relative}
+.etape::before{
+  counter-increment:e;content:counter(e,decimal-leading-zero);
+  font:500 12px/1 var(--f-cote);color:var(--eau);letter-spacing:.08em;
+  display:block;margin-bottom:12px;
+}
+.etape::after{
+  content:"";position:absolute;top:-2px;left:0;height:2px;width:0;background:var(--eau);
+  transition:width .7s cubic-bezier(.2,.7,.3,1);
+}
+.etape.vue::after{width:100%}
+.etape h3{font:600 17px/1.25 var(--f-titre);letter-spacing:-.015em;margin:0 0 7px}
+.etape p{margin:0;font-size:14.5px;color:var(--pierre);line-height:1.55}
+
+/* ---------- Budget ---------- */
+.budget-grille{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.budget-carte{background:#fff;border:var(--trait);border-radius:var(--bord);padding:26px}
+.budget-carte h3{font:600 18px/1.2 var(--f-titre);letter-spacing:-.015em;margin:0 0 14px}
+.budget-carte ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+.budget-carte li{font-size:15px;padding-left:22px;position:relative;color:var(--pierre)}
+.budget-carte li::before{position:absolute;left:0;font:500 13px/1.5 var(--f-cote)}
+.budget-carte.dedans li::before{content:"+";color:var(--eau)}
+.budget-carte.dehors li::before{content:"—";color:var(--ocre)}
+.avertissement{
+  margin-top:16px;padding:16px 20px;border-radius:11px;
+  background:color-mix(in srgb,var(--ocre) 9%,#fff);
+  border:1px solid color-mix(in srgb,var(--ocre) 28%,transparent);
+  font-size:14.5px;line-height:1.6;color:var(--pierre);
+}
+
+/* ---------- Magasin ---------- */
+.magasin{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.coords{display:grid;gap:2px}
+.coord-ligne{display:grid;grid-template-columns:112px 1fr;gap:18px;padding:15px 0;border-bottom:var(--trait);align-items:baseline}
+.coord-ligne dt{font:400 12px/1.5 var(--f-cote);letter-spacing:.09em;text-transform:uppercase;color:var(--pierre)}
+.coord-ligne dd{margin:0;font-size:16px;line-height:1.55}
+.coord-ligne dd a{color:var(--eau);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--eau) 35%,transparent)}
+.coord-ligne dd a:hover{border-bottom-color:var(--eau)}
+
+.horaires{background:#fff;border:var(--trait);border-radius:var(--bord);padding:26px;position:relative}
+.horaires h3{font:600 18px/1.2 var(--f-titre);margin:0 0 4px;letter-spacing:-.015em}
+.etat{display:inline-flex;align-items:center;gap:8px;font:500 13px/1 var(--f-cote);margin-bottom:18px}
+.etat .point{width:8px;height:8px;border-radius:50%;background:var(--pierre)}
+.etat.ouvert{color:#1B7A4A}
+.etat.ouvert .point{background:#26A365;box-shadow:0 0 0 0 rgba(38,163,101,.6);animation:pulse 2.4s infinite}
+.etat.ferme{color:var(--ocre)}
+.etat.ferme .point{background:var(--ocre)}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(38,163,101,0)}100%{box-shadow:0 0 0 0 rgba(38,163,101,0)}}
+.jours{display:grid;gap:0;margin:0}
+.jour{display:grid;grid-template-columns:104px 1fr;gap:14px;padding:9px 0;border-top:var(--trait);font-size:15px}
+.jour:first-child{border-top:0}
+.jour.aujourdhui{font-weight:600}
+.jour.aujourdhui .h{color:var(--eau)}
+.jour .j{color:var(--pierre)}
+.jour.aujourdhui .j{color:var(--eau-profonde)}
+.jour .h{font:500 14px/1.5 var(--f-cote);text-align:right}
+
+/* ---------- Contact ---------- */
+.formulaire{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.formulaire .pleine{grid-column:1/-1}
+.formulaire label{display:block;font:500 11.5px/1 var(--f-cote);letter-spacing:.1em;text-transform:uppercase;color:var(--pierre);margin-bottom:9px}
+.formulaire input,.formulaire select,.formulaire textarea{
+  width:100%;padding:14px;border-radius:10px;background:#fff;
+  border:1.5px solid color-mix(in srgb,var(--eau-profonde) 14%,transparent);
+  font-size:16px;transition:border-color .2s ease,box-shadow .2s ease;
+}
+.formulaire textarea{min-height:118px;resize:vertical;font-family:var(--f-texte)}
+.formulaire input:focus,.formulaire select:focus,.formulaire textarea:focus{outline:0;border-color:var(--eau);box-shadow:0 0 0 3px color-mix(in srgb,var(--eau) 15%,transparent)}
+.form-pied{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:6px}
+.form-pied small{color:var(--pierre);font-size:13.5px;max-width:44ch}
+.retour-form{grid-column:1/-1;padding:15px 18px;border-radius:10px;background:color-mix(in srgb,var(--reflet) 22%,#fff);border:1px solid var(--eau);font-size:15px;display:none}
+.retour-form.visible{display:block}
+
+/* ---------- Pied ---------- */
+.pied{background:var(--eau-profonde);color:color-mix(in srgb,var(--reflet) 72%,transparent);padding:56px 0 30px;font-size:14.5px}
+.pied a{color:var(--reflet);text-decoration:none}
+.pied a:hover{color:#fff}
+.pied-haut{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:32px;border-bottom:1px solid color-mix(in srgb,var(--reflet) 18%,transparent)}
+.pied-haut h4{font:600 13px/1 var(--f-cote);letter-spacing:.12em;text-transform:uppercase;color:#fff;margin:0 0 15px}
+.pied-haut ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.pied .marque .nom{color:#fff}
+.pied .marque .lieu{color:color-mix(in srgb,var(--reflet) 60%,transparent)}
+.mention-demo{margin-top:26px;font:400 13px/1.7 var(--f-cote);color:color-mix(in srgb,var(--reflet) 56%,transparent);max-width:88ch}
+.mention-demo strong{color:var(--reflet);font-weight:400}
+
+/* ---------- Révélations au défilement ---------- */
+.reveler{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveler.vue{opacity:1;transform:none}
+
+/* ---------- Accessibilité ---------- */
+:focus-visible{outline:2.5px solid var(--eau);outline-offset:3px;border-radius:4px}
+.saut{position:absolute;left:-9999px;top:0;background:#fff;padding:12px 18px;z-index:100;border-radius:0 0 9px 0}
+.saut:focus{left:0}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  html{scroll-behavior:auto}
+  .reveler{opacity:1;transform:none}
+  .hero h1 .trait::after{transform:scaleX(1)}
+}
+
+/* ---------- Adaptations ---------- */
+@media (max-width:1040px){
+  .hero .contenu{grid-template-columns:1fr;gap:40px}
+  .outil{grid-template-columns:1fr}
+  .reglages{border-right:0;border-bottom:var(--trait)}
+  .magasin{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:860px){
+  .nav{
+    position:fixed;inset:74px 0 auto;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--margelle);border-bottom:var(--trait);padding:10px 20px 20px;
+    display:none;
+  }
+  .nav.ouverte{display:flex}
+  .nav a{padding:14px 4px;border-bottom:var(--trait)}
+  .nav a::after{display:none}
+  .burger{display:block}
+  .tel-entete{display:none}
+  .nav .tel-nav{display:block;margin-top:12px;text-align:center;background:var(--eau-profonde);color:#fff;border-radius:10px;border:0}
+  .reperes .contenu{grid-template-columns:1fr 1fr}
+  .repere{border-left:0;border-top:var(--trait);padding-left:0}
+  .repere:nth-child(-n+2){border-top:0}
+  .budget-grille,.formulaire{grid-template-columns:1fr}
+  .verdict{grid-template-columns:1fr;gap:14px}
+  .budget-bloc{text-align:left}
+  .pied-haut{grid-template-columns:1fr;gap:26px}
+  .section{padding:64px 0}
+  .ligne-modele{grid-template-columns:auto 1fr auto;gap:12px}
+  .ligne-modele .sf{display:none}
+}
+</style>
+</head>
+<body>
+<a class="saut" href="#plan">Aller au plan d'implantation</a>
+
+<div class="bandeau-demo">
+  Maquette de démonstration — non affiliée à Roanne Piscines. <b>Coordonnées réelles, prix indicatifs et non contractuels.</b>
+</div>
+
+<div class="enveloppe">
+
+<header class="entete" id="entete">
+  <div class="contenu">
+    <a class="marque" href="#haut">
+      <span class="nom">ROANNE<em>PISCINES</em></span>
+      <span class="lieu">Le Coteau</span>
+    </a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <a href="#plan">Le plan</a>
+      <a href="#modeles">Nos modèles</a>
+      <a href="#prestations">Nos prestations</a>
+      <a href="#chantier">Le chantier</a>
+      <a href="#magasin">Le magasin</a>
+      <a href="#contact">Contact</a>
+      <a class="tel-nav" href="tel:+33981168145">09 81 16 81 45</a>
+    </nav>
+    <a class="tel-entete" href="tel:+33981168145">09 81 16 81 45</a>
+  </div>
+</header>
+
+<main id="haut">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="contenu">
+      <div>
+        <span class="chapeau">Pisciniste au Coteau depuis 2014</span>
+        <h1>Avant le devis,<br>voyez si elle <span class="trait">rentre</span>.</h1>
+        <p class="intro">
+          Vous donnez les mesures de votre terrain. On vous dit lesquelles de nos coques
+          polyester Aboral tiennent dedans, dégagement de chantier compris, et à quel
+          budget on se situe. Sans rendez-vous, sans catalogue à télécharger.
+        </p>
+        <div class="hero-actions">
+          <a class="bouton" href="#plan">Poser une coque sur mon terrain <span class="fleche" aria-hidden="true">→</span></a>
+          <a class="bouton creux" href="#modeles">Voir les modèles</a>
+        </div>
+      </div>
+      <div class="hero-plan" aria-hidden="true">
+        <svg viewBox="0 0 520 380" role="img">
+          <defs>
+            <linearGradient id="eauHero" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8FD8E0"/>
+              <stop offset="55%" stop-color="#1B8CA6"/>
+              <stop offset="100%" stop-color="#0A3A46"/>
+            </linearGradient>
+            <pattern id="hachure" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="9" stroke="#0A3A46" stroke-opacity=".16" stroke-width="1.4"/>
+            </pattern>
+          </defs>
+          <!-- terrain -->
+          <rect x="16" y="26" width="488" height="322" rx="6" fill="#fff" stroke="#0A3A46" stroke-opacity=".22" stroke-width="1.5"/>
+          <!-- zone de dégagement -->
+          <rect x="86" y="86" width="348" height="202" rx="10" fill="url(#hachure)"/>
+          <!-- bassin -->
+          <rect class="bassin-hero" x="126" y="126" width="268" height="122" rx="16" fill="url(#eauHero)"/>
+          <!-- escalier d'angle -->
+          <path d="M126 142 a16 16 0 0 1 16 -16 h44 a60 60 0 0 0 -60 60 z" fill="#8FD8E0" fill-opacity=".55"/>
+          <!-- reflets animés -->
+          <g class="reflets" opacity=".5">
+            <rect x="150" y="164" width="86" height="3" rx="1.5" fill="#EDF1F0"/>
+            <rect x="262" y="196" width="58" height="3" rx="1.5" fill="#EDF1F0"/>
+            <rect x="196" y="220" width="104" height="3" rx="1.5" fill="#EDF1F0"/>
+          </g>
+          <!-- cotes -->
+          <g stroke="#1B8CA6" stroke-width="1.3" fill="none">
+            <path d="M126 108 h268"/><path d="M126 103 v10"/><path d="M394 103 v10"/>
+            <path d="M108 126 v122"/><path d="M103 126 h10"/><path d="M103 248 h10"/>
+          </g>
+          <text x="260" y="100" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="13" fill="#1B8CA6">8,00 m</text>
+          <text x="96" y="192" text-anchor="end" font-family="IBM Plex Mono,monospace" font-size="13" fill="#1B8CA6">3,00 m</text>
+          <text x="30" y="336" font-family="IBM Plex Mono,monospace" font-size="12" fill="#56676D">terrain</text>
+          <text x="98" y="78" font-family="IBM Plex Mono,monospace" font-size="12" fill="#56676D">dégagement de chantier</text>
+        </svg>
+        <p class="hero-legende">Maupiti — 8,00 × 3,00 m — schéma d'implantation</p>
+      </div>
+    </div>
+
+    <div class="reperes">
+      <div class="contenu">
+        <div class="repere"><div class="val">Depuis 2014</div><div class="lab">au Coteau, à 5 min de Roanne</div></div>
+        <div class="repere"><div class="val">Distributeur Aboral</div><div class="lab">coques polyester fabriquées en France</div></div>
+        <div class="repere"><div class="val">Damien Bonhomme &amp; Florent Beauchaud</div><div class="lab">plus de 10 ans de métier</div></div>
+        <div class="repere"><div class="val">Neuf, rénovation, entretien</div><div class="lab">spas et abris de jardin</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LE PLAN ===================== -->
+  <section class="section" id="plan">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Le plan d'implantation</span>
+        <h2>Votre terrain, à l'échelle, avec la coque dedans.</h2>
+        <p>
+          La question qui bloque tout le monde n'est pas « laquelle est la plus belle »,
+          c'est « est-ce que ça passe chez moi, et ça fait combien ». Mesurez la surface
+          disponible dans votre jardin, le plan se redessine.
+        </p>
+      </div>
+
+      <div class="outil reveler">
+        <div class="reglages">
+          <div class="reglage">
+            <span class="intitule">Surface disponible</span>
+            <div class="paire">
+              <div class="champ">
+                <label for="terrainL" style="position:absolute;left:-9999px">Longueur disponible</label>
+                <input type="number" id="terrainL" value="12" min="3" max="40" step="0.5" inputmode="decimal">
+                <span class="unite">m</span>
+              </div>
+              <div class="champ">
+                <label for="terrainl" style="position:absolute;left:-9999px">Largeur disponible</label>
+                <input type="number" id="terrainl" value="7" min="2" max="40" step="0.5" inputmode="decimal">
+                <span class="unite">m</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="reglage">
+            <span class="intitule">Ce que vous voulez en faire</span>
+            <div class="segments" id="usage" role="group" aria-label="Usage recherché">
+              <button type="button" data-usage="petit" aria-pressed="false">Petit espace</button>
+              <button type="button" data-usage="famille" aria-pressed="true">En famille</button>
+              <button type="button" data-usage="nage" aria-pressed="false">Nager</button>
+            </div>
+          </div>
+
+          <div class="reglage">
+            <label for="degagement">Dégagement de chantier <span class="curseur-val" id="degagementVal">1,00 m</span></label>
+            <input class="curseur" type="range" id="degagement" min="0.5" max="2" step="0.1" value="1">
+          </div>
+
+          <div class="reglage">
+            <span class="intitule">Équipements à chiffrer</span>
+            <div class="options">
+              <label class="opt"><input type="checkbox" data-opt="volet"> Volet immergé</label>
+              <label class="opt"><input type="checkbox" data-opt="pac"> Chauffage — pompe à chaleur</label>
+              <label class="opt"><input type="checkbox" data-opt="alarme"> Alarme de sécurité</label>
+              <label class="opt"><input type="checkbox" data-opt="abri"> Abri de piscine</label>
+              <label class="opt"><input type="checkbox" data-opt="acces"> Accès difficile pour les engins</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="dessin">
+          <div class="dessin-entete">
+            <h3 id="modeleNom">Maupiti</h3>
+            <span class="cotes" id="modeleCotes">8,00 × 3,00 m</span>
+          </div>
+
+          <div class="cadre-plan">
+            <svg id="planSVG" viewBox="0 0 760 430" role="img" aria-labelledby="planTitre">
+              <title id="planTitre">Plan d'implantation à l'échelle</title>
+            </svg>
+          </div>
+
+          <div id="verdictZone"></div>
+
+          <div class="qui-rentrent">
+            <h4 id="compteurTitre">Les modèles qui rentrent</h4>
+            <div class="rang" id="rang"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MODÈLES ===================== -->
+  <section class="section" id="modeles" style="background:color-mix(in srgb,#fff 45%,transparent)">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Nos modèles</span>
+        <h2>Douze coques, leurs cotes, rien d'autre à ouvrir.</h2>
+        <p>
+          Bassins standards, bassins compacts, formes libres ou rectangulaires, adaptés
+          aux différents jardins, budgets et besoins. Cliquez sur un modèle pour le poser
+          sur votre terrain dans le plan ci-dessus.
+        </p>
+      </div>
+
+      <div class="filtres reveler" id="filtres" role="group" aria-label="Filtrer les modèles">
+        <button class="filtre" type="button" data-f="tous" aria-pressed="true">Tous</button>
+        <button class="filtre" type="button" data-f="petit" aria-pressed="false">Petits espaces</button>
+        <button class="filtre" type="button" data-f="famille" aria-pressed="false">Baignade en famille</button>
+        <button class="filtre" type="button" data-f="nage" aria-pressed="false">Longueur de nage</button>
+      </div>
+
+      <div class="grille-modeles" id="grilleModeles"></div>
+
+      <p class="catalogue-note">
+        Extrait du catalogue Aboral 2024, qui compte 32 modèles allant de 3,15 m à 10,80 m
+        de long. Les douze reproduits ici sont ceux dont les cotes ont pu être vérifiées
+        publiquement — la liste se complète en quelques lignes depuis votre catalogue.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PRESTATIONS ===================== -->
+  <section class="section sombre" id="prestations">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Nos prestations</span>
+        <h2>De l'étude du terrain à l'eau qu'on entretient chaque année.</h2>
+      </div>
+      <div class="grille-presta reveler">
+        <div class="presta">
+          <h3>Piscines neuves</h3>
+          <ul>
+            <li>Pose de coques polyester Aboral</li>
+            <li>Étude du terrain et terrassement</li>
+            <li>Aménagements de plage et terrasse</li>
+          </ul>
+        </div>
+        <div class="presta">
+          <h3>Rénovation</h3>
+          <ul>
+            <li>Modernisation du bassin</li>
+            <li>Changement de revêtement</li>
+            <li>Amélioration de la filtration</li>
+          </ul>
+        </div>
+        <div class="presta">
+          <h3>Équipement de l'eau</h3>
+          <ul>
+            <li>Systèmes de filtration</li>
+            <li>Traitement de l'eau</li>
+            <li>Chauffage de piscine</li>
+          </ul>
+        </div>
+        <div class="presta">
+          <h3>Sécurité</h3>
+          <ul>
+            <li>Couvertures et volets</li>
+            <li>Volets automatiques</li>
+            <li>Alarmes et abris</li>
+          </ul>
+        </div>
+        <div class="presta">
+          <h3>Entretien</h3>
+          <ul>
+            <li>Entretien complet et nettoyage</li>
+            <li>Produits et accessoires au magasin</li>
+            <li>Suivi toute l'année</li>
+          </ul>
+        </div>
+        <div class="presta">
+          <h3>Spas et abris de jardin</h3>
+          <ul>
+            <li>Spas</li>
+            <li>Abris de jardin</li>
+            <li>Conseil en magasin au Coteau</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CHANTIER ===================== -->
+  <section class="section" id="chantier">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Le chantier</span>
+        <h2>Six étapes, dans cet ordre, toujours.</h2>
+        <p>C'est le déroulé d'une pose de coque. Il ne change pas d'un chantier à l'autre — seule la durée bouge, selon le terrain et l'accès.</p>
+      </div>
+      <div class="etapes">
+        <div class="etape"><h3>Étude du terrain</h3><p>Implantation, nature du sol, accès des engins, raccordements possibles.</p></div>
+        <div class="etape"><h3>Terrassement</h3><p>Ouverture de la fouille aux cotes du bassin, avec le dégagement nécessaire autour.</p></div>
+        <div class="etape"><h3>Pose de la coque</h3><p>Levage et mise en place du bassin, calage et réglage de niveau.</p></div>
+        <div class="etape"><h3>Raccordement de la filtration</h3><p>Local technique, circuit hydraulique, mise en service du système.</p></div>
+        <div class="etape"><h3>Mise en eau</h3><p>Remplissage progressif et remblaiement conduits ensemble.</p></div>
+        <div class="etape"><h3>Finitions extérieures</h3><p>Margelles, plage, abords — le chantier se referme.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BUDGET ===================== -->
+  <section class="section" id="budget" style="background:color-mix(in srgb,#fff 45%,transparent)">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Le budget</span>
+        <h2>Ce que couvre la fourchette affichée dans le plan.</h2>
+        <p>Autant le dire clairement : un chiffrage en ligne n'est pas un devis. Il sert à savoir si on parle du même ordre de grandeur avant de se déplacer.</p>
+      </div>
+      <div class="budget-grille reveler">
+        <div class="budget-carte dedans">
+          <h3>Compris dans l'estimation</h3>
+          <ul>
+            <li>La coque polyester</li>
+            <li>Le terrassement courant</li>
+            <li>La pose et le calage du bassin</li>
+            <li>Le local technique et les raccordements</li>
+            <li>La filtration de base</li>
+            <li>La mise en eau</li>
+          </ul>
+        </div>
+        <div class="budget-carte dehors">
+          <h3>Chiffré à part, sur le terrain</h3>
+          <ul>
+            <li>La plage et la terrasse autour du bassin</li>
+            <li>Les margelles et leur finition</li>
+            <li>L'évacuation des terres selon le volume</li>
+            <li>Un sol instable ou une nappe</li>
+            <li>Le raccordement électrique s'il est éloigné</li>
+            <li>L'obtention de l'autorisation d'urbanisme</li>
+          </ul>
+        </div>
+      </div>
+      <p class="avertissement">
+        <strong>Sur l'origine des chiffres.</strong> Les fourchettes utilisées dans le plan
+        sont reconstituées à partir des prix de marché publiés pour une piscine coque posée
+        en 2026 — de l'ordre de 12 000 € pour une mini-piscine à 45 000 € pour un grand
+        bassin, pose comprise. Ce ne sont pas les tarifs de Roanne Piscines. Sur un vrai
+        site, ces valeurs seraient remplacées par les vôtres et modifiables sans nous.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== MAGASIN ===================== -->
+  <section class="section" id="magasin">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Le magasin</span>
+        <h2>39 boulevard Charles de Gaulle, au Coteau.</h2>
+        <p>Le magasin, les produits et les accessoires sont sur place, de l'autre côté de la Loire par rapport à Roanne.</p>
+      </div>
+      <div class="magasin reveler">
+        <dl class="coords">
+          <div class="coord-ligne"><dt>Adresse</dt><dd>39 boulevard Charles de Gaulle<br>42120 Le Coteau</dd></div>
+          <div class="coord-ligne"><dt>Téléphone</dt><dd><a href="tel:+33981168145">09 81 16 81 45</a></dd></div>
+          <div class="coord-ligne"><dt>Portable</dt><dd><a href="tel:+33689304396">06 89 30 43 96</a></dd></div>
+          <div class="coord-ligne"><dt>Courriel</dt><dd><a href="mailto:magasin@roanne-piscines.fr">magasin@roanne-piscines.fr</a></dd></div>
+          <div class="coord-ligne"><dt>Société</dt><dd>Roanne Piscines — SAS, RCS Roanne 800 396 830</dd></div>
+        </dl>
+        <div class="horaires">
+          <h3>Horaires d'ouverture</h3>
+          <div class="etat" id="etatMagasin"><span class="point"></span><span id="etatTexte">—</span></div>
+          <div class="jours" id="jours"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section" id="contact" style="background:color-mix(in srgb,#fff 45%,transparent)">
+    <div class="contenu">
+      <div class="titre-sec reveler">
+        <span class="num">Contact</span>
+        <h2>Envoyez-nous votre demande.</h2>
+        <p>Si vous avez utilisé le plan, ses résultats sont repris ci-dessous : on sait déjà de quoi on parle avant de vous rappeler.</p>
+      </div>
+      <form class="formulaire reveler" id="formulaire" novalidate>
+        <div><label for="fNom">Nom</label><input type="text" id="fNom" autocomplete="name"></div>
+        <div><label for="fTel">Téléphone</label><input type="tel" id="fTel" autocomplete="tel"></div>
+        <div><label for="fMail">Courriel</label><input type="email" id="fMail" autocomplete="email"></div>
+        <div><label for="fVille">Commune</label><input type="text" id="fVille" placeholder="Le Coteau, Roanne, Riorges…"></div>
+        <div class="pleine"><label for="fProjet">Votre projet</label>
+          <select id="fProjet">
+            <option>Construction d'une piscine neuve</option>
+            <option>Rénovation d'un bassin existant</option>
+            <option>Entretien / dépannage</option>
+            <option>Spa ou abri de jardin</option>
+          </select>
+        </div>
+        <div class="pleine"><label for="fMessage">Message</label><textarea id="fMessage"></textarea></div>
+        <div class="form-pied">
+          <small>Formulaire de démonstration : rien n'est envoyé, rien n'est enregistré. La page fonctionne entièrement dans votre navigateur.</small>
+          <button class="bouton" type="submit">Envoyer la demande <span class="fleche" aria-hidden="true">→</span></button>
+        </div>
+        <div class="retour-form" id="retourForm" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <div class="contenu">
+    <div class="pied-haut">
+      <div>
+        <a class="marque" href="#haut" style="margin-bottom:14px">
+          <span class="nom">ROANNE<em>PISCINES</em></span>
+          <span class="lieu">Le Coteau</span>
+        </a>
+        <p style="margin:0;max-width:34ch">
+          Pisciniste au Coteau depuis 2014. Piscines neuves et rénovation, accessoires,
+          produits, entretien, spas et abris de jardin.
+        </p>
+      </div>
+      <div>
+        <h4>Le magasin</h4>
+        <ul>
+          <li>39 bd Charles de Gaulle<br>42120 Le Coteau</li>
+          <li><a href="tel:+33981168145">09 81 16 81 45</a></li>
+          <li><a href="tel:+33689304396">06 89 30 43 96</a></li>
+          <li><a href="mailto:magasin@roanne-piscines.fr">magasin@roanne-piscines.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Le site</h4>
+        <ul>
+          <li><a href="#plan">Le plan d'implantation</a></li>
+          <li><a href="#modeles">Nos modèles</a></li>
+          <li><a href="#prestations">Nos prestations</a></li>
+          <li><a href="#chantier">Le chantier</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="mention-demo">
+      <strong>Maquette de démonstration.</strong> Page indépendante, non affiliée à Roanne Piscines,
+      construite à partir d'informations publiques. Les coordonnées, les horaires, les prestations et
+      les cotes des modèles Aboral sont réels ; <strong>les prix affichés sont indicatifs et non
+      contractuels</strong>, reconstitués à partir des prix de marché publiés, et ne sont pas ceux de
+      l'entreprise. Aucun avis client, aucune certification et aucun chiffre d'activité n'a été ajouté.
+      <strong>Les couleurs et les polices sont approchées</strong> : le site actuel refuse la lecture
+      automatisée, la charte réelle n'a pas pu être relevée — tout est regroupé en variables en tête
+      de fichier et s'ajuste en quelques lignes.
+    </p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ==========================================================================
+   1. LES MODÈLES
+   --------------------------------------------------------------------------
+   Extrait du catalogue Aboral 2024 (32 modèles au total, de 3,15 m à 10,80 m).
+   Seuls les modèles dont les cotes sont publiquement vérifiables figurent ici.
+   Pour en ajouter un : une ligne de plus dans ce tableau, rien d'autre.
+   ========================================================================== */
+var MODELES = [
+  {nom:"Ikonik 3",  L:3.15, l:3.15, prof:"1,40 m",        forme:"carre",  note:"Carré, fond plat. Pour un espace vraiment contraint."},
+  {nom:"Fidji 4",   L:3.90, l:2.49, prof:"1,40 m",        forme:"droit",  note:"Mini-piscine, environ 11 m³ d'eau."},
+  {nom:"Ikonik 4",  L:4.00, l:4.00, prof:"1,40 m",        forme:"carre",  note:"Carré, fond plat, environ 17 m³ d'eau."},
+  {nom:"Papeete",   L:5.00, l:2.49, prof:"1,40 m",        forme:"droit",  note:"Le format couloir, quand la largeur manque."},
+  {nom:"Bora",      L:5.50, l:3.00, prof:"1,40 m",        forme:"droit",  note:"Premier format où deux personnes nagent de front."},
+  {nom:"Makena",    L:6.00, l:3.00, prof:"1,40 m",        forme:"droit",  note:"Le compromis le plus courant en jardin de ville."},
+  {nom:"Manureva",  L:6.00, l:3.45, prof:"1,40 m",        forme:"large",  note:"Même longueur que la Makena, 45 cm de plus en largeur."},
+  {nom:"Marquises", L:7.00, l:3.00, prof:"1,40 / 1,50 m", forme:"droit",  note:"Escalier d'angle et banquette sur toute la largeur."},
+  {nom:"Mataïva",   L:7.90, l:3.00, prof:"1,40 m",        forme:"droit",  note:"Conçue avec un coffre de volet immergé."},
+  {nom:"Maupiti",   L:8.00, l:3.00, prof:"1,40 m",        forme:"droit",  note:"Grande longueur sans excéder 3 m de large."},
+  {nom:"Tahaa",     L:8.50, l:3.85, prof:"1,40 / 1,50 m", forme:"large",  note:"Le grand format de la gamme, 3,85 m de large."},
+  {nom:"Akoya",     L:8.50, l:3.90, prof:"1,40 m",        forme:"plage",  note:"Volet immergé caché sous la plage, invisible une fois ouvert."}
+];
+MODELES.forEach(function(m){
+  m.surface = m.L * m.l;
+  m.volume  = m.surface * 1.4 * 0.78;   /* estimation d'eau, coefficient de forme */
+  m.famille = m.surface <= 16 ? "petit" : (m.L >= 7 ? "nage" : "famille");
+});
+
+/* ==========================================================================
+   2. LE CHIFFRAGE — valeurs indicatives, à remplacer par vos tarifs
+   --------------------------------------------------------------------------
+   Base : reconstitution des prix de marché 2026 d'une coque posée
+   (≈ 12 000 € pour 8 m² de plan d'eau, ≈ 25 000 € pour 32 m², ≈ 42 000 € pour 50 m²),
+   coque + terrassement courant + pose + raccordements + filtration de base.
+   ========================================================================== */
+var OPTIONS = {
+  volet : {min:5500, max:9000,  nom:"volet immergé"},
+  pac   : {min:3000, max:6000,  nom:"pompe à chaleur"},
+  alarme: {min:1200, max:2000,  nom:"alarme"},
+  abri  : {min:8000, max:16000, nom:"abri"}
+};
+function baseBassin(surface){ return 9000 + 430*surface + 3.6*surface*surface; }
+
+function chiffrer(modele, opts){
+  var b = baseBassin(modele.surface);
+  var min = b*0.88, max = b*1.12, lignes = [];
+  Object.keys(OPTIONS).forEach(function(cle){
+    if(opts[cle]){ min += OPTIONS[cle].min; max += OPTIONS[cle].max; lignes.push(OPTIONS[cle].nom); }
+  });
+  if(opts.acces){ min *= 1.08; max *= 1.18; lignes.push("accès difficile"); }
+  return {min:min, max:max, lignes:lignes};
+}
+
+/* ==========================================================================
+   3. ÉTAT DE L'OUTIL
+   ========================================================================== */
+var etat = {
+  terrainL:12, terrainl:7, degagement:1, usage:"famille",
+  choisi:null,
+  opts:{volet:false,pac:false,alarme:false,abri:false,acces:false}
+};
+
+var CIBLE = {petit:11, famille:20, nage:26};
+
+function euros(n){
+  return Math.round(n/500)*500 >= 1000
+    ? (Math.round(n/500)*500).toLocaleString("fr-FR")
+    : Math.round(n).toLocaleString("fr-FR");
+}
+function m(x){ return x.toFixed(2).replace(".", ","); }
+
+/* Un modèle rentre si, dans un sens ou dans l'autre, il tient avec le dégagement. */
+function rentre(mod){
+  var d = etat.degagement*2,
+      L = etat.terrainL, l = etat.terrainl;
+  return (mod.L + d <= L && mod.l + d <= l) || (mod.l + d <= L && mod.L + d <= l);
+}
+function tourne(mod){
+  var d = etat.degagement*2;
+  return !(mod.L + d <= etat.terrainL && mod.l + d <= etat.terrainl);
+}
+
+function classer(){
+  var cible = CIBLE[etat.usage];
+  return MODELES.filter(rentre).sort(function(a,b){
+    return Math.abs(a.surface-cible) - Math.abs(b.surface-cible);
+  });
+}
+
+/* ==========================================================================
+   4. LE DESSIN
+   ========================================================================== */
+var NS = "http://www.w3.org/2000/svg";
+function el(nom, attrs){
+  var n = document.createElementNS(NS, nom);
+  for(var k in attrs){ n.setAttribute(k, attrs[k]); }
+  return n;
+}
+
+function dessiner(mod){
+  var svg = document.getElementById("planSVG");
+  while(svg.lastChild && svg.lastChild.nodeName !== "title"){ svg.removeChild(svg.lastChild); }
+
+  var W = 760, H = 430, pad = 62;
+  var tL = etat.terrainL, tl = etat.terrainl;
+  var ech = Math.min((W-2*pad)/tL, (H-2*pad)/tl);
+  var pw = tL*ech, ph = tl*ech;
+  var px = (W-pw)/2, py = (H-ph)/2;
+
+  var defs = el("defs");
+  var grad = el("linearGradient",{id:"eauPlan",x1:"0",y1:"0",x2:"1",y2:"1"});
+  [["0%","#8FD8E0"],["55%","#1B8CA6"],["100%","#0A3A46"]].forEach(function(s){
+    grad.appendChild(el("stop",{offset:s[0],"stop-color":s[1]}));
+  });
+  defs.appendChild(grad);
+  var pat = el("pattern",{id:"hach2",width:"9",height:"9",patternTransform:"rotate(45)",patternUnits:"userSpaceOnUse"});
+  pat.appendChild(el("line",{x1:"0",y1:"0",x2:"0",y2:"9",stroke:"#0A3A46","stroke-opacity":".14","stroke-width":"1.4"}));
+  defs.appendChild(pat);
+  svg.appendChild(defs);
+
+  /* terrain */
+  svg.appendChild(el("rect",{x:px,y:py,width:pw,height:ph,rx:5,fill:"#ffffff",stroke:"#0A3A46","stroke-opacity":".24","stroke-width":"1.5"}));
+  svg.appendChild(el("text",{x:px+8,y:py+ph-9,"font-family":"IBM Plex Mono,monospace","font-size":"12",fill:"#56676D"})).textContent = "terrain disponible";
+
+  if(!mod){
+    var msg = el("text",{x:W/2,y:H/2,"text-anchor":"middle","font-family":"IBM Plex Mono,monospace","font-size":"15",fill:"#C07C33"});
+    msg.textContent = "Aucun modèle du catalogue ne rentre avec ce dégagement.";
+    svg.appendChild(msg);
+    return;
+  }
+
+  /* orientation retenue */
+  var bL = mod.L, bl = mod.l;
+  if(tourne(mod)){ bL = mod.l; bl = mod.L; }
+
+  var d  = etat.degagement*ech;
+  var bw = bL*ech, bh = bl*ech;
+  var bx = px + (pw-bw)/2, by = py + (ph-bh)/2;
+
+  /* zone de dégagement */
+  svg.appendChild(el("rect",{x:bx-d,y:by-d,width:bw+2*d,height:bh+2*d,rx:8,fill:"url(#hach2)"}));
+
+  /* bassin */
+  var rayon = mod.forme === "carre" ? 12 : Math.min(18, bh*0.22);
+  var bassin = el("rect",{x:bx,y:by,width:bw,height:bh,rx:rayon,fill:"url(#eauPlan)"});
+  bassin.setAttribute("class","bassin-anime");
+  svg.appendChild(bassin);
+
+  /* escalier d'angle + banquette (présents sur la gamme) */
+  var esc = Math.min(bw,bh)*0.34;
+  svg.appendChild(el("path",{
+    d:"M"+bx+" "+(by+esc)+" a"+esc+" "+esc+" 0 0 1 "+esc+" "+(-esc)+" z",
+    fill:"#8FD8E0","fill-opacity":".55"
+  }));
+  if(mod.forme === "plage"){
+    svg.appendChild(el("rect",{x:bx+bw-bw*0.17,y:by,width:bw*0.17,height:bh,rx:rayon*0.5,fill:"#EDF1F0","fill-opacity":".42"}));
+  }
+
+  /* reflets */
+  var g = el("g",{opacity:".45","class":"reflets"});
+  [[0.16,0.3,0.34],[0.5,0.55,0.22],[0.28,0.76,0.4]].forEach(function(r){
+    g.appendChild(el("rect",{x:bx+bw*r[0],y:by+bh*r[1],width:bw*r[2],height:2.6,rx:1.3,fill:"#EDF1F0"}));
+  });
+  svg.appendChild(g);
+
+  /* cotes du bassin */
+  var cy = by-18, cx = bx-18;
+  var traits = el("g",{stroke:"#1B8CA6","stroke-width":"1.3",fill:"none"});
+  traits.appendChild(el("path",{d:"M"+bx+" "+cy+" H"+(bx+bw)}));
+  traits.appendChild(el("path",{d:"M"+bx+" "+(cy-5)+" V"+(cy+5)}));
+  traits.appendChild(el("path",{d:"M"+(bx+bw)+" "+(cy-5)+" V"+(cy+5)}));
+  traits.appendChild(el("path",{d:"M"+cx+" "+by+" V"+(by+bh)}));
+  traits.appendChild(el("path",{d:"M"+(cx-5)+" "+by+" H"+(cx+5)}));
+  traits.appendChild(el("path",{d:"M"+(cx-5)+" "+(by+bh)+" H"+(cx+5)}));
+  svg.appendChild(traits);
+
+  var t1 = el("text",{x:bx+bw/2,y:cy-8,"text-anchor":"middle","font-family":"IBM Plex Mono,monospace","font-size":"13",fill:"#1B8CA6"});
+  t1.textContent = m(bL)+" m";
+  svg.appendChild(t1);
+  var t2 = el("text",{x:cx-9,y:by+bh/2+4,"text-anchor":"end","font-family":"IBM Plex Mono,monospace","font-size":"13",fill:"#1B8CA6"});
+  t2.textContent = m(bl)+" m";
+  svg.appendChild(t2);
+
+  /* cotes du terrain */
+  var t3 = el("text",{x:px+pw/2,y:py-24,"text-anchor":"middle","font-family":"IBM Plex Mono,monospace","font-size":"12",fill:"#56676D"});
+  t3.textContent = m(tL)+" m disponibles";
+  svg.appendChild(t3);
+
+  var t4 = el("text",{x:bx-d+4,y:by-d-6,"font-family":"IBM Plex Mono,monospace","font-size":"11.5",fill:"#56676D"});
+  t4.textContent = "dégagement "+m(etat.degagement)+" m";
+  svg.appendChild(t4);
+
+  if(tourne(mod)){
+    var t5 = el("text",{x:px+pw-8,y:py+ph-9,"text-anchor":"end","font-family":"IBM Plex Mono,monospace","font-size":"12",fill:"#C07C33"});
+    t5.textContent = "posée en travers";
+    svg.appendChild(t5);
+  }
+}
+
+/* ==========================================================================
+   5. RENDU
+   ========================================================================== */
+function rendre(){
+  var liste = classer();
+  var mod = etat.choisi && liste.indexOf(etat.choisi) !== -1 ? etat.choisi : liste[0];
+  etat.choisi = mod || null;
+
+  document.getElementById("modeleNom").textContent   = mod ? mod.nom : "Rien ne rentre";
+  document.getElementById("modeleCotes").textContent = mod ? m(mod.L)+" × "+m(mod.l)+" m" : "—";
+
+  dessiner(mod);
+
+  var zone = document.getElementById("verdictZone");
+  zone.innerHTML = "";
+  if(!mod){
+    var alerte = document.createElement("div");
+    alerte.className = "aucun";
+    alerte.innerHTML = "Avec "+m(etat.terrainL)+" × "+m(etat.terrainl)+" m et "+m(etat.degagement)+
+      " m de dégagement, aucun des douze modèles ne passe. Réduisez le dégagement si l'accès le permet, ou appelez-nous : sur un terrain serré, l'implantation se discute sur place.";
+    zone.appendChild(alerte);
+  }else{
+    var c = chiffrer(mod, etat.opts);
+    var v = document.createElement("div");
+    v.className = "verdict";
+    var sup = c.lignes.length ? " Avec "+c.lignes.join(", ")+"." : "";
+    v.innerHTML =
+      '<div class="details"><strong>'+mod.nom+'</strong> — '+m(mod.L)+' × '+m(mod.l)+' m, profondeur '+mod.prof+
+      '. Environ <strong>'+Math.round(mod.surface)+' m²</strong> de plan d\'eau et <strong>'+Math.round(mod.volume)+
+      ' m³</strong> d\'eau.'+sup+' Il reste '+m(Math.max(0,(tourne(mod)?etat.terrainL-mod.l:etat.terrainL-mod.L)))+
+      ' m de terrain dans la longueur.</div>'+
+      '<div class="budget-bloc"><div class="lab">Ordre de grandeur</div>'+
+      '<div class="montant">'+euros(c.min)+' – '+euros(c.max)+' €</div>'+
+      '<div class="mention">indicatif, non contractuel</div></div>';
+    zone.appendChild(v);
+  }
+
+  var titre = document.getElementById("compteurTitre");
+  titre.textContent = liste.length === 0 ? "Aucun modèle ne rentre"
+    : liste.length === 1 ? "1 modèle rentre" : liste.length+" modèles rentrent";
+
+  var rang = document.getElementById("rang");
+  rang.innerHTML = "";
+  liste.forEach(function(x){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "ligne-modele";
+    b.setAttribute("aria-current", x === mod ? "true" : "false");
+    b.innerHTML = '<span class="pastille" aria-hidden="true"></span>'+
+      '<span class="nm">'+x.nom+'</span>'+
+      '<span class="dm">'+m(x.L)+' × '+m(x.l)+' m</span>'+
+      '<span class="sf">'+Math.round(x.surface)+' m²</span>';
+    b.addEventListener("click", function(){ etat.choisi = x; rendre(); });
+    rang.appendChild(b);
+  });
+}
+
+/* ==========================================================================
+   6. BRANCHEMENTS
+   ========================================================================== */
+document.getElementById("terrainL").addEventListener("input", function(){
+  etat.terrainL = Math.max(3, parseFloat(this.value) || 3); rendre();
+});
+document.getElementById("terrainl").addEventListener("input", function(){
+  etat.terrainl = Math.max(2, parseFloat(this.value) || 2); rendre();
+});
+document.getElementById("degagement").addEventListener("input", function(){
+  etat.degagement = parseFloat(this.value);
+  document.getElementById("degagementVal").textContent = m(etat.degagement)+" m";
+  rendre();
+});
+Array.prototype.forEach.call(document.querySelectorAll("#usage button"), function(b){
+  b.addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll("#usage button"), function(o){
+      o.setAttribute("aria-pressed", String(o === b));
+    });
+    etat.usage = b.dataset.usage; etat.choisi = null; rendre();
+  });
+});
+Array.prototype.forEach.call(document.querySelectorAll(".opt input"), function(c){
+  c.addEventListener("change", function(){ etat.opts[c.dataset.opt] = c.checked; rendre(); });
+});
+
+/* ==========================================================================
+   7. CATALOGUE
+   ========================================================================== */
+/* Silhouettes dessinées dans un cadre de taille fixe : les cartes restent alignées
+   et les bassins gardent entre eux leurs proportions réelles. L'échelle est
+   commune à tous les modèles — la Ikonik 3 paraît donc petite à côté de l'Akoya,
+   ce qui est le but. */
+var PLUS_GRAND = MODELES.reduce(function(a,b){ return Math.max(a, b.L); }, 0);
+
+function silhouette(mod){
+  var W = 200, H = 104, marge = 12;
+  var ech = (W-2*marge)/PLUS_GRAND;
+  var bw = mod.L*ech, bh = mod.l*ech;
+  var bx = (W-bw)/2, by = (H-bh)/2;
+  var r = mod.forme === "carre" ? 8 : Math.min(13, bh*0.24);
+  var esc = Math.min(bw,bh)*0.32;
+  return '<svg viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'+
+    '<rect x="'+(bx-6)+'" y="'+(by-6)+'" width="'+(bw+12)+'" height="'+(bh+12)+'" rx="'+(r+4)+
+      '" fill="none" stroke="#0A3A46" stroke-opacity=".16" stroke-dasharray="3 4"/>'+
+    '<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+bh+'" rx="'+r+'" fill="#1B8CA6" fill-opacity=".85"/>'+
+    '<path d="M'+bx+' '+(by+esc)+' a'+esc+' '+esc+' 0 0 1 '+esc+' '+(-esc)+' z" fill="#8FD8E0" fill-opacity=".75"/>'+
+    '</svg>';
+}
+
+var ETIQUETTES = {petit:"Petit espace", famille:"Baignade en famille", nage:"Longueur de nage"};
+
+function catalogue(filtre){
+  var grille = document.getElementById("grilleModeles");
+  grille.innerHTML = "";
+  MODELES.filter(function(x){ return filtre === "tous" || x.famille === filtre; })
+    .sort(function(a,b){ return a.surface - b.surface; })
+    .forEach(function(x){
+      var c = document.createElement("article");
+      c.className = "carte-modele";
+      c.innerHTML =
+        '<div class="silhouette">'+silhouette(x)+'</div>'+
+        '<span class="tag">'+ETIQUETTES[x.famille]+'</span>'+
+        '<h3 class="nm">'+x.nom+'</h3>'+
+        '<dl><dt>Dimensions</dt><dd>'+m(x.L)+' × '+m(x.l)+' m</dd>'+
+        '<dt>Profondeur</dt><dd>'+x.prof+'</dd>'+
+        '<dt>Plan d\'eau</dt><dd>'+Math.round(x.surface)+' m²</dd></dl>'+
+        '<p class="note">'+x.note+'</p>'+
+        '<button class="essayer" type="button">La poser sur mon terrain <span aria-hidden="true">→</span></button>';
+      c.querySelector(".essayer").addEventListener("click", function(){
+        if(!rentre(x)){
+          etat.terrainL = Math.max(etat.terrainL, Math.ceil((x.L + etat.degagement*2)*2)/2);
+          etat.terrainl = Math.max(etat.terrainl, Math.ceil((x.l + etat.degagement*2)*2)/2);
+          document.getElementById("terrainL").value = etat.terrainL;
+          document.getElementById("terrainl").value = etat.terrainl;
+        }
+        etat.choisi = x;
+        rendre();
+        document.getElementById("plan").scrollIntoView({behavior:"smooth", block:"start"});
+      });
+      grille.appendChild(c);
+    });
+}
+Array.prototype.forEach.call(document.querySelectorAll("#filtres .filtre"), function(b){
+  b.addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll("#filtres .filtre"), function(o){
+      o.setAttribute("aria-pressed", String(o === b));
+    });
+    catalogue(b.dataset.f);
+  });
+});
+
+/* ==========================================================================
+   8. HORAIRES — état calculé en direct
+   ========================================================================== */
+var HORAIRES = [
+  {j:"Lundi",    p:[[9,12],[14,18]]},
+  {j:"Mardi",    p:[[9,12],[14,18]]},
+  {j:"Mercredi", p:[[9,12],[14,18]]},
+  {j:"Jeudi",    p:[[9,12],[14,18]]},
+  {j:"Vendredi", p:[[9,12],[14,18]]},
+  {j:"Samedi",   p:[[9,12]]},
+  {j:"Dimanche", p:[]}
+];
+function hh(x){ return String(Math.floor(x)).padStart(2,"0")+"h"+(x%1 ? String(Math.round(x%1*60)).padStart(2,"0") : ""); }
+
+function horaires(){
+  var now = new Date();
+  var idx = (now.getDay()+6)%7;
+  var heure = now.getHours()+now.getMinutes()/60;
+  var jour = HORAIRES[idx];
+
+  var conteneur = document.getElementById("jours");
+  conteneur.innerHTML = "";
+  HORAIRES.forEach(function(d,i){
+    var ligne = document.createElement("div");
+    ligne.className = "jour"+(i===idx?" aujourdhui":"");
+    ligne.innerHTML = '<span class="j">'+d.j+'</span><span class="h">'+
+      (d.p.length ? d.p.map(function(c){ return hh(c[0])+"–"+hh(c[1]); }).join("  ·  ") : "Fermé")+'</span>';
+    conteneur.appendChild(ligne);
+  });
+
+  var ouvert = jour.p.some(function(c){ return heure >= c[0] && heure < c[1]; });
+  var etatEl = document.getElementById("etatMagasin");
+  etatEl.className = "etat "+(ouvert?"ouvert":"ferme");
+
+  var texte;
+  if(ouvert){
+    var creneau = jour.p.filter(function(c){ return heure >= c[0] && heure < c[1]; })[0];
+    texte = "Ouvert — jusqu'à "+hh(creneau[1]);
+  }else{
+    var suivant = null;
+    for(var k=0;k<8 && !suivant;k++){
+      var d2 = HORAIRES[(idx+k)%7];
+      for(var n=0;n<d2.p.length;n++){
+        if(k>0 || d2.p[n][0] > heure){ suivant = {c:d2.p[n], j:d2.j, k:k}; break; }
+      }
+    }
+    texte = suivant
+      ? "Fermé — ouvre "+(suivant.k===0 ? "à "+hh(suivant.c[0]) : (suivant.k===1?"demain":suivant.j.toLowerCase())+" à "+hh(suivant.c[0]))
+      : "Fermé";
+  }
+  document.getElementById("etatTexte").textContent = texte;
+}
+
+/* ==========================================================================
+   9. NAVIGATION, RÉVÉLATIONS, FORMULAIRE
+   ========================================================================== */
+var entete = document.getElementById("entete");
+window.addEventListener("scroll", function(){
+  entete.classList.toggle("pose", window.scrollY > 12);
+}, {passive:true});
+
+var burger = document.getElementById("burger"), nav = document.getElementById("nav");
+burger.addEventListener("click", function(){
+  var o = nav.classList.toggle("ouverte");
+  burger.setAttribute("aria-expanded", String(o));
+});
+Array.prototype.forEach.call(nav.querySelectorAll("a"), function(a){
+  a.addEventListener("click", function(){ nav.classList.remove("ouverte"); burger.setAttribute("aria-expanded","false"); });
+});
+
+if("IntersectionObserver" in window){
+  var obs = new IntersectionObserver(function(entrees){
+    entrees.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("vue"); obs.unobserve(e.target); } });
+  }, {threshold:.12, rootMargin:"0px 0px -8% 0px"});
+  Array.prototype.forEach.call(document.querySelectorAll(".reveler, .etape"), function(n){ obs.observe(n); });
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
+  var obsNav = new IntersectionObserver(function(entrees){
+    entrees.forEach(function(e){
+      if(e.isIntersecting){
+        Array.prototype.forEach.call(nav.querySelectorAll("a"), function(a){
+          a.classList.toggle("actif", a.getAttribute("href") === "#"+e.target.id);
+        });
+      }
+    });
+  }, {rootMargin:"-45% 0px -50% 0px"});
+  sections.forEach(function(s){ obsNav.observe(s); });
+}else{
+  Array.prototype.forEach.call(document.querySelectorAll(".reveler, .etape"), function(n){ n.classList.add("vue"); });
+}
+
+document.getElementById("formulaire").addEventListener("submit", function(e){
+  e.preventDefault();
+  var r = document.getElementById("retourForm");
+  var mod = etat.choisi;
+  r.textContent = mod
+    ? "Démonstration : rien n'a été envoyé. Sur un vrai site, la demande partirait avec le plan — "+mod.nom+", "+m(mod.L)+" × "+m(mod.l)+" m sur un terrain de "+m(etat.terrainL)+" × "+m(etat.terrainl)+" m — pour rappeler en connaissant déjà le projet."
+    : "Démonstration : rien n'a été envoyé. Sur un vrai site, la demande partirait avec le plan d'implantation si vous l'avez rempli.";
+  r.classList.add("visible");
+});
+
+/* ==========================================================================
+   10. DÉMARRAGE
+   ========================================================================== */
+catalogue("tous");
+horaires();
+setInterval(horaires, 60000);
+rendre();
+
+})();
+</script>
+
+<style>
+/* Ondulation lente de la surface d'eau — signature discrète */
+@keyframes derive{
+  0%   {transform:translateX(0)}
+  50%  {transform:translateX(9px)}
+  100% {transform:translateX(0)}
+}
+.reflets rect{animation:derive 7s ease-in-out infinite}
+.reflets rect:nth-child(2){animation-duration:9.5s;animation-delay:-2s}
+.reflets rect:nth-child(3){animation-duration:8.2s;animation-delay:-4s}
+@keyframes respire{
+  0%,100%{filter:saturate(1)}
+  50%    {filter:saturate(1.12)}
+}
+.bassin-anime,.bassin-hero{animation:respire 11s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){
+  .reflets rect,.bassin-anime,.bassin-hero{animation:none}
+}
+</style>
+
+</body>
+</html>
