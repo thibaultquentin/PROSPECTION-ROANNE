@@ -16,7 +16,7 @@ Une chose m'a marqué : vous êtes certifiés RGE Qualibat, mais ça n'apparaît
 
 J'ai construit une maquette pour voir ce que ça donnerait : le visiteur compte ses fenêtres, choisit son matériau, et une fourchette de prix sort directement — aides déduites. Elle est là : [Maquette – Lassaigne Menuiserie](https://thibaultquentin.github.io/PROSPECTION-ROANNE/maquettes/lassaigne-menuiserie-roanne.html), ça s'ouvre dans un navigateur, rien à installer.
 
-C'est une ébauche, hein — tout se change selon vos retours (tarifs, présentation, mise en avant de vos chantiers), et elle est déjà à vous quoi qu'il arrive. Si on va plus loin, je travaille en direct, sans structure d'agence, ce qui me permet un tarif bien en dessous du marché pour un site fait à 100 % sur mesure, avec un suivi dans la durée si vous en avez besoin.
+C'est une ébauche — tout se change selon vos retours (tarifs, présentation, mise en avant de vos chantiers), et elle est déjà à vous quoi qu'il arrive. Si on va plus loin, je travaille en direct, sans structure d'agence, ce qui me permet un tarif bien en dessous du marché pour un site fait à 100 % sur mesure, avec un suivi dans la durée si vous en avez besoin.
 
 Dites-moi ce que vous en pensez par mail, ou proposez-moi un créneau pour qu'on s'appelle.
 
@@ -36,5 +36,5 @@ Roanne
 - **Le lien est cliquable, jamais l'URL brute** : le texte visible est toujours « Maquette – [Nom entreprise] », jamais l'adresse GitHub elle-même (ni le pseudo, ni le nom du dépôt).
 - **Le paragraphe de tempérance** reste non négociable mais tient en 2-3 phrases : ébauche/ajustable + la maquette leur appartient + prix garanti sous le marché (justifié à peine, via "je travaille en direct, sans agence") + personnalisation totale + suivi possible si souhaité. Glissé naturellement, jamais en liste à puces.
 - **L'appel à l'action va droit au but** : mail ou téléphone, sans justification ni excuse.
-- **La signature est courte** : prénom, nom, téléphone, ville — rien de plus.
-- **Le ton reste parlé** : phrases courtes, une virgule plutôt qu'une conjonction de temps en temps, pas de tournures trop léchées ni de connecteurs logiques appuyés. Le mail complet (hors sujet et signature) tient autour de 130-150 mots.
+- **La signature est courte** : prénom, nom, téléphone, ville — rien de plus, chacun sur sa propre ligne (jamais regroupés sur une seule ligne ni séparés par des virgules).
+- **Le ton reste professionnel mais dégraissé** : sobre, direct, sans jargon commercial — phrases courtes, une virgule plutôt qu'une conjonction de temps en temps, pas de tournures trop léchées ni de connecteurs logiques appuyés — sans pour autant tomber dans le familier ou l'oral. Le mail complet (hors sujet et signature) tient autour de 130-150 mots.
