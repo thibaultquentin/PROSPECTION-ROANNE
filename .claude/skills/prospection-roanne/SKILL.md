@@ -60,6 +60,7 @@ Selon le secteur, chercher ce qui rend la maquette crédible et le mail pertinen
 - Un seul fichier HTML autonome (CSS + JS inline), construit en local puis copié dans `/mnt/user-data/outputs/` pour l'aperçu immédiat dans la conversation.
 - Utiliser les vraies données récupérées à l'étape 2 : vrai nom, vraie adresse, vrais horaires, vraies photos si accessibles, vrai avis Google.
 - Construire un outil interactif qui répond exactement au manque identifié à l'étape 2 (chiffrage en ligne, simulateur, configurateur, prise de rendez-vous avec export .ics, galerie filtrable…) — c'est la pièce centrale de l'argumentaire commercial, pas un site vitrine de plus. C'est là que doit se concentrer l'essentiel du travail « fonctionnalités » : le client doit voir tout de suite ce que son site ne sait pas faire aujourd'hui.
+- Appliquer les règles de SEO local — `title` et meta description (métier + zone), données structurées schema.org `LocalBusiness`, présence naturelle du métier et de la zone dans les titres visibles : **voir `references/seo-local.md`**. La zone géographique ne se met jamais en dur sur « Roanne » : elle se déduit de la vraie zone de chalandise de l'entreprise (zone d'intervention affichée, nombre d'implantations, clientèle locale ou non) selon la règle de décision détaillée dans ce fichier. Ces règles restent subordonnées au principe de continuité de charte ci-dessus.
 - Nommer le fichier `nom-entreprise-ville.html` (minuscules, tirets), cohérent avec le nom qui sera donné à la conversation.
 - Ajouter un bandeau de démonstration discret en haut de page et une mention en pied de page précisant que c'est une maquette de démonstration, prix indicatifs non contractuels, et — si la charte exacte n'a pas pu être récupérée — que les couleurs sont approchées et ajustables.
 
@@ -129,4 +130,5 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 
 ## Référence
 
-Voir `references/exemple-mail.md` pour un exemple complet de mail conforme au format, à utiliser comme calibrage de ton — ne pas copier son contenu, seulement sa structure et son registre.
+- `references/exemple-mail.md` : un exemple complet de mail conforme au format, à utiliser comme calibrage de ton — ne pas copier son contenu, seulement sa structure et son registre.
+- `references/seo-local.md` : les règles de SEO local appliquées à l'étape 4 (title, meta description, schema.org `LocalBusiness`, titres visibles) et surtout la règle de décision qui détermine la zone géographique à employer pour chaque entreprise. À lire avant d'écrire le `<head>` de la maquette.
