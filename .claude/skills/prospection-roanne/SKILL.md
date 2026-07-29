@@ -85,7 +85,7 @@ C'est la partie la plus sensible : le format et le ton doivent être respectés 
 - Sur-vendre la maquette comme un produit fini et parfait.
 - Afficher l'URL brute de la maquette, ou tout ce qui l'entoure (pseudo GitHub, nom du dépôt) : le client ne doit voir qu'un texte de lien, jamais l'adresse elle-même.
 - **Un mail trop long.** Le destinataire est un professionnel occupé, souvent lu depuis un téléphone entre deux clients : il doit saisir l'essentiel en moins d'une minute. Viser autour de 130-150 mots hors formule de politesse et signature. Chaque partie de la structure ci-dessous tient en une à trois phrases, jamais un pavé.
-- **Un ton trop lisse, trop écrit, qui sonne artificiel.** Éviter les phrases trop parfaitement construites, les connecteurs logiques appuyés ("ainsi", "par conséquent", "il convient de"), le vocabulaire de plaquette même discret. Écrire comme on écrirait à quelqu'un croisé une fois : phrases courtes, parfois une virgule plutôt qu'une conjonction, une ellipse de temps en temps.
+- **Un ton trop lisse, trop écrit, qui sonne artificiel.** Éviter les phrases trop parfaitement construites, les connecteurs logiques appuyés ("ainsi", "par conséquent", "il convient de"), le vocabulaire de plaquette même discret. Viser un ton professionnel mais dégraissé : sobre, direct, sans jargon commercial — phrases courtes, parfois une virgule plutôt qu'une conjonction — sans pour autant tomber dans le familier ou l'oral (pas d'interjections du type "hein", pas de tournures relâchées).
 
 ### Structure du mail (à suivre dans cet ordre)
 
@@ -103,7 +103,13 @@ C'est la partie la plus sensible : le format et le ton doivent être respectés 
 
    Ne pas affirmer dans le mail que "rien n'est à jeter" ou que la maquette "part de son site actuel plutôt que de le remplacer" : c'est en pratique inexact, le client finira par changer de site entièrement, et cette promesse ne tiendrait pas. Le principe de continuité visuelle (étape 4) est une contrainte de conception, pas un argument commercial à formuler explicitement — il doit se voir dans la maquette, pas se lire dans le mail. En revanche, si les couleurs exactes de sa charte n'ont pas pu être récupérées (site protégé au fetch, logo inaccessible), le dire franchement reste utile : ça évite de laisser croire que la palette reproduite est fidèle à 100 %.
 7. **Appel à l'action, sans détour ni excuse** : proposer directement soit un retour par mail (ce qui plaît, ce qui ne colle pas avec leur façon de travailler), soit un créneau pour un appel téléphonique. Ne proposer une rencontre en personne que si l'utilisateur a indiqué être disponible pour ça dans cette conversation.
-8. **Formule de politesse courte + signature** : prénom, nom, téléphone, ville. (Reprendre les coordonnées personnelles de l'utilisateur telles que déjà connues/mémorisées — nom, numéro de téléphone — sans les lui redemander si elles sont déjà disponibles dans le contexte ou la mémoire.)
+8. **Formule de politesse courte + signature** : prénom, nom, téléphone, ville — chacun sur sa propre ligne (jamais regroupés sur une seule ligne ni séparés par des virgules), par exemple :
+   ```
+   Thibault Quentin
+   06 43 00 21 80
+   Roanne
+   ```
+   (Reprendre les coordonnées personnelles de l'utilisateur telles que déjà connues/mémorisées — nom, numéro de téléphone — sans les lui redemander si elles sont déjà disponibles dans le contexte ou la mémoire.)
 
 ### Sujet du mail
 Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de site internet (Maquette créée)`. Exemple : « Immo Factory - Optimisation de site internet (Maquette créée) ». Ne pas varier ce gabarit d'une entreprise à l'autre, même si un objet plus accrocheur semble possible.
@@ -112,6 +118,7 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 
 ### Création du brouillon
 - Le mail part toujours en HTML, plus jamais en texte brut : utiliser `Gmail:create_draft` avec `to`, `subject`, `htmlBody` (version riche, avec le vrai lien `<a href="URL GitHub Pages">Maquette – [Nom entreprise]</a>` inséré au paragraphe correspondant) et `body` en complément (version texte de secours, pour les clients qui ne rendent pas le HTML) — dans `body` non plus, ne jamais faire apparaître l'URL : reformuler simplement, ex. « Maquette – [Nom entreprise] (lien cliquable dans ce message) ».
+- Dans `htmlBody`, séparer les trois lignes de la signature (prénom+nom / téléphone / ville) par des balises `<br>` explicites — un simple saut de ligne dans le HTML est ignoré au rendu et les regrouperait sur une seule ligne. Dans `body` (texte brut), un saut de ligne normal entre chaque suffit.
 - Plus de pièce jointe à gérer : la maquette vit sur GitHub Pages, pas dans le mail. Ne pas joindre le fichier HTML au brouillon.
 
 ## Étape 6 — Rappel de relance
