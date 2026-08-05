@@ -96,12 +96,15 @@ Selon le secteur, chercher ce qui rend la maquette crédible et le mail pertinen
 
 ### Bibliothèque de références esthétiques
 
-Avant de concevoir la maquette, consulter le Google Sheet **02 - RÉFÉRENCES ESTHÉTIQUES** (dossier Drive `05 - Références esthétiques`, id `1fAEOGNMO5e6PztaP6ElAazVVBu3t8J4j`) :
+Avant de concevoir la maquette, consulter le Google Sheet **02 - RÉFÉRENCES ESTHÉTIQUES** (dossier Drive `05 - Références esthétiques`, id `1fAEOGNMO5e6PztaP6ElAazVVBu3t8J4j`). Le tableau contient deux types de lignes, à traiter différemment :
 
-- Chercher la ligne dont le **Secteur** correspond à celui de l'entreprise ciblée (même logique de secteur qu'à l'étape 1).
-- Si une ou plusieurs références existent pour ce secteur, ouvrir l'image (lien Drive dans la colonne **Lien image**) et l'observer avant de commencer : structure de mise en page, ambiance visuelle, traitement des photos, rythme des animations, type d'éléments interactifs.
-- **Cette bibliothèque n'est jamais une source de couleurs ni d'identité visuelle** : elle reste entièrement subordonnée au principe directeur ci-dessus. La palette, la typographie et le ton viennent toujours de la charte réelle du client, jamais de la référence. La référence inspire uniquement la manière de structurer et d'animer, pas ce qui doit rester propre au client.
-- Si le secteur n'a pas de référence dédiée dans le tableau, ne pas bloquer : se rabattre sur `frontend-design/SKILL.md` et la référence structurelle générale (tuloup.com, en tête du tableau) pour le rythme d'animation et la cohérence générale.
+- **Les 3 premières lignes** (secteur marqué "RÉFÉRENCE STRUCTURELLE GÉNÉRALE") pointent vers des **sites complets à visiter** (tuloup.com en priorité — préférence explicite de l'utilisateur —, puis biocean-algues-marines.com, umaneis-rh.com), pas vers une image statique. Elles s'appliquent à tous les secteurs et donnent le rythme d'animation, la structure de navigation et l'esprit général à viser, indépendamment du métier du client.
+- **Les lignes suivantes**, classées par secteur, pointent vers une **image Drive** (capture d'un site de référence) pour ce secteur précis.
+
+Dans les deux cas :
+- Chercher d'abord la ligne dont le **Secteur** correspond à celui de l'entreprise ciblée (même logique de secteur qu'à l'étape 1), et observer sa référence (visiter le site ou ouvrir l'image) avant de commencer.
+- **Cette bibliothèque n'est jamais une source de couleurs ni d'identité visuelle** : elle reste entièrement subordonnée au principe directeur ci-dessus. La palette, la typographie et le ton viennent toujours de la charte réelle du client, jamais de la référence. La référence inspire uniquement la structure, le rythme d'animation et l'ambiance générale — jamais ce qui doit rester propre au client.
+- Si le secteur n'a pas de référence dédiée dans le tableau, ne pas bloquer : se rabattre sur `frontend-design/SKILL.md` et sur les 3 références structurelles générales en tête du tableau, en t'inspirant des structures d'autres secteurs présents pour construire quelque chose de vivant et cohérent plutôt qu'une page blanche rigide.
 
 - Avant de lire `frontend-design/SKILL.md`, `web_fetch` le site actuel du client (page d'accueil et au moins une page intérieure) et relever : sa palette (couleurs dominantes, boutons, liens), sa typographie perçue (empattée/sans-serif, condensée/large), la structure exacte de son menu et de ses rubriques, ses formulations propres (baseline, slogans, intitulés de sections, sous-titres), son ton (institutionnel, familial, artisanal…), et tout élément d'identité déjà en place (logo, pictogrammes, mise en page des horaires, etc.).
 - Si le CSS ou les images ne sont pas accessibles au fetch (site protégé, JS lourd, robots.txt), le dire explicitement au client dans le mail plutôt que d'improviser une palette en la faisant passer pour la sienne — voir la clause de tempérance ci-dessous.
