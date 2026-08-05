@@ -94,6 +94,15 @@ Selon le secteur, chercher ce qui rend la maquette crédible et le mail pertinen
 
 **Principe directeur : partir de la charte existante, pas la remplacer.** Le client a déjà payé pour son site actuel — logo, couleurs, typographie, structure des rubriques, formulations. Une maquette qui ignore tout ça et repart d'une direction artistique neuve, aussi réussie soit-elle esthétiquement, donne au client le sentiment qu'il faut tout jeter et recommencer à zéro. C'est le contraire de l'effet recherché : la maquette doit se lire comme *son* site avec quelque chose en plus, pas comme le site d'un concurrent qui aurait volé son adresse.
 
+### Bibliothèque de références esthétiques
+
+Avant de concevoir la maquette, consulter le Google Sheet **02 - RÉFÉRENCES ESTHÉTIQUES** (dossier Drive `05 - Références esthétiques`, id `1fAEOGNMO5e6PztaP6ElAazVVBu3t8J4j`) :
+
+- Chercher la ligne dont le **Secteur** correspond à celui de l'entreprise ciblée (même logique de secteur qu'à l'étape 1).
+- Si une ou plusieurs références existent pour ce secteur, ouvrir l'image (lien Drive dans la colonne **Lien image**) et l'observer avant de commencer : structure de mise en page, ambiance visuelle, traitement des photos, rythme des animations, type d'éléments interactifs.
+- **Cette bibliothèque n'est jamais une source de couleurs ni d'identité visuelle** : elle reste entièrement subordonnée au principe directeur ci-dessus. La palette, la typographie et le ton viennent toujours de la charte réelle du client, jamais de la référence. La référence inspire uniquement la manière de structurer et d'animer, pas ce qui doit rester propre au client.
+- Si le secteur n'a pas de référence dédiée dans le tableau, ne pas bloquer : se rabattre sur `frontend-design/SKILL.md` et la référence structurelle générale (tuloup.com, en tête du tableau) pour le rythme d'animation et la cohérence générale.
+
 - Avant de lire `frontend-design/SKILL.md`, `web_fetch` le site actuel du client (page d'accueil et au moins une page intérieure) et relever : sa palette (couleurs dominantes, boutons, liens), sa typographie perçue (empattée/sans-serif, condensée/large), la structure exacte de son menu et de ses rubriques, ses formulations propres (baseline, slogans, intitulés de sections, sous-titres), son ton (institutionnel, familial, artisanal…), et tout élément d'identité déjà en place (logo, pictogrammes, mise en page des horaires, etc.).
 - Si le CSS ou les images ne sont pas accessibles au fetch (site protégé, JS lourd, robots.txt), le dire explicitement au client dans le mail plutôt que d'improviser une palette en la faisant passer pour la sienne — voir la clause de tempérance ci-dessous.
 - Regrouper les couleurs et polices dans des variables CSS commentées en tête de fichier, pour qu'un ajustement (le jour où le client fournit ses vrais codes ou son logo) tienne en quelques lignes plutôt qu'en une reprise complète.
@@ -198,3 +207,4 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 
 - `references/exemple-mail.md` : un exemple complet de mail conforme au format, à utiliser comme calibrage de ton — ne pas copier son contenu, seulement sa structure et son registre.
 - `references/seo-local.md` : les règles de SEO local appliquées à l'étape 4 (title, meta description, schema.org `LocalBusiness`, titres visibles) et surtout la règle de décision qui détermine la zone géographique à employer pour chaque entreprise. À lire avant d'écrire le `<head>` de la maquette.
+- `05 - Références esthétiques` (Google Drive) : bibliothèque d'images de sites par secteur, avec le tableau `02 - RÉFÉRENCES ESTHÉTIQUES` qui les indexe. Consulté à l'étape 4, jamais comme source de couleurs.
