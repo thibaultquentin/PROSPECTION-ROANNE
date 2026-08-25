@@ -91,14 +91,23 @@ h2{font-size:clamp(1.7rem,3.4vw,2.5rem)}
 h3{font-size:clamp(1.15rem,2vw,1.45rem)}
 .sur-titre{
   font-family:var(--font-texte);font-size:.75rem;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--orange);font-weight:700;
+  text-transform:uppercase;color:var(--orange-fonce);font-weight:700;
   display:block;margin-bottom:.7rem;
 }
+/* sur fond sombre, la version claire de l'orange repasse au-dessus du seuil */
+#hero .sur-titre,#realisations .sur-titre,#contact .sur-titre{color:var(--orange-clair)}
 .deco::after{
   content:"";display:block;width:64px;height:3px;background:var(--orange);
   margin-top:1rem;border-radius:2px;
 }
 .center{text-align:center}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;border-radius:3px}
+#hero :focus-visible,#realisations :focus-visible,#contact :focus-visible,#urgence :focus-visible{outline-color:var(--orange-clair)}
+.evitement{
+  position:absolute;left:-9999px;top:0;background:var(--noir);color:#fff;
+  padding:.8rem 1.2rem;z-index:100;text-decoration:none;font-weight:700;
+}
+.evitement:focus{left:8px;top:8px}
 .center.deco::after{margin-inline:auto}
 section{padding:clamp(3.5rem,7vw,6rem) 0;scroll-margin-top:88px}
 
@@ -239,7 +248,7 @@ nav.principale a:hover::after,nav.principale a:focus-visible::after{width:100%}
 .options{display:flex;flex-wrap:wrap;gap:.5rem}
 .option{
   display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--gris-2);
-  border-radius:20px;padding:.42rem .85rem;font-size:.82rem;cursor:pointer;
+  border-radius:22px;padding:.55rem 1rem;min-height:44px;font-size:.82rem;cursor:pointer;
   transition:border-color .2s ease,background .2s ease;user-select:none;
 }
 .option:hover{border-color:#c9c9c9}
@@ -310,7 +319,7 @@ nav.principale a:hover::after,nav.principale a:focus-visible::after{width:100%}
 .filtres{display:flex;flex-wrap:wrap;gap:.55rem;margin:2rem 0 1.6rem}
 .filtre{
   background:transparent;border:1px solid rgba(255,255,255,.24);color:#ddd;
-  padding:.5rem 1.1rem;border-radius:20px;cursor:pointer;font-family:var(--font-texte);
+  padding:.6rem 1.2rem;min-height:44px;border-radius:22px;cursor:pointer;font-family:var(--font-texte);
   font-size:.84rem;font-weight:600;transition:.25s ease;
 }
 .filtre:hover{border-color:#fff;color:#fff}
@@ -321,7 +330,7 @@ nav.principale a:hover::after,nav.principale a:focus-visible::after{width:100%}
   animation:apparait .45s ease both;
 }
 @keyframes apparait{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.galerie img{width:100%;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.galerie img{width:100%;height:auto;background:#1c1c1c;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
 .galerie figure:hover img{transform:scale(1.06)}
 .galerie figcaption{
   position:absolute;inset:auto 0 0 0;padding:.7rem .8rem;font-size:.78rem;color:#fff;
@@ -345,7 +354,7 @@ nav.principale a:hover::after,nav.principale a:focus-visible::after{width:100%}
 .zone-grille{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2.5rem;align-items:center}
 .communes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
 .commune{
-  background:#fff;border:1px solid var(--gris-2);border-radius:20px;padding:.4rem .95rem;
+  background:#fff;border:1px solid var(--gris-2);border-radius:22px;padding:.55rem 1rem;
   font-size:.84rem;font-weight:600;
 }
 .commune.siege{background:var(--orange);border-color:var(--orange);color:#fff}
@@ -422,6 +431,8 @@ footer a{color:#bdbdbd}
 
 <div id="demo">Maquette de démonstration réalisée pour <b>Vitrerie Miroiterie Menuiserie Chartier</b> — page non contractuelle, prix indicatifs</div>
 
+<a class="evitement" href="#chiffrage">Aller au chiffrage du verre</a>
+
 <header id="entete">
   <div class="wrap barre">
     <a href="#hero" aria-label="Accueil">
@@ -439,6 +450,7 @@ footer a{color:#bdbdbd}
   </div>
 </header>
 
+<main>
 <!-- ============================ HÉROS ============================ -->
 <section id="hero">
   <div class="fond" id="parallaxe"></div>
@@ -564,14 +576,14 @@ footer a{color:#bdbdbd}
           <g id="dessin"></g>
         </svg>
 
-        <div class="recap">
+        <div class="recap" aria-live="polite">
           <div class="ligne"><span>Surface unitaire</span><b id="r-surface">—</b></div>
           <div class="ligne"><span>Surface totale</span><b id="r-total-surface">—</b></div>
           <div class="ligne"><span>Prix de référence</span><b id="r-prixm2">—</b></div>
           <div class="ligne"><span>Façonnage</span><b id="r-faconnage">Aucun</b></div>
         </div>
 
-        <div class="total">
+        <div class="total" aria-live="polite">
           <div class="lab">Fourchette indicative — fourniture</div>
           <div class="val" id="r-fourchette">—</div>
           <div class="note">Prix TTC indicatifs, hors pose et hors façonnage. Fourchettes bâties sur les
@@ -719,6 +731,8 @@ footer a{color:#bdbdbd}
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -996,24 +1010,24 @@ gp.appendChild(cta);
    rubriques que le site lui-même utilise sur sa page « Nos réalisations »
    ------------------------------------------------------------------ */
 var PHOTOS = [
-  { f:"/galerie/crop/chassis-vitre-f85454e8279b.jpg", c:"verre", l:"Châssis vitré" },
-  { f:"/galerie/crop/chassis-alu-loft-cee631121c2e.jpg", c:"verre", l:"Châssis aluminium façon loft" },
-  { f:"/galerie/crop/cloisons-metalliques-interieures-d9fc5b73a8d7.jpg", c:"verre", l:"Cloison métallique intérieure vitrée" },
-  { f:"/galerie/crop/gravure-sur-verre-8d317bdcf4aa.jpg", c:"verre", l:"Gravure sur verre" },
-  { f:"/galerie/crop/20240920_174745-941e1aaaba58.jpg", c:"verre", l:"Chantier vitrerie" },
-  { f:"/galerie/crop/img_20240711_090839_255-68053af2923e.webp", c:"miroiterie", l:"Réalisation en miroiterie" },
-  { f:"/galerie/crop/img_20240927_205243_576-fa7cdfad1a5a.jpg", c:"miroiterie", l:"Réalisation en miroiterie" },
-  { f:"/galerie/crop/img_20230426_085824_186-82f2b308c3b0.jpg", c:"miroiterie", l:"Réalisation en miroiterie" },
-  { f:"/galerie/crop/20240227_112548-d96409bf8942.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240304_093058-f2201f5191c4.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240304_093124-c5ff2543b53f.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_134253-7cbbc409ec99.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_151243-a516a87cfcae.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_142838-fa14d4fe2f19.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_142906-1385974ed590.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_134334-d82c8d1619ad.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_142223-03c6b06952c7.jpg", c:"menuiserie", l:"Réalisation en menuiserie" },
-  { f:"/galerie/crop/20240315_142258-8c19f571e251.jpg", c:"menuiserie", l:"Réalisation en menuiserie" }
+  { f:"/galerie/crop/chassis-vitre-f85454e8279b.jpg", w:382, h:510, c:"verre", l:"Châssis vitré" },
+  { f:"/galerie/crop/chassis-alu-loft-cee631121c2e.jpg", w:382, h:510, c:"verre", l:"Châssis aluminium façon loft" },
+  { f:"/galerie/crop/cloisons-metalliques-interieures-d9fc5b73a8d7.jpg", w:382, h:510, c:"verre", l:"Cloison métallique intérieure vitrée" },
+  { f:"/galerie/crop/gravure-sur-verre-8d317bdcf4aa.jpg", w:382, h:510, c:"verre", l:"Gravure sur verre" },
+  { f:"/galerie/crop/20240920_174745-941e1aaaba58.jpg", w:600, h:1067, c:"verre", l:"Chantier vitrerie" },
+  { f:"/galerie/crop/img_20240711_090839_255-68053af2923e.webp", w:800, h:1000, c:"miroiterie", l:"Réalisation en miroiterie" },
+  { f:"/galerie/crop/img_20240927_205243_576-fa7cdfad1a5a.jpg", w:800, h:1000, c:"miroiterie", l:"Réalisation en miroiterie" },
+  { f:"/galerie/crop/img_20230426_085824_186-82f2b308c3b0.jpg", w:800, h:1000, c:"miroiterie", l:"Réalisation en miroiterie" },
+  { f:"/galerie/crop/20240227_112548-d96409bf8942.jpg", w:800, h:1067, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240304_093058-f2201f5191c4.jpg", w:800, h:1732, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240304_093124-c5ff2543b53f.jpg", w:800, h:1732, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_134253-7cbbc409ec99.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_151243-a516a87cfcae.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_142838-fa14d4fe2f19.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_142906-1385974ed590.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_134334-d82c8d1619ad.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_142223-03c6b06952c7.jpg", w:800, h:450, c:"menuiserie", l:"Réalisation en menuiserie" },
+  { f:"/galerie/crop/20240315_142258-8c19f571e251.jpg", w:800, h:1421, c:"menuiserie", l:"Réalisation en menuiserie" }
 ];
 var FILTRES = [
   { id:"tout", l:"Tout voir" },
@@ -1040,7 +1054,7 @@ function peindreGalerie(){
         .forEach(function(p,i){
     var fig = document.createElement("figure");
     fig.style.animationDelay = Math.min(i*35,420)+"ms";
-    fig.innerHTML = '<img src="'+BASE+p.f+'" alt="'+p.l+' — Vitrerie Chartier, Le Coteau" loading="lazy">'+
+    fig.innerHTML = '<img src="'+BASE+p.f+'" width="'+p.w+'" height="'+p.h+'" alt="'+p.l+' — Vitrerie Chartier, Le Coteau" loading="lazy">'+
                     '<figcaption>'+p.l+'</figcaption>';
     zoneGalerie.appendChild(fig);
   });
