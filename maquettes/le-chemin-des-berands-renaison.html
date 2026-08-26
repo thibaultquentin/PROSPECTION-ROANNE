@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Le chemin des Bérands — Chambres d'hôtes à Renaison (Roannais)</title>
+<meta name="description" content="Deux chambres d'hôtes de plain-pied à Renaison, au cœur de la Côte Roannaise, à 6 km de la Maison Troisgros. Petit-déjeuner maison, terrain de 2 000 m².">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   CHARTE — Le chemin des Bérands
+   Tout se règle ici. Le vert profond est repris du site actuel
+   (#165357, couleur dominante du gabarit en ligne aujourd'hui) ;
+   les autres teintes sont relevées sur les photos de la maison :
+   crème des murs et de la table, vert du jardin, ambre des fins
+   de journée, bois de la terrasse et de la tête de lit.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --pin:        #165357;   /* vert profond — couleur du site actuel */
+  --encre:      #10312F;   /* texte, fonds sombres */
+  --creme:      #F6F1E7;   /* fond de page */
+  --papier:     #FFFDF9;   /* cartes */
+  --ginkgo:     #8FA663;   /* vert feuille — jardin */
+  --braise:     #C97D2C;   /* ambre — fins de journée */
+  --bois:       #A9835A;   /* bois de la terrasse */
+  --trait:      rgba(16,49,47,.16);
+  --sourdine:   #5A6B69;
+
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --texte:   "Karla", "Segoe UI", system-ui, sans-serif;
+
+  --t-xs:  clamp(.72rem, .70rem + .1vw, .78rem);
+  --t-sm:  clamp(.86rem, .83rem + .15vw, .95rem);
+  --t-base:clamp(1rem, .96rem + .22vw, 1.12rem);
+  --t-lg:  clamp(1.18rem, 1.08rem + .5vw, 1.5rem);
+  --t-xl:  clamp(1.6rem, 1.35rem + 1.2vw, 2.5rem);
+  --t-2xl: clamp(2.1rem, 1.6rem + 2.4vw, 4rem);
+
+  --gouttiere: clamp(1.15rem, 4vw, 3rem);
+  --large: 1220px;
+  --lent: 620ms cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--creme); color:var(--encre);
+  font-family:var(--texte); font-size:var(--t-base); font-weight:400;
+  line-height:1.68; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%; display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display); font-weight:400; line-height:1.08; margin:0; letter-spacing:-.015em}
+p{margin:0 0 1em}
+:focus-visible{outline:3px solid var(--braise); outline-offset:3px; border-radius:3px}
+
+.enveloppe{width:min(100% - 2*var(--gouttiere), var(--large)); margin-inline:auto}
+.saut{position:absolute;left:-9999px;top:0;background:var(--encre);color:#fff;padding:.7em 1.1em;z-index:200}
+.saut:focus{left:.6rem;top:.6rem}
+
+/* ── bandeau de démonstration ── */
+.demo{
+  background:var(--encre); color:#EDE7DA; font-size:var(--t-xs);
+  letter-spacing:.09em; text-transform:uppercase; text-align:center;
+  padding:.55rem 1rem; position:relative; z-index:60;
+}
+.demo b{color:#fff; font-weight:600}
+
+/* ── feuille de ginkgo (élément signature) ── */
+.feuille{display:block}
+.feuille .lobe{fill:currentColor; opacity:.22; transition:opacity 420ms ease, transform 420ms ease; transform-origin:50px 76px}
+.feuille .lobe.on{opacity:1}
+.feuille .tige{stroke:currentColor; stroke-width:3.2; stroke-linecap:round; fill:none; opacity:.8}
+
+/* ── en-tête ── */
+.entete{
+  position:sticky; top:0; z-index:50;
+  background:rgba(246,241,231,.82); backdrop-filter:blur(12px) saturate(150%);
+  border-bottom:1px solid transparent; transition:border-color 300ms ease, background 300ms ease;
+}
+.entete.pose{border-bottom-color:var(--trait)}
+.entete-in{display:flex; align-items:center; gap:1.4rem; min-height:72px}
+.marque{display:flex; align-items:center; gap:.7rem; text-decoration:none; margin-right:auto}
+.marque svg{width:26px; height:26px; color:var(--pin); flex:none}
+.marque span{font-family:var(--display); font-size:1.06rem; letter-spacing:-.01em; line-height:1.15}
+.marque small{display:block; font-family:var(--texte); font-size:.66rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sourdine); margin-top:.15rem}
+.menu{display:flex; gap:1.6rem; list-style:none; margin:0; padding:0}
+.menu a{text-decoration:none; font-size:var(--t-sm); color:var(--encre); position:relative; padding-bottom:3px}
+.menu a::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1.5px;
+  background:var(--braise); transition:right 320ms cubic-bezier(.22,.61,.36,1)}
+.menu a:hover::after,.menu a:focus-visible::after{right:0}
+.tel-entete{
+  display:inline-flex; align-items:center; gap:.5rem; text-decoration:none;
+  font-size:var(--t-sm); font-weight:600; color:var(--pin);
+  border:1px solid var(--trait); border-radius:999px; padding:.5rem 1rem;
+  transition:background 260ms ease, color 260ms ease, border-color 260ms ease;
+}
+.tel-entete:hover{background:var(--pin); color:#fff; border-color:var(--pin)}
+.burger{display:none}
+@media (max-width:940px){
+  .menu{display:none}
+  .burger{display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px;
+    border:1px solid var(--trait); background:none; border-radius:999px; cursor:pointer; color:var(--encre)}
+  .burger span{display:block; width:17px; height:1.5px; background:currentColor; position:relative}
+  .burger span::before,.burger span::after{content:""; position:absolute; left:0; width:17px; height:1.5px; background:currentColor}
+  .burger span::before{top:-5px} .burger span::after{top:5px}
+  .menu.ouvert{
+    display:flex; flex-direction:column; gap:1.1rem; position:absolute; top:100%; left:0; right:0;
+    background:var(--creme); border-bottom:1px solid var(--trait); padding:1.4rem var(--gouttiere) 1.7rem;
+  }
+  .tel-entete span{display:none}
+}
+
+/* ── hero ── */
+.hero{position:relative; min-height:min(92vh, 760px); display:flex; align-items:flex-end; overflow:hidden}
+.hero-photo{position:absolute; inset:0}
+.hero-photo img{width:100%; height:100%; object-fit:cover; object-position:50% 48%;
+  animation:respire 26s ease-in-out infinite alternate}
+@keyframes respire{from{transform:scale(1.03)} to{transform:scale(1.11)}}
+.hero-voile{position:absolute; inset:0;
+  background:
+    linear-gradient(100deg, rgba(16,49,47,.72) 0%, rgba(16,49,47,.34) 42%, rgba(16,49,47,0) 70%),
+    linear-gradient(180deg, rgba(16,49,47,.34) 0%, rgba(16,49,47,.06) 32%, rgba(16,49,47,.62) 100%)}
+.hero-in{position:relative; z-index:2; padding:clamp(3rem,9vw,6.5rem) 0 clamp(2.2rem,5vw,3.4rem); color:#fff}
+.sur-titre{font-size:var(--t-xs); letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.82); margin:0 0 1.1rem}
+.hero h1{font-size:var(--t-2xl); max-width:15ch; font-weight:300; text-wrap:balance;
+  text-shadow:0 2px 26px rgba(16,49,47,.35)}
+.hero h1 em{font-style:italic; color:#F3E3C6}
+.hero-sous{max-width:46ch; margin-top:1.2rem; color:rgba(255,255,255,.92); font-size:var(--t-lg); font-weight:300}
+.hero-actions{display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2rem}
+
+.bouton{
+  display:inline-flex; align-items:center; gap:.6rem; text-decoration:none; cursor:pointer;
+  font-family:var(--texte); font-size:var(--t-sm); font-weight:600; letter-spacing:.01em;
+  padding:.95rem 1.5rem; border-radius:999px; border:1px solid transparent; min-height:48px;
+  transition:transform 220ms cubic-bezier(.34,1.4,.64,1), background 240ms ease, color 240ms ease, box-shadow 240ms ease;
+}
+.bouton:hover{transform:translateY(-2px)}
+.bouton:active{transform:translateY(0) scale(.985)}
+.bouton-plein{background:var(--braise); color:#20140A; box-shadow:0 10px 26px rgba(201,125,44,.32)}
+.bouton-plein:hover{background:#DA8B36}
+.bouton-clair{background:rgba(255,255,255,.10); color:#fff; border-color:rgba(255,255,255,.5); backdrop-filter:blur(6px)}
+.bouton-clair:hover{background:rgba(255,255,255,.2)}
+.bouton-encre{background:var(--pin); color:#fff; box-shadow:0 10px 26px rgba(22,83,87,.26)}
+.bouton-encre:hover{background:#1B6469}
+.bouton-fil{border-color:var(--trait); color:var(--encre)}
+.bouton-fil:hover{background:var(--encre); color:var(--creme); border-color:var(--encre)}
+
+/* ── repères ── */
+.reperes{background:var(--pin); color:#EAF0EE}
+.reperes-in{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,.16)}
+.repere{background:var(--pin); padding:1.6rem 1.2rem}
+.repere b{display:block; font-family:var(--display); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:400; color:#fff; line-height:1}
+.repere span{display:block; font-size:var(--t-xs); letter-spacing:.11em; text-transform:uppercase;
+  color:rgba(234,240,238,.72); margin-top:.5rem}
+@media (max-width:760px){.reperes-in{grid-template-columns:repeat(2,1fr)}}
+
+/* ── sections ── */
+.section{padding:clamp(3.6rem,8vw,7rem) 0}
+.section-sombre{background:var(--encre); color:#EDE7DA}
+.etiquette{display:inline-flex; align-items:center; gap:.6rem; font-size:var(--t-xs);
+  letter-spacing:.19em; text-transform:uppercase; color:var(--sourdine); margin-bottom:1.1rem}
+.etiquette svg{width:15px; height:15px; color:var(--ginkgo); flex:none}
+.section-sombre .etiquette{color:rgba(237,231,218,.62)}
+.titre-section{font-size:var(--t-xl); max-width:22ch; font-weight:400; text-wrap:balance}
+.chapo{max-width:58ch; margin-top:1.1rem; color:var(--sourdine); font-size:var(--t-lg); font-weight:300}
+.section-sombre .chapo{color:rgba(237,231,218,.75)}
+
+/* ── chambres ── */
+.chambres{display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,3vw,2.4rem); margin-top:2.8rem}
+@media (max-width:820px){.chambres{grid-template-columns:1fr}}
+.chambre{background:var(--papier); border:1px solid var(--trait); border-radius:4px; overflow:hidden;
+  display:flex; flex-direction:column; transition:box-shadow 400ms ease, transform 400ms ease}
+.chambre:hover{box-shadow:0 20px 48px rgba(16,49,47,.13); transform:translateY(-4px)}
+.chambre-photo{aspect-ratio:3/4; overflow:hidden; background:#43302189}
+.chambre-photo img{width:100%; height:100%; object-fit:cover; transition:transform 900ms cubic-bezier(.22,.61,.36,1)}
+.chambre:hover .chambre-photo img{transform:scale(1.05)}
+.chambre[data-piece="gingko"] .chambre-photo img{object-position:0% 50%}
+.chambre[data-piece="biloba"] .chambre-photo img{object-position:100% 50%}
+.chambre-corps{padding:clamp(1.4rem,3vw,2rem); display:flex; flex-direction:column; gap:.85rem; flex:1}
+.chambre h3{font-size:var(--t-lg); display:flex; align-items:baseline; gap:.7rem}
+.chambre h3 i{font-style:normal; font-family:var(--texte); font-size:var(--t-xs); letter-spacing:.13em;
+  text-transform:uppercase; color:var(--bois)}
+.chambre p{margin:0; color:var(--sourdine); font-size:var(--t-sm)}
+.equip{list-style:none; margin:.3rem 0 0; padding:0; display:flex; flex-wrap:wrap; gap:.42rem}
+.equip li{font-size:var(--t-xs); letter-spacing:.02em; color:var(--pin);
+  border:1px solid var(--trait); border-radius:999px; padding:.34rem .74rem}
+
+/* ── petit-déjeuner ── */
+.duo{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1.4rem,4vw,3.4rem); align-items:center; margin-top:2.6rem}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+.duo-photos{display:grid; grid-template-columns:1fr 1fr; gap:.8rem}
+.duo-photos figure{margin:0; overflow:hidden; border-radius:3px}
+.duo-photos img{width:100%; height:100%; object-fit:cover}
+.duo-photos figure:first-child{grid-row:span 2; aspect-ratio:3/3.9}
+.duo-photos figure:nth-child(2){aspect-ratio:4/3}
+.duo-photos figure:nth-child(3){aspect-ratio:4/3}
+.citation{font-family:var(--display); font-size:var(--t-lg); font-weight:300; font-style:italic;
+  border-left:2px solid var(--ginkgo); padding-left:1.2rem; margin:1.6rem 0 0; color:var(--encre)}
+
+/* ── rail jardin ── */
+.rail{margin-top:2.6rem; display:flex; gap:1rem; overflow-x:auto; padding-bottom:1.2rem;
+  scroll-snap-type:x mandatory; scrollbar-width:thin}
+.rail figure{margin:0; flex:0 0 min(78vw, 380px); scroll-snap-align:start}
+.rail img{width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:3px}
+.rail figcaption{font-size:var(--t-sm); color:rgba(237,231,218,.68); margin-top:.7rem}
+.rail-aide{font-size:var(--t-xs); letter-spacing:.13em; text-transform:uppercase;
+  color:rgba(237,231,218,.66); margin-top:.4rem}
+
+/* ── planificateur ── */
+.atelier{background:var(--pin); color:#EEF3F1; position:relative; overflow:hidden}
+.atelier::before{content:""; position:absolute; right:-8%; top:-14%; width:min(52vw,620px); aspect-ratio:1;
+  background:radial-gradient(circle, rgba(143,166,99,.30) 0%, rgba(143,166,99,0) 68%); pointer-events:none}
+.atelier .etiquette{color:rgba(238,243,241,.62)}
+.atelier .titre-section{color:#fff}
+.atelier .chapo{color:rgba(238,243,241,.78)}
+.formulaire{margin-top:2.8rem; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(1.4rem,3.5vw,3rem); align-items:start}
+@media (max-width:940px){.formulaire{grid-template-columns:1fr}}
+.panneau{background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18); border-radius:5px;
+  padding:clamp(1.3rem,3vw,1.9rem); backdrop-filter:blur(4px)}
+.etape{border-top:1px solid rgba(255,255,255,.16); padding-top:1.3rem; margin-top:1.3rem}
+.etape:first-of-type{border-top:0; padding-top:0; margin-top:0}
+.etape > h3{font-family:var(--texte); font-size:var(--t-xs); letter-spacing:.17em; text-transform:uppercase;
+  color:rgba(238,243,241,.66); margin-bottom:.95rem; font-weight:600}
+.champs{display:grid; grid-template-columns:1fr 1fr; gap:.9rem}
+@media (max-width:520px){.champs{grid-template-columns:1fr}}
+.champ label{display:block; font-size:var(--t-xs); letter-spacing:.09em; text-transform:uppercase;
+  color:rgba(238,243,241,.66); margin-bottom:.4rem}
+.champ input,.champ select{
+  width:100%; min-height:48px; font-family:var(--texte); font-size:var(--t-sm); color:#fff;
+  background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.26); border-radius:3px;
+  padding:.6rem .8rem; transition:border-color 220ms ease, background 220ms ease;
+}
+.champ input:hover,.champ select:hover{background:rgba(255,255,255,.15)}
+.champ input:focus,.champ select:focus{border-color:var(--braise); outline:none; background:rgba(255,255,255,.17)}
+.champ select option{background:#0F3E41; color:#fff}
+.champ input::-webkit-calendar-picker-indicator{filter:invert(1) opacity(.7); cursor:pointer}
+
+.pieces{display:grid; grid-template-columns:auto 1fr 1fr; gap:.9rem; align-items:center}
+@media (max-width:560px){.pieces{grid-template-columns:1fr 1fr; }.pieces .leaf-wrap{grid-column:span 2; justify-self:center}}
+.leaf-wrap{width:74px; color:var(--ginkgo)}
+.piece{
+  text-align:left; cursor:pointer; font-family:var(--texte); color:#fff; min-height:48px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.24); border-radius:3px;
+  padding:.75rem .85rem; transition:background 240ms ease, border-color 240ms ease, transform 240ms ease;
+}
+.piece:hover{transform:translateY(-2px); background:rgba(255,255,255,.13)}
+.piece b{display:block; font-family:var(--display); font-size:1.05rem; font-weight:400; letter-spacing:.01em}
+.piece span{display:block; font-size:var(--t-xs); color:rgba(238,243,241,.7); margin-top:.2rem}
+.piece[aria-pressed="true"]{background:var(--braise); border-color:var(--braise); color:#20140A}
+.piece[aria-pressed="true"] span{color:rgba(32,20,10,.72)}
+
+.envies{display:flex; flex-wrap:wrap; gap:.5rem}
+.envie{
+  cursor:pointer; font-family:var(--texte); font-size:var(--t-sm); color:#EEF3F1; min-height:44px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.24); border-radius:999px;
+  padding:.5rem 1rem; transition:background 220ms ease, color 220ms ease, border-color 220ms ease, transform 200ms ease;
+}
+.envie:hover{transform:translateY(-2px); background:rgba(255,255,255,.14)}
+.envie[aria-pressed="true"]{background:#EEF3F1; color:var(--pin); border-color:#EEF3F1; font-weight:600}
+
+.programme{min-height:100%}
+.prog-entete{display:flex; flex-wrap:wrap; gap:.5rem 1.2rem; align-items:baseline;
+  border-bottom:1px solid rgba(255,255,255,.2); padding-bottom:1rem; margin-bottom:1.4rem}
+.prog-entete strong{font-family:var(--display); font-size:var(--t-lg); font-weight:400; color:#fff}
+.prog-entete span{font-size:var(--t-sm); color:rgba(238,243,241,.7)}
+.jour{border-left:1px solid rgba(255,255,255,.22); padding:0 0 1.5rem 1.3rem; position:relative;
+  animation:apparait 520ms cubic-bezier(.22,.61,.36,1) both}
+.jour:last-child{padding-bottom:.4rem}
+.jour::before{content:""; position:absolute; left:-4.5px; top:.55rem; width:8px; height:8px;
+  border-radius:50%; background:var(--braise)}
+@keyframes apparait{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none}}
+.jour h4{margin:0 0 .55rem; font-family:var(--texte); font-size:var(--t-xs); letter-spacing:.14em;
+  text-transform:uppercase; color:var(--braise); font-weight:600}
+.moment{display:grid; grid-template-columns:5.6rem 1fr; gap:.7rem; margin-bottom:.55rem; font-size:var(--t-sm)}
+@media (max-width:480px){.moment{grid-template-columns:1fr; gap:.1rem}}
+.moment dt{color:rgba(238,243,241,.70); font-size:var(--t-xs); letter-spacing:.08em; text-transform:uppercase; padding-top:.22rem}
+.moment dd{margin:0; color:#EEF3F1}
+.moment dd b{font-weight:600}
+.moment dd small{display:block; color:rgba(238,243,241,.76); font-size:var(--t-xs); line-height:1.5}
+.moment dd a{color:rgba(238,243,241,.86); text-decoration:none; border-bottom:1px dotted rgba(238,243,241,.5)}
+.prog-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.8rem;
+  border-top:1px solid rgba(255,255,255,.2); padding-top:1.5rem}
+.prog-note{font-size:var(--t-xs); color:rgba(238,243,241,.74); margin:.9rem 0 0; max-width:52ch}
+.alerte{background:rgba(201,125,44,.2); border:1px solid rgba(201,125,44,.5); border-radius:3px;
+  padding:.8rem 1rem; font-size:var(--t-sm); color:#F6E3CA}
+
+/* ── recommandations ── */
+.tables{list-style:none; margin:2.6rem 0 0; padding:0; border-top:1px solid var(--trait)}
+.tables li{border-bottom:1px solid var(--trait)}
+.tables a,.tables div{
+  display:grid; grid-template-columns:5.2rem 1fr auto; gap:1.4rem; align-items:baseline;
+  padding:1.25rem .2rem; text-decoration:none; transition:background 260ms ease, padding 260ms ease;
+}
+.tables li:hover a,.tables li:hover div{background:rgba(143,166,99,.10); padding-inline:.9rem}
+.tables .km{font-family:var(--display); font-size:1.15rem; color:var(--bois); white-space:nowrap}
+.tables .quoi b{font-family:var(--display); font-size:var(--t-lg); font-weight:400; display:block}
+.tables .quoi span{display:block; font-size:var(--t-sm); color:var(--sourdine); margin-top:.15rem}
+.tables .tel{font-size:var(--t-sm); color:var(--pin); white-space:nowrap; font-weight:500}
+@media (max-width:680px){
+  .tables a,.tables div{grid-template-columns:4.4rem 1fr; gap:.9rem}
+  .tables .tel{grid-column:2; margin-top:.3rem}
+}
+
+/* ── infos pratiques ── */
+.pratique{display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(1.6rem,4vw,3.6rem); margin-top:2.4rem}
+@media (max-width:860px){.pratique{grid-template-columns:1fr}}
+.fiches{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--trait);
+  border:1px solid var(--trait); border-radius:4px; overflow:hidden}
+@media (max-width:520px){.fiches{grid-template-columns:1fr}}
+.fiche{background:var(--papier); padding:1.35rem}
+.fiche h3{font-family:var(--texte); font-size:var(--t-xs); letter-spacing:.15em; text-transform:uppercase;
+  color:var(--sourdine); margin-bottom:.5rem; font-weight:600}
+.fiche p{margin:0; font-size:var(--t-sm)}
+.fiche a{color:var(--pin); text-decoration:none; border-bottom:1px solid rgba(22,83,87,.3)}
+.hotes{background:var(--papier); border:1px solid var(--trait); border-radius:4px; padding:clamp(1.4rem,3vw,2rem)}
+.hotes h3{font-size:var(--t-lg); margin-bottom:.7rem}
+.hotes .signature{font-family:var(--display); font-style:italic; font-size:var(--t-lg); color:var(--pin); margin-top:1.2rem}
+.hotes-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.4rem}
+
+/* ── pied ── */
+.pied{background:var(--encre); color:rgba(237,231,218,.72); padding:3rem 0 2.4rem; font-size:var(--t-sm)}
+.pied-haut{display:flex; flex-wrap:wrap; gap:1.6rem 2.6rem; align-items:flex-start;
+  padding-bottom:1.8rem; border-bottom:1px solid rgba(237,231,218,.18)}
+.pied-marque{display:flex; align-items:center; gap:.7rem; color:var(--ginkgo)}
+.pied-marque svg{width:26px;height:26px}
+.pied-marque b{font-family:var(--display); font-size:1.06rem; font-weight:400; color:#EDE7DA; letter-spacing:-.01em}
+.pied a{color:#EDE7DA; text-decoration:none; border-bottom:1px solid rgba(237,231,218,.28)}
+.mention{margin-top:1.6rem; font-size:var(--t-xs); line-height:1.7; color:rgba(237,231,218,.68); max-width:78ch}
+
+/* ── révélation au défilement ── */
+.reveler{opacity:0; transform:translateY(22px)}
+.reveler.vu{opacity:1; transform:none; transition:opacity var(--lent), transform var(--lent)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; scroll-behavior:auto !important}
+  .reveler{opacity:1; transform:none}
+  .hero-photo img{animation:none; transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BedAndBreakfast",
+  "name":"Chambres d'hôtes Le chemin des Bérands",
+  "description":"Deux chambres d'hôtes de plain-pied avec accès privatif, terrasse et coin cuisine, à Renaison au cœur de la Côte Roannaise. Petit-déjeuner maison inclus.",
+  "url":"https://www.lechemindesberands.fr/",
+  "telephone":"+33621467538",
+  "email":"lechemindesberands@gmail.com",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"66 chemin des Bérands",
+    "postalCode":"42370",
+    "addressLocality":"Renaison",
+    "addressRegion":"Auvergne-Rhône-Alpes",
+    "addressCountry":"FR"
+  },
+  "areaServed":[
+    {"@type":"Place","name":"Renaison"},
+    {"@type":"Place","name":"Côte Roannaise"},
+    {"@type":"Place","name":"Roannais"}
+  ],
+  "numberOfRooms":2,
+  "petsAllowed":false,
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Petit-déjeuner inclus","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Accès de plain-pied et privatif","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Terrasse extérieure","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Coin cuisine ou kitchenette","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Parking gratuit","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Garage pour vélos et motos","value":true}
+  ]
+}
+</script>
+</head>
+<body>
+<a class="saut" href="#contenu">Aller au contenu</a>
+
+<div class="demo">Maquette de démonstration — <b>proposition de site</b> pour Le chemin des Bérands</div>
+
+<header class="entete" id="entete">
+  <div class="enveloppe entete-in">
+    <a class="marque" href="#contenu">
+      <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true">
+        <path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/>
+        <path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/>
+        <path class="tige" d="M50,76 L50,96"/>
+      </svg>
+      <span>Le chemin des Bérands<small>Renaison · Côte Roannaise</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#chambres">Les chambres</a></li>
+        <li><a href="#matin">Le petit-déjeuner</a></li>
+        <li><a href="#dehors">Le terrain</a></li>
+        <li><a href="#sejour">Composer mon séjour</a></li>
+        <li><a href="#autour">Autour de nous</a></li>
+        <li><a href="#venir">Venir</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+    <a class="tel-entete" href="tel:+33621467538"><span>06 21 46 75 38</span>&#9742;</a>
+  </div>
+</header>
+
+<main id="contenu">
+
+  <section class="hero">
+    <div class="hero-photo">
+      <img src="https://www.lechemindesberands.fr/website/image/bnb.image/26_783e1f9/image_big"
+           alt="Le terrain de la maison, vu depuis le cerisier en fruits" fetchpriority="high">
+    </div>
+    <div class="hero-voile"></div>
+    <div class="enveloppe hero-in">
+      <p class="sur-titre">Chambres d'hôtes · Renaison · Côte Roannaise</p>
+      <h1>Deux chambres de plain-pied,<br><em>et 2 000 m² de calme autour.</em></h1>
+      <p class="hero-sous">Votre séjour au calme, en toute simplicité et autonomie — à six kilomètres de la Maison Troisgros.</p>
+      <div class="hero-actions">
+        <a class="bouton bouton-plein" href="#sejour">Composer mon séjour</a>
+        <a class="bouton bouton-clair" href="#chambres">Voir les chambres</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="reperes" aria-label="Repères">
+    <div class="enveloppe">
+      <div class="reperes-in">
+        <div class="repere"><b>6&nbsp;km</b><span>Maison Troisgros, à Ouches</span></div>
+        <div class="repere"><b>3&nbsp;min</b><span>Cabaret l'Élégance, à Renaison</span></div>
+        <div class="repere"><b>22 &amp; 27&nbsp;m²</b><span>Deux chambres, de plain-pied</span></div>
+        <div class="repere"><b>2 000&nbsp;m²</b><span>De terrain, sans vis-à-vis</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="chambres">
+    <div class="enveloppe">
+      <p class="etiquette reveler">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        Gingko &amp; Biloba
+      </p>
+      <h2 class="titre-section reveler">Deux chambres, deux lobes de la même feuille</h2>
+      <p class="chapo reveler">Accès privatif et indépendant, de plain-pied, terrasse extérieure, et dans chacune de quoi se préparer un café ou un repas léger sans dépendre de personne.</p>
+
+      <div class="chambres">
+        <article class="chambre reveler" data-piece="gingko">
+          <div class="chambre-photo">
+            <img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/37_783e1f9/image_big" alt="La chambre Gingko, lit double et tête de lit en bois">
+          </div>
+          <div class="chambre-corps">
+            <h3>Gingko <i>22 m²</i></h3>
+            <p>Décor moderne et épuré, lit double confortable et un clic-clac. Coin cuisine pratique et équipé, parfait pour un séjour autonome. Salle de bain privative avec douche.</p>
+            <ul class="equip">
+              <li>Lit double</li><li>Clic-clac</li><li>Réfrigérateur</li><li>Plaques de cuisson</li>
+              <li>Four</li><li>Micro-ondes</li><li>Bouilloire</li><li>Cafetière</li><li>Douche</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="chambre reveler" data-piece="biloba">
+          <div class="chambre-photo">
+            <img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/37_783e1f9/image_big" alt="La chambre Biloba, lit double et mur décoratif en bois">
+          </div>
+          <div class="chambre-corps">
+            <h3>Biloba <i>27 m²</i></h3>
+            <p>Spacieuse, moderne et lumineuse, avec un lit double et un mur décoratif en bois qui apporte une touche chaleureuse et originale. Kitchenette équipée. Salle de bain privative, baignoire avec douche.</p>
+            <ul class="equip">
+              <li>Lit double</li><li>Réfrigérateur</li><li>Micro-ondes</li><li>Bouilloire</li>
+              <li>Cafetière</li><li>Baignoire avec douche</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="matin" style="background:var(--papier); border-block:1px solid var(--trait)">
+    <div class="enveloppe">
+      <div class="duo">
+        <div>
+          <p class="etiquette reveler">
+            <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+            Le petit-déjeuner
+          </p>
+          <h2 class="titre-section reveler">Fait maison, et compris dans le tarif</h2>
+          <p class="chapo reveler">Confitures et pâtisseries maison, brioche aux pralines — la spécialité de Roanne — et miel local. La table est mise avant que vous ne soyez levés.</p>
+          <p class="citation reveler">« Ils vont bientôt se lever… tout est prêt. »</p>
+        </div>
+        <div class="duo-photos reveler">
+          <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/34_783e1f9/image_big" alt="Confitures maison, miels locaux et pâtisseries du petit-déjeuner"></figure>
+          <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/22_783e1f9/image_big" alt="La table du petit-déjeuner devant la baie vitrée, un matin de gelée"></figure>
+          <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/15_783e1f9/image_big" alt="Le plateau du petit-déjeuner préparé au petit matin"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-sombre" id="dehors">
+    <div class="enveloppe">
+      <p class="etiquette reveler">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        Le terrain
+      </p>
+      <h2 class="titre-section reveler">Deux mille mètres carrés, et rien en face</h2>
+      <p class="chapo reveler">Une terrasse par chambre, un préau, des arbres, et de la place pour ne rien faire. Le garage reste ouvert la nuit pour les vélos et les motos.</p>
+      <div class="rail">
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/16_783e1f9/image_big" alt="La maison et sa terrasse couverte, vues depuis la pelouse"><figcaption>La terrasse, côté jardin.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/25_783e1f9/image_big" alt="Le préau et sa table de ping-pong"><figcaption>Le préau et sa table de ping-pong.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/24_783e1f9/image_big" alt="Salon de jardin sur la terrasse en bois"><figcaption>Une terrasse par chambre.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/23_783e1f9/image_big" alt="Fin de journée sur les champs voisins"><figcaption>Fin de journée, à deux pas.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/19_783e1f9/image_big" alt="La pelouse et les arbres du terrain"><figcaption>De la place, et de l'ombre.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/33_783e1f9/image_big" alt="Accès de plain-pied à la chambre, terrasse privative"><figcaption>Accès de plain-pied, privatif.</figcaption></figure>
+        <figure><img loading="lazy" src="https://www.lechemindesberands.fr/website/image/bnb.image/29_783e1f9/image_big" alt="La maison vue depuis le jardin, en fin d'après-midi"><figcaption>La maison, à Renaison.</figcaption></figure>
+      </div>
+      <p class="rail-aide">Faites glisser pour voir la suite →</p>
+    </div>
+  </section>
+
+  <!-- ══════════ L'OUTIL ══════════ -->
+  <section class="section atelier" id="sejour">
+    <div class="enveloppe">
+      <p class="etiquette reveler">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        Composer mon séjour
+      </p>
+      <h2 class="titre-section reveler">Dites-nous vos dates et vos envies. Le programme s'écrit tout seul.</h2>
+      <p class="chapo reveler">Les tables et les sorties proposées ici sont celles que Sylvie et Christophe donnent eux-mêmes à leurs hôtes, avec leurs distances réelles. Votre demande leur arrive en direct.</p>
+
+      <form class="formulaire" id="formulaire" novalidate>
+        <div class="panneau">
+          <div class="etape">
+            <h3>1 · Vos dates</h3>
+            <div class="champs">
+              <div class="champ">
+                <label for="arrivee">Arrivée</label>
+                <input type="date" id="arrivee" name="arrivee">
+              </div>
+              <div class="champ">
+                <label for="depart">Départ</label>
+                <input type="date" id="depart" name="depart">
+              </div>
+              <div class="champ">
+                <label for="personnes">Personnes</label>
+                <select id="personnes">
+                  <option value="1">1 personne</option>
+                  <option value="2" selected>2 personnes</option>
+                  <option value="3">3 personnes</option>
+                  <option value="4">4 personnes</option>
+                </select>
+              </div>
+              <div class="champ">
+                <label for="motif">C'est pour…</label>
+                <select id="motif">
+                  <option value="deux">Une escapade à deux</option>
+                  <option value="famille">Un séjour en famille</option>
+                  <option value="etape">Une étape sur la route</option>
+                  <option value="travail">Un déplacement professionnel</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="etape">
+            <h3>2 · Votre chambre</h3>
+            <div class="pieces">
+              <div class="leaf-wrap">
+                <svg viewBox="0 0 100 100" class="feuille" id="feuille-choix" aria-hidden="true">
+                  <path class="lobe" id="lobe-gingko" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/>
+                  <path class="lobe" id="lobe-biloba" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/>
+                  <path class="tige" d="M50,76 L50,96"/>
+                </svg>
+              </div>
+              <button type="button" class="piece" data-piece="gingko" aria-pressed="false">
+                <b>Gingko</b><span>22 m² · lit double + clic-clac</span>
+              </button>
+              <button type="button" class="piece" data-piece="biloba" aria-pressed="true">
+                <b>Biloba</b><span>27 m² · lit double</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="etape">
+            <h3>3 · Vos envies</h3>
+            <div class="envies" id="envies">
+              <button type="button" class="envie" data-envie="grande" aria-pressed="false">Une grande table</button>
+              <button type="button" class="envie" data-envie="village" aria-pressed="true">Les tables du village</button>
+              <button type="button" class="envie" data-envie="vignoble" aria-pressed="true">Vignoble et villages</button>
+              <button type="button" class="envie" data-envie="grandair" aria-pressed="false">Grand air</button>
+              <button type="button" class="envie" data-envie="spectacle" aria-pressed="false">Une soirée spectacle</button>
+              <button type="button" class="envie" data-envie="rien" aria-pressed="false">Ne rien faire</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panneau programme" id="programme" aria-live="polite">
+          <!-- rempli par le script -->
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" id="autour">
+    <div class="enveloppe">
+      <p class="etiquette reveler">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        Autour de nous
+      </p>
+      <h2 class="titre-section reveler">Nos recommandations, dans l'ordre où on y va</h2>
+      <p class="chapo reveler">Nous vous les indiquons à l'arrivée. Les voici déjà, avec les distances depuis la maison.</p>
+
+      <ul class="tables reveler">
+        <li><div><span class="km">2,6 km</span><span class="quoi"><b>Roanne Montgolfières</b><span>Saint-Léger-sur-Roanne · vol en montgolfière au départ de l'aéroport de Roanne</span></span><a class="tel" href="tel:+33664712598">06 64 71 25 98</a></div></li>
+        <li><div><span class="km">3,0 km</span><span class="quoi"><b>Les Gens Heureux</b><span>Renaison · cuisine bistronomique du chef Stéphane Subrin</span></span><a class="tel" href="tel:+33988019564">09 88 01 95 64</a></div></li>
+        <li><div><span class="km">3,2 km</span><span class="quoi"><b>Le Restaurant 1451</b><span>Renaison · cuisine gastronomique, au centre du village</span></span><a class="tel" href="tel:+33477642534">04 77 64 25 34</a></div></li>
+        <li><div><span class="km">3,4 km</span><span class="quoi"><b>Le Lion d'Or</b><span>Saint-André-d'Apchon · au cœur du village et de son vignoble du Bouthéran</span></span><a class="tel" href="tel:+33477658153">04 77 65 81 53</a></div></li>
+        <li><div><span class="km">3,4 km</span><span class="quoi"><b>Le Nouveau Siècle</b><span>Saint-André-d'Apchon · ambiance familiale, menus renouvelés chaque mois</span></span><a class="tel" href="tel:+33477658035">04 77 65 80 35</a></div></li>
+        <li><div><span class="km">4,0 km</span><span class="quoi"><b>L'Original</b><span>Saint-Haon-le-Vieux · traditionnel en journée, tapas et burgers le soir</span></span><a class="tel" href="tel:+33477644072">04 77 64 40 72</a></div></li>
+        <li><div><span class="km">4,6 km</span><span class="quoi"><b>La Bastide de Chatel</b><span>Saint-Haon-le-Châtel · au cœur du Village de Caractère</span></span><a class="tel" href="tel:+33477669160">04 77 66 91 60</a></div></li>
+        <li><div><span class="km">5 min</span><span class="quoi"><b>Maison Troisgros</b><span>Ouches · à 6 km de la maison</span></span><span class="tel"></span></div></li>
+        <li><div><span class="km">10 min</span><span class="quoi"><b>Le Petit Prince</b><span>Saint-Alban-les-Eaux</span></span><span class="tel"></span></div></li>
+        <li><div><span class="km">3 min</span><span class="quoi"><b>Cabaret l'Élégance</b><span>Renaison · déjeuner ou dîner-spectacle</span></span><span class="tel"></span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="venir" style="background:var(--papier); border-top:1px solid var(--trait)">
+    <div class="enveloppe">
+      <p class="etiquette reveler">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        Venir chez nous
+      </p>
+      <h2 class="titre-section reveler">66 chemin des Bérands, 42370 Renaison</h2>
+
+      <div class="pratique">
+        <div class="fiches reveler">
+          <div class="fiche"><h3>Adresse</h3><p>66 chemin des Bérands<br>42370 Renaison<br><a href="https://www.google.com/maps/search/?api=1&query=66+chemin+des+B%C3%A9rands+42370+Renaison" target="_blank" rel="noopener">Ouvrir dans Maps</a></p></div>
+          <div class="fiche"><h3>Téléphone</h3><p><a href="tel:+33621467538">06 21 46 75 38</a><br>Sylvie et Christophe</p></div>
+          <div class="fiche"><h3>Courriel</h3><p><a href="mailto:lechemindesberands@gmail.com">lechemindesberands@gmail.com</a></p></div>
+          <div class="fiche"><h3>Stationnement</h3><p>Parking gratuit sur place.<br>Garage disponible la nuit pour les vélos et les motos.</p></div>
+          <div class="fiche"><h3>Accès</h3><p>Les deux chambres sont de plain-pied, avec un accès privatif et indépendant.</p></div>
+          <div class="fiche"><h3>Petit-déjeuner</h3><p>Compris dans le tarif, préparé à la maison.</p></div>
+        </div>
+
+        <aside class="hotes reveler">
+          <h3>Nous serons heureux de vous recevoir</h3>
+          <p>Deux chambres, pas dix. On a le temps de vous dire où aller manger, quelle route prendre pour rentrer par les vignes, et à quelle heure vous voulez votre café.</p>
+          <p class="signature">Sylvie et Christophe</p>
+          <div class="hotes-actions">
+            <a class="bouton bouton-encre" href="#sejour">Composer mon séjour</a>
+            <a class="bouton bouton-fil" href="tel:+33621467538">Appeler</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="pied">
+  <div class="enveloppe">
+    <div class="pied-haut">
+      <div class="pied-marque">
+        <svg viewBox="0 0 100 100" class="feuille" aria-hidden="true"><path class="lobe on" d="M50,76 L2.87,54.02 A52,52 0 0 1 47.28,24.07 Z"/><path class="lobe on" d="M50,76 L52.72,24.07 A52,52 0 0 1 97.13,54.02 Z"/><path class="tige" d="M50,76 L50,96"/></svg>
+        <b>Le chemin des Bérands</b>
+      </div>
+      <p style="margin:0">66 chemin des Bérands<br>42370 Renaison</p>
+      <p style="margin:0"><a href="tel:+33621467538">06 21 46 75 38</a><br><a href="mailto:lechemindesberands@gmail.com">lechemindesberands@gmail.com</a></p>
+      <p style="margin:0">Sylvie et Christophe<br>Chambres d'hôtes en Côte Roannaise</p>
+    </div>
+    <p class="mention">
+      Maquette de démonstration réalisée pour Le chemin des Bérands — elle n'est pas le site en ligne de l'établissement.
+      Toutes les photographies proviennent du site actuel des propriétaires ; aucune image d'illustration n'a été ajoutée.
+      Les textes, les équipements, les distances et les recommandations reprennent les informations publiées par
+      l'établissement. Aucun tarif n'est affiché : les prix ne sont pas publics et n'ont donc pas été reconstitués.
+      Le programme généré par « Composer mon séjour » est une proposition d'itinéraire, pas une réservation : les
+      disponibilités et les réservations des tables et des sorties restent à confirmer.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── en-tête ── */
+  var entete = document.getElementById('entete');
+  var surveille = function(){ entete.classList.toggle('pose', window.scrollY > 8); };
+  surveille(); window.addEventListener('scroll', surveille, {passive:true});
+
+  var burger = document.getElementById('burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', function(){
+    var ouvert = menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded', ouvert ? 'true' : 'false');
+    burger.setAttribute('aria-label', ouvert ? 'Fermer le menu' : 'Ouvrir le menu');
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded','false'); }
+  });
+
+  /* ── révélation au défilement ── */
+  var aReveler = document.querySelectorAll('.reveler');
+  if('IntersectionObserver' in window){
+    var oeil = new IntersectionObserver(function(entrees){
+      entrees.forEach(function(e, i){
+        if(e.isIntersecting){
+          var d = Math.min(i, 4) * 70;
+          setTimeout(function(){ e.target.classList.add('vu'); }, d);
+          oeil.unobserve(e.target);
+        }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+    aReveler.forEach(function(el){ oeil.observe(el); });
+  } else {
+    aReveler.forEach(function(el){ el.classList.add('vu'); });
+  }
+
+  /* ═══════════ COMPOSER MON SÉJOUR ═══════════ */
+
+  /* Données : uniquement ce que Sylvie et Christophe publient eux-mêmes. */
+  var GRANDES = [
+    {nom:"Maison Troisgros", lieu:"Ouches", note:"à 6 km — 5 minutes en voiture"},
+    {nom:"Le Petit Prince", lieu:"Saint-Alban-les-Eaux", note:"10 minutes en voiture"}
+  ];
+  var VILLAGE = [
+    {nom:"Les Gens Heureux", lieu:"Renaison", note:"3,0 km — cuisine bistronomique du chef Stéphane Subrin", tel:"09 88 01 95 64"},
+    {nom:"Le Restaurant 1451", lieu:"Renaison", note:"3,2 km — cuisine gastronomique, au centre du village", tel:"04 77 64 25 34"},
+    {nom:"Le Lion d'Or", lieu:"Saint-André-d'Apchon", note:"3,4 km — au cœur du village et de son vignoble du Bouthéran", tel:"04 77 65 81 53"},
+    {nom:"Le Nouveau Siècle", lieu:"Saint-André-d'Apchon", note:"3,4 km — ambiance familiale, menus renouvelés chaque mois", tel:"04 77 65 80 35"},
+    {nom:"L'Original", lieu:"Saint-Haon-le-Vieux", note:"4,0 km — tapas, burgers et cocktails le soir", tel:"04 77 64 40 72"},
+    {nom:"La Bastide de Chatel", lieu:"Saint-Haon-le-Châtel", note:"4,6 km — au cœur du Village de Caractère", tel:"04 77 66 91 60"}
+  ];
+  var SPECTACLE = [{nom:"Cabaret l'Élégance", lieu:"Renaison", note:"à 3 minutes — déjeuner ou dîner-spectacle"}];
+  var JOURNEES = {
+    vignoble:[
+      {t:"Les villages de la Côte Roannaise", d:"Saint-André-d'Apchon et son vignoble du Bouthéran, à 3,4 km."},
+      {t:"Saint-Haon-le-Châtel", d:"Village de Caractère, à 4,6 km de la maison."}
+    ],
+    grandair:[
+      {t:"Vol en montgolfière", d:"Roanne Montgolfières, à 2,6 km, au départ de l'aéroport de Roanne — 06 64 71 25 98."},
+      {t:"Vélo ou moto", d:"Départ depuis la maison ; le garage vous reste ouvert pour la nuit."}
+    ],
+    rien:[
+      {t:"Rien du tout", d:"Le terrain de 2 000 m², le préau, la terrasse privative. C'est aussi pour ça qu'on vient."}
+    ]
+  };
+
+  var etat = {piece:'biloba', envies:{grande:false, village:true, vignoble:true, grandair:false, spectacle:false, rien:false}};
+
+  var iArrivee = document.getElementById('arrivee'),
+      iDepart  = document.getElementById('depart'),
+      iPers    = document.getElementById('personnes'),
+      iMotif   = document.getElementById('motif'),
+      sortie   = document.getElementById('programme');
+
+  /* dates par défaut : le prochain vendredi, deux nuits */
+  var aujourdhui = new Date(); aujourdhui.setHours(12,0,0,0);
+  var vendredi = new Date(aujourdhui);
+  vendredi.setDate(vendredi.getDate() + ((5 - vendredi.getDay() + 7) % 7 || 7));
+  var dimanche = new Date(vendredi); dimanche.setDate(dimanche.getDate() + 2);
+  function iso(d){
+    var m = String(d.getMonth()+1).padStart(2,'0'), j = String(d.getDate()).padStart(2,'0');
+    return d.getFullYear()+'-'+m+'-'+j;
+  }
+  iArrivee.value = iso(vendredi); iDepart.value = iso(dimanche);
+  iArrivee.min = iso(aujourdhui); iDepart.min = iso(aujourdhui);
+
+  function lire(v){
+    if(!v) return null;
+    var p = v.split('-'); if(p.length !== 3) return null;
+    var d = new Date(+p[0], +p[1]-1, +p[2]); d.setHours(12,0,0,0);
+    return isNaN(d.getTime()) ? null : d;
+  }
+  var fmtLong = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long'});
+  var fmtCourt = new Intl.DateTimeFormat('fr-FR', {day:'numeric', month:'long'});
+  var fmtMail = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+  function ech(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function telLien(t){ return '+33' + t.replace(/\s/g,'').slice(1); }
+
+  /* boutons chambre */
+  var boutonsPiece = document.querySelectorAll('.piece');
+  var lobes = {gingko:document.getElementById('lobe-gingko'), biloba:document.getElementById('lobe-biloba')};
+  function majPiece(){
+    boutonsPiece.forEach(function(b){
+      var actif = b.dataset.piece === etat.piece;
+      b.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    });
+    lobes.gingko.classList.toggle('on', etat.piece === 'gingko');
+    lobes.biloba.classList.toggle('on', etat.piece === 'biloba');
+  }
+  boutonsPiece.forEach(function(b){
+    b.addEventListener('click', function(){ etat.piece = b.dataset.piece; majPiece(); dessine(); });
+  });
+
+  /* boutons envies */
+  document.querySelectorAll('.envie').forEach(function(b){
+    b.addEventListener('click', function(){
+      var k = b.dataset.envie;
+      etat.envies[k] = !etat.envies[k];
+      b.setAttribute('aria-pressed', etat.envies[k] ? 'true' : 'false');
+      dessine();
+    });
+  });
+
+  [iArrivee, iDepart, iPers, iMotif].forEach(function(el){
+    el.addEventListener('change', dessine);
+  });
+
+  function construit(nuits, arr){
+    var soirs = [], jours = [];
+    if(etat.envies.grande) soirs = soirs.concat(GRANDES);
+    if(etat.envies.village) soirs = soirs.concat(VILLAGE);
+    if(etat.envies.spectacle) soirs = SPECTACLE.concat(soirs);
+    if(etat.envies.vignoble) jours = jours.concat(JOURNEES.vignoble);
+    if(etat.envies.grandair) jours = jours.concat(JOURNEES.grandair);
+    if(etat.envies.rien) jours = jours.concat(JOURNEES.rien);
+    if(!soirs.length) soirs = VILLAGE.slice(0,3);
+    if(!jours.length) jours = JOURNEES.rien;
+
+    var etapes = [];
+    for(var n = 0; n <= nuits; n++){
+      var d = new Date(arr); d.setDate(d.getDate() + n);
+      var dernier = (n === nuits);
+      var e = {date:d, index:n, dernier:dernier, moments:[]};
+
+      if(n === 0){
+        e.moments.push({q:'Arrivée', t:'Chambre ' + cap(etat.piece), s:'Accès privatif de plain-pied, terrasse et coin cuisine. Parking gratuit, garage pour les deux-roues.'});
+      } else {
+        e.moments.push({q:'Au réveil', t:'Petit-déjeuner maison', s:'Confitures et pâtisseries maison, brioche aux pralines, miel local.'});
+      }
+
+      if(!dernier){
+        var j = jours[(n) % jours.length];
+        e.moments.push({q:'Journée', t:j.t, s:j.d});
+        var s = soirs[n % soirs.length];
+        e.moments.push({q:'Le soir', t:s.nom, s:s.lieu + ' — ' + s.note, tel:s.tel});
+      } else {
+        e.moments.push({q:'Départ', t:'On vous garde le café', s:'Et la route des vignes pour rentrer, si vous avez cinq minutes de plus.'});
+      }
+      etapes.push(e);
+    }
+    return etapes;
+  }
+
+  function dessine(){
+    var arr = lire(iArrivee.value), dep = lire(iDepart.value);
+    if(!arr || !dep){
+      sortie.innerHTML = '<div class="alerte">Choisissez une date d\'arrivée et une date de départ pour voir le programme.</div>';
+      return;
+    }
+    var nuits = Math.round((dep - arr) / 86400000);
+    if(nuits < 1){
+      sortie.innerHTML = '<div class="alerte">La date de départ doit être postérieure à la date d\'arrivée.</div>';
+      return;
+    }
+    if(nuits > 14){
+      sortie.innerHTML = '<div class="alerte">Au-delà de deux semaines, appelez-nous directement au 06 21 46 75 38 : on s\'arrangera.</div>';
+      return;
+    }
+
+    var pers = +iPers.value;
+    var etapes = construit(nuits, arr);
+
+    var h = '';
+    h += '<div class="prog-entete">';
+    h += '<strong>' + nuits + (nuits > 1 ? ' nuits' : ' nuit') + '</strong>';
+    h += '<span>Chambre ' + cap(etat.piece) + ' · ' + pers + (pers > 1 ? ' personnes' : ' personne') + '</span>';
+    h += '<span>' + fmtCourt.format(arr) + ' → ' + fmtCourt.format(dep) + '</span>';
+    h += '</div>';
+
+    etapes.forEach(function(e, i){
+      h += '<div class="jour" style="animation-delay:' + (i * 70) + 'ms">';
+      h += '<h4>' + (e.dernier ? 'Dernier jour' : 'Jour ' + (e.index + 1)) + ' · ' + ech(cap(fmtLong.format(e.date))) + '</h4>';
+      h += '<dl style="margin:0">';
+      e.moments.forEach(function(m){
+        h += '<div class="moment"><dt>' + ech(m.q) + '</dt><dd><b>' + ech(m.t) + '</b>';
+        if(m.s) h += '<small>' + ech(m.s) + (m.tel ? ' · <a href="tel:' + telLien(m.tel) + '">' + m.tel + '</a>' : '') + '</small>';
+        h += '</dd></div>';
+      });
+      h += '</dl></div>';
+    });
+
+    /* mail pré-rempli, en direct chez les propriétaires */
+    var lignes = [];
+    lignes.push('Bonjour Sylvie et Christophe,');
+    lignes.push('');
+    lignes.push('Je souhaiterais réserver chez vous :');
+    lignes.push('- Arrivée : ' + cap(fmtMail.format(arr)));
+    lignes.push('- Départ : ' + cap(fmtMail.format(dep)) + ' (' + nuits + (nuits > 1 ? ' nuits)' : ' nuit)'));
+    lignes.push('- Chambre souhaitée : ' + cap(etat.piece));
+    lignes.push('- Nombre de personnes : ' + pers);
+    lignes.push('');
+    lignes.push('Ce que nous aimerions faire sur place :');
+    etapes.forEach(function(e){
+      if(e.dernier) return;
+      var m = e.moments[e.moments.length - 1];
+      var j = e.moments[e.moments.length - 2];
+      lignes.push('- ' + cap(fmtCourt.format(e.date)) + ' : ' + j.t + ', puis ' + m.t + ' (' + m.s + ')');
+    });
+    lignes.push('');
+    lignes.push('Pouvez-vous me confirmer vos disponibilités et votre tarif ?');
+    lignes.push('Merci beaucoup,');
+
+    var sujet = 'Demande de séjour — ' + fmtCourt.format(arr) + ' au ' + fmtCourt.format(dep);
+    var lien = 'mailto:lechemindesberands@gmail.com?subject=' + encodeURIComponent(sujet) +
+               '&body=' + encodeURIComponent(lignes.join('\n'));
+
+    h += '<div class="prog-actions">';
+    h += '<a class="bouton bouton-plein" href="' + lien + '">Envoyer ma demande</a>';
+    h += '<a class="bouton bouton-clair" href="tel:+33621467538">06 21 46 75 38</a>';
+    h += '</div>';
+    h += '<p class="prog-note">Votre demande part directement chez Sylvie et Christophe, avec vos dates et votre programme déjà écrits. Les tables et les sorties restent à réserver de votre côté — les numéros sont dans le message.</p>';
+
+    sortie.innerHTML = h;
+  }
+
+  majPiece();
+  dessine();
+})();
+</script>
+</body>
+</html>
