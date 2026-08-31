@@ -30,6 +30,27 @@
  * effectuée côté serveur. Les appelants doivent utiliser `curl -X POST` SANS
  * `-L` : suivre la redirection réémettrait la requête et dupliquerait
  * l'action (ligne ajoutée deux fois, ou statut réappliqué).
+ *
+ * DIAGNOSTIC (31/08/2026) : "ligne introuvable" sur toutes les lignes à
+ * partir de "Buchet Voyages" (06/08/2026, la ligne juste après le
+ * correctif ci-dessus). Testé en direct sur le webhook réellement déployé
+ * (pas seulement sur ce fichier) : le rebond n'a rien à voir avec le
+ * contenu de la colonne Email — un export CSV brut du Sheets ne montre
+ * aucun caractère invisible dans ces cellules (byte à byte, ASCII pur),
+ * et le problème touche aussi bien des lignes "Envoyé" que "Brouillon".
+ * La coïncidence de date avec le CORRECTIF (06/08/2026) documenté
+ * ci-dessus est le suspect principal : il est probable que ce fichier ait
+ * été mis à jour ici, dans le dépôt, sans jamais avoir été effectivement
+ * recollé dans l'éditeur Apps Script ni redéployé (voir README.md du
+ * dossier — ce geste reste manuel et aucun outil ne peut l'automatiser).
+ * Le webhook actuellement en service pourrait donc encore tourner sur une
+ * version antérieure au correctif. Avant toute autre piste : vérifier et,
+ * si besoin, refaire la procédure de déploiement du README.md.
+ * Ajout défensif ci-dessous dans `normalizeEmail_` (espaces insécables et
+ * caractères invisibles) au cas où un caractère non standard serait
+ * introduit dans une saisie future — mais ce n'est pas la cause du bug
+ * observé le 31/08/2026, qui touche des lignes aux emails parfaitement
+ * propres.
  */
 
 var SHEET_NAME = 'SUIVI PROSPECTION';
@@ -135,8 +156,17 @@ function appendRow_(sheet, data) {
 // Retrouve une ligne par email et met a jour Statut / Date Envoi /
 // Lien mail envoye sans jamais creer de nouvelle ligne. Ne touche jamais
 // une ligne "Facture".
+// Retire les caractères invisibles usuels (espace insécable, espaces/joiners
+// de largeur nulle, BOM) en plus du trim standard, avant comparaison.
+function normalizeEmail_(value) {
+  return String(value || '')
+    .replace(/[ ​‌‍⁠﻿]/g, '')
+    .trim()
+    .toLowerCase();
+}
+
 function updateStatus_(sheet, data) {
-  var targetEmail = String(data.email || '').trim().toLowerCase();
+  var targetEmail = normalizeEmail_(data.email);
   if (!targetEmail) {
     return jsonOutput_({ ok: false, error: 'email manquant' });
   }
@@ -154,7 +184,7 @@ function updateStatus_(sheet, data) {
   var emails = sheet.getRange(2, emailCol, lastRow - 1, 1).getValues();
   var rowIndex = -1;
   for (var i = 0; i < emails.length; i++) {
-    if (String(emails[i][0]).trim().toLowerCase() === targetEmail) {
+    if (normalizeEmail_(emails[i][0]) === targetEmail) {
       rowIndex = i + 2;
       break;
     }

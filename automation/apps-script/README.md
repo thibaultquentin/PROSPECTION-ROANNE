@@ -23,3 +23,23 @@ Ce que le nouveau code change par rapport à l'ancien :
   ligne existante sans créer de doublon — utilisée par l'Étape 0 du skill
   `prospection-roanne`.
 - Garde-fou : une ligne déjà à `Facturé` n'est jamais modifiée par le script.
+- (31/08/2026) Comparaison d'email normalisée (`normalizeEmail_`, insensible
+  à la casse, aux espaces et à quelques caractères invisibles usuels) au
+  lieu d'un simple `trim().toLowerCase()`.
+
+## ⚠️ Si `updateStatus` répond "ligne introuvable" sur des lignes qui existent
+
+Constaté le 31/08/2026 : le webhook réellement en service échoue avec
+"ligne introuvable" sur **toutes** les lignes ajoutées à partir de
+"Buchet Voyages" (06/08/2026, la ligne juste après le CORRECTIF du
+06/08/2026 documenté dans `Code.gs`) — aussi bien des lignes `Envoyé` que
+`Brouillon`, sans lien avec le contenu de la colonne Email (vérifié
+caractère par caractère via un export CSV brut du Sheets : aucun caractère
+invisible, ASCII pur). La coïncidence exacte de date avec le correctif est
+le suspect numéro un : **il est probable que ce fichier ait été mis à jour
+ici, dans le dépôt, sans jamais avoir été réellement recollé dans
+l'éditeur Apps Script ni redéployé** (voir étapes 1-3 ci-dessus — ce geste
+est resté manuel dans toutes les sessions précédentes, faute d'outil pour
+l'automatiser). Avant toute autre piste, vérifier si ce redéploiement a
+bien été fait, et le refaire si besoin — cela peut suffire à tout
+résoudre sans aucun changement de code supplémentaire.
