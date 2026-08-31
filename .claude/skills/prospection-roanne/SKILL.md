@@ -68,6 +68,23 @@ Sinon → passer le Statut à `Négociations`, ajouter une note du type `Répons
 
 Le passage à `Facturé` reste entièrement manuel, à faire directement dans le Sheets. La routine ne lit ni ne modifie jamais une ligne déjà à `Facturé`.
 
+### 0.6 — Détection des rebonds mail définitifs (adresse introuvable)
+
+Pour chaque ligne au Statut `Envoyé`, avant de chercher une réponse (0.2), vérifier l'absence de rebond : chercher via `Gmail:search_threads` un message système de rebond reçu après la Date Envoi (`from:mailer-daemon`, ou objet/corps contenant « Undelivered Mail Returned to Sender », « Delivery Status Notification (Failure) », « n'a pas pu être remis »).
+
+- **Rebond temporaire** (boîte pleine, délai de réessai — reconnaissable au message du serveur, ex. « des nouvelles tentatives seront effectuées pendant Xh ») : ce n'est pas un échec, ne rien changer, laisser la routine réessayer au passage suivant.
+- **Rebond définitif** (codes SMTP 550/551/552/553 5.1.1, « adresse introuvable ou ne peut pas recevoir de messages », « domaine introuvable », « le serveur distant n'est pas correctement configuré ») : passer à la recherche d'une adresse alternative ci-dessous.
+
+**Recherche d'une adresse alternative :**
+- Chercher une deuxième adresse mail plausible pour la même entreprise : site actuel, réseaux sociaux, annuaires professionnels (Pages Jaunes, Societe.com), fiches sponsor ou mentions locales trouvées par `web_search`.
+- Si une adresse est trouvée, renvoyer le même mail à cette adresse et surveiller à son tour son propre rebond au passage suivant, avec la même logique 0.6.
+- Recommencer jusqu'à épuisement raisonnable des pistes : en pratique une à deux adresses alternatives testées suffisent avant de conclure — ne pas multiplier les tentatives sur des adresses non vérifiées.
+
+**En cas d'échec total** (rebond définitif sur toutes les adresses trouvées, aucune piste supplémentaire raisonnable) :
+- **Supprimer la ligne correspondante du Google Sheets SUIVI PROSPECTION.** Aucun outil de cette session ne permet de modifier ou supprimer une ligne dans un Sheets déjà existant (même limite qu'à l'étape 5 : les outils Drive ne permettent que lire, créer un nouveau fichier ou copier, jamais éditer un fichier en place) — ce geste reste manuel, à faire directement dans le Sheets par l'utilisateur. Le signaler explicitement et clairement dans le compte rendu comme reste-à-faire.
+- **Ne pas créer** (ou supprimer s'il existe déjà) le compte rendu de cette entreprise dans le dossier Drive **« 01 - Entreprises trouvées »** (id `1VKwxL2yLZUlJrtul2XN3W8K69HOQ241M`) : une entreprise dont aucune adresse n'a pu être jointe n'a pas été démarchée avec succès, elle ne doit pas y figurer.
+- **Créer à la place un document** dans le dossier Drive **« 05 - Erreurs » › « Adresses introuvables »** (id `1eCAU5s-o5Tza9DYAVfvcQXnT2xQTrndi`), nommé du nom de l'entreprise. Y résumer : chaque adresse testée avec la date et la nature exacte du rebond, la conclusion (aucune adresse valide trouvée), et la piste à suivre si l'entreprise est recontactée plus tard (autre canal : téléphone, formulaire de contact du site, courrier). Voir les documents « Gosetto Freres », « Ets Putanier » et « La Martinery » dans ce dossier pour le format à reprendre.
+
 ## Étape 1 — Choisir la cible
 
 Si l'utilisateur ne nomme pas d'entreprise précise :
