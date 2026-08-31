@@ -30,7 +30,7 @@ Cette méthodologie sert à démarcher, un commerce ou artisan du Roannais à la
 
 Avant toute autre chose, à **chaque déclenchement de la routine** — qu'une nouvelle entreprise soit prospectée ou non ce cycle-ci — mettre à jour les statuts des lignes déjà présentes dans le Google Sheets **SUIVI PROSPECTION**. Objectif : que le statut reflète la réalité sans intervention manuelle, à l'exception du passage à `Facturé` qui reste et doit rester entièrement manuel, géré directement dans le Sheets.
 
-Le cycle de vie d'un statut est désormais : `Brouillon` → `Envoyé` (automatique) → `Négociations` (automatique) → `Facturé` (manuel, jamais touché par la routine).
+Le cycle de vie d'un statut est désormais : `Brouillon` → `Envoyé` (automatique) → `Refusé` ou `En échange` (automatique, selon la nature de la réponse) → `Facturé` (manuel, jamais touché par la routine). Le champ Statut doit toujours reprendre exactement l'une des valeurs déjà présentes dans la liste déroulante de la colonne (actuellement : `Brouillon`, `Envoyé`, `Refusé`, `⚠️Adresse mail`, `En échange`, `Facturé`) — ne jamais en inventer une nouvelle, même proche (« Échange », « Négociations »…), sous peine de créer un statut orphelin en dehors de la liste. En cas de doute sur l'orthographe exacte d'une valeur, vérifier la liste déroulante réelle de la colonne avant d'écrire.
 
 ### 0.1 — Détection des envois (`Brouillon` → `Envoyé`)
 
@@ -41,7 +41,7 @@ Le cycle de vie d'un statut est désormais : `Brouillon` → `Envoyé` (automati
   - Si aucun message envoyé n'est retrouvé (le brouillon a été supprimé sans être envoyé) → laisser le Statut à `Brouillon`, ajouter une note « Brouillon disparu sans envoi détecté – à vérifier » dans la colonne Notes (sans écraser une note déjà présente), et ne pas inventer de Date Envoi.
 - Appliquer la mise à jour via le webhook (voir 0.4), jamais en recréant une ligne.
 
-### 0.2 — Détection des réponses (`Envoyé` → `Négociations`)
+### 0.2 — Détection des réponses (`Envoyé` → `Refusé` ou `En échange`)
 
 - Lire les lignes dont le Statut vaut `Envoyé` et dont la colonne **Date Envoi** est renseignée.
 - Pour chacune, chercher une réponse du prospect avec `Gmail:search_threads`, requête `from:<email du prospect> after:<Date Envoi moins 1 jour>` (la marge d'un jour absorbe les décalages de fuseau horaire). **Ne pas se limiter au fil (thread) du mail envoyé** : certaines réponses automatiques atterrissent dans un thread Gmail distinct plutôt que dans le fil d'origine (constaté en pratique sur les dossiers Palluet Frères et Immo Factory, où le sujet de la réponse — préfixé `Auto:` ou `Re :` — casse le rattachement au fil).
@@ -56,7 +56,10 @@ Un seul des critères suivants suffit à classer la réponse comme automatique �
 - **En-tête technique `Auto-Submitted`** (ou équivalent) sur le message reçu. *Limite connue à la rédaction de cette étape : l'outil `Gmail` disponible dans cette session (`get_message` / `get_thread`) ne renvoie pas les en-têtes MIME bruts, seulement expéditeur, destinataires, objet, date, corps et pièces jointes — ce critère n'est donc pas vérifiable techniquement tant que cet accès n'existe pas. Ne pas bloquer dessus : les deux critères ci-dessus suffisent en pratique (ils ont capturé les deux seuls cas de réponse automatique observés à ce jour : délai de 14 secondes pour Immo Factory, mot-clé « congés » dans le même message).*
 
 Si un critère est vérifié → Statut inchangé (`Envoyé`), ajouter une note du type `Réponse auto détectée le JJ/MM (délai Xs / mot-clé « … »​) – ignorée`.
-Sinon → passer le Statut à `Négociations`, ajouter une note du type `Réponse reçue le JJ/MM de <expéditeur>`.
+
+Sinon, c'est une réponse humaine réelle : lire son contenu pour distinguer un refus explicite d'un échange normal — ne jamais deviner un statut sans avoir lu la réponse.
+- **Refus explicite** (formulations du type « pas de besoin actuellement », « nous avons déjà un prestataire », « pas intéressé », ou tout refus sans ambiguïté) → passer le Statut à `Refusé`, ajouter une note du type `Refus reçu le JJ/MM de <expéditeur>`.
+- **Toute autre réponse humaine** (question, intérêt, demande de précision, négociation…) → passer le Statut à `En échange`, ajouter une note du type `Réponse reçue le JJ/MM de <expéditeur>`.
 
 ### 0.4 — Mise à jour du Sheets : toujours par le webhook, jamais par une nouvelle ligne
 

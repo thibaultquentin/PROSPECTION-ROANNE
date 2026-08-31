@@ -1,7 +1,10 @@
 # Webhook SUIVI PROSPECTION — mise à jour manuelle requise
 
 `Code.gs` est la nouvelle version du script Apps Script derrière le webhook
-utilisé par la routine (`https://script.google.com/macros/s/AKfycbydrO4qczgwdeAP8Z2NGE73L6LWQvLyt1IrmNpWW2hKxG6xepQ4h2PHVa_9UitGYxxn/exec`).
+utilisé par la routine (`https://script.google.com/macros/s/AKfycbz5R9HkZa9rkmKdW3s2oFvRlcxSPmehlzplrkXk7BR3YGJRRrWv8ZbZbG_Ljwhcj71ZBg/exec`
+— URL mise à jour le 31/08/2026, voir « Résolution » ci-dessous ; l'ancienne
+URL `.../AKfycbydrO4qczgwdeAP8Z2NGE73L6LWQvLyt1IrmNpWW2hKxG6xepQ4h2PHVa_9UitGYxxn/exec`
+ne doit plus être utilisée).
 
 Aucun outil de cette session ne permet de modifier un projet Apps Script
 existant à distance — c'est le seul geste manuel de cette mise à jour, à
@@ -43,3 +46,19 @@ est resté manuel dans toutes les sessions précédentes, faute d'outil pour
 l'automatiser). Avant toute autre piste, vérifier si ce redéploiement a
 bien été fait, et le refaire si besoin — cela peut suffire à tout
 résoudre sans aucun changement de code supplémentaire.
+
+## ✅ Résolution (31/08/2026)
+
+Le diagnostic ci-dessus était le bon. Un redéploiement du script a eu lieu
+(nouvelle URL `/exec`, voir en tête de fichier), et cette nouvelle URL a été
+testée en direct depuis cette session :
+- Un appel `updateStatus` sur un email inexistant renvoie bien
+  `{"ok":false,"error":"ligne introuvable pour ..."}` (recherche réelle
+  effectuée, pas une fausse réponse positive).
+- Un appel `updateStatus` idempotent sur une ligne réelle existante
+  (Lassaigne Menuiserie, ligne 2) a renvoyé `{"ok":true,"row":2}`, et le
+  `modifiedTime` du Google Sheets a changé en conséquence — confirmation
+  que cette URL écrit bien dans le fichier SUIVI PROSPECTION réel.
+
+**Toute automatisation du skill `prospection-roanne` doit désormais utiliser
+la nouvelle URL en tête de ce fichier**, plus l'ancienne.
