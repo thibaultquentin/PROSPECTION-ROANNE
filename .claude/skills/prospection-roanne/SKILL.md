@@ -116,7 +116,7 @@ Selon le secteur, chercher ce qui rend la maquette crédible et le mail pertinen
 
 ### Bibliothèque de références esthétiques
 
-Avant de concevoir la maquette, consulter le Google Sheet **02 - RÉFÉRENCES ESTHÉTIQUES** (dossier Drive `05 - Références esthétiques`, id `1fAEOGNMO5e6PztaP6ElAazVVBu3t8J4j`). Le tableau contient deux types de lignes, à traiter différemment :
+Avant de concevoir la maquette, consulter le Google Sheet **03 - RÉFÉRENCES ESTHÉTIQUES** (id `1wojI7ubYo7nPD9n8bgKxNuBwDjCUh8PUv0_TafiSiJY`, dans le dossier Drive `03 - Références esthétiques`, id `1fAEOGNMO5e6PztaP6ElAazVVBu3t8J4j`). Le tableau contient deux types de lignes, à traiter différemment :
 
 - **Les 3 premières lignes** (secteur marqué "RÉFÉRENCE STRUCTURELLE GÉNÉRALE") pointent vers des **sites complets à visiter** (tuloup.com en priorité — préférence explicite de l'utilisateur —, puis biocean-algues-marines.com, umaneis-rh.com), pas vers une image statique. Elles s'appliquent à tous les secteurs et donnent le rythme d'animation, la structure de navigation et l'esprit général à viser, indépendamment du métier du client.
 - **Les lignes suivantes**, classées par secteur, pointent vers une **image Drive** (capture d'un site de référence) pour ce secteur précis.
@@ -230,4 +230,4 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 
 - `references/exemple-mail.md` : un exemple complet de mail conforme au format, à utiliser comme calibrage de ton — ne pas copier son contenu, seulement sa structure et son registre.
 - `references/seo-local.md` : les règles de SEO local appliquées à l'étape 4 (title, meta description, schema.org `LocalBusiness`, titres visibles) et surtout la règle de décision qui détermine la zone géographique à employer pour chaque entreprise. À lire avant d'écrire le `<head>` de la maquette.
-- `05 - Références esthétiques` (Google Drive) : bibliothèque d'images de sites par secteur, avec le tableau `02 - RÉFÉRENCES ESTHÉTIQUES` qui les indexe. Consulté à l'étape 4, jamais comme source de couleurs.
+- `03 - Références esthétiques` (Google Drive) : bibliothèque d'images de sites par secteur, avec le tableau `03 - RÉFÉRENCES ESTHÉTIQUES` qui les indexe. Consulté à l'étape 4, jamais comme source de couleurs.
