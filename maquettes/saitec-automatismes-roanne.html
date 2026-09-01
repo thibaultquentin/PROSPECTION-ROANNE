@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SAITEC Automatismes — Automaticien industriel à Roanne (Loire)</title>
+<meta name="description" content="Bureau d'études, câblage d'armoires et maintenance d'automatismes industriels à Roanne. Programmation Schneider, Siemens, Omron, dépannage sur site et à distance.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   SAITEC AUTOMATISMES — maquette de démonstration
+   ------------------------------------------------------------
+   PALETTE — reprise du site actuel de SAITEC (saitec-industrie.fr) :
+     --acier / --acier-fonce sont les deux variables CSS réellement
+     déclarées sur le site du client (--main-bg-color: #5f708a,
+     --secondary-color: #4f5b71). Le logo est monochrome noir/gris.
+     --signal (ambre) et --marche / --arret sont repris des boutons
+     lumineux visibles sur les propres photos d'installations de
+     SAITEC ; ils ne servent qu'à la signalisation, jamais de
+     couleur d'identité.
+   TYPO — IBM Plex Sans Condensed (titres) + IBM Plex Sans (texte)
+     + IBM Plex Mono (repères, folios, cartouche uniquement).
+   Tout se règle ici : couleurs, typos, rayons, rythme.
+   ============================================================ */
+:root{
+  --acier:#5f708a;
+  --acier-fonce:#4f5b71;
+  --nuit:#141b25;
+  --nuit-2:#1d2733;
+  --papier:#f2f3f5;
+  --papier-2:#e7e9ed;
+  --encre:#1c1f24;
+  --gris:#6f7681;
+  --gris-clair:#aeb4bd;
+  --trait:#ced3da;
+  --signal:#dc9a24;
+  --marche:#2f8257;
+  --arret:#b23b30;
+
+  --f-titre:"IBM Plex Sans Condensed","Helvetica Neue",Arial,sans-serif;
+  --f-texte:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+
+  --max:1180px;
+  --r:3px;
+  --t:200ms cubic-bezier(.4,0,.2,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--papier);color:var(--encre);
+  font-family:var(--f-texte);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-titre);font-weight:600;line-height:1.1;margin:0;letter-spacing:-.005em}
+p{margin:0 0 1em}
+p:last-child{margin-bottom:0}
+:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* ---- bandeau de démonstration ---- */
+.demo{
+  background:var(--signal);color:#1a1400;
+  font-family:var(--f-mono);font-size:12.5px;letter-spacing:.01em;
+  padding:7px 24px;text-align:center;
+}
+.demo b{font-weight:500}
+
+/* ---- barre de coordonnées (reprise du bandeau actuel) ---- */
+.topbar{
+  background:var(--nuit);color:var(--gris-clair);
+  font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.08);
+}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:6px 26px;padding-top:9px;padding-bottom:9px}
+.topbar span{display:inline-flex;align-items:center;gap:8px}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:#fff}
+.topbar .sep{width:1px;height:14px;background:rgba(255,255,255,.18);align-self:center}
+
+/* ---- en-tête ---- */
+.head{
+  position:sticky;top:0;z-index:40;background:#fff;
+  border-bottom:1px solid var(--trait);
+}
+.head .wrap{display:flex;align-items:center;gap:24px;padding-top:14px;padding-bottom:14px}
+.marque{display:flex;align-items:center;gap:12px;text-decoration:none;flex:0 0 auto}
+.marque img{height:34px;width:auto}
+.marque .bl{font-family:var(--f-mono);font-size:10.5px;color:var(--gris);line-height:1.3;max-width:130px;border-left:1px solid var(--trait);padding-left:12px}
+nav.menu{margin-left:auto;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+nav.menu a{
+  font-family:var(--f-titre);font-size:16px;font-weight:500;
+  text-decoration:none;padding:8px 11px;border-radius:var(--r);color:var(--encre);
+  transition:color var(--t),background var(--t);
+}
+nav.menu a:hover{color:var(--acier-fonce);background:var(--papier)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--f-titre);font-size:16px;font-weight:600;
+  padding:11px 20px;border-radius:var(--r);text-decoration:none;
+  border:1px solid transparent;cursor:pointer;min-height:44px;
+  transition:background var(--t),color var(--t),border-color var(--t);
+}
+.btn-plein{background:var(--acier-fonce);color:#fff}
+.btn-plein:hover{background:var(--nuit)}
+.btn-fil{border-color:var(--trait);color:var(--encre);background:#fff}
+.btn-fil:hover{border-color:var(--acier);color:var(--acier-fonce)}
+.btn-clair{border-color:rgba(255,255,255,.4);color:#fff;background:transparent}
+.btn-clair:hover{background:#fff;color:var(--nuit);border-color:#fff}
+.head .btn{margin-left:6px}
+@media (max-width:1240px) and (min-width:781px){
+  nav.menu a{font-size:15px;padding:8px 8px}
+  .head .btn{font-size:15px;padding:11px 15px}
+  .head .wrap{gap:14px}
+  .marque .bl{display:none}
+}
+.burger{display:none;margin-left:auto;background:none;border:1px solid var(--trait);border-radius:var(--r);
+  width:46px;height:44px;cursor:pointer;align-items:center;justify-content:center}
+.burger span,.burger span::before,.burger span::after{
+  content:"";display:block;width:20px;height:2px;background:var(--encre);position:relative}
+.burger span::before{position:absolute;top:-6px}
+.burger span::after{position:absolute;top:6px}
+
+/* ---- héros ---- */
+.hero{position:relative;background:var(--nuit);color:#fff;overflow:hidden;padding:0}
+.hero .fond{
+  position:absolute;inset:0;
+  background:url("https://www.saitec-industrie.fr/IMG/jpg/realisation-2.jpg") center/cover no-repeat;
+  opacity:.16;filter:grayscale(.5);
+}
+.hero .grille{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.25) 78%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.25) 78%,transparent 100%);
+}
+.hero .wrap{position:relative;padding-top:112px;padding-bottom:0}
+.hero-folio{font-family:var(--f-mono);font-size:12px;color:var(--acier);letter-spacing:.08em;margin-bottom:26px}
+.hero h1{
+  font-size:clamp(2.7rem,1.6rem+4.4vw,5.1rem);font-weight:700;
+  letter-spacing:-.025em;max-width:15ch;
+}
+.hero .sous{
+  margin-top:22px;max-width:52ch;font-size:clamp(1.02rem,.95rem+.35vw,1.2rem);
+  color:#cfd5de;
+}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+.hero .tel{font-family:var(--f-mono);font-size:15px}
+.rail{
+  margin-top:62px;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;flex-wrap:wrap;
+}
+.rail div{
+  flex:1 1 190px;padding:20px 22px 26px;border-right:1px solid rgba(255,255,255,.14);
+}
+.rail div:last-child{border-right:0}
+.rail .n{font-family:var(--f-mono);font-size:11.5px;color:var(--acier);display:block;margin-bottom:7px}
+.rail .t{font-family:var(--f-titre);font-size:18px;font-weight:600;display:block;margin-bottom:4px}
+.rail .d{font-size:14.5px;color:#b7bfca;line-height:1.5}
+
+/* défilé des secteurs */
+.defile{border-top:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.22);overflow:hidden;position:relative}
+.defile ul{
+  display:flex;gap:0;list-style:none;margin:0;padding:0;width:max-content;
+  animation:glisse 46s linear infinite;
+}
+.defile li{
+  font-family:var(--f-mono);font-size:12.5px;color:#9aa4b2;letter-spacing:.06em;
+  padding:12px 30px;white-space:nowrap;position:relative;
+}
+.defile li::after{content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);width:3px;height:3px;background:var(--acier);border-radius:50%}
+@keyframes glisse{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.defile:hover ul{animation-play-state:paused}
+
+/* ---- sections ---- */
+section{padding:88px 0;scroll-margin-top:74px}
+.metier{scroll-margin-top:88px}
+.sec-tete{display:flex;gap:28px;align-items:flex-start;margin-bottom:44px}
+.sec-tete .folio{
+  font-family:var(--f-mono);font-size:12px;color:var(--acier);
+  padding-top:9px;flex:0 0 auto;letter-spacing:.06em;
+}
+.sec-tete h2{font-size:clamp(1.85rem,1.3rem+1.9vw,2.9rem);max-width:19ch}
+.sec-tete .intro{max-width:56ch;color:#4a5058;margin-top:14px}
+
+/* ---- outil ---- */
+.outil{background:#fff;border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.outil-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:start}
+fieldset{border:0;margin:0 0 30px;padding:0}
+legend{
+  font-family:var(--f-titre);font-size:19px;font-weight:600;padding:0;margin-bottom:4px;
+  display:flex;align-items:baseline;gap:11px;
+}
+legend .q{font-family:var(--f-mono);font-size:12px;color:var(--acier);font-weight:400}
+.aide{font-size:14.5px;color:var(--gris);margin:0 0 14px}
+.choix{display:flex;flex-wrap:wrap;gap:9px}
+.choix label{
+  position:relative;display:inline-flex;align-items:center;gap:9px;
+  border:1px solid var(--trait);border-radius:var(--r);background:#fff;
+  padding:10px 15px;cursor:pointer;font-size:15.5px;min-height:44px;
+  transition:border-color var(--t),background var(--t),color var(--t);
+}
+.choix input{position:absolute;opacity:0;width:1px;height:1px}
+.choix label:hover{border-color:var(--acier)}
+.choix label .pastille{
+  width:9px;height:9px;border-radius:50%;background:var(--trait);flex:0 0 auto;
+  transition:background var(--t),box-shadow var(--t);
+}
+.choix input:checked + .pastille{background:var(--acier-fonce);box-shadow:0 0 0 3px rgba(95,112,138,.22)}
+.choix label:has(input:checked){border-color:var(--acier-fonce);background:#f6f7f9;font-weight:500}
+.choix input:focus-visible + .pastille{box-shadow:0 0 0 3px var(--signal)}
+.choix label.u-arret input:checked + .pastille{background:var(--arret);box-shadow:0 0 0 3px rgba(178,59,48,.22)}
+.choix label.u-degrade input:checked + .pastille{background:var(--signal);box-shadow:0 0 0 3px rgba(220,154,36,.25)}
+.choix label.u-planifie input:checked + .pastille{background:var(--marche);box-shadow:0 0 0 3px rgba(47,130,87,.22)}
+
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:6px}
+.champs label{display:block;font-size:13.5px;color:var(--gris);margin-bottom:6px}
+.champs input{
+  width:100%;font-family:var(--f-texte);font-size:16px;padding:11px 13px;
+  border:1px solid var(--trait);border-radius:var(--r);background:#fff;color:var(--encre);min-height:44px;
+}
+.champs input:focus{border-color:var(--acier);outline:none;box-shadow:0 0 0 3px rgba(95,112,138,.18)}
+
+/* cartouche = bloc titre d'un schéma électrique */
+.cartouche{
+  border:1.5px solid var(--encre);background:#fff;position:sticky;top:96px;
+}
+.cartouche .cart-tete{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  border-bottom:1.5px solid var(--encre);padding:11px 15px;
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--gris);
+}
+.cartouche .cart-tete b{color:var(--encre);font-weight:500}
+.voie{padding:18px 15px;border-bottom:1px solid var(--trait);display:flex;gap:13px;align-items:flex-start}
+.voie .led{width:11px;height:11px;border-radius:50%;background:var(--trait);flex:0 0 auto;margin-top:6px}
+.voie.on .led{background:var(--marche);box-shadow:0 0 0 4px rgba(47,130,87,.16)}
+.voie.site .led{background:var(--signal);box-shadow:0 0 0 4px rgba(220,154,36,.18)}
+.voie.etude .led{background:var(--acier);box-shadow:0 0 0 4px rgba(95,112,138,.2)}
+.voie h3{font-size:19px;margin-bottom:5px}
+.voie p{font-size:14.5px;color:#4a5058;margin:0}
+.lignes{list-style:none;margin:0;padding:0}
+.lignes li{
+  display:flex;gap:12px;padding:9px 15px;border-bottom:1px solid var(--papier-2);
+  font-size:14.5px;
+}
+.lignes li .k{font-family:var(--f-mono);font-size:11.5px;color:var(--acier);flex:0 0 88px;padding-top:3px;letter-spacing:.04em}
+.lignes li .v{color:var(--encre)}
+.lignes li .v.vide{color:var(--gris-clair)}
+.cart-liste{padding:16px 15px;border-bottom:1px solid var(--trait)}
+.cart-liste h4{font-size:15px;margin-bottom:10px}
+.cart-liste ol{margin:0;padding-left:19px;font-size:14.5px;color:#3f454d}
+.cart-liste li{margin-bottom:7px}
+.cart-liste li:last-child{margin-bottom:0}
+.cart-actions{padding:15px;display:flex;flex-wrap:wrap;gap:10px}
+.cart-actions .btn{font-size:15px;padding:10px 16px}
+.retour{font-family:var(--f-mono);font-size:12px;color:var(--marche);padding:0 15px 15px;display:none}
+.retour.vu{display:block}
+
+/* ---- métiers ---- */
+.metiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--trait);border:1px solid var(--trait)}
+.metier{background:var(--papier);padding:30px 28px 34px}
+.metier .folio{font-family:var(--f-mono);font-size:11.5px;color:var(--acier);letter-spacing:.06em}
+.metier h3{font-size:24px;margin:12px 0 12px}
+.metier p{font-size:15.5px;color:#4a5058}
+.metier ul{list-style:none;margin:18px 0 0;padding:0;border-top:1px solid var(--trait)}
+.metier ul li{
+  padding:11px 0 11px 20px;border-bottom:1px solid var(--trait);font-size:15.5px;position:relative;
+}
+.metier ul li::before{
+  content:"";position:absolute;left:0;top:19px;width:9px;height:1px;background:var(--acier);
+}
+
+/* ---- secteurs ---- */
+.secteurs{background:var(--nuit-2);color:#fff}
+.secteurs .sec-tete h2{color:#fff}
+.secteurs .sec-tete .intro{color:#b7bfca}
+.secteurs .sec-tete .folio{color:var(--acier)}
+.puces{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:26px}
+.puce{
+  font-family:var(--f-titre);font-size:16px;font-weight:500;
+  background:transparent;border:1px solid rgba(255,255,255,.24);color:#dfe4ea;
+  padding:10px 17px;border-radius:var(--r);cursor:pointer;min-height:44px;
+  transition:background var(--t),color var(--t),border-color var(--t);
+}
+.puce:hover{border-color:#fff;color:#fff}
+.puce[aria-pressed="true"]{background:#fff;color:var(--nuit);border-color:#fff}
+.panneau{
+  border:1px solid rgba(255,255,255,.18);padding:26px 28px;min-height:132px;
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:26px;align-items:center;
+}
+.panneau h3{font-size:22px;margin-bottom:9px}
+.panneau p{color:#c3cad3;max-width:62ch;margin:0}
+.panneau .rep{font-family:var(--f-mono);font-size:12px;color:var(--acier);white-space:nowrap;align-self:start}
+
+/* ---- réalisations ---- */
+.travaux{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px}
+figure{margin:0;background:#fff;border:1px solid var(--trait)}
+figure img{width:100%;height:238px;object-fit:cover}
+figcaption{padding:14px 16px 16px;font-size:14.5px;color:#4a5058;line-height:1.5}
+figcaption b{display:block;font-family:var(--f-mono);font-size:11.5px;color:var(--acier);font-weight:400;letter-spacing:.05em;margin-bottom:5px}
+
+/* ---- méthode (vraie séquence) ---- */
+.methode{background:#fff;border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.etapes{counter-reset:e;display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:0}
+.etape{padding:26px 24px 30px;border-left:1px solid var(--trait);position:relative}
+.etape:first-child{border-left:0;padding-left:0}
+.etape::before{
+  counter-increment:e;content:counter(e,decimal-leading-zero);
+  font-family:var(--f-mono);font-size:12px;color:var(--acier);display:block;margin-bottom:12px;letter-spacing:.06em;
+}
+.etape h3{font-size:19px;margin-bottom:9px}
+.etape p{font-size:15px;color:#4a5058}
+
+/* ---- contact ---- */
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.coord{list-style:none;margin:0;padding:0;border-top:1px solid var(--trait)}
+.coord li{display:flex;gap:22px;padding:15px 0;border-bottom:1px solid var(--trait);align-items:baseline}
+.coord .k{font-family:var(--f-mono);font-size:11.5px;color:var(--acier);flex:0 0 96px;letter-spacing:.05em}
+.coord .v{font-size:16.5px}
+.coord a{text-decoration:none;border-bottom:1px solid var(--trait)}
+.coord a:hover{border-color:var(--acier)}
+.aFournir{
+  border:1px dashed var(--trait);background:#fff;padding:26px;text-align:center;
+  color:var(--gris);font-size:14.5px;display:flex;flex-direction:column;justify-content:center;min-height:238px;
+}
+.aFournir b{display:block;font-family:var(--f-titre);font-size:17px;color:var(--encre);margin-bottom:7px;font-weight:600}
+
+/* ---- pied = cartouche de plan ---- */
+footer{background:var(--nuit);color:#aeb6c1;font-size:14.5px}
+footer .wrap{padding-top:52px;padding-bottom:46px}
+.pied-haut{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:36px;padding-bottom:34px;border-bottom:1px solid rgba(255,255,255,.14)}
+.pied-haut h4{color:#fff;font-size:16px;margin-bottom:13px}
+.pied-haut ul{list-style:none;margin:0;padding:0}
+.pied-haut li{margin-bottom:8px}
+.pied-haut a{text-decoration:none}
+.pied-haut a:hover{color:#fff}
+.cart-plan{
+  margin-top:30px;border:1px solid rgba(255,255,255,.22);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  font-family:var(--f-mono);font-size:11.5px;letter-spacing:.04em;
+}
+.cart-plan div{padding:12px 14px;border-right:1px solid rgba(255,255,255,.16)}
+.cart-plan div:last-child{border-right:0}
+.cart-plan span{display:block;color:#7f8896;margin-bottom:4px}
+.cart-plan b{color:#e6eaf0;font-weight:400}
+.mention{margin-top:26px;font-size:13px;color:#7f8896;line-height:1.6;max-width:96ch}
+
+/* ---- révélation, une seule fois, discrète ---- */
+.rev{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.rev.vu{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .outil-grid,.contact-grid{grid-template-columns:1fr}
+  .cartouche{position:static}
+  .panneau{grid-template-columns:1fr}
+  .etape{border-left:0;border-top:1px solid var(--trait);padding-left:0}
+  .etape:first-child{border-top:0}
+  .pied-haut{grid-template-columns:1fr}
+}
+@media (max-width:780px){
+  nav.menu{display:none;order:3;width:100%;flex-direction:column;align-items:stretch;gap:0;margin-left:0}
+  nav.menu.ouvert{display:flex}
+  nav.menu a{padding:13px 4px;border-bottom:1px solid var(--trait)}
+  .head .btn{margin:12px 0 4px;width:100%}
+  .burger{display:inline-flex}
+  .head .wrap{flex-wrap:wrap}
+  .marque .bl{display:none}
+  section{padding:64px 0}
+  .hero .wrap{padding-top:70px}
+  .sec-tete{flex-direction:column;gap:6px}
+  .topbar{font-size:12.5px}
+  .topbar .sep{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .rev{opacity:1;transform:none}
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"SAITEC Automatismes",
+  "legalName":"SAITEC AUTOMATISMES",
+  "description":"Bureau d'études, câblage d'armoires électriques, programmation d'automates et maintenance d'installations industrielles, à Roanne.",
+  "url":"https://www.saitec-industrie.fr/",
+  "telephone":"+33477714128",
+  "email":"saitecindus@sfr.fr",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"96 rue de Saint Alban",
+    "addressLocality":"Roanne",
+    "postalCode":"42300",
+    "addressRegion":"Loire",
+    "addressCountry":"FR"
+  },
+  "areaServed":[
+    {"@type":"City","name":"Roanne"},
+    {"@type":"AdministrativeArea","name":"Loire"},
+    {"@type":"Country","name":"France"}
+  ],
+  "knowsAbout":["Automatisme industriel","Électricité industrielle","Programmation d'automates","Câblage d'armoires électriques","Maintenance industrielle","Retrofit d'automates"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour <b>SAITEC Automatismes</b>. Aucune commande ni demande n'est réellement transmise.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>96 rue de Saint Alban, 42300 Roanne</span>
+    <span class="sep"></span>
+    <span><a href="tel:+33477714128">04 77 71 41 28</a> &nbsp;·&nbsp; <a href="tel:+33672442630">06 72 44 26 30</a></span>
+    <span class="sep"></span>
+    <span><a href="mailto:saitecindus@sfr.fr">saitecindus@sfr.fr</a></span>
+  </div>
+</div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="marque" href="#haut">
+      <img src="https://www.saitec-industrie.fr/assets/images/mes-images/logo-saitec.png" alt="SAITEC — automatismes">
+      <span class="bl">L'automatisme à votre service</span>
+    </a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu"><span></span></button>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#entreprise">L'entreprise</a>
+      <a href="#electricite">Électricité industrielle</a>
+      <a href="#automatisme">Automatisme</a>
+      <a href="#maintenance">Maintenance</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-plein" href="#intervention">Ligne à l'arrêt</a>
+    </nav>
+  </div>
+</header>
+
+<main id="haut">
+
+  <!-- ============ HÉROS ============ -->
+  <section class="hero">
+    <div class="fond" aria-hidden="true"></div>
+    <div class="grille" aria-hidden="true"></div>
+    <div class="wrap">
+      <p class="hero-folio">SAITEC AUTOMATISMES — ROANNE (42)</p>
+      <h1>L'automatisme à votre service</h1>
+      <p class="sous">Bureau d'études, câblage d'armoires en atelier et interventions sur site. De l'analyse fonctionnelle à la mise en service, sans sous-traitance — sur les machines des industriels de la Loire, ailleurs en France et à l'étranger.</p>
+      <div class="actions">
+        <a class="btn btn-plein" href="#intervention">Une ligne est à l'arrêt</a>
+        <a class="btn btn-clair tel" href="tel:+33672442630">06 72 44 26 30</a>
+      </div>
+      <div class="rail">
+        <div>
+          <span class="n">ÉTUDE</span>
+          <span class="t">Schémas et choix du matériel</span>
+          <span class="d">Analyse fonctionnelle avec vos techniciens, schémas sous SEE Electrical Expert.</span>
+        </div>
+        <div>
+          <span class="n">ATELIER</span>
+          <span class="t">Armoires et coffrets</span>
+          <span class="d">Câblés à Roanne, mis sous tension et testés avant de partir sur site.</span>
+        </div>
+        <div>
+          <span class="n">PROGRAMME</span>
+          <span class="t">Schneider, Siemens, Omron</span>
+          <span class="d">Conception, modification, retrofit d'automates obsolètes, IHM et terminaux.</span>
+        </div>
+        <div>
+          <span class="n">DÉPANNAGE</span>
+          <span class="t">À distance ou sur site</span>
+          <span class="d">Prise en main à distance des programmations ; sinon déplacement selon l'urgence.</span>
+        </div>
+      </div>
+    </div>
+    <div class="defile" aria-label="Secteurs d'intervention">
+      <ul id="defile">
+        <li>Agroalimentaire</li><li>Textile</li><li>Teinturerie</li><li>Industrie du cuir</li>
+        <li>Injection plastique</li><li>Incinération</li><li>Traitement des eaux</li>
+        <li>Cosmétique</li><li>Militaire</li><li>Tertiaire</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ OUTIL ============ -->
+  <section class="outil" id="intervention">
+    <div class="wrap">
+      <div class="sec-tete">
+        <span class="folio">F.01</span>
+        <div>
+          <h2>Une ligne est à l'arrêt : préparez l'intervention</h2>
+          <p class="intro">Quatre questions pour savoir si la panne peut se traiter à distance, ce qu'il faut relever avant d'appeler, et pour repartir avec une fiche prête à envoyer. Rien n'est transmis automatiquement : la fiche reste chez vous tant que vous ne l'envoyez pas.</p>
+        </div>
+      </div>
+
+      <div class="outil-grid">
+        <form id="form-int" novalidate>
+
+          <fieldset>
+            <legend><span class="q">Q1</span> Que se passe-t-il&nbsp;?</legend>
+            <div class="choix" role="group">
+              <label><input type="radio" name="situation" value="arret" checked><span class="pastille"></span>Machine complètement arrêtée</label>
+              <label><input type="radio" name="situation" value="intermittent"><span class="pastille"></span>Défaut intermittent</label>
+              <label><input type="radio" name="situation" value="ihm"><span class="pastille"></span>Écran ou pupitre figé</label>
+              <label><input type="radio" name="situation" value="evolution"><span class="pastille"></span>Une évolution à faire</label>
+              <label><input type="radio" name="situation" value="projet"><span class="pastille"></span>Un projet neuf</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="q">Q2</span> Sur quelle partie de l'installation&nbsp;?</legend>
+            <p class="aide">Si vous hésitez, choisissez « je ne sais pas » : la question se règle au téléphone.</p>
+            <div class="choix" role="group">
+              <label><input type="radio" name="organe" value="automate" checked><span class="pastille"></span>Automate ou programme</label>
+              <label><input type="radio" name="organe" value="ihm"><span class="pastille"></span>IHM, pupitre, terminal</label>
+              <label><input type="radio" name="organe" value="armoire"><span class="pastille"></span>Armoire, coffret, câblage</label>
+              <label><input type="radio" name="organe" value="reseau"><span class="pastille"></span>Réseau, variateur, capteurs</label>
+              <label><input type="radio" name="organe" value="inconnu"><span class="pastille"></span>Je ne sais pas</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="q">Q3</span> Marque de l'automate</legend>
+            <div class="choix" role="group">
+              <label><input type="radio" name="marque" value="Schneider" checked><span class="pastille"></span>Schneider</label>
+              <label><input type="radio" name="marque" value="Siemens"><span class="pastille"></span>Siemens</label>
+              <label><input type="radio" name="marque" value="Omron"><span class="pastille"></span>Omron</label>
+              <label><input type="radio" name="marque" value="Autre marque"><span class="pastille"></span>Une autre marque</label>
+              <label><input type="radio" name="marque" value="Marque inconnue"><span class="pastille"></span>Je ne sais pas</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="q">Q4</span> Y a-t-il un accès distant sur l'installation&nbsp;?</legend>
+            <p class="aide">Un routeur, un VPN ou une connexion de télémaintenance déjà en place sur la machine.</p>
+            <div class="choix" role="group">
+              <label><input type="radio" name="distant" value="oui"><span class="pastille"></span>Oui, déjà en place</label>
+              <label><input type="radio" name="distant" value="non"><span class="pastille"></span>Non</label>
+              <label><input type="radio" name="distant" value="inconnu" checked><span class="pastille"></span>Je ne sais pas</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="q">Q5</span> Degré d'urgence</legend>
+            <div class="choix" role="group">
+              <label class="u-arret"><input type="radio" name="urgence" value="Production arrêtée" checked><span class="pastille"></span>Production arrêtée</label>
+              <label class="u-degrade"><input type="radio" name="urgence" value="Marche dégradée"><span class="pastille"></span>Marche dégradée</label>
+              <label class="u-planifie"><input type="radio" name="urgence" value="Planifiable"><span class="pastille"></span>Planifiable</label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span class="q">Q6</span> Qui appelle&nbsp;?</legend>
+            <div class="champs">
+              <div>
+                <label for="f-site">Site ou entreprise</label>
+                <input id="f-site" name="site" type="text" autocomplete="organization" placeholder="Nom du site">
+              </div>
+              <div>
+                <label for="f-nom">Votre nom</label>
+                <input id="f-nom" name="nom" type="text" autocomplete="name" placeholder="Prénom et nom">
+              </div>
+              <div>
+                <label for="f-tel">Téléphone direct</label>
+                <input id="f-tel" name="tel" type="tel" autocomplete="tel" placeholder="Numéro où vous joindre">
+              </div>
+              <div>
+                <label for="f-machine">Machine ou ligne</label>
+                <input id="f-machine" name="machine" type="text" placeholder="Repère de la machine">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- cartouche vivant -->
+        <aside class="cartouche" aria-live="polite">
+          <div class="cart-tete"><span>FICHE D'INTERVENTION</span><b id="cart-date">—</b></div>
+
+          <div class="voie" id="voie">
+            <span class="led" aria-hidden="true"></span>
+            <div>
+              <h3 id="voie-titre">Répondez aux questions</h3>
+              <p id="voie-texte">La voie recommandée et la liste de ce qu'il faut préparer s'affichent ici au fur et à mesure.</p>
+            </div>
+          </div>
+
+          <ul class="lignes">
+            <li><span class="k">SITUATION</span><span class="v" id="l-situation">—</span></li>
+            <li><span class="k">ORGANE</span><span class="v" id="l-organe">—</span></li>
+            <li><span class="k">AUTOMATE</span><span class="v" id="l-marque">—</span></li>
+            <li><span class="k">ACCÈS DIST.</span><span class="v" id="l-distant">—</span></li>
+            <li><span class="k">URGENCE</span><span class="v" id="l-urgence">—</span></li>
+            <li><span class="k">SITE</span><span class="v vide" id="l-site">à compléter</span></li>
+            <li><span class="k">CONTACT</span><span class="v vide" id="l-contact">à compléter</span></li>
+            <li><span class="k">MACHINE</span><span class="v vide" id="l-machine">à compléter</span></li>
+          </ul>
+
+          <div class="cart-liste">
+            <h4>À relever avant d'appeler</h4>
+            <ol id="checklist"></ol>
+          </div>
+
+          <div class="cart-actions">
+            <button type="button" class="btn btn-fil" id="btn-copier">Copier la fiche</button>
+            <a class="btn btn-plein" id="btn-mail" href="#">Ouvrir un mail à SAITEC</a>
+          </div>
+          <p class="retour" id="retour">Fiche copiée dans le presse-papiers.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MÉTIERS ============ -->
+  <section id="metiers">
+    <div class="wrap">
+      <div class="sec-tete rev">
+        <span class="folio">F.02</span>
+        <div>
+          <h2>Trois métiers, un seul interlocuteur</h2>
+          <p class="intro">L'étude, le câblage et la programmation sont faits en interne, dans l'atelier de Roanne. C'est ce qui permet de reprendre une installation existante sans avoir à en démonter la logique.</p>
+        </div>
+      </div>
+      <div class="metiers rev">
+        <div class="metier" id="electricite">
+          <span class="folio">A</span>
+          <h3>Électricité industrielle</h3>
+          <p>Du choix du matériel à la mise en conformité des équipements. Les armoires, coffrets et baies sont câblés dans les locaux, mis sous tension et testés avant leur départ.</p>
+          <ul>
+            <li>Bureau d'étude</li>
+            <li>Câblage</li>
+            <li>Installations</li>
+          </ul>
+        </div>
+        <div class="metier" id="automatisme">
+          <span class="folio">B</span>
+          <h3>Automatisme</h3>
+          <p>Conception d'un programme neuf, adaptation d'un programme existant ou retrofit d'un automate obsolète — écran tactile, aide au diagnostic des pannes, enregistrement des données, suivi de production.</p>
+          <ul>
+            <li>Conception programme</li>
+            <li>Modification programme</li>
+            <li>Dépannage à distance</li>
+          </ul>
+        </div>
+        <div class="metier" id="maintenance">
+          <span class="folio">C</span>
+          <h3>Maintenance</h3>
+          <p>En préventif, pendant les arrêts programmés ou en renfort de vos équipes lors des congés. En curatif, remplacement des pièces défectueuses et remise en service de la machine.</p>
+          <ul>
+            <li>Préventive</li>
+            <li>Curative</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECTEURS ============ -->
+  <section class="secteurs" id="secteurs">
+    <div class="wrap">
+      <div class="sec-tete rev">
+        <span class="folio">F.03</span>
+        <div>
+          <h2>Les ateliers où SAITEC intervient</h2>
+          <p class="intro">Chaque industrie impose ses contraintes à l'armoire et au programme. Choisissez la vôtre pour voir ce que ça change concrètement.</p>
+        </div>
+      </div>
+      <div class="puces" id="puces" role="group" aria-label="Choisir un secteur"></div>
+      <div class="panneau" id="panneau">
+        <div>
+          <h3 id="p-titre"></h3>
+          <p id="p-texte"></p>
+        </div>
+        <span class="rep" id="p-rep"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RÉALISATIONS ============ -->
+  <section>
+    <div class="wrap">
+      <div class="sec-tete rev">
+        <span class="folio">F.04</span>
+        <div>
+          <h2>Sur les machines, pas sur le papier</h2>
+          <p class="intro">Photos prises sur les chantiers et dans l'atelier de SAITEC. Les noms des sites clients n'y figurent pas.</p>
+        </div>
+      </div>
+      <div class="travaux rev">
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-1.jpg" alt="Coffret inox équipé d'un écran tactile, installé le long d'une ligne de production" loading="lazy">
+          <figcaption><b>COFFRET INOX + IHM</b>Terminal tactile en coffret inox, posé au plus près de la ligne, en zone lavable.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-2.jpg" alt="Intérieur d'une armoire électrique en cours de câblage, appareillage aligné sur rails" loading="lazy">
+          <figcaption><b>INTÉRIEUR D'ARMOIRE</b>Appareillage aligné et fils repérés, avant essais sous tension à l'atelier.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-3.jpg" alt="Pupitre de commande intégré au bâti d'une machine, en atelier" loading="lazy">
+          <figcaption><b>PUPITRE MACHINE</b>Pupitre intégré au bâti, boutons et voyants posés selon l'ordre des opérations.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-4.jpg" alt="Modules d'entrées et sorties d'un automate ancienne génération, avant retrofit" loading="lazy">
+          <figcaption><b>AVANT RETROFIT</b>Cartes d'entrées/sorties d'un automate ancienne génération, encore en service.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-5.jpg" alt="Face avant d'armoire avec écran tactile, boutons et arrêt d'urgence, dossier de schémas posé devant" loading="lazy">
+          <figcaption><b>FACE AVANT</b>Écran, boutons et arrêt d'urgence — avec le dossier de schémas qui part avec l'armoire.</figcaption>
+        </figure>
+        <figure>
+          <img src="https://www.saitec-industrie.fr/IMG/jpg/realisation-6.jpg" alt="Pupitre inox à boutons lumineux étiquetés poste par poste" loading="lazy">
+          <figcaption><b>PUPITRE REPÉRÉ</b>Boutons lumineux étiquetés poste par poste, sur une ligne agroalimentaire.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MÉTHODE ============ -->
+  <section class="methode" id="entreprise">
+    <div class="wrap">
+      <div class="sec-tete rev">
+        <span class="folio">F.05</span>
+        <div>
+          <h2>De l'étude à la mise en service</h2>
+          <p class="intro">L'ordre est toujours le même, que le projet soit une armoire seule ou la reprise complète d'une machine.</p>
+        </div>
+      </div>
+      <div class="etapes rev">
+        <div class="etape">
+          <h3>Analyse fonctionnelle</h3>
+          <p>Le besoin est repris avec vos techniciens, en tenant compte des contraintes de votre process.</p>
+        </div>
+        <div class="etape">
+          <h3>Choix du matériel</h3>
+          <p>Sélection de l'appareillage et de l'automate, puis schémas électriques sous SEE Electrical Expert.</p>
+        </div>
+        <div class="etape">
+          <h3>Câblage en atelier</h3>
+          <p>Préparation des fils, montage de l'armoire ou du coffret dans les locaux de Roanne, aux normes en vigueur.</p>
+        </div>
+        <div class="etape">
+          <h3>Essais sous tension</h3>
+          <p>Chaque armoire est mise sous tension et testée à l'atelier avant d'être expédiée.</p>
+        </div>
+        <div class="etape">
+          <h3>Mise en service</h3>
+          <p>Pose des actionneurs et des capteurs, cheminements, raccordements, programmation des automates et des terminaux.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-tete rev">
+        <span class="folio">F.06</span>
+        <div>
+          <h2>Parler à quelqu'un qui connaît les automates</h2>
+          <p class="intro">Le plus court reste le téléphone. Pour une demande d'étude ou une évolution, le mail suffit — et la fiche préparée plus haut peut y être collée telle quelle.</p>
+        </div>
+      </div>
+      <div class="contact-grid">
+        <ul class="coord">
+          <li><span class="k">SOCIÉTÉ</span><span class="v">SAITEC AUTOMATISMES</span></li>
+          <li><span class="k">ATELIER</span><span class="v">96 rue de Saint Alban<br>42300 Roanne</span></li>
+          <li><span class="k">FIXE</span><span class="v"><a href="tel:+33477714128">04 77 71 41 28</a></span></li>
+          <li><span class="k">MOBILE</span><span class="v"><a href="tel:+33672442630">06 72 44 26 30</a></span></li>
+          <li><span class="k">MAIL</span><span class="v"><a href="mailto:saitecindus@sfr.fr">saitecindus@sfr.fr</a></span></li>
+          <li><span class="k">ZONE</span><span class="v">Roanne et la Loire, France entière, et à l'étranger</span></li>
+        </ul>
+        <div class="aFournir">
+          <b>Photo de l'atelier</b>
+          À fournir par SAITEC. Aucune photo des locaux ou de l'équipe n'existe aujourd'hui sur le site actuel : cet emplacement est laissé vide plutôt que rempli par une image qui ne serait pas la vôtre.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="pied-haut">
+      <div>
+        <h4>SAITEC Automatismes</h4>
+        <p style="margin:0">Bureau d'études, atelier de câblage et interventions sur site. Électricité industrielle, automatisme et maintenance, depuis Roanne.</p>
+      </div>
+      <div>
+        <h4>Métiers</h4>
+        <ul>
+          <li><a href="#electricite">Électricité industrielle</a></li>
+          <li><a href="#automatisme">Automatisme</a></li>
+          <li><a href="#maintenance">Maintenance</a></li>
+          <li><a href="#secteurs">Secteurs d'intervention</a></li>
+          <li><a href="#intervention">Préparer une intervention</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>96 rue de Saint Alban, 42300 Roanne</li>
+          <li><a href="tel:+33477714128">04 77 71 41 28</a></li>
+          <li><a href="tel:+33672442630">06 72 44 26 30</a></li>
+          <li><a href="mailto:saitecindus@sfr.fr">saitecindus@sfr.fr</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cart-plan">
+      <div><span>AFFAIRE</span><b>SAITEC Automatismes — Roanne</b></div>
+      <div><span>OBJET</span><b>Maquette de site, page d'accueil</b></div>
+      <div><span>INDICE</span><b>A</b></div>
+      <div><span>DATE</span><b>01/09/2026</b></div>
+      <div><span>ÉTABLI PAR</span><b>Thibault Quentin</b></div>
+    </div>
+
+    <p class="mention">
+      Maquette de démonstration réalisée sans commande, à partir des seules informations publiées par SAITEC Automatismes (site saitec-industrie.fr et mentions légales) : coordonnées, rubriques, secteurs d'intervention, marques d'automates et méthode de travail sont repris tels quels. Les photos sont les photos réelles publiées par SAITEC ; aucune image d'illustration ni mise en scène n'a été ajoutée, et l'emplacement « photo de l'atelier » reste volontairement vide. Aucun avis client, chiffre d'activité, certification ni référence de client n'est affiché : rien de tout cela n'a pu être vérifié. La couleur principale reprend celle déclarée dans la feuille de style du site actuel ; le repérage jaune, vert et rouge vient des boutons visibles sur les photos d'installations. Les questions du formulaire ne déclenchent aucun envoi : la fiche reste dans le navigateur tant que vous ne l'envoyez pas vous-même. Tout est ajustable.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- menu mobile ---- */
+  var burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',function(){
+    var o=menu.classList.toggle('ouvert');
+    burger.setAttribute('aria-expanded',o?'true':'false');
+  });
+  menu.addEventListener('click',function(e){
+    if(e.target.tagName==='A'){menu.classList.remove('ouvert');burger.setAttribute('aria-expanded','false');}
+  });
+
+  /* ---- défilé : dupliqué pour une boucle continue ---- */
+  var d=document.getElementById('defile');
+  d.innerHTML=d.innerHTML+d.innerHTML;
+
+  /* ---- révélation unique ---- */
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        /* révèle aussi les blocs franchis d'un coup (ancre, retour arrière) */
+        if(e.isIntersecting || e.boundingClientRect.top < 0){e.target.classList.add('vu');io.unobserve(e.target);}
+      });
+    },{threshold:.14});
+    document.querySelectorAll('.rev').forEach(function(el){io.observe(el);});
+  }else{
+    document.querySelectorAll('.rev').forEach(function(el){el.classList.add('vu');});
+  }
+
+  /* =========================================================
+     SECTEURS — texte fondé sur les secteurs réellement cités
+     par SAITEC et sur les contraintes usuelles de ces ateliers.
+     ========================================================= */
+  var SECTEURS=[
+    {n:"Agroalimentaire",r:"IP / INOX",t:"Lavage quotidien, environnement humide : coffrets inox, presse-étoupes et pupitres qui supportent le jet. Les boutons sont repérés poste par poste pour que l'opérateur n'ait pas à deviner."},
+    {n:"Textile",r:"CADENCE",t:"Machines anciennes remises au goût du jour plutôt que remplacées : le programme est repris, l'automate changé si besoin, la logique de la machine conservée."},
+    {n:"Teinturerie",r:"RECETTES",t:"Séquences de bains et de températures à tenir à l'identique d'une série à l'autre. L'écran doit rendre la recette lisible et le suivi consultable."},
+    {n:"Industrie du cuir",r:"POSTES",t:"Postes multiples sur une même ligne, chacun avec ses commandes. L'enjeu est le repérage : savoir depuis le pupitre ce qui bloque et où."},
+    {n:"Injection plastique",r:"CYCLES",t:"Cycles courts et répétés, où le moindre défaut se compte en pièces perdues. Aide au diagnostic sur l'IHM pour ne pas chercher la panne à l'aveugle."},
+    {n:"Incinération",r:"CONTINU",t:"Installation qui tourne en continu : les interventions se calent sur les arrêts programmés, et le préventif compte davantage que le curatif."},
+    {n:"Traitement des eaux",r:"AUTOMATE",t:"Pompes, vannes et mesures pilotées automatiquement, souvent sur plusieurs ouvrages. La supervision et la remontée d'informations font le gros du travail."},
+    {n:"Cosmétique",r:"TRAÇAB.",t:"Enregistrement des données et suivi de production intégrés au programme, pour que ce qui a été fabriqué reste retrouvable."},
+    {n:"Militaire",r:"CAHIER",t:"Cahier des charges strict, matériel imposé, documentation attendue. Les schémas et le dossier suivent l'équipement."},
+    {n:"Tertiaire",r:"BÂTIMENT",t:"Hors industrie : distribution, armoires et automatismes de bâtiment, avec les mêmes exigences de repérage et de dossier."}
+  ];
+  var puces=document.getElementById('puces'),
+      pT=document.getElementById('p-titre'), pX=document.getElementById('p-texte'), pR=document.getElementById('p-rep');
+  SECTEURS.forEach(function(s,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='puce';b.textContent=s.n;b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.addEventListener('click',function(){
+      puces.querySelectorAll('.puce').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      pT.textContent=s.n;pX.textContent=s.t;pR.textContent=s.r;
+    });
+    puces.appendChild(b);
+  });
+  pT.textContent=SECTEURS[0].n;pX.textContent=SECTEURS[0].t;pR.textContent=SECTEURS[0].r;
+
+  /* =========================================================
+     OUTIL « LIGNE À L'ARRÊT »
+     Les recommandations reprennent uniquement ce que SAITEC
+     annonce publiquement : prise en main à distance des
+     programmations, intervention curative « en général le jour
+     même ou le lendemain suivant le degré d'urgence », étude
+     et câblage réalisés en interne à Roanne.
+     ========================================================= */
+  var form=document.getElementById('form-int');
+  var LIB={
+    situation:{arret:"Machine complètement arrêtée",intermittent:"Défaut intermittent",ihm:"Écran ou pupitre figé",evolution:"Évolution à faire",projet:"Projet neuf"},
+    organe:{automate:"Automate / programme",ihm:"IHM, pupitre, terminal",armoire:"Armoire, coffret, câblage",reseau:"Réseau, variateur, capteurs",inconnu:"Non identifié"},
+    distant:{oui:"Oui, déjà en place",non:"Non",inconnu:"À vérifier"}
+  };
+
+  function val(n){var e=form.querySelector('input[name="'+n+'"]:checked');return e?e.value:'';}
+  function txt(n){var e=form.querySelector('input[name="'+n+'"]');return e?e.value.trim():'';}
+
+  function voieDe(s,o,dist){
+    if(s==='projet'||s==='evolution') return 'etude';
+    if(o==='armoire') return 'site';
+    if(dist==='oui') return 'distance';
+    if(dist==='inconnu') return 'verifier';
+    return 'site';
+  }
+
+  var VOIES={
+    distance:{c:'on',h:"Commencez par la télémaintenance",
+      p:"SAITEC prend la main à distance sur les programmations pour dépanner sans se déplacer. Avec un accès déjà en place, c'est le chemin le plus court : appelez, donnez le code défaut, la connexion peut se faire dans la foulée."},
+    verifier:{c:'on',h:"Vérifiez d'abord s'il y a un accès distant",
+      p:"Si un routeur ou un VPN existe sur cette machine, le dépannage peut démarrer à distance sans attendre un déplacement. Demandez-le à votre service informatique avant d'appeler — c'est souvent quelques minutes gagnées, parfois une demi-journée."},
+    site:{c:'site',h:"Intervention sur site",
+      p:"Un défaut de câblage, d'appareillage ou une machine muette se traite sur place. SAITEC annonce intervenir en général le jour même ou le lendemain, selon le degré d'urgence."},
+    etude:{c:'etude',h:"Passage par le bureau d'études",
+      p:"Une évolution ou un projet neuf commence par l'analyse fonctionnelle avec vos techniciens, puis le choix du matériel et les schémas. Le câblage se fait ensuite à l'atelier de Roanne, essais sous tension compris."}
+  };
+
+  function checklist(s,o,marque,dist,voie){
+    var L=[];
+    L.push("Le repère exact de la machine ou de la ligne concernée");
+    if(voie==='etude'){
+      L.push("Ce que la machine doit faire de plus, ou de différent, à l'arrivée");
+      L.push("Les schémas électriques existants, s'ils sont retrouvables");
+      L.push("La marque et le modèle de l'automate en place (" + marque + ")");
+      L.push("La date d'arrêt technique la plus proche, si l'intervention doit s'y caler");
+      return L;
+    }
+    L.push("Ce qui a changé en dernier : pièce remplacée, programme modifié, arrêt technique récent");
+    if(s==='intermittent') L.push("À quel moment le défaut retombe : au démarrage, en charge, après un temps de marche");
+    if(s==='ihm'||o==='ihm') L.push("Le message exact affiché à l'écran, et une photo de l'écran");
+    if(o==='automate'||o==='reseau'||o==='inconnu'){
+      L.push("La référence exacte de l'automate (" + marque + ") et, si elle est connue, la version du programme");
+      L.push("Les voyants de défaut allumés sur l'automate et sur les cartes");
+    }
+    if(o==='armoire'){
+      L.push("Le repère du départ concerné et l'état des protections (disjoncteur, fusible, relais)");
+      L.push("Une photo de l'intérieur de l'armoire, porte ouverte");
+    }
+    if(o==='reseau') L.push("Les équipements qui ne répondent plus : variateur, capteur, îlot d'entrées/sorties");
+    L.push("Le dossier de schémas électriques, s'il est disponible sur le site");
+    if(dist!=='non') L.push("Le nom de la personne qui peut ouvrir l'accès distant côté informatique");
+    return L;
+  }
+
+  function fiche(){
+    var s=val('situation'),o=val('organe'),m=val('marque'),dist=val('distant'),u=val('urgence');
+    var voie=voieDe(s,o,dist), V=VOIES[voie];
+    var L=checklist(s,o,m,dist,voie);
+
+    document.getElementById('l-situation').textContent=LIB.situation[s];
+    document.getElementById('l-organe').textContent=LIB.organe[o];
+    document.getElementById('l-marque').textContent=m;
+    document.getElementById('l-distant').textContent=LIB.distant[dist];
+    document.getElementById('l-urgence').textContent=u;
+
+    [['site','l-site','à compléter'],['nom','l-contact','à compléter'],['machine','l-machine','à compléter']].forEach(function(p){
+      var el=document.getElementById(p[1]), v=txt(p[0]);
+      if(p[0]==='nom'){var t=txt('tel'); v=v&&t?v+' — '+t:(v||t);}
+      el.textContent=v||p[2];
+      el.classList.toggle('vide',!v);
+    });
+
+    var vo=document.getElementById('voie');
+    vo.className='voie '+V.c;
+    document.getElementById('voie-titre').textContent=V.h;
+    document.getElementById('voie-texte').textContent=V.p;
+
+    var ol=document.getElementById('checklist');
+    ol.innerHTML='';
+    L.forEach(function(x){var li=document.createElement('li');li.textContent=x;ol.appendChild(li);});
+
+    var dt=new Date();
+    var jj=('0'+dt.getDate()).slice(-2)+'/'+('0'+(dt.getMonth()+1)).slice(-2)+'/'+dt.getFullYear();
+    document.getElementById('cart-date').textContent=jj+' — INDICE A';
+
+    var lignes=[
+      "DEMANDE D'INTERVENTION — SAITEC AUTOMATISMES",
+      "Date : "+jj,
+      "",
+      "Site : "+(txt('site')||"(à compléter)"),
+      "Contact : "+(txt('nom')||"(à compléter)")+(txt('tel')?" — "+txt('tel'):""),
+      "Machine / ligne : "+(txt('machine')||"(à compléter)"),
+      "",
+      "Situation : "+LIB.situation[s],
+      "Partie concernée : "+LIB.organe[o],
+      "Automate : "+m,
+      "Accès distant : "+LIB.distant[dist],
+      "Urgence : "+u,
+      "",
+      "Voie recommandée : "+V.h,
+      V.p,
+      "",
+      "Éléments relevés :"
+    ].concat(L.map(function(x,i){return (i+1)+". "+x;}));
+    var texte=lignes.join("\n");
+
+    document.getElementById('btn-copier').dataset.texte=texte;
+    document.getElementById('btn-mail').href=
+      "mailto:saitecindus@sfr.fr?subject="+encodeURIComponent("Demande d'intervention — "+(txt('site')||"site à préciser")+" — "+u)
+      +"&body="+encodeURIComponent(texte);
+  }
+
+  form.addEventListener('change',fiche);
+  form.addEventListener('input',fiche);
+  form.addEventListener('submit',function(e){e.preventDefault();});
+  fiche();
+
+  var btnC=document.getElementById('btn-copier'), retour=document.getElementById('retour');
+  btnC.addEventListener('click',function(){
+    var t=btnC.dataset.texte||'';
+    function ok(){retour.classList.add('vu');setTimeout(function(){retour.classList.remove('vu');},3200);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(ok,secours);
+    }else{secours();}
+    function secours(){
+      var ta=document.createElement('textarea');
+      ta.value=t;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.top='-1000px';
+      document.body.appendChild(ta);ta.select();
+      try{document.execCommand('copy');ok();}catch(err){retour.textContent="Copie impossible : sélectionnez le texte de la fiche à la main.";retour.classList.add('vu');}
+      document.body.removeChild(ta);
+    }
+  });
+})();
+</script>
+</body>
+</html>
