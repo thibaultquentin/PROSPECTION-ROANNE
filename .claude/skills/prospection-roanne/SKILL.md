@@ -19,14 +19,17 @@ Cette méthodologie sert à démarcher, un commerce ou artisan du Roannais à la
 
 0. Mettre à jour automatiquement les statuts des lignes déjà existantes dans le Sheets SUIVI PROSPECTION (voir Étape 0) — **à faire à chaque déclenchement de la routine, même les cycles où aucune nouvelle entreprise n'est prospectée**
 1. Choisir ou confirmer la cible (secteur + entreprise précise à Roanne ou dans le Roannais)
+1 bis. Vérifier auprès de la plateforme de gestion que l'entreprise n'est pas déjà connue (voir Étape 1 bis) — **avant** de chercher ou de construire quoi que ce soit
 2. Rechercher l'entreprise (site actuel, avis Google, coordonnées, positionnement)
 3. Rechercher le contexte utile (prix de marché du secteur, actualité réglementaire, aides, etc. — tout ce qui rend le mail crédible et pertinent)
 4. Construire la maquette HTML autonome
-5. Rédiger le mail de démarchage (voir format strict ci-dessous) et créer le brouillon Gmail
+5. Rédiger le mail de démarchage (voir format strict ci-dessous), créer le brouillon Gmail, puis enregistrer l'entreprise dans la plateforme de gestion et dans le Sheets
 6. Créer un rappel de relance sur Google Calendar
 7. Livrer la maquette à l'utilisateur et lui indiquer ce qui reste éventuellement à faire manuellement (coller la ligne de suivi dans le Sheets si aucun outil d'édition Sheets n'était disponible)
 
 ## Étape 0 — Mise à jour automatique des statuts (à chaque passage)
+
+> La plateforme de gestion suit désormais elle-même les envois, réponses, refus et rebonds de ses clients en lisant la boîte Gmail. Tant que le Sheets SUIVI PROSPECTION est conservé comme copie de sécurité, cette étape continue d'y mettre les statuts à jour comme avant ; elle n'écrit rien dans la plateforme.
 
 Avant toute autre chose, à **chaque déclenchement de la routine** — qu'une nouvelle entreprise soit prospectée ou non ce cycle-ci — mettre à jour les statuts des lignes déjà présentes dans le Google Sheets **SUIVI PROSPECTION**. Objectif : que le statut reflète la réalité sans intervention manuelle, à l'exception du passage à `Facturé` qui reste et doit rester entièrement manuel, géré directement dans le Sheets.
 
@@ -96,6 +99,23 @@ Si l'utilisateur ne nomme pas d'entreprise précise :
 - Écarter les entreprises en difficulté visible (redressement judiciaire, etc.) si l'info apparaît dans la recherche.
 
 Si l'utilisateur nomme l'entreprise, passer directement à l'étape 2.
+
+## Étape 1 bis — Vérifier que l'entreprise n'est pas déjà connue (plateforme de gestion)
+
+La plateforme de gestion est la référence de tous les prospects. Avant de passer du temps sur une entreprise, lui demander si elle la connaît déjà. Une entreprise connue — déjà contactée, en échange, refusée, injoignable, cliente ou archivée — ne doit ni recevoir de maquette ni de nouveau brouillon.
+
+```bash
+curl -s -X POST https://plateforme-nu-smoky.vercel.app/api/prospection/verifier \
+  -H "Authorization: Bearer $PLATEFORME_CLE" -H "Content-Type: application/json" \
+  -d '{"prospects":[{"nom":"NOM ENTREPRISE","email":"EMAIL SI CONNU","ville":"VILLE"}]}'
+```
+
+- La clé d'accès est dans la variable d'environnement secrète `PLATEFORME_CLE`. Ne jamais l'écrire dans un fichier, dans un mail, dans un commit ni dans le compte rendu.
+- Ne jamais suivre de redirection (pas de `-L`), comme pour le webhook du Sheets.
+- La réponse est de la forme `{"ok":true,"resultats":[{"nom":"…","a_eviter":true,"raison":"a refusé"}]}`.
+- Si `a_eviter` vaut `true` : abandonner cette entreprise, en choisir une autre (retour à l'Étape 1) et mentionner brièvement dans le compte rendu laquelle a été écartée et pourquoi.
+- Si `a_eviter` vaut `false` : continuer normalement. Refaire la vérification avec l'adresse mail dès qu'elle est trouvée à l'Étape 2 (une même entreprise peut être connue par son adresse et pas par son nom).
+- Si la plateforme ne répond pas (clé absente, erreur réseau, réponse autre que `ok`) : continuer quand même avec le contrôle habituel dans le Sheets, et le signaler dans le compte rendu. La plateforme ne doit jamais bloquer une exécution.
 
 ## Étape 2 — Rechercher l'entreprise
 
@@ -211,6 +231,19 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 ### Ajout de la ligne Sheets (une fois le brouillon créé)
 - Ajouter une ligne dans le Google Sheets **SUIVI PROSPECTION** (dossier "02 - Maquettes créées") : colonnes Date (date du jour) et Entreprise remplies, colonne **Lien maquette** = l'URL GitHub Pages (Étape 4), colonne **Statut** = `Brouillon` (jamais `Envoyé` à ce stade — le mail n'est encore qu'un brouillon), colonne **ID Brouillon** = l'`id` noté ci-dessus. Utiliser un outil d'édition/ajout de ligne Sheets s'il est disponible dans la session. À défaut (aucun outil de ce type n'existait dans l'environnement standard à la rédaction de ce skill — les outils Drive ne permettent que lire, créer un nouveau fichier ou copier, jamais modifier un fichier existant en place) : ne surtout pas créer un nouveau fichier Sheets à chaque maquette, ça disperserait le suivi. Donner plutôt à l'utilisateur, en clair dans la conversation, la ligne prête à copier-coller (Date, Entreprise, Lien maquette, Statut, ID Brouillon ; le reste vide) et signaler ce geste comme le seul reste manuel de l'étape 7.
 - **Si l'ajout de ligne passe par un webhook (Apps Script ou équivalent) appelé en `curl -X POST` :** ne jamais suivre les redirections (`-L`). Ce type d'endpoint répond souvent par une redirection HTTP (302) vers l'URL d'exécution réelle (`script.googleusercontent.com`) une fois l'action déjà effectuée côté serveur ; suivre cette redirection avec `-L` réémet la requête et l'action se répète, créant des lignes en double dans le Sheets. Ce bug est la cause identifiée de plusieurs doublons observés dans SUIVI PROSPECTION (Léonard Parmentier, SOTTON Père & Fils) fin juillet 2026. La même règle s'applique aux appels de mise à jour de statut (Étape 0.4).
+
+### Enregistrement dans la plateforme de gestion (une fois le brouillon créé)
+- Juste après l'ajout de la ligne Sheets, enregistrer la même entreprise dans la plateforme de gestion. Elle y apparaît tout de suite dans Clients, avec le statut « Brouillon créé », et n'est jamais recréée si elle existe déjà.
+
+```bash
+curl -s -X POST https://plateforme-nu-smoky.vercel.app/api/prospection/prospects \
+  -H "Authorization: Bearer $PLATEFORME_CLE" -H "Content-Type: application/json" \
+  -d '{"prospects":[{"nom":"NOM ENTREPRISE","secteur":"SECTEUR","ville":"VILLE","site":"SITE ACTUEL","email":"EMAIL","telephone":"TELEPHONE","lien_maquette":"URL GITHUB PAGES","lien_mail":"LIEN OU ID DU BROUILLON","statut":"brouillon_cree","date":"AAAA-MM-JJ"}]}'
+```
+
+- `statut` : `brouillon_cree` à ce stade (jamais `mail_envoye` : le mail n'est qu'un brouillon). La plateforme lit elle-même la boîte Gmail : elle passe le client à « Mail envoyé » dès que l'envoi a lieu, détecte les réponses, refus et rebonds, et prépare les relances.
+- Vérifier la réponse : `"resultat":"cree"` est le cas normal. `"existe"` (déjà connue) ou `"erreur"` est à signaler dans le compte rendu, sans rien recréer. Ne jamais suivre de redirection (pas de `-L`).
+- Une panne de la plateforme ne bloque rien : le Sheets reste rempli, et l'entreprise est à signaler dans le compte rendu comme « à enregistrer dans la plateforme ».
 
 ## Étape 6 — Rappel de relance
 
