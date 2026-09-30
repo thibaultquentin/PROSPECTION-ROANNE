@@ -17,7 +17,7 @@ Cette méthodologie sert à démarcher, un commerce ou artisan du Roannais à la
 
 ## Vue d'ensemble du processus
 
-0. Mettre à jour automatiquement les statuts des lignes déjà existantes dans le Sheets SUIVI PROSPECTION (voir Étape 0) — **à faire à chaque déclenchement de la routine, même les cycles où aucune nouvelle entreprise n'est prospectée**
+0. (Plus de suivi des statuts par la routine : la plateforme de gestion s'en charge, voir Étape 0)
 1. Choisir ou confirmer la cible (secteur + entreprise précise à Roanne ou dans le Roannais)
 1 bis. Vérifier auprès de la plateforme de gestion que l'entreprise n'est pas déjà connue (voir Étape 1 bis) — **avant** de chercher ou de construire quoi que ce soit
 2. Rechercher l'entreprise (site actuel, avis Google, coordonnées, positionnement)
@@ -27,69 +27,9 @@ Cette méthodologie sert à démarcher, un commerce ou artisan du Roannais à la
 6. Créer un rappel de relance sur Google Calendar
 7. Livrer la maquette à l'utilisateur et lui indiquer ce qui reste éventuellement à faire manuellement (coller la ligne de suivi dans le Sheets si aucun outil d'édition Sheets n'était disponible)
 
-## Étape 0 — Mise à jour automatique des statuts (à chaque passage)
+## Étape 0 — Le suivi des statuts n'est plus fait par la routine
 
-> La plateforme de gestion suit désormais elle-même les envois, réponses, refus et rebonds de ses clients en lisant la boîte Gmail. Tant que le Sheets SUIVI PROSPECTION est conservé comme copie de sécurité, cette étape continue d'y mettre les statuts à jour comme avant ; elle n'écrit rien dans la plateforme.
-
-Avant toute autre chose, à **chaque déclenchement de la routine** — qu'une nouvelle entreprise soit prospectée ou non ce cycle-ci — mettre à jour les statuts des lignes déjà présentes dans le Google Sheets **SUIVI PROSPECTION**. Objectif : que le statut reflète la réalité sans intervention manuelle, à l'exception du passage à `Facturé` qui reste et doit rester entièrement manuel, géré directement dans le Sheets.
-
-Le cycle de vie d'un statut est désormais : `Brouillon` → `Envoyé` (automatique) → `Refusé` ou `En échange` (automatique, selon la nature de la réponse) → `Facturé` (manuel, jamais touché par la routine). Le champ Statut doit toujours reprendre exactement l'une des valeurs déjà présentes dans la liste déroulante de la colonne (actuellement : `Brouillon`, `Envoyé`, `Refusé`, `⚠️Adresse mail`, `En échange`, `Facturé`) — ne jamais en inventer une nouvelle, même proche (« Échange », « Négociations »…), sous peine de créer un statut orphelin en dehors de la liste. En cas de doute sur l'orthographe exacte d'une valeur, vérifier la liste déroulante réelle de la colonne avant d'écrire.
-
-### 0.1 — Détection des envois (`Brouillon` → `Envoyé`)
-
-- Lire les lignes du Sheets dont le Statut vaut `Brouillon` et dont la colonne **ID Brouillon** n'est pas vide (voir Étape 5 pour son remplissage).
-- Appeler `Gmail:list_drafts` pour obtenir la liste des brouillons actuellement présents dans la boîte.
-- Pour chaque ligne dont l'ID Brouillon stocké n'apparaît plus dans cette liste (il a disparu des brouillons depuis le dernier passage) :
-  - Vérifier avant de conclure à un envoi réel : chercher un message envoyé vers l'adresse de la ligne avec `Gmail:search_threads`, requête `to:<email de la ligne> in:sent`. Si un message envoyé est retrouvé → passer le Statut à `Envoyé` et renseigner la colonne **Date Envoi** avec la date de ce message envoyé (nécessaire pour le calcul du délai à l'étape 0.3).
-  - Si aucun message envoyé n'est retrouvé (le brouillon a été supprimé sans être envoyé) → laisser le Statut à `Brouillon`, ajouter une note « Brouillon disparu sans envoi détecté – à vérifier » dans la colonne Notes (sans écraser une note déjà présente), et ne pas inventer de Date Envoi.
-- Appliquer la mise à jour via le webhook (voir 0.4), jamais en recréant une ligne.
-
-### 0.2 — Détection des réponses (`Envoyé` → `Refusé` ou `En échange`)
-
-- Lire les lignes dont le Statut vaut `Envoyé` et dont la colonne **Date Envoi** est renseignée.
-- Pour chacune, chercher une réponse du prospect avec `Gmail:search_threads`, requête `from:<email du prospect> after:<Date Envoi moins 1 jour>` (la marge d'un jour absorbe les décalages de fuseau horaire). **Ne pas se limiter au fil (thread) du mail envoyé** : certaines réponses automatiques atterrissent dans un thread Gmail distinct plutôt que dans le fil d'origine (constaté en pratique sur les dossiers Palluet Frères et Immo Factory, où le sujet de la réponse — préfixé `Auto:` ou `Re :` — casse le rattachement au fil).
-- Aucun résultat → ne rien changer.
-- Un ou plusieurs résultats → prendre le message le plus ancien reçu après la Date Envoi et lui appliquer les critères de détection de réponse automatique (étape 0.3).
-
-### 0.3 — Détection d'une réponse automatique
-
-Un seul des critères suivants suffit à classer la réponse comme automatique — dans ce cas le Statut reste `Envoyé`, on se contente d'ajouter une note :
-- **Délai** entre la Date Envoi et la date de réception de la réponse strictement inférieur à 5 minutes.
-- **Mots-clés** présents dans l'objet ou dans les ~200 premiers caractères du corps du message reçu (recherche insensible à la casse) : « réponse automatique », « absence du bureau », « hors du bureau », « en congés », « message généré automatiquement », « accusé de réception ».
-- **En-tête technique `Auto-Submitted`** (ou équivalent) sur le message reçu. *Limite connue à la rédaction de cette étape : l'outil `Gmail` disponible dans cette session (`get_message` / `get_thread`) ne renvoie pas les en-têtes MIME bruts, seulement expéditeur, destinataires, objet, date, corps et pièces jointes — ce critère n'est donc pas vérifiable techniquement tant que cet accès n'existe pas. Ne pas bloquer dessus : les deux critères ci-dessus suffisent en pratique (ils ont capturé les deux seuls cas de réponse automatique observés à ce jour : délai de 14 secondes pour Immo Factory, mot-clé « congés » dans le même message).*
-
-Si un critère est vérifié → Statut inchangé (`Envoyé`), ajouter une note du type `Réponse auto détectée le JJ/MM (délai Xs / mot-clé « … »​) – ignorée`.
-
-Sinon, c'est une réponse humaine réelle : lire son contenu pour distinguer un refus explicite d'un échange normal — ne jamais deviner un statut sans avoir lu la réponse.
-- **Refus explicite** (formulations du type « pas de besoin actuellement », « nous avons déjà un prestataire », « pas intéressé », ou tout refus sans ambiguïté) → passer le Statut à `Refusé`, ajouter une note du type `Refus reçu le JJ/MM de <expéditeur>`.
-- **Toute autre réponse humaine** (question, intérêt, demande de précision, négociation…) → passer le Statut à `En échange`, ajouter une note du type `Réponse reçue le JJ/MM de <expéditeur>`.
-
-### 0.4 — Mise à jour du Sheets : toujours par le webhook, jamais par une nouvelle ligne
-
-- Utiliser le même webhook Apps Script que pour l'ajout de ligne (voir Étape 4), avec `"action": "updateStatus"` dans le corps JSON et les champs `email` (clé de correspondance avec la ligne existante), `statut`, et selon le cas `dateEnvoi` et/ou `noteAppend`.
-- **La règle anti-duplication déjà en place vaut pour cet appel comme pour l'ajout de ligne : `curl -X POST` sans `-L`.** Une redirection 302 suivie réémettrait la requête et dupliquerait la note ou re-déclencherait la mise à jour.
-- Ne jamais utiliser l'action d'ajout de ligne pour corriger un statut existant — ça créerait un doublon dans SUIVI PROSPECTION.
-
-### 0.5 — Ce qui reste manuel
-
-Le passage à `Facturé` reste entièrement manuel, à faire directement dans le Sheets. La routine ne lit ni ne modifie jamais une ligne déjà à `Facturé`.
-
-### 0.6 — Détection des rebonds mail définitifs (adresse introuvable)
-
-Pour chaque ligne au Statut `Envoyé`, avant de chercher une réponse (0.2), vérifier l'absence de rebond : chercher via `Gmail:search_threads` un message système de rebond reçu après la Date Envoi (`from:mailer-daemon`, ou objet/corps contenant « Undelivered Mail Returned to Sender », « Delivery Status Notification (Failure) », « n'a pas pu être remis »).
-
-- **Rebond temporaire** (boîte pleine, délai de réessai — reconnaissable au message du serveur, ex. « des nouvelles tentatives seront effectuées pendant Xh ») : ce n'est pas un échec, ne rien changer, laisser la routine réessayer au passage suivant.
-- **Rebond définitif** (codes SMTP 550/551/552/553 5.1.1, « adresse introuvable ou ne peut pas recevoir de messages », « domaine introuvable », « le serveur distant n'est pas correctement configuré ») : passer à la recherche d'une adresse alternative ci-dessous.
-
-**Recherche d'une adresse alternative :**
-- Chercher une deuxième adresse mail plausible pour la même entreprise : site actuel, réseaux sociaux, annuaires professionnels (Pages Jaunes, Societe.com), fiches sponsor ou mentions locales trouvées par `web_search`.
-- Si une adresse est trouvée, renvoyer le même mail à cette adresse et surveiller à son tour son propre rebond au passage suivant, avec la même logique 0.6.
-- Recommencer jusqu'à épuisement raisonnable des pistes : en pratique une à deux adresses alternatives testées suffisent avant de conclure — ne pas multiplier les tentatives sur des adresses non vérifiées.
-
-**En cas d'échec total** (rebond définitif sur toutes les adresses trouvées, aucune piste supplémentaire raisonnable) :
-- **Ne plus supprimer la ligne du Google Sheets SUIVI PROSPECTION.** La garder, et faire passer son Statut à `⚠️Adresse mail` via le webhook (`"action": "updateStatus"`, voir 0.4), exactement comme n'importe quelle autre transition de statut de cette étape 0 — jamais de suppression manuelle demandée à l'utilisateur pour ce cas. Garder dans la colonne Email la dernière adresse testée (celle du dernier rebond définitif reçu).
-- **Garder (ou créer si besoin) le compte rendu de cette entreprise dans le dossier Drive « 01 - Entreprises trouvées »** (id `1VKwxL2yLZUlJrtul2XN3W8K69HOQ241M`), au même format que les autres comptes rendus du dossier : le travail de recherche et de construction de la maquette a bien été fait, seul l'envoi a échoué — ça reste à documenter normalement, comme pour toute entreprise prospectée. Préciser dans ce compte rendu que l'envoi a échoué (adresse introuvable) et renvoyer vers le document correspondant du dossier « 05 - Erreurs » ci-dessous pour le détail des tentatives.
-- **Créer en plus un document** dans le dossier Drive **« 05 - Erreurs » › « Adresses introuvables »** (id `1eCAU5s-o5Tza9DYAVfvcQXnT2xQTrndi`), nommé du nom de l'entreprise. Y résumer : chaque adresse testée avec la date et la nature exacte du rebond, la conclusion (aucune adresse valide trouvée), et la piste à suivre si l'entreprise est recontactée plus tard (autre canal : téléphone, formulaire de contact du site, courrier). Voir les documents « Gosetto Freres », « Ets Putanier » et « La Martinery » dans ce dossier pour le format à reprendre. Cette partie ne change pas par rapport à l'ancienne règle.
+La plateforme de gestion suit elle-même, en lisant la boîte Gmail, les envois, les réponses, les refus, les rebonds et les relances de chaque prospect. La routine **ne lit plus les réponses, ne vérifie plus les rebonds et ne modifie plus aucun statut** dans le Google Sheets SUIVI PROSPECTION (jamais d'appel `updateStatus`). Elle se limite à prospecter, à créer la maquette et le brouillon, à ajouter la ligne au Sheets (copie de sécurité) et à enregistrer l'entreprise dans la plateforme (Étape 5).
 
 ## Étape 1 — Choisir la cible
 
@@ -176,7 +116,7 @@ La maquette ne se dépose plus dans un dossier Drive : elle est publiée directe
 
 - Ajouter le fichier dans `maquettes/` du dépôt (même nom `nom-entreprise-ville.html`) avec l'outil GitHub disponible (`create_or_update_file` ou équivalent) — `owner: thibaultquentin`, `repo: PROSPECTION-ROANNE`, `path: maquettes/nom-entreprise-ville.html`, `branch: main`. Message de commit court, ex. `Add maquette for [Nom entreprise]`. Commit direct sur `main` : c'est un dépôt personnel, pas de pull request pour ce geste routinier.
 - L'URL publique qui en résulte suit toujours ce format : `https://thibaultquentin.github.io/PROSPECTION-ROANNE/maquettes/nom-entreprise-ville.html`. C'est cette URL — jamais un lien Drive — qui sert ensuite pour le mail (étape 5) et pour la ligne du tableau de suivi ci-dessous.
-- La ligne Sheets n'est **plus ajoutée à cette étape** : elle est ajoutée à l'étape 5, une fois le brouillon Gmail créé, pour pouvoir y stocker l'ID du brouillon (nécessaire à la détection automatique de l'envoi — voir Étape 0.1 et la règle anti-duplication `curl` sans `-L`, rappelée à l'étape 5). Continuer vers l'étape 5 avant de toucher au Sheets.
+- La ligne Sheets n'est **plus ajoutée à cette étape** : elle est ajoutée à l'étape 5, une fois le brouillon Gmail créé, pour pouvoir y stocker l'ID du brouillon (conservé comme référence dans le Sheets — voir la règle anti-duplication `curl` sans `-L`, rappelée à l'étape 5). Continuer vers l'étape 5 avant de toucher au Sheets.
 
 ## Étape 5 — Le mail de démarchage
 
@@ -226,11 +166,11 @@ Format fixe, toujours le même gabarit : `Nom de l'entreprise - Optimisation de 
 - Le mail part toujours en HTML, plus jamais en texte brut : utiliser `Gmail:create_draft` avec `to`, `subject`, `htmlBody` (version riche, avec le vrai lien `<a href="URL GitHub Pages">Maquette – [Nom entreprise]</a>` inséré au paragraphe correspondant) et `body` en complément (version texte de secours, pour les clients qui ne rendent pas le HTML) — dans `body` non plus, ne jamais faire apparaître l'URL : reformuler simplement, ex. « Maquette – [Nom entreprise] (lien cliquable dans ce message) ».
 - Dans `htmlBody`, séparer les trois lignes de la signature (prénom+nom / téléphone / ville) par des balises `<br>` explicites — un simple saut de ligne dans le HTML est ignoré au rendu et les regrouperait sur une seule ligne. Dans `body` (texte brut), un saut de ligne normal entre chaque suffit.
 - Plus de pièce jointe à gérer : la maquette vit sur GitHub Pages, pas dans le mail. Ne pas joindre le fichier HTML au brouillon.
-- **Noter l'`id` du brouillon renvoyé par `Gmail:create_draft`** : c'est cet identifiant qui permettra à l'Étape 0.1 de détecter automatiquement l'envoi au passage suivant de la routine.
+- **Noter l'`id` du brouillon renvoyé par `Gmail:create_draft`** : il est conservé dans le Sheets et transmis à la plateforme de gestion (champ `lien_mail`) comme référence du brouillon.
 
 ### Ajout de la ligne Sheets (une fois le brouillon créé)
 - Ajouter une ligne dans le Google Sheets **SUIVI PROSPECTION** (dossier "02 - Maquettes créées") : colonnes Date (date du jour) et Entreprise remplies, colonne **Lien maquette** = l'URL GitHub Pages (Étape 4), colonne **Statut** = `Brouillon` (jamais `Envoyé` à ce stade — le mail n'est encore qu'un brouillon), colonne **ID Brouillon** = l'`id` noté ci-dessus. Utiliser un outil d'édition/ajout de ligne Sheets s'il est disponible dans la session. À défaut (aucun outil de ce type n'existait dans l'environnement standard à la rédaction de ce skill — les outils Drive ne permettent que lire, créer un nouveau fichier ou copier, jamais modifier un fichier existant en place) : ne surtout pas créer un nouveau fichier Sheets à chaque maquette, ça disperserait le suivi. Donner plutôt à l'utilisateur, en clair dans la conversation, la ligne prête à copier-coller (Date, Entreprise, Lien maquette, Statut, ID Brouillon ; le reste vide) et signaler ce geste comme le seul reste manuel de l'étape 7.
-- **Si l'ajout de ligne passe par un webhook (Apps Script ou équivalent) appelé en `curl -X POST` :** ne jamais suivre les redirections (`-L`). Ce type d'endpoint répond souvent par une redirection HTTP (302) vers l'URL d'exécution réelle (`script.googleusercontent.com`) une fois l'action déjà effectuée côté serveur ; suivre cette redirection avec `-L` réémet la requête et l'action se répète, créant des lignes en double dans le Sheets. Ce bug est la cause identifiée de plusieurs doublons observés dans SUIVI PROSPECTION (Léonard Parmentier, SOTTON Père & Fils) fin juillet 2026. La même règle s'applique aux appels de mise à jour de statut (Étape 0.4).
+- **Si l'ajout de ligne passe par un webhook (Apps Script ou équivalent) appelé en `curl -X POST` :** ne jamais suivre les redirections (`-L`). Ce type d'endpoint répond souvent par une redirection HTTP (302) vers l'URL d'exécution réelle (`script.googleusercontent.com`) une fois l'action déjà effectuée côté serveur ; suivre cette redirection avec `-L` réémet la requête et l'action se répète, créant des lignes en double dans le Sheets. Ce bug est la cause identifiée de plusieurs doublons observés dans SUIVI PROSPECTION (Léonard Parmentier, SOTTON Père & Fils) fin juillet 2026.
 
 ### Enregistrement dans la plateforme de gestion (une fois le brouillon créé)
 - Juste après l'ajout de la ligne Sheets, enregistrer la même entreprise dans la plateforme de gestion. Elle y apparaît tout de suite dans Clients, avec le statut « Brouillon créé », et n'est jamais recréée si elle existe déjà.
