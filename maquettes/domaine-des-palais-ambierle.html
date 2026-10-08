@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domaine des Palais — Vins bio de la Côte Roannaise à Ambierle | Salle de réception</title>
+<meta name="description" content="Domaine viticole familial à Ambierle, en bio depuis 2009 : 11 cuvées AOP Côte Roannaise et IGP Urfé, caveau, et salle de réception de 120 places au milieu des vignes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel domainedespalais.com
+   Typo titres : Rozha One (identique au site actuel)
+   Typo texte  : Jost (approche libre de Futura / Avenir Light utilisées sur Wix)
+   Couleurs relevées sur le site (CSS calculé) — ajustables ici
+   ========================================================= */
+:root{
+  --fond:#EEEDE9;          /* fond grège du site */
+  --fond-clair:#F7F6F3;
+  --texte:#524F46;         /* gris chaud des paragraphes */
+  --encre:#121B1B;         /* titres sombres */
+  --saumon:#F08463;        /* bandeaux saumon du site + carrés du logo */
+  --framboise:#AD333C;     /* @domainedespalais, accents */
+  --logo-rouge:#C8505C;    /* carrés foncés du logo (approché) */
+  --cave:#0E0D0C;          /* fond noir des photos de bouteilles */
+  --f-titre:"Rozha One", Georgia, serif;
+  --f-texte:"Jost", "Futura", "Avenir", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--f-texte);font-weight:300;font-size:clamp(1rem,.95rem + .25vw,1.12rem);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-titre);font-weight:400;color:var(--encre);line-height:1.1}
+:focus-visible{outline:3px solid var(--framboise);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* ---------- bandeau démo ---------- */
+.demo{background:var(--encre);color:#e9e6df;font-size:.78rem;text-align:center;padding:.45rem 16px;letter-spacing:.02em}
+.demo b{color:var(--saumon);font-weight:500}
+
+/* ---------- logo 4 carrés (repris du logo actuel) ---------- */
+.carres{display:inline-grid;grid-template-columns:1fr 1fr;gap:3px;width:34px;height:34px;background:var(--encre);padding:0}
+.carres i{display:block;background:var(--saumon)}
+.carres i:nth-child(1),.carres i:nth-child(4){background:var(--logo-rouge)}
+.carres.anim i{transform:scale(0);animation:pop .6s var(--ease) forwards}
+.carres.anim i:nth-child(2){animation-delay:.12s}.carres.anim i:nth-child(3){animation-delay:.24s}.carres.anim i:nth-child(4){animation-delay:.36s}
+@keyframes pop{to{transform:scale(1)}}
+
+/* ---------- navigation ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(238,237,233,.86);backdrop-filter:blur(10px) saturate(140%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:rgba(82,79,70,.15);box-shadow:0 6px 24px rgba(18,27,27,.06)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--f-texte);font-size:1.25rem;color:var(--texte);font-weight:400;letter-spacing:.01em}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-size:.98rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--saumon);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.menu a + a{border-left:1px solid var(--saumon)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--framboise);color:#fff;border:0;border-radius:999px;padding:.8rem 1.35rem;font:500 .95rem var(--f-texte);text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px);background:#951f2b;box-shadow:0 10px 24px rgba(173,51,60,.25)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--encre);border:1.5px solid var(--encre)}
+.btn.ghost:hover{background:var(--encre);color:#fff;box-shadow:none}
+.btn.saumon{background:var(--saumon);color:var(--encre)}
+.btn.saumon:hover{background:#e9714d}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:68px 0 auto 0;visibility:hidden;flex-direction:column;gap:0;background:var(--fond);padding:1rem 16px 1.5rem;transform:translateY(-130%);transition:transform .45s var(--ease);box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .menu.ouvert{transform:none;visibility:visible}
+  .menu a{display:block;padding:.85rem 0;border-bottom:1px solid rgba(82,79,70,.12)}
+  .menu a + a{border-left:0}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:calc(100svh - 68px);display:grid;align-items:end;overflow:hidden;color:#fff}
+.hero__img{position:absolute;inset:0;background:#3b3a35 url("https://static.wixstatic.com/media/6269e6_8632e98793d54d32aed765381914e707~mv2.jpg/v1/fill/w_2000,h_1300,al_c,q_80/prieure.jpg") center/cover;transform:scale(1.12);animation:kenburns 18s ease-out forwards}
+@keyframes kenburns{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,27,27,.05) 30%,rgba(18,27,27,.72) 100%)}
+.hero__txt{position:relative;z-index:2;padding:0 0 clamp(2.5rem,7vh,5rem)}
+.hero .sur{font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;opacity:.9;display:flex;align-items:center;gap:.6rem}
+.hero .sur::before{content:"";width:34px;height:2px;background:var(--saumon)}
+.hero h1{color:#fff;font-family:var(--f-texte);font-weight:300;font-size:clamp(2.8rem,1.6rem + 6vw,6.4rem);letter-spacing:-.01em;margin:.4rem 0 .6rem}
+.hero .baseline{font-family:var(--f-titre);font-size:clamp(1.3rem,1rem + 1.4vw,2.2rem);max-width:22ch;line-height:1.2}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero .btn.ghost{color:#fff;border-color:#fff}
+.hero .btn.ghost:hover{background:#fff;color:var(--encre)}
+.split .w{display:inline-block;opacity:0;transform:translateY(.5em);animation:mot .9s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;right:24px;bottom:28px;z-index:2;width:26px;height:42px;border:1.5px solid rgba(255,255,255,.8);border-radius:14px}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:cue 1.8s infinite}
+@keyframes cue{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+
+/* ---------- labels ---------- */
+.labels{background:var(--fond-clair);border-bottom:1px solid rgba(82,79,70,.1)}
+.labels .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(1.2rem,4vw,3.5rem);padding:1.3rem 0}
+.labels img{height:52px;width:auto;object-fit:contain;filter:grayscale(1);opacity:.75;transition:.3s}
+.labels img:hover{filter:none;opacity:1}
+
+/* ---------- sections ---------- */
+section{padding:clamp(4rem,9vw,7.5rem) 0}
+.kicker{display:flex;align-items:center;gap:.7rem;font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--framboise);font-weight:500;margin-bottom:1rem}
+.kicker .carres{width:18px;height:18px;gap:2px}
+.h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.6rem);margin-bottom:1.2rem}
+.lead{font-size:clamp(1.08rem,1rem + .4vw,1.3rem);max-width:60ch}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* ---------- deux piliers (structure Tuloup) ---------- */
+.piliers{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2.5vw,2rem);margin-top:2.5rem}
+.pilier{position:relative;border-radius:6px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;color:#fff;text-decoration:none;isolation:isolate}
+.pilier img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.pilier::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 35%,rgba(18,27,27,.82))}
+.pilier:hover img{transform:scale(1.06)}
+.pilier .in{padding:clamp(1.4rem,3vw,2.2rem)}
+.pilier h3{color:#fff;font-size:clamp(1.8rem,1.4rem + 1.4vw,2.6rem)}
+.pilier p{max-width:38ch;opacity:.92;margin:.4rem 0 1rem}
+.pilier .fl{display:inline-flex;align-items:center;gap:.5rem;font-weight:500;border-bottom:2px solid var(--saumon);padding-bottom:2px}
+.pilier .fl span{transition:transform .3s var(--ease)}
+.pilier:hover .fl span{transform:translateX(6px)}
+@media (max-width:760px){.piliers{grid-template-columns:1fr}.pilier{min-height:360px}}
+
+/* ---------- chiffres ---------- */
+.chiffres{background:var(--saumon);color:var(--encre);padding:clamp(3rem,6vw,4.5rem) 0}
+.chiffres .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;text-align:center}
+.chiffre b{display:block;font-family:var(--f-titre);font-weight:400;font-size:clamp(2.4rem,1.6rem + 3vw,4.2rem);line-height:1}
+.chiffre span{font-size:.95rem}
+@media (max-width:760px){.chiffres .grid{grid-template-columns:repeat(2,1fr);row-gap:2rem}.chiffre:last-child{grid-column:1/-1}}
+
+/* ---------- domaine + frise ---------- */
+.domaine .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.domaine figure{position:relative}
+.domaine figure img{border-radius:6px;aspect-ratio:4/5;object-fit:cover;width:100%}
+.domaine figure .cave{position:absolute;width:52%;right:-6%;bottom:-8%;aspect-ratio:1;border:8px solid var(--fond);border-radius:6px}
+.domaine p + p{margin-top:1rem}
+@media (max-width:860px){.domaine .cols{grid-template-columns:1fr}.domaine figure .cave{right:4%}}
+.frise{margin-top:clamp(4rem,8vw,6rem);position:relative}
+.frise__rail{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:1rem 2px 1.8rem;scrollbar-width:thin;scrollbar-color:var(--saumon) transparent}
+.frise__rail::-webkit-scrollbar{height:6px}.frise__rail::-webkit-scrollbar-thumb{background:var(--saumon);border-radius:3px}
+.etape{flex:0 0 min(320px,82%);scroll-snap-align:start;background:var(--fond-clair);border-radius:6px;padding:1.6rem 1.5rem;border-top:4px solid var(--saumon);transition:transform .35s var(--ease),box-shadow .35s}
+.etape:nth-child(even){border-top-color:var(--logo-rouge)}
+.etape:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(18,27,27,.08)}
+.etape b{font-family:var(--f-titre);font-weight:400;font-size:2.1rem;color:var(--framboise);display:block;line-height:1;margin-bottom:.6rem}
+.etape p{font-size:.97rem}
+.frise__nav{display:flex;gap:.5rem;justify-content:flex-end}
+.rond{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--encre);background:transparent;cursor:pointer;font-size:1.1rem;transition:.25s}
+.rond:hover{background:var(--encre);color:#fff}
+
+/* ---------- OUTIL : accords mets & vins ---------- */
+.accords{background:var(--cave);color:#d9d4cb;position:relative;overflow:hidden}
+.accords::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 80% 0%,rgba(240,132,99,.18),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(173,51,60,.18),transparent 70%);pointer-events:none}
+.accords .h2{color:#fff}
+.accords .kicker{color:var(--saumon)}
+.outil{position:relative;display:grid;grid-template-columns:330px 1fr;gap:clamp(1.5rem,3vw,2.5rem);margin-top:2.5rem}
+@media (max-width:920px){.outil{grid-template-columns:1fr}}
+.panneau{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:1.4rem;align-self:start;position:sticky;top:88px}
+@media (max-width:920px){.panneau{position:static}}
+.panneau h3{font-family:var(--f-texte);font-weight:500;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#a49d92;margin:0 0 .8rem}
+.panneau h3:not(:first-child){margin-top:1.5rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border:1px solid rgba(255,255,255,.22);background:transparent;color:#eee9e1;border-radius:999px;padding:.5rem .9rem;font:400 .9rem var(--f-texte);cursor:pointer;transition:.25s var(--ease);min-height:40px;display:inline-flex;align-items:center;gap:.4rem}
+.chip:hover{border-color:var(--saumon);color:#fff}
+.chip[aria-pressed="true"]{background:var(--saumon);border-color:var(--saumon);color:var(--encre);font-weight:500}
+.chip .pt{width:10px;height:10px;border-radius:50%}
+.compteur{margin-top:1.4rem;font-size:.92rem;color:#a49d92}
+.compteur b{color:#fff;font-weight:500}
+.reset{background:none;border:0;color:var(--saumon);text-decoration:underline;cursor:pointer;font:inherit;margin-left:.3rem}
+.bouteilles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.vin{position:relative;background:linear-gradient(180deg,#151413,#0b0a0a);border:1px solid rgba(255,255,255,.08);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .45s var(--ease),opacity .45s,border-color .3s,box-shadow .45s;text-align:left;color:inherit;font:inherit;display:flex;flex-direction:column}
+.vin:hover{transform:translateY(-6px);border-color:rgba(240,132,99,.55);box-shadow:0 22px 40px rgba(0,0,0,.45)}
+.vin.off{opacity:.16;transform:scale(.97);filter:grayscale(1)}
+.vin.off:hover{transform:scale(.97)}
+.vin .photo{height:250px;display:grid;place-items:center;background:#000;overflow:hidden}
+.vin .photo img{height:235px;width:auto;object-fit:contain;transition:transform .7s var(--ease)}
+.vin:hover .photo img{transform:translateY(-6px) rotate(-2deg)}
+.vin .corps{padding:1rem 1.1rem 1.15rem}
+.vin .app{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#a49d92}
+.vin h4{font-family:var(--f-titre);font-weight:400;font-size:1.3rem;color:#fff;margin:.2rem 0 .3rem;line-height:1.15}
+.vin .cep{font-size:.88rem;color:#cfc8bd}
+.vin .match{position:absolute;top:10px;left:10px;background:var(--saumon);color:var(--encre);font-size:.72rem;font-weight:500;padding:.25rem .6rem;border-radius:999px;opacity:0;transform:translateY(-6px);transition:.4s var(--ease)}
+.vin.hit .match{opacity:1;transform:none}
+.coul{position:absolute;top:12px;right:12px;width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.6)}
+.ajout{position:absolute;right:10px;top:206px;width:38px;height:38px;border-radius:50%;border:0;background:#fff;color:var(--encre);font-size:1.3rem;cursor:pointer;transition:.3s var(--ease);display:grid;place-items:center}
+.ajout:hover{transform:scale(1.1)}
+.ajout.on{background:var(--framboise);color:#fff}
+
+/* fiche détaillée */
+dialog.fiche{border:0;border-radius:10px;max-width:880px;width:calc(100% - 32px);padding:0;background:var(--fond-clair);color:var(--texte);box-shadow:0 30px 80px rgba(0,0,0,.5)}
+dialog.fiche::backdrop{background:rgba(14,13,12,.7);backdrop-filter:blur(4px)}
+dialog.fiche[open]{animation:ouvre .45s var(--ease)}
+@keyframes ouvre{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.fiche .g{display:grid;grid-template-columns:260px 1fr}
+.fiche .g .photo{background:#000;display:grid;place-items:center;padding:1rem}
+.fiche .g .photo img{max-height:420px;width:auto}
+.fiche .t{padding:1.8rem 1.8rem 1.6rem}
+.fiche h3{font-size:2rem;margin:.2rem 0 .8rem}
+.fiche dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.95rem;margin:1rem 0}
+.fiche dt{color:var(--framboise);font-weight:500}
+.fiche .deg{font-family:var(--f-titre);font-size:1.15rem;color:var(--encre);line-height:1.35}
+.fiche .ferme{position:absolute;top:10px;right:10px;width:42px;height:42px;border-radius:50%;border:0;background:#fff;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+@media (max-width:700px){.fiche .g{grid-template-columns:1fr}.fiche .g .photo img{max-height:260px}}
+
+/* sélection caveau */
+.selection{position:fixed;left:50%;bottom:18px;z-index:60;transform:translate(-50%,160%);transition:transform .5s var(--ease);background:var(--encre);color:#fff;border-radius:999px;padding:.55rem .55rem .55rem 1.2rem;display:flex;align-items:center;gap:1rem;box-shadow:0 14px 40px rgba(0,0,0,.35);width:max-content;max-width:calc(100% - 32px)}
+.selection.vis{transform:translate(-50%,0)}
+.selection .nb{background:var(--saumon);color:var(--encre);border-radius:50%;width:28px;height:28px;display:inline-grid;place-items:center;font-weight:500;font-size:.9rem;margin-right:.4rem}
+.selection .btn{padding:.6rem 1rem}
+
+/* ---------- salle ---------- */
+.salle .tete{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:end}
+.faits{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+.fait{background:var(--fond-clair);border:1px solid rgba(82,79,70,.15);border-radius:999px;padding:.45rem 1rem;font-size:.92rem}
+.galerie{margin-top:2.5rem;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:150px;gap:.7rem}
+.galerie button{border:0;padding:0;border-radius:6px;overflow:hidden;cursor:zoom-in;background:#ddd}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.galerie button:hover img{transform:scale(1.07)}
+.galerie .g1{grid-column:span 3;grid-row:span 2}.galerie .g2{grid-column:span 3}.galerie .g3{grid-column:span 2}.galerie .g4{grid-column:span 1}
+.galerie .g5{grid-column:span 2}.galerie .g6{grid-column:span 2}.galerie .g7{grid-column:span 2}
+@media (max-width:760px){.salle .tete{grid-template-columns:1fr}.galerie{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}.galerie > *{grid-column:span 1!important;grid-row:span 1!important}.galerie .g1{grid-column:span 2!important;grid-row:span 2!important}}
+.zoom{position:fixed;inset:0;z-index:90;background:rgba(14,13,12,.92);display:none;place-items:center;padding:16px;cursor:zoom-out}
+.zoom.vis{display:grid;animation:fondu .3s}
+@keyframes fondu{from{opacity:0}}
+.zoom img{max-height:88vh;max-width:100%;border-radius:6px}
+
+/* demande de devis */
+.devis{margin-top:clamp(3rem,6vw,4.5rem);display:grid;grid-template-columns:.9fr 1.1fr;background:var(--fond-clair);border-radius:10px;overflow:hidden;box-shadow:0 20px 50px rgba(18,27,27,.07)}
+.devis .vis{background:url("https://static.wixstatic.com/media/6269e6_d574d4abc4324002861b4d6181179f3e~mv2.jpg/v1/fill/w_900,h_1100,al_c,q_80/parc.jpg") center/cover;min-height:320px;position:relative}
+.devis .vis::after{content:"Le parc de 6000 m²";position:absolute;left:16px;bottom:16px;background:rgba(18,27,27,.7);color:#fff;font-size:.8rem;padding:.3rem .7rem;border-radius:999px}
+.devis form{padding:clamp(1.5rem,3.5vw,2.6rem)}
+.devis h3{font-size:clamp(1.6rem,1.3rem + 1vw,2.2rem);margin-bottom:.4rem}
+.types{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.type{border:1.5px solid rgba(82,79,70,.3);background:#fff;border-radius:8px;padding:.6rem 1rem;cursor:pointer;font:400 .95rem var(--f-texte);color:var(--texte);transition:.25s var(--ease);min-height:44px}
+.type:hover{border-color:var(--saumon)}
+.type[aria-pressed="true"]{border-color:var(--framboise);background:var(--framboise);color:#fff}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.champ{display:flex;flex-direction:column;gap:.3rem;font-size:.88rem;font-weight:400}
+.champ.plein{grid-column:1/-1}
+.champ input,.champ textarea{font:300 1rem var(--f-texte);color:var(--encre);padding:.7rem .8rem;border:1.5px solid rgba(82,79,70,.25);border-radius:6px;background:#fff;transition:border-color .2s}
+.champ input:focus,.champ textarea:focus{border-color:var(--saumon);outline:none}
+.jauge{grid-column:1/-1}
+.jauge input[type=range]{width:100%;accent-color:var(--framboise)}
+.jauge .val{display:flex;justify-content:space-between;align-items:baseline}
+.jauge .val b{font-family:var(--f-titre);font-weight:400;font-size:2rem;color:var(--framboise)}
+.jauge .barre{height:8px;border-radius:4px;background:#e2dfd8;overflow:hidden;margin-top:.4rem}
+.jauge .barre i{display:block;height:100%;background:linear-gradient(90deg,var(--saumon),var(--framboise));width:50%;transition:width .3s var(--ease)}
+.jauge small{display:block;margin-top:.35rem;color:#7b766b;min-height:1.3em}
+.recap{margin-top:1.1rem;font-size:.92rem;background:#fff;border-left:3px solid var(--saumon);padding:.8rem 1rem;border-radius:0 6px 6px 0}
+.devis .btn{margin-top:1.2rem}
+@media (max-width:860px){.devis{grid-template-columns:1fr}.champs{grid-template-columns:1fr}}
+
+/* ---------- actualité ---------- */
+.actu .cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
+.carte{background:var(--fond-clair);border-radius:8px;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.carte:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(18,27,27,.08)}
+.carte .img{aspect-ratio:16/10;overflow:hidden;background:var(--saumon)}
+.carte .img img{width:100%;height:100%;object-fit:cover}
+.carte .img.vide{display:grid;place-items:center;font-family:var(--f-titre);color:var(--encre);font-size:1.6rem;text-align:center;padding:1rem}
+.carte .c{padding:1.2rem 1.3rem 1.4rem}
+.carte h3{font-size:1.35rem;margin-bottom:.4rem}
+.carte p{font-size:.95rem}
+@media (max-width:860px){.actu .cartes{grid-template-columns:1fr}}
+
+/* ---------- visite / contact ---------- */
+.visite{background:var(--saumon);color:var(--encre)}
+.visite .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.visite .h2{color:var(--encre)}
+.coord{list-style:none;margin-top:1.4rem;display:grid;gap:.9rem}
+.coord li{display:flex;gap:.9rem;align-items:flex-start}
+.coord .ic{flex:0 0 42px;height:42px;border-radius:50%;background:var(--encre);color:var(--saumon);display:grid;place-items:center;font-size:1.05rem}
+.coord a{text-decoration:none;border-bottom:1px solid rgba(18,27,27,.4)}
+.coord a:hover{border-color:var(--encre)}
+.visite .photo{border-radius:8px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 30px 60px rgba(18,27,27,.25)}
+.visite .photo img{width:100%;height:100%;object-fit:cover}
+.carte-acces{margin-top:1.4rem;border-radius:8px;overflow:hidden;height:220px;border:0;width:100%}
+@media (max-width:860px){.visite .cols{grid-template-columns:1fr}}
+
+/* ---------- pied ---------- */
+footer{background:var(--fond);padding:3rem 0 2rem;font-size:.9rem}
+footer .haut{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;padding-bottom:1.8rem;border-bottom:1px solid rgba(82,79,70,.15)}
+footer .insta{font-family:var(--f-titre);color:var(--framboise);font-size:1.5rem;text-decoration:none}
+footer .bas{padding-top:1.5rem;display:grid;gap:.6rem;color:#7b766b;font-size:.82rem}
+footer .modere{text-align:center;font-size:.82rem;margin-top:1rem}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .split .w{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Winery",
+  "name":"Domaine des Palais",
+  "description":"Domaine viticole familial en agriculture biologique au pied du village d'Ambierle, sur la Côte Roannaise. Vins AOP Côte Roannaise et IGP Urfé, caveau et salle de réception.",
+  "url":"https://www.domainedespalais.com/",
+  "telephone":["+33658006640","+33619142880"],
+  "email":"yann.palais42@gmail.com",
+  "foundingDate":"1850",
+  "address":{"@type":"PostalAddress","streetAddress":"204 route du Tacot","postalCode":"42820","addressLocality":"Ambierle","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Ambierle","Côte Roannaise","Roannais"],
+  "sameAs":["https://www.instagram.com/domainedespalais/"],
+  "amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Salle de réception 120 places assises","value":true},{"@type":"LocationFeatureSpecification","name":"Accessible PMR","value":true}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte du site du Domaine des Palais. Textes, photos et fiches techniques issus du site actuel.</div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="Domaine des Palais, retour à l'accueil">
+      <span class="carres anim" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      Domaine des Palais
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#domaine">Le Domaine</a></li>
+        <li><a href="#vins">Les Vins</a></li>
+        <li><a href="#salle">La Salle</a></li>
+        <li><a href="#visite">Où trouver nos vins</a></li>
+        <li><a href="#actualites">Actualités</a></li>
+      </ul>
+    </nav>
+    <a class="btn" href="#vins">Trouver mon vin</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ================= HERO ================= -->
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero__img" role="img" aria-label="Les vignes du domaine au pied du prieuré d'Ambierle"></div>
+  <div class="wrap hero__txt">
+    <p class="sur">Ambierle · Côte Roannaise · Bio depuis 2009</p>
+    <h1 class="split" data-split>Domaine des Palais</h1>
+    <p class="baseline split" data-split data-delay="500">Quand on a du Palais, on n'a pas besoin de château.</p>
+    <div class="ctas">
+      <a class="btn saumon" href="#vins">Quel vin pour ce soir ?</a>
+      <a class="btn ghost" href="#salle">Réserver la salle</a>
+    </div>
+  </div>
+  <span class="scroll-cue" aria-hidden="true"></span>
+</section>
+
+<div class="labels">
+  <div class="wrap">
+    <img src="https://static.wixstatic.com/media/6269e6_98ad9af4174e405897932162dd99e852~mv2.png" alt="Agriculture biologique">
+    <img src="https://static.wixstatic.com/media/6269e6_5ebc2b06b6514eef9c2e2276b4587af9~mv2.png" alt="Côte Roannaise">
+    <img src="https://static.wixstatic.com/media/6269e6_10ca0ff141f140df8390658f0eb8cc80~mv2.png" alt="Loire volcanique">
+    <img src="https://static.wixstatic.com/media/6269e6_48f55a4de4194c1f957e11cab67afd37~mv2.png" alt="Vignobles et Découvertes">
+  </div>
+</div>
+
+<!-- ================= DEUX UNIVERS ================= -->
+<section id="univers">
+  <div class="wrap">
+    <p class="kicker reveal"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Bien plus qu'une histoire de raisins</p>
+    <h2 class="h2 reveal d1">Des vignes, un caveau voûté,<br>une salle au milieu des vignes.</h2>
+    <div class="piliers">
+      <a class="pilier reveal d1" href="#vins">
+        <img src="https://static.wixstatic.com/media/6269e6_3bb929613f2a49d388c623186868a9d1~mv2.jpg/v1/fill/w_1100,h_900,al_c,q_80/caveau.jpg" alt="Dégustation dans le caveau du domaine" loading="lazy">
+        <div class="in">
+          <h3>Les Vins</h3>
+          <p>11 cuvées issues de 6 cépages : Gamay Saint Romain, Syrah, Viognier, Roussanne, Gewürztraminer et Petite Arvine.</p>
+          <span class="fl">Trouver l'accord parfait <span>→</span></span>
+        </div>
+      </a>
+      <a class="pilier reveal d2" href="#salle">
+        <img src="https://static.wixstatic.com/media/6269e6_01170b06e2224fc8930d77c8bd080ba5~mv2.jpg/v1/fill/w_1100,h_900,al_c,q_80/salle.jpg" alt="La salle de réception dressée pour un repas" loading="lazy">
+        <div class="in">
+          <h3>La Salle</h3>
+          <p>Mariages, anniversaires, baptêmes ou séminaires : 120 places assises, un parc de 6000 m² et la vue sur Ambierle.</p>
+          <span class="fl">Préparer votre événement <span>→</span></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHIFFRES ================= -->
+<div class="chiffres">
+  <div class="wrap grid">
+    <div class="chiffre"><b data-count="1850">0</b><span>création du domaine familial</span></div>
+    <div class="chiffre"><b data-count="15" data-suffix=" ha">0</b><span>de terres</span></div>
+    <div class="chiffre"><b data-count="8" data-suffix=" ha">0</b><span>de vignes</span></div>
+    <div class="chiffre"><b data-count="6">0</b><span>cépages</span></div>
+    <div class="chiffre"><b data-count="11">0</b><span>cuvées uniques</span></div>
+  </div>
+</div>
+
+<!-- ================= LE DOMAINE ================= -->
+<section class="domaine" id="domaine">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <p class="kicker reveal"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Le Domaine</p>
+        <h2 class="h2 reveal d1">Au pied du village de caractère d'Ambierle</h2>
+        <p class="reveal d2">Le domaine viticole familial s'étend sur 15 hectares de terres, dont 8 sont exploités en vignes, composées d'une palette de 6 cépages offrant pas moins de 11 cuvées uniques.</p>
+        <p class="reveal d2">Depuis 2007, notre engagement envers des pratiques biologiques est total, offrant à nos vignes le respect et les soins nécessaires. Les labels AOC et IGP authentifient notre respect du terroir et la qualité de notre production.</p>
+        <p class="reveal d3">Venez vivre une expérience authentique, où la tradition, la passion et la rigueur se conjuguent pour vous offrir plus qu'une simple dégustation : une immersion dans l'univers passionnant du vin.</p>
+      </div>
+      <figure class="reveal d1">
+        <img src="https://static.wixstatic.com/media/6269e6_340032b32cb34a819166a88fe90c6c28~mv2.jpg/v1/fill/w_900,h_1125,al_c,q_80/famille.jpg" alt="La famille Palais dans la cave à barriques" loading="lazy">
+        <img class="cave" src="https://static.wixstatic.com/media/6269e6_85849a06b6cb4bc2bbbe37c802a76a96~mv2.jpg/v1/fill/w_600,h_600,al_c,q_80/archive.jpg" alt="Photo d'archive du domaine" loading="lazy">
+      </figure>
+    </div>
+
+    <div class="frise">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap">
+        <h3 class="reveal" style="font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem)">Quatre générations, une renaissance</h3>
+        <div class="frise__nav"><button class="rond" data-dir="-1" aria-label="Étape précédente">←</button><button class="rond" data-dir="1" aria-label="Étape suivante">→</button></div>
+      </div>
+      <div class="frise__rail" id="rail" tabindex="0" aria-label="Histoire du domaine">
+        <article class="etape"><b>1850</b><p>Création du domaine familial. Avec son coteau orienté vers le soleil levant, il compte alors 11 ha de vignes, un cuvage et une cave voûtée pour l'élevage en fût de chêne.</p></article>
+        <article class="etape"><b>1956</b><p>Crise viticole dans le pays : l'activité du domaine s'arrête, il est laissé à l'abandon jusqu'en 2000.</p></article>
+        <article class="etape"><b>2000</b><p>Yann Palais fait renaître le domaine : 3 ha de Gamay Saint Romain (le Carré du Prieur) et 3 000 m² de Viognier, premier implanté sur la Côte Roannaise.</p></article>
+        <article class="etape"><b>2002</b><p>Nouvelles plantations : Viognier, Gamay Saint Romain (la Tassée des Anges) et Syrah (le Temps des Griottes).</p></article>
+        <article class="etape"><b>2007</b><p>Conversion du domaine vers l'agriculture biologique, label obtenu officiellement en 2009.</p></article>
+        <article class="etape"><b>2009</b><p>Avec Sylvie, Yann modernise le site : création de la salle et d'un accueil tourné vers l'œnotourisme.</p></article>
+        <article class="etape"><b>2011</b><p>Plantation de la Roussanne (première récolte en 2011) et du Gewurztraminer (première récolte en 2012).</p></article>
+        <article class="etape"><b>2022</b><p>François rejoint l'exploitation et vinifie ses premières cuvées, fort d'expériences en France, en Suisse et en Argentine.</p></article>
+        <article class="etape"><b>2023</b><p>Jean-Baptiste, l'aîné, s'engage à son tour après une carrière dans le fromage.</p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUTIL ACCORDS ================= -->
+<section class="accords" id="vins">
+  <div class="wrap">
+    <p class="kicker reveal"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Les Vins</p>
+    <h2 class="h2 reveal d1">Qu'est-ce qu'on mange ce soir ?</h2>
+    <p class="lead reveal d2">Choisissez un plat ou un moment : les cuvées qui l'accompagnent s'allument. Touchez une bouteille pour lire sa fiche, ajoutez-la à votre sélection pour la préparer au caveau.</p>
+
+    <div class="outil">
+      <aside class="panneau" aria-label="Filtres">
+        <h3>Au menu</h3>
+        <div class="chips" id="plats"></div>
+        <h3>Couleur</h3>
+        <div class="chips" id="couleurs"></div>
+        <p class="compteur" id="compteur" aria-live="polite"></p>
+      </aside>
+      <div class="bouteilles" id="bouteilles"></div>
+    </div>
+  </div>
+</section>
+
+<dialog class="fiche" id="fiche" aria-labelledby="fiche-titre">
+  <button class="ferme" id="ferme" aria-label="Fermer la fiche">✕</button>
+  <div class="g">
+    <div class="photo"><img id="fiche-img" alt=""></div>
+    <div class="t">
+      <p class="kicker" id="fiche-app" style="margin:0"></p>
+      <h3 id="fiche-titre"></h3>
+      <p class="deg" id="fiche-deg"></p>
+      <dl id="fiche-dl"></dl>
+      <button class="btn" id="fiche-ajout">Ajouter à ma sélection</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="selection" id="selection" role="region" aria-label="Ma sélection">
+  <span><span class="nb" id="sel-nb">0</span><span id="sel-txt">bouteille sélectionnée</span></span>
+  <a class="btn saumon" id="sel-mail" href="#">Préparer ma venue</a>
+</div>
+
+<!-- ================= LA SALLE ================= -->
+<section class="salle" id="salle">
+  <div class="wrap">
+    <div class="tete">
+      <div>
+        <p class="kicker reveal"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>La Salle</p>
+        <h2 class="h2 reveal d1">Des vignes, un parc, un étang… Un lieu magique !</h2>
+      </div>
+      <div class="reveal d2">
+        <p>Autrefois grand couvert avec une charpente en bois et des murs en pierre, la salle a gardé son aspect d'origine. Une touche moderne sur les murs, avec des couleurs sur le thème de la vigne, permet d'apprécier le mélange des styles.</p>
+        <div class="faits">
+          <span class="fait">120 places assises</span><span class="fait">Parc de 6000 m²</span><span class="fait">Vue sur le village d'Ambierle</span><span class="fait">Accessible PMR</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="galerie reveal">
+      <button class="g1"><img src="https://static.wixstatic.com/media/6269e6_b3990719327d4ffe896901dbf8a41fa6~mv2.jpg/v1/fill/w_1000,h_700,al_c,q_80/s1.jpg" alt="La salle décorée pour un mariage" loading="lazy"></button>
+      <button class="g2"><img src="https://static.wixstatic.com/media/6269e6_1e687c8373b943138481e2ac2e8e612c~mv2.jpg/v1/fill/w_900,h_450,al_c,q_80/s2.jpg" alt="Mariés dans les vignes" loading="lazy"></button>
+      <button class="g3"><img src="https://static.wixstatic.com/media/6269e6_efdfc72f681040bca11f9e6c32e250b3~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80/s3.jpg" alt="Tables en longueur sous la charpente" loading="lazy"></button>
+      <button class="g4"><img src="https://static.wixstatic.com/media/6269e6_9f8e6e73847843faae945c319ef3fd25~mv2.jpg/v1/fill/w_400,h_450,al_c,q_80/s4.jpg" alt="Le bâtiment de la salle et sa pelouse" loading="lazy"></button>
+      <button class="g5"><img src="https://static.wixstatic.com/media/6269e6_088c4790be0f4776b43046161736e976~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80/s5.jpg" alt="Dîner dans la salle" loading="lazy"></button>
+      <button class="g6"><img src="https://static.wixstatic.com/media/6269e6_2d9661c2fb63496388963d34f3f4bcd9~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80/s6.jpg" alt="Table décorée devant la baie vitrée" loading="lazy"></button>
+      <button class="g7"><img src="https://static.wixstatic.com/media/6269e6_b4fc9b1ca2c9409bb038e6455d1a7bb8~mv2.jpg/v1/fill/w_600,h_450,al_c,q_80/s7.jpg" alt="Soirée dans la salle" loading="lazy"></button>
+    </div>
+
+    <div class="devis reveal">
+      <div class="vis" role="img" aria-label="Le parc arboré du domaine"></div>
+      <form id="devis" novalidate>
+        <h3>Renseignements &amp; Devis</h3>
+        <p>Trois questions, et votre demande part prête à lire. Réponse directe de la famille Palais.</p>
+        <div class="types" id="types" role="group" aria-label="Type d'événement">
+          <button type="button" class="type" aria-pressed="true">Mariage</button>
+          <button type="button" class="type" aria-pressed="false">Anniversaire</button>
+          <button type="button" class="type" aria-pressed="false">Baptême</button>
+          <button type="button" class="type" aria-pressed="false">Séminaire</button>
+          <button type="button" class="type" aria-pressed="false">Autre</button>
+        </div>
+        <div class="champs">
+          <div class="jauge">
+            <div class="val"><span>Nombre d'invités assis</span><b id="inv-val">60</b></div>
+            <input type="range" id="invites" min="10" max="160" step="5" value="60" aria-label="Nombre d'invités">
+            <div class="barre"><i id="inv-barre"></i></div>
+            <small id="inv-note"></small>
+          </div>
+          <label class="champ">Date souhaitée<input type="date" id="date"></label>
+          <label class="champ">Votre nom<input type="text" id="nom" autocomplete="name" placeholder="Prénom Nom"></label>
+          <label class="champ">E-mail<input type="email" id="mail" autocomplete="email" placeholder="vous@exemple.fr"></label>
+          <label class="champ">Téléphone<input type="tel" id="tel" autocomplete="tel" placeholder="06 …"></label>
+          <label class="champ plein">Votre message<textarea id="msg" rows="3" placeholder="Horaires, traiteur, dégustation pour vos invités…"></textarea></label>
+        </div>
+        <p class="recap" id="recap" aria-live="polite"></p>
+        <button class="btn" type="submit">Envoyer ma demande</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ACTUALITÉS ================= -->
+<section class="actu" id="actualites" style="padding-top:0">
+  <div class="wrap">
+    <p class="kicker reveal"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Actualités</p>
+    <h2 class="h2 reveal d1">Du côté du domaine</h2>
+    <div class="cartes">
+      <article class="carte reveal d1">
+        <div class="img"><img src="https://static.wixstatic.com/media/6269e6_f6bc2e308ff0465e9a8217899614a27c~mv2.jpg/v1/fill/w_700,h_440,al_c,q_80/aoc.jpg" alt="Le domaine vu depuis l'étang" loading="lazy"></div>
+        <div class="c"><h3>30 ans de l'AOC Côte Roannaise</h3><p>Un anniversaire fêté en deux temps. Acte 1 : un événement dédié aux professionnels au Domaine des Grands Cèdres, à Cordelles — rencontres, dégustations, masterclass et dîner par la Maison Troisgros et le Restaurant de la Loire.</p></div>
+      </article>
+      <article class="carte reveal d2">
+        <div class="img vide">Pale Ale<br><small style="font-family:var(--f-texte);font-size:.85rem">photo à fournir</small></div>
+        <div class="c"><h3>Une pale ale bio</h3><p>Le fruit de notre collaboration avec les brasseurs de La Part des Autres : une recette exclusive, toute en douceur, avec ce qu'il faut d'amertume et d'exotisme.</p></div>
+      </article>
+      <article class="carte reveal d3">
+        <div class="img"><img src="https://static.wixstatic.com/media/6269e6_be88711e42044051aa279bd07efb4ee6~mv2.jpg/v1/fill/w_700,h_440,al_c,q_80/vignes.jpg" alt="Les vignes et la tour près de l'étang" loading="lazy"></div>
+        <div class="c"><h3>Le domaine vu du ciel</h3><p>Merci à Volwild et son drone pour la mise en valeur de notre domaine à travers une courte vidéo — à intégrer ici, en lecture directe.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISITE / CONTACT ================= -->
+<section class="visite" id="visite">
+  <div class="wrap cols">
+    <div>
+      <p class="kicker reveal" style="color:var(--encre)"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Où trouver nos vins</p>
+      <h2 class="h2 reveal d1">Au caveau, dans la cave voûtée</h2>
+      <p class="reveal d2">Visite du domaine et du caveau sur demande. Appelez-nous ou écrivez-nous pour convenir d'un moment — et retrouvez aussi nos vins chez nos partenaires.</p>
+      <ul class="coord reveal d3">
+        <li><span class="ic" aria-hidden="true">⌂</span><span>204 route du Tacot<br>42820 Ambierle</span></li>
+        <li><span class="ic" aria-hidden="true">✆</span><span><a href="tel:+33658006640">06 58 00 66 40</a> · <a href="tel:+33619142880">06 19 14 28 80</a></span></li>
+        <li><span class="ic" aria-hidden="true">@</span><span><a href="mailto:yann.palais42@gmail.com">yann.palais42@gmail.com</a></span></li>
+      </ul>
+      <iframe class="carte-acces reveal" title="Plan d'accès au Domaine des Palais" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.85%2C46.07%2C3.93%2C46.12&amp;layer=mapnik&amp;marker=46.1035%2C3.8925"></iframe>
+    </div>
+    <div class="photo reveal d2"><img src="https://static.wixstatic.com/media/6269e6_68493424b31a494c89b41629b0fa8dab~mv2.jpg/v1/fill/w_1000,h_750,al_c,q_80/cave.jpg" alt="La cave voûtée du domaine" loading="lazy"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut">
+      <a class="brand" href="#accueil"><span class="carres" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Domaine des Palais</a>
+      <a class="insta" href="https://www.instagram.com/domainedespalais/" target="_blank" rel="noopener">@domainedespalais</a>
+    </div>
+    <p class="modere">L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+    <div class="bas">
+      <p>EARL Domaine des Palais — 204 route du Tacot, 42820 Ambierle — RCS Roanne 509 642 856. Crédits photos du site actuel : Jean-François Claustre.</p>
+      <p><strong>Maquette de démonstration</strong> réalisée à partir du site actuel du domaine : textes, photos, logos de labels et fiches techniques des 11 cuvées sont ceux déjà publiés par le domaine (aucune photo d'illustration extérieure). Couleurs et typographie relevées sur le site actuel (Rozha One reprise à l'identique, Futura/Avenir approchées par Jost) — ajustables en quelques lignes. Visuel de la pale ale à fournir. Le point exact du plan est approximatif et à vérifier. Les formulaires de cette maquette préparent un e-mail et n'envoient rien automatiquement.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="zoom" id="zoom" role="dialog" aria-label="Photo agrandie"><img alt=""></div>
+
+<script>
+(() => {
+const IMG = id => `https://static.wixstatic.com/media/6269e6_${id}/v1/fit/w_500,h_700,q_85/bouteille.png`;
+/* Données reprises des 11 fiches techniques publiées sur le site actuel */
+const VINS = [
+ {n:"Le Feu de la Madonne", c:"blanc", app:"IGP Urfé · 2025", cep:"50 % Viognier / 50 % Roussanne", img:"35f55ebc1f8e44d99d9db5b0e5639059~mv2.png",
+  deg:"Vin riche et équilibré, arômes toastés, notes d'abricot et de fleurs blanches.", acc:"Poissons en sauce, fromages à pâte pressée cuite, tarte tatin",
+  tags:["poisson","fromage","dessert"], elev:"9 mois en barriques (10 % fûts neufs)", alc:"12,5 %", garde:"5 ans", prod:"2 000 bouteilles"},
+ {n:"Les Jardins d'Ailleurs", c:"blanc", app:"Vin de France · 2025", cep:"Viognier (Côtes du Rhône, Visan)", img:"e61ff8ad58ec41689ab55cfc27056f77~mv2.png",
+  deg:"Belle robe or clair, bouche ample. Nez très aromatique, abricot, pêche et tilleul. Bel équilibre fraîcheur / acidité.", acc:"Huîtres, asperges vertes, fromage de chèvre",
+  tags:["mer","legumes","fromage"], elev:"10 mois, 50 % fût / 50 % cuve", alc:"13 %", garde:"5 ans", prod:"4 500 bouteilles"},
+ {n:"Un Zeste de Folie", c:"orange", app:"Vin de France · 2025", cep:"Viognier 80 % / Gewurztraminer 20 %", img:"cdaa99f6ad744142a562ed0772ef9a39~mv2.png",
+  deg:"Nez floral, zestes d'agrumes, fins amers.", acc:"Asperges, tajines, salade de fruits, foie gras / butternut",
+  tags:["legumes","epices","dessert","fete"], elev:"Macération 10 jours, 6 mois en cuve inox", alc:"12 %", garde:"5 ans", prod:"800 bouteilles"},
+ {n:"Le Palais — Viognier (BIB 3 L)", c:"blanc", app:"Vin de France · 2023", cep:"Viognier", img:"199f6e28a26142559796711c021aa739~mv2.jpeg",
+  deg:"Belle robe or clair, bouche ample. Nez très aromatique, abricot et pêche. Bel équilibre fraîcheur / acidité.", acc:"Huîtres, asperges vertes, fromage de chèvre",
+  tags:["mer","legumes","fromage"], elev:"3 mois en cuve inox", alc:"13 %", garde:"1 an, 6 semaines après ouverture", prod:"1 600 BIB"},
+ {n:"Le Carré du Prieur", c:"rouge", app:"AOP Côte Roannaise · 2024", cep:"Gamay Saint-Romain", img:"ef9604dbc96043d8a0c0331086bbe977~mv2.png",
+  deg:"Rouge léger, dominante fruits acidulés, frais, notes poivrées.", acc:"Charcuterie, grillades, tomme de vache",
+  tags:["charcuterie","grillades","fromage"], elev:"100 % grappe entière, 6 mois en cuve inox", alc:"12 %", garde:"3 ans", prod:"6 000 bouteilles"},
+ {n:"L'Écho d'une Cloche", c:"rouge", app:"AOP Côte Roannaise · 2024", cep:"Gamay Saint-Romain, sélection parcellaire", img:"c4f125f115a34154898a38523f49b292~mv2.png",
+  deg:"Bouquet charmeur de fruits rouges, légèrement poivré. Bouche ample, suave et riche, tanins fermes mais sans dureté.", acc:"Cochon de lait, poulet rôti, fromage de chèvre",
+  tags:["volaille","fromage"], elev:"12 mois en barriques de 228 L", alc:"12,5 %", garde:"5 à 6 ans", prod:"4 000 bouteilles"},
+ {n:"La Tassée des Anges", c:"rouge", app:"AOP Côte Roannaise · 2024", cep:"Gamay Saint-Romain", img:"6ba4465902d94640b79be7ee124065a8~mv2.png",
+  deg:"Rond et suave, fruits noirs mûrs.", acc:"Viande en sauce, lentilles aux petits lardons, fromage",
+  tags:["mijote","fromage"], elev:"Macération 15 jours, 9 mois en cuve inox", alc:"12 %", garde:"5 à 6 ans", prod:"2 500 bouteilles"},
+ {n:"Le Temps des Griottes", c:"rouge", app:"IGP Urfé · 2024", cep:"Syrah", img:"22721da107bc41709aa1573e2b4f397d~mv2.png",
+  deg:"Une Syrah tout en légèreté, délicatement épicée. Petits fruits rouges acidulés et notes vanillées.", acc:"Lard braisé, magret de canard, chili con carne",
+  tags:["mijote","grillades","epices"], elev:"12 mois en barriques", alc:"12 %", garde:"5 ans", prod:"3 000 bouteilles"},
+ {n:"Le Carré du Prieur rosé", c:"rose", app:"AOP Côte Roannaise · 2024", cep:"Gamay Saint-Romain", img:"ae53040ccefa4d55bf2b7997908091a5~mv2.jpg",
+  deg:"Rosé sec, frais, arômes de petits fruits rouges.", acc:"Charcuterie, salades, barbecue",
+  tags:["charcuterie","grillades","legumes"], elev:"4 mois en cuve inox", alc:"12 %", garde:"3 ans", prod:"1 500 bouteilles"},
+ {n:"Une Robe de Vigne", c:"rose", app:"Vin de France · 2024", cep:"Gamay", img:"47c1cf729e83489f8ce4c562e102b8b1~mv2.png",
+  deg:"Rosé demi-sec très fruité. Bel équilibre sucre – acidité. Arômes de bonbons anglais, cerise.", acc:"Apéritif, tarte à la fraise, salade de fruits",
+  tags:["apero","dessert"], elev:"3 mois en cuve inox", alc:"10,5 %", garde:"3 ans", prod:"1 700 bouteilles"},
+ {n:"Les Perles de Granit", c:"bulles", app:"Effervescent méthode aromatique · 2025", cep:"Gamay", img:"d49526e5996344a8a3fecffcb7ef40b0~mv2.png",
+  deg:"Petits fruits rouges, framboise acidulée.", acc:"Apéritif, idéal en cocktail (gin), tarte aux fraises",
+  tags:["apero","dessert","fete"], elev:"Prise de mousse en bouteille", alc:"8,5 %", garde:"3 ans", prod:"2 500 bouteilles"}
+];
+const PLATS = [
+ ["apero","Apéritif"],["charcuterie","Charcuterie"],["mer","Huîtres & fruits de mer"],["poisson","Poisson en sauce"],
+ ["grillades","Grillades & barbecue"],["volaille","Volaille rôtie"],["mijote","Viande en sauce, magret"],["epices","Plats épicés"],
+ ["legumes","Asperges & salades"],["fromage","Fromages"],["dessert","Desserts fruités"]
+];
+const COUL = {blanc:["Blancs","#efe3b0"],orange:["Orange","#e9a24a"],rose:["Rosés","#f2a7a0"],rouge:["Rouges","#8c1f2c"],bulles:["Bulles","#f5c6cc"]};
+const MAIL = "yann.palais42@gmail.com";
+
+let plat=null, coul=null; const sel=new Set();
+const $=s=>document.querySelector(s);
+const grille=$("#bouteilles");
+
+grille.innerHTML = VINS.map((v,i)=>`
+ <article class="vin" data-i="${i}" tabindex="0" role="button" aria-label="Fiche ${v.n}">
+  <span class="match">Accord conseillé</span>
+  <span class="coul" style="background:${COUL[v.c][1]}" title="${COUL[v.c][0]}"></span>
+  <div class="photo"><img src="${IMG(v.img)}" alt="Bouteille ${v.n}" loading="lazy"></div>
+  <button class="ajout" data-add="${i}" aria-label="Ajouter ${v.n} à ma sélection">+</button>
+  <div class="corps"><div class="app">${v.app}</div><h4>${v.n}</h4><div class="cep">${v.cep}</div></div>
+ </article>`).join("");
+
+$("#plats").innerHTML = PLATS.map(([k,l])=>`<button class="chip" data-plat="${k}" aria-pressed="false">${l}</button>`).join("");
+$("#couleurs").innerHTML = Object.entries(COUL).map(([k,[l,c]])=>`<button class="chip" data-coul="${k}" aria-pressed="false"><span class="pt" style="background:${c}"></span>${l}</button>`).join("");
+
+function maj(){
+  let n=0;
+  grille.querySelectorAll(".vin").forEach(el=>{
+    const v=VINS[+el.dataset.i];
+    const ok=(!plat||v.tags.includes(plat))&&(!coul||v.c===coul);
+    el.classList.toggle("off",!ok); el.classList.toggle("hit",ok&&!!plat);
+    if(ok)n++;
+  });
+  document.querySelectorAll("[data-plat]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.plat===plat));
+  document.querySelectorAll("[data-coul]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.coul===coul));
+  const lbl=plat?PLATS.find(p=>p[0]===plat)[1].toLowerCase():null;
+  $("#compteur").innerHTML = (plat||coul)
+    ? `<b>${n}</b> cuvée${n>1?"s":""} ${lbl?`pour « ${lbl} »`:"dans cette couleur"}<button class="reset" id="reset">tout afficher</button>`
+    : `<b>11</b> cuvées, toutes issues de la famille Palais.`;
+  const r=$("#reset"); if(r) r.onclick=()=>{plat=null;coul=null;maj()};
+}
+document.querySelector(".panneau").addEventListener("click",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  if(b.dataset.plat) plat = plat===b.dataset.plat?null:b.dataset.plat;
+  if(b.dataset.coul) coul = coul===b.dataset.coul?null:b.dataset.coul;
+  maj();
+});
+maj();
+
+/* fiche */
+const dlg=$("#fiche"); let courant=0;
+function ouvrir(i){
+  const v=VINS[i]; courant=i;
+  $("#fiche-img").src=IMG(v.img).replace("w_500,h_700","w_700,h_1000"); $("#fiche-img").alt="Bouteille "+v.n;
+  $("#fiche-app").textContent=v.app; $("#fiche-titre").textContent=v.n; $("#fiche-deg").textContent=v.deg;
+  $("#fiche-dl").innerHTML=[["Cépage",v.cep],["Accords",v.acc],["Élevage",v.elev],["Alcool",v.alc],["Garde",v.garde],["Production",v.prod]].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join("");
+  majBoutonFiche();
+  dlg.showModal ? dlg.showModal() : dlg.setAttribute("open","");
+}
+function majBoutonFiche(){$("#fiche-ajout").textContent = sel.has(courant)?"Retirer de ma sélection":"Ajouter à ma sélection";}
+$("#ferme").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+$("#fiche-ajout").onclick=()=>{basculer(courant);majBoutonFiche();};
+grille.addEventListener("click",e=>{
+  const a=e.target.closest("[data-add]"); if(a){e.stopPropagation();basculer(+a.dataset.add);return;}
+  const c=e.target.closest(".vin"); if(c) ouvrir(+c.dataset.i);
+});
+grille.addEventListener("keydown",e=>{const c=e.target.closest(".vin");if(c&&(e.key==="Enter"||e.key===" ")&&e.target===c){e.preventDefault();ouvrir(+c.dataset.i)}});
+
+/* sélection -> mail de préparation de visite */
+function basculer(i){
+  sel.has(i)?sel.delete(i):sel.add(i);
+  grille.querySelectorAll("[data-add]").forEach(b=>{const on=sel.has(+b.dataset.add);b.classList.toggle("on",on);b.textContent=on?"✓":"+"});
+  const n=sel.size;
+  $("#sel-nb").textContent=n; $("#sel-txt").textContent=n>1?"bouteilles sélectionnées":"bouteille sélectionnée";
+  $("#selection").classList.toggle("vis",n>0);
+  const liste=[...sel].map(k=>"- "+VINS[k].n+" ("+VINS[k].app+")").join("\n");
+  $("#sel-mail").href=`mailto:${MAIL}?subject=${encodeURIComponent("Préparer ma venue au caveau")}&body=${encodeURIComponent("Bonjour,\n\nJe souhaiterais passer au caveau pour déguster / acheter :\n"+liste+"\n\nQuand puis-je venir ?\n\nMerci,\n")}`;
+}
+
+/* devis salle */
+const inv=$("#invites");
+function majInv(){
+  const v=+inv.value; $("#inv-val").textContent=v;
+  $("#inv-barre").style.width=Math.min(100,v/120*100)+"%";
+  $("#inv-barre").style.background = v>120 ? "#7b766b" : "";
+  $("#inv-note").textContent = v>120 ? "Au-delà de 120 places assises : parlons-en, le parc de 6000 m² ouvre d'autres possibilités." : (v>=100 ? "La salle accueille jusqu'à 120 convives assis." : "");
+  recap();
+}
+inv.addEventListener("input",majInv);
+let type="Mariage";
+$("#types").addEventListener("click",e=>{const b=e.target.closest(".type");if(!b)return;type=b.textContent;document.querySelectorAll(".type").forEach(x=>x.setAttribute("aria-pressed",x===b));recap();});
+["date","nom"].forEach(id=>$("#"+id).addEventListener("input",recap));
+function recap(){
+  const d=$("#date").value?new Date($("#date").value).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}):"date à préciser";
+  $("#recap").innerHTML=`<strong>${type}</strong> · ${inv.value} invités · ${d}`;
+}
+$("#devis").addEventListener("submit",e=>{
+  e.preventDefault();
+  const corps=`Bonjour,\n\nType d'événement : ${type}\nNombre d'invités : ${inv.value}\nDate souhaitée : ${$("#date").value||"à préciser"}\n\n${$("#msg").value}\n\n${$("#nom").value}\n${$("#tel").value}\n${$("#mail").value}`;
+  location.href=`mailto:${MAIL}?subject=${encodeURIComponent("Demande de devis salle — "+type)}&body=${encodeURIComponent(corps)}`;
+});
+majInv();
+
+/* galerie zoom */
+const z=$("#zoom");
+document.querySelector(".galerie").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const s=b.querySelector("img");z.querySelector("img").src=s.src.replace(/w_\d+,h_\d+/,"w_1600,h_1100");z.querySelector("img").alt=s.alt;z.classList.add("vis")});
+z.onclick=()=>z.classList.remove("vis");
+document.addEventListener("keydown",e=>{if(e.key==="Escape")z.classList.remove("vis")});
+
+/* frise */
+document.querySelectorAll(".frise__nav .rond").forEach(b=>b.onclick=()=>$("#rail").scrollBy({left:+b.dataset.dir*340,behavior:"smooth"}));
+
+/* menu mobile + nav */
+const burger=$("#burger"), menu=$("#menu");
+burger.onclick=()=>{const o=menu.classList.toggle("ouvert");burger.setAttribute("aria-expanded",o)};
+menu.addEventListener("click",e=>{if(e.target.tagName==="A"){menu.classList.remove("ouvert");burger.setAttribute("aria-expanded",false)}});
+const nav=document.querySelector("header.nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>10),{passive:true});
+const liens=[...menu.querySelectorAll("a")];
+const so=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){liens.forEach(a=>a.classList.toggle("actif",a.getAttribute("href")==="#"+en.target.id))}}),{rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("main section[id]").forEach(s=>so.observe(s));
+
+/* titres mot à mot */
+document.querySelectorAll("[data-split]").forEach(el=>{
+  const d=+(el.dataset.delay||150);
+  el.innerHTML=el.textContent.split(" ").map((w,i)=>`<span class="w" style="animation-delay:${d+i*80}ms">${w}</span>`).join(" ");
+});
+
+/* apparitions + compteurs */
+const reduit=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("vu");io.unobserve(en.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+const co=new IntersectionObserver(es=>es.forEach(en=>{
+  if(!en.isIntersecting)return; co.unobserve(en.target);
+  const el=en.target, fin=+el.dataset.count, suf=el.dataset.suffix||"";
+  const debut = fin>1000 ? 1800 : 0;
+  if(reduit){el.textContent=fin+suf;return}
+  const t0=performance.now(), dur=1600;
+  (function f(t){const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3);el.textContent=Math.round(debut+(fin-debut)*e)+suf;if(p<1)requestAnimationFrame(f)})(t0);
+}),{threshold:.6});
+document.querySelectorAll("[data-count]").forEach(el=>co.observe(el));
+})();
+</script>
+</body>
+</html>
