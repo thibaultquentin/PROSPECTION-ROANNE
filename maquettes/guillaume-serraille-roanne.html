@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ets Guillaume Serraille — Vitrier miroitier dans le Roannais | Roanne</title>
+<meta name="description" content="Vitrerie, miroiterie, menuiserie aluminium et volets roulants à Roanne depuis 2002 : coupe de verre, remplacement de vitrages, miroirs, crédences, pare-douches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel serraille.fr
+   Police : Century Gothic (déclarée dans style.css du site),
+            Questrial en repli si elle n'est pas installée.
+   Couleurs : fond blanc, textes #333 / #666, filets #889796
+   (gris-vert des cadres "bord"), logo noir avec reflet.
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================== */
+:root{
+  --blanc:#ffffff;
+  --texte:#333333;
+  --texte-doux:#666666;
+  --filet:#889796;          /* gris-vert des encadrés du site actuel */
+  --filet-clair:#d9dfde;
+  --verre:#e9f0ef;          /* teinte « tranche de verre », dérivée du filet */
+  --verre-fonce:#5f6e6d;
+  --noir:#111111;
+  --police:"Century Gothic","CenturyGothic","Questrial",AppleGothic,Verdana,sans-serif;
+  --r:4px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--police);color:var(--texte);background:var(--blanc);line-height:1.6;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--verre-fonce);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--texte);color:#fff;font-size:12.5px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-bottom-color:var(--filet-clair)}
+.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 24px}
+.logo{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.logo b{font-weight:400;font-size:22px;color:var(--noir);letter-spacing:.01em}
+.logo i{font-style:normal;font-size:22px;color:var(--noir);transform:scaleY(-1);opacity:.13;height:9px;overflow:hidden;line-height:1;-webkit-mask-image:linear-gradient(to top,#000,transparent);mask-image:linear-gradient(to top,#000,transparent)}
+.menu{display:flex;gap:4px;list-style:none;align-items:center}
+.menu a{display:block;text-decoration:none;font-size:14px;color:var(--texte);padding:8px 11px;border-radius:var(--r);position:relative}
+.menu a::after{content:"";position:absolute;left:11px;right:11px;bottom:4px;height:1px;background:var(--filet);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.menu .cta-nav{border:1px solid var(--texte);margin-left:8px}
+.menu .cta-nav:hover{background:var(--texte);color:#fff}
+.menu .cta-nav::after{display:none}
+.burger{display:none;background:none;border:1px solid var(--filet);width:44px;height:44px;border-radius:var(--r);cursor:pointer}
+.burger span{display:block;width:18px;height:1px;background:var(--texte);margin:5px auto}
+
+/* Hero */
+.hero{position:relative;max-width:1180px;margin:auto;padding:70px 24px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.surtitre{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--texte-doux);display:flex;align-items:center;gap:12px}
+.surtitre::before{content:"";width:34px;height:1px;background:var(--filet)}
+.hero h1{font-weight:400;font-size:clamp(34px,5vw,62px);line-height:1.05;color:var(--noir);margin:18px 0 0;letter-spacing:-.01em}
+.reflet{display:block;transform:scaleY(-1);opacity:.1;height:.42em;overflow:hidden;-webkit-mask-image:linear-gradient(to top,#000 10%,transparent);mask-image:linear-gradient(to top,#000 10%,transparent);pointer-events:none;user-select:none}
+.hero p.lead{font-size:clamp(16px,1.4vw,19px);color:var(--texte-doux);max-width:520px;margin-top:6px}
+.hero .metiers{margin-top:14px;font-size:13.5px;color:var(--texte-doux);max-width:560px}
+.boutons{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 24px;border-radius:var(--r);text-decoration:none;font-size:15px;border:1px solid var(--texte);transition:transform .2s var(--ease),background .25s,color .25s;cursor:pointer;font-family:inherit;background:none;color:var(--texte)}
+.btn.plein{background:var(--texte);color:#fff}
+.btn:hover{transform:translateY(-2px)}
+.btn.plein:hover{background:var(--noir)}
+.btn:active{transform:scale(.97)}
+.hero-visu{position:relative;aspect-ratio:4/5;border:1px solid var(--filet);padding:10px;background:#fff}
+.hero-visu .cadre{position:relative;width:100%;height:100%;overflow:hidden}
+.hero-visu img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.hero-visu.vu img{transform:scale(1)}
+.sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.55) 48%,rgba(255,255,255,.15) 52%,transparent 62%);transform:translateX(-120%);pointer-events:none}
+.hero-visu.vu .sheen{animation:sheen 2.2s 0.5s var(--ease) forwards}
+@keyframes sheen{to{transform:translateX(120%)}}
+.hero-visu .etiq{position:absolute;left:-1px;bottom:26px;background:#fff;border:1px solid var(--filet);padding:12px 16px;font-size:13px;transform:translateX(-30%)}
+.hero-visu .etiq strong{display:block;font-weight:400;font-size:22px;color:var(--noir)}
+
+/* Bandeau défilant */
+.defile{border-top:1px solid var(--filet-clair);border-bottom:1px solid var(--filet-clair);overflow:hidden;white-space:nowrap;padding:14px 0;margin-top:30px;color:var(--texte-doux);font-size:14px}
+.defile div{display:inline-block;animation:defile 40s linear infinite}
+.defile span{margin:0 22px}
+.defile span::before{content:"◇";margin-right:22px;color:var(--filet)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{scroll-margin-top:80px}
+.bloc{max-width:1180px;margin:auto;padding:90px 24px}
+.titre-sec{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+.titre-sec h2{font-weight:400;font-size:clamp(28px,3.4vw,42px);color:var(--noir);line-height:1.1;margin-top:12px}
+.titre-sec p{max-width:440px;color:var(--texte-doux)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Présentation */
+.pres{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.pres .photos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pres .photos figure{border:1px solid var(--filet);padding:8px;background:#fff}
+.pres .photos figure:first-child{grid-row:span 2}
+.pres .photos img{width:100%;height:100%;object-fit:cover}
+.pres .photos figcaption{font-size:12px;color:var(--texte-doux);padding-top:6px}
+.pres blockquote{font-size:clamp(20px,2vw,26px);line-height:1.4;color:var(--noir);border-left:1px solid var(--filet);padding-left:22px;margin-bottom:28px}
+.activites{list-style:none;border-top:1px solid var(--filet-clair)}
+.activites li{display:flex;gap:16px;padding:15px 0;border-bottom:1px solid var(--filet-clair);transition:padding .3s var(--ease)}
+.activites li:hover{padding-left:8px}
+.activites li span{color:var(--filet);font-size:13px;min-width:26px;padding-top:2px}
+.activites li em{font-style:normal;color:var(--texte-doux);font-size:14px}
+
+/* Produits verriers */
+.verres{background:var(--verre);}
+.verres .grille{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--filet-clair);border:1px solid var(--filet-clair)}
+.carte-verre{background:#fff;padding:26px 22px;position:relative;overflow:hidden;min-height:170px}
+.carte-verre::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--filet),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.carte-verre:hover::before{transform:scaleX(1)}
+.carte-verre h3{font-weight:400;font-size:18px;color:var(--noir);margin-bottom:8px}
+.carte-verre p{font-size:14px;color:var(--texte-doux)}
+.carte-verre .tranche{position:absolute;right:-30px;bottom:-30px;width:90px;height:90px;border:1px solid var(--filet-clair);transform:rotate(45deg);transition:transform .6s var(--ease)}
+.carte-verre:hover .tranche{transform:rotate(90deg)}
+
+/* Outil */
+.outil{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--filet);background:#fff}
+.outil .form{padding:34px;border-right:1px solid var(--filet)}
+.etape{margin-bottom:24px}
+.etape > label,.etape > .lab{display:block;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--texte-doux);margin-bottom:10px}
+.puces{display:flex;flex-wrap:wrap;gap:8px}
+.puces button{font-family:inherit;font-size:14px;padding:9px 14px;min-height:42px;border:1px solid var(--filet-clair);background:#fff;color:var(--texte);border-radius:var(--r);cursor:pointer;transition:all .2s}
+.puces button:hover{border-color:var(--filet)}
+.puces button[aria-pressed="true"]{background:var(--texte);border-color:var(--texte);color:#fff}
+.dims{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center}
+.champ{position:relative}
+.champ input,.champ select,textarea{width:100%;font-family:inherit;font-size:16px;padding:11px 44px 11px 12px;border:1px solid var(--filet-clair);border-radius:var(--r);background:#fff;color:var(--texte)}
+.champ select{padding-right:12px}
+.champ input:focus,.champ select:focus,textarea:focus{border-color:var(--filet);outline:none}
+.champ .u{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--texte-doux)}
+.dims .x{color:var(--texte-doux)}
+.compteur{display:flex;align-items:center;gap:10px}
+.compteur button{width:40px;height:40px;border:1px solid var(--filet-clair);background:#fff;border-radius:var(--r);font-size:18px;cursor:pointer;color:var(--texte)}
+.compteur output{min-width:24px;text-align:center}
+.ligne2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+textarea{padding:11px 12px;min-height:76px;resize:vertical}
+.apercu{padding:34px;display:flex;flex-direction:column;background:linear-gradient(180deg,#fafcfc,#f1f5f4)}
+.apercu .zone{flex:1;min-height:300px;display:flex;align-items:center;justify-content:center;position:relative}
+.apercu svg{width:100%;height:100%;max-height:360px;overflow:visible}
+.apercu .chiffres{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--filet-clair);margin-top:18px}
+.apercu .chiffres div{padding:14px 0 0}
+.apercu .chiffres b{display:block;font-weight:400;font-size:24px;color:var(--noir)}
+.apercu .chiffres small{font-size:12px;color:var(--texte-doux)}
+.recap{margin-top:18px;font-size:14px;color:var(--texte-doux);border:1px dashed var(--filet);padding:14px;border-radius:var(--r);background:#fff}
+.recap strong{color:var(--texte);font-weight:400}
+.apercu .boutons{margin-top:18px}
+.note-outil{font-size:12.5px;color:var(--texte-doux);margin-top:14px}
+.urgence{display:flex;gap:18px;align-items:center;margin-top:22px;padding:18px;border:1px solid var(--filet-clair);border-radius:var(--r);background:#fff}
+.urgence img{width:84px;height:84px;object-fit:cover;flex:none}
+.urgence p{font-size:14px;color:var(--texte-doux)}
+.urgence a{color:var(--noir)}
+
+/* Menuiserie alu : comparateur */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.onglets{display:flex;border:1px solid var(--filet);border-radius:var(--r);overflow:hidden;margin-bottom:24px}
+.onglets button{flex:1;font-family:inherit;font-size:14.5px;padding:13px;background:#fff;border:0;cursor:pointer;color:var(--texte)}
+.onglets button[aria-selected="true"]{background:var(--texte);color:#fff}
+.option-txt{min-height:150px}
+.option-txt h3{font-weight:400;font-size:21px;color:var(--noir);margin-bottom:8px}
+.option-txt p{color:var(--texte-doux);margin-bottom:10px}
+.option-txt .tags{display:flex;gap:8px;flex-wrap:wrap}
+.option-txt .tags span{font-size:13px;border:1px solid var(--filet-clair);padding:5px 10px;border-radius:20px}
+.schema{border:1px solid var(--filet);padding:24px;background:#fff}
+.schema svg{width:100%;height:auto}
+.schema svg .ouvrant{transition:all .7s var(--ease)}
+.schema figcaption{font-size:12.5px;color:var(--texte-doux);margin-top:10px}
+
+/* Volets */
+.volets{background:var(--verre)}
+.gammes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.gamme{background:#fff;border:1px solid var(--filet-clair);padding:26px}
+.gamme h3{font-weight:400;font-size:19px;color:var(--noir);margin-bottom:6px}
+.gamme p{font-size:14px;color:var(--texte-doux)}
+.gamme.garantie{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;border-color:var(--filet)}
+.gamme.garantie b{font-weight:400;font-size:64px;line-height:1;color:var(--noir)}
+.teintes{display:flex;gap:18px;align-items:center;margin-top:28px;flex-wrap:wrap}
+.teintes figure{border:1px solid var(--filet-clair);padding:6px;background:#fff;width:150px}
+.teintes p{flex:1;min-width:240px;color:var(--texte-doux);font-size:14.5px}
+
+/* Agencement */
+.agenc{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.agenc figure{border:1px solid var(--filet);padding:10px}
+.agenc ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.agenc li{font-size:14px;border:1px solid var(--filet-clair);padding:7px 13px;border-radius:20px;transition:background .25s}
+.agenc li:hover{background:var(--verre)}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--filet)}
+.contact > div{padding:36px}
+.contact > div:first-child{border-right:1px solid var(--filet)}
+.contact h3{font-weight:400;font-size:24px;color:var(--noir);margin-bottom:16px}
+.contact dl{display:grid;grid-template-columns:110px 1fr;gap:10px 16px;font-size:15px}
+.contact dt{color:var(--texte-doux);font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding-top:2px}
+.contact dd a{text-decoration:none;border-bottom:1px solid var(--filet-clair)}
+.contact dd a:hover{border-color:var(--texte)}
+.facade{position:relative}
+.facade img{width:100%;aspect-ratio:400/277;object-fit:cover}
+.facade figcaption{font-size:12.5px;color:var(--texte-doux);margin-top:8px}
+
+footer{border-top:1px solid var(--filet-clair);margin-top:40px}
+footer .in{max-width:1180px;margin:auto;padding:30px 24px 50px;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;font-size:13px;color:var(--texte-doux)}
+footer .mention{max-width:680px}
+
+/* Bouton d'appel mobile */
+.appel-mobile{display:none}
+
+@media (max-width:960px){
+  .hero,.pres,.duo,.agenc{grid-template-columns:1fr;gap:36px}
+  .hero-visu{max-width:440px;aspect-ratio:4/4.4}
+  .hero-visu .etiq{transform:none;left:10px}
+  .verres .grille{grid-template-columns:1fr 1fr}
+  .outil,.contact{grid-template-columns:1fr}
+  .outil .form,.contact > div:first-child{border-right:0;border-bottom:1px solid var(--filet)}
+  .gammes{grid-template-columns:1fr}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;padding:10px 16px 18px;border-bottom:1px solid var(--filet-clair)}
+  .menu.ouvert{display:flex}
+  .menu .cta-nav{margin:8px 0 0;text-align:center}
+  .burger{display:block}
+  .appel-mobile{display:flex;position:fixed;bottom:14px;right:14px;z-index:60;background:var(--texte);color:#fff;text-decoration:none;padding:13px 18px;border-radius:30px;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+}
+@media (max-width:560px){
+  .nav,.hero,.bloc,footer .in{padding-left:16px;padding-right:16px}
+  .bloc{padding-top:64px;padding-bottom:64px}
+  .verres .grille{grid-template-columns:1fr}
+  .outil .form,.apercu,.contact > div{padding:22px 16px}
+  .ligne2{grid-template-columns:1fr}
+  .contact dl{grid-template-columns:1fr;gap:2px}
+  .contact dd{margin-bottom:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "name":"Ets Guillaume Serraille",
+  "description":"Vitrerie, miroiterie, menuiserie aluminium, volets roulants et agencement de magasins.",
+  "url":"https://www.serraille.fr",
+  "telephone":"+33477715396",
+  "faxNumber":"+33477677069",
+  "email":"contact@serraille.fr",
+  "foundingDate":"2002",
+  "address":{"@type":"PostalAddress","streetAddress":"40 boulevard de Belgique","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":["Roanne","Roannais","France"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site serraille.fr</div>
+
+<header id="haut">
+  <nav class="nav" aria-label="Navigation principale">
+    <a class="logo" href="#accueil" aria-label="Ets Guillaume Serraille, accueil"><b>Guillaume Serraille</b><i aria-hidden="true">Guillaume Serraille</i></a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu">
+      <li><a href="#accueil" class="on">Accueil</a></li>
+      <li><a href="#presentation">Présentation</a></li>
+      <li><a href="#vitrerie">Vitrerie - miroiterie</a></li>
+      <li><a href="#menuiserie">Menuiserie alu</a></li>
+      <li><a href="#volets">Volets roulants</a></li>
+      <li><a href="#agencement">Agencement</a></li>
+      <li><a href="#contact" class="cta-nav">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+<section id="accueil">
+  <div class="hero">
+    <div>
+      <div class="surtitre reveal">Vitrerie – Miroiterie – Menuiserie aluminium</div>
+      <h1 class="reveal">Ets Guillaume Serraille<br>Roanne<span class="reflet" aria-hidden="true">Roanne</span></h1>
+      <p class="lead reveal">Créé en 2002, l'atelier du boulevard de Belgique coupe, façonne et pose le verre — de la vitre cassée à remplacer à la devanture de magasin.</p>
+      <p class="metiers reveal">Vitrage isolant neuf ou rénovation – Fenêtres – Portes – Volets roulants – Devantures de magasins – Agencement – Salle de bains – Cuisine – Pare-douches – Crédences murales – Aquariums – Inserts de cheminées – Vitrail</p>
+      <div class="boutons reveal">
+        <a class="btn plein" href="#devis">Préparer ma demande de verre sur mesure →</a>
+        <a class="btn" href="tel:+33477715396">04 77 71 53 96</a>
+      </div>
+    </div>
+    <div class="hero-visu reveal" id="heroVisu">
+      <div class="cadre">
+        <img src="https://www.serraille.fr/images/vitrerie/vitrerie-miroiterie1.jpg" alt="Stock de plaques de verre à l'atelier Serraille" width="400" height="556">
+        <div class="sheen"></div>
+      </div>
+      <div class="etiq">Atelier à Roanne<strong>depuis 2002</strong></div>
+    </div>
+  </div>
+  <div class="defile" aria-hidden="true"><div>
+    <span>Coupe de verre</span><span>Remplacement casse vitrage</span><span>Miroirs</span><span>Crédences</span><span>Pare-douches</span><span>Double vitrage</span><span>Menuiserie aluminium</span><span>Volets roulants Bubendorff</span><span>Devantures de magasins</span><span>Vitrail</span>
+    <span>Coupe de verre</span><span>Remplacement casse vitrage</span><span>Miroirs</span><span>Crédences</span><span>Pare-douches</span><span>Double vitrage</span><span>Menuiserie aluminium</span><span>Volets roulants Bubendorff</span><span>Devantures de magasins</span><span>Vitrail</span>
+  </div></div>
+</section>
+
+<section id="presentation" class="bloc">
+  <div class="titre-sec reveal">
+    <div><div class="surtitre">Présentation</div><h2>Un atelier, deux métiers :<br>le verre et l'aluminium.</h2></div>
+    <p>Travaux pour particuliers et professionnels. Travaux, expéditions et livraisons dans toute la France.</p>
+  </div>
+  <div class="pres">
+    <div class="photos reveal">
+      <figure><img src="https://www.serraille.fr/images/presentation/presentation1.png" alt="Râteliers de verre à l'atelier" width="400" height="480" loading="lazy"><figcaption>L'atelier</figcaption></figure>
+      <figure><img src="https://www.serraille.fr/images/presentation/presentation3.png" alt="Bâtiment de l'entreprise" width="400" height="277" loading="lazy"><figcaption>Boulevard de Belgique</figcaption></figure>
+      <figure><img src="https://www.serraille.fr/images/vitrerie/vitrerie-miroiterie2.jpg" alt="Miroir posé au-dessus d'un plan double vasque" width="221" height="295" loading="lazy"><figcaption>Miroir sur mesure</figcaption></figure>
+    </div>
+    <div class="reveal">
+      <blockquote>« Créé en 2002, l'atelier a autant une activité de vitrerie miroiterie que de fourniture et pose de menuiseries aluminium et volets roulants. »</blockquote>
+      <ul class="activites">
+        <li><span>01</span><div>Vitrerie Miroiterie<br><em>Coupe de verre, dépannages, remplacement tous types de vitrages</em></div></li>
+        <li><span>02</span><div>Menuiserie aluminium<br><em>Fenêtres, portes-fenêtres, devantures de magasins, galandages, portes d'entrée</em></div></li>
+        <li><span>03</span><div>Volets roulants Bubendorff<br><em>Garantie 7 ans pièces et main d'œuvre</em></div></li>
+        <li><span>04</span><div>Agencement de magasins<br><em>Portes et devantures, banques d'accueil, présentoirs, vitrines, miroirs</em></div></li>
+        <li><span>05</span><div>Vitrail<br><em>Neuf ou restauration</em></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="vitrerie" class="verres">
+  <div class="bloc">
+    <div class="titre-sec reveal">
+      <div><div class="surtitre">Vitrerie – miroiterie</div><h2>Les produits verriers</h2></div>
+      <p>Découpe et transformation de produits verriers, façonnage : biseaux, joints polis, encoches, trous.</p>
+    </div>
+    <div class="grille reveal">
+      <div class="carte-verre"><h3>Glaces claires, glaces argentées</h3><p>Vente de verre au détail, fourniture et pose de miroirs.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Verres feuilletés ou armés</h3><p>Verres anti-effraction, verres trempés (sécurit).</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Verres isolants</h3><p>Phoniques et thermiques (doubles vitrages), neuf et rénovation.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Néocéram, pare-flamme</h3><p>Verres d'inserts de cheminées, vitrages pare-flamme et coupe-feu.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Verres imprimés, bombés</h3><p>Pour portes, cloisons et ouvrages particuliers.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Salle de bains, cuisine</h3><p>Pare-douches, crédences de cuisine, plans de vasque.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Structures</h3><p>Cloisons, sols, garde-corps, escaliers, verrières, verres en toiture, marquises.</p><div class="tranche"></div></div>
+      <div class="carte-verre"><h3>Portes en verre</h3><p>Sur pentures ou paumelles, suspendues, automatiques. Films de protection, anti-UV, Plexiglas.</p><div class="tranche"></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="devis" class="bloc">
+  <div class="titre-sec reveal">
+    <div><div class="surtitre">Nouveau — demande en ligne</div><h2>Votre verre sur mesure,<br>dessiné avant d'être coupé.</h2></div>
+    <p>Choisissez la pièce, entrez les cotes et le façonnage : l'aperçu se dessine à l'échelle, et la demande part prête à chiffrer à l'atelier.</p>
+  </div>
+
+  <div class="outil reveal">
+    <form class="form" id="formVerre" onsubmit="return false">
+      <div class="etape">
+        <span class="lab" id="lab-piece">1. La pièce</span>
+        <div class="puces" role="group" aria-labelledby="lab-piece" data-groupe="piece">
+          <button type="button" data-v="Miroir" aria-pressed="true">Miroir</button>
+          <button type="button" data-v="Crédence">Crédence</button>
+          <button type="button" data-v="Pare-douche">Pare-douche</button>
+          <button type="button" data-v="Vitre à remplacer">Vitre à remplacer</button>
+          <button type="button" data-v="Double vitrage">Double vitrage</button>
+          <button type="button" data-v="Plateau / étagère">Plateau / étagère</button>
+        </div>
+      </div>
+      <div class="etape">
+        <span class="lab">2. Les cotes</span>
+        <div class="dims">
+          <div class="champ"><input id="larg" type="number" inputmode="numeric" min="50" max="4000" value="900" aria-label="Largeur en millimètres"><span class="u">mm</span></div>
+          <span class="x">×</span>
+          <div class="champ"><input id="hauteur" type="number" inputmode="numeric" min="50" max="4000" value="1200" aria-label="Hauteur en millimètres"><span class="u">mm</span></div>
+        </div>
+      </div>
+      <div class="ligne2">
+        <div class="etape">
+          <label for="typeVerre">3. Le verre</label>
+          <div class="champ"><select id="typeVerre"></select></div>
+        </div>
+        <div class="etape">
+          <label for="ep">Épaisseur</label>
+          <div class="champ"><select id="ep"></select></div>
+        </div>
+      </div>
+      <div class="etape">
+        <span class="lab" id="lab-bord">4. Le façonnage des bords</span>
+        <div class="puces" role="group" aria-labelledby="lab-bord" data-groupe="bord">
+          <button type="button" data-v="Joints polis" aria-pressed="true">Joints polis</button>
+          <button type="button" data-v="Biseau">Biseau</button>
+          <button type="button" data-v="Bords bruts (en feuillure)">Bords bruts</button>
+        </div>
+      </div>
+      <div class="ligne2">
+        <div class="etape">
+          <span class="lab">Trous</span>
+          <div class="compteur"><button type="button" data-c="trous" data-d="-1" aria-label="Retirer un trou">−</button><output id="nbTrous">0</output><button type="button" data-c="trous" data-d="1" aria-label="Ajouter un trou">+</button></div>
+        </div>
+        <div class="etape">
+          <span class="lab">Encoches (prises, interrupteurs)</span>
+          <div class="compteur"><button type="button" data-c="encoches" data-d="-1" aria-label="Retirer une encoche">−</button><output id="nbEnc">0</output><button type="button" data-c="encoches" data-d="1" aria-label="Ajouter une encoche">+</button></div>
+        </div>
+      </div>
+      <div class="etape">
+        <span class="lab" id="lab-pose">5. Pose ou retrait</span>
+        <div class="puces" role="group" aria-labelledby="lab-pose" data-groupe="pose">
+          <button type="button" data-v="Pose par l'atelier" aria-pressed="true">Pose par l'atelier</button>
+          <button type="button" data-v="Retrait à l'atelier, boulevard de Belgique">Je viens chercher</button>
+        </div>
+      </div>
+      <div class="etape">
+        <label for="msg">Précisions (lieu, accès, photo à envoyer…)</label>
+        <textarea id="msg" placeholder="Ex. : crédence derrière une plaque de cuisson, mur carrelé…"></textarea>
+      </div>
+    </form>
+
+    <div class="apercu" aria-live="polite">
+      <div class="zone"><svg id="svgVerre" viewBox="0 0 400 360" role="img" aria-label="Aperçu à l'échelle de la pièce de verre"></svg></div>
+      <div class="chiffres">
+        <div><b id="surf">1,08</b><small>m² de verre</small></div>
+        <div><b id="poids">—</b><small>poids estimé</small></div>
+        <div><b id="perim">4,20</b><small>m de façonnage</small></div>
+      </div>
+      <div class="recap" id="recap"></div>
+      <div class="boutons">
+        <a class="btn plein" id="envoyer" href="#">Envoyer la demande à l'atelier</a>
+        <a class="btn" href="tel:+33477715396">Appeler</a>
+      </div>
+      <p class="note-outil">Aucun prix affiché : l'atelier vous répond avec un devis. Le poids est un calcul indicatif (2,5 kg par m² et par mm d'épaisseur), utile pour prévoir le transport.</p>
+      <div class="urgence">
+        <img src="https://www.serraille.fr/images/presentation/presentation2.png" alt="Vitre brisée" width="400" height="300" loading="lazy">
+        <p><strong style="color:var(--noir);font-weight:400">Une vitre cassée ?</strong><br>Remplacement casse vitrage, tous types de vitrages : appelez directement le <a href="tel:+33477715396">04 77 71 53 96</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menuiserie" class="bloc">
+  <div class="duo">
+    <div class="reveal">
+      <div class="surtitre">Menuiserie alu</div>
+      <div class="titre-sec" style="margin-bottom:22px"><h2>Les menuiseries alu</h2></div>
+      <p style="color:var(--texte-doux);margin-bottom:12px">Pour le neuf ou la rénovation, l'aluminium est synonyme de permanence des performances. Les différents types de profilés permettent un grand nombre de réalisations : fenêtres, portes, vérandas ou galandages.</p>
+      <p style="color:var(--texte-doux);margin-bottom:26px">Pour la rénovation, deux options se présentent.</p>
+      <div class="onglets" role="tablist">
+        <button role="tab" aria-selected="true" data-opt="1">Première option</button>
+        <button role="tab" aria-selected="false" data-opt="2">Seconde option</button>
+      </div>
+      <div class="option-txt" id="optTxt"></div>
+    </div>
+    <figure class="schema reveal">
+      <svg viewBox="0 0 320 300" aria-label="Schéma de pose en rénovation">
+        <rect x="20" y="20" width="280" height="260" fill="#f1f5f4" stroke="#889796"/>
+        <text x="30" y="40" font-size="11" fill="#666" font-family="inherit">maçonnerie</text>
+        <rect id="dormant" x="60" y="55" width="200" height="200" fill="none" stroke="#333" stroke-width="10"/>
+        <g class="ouvrant" id="ouvrant">
+          <rect x="74" y="69" width="172" height="172" fill="#e9f0ef" stroke="#5f6e6d" stroke-width="6"/>
+          <line x1="90" y1="90" x2="140" y2="140" stroke="#fff" stroke-width="3" opacity=".8"/>
+          <line x1="100" y1="80" x2="170" y2="150" stroke="#fff" stroke-width="2" opacity=".6"/>
+        </g>
+        <text id="legende" x="160" y="275" text-anchor="middle" font-size="11" fill="#666" font-family="inherit">ancien dormant conservé</text>
+      </svg>
+      <figcaption>Schéma de principe — illustration de la différence entre les deux options.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="volets" class="volets">
+  <div class="bloc">
+    <div class="titre-sec reveal">
+      <div><div class="surtitre">Volets roulants</div><h2>La gamme Bubendorff</h2></div>
+      <p>Pour tous les types d'ouvertures (fenêtres, portes-fenêtres, vérandas, verrières, fenêtres de toit…), en construction neuve comme en rénovation. Vaste palette de teintes, en aluminium comme en PVC.</p>
+    </div>
+    <div class="gammes reveal">
+      <div class="gamme"><h3>Gamme ID</h3><p>Le meilleur rapport qualité / prix en neuf ou en rénovation. ID Tradi pour la pose dans le mur, ou ID Mono pour la pose en façade.</p></div>
+      <div class="gamme"><h3>Gamme Classic</h3><p>Nombreuses variantes et options. Tradi Titan en construction neuve, Tradi V5 idéal en remplacement de volets, Mono Design idéal en rénovation pour une pose en façade (existe en caisson enduisable).</p></div>
+      <div class="gamme garantie"><b data-compte="7">7</b><p>ans de garantie pièces et main d'œuvre.</p></div>
+    </div>
+    <div class="teintes reveal">
+      <figure><img src="https://www.serraille.fr/images/volets-roulants/couleurs.jpg" alt="Nuancier des teintes de volets" width="150" loading="lazy"></figure>
+      <p>Commande centralisée, individuelle ou groupée, filaire ou radio, avec ou sans programmation : les packs de commande offrent de nombreuses possibilités.</p>
+    </div>
+  </div>
+</section>
+
+<section id="agencement" class="bloc">
+  <div class="agenc">
+    <div class="reveal">
+      <div class="surtitre">Agencement</div>
+      <div class="titre-sec" style="margin-bottom:18px"><h2>Mêler lumière et architecture</h2></div>
+      <p style="color:var(--texte-doux)">Études de faisabilité en collaboration avec les décorateurs, agenceurs et architectes (normes particulières à la mise en œuvre du verre dans les lieux accueillant du public).</p>
+      <ul>
+        <li>Magasins – lieux publics</li><li>Murs et cloisons</li><li>Sols – escaliers – garde-corps</li><li>Poignées de portes</li><li>Signalétique</li><li>Vasques</li><li>Aménagements extérieurs</li>
+      </ul>
+      <div class="boutons"><a class="btn" href="#contact">Parler d'un projet</a></div>
+    </div>
+    <figure class="reveal"><img src="https://www.serraille.fr/images/agencement/agencement.jpg" alt="Agencement de magasin avec vitrines en verre" width="400" height="300" loading="lazy" style="width:100%"></figure>
+  </div>
+</section>
+
+<section id="contact" class="bloc">
+  <div class="titre-sec reveal"><div><div class="surtitre">Contact</div><h2>Ets. Guillaume Serraille</h2></div></div>
+  <div class="contact reveal">
+    <div>
+      <h3>Coordonnées</h3>
+      <dl>
+        <dt>Adresse</dt><dd><a href="https://www.openstreetmap.org/search?query=40%20boulevard%20de%20Belgique%2042300%20Roanne" target="_blank" rel="noopener">40 Boulevard de Belgique<br>42300 Roanne</a></dd>
+        <dt>Téléphone</dt><dd><a href="tel:+33477715396">04 77 71 53 96</a></dd>
+        <dt>Fax</dt><dd>04 77 67 70 69</dd>
+        <dt>E-mail</dt><dd><a href="mailto:contact@serraille.fr">contact@serraille.fr</a></dd>
+        <dt>Horaires</dt><dd>Lundi – vendredi<br>8h – 12h / 14h – 18h</dd>
+      </dl>
+      <div class="boutons"><a class="btn plein" href="#devis">Préparer une demande</a><a class="btn" href="tel:+33477715396">Appeler</a></div>
+    </div>
+    <div>
+      <figure class="facade"><img src="https://www.serraille.fr/images/presentation/presentation3.png" alt="Bâtiment des Ets Guillaume Serraille" loading="lazy"><figcaption>Travaux pour particuliers et professionnels — expéditions et livraisons dans toute la France.</figcaption></figure>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="in">
+    <div>© Ets Guillaume Serraille — Roanne · SIRET 441 557 261 00019</div>
+    <div class="mention">Maquette de démonstration non contractuelle. Textes, photos et coordonnées repris du site actuel serraille.fr ; toutes les photos sont celles de l'entreprise. Horaires repris d'un annuaire, à confirmer. Les couleurs et la police reprennent la feuille de style du site actuel (Century Gothic, gris et gris-vert) et restent ajustables. Le schéma de menuiserie est une illustration de principe.</div>
+  </div>
+</footer>
+<a class="appel-mobile" href="tel:+33477715396">Appeler l'atelier</a>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+
+  /* En-tête + menu mobile */
+  const header=$('#haut');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('.burger'), menu=$('.menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}));
+
+  /* Apparitions au scroll + compteur */
+  const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15}):null;
+  $$('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms'; io?io.observe(el):el.classList.add('vu')});
+  const hv=$('#heroVisu'); setTimeout(()=>hv.classList.add('vu'),150);
+  const cpt=$('[data-compte]');
+  if(cpt){const o2=new IntersectionObserver(es=>{if(es[0].isIntersecting){let n=0;cpt.textContent=0;const t=setInterval(()=>{cpt.textContent=++n;if(n>=7)clearInterval(t)},120);o2.disconnect()}},{threshold:.6});o2.observe(cpt)}
+
+  /* Lien actif du menu */
+  const secs=['accueil','presentation','vitrerie','menuiserie','volets','agencement','contact'].map(id=>document.getElementById(id));
+  addEventListener('scroll',()=>{let cur='accueil';secs.forEach(s=>{if(s.getBoundingClientRect().top<120)cur=s.id});
+    menu.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+
+  /* ---------- Outil verre sur mesure ---------- */
+  const VERRES={
+    'Miroir':{types:['Glace argentée (miroir)'],ep:[4,5,6]},
+    'Crédence':{types:['Verre trempé (sécurit)','Glace claire'],ep:[6,8]},
+    'Pare-douche':{types:['Verre trempé (sécurit)','Verre imprimé trempé'],ep:[6,8,10]},
+    'Vitre à remplacer':{types:['Glace claire','Verre feuilleté','Verre armé','Verre imprimé','Verre anti-effraction'],ep:[3,4,5,6,8,10]},
+    'Double vitrage':{types:['Isolant thermique','Isolant phonique'],ep:[24,28]},
+    'Plateau / étagère':{types:['Verre trempé (sécurit)','Glace claire','Plexiglas'],ep:[6,8,10,12]}
+  };
+  const DIMS={'Miroir':[900,1200],'Crédence':[1800,600],'Pare-douche':[900,2000],'Vitre à remplacer':[600,800],'Double vitrage':[800,1100],'Plateau / étagère':[800,300]};
+  const etat={piece:'Miroir',bord:'Joints polis',pose:"Pose par l'atelier",trous:0,encoches:0};
+  const typeSel=$('#typeVerre'), epSel=$('#ep');
+
+  function remplir(){
+    const v=VERRES[etat.piece];
+    typeSel.innerHTML=v.types.map(t=>`<option>${t}</option>`).join('');
+    epSel.innerHTML=v.ep.map(e=>`<option value="${e}">${etat.piece==='Double vitrage'?e+' mm (épaisseur totale)':e+' mm'}</option>`).join('');
+    if(etat.piece==='Pare-douche'||etat.piece==='Crédence')epSel.value=v.ep[0];
+  }
+  $$('.puces').forEach(g=>g.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); etat[g.dataset.groupe]=b.dataset.v;
+    if(g.dataset.groupe==='piece'){remplir(); const d=DIMS[etat.piece]; $('#larg').value=d[0]; $('#hauteur').value=d[1]; if(etat.piece==='Double vitrage'){etat.trous=0;etat.encoches=0}}
+    maj();
+  }));
+  $$('[data-c]').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.c; etat[k]=Math.max(0,Math.min(8,etat[k]+(+b.dataset.d))); maj();
+  }));
+  ['#larg','#hauteur','#typeVerre','#ep','#msg'].forEach(s=>$(s).addEventListener('input',maj));
+
+  const fr=(n,d=2)=>n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});
+
+  function dessiner(L,H){
+    const svg=$('#svgVerre'), W=400, Hh=330, m=40;
+    const k=Math.min((W-2*m)/L,(Hh-2*m)/H);
+    const w=L*k,h=H*k,x=(W-w)/2,y=(Hh-h)/2;
+    const miroir=etat.piece==='Miroir', biseau=etat.bord==='Biseau', dv=etat.piece==='Double vitrage';
+    const fill=miroir?'url(#gMiroir)':'url(#gVerre)';
+    let s=`<defs>
+      <linearGradient id="gVerre" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9f0ef"/><stop offset=".5" stop-color="#f7faf9"/><stop offset="1" stop-color="#d7e1df"/></linearGradient>
+      <linearGradient id="gMiroir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9d1d0"/><stop offset=".45" stop-color="#f4f6f6"/><stop offset=".55" stop-color="#e3e8e7"/><stop offset="1" stop-color="#aeb9b8"/></linearGradient>
+      <clipPath id="cp"><rect x="${x}" y="${y}" width="${w}" height="${h}"/></clipPath></defs>`;
+    if(dv) s+=`<rect x="${x+8}" y="${y-8}" width="${w}" height="${h}" fill="#eef3f2" stroke="#889796"/>`;
+    s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="#5f6e6d" stroke-width="1.5"><animate attributeName="opacity" from=".4" to="1" dur=".4s"/></rect>`;
+    if(biseau){const b=Math.min(14,w/8,h/8);s+=`<rect x="${x+b}" y="${y+b}" width="${w-2*b}" height="${h-2*b}" fill="none" stroke="#889796" stroke-width="1"/>
+      <line x1="${x}" y1="${y}" x2="${x+b}" y2="${y+b}" stroke="#889796"/><line x1="${x+w}" y1="${y}" x2="${x+w-b}" y2="${y+b}" stroke="#889796"/><line x1="${x}" y1="${y+h}" x2="${x+b}" y2="${y+h-b}" stroke="#889796"/><line x1="${x+w}" y1="${y+h}" x2="${x+w-b}" y2="${y+h-b}" stroke="#889796"/>`}
+    // reflet
+    s+=`<g clip-path="url(#cp)" opacity=".7"><polygon points="${x+w*.15},${y} ${x+w*.32},${y} ${x+w*.02},${y+h} ${x-w*.15},${y+h}" fill="#fff" opacity=".55"/><polygon points="${x+w*.38},${y} ${x+w*.43},${y} ${x+w*.13},${y+h} ${x+w*.08},${y+h}" fill="#fff" opacity=".45"/></g>`;
+    // trous
+    const r=Math.max(3,Math.min(7,8*k*10));
+    for(let i=0;i<etat.trous;i++){
+      const coins=[[.08,.08],[.92,.08],[.08,.92],[.92,.92],[.5,.08],[.5,.92],[.08,.5],[.92,.5]];
+      const c=coins[i];s+=`<circle cx="${x+w*c[0]}" cy="${y+h*c[1]}" r="${r}" fill="#fff" stroke="#5f6e6d"/>`;
+    }
+    // encoches
+    for(let i=0;i<etat.encoches;i++){
+      const ew=Math.max(10,Math.min(26,80*k)),eh=ew*.8, ex=x+w*(.2+.6*((i+1)/(etat.encoches+1)))-ew/2;
+      s+=`<rect x="${ex}" y="${y+h-eh}" width="${ew}" height="${eh}" fill="#fff" stroke="#5f6e6d"/>`;
+    }
+    // cotes
+    s+=`<g font-size="12" fill="#333" font-family="Century Gothic,Questrial,sans-serif">
+      <line x1="${x}" y1="${y-16}" x2="${x+w}" y2="${y-16}" stroke="#889796"/><line x1="${x}" y1="${y-21}" x2="${x}" y2="${y-11}" stroke="#889796"/><line x1="${x+w}" y1="${y-21}" x2="${x+w}" y2="${y-11}" stroke="#889796"/>
+      <rect x="${x+w/2-30}" y="${y-25}" width="60" height="16" fill="#fafcfc"/><text x="${x+w/2}" y="${y-13}" text-anchor="middle">${L} mm</text>
+      <line x1="${x+w+16}" y1="${y}" x2="${x+w+16}" y2="${y+h}" stroke="#889796"/><line x1="${x+w+11}" y1="${y}" x2="${x+w+21}" y2="${y}" stroke="#889796"/><line x1="${x+w+11}" y1="${y+h}" x2="${x+w+21}" y2="${y+h}" stroke="#889796"/>
+      <text x="${x+w+22}" y="${y+h/2+4}" transform="rotate(90 ${x+w+22} ${y+h/2+4})" text-anchor="middle">${H} mm</text></g>`;
+    s+=`<text x="${W/2}" y="352" text-anchor="middle" font-size="11.5" fill="#666" font-family="Century Gothic,Questrial,sans-serif">${etat.piece} · ${typeSel.value} · ${epSel.value} mm · ${etat.bord.toLowerCase()}</text>`;
+    svg.innerHTML=s;
+  }
+
+  function maj(){
+    const L=Math.max(50,Math.min(4000,+$('#larg').value||0)), H=Math.max(50,Math.min(4000,+$('#hauteur').value||0));
+    const ep=+epSel.value, surf=L*H/1e6;
+    // double vitrage : poids estimé sur 2 verres de 4 mm
+    const epVerre=etat.piece==='Double vitrage'?8:(typeSel.value==='Plexiglas'?ep*0.48:ep);
+    $('#nbTrous').textContent=etat.trous; $('#nbEnc').textContent=etat.encoches;
+    $('#surf').textContent=fr(surf);
+    $('#poids').textContent=fr(surf*2.5*epVerre,1)+' kg';
+    $('#perim').textContent=fr(2*(L+H)/1000);
+    dessiner(L,H);
+    const det=`${etat.piece} — ${typeSel.value}, ${epSel.value} mm\nCotes : ${L} × ${H} mm (${fr(surf)} m²)\nBords : ${etat.bord}\nTrous : ${etat.trous} · Encoches : ${etat.encoches}\n${etat.pose}`;
+    $('#recap').innerHTML='<strong>Votre demande</strong><br>'+det.replace(/\n/g,'<br>');
+    const msg=$('#msg').value.trim();
+    const corps=`Bonjour,\n\nJe souhaite un devis pour :\n${det}${msg?'\n\nPrécisions : '+msg:''}\n\nMes coordonnées :\nNom :\nTéléphone :\n\nMerci.`;
+    $('#envoyer').href='mailto:contact@serraille.fr?subject='+encodeURIComponent('Demande de devis — '+etat.piece+' '+L+'×'+H+' mm')+'&body='+encodeURIComponent(corps);
+  }
+  remplir(); maj();
+
+  /* ---------- Menuiserie : deux options ---------- */
+  const OPT={
+    1:{t:'Retrait des ouvrants',p:["La nouvelle fenêtre vient se fixer sur le dormant (cadre existant).","Il n'y a ni travaux de maçonnerie, ni reprises de peinture. Perte de luminosité : la nouvelle fenêtre est légèrement plus petite que l'ancienne."],tags:['Pas de maçonnerie','Pas de reprise de peinture','Un peu moins de lumière'],leg:'ancien dormant conservé'},
+    2:{t:'Dépose totale',p:["Retrait complet de l'ancienne menuiserie, la nouvelle venant se sceller dans la maçonnerie.","Pas de perte de lumière, mais des reprises de peinture et de menus travaux de maçonnerie sont à prévoir. Dans le cas de travaux de rénovation importants avec maçonnerie et peinture, il est plus pertinent d'opter pour cette solution."],tags:['Toute la lumière','Reprises de peinture','Petite maçonnerie'],leg:'menuiserie scellée dans la maçonnerie'}
+  };
+  function opt(n){
+    const o=OPT[n];
+    $('#optTxt').innerHTML=`<h3>${o.t}</h3>${o.p.map(x=>`<p>${x}</p>`).join('')}<div class="tags">${o.tags.map(x=>`<span>${x}</span>`).join('')}</div>`;
+    const d=$('#dormant'), ouv=$('#ouvrant');
+    d.style.transition='opacity .6s';
+    d.style.opacity=n==1?1:0;
+    ouv.style.transformOrigin='0 0';
+    ouv.style.transform=n==1?'none':'translate(-26px,-25.2px) scale(1.163)';
+    $('#legende').textContent=o.leg;
+    $$('.onglets button').forEach(b=>b.setAttribute('aria-selected',b.dataset.opt==n));
+  }
+  $$('.onglets button').forEach(b=>b.addEventListener('click',()=>opt(b.dataset.opt)));
+  opt(1);
+})();
+</script>
+</body>
+</html>
