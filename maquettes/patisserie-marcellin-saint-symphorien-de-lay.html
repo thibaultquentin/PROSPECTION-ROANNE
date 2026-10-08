@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pâtisserie Marcellin — Pâtisserie artisanale à Roanne et Saint-Symphorien-de-Lay</title>
+<meta name="description" content="Macarons, entremets, pièces montées et chocolats faits maison depuis 1906, dans nos boutiques des Halles Diderot à Roanne et de Saint-Symphorien-de-Lay.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400;0,600;1,400&family=Antonio:wght@400;600&family=Epilogue:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE PÂTISSERIE MARCELLIN — reprise du site actuel
+   (kit Elementor de patisseriemarcellin.fr)
+   ========================================================= */
+:root{
+  --noir:#000000;          /* couleur primaire du site */
+  --creme:#F2E9D9;         /* couleur secondaire */
+  --blanc-casse:#FFFDF8;   /* fond clair */
+  --or:#DAA74D;            /* accent doré */
+  --rose:#FE90C3;          /* rose du kit */
+  --jaune-pale:#F6F8BF;    /* jaune pâle du kit */
+  /* points du logo "M" (macarons) */
+  --dot-bleu:#13A8E0; --dot-marine:#2E3192; --dot-violet:#8E2C8F;
+  --dot-rouge:#E52E35; --dot-vert:#8DBA4A; --dot-jaune:#F7B90F;
+  /* typographies du site */
+  --f-titre:"Epilogue",system-ui,sans-serif;
+  --f-texte:"Andada Pro",Georgia,serif;
+  --f-accent:"Antonio","Arial Narrow",sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);font-size:18px;line-height:1.6;color:var(--noir);background:var(--blanc-casse);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.eyebrow{font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.18em;font-size:.85rem;color:var(--or)}
+h1,h2,h3{font-family:var(--f-titre);font-weight:600;line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem)}
+.btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--f-titre);font-weight:600;font-size:.95rem;padding:.95em 1.6em;border-radius:999px;border:2px solid var(--noir);text-decoration:none;cursor:pointer;transition:transform .3s var(--spring),background .25s,color .25s;min-height:48px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn--noir{background:var(--noir);color:var(--blanc-casse)}
+.btn--noir:hover{background:var(--or);border-color:var(--or);color:var(--noir)}
+.btn--ligne{background:transparent;color:var(--noir)}
+.btn--ligne:hover{background:var(--noir);color:var(--blanc-casse)}
+
+/* bandeau démo */
+.demo{background:var(--noir);color:var(--creme);font-family:var(--f-accent);letter-spacing:.08em;font-size:.8rem;text-align:center;padding:.5em 1em;text-transform:uppercase}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.88);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid rgba(0,0,0,.06);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:78px}
+.nav__logo img{height:58px;width:auto}
+.nav ul{display:flex;gap:2rem;list-style:none;font-family:var(--f-titre);font-size:.95rem}
+.nav ul a{text-decoration:none;position:relative;padding:.3em 0}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:0;width:48px;height:48px;cursor:pointer}
+.burger span{display:block;width:26px;height:2px;background:var(--noir);margin:6px auto;transition:.3s}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:78px 0 auto 0;flex-direction:column;gap:0;background:var(--blanc-casse);padding:1rem 16px 2rem;transform:translateY(-130%);visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s;box-shadow:0 20px 40px rgba(0,0,0,.08)}
+  .nav ul.open{transform:none;visibility:visible;transition:transform .45s var(--ease)}
+  .nav ul a{display:block;padding:1em 0;border-bottom:1px solid rgba(0,0,0,.07)}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* hero */
+.hero{position:relative;padding:clamp(3rem,6vw,6rem) 0 clamp(3rem,5vw,5rem);overflow:hidden}
+#dots{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55}
+.hero__grid{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.2vw,5.4rem);font-weight:800;margin:.35em 0 .4em}
+.hero h1 .ligne{display:block;overflow:hidden}
+.hero h1 .ligne span{display:inline-block;transform:translateY(110%);animation:monte 1s var(--ease) forwards}
+.hero h1 .ligne:nth-child(2) span{animation-delay:.12s}
+.hero h1 .ligne:nth-child(3) span{animation-delay:.24s}
+.hero h1 em{font-family:var(--f-texte);font-style:italic;font-weight:400;color:var(--or)}
+@keyframes monte{to{transform:none}}
+.hero p.lead{font-size:1.2rem;max-width:34ch;opacity:0;animation:fondu .9s .5s forwards}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;opacity:0;animation:fondu .9s .7s forwards}
+@keyframes fondu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero__visuel{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.18);opacity:0;animation:zoom 1.4s .2s var(--ease) forwards}
+.hero__visuel img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 6s var(--ease)}
+.hero__visuel:hover img{transform:scale(1.15)}
+@keyframes zoom{from{opacity:0;transform:scale(.9) rotate(-4deg)}to{opacity:1;transform:none}}
+.badge1906{position:absolute;right:-6px;bottom:8%;width:132px;height:132px;border-radius:50%;background:var(--noir);color:var(--or);display:grid;place-items:center;text-align:center;font-family:var(--f-accent);line-height:1;box-shadow:0 12px 30px rgba(0,0,0,.25);animation:flotte 5s ease-in-out infinite}
+.badge1906 b{display:block;font-size:2.4rem;color:var(--creme)}
+.badge1906 small{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase}
+@keyframes flotte{50%{transform:translateY(-10px) rotate(4deg)}}
+@media (max-width:900px){.hero__grid{grid-template-columns:1fr}.hero__visuel{max-width:420px;margin-inline:auto;width:100%}.badge1906{width:108px;height:108px;right:0}}
+
+/* bandeau défilant des parfums */
+.marquee{background:var(--noir);color:var(--creme);overflow:hidden;padding:1.1rem 0;white-space:nowrap}
+.marquee__piste{display:inline-flex;gap:2.5rem;animation:defile 38s linear infinite;font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.12em;font-size:1.05rem}
+.marquee__piste span{display:inline-flex;align-items:center;gap:2.5rem}
+.marquee__piste i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.marquee:hover .marquee__piste{animation-play-state:paused}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,8vw,7rem) 0;scroll-margin-top:70px}
+.entete{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+.entete p{max-width:46ch}
+
+/* créations */
+.creations{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.carte{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/4;background:var(--creme);text-decoration:none;color:var(--blanc-casse);isolation:isolate}
+.carte img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.carte::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 55%);z-index:1}
+.carte span{position:absolute;left:1.2rem;right:1.2rem;bottom:1.1rem;z-index:2;font-family:var(--f-titre);font-weight:600;font-size:1.2rem;display:flex;justify-content:space-between;align-items:center}
+.carte span::after{content:"→";transition:transform .35s var(--spring)}
+.carte:hover img{transform:scale(1.08)}
+.carte:hover span::after{transform:translateX(6px)}
+.carte:nth-child(1),.carte:nth-child(6){grid-row:span 2;aspect-ratio:auto}
+@media (max-width:900px){.creations{grid-template-columns:repeat(2,1fr)}.carte:nth-child(1),.carte:nth-child(6){grid-row:auto;aspect-ratio:3/4}}
+
+/* macarons */
+.macarons{background:var(--creme)}
+.mac-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1.4rem}
+.mac{text-align:center;cursor:default}
+.mac__img{aspect-ratio:1;border-radius:50%;overflow:hidden;background:var(--blanc-casse);box-shadow:0 0 0 0 var(--c);transition:box-shadow .4s var(--ease),transform .5s var(--spring)}
+.mac__img img{width:100%;height:100%;object-fit:cover}
+.mac:hover .mac__img{transform:translateY(-6px) rotate(-3deg);box-shadow:0 0 0 6px var(--c)}
+.mac h3{font-size:1rem;margin-top:.9rem;font-weight:600}
+.mac h3::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:.5em;vertical-align:middle}
+
+/* entremets */
+.ent-liste{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.ent-items{list-style:none;border-top:1px solid rgba(0,0,0,.12)}
+.ent-items li{border-bottom:1px solid rgba(0,0,0,.12);padding:1.3rem 0;cursor:pointer;transition:padding .35s var(--ease)}
+.ent-items li h3{font-size:1.5rem;display:flex;justify-content:space-between;align-items:center}
+.ent-items li h3::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--or);transform:scale(0);transition:transform .35s var(--spring)}
+.ent-items li p{font-size:.98rem;opacity:.7;max-height:0;overflow:hidden;transition:max-height .45s var(--ease),opacity .3s}
+.ent-items li.actif{padding-left:1rem}
+.ent-items li.actif h3::after{transform:scale(1)}
+.ent-items li.actif p{max-height:6em;opacity:.85;margin-top:.4rem}
+.ent-photo{position:sticky;top:110px;aspect-ratio:2/3;max-height:640px;border-radius:200px 200px 24px 24px;overflow:hidden;background:var(--creme)}
+.ent-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .6s,transform 1.2s var(--ease)}
+.ent-photo img.on{opacity:1;transform:none}
+.allergenes{font-size:.85rem;opacity:.6;margin-top:1.5rem}
+@media (max-width:900px){.ent-liste{grid-template-columns:1fr}.ent-photo{position:relative;top:0;max-height:none;aspect-ratio:4/5;order:-1}}
+
+/* configurateur pièce montée */
+.atelier{background:var(--noir);color:var(--blanc-casse);position:relative;overflow:hidden}
+.atelier .eyebrow{color:var(--or)}
+.atelier h2 em{font-family:var(--f-texte);font-style:italic;font-weight:400;color:var(--or)}
+.config{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);margin-top:3rem;align-items:start}
+.onglets{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.onglet{background:transparent;color:var(--creme);border:1px solid rgba(242,233,217,.35);border-radius:999px;padding:.7em 1.2em;font-family:var(--f-titre);font-size:.9rem;cursor:pointer;min-height:44px;transition:.25s}
+.onglet[aria-selected="true"]{background:var(--or);border-color:var(--or);color:var(--noir)}
+.champ{margin-bottom:1.6rem}
+.champ > label,.champ > .lab{display:block;font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--creme);margin-bottom:.6rem}
+.compteur{display:flex;align-items:center;gap:1rem}
+.compteur output{font-family:var(--f-titre);font-weight:800;font-size:2.8rem;min-width:2.2ch;color:var(--or)}
+input[type=range]{flex:1;accent-color:var(--or);height:44px}
+.parfums{display:flex;flex-wrap:wrap;gap:.5rem}
+.parfum{background:transparent;color:var(--creme);display:inline-flex;align-items:center;gap:.5em;border:1px solid rgba(242,233,217,.3);border-radius:999px;padding:.5em .95em;font-size:.88rem;cursor:pointer;user-select:none;transition:.25s;min-height:40px;font-family:var(--f-titre)}
+.parfum i{width:12px;height:12px;border-radius:50%;background:var(--c);transition:transform .3s var(--spring)}
+.parfum.on{background:rgba(242,233,217,.12);border-color:var(--c)}
+.parfum.on i{transform:scale(1.4)}
+.parfum.off{opacity:.35;cursor:not-allowed}
+.aide{font-size:.85rem;opacity:.6;margin-top:.5rem}
+.atelier input[type=date],.atelier select,.atelier input[type=number]{width:100%;background:transparent;border:1px solid rgba(242,233,217,.35);color:var(--blanc-casse);border-radius:12px;padding:.8em 1em;font:inherit;font-size:1rem;min-height:48px;color-scheme:dark}
+.atelier select option{color:var(--noir)}
+.coche{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem;cursor:pointer}
+.coche input{accent-color:var(--or);width:20px;height:20px;margin-top:.2em}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.scene{position:sticky;top:110px;background:radial-gradient(circle at 50% 35%,#1d1b18,#000 70%);border:1px solid rgba(242,233,217,.12);border-radius:28px;padding:2rem 1.5rem 1.5rem;text-align:center}
+#piece{width:100%;height:auto;max-height:380px}
+.recap{margin-top:1rem;font-size:.95rem;color:var(--creme);min-height:3.2em}
+.recap b{color:var(--or);font-family:var(--f-titre)}
+.scene .btn{margin-top:1.2rem;background:var(--or);border-color:var(--or);color:var(--noir)}
+.scene .btn:hover{background:var(--creme);border-color:var(--creme)}
+.note-delai{font-size:.8rem;opacity:.55;margin-top:.8rem}
+.panneau[hidden]{display:none}
+@media (max-width:900px){.config{grid-template-columns:1fr}.scene{position:relative;top:0;order:-1}}
+
+/* histoire */
+.histoire-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.histoire-img{border-radius:24px;overflow:hidden;aspect-ratio:4/5}
+.histoire-img img{width:100%;height:100%;object-fit:cover}
+.frise{list-style:none;margin:2rem 0;position:relative;padding-left:2rem}
+.frise::before{content:"";position:absolute;left:7px;top:.6em;bottom:.6em;width:2px;background:linear-gradient(var(--or),var(--rose))}
+.frise li{position:relative;margin-bottom:1.4rem}
+.frise li::before{content:"";position:absolute;left:-2rem;top:.45em;width:16px;height:16px;border-radius:50%;background:var(--blanc-casse);border:3px solid var(--or)}
+.frise b{font-family:var(--f-accent);font-size:1.6rem;color:var(--or);display:block;line-height:1}
+.valeurs{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.valeur{background:var(--creme);border-radius:18px;padding:1.3rem;transition:transform .4s var(--spring)}
+.valeur:hover{transform:translateY(-5px)}
+.valeur img{width:44px;height:44px;object-fit:contain;margin-bottom:.6rem}
+.valeur h3{font-size:1.05rem;margin-bottom:.3rem}
+.valeur p{font-size:.9rem;opacity:.8;line-height:1.45}
+@media (max-width:900px){.histoire-grid{grid-template-columns:1fr}.valeurs{grid-template-columns:1fr}}
+
+/* boutiques */
+.boutiques{background:var(--creme)}
+.bout-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.boutique{background:var(--blanc-casse);border-radius:24px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+.boutique__img{aspect-ratio:16/9;overflow:hidden;position:relative;background:#e9dfcd}
+.boutique__img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.boutique:hover .boutique__img img{transform:scale(1.05)}
+.boutique__corps{padding:1.6rem}
+.boutique h3{font-size:1.5rem;margin-bottom:.4rem}
+.boutique .tag{font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:var(--or)}
+.boutique p{margin:.6rem 0}
+.boutique .liens{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.boutique .liens .btn{padding:.7em 1.2em;font-size:.88rem}
+@media (max-width:900px){.bout-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem}
+form.contact{display:grid;gap:1rem}
+form.contact label{font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.1em;font-size:.82rem}
+form.contact input,form.contact select,form.contact textarea{width:100%;border:1px solid rgba(0,0,0,.2);border-radius:12px;padding:.85em 1em;font:inherit;font-size:1rem;background:#fff;margin-top:.35rem;min-height:48px}
+form.contact .deux{gap:1rem}
+.radios{display:flex;gap:1.5rem;font-size:.95rem}
+.radios input{accent-color:var(--noir)}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}form.contact .deux{grid-template-columns:1fr}}
+
+footer{background:var(--noir);color:var(--creme);padding:4rem 0 2rem;font-size:.95rem}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:2rem}
+footer h4{font-family:var(--f-accent);text-transform:uppercase;letter-spacing:.14em;color:var(--or);font-weight:400;margin-bottom:.8rem}
+footer ul{list-style:none;line-height:2}
+footer a{text-decoration:none;opacity:.85}
+footer a:hover{opacity:1;color:var(--or)}
+.mention{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(242,233,217,.15);font-size:.8rem;opacity:.7;line-height:1.6}
+@media (max-width:900px){.foot{grid-template-columns:1fr 1fr}}
+
+/* apparitions au scroll */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Bakery",
+  "name":"Pâtisserie Marcellin",
+  "description":"Pâtisserie artisanale fondée en 1906 à Saint-Symphorien-de-Lay : macarons, entremets, pièces montées, chocolats, glaces et viennoiseries faits maison.",
+  "url":"https://www.patisseriemarcellin.fr",
+  "email":"contact@patisseriemarcellin.fr",
+  "foundingDate":"1906",
+  "address":{"@type":"PostalAddress","streetAddress":"97 rue de la Tête Noire","postalCode":"42470","addressLocality":"Saint-Symphorien-de-Lay","addressCountry":"FR"},
+  "areaServed":["Roanne","Saint-Symphorien-de-Lay","Le Roannais"],
+  "department":[{"@type":"Bakery","name":"Pâtisserie Marcellin — Les Halles Diderot","address":{"@type":"PostalAddress","streetAddress":"35 rue Diderot","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"}}],
+  "sameAs":["https://www.facebook.com/patisserie.marcellin/","https://www.instagram.com/patisserie.marcellin/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour la Pâtisserie Marcellin</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="nav__logo" href="#haut" aria-label="Pâtisserie Marcellin — accueil"><img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Logo-colore-300x300.png" alt="Logo Pâtisserie Marcellin"></a>
+    <ul id="menu">
+      <li><a href="#creations">Nos créations</a></li>
+      <li><a href="#atelier">Pâtisseries événementielles</a></li>
+      <li><a href="#histoire">Notre histoire</a></li>
+      <li><a href="#boutiques">Nos boutiques</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn--noir" href="#atelier">Composer ma pièce montée</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <canvas id="dots" aria-hidden="true"></canvas>
+  <div class="wrap hero__grid">
+    <div>
+      <p class="eyebrow">Roanne · Saint-Symphorien-de-Lay</p>
+      <h1>
+        <span class="ligne"><span>La pâtisserie</span></span>
+        <span class="ligne"><span>Marcellin, <em>le savoir-faire</em></span></span>
+        <span class="ligne"><span>artisanal depuis 1906</span></span>
+      </h1>
+      <p class="lead">De la gourmandise et du fait-maison avec amour. Macarons, entremets, chocolats et pièces montées, réalisés dans notre laboratoire de Saint-Symphorien-de-Lay.</p>
+      <div class="hero__cta">
+        <a class="btn btn--noir" href="#creations">Découvrir nos créations</a>
+        <a class="btn btn--ligne" href="#atelier">Préparer un événement</a>
+      </div>
+    </div>
+    <div style="position:relative">
+      <div class="hero__visuel"><img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/11/Patisserie-Marcellin-Roanne114-carre-768x768.jpeg" alt="Pâtisserie Marcellin, décor chocolat au logo de la maison"></div>
+      <div class="badge1906"><div><small>depuis</small><b>1906</b><small>3 générations</small></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee__piste" id="marquee"></div></div>
+
+<section id="creations">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="eyebrow">Nos créations</p><h2>Découvrez toutes nos<br>créations artisanales</h2></div>
+      <p>Notre pâtisserie est connue et réputée pour ses macarons ! Mais avez-vous aussi goûté nos gâteaux individuels, cakes, tablettes de chocolat ou encore glaces et sorbets ? Chaque création est artisanale et entièrement faite maison.</p>
+    </div>
+    <div class="creations">
+      <a class="carte rv" href="#entremets"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet17-683x1024.jpg" alt="Entremets Baguéra"><span>Nos entremets</span></a>
+      <a class="carte rv" href="#macarons"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/11/Patisserie-Marcellin-Roanne202.jpg" alt="Macarons"><span>Macarons</span></a>
+      <a class="carte rv" href="#contact"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/11/Patisserie-Marcellin-Roanne183.jpg" alt="Pâtisserie individuelle"><span>Pâtisseries individuelles</span></a>
+      <a class="carte rv" href="#contact"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/06/Chocolats-et-tablettes14.jpg" alt="Tablettes et chocolats"><span>Tablettes et chocolats</span></a>
+      <a class="carte rv" href="#contact"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/06/Corbeille-nougatine1.jpg" alt="Corbeille glacée nougatine-framboise"><span>Glaces et sorbets</span></a>
+      <a class="carte rv" href="#atelier"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Piece-montee-Patisserie-Marcellin-Roanne-Saint-Symphorien1.jpg" alt="Pièce montée macarons"><span>Pièces montées</span></a>
+      <a class="carte rv" href="#contact"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Gateau-de-soiree-Patisserie-Marcellin-Roanne-Saint-Symphorien-de-Lay-Dome-passion-coco.png" alt="Gâteau de soirée dôme passion-coco"><span>Gâteaux de soirée</span></a>
+      <a class="carte rv" href="#contact"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2024/06/Patisserie-Marcellin-Roanne-cake-framboise-passion48.jpg" alt="Cake framboise passion"><span>Nos cakes</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="macarons" id="macarons">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="eyebrow">Emblématiques</p><h2>Nos macarons</h2></div>
+      <p>Réalisés artisanalement chaque jour. Leurs couleurs sont devenues notre logo, et la carte évolue au fil des saisons et des envies.</p>
+    </div>
+    <div class="mac-grid" id="macGrid"></div>
+    <p class="allergenes">Liste des allergènes : gluten, fruits à coque, lait, œuf, soja.</p>
+  </div>
+</section>
+
+<section id="entremets">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="eyebrow">À partager</p><h2>Nos entremets</h2></div>
+      <p>Les gâteaux indispensables pour partager vos plus agréables moments en famille, entre amis, entre proches.</p>
+    </div>
+    <div class="ent-liste">
+      <ul class="ent-items rv" id="entItems"></ul>
+      <div class="ent-photo rv" id="entPhoto"></div>
+    </div>
+  </div>
+</section>
+
+<section class="atelier" id="atelier">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="eyebrow">Pâtisseries événementielles</p><h2>Composez votre <em>pièce montée</em></h2></div>
+      <p style="color:var(--creme)">Pour vos plus beaux événements de vie. Choisissez la formule et les parfums, la pièce prend forme sous vos yeux, et votre demande part directement à nos pâtissiers.</p>
+    </div>
+
+    <div class="config">
+      <div>
+        <div class="onglets" role="tablist" aria-label="Type de pièce montée">
+          <button class="onglet" role="tab" aria-selected="true" data-type="macarons">Macarons sur support</button>
+          <button class="onglet" role="tab" aria-selected="false" data-type="chou">Chou à la crème</button>
+          <button class="onglet" role="tab" aria-selected="false" data-type="nougatine">Nougatine</button>
+        </div>
+
+        <div class="panneau" data-panneau="macarons">
+          <div class="champ">
+            <label for="nbMac">Nombre de macarons</label>
+            <div class="compteur"><input type="range" id="nbMac" min="20" max="60" step="1" value="40"><output id="nbMacOut">40</output></div>
+            <p class="aide">De 20 à 60 macarons par pièce montée.</p>
+          </div>
+          <div class="champ">
+            <span class="lab">Parfums (jusqu'à 4)</span>
+            <div class="parfums" id="parfums"></div>
+          </div>
+        </div>
+
+        <div class="panneau" data-panneau="chou" hidden>
+          <div class="champ">
+            <label for="nbInv">Nombre d'invités (indicatif)</label>
+            <input type="number" id="nbInv" min="1" placeholder="ex. 50">
+            <p class="aide">Nos pâtissiers vous conseilleront le nombre de choux adapté.</p>
+          </div>
+          <div class="champ">
+            <span class="lab">Garniture des choux</span>
+            <div class="parfums" id="cremes"></div>
+          </div>
+        </div>
+
+        <div class="panneau" data-panneau="nougatine" hidden>
+          <div class="champ">
+            <span class="lab">Forme de la nougatine</span>
+            <div class="parfums" id="formes"></div>
+            <p class="aide">La forme est personnalisable : dites-nous votre idée dans le message.</p>
+          </div>
+        </div>
+
+        <div class="champ deux">
+          <div><label for="dateEv">Date de l'événement</label><input type="date" id="dateEv"></div>
+          <div><label for="retrait">Boutique de retrait</label>
+            <select id="retrait"><option>Roanne — Les Halles Diderot</option><option>Saint-Symphorien-de-Lay</option></select></div>
+        </div>
+        <div class="champ">
+          <label class="coche"><input type="checkbox" id="traiteur"> <span>Ajouter un accompagnement traiteur : feuilletés salés, pizzas et quiches</span></label>
+        </div>
+      </div>
+
+      <div class="scene" aria-live="polite">
+        <svg id="piece" viewBox="0 0 400 400" role="img" aria-label="Aperçu de la pièce montée"></svg>
+        <p class="recap" id="recap"></p>
+        <a class="btn" id="envoyer" href="#">Envoyer ma demande à la pâtisserie</a>
+        <p class="note-delai">Aperçu illustratif. Tarif et faisabilité confirmés par la pâtisserie après réception de votre demande.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap histoire-grid">
+    <div class="histoire-img rv"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Histoire-Patisserie-Marcellin-Roanne-Saint-Symphorien1.jpg" alt="Le laboratoire de la Pâtisserie Marcellin"></div>
+    <div class="rv">
+      <p class="eyebrow">Notre histoire</p>
+      <h2>L'art du savoir-faire et du fait-maison, depuis 1906</h2>
+      <ol class="frise">
+        <li><b>1906</b>La Pâtisserie Marcellin voit le jour au cœur du petit village de Saint-Symphorien-de-Lay. Trois générations la font grandir.</li>
+        <li><b>2013</b>L'aventure continue à Roanne, avec l'ouverture d'une deuxième boutique aux Halles Diderot.</li>
+        <li><b>2023</b>Benoît, formé au sein de la maison, reprend les rênes pour faire durer l'entreprise et la qualité servie par les générations précédentes.</li>
+      </ol>
+      <div class="valeurs">
+        <div class="valeur"><img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Roanne-fait-maison-avec-amour.png" alt=""><h3>Fait-maison</h3><p>Tout est réalisé dans notre laboratoire à Saint-Symphorien-de-Lay.</p></div>
+        <div class="valeur"><img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Roanne-icone-poche-a-douille.png" alt=""><h3>Savoir-faire</h3><p>Un savoir-faire intergénérationnel, transmis et préservé.</p></div>
+        <div class="valeur"><img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Roanne-icone-qualite.png" alt=""><h3>Qualité</h3><p>Des produits de qualité, comme le chocolat Valrhona.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="boutiques" id="boutiques">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><p class="eyebrow">Deux boutiques vous accueillent</p><h2>Roanne et Saint-Symphorien-de-Lay</h2></div>
+      <p>Retrouvez le meilleur de la pâtisserie Marcellin dans nos deux boutiques du Roannais.</p>
+    </div>
+    <div class="bout-grid">
+      <article class="boutique rv">
+        <div class="boutique__img"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Boutique-Marcellin-Roanne.jpg" alt="Boutique Marcellin aux Halles Diderot, Roanne"></div>
+        <div class="boutique__corps">
+          <span class="tag">Boutique & salon de thé</span>
+          <h3>Roanne — Les Halles Diderot</h3>
+          <p>35 rue Diderot<br>42300 Roanne</p>
+          <p><a href="tel:+33477784004">04 77 78 40 04</a></p>
+          <div class="liens">
+            <a class="btn btn--noir" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Halles+Diderot+35+rue+Diderot+42300+Roanne">Itinéraire</a>
+            <a class="btn btn--ligne" href="tel:+33477784004">Appeler</a>
+          </div>
+        </div>
+      </article>
+      <article class="boutique rv">
+        <div class="boutique__img"><img loading="lazy" src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Boutique-Patisserie-Marcellin-Roanne-Saint-Symphorien10.jpg" alt="Boutique Pâtisserie Marcellin"></div>
+        <div class="boutique__corps">
+          <span class="tag">Boutique historique & laboratoire</span>
+          <h3>Saint-Symphorien-de-Lay</h3>
+          <p>97 rue de la Tête Noire<br>42470 Saint-Symphorien-de-Lay</p>
+          <p><a href="tel:+33477647123">04 77 64 71 23</a></p>
+          <div class="liens">
+            <a class="btn btn--noir" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=97+rue+de+la+T%C3%AAte+Noire+42470+Saint-Symphorien-de-Lay">Itinéraire</a>
+            <a class="btn btn--ligne" href="tel:+33477647123">Appeler</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="rv">
+      <p class="eyebrow">Contact</p>
+      <h2>Contacter la pâtisserie Marcellin</h2>
+      <p style="margin-top:1rem">Vous souhaitez nous contacter pour une demande particulière ? Remplissez le formulaire : notre équipe s'efforce de vous répondre dans les meilleurs délais.</p>
+      <p style="margin-top:1rem"><a href="mailto:contact@patisseriemarcellin.fr">contact@patisseriemarcellin.fr</a></p>
+    </div>
+    <form class="contact rv" id="formContact">
+      <div class="deux">
+        <label>Nom<input required name="nom" autocomplete="name"></label>
+        <label>Téléphone<input name="tel" type="tel" autocomplete="tel"></label>
+      </div>
+      <label>E-mail<input required type="email" name="email" autocomplete="email"></label>
+      <label>Quel est votre besoin ?
+        <select name="besoin">
+          <option>Une pièce montée macaron</option>
+          <option>Une pièce montée chou</option>
+          <option>Une commande traiteur (pizza, quiche…)</option>
+          <option>Une pâtisserie (entremet, soirée, gâteau individuel…)</option>
+          <option>Cadeau d'entreprise (macaron, assortiment de chocolat…)</option>
+          <option>Autre demande</option>
+        </select>
+      </label>
+      <div class="radios" role="radiogroup" aria-label="Vous êtes">
+        <label style="text-transform:none;letter-spacing:0;font-family:var(--f-texte);font-size:1rem"><input type="radio" name="profil" value="Un particulier" checked> Un particulier</label>
+        <label style="text-transform:none;letter-spacing:0;font-family:var(--f-texte);font-size:1rem"><input type="radio" name="profil" value="Une entreprise"> Une entreprise</label>
+      </div>
+      <label>Message<textarea name="message" rows="5"></textarea></label>
+      <button class="btn btn--noir" type="submit" style="justify-self:start">Envoyer</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img src="https://www.patisseriemarcellin.fr/wp-content/uploads/2023/12/Patisserie-Marcellin-Logo-blanc_Logo-M-150x150.png" alt="Pâtisserie Marcellin" style="width:72px;margin-bottom:1rem">
+        <p>De la gourmandise et du fait-maison avec amour, depuis 1906.</p>
+      </div>
+      <div><h4>Nos pâtisseries</h4><ul><li><a href="#macarons">Macarons</a></li><li><a href="#entremets">Entremets</a></li><li><a href="#atelier">Pâtisseries événementielles</a></li></ul></div>
+      <div><h4>Informations</h4><ul><li><a href="#histoire">Notre histoire</a></li><li><a href="#boutiques">Nos boutiques</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Nous suivre</h4><ul><li><a target="_blank" rel="noopener" href="https://www.facebook.com/patisserie.marcellin/">Facebook</a></li><li><a target="_blank" rel="noopener" href="https://www.instagram.com/patisserie.marcellin/">Instagram</a></li></ul></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée pour la Pâtisserie Marcellin — non contractuelle, aucun tarif affiché. Couleurs et typographies reprises du site actuel (patisseriemarcellin.fr). Toutes les photos sont celles déjà publiées sur le site de la pâtisserie (photographies : Cerize a du Reflex) ; aucune image d'illustration extérieure. Textes repris ou adaptés du site actuel. Horaires d'ouverture à fournir par la pâtisserie. Le formulaire et le configurateur ouvrent un e-mail pré-rempli vers contact@patisseriemarcellin.fr.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const U='https://www.patisseriemarcellin.fr/wp-content/uploads/';
+  const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- macarons (carte réelle du site) --- */
+  const MACS=[
+    ['Velouté Figue','2024/11/Patisserie-Marcellin-Roanne205.jpg','#8E2C8F'],
+    ['Caramel','2024/11/Patisserie-Marcellin-Roanne204.jpg','#C98A2E'],
+    ['Vanille','2024/11/Patisserie-Marcellin-Roanne203.jpg','#EADCB8'],
+    ['Cassis Marron','2024/11/Patisserie-Marcellin-Roanne202.jpg','#5B2245'],
+    ['Citron','2024/11/Patisserie-Marcellin-Roanne201.jpg','#F7D417'],
+    ['Noix de Coco-Chocolat au Lait','2024/11/Patisserie-Marcellin-Roanne200.jpg','#A6795A'],
+    ['Passion-Chocolat','2024/11/Patisserie-Marcellin-Roanne199.jpg','#F39A1E'],
+    ['Pistache','2024/11/Patisserie-Marcellin-Roanne198.jpg','#8DBA4A'],
+    ['Rose-Coing','2024/11/Patisserie-Marcellin-Roanne197.jpg','#FE90C3'],
+    ['Chocolat','2024/11/Patisserie-Marcellin-Roanne196.jpg','#4A2A1A'],
+    ['Orange-Pain d’épices','2024/11/Patisserie-Marcellin-Roanne195.jpg','#E5662A']
+  ];
+  const g=document.getElementById('macGrid');
+  MACS.forEach(([n,src,c],i)=>{
+    const d=document.createElement('div');d.className='mac rv';d.style.setProperty('--c',c);d.style.transitionDelay=(i%6)*60+'ms';
+    d.innerHTML=`<div class="mac__img"><img loading="lazy" src="${U+src}" alt="Macaron ${n}"></div><h3>${n}</h3>`;g.appendChild(d);
+  });
+  /* bandeau défilant */
+  const m=document.getElementById('marquee');
+  const tour=MACS.map(([n,,c])=>`<span><i style="background:${c}"></i>${n}</span>`).join('');
+  m.innerHTML=tour+tour;
+
+  /* --- entremets --- */
+  const ENTS=[
+    ['Tarte citron','Pâte sablée, crème pâtissière cuite, crème citron, meringue','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet3-683x1024.jpg'],
+    ['Framboisier','Biscuit amande, crémeux framboise avec framboises entières, mousse vanille','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet9-683x1024.jpg'],
+    ['Le Plaisir Sucré','Croustillant praliné, biscuit noisette, crémeux noisette, ganache montée chocolat au lait','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet13-1-683x1024.jpg'],
+    ['Baguéra','Croustillant spéculos, biscuit amande, crémeux caramel, mousse vanille','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet17-683x1024.jpg'],
+    ['Le Bichot','Biscuit amande, chantilly vanille, framboises entières','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet21-683x1024.jpg'],
+    ['Le Tête Noire','Croustillant praliné, biscuit chocolat, crémeux vanille, mousse chocolat','2023/12/Patisserie-Marcellin-Roanne-Saint-Symphorien-gateau-entremet5-683x1024.jpg']
+  ];
+  const ul=document.getElementById('entItems'),ph=document.getElementById('entPhoto');
+  ENTS.forEach(([n,t,src],i)=>{
+    const li=document.createElement('li');li.tabIndex=0;li.innerHTML=`<h3>${n}</h3><p>${t}</p>`;
+    const im=document.createElement('img');im.src=U+src;im.alt='Entremets '+n;im.loading=i?'lazy':'eager';ph.appendChild(im);
+    const on=()=>{ul.querySelectorAll('li').forEach(x=>x.classList.remove('actif'));ph.querySelectorAll('img').forEach(x=>x.classList.remove('on'));li.classList.add('actif');im.classList.add('on')};
+    li.addEventListener('mouseenter',on);li.addEventListener('click',on);li.addEventListener('focus',on);
+    ul.appendChild(li);if(!i)on();
+  });
+  const al=document.createElement('p');al.className='allergenes';al.textContent='Liste des allergènes : gluten, fruits à coque, lait, œuf, soja.';ul.after(al);
+
+  /* --- points du logo animés dans le hero --- */
+  const cv=document.getElementById('dots'),cx=cv.getContext('2d');
+  const COLS=['#13A8E0','#2E3192','#8E2C8F','#E52E35','#8DBA4A','#F7B90F'];
+  let W,H,pts=[];
+  function taille(){const r=cv.getBoundingClientRect();W=cv.width=r.width*devicePixelRatio;H=cv.height=r.height*devicePixelRatio;
+    pts=Array.from({length:Math.min(46,Math.round(r.width/28))},()=>({x:Math.random()*W,y:Math.random()*H,r:(4+Math.random()*14)*devicePixelRatio,c:COLS[Math.random()*6|0],vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,a:.15+Math.random()*.35}))}
+  let mx=-1e4,my=-1e4;
+  cv.parentElement.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=(e.clientX-r.left)*devicePixelRatio;my=(e.clientY-r.top)*devicePixelRatio});
+  function anim(){cx.clearRect(0,0,W,H);pts.forEach(p=>{
+      const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<160*devicePixelRatio){p.x+=dx/d*1.6;p.y+=dy/d*1.6}
+      p.x+=p.vx;p.y+=p.vy;if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;if(p.y<-20)p.y=H+20;if(p.y>H+20)p.y=-20;
+      cx.globalAlpha=p.a;cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()});
+    if(!reduit)requestAnimationFrame(anim)}
+  taille();anim();addEventListener('resize',taille);
+
+  /* --- configurateur de pièce montée --- */
+  const svg=document.getElementById('piece'),recap=document.getElementById('recap'),env=document.getElementById('envoyer');
+  const nb=document.getElementById('nbMac'),nbo=document.getElementById('nbMacOut');
+  let type='macarons',choix=[MACS[8][0],MACS[0][0]],creme=['Vanille'],forme='Cœur';
+  const CREMES=[['Vanille','#EADCB8'],['Caramel','#C98A2E'],['Chocolat','#4A2A1A'],['Praliné','#A6795A']];
+  const FORMES=[['Papillon','#DAA74D'],['Rond','#DAA74D'],['Arche','#DAA74D'],['Cœur','#DAA74D']];
+  function chips(el,list,isOn,click){el.innerHTML='';list.forEach(([n,c])=>{const b=document.createElement('button');b.type='button';b.className='parfum';b.style.setProperty('--c',c);b.innerHTML=`<i></i>${n}`;
+    const st=isOn(n);b.classList.toggle('on',st.on);b.classList.toggle('off',!!st.off);b.setAttribute('aria-pressed',st.on);b.onclick=()=>click(n);el.appendChild(b)})}
+  function renderChips(){
+    chips(document.getElementById('parfums'),MACS.map(x=>[x[0],x[2]]),n=>({on:choix.includes(n),off:!choix.includes(n)&&choix.length>=4}),n=>{if(choix.includes(n))choix=choix.filter(x=>x!==n);else if(choix.length<4)choix.push(n);maj()});
+    chips(document.getElementById('cremes'),CREMES,n=>({on:creme.includes(n)}),n=>{creme=creme.includes(n)?creme.filter(x=>x!==n):[...creme,n];maj()});
+    chips(document.getElementById('formes'),FORMES,n=>({on:forme===n}),n=>{forme=n;maj()});
+  }
+  const couleur=n=>(MACS.find(x=>x[0]===n)||CREMES.find(x=>x[0]===n)||[0,0,'#DAA74D']).slice(-1)[0];
+  let dernier='';
+  function dessinPiece(){
+    const NS='http://www.w3.org/2000/svg';let h='';
+    // support / plateau
+    h+=`<ellipse cx="200" cy="372" rx="150" ry="14" fill="#DAA74D" opacity=".9"/><ellipse cx="200" cy="368" rx="150" ry="14" fill="#F2E9D9"/>`;
+    let cles=[];
+    if(type==='nougatine'){
+      const shapes={Papillon:'M200 210 C150 120 70 140 95 210 C70 280 150 300 200 230 C250 300 330 280 305 210 C330 140 250 120 200 210Z',Rond:'M200 110 a110 110 0 1 0 0.1 0Z',Arche:'M90 340 L90 210 A110 110 0 0 1 310 210 L310 340 L270 340 L270 215 A70 70 0 0 0 130 215 L130 340Z',Cœur:'M200 330 C120 270 70 220 80 160 C90 110 160 100 200 160 C240 100 310 110 320 160 C330 220 280 270 200 330Z'};
+      h+=`<path d="${shapes[forme]}" fill="url(#ng)" stroke="#8a5a1c" stroke-width="3" class="pop"/>`;
+      h+=`<defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E7B866"/><stop offset=".5" stop-color="#C6852F"/><stop offset="1" stop-color="#8a5a1c"/></linearGradient></defs>`;
+      for(let i=0;i<14;i++){const a=i/14*Math.PI*2;h+=`<circle cx="${200+Math.cos(a)*30}" cy="${215+Math.sin(a)*30}" r="5" fill="#F2E9D9" opacity=".9"/>`}
+      svg.innerHTML=h;return;
+    }
+    // macarons ou choux empilés en cône
+    const total=type==='macarons'?+nb.value:Math.max(18,Math.min(90,Math.round((+document.getElementById('nbInv').value||40)*1.2)));
+    const r=type==='macarons'?(total>45?13:15):13;
+    const cols=type==='macarons'?(choix.length?choix.map(couleur):['#F2E9D9']):(creme.length?creme.map(couleur):['#EADCB8']);
+    // rangées : largeur décroissante de bas en haut
+    let w=1;while(w*(w+1)/2<total)w++;
+    let rows=[],rest=total;while(rest>0&&w>0){const k=Math.min(rest,w);rows.push(k);rest-=k;w--}
+    let y=350-r,i=0;
+    rows.forEach((k,ri)=>{const largeur=(k-1)*r*2;const x0=200-largeur/2;
+      for(let j=0;j<k;j++){const c=cols[i%cols.length];const cxp=x0+j*r*2,cyp=y;const d=(i*14)+'ms';
+        if(type==='macarons'){h+=`<g class="pop" style="animation-delay:${d}"><ellipse cx="${cxp}" cy="${cyp}" rx="${r}" ry="${r*.62}" fill="${c}"/><rect x="${cxp-r*.92}" y="${cyp-1.5}" width="${r*1.84}" height="3" fill="rgba(255,255,255,.55)"/></g>`}
+        else{h+=`<g class="pop" style="animation-delay:${d}"><circle cx="${cxp}" cy="${cyp}" r="${r}" fill="#D9A55B"/><circle cx="${cxp-3}" cy="${cyp-4}" r="${r*.45}" fill="${c}" opacity=".85"/></g>`}
+        i++}
+      y-=r*1.55});
+    if(type==='chou'){h+=`<path d="M${200-rows[0]*r} 352 Q200 ${y-10} ${200+rows[0]*r} 352" fill="none" stroke="#C6852F" stroke-width="2" stroke-dasharray="4 6" opacity=".8"/>`}
+    h+=`<circle cx="200" cy="${y+r*0.2}" r="6" fill="#DAA74D" class="pop" style="animation-delay:${i*14+80}ms"/>`;
+    svg.innerHTML=`<style>.pop{transform-box:fill-box;transform-origin:center bottom;animation:tombe .5s cubic-bezier(.34,1.56,.64,1) both}@keyframes tombe{from{opacity:0;transform:translateY(-40px) scale(.6)}to{opacity:1;transform:none}}@media (prefers-reduced-motion:reduce){.pop{animation:none}}</style>`+h;
+  }
+  function texte(){
+    const date=document.getElementById('dateEv').value,ret=document.getElementById('retrait').value,tr=document.getElementById('traiteur').checked;
+    let l='';
+    if(type==='macarons')l=`Pièce montée de <b>${nb.value} macarons</b> sur support${choix.length?' — '+choix.join(', '):''}`;
+    if(type==='chou')l=`Pièce montée <b>chou à la crème</b>${creme.length?' — crème '+creme.join(', ').toLowerCase():''}${document.getElementById('nbInv').value?' — '+document.getElementById('nbInv').value+' invités':''}`;
+    if(type==='nougatine')l=`Pièce montée <b>nougatine</b>, forme ${forme.toLowerCase()}`;
+    const fr=date?new Date(date+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'';
+    return {html:`${l}${fr?'<br>Pour le '+fr:''}<br>Retrait : ${ret}${tr?'<br>+ accompagnement traiteur':''}`,brut:(l+(fr?'\nPour le '+fr:'')+'\nRetrait : '+ret+(tr?'\nAccompagnement traiteur souhaité (feuilletés salés, pizzas, quiches)':'')).replace(/<[^>]+>/g,'')}
+  }
+  function maj(){
+    nbo.textContent=nb.value;renderChips();
+    const cle=type+nb.value+choix.join()+creme.join()+forme+document.getElementById('nbInv').value;
+    if(cle!==dernier){dessinPiece();dernier=cle}
+    const t=texte();recap.innerHTML=t.html;
+    env.href='mailto:contact@patisseriemarcellin.fr?subject='+encodeURIComponent('Demande de pièce montée')+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais commander :\n'+t.brut+'\n\nNom :\nTéléphone :\n\nMerci !');
+  }
+  document.querySelectorAll('.onglet').forEach(o=>o.addEventListener('click',()=>{
+    type=o.dataset.type;document.querySelectorAll('.onglet').forEach(x=>x.setAttribute('aria-selected',x===o));
+    document.querySelectorAll('.panneau').forEach(p=>p.hidden=p.dataset.panneau!==type);dernier='';maj()}));
+  ['nbMac','nbInv','dateEv','retrait','traiteur'].forEach(id=>document.getElementById(id).addEventListener('input',maj));
+  document.getElementById('retrait').addEventListener('change',maj);
+  const dmin=new Date();dmin.setDate(dmin.getDate()+3);document.getElementById('dateEv').min=dmin.toISOString().slice(0,10);
+  maj();
+
+  /* --- formulaire de contact -> mail pré-rempli --- */
+  document.getElementById('formContact').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
+    const body=`Nom : ${f.get('nom')}\nTéléphone : ${f.get('tel')}\nE-mail : ${f.get('email')}\nVous êtes : ${f.get('profil')}\n\n${f.get('message')}`;
+    location.href='mailto:contact@patisseriemarcellin.fr?subject='+encodeURIComponent(f.get('besoin'))+'&body='+encodeURIComponent(body)});
+
+  /* --- header, menu mobile, apparitions --- */
+  const hd=document.querySelector('header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const bg=document.querySelector('.burger'),mn=document.getElementById('menu');
+  bg.addEventListener('click',()=>{const o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)});
+  mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn.classList.remove('open');bg.setAttribute('aria-expanded',false)}));
+  if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+    document.querySelectorAll('.rv').forEach(el=>io.observe(el))}else document.querySelectorAll('.rv').forEach(el=>el.classList.add('vu'));
+})();
+</script>
+</body>
+</html>
