@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma Chaumière — Restaurant traditionnel au Coteau | Grenouilles toute l'année</title>
+<meta name="description" content="Restaurant Ma Chaumière au Coteau, face à l'église : cuisses de grenouilles à la persillade toute l'année, cuisine maison, plateaux repas livrés et salle de séminaire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel machaumiere.fr
+   Couleurs relevées dans sa feuille de style (style.css) :
+   bordeaux #a82035 (filets, liens, boutons), kaki #928761
+   (titres), fonds papier #f2f1ed / #e3e0d9.
+   Typo d'origine : Droid Serif en italique pour les titres
+   -> Noto Serif (son successeur direct chez Google Fonts).
+   ========================================================= */
+:root{
+  --bordeaux:#a82035;
+  --bordeaux-fonce:#7e1426;
+  --kaki:#928761;
+  --kaki-clair:#c0b9a0;
+  --papier:#f2f1ed;
+  --papier-2:#e3e0d9;
+  --texte:#4a4640;
+  --texte-doux:#77726a;
+  --blanc:#fff;
+  --grenouille:#7cbf3a;          /* la grenouille du logo */
+  --serif:'Noto Serif','Droid Serif',Georgia,serif;
+  --sans:'Noto Sans',Helvetica,Arial,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--texte);background:var(--papier);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--bordeaux)}
+h1,h2,h3,h4{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--kaki);line-height:1.2}
+.wrap{width:min(1180px,100% - 32px);margin:0 auto}
+:focus-visible{outline:3px solid var(--bordeaux);outline-offset:3px;border-radius:3px}
+
+/* Bandeau démo */
+.demo{background:var(--texte);color:#eee;font-size:.78rem;text-align:center;padding:6px 16px;letter-spacing:.02em}
+.demo b{color:#fff}
+
+/* En-tête : on garde le cartouche du logo qui "pend" du haut, comme sur le site actuel */
+header{position:sticky;top:0;z-index:50;background:rgba(242,241,237,.92);backdrop-filter:blur(8px);border-top:6px solid var(--bordeaux);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(60,40,30,.12)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:74px}
+.logo{display:block;height:100%;position:relative}
+.logo img{height:96px;width:auto;border:1px solid var(--bordeaux);border-top:0;border-radius:0 0 10px 10px;box-shadow:0 8px 18px rgba(0,0,0,.14);background:#fff;transition:height .35s var(--ease)}
+header.scrolled .logo img{height:72px}
+.menu{display:flex;gap:4px;list-style:none;align-items:center}
+.menu a{font-family:var(--serif);font-style:italic;color:var(--texte);text-decoration:none;padding:8px 10px;position:relative;font-size:1.02rem}
+.menu a::after{content:"";position:absolute;left:10px;right:10px;bottom:3px;height:2px;background:var(--bordeaux);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--serif);font-style:italic;background:#fff;color:var(--bordeaux);border:0;border-bottom:3px solid var(--bordeaux);box-shadow:0 2px 6px rgba(0,0,0,.1);padding:11px 20px;text-decoration:none;cursor:pointer;font-size:1rem;transition:transform .2s var(--ease),box-shadow .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 16px rgba(0,0,0,.14)}
+.btn:active{transform:scale(.97)}
+.btn.plein{background:var(--bordeaux);color:#fff;border-bottom-color:var(--bordeaux-fonce)}
+.btn.plein:hover{background:var(--bordeaux-fonce)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--texte);margin:5px auto;transition:.3s}
+
+/* Hero : diaporama des 4 vraies photos du site, en fondu + léger zoom */
+.hero{position:relative;height:min(86vh,760px);min-height:520px;overflow:hidden;color:#fff;border-bottom:8px solid var(--bordeaux)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 9s linear}
+.slide.on img{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,15,10,.72) 0%,rgba(25,15,10,.35) 55%,rgba(25,15,10,.1) 100%)}
+.hero-txt{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:640px}
+.hero h1{color:#fff;font-size:clamp(2.3rem,5.4vw,4.3rem);text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero h1 span{display:block;font-size:.55em;color:#f0e6cc;margin-top:6px}
+.hero p{margin:20px 0 28px;font-size:1.08rem;max-width:520px;color:#f3efe6}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.dots{position:absolute;z-index:3;bottom:26px;left:50%;transform:translateX(-50%);display:flex;gap:10px}
+.dots button{width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:transparent;cursor:pointer;padding:0;transition:background .3s,transform .3s}
+.dots button.on{background:#fff;transform:scale(1.2)}
+.reveal-line{display:inline-block;overflow:hidden;vertical-align:bottom}
+.reveal-line>span{display:inline-block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+@keyframes up{to{transform:none}}
+
+/* Bulle grenouille (reprise du logo) */
+.bulle{position:absolute;z-index:4;right:clamp(16px,6vw,90px);bottom:70px;display:flex;align-items:flex-end;gap:6px;cursor:pointer;text-decoration:none}
+.bulle .txt{background:#fff;color:var(--kaki);font-family:var(--serif);font-size:.95rem;line-height:1.3;text-align:center;border-radius:50%;padding:18px 22px;box-shadow:0 8px 24px rgba(0,0,0,.25);position:relative;animation:flotte 4s ease-in-out infinite}
+.bulle .txt::after{content:"";position:absolute;left:12px;bottom:-8px;border:10px solid transparent;border-top-color:#fff;transform:rotate(25deg)}
+.frog{width:74px;height:60px;transform-origin:50% 100%;transition:transform .3s}
+.bulle:hover .frog{animation:saut .7s var(--ease)}
+@keyframes flotte{50%{transform:translateY(-6px)}}
+@keyframes saut{30%{transform:translateY(-26px) rotate(-8deg)}60%{transform:translateY(0) scaleY(.85)}100%{transform:none}}
+
+/* Barre d'infos vivante */
+.infos{background:#fff;box-shadow:0 10px 30px rgba(60,40,30,.08);position:relative;z-index:5;margin-top:-34px}
+.infos .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.info{padding:20px 22px;border-right:1px dashed var(--papier-2)}
+.info:last-child{border-right:0}
+.info small{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte-doux)}
+.info strong{font-family:var(--serif);font-style:italic;font-weight:400;color:var(--texte);font-size:1.08rem}
+.etat{display:inline-flex;align-items:center;gap:8px}
+.etat i{width:10px;height:10px;border-radius:50%;background:#bbb}
+.etat.ouvert i{background:var(--grenouille);box-shadow:0 0 0 0 rgba(124,191,58,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(124,191,58,0)}100%{box-shadow:0 0 0 0 rgba(124,191,58,0)}}
+
+section{padding:96px 0}
+.titre{display:flex;flex-direction:column;gap:6px;margin-bottom:40px}
+.titre h2{font-size:clamp(1.9rem,3.6vw,2.7rem)}
+.titre h2::after{content:"";display:block;width:70px;height:3px;background:var(--bordeaux);margin-top:14px;transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) .2s}
+.titre.vu h2::after{transform:scaleX(1)}
+.titre p{max-width:640px;color:var(--texte-doux)}
+.surtitre{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bordeaux);font-weight:600}
+
+/* Révélations au scroll */
+.r{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.vu{opacity:1;transform:none}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}
+
+/* Bienvenue */
+.bienvenue{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+.duo{position:relative;height:500px}
+.duo figure{position:absolute;overflow:hidden;box-shadow:0 20px 40px rgba(60,40,30,.18)}
+.duo figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.duo figure:hover img{transform:scale(1.06)}
+.duo .a{inset:0 18% 22% 0;border-bottom:6px solid var(--bordeaux)}
+.duo .b{width:52%;height:46%;right:0;bottom:0;border:8px solid #fff}
+.bienvenue p{margin-bottom:16px}
+.signature{font-family:var(--serif);font-style:italic;color:var(--kaki);font-size:1.2rem}
+.chiffres{display:flex;gap:34px;margin:26px 0;flex-wrap:wrap}
+.chiffres div{font-family:var(--serif)}
+.chiffres b{display:block;font-size:2.4rem;color:var(--bordeaux);font-weight:400;line-height:1}
+.chiffres span{font-size:.85rem;color:var(--texte-doux);font-family:var(--sans)}
+
+/* Grenouilles */
+.signature-plat{background:var(--texte);color:#efe9dc;position:relative;overflow:hidden}
+.signature-plat .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.signature-plat h2{color:#fff;font-size:clamp(2rem,4vw,3.1rem)}
+.signature-plat .surtitre{color:#e8c46b}
+.signature-plat p{margin:18px 0;color:#d9d2c4}
+.assiette{position:relative;aspect-ratio:1;border-radius:50%;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.45);border:10px solid rgba(255,255,255,.08)}
+.assiette img{width:100%;height:100%;object-fit:cover;transform:scale(1.05)}
+.persil{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.wrap>*,.outil>*,.carte>*,.ligne>*,.deux>*,.bienvenue>*{min-width:0}
+.ligne-plat{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.2);padding:10px 0;font-family:var(--serif);font-style:italic}
+.ligne-plat b{font-weight:400;color:#e8c46b}
+
+/* Menus */
+.menus-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.tab{font-family:var(--serif);font-style:italic;background:#fff;border:1px solid var(--papier-2);color:var(--texte);padding:12px 20px;cursor:pointer;font-size:1.02rem;transition:all .25s}
+.tab b{font-weight:400;color:var(--bordeaux);margin-left:8px}
+.tab[aria-selected="true"]{background:var(--bordeaux);color:#fff;border-color:var(--bordeaux)}
+.tab[aria-selected="true"] b{color:#f3d9de}
+.carte{display:grid;grid-template-columns:1.2fr .8fr;gap:0;background:#fff;box-shadow:0 20px 50px rgba(60,40,30,.1);min-height:520px}
+.carte-txt{padding:44px 48px;position:relative}
+.carte-txt h3{font-size:2rem;color:var(--bordeaux)}
+.prix-gros{font-family:var(--serif);font-size:1.5rem;color:var(--kaki);margin:4px 0 22px}
+.cours{margin-bottom:18px}
+.cours h4{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;font-style:normal;font-family:var(--sans);color:var(--texte-doux);margin-bottom:6px;font-weight:600}
+.cours p{font-family:var(--serif);font-style:italic;color:var(--texte);line-height:1.5}
+.cours .ou{display:block;font-family:var(--sans);font-style:normal;font-size:.75rem;color:var(--kaki-clair);margin:2px 0;letter-spacing:.1em}
+.carte-photo{position:relative;overflow:hidden}
+.carte-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity .8s,transform 1.4s var(--ease)}
+.carte-photo img.on{opacity:1;transform:none}
+.panel{display:none;animation:fade .5s var(--ease)}
+.panel.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.note{font-size:.85rem;color:var(--texte-doux);margin-top:18px;border-left:3px solid var(--bordeaux);padding-left:12px}
+
+/* Galerie défilante */
+.bandeau-photos{overflow:hidden;padding:0;background:var(--papier-2)}
+.piste{display:flex;gap:12px;width:max-content;animation:defile 60s linear infinite;padding:12px 0}
+.bandeau-photos:hover .piste{animation-play-state:paused}
+.piste img{height:220px;width:auto;object-fit:cover;filter:saturate(.9);transition:filter .3s,transform .3s}
+.piste img:hover{filter:saturate(1.15);transform:scale(1.03)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Pôle entreprises : outil central */
+.entreprises{background:#fff}
+.offres{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:56px}
+.offre{background:var(--papier);overflow:hidden;position:relative;transition:transform .35s var(--ease),box-shadow .35s}
+.offre:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(60,40,30,.15)}
+.offre img{height:200px;width:100%;object-fit:cover;border-bottom:4px solid var(--bordeaux)}
+.offre div{padding:22px}
+.offre h3{font-size:1.4rem;margin-bottom:8px}
+.offre p{font-size:.93rem;color:var(--texte-doux)}
+.offre .depuis{display:inline-block;margin-top:12px;font-family:var(--serif);font-style:italic;color:var(--bordeaux)}
+
+.outil{display:grid;grid-template-columns:1.25fr .75fr;background:var(--papier);border-top:6px solid var(--bordeaux);box-shadow:0 24px 60px rgba(60,40,30,.12)}
+.outil-form{padding:40px}
+.outil-form h3{font-size:1.8rem;color:var(--bordeaux)}
+.mode{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 26px}
+.mode label{cursor:pointer}
+.mode input{position:absolute;opacity:0}
+.mode span{display:block;background:#fff;border:2px solid transparent;padding:14px 16px;font-family:var(--serif);font-style:italic;transition:all .25s;height:100%}
+.mode span small{display:block;font-family:var(--sans);font-style:normal;font-size:.8rem;color:var(--texte-doux)}
+.mode input:checked+span{border-color:var(--bordeaux);box-shadow:0 6px 16px rgba(168,32,53,.15)}
+.mode input:focus-visible+span{outline:3px solid var(--bordeaux)}
+.bloc{display:none}
+.bloc.on{display:block;animation:fade .5s var(--ease)}
+.ligne{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;background:#fff;padding:14px 16px;margin-bottom:8px}
+.ligne .nom{font-family:var(--serif);font-style:italic}
+.ligne .nom small{display:block;font-family:var(--sans);font-style:normal;font-size:.78rem;color:var(--texte-doux)}
+.qte{display:flex;align-items:center;gap:6px}
+.qte button{width:36px;height:36px;border:1px solid var(--papier-2);background:var(--papier);font-size:1.2rem;cursor:pointer;color:var(--bordeaux);transition:background .2s}
+.qte button:hover{background:var(--papier-2)}
+.qte output{min-width:32px;text-align:center;font-family:var(--serif);font-size:1.15rem}
+.champ{display:flex;flex-direction:column;gap:6px;margin:14px 0}
+.champ label{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--texte-doux);font-weight:600}
+.champ input,.champ select{font:inherit;padding:12px 14px;border:1px solid var(--papier-2);background:#fff;color:var(--texte)}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input[type=range]{accent-color:var(--bordeaux);width:100%}
+.alerte{font-size:.85rem;color:var(--bordeaux);min-height:1.3em;margin-top:4px}
+.recap{background:var(--texte);color:#efe9dc;padding:40px 34px;display:flex;flex-direction:column}
+.recap h4{color:#e8c46b;font-size:1.3rem;margin-bottom:16px}
+.recap ul{list-style:none;flex:1;font-size:.93rem}
+.recap li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.15)}
+.recap li.vide{color:#a59e90;font-style:italic;justify-content:flex-start}
+.total{font-family:var(--serif);font-size:2.6rem;color:#fff;margin:18px 0 2px;line-height:1}
+.total-l{font-size:.8rem;color:#bdb5a5}
+.recap .btn{margin-top:14px;justify-content:center}
+.recap .btn.plein{background:var(--bordeaux)}
+.recap .petit{font-size:.75rem;color:#a59e90;margin-top:12px}
+.bump{animation:bump .4s var(--ease)}
+@keyframes bump{40%{transform:scale(1.08)}}
+
+/* Traiteur & 20 ans */
+.traiteur{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.mosa{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mosa img{width:100%;height:230px;object-fit:cover}
+.mosa img:first-child{grid-column:span 2;height:260px}
+.histoire{background:var(--papier-2)}
+.frise{position:relative;margin-top:20px;padding-left:34px}
+.frise::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--kaki-clair)}
+.frise .pt{position:relative;margin-bottom:26px}
+.frise .pt::before{content:"";position:absolute;left:-32px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--papier-2);border:3px solid var(--bordeaux)}
+.frise .pt b{font-family:var(--serif);font-style:italic;color:var(--bordeaux);font-weight:400;font-size:1.15rem;display:block}
+.histoire .grille{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.citation{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--texte);border-left:4px solid var(--bordeaux);padding:6px 0 6px 20px;margin:24px 0}
+.polaroids{position:relative;height:520px}
+.polaroids figure{position:absolute;background:#fff;padding:10px 10px 36px;box-shadow:0 14px 30px rgba(0,0,0,.15);transition:transform .5s var(--ease)}
+.polaroids figure:hover{transform:rotate(0) scale(1.04)!important;z-index:5}
+.polaroids figcaption{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--texte-doux);position:absolute;bottom:9px;left:12px}
+.polaroids img{width:100%;height:100%;object-fit:cover}
+.p1{width:62%;height:260px;left:0;top:0;transform:rotate(-3deg)}
+.p2{width:46%;height:330px;right:0;top:40px;transform:rotate(4deg)}
+.p3{width:56%;height:230px;left:12%;bottom:0;transform:rotate(2deg)}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.horaires{width:100%;border-collapse:collapse;margin-top:10px;background:#fff}
+.horaires th,.horaires td{text-align:left;padding:12px 16px;border-bottom:1px dashed var(--papier-2);font-weight:400}
+.horaires th{font-family:var(--serif);font-style:italic;color:var(--texte)}
+.horaires td{text-align:right;font-size:.92rem}
+.horaires tr.auj{background:#fbf3f4}
+.horaires tr.auj th{color:var(--bordeaux)}
+.horaires .o{color:#4f8a1f}.horaires .f{color:#b5aea2}
+.coord p{margin-bottom:6px}
+.coord .gros{font-family:var(--serif);font-size:1.6rem;font-style:italic;color:var(--bordeaux);text-decoration:none}
+.paiements{font-size:.88rem;color:var(--texte-doux);margin-top:18px}
+.qt{display:flex;gap:14px;align-items:center;background:#fff;padding:16px;margin-top:22px;font-size:.88rem}
+.qt i{font-style:normal;font-family:var(--serif);font-size:1.6rem;color:var(--bordeaux)}
+
+footer{background:var(--texte);color:#cfc8b9;padding:50px 0 30px;font-size:.88rem}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:40px}
+footer h4{color:#e8c46b;margin-bottom:10px;font-size:1.15rem}
+footer a{color:#fff}
+.mention{font-size:.78rem;color:#a59e90;border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:18px;grid-column:1/-1}
+
+.mobile-cta{display:none}
+
+@media (max-width:980px){
+  .menu{position:fixed;inset:80px 0 auto 0;flex-direction:column;background:var(--papier);padding:20px;gap:6px;box-shadow:0 20px 30px rgba(0,0,0,.1);transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .btn.plein{display:none}
+  .infos .wrap{grid-template-columns:1fr 1fr}
+  .info:nth-child(2){border-right:0}
+  .bienvenue,.signature-plat .wrap,.traiteur,.histoire .grille,.contact,.outil,.carte,footer .wrap{grid-template-columns:1fr}
+  .offres{grid-template-columns:1fr}
+  .carte-photo{height:260px;order:-1}
+  .duo{height:380px}
+  .assiette{max-width:420px;margin:0 auto}
+  .bulle{display:none}
+  .mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;box-shadow:0 -6px 20px rgba(0,0,0,.15)}
+  .mobile-cta a{flex:1;text-align:center;padding:14px;font-family:var(--serif);font-style:italic;text-decoration:none;background:#fff;color:var(--bordeaux)}
+  .mobile-cta a+a{background:var(--bordeaux);color:#fff}
+  body{padding-bottom:52px}
+}
+@media (max-width:560px){
+  section{padding:70px 0}
+  .logo img{height:76px}
+  .carte-txt,.outil-form{padding:28px 20px}
+  .recap{padding:30px 20px}
+  .deux,.mode{grid-template-columns:1fr}
+  .infos .wrap{grid-template-columns:1fr}
+  .info{border-right:0;border-bottom:1px dashed var(--papier-2)}
+  .polaroids{height:440px}
+  .piste img{height:150px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .r{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Restaurant Ma Chaumière",
+  "url":"https://www.machaumiere.fr/",
+  "telephone":"+33477672593",
+  "email":"stalportfrederic@gmail.com",
+  "servesCuisine":["Française","Traditionnelle","Cuisses de grenouilles"],
+  "address":{"@type":"PostalAddress","streetAddress":"3 rue Saint-Marc","postalCode":"42120","addressLocality":"Le Coteau","addressCountry":"FR"},
+  "areaServed":["Le Coteau","Roanne"],
+  "acceptsReservations":"True",
+  "paymentAccepted":"Chèque, espèces, carte bancaire, ticket restaurant, chèques vacances, chèques Cado Gourmand",
+  "founder":{"@type":"Person","name":"Frédéric Stalport"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de nouveau site pour le restaurant Ma Chaumière, non publiée.</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="logo" href="#haut" aria-label="Restaurant Ma Chaumière, accueil"><img src="assets/ma-chaumiere-le-coteau/logo.png" alt="Restaurant Ma Chaumière — Grenouilles toute l'année — Le Coteau"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#restaurant">Restaurant</a></li>
+      <li><a href="#menus">Menus</a></li>
+      <li><a href="#traiteur">Traiteur / Séminaire</a></li>
+      <li><a href="#entreprises">Plateaux entreprises</a></li>
+      <li><a href="#actus">Actus</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn plein" href="tel:+33477672593">Réserver · 04 77 67 25 93</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" aria-label="Bienvenue" style="padding:0">
+  <div class="slide on"><img src="assets/ma-chaumiere-le-coteau/cave.jpg" alt="Mur en pierres apparentes et bouteille de vin au restaurant Ma Chaumière"></div>
+  <div class="slide"><img src="assets/ma-chaumiere-le-coteau/grenouilles-large.jpg" alt="Cuisses de grenouilles à la persillade"></div>
+  <div class="slide"><img src="assets/ma-chaumiere-le-coteau/salle-large.jpg" alt="La salle du restaurant, nappes rouges et pierres apparentes"></div>
+  <div class="slide"><img src="assets/ma-chaumiere-le-coteau/cuisine.jpg" alt="La cuisine du restaurant"></div>
+  <div class="wrap hero-txt">
+    <h1><span class="reveal-line"><span>Restaurant Ma chaumière</span></span><span class="reveal-line"><span style="animation-delay:.18s">Le Coteau</span></span></h1>
+    <p class="r">Une petite rue en face de l'église, des pierres apparentes, un éclairage doux… et la cuisine de Frédéric, pleine de saveur, de couleur et de découverte.</p>
+    <div class="cta r d1">
+      <a class="btn plein" href="tel:+33477672593">Réserver une table</a>
+      <a class="btn" href="#menus">Découvrir nos menus</a>
+    </div>
+  </div>
+  <div class="dots" role="tablist" aria-label="Photos"></div>
+  <a class="bulle" href="#grenouilles" aria-label="Voir la spécialité : grenouilles toute l'année">
+    <svg class="frog" viewBox="0 0 74 60" aria-hidden="true">
+      <ellipse cx="37" cy="44" rx="30" ry="14" fill="#7cbf3a"/>
+      <ellipse cx="37" cy="40" rx="24" ry="13" fill="#9bd65a"/>
+      <circle cx="24" cy="24" r="10" fill="#7cbf3a"/><circle cx="50" cy="24" r="10" fill="#7cbf3a"/>
+      <circle cx="24" cy="23" r="6.5" fill="#fff"/><circle cx="50" cy="23" r="6.5" fill="#fff"/>
+      <circle class="oeil" cx="25" cy="24" r="3.4" fill="#3b2a4a"/><circle class="oeil" cx="51" cy="24" r="3.4" fill="#3b2a4a"/>
+      <path d="M26 45 Q37 52 48 45" stroke="#4d7d22" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <ellipse cx="12" cy="55" rx="9" ry="4" fill="#6aa82f"/><ellipse cx="62" cy="55" rx="9" ry="4" fill="#6aa82f"/>
+    </svg>
+    <span class="txt">Grenouilles<br>toute l'année</span>
+  </a>
+</section>
+
+<div class="infos">
+  <div class="wrap">
+    <div class="info"><small>Aujourd'hui</small><strong class="etat" id="etat"><i></i><span>—</span></strong></div>
+    <div class="info"><small>Menu du jour</small><strong>20 € le midi, du mardi au vendredi</strong></div>
+    <div class="info"><small>Adresse</small><strong>3, rue St Marc · Le Coteau</strong></div>
+    <div class="info"><small>Réservation</small><strong><a href="tel:+33477672593" style="color:inherit">04 77 67 25 93</a></strong></div>
+  </div>
+</div>
+
+<!-- RESTAURANT -->
+<section id="restaurant">
+  <div class="wrap bienvenue">
+    <div class="duo r">
+      <figure class="a"><img src="assets/ma-chaumiere-le-coteau/salle.jpg" alt="Salle du restaurant Ma Chaumière" loading="lazy"></figure>
+      <figure class="b"><img src="assets/ma-chaumiere-le-coteau/saint-jacques.jpg" alt="Saint-Jacques snackées" loading="lazy"></figure>
+    </div>
+    <div>
+      <div class="titre r"><span class="surtitre">Bienvenue à Ma Chaumière</span><h2>Comme à la maison, avec le plaisir de se faire servir</h2></div>
+      <p class="r">Créé il y a plus de 65 ans, le restaurant Ma Chaumière est situé au centre du Coteau, dans une petite rue en face de l'église. Dans un cadre chaleureux, vous y trouverez le calme et une ambiance chaleureuse.</p>
+      <p class="r d1">Frédéric Stalport, cuisinier de métier depuis plus de 43 ans, vous fait partager son goût pour la gastronomie française : une cuisine soignée, avec des produits frais et des producteurs locaux. Cuisses de grenouilles à la persillade, foie gras poêlé, bœuf charolais, terrines…</p>
+      <div class="chiffres r d2">
+        <div><b data-count="65">0</b><span>ans et plus d'histoire</span></div>
+        <div><b data-count="43">0</b><span>ans de métier du chef</span></div>
+        <div><b data-count="35">0</b><span>personnes max. pour vos groupes</span></div>
+      </div>
+      <p class="r d2">Le restaurant dispose de 2 salles pour vos repas d'affaires en semaine ou vos repas de famille. Pour un groupe, le chef réalise votre menu selon votre budget — réservation conseillée une semaine à l'avance.</p>
+      <p class="signature r d3">— Nathalie et Frédéric Stalport</p>
+    </div>
+  </div>
+</section>
+
+<!-- GRENOUILLES -->
+<section class="signature-plat" id="grenouilles">
+  <div class="wrap">
+    <div class="assiette r">
+      <img src="assets/ma-chaumiere-le-coteau/grenouilles.jpg" alt="Cuisses de grenouilles à la persillade, citron" loading="lazy">
+      <canvas class="persil" id="persil" aria-hidden="true"></canvas>
+    </div>
+    <div>
+      <span class="surtitre r">La spécialité de la maison</span>
+      <h2 class="r d1">Grenouilles toute l'année</h2>
+      <p class="r d1">Pas seulement en saison : chez Ma Chaumière, les cuisses de grenouilles à la persillade sont à la carte toute l'année, servies avec un gratin dauphinois dans le Menu Ma Chaumière.</p>
+      <div class="r d2">
+        <div class="ligne-plat"><span>Menu Ma Chaumière — grenouilles à la persillade</span><b>35 €</b></div>
+        <div class="ligne-plat"><span>Plat à la carte</span><b>22 €</b></div>
+      </div>
+      <p class="r d3" style="margin-top:26px"><a class="btn plein" href="tel:+33477672593">Réserver pour les grenouilles</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section id="menus">
+  <div class="wrap">
+    <div class="titre r"><span class="surtitre">Menus</span><h2>Des menus qui varient selon les saisons</h2><p>Des produits frais de qualité. Le chef vous propose une cuisine traditionnelle et des spécialités de la maison. Nos plats sont faits maison ; pour vos allergies, prévenez-nous à la prise de commande.</p></div>
+    <div class="menus-tabs r" role="tablist" aria-label="Nos menus">
+      <button class="tab" role="tab" aria-selected="true" data-p="0">Menu du jour<b>20 €</b></button>
+      <button class="tab" role="tab" aria-selected="false" data-p="1">Menu Ma Chaumière<b>35 €</b></button>
+      <button class="tab" role="tab" aria-selected="false" data-p="2">Menu du Chef<b>45 €</b></button>
+    </div>
+    <div class="carte r">
+      <div class="carte-txt">
+        <div class="panel on" role="tabpanel">
+          <h3>Menu du jour</h3><div class="prix-gros">20,00 €</div>
+          <div class="cours"><h4>Uniquement le midi</h4><p>Du mardi au vendredi midi</p></div>
+          <div class="cours"><h4>Menu du jour — 20,00 €</h4><p>Entrée, plat, fromage ou dessert</p></div>
+          <div class="cours"><h4>Formule — 18,00 €</h4><p>Entrée, plat <span class="ou">ou</span> plat, dessert</p></div>
+          <div class="cours"><h4>Toujours servi avec</h4><p>Un verre de vin ou un verre de St Alban, un café ou une infusion</p></div>
+          <p class="note">Le menu du jour change chaque jour — il pourrait s'afficher ici, mis à jour depuis un téléphone.</p>
+        </div>
+        <div class="panel" role="tabpanel">
+          <h3>Menu Ma Chaumière</h3><div class="prix-gros">35,00 €</div>
+          <div class="cours"><h4>Mise en bouche</h4></div>
+          <div class="cours"><h4>Entrée</h4><p>Terrine de courgette et poivron, émulsion de chèvre frais et huile de basilic<span class="ou">ou</span>Œuf mimosa, crème de champignon, copeaux de jambon et noisettes torréfiées</p></div>
+          <div class="cours"><h4>Plat chaud</h4><p>Cuisses de grenouilles à la persillade, gratin dauphinois<span class="ou">ou</span>Suprême de poulet et pilon rôti, jus corsé à l'estragon<span class="ou">ou</span>Filet de daurade sébaste, sauce vierge</p></div>
+          <div class="cours"><h4>Desserts</h4><p>Tarte fine aux pommes, sorbet pomme et coulis caramel beurre salé<span class="ou">ou</span>Profiteroles vanille et sauce chocolat chaud<span class="ou">ou</span>Tiramisu myrtille, amandes grillées<span class="ou">ou</span>Coupe de glaces et sorbets</p></div>
+          <p class="note">Supplément fromage 5 € · Entrée à la carte 14 € · Plat 22 € · Dessert 7 €</p>
+        </div>
+        <div class="panel" role="tabpanel">
+          <h3>Menu du Chef</h3><div class="prix-gros">45,00 €</div>
+          <div class="cours"><h4>Mise en bouche</h4></div>
+          <div class="cours"><h4>Entrée</h4><p>Ballottine de St Jacques et gambas, crème au curry<span class="ou">ou</span>Salade de légumes, vinaigrette au persil, escargots à la crème d'ail</p></div>
+          <div class="cours"><h4>Plat chaud</h4><p>Filet de bar rôti, beurre blanc au champagne<span class="ou">ou</span>Pressé de veau cuit 12 h, jus réduit à la Côte Roannaise</p></div>
+          <div class="cours"><h4>Desserts</h4><p>Tarte fine aux pommes, sorbet pomme et coulis caramel beurre salé<span class="ou">ou</span>Profiteroles vanille et sauce chocolat chaud<span class="ou">ou</span>Tiramisu myrtille, amandes grillées<span class="ou">ou</span>Coupe de glaces et sorbets</p></div>
+          <p class="note">Supplément fromage 5 € · Entrée à la carte 17 € · Plat 28 € · Dessert 7 €</p>
+        </div>
+        <p class="note" style="border-color:var(--kaki)">Bons cadeaux acceptés du mardi au samedi uniquement, à présenter à votre arrivée. Chèques cadeaux en vente directement au restaurant.</p>
+      </div>
+      <div class="carte-photo">
+        <img class="on" src="assets/ma-chaumiere-le-coteau/terrine.jpg" alt="Terrine maison" loading="lazy">
+        <img src="assets/ma-chaumiere-le-coteau/grenouilles.jpg" alt="Cuisses de grenouilles à la persillade" loading="lazy">
+        <img src="assets/ma-chaumiere-le-coteau/dessert-chocolat.jpg" alt="Dessert au chocolat" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="bandeau-photos" aria-hidden="true">
+  <div class="piste" id="piste">
+    <img src="assets/ma-chaumiere-le-coteau/assiette.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/saumon.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/dessert.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/salle-2.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/buffet-2.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/saint-jacques.jpg" alt="" loading="lazy">
+    <img src="assets/ma-chaumiere-le-coteau/terrine.jpg" alt="" loading="lazy">
+  </div>
+</div>
+
+<!-- ENTREPRISES : outil central -->
+<section class="entreprises" id="entreprises">
+  <div class="wrap">
+    <div class="titre r"><span class="surtitre">Plateaux entreprises · Séminaire / Réunion</span><h2>Pour vos réunions et déjeuners d'affaires</h2><p>Un service aux entreprises sur la région roannaise : plateaux repas livrés tous les midis du mardi au samedi, et une salle de séminaire en plein centre du Coteau. Composez votre demande ci-dessous, le chiffrage se fait tout seul.</p></div>
+
+    <div class="offres" id="traiteur">
+      <article class="offre r"><img src="assets/ma-chaumiere-le-coteau/plateau.jpg" alt="Plateau repas" loading="lazy"><div><h3>Plateaux repas</h3><p>Entrée, plat, fromage et dessert, avec couverts, serviette et pain rond. Les menus changent tous les jours selon les produits de saison. Livraison offerte dans un rayon de 10 km au départ du Coteau.</p><span class="depuis">à partir de 15 €</span></div></article>
+      <article class="offre r d1"><img src="assets/ma-chaumiere-le-coteau/seminaire.jpg" alt="Salle de séminaire" loading="lazy"><div><h3>Séminaire / Réunion</h3><p>Une salle cosy et lumineuse dans la cour intérieure du restaurant, de 2 à 20 personnes. Vidéoprojecteur, paper board, wifi. Réservation du mardi au samedi.</p><span class="depuis">à partir de 50 € la ½ journée</span></div></article>
+      <article class="offre r d2"><img src="assets/ma-chaumiere-le-coteau/buffet.jpg" alt="Buffet traiteur" loading="lazy"><div><h3>Traiteur à emporter</h3><p>Pour vos repas de famille ou anniversaires, le chef vous propose d'emporter vos plats de l'entrée jusqu'au dessert — avec un conteneur maintien au chaud.</p><span class="depuis">sur demande au 04 77 67 25 93</span></div></article>
+    </div>
+
+    <div class="outil r" id="outil">
+      <div class="outil-form">
+        <span class="surtitre">Votre demande en 1 minute</span>
+        <h3>Composez votre commande</h3>
+        <div class="mode" role="radiogroup" aria-label="Type de demande">
+          <label><input type="radio" name="mode" value="plateaux" checked><span>Plateaux repas livrés<small>Commande la veille · livrés le midi</small></span></label>
+          <label><input type="radio" name="mode" value="seminaire"><span>Salle de séminaire<small>2 à 20 personnes · mardi au samedi</small></span></label>
+        </div>
+
+        <div class="bloc on" id="b-plateaux">
+          <div class="ligne"><div class="nom">Plateau standard — froid<small>ex. : salade de tomates aux fines herbes, poulet froid mayonnaise, riz aux petits légumes</small></div><div class="qte" data-k="sf" data-p="15"><button type="button" aria-label="Retirer">−</button><output>0</output><button type="button" aria-label="Ajouter">+</button></div></div>
+          <div class="ligne"><div class="nom">Plateau standard — avec un plat chaud<small>17 € le plateau</small></div><div class="qte" data-k="sc" data-p="17"><button type="button" aria-label="Retirer">−</button><output>0</output><button type="button" aria-label="Ajouter">+</button></div></div>
+          <div class="ligne"><div class="nom">Plateau gourmand — froid<small>ex. : terrine de poissons maison, rôti de veau mariné, lentilles aux lardons de canard</small></div><div class="qte" data-k="gf" data-p="20"><button type="button" aria-label="Retirer">−</button><output>0</output><button type="button" aria-label="Ajouter">+</button></div></div>
+          <div class="ligne"><div class="nom">Plateau gourmand — avec un plat chaud<small>25 € le plateau</small></div><div class="qte" data-k="gc" data-p="25"><button type="button" aria-label="Retirer">−</button><output>0</output><button type="button" aria-label="Ajouter">+</button></div></div>
+          <div class="deux">
+            <div class="champ"><label for="d-liv">Jour de livraison</label><input type="date" id="d-liv"><div class="alerte" id="a-liv"></div></div>
+            <div class="champ"><label for="lieu">Livraison</label><select id="lieu"><option value="in">Dans un rayon de 10 km du Coteau (offerte)</option><option value="out">Au-delà de 10 km (à voir avec le restaurant)</option></select></div>
+          </div>
+        </div>
+
+        <div class="bloc" id="b-seminaire">
+          <div class="champ"><label for="pers">Nombre de personnes : <output id="o-pers">8</output></label><input type="range" id="pers" min="2" max="20" value="8"></div>
+          <div class="champ"><label for="formule">Formule</label>
+            <select id="formule">
+              <option value="demi">Salle sans repas — ½ journée (50 €)</option>
+              <option value="jour">Salle sans repas — 1 journée (100 €)</option>
+              <option value="f35" selected>Forfait journée — plateau repas froid standard (35 €/pers.)</option>
+              <option value="f40">Forfait journée — plateau repas froid gourmet (40 €/pers.)</option>
+              <option value="f50">Forfait journée — repas au restaurant, menu Ma Chaumière (50 €/pers.)</option>
+            </select>
+          </div>
+          <p class="note" id="inclus"></p>
+          <div class="champ"><label for="d-sem">Date souhaitée</label><input type="date" id="d-sem"><div class="alerte" id="a-sem"></div></div>
+        </div>
+
+        <div class="deux">
+          <div class="champ"><label for="societe">Entreprise / association</label><input id="societe" placeholder="Nom de la structure"></div>
+          <div class="champ"><label for="tel">Téléphone</label><input id="tel" type="tel" placeholder="Pour vous rappeler"></div>
+        </div>
+      </div>
+
+      <aside class="recap" aria-live="polite">
+        <h4>Votre récapitulatif</h4>
+        <ul id="lignes"><li class="vide">Ajoutez des plateaux ou choisissez une formule.</li></ul>
+        <div class="total" id="total">0 €</div>
+        <div class="total-l" id="total-l">estimation TTC, selon les tarifs affichés</div>
+        <a class="btn plein" id="envoyer" href="#">Envoyer la demande par mail</a>
+        <a class="btn" href="tel:+33477672593">Ou appeler le 04 77 67 25 93</a>
+        <p class="petit">La demande part vers l'adresse du restaurant ; Frédéric confirme la commande. Prix indicatifs non contractuels.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- TRAITEUR À EMPORTER -->
+<section>
+  <div class="wrap traiteur">
+    <div>
+      <div class="titre r"><span class="surtitre">Traiteur à emporter</span><h2>Menus à la maison…</h2></div>
+      <p class="r">Pour vos repas de famille ou d'anniversaire, le chef vous propose d'emporter vos plats, de l'entrée jusqu'au dessert. Vous n'avez plus qu'à venir récupérer votre commande — et en plus, un conteneur maintien au chaud pour vos plats.</p>
+      <p class="r d1">Vous n'avez plus qu'à déguster avec vos amis, votre famille…</p>
+      <p class="r d2" style="margin-top:22px"><a class="btn plein" href="tel:+33477672593">Commander au 04 77 67 25 93</a></p>
+    </div>
+    <div class="mosa r d1">
+      <img src="assets/ma-chaumiere-le-coteau/buffet-2.jpg" alt="Buffet froid du traiteur" loading="lazy">
+      <img src="assets/ma-chaumiere-le-coteau/plateau-2.jpg" alt="Plateau traiteur" loading="lazy">
+      <img src="assets/ma-chaumiere-le-coteau/seminaire-2.jpg" alt="Salle de réunion" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- HISTOIRE / ACTUS -->
+<section class="histoire" id="actus">
+  <div class="wrap grille">
+    <div>
+      <div class="titre r"><span class="surtitre">Dernière actu</span><h2>20 ans déjà, merci à tous</h2></div>
+      <p class="r">Pour fêter les 20 ans du restaurant, la rue St Marc a été fermée le temps d'une journée, pour dire merci aux clients et à tous ceux qui ont soutenu la maison.</p>
+      <blockquote class="citation r d1">« Il y a un problème, il y a toujours une solution ! »</blockquote>
+      <div class="frise">
+        <div class="pt r"><b>16 juillet 1981</b>Préapprentissage ici même, à Ma Chaumière, chez Mr et Mme Blettery.</div>
+        <div class="pt r d1"><b>Grenoble</b>Deux ans dans un restaurant du centre-ville, puis chef de cuisine pendant 9 ans dans un hôtel 4 étoiles — et le souvenir de cuisiner avec Paul Bocuse et Pierre Troisgros.</div>
+        <div class="pt r d2"><b>1998</b>Retour sur Roanne, responsable de la brasserie l'Entracte pendant 4 ans.</div>
+        <div class="pt r d3"><b>Ma Chaumière, Le Coteau</b>L'installation, avec Nathalie. Et vingt ans plus tard, la fête dans la rue.</div>
+      </div>
+    </div>
+    <div class="polaroids r d1">
+      <figure class="p1"><img src="assets/ma-chaumiere-le-coteau/20-ans-rue.jpg" alt="La fête des 20 ans dans la rue St Marc" loading="lazy"><figcaption>La rue St Marc en fête</figcaption></figure>
+      <figure class="p2"><img src="assets/ma-chaumiere-le-coteau/equipe.jpg" alt="L'équipe du restaurant" loading="lazy"><figcaption>L'équipe</figcaption></figure>
+      <figure class="p3"><img src="assets/ma-chaumiere-le-coteau/20-ans-pieces-montees.jpg" alt="Les pièces montées des 20 ans" loading="lazy"><figcaption>Les desserts de la fête</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact">
+    <div>
+      <div class="titre r"><span class="surtitre">Jours d'ouverture</span><h2>Le midi, le soir</h2></div>
+      <table class="horaires r" id="horaires">
+        <tr data-j="1"><th>Lundi</th><td><span class="f">Fermé</span> · <span class="f">Fermé</span></td></tr>
+        <tr data-j="2"><th>Mardi</th><td><span class="f">Fermé</span> · <span class="f">Fermé</span></td></tr>
+        <tr data-j="3"><th>Mercredi</th><td><span class="o">Midi</span> · <span class="f">Fermé le soir</span></td></tr>
+        <tr data-j="4"><th>Jeudi</th><td><span class="o">Midi</span> · <span class="f">Fermé le soir</span></td></tr>
+        <tr data-j="5"><th>Vendredi</th><td><span class="o">Midi</span> · <span class="o">Soir</span></td></tr>
+        <tr data-j="6"><th>Samedi</th><td><span class="o">Midi</span> · <span class="o">Soir</span></td></tr>
+        <tr data-j="0"><th>Dimanche</th><td><span class="o">Midi</span> · <span class="f">Fermé le soir</span></td></tr>
+      </table>
+    </div>
+    <div class="coord">
+      <div class="titre r"><span class="surtitre">Coordonnées</span><h2>Restaurant Ma Chaumière</h2></div>
+      <p class="r">3, rue St Marc<br>42120 Le Coteau</p>
+      <p class="r"><a class="gros" href="tel:+33477672593">04 77 67 25 93</a></p>
+      <p class="r"><a href="mailto:stalportfrederic@gmail.com">stalportfrederic@gmail.com</a></p>
+      <p class="r" style="margin-top:16px"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=3+rue+Saint-Marc+42120+Le+Coteau" target="_blank" rel="noopener">Itinéraire jusqu'au restaurant</a></p>
+      <p class="paiements r">Restaurant de type traditionnel. Modes de règlement acceptés : chèque, espèces, carte bancaire, ticket restaurant, chèques vacances, chèques Cado Gourmand.</p>
+      <div class="qt r"><i>Q</i><span>Notre établissement s'engage dans la démarche Qualité Tourisme : une garantie de qualité de l'accueil et des services.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>Restaurant Ma Chaumière</h4>
+      <p>3, rue St Marc — 42120 Le Coteau<br>Tél : <a href="tel:+33477672593">04 77 67 25 93</a> · <a href="mailto:stalportfrederic@gmail.com">stalportfrederic@gmail.com</a></p>
+      <p style="margin-top:10px">Grenouilles toute l'année · Menus · Traiteur à emporter · Séminaire / Réunion · Plateaux entreprises</p>
+    </div>
+    <div>
+      <h4>Chèques cadeaux</h4>
+      <p>En vente directement au restaurant. Bons cadeaux acceptés du mardi au samedi.</p>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non publiée. Textes, menus, tarifs, horaires et coordonnées repris du site actuel machaumiere.fr ; prix indicatifs non contractuels. Toutes les photos sont celles déjà publiées par le restaurant sur son site (crédits photos : Patricia Foraison) — aucune photo d'illustration extérieure. Couleurs et typographie reprises de la charte actuelle, ajustables. Le formulaire de commande est une démonstration : il prépare un mail, rien n'est envoyé automatiquement.</p>
+  </div>
+</footer>
+
+<nav class="mobile-cta" aria-label="Actions rapides"><a href="#outil">Plateaux / séminaire</a><a href="tel:+33477672593">Réserver</a></nav>
+
+<script>
+(()=>{
+const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* En-tête */
+const header=$('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
+const burger=$('.burger'), menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+/* Diaporama */
+const slides=$$('.slide'), dots=$('.dots'); let cur=0, timer;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));if(!i)b.classList.add('on');b.onclick=()=>{go(i);loop()};dots.appendChild(b)});
+function go(i){slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');dots.children[cur].classList.add('on')}
+function loop(){clearInterval(timer);if(!reduit)timer=setInterval(()=>go((cur+1)%slides.length),6000)}
+loop();
+
+/* Les yeux de la grenouille suivent la souris */
+const yeux=$$('.oeil'), frog=$('.frog');
+addEventListener('mousemove',e=>{const r=frog.getBoundingClientRect();const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2);const d=Math.hypot(dx,dy)||1;yeux.forEach(o=>o.setAttribute('transform',`translate(${dx/d*2.2} ${dy/d*2.2})`))},{passive:true});
+
+/* Ouvert / fermé du jour + jour surligné (selon les jours d'ouverture affichés) */
+const S={0:'midi',1:'',2:'',3:'midi',4:'midi',5:'midi et soir',6:'midi et soir'};
+const j=new Date().getDay();
+const tr=$(`#horaires tr[data-j="${j}"]`); if(tr) tr.classList.add('auj');
+const etat=$('#etat'), sp=etat.querySelector('span');
+if(S[j]){etat.classList.add('ouvert');sp.textContent='Ouvert aujourd\'hui, '+S[j]}
+else{let k=1;while(!S[(j+k)%7])k++;const n=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'][(j+k)%7];sp.textContent='Fermé · réouverture '+(k===1?'demain':n)+' midi'}
+
+/* Révélations au scroll + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('vu');e.target.querySelectorAll('[data-count]').forEach(c=>{const n=+c.dataset.count;if(reduit){c.textContent=n;return}let t0;const f=t=>{t0??=t;const p=Math.min((t-t0)/1400,1);c.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)});io.unobserve(e.target)}),{threshold:.15});
+$$('.r,.titre').forEach(el=>io.observe(el));
+
+/* Menu actif selon la section */
+const liens=$$('#menu a');
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)liens.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['restaurant','menus','entreprises','actus','contact'].forEach(id=>io2.observe(document.getElementById(id)));
+
+/* Onglets menus avec photo associée */
+const tabs=$$('.tab'), panels=$$('.panel'), photos=$$('.carte-photo img');
+tabs.forEach((t,i)=>t.addEventListener('click',()=>{tabs.forEach((x,k)=>x.setAttribute('aria-selected',k===i));panels.forEach((p,k)=>p.classList.toggle('on',k===i));photos.forEach((p,k)=>p.classList.toggle('on',k===i))}));
+
+/* Galerie défilante : on double la piste pour une boucle continue */
+const piste=$('#piste'); piste.innerHTML+=piste.innerHTML;
+
+/* Persil qui tombe sur l'assiette quand on la survole */
+const cv=$('#persil'), ctx=cv.getContext('2d'); let pts=[], raf=null;
+function taille(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
+function pluie(){if(reduit)return;taille();for(let i=0;i<40;i++)pts.push({x:Math.random()*cv.width,y:-Math.random()*cv.height*.6,v:1+Math.random()*2.2,r:2+Math.random()*3,a:Math.random()*6});if(!raf)anim()}
+function anim(){ctx.clearRect(0,0,cv.width,cv.height);pts.forEach(p=>{p.y+=p.v;p.a+=.05;ctx.save();ctx.translate(p.x+Math.sin(p.a)*6,p.y);ctx.rotate(p.a);ctx.fillStyle='rgba(60,130,40,.85)';ctx.beginPath();ctx.ellipse(0,0,p.r,p.r*.55,0,0,7);ctx.fill();ctx.restore()});pts=pts.filter(p=>p.y<cv.height+10);raf=pts.length?requestAnimationFrame(anim):null}
+$('.assiette').addEventListener('mouseenter',pluie);
+new IntersectionObserver(es=>{if(es[0].isIntersecting)setTimeout(pluie,500)},{threshold:.6}).observe($('.assiette'));
+
+/* ===== Outil central : plateaux repas & séminaire ===== */
+const q={sf:0,sc:0,gf:0,gc:0};
+const lib={sf:'Plateau standard froid',sc:'Plateau standard + plat chaud',gf:'Plateau gourmand froid',gc:'Plateau gourmand + plat chaud'};
+const prix={sf:15,sc:17,gf:20,gc:25};
+const F={demi:{l:'Salle ½ journée',p:50,fixe:1,i:'Café d\'accueil, viennoiseries et eau sur table.'},
+         jour:{l:'Salle 1 journée',p:100,fixe:1,i:'Café d\'accueil, viennoiseries, eau sur table et pause café mignardises l\'après-midi.'},
+         f35:{l:'Forfait journée — plateau froid standard',p:35,i:'Café d\'accueil mignardises, pause matinée, plateau repas froid standard, pause après-midi mignardises et eau minérale.'},
+         f40:{l:'Forfait journée — plateau froid gourmet',p:40,i:'Café d\'accueil mignardises, pause matinée, plateau repas froid gourmet, pause après-midi mignardises et eau minérale.'},
+         f50:{l:'Forfait journée — repas au restaurant',p:50,i:'Café d\'accueil mignardises, pause matinée, repas au restaurant avec le menu Ma Chaumière, pause après-midi mignardises et eau minérale.'}};
+let mode='plateaux';
+const eur=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:0,maximumFractionDigits:2})+' €';
+const iso=d=>d.toISOString().slice(0,10);
+const demain=new Date();demain.setDate(demain.getDate()+1);
+function prochainOuvre(d){d=new Date(d);while(d.getDay()===0||d.getDay()===1)d.setDate(d.getDate()+1);return d}
+$('#d-liv').min=iso(demain);$('#d-liv').value=iso(prochainOuvre(demain));
+$('#d-sem').min=iso(demain);$('#d-sem').value=iso(prochainOuvre(new Date(Date.now()+7*864e5)));
+
+$$('.qte').forEach(b=>{const k=b.dataset.k,o=b.querySelector('output');const [m,p]=b.querySelectorAll('button');
+  m.onclick=()=>{q[k]=Math.max(0,q[k]-1);o.value=o.textContent=q[k];maj()};
+  p.onclick=()=>{q[k]=Math.min(60,q[k]+1);o.value=o.textContent=q[k];maj()}});
+$$('input[name=mode]').forEach(r=>r.onchange=()=>{mode=r.value;$('#b-plateaux').classList.toggle('on',mode==='plateaux');$('#b-seminaire').classList.toggle('on',mode==='seminaire');maj()});
+['d-liv','lieu','pers','formule','d-sem','societe','tel'].forEach(id=>$('#'+id).addEventListener('input',maj));
+
+function verifJour(v,el){const d=new Date(v+'T12:00');const j=d.getDay();el.textContent=(j===0||j===1)?'Le service entreprises fonctionne du mardi au samedi.':'';return !(j===0||j===1)}
+
+function maj(){
+  const ul=$('#lignes'); let total=0, html='', corps=[];
+  if(mode==='plateaux'){
+    for(const k in q) if(q[k]){const s=q[k]*prix[k];total+=s;html+=`<li><span>${q[k]} × ${lib[k]}</span><span>${eur(s)}</span></li>`;corps.push(`- ${q[k]} x ${lib[k]} (${prix[k]} €) = ${eur(s)}`)}
+    const ok=verifJour($('#d-liv').value,$('#a-liv'));
+    const d=new Date($('#d-liv').value+'T12:00');
+    if(html){const veille=new Date(d);veille.setDate(d.getDate()-1);
+      html+=`<li><span>Livraison</span><span>${$('#lieu').value==='in'?'offerte':'à confirmer'}</span></li>`;
+      html+=`<li><span>Livré le ${d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}</span><span>midi</span></li>`;
+      html+=`<li><span>À commander au plus tard</span><span>${veille.toLocaleDateString('fr-FR',{weekday:'long'})}</span></li>`;
+      corps.push('Livraison le '+d.toLocaleDateString('fr-FR')+' midi'+($('#lieu').value==='in'?' (rayon 10 km, offerte)':' (au-delà de 10 km, à confirmer)'));}
+    if(!ok) html+=`<li class="vide">Choisissez un jour du mardi au samedi.</li>`;
+  }else{
+    const n=+$('#pers').value; $('#o-pers').textContent=n;
+    const f=F[$('#formule').value]; $('#inclus').textContent='Inclus : '+f.i;
+    total=f.fixe?f.p:f.p*n;
+    html+=`<li><span>${f.l}</span><span>${f.fixe?eur(f.p):n+' × '+eur(f.p)}</span></li><li><span>Participants</span><span>${n}</span></li><li><span>Équipement</span><span>vidéoprojecteur, paper board, wifi</span></li>`;
+    const ok=verifJour($('#d-sem').value,$('#a-sem'));
+    const d=new Date($('#d-sem').value+'T12:00');
+    html+=`<li><span>Date</span><span>${d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})}</span></li>`;
+    if(!ok) html+=`<li class="vide">La salle se réserve du mardi au samedi.</li>`;
+    corps.push(`- ${f.l} : ${f.fixe?eur(f.p):n+' x '+eur(f.p)}`,`- ${n} participants`,'- Date souhaitée : '+d.toLocaleDateString('fr-FR'));
+  }
+  ul.innerHTML=html||'<li class="vide">Ajoutez des plateaux ou choisissez une formule.</li>';
+  const t=$('#total'); t.textContent=eur(total); t.classList.remove('bump'); void t.offsetWidth; t.classList.add('bump');
+  const sujet=mode==='plateaux'?'Commande plateaux repas':'Réservation salle de séminaire';
+  const corpsTxt=`Bonjour,\n\n${sujet}${$('#societe').value?' pour '+$('#societe').value:''} :\n${corps.join('\n')}\n\nEstimation : ${eur(total)}\n${$('#tel').value?'Téléphone : '+$('#tel').value+'\n':''}\nMerci de me confirmer.`;
+  $('#envoyer').href=`mailto:stalportfrederic@gmail.com?subject=${encodeURIComponent(sujet+' — Ma Chaumière')}&body=${encodeURIComponent(corpsTxt)}`;
+}
+maj();
+})();
+</script>
+</body>
+</html>
