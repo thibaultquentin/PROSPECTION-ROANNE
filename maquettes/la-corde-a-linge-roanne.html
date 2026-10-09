@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Corde à Linge — Cours de couture & créateurs à Roanne</title>
+<meta name="description" content="Boutique de créateurs et atelier textile Casa Babilitusi au cœur de Roanne : cours et stages de couture pour adultes et enfants, créations textiles uniques, tissus du monde.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Jura:wght@400;500;600&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise du site actuel (casababilitusi.com) et de la devanture
+   Couleurs approchées à partir du logo « tuiles » Casa Babilitusi,
+   de la palette Wix du site (#2A2A2A, #FFC824, #EB0089) et de la façade
+   framboise de la boutique. Ajustables ici en quelques lignes.
+   Polices : Amatic SC + Jura (utilisées sur le site actuel) ;
+   Dancing Script remplace « Peaches and Cream » (police Wix non libre).
+   ===================================================================== */
+:root{
+  --ink:#2A2A2A;          /* texte principal (site actuel) */
+  --ink-soft:#555555;
+  --paper:#FFFFFF;
+  --paper-warm:#FFF7F1;   /* fond doux, rappel du coup de pinceau pêche */
+  --peach:#F6B79A;        /* coup de pinceau pêche de la bannière */
+  --facade:#C8234A;       /* framboise de la devanture */
+  --t-orange:#F0661E;     /* tuiles du logo */
+  --t-green:#7AB929;
+  --t-blue:#009FE3;
+  --t-purple:#8E3A92;
+  --t-magenta:#E5004F;
+  --t-teal:#1FAE8B;
+  --t-yellow:#FFC824;
+  --f-title:'Amatic SC', cursive;
+  --f-body:'Jura', 'Segoe UI', sans-serif;
+  --f-script:'Dancing Script', cursive;
+  --radius:14px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);color:var(--ink);background:var(--paper);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--t-blue);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:7px 16px;letter-spacing:.03em}
+.demo b{color:var(--t-yellow)}
+
+/* En-tête */
+header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eee;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.07)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 0}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.brand .s{font-family:var(--f-script);font-size:30px;color:var(--facade);font-weight:700}
+.brand small{font-family:var(--f-title);font-size:17px;letter-spacing:.12em;color:var(--ink-soft)}
+.menu{display:flex;gap:22px;list-style:none;font-family:var(--f-title);font-size:23px;font-weight:700;letter-spacing:.04em}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:repeating-linear-gradient(90deg,var(--facade) 0 6px,transparent 6px 10px);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-body);font-weight:600;font-size:15px;padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn.alt{background:transparent;color:var(--ink)}
+.btn.alt:hover{background:var(--ink);color:#fff}
+.btn.rasp{background:var(--facade);border-color:var(--facade)}
+.burger{display:none;background:none;border:0;font-size:28px;cursor:pointer}
+@media (max-width:980px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:16px 24px;gap:10px;border-bottom:1px solid #eee}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* HERO — la corde à linge */
+.hero{position:relative;padding:28px 0 70px;background:linear-gradient(180deg,#fff 0%,var(--paper-warm) 100%);overflow:hidden}
+.line{position:relative;height:150px;margin:0 -16px}
+.line svg{position:absolute;inset:0;width:100%;height:100%}
+.tiles{position:absolute;inset:0;display:flex;justify-content:center;gap:clamp(3px,1vw,10px);padding-top:36px}
+.tile{--c:var(--t-orange);width:clamp(20px,5.2vw,64px);height:clamp(28px,6.4vw,78px);background:var(--c);border-radius:12px;display:grid;place-items:center;color:#111;font-family:'Jura',sans-serif;font-weight:600;font-size:clamp(14px,3.6vw,46px);transform-origin:50% -14px;animation:sway 4.2s ease-in-out infinite;animation-delay:calc(var(--i) * -.37s);box-shadow:0 8px 16px rgba(0,0,0,.08);position:relative}
+.tile::before{content:"";position:absolute;top:-14px;left:50%;width:8px;height:20px;margin-left:-4px;background:#d9b382;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.tile.it{font-family:var(--f-script);font-weight:500}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;margin-top:24px}
+.kicker{font-family:var(--f-title);font-size:26px;letter-spacing:.1em;color:var(--ink-soft)}
+.hero h1{font-family:var(--f-title);font-weight:700;font-size:clamp(46px,6.4vw,86px);line-height:.95;margin:6px 0 4px}
+.hero h1 .script{font-family:var(--f-script);font-weight:700;color:var(--facade);display:block;font-size:.72em;margin-top:6px;position:relative;z-index:1}
+.brush{position:relative;display:inline-block}
+.brush::before{content:"";position:absolute;left:-12px;right:-20px;top:42%;height:48%;background:var(--peach);opacity:.55;border-radius:40% 60% 50% 45%/60% 40% 60% 40%;z-index:-1;transform:rotate(-1.5deg) scaleX(0);transform-origin:left;animation:brush 1.2s .5s var(--ease) forwards}
+@keyframes brush{to{transform:rotate(-1.5deg) scaleX(1)}}
+.hero p.lead{font-size:19px;max-width:34em;margin:18px 0 26px;color:var(--ink-soft)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-photo{position:relative}
+.hero-photo .main{border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.35);transform:rotate(1.2deg);transition:transform .6s var(--ease)}
+.hero-photo:hover .main{transform:rotate(0)}
+.hero-photo .main img{aspect-ratio:4/3;object-fit:cover;width:100%;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.hero-photo.in .main img{transform:scale(1)}
+.polaroid{position:absolute;left:-36px;bottom:-40px;width:42%;background:#fff;padding:8px 8px 30px;box-shadow:0 18px 36px -10px rgba(0,0,0,.35);transform:rotate(-6deg)}
+.polaroid img{aspect-ratio:1/1;object-fit:cover}
+.polaroid span{position:absolute;bottom:4px;left:0;right:0;text-align:center;font-family:var(--f-script);font-size:19px}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.polaroid{left:auto;right:-6px;width:38%}}
+
+/* Bandeau défilant (formules du site actuel) */
+.marquee{background:var(--ink);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--f-title);font-size:26px;letter-spacing:.14em}
+.marquee .track{display:inline-flex;gap:48px;animation:marq 38s linear infinite}
+.marquee span::after{content:"✂";margin-left:48px;color:var(--t-yellow)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:96px 0;position:relative}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 52px}
+.sec-head .kicker{display:block}
+.sec-head h2{font-family:var(--f-title);font-size:clamp(42px,5vw,64px);line-height:1;margin:4px 0 12px}
+.sec-head h2 em{font-family:var(--f-script);font-style:normal;color:var(--facade);font-size:.8em}
+.sec-head p{color:var(--ink-soft)}
+.stitch{height:2px;width:120px;margin:16px auto 0;background:repeating-linear-gradient(90deg,var(--facade) 0 9px,transparent 9px 15px)}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* 4 univers */
+.univers{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.card{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 0 #eee,0 18px 40px -24px rgba(0,0,0,.25);transition:transform .45s var(--ease),box-shadow .45s;position:relative;text-decoration:none;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 30px 50px -24px rgba(0,0,0,.35)}
+.card .ph{overflow:hidden;aspect-ratio:3/4}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.card:hover .ph img{transform:scale(1.07)}
+.card .tx{padding:18px 18px 22px;border-top:6px solid var(--c)}
+.card h3{font-family:var(--f-title);font-size:32px;line-height:1}
+.card p{font-size:15px;color:var(--ink-soft);margin-top:8px}
+@media (max-width:900px){.univers{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.univers{grid-template-columns:1fr}}
+
+/* OUTIL — trouver son atelier */
+#atelier{background:var(--paper-warm)}
+.finder{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
+.panel{background:#fff;border-radius:22px;padding:30px;box-shadow:0 24px 60px -30px rgba(0,0,0,.3)}
+.step{margin-bottom:26px}
+.step h3{font-family:var(--f-title);font-size:30px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.step h3 .n{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;font-family:var(--f-body);font-size:17px;font-weight:600;background:var(--c);color:#111}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{border:2px solid #e3e3e3;background:#fff;border-radius:999px;padding:9px 16px;font:500 15px var(--f-body);cursor:pointer;transition:all .25s var(--ease);color:var(--ink)}
+.chip:hover{border-color:var(--ink);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip[aria-pressed="true"]::before{content:"✓ ";color:var(--t-yellow)}
+.result{position:sticky;top:96px}
+.res-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 24px 60px -30px rgba(0,0,0,.3)}
+.res-img{position:relative;aspect-ratio:16/11;overflow:hidden;background:#eee}
+.res-img img{width:100%;height:100%;object-fit:cover;transition:opacity .45s,transform .8s var(--ease)}
+.res-img .tag{position:absolute;top:14px;left:14px;background:var(--t-yellow);color:#111;font:600 13px var(--f-body);padding:6px 12px;border-radius:999px}
+.res-body{padding:24px 26px 28px}
+.res-body h3{font-family:var(--f-title);font-size:40px;line-height:1}
+.res-body .desc{color:var(--ink-soft);margin:10px 0 14px;min-height:3.2em}
+.res-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;font-size:14px;border-top:2px dashed #eee;padding-top:14px;margin-bottom:18px}
+.res-meta b{display:block;font-family:var(--f-title);font-size:20px;letter-spacing:.04em}
+.res-actions{display:flex;flex-wrap:wrap;gap:10px}
+.note{font-size:13px;color:#777;margin-top:14px}
+.swap{animation:swap .5s var(--ease)}
+@keyframes swap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (max-width:900px){.finder{grid-template-columns:1fr}.result{position:static}}
+
+/* Thématiques défilantes */
+.themes{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 2px 18px;margin-top:46px}
+.themes::-webkit-scrollbar{height:6px}.themes::-webkit-scrollbar-thumb{background:#ddd;border-radius:6px}
+.theme{flex:0 0 250px;scroll-snap-align:start;background:#fff;border-radius:16px;overflow:hidden;border:1px solid #eee;cursor:pointer;transition:transform .35s var(--ease);text-align:left;font:inherit;color:inherit;padding:0}
+.theme:hover{transform:translateY(-6px)}
+.theme img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.theme div{padding:12px 14px 16px;border-top:5px solid var(--c)}
+.theme strong{font-family:var(--f-title);font-size:24px;line-height:1;display:block}
+
+/* Créations */
+.filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.gallery{columns:3 280px;column-gap:20px}
+.item{break-inside:avoid;margin-bottom:20px;border-radius:var(--radius);overflow:hidden;position:relative;transition:opacity .4s,transform .4s var(--ease)}
+.item img{width:100%;transition:transform .9s var(--ease)}
+.item:hover img{transform:scale(1.05)}
+.item figcaption{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,255,255,.93);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;transform:translateY(8px);opacity:.96;transition:transform .4s var(--ease)}
+.item:hover figcaption{transform:none}
+.item figcaption strong{font-family:var(--f-title);font-size:25px;line-height:1}
+.item figcaption span{font-family:var(--f-script);font-size:18px;color:var(--facade)}
+.item.hide{display:none}
+
+/* Histoire */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.story .ph{border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(0,0,0,.4)}
+.story .ph img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.timeline{list-style:none;position:relative;margin-top:22px;padding-left:28px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:repeating-linear-gradient(180deg,var(--facade) 0 8px,transparent 8px 14px)}
+.timeline li{position:relative;margin-bottom:18px}
+.timeline li::before{content:"";position:absolute;left:-26px;top:7px;width:14px;height:14px;border-radius:4px;background:var(--c)}
+.timeline b{font-family:var(--f-title);font-size:26px;display:block;line-height:1}
+.values{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.values span{font-family:var(--f-title);font-size:20px;letter-spacing:.08em;padding:6px 14px;border:2px solid var(--ink);border-radius:8px}
+@media (max-width:900px){.story{grid-template-columns:1fr}}
+
+/* Venir nous voir */
+#contact{background:var(--ink);color:#fff}
+#contact .sec-head p,#contact .kicker{color:#cfcfcf}
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.vbox{background:#353535;border-radius:20px;padding:28px}
+.vbox h3{font-family:var(--f-title);font-size:34px;margin-bottom:10px;color:var(--t-yellow)}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding:6px 14px;border-radius:999px;background:#444;margin-bottom:14px;font-size:14px}
+.status i{width:10px;height:10px;border-radius:50%;background:#999}
+.status.open i{background:#5BD27A;box-shadow:0 0 0 0 rgba(91,210,122,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(91,210,122,0)}100%{box-shadow:0 0 0 0 rgba(91,210,122,0)}}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:7px 0;border-bottom:1px dashed #4a4a4a}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:var(--t-yellow);font-weight:600}
+.vbox p{margin-bottom:8px}
+.vbox a{color:#fff}
+.map{border-radius:20px;overflow:hidden;min-height:340px;background:#444}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.3)}
+.socials{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.socials a{border:1px solid #666;border-radius:999px;padding:8px 14px;text-decoration:none;font-size:14px}
+.socials a:hover{background:#fff;color:var(--ink)}
+#contact .btn{background:#fff;color:var(--ink);border-color:#fff}
+#contact .btn.alt{background:transparent;color:#fff}
+@media (max-width:900px){.visit{grid-template-columns:1fr}}
+
+footer{background:#1d1d1d;color:#aaa;font-size:13px;padding:34px 0;line-height:1.7}
+footer strong{color:#fff}
+
+.illus{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:3px 8px;border-radius:6px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Store",
+  "name":"La Corde à Linge",
+  "alternateName":"Casa Babilitusi",
+  "description":"Boutique de créateurs et atelier textile : créations textiles uniques imaginées et fabriquées à Roanne, cours et stages de couture pour adultes et enfants, tissus du monde.",
+  "address":{"@type":"PostalAddress","streetAddress":"34 rue Jean Jaurès","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "telephone":"+33477719992",
+  "email":"contact@casababilitusi.com",
+  "areaServed":"Roanne",
+  "url":"https://www.casababilitusi.com",
+  "image":"https://static.wixstatic.com/media/48d821_0ece795a082a4123ba2dbbfb03655948~mv2.jpg",
+  "sameAs":["https://www.facebook.com/maria.vitale.lacordealinge.leszebres","https://www.instagram.com/mariavitalelacordealinge"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"10:00","closes":"12:30"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"14:00","closes":"19:00"}],
+  "paymentAccepted":"Carte bancaire, chèque, espèces"
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour La Corde à Linge · Casa Babilitusi</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="La Corde à Linge, accueil">
+      <span class="s">La Corde à Linge</span>
+      <small>BOUTIQUE DE CRÉATEURS · ATELIER TEXTILE</small>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#univers">La Corde à Linge</a></li>
+      <li><a href="#atelier">Cours de couture</a></li>
+      <li><a href="#creations">Créations</a></li>
+      <li><a href="#histoire">À propos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn rasp" href="tel:+33477719992">04 77 71 99 92</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="line" aria-hidden="true">
+    <svg viewBox="0 0 1200 150" preserveAspectRatio="none"><path d="M0,40 Q600,62 1200,40" fill="none" stroke="#8a7a6a" stroke-width="2"/></svg>
+    <div class="tiles" id="tiles"></div>
+  </div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker reveal">mode femme-homme-enfant / accessoires / bijoux / déco maison</span>
+      <h1 class="reveal d1">Une boutique…
+        <span class="script"><span class="brush">et tellement plus qu'une boutique</span></span>
+      </h1>
+      <p class="lead reveal d2">Créations textiles uniques imaginées et fabriquées à Roanne, une quinzaine d'artisans créateurs présentés toute l'année, et un atelier où l'on vient apprendre à coudre — adultes comme enfants, grandes débutantes ou déjà initiées.</p>
+      <div class="ctas reveal d3">
+        <a class="btn rasp" href="#atelier">Trouver mon cours de couture</a>
+        <a class="btn alt" href="#contact">Venir nous voir</a>
+      </div>
+    </div>
+    <div class="hero-photo reveal" id="heroPhoto">
+      <div class="main"><img src="https://static.wixstatic.com/media/48d821_0ece795a082a4123ba2dbbfb03655948~mv2.jpg/v1/fill/w_1100,h_825,al_c,q_80/la-corde-a-linge-roanne.jpg" alt="L'intérieur de la boutique La Corde à Linge à Roanne, escalier coloré et créations textiles"></div>
+      <figure class="polaroid"><img src="https://static.wixstatic.com/media/48d821_68f546a8d9f1439496194a16ac696eed~mv2.jpg/v1/fill/w_500,h_500,al_c,q_80/atelier.jpg" alt="Cours de couture à l'atelier textile"><span>l'atelier, à l'étage</span></figure>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="marq">
+  <span>CRÉATIONS TEXTILES UNIQUES</span><span>IMAGINÉES ET FABRIQUÉES À ROANNE (LOIRE)</span><span>OFFRIR ET S'OFFRIR DES CADEAUX UNIQUES ET LOCAUX</span><span>FAVORISER LES ARTISANS CRÉATEURS ET LE PETIT COMMERCE</span>
+</div></div>
+
+<section id="univers">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">34 rue Jean Jaurès · en centre-ville</span>
+      <h2>Une boutique… <em>et tellement plus</em></h2>
+      <p>Un bel espace sur deux niveaux, baigné de lumière — un peu caché, il se dévoile une fois la porte poussée.</p>
+      <div class="stitch"></div>
+    </div>
+    <div class="univers">
+      <a class="card reveal" href="#creations" style="--c:var(--t-orange)">
+        <div class="ph"><img loading="lazy" src="https://static.wixstatic.com/media/48d821_63e60b16e6f943c19bd6dc7351609781~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/atelier.jpg" alt="L'atelier textile Casa Babilitusi"></div>
+        <div class="tx"><h3>L'Atelier</h3><p>L'atelier textile où sont imaginées et fabriquées les créations Casa Babilitusi : vêtements, accessoires, déco, bijoux textiles.</p></div>
+      </a>
+      <a class="card reveal d1" href="#creations" style="--c:var(--t-purple)">
+        <div class="ph"><img loading="lazy" src="https://static.wixstatic.com/media/48d821_7d6598a609d64a7abd98a930d7c64481~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/createurs.jpg" alt="La boutique de créateurs"></div>
+        <div class="tx"><h3>Boutique de créateurs</h3><p>Une quinzaine d'artisans d'ici et d'ailleurs présentent leurs créations toute l'année : mode, déco, bijoux, accessoires.</p></div>
+      </a>
+      <a class="card reveal d2" href="#atelier" style="--c:var(--t-blue)">
+        <div class="ph"><img loading="lazy" src="https://static.wixstatic.com/media/48d821_001511011b154d6a9d8b7ea10a031c95~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/cours.jpg" alt="Cours de couture à La Corde à Linge"></div>
+        <div class="tx"><h3>Cours de couture</h3><p>Toute l'année, pour adultes et enfants, débutants comme couturières confirmées. Cours à l'heure ou stages sur plusieurs jours.</p></div>
+      </a>
+      <a class="card reveal d3" href="#contact" style="--c:var(--t-green)">
+        <div class="ph"><img loading="lazy" src="https://static.wixstatic.com/media/48d821_6d6a83d07b86455992068f90426c2e2a~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/tissus.jpg" alt="Tissus du monde"></div>
+        <div class="tx"><h3>Tissus du monde</h3><p>Une petite collection colorée : tissus japonais, batiks indonésiens, tissus aborigènes d'Australie, wax.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="atelier">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">cours & stages de couture à Roanne</span>
+      <h2>Quel atelier <em>pour vous ?</em></h2>
+      <p>Trois questions, et on vous oriente vers la bonne thématique. Votre demande part ensuite directement à l'atelier, avec vos disponibilités.</p>
+      <div class="stitch"></div>
+    </div>
+
+    <div class="finder">
+      <div class="panel reveal">
+        <div class="step" style="--c:var(--t-orange)">
+          <h3><span class="n">1</span>Qui vient coudre ?</h3>
+          <div class="chips" data-group="who">
+            <button class="chip" data-v="debutante" aria-pressed="true">Adulte, grande débutante</button>
+            <button class="chip" data-v="initiee" aria-pressed="false">Adulte, déjà initiée</button>
+            <button class="chip" data-v="enfant" aria-pressed="false">Enfant / ado (8-18 ans)</button>
+            <button class="chip" data-v="maman" aria-pressed="false">Future maman (ou tata, mamie…)</button>
+            <button class="chip" data-v="homme" aria-pressed="false">Un homme</button>
+          </div>
+        </div>
+        <div class="step" style="--c:var(--t-blue)">
+          <h3><span class="n">2</span>Envie de coudre…</h3>
+          <div class="chips" data-group="what">
+            <button class="chip" data-v="sac" aria-pressed="true">Un sac, un accessoire</button>
+            <button class="chip" data-v="vetement" aria-pressed="false">Un vêtement de créateur</button>
+            <button class="chip" data-v="bombers" aria-pressed="false">Mon bombers</button>
+            <button class="chip" data-v="patchwork" aria-pressed="false">De la déco en patchwork</button>
+            <button class="chip" data-v="chemise" aria-pressed="false">Une chemise, un gilet, un sweat</button>
+            <button class="chip" data-v="bebe" aria-pressed="false">Pour bébé</button>
+          </div>
+        </div>
+        <div class="step" style="--c:var(--t-green)">
+          <h3><span class="n">3</span>Plutôt…</h3>
+          <div class="chips" data-group="format">
+            <button class="chip" data-v="cours" aria-pressed="true">Des cours à l'heure</button>
+            <button class="chip" data-v="stage" aria-pressed="false">Un stage sur plusieurs jours</button>
+            <button class="chip" data-v="offrir" aria-pressed="false">À offrir</button>
+          </div>
+        </div>
+        <div class="step" style="--c:var(--t-yellow);margin-bottom:0">
+          <h3><span class="n">4</span>Quand êtes-vous disponible ?</h3>
+          <div class="chips" data-group="when" data-multi="1">
+            <button class="chip" data-v="mardi" aria-pressed="false">Mardi</button>
+            <button class="chip" data-v="mercredi" aria-pressed="true">Mercredi</button>
+            <button class="chip" data-v="jeudi" aria-pressed="false">Jeudi</button>
+            <button class="chip" data-v="vendredi" aria-pressed="false">Vendredi</button>
+            <button class="chip" data-v="samedi" aria-pressed="false">Samedi</button>
+            <button class="chip" data-v="en soirée" aria-pressed="false">En soirée</button>
+            <button class="chip" data-v="pendant les vacances scolaires" aria-pressed="false">Vacances scolaires</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="result reveal d1" aria-live="polite">
+        <div class="res-card" id="res">
+          <div class="res-img"><img id="rImg" src="" alt=""><span class="tag" id="rTag">Thématique conseillée</span></div>
+          <div class="res-body">
+            <h3 id="rTitle">—</h3>
+            <p class="desc" id="rDesc"></p>
+            <div class="res-meta">
+              <div><b>Pour</b><span id="rWho"></span></div>
+              <div><b>Format</b><span id="rFormat"></span></div>
+              <div><b>Disponibilités</b><span id="rWhen"></span></div>
+              <div><b>Tarifs & forfaits</b><span>sur demande à l'atelier</span></div>
+            </div>
+            <div class="res-actions">
+              <a class="btn rasp" id="rMail" href="#">Envoyer ma demande</a>
+              <a class="btn alt" href="tel:+33477719992">Appeler l'atelier</a>
+            </div>
+            <p class="note">La demande s'ouvre dans votre messagerie, déjà rédigée. Maria vous répond avec les créneaux et le forfait adaptés.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="themes" id="themes" aria-label="Toutes les thématiques"></div>
+  </div>
+</section>
+
+<section id="creations">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Casa Babilitusi · l'atelier textile de La Corde à Linge</span>
+      <h2>Vêtements & accessoires <em>de créateur</em></h2>
+      <p>Un petit échantillon des créations à découvrir… en boutique.</p>
+      <div class="stitch"></div>
+    </div>
+    <div class="filters chips" id="filters">
+      <button class="chip" data-f="all" aria-pressed="true">Tout</button>
+      <button class="chip" data-f="femmes" aria-pressed="false">Femmes</button>
+      <button class="chip" data-f="hommes" aria-pressed="false">Hommes</button>
+      <button class="chip" data-f="accessoires" aria-pressed="false">Accessoires & bijoux</button>
+      <button class="chip" data-f="maison" aria-pressed="false">Maison</button>
+    </div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<section id="histoire" style="background:var(--paper-warm)">
+  <div class="wrap story">
+    <div class="ph reveal"><img loading="lazy" src="https://static.wixstatic.com/media/48d821_2d910734ce4b44509c77af23aa51bbd8~mv2.jpg/v1/fill/w_900,h_675,al_c,q_80/boutique.jpg" alt="Créations exposées dans la boutique La Corde à Linge"></div>
+    <div class="reveal d1">
+      <span class="kicker">à propos</span>
+      <h2 style="font-family:var(--f-title);font-size:clamp(42px,5vw,60px);line-height:1">De Grenoble <span style="font-family:var(--f-script);color:var(--facade);font-size:.8em">à Roanne</span></h2>
+      <ul class="timeline">
+        <li style="--c:var(--t-orange)"><b>2007 · Grenoble</b>La Corde à Linge, boutique de créateurs et atelier textile, ouvre ses portes pour la première fois.</li>
+        <li style="--c:var(--t-purple)"><b>2009 – 2019</b>La boutique devient l'un des acteurs de la promotion des artisans créateurs. Avec Maria Vitale, créatrice textile autodidacte, et son atelier Casa Babilitusi, des cours de couture y sont proposés à l'année.</li>
+        <li style="--c:var(--t-blue)"><b>2019 · Roanne</b>Maria installe La Corde à Linge et son atelier au 34 rue Jean Jaurès : tissus, apprentissage, échanges, et ses créations aux côtés de celles d'autres artisans.</li>
+      </ul>
+      <p style="font-family:var(--f-script);font-size:24px;color:var(--facade)">Mais le mieux, c'est encore de venir y faire un tour !</p>
+      <div class="values"><span>FAIT À ROANNE</span><span>PIÈCES UNIQUES</span><span>ARTISANS CRÉATEURS</span><span>PETIT COMMERCE</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">venir nous voir</span>
+      <h2>La Corde à Linge <em style="color:var(--t-yellow)">en centre-ville</em></h2>
+      <p>34 rue Jean Jaurès · 42300 Roanne</p>
+    </div>
+    <div class="visit">
+      <div class="vbox reveal">
+        <div class="status" id="status"><i></i><span id="statusTx">Horaires</span></div>
+        <h3>Horaires</h3>
+        <table class="hours" id="hours">
+          <tr data-d="1"><td>Lundi</td><td>Fermé</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>10h – 12h30 · 14h – 19h</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>10h – 12h30 · 14h – 19h</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>10h – 12h30 · 14h – 19h</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>10h – 12h30 · 14h – 19h</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>10h – 12h30 · 14h – 19h</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+        <div style="margin-top:22px">
+          <p><b>Téléphone</b> — <a href="tel:+33477719992">04 77 71 99 92</a></p>
+          <p><b>Mail</b> — <a href="mailto:contact@casababilitusi.com">contact@casababilitusi.com</a></p>
+          <p style="font-size:14px;color:#cfcfcf">Carte bancaire, chèque, espèces · Parking à proximité · On y parle français et italien.</p>
+        </div>
+        <div class="socials">
+          <a href="https://www.facebook.com/maria.vitale.lacordealinge.leszebres" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/mariavitalelacordealinge" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.casababilitusi.com" target="_blank" rel="noopener">Visite virtuelle</a>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+          <a class="btn" href="https://www.openstreetmap.org/search?query=34%20rue%20Jean%20Jaur%C3%A8s%2042300%20Roanne" target="_blank" rel="noopener">Itinéraire</a>
+          <a class="btn alt" href="#atelier">Réserver un cours</a>
+        </div>
+      </div>
+      <div class="map reveal d1">
+        <iframe title="Plan d'accès La Corde à Linge" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0640%2C46.0320%2C4.0790%2C46.0410&amp;layer=mapnik"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>La Corde à Linge · Casa Babilitusi</strong> — Boutique de créateurs & atelier textile — 34 rue Jean Jaurès, 42300 Roanne — 04 77 71 99 92</p>
+    <p style="margin-top:10px">Maquette de démonstration, non contractuelle. Toutes les photos sont celles publiées par La Corde à Linge / Casa Babilitusi sur son site actuel ; textes et thématiques de cours repris de ce même site. Aucun tarif n'est affiché : les forfaits restent à préciser avec l'atelier. Couleurs approchées à partir du logo et de la devanture, polices proches de celles du site actuel — ajustables. Horaires à confirmer (les sources publiques divergent légèrement).</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const IMG = (id, w=700, h=875) => `https://static.wixstatic.com/media/48d821_${id}~mv2.jpg/v1/fill/w_${w},h_${h},al_c,q_80/img.jpg`;
+
+  /* Corde à linge : tuiles du logo */
+  const word = "casababilitusi";
+  const cols = ["--t-orange","--t-green","--t-blue","--t-purple","--t-magenta","--t-teal","--t-purple","--t-orange","--t-green","--t-yellow","--t-blue","--t-magenta","--t-teal","--t-orange"];
+  const tiles = document.getElementById("tiles");
+  [...word].forEach((ch,i)=>{
+    const t=document.createElement("span");
+    t.className="tile"+(i<4?" it":"");
+    t.textContent=ch;
+    t.style.setProperty("--c",`var(${cols[i%cols.length]})`);
+    t.style.setProperty("--i",i);
+    tiles.appendChild(t);
+  });
+  // la corde réagit au passage de la souris
+  tiles.addEventListener("mousemove",e=>{
+    [...tiles.children].forEach(t=>{
+      const r=t.getBoundingClientRect();
+      const d=(e.clientX-(r.left+r.width/2));
+      if(Math.abs(d)<70){t.animate([{transform:`rotate(${d>0?-12:12}deg)`},{transform:"rotate(0deg)"}],{duration:900,easing:"cubic-bezier(.3,1.6,.5,1)"});}
+    });
+  });
+
+  /* Bandeau défilant : duplication pour la boucle */
+  const mq=document.getElementById("marq"); mq.innerHTML+=mq.innerHTML;
+
+  /* Menu mobile */
+  const burger=document.getElementById("burger"), menu=document.getElementById("menu");
+  burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+  menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menu.classList.remove("open")));
+  const head=document.querySelector("header.top");
+  addEventListener("scroll",()=>head.classList.toggle("scrolled",scrollY>10),{passive:true});
+
+  /* Thématiques réelles (site casababilitusi.com / cours de couture) */
+  const THEMES = {
+    sac:{t:"La Tête dans le Sac",d:"Découvrez et fabriquez l'un des modèles de sacs et autres accessoires de Casa Babilitusi.",img:"e9da7acf151a4a5991c4de907f59e257",c:"--t-orange"},
+    bebe:{t:"My Sweet Baby",d:"Un atelier spécial pour les futures mamans (futures tatas, mamies, et pourquoi pas… futurs papas ?).",img:"24decd94ca7a4d8e9f060a95b8d8ff6e",c:"--t-teal"},
+    patchwork:{t:"Bueno Patchwork Social Club",d:"Spécial cocooning ! Coussins, chemins de table, courtepointes… en patchwork pour la maison.",img:"3ae71b0c6c0d43eab0a93060ffaad7ed",c:"--t-purple"},
+    bombers:{t:"Bombers Power",d:"Coudre son bombers à La Corde à Linge : le modèle phare de Casa Babilitusi, à votre façon.",img:"9724d8869baf404980fa5e1ee8aba7b7",c:"--t-magenta"},
+    vetement:{t:"Mon Dressing de Créateur",d:"Venez coudre une des créations de prêt-à-porter pour femme de Casa Babilitusi (hors bombers).",img:"c0fb877a57864d739ea9e3b8fce6c050",c:"--t-blue"},
+    chemise:{t:"Pour les Hommes",d:"Une thématique pour les hommes ! Venez coudre une chemise, un gilet, un sweat…",img:"8eacc1f124a64d89aec23309c8168501",c:"--t-green"},
+    enfant:{t:"Pour les Enfants / Ados",d:"Pendant l'année scolaire ou les vacances, un forfait spécial pour les 8-18 ans qui rêvent de découvrir la couture !",img:"c9ef2076b5f64205b6f5113c8d8158b2",c:"--t-yellow"},
+    techniques:{t:"Techniques de Couture",d:"Une thématique de l'atelier pour progresser — programme détaillé sur demande.",img:"5c2e347f6d0149c48ab1b68ba745ee8c",c:"--t-orange"}
+  };
+  const WHO={debutante:"Adulte, grande débutante",initiee:"Adulte, déjà initiée",enfant:"Enfant / ado (8-18 ans)",maman:"Future maman & entourage",homme:"Homme"};
+  const FMT={cours:"Cours à l'heure",stage:"Stage sur plusieurs jours",offrir:"À offrir (carte cadeau)"};
+  const state={who:"debutante",what:"sac",format:"cours",when:["mercredi"]};
+
+  function pick(){
+    if(state.who==="enfant") return "enfant";
+    if(state.who==="maman" || state.what==="bebe") return "bebe";
+    if(state.who==="homme" || state.what==="chemise") return "chemise";
+    if(state.what==="bombers") return "bombers";
+    if(state.what==="patchwork") return "patchwork";
+    if(state.what==="vetement") return "vetement";
+    if(state.what==="sac") return "sac";
+    return "techniques";
+  }
+  const res=document.getElementById("res");
+  function render(){
+    const k=pick(), th=THEMES[k];
+    res.classList.remove("swap"); void res.offsetWidth; res.classList.add("swap");
+    const img=document.getElementById("rImg");
+    img.src=IMG(th.img,900,620); img.alt="Cours de couture — "+th.t;
+    document.getElementById("rTitle").textContent=th.t;
+    document.getElementById("rDesc").textContent=th.d;
+    document.getElementById("rWho").textContent=WHO[state.who];
+    document.getElementById("rFormat").textContent=FMT[state.format];
+    const when=state.when.length?state.when.join(", "):"à définir";
+    document.getElementById("rWhen").textContent=when;
+    document.getElementById("rTag").textContent=state.format==="offrir"?"Idée cadeau":"Thématique conseillée";
+    const subj=`Demande de cours de couture — ${th.t}`;
+    const body=`Bonjour Maria,\n\nJe suis intéressé(e) par la thématique « ${th.t} ».\n\nPour : ${WHO[state.who]}\nFormat souhaité : ${FMT[state.format]}\nDisponibilités : ${when}\n\nPourriez-vous m'indiquer les prochains créneaux et le forfait correspondant ?\n\nMerci et à bientôt,\n`;
+    document.getElementById("rMail").href=`mailto:contact@casababilitusi.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+    document.querySelectorAll(".theme").forEach(el=>el.style.outline=el.dataset.k===k?"3px solid var(--ink)":"none");
+  }
+  document.querySelectorAll("#atelier .chips").forEach(g=>{
+    const grp=g.dataset.group, multi=!!g.dataset.multi;
+    g.addEventListener("click",e=>{
+      const b=e.target.closest(".chip"); if(!b) return;
+      if(multi){
+        const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on);
+        state.when=[...g.querySelectorAll('[aria-pressed="true"]')].map(x=>x.dataset.v);
+      }else{
+        g.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));
+        b.setAttribute("aria-pressed","true"); state[grp]=b.dataset.v;
+      }
+      render();
+    });
+  });
+  // bandeau de toutes les thématiques
+  const themesEl=document.getElementById("themes");
+  Object.entries(THEMES).forEach(([k,th])=>{
+    const b=document.createElement("button");
+    b.className="theme"; b.dataset.k=k; b.style.setProperty("--c",`var(${th.c})`);
+    b.innerHTML=`<img loading="lazy" src="${IMG(th.img,500,625)}" alt=""><div><strong>${th.t}</strong></div>`;
+    b.addEventListener("click",()=>{
+      const map={enfant:["who","enfant"],bebe:["what","bebe"],chemise:["what","chemise"],bombers:["what","bombers"],patchwork:["what","patchwork"],vetement:["what","vetement"],sac:["what","sac"],techniques:["what","sac"]};
+      if(k!=="enfant"&&state.who==="enfant") setChip("who","debutante");
+      if(k!=="chemise"&&state.who==="homme") setChip("who","debutante");
+      if(k!=="bebe"&&state.who==="maman") setChip("who","debutante");
+      const [g,v]=map[k]; setChip(g,v); render();
+      if(k==="techniques"){document.getElementById("rTitle").textContent=th.t;document.getElementById("rDesc").textContent=th.d;document.getElementById("rImg").src=IMG(th.img,900,620);}
+      document.getElementById("res").scrollIntoView({behavior:"smooth",block:"center"});
+    });
+    themesEl.appendChild(b);
+  });
+  function setChip(g,v){const box=document.querySelector(`[data-group="${g}"]`);box.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===v));state[g]=v;}
+  render();
+
+  /* Créations Casa Babilitusi (photos du site actuel) */
+  const ITEMS=[
+    ["8ee76bc760a348128cd8d9265806e787","Le Bombers","à la carte","femmes",1060],
+    ["c6a881eb7bc74d6b9bbb7b18e2555957","Il était une Robe","à La Corde à Linge","femmes",900],
+    ["8db4cb9df16f44758414ee8f7894fa83","La Chemise à la Carte","pour les hommes","hommes",1000],
+    ["3ce72bc54a6a4988afcd33dcaa3955c6","Le Collier Textile","e-shop","accessoires",760],
+    ["f168df9702e84e66abfcd0933b586731","Lin-Temporel","à La Corde à Linge","femmes",1000],
+    ["88a0f3bb401e440ba15e4cfda6d7676c","Le Cache-Pot","e-shop","maison",760],
+    ["399b97c8b0204f7198f9f0027033338c","Les Chapôs","e-shop","accessoires",860],
+    ["58703fd33fc745f8b26b24db692829f0","Les Bijoux des Créateurs","e-shop","accessoires",760],
+    ["6403a989035746e6aad2f92a41a2aae8","Bombers Power","saison des bombers","femmes",1000]
+  ];
+  const gal=document.getElementById("gallery");
+  ITEMS.forEach(([id,t,s,cat,h])=>{
+    const f=document.createElement("figure"); f.className="item reveal"; f.dataset.cat=cat;
+    f.innerHTML=`<img loading="lazy" src="${IMG(id,700,h)}" alt="${t} — création Casa Babilitusi"><figcaption><strong>${t}</strong><span>${s}</span></figcaption>`;
+    gal.appendChild(f);
+  });
+  document.getElementById("filters").addEventListener("click",e=>{
+    const b=e.target.closest(".chip"); if(!b) return;
+    document.querySelectorAll("#filters .chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    const f=b.dataset.f;
+    gal.querySelectorAll(".item").forEach(it=>{
+      const show=f==="all"||it.dataset.cat===f;
+      if(show){it.classList.remove("hide");it.animate([{opacity:0,transform:"scale(.96)"},{opacity:1,transform:"none"}],{duration:450,easing:"ease-out"});}
+      else it.classList.add("hide");
+    });
+  });
+
+  /* Ouvert / fermé en ce moment */
+  const now=new Date(), d=now.getDay(), m=now.getHours()*60+now.getMinutes();
+  const row=document.querySelector(`#hours tr[data-d="${d}"]`); row&&row.classList.add("today");
+  const open=d>=2&&d<=6&&((m>=600&&m<750)||(m>=840&&m<1140));
+  const st=document.getElementById("status");
+  st.classList.toggle("open",open);
+  document.getElementById("statusTx").textContent=open?"Ouvert en ce moment":"Fermé pour le moment";
+
+  /* Apparitions au défilement */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
