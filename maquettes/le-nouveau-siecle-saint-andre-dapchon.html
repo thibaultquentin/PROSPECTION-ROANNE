@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Nouveau Siècle — Restaurant bistronomique, Côte Roannaise | St-André-d'Apchon</title>
+<meta name="description" content="Restaurant bistronomique à Saint-André-d'Apchon, à 10 minutes de Roanne : cuisine de saison faite maison, menu du jour en semaine, menus 2 à 4 étapes le week-end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel restaurantlenouveausiecle.fr
+   (variables relevées dans template.css du thème en place)
+   ========================================================== */
+:root{
+  --primary:#c62828;        /* --primary-color du site actuel */
+  --primary-dark:#9e1f1f;
+  --secondary:#252525;      /* --secondary-color du site actuel */
+  --ink:#151515;            /* fonds sombres du thème */
+  --text:#818181;           /* --font-color du site actuel */
+  --text-strong:#333333;
+  --light:#f5f5f5;
+  --line:#ebebeb;
+  --white:#ffffff;
+  --font:'Open Sans',sans-serif;          /* --font du site actuel */
+  --title-font:'Alex Brush',cursive;      /* --title-font du site actuel (logo inclus) */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--white);line-height:1.7;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--primary);outline-offset:3px;border-radius:3px}
+
+/* bandeau démo */
+.demo{background:var(--primary);color:#fff;font-size:12.5px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(21,21,21,.92);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 30px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:20px}
+.nav .logo img{height:44px;width:auto}
+.nav ul{display:flex;gap:22px;list-style:none;white-space:nowrap}
+.nav ul a{color:#ddd;font-size:13.5px;text-transform:uppercase;letter-spacing:.12em;font-weight:600;position:relative;padding:6px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--primary);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.active::after{transform:scaleX(1);transform-origin:left}
+.nav .right{display:flex;align-items:center;gap:14px}
+.status{font-size:12px;color:#ccc;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.status i{width:8px;height:8px;border-radius:50%;background:#777;display:inline-block}
+.status.open i{background:#3fbf6a;box-shadow:0 0 0 0 rgba(63,191,106,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(63,191,106,0)}100%{box-shadow:0 0 0 0 rgba(63,191,106,0)}}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--primary);color:#fff;padding:13px 26px;border-radius:2px;font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;transition:transform .25s var(--ease),background .25s}
+.btn:hover{background:var(--primary-dark);transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.55)}
+.btn.ghost:hover{background:#fff;color:var(--ink)}
+.burger{display:none;color:#fff;font-size:26px}
+
+/* hero */
+.hero{position:relative;min-height:88vh;display:grid;place-items:center;overflow:hidden;background:var(--ink);color:#fff;text-align:center}
+.hero .bg{position:absolute;inset:-4%;background:url("https://www.restaurantlenouveausiecle.fr/images/slider/slide-1.jpg") center/cover;animation:kenburns 22s ease-in-out infinite alternate;opacity:.75}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.1) translate(-2%,1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(21,21,21,.35),rgba(21,21,21,.85))}
+.hero .inner{position:relative;z-index:2;padding:60px 20px}
+.hero .kicker{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:#ddd;opacity:0;animation:up .9s .2s forwards}
+.hero h1{font-family:var(--title-font);font-weight:400;font-size:clamp(3.2rem,2rem + 6vw,7rem);line-height:1.05;margin:.2em 0 .15em}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(30px);animation:up .9s var(--ease) forwards}
+.hero p.lead{max-width:620px;margin:0 auto 34px;color:#e6e6e6;font-weight:300;font-size:clamp(1rem,.9rem + .5vw,1.2rem);opacity:0;animation:up .9s 1.1s forwards}
+.hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:up .9s 1.3s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:#bbb}
+.scroll-hint::after{content:"";display:block;width:1px;height:38px;margin:10px auto 0;background:linear-gradient(#fff,transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* titres de section (style du site actuel : script + sous-titre) */
+section{padding:clamp(70px,9vw,120px) 0}
+.title{text-align:center;margin-bottom:54px}
+.title .script{font-family:var(--title-font);color:var(--primary);font-size:clamp(2.4rem,1.8rem + 2.5vw,3.6rem);line-height:1.1}
+.title h2{font-size:clamp(1.05rem,.95rem + .4vw,1.3rem);text-transform:uppercase;letter-spacing:.2em;color:var(--text-strong);font-weight:700;margin-top:6px}
+.title p{max-width:640px;margin:14px auto 0}
+.dark{background:var(--ink);color:#bdbdbd}
+.dark .title h2{color:#fff}
+.grey{background:var(--light)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* tuiles d'accueil (reprend les 4 blocs du site actuel) */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--ink)}
+.tile{position:relative;aspect-ratio:1/1.05;overflow:hidden;color:#fff;display:flex;align-items:flex-end}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
+.tile::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.82));z-index:1}
+.tile .t{position:relative;z-index:2;padding:26px}
+.tile .t b{display:block;font-family:var(--title-font);font-weight:400;font-size:2.1rem;line-height:1.1}
+.tile .t small{text-transform:uppercase;letter-spacing:.15em;font-size:11.5px;color:#ddd;display:inline-flex;gap:8px;align-items:center}
+.tile .t small::after{content:"→";transition:transform .3s}
+.tile:hover img{transform:scale(1.08)}
+.tile:hover .t small::after{transform:translateX(6px)}
+
+/* présentation */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.split h3{font-family:var(--title-font);font-weight:400;color:var(--primary);font-size:clamp(2.2rem,1.6rem + 2vw,3.2rem);line-height:1.1;margin-bottom:12px}
+.split p{margin-bottom:16px}
+.split p strong{color:var(--text-strong)}
+.year{display:flex;align-items:baseline;gap:14px;margin:26px 0 8px;color:var(--text-strong)}
+.year .num{font-size:clamp(3rem,2rem + 3vw,4.6rem);font-weight:300;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--secondary)}
+.year .lbl{font-size:13px;text-transform:uppercase;letter-spacing:.15em;line-height:1.4}
+.stack{position:relative;height:520px}
+.stack img{position:absolute;object-fit:cover;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.stack .a{width:72%;height:76%;top:0;right:0}
+.stack .b{width:56%;height:52%;bottom:0;left:0;border:10px solid #fff}
+.stack .tag{position:absolute;left:8%;top:12%;background:var(--primary);color:#fff;padding:14px 18px;font-size:12px;letter-spacing:.15em;text-transform:uppercase;z-index:2}
+
+/* ===== OUTIL CENTRAL : réservation ===== */
+.resa{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:start}
+.panel{background:var(--secondary);border:1px solid #333;padding:28px}
+.step{font-size:12px;text-transform:uppercase;letter-spacing:.18em;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.step b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--primary);color:#fff;font-size:12px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:26px}
+.dname{font-size:11px;text-align:center;color:#888;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px}
+.day{aspect-ratio:1;border:1px solid #3a3a3a;display:grid;place-items:center;font-size:14px;color:#ddd;position:relative;transition:all .2s;border-radius:2px}
+.day small{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:9px;color:#9a9a9a}
+.day:hover:not(:disabled){border-color:var(--primary);color:#fff}
+.day.sel{background:var(--primary);border-color:var(--primary);color:#fff}
+.day.sel small{color:#ffe1e1}
+.day:disabled{opacity:.25;cursor:not-allowed;text-decoration:line-through}
+.day.empty{border:0}
+.months{display:flex;justify-content:space-between;align-items:center;color:#fff;margin-bottom:12px;font-weight:600;text-transform:capitalize}
+.months button{width:34px;height:34px;border:1px solid #444;color:#ddd}
+.months button:disabled{opacity:.3}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{border:1px solid #444;color:#ddd;padding:9px 16px;font-size:13.5px;transition:all .2s;border-radius:2px}
+.chip:hover{border-color:#888}
+.chip.sel{background:#fff;color:var(--ink);border-color:#fff}
+.chip:disabled{opacity:.3;cursor:not-allowed}
+.counter{display:flex;align-items:center;gap:14px;margin-bottom:10px;color:#ddd}
+.counter button{width:38px;height:38px;border:1px solid #555;font-size:18px;color:#fff;transition:background .2s}
+.counter button:hover{background:var(--primary);border-color:var(--primary)}
+.counter output{min-width:28px;text-align:center;font-size:20px;color:#fff;font-variant-numeric:tabular-nums}
+.counter span{font-size:14px}
+.summary{background:#fff;color:var(--text-strong);padding:30px;position:sticky;top:100px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.summary .script{font-family:var(--title-font);color:var(--primary);font-size:2.4rem;line-height:1}
+.summary dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;margin:18px 0;font-size:14.5px}
+.summary dt{color:var(--text);text-transform:uppercase;font-size:11.5px;letter-spacing:.12em;padding-top:3px}
+.summary dd{font-weight:600}
+.formule{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:16px;font-size:14px;color:var(--text)}
+.formule strong{color:var(--text-strong);display:block;font-size:15px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.total span{font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+.total b{font-size:2rem;font-weight:300;color:var(--secondary);font-variant-numeric:tabular-nums}
+.actions{display:grid;gap:10px}
+.actions .btn{justify-content:center}
+.btn.line{background:transparent;border:1px solid var(--secondary);color:var(--secondary)}
+.btn.line:hover{background:var(--secondary);color:#fff}
+.note{font-size:12px;color:#999;margin-top:14px;line-height:1.5}
+textarea,input[type=text],input[type=tel]{width:100%;background:transparent;border:1px solid #444;color:#fff;padding:11px 12px;font:inherit;font-size:14px;margin-bottom:10px}
+textarea{min-height:70px;resize:vertical}
+::placeholder{color:#888}
+
+/* carte / compositeur */
+.menu-top{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:40px}
+.mtab{padding:12px 22px;border:1px solid var(--line);text-transform:uppercase;letter-spacing:.12em;font-size:13px;font-weight:600;color:var(--text-strong);transition:all .25s}
+.mtab.sel{background:var(--primary);border-color:var(--primary);color:#fff}
+.mtab span{font-weight:400;opacity:.8;margin-left:6px}
+.courses{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.course{background:#fff;border:1px solid var(--line);padding:24px;transition:opacity .4s,transform .4s,border-color .3s}
+.course.off{opacity:.3;transform:scale(.97)}
+.course h4{font-family:var(--title-font);font-weight:400;font-size:2rem;color:var(--primary);line-height:1;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);margin-bottom:8px;font-size:14px;color:var(--text-strong);line-height:1.45;transition:all .2s;position:relative;padding-left:38px}
+.opt::before{content:"";position:absolute;left:13px;top:15px;width:14px;height:14px;border:1px solid #bbb;border-radius:50%}
+.opt.sel{border-color:var(--primary);background:#fdf4f4}
+.opt.sel::before{border:4px solid var(--primary)}
+.course.off .opt{pointer-events:none}
+.ticket{margin:34px auto 0;max-width:720px;background:var(--secondary);color:#ddd;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.ticket .lines{font-size:14px}
+.ticket .lines b{color:#fff}
+.ticket .price{font-size:2.2rem;color:#fff;font-weight:300}
+.menu-du-jour{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.mbox{border:1px solid var(--line);padding:24px;background:#fff}
+.mbox h5{text-transform:uppercase;letter-spacing:.14em;color:var(--text-strong);font-size:14px;margin-bottom:6px;display:flex;justify-content:space-between}
+.mbox h5 em{font-style:normal;color:var(--primary)}
+
+/* galerie horizontale */
+.gallery{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 18px;cursor:grab;scrollbar-width:thin}
+.gallery.drag{cursor:grabbing;scroll-snap-type:none}
+.gallery figure{flex:0 0 clamp(260px,32vw,420px);scroll-snap-align:center;overflow:hidden;position:relative}
+.gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .8s var(--ease);pointer-events:none}
+.gallery figure:hover img{transform:scale(1.05)}
+
+/* cave */
+.cave-tabs{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:34px}
+.ctab{color:#bbb;padding:9px 16px;border-bottom:2px solid transparent;text-transform:uppercase;font-size:12.5px;letter-spacing:.14em}
+.ctab.sel{color:#fff;border-color:var(--primary)}
+.wines{max-width:760px;margin:0 auto;min-height:330px}
+.wine{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px dashed #333;color:#ddd;animation:fade .45s both}
+.wine .n{flex:0 0 auto}
+.wine .dots{flex:1;border-bottom:1px dotted #444;transform:translateY(-4px)}
+.wine .p{color:#fff;font-weight:600}
+.wine .loc{font-size:11px;background:var(--primary);color:#fff;padding:2px 7px;text-transform:uppercase;letter-spacing:.1em;margin-left:6px}
+@keyframes fade{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:none}}
+
+/* bons cadeaux */
+.gift{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,70px);align-items:center}
+.gift .photo{position:relative}
+.gift .photo img{width:100%;max-height:560px;object-fit:cover;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.giftcfg{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.giftcfg .chip{border-color:#ccc;color:var(--text-strong)}
+.giftcfg .chip.sel{background:var(--primary);color:#fff;border-color:var(--primary)}
+.giftval{font-size:2.6rem;font-weight:300;color:var(--secondary);margin:6px 0 18px}
+
+/* avis */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.quote{background:#fff;padding:30px;border-top:3px solid var(--primary);position:relative}
+.quote::before{content:"“";font-family:Georgia,serif;font-size:5rem;color:#f0d0d0;position:absolute;top:-10px;right:18px;line-height:1}
+.quote p{font-style:italic;color:var(--text-strong);font-size:15px}
+.quote cite{display:block;margin-top:14px;font-style:normal;font-size:13px;text-transform:uppercase;letter-spacing:.12em;color:var(--text)}
+.src{text-align:center;font-size:12.5px;margin-top:24px}
+
+/* village */
+.village{position:relative;color:#fff;overflow:hidden;padding:0}
+.village img{width:100%;height:clamp(380px,60vh,560px);object-fit:cover}
+.village .cap{position:absolute;inset:0;background:linear-gradient(90deg,rgba(21,21,21,.85),rgba(21,21,21,.1));display:flex;align-items:center}
+.village .cap div{max-width:520px}
+.village .script{font-family:var(--title-font);font-size:clamp(2.6rem,2rem + 2.5vw,4rem);line-height:1.05}
+.village p{color:#e0e0e0;margin:10px 0 24px}
+
+/* infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:30px}
+.infos h4{text-transform:uppercase;letter-spacing:.16em;font-size:14px;color:var(--text-strong);margin-bottom:14px}
+.hours{list-style:none;font-size:14.5px}
+.hours li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line)}
+.hours li.today{color:var(--primary);font-weight:700}
+.hours li.closed span:last-child{color:#bbb}
+.infos a.lk{color:var(--primary);font-weight:600}
+.map{border:0;width:100%;height:100%;min-height:280px;filter:grayscale(.6)}
+.social{display:flex;gap:10px;margin-top:16px}
+.social a{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--line);transition:all .2s}
+.social a:hover{background:var(--primary);border-color:var(--primary);color:#fff}
+
+footer{background:var(--ink);color:#999;padding:50px 0 30px;font-size:13px}
+footer .top{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-bottom:26px;border-bottom:1px solid #2c2c2c;margin-bottom:22px}
+footer .top img{height:40px}
+footer .demo-note{line-height:1.6;max-width:900px}
+
+/* barre mobile */
+.mbar{display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--secondary);color:#fff;padding:14px 22px;font-size:14px;z-index:99;transition:transform .4s var(--ease);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+.toast.show{transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .nav ul,.status{display:none}
+  .burger{display:block}
+  .nav.open ul{display:flex;flex-direction:column;position:absolute;top:78px;left:0;right:0;background:var(--ink);padding:20px;gap:14px}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .split,.resa,.gift,.menu-du-jour{grid-template-columns:1fr}
+  .stack{height:400px}
+  .courses{grid-template-columns:repeat(2,1fr)}
+  .quotes{grid-template-columns:1fr}
+  .infos{grid-template-columns:1fr}
+  .summary{position:static}
+}
+@media (max-width:600px){
+  .nav .right .btn{display:none}
+  .courses{grid-template-columns:1fr}
+  .panel{padding:18px}
+  .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:60}
+  .mbar a{padding:15px;text-align:center;color:#fff;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+  .mbar a:first-child{background:var(--secondary)}
+  .mbar a:last-child{background:var(--primary)}
+  footer{padding-bottom:80px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Nouveau Siècle",
+  "url":"https://www.restaurantlenouveausiecle.fr",
+  "telephone":"+33477658035",
+  "email":"contact@restaurantlenouveausiecle.fr",
+  "servesCuisine":"Cuisine bistronomique, française, de saison",
+  "priceRange":"22 € – 45 €",
+  "image":"https://www.restaurantlenouveausiecle.fr/images/slider/slide-1.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"16 rue Jean-Baptiste Chambonnière","postalCode":"42370","addressLocality":"Saint-André-d'Apchon","addressCountry":"FR"},
+  "areaServed":["Saint-André-d'Apchon","Roanne","Côte Roannaise"],
+  "acceptsReservations":"True",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"19:30","closes":"22:00"}
+  ],
+  "sameAs":["https://www.facebook.com/Restaurantlenouveausiecle-110787387056823/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site du restaurant Le Nouveau Siècle. Non contractuelle.</div>
+
+<header id="top">
+  <div class="wrap nav" id="nav">
+    <a href="#top" class="logo" aria-label="Le Nouveau Siècle — accueil"><img src="https://www.restaurantlenouveausiecle.fr/images/logo.png" alt="Le Nouveau Siècle — Restaurant" width="338" height="66"></a>
+    <ul>
+      <li><a href="#top" class="active">Accueil</a></li>
+      <li><a href="#presentation">Présentation</a></li>
+      <li><a href="#carte">La Carte</a></li>
+      <li><a href="#cave">La Cave</a></li>
+      <li><a href="#cadeaux">Bons cadeaux</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="right">
+      <span class="status" id="status"><i></i><span>—</span></span>
+      <a href="#reserver" class="btn">Réserver</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" style="padding:0">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="inner">
+    <div class="kicker">Restaurant bistronomique · Saint-André-d'Apchon</div>
+    <h1><span style="animation-delay:.35s">Savourez</span> <span style="animation-delay:.5s">une</span> <span style="animation-delay:.65s">cuisine</span> <span style="animation-delay:.8s">inventive…</span></h1>
+    <p class="lead">Au cœur du village, à 10 minutes de Roanne : des produits frais et locaux, une carte guidée par la saison, et le répertoire du chef Christophe Bégot.</p>
+    <div class="ctas">
+      <a href="#reserver" class="btn">Réserver une table</a>
+      <a href="#carte" class="btn ghost">Découvrir la carte</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<!-- Les 4 blocs de l'accueil actuel, mêmes intitulés -->
+<div class="tiles">
+  <a class="tile rv" href="#presentation"><img src="https://www.restaurantlenouveausiecle.fr/images/services/image1.jpg" alt="Assiette du chef" loading="lazy"><div class="t"><b>Cuisine bistronomique</b><small>Présentation</small></div></a>
+  <a class="tile rv d1" href="#carte"><img src="https://www.restaurantlenouveausiecle.fr/images/services/image3.jpg" alt="Choux maison" loading="lazy"><div class="t"><b>Plats fait maison</b><small>La carte</small></div></a>
+  <a class="tile rv d2" href="#carte"><img src="https://www.restaurantlenouveausiecle.fr/images/services/image2.jpg" alt="Dessert du chef" loading="lazy"><div class="t"><b>Menu du jour</b><small>La carte</small></div></a>
+  <a class="tile rv d3" href="#village"><img src="https://www.restaurantlenouveausiecle.fr/images/services/image4.jpg" alt="Saint-André-d'Apchon et ses vignes" loading="lazy"><div class="t"><b>Découvrir le village</b><small>Présentation</small></div></a>
+</div>
+
+<section id="presentation">
+  <div class="wrap split">
+    <div class="rv">
+      <h3>Votre restaurant le Nouveau Siècle</h3>
+      <p>Le restaurant porte justement ce nom, car il a été créé en 2000, date de changement puisque nous changions justement de centenaire.</p>
+      <div class="year"><span class="num" id="year">1999</span><span class="lbl">Ouverture<br>du restaurant</span></div>
+      <p><strong>Lumière sur notre chef !</strong> De haute renommée, il a acquis une expérience dans l'excellence de grands restaurants, mais aussi à l'étranger. Notre chef met un point d'honneur à travailler avec des produits frais et locaux.</p>
+      <p>La priorité est accordée à la saisonnalité. En semaine, profitez d'une pause déjeuner de qualité avec le menu du jour servi du mardi au vendredi midi. Le samedi midi et soir et le dimanche midi, découvrez le répertoire culinaire du chef Christophe Bégot, à travers un menu à choix multiples.</p>
+      <a href="#carte" class="btn" style="margin-top:8px">La carte</a>
+    </div>
+    <div class="stack rv d2">
+      <span class="tag">Fait maison</span>
+      <img class="a" src="https://www.restaurantlenouveausiecle.fr/images/projects/image2.jpg" alt="Plat mijoté, carottes glacées" loading="lazy">
+      <img class="b" src="https://www.restaurantlenouveausiecle.fr/images/projects/image4.jpg" alt="Poisson, fèves et betterave" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OUTIL CENTRAL ===================== -->
+<section id="reserver" class="dark">
+  <div class="wrap">
+    <div class="title rv">
+      <div class="script">À table !</div>
+      <h2>Réserver une table</h2>
+      <p>Choisissez un jour d'ouverture et un service : la formule correspondante et une estimation du budget s'affichent aussitôt. La demande arrive au restaurant, qui la confirme.</p>
+    </div>
+    <div class="resa">
+      <div class="panel rv">
+        <div class="step"><b>1</b> Le jour</div>
+        <div class="months"><button id="prevM" aria-label="Mois précédent">‹</button><span id="mLabel"></span><button id="nextM" aria-label="Mois suivant">›</button></div>
+        <div class="days" id="days"></div>
+
+        <div class="step"><b>2</b> Le service</div>
+        <div class="chips" id="services"></div>
+
+        <div class="step"><b>3</b> Les convives</div>
+        <div class="counter"><button data-c="ad" data-d="-1" aria-label="Retirer un adulte">−</button><output id="ad">2</output><button data-c="ad" data-d="1" aria-label="Ajouter un adulte">+</button><span>adulte(s)</span></div>
+        <div class="counter" style="margin-bottom:26px"><button data-c="en" data-d="-1" aria-label="Retirer un enfant">−</button><output id="en">0</output><button data-c="en" data-d="1" aria-label="Ajouter un enfant">+</button><span>enfant(s) de moins de 12 ans</span></div>
+
+        <div class="step"><b>4</b> Vos coordonnées</div>
+        <input type="text" id="nom" placeholder="Votre nom">
+        <input type="tel" id="tel" placeholder="Votre téléphone">
+        <textarea id="msg" placeholder="Une occasion particulière, une allergie, une chaise bébé…"></textarea>
+      </div>
+
+      <aside class="summary rv d2" aria-live="polite">
+        <div class="script">Votre table</div>
+        <dl>
+          <dt>Jour</dt><dd id="sDay">—</dd>
+          <dt>Service</dt><dd id="sServ">—</dd>
+          <dt>Convives</dt><dd id="sPax">2 adultes</dd>
+        </dl>
+        <div class="formule" id="sForm">Choisissez un jour pour voir la formule servie.</div>
+        <div class="total"><span>Budget estimé, hors boissons</span><b id="sTot">—</b></div>
+        <div class="actions">
+          <button class="btn" id="send">Envoyer la demande</button>
+          <a class="btn line" href="tel:+33477658035">Appeler le 04 77 65 80 35</a>
+          <button class="btn line" id="ics">Ajouter à mon agenda</button>
+        </div>
+        <p class="note">Demande de réservation à confirmer par le restaurant. Budget indicatif calculé sur les tarifs affichés sur le site actuel (menu du jour 22 €, menus 32 / 40 / 45 €, menu enfant 15 €).</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="carte" class="grey">
+  <div class="wrap">
+    <div class="title rv">
+      <div class="script">La Carte</div>
+      <h2>Composez votre menu</h2>
+      <p>Le samedi midi et soir et le dimanche midi : un menu à choix multiples, avec une sélection de 2 entrées, 2 plats et 2 desserts. Choisissez le nombre d'étapes, puis vos plats.</p>
+    </div>
+    <div class="menu-top rv" id="steps">
+      <button class="mtab" data-s="2">2 étapes<span>32 €</span></button>
+      <button class="mtab sel" data-s="3">3 étapes<span>40 €</span></button>
+      <button class="mtab" data-s="4">4 étapes<span>45 €</span></button>
+    </div>
+    <div class="courses" id="courses">
+      <div class="course rv" data-k="entree"><h4>Entrées</h4>
+        <button class="opt sel">Saint-Jacques poêlées, purée de panais, lardons, girolles, huile de figues</button>
+        <button class="opt">Tartelette de myrtilles, foie gras au naturel, frisée</button></div>
+      <div class="course rv d1" data-k="plat"><h4>Plats</h4>
+        <button class="opt sel">Pavé de truite rose, lentilles du Puy, cresson</button>
+        <button class="opt">Bœuf confit, sauce bourguignonne, pomme de terre, carottes, champignons de Paris</button></div>
+      <div class="course rv d2" data-k="fromage"><h4>Fromage</h4>
+        <button class="opt sel">Assiette de fromage sec</button>
+        <button class="opt">Fromage blanc</button></div>
+      <div class="course rv d3" data-k="dessert"><h4>Desserts</h4>
+        <button class="opt sel">Ganache chocolat noir, whisky en gelée, streusel chocolat</button>
+        <button class="opt">Meringues, crémeux verveine, poire pochée, vanille</button></div>
+    </div>
+    <div class="ticket rv">
+      <div class="lines" id="ticketLines"></div>
+      <div class="price" id="ticketPrice">40 €</div>
+    </div>
+    <div class="menu-du-jour">
+      <div class="mbox rv"><h5>Menu du jour <em>22 €</em></h5><p>Servi du mardi au vendredi midi, sauf jours fériés. 2 entrées, 2 plats, fromage ou dessert, hors boissons. Élaboré en fonction des produits de saison.</p></div>
+      <div class="mbox rv d1"><h5>Menu enfant (-12 ans) <em>15 €</em></h5><p>Suprême de volaille, pomme de terre, dessert, sirop.</p></div>
+    </div>
+    <p class="src">Carte reprise du site actuel — prix nets, service compris. Répartition des plats par nombre d'étapes à confirmer par le restaurant.</p>
+  </div>
+</section>
+
+<section style="padding-bottom:60px">
+  <div class="title rv"><div class="script">À déguster !</div><h2>Dans l'assiette</h2></div>
+  <div class="gallery" id="gallery">
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/projects/image1.jpg" alt="Crème renversée, framboise"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/projects/image2.jpg" alt="Plat mijoté et légumes glacés"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/projects/image3.jpg" alt="Quenelle gratinée"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/projects/image4.jpg" alt="Poisson, fèves et betterave"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/services/image1.jpg" alt="Viande en sauce, bourrache"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/services/image2.jpg" alt="Dessert aux fruits rouges"></figure>
+    <figure><img src="https://www.restaurantlenouveausiecle.fr/images/services/image3.jpg" alt="Choux craquelin"></figure>
+  </div>
+</section>
+
+<section id="cave" class="dark">
+  <div class="wrap">
+    <div class="title rv"><div class="script">La Cave</div><h2>La Cave du Nouveau Siècle</h2><p>Des Côtes-du-Rhône au voisin de la Côte Roannaise : les vins de la carte, au fil des couleurs.</p></div>
+    <div class="cave-tabs" id="caveTabs"></div>
+    <div class="wines" id="wines"></div>
+  </div>
+</section>
+
+<section id="cadeaux">
+  <div class="wrap gift">
+    <div class="photo rv"><img src="https://www.restaurantlenouveausiecle.fr/images/IMG_20231024_155205.jpg" alt="Bon cadeau du restaurant Le Nouveau Siècle" loading="lazy"></div>
+    <div class="rv d2">
+      <div class="title" style="text-align:left;margin-bottom:20px"><div class="script">Bons cadeaux</div><h2>Offrir un moment de gastronomie</h2></div>
+      <p>Pour offrir un moment de gastronomie, pensez aux bons cadeaux ! Choisissez une formule et le nombre de personnes : le montant s'affiche, il ne reste qu'à le demander au restaurant.</p>
+      <div class="giftcfg" id="giftF">
+        <button class="chip" data-v="22">Menu du jour</button>
+        <button class="chip" data-v="32">2 étapes</button>
+        <button class="chip sel" data-v="40">3 étapes</button>
+        <button class="chip" data-v="45">4 étapes</button>
+      </div>
+      <div class="giftcfg" id="giftP">
+        <button class="chip" data-p="1">1 personne</button>
+        <button class="chip sel" data-p="2">2 personnes</button>
+        <button class="chip" data-p="4">4 personnes</button>
+      </div>
+      <div class="giftval" id="giftVal">80 €</div>
+      <button class="btn" id="giftBtn">Demander ce bon cadeau</button>
+    </div>
+  </div>
+</section>
+
+<section class="grey">
+  <div class="wrap">
+    <div class="title rv"><div class="script">Ils ont dégusté</div><h2>Ils ont dégusté notre cuisine</h2></div>
+    <div class="quotes">
+      <blockquote class="quote rv"><p>Coup de cœur pour ce restaurant testé avec beaucoup de plaisir ! La carte est courte, tout est frais et harmonieusement cuisiné. Les dressages sont soignés, les saveurs ont de la justesse.</p><cite>Mathilde Giraud</cite></blockquote>
+      <blockquote class="quote rv d1"><p>Ce restaurant mérite le détour. Les plats sont copieux et les produits cuisinés sont frais. La carte est renouvelée fréquemment. Le menu de midi a un rapport qualité prix imbattable sur la région.</p><cite>N M (World guide)</cite></blockquote>
+      <blockquote class="quote rv d2"><p>Très bon moment passé, la cuisine est excellente, raffinée et très bien présentée. Les produits sont frais. Le cadre est très agréable, la patronne très sympathique.</p><cite>Françoise Pelissier</cite></blockquote>
+    </div>
+    <p class="src">Avis repris tels qu'ils figurent sur le site actuel du restaurant.</p>
+  </div>
+</section>
+
+<section class="village" id="village">
+  <img src="https://www.restaurantlenouveausiecle.fr/images/services/image4.jpg" alt="Saint-André-d'Apchon, son église et les vignes de la Côte Roannaise" loading="lazy">
+  <div class="cap"><div class="wrap"><div class="rv">
+    <div class="script">Découvrir le village</div>
+    <p>Saint-André-d'Apchon, sur la Côte Roannaise, à 10 minutes de Roanne. Le restaurant est au cœur du village.</p>
+    <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=16+rue+Jean-Baptiste+Chambonni%C3%A8re+42370+Saint-Andr%C3%A9-d%27Apchon" target="_blank" rel="noopener">Itinéraire</a>
+  </div></div></div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="title rv"><div class="script">Nous situer</div><h2>Contact &amp; horaires</h2></div>
+    <div class="infos">
+      <div class="rv">
+        <h4>Le Nouveau Siècle</h4>
+        <p>16 rue Jean-Baptiste Chambonnière<br>42370 Saint-André-d'Apchon</p>
+        <p style="margin-top:12px">Tél. <a class="lk" href="tel:+33477658035">04 77 65 80 35</a><br><a class="lk" href="mailto:contact@restaurantlenouveausiecle.fr">contact@restaurantlenouveausiecle.fr</a></p>
+        <div class="social">
+          <a href="https://www.facebook.com/Restaurantlenouveausiecle-110787387056823/" target="_blank" rel="noopener" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6c0-.8.2-1.3 1.4-1.3H17V1.2C16.7 1.1 15.6 1 14.4 1 11.9 1 10 2.6 10 5.4V8H7v3.6h3V23h4V11.6h3l.5-3.6H14z"/></svg></a>
+        </div>
+      </div>
+      <div class="rv d1">
+        <h4>Horaires</h4>
+        <ul class="hours" id="hours"></ul>
+      </div>
+      <div class="rv d2">
+        <iframe class="map" loading="lazy" title="Plan d'accès" src="https://maps.google.com/maps?q=16%20rue%20Jean-Baptiste%20Chambonni%C3%A8re%2C%2042370%20Saint-Andr%C3%A9-d%27Apchon&z=15&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="https://www.restaurantlenouveausiecle.fr/images/logo.png" alt="Le Nouveau Siècle" width="338" height="66">
+      <a href="#reserver" class="btn">Réserver une table</a>
+    </div>
+    <p class="demo-note">Maquette de démonstration réalisée pour Le Nouveau Siècle — non contractuelle. Textes, carte, prix, horaires et avis repris du site actuel restaurantlenouveausiecle.fr ; prix indicatifs. Toutes les photos proviennent du site actuel du restaurant. Couleurs et polices reprises de la charte du site actuel (rouge #c62828, anthracite #252525, Alex Brush / Open Sans), ajustables. Le formulaire de réservation est une démonstration : aucune réservation n'est enregistrée.</p>
+  </div>
+</footer>
+
+<nav class="mbar" aria-label="Actions rapides"><a href="tel:+33477658035">Appeler</a><a href="#reserver">Réserver</a></nav>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const EMAIL='contact@restaurantlenouveausiecle.fr';
+const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+/* horaires du site actuel : mar-jeu & dim 12h-14h ; ven-sam 12h-14h et 19h30-22h ; lundi fermé */
+const SERV={0:['midi'],1:[],2:['midi'],3:['midi'],4:['midi'],5:['midi','soir'],6:['midi','soir']};
+const SLOT={midi:['12:00','14:00'],soir:['19:30','22:00']};
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),3200)}
+
+/* header + menu mobile */
+addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>20),{passive:true});
+$('#burger').onclick=()=>$('#nav').classList.toggle('open');
+$$('.nav ul a').forEach(a=>a.onclick=()=>$('#nav').classList.remove('open'));
+
+/* statut ouvert/fermé en direct */
+(function(){
+  const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes();
+  const open=SERV[d].some(s=>{const[a,b]=SLOT[s].map(t=>+t.slice(0,2)*60+ +t.slice(3));return m>=a&&m<b});
+  const st=$('#status');st.classList.toggle('open',open);
+  let txt=open?'Ouvert en ce moment':'Fermé actuellement';
+  if(!open){for(let i=0;i<8;i++){const dd=(d+i)%7;for(const s of SERV[dd]){const a=+SLOT[s][0].slice(0,2)*60+ +SLOT[s][0].slice(3);if(i>0||a>m){txt='Ouvre '+(i===0?"aujourd'hui":i===1?'demain':JOURS[dd].toLowerCase())+' à '+SLOT[s][0].replace(':','h');i=9;break}}}}
+  st.querySelector('span').textContent=txt;
+  /* tableau horaires */
+  const order=[2,3,4,5,6,0,1];
+  $('#hours').innerHTML=order.map(dd=>{const s=SERV[dd];const t=s.length?s.map(x=>SLOT[x].join(' – ').replace(/:/g,'h')).join(' · '):'Fermé';return `<li class="${dd===d?'today':''} ${s.length?'':'closed'}"><span>${JOURS[dd]}</span><span>${t}</span></li>`}).join('');
+})();
+
+/* reveals */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+
+/* compteur 1999 -> 2000 (le "nouveau siècle") */
+const y=$('#year');
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();let v=1990;y.textContent=v;const t=setInterval(()=>{v++;y.textContent=v;if(v>=2000){clearInterval(t);y.style.color='var(--primary)'}},110)}},{threshold:.6}).observe(y);
+
+/* ============ RÉSERVATION ============ */
+const today=new Date();today.setHours(0,0,0,0);
+const maxDate=new Date(today);maxDate.setDate(maxDate.getDate()+60);
+let view=new Date(today.getFullYear(),today.getMonth(),1);
+const st={date:null,serv:null,ad:2,en:0};
+
+function formule(date,serv){
+  if(!date)return null;const d=date.getDay();
+  if(serv==='midi'&&d>=2&&d<=5)return{nom:'Menu du jour',prix:22,txt:'2 entrées, 2 plats, fromage ou dessert — élaboré selon les produits de saison.'};
+  if(serv==='soir'&&d===5)return{nom:'Menu du soir',prix:32,max:45,txt:'Formule du vendredi soir à préciser par le restaurant. Estimation sur la base des menus 2 à 4 étapes.'};
+  return{nom:'Menu à choix multiples',prix:32,max:45,txt:'2, 3 ou 4 étapes (32 € / 40 € / 45 €) — sélection de 2 entrées, 2 plats et 2 desserts.'};
+}
+function renderCal(){
+  $('#mLabel').textContent=MOIS[view.getMonth()]+' '+view.getFullYear();
+  $('#prevM').disabled=view<=new Date(today.getFullYear(),today.getMonth(),1);
+  $('#nextM').disabled=new Date(view.getFullYear(),view.getMonth()+1,1)>maxDate;
+  let h=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'].map(x=>`<div class="dname">${x}</div>`).join('');
+  const first=(view.getDay()+6)%7;for(let i=0;i<first;i++)h+='<div class="day empty"></div>';
+  const n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();
+  for(let i=1;i<=n;i++){
+    const dt=new Date(view.getFullYear(),view.getMonth(),i);const s=SERV[dt.getDay()];
+    const off=dt<today||dt>maxDate||!s.length;
+    const sel=st.date&&+dt===+st.date;
+    h+=`<button class="day${sel?' sel':''}" data-t="${+dt}" ${off?'disabled':''}>${i}${!off?`<small>${s.length>1?'midi·soir':'midi'}</small>`:''}</button>`;
+  }
+  $('#days').innerHTML=h;
+}
+$('#days').onclick=e=>{const b=e.target.closest('.day');if(!b||b.disabled||!b.dataset.t)return;st.date=new Date(+b.dataset.t);const s=SERV[st.date.getDay()];if(!s.includes(st.serv))st.serv=s[0];renderCal();renderServ();renderSum()};
+$('#prevM').onclick=()=>{view.setMonth(view.getMonth()-1);renderCal()};
+$('#nextM').onclick=()=>{view.setMonth(view.getMonth()+1);renderCal()};
+function renderServ(){
+  const s=st.date?SERV[st.date.getDay()]:[];
+  $('#services').innerHTML=['midi','soir'].map(x=>`<button class="chip${st.serv===x&&s.includes(x)?' sel':''}" data-s="${x}" ${s.includes(x)?'':'disabled'}>${x==='midi'?'Déjeuner · 12h – 14h':'Dîner · 19h30 – 22h'}</button>`).join('');
+}
+$('#services').onclick=e=>{const b=e.target.closest('.chip');if(!b||b.disabled)return;st.serv=b.dataset.s;renderServ();renderSum()};
+$$('.counter button').forEach(b=>b.onclick=()=>{const k=b.dataset.c;st[k]=Math.max(k==='ad'?1:0,Math.min(12,st[k]+ +b.dataset.d));$('#'+k).textContent=st[k];renderSum()});
+const fmtDate=d=>JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()];
+function renderSum(){
+  $('#sPax').textContent=st.ad+' adulte'+(st.ad>1?'s':'')+(st.en?' + '+st.en+' enfant'+(st.en>1?'s':''):'');
+  if(!st.date){return}
+  $('#sDay').textContent=fmtDate(st.date);
+  $('#sServ').textContent=st.serv==='midi'?'Déjeuner (12h – 14h)':'Dîner (19h30 – 22h)';
+  const f=formule(st.date,st.serv);
+  $('#sForm').innerHTML=`<strong>${f.nom}</strong>${f.txt}${st.en?'<br>Menu enfant : 15 € par enfant.':''}`;
+  const lo=f.prix*st.ad+15*st.en,hi=(f.max||f.prix)*st.ad+15*st.en;
+  animNum($('#sTot'),lo,hi);
+}
+function animNum(el,lo,hi){
+  const start=parseInt(el.dataset.v||0),t0=performance.now();el.dataset.v=lo;
+  (function f(t){const p=Math.min(1,(t-t0)/500),v=Math.round(start+(lo-start)*(1-Math.pow(1-p,3)));el.textContent=(hi>lo?v+' – '+hi:v)+' €';if(p<1)requestAnimationFrame(f)})(t0);
+}
+$('#send').onclick=()=>{
+  if(!st.date){toast('Choisissez d’abord un jour.');return}
+  const f=formule(st.date,st.serv);
+  const body=`Bonjour,\n\nJe souhaiterais réserver une table :\n- ${fmtDate(st.date)}, ${st.serv==='midi'?'déjeuner':'dîner'}\n- ${$('#sPax').textContent}\n- Formule : ${f.nom}\n\nNom : ${$('#nom').value||'—'}\nTéléphone : ${$('#tel').value||'—'}\n${$('#msg').value?'\nPrécisions : '+$('#msg').value+'\n':''}\nMerci de me confirmer la disponibilité.`;
+  location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Demande de réservation — '+fmtDate(st.date))}&body=${encodeURIComponent(body)}`;
+  toast('Demande préparée : il ne reste qu’à l’envoyer.');
+};
+$('#ics').onclick=()=>{
+  if(!st.date){toast('Choisissez d’abord un jour.');return}
+  const p=n=>String(n).padStart(2,'0'),d=st.date,ymd=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());
+  const [a,b]=SLOT[st.serv].map(x=>x.replace(':','')+'00');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Le Nouveau Siecle//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@nouveausiecle','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z','DTSTART:'+ymd+'T'+a,'DTEND:'+ymd+'T'+b,'SUMMARY:Restaurant Le Nouveau Siècle','LOCATION:16 rue Jean-Baptiste Chambonnière\\, 42370 Saint-André-d\'Apchon','DESCRIPTION:Réservation à confirmer — 04 77 65 80 35','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const u=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));const l=document.createElement('a');l.href=u;l.download='le-nouveau-siecle.ics';l.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+};
+renderCal();renderServ();renderSum();
+
+/* ============ COMPOSITEUR DE MENU ============ */
+const PRIX={2:32,3:40,4:45};
+const ACTIFS={2:['entree','plat'],3:['entree','plat','dessert'],4:['entree','plat','fromage','dessert']};
+let steps=3;
+function renderMenu(){
+  $$('#steps .mtab').forEach(b=>b.classList.toggle('sel',+b.dataset.s===steps));
+  const act=ACTIFS[steps];
+  $$('.course').forEach(c=>c.classList.toggle('off',!act.includes(c.dataset.k)));
+  const lines=$$('.course').filter(c=>act.includes(c.dataset.k)).map(c=>`<b>${c.querySelector('h4').textContent.replace(/s$/,'')}</b> · ${c.querySelector('.opt.sel').textContent}`);
+  $('#ticketLines').innerHTML=lines.join('<br>');
+  $('#ticketPrice').textContent=PRIX[steps]+' €';
+}
+$('#steps').onclick=e=>{const b=e.target.closest('.mtab');if(b){steps=+b.dataset.s;renderMenu()}};
+$$('.course').forEach(c=>c.onclick=e=>{const o=e.target.closest('.opt');if(!o)return;c.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel',x===o));renderMenu()});
+renderMenu();
+
+/* galerie : glisser pour défiler */
+const g=$('#gallery');let down=false,sx=0,sl=0;
+g.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;sx=e.clientX;sl=g.scrollLeft;g.classList.add('drag')});
+addEventListener('pointerup',()=>{down=false;g.classList.remove('drag')});
+g.addEventListener('pointermove',e=>{if(down)g.scrollLeft=sl-(e.clientX-sx)});
+
+/* ============ CAVE ============ */
+const CAVE={
+ 'Rouges':[['Boutheran — Désormière',25,1],['Les Têtes — Désormière',24,1],['AOC Rasteau rouge',36],['AOC Pic Saint-Loup',30],['AOP Crozes-Hermitage',39],['AOC Cairanne',28],['AOC Côtes-du-Rhône',28],['AOC Châteauneuf-du-Pape',56],['AOP Saint-Joseph',45]],
+ 'Blancs':[['IGP Côte Roannaise — Désormière',25,1],['IGP Viognier réserve',27],['AOP Crozes-Hermitage',38],['AOP Viré-Clessé',47],['AOC Côtes-du-Rhône 2020',29]],
+ 'Rosés':[['AOC Côte Roannaise — Désormière',24,1],['IGP Var Cap des Esperelles',31],['AOP Bailli de Provence',31]],
+ 'Petites bouteilles':[['AOC Rasteau rouge 50 cl',24],['AOC Châteauneuf-du-Pape 50 cl 2018',36],['AOC Lirac St Roch 37 cl',20],['AOP Bailli de Provence rosé 37 cl',24],['Pichet vin d’Ardèche 50 cl',12],['Pichet vin d’Ardèche 25 cl',7]],
+ 'Champagne':[['Champagne Léonce d’Albe brut',55],['Verre de champagne (10 cl)',8]]
+};
+const tabs=Object.keys(CAVE);let cur=tabs[0];
+function renderCave(){
+  $('#caveTabs').innerHTML=tabs.map(t=>`<button class="ctab${t===cur?' sel':''}" data-t="${t}">${t}</button>`).join('');
+  $('#wines').innerHTML=CAVE[cur].map((w,i)=>`<div class="wine" style="animation-delay:${i*45}ms"><span class="n">${w[0]}${w[2]?'<span class="loc">Côte Roannaise</span>':''}</span><span class="dots"></span><span class="p">${w[1]} €</span></div>`).join('');
+}
+$('#caveTabs').onclick=e=>{const b=e.target.closest('.ctab');if(b){cur=b.dataset.t;renderCave()}};
+renderCave();
+
+/* ============ BONS CADEAUX ============ */
+let gv=40,gp=2;
+function renderGift(){$('#giftVal').textContent=(gv*gp)+' €'}
+$('#giftF').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;gv=+b.dataset.v;$$('#giftF .chip').forEach(x=>x.classList.toggle('sel',x===b));renderGift()};
+$('#giftP').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;gp=+b.dataset.p;$$('#giftP .chip').forEach(x=>x.classList.toggle('sel',x===b));renderGift()};
+$('#giftBtn').onclick=()=>{const f=$('#giftF .sel').textContent,p=$('#giftP .sel').textContent;location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Demande de bon cadeau')}&body=${encodeURIComponent(`Bonjour,\n\nJe souhaiterais un bon cadeau « ${f} » pour ${p} (${gv*gp} €).\n\nMerci de m'indiquer comment le retirer.\n`)}`};
+renderGift();
+})();
+</script>
+</body>
+</html>
