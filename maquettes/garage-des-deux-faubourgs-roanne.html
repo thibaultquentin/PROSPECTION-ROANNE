@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garage des Deux Faubourgs — Garage auto à Roanne | Mécanique, cartes grises</title>
+<meta name="description" content="Garage des Deux Faubourgs, 10 rue Georges Plasse à Roanne : mécanique toutes marques et 4x4, diagnostics et devis gratuits, cartes grises, batteries, dépannage.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,500;0,700;0,900;1,800;1,900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel (garage2faubourgs.wixsite.com)
+   Orange #FC6000 relevé dans le CSS du site (pictos, accents)
+   Anthracite #2D2D2D / #242323 : textes, contours, bandeaux
+   Gris #5F6360 : fonds secondaires
+   Typo : Open Sans (corps, déjà utilisée sur le site)
+          Archivo italique très gras pour les titres, au plus près
+          du lettrage penché du logo (police exacte non communiquée)
+   ========================================================= */
+:root{
+  --orange:#FC6000;
+  --orange-dark:#d65200;
+  --orange-soft:#fff1e8;
+  --ink:#242323;
+  --ink-2:#2D2D2D;
+  --grey:#5F6360;
+  --grey-light:#eff1f2;
+  --white:#ffffff;
+  --font-title:'Archivo', 'Arial Black', sans-serif;
+  --font-body:'Open Sans', Helvetica, Arial, sans-serif;
+  --radius:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{font-family:var(--font-body);color:var(--ink-2);background:var(--white);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--ink);color:#d9d9d9;font-size:.78rem;text-align:center;padding:6px 16px;letter-spacing:.02em}
+.demo b{color:var(--orange)}
+
+/* Barre d'infos (comme le bandeau contact du site actuel) */
+.topbar{background:var(--grey-light);font-size:.85rem;border-bottom:1px solid #e1e4e6}
+.topbar .wrap{display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center;justify-content:space-between;padding:8px 0}
+.topbar a{text-decoration:none;font-weight:600}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.status i{width:9px;height:9px;border-radius:50%;background:#9aa0a6;box-shadow:0 0 0 0 rgba(252,96,0,.6)}
+.status.open i{background:#2fb35a;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,179,90,.55)}70%{box-shadow:0 0 0 9px rgba(47,179,90,0)}100%{box-shadow:0 0 0 0 rgba(47,179,90,0)}}
+
+/* Navigation — mêmes rubriques que le site actuel */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #eee;transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.08)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.brand img{height:54px;width:auto}
+nav ul{list-style:none;display:flex;gap:4px}
+nav a{display:block;text-decoration:none;font-family:var(--font-title);font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;padding:10px 12px;border-radius:8px;position:relative}
+nav a::after{content:"";position:absolute;left:12px;right:12px;bottom:5px;height:2px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav a:hover::after,nav a.active::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-title);font-weight:800;font-style:italic;text-transform:uppercase;letter-spacing:.03em;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:14px 24px;font-size:.95rem;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:48px}
+.btn:active{transform:scale(.96)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 8px 22px rgba(252,96,0,.35)}
+.btn-orange:hover{background:var(--orange-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.btn-ghost:hover{background:#fff;color:var(--ink)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:48px;height:48px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px auto;transition:.3s}
+
+/* Hero */
+.hero{position:relative;min-height:min(86vh,760px);display:grid;align-items:center;color:#fff;overflow:hidden;background:var(--ink)}
+.hero__bg{position:absolute;inset:-6% 0 0 0;background:url("https://static.wixstatic.com/media/8a3e6d_0b1e2bf057fa4d78a69db402aa6a7846.jpg") center 30%/cover no-repeat;filter:grayscale(1) contrast(1.05);transform:scale(1.08);animation:heroZoom 14s var(--ease) forwards;will-change:transform}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,20,20,.92) 0%,rgba(20,20,20,.75) 45%,rgba(20,20,20,.25) 100%);z-index:1}
+.hero::after{content:"";position:absolute;right:-8vw;top:0;bottom:0;width:38vw;background:var(--orange);transform:skewX(-14deg);opacity:.92;z-index:1;mix-blend-mode:multiply}
+.hero .wrap{position:relative;z-index:2;padding:80px 0}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-title);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--orange)}
+.eyebrow::before{content:"";width:34px;height:2px;background:currentColor}
+.hero h1{font-family:var(--font-title);font-weight:900;font-style:italic;font-size:clamp(2.4rem,1.5rem + 4.4vw,5.2rem);line-height:.98;text-transform:uppercase;margin:16px 0 22px;max-width:14ch}
+.hero h1 .o{color:var(--orange)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+.hero h1 .line:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.hero p.lead{font-size:clamp(1rem,.95rem + .35vw,1.2rem);max-width:52ch;color:#e6e6e6;opacity:0;animation:fade .8s .5s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;opacity:0;animation:fade .8s .7s forwards}
+@keyframes fade{to{opacity:1}}
+.hero .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px;opacity:0;animation:fade .8s .9s forwards}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(6px);padding:8px 14px;border-radius:999px;font-size:.85rem}
+.chip b{color:var(--orange)}
+.scroll-hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid rgba(255,255,255,.6);border-radius:14px}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:var(--orange);border-radius:2px;animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+
+/* Bandeau défilant de prestations */
+.marquee{background:var(--orange);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.05rem;letter-spacing:.04em}
+.marquee__track{display:inline-flex;gap:38px;animation:marq 32s linear infinite;padding-left:38px}
+.marquee__track span::after{content:"✦";margin-left:38px;opacity:.6}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,8vw,110px) 0}
+.sec-head{max-width:720px;margin-bottom:42px}
+.sec-head h2{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(1.9rem,1.3rem + 2.4vw,3.2rem);line-height:1.02;margin:12px 0 14px;color:var(--ink)}
+.sec-head p{color:var(--grey);font-size:1.05rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Qualité / Bons conseils (rubriques du site actuel) */
+.intro{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:center}
+.intro__img{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:#ddd}
+.intro__img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:transform 1.2s var(--ease),filter .6s}
+.intro__img:hover img{transform:scale(1.05);filter:grayscale(.3)}
+.intro__img .tag{position:absolute;left:16px;bottom:16px;background:var(--orange);color:#fff;font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;padding:10px 16px;border-radius:8px;font-size:.95rem}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.pillar{border:1px solid #e6e6e6;border-radius:12px;padding:18px;transition:border-color .3s,transform .3s var(--ease)}
+.pillar:hover{border-color:var(--orange);transform:translateY(-3px)}
+.pillar h3{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.05rem;color:var(--ink);display:flex;gap:10px;align-items:center}
+.pillar h3 svg{flex:none}
+.pillar p{font-size:.93rem;color:var(--grey);margin-top:6px}
+
+/* Chiffres réels */
+.facts{background:var(--ink);color:#fff;padding:56px 0}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.fact{border-left:3px solid var(--orange);padding-left:18px}
+.fact strong{display:block;font-family:var(--font-title);font-weight:900;font-style:italic;font-size:clamp(1.9rem,1.4rem + 1.8vw,2.9rem);line-height:1;color:#fff}
+.fact span{font-size:.9rem;color:#bfc3c6}
+
+/* Services */
+.services{background:var(--grey-light)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{background:#fff;border-radius:var(--radius);padding:28px 24px 24px;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;border:1px solid #e3e6e8}
+.svc::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.svc:hover::before{transform:scaleX(1)}
+.svc .ico{width:52px;height:52px;border-radius:12px;background:var(--orange-soft);display:grid;place-items:center;margin-bottom:16px;transition:background .3s}
+.svc:hover .ico{background:var(--orange)}
+.svc:hover .ico svg{stroke:#fff}
+.svc .ico svg{stroke:var(--orange);transition:stroke .3s}
+.svc h3{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.12rem;color:var(--ink);margin-bottom:8px}
+.svc p{font-size:.94rem;color:var(--grey)}
+.svc .price{display:inline-block;margin-top:12px;font-weight:700;color:var(--orange)}
+.svc a.more{display:inline-flex;gap:6px;margin-top:14px;font-weight:700;font-size:.88rem;text-decoration:none;color:var(--ink)}
+.svc a.more:hover{color:var(--orange)}
+
+/* Outil central — demande de rendez-vous atelier */
+.tool{background:var(--white)}
+.tool__box{display:grid;grid-template-columns:1.25fr .75fr;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.12);border:1px solid #e6e6e6}
+.tool__main{padding:clamp(22px,3.5vw,42px)}
+.steps{display:flex;gap:8px;margin-bottom:26px}
+.steps button{flex:1;border:0;background:var(--grey-light);border-radius:999px;padding:10px 8px;font-family:var(--font-title);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;color:var(--grey);cursor:pointer;transition:.3s;min-height:44px}
+.steps button.on{background:var(--ink);color:#fff}
+.steps button.done{background:var(--orange-soft);color:var(--orange-dark)}
+.panel{display:none;animation:fade .45s}
+.panel.on{display:block}
+.panel h3{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.35rem;color:var(--ink);margin-bottom:6px}
+.panel .hint{color:var(--grey);font-size:.92rem;margin-bottom:18px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:flex;flex-direction:column;gap:4px;border:2px solid #e3e6e8;border-radius:12px;padding:14px;cursor:pointer;height:100%;transition:border-color .2s,background .2s,transform .2s}
+.opt label:hover{border-color:#c9cdd0;transform:translateY(-2px)}
+.opt input:checked + label{border-color:var(--orange);background:var(--orange-soft)}
+.opt input:focus-visible + label{outline:3px solid var(--orange);outline-offset:2px}
+.opt b{font-size:.95rem;color:var(--ink)}
+.opt small{font-size:.8rem;color:var(--grey)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field label{display:block;font-size:.82rem;font-weight:700;margin-bottom:5px;color:var(--ink)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:.95rem;border:2px solid #e3e6e8;border-radius:10px;padding:11px 12px;background:#fff;transition:border-color .2s;min-height:46px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);outline:none}
+.field.full{grid-column:1/-1}
+.symptoms{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.symptoms label{border:1.5px solid #dfe2e4;border-radius:999px;padding:7px 13px;font-size:.85rem;cursor:pointer;transition:.2s;user-select:none}
+.symptoms input{position:absolute;opacity:0}
+.symptoms input:checked + span{color:#fff}
+.symptoms label:has(input:checked){background:var(--ink);border-color:var(--ink);color:#fff}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day{border:2px solid #e3e6e8;border-radius:12px;padding:10px 6px;text-align:center;cursor:pointer;background:#fff;font:inherit;transition:.2s;min-height:64px}
+.day b{display:block;font-family:var(--font-title);font-size:1.25rem;color:var(--ink)}
+.day small{font-size:.74rem;color:var(--grey);text-transform:uppercase}
+.day.on{border-color:var(--orange);background:var(--orange-soft)}
+.day:hover{transform:translateY(-2px)}
+.slots{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.slot{flex:1;min-width:150px;border:2px solid #e3e6e8;border-radius:12px;padding:12px;cursor:pointer;background:#fff;font:inherit;text-align:left;transition:.2s}
+.slot.on{border-color:var(--orange);background:var(--orange-soft)}
+.slot b{display:block;color:var(--ink)}
+.slot small{color:var(--grey)}
+.loan{display:flex;gap:12px;align-items:flex-start;background:var(--grey-light);border-radius:12px;padding:14px;margin-top:16px;cursor:pointer}
+.loan input{width:20px;height:20px;accent-color:var(--orange);margin-top:2px;flex:none}
+.nav-btns{display:flex;justify-content:space-between;gap:10px;margin-top:26px}
+.tool__side{background:var(--ink);color:#fff;padding:clamp(22px,3vw,36px);display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.tool__side::before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:30px solid rgba(252,96,0,.18)}
+.tool__side h4{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:1.1rem}
+.recap{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:.92rem}
+.recap li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(255,255,255,.15);padding-bottom:8px}
+.recap li span{color:#a9aeb2}
+.recap li b{text-align:right;color:#fff;font-weight:600}
+.recap li b.empty{color:#6f7478;font-weight:400}
+.side-note{font-size:.82rem;color:#bfc3c6;margin-top:auto}
+.result{display:none}
+.result.on{display:block;animation:fade .5s}
+.result pre{white-space:pre-wrap;background:var(--grey-light);border-radius:12px;padding:16px;font-family:var(--font-body);font-size:.9rem;color:var(--ink);max-height:280px;overflow:auto;border-left:4px solid var(--orange)}
+.result .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:.9rem;z-index:99;transition:transform .4s var(--ease)}
+.toast.show{transform:translate(-50%,0)}
+
+/* Cartes grises */
+.cg{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.cg .sec-head h2{color:#fff}
+.cg .sec-head p{color:#bfc3c6}
+.cg-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,60px);align-items:start}
+.cg-price{background:var(--orange);border-radius:20px;padding:30px;position:relative}
+.cg-price .big{font-family:var(--font-title);font-weight:900;font-style:italic;font-size:clamp(3rem,2rem + 4vw,5rem);line-height:1}
+.cg-price p{margin-top:10px}
+.cg-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.cg-tabs button{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:10px 16px;font:inherit;font-size:.9rem;cursor:pointer;min-height:44px;transition:.25s}
+.cg-tabs button.on{background:#fff;color:var(--ink)}
+.checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.checklist li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.06);border-radius:10px;padding:12px 14px;cursor:pointer;transition:background .2s}
+.checklist li:hover{background:rgba(255,255,255,.1)}
+.checklist li .box{flex:none;width:22px;height:22px;border-radius:6px;border:2px solid var(--orange);display:grid;place-items:center;transition:.2s}
+.checklist li.ok .box{background:var(--orange)}
+.checklist li.ok .box::after{content:"✓";color:#fff;font-size:.8rem;font-weight:700}
+.checklist li.ok span{color:#a9aeb2;text-decoration:line-through}
+.cg-progress{height:6px;background:rgba(255,255,255,.12);border-radius:6px;margin-top:16px;overflow:hidden}
+.cg-progress i{display:block;height:100%;width:0;background:var(--orange);transition:width .4s var(--ease)}
+.cg small.src{display:block;margin-top:12px;color:#8d9296;font-size:.78rem}
+
+/* Ventes véhicules */
+.sale .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center}
+.sale__card{background:var(--grey-light);border-radius:20px;padding:clamp(22px,3vw,36px)}
+
+/* Contact / adresse */
+.contact{background:var(--grey-light)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.c-card{background:#fff;border-radius:var(--radius);padding:26px;border:1px solid #e3e6e8}
+.c-card h3{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;color:var(--ink);font-size:1.1rem;margin-bottom:12px}
+.c-line{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px}
+.c-line svg{flex:none;stroke:var(--orange);margin-top:3px}
+.c-line a{font-weight:700;text-decoration:none}
+.c-line a:hover{color:var(--orange)}
+.hours{width:100%;border-collapse:collapse;font-size:.94rem}
+.hours td{padding:8px 0;border-bottom:1px solid #eee}
+.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{color:var(--orange);font-weight:700}
+.map{border-radius:var(--radius);overflow:hidden;min-height:300px;border:1px solid #e3e6e8}
+.map iframe{width:100%;height:100%;min-height:300px;border:0;display:block}
+
+/* CTA final */
+.final{background:var(--orange);color:#fff;text-align:center;padding:70px 0}
+.final h2{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;font-size:clamp(1.8rem,1.2rem + 2.6vw,3.2rem);line-height:1.05;margin-bottom:22px}
+.final .ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+
+footer{background:#161616;color:#a9aeb2;padding:46px 0 28px;font-size:.88rem}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:26px;margin-bottom:28px}
+footer h5{font-family:var(--font-title);font-weight:900;font-style:italic;text-transform:uppercase;color:#fff;font-size:.95rem;margin-bottom:10px}
+footer ul{list-style:none}
+footer li{margin-bottom:6px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--orange)}
+.disclaimer{border-top:1px solid #2b2b2b;padding-top:18px;font-size:.78rem;color:#8a8f93;line-height:1.55}
+
+/* Bouton d'appel flottant (mobile) */
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--orange);display:none;place-items:center;box-shadow:0 10px 26px rgba(252,96,0,.45)}
+.fab svg{stroke:#fff}
+
+@media (max-width:980px){
+  .intro,.tool__box,.cg-grid,.sale .wrap,.contact-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .facts .wrap{grid-template-columns:1fr 1fr}
+  footer .cols{grid-template-columns:1fr}
+  .hero::after{width:30vw;right:-14vw}
+}
+@media (max-width:760px){
+  header.nav{backdrop-filter:none;background:#fff}
+  nav{position:fixed;inset:0 0 0 auto;visibility:hidden;width:min(320px,85vw);background:#fff;transform:translateX(100%);transition:transform .35s var(--ease);padding:90px 20px;box-shadow:-10px 0 40px rgba(0,0,0,.15)}
+  nav.open{transform:none;visibility:visible}
+  nav ul{flex-direction:column}
+  .burger{display:block;position:relative;z-index:70}
+  header .btn-orange.hdr{display:none}
+  .svc-grid,.fields,.pillars{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}
+  .day b{font-size:1.05rem}
+  .fab{display:grid}
+  .steps button{font-size:.68rem;padding:8px 4px}
+  .brand img{height:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoRepair",
+  "name":"Garage des Deux Faubourgs",
+  "description":"Garage à Roanne : mécanique toutes marques et 4x4, diagnostics et devis gratuits, cartes grises, batteries, dépannage et remorquage sur demande, vente de véhicules sur demande.",
+  "address":{"@type":"PostalAddress","streetAddress":"10 rue Georges Plasse","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "telephone":"+33477230131",
+  "email":"contact@garagedes2faubourgs.fr",
+  "url":"https://garage2faubourgs.wixsite.com/monsite",
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>Garage des Deux Faubourgs</b> · non contractuelle · aucune demande n'est réellement transmise</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="status" id="status"><i></i><span id="statusTxt">Horaires : lundi au vendredi, 8h–12h / 14h–18h</span></span>
+    <span><a href="tel:+33477230131">04 77 23 01 31</a> · <a href="mailto:contact@garagedes2faubourgs.fr">contact@garagedes2faubourgs.fr</a></span>
+  </div>
+</div>
+
+<header class="nav" id="hdr">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="Garage des Deux Faubourgs — accueil">
+      <img src="https://static.wixstatic.com/media/be0f2d_45f7fc4f0c794e2e8d20f1b8ad13df7c~mv2.jpg" alt="Logo Garage des Deux Faubourgs">
+    </a>
+    <nav id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#accueil" class="active">Accueil</a></li>
+        <li><a href="#services">Mécanique</a></li>
+        <li><a href="#cartes-grises">Cartes grises</a></li>
+        <li><a href="#ventes">Ventes véhicules</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#rendez-vous" class="btn btn-orange hdr">Prendre rendez-vous</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow">Garage à Roanne · 10 rue Georges Plasse</span>
+    <h1>
+      <span class="line"><span>Garage</span></span>
+      <span class="line"><span>des Deux</span></span>
+      <span class="line"><span class="o">Faubourgs</span></span>
+    </h1>
+    <p class="lead">Grégory Auvolat et son équipe vous accueillent au Garage des Deux Faubourgs et vous proposent leurs multiples services : mécanique toutes marques et 4x4, cartes grises, batteries, vente de véhicules.</p>
+    <div class="ctas">
+      <a href="#rendez-vous" class="btn btn-orange">Préparer mon rendez-vous
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+      <a href="tel:+33477230131" class="btn btn-ghost">04 77 23 01 31</a>
+    </div>
+    <div class="chips">
+      <span class="chip"><b>Diagnostics et devis</b> gratuits</span>
+      <span class="chip"><b>Véhicule de prêt</b> pendant l'entretien</span>
+      <span class="chip"><b>Carte grise</b> 28,80 € TTC</span>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Mécanique toutes marques</span><span>4x4</span><span>Diagnostics gratuits</span><span>Cartes grises</span><span>Batteries</span><span>Dépannage · remorquage</span><span>Pièces neuves ou d'occasion</span><span>Vente de véhicules</span>
+    <span>Mécanique toutes marques</span><span>4x4</span><span>Diagnostics gratuits</span><span>Cartes grises</span><span>Batteries</span><span>Dépannage · remorquage</span><span>Pièces neuves ou d'occasion</span><span>Vente de véhicules</span>
+  </div>
+</div>
+
+<section id="qualite">
+  <div class="wrap intro">
+    <div class="intro__img reveal">
+      <img src="https://static.wixstatic.com/media/8a3e6d_38f93c76eb184f888d48b892497ae3dc.jpg" alt="Mécaniciens au travail sous un capot" loading="lazy">
+      <span class="tag">Toutes marques &amp; 4x4</span>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">En général</span>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Un garage de quartier, à Roanne</h2>
+        <p>Doté d'une volonté de réussir, Grégory Auvolat a su développer le Garage des Deux Faubourgs en partageant son savoir-faire auprès de son équipe. Le garage est ainsi capable d'apporter les conseils et les compétences nécessaires aux clients qui souhaitent faire réparer leurs véhicules toutes marques et leurs 4x4 (Pajero…).</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FC6000" stroke-width="2.2"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.5 7L12 17.6 5.7 21.1l1.5-7L2 9.3l7-.8z"/></svg>Qualité</h3>
+          <p>Pièces neuves ou d'occasion : on trouve toujours la solution à votre problème.</p>
+        </div>
+        <div class="pillar">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FC6000" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Bons conseils</h3>
+          <p>Le maximum pour répondre à vos besoins et à votre sécurité.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact reveal"><strong data-count="0" data-suffix=" €">0 €</strong><span>Diagnostic et devis</span></div>
+    <div class="fact reveal"><strong data-count="28.80" data-suffix=" €" data-dec="2">28,80 €</strong><span>Carte grise TTC, via le logiciel SIV</span></div>
+    <div class="fact reveal"><strong data-count="5" data-suffix=" j/7">5 j/7</strong><span>Du lundi au vendredi</span></div>
+    <div class="fact reveal"><strong>Prêt</strong><span>Véhicule prêté gracieusement pendant l'entretien</span></div>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Nos services</span>
+      <h2>Mécanique &amp; services</h2>
+      <p>Toutes les prestations présentées sur votre site actuel, regroupées sur une seule page et reliées directement à la prise de rendez-vous.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div>
+        <h3>Mécanique toutes marques</h3>
+        <p>Réparation de véhicules toutes marques et de 4x4, avec pièces neuves ou d'occasion selon votre besoin.</p>
+        <a href="#rendez-vous" class="more" data-pick="reparation">Demander un rendez-vous →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v3l2 2"/></svg></div>
+        <h3>Diagnostics et devis gratuits</h3>
+        <p>Devis et diagnostics gratuits. Diagnostics sur rendez-vous.</p>
+        <span class="price">Gratuit</span><br>
+        <a href="#rendez-vous" class="more" data-pick="diagnostic">Réserver un diagnostic →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Entretiens courants</h3>
+        <p>Prenez rendez-vous pour vos entretiens récurrents : un véhicule de prêt est mis gracieusement à votre disposition le temps des travaux.</p>
+        <a href="#rendez-vous" class="more" data-pick="entretien">Planifier un entretien →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9h6M7 13h10"/></svg></div>
+        <h3>Prestation cartes grises</h3>
+        <p>Notre logiciel SIV permet d'effectuer vos cartes grises rapidement.</p>
+        <span class="price">28,80 € TTC</span><br>
+        <a href="#cartes-grises" class="more">Voir les pièces à apporter →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="7" width="18" height="12" rx="2"/><path d="M22 11v4M6 4v3M14 4v3M7 13h4M9 11v4M14 13h3"/></svg></div>
+        <h3>Batteries</h3>
+        <p>Un stock suffisant de batteries pour répondre à vos demandes spontanées.</p>
+        <a href="#rendez-vous" class="more" data-pick="batterie">Signaler une batterie à changer →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M1 16h3l3-7h8l3 7h5M5 16a2 2 0 1 0 4 0M15 16a2 2 0 1 0 4 0"/><path d="M12 9V4l-4 2"/></svg></div>
+        <h3>Dépannage · Remorquage</h3>
+        <p>Le garage propose un service de dépannage à ses clients, sur demande uniquement.</p>
+        <a href="tel:+33477230131" class="more">Appeler le garage →</a>
+      </article>
+    </div>
+    <p class="reveal" style="margin-top:26px;font-size:.92rem;color:var(--grey)"><b style="color:var(--ink)">Huiles, liquides et déchets.</b> Conscient d'un environnement en péril, le Garage des Deux Faubourgs fait trier et collecter ses déchets.</p>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL -->
+<section class="tool" id="rendez-vous">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Rendez-vous atelier</span>
+      <h2>Préparez votre passage au garage</h2>
+      <p>Quatre étapes, moins d'une minute : le garage reçoit une demande complète (véhicule, symptômes, jour souhaité, besoin d'un véhicule de prêt) et vous rappelle pour confirmer.</p>
+    </div>
+
+    <div class="tool__box reveal">
+      <div class="tool__main">
+        <div class="steps" role="tablist" aria-label="Étapes">
+          <button class="on" data-step="0" role="tab">1 · Besoin</button>
+          <button data-step="1" role="tab">2 · Véhicule</button>
+          <button data-step="2" role="tab">3 · Créneau</button>
+          <button data-step="3" role="tab">4 · Envoi</button>
+        </div>
+
+        <!-- Étape 1 -->
+        <div class="panel on" data-panel="0">
+          <h3>De quoi votre voiture a-t-elle besoin ?</h3>
+          <p class="hint">Choisissez une prestation. Si vous ne savez pas, prenez « Diagnostic » : il est gratuit.</p>
+          <div class="opts" id="needs">
+            <div class="opt"><input type="radio" name="need" id="n1" value="Entretien courant" data-k="entretien"><label for="n1"><b>Entretien courant</b><small>Vidange, révision, filtres…</small></label></div>
+            <div class="opt"><input type="radio" name="need" id="n2" value="Diagnostic" data-k="diagnostic"><label for="n2"><b>Diagnostic</b><small>Gratuit, sur rendez-vous</small></label></div>
+            <div class="opt"><input type="radio" name="need" id="n3" value="Réparation mécanique" data-k="reparation"><label for="n3"><b>Réparation</b><small>Toutes marques et 4x4</small></label></div>
+            <div class="opt"><input type="radio" name="need" id="n4" value="Batterie" data-k="batterie"><label for="n4"><b>Batterie</b><small>En stock au garage</small></label></div>
+            <div class="opt"><input type="radio" name="need" id="n5" value="Devis" data-k="devis"><label for="n5"><b>Devis</b><small>Gratuit</small></label></div>
+            <div class="opt"><input type="radio" name="need" id="n6" value="Carte grise" data-k="cartegrise"><label for="n6"><b>Carte grise</b><small>28,80 € TTC</small></label></div>
+          </div>
+          <div id="symptomBox" style="margin-top:18px;display:none">
+            <p class="hint" style="margin-bottom:6px"><b style="color:var(--ink)">Qu'avez-vous remarqué ?</b> (plusieurs choix possibles)</p>
+            <div class="symptoms" id="symptoms">
+              <label><input type="checkbox" value="Voyant allumé"><span>Voyant allumé</span></label>
+              <label><input type="checkbox" value="Bruit anormal"><span>Bruit anormal</span></label>
+              <label><input type="checkbox" value="Freinage"><span>Freinage</span></label>
+              <label><input type="checkbox" value="Démarrage difficile"><span>Démarrage difficile</span></label>
+              <label><input type="checkbox" value="Fumée"><span>Fumée</span></label>
+              <label><input type="checkbox" value="Vibrations"><span>Vibrations</span></label>
+              <label><input type="checkbox" value="Fuite"><span>Fuite</span></label>
+              <label><input type="checkbox" value="Perte de puissance"><span>Perte de puissance</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="panel" data-panel="1">
+          <h3>Votre véhicule</h3>
+          <p class="hint">Toutes marques acceptées, 4x4 compris.</p>
+          <div class="fields">
+            <div class="field"><label for="brand">Marque</label>
+              <select id="brand"><option value="">Choisir…</option><option>Peugeot</option><option>Renault</option><option>Citroën</option><option>Dacia</option><option>Volkswagen</option><option>Toyota</option><option>Ford</option><option>Opel</option><option>Fiat</option><option>Mitsubishi</option><option>Nissan</option><option>Suzuki</option><option>Land Rover</option><option>Audi</option><option>BMW</option><option>Mercedes</option><option>Autre</option></select></div>
+            <div class="field"><label for="model">Modèle</label><input id="model" placeholder="ex. Pajero, 208, Clio…"></div>
+            <div class="field"><label for="year">Année</label><input id="year" inputmode="numeric" maxlength="4" placeholder="ex. 2015"></div>
+            <div class="field"><label for="km">Kilométrage</label><input id="km" inputmode="numeric" placeholder="ex. 120 000"></div>
+            <div class="field full"><label for="plate">Immatriculation (facultatif)</label><input id="plate" placeholder="AB-123-CD" style="text-transform:uppercase"></div>
+          </div>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="panel" data-panel="2">
+          <h3>Quand souhaitez-vous venir ?</h3>
+          <p class="hint">Le garage est ouvert du lundi au vendredi. Le créneau sera confirmé par le garage.</p>
+          <div class="days" id="days"></div>
+          <div class="slots" id="slots">
+            <button type="button" class="slot" data-slot="Matin (8h–12h)"><b>Matin</b><small>8h00 – 12h00</small></button>
+            <button type="button" class="slot" data-slot="Après-midi (14h–18h)"><b>Après-midi</b><small>14h00 – 18h00</small></button>
+          </div>
+          <label class="loan" id="loanBox"><input type="checkbox" id="loan"><span><b>J'aurais besoin d'un véhicule de prêt</b><br><small style="color:var(--grey)">Mis gracieusement à disposition le temps des travaux d'entretien.</small></span></label>
+        </div>
+
+        <!-- Étape 4 -->
+        <div class="panel" data-panel="3">
+          <h3>Vos coordonnées</h3>
+          <p class="hint">Pour que le garage puisse vous rappeler et confirmer.</p>
+          <div class="fields">
+            <div class="field"><label for="name">Nom</label><input id="name" autocomplete="name"></div>
+            <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+            <div class="field full"><label for="msg">Précisions (facultatif)</label><textarea id="msg" rows="3" placeholder="ex. bruit à l'avant droit au freinage depuis une semaine"></textarea></div>
+          </div>
+          <div class="result" id="result">
+            <p class="hint" style="margin:18px 0 8px"><b style="color:var(--ink)">Votre demande est prête :</b></p>
+            <pre id="resultTxt"></pre>
+            <div class="actions">
+              <a class="btn btn-orange" id="mailBtn" href="#">Envoyer par mail</a>
+              <button class="btn btn-dark" id="copyBtn" type="button">Copier</button>
+              <a class="btn btn-dark" href="tel:+33477230131">Appeler</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-btns">
+          <button class="btn btn-dark" id="prev" type="button" style="visibility:hidden">← Retour</button>
+          <button class="btn btn-orange" id="next" type="button">Continuer →</button>
+        </div>
+      </div>
+
+      <aside class="tool__side" aria-live="polite">
+        <h4>Récapitulatif</h4>
+        <ul class="recap">
+          <li><span>Prestation</span><b id="r-need" class="empty">—</b></li>
+          <li><span>Symptômes</span><b id="r-sym" class="empty">—</b></li>
+          <li><span>Véhicule</span><b id="r-car" class="empty">—</b></li>
+          <li><span>Jour</span><b id="r-day" class="empty">—</b></li>
+          <li><span>Créneau</span><b id="r-slot" class="empty">—</b></li>
+          <li><span>Véhicule de prêt</span><b id="r-loan" class="empty">Non</b></li>
+        </ul>
+        <p class="side-note">Diagnostic et devis gratuits. Le garage vous rappelle pour confirmer le créneau.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="cg" id="cartes-grises">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Prestation cartes grises</span>
+      <h2>Votre carte grise, faite au garage</h2>
+      <p>Le logiciel SIV du garage permet d'effectuer vos cartes grises rapidement. Cochez les pièces au fur et à mesure pour arriver avec un dossier complet.</p>
+    </div>
+    <div class="cg-grid">
+      <div class="cg-price reveal">
+        <div class="big">28,80 €</div>
+        <p><b>TTC, prestation du garage.</b><br>Les taxes de la carte grise (fixées par la région) s'ajoutent et dépendent du véhicule.</p>
+        <a href="tel:+33477230131" class="btn btn-dark" style="margin-top:18px">Appeler pour un dossier</a>
+      </div>
+      <div class="reveal">
+        <div class="cg-tabs" id="cgTabs">
+          <button class="on" data-cg="achat">Achat d'occasion</button>
+          <button data-cg="adresse">Changement d'adresse</button>
+          <button data-cg="duplicata">Perte / vol</button>
+        </div>
+        <ul class="checklist" id="checklist"></ul>
+        <div class="cg-progress"><i id="cgBar"></i></div>
+        <small class="src">Liste indicative des pièces généralement demandées pour la démarche — à faire valider par le garage selon votre situation.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sale" id="ventes">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Ventes véhicules</span>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Véhicules sur demande</h2>
+        <p>N'hésitez pas à vous rapprocher du garage : les véhicules sont proposés sur demande. Dites ce que vous cherchez, le garage vous recontacte.</p>
+      </div>
+    </div>
+    <form class="sale__card reveal" id="saleForm">
+      <div class="fields">
+        <div class="field"><label for="s-type">Type de véhicule</label><select id="s-type"><option>Citadine</option><option>Berline</option><option>Break</option><option>SUV / 4x4</option><option>Utilitaire</option></select></div>
+        <div class="field"><label for="s-fuel">Énergie</label><select id="s-fuel"><option>Indifférent</option><option>Essence</option><option>Diesel</option><option>Hybride</option></select></div>
+        <div class="field full"><label for="s-budget">Budget maximum : <b id="s-budget-v">10 000 €</b></label><input id="s-budget" type="range" min="3000" max="30000" step="500" value="10000" style="accent-color:var(--orange);padding:0;border:0"></div>
+      </div>
+      <button class="btn btn-orange" type="submit" style="margin-top:16px">Envoyer ma recherche</button>
+    </form>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Notre adresse</span>
+      <h2>Contactez-nous</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="c-card reveal">
+        <h3>Garage des Deux Faubourgs</h3>
+        <div class="c-line"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>10 rue Georges Plasse<br>42300 Roanne</span></div>
+        <div class="c-line"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+33477230131">04 77 23 01 31</a></div>
+        <div class="c-line"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg><a href="mailto:contact@garagedes2faubourgs.fr">contact@garagedes2faubourgs.fr</a></div>
+        <h3 style="margin-top:20px">Nos horaires</h3>
+        <table class="hours" id="hours">
+          <tr data-d="1"><td>Lundi</td><td>8h00–12h00 · 14h00–18h00</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>8h00–12h00 · 14h00–18h00</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>8h00–12h00 · 14h00–18h00</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>8h00–12h00 · 14h00–18h00</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>8h00–12h00 · 14h00–18h00</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>Fermé</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+      </div>
+      <div class="map reveal">
+        <iframe title="Plan d'accès — 10 rue Georges Plasse, Roanne" loading="lazy" src="https://www.google.com/maps?q=10+rue+Georges+Plasse,+42300+Roanne&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2>Un bruit, un voyant, un entretien à prévoir ?</h2>
+    <div class="ctas">
+      <a href="#rendez-vous" class="btn btn-dark">Préparer mon rendez-vous</a>
+      <a href="tel:+33477230131" class="btn btn-ghost">04 77 23 01 31</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h5>Garage des Deux Faubourgs</h5>
+        <p>Mécanique toutes marques et 4x4, cartes grises, batteries, vente de véhicules.<br>10 rue Georges Plasse, 42300 Roanne</p>
+      </div>
+      <div>
+        <h5>Nos services</h5>
+        <ul><li><a href="#services">Mécanique</a></li><li><a href="#cartes-grises">Cartes grises</a></li><li><a href="#ventes">Vente de véhicules</a></li><li><a href="#services">Batteries</a></li></ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul><li><a href="tel:+33477230131">04 77 23 01 31</a></li><li><a href="mailto:contact@garagedes2faubourgs.fr">contact@garagedes2faubourgs.fr</a></li><li>Lundi au vendredi · 8h–12h / 14h–18h</li></ul>
+      </div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration réalisée à partir du site actuel du Garage des Deux Faubourgs. Textes, tarifs (carte grise 28,80 € TTC), coordonnées et horaires sont repris tels qu'ils y figurent. Logo, couleur orange et photos proviennent également du site actuel ; les photos sont des visuels génériques du modèle de site et gagneraient à être remplacées par des photos de l'atelier (à fournir par le garage). Le formulaire n'envoie rien automatiquement : il prépare un mail ou un appel. La liste des pièces pour les cartes grises est indicative. Prix et informations non contractuels.</p>
+  </div>
+</footer>
+
+<a href="tel:+33477230131" class="fab" aria-label="Appeler le garage"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2.2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const MAIL='contact@garagedes2faubourgs.fr';
+  const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600)};
+
+  /* Ouvert / fermé en direct */
+  function status(){
+    const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes();
+    const week=d>=1&&d<=5, open=week&&((m>=480&&m<720)||(m>=840&&m<1080));
+    let t;
+    if(open) t='Ouvert maintenant · '+(m<720?'jusqu\'à 12h':'jusqu\'à 18h');
+    else if(week&&m>=720&&m<840) t='Pause déjeuner · réouverture à 14h';
+    else if(week&&m<480) t='Fermé · ouvre à 8h';
+    else t='Fermé · réouverture '+(d===5||d===6||d===0?'lundi':'demain')+' à 8h';
+    $('#status').classList.toggle('open',open);$('#statusTxt').textContent=t;
+    const row=document.querySelector('#hours tr[data-d="'+d+'"]');if(row)row.classList.add('today');
+  }
+  status();setInterval(status,60000);
+
+  /* Header + menu mobile */
+  addEventListener('scroll',()=>$('#hdr').classList.toggle('scrolled',scrollY>20),{passive:true});
+  const burger=$('#burger'),menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')menu.classList.remove('open')});
+
+  /* Lien actif selon la section */
+  const secs=['accueil','services','cartes-grises','ventes','contact'].map(id=>document.getElementById(id));
+  const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('#menu a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>s&&so.observe(s));
+
+  /* Apparition au scroll + compteurs */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);
+    const c=e.target.querySelector('[data-count]');if(c&&!reduce)count(c)}),{threshold:.15});
+  $$('.reveal').forEach(el=>io.observe(el));
+  function count(el){const end=parseFloat(el.dataset.count),dec=+(el.dataset.dec||0),suf=el.dataset.suffix||'';if(!end)return;const t0=performance.now(),dur=1200;
+    (function f(t){const p=Math.min(1,(t-t0)/dur),v=end*(1-Math.pow(1-p,3));el.textContent=v.toFixed(dec).replace('.',',')+suf;if(p<1)requestAnimationFrame(f)})(t0)}
+
+  /* Parallaxe légère du hero */
+  if(!reduce){const bg=$('.hero__bg');addEventListener('scroll',()=>{if(scrollY<900)bg.style.translate='0 '+(scrollY*.25)+'px'},{passive:true})}
+
+  /* ===== Outil rendez-vous ===== */
+  const state={need:'',k:'',sym:[],day:'',slot:'',loan:false};
+  let step=0;
+  const panels=$$('.panel'),tabs=$$('.steps button');
+  function go(i){
+    if(i>step&&!valid(step))return;
+    step=i;panels.forEach((p,j)=>p.classList.toggle('on',j===i));
+    tabs.forEach((t,j)=>{t.classList.toggle('on',j===i);t.classList.toggle('done',j<i)});
+    $('#prev').style.visibility=i?'visible':'hidden';
+    $('#next').textContent=i===3?'Préparer ma demande':'Continuer →';
+  }
+  function valid(i){
+    if(i===0&&!state.need){toast('Choisissez une prestation');return false}
+    if(i===1&&!$('#brand').value){toast('Indiquez au moins la marque');$('#brand').focus();return false}
+    if(i===2&&state.k!=='cartegrise'&&(!state.day||!state.slot)){toast('Choisissez un jour et un créneau');return false}
+    if(i===3&&(!$('#name').value.trim()||!$('#tel').value.trim())){toast('Nom et téléphone nécessaires');return false}
+    return true;
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>{const i=+t.dataset.step;if(i<=step)go(i);else{for(let s=step;s<i;s++){if(!valid(s))return}go(i)}}));
+  $('#prev').addEventListener('click',()=>go(Math.max(0,step-1)));
+  $('#next').addEventListener('click',()=>{if(step<3)go(step+1);else if(valid(3))build()});
+
+  $$('#needs input').forEach(r=>r.addEventListener('change',()=>{state.need=r.value;state.k=r.dataset.k;
+    $('#symptomBox').style.display=(state.k==='diagnostic'||state.k==='reparation'||state.k==='devis')?'block':'none';
+    $('#loanBox').style.display=state.k==='entretien'?'flex':'none';if(state.k!=='entretien'){state.loan=false;$('#loan').checked=false}
+    recap()}));
+  $$('#symptoms input').forEach(c=>c.addEventListener('change',()=>{state.sym=$$('#symptoms input:checked').map(x=>x.value);recap()}));
+  ['#brand','#model','#year','#km'].forEach(s=>$(s).addEventListener('input',recap));
+  $('#loan').addEventListener('change',e=>{state.loan=e.target.checked;recap()});
+  $('#loanBox').style.display='none';
+
+  /* Jours ouvrés à venir (lundi–vendredi) */
+  const J=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'],M=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  const days=[];let d=new Date();d.setDate(d.getDate()+1);
+  while(days.length<5){if(d.getDay()>=1&&d.getDay()<=5)days.push(new Date(d));d.setDate(d.getDate()+1)}
+  $('#days').innerHTML=days.map(x=>`<button type="button" class="day" data-v="${J[x.getDay()]} ${x.getDate()} ${M[x.getMonth()]}"><small>${J[x.getDay()]}</small><b>${x.getDate()}</b><small>${M[x.getMonth()]}</small></button>`).join('');
+  $$('.day').forEach(b=>b.addEventListener('click',()=>{$$('.day').forEach(x=>x.classList.remove('on'));b.classList.add('on');state.day=b.dataset.v;recap()}));
+  $$('.slot').forEach(b=>b.addEventListener('click',()=>{$$('.slot').forEach(x=>x.classList.remove('on'));b.classList.add('on');state.slot=b.dataset.slot;recap()}));
+
+  function car(){return [$('#brand').value,$('#model').value.trim(),$('#year').value.trim()].filter(Boolean).join(' ')}
+  function set(id,v,def){const e=$(id);e.textContent=v||def||'—';e.classList.toggle('empty',!v)}
+  function recap(){set('#r-need',state.need);set('#r-sym',state.sym.join(', '));set('#r-car',car());set('#r-day',state.day);set('#r-slot',state.slot);set('#r-loan',state.loan?'Oui':'','Non')}
+
+  function build(){
+    const km=$('#km').value.trim(),plate=$('#plate').value.trim().toUpperCase(),msg=$('#msg').value.trim();
+    const lines=[
+      'Bonjour,','',
+      'Je souhaite prendre rendez-vous au garage.','',
+      'Prestation : '+state.need,
+      state.sym.length?'Symptômes : '+state.sym.join(', '):'',
+      'Véhicule : '+car()+(km?' — '+km+' km':'')+(plate?' — '+plate:''),
+      state.day?'Jour souhaité : '+state.day+', '+state.slot.toLowerCase():'',
+      state.loan?'Besoin d\'un véhicule de prêt : oui':'',
+      msg?'Précisions : '+msg:'','',
+      'Nom : '+$('#name').value.trim(),
+      'Téléphone : '+$('#tel').value.trim(),'',
+      'Merci de me rappeler pour confirmer.'
+    ].filter((l,i,a)=>l!==''||(a[i-1]!==''));
+    const txt=lines.join('\n');
+    $('#resultTxt').textContent=txt;
+    $('#mailBtn').href='mailto:'+MAIL+'?subject='+encodeURIComponent('Demande de rendez-vous — '+state.need)+'&body='+encodeURIComponent(txt);
+    $('#result').classList.add('on');$('#result').scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});
+  }
+  $('#copyBtn').addEventListener('click',()=>{navigator.clipboard&&navigator.clipboard.writeText($('#resultTxt').textContent).then(()=>toast('Demande copiée'),()=>toast('Copie impossible'))});
+
+  /* Liens des cartes services → présélection */
+  $$('[data-pick]').forEach(a=>a.addEventListener('click',()=>{const r=document.querySelector('#needs input[data-k="'+a.dataset.pick+'"]');if(r){r.checked=true;r.dispatchEvent(new Event('change'));go(0)}}));
+
+  /* ===== Cartes grises : check-list ===== */
+  const CG={
+    achat:['Ancienne carte grise barrée, datée et signée par le vendeur','Certificat de cession signé par le vendeur et l\'acheteur','Contrôle technique de moins de 6 mois (véhicule de plus de 4 ans)','Pièce d\'identité','Justificatif de domicile de moins de 6 mois','Permis de conduire'],
+    adresse:['Carte grise actuelle','Pièce d\'identité','Justificatif de la nouvelle adresse de moins de 6 mois'],
+    duplicata:['Déclaration de perte, ou récépissé de déclaration de vol','Pièce d\'identité','Justificatif de domicile de moins de 6 mois','Contrôle technique en cours de validité (si le véhicule y est soumis)']
+  };
+  function cg(k){const l=CG[k];$('#checklist').innerHTML=l.map(x=>`<li tabindex="0" role="checkbox" aria-checked="false"><span class="box"></span><span>${x}</span></li>`).join('');
+    $$('#checklist li').forEach(li=>{const t=()=>{li.classList.toggle('ok');li.setAttribute('aria-checked',li.classList.contains('ok'));bar()};li.addEventListener('click',t);li.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();t()}})});bar()}
+  function bar(){const a=$$('#checklist li').length,o=$$('#checklist li.ok').length;$('#cgBar').style.width=(a?o/a*100:0)+'%';if(a&&o===a)toast('Dossier complet, vous pouvez passer au garage')}
+  $$('#cgTabs button').forEach(b=>b.addEventListener('click',()=>{$$('#cgTabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');cg(b.dataset.cg)}));
+  cg('achat');
+
+  /* ===== Recherche véhicule ===== */
+  const fmt=v=>(+v).toLocaleString('fr-FR')+' €';
+  $('#s-budget').addEventListener('input',e=>$('#s-budget-v').textContent=fmt(e.target.value));
+  $('#saleForm').addEventListener('submit',e=>{e.preventDefault();
+    const body='Bonjour,\n\nJe recherche un véhicule :\n- Type : '+$('#s-type').value+'\n- Énergie : '+$('#s-fuel').value+'\n- Budget maximum : '+fmt($('#s-budget').value)+'\n\nMerci de me recontacter.';
+    location.href='mailto:'+MAIL+'?subject='+encodeURIComponent('Recherche de véhicule')+'&body='+encodeURIComponent(body)});
+})();
+</script>
+</body>
+</html>
