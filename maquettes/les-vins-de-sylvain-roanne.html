@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Vins de Sylvain — Caviste à Roanne | Cours d'œnologie</title>
+<meta name="description" content="Caviste avenue de Paris à Roanne : vins de toutes les régions, spiritueux, bières artisanales, épicerie fine, cours d'œnologie et boissons pour vos fêtes et mariages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;600;700&family=Cardo:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site lesvinsdesylvain.fr, du logo et de la façade
+   (ajustable ici en quelques lignes si le client fournit ses codes exacts)
+   ========================================================= */
+:root{
+  --bordeaux:#9b1c2c;      /* rouge façade / stores */
+  --bordeaux-fonce:#701501;/* rouge du site actuel (logo « Vins ») */
+  --anis:#d3da3c;          /* vert-jaune du logo « Sylvain » */
+  --anis-fonce:#8f9520;
+  --noir:#1b1a19;          /* noir du logo façade */
+  --creme:#f8f3ea;         /* crème du soubassement de la façade */
+  --bois:#c89b67;          /* bois clair des étagères de la boutique */
+  --gris:#5e5a56;
+  --blanc:#ffffff;
+  --f-titre:"Roboto Slab", Georgia, serif;   /* police titres du site actuel */
+  --f-texte:"Roboto", system-ui, sans-serif;  /* police texte du site actuel */
+  --f-script:"Cardo", Georgia, serif;         /* italique empattée des panneaux de façade */
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--noir);background:var(--blanc);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--anis);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-titre);line-height:1.15;font-weight:700}
+.script{font-family:var(--f-script);font-style:italic;font-weight:400}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;color:var(--bordeaux)}
+.btn{display:inline-flex;align-items:center;gap:.6em;min-height:46px;padding:.8em 1.4em;border-radius:999px;font-weight:500;text-decoration:none;border:2px solid transparent;cursor:pointer;font-size:.98rem;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--bordeaux);color:#fff}
+.btn-primary:hover{background:var(--bordeaux-fonce);box-shadow:0 10px 24px -10px rgba(112,21,1,.6)}
+.btn-anis{background:var(--anis);color:var(--noir)}
+.btn-anis:hover{box-shadow:0 10px 24px -10px rgba(143,149,32,.8)}
+.btn-ghost{border-color:currentColor;background:transparent}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* bandeau démo */
+.demo{background:var(--noir);color:#e9e4da;font-size:.8rem;text-align:center;padding:.45em 16px}
+.demo strong{color:var(--anis)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #eee;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px -14px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:84px;transition:height .3s}
+header.scrolled .nav{height:66px}
+.logo img{height:64px;width:auto;transition:height .3s}
+header.scrolled .logo img{height:50px}
+.menu{display:flex;gap:4px;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-size:.88rem;padding:.55em .7em;border-radius:6px;position:relative;font-weight:500}
+.menu a::after{content:"";position:absolute;left:.7em;right:.7em;bottom:.3em;height:2px;background:var(--anis);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+.nav-tel{white-space:nowrap}
+.burger{display:none;background:none;border:0;width:46px;height:46px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--noir);margin:5px auto;transition:.3s}
+@media (max-width:1060px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:#fff;padding:90px 24px 30px;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px -20px rgba(0,0,0,.3);z-index:-1}
+  .menu.open{transform:none}
+  .menu a{font-size:1.1rem}
+  .burger{display:block}
+  .nav-tel{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:min(86vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14) translateX(-2%)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(27,26,25,.15) 0%,rgba(27,26,25,.35) 45%,rgba(60,8,0,.88) 100%)}
+.hero-in{padding:120px 0 64px}
+.hero .eyebrow{color:var(--anis)}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 4vw,4.6rem);max-width:15ch;margin:.25em 0 .2em}
+.hero h1 .script{display:block;font-size:.55em;color:#f1e9dc;margin-top:.15em}
+.hero p.lead{max-width:56ch;font-size:clamp(1rem,.95rem + .3vw,1.18rem);color:#f1ece4}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.status{display:inline-flex;align-items:center;gap:.55em;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px);padding:.4em .9em;border-radius:999px;font-size:.85rem}
+.status i{width:9px;height:9px;border-radius:50%;background:#bbb;box-shadow:0 0 0 0 rgba(211,218,60,.7)}
+.status.open i{background:var(--anis);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(211,218,60,0)}100%{box-shadow:0 0 0 0 rgba(211,218,60,0)}}
+.hero-next{margin-top:26px;font-size:.92rem;color:#e7dfd2}
+.hero-next b{color:#fff}
+
+/* bandeau façade défilant */
+.marquee{background:var(--bordeaux);color:#fff;overflow:hidden;padding:16px 0;border-block:4px solid var(--bordeaux-fonce)}
+.marquee-track{display:flex;gap:48px;width:max-content;animation:defile 38s linear infinite}
+.marquee span{font-family:var(--f-script);font-style:italic;font-size:1.35rem;white-space:nowrap;display:flex;align-items:center;gap:48px}
+.marquee span::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--anis)}
+@keyframes defile{to{transform:translateX(-50%)}}
+.marquee:hover .marquee-track{animation-play-state:paused}
+
+section{padding:clamp(64px,8vw,110px) 0}
+.sec-head{max-width:720px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(1.9rem,1.4rem + 2vw,2.9rem);margin:.3em 0 .35em}
+.sec-head p{color:var(--gris);font-size:1.05rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* boutique */
+.boutique{background:var(--creme)}
+.bt-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,4vw,64px);align-items:center}
+.bt-photos{position:relative;aspect-ratio:4/5}
+.bt-photos figure{position:absolute;overflow:hidden;border-radius:14px;box-shadow:0 30px 60px -30px rgba(60,8,0,.5)}
+.bt-photos figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.bt-photos figure:hover img{transform:scale(1.06)}
+.bt-photos .p1{inset:0 28% 18% 0}
+.bt-photos .p2{inset:38% 0 0 46%;border:6px solid var(--creme)}
+.bt-badge{position:absolute;left:-10px;bottom:6%;background:var(--anis);color:var(--noir);border-radius:50%;width:132px;height:132px;display:grid;place-items:center;text-align:center;font-family:var(--f-titre);font-weight:700;line-height:1.1;font-size:.95rem;transform:rotate(-8deg);box-shadow:0 14px 30px -14px rgba(0,0,0,.4);z-index:2}
+.bt-badge b{display:block;font-size:2rem}
+.espaces{list-style:none;display:grid;gap:4px;margin-top:8px}
+.espace{border-bottom:1px solid rgba(112,21,1,.18)}
+.espace button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;background:none;border:0;padding:18px 0;font:inherit;text-align:left;cursor:pointer}
+.espace h3{font-size:1.25rem;display:flex;align-items:center;gap:.6em}
+.espace h3 small{font-family:var(--f-script);font-style:italic;font-weight:400;color:var(--bordeaux);font-size:.85em}
+.espace .pm{width:34px;height:34px;flex:none;border-radius:50%;border:1.5px solid var(--bordeaux);display:grid;place-items:center;color:var(--bordeaux);transition:transform .35s var(--ease),background .3s,color .3s}
+.espace.open .pm{transform:rotate(45deg);background:var(--bordeaux);color:#fff}
+.espace .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.espace.open .body{grid-template-rows:1fr}
+.espace .body>div{overflow:hidden}
+.espace .body p{padding:0 0 18px;color:#3d3935}
+.livraison{margin-top:28px;display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:14px;padding:18px 20px;border-left:5px solid var(--anis)}
+.livraison svg{flex:none;color:var(--bordeaux)}
+.livraison p{font-size:.95rem}
+
+/* ===== OUTIL CENTRAL : agenda des cours ===== */
+.cours{background:var(--noir);color:#f3eee6;position:relative;overflow:hidden}
+.cours::before{content:"";position:absolute;inset:0;background:url("https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/LD_6797-1-1536x1025.jpg") center/cover;opacity:.12;filter:grayscale(.3)}
+.cours .wrap{position:relative}
+.cours .eyebrow{color:var(--anis)}
+.cours .sec-head p{color:#cfc7bb}
+.cours-layout{display:grid;grid-template-columns:1fr 340px;gap:32px;align-items:start}
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filtres button{background:transparent;color:#f3eee6;border:1.5px solid rgba(255,255,255,.3);border-radius:999px;padding:.5em 1.1em;font:inherit;font-size:.9rem;cursor:pointer;transition:.25s}
+.filtres button:hover{border-color:var(--anis)}
+.filtres button.on{background:var(--anis);border-color:var(--anis);color:var(--noir);font-weight:500}
+.liste{display:grid;gap:12px}
+.cours-card{display:grid;grid-template-columns:86px 1fr;gap:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;transition:background .3s,border-color .3s,transform .4s var(--ease),opacity .4s}
+.cours-card:hover{background:rgba(255,255,255,.08)}
+.cours-card.sel{border-color:var(--anis);background:rgba(211,218,60,.08)}
+.cours-card.hide{display:none}
+.mois{background:var(--bordeaux);border-radius:10px;display:grid;place-items:center;text-align:center;padding:10px 4px;line-height:1.1;align-self:start}
+.mois b{font-family:var(--f-titre);font-size:1.05rem;display:block}
+.mois small{font-size:.75rem;opacity:.85}
+.cours-card h3{font-size:1.12rem;color:#fff;margin-bottom:2px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 10px}
+.tag{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;padding:.2em .6em;border-radius:4px;background:rgba(255,255,255,.1)}
+.tag.new{background:var(--anis);color:var(--noir);font-weight:700}
+.tag.prix{background:var(--bordeaux)}
+.dates{display:flex;flex-wrap:wrap;gap:8px}
+.date{display:inline-flex;align-items:center;gap:.5em;background:transparent;color:#f3eee6;border:1.5px solid rgba(255,255,255,.28);border-radius:8px;padding:.45em .8em;font:inherit;font-size:.86rem;cursor:pointer;transition:.25s}
+.date:hover{border-color:var(--anis)}
+.date[aria-pressed="true"]{background:var(--anis);color:var(--noir);border-color:var(--anis);font-weight:500}
+.date .ck{width:16px;height:16px;border-radius:4px;border:1.5px solid currentColor;display:grid;place-items:center;font-size:11px}
+.date[aria-pressed="true"] .ck::before{content:"✓"}
+.panier{position:sticky;top:96px;background:var(--creme);color:var(--noir);border-radius:18px;padding:24px;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.panier h3{font-size:1.3rem}
+.verre{display:flex;align-items:center;gap:16px;margin:16px 0}
+.verre svg{flex:none}
+#vin{transition:y .7s var(--ease),height .7s var(--ease)}
+.verre p{font-size:.92rem;color:var(--gris)}
+.verre p b{font-family:var(--f-titre);font-size:1.6rem;color:var(--bordeaux);display:block;line-height:1}
+.sel-list{list-style:none;font-size:.88rem;display:grid;gap:6px;max-height:190px;overflow:auto;margin:8px 0 14px}
+.sel-list li{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed #d8cfc0;padding-bottom:6px}
+.sel-list li button{background:none;border:0;color:var(--bordeaux);cursor:pointer;font-size:1rem}
+.sel-empty{font-size:.88rem;color:var(--gris);font-style:italic;margin:8px 0 14px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--noir);padding-top:12px;margin-bottom:4px}
+.total b{font-family:var(--f-titre);font-size:1.7rem}
+.formule{font-size:.82rem;color:var(--gris);min-height:1.3em;margin-bottom:14px}
+.panier .btn{width:100%;justify-content:center;margin-top:8px}
+.panier .note{font-size:.75rem;color:var(--gris);margin-top:12px}
+.tarifs{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:28px;font-size:.92rem;color:#cfc7bb}
+.tarifs b{color:var(--anis)}
+@media (max-width:900px){.cours-layout{grid-template-columns:1fr}.panier{position:relative;top:0}}
+
+/* 6 vins du mois */
+.six-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.criteres{list-style:none;display:grid;gap:14px;margin:26px 0}
+.criteres li{display:flex;gap:14px;align-items:flex-start}
+.criteres li span{flex:none;width:38px;height:38px;border-radius:50%;background:var(--creme);color:var(--bordeaux);display:grid;place-items:center;font-family:var(--f-titre);font-weight:700}
+.remise{background:var(--anis);border-radius:14px;padding:18px 22px;font-weight:500}
+.fiche{position:relative;max-width:420px;margin-inline:auto}
+.fiche img{border-radius:10px;box-shadow:0 40px 70px -35px rgba(0,0,0,.55);transform:rotate(2deg);transition:transform .6s var(--ease)}
+.fiche:hover img{transform:rotate(0) scale(1.02)}
+.fiche .lbl{position:absolute;top:-16px;left:-16px;background:var(--bordeaux);color:#fff;padding:.5em 1em;border-radius:999px;font-size:.85rem;z-index:2;font-weight:500}
+
+/* box */
+.box{background:var(--creme)}
+.box-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.box-card{background:#fff;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s}
+.box-card:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(112,21,1,.45)}
+.box-card .img{aspect-ratio:1;overflow:hidden;background:#f3efe8}
+.box-card .img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.box-card:hover .img img{transform:scale(1.05)}
+.box-card .txt{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.box-card h3{font-size:1.15rem}
+.box-card .px{font-family:var(--f-titre);color:var(--bordeaux);font-size:1.4rem;margin-top:auto}
+.box-card .px small{font-family:var(--f-texte);font-size:.8rem;color:var(--gris)}
+.box-note{margin-top:28px;color:var(--gris);max-width:760px}
+@media (max-width:820px){.box-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:540px){.box-grid{grid-template-columns:1fr}}
+
+/* fêtes */
+.fetes-hero{height:clamp(160px,22vw,260px);border-radius:18px;overflow:hidden;margin-bottom:40px}
+.fetes-hero img{width:100%;height:100%;object-fit:cover}
+.fetes-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+.estim{background:var(--creme);border-radius:18px;padding:26px}
+.estim h3{font-size:1.3rem;margin-bottom:6px}
+.estim label{display:block;font-size:.85rem;font-weight:500;margin:16px 0 6px}
+.range-row{display:flex;align-items:center;gap:14px}
+.range-row input{flex:1;accent-color:var(--bordeaux)}
+.range-row output{font-family:var(--f-titre);font-size:1.6rem;min-width:3.2ch;text-align:right;color:var(--bordeaux)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{background:#fff;border:1.5px solid #d9cfbf;border-radius:999px;padding:.45em 1em;font:inherit;font-size:.88rem;cursor:pointer;transition:.25s}
+.chips button[aria-pressed="true"]{background:var(--bordeaux);color:#fff;border-color:var(--bordeaux)}
+.resultats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:20px}
+.res{background:#fff;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:center}
+.res .n{font-family:var(--f-titre);font-size:1.7rem;color:var(--bordeaux);min-width:2.2ch;text-align:right;line-height:1}
+.res .l{font-size:.84rem;line-height:1.3}
+.res .l small{display:block;color:var(--gris)}
+.estim .avert{font-size:.76rem;color:var(--gris);margin-top:14px}
+.devis label{display:block;font-size:.85rem;font-weight:500;margin:14px 0 6px}
+.devis input,.devis select,.devis textarea{width:100%;font:inherit;padding:.75em .9em;border:1.5px solid #ddd3c4;border-radius:10px;background:#fff;transition:border-color .25s}
+.devis input:focus,.devis select:focus,.devis textarea:focus{border-color:var(--bordeaux);outline:none}
+.devis .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.devis textarea{min-height:130px;resize:vertical}
+.devis .btn{margin-top:16px}
+.flash{animation:flash 1s}
+@keyframes flash{0%{background:var(--anis)}100%{background:#fff}}
+.fetes-intro{color:#3d3935;margin-bottom:6px}
+@media (max-width:860px){.fetes-grid,.six-grid,.bt-grid{grid-template-columns:1fr}.bt-photos{max-width:520px;margin-inline:auto;width:100%}}
+
+/* bons d'achat */
+.bons{background:var(--bordeaux);color:#fff;position:relative;overflow:hidden}
+.bons .eyebrow{color:var(--anis)}
+.bons .sec-head p{color:#f0d9d6}
+.bons-row{display:flex;flex-wrap:wrap;gap:14px}
+.bon{flex:1 1 150px;border:1.5px dashed rgba(255,255,255,.55);border-radius:14px;padding:22px 18px;text-align:center;transition:transform .4s var(--ease),background .3s}
+.bon:hover{transform:translateY(-4px) rotate(-1deg);background:rgba(255,255,255,.08)}
+.bon b{font-family:var(--f-titre);font-size:2.2rem;display:block}
+.bon span{font-size:.82rem;opacity:.85}
+.bon.cours-b{border-style:solid;border-color:var(--anis)}
+.bon.cours-b b{color:var(--anis);font-size:1.5rem}
+.bons p.small{margin-top:24px;font-size:.92rem;color:#f0d9d6;max-width:780px}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,56px);align-items:stretch}
+.facade{border-radius:18px;overflow:hidden;margin-bottom:24px}
+.coord{display:grid;gap:18px}
+.coord div{display:flex;gap:14px}
+.coord svg{flex:none;color:var(--bordeaux);margin-top:3px}
+.coord a{text-decoration:none;border-bottom:1px solid var(--anis)}
+.horaires{width:100%;border-collapse:collapse;font-size:.95rem}
+.horaires td{padding:7px 0;border-bottom:1px solid #eee}
+.horaires td:last-child{text-align:right}
+.horaires tr.today td{font-weight:700;color:var(--bordeaux)}
+.map{border-radius:18px;overflow:hidden;min-height:340px;background:#eee}
+.map iframe{width:100%;height:100%;min-height:340px;border:0}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+/* footer */
+footer{background:var(--noir);color:#cfc7bb;padding:48px 0 30px;font-size:.88rem}
+.evin{background:var(--bordeaux-fonce);color:#fff;text-align:center;font-weight:500;padding:.8em 16px;font-size:.85rem;letter-spacing:.03em}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px}
+.foot h4{font-family:var(--f-titre);color:#fff;margin-bottom:10px;font-size:1rem}
+.foot ul{list-style:none;display:grid;gap:4px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--anis)}
+.mention{margin-top:36px;border-top:1px solid #3a3734;padding-top:20px;font-size:.78rem;color:#a39b8f}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,150%);background:var(--noir);color:#fff;padding:.8em 1.3em;border-radius:999px;font-size:.9rem;z-index:99;transition:transform .45s var(--ease);border:1px solid var(--anis);max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LiquorStore",
+  "name":"Les Vins de Sylvain et autres merveilles",
+  "url":"https://www.lesvinsdesylvain.fr/",
+  "telephone":"+33477780015",
+  "email":"contact@lesvinsdesylvain.fr",
+  "image":"https://www.lesvinsdesylvain.fr/wp-content/uploads/2023/04/facade-pour-site-scaled.jpeg",
+  "logo":"https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/10/logo-les-vins-de-sylvain.png",
+  "address":{"@type":"PostalAddress","streetAddress":"52 avenue de Paris","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":[{"@type":"City","name":"Roanne"},{"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.0405,"longitude":4.0767},"geoRadius":"15000"}],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:30","closes":"12:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"14:30","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"09:30","closes":"12:00"}
+  ],
+  "sameAs":["https://www.facebook.com/lesvinsdesylvain/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><strong>Maquette de démonstration</strong> — proposition de refonte pour Les Vins de Sylvain, non contractuelle.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Les Vins de Sylvain — accueil"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/10/logo-les-vins-de-sylvain.png" alt="Les Vins de Sylvain et autres merveilles"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#boutique">La boutique</a></li>
+      <li><a href="#cours">Cours d'œnologie</a></li>
+      <li><a href="#vins-du-mois">Les 6 vins du mois</a></li>
+      <li><a href="#box">Les box</a></li>
+      <li><a href="#fetes">Fêtes &amp; mariages</a></li>
+      <li><a href="#bons">Bons d'achat</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-primary nav-tel" href="tel:+33477780015">04 77 78 00 15</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="hero-bg"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/LD_6535-scaled.jpg" alt="Bouteilles de vin rangées dans les casiers de la boutique Les Vins de Sylvain à Roanne" fetchpriority="high"></div>
+  <div class="wrap hero-in">
+    <span class="status" id="status"><i></i><span>Horaires</span></span>
+    <p class="eyebrow" style="margin-top:22px">Caviste à Roanne · 52 avenue de Paris</p>
+    <h1>Les Vins de Sylvain <span class="script">et autres merveilles</span></h1>
+    <p class="lead">Vins de toutes les régions françaises, spiritueux, bières artisanales, épicerie fine… et des cours d'œnologie pour apprendre à se faire plaisir à travers la dégustation.</p>
+    <div class="hero-cta">
+      <a href="#cours" class="btn btn-anis">Voir les prochains cours</a>
+      <a href="#fetes" class="btn btn-ghost">Préparer une fête</a>
+    </div>
+    <p class="hero-next" id="heroNext"></p>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Vins fins</span><span>Champagnes</span><span>Spiritueux</span><span>Bag in Box</span><span>Bières</span><span>Produits régionaux</span><span>Verres, carafes…</span><span>Coffrets cadeaux</span><span>Et autres merveilles</span>
+    <span>Vins fins</span><span>Champagnes</span><span>Spiritueux</span><span>Bag in Box</span><span>Bières</span><span>Produits régionaux</span><span>Verres, carafes…</span><span>Coffrets cadeaux</span><span>Et autres merveilles</span>
+  </div>
+</div>
+
+<!-- LA BOUTIQUE -->
+<section class="boutique" id="boutique">
+  <div class="wrap bt-grid">
+    <div class="bt-photos rv">
+      <figure class="p1"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2023/03/header-accueil-2.jpg" alt="Intérieur de la boutique : comptoir en bois et étagères d'épicerie fine" loading="lazy" style="object-position:62% 50%"></figure>
+      <figure class="p2"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/LD_6446-scaled.jpg" alt="Caisse en bois remplie de bouteilles de vin" loading="lazy"></figure>
+      <div class="bt-badge"><span><b>100 m²</b>et plus de<br>merveilles</span></div>
+    </div>
+    <div>
+      <div class="sec-head rv" style="margin-bottom:18px">
+        <p class="eyebrow">La boutique</p>
+        <h2>Sur plus de 100 m², une sélection de produits artisanaux</h2>
+        <p>Les Vins de Sylvain vous propose ses produits au sein de différents espaces. Ouvrez-les un par un.</p>
+      </div>
+      <ul class="espaces rv d1" id="espaces">
+        <li class="espace open"><button aria-expanded="true"><h3>Espace Vins <small>& Bag in Box</small></h3><span class="pm">+</span></button><div class="body"><div><p>Toutes les régions françaises sont représentées en bouteilles, magnums, jéroboams, ainsi qu'une sélection de vins étrangers.</p></div></div></li>
+        <li class="espace"><button aria-expanded="false"><h3>Espace Spiritueux</h3><span class="pm">+</span></button><div class="body"><div><p>Un choix étoffé de whiskys écossais, irlandais, japonais, français, américains, indiens…, de rhums des Antilles et d'ailleurs, de gins, de vodkas, de cognacs, d'armagnacs, d'eaux de vie de fruits…</p></div></div></li>
+        <li class="espace"><button aria-expanded="false"><h3>Espace Bières</h3><span class="pm">+</span></button><div class="body"><div><p>De nombreuses bières artisanales de notre région et d'autres régions françaises, des bières belges, du Royaume-Uni…</p></div></div></li>
+        <li class="espace"><button aria-expanded="false"><h3>Espace Épicerie Fine</h3><span class="pm">+</span></button><div class="body"><div><p>Salé (brandades, tapenades, terrines, foie gras, plats cuisinés…) ou sucré (pain d'épices, chocolats, pâte à tartiner, confitures, sablés…), thé, tisanes, vous permettront de composer des paniers garnis adaptés à tous les budgets.</p></div></div></li>
+        <li class="espace"><button aria-expanded="false"><h3>Espace Accessoires</h3><span class="pm">+</span></button><div class="body"><div><p>Verres à vin, spiritueux, champagne, carafes, décanteurs, tire-bouchons, thermomètres, hygromètres…</p></div></div></li>
+      </ul>
+      <div class="livraison rv d2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h13v12H1zM14 8h4l4 4v4h-8z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="17.5" cy="18.5" r="2"/></svg>
+        <p><strong>Livraison dans un rayon de 15 km autour de Roanne</strong>, gratuite à partir de 50 € de commande. Commande par téléphone au <a href="tel:+33477780015">04 77 78 00 15</a>, par mail ou par Messenger.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL : COURS -->
+<section class="cours" id="cours">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Cours d'œnologie · programme 2026-2027</p>
+      <h2>Choisissez vos cours, réservez en deux clics</h2>
+      <p>Pas besoin de connaissances de base, il suffit d'avoir envie de découvrir. Les cours se déroulent dans la salle de réception des Vins de Sylvain. Cochez les dates qui vous tentent : la formule la plus avantageuse se calcule toute seule.</p>
+    </div>
+    <div class="cours-layout">
+      <div>
+        <div class="filtres" role="group" aria-label="Filtrer les cours">
+          <button class="on" data-f="tous">Tous les cours</button>
+          <button data-f="vins">Vignobles &amp; régions</button>
+          <button data-f="degust">Dégustation &amp; accords</button>
+          <button data-f="spirit">Spiritueux</button>
+        </div>
+        <div class="liste" id="liste"></div>
+      </div>
+      <aside class="panier" aria-live="polite">
+        <h3>Ma sélection</h3>
+        <div class="verre">
+          <svg width="64" height="96" viewBox="0 0 64 96" aria-hidden="true">
+            <defs><clipPath id="bol"><path d="M10 6h44c0 22-6 40-22 40S10 28 10 6z"/></clipPath></defs>
+            <rect id="vin" x="0" y="46" width="64" height="0" fill="#9b1c2c" clip-path="url(#bol)"/>
+            <path d="M10 6h44c0 22-6 40-22 40S10 28 10 6z" fill="none" stroke="#1b1a19" stroke-width="2.2"/>
+            <path d="M32 46v36M18 90h28" stroke="#1b1a19" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+          <p><b id="nb">0</b>cours sélectionné(s)<br><span id="nbHint">Le verre se remplit à chaque cours ajouté.</span></p>
+        </div>
+        <ul class="sel-list" id="selList"></ul>
+        <p class="sel-empty" id="selEmpty">Aucun cours pour l'instant : cochez une date dans le programme.</p>
+        <div class="total"><span>Total indicatif</span><b id="total">0 €</b></div>
+        <p class="formule" id="formule"></p>
+        <a class="btn btn-primary" id="btnResa" href="#" aria-disabled="true">Demander ma réservation</a>
+        <button class="btn btn-ghost" id="btnIcs" type="button" disabled>Ajouter à mon agenda (.ics)</button>
+        <a class="btn btn-ghost" href="#bons" style="border-color:#c9bfae">Offrir des cours</a>
+        <p class="note">La demande part par mail à la boutique, qui confirme les places. Vous pouvez aussi réserver au 04 77 78 00 15. Pensez à apporter votre chèque cadeau le jour du cours.</p>
+      </aside>
+    </div>
+    <div class="tarifs rv">
+      <span>À l'unité : <b>48 €</b></span><span>Cycle 3 cours : <b>140 €</b></span><span>Cycle 6 cours : <b>258 €</b></span><span>Cours « Vins de Prestige » : <b>98 €</b></span>
+    </div>
+  </div>
+</section>
+
+<!-- 6 VINS DU MOIS -->
+<section id="vins-du-mois">
+  <div class="wrap six-grid">
+    <div>
+      <div class="sec-head rv" style="margin-bottom:0">
+        <p class="eyebrow">Les 6 vins du mois</p>
+        <h2>Tous les mois, six vins soigneusement sélectionnés</h2>
+        <p>Chaque vin est proposé avec une fiche de dégustation mentionnant notamment les accords mets et vins possibles.</p>
+      </div>
+      <ul class="criteres rv d1">
+        <li><span>1</span><p><strong>Des vins de vignerons artisans</strong></p></li>
+        <li><span>2</span><p><strong>Des vins prêts à boire</strong>, adaptés aux plats de saison</p></li>
+        <li><span>3</span><p><strong>Des prix de vente inférieurs à 10 €</strong></p></li>
+      </ul>
+      <p class="remise rv d2">−10 % à partir de 6 bouteilles achetées dans la sélection du mois, panachage possible.</p>
+    </div>
+    <div class="fiche rv d2">
+      <span class="lbl" id="moisLbl">Sélection d'octobre 2026</span>
+      <img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2026/10/les-6-vins-du-mois-10-2026-pdf-724x1024.jpg" alt="Fiche des 6 vins du mois d'octobre 2026 des Vins de Sylvain" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- BOX -->
+<section class="box" id="box">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Les box des vins de Sylvain</p>
+      <h2>Des abonnements à offrir ou s'offrir</h2>
+      <p>Vous commandez, nous envoyons par courrier un chèque cadeau à remettre au destinataire. Celui-ci n'a plus qu'à se présenter chaque mois en boutique pour retirer sa box.</p>
+    </div>
+    <div class="box-grid">
+      <article class="box-card rv d1"><div class="img"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/pepites-les-vins-de-sylvain-600x600.jpeg" alt="Box À la découverte des pépites inattendues" loading="lazy"></div><div class="txt"><h3>À la découverte des pépites inattendues</h3><p class="px"><small>à partir de</small> 60 €</p></div></article>
+      <article class="box-card rv d2"><div class="img"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/box-incontournables-les-vins-de-sylvain-300x300.jpg" alt="Box Les régions incontournables" loading="lazy"></div><div class="txt"><h3>Les régions incontournables</h3><p class="px"><small>à partir de</small> 80 €</p></div></article>
+      <article class="box-card rv d3"><div class="img"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/11/voyage-autour-du-monde-les-vins-de-sylvain-600x600.jpeg" alt="Box Voyage autour du vin" loading="lazy"></div><div class="txt"><h3>Voyage autour du vin</h3><p>Abonnement 3 mois</p><p class="px">75 €</p></div></article>
+    </div>
+    <p class="box-note rv">Il est également possible d'acheter votre box directement en boutique.</p>
+  </div>
+</section>
+
+<!-- FETES -->
+<section id="fetes">
+  <div class="wrap">
+    <div class="fetes-hero rv"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2023/03/header-fete-mariage-nouveau.jpg" alt="Table dressée avec carafe, verre et bouteille de Saint-Émilion" loading="lazy"></div>
+    <div class="sec-head rv">
+      <p class="eyebrow">Fêtes &amp; mariages</p>
+      <h2>Mariages, anniversaires, communions, baptêmes, départs à la retraite…</h2>
+      <p>Pour chaque occasion, les Vins de Sylvain vous propose des boissons adaptées à votre menu : apéritifs (punch, marquisette, mojito, kir, cocktail sans alcool…), sélection de vins en bouteille ou en cubis, champagnes, crémants, tireuse à bière…</p>
+    </div>
+    <div class="fetes-grid">
+      <div class="estim rv d1">
+        <h3>Combien de bouteilles prévoir ?</h3>
+        <p class="fetes-intro">Une première estimation avant d'en parler avec Sylvain.</p>
+        <label for="conv">Nombre de convives (adultes)</label>
+        <div class="range-row"><input type="range" id="conv" min="10" max="250" step="5" value="60"><output id="convOut">60</output></div>
+        <label>Ce que vous servez</label>
+        <div class="chips" id="moments">
+          <button type="button" aria-pressed="true" data-m="apero">Apéritif</button>
+          <button type="button" aria-pressed="true" data-m="repas">Repas</button>
+          <button type="button" aria-pressed="true" data-m="dessert">Bulles au dessert</button>
+        </div>
+        <div class="resultats" id="resultats"></div>
+        <p class="avert">Repère indicatif sur une base de 6 verres par bouteille de 75 cl : 2 verres à l'apéritif, un peu moins d'une demi-bouteille de vin par convive pendant le repas, une coupe au dessert. Les quantités définitives se calent avec la boutique selon votre menu.</p>
+        <button class="btn btn-primary" id="versDevis" type="button" style="margin-top:14px">Joindre cette estimation à ma demande</button>
+      </div>
+      <form class="devis rv d2" id="devis" onsubmit="return envoyerDevis(event)">
+        <h3 style="font-size:1.3rem">N'hésitez pas à demander un devis</h3>
+        <div class="row2">
+          <div><label for="dNom">Votre nom</label><input id="dNom" required></div>
+          <div><label for="dMail">Votre e-mail</label><input id="dMail" type="email" required></div>
+        </div>
+        <div class="row2">
+          <div><label for="dNat">Nature de l'événement</label>
+            <select id="dNat"><option>Mariage</option><option>Anniversaire</option><option>Communion</option><option>Baptême</option><option>Départ à la retraite</option><option>Autre</option></select></div>
+          <div><label for="dDate">Date de l'événement</label><input id="dDate" type="date"></div>
+        </div>
+        <label for="dConv">Nombre de convives</label><input id="dConv" type="number" min="1" value="60">
+        <label for="dMsg">Votre message</label><textarea id="dMsg" placeholder="Votre menu, vos envies (punch, crémant, tireuse à bière…)"></textarea>
+        <button class="btn btn-primary" type="submit">Envoyer ma demande</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- BONS D'ACHAT -->
+<section class="bons" id="bons">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <p class="eyebrow">Bons d'achat &amp; cours à offrir</p>
+      <h2>Envie de faire un cadeau à un ou plusieurs de vos proches ?</h2>
+      <p>Achetés en boutique, ils vous sont remis dans une enveloppe avec le programme des cours. Commandés en ligne, ils vous sont adressés par courrier.</p>
+    </div>
+    <div class="bons-row rv d1">
+      <div class="bon"><b>20 €</b><span>Bon d'achat</span></div>
+      <div class="bon"><b>30 €</b><span>Bon d'achat</span></div>
+      <div class="bon"><b>50 €</b><span>Bon d'achat</span></div>
+      <div class="bon"><b>80 €</b><span>Bon d'achat</span></div>
+      <div class="bon"><b>100 €</b><span>Bon d'achat</span></div>
+    </div>
+    <div class="bons-row rv d2" style="margin-top:14px">
+      <div class="bon cours-b"><b>48 €</b><span>Cours d'œnologie à l'unité</span></div>
+      <div class="bon cours-b"><b>140 €</b><span>Cycle 3 cours</span></div>
+      <div class="bon cours-b"><b>258 €</b><span>Cycle 6 cours</span></div>
+    </div>
+    <p class="small rv">Le paiement en ligne existant (bons d'achat, cours, box) serait conservé tel quel dans la nouvelle version du site.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <div class="facade rv"><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2023/04/facade-pour-site-scaled.jpeg" alt="Façade de la boutique Les Vins de Sylvain, 52 avenue de Paris à Roanne" loading="lazy"></div>
+      <div class="coord rv d1">
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><p><strong>Les Vins de Sylvain et autres merveilles</strong><br>52 avenue de Paris, 42300 Roanne<br><span style="color:var(--gris)">Parking gratuit : place du Champ de foire</span></p></div>
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><p><a href="tel:+33477780015">04 77 78 00 15</a></p></div>
+        <div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><p><a href="mailto:contact@lesvinsdesylvain.fr">contact@lesvinsdesylvain.fr</a></p></div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="sec-head" style="margin-bottom:18px"><p class="eyebrow">Horaires de votre magasin</p><h2>Passez nous voir</h2></div>
+      <table class="horaires" id="horaires">
+        <tr data-d="2"><td>Mardi</td><td>9h30 – 12h30 / 14h30 – 19h00</td></tr>
+        <tr data-d="3"><td>Mercredi</td><td>9h30 – 12h30 / 14h30 – 19h00</td></tr>
+        <tr data-d="4"><td>Jeudi</td><td>9h30 – 12h30 / 14h30 – 19h00</td></tr>
+        <tr data-d="5"><td>Vendredi</td><td>9h30 – 12h30 / 14h30 – 19h00</td></tr>
+        <tr data-d="6"><td>Samedi</td><td>9h30 – 12h30 / 14h30 – 19h00</td></tr>
+        <tr data-d="0"><td>Dimanche</td><td>9h30 – 12h00</td></tr>
+        <tr data-d="1"><td>Lundi</td><td>Fermé</td></tr>
+      </table>
+      <div class="map" style="margin-top:24px"><iframe title="Plan d'accès — 52 avenue de Paris, Roanne" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0640%2C46.0350%2C4.0900%2C46.0460&amp;layer=mapnik&amp;marker=46.0405%2C4.0767"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="evin">⚠ L'ABUS D'ALCOOL EST DANGEREUX POUR LA SANTÉ, À CONSOMMER AVEC MODÉRATION ⚠</div>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><img src="https://www.lesvinsdesylvain.fr/wp-content/uploads/2021/10/logo-les-vins-de-sylvain.png" alt="Les Vins de Sylvain" style="height:70px;background:#fff;border-radius:10px;padding:6px;margin-bottom:12px"><p>52 avenue de Paris, 42300 Roanne<br>04 77 78 00 15 · contact@lesvinsdesylvain.fr</p></div>
+      <div><h4>Plan du site</h4><ul><li><a href="#boutique">La boutique</a></li><li><a href="#cours">Cours d'œnologie &amp; bons d'achat</a></li><li><a href="#box">Les box des vins de Sylvain</a></li><li><a href="#fetes">Fêtes &amp; mariages</a></li><li><a href="#vins-du-mois">Les 6 vins du mois</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Rejoignez-nous</h4><ul><li><a href="https://www.facebook.com/lesvinsdesylvain/" target="_blank" rel="noopener">Retrouvez-nous sur Facebook</a></li><li>Newsletter : restez informé de l'actualité des vins de Sylvain</li></ul></div>
+    </div>
+    <p class="mention"><strong>Maquette de démonstration</strong> réalisée sans engagement à partir des informations publiques du site lesvinsdesylvain.fr : textes, programme des cours 2026-2027, tarifs et horaires repris du site actuel, à vérifier avant mise en ligne. Prix indicatifs, non contractuels ; le calcul automatique de formule (cycles 3 et 6 cours) est une proposition à valider par la boutique. Les quantités du simulateur « Fêtes &amp; mariages » sont des repères généraux, sans prix. Couleurs reprises de la façade, du logo et du site actuel, polices du site actuel (Roboto, Roboto Slab) : ajustables. Toutes les photos sont des visuels publiés par Les Vins de Sylvain sur son site. Les formulaires de cette maquette ouvrent un mail pré-rempli ; dans le site final ils seraient reliés à la boîte de la boutique.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ---------- données réelles : programme PDF 2026-2027 ---------- */
+const COURS=[
+ {id:"aveugle",t:"Dégustation de vins à l'aveugle : à l'écoute de nos sens",cat:"degust",neu:true,dates:[["2026-10-22","19:30","22:30"]]},
+ {id:"lyon",t:"Accords mets et vins : gastronomie lyonnaise et vins du Beaujolais",cat:"degust",neu:true,dates:[["2026-11-21","11:00","14:00"]]},
+ {id:"prestige",t:"Vins « Prestige »",cat:"degust",prix:98,dates:[["2026-11-26","19:30","22:30"]]},
+ {id:"champ",t:"La Champagne",cat:"vins",dates:[["2026-12-02","19:30","22:30"],["2026-12-10","19:30","22:30"]]},
+ {id:"rhone",t:"La Vallée du Rhône septentrionale",cat:"vins",dates:[["2027-01-07","19:30","22:30"],["2027-01-14","19:30","22:30"]]},
+ {id:"init",t:"Découverte des vignobles français (initiation à la dégustation)",cat:"degust",init:true,dates:[["2027-01-08","19:30","22:30"],["2027-02-05","19:30","22:30"]]},
+ {id:"japon",t:"Les whiskys japonais : 1 siècle de savoir-faire !",cat:"spirit",dates:[["2027-02-04","19:30","22:30"],["2027-02-12","19:30","22:30"]]},
+ {id:"bourg",t:"Les vins de Bourgogne",cat:"vins",dates:[["2027-03-04","19:30","22:30"],["2027-03-12","19:30","22:30"]]},
+ {id:"italie",t:"La dolce vita : à la découverte des vins d'Italie",cat:"vins",dates:[["2027-04-08","19:30","22:30"],["2027-04-09","19:30","22:30"]]},
+ {id:"rhum",t:"Le monde des rhums",cat:"spirit",dates:[["2027-05-20","19:30","22:30"],["2027-05-21","19:30","22:30"]]},
+ {id:"so",t:"Les vins du Sud-Ouest",cat:"vins",dates:[["2027-06-03","19:30","22:30"],["2027-06-11","19:30","22:30"]]},
+ {id:"lang",t:"Languedoc-Roussillon : la plus grande région viticole de France",cat:"vins",dates:[["2027-06-17","19:30","22:30"],["2027-06-18","19:30","22:30"]]}
+];
+const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+const MOIS=["janv.","févr.","mars","avril","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+const MOISL=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const d8=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const fdate=s=>{const d=d8(s);return JOURS[d.getDay()]+" "+d.getDate()+" "+MOISL[d.getMonth()]};
+const fh=h=>h.replace(":","h").replace("h00","h");
+const today=new Date();today.setHours(0,0,0,0);
+
+/* rendu de la liste */
+const liste=document.getElementById("liste");
+COURS.forEach(c=>{
+  const futur=c.dates.filter(d=>d8(d[0])>=today);
+  if(!futur.length)return;
+  const d0=d8(futur[0][0]);
+  const el=document.createElement("article");
+  el.className="cours-card rv";el.dataset.cat=c.cat;el.dataset.id=c.id;
+  el.innerHTML=`<div class="mois"><span><b>${MOIS[d0.getMonth()]}</b><small>${d0.getFullYear()}</small></span></div>
+  <div><h3>${c.t}</h3><div class="tags">${c.neu?'<span class="tag new">Nouveau</span>':''}${c.init?'<span class="tag">Initiation</span>':'<span class="tag">Cours thématique</span>'}${c.prix?'<span class="tag prix">Tarif exceptionnel '+c.prix+' €</span>':''}<span class="tag">${futur.length>1?futur.length+' dates au choix':'1 date'}</span></div>
+  <div class="dates">${futur.map(d=>`<button class="date" type="button" aria-pressed="false" data-c="${c.id}" data-d="${d[0]}"><span class="ck"></span>${fdate(d[0])} · ${fh(d[1])}-${fh(d[2])}</button>`).join("")}</div></div>`;
+  liste.appendChild(el);
+});
+
+/* prochain cours (hero) */
+const prochain=COURS.flatMap(c=>c.dates.map(d=>({c,d}))).filter(x=>d8(x.d[0])>=today).sort((a,b)=>d8(a.d[0])-d8(b.d[0]))[0];
+if(prochain){const j=Math.round((d8(prochain.d[0])-today)/864e5);document.getElementById("heroNext").innerHTML=`Prochain cours : <b>${prochain.c.t}</b>, ${fdate(prochain.d[0])}${j>0?" (dans "+j+" jour"+(j>1?"s":"")+")":" (aujourd'hui)"}.`}
+
+/* filtres */
+document.querySelectorAll(".filtres button").forEach(b=>b.addEventListener("click",()=>{
+  document.querySelectorAll(".filtres button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".cours-card").forEach(k=>k.classList.toggle("hide",!(b.dataset.f==="tous"||k.dataset.cat===b.dataset.f)));
+}));
+
+/* sélection + calcul de formule */
+const sel=new Map(); // clé id|date
+function meilleurPrix(n){let best={p:Infinity};for(let a=0;a<=Math.ceil(n/6);a++)for(let b=0;b<=Math.ceil(n/3);b++){const r=Math.max(0,n-6*a-3*b);const p=258*a+140*b+48*r;if(6*a+3*b<=n&&p<best.p)best={p,a,b,r}}return best}
+function maj(){
+  const items=[...sel.values()].sort((x,y)=>d8(x.d)-d8(y.d));
+  const n=items.length;
+  document.getElementById("nb").textContent=n;
+  const h=Math.min(n,6)/6*40;const vin=document.getElementById("vin");vin.setAttribute("y",46-h);vin.setAttribute("height",h);
+  document.getElementById("nbHint").textContent=n>=6?"Verre plein : le cycle 6 cours devient intéressant.":n>=3?"À partir de 3 cours, le cycle est plus avantageux.":"Le verre se remplit à chaque cours ajouté.";
+  const ul=document.getElementById("selList");
+  ul.innerHTML=items.map(i=>`<li><span>${i.c.t.split(":")[0]}<br><small style="color:var(--gris)">${fdate(i.d)}</small></span><button aria-label="Retirer" data-k="${i.c.id}|${i.d}">×</button></li>`).join("");
+  document.getElementById("selEmpty").style.display=n?"none":"block";
+  const prest=items.filter(i=>i.c.prix);const std=n-prest.length;
+  const m=meilleurPrix(std);const tot=(std?m.p:0)+prest.reduce((s,i)=>s+i.c.prix,0);
+  document.getElementById("total").textContent=tot+" €";
+  let f=[];if(std){if(m.a)f.push(m.a+" cycle"+(m.a>1?"s":"")+" 6 cours");if(m.b)f.push(m.b+" cycle"+(m.b>1?"s":"")+" 3 cours");if(m.r)f.push(m.r+" cours à l'unité");const plein=std*48;if(m.p<plein)f.push("soit "+(plein-m.p)+" € d'économie")}
+  if(prest.length)f.push("Vins « Prestige » à 98 €");
+  document.getElementById("formule").textContent=f.join(" · ");
+  const resa=document.getElementById("btnResa");
+  if(n){const corps="Bonjour,\n\nJe souhaite réserver les cours suivants :\n"+items.map(i=>"- "+i.c.t+" — "+fdate(i.d)).join("\n")+"\n\nTotal indicatif : "+tot+" € ("+f.join(", ")+")\n\nNom :\nTéléphone :\nNombre de personnes :\n\nMerci !";
+    resa.href="mailto:contact@lesvinsdesylvain.fr?subject="+encodeURIComponent("Réservation cours d'œnologie")+"&body="+encodeURIComponent(corps);resa.removeAttribute("aria-disabled");resa.style.opacity=1;resa.style.pointerEvents="auto"}
+  else{resa.href="#";resa.setAttribute("aria-disabled","true");resa.style.opacity=.45;resa.style.pointerEvents="none"}
+  document.getElementById("btnIcs").disabled=!n;
+  document.querySelectorAll(".cours-card").forEach(k=>k.classList.toggle("sel",items.some(i=>i.c.id===k.dataset.id)));
+}
+liste.addEventListener("click",e=>{
+  const b=e.target.closest(".date");if(!b)return;
+  const c=COURS.find(x=>x.id===b.dataset.c);const k=c.id+"|"+b.dataset.d;
+  // une seule date par thème : on remplace l'autre date éventuelle
+  [...sel.keys()].filter(x=>x.startsWith(c.id+"|")&&x!==k).forEach(x=>{sel.delete(x);document.querySelector(`.date[data-c="${c.id}"][data-d="${x.split("|")[1]}"]`).setAttribute("aria-pressed","false")});
+  if(sel.has(k)){sel.delete(k);b.setAttribute("aria-pressed","false")}else{sel.set(k,{c,d:b.dataset.d});b.setAttribute("aria-pressed","true");toast("Ajouté : "+c.t.split(":")[0])}
+  maj();
+});
+document.getElementById("selList").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;sel.delete(b.dataset.k);const[c,d]=b.dataset.k.split("|");document.querySelector(`.date[data-c="${c}"][data-d="${d}"]`).setAttribute("aria-pressed","false");maj()});
+document.getElementById("btnIcs").addEventListener("click",()=>{
+  const p=s=>s.replace(/[-:]/g,"");
+  const ev=[...sel.values()].map(i=>{const d=i.c.dates.find(x=>x[0]===i.d);return["BEGIN:VEVENT","UID:"+i.c.id+"-"+i.d+"@lesvinsdesylvain","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART;TZID=Europe/Paris:"+p(i.d)+"T"+p(d[1])+"00","DTEND;TZID=Europe/Paris:"+p(i.d)+"T"+p(d[2])+"00","SUMMARY:Cours d'œnologie — "+i.c.t,"LOCATION:Les Vins de Sylvain\\, 52 avenue de Paris\\, 42300 Roanne","DESCRIPTION:Réservation à confirmer auprès de la boutique (04 77 78 00 15).","END:VEVENT"].join("\r\n")});
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Les Vins de Sylvain//Cours//FR",...ev,"END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="cours-oenologie-vins-de-sylvain.ics";a.click();toast("Fichier agenda téléchargé");
+});
+maj();
+
+/* ---------- estimateur fêtes ---------- */
+const conv=document.getElementById("conv"),convOut=document.getElementById("convOut");
+const moments={apero:true,repas:true,dessert:true};
+function estim(){
+  const n=+conv.value;convOut.textContent=n;
+  const r=[];
+  if(moments.apero)r.push([Math.ceil(n*2/6),"bouteilles pour l'apéritif","crémant, kir, punch…"]);
+  if(moments.repas){const t=Math.ceil(n*0.45);const bl=Math.round(t/3);r.push([bl,"vins blancs","entrée, poisson"]);r.push([t-bl,"vins rouges","plat, fromage"])}
+  if(moments.dessert)r.push([Math.ceil(n/6),"champagnes ou crémants","pour le dessert"]);
+  if(!r.length)r.push([0,"Rien de sélectionné","choisissez au moins un moment"]);
+  document.getElementById("resultats").innerHTML=r.map(x=>`<div class="res"><span class="n">${x[0]}</span><span class="l">${x[1]}<small>${x[2]}</small></span></div>`).join("");
+  return r;
+}
+conv.addEventListener("input",estim);
+document.querySelectorAll("#moments button").forEach(b=>b.addEventListener("click",()=>{moments[b.dataset.m]=!moments[b.dataset.m];b.setAttribute("aria-pressed",moments[b.dataset.m]);estim()}));
+estim();
+document.getElementById("versDevis").addEventListener("click",()=>{
+  const r=estim();document.getElementById("dConv").value=conv.value;
+  const msg=document.getElementById("dMsg");
+  msg.value="Estimation indicative pour "+conv.value+" convives :\n"+r.map(x=>"- "+x[0]+" "+x[1]+" ("+x[2]+")").join("\n")+"\n\n"+msg.value.replace(/^Estimation indicative[\s\S]*?\n\n/,"");
+  document.getElementById("devis").scrollIntoView({behavior:"smooth",block:"center"});
+  msg.classList.remove("flash");void msg.offsetWidth;msg.classList.add("flash");toast("Estimation ajoutée à votre demande");
+});
+function envoyerDevis(e){e.preventDefault();
+  const v=id=>document.getElementById(id).value;
+  const corps="Nom : "+v("dNom")+"\nE-mail : "+v("dMail")+"\nÉvénement : "+v("dNat")+"\nDate : "+v("dDate")+"\nConvives : "+v("dConv")+"\n\n"+v("dMsg");
+  location.href="mailto:contact@lesvinsdesylvain.fr?subject="+encodeURIComponent("Demande de devis — "+v("dNat"))+"&body="+encodeURIComponent(corps);return false}
+
+/* ---------- ouvert / fermé ---------- */
+(function(){
+  const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+  const pl=d===0?[[570,720]]:d===1?[]:[[570,750],[870,1140]];
+  const open=pl.some(p=>m>=p[0]&&m<p[1]);
+  const s=document.getElementById("status");s.classList.toggle("open",open);
+  s.querySelector("span").textContent=open?"Ouvert en ce moment":"Fermé en ce moment · "+(d===1||(d===0&&m>=720)?"réouverture mardi 9h30":m<570?"ouverture à 9h30":m<870&&d!==0?"réouverture à 14h30":"réouverture demain 9h30");
+  const tr=document.querySelector(`#horaires tr[data-d="${d}"]`);if(tr)tr.classList.add("today");
+})();
+
+/* ---------- espaces (accordéon) ---------- */
+document.querySelectorAll(".espace button").forEach(b=>b.addEventListener("click",()=>{
+  const li=b.parentElement,o=!li.classList.contains("open");
+  document.querySelectorAll(".espace").forEach(x=>{x.classList.remove("open");x.querySelector("button").setAttribute("aria-expanded","false")});
+  if(o){li.classList.add("open");b.setAttribute("aria-expanded","true")}
+}));
+
+/* ---------- header, menu, reveal ---------- */
+const hd=document.querySelector("header");
+addEventListener("scroll",()=>hd.classList.toggle("scrolled",scrollY>30),{passive:true});
+const burger=document.getElementById("burger"),menu=document.getElementById("menu");
+burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{menu.classList.remove("open");burger.setAttribute("aria-expanded","false")}));
+if("IntersectionObserver" in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  const secs=[...document.querySelectorAll("main section[id]")];
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)menu.querySelectorAll("a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+e.target.id))}),{rootMargin:"-45% 0px -50% 0px"});
+  secs.forEach(s=>io2.observe(s));
+}else document.querySelectorAll(".rv").forEach(el=>el.classList.add("in"));
+
+let tt;function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>el.classList.remove("show"),2200)}
+</script>
+</body>
+</html>
