@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Lancelot — Restaurant traditionnel à Ambierle | Bistrot de Pays</title>
+<meta name="description" content="Le Lancelot, Bistrot de Pays au cœur d'Ambierle, Village de Caractère de la Côte roannaise : p'tits plats traditionnels, produits du coin, pizzas et burgers maison.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,500;0,700;0,800;1,500&family=Caveat:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise de la devanture réelle de l'auberge (photo terrasse) :
+   façade crème, lettrage brun à empattements « Le Lancelot »,
+   store banne rayé rouge et blanc, volets vert bouteille, pierre et bois.
+   Le site actuel (aubergelelancelot.fr) n'affiche qu'une page d'hébergeur :
+   aucune feuille de style n'a pu être relevée, couleurs approchées
+   d'après les photos — à ajuster dès réception du logo.
+   ===================================================================== */
+:root{
+  --creme:#f5eddb;        /* façade */
+  --creme-2:#ebe0c6;
+  --brun:#47301f;         /* lettrage de l'enseigne */
+  --brun-2:#6d4c33;
+  --rouge:#b0262f;        /* store banne */
+  --rouge-2:#8f1d25;
+  --vert:#2d5a42;         /* volets */
+  --pierre:#a8917a;
+  --ardoise:#262a2b;      /* ardoises de la salle */
+  --craie:#f3f0e6;
+  --font-titre:"Alegreya", Georgia, serif;
+  --font-texte:"Source Sans 3", system-ui, sans-serif;
+  --font-craie:"Caveat", cursive;
+  --ease:cubic-bezier(.22,.8,.26,1);
+  --ombre:0 18px 40px -18px rgba(71,48,31,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);background:var(--creme);color:var(--brun);line-height:1.6;font-size:1.05rem;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--brun);color:var(--creme);font-size:.8rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+
+/* En-tête + store banne */
+header{position:sticky;top:0;z-index:50;background:var(--creme);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 20px -12px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.logo{font-family:var(--font-titre);font-weight:800;font-size:1.65rem;text-decoration:none;letter-spacing:.01em;line-height:1}
+.logo small{display:block;font-family:var(--font-texte);font-weight:600;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--brun-2);margin-top:4px}
+.menu{display:flex;gap:22px;list-style:none}
+.menu a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:700 .98rem var(--font-texte);text-decoration:none;padding:13px 22px;border-radius:999px;transition:transform .25s var(--ease),box-shadow .25s,background .25s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 10px 22px -10px var(--rouge)}
+.btn-rouge:hover{background:var(--rouge-2);transform:translateY(-2px)}
+.btn-ligne{border:2px solid currentColor;background:transparent}
+.btn-ligne:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--brun);width:46px;height:46px}
+/* store banne : rayures + festons, légère respiration */
+.store{height:30px;position:relative;background:repeating-linear-gradient(90deg,var(--rouge) 0 26px,#fbf7ef 26px 52px);transform-origin:top;animation:souffle 6s ease-in-out infinite}
+.store::after{content:"";position:absolute;left:0;right:0;bottom:-13px;height:14px;
+  background:radial-gradient(circle at 13px 0,var(--rouge) 12px,transparent 12.5px) 0 0/52px 14px repeat-x,
+             radial-gradient(circle at 39px 0,#fbf7ef 12px,transparent 12.5px) 0 0/52px 14px repeat-x}
+@keyframes souffle{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.08)}}
+
+/* Hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;isolation:isolate;margin-top:13px}
+.hero-img{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-img img{width:100%;height:115%;object-fit:cover;object-position:center 40%;transform:translateY(var(--py,0));will-change:transform}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(30,20,12,.05) 20%,rgba(30,20,12,.78) 100%)}
+.hero-txt{padding:0 0 64px}
+.statut{display:inline-flex;align-items:center;gap:10px;background:rgba(245,237,219,.95);color:var(--brun);padding:8px 16px;border-radius:999px;font-weight:700;font-size:.92rem;box-shadow:var(--ombre)}
+.point{width:10px;height:10px;border-radius:50%;background:var(--vert);box-shadow:0 0 0 0 rgba(45,90,66,.6);animation:pouls 2s infinite}
+.statut.ferme .point{background:var(--rouge);animation:none}
+@keyframes pouls{70%{box-shadow:0 0 0 10px rgba(45,90,66,0)}100%{box-shadow:0 0 0 0 rgba(45,90,66,0)}}
+.hero h1{font-family:var(--font-titre);font-weight:800;font-size:clamp(2.8rem,2rem + 5vw,6rem);line-height:.95;margin:18px 0 12px;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.hero h1 span{display:block;font-size:.36em;font-weight:500;font-style:italic;letter-spacing:.01em;margin-top:10px}
+.hero p.lead{max-width:600px;font-size:1.15rem;opacity:.95}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.mot{display:inline-block;opacity:0;transform:translateY(30px);animation:monte .9s var(--ease) forwards}
+@keyframes monte{to{opacity:1;transform:none}}
+
+/* Bandeau défilant */
+.defile{background:var(--rouge);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--font-titre);font-size:1.25rem;font-style:italic}
+.defile-piste{display:inline-flex;gap:40px;animation:defile 32s linear infinite;padding-left:40px}
+.defile span::after{content:"✦";margin-left:40px;font-style:normal;opacity:.7}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:clamp(64px,8vw,110px) 0}
+.surtitre{font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.78rem;color:var(--rouge)}
+h2{font-family:var(--font-titre);font-weight:800;font-size:clamp(2rem,1.4rem + 2.6vw,3.3rem);line-height:1.05;margin:10px 0 18px}
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* Auberge */
+.auberge{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:center}
+.cadre{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--ombre)}
+.cadre img{width:100%;aspect-ratio:4/3.2;object-fit:cover;transition:transform 1.2s var(--ease)}
+.cadre:hover img{transform:scale(1.05)}
+.cadre .etiq{position:absolute;left:14px;bottom:14px;background:rgba(245,237,219,.94);padding:6px 12px;border-radius:8px;font-size:.8rem;font-weight:700}
+.citation{font-family:var(--font-titre);font-size:clamp(1.3rem,1.1rem + .8vw,1.75rem);font-style:italic;line-height:1.35;border-left:4px solid var(--rouge);padding-left:20px;margin:22px 0}
+.puces{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.puce{background:var(--creme-2);border:1px solid rgba(71,48,31,.15);padding:8px 14px;border-radius:999px;font-weight:600;font-size:.9rem}
+.puce b{color:var(--vert)}
+
+/* Ardoise */
+.ardoise-sec{background:var(--ardoise);color:var(--craie);position:relative;overflow:hidden}
+.ardoise-sec::before{content:"";position:absolute;inset:0;opacity:.07;background:radial-gradient(circle at 20% 30%,#fff 0,transparent 40%),radial-gradient(circle at 80% 70%,#fff 0,transparent 35%)}
+.ardoise-sec .surtitre{color:#f0b6a0}
+.ardoises{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.slate{border:10px solid #6b4b32;border-radius:12px;background:#2f3435;padding:28px 24px;box-shadow:inset 0 0 40px rgba(0,0,0,.45),0 18px 30px -16px rgba(0,0,0,.7);transition:transform .4s var(--ease)}
+.slate:hover{transform:rotate(-1deg) translateY(-6px)}
+.slate h3{font-family:var(--font-craie);font-size:2.1rem;font-weight:700;line-height:1}
+.slate .prix{font-family:var(--font-craie);font-size:3rem;color:#ffd9a8;line-height:1.1;margin:8px 0}
+.slate p{font-size:.98rem;opacity:.9}
+.craie-txt{font-family:var(--font-craie);font-size:1.45rem;line-height:1.3}
+.carte-soir{margin-top:44px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.plat{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:3/4;background:#111}
+.plat img{width:100%;height:100%;object-fit:cover;opacity:.85;transition:transform 1s var(--ease),opacity .4s}
+.plat:hover img{transform:scale(1.08);opacity:1}
+.plat .nom{position:absolute;left:0;right:0;bottom:0;padding:40px 14px 14px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-family:var(--font-craie);font-size:1.6rem;line-height:1.05}
+.illu{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.6);color:#fff;font:600 .68rem var(--font-texte);padding:3px 8px;border-radius:4px;letter-spacing:.03em}
+.a-fournir{border:2px dashed rgba(243,240,230,.35);border-radius:12px;padding:20px;margin-top:26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.a-fournir .craie-txt{flex:1 1 300px}
+
+/* Outil de réservation */
+.outil{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;align-items:start;margin-top:30px}
+.outil > *{min-width:0}
+.panneau{background:#fffaf0;border-radius:20px;padding:clamp(20px,3vw,34px);box-shadow:var(--ombre);border:1px solid rgba(71,48,31,.1)}
+.etape{margin-bottom:24px}
+.etape > label,.etape > .lbl{display:block;font-weight:700;margin-bottom:10px}
+.etape .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--brun);color:var(--creme);font-size:.8rem;margin-right:8px}
+.jours{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.jour{flex:0 0 auto;width:64px;border:2px solid rgba(71,48,31,.18);border-radius:12px;background:#fff;padding:8px 4px;text-align:center;cursor:pointer;font:600 .8rem var(--font-texte);color:var(--brun);transition:all .2s}
+.jour b{display:block;font-family:var(--font-titre);font-size:1.35rem;line-height:1.1}
+.jour:hover{border-color:var(--brun-2)}
+.jour[aria-pressed="true"]{background:var(--brun);color:var(--creme);border-color:var(--brun);transform:translateY(-3px)}
+.jour.ferme{opacity:.4;text-decoration:line-through}
+.choix{display:flex;gap:10px;flex-wrap:wrap}
+.choix button{border:2px solid rgba(71,48,31,.18);background:#fff;border-radius:999px;padding:10px 18px;font:600 .95rem var(--font-texte);color:var(--brun);cursor:pointer;min-height:44px;transition:all .2s}
+.choix button[aria-pressed="true"]{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.choix button:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.compteurs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cpt{display:flex;align-items:center;justify-content:space-between;background:#fff;border:2px solid rgba(71,48,31,.12);border-radius:14px;padding:8px 10px 8px 16px}
+.cpt span{font-weight:600}
+.cpt div{display:flex;align-items:center;gap:8px}
+.cpt button{width:36px;height:36px;border-radius:50%;border:0;background:var(--creme-2);font-size:1.2rem;font-weight:700;color:var(--brun);cursor:pointer}
+.cpt button:hover{background:var(--brun);color:var(--creme)}
+.cpt output{min-width:24px;text-align:center;font-family:var(--font-titre);font-weight:800;font-size:1.3rem}
+.ticket{background:var(--brun);color:var(--creme);border-radius:20px;padding:28px;position:sticky;top:110px;box-shadow:var(--ombre);overflow:hidden}
+.ticket::before{content:"";position:absolute;left:0;right:0;top:0;height:10px;background:repeating-linear-gradient(90deg,var(--rouge) 0 18px,#fbf7ef 18px 36px)}
+.ticket h3{font-family:var(--font-titre);font-size:1.6rem;margin:6px 0 14px}
+.ligne{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed rgba(245,237,219,.25);font-size:.98rem}
+.ligne b{text-align:right}
+.total{font-family:var(--font-titre);font-size:2rem;font-weight:800;color:#ffd9a8;margin:14px 0 4px;transition:transform .3s var(--ease);transform-origin:left center}
+.total.pop{transform:scale(1.08)}
+.note{font-size:.82rem;opacity:.75}
+.alerte{background:rgba(176,38,47,.25);border-left:3px solid #f0b6a0;padding:10px 12px;border-radius:6px;font-size:.9rem;margin-top:12px}
+.ticket .actions{display:grid;gap:10px;margin-top:20px}
+.ticket .btn-ligne{color:var(--creme)}
+
+/* Groupes */
+.groupes{background:var(--creme-2)}
+.salles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:30px}
+.salle{background:#fffaf0;border-radius:16px;padding:24px;border-top:5px solid var(--vert);box-shadow:0 10px 24px -18px rgba(0,0,0,.4);transition:transform .35s var(--ease)}
+.salle:hover{transform:translateY(-6px)}
+.salle .gros{font-family:var(--font-titre);font-weight:800;font-size:2.6rem;line-height:1;color:var(--vert)}
+.salle h3{font-family:var(--font-titre);font-size:1.25rem;margin:8px 0 6px}
+.services{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+
+/* Village */
+.village{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:30px}
+.carte-v{border-radius:16px;padding:26px;background:#fffaf0;border:1px solid rgba(71,48,31,.12);position:relative;overflow:hidden}
+.carte-v .ico{font-size:1.8rem}
+.carte-v h3{font-family:var(--font-titre);font-size:1.3rem;margin:8px 0}
+.carte-v::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;background:var(--creme-2);z-index:0;transition:transform .5s var(--ease)}
+.carte-v:hover::after{transform:scale(1.6)}
+.carte-v > *{position:relative;z-index:1}
+
+/* Infos */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px}
+table.horaires{width:100%;border-collapse:collapse;background:#fffaf0;border-radius:16px;overflow:hidden;box-shadow:0 10px 24px -18px rgba(0,0,0,.4)}
+.horaires td{padding:12px 18px;border-bottom:1px solid rgba(71,48,31,.08)}
+.horaires td:last-child{text-align:right;font-weight:600}
+.horaires tr.auj{background:var(--brun);color:var(--creme)}
+.horaires tr.auj td:first-child::after{content:" · aujourd'hui";font-weight:400;font-size:.85rem;opacity:.8}
+.coord{background:#fffaf0;border-radius:16px;padding:26px;box-shadow:0 10px 24px -18px rgba(0,0,0,.4)}
+.coord p{margin-bottom:12px}
+.coord a{font-weight:700}
+.plan{display:block;margin-top:14px;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,var(--vert),#3f7a5a);color:#fff;padding:22px;text-decoration:none;font-weight:700}
+.plan:hover{filter:brightness(1.1)}
+
+footer{background:var(--brun);color:var(--creme);padding:50px 0 110px;font-size:.92rem}
+footer .logo{color:var(--creme)}
+footer .logo small{color:var(--creme-2)}
+.mention{margin-top:24px;font-size:.8rem;opacity:.75;max-width:900px}
+.barre-mobile{display:none}
+
+@media (max-width:960px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--creme);flex-direction:column;padding:16px 16px 26px;gap:14px;box-shadow:0 18px 30px -20px rgba(0,0,0,.4)}
+  .menu.ouvert{display:flex}
+  .burger{display:block}
+  .nav .btn-rouge{display:none}
+  .auberge,.outil,.infos{grid-template-columns:minmax(0,1fr)}
+  .ardoises,.village{grid-template-columns:1fr}
+  .carte-soir,.salles{grid-template-columns:1fr 1fr}
+  .ticket{position:relative;top:0}
+  .barre-mobile{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:8px;padding:10px 12px;background:rgba(245,237,219,.97);box-shadow:0 -6px 20px -10px rgba(0,0,0,.4)}
+  .barre-mobile a{flex:1;justify-content:center}
+}
+@media (max-width:520px){.compteurs{grid-template-columns:1fr}.carte-soir,.salles{grid-template-columns:1fr 1fr;gap:10px}.salle{padding:16px}.salle .gros{font-size:2rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.mot{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Lancelot",
+  "description":"Bistrot de Pays au cœur d'Ambierle, Village de Caractère : p'tits plats simples et traditionnels privilégiant les produits du coin, pizzas et burgers maison.",
+  "servesCuisine":"Cuisine traditionnelle française",
+  "address":{"@type":"PostalAddress","streetAddress":"25 place Lancelot","postalCode":"42820","addressLocality":"Ambierle","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.10451,"longitude":3.896397},
+  "telephone":"+33469345642",
+  "email":"cottin.eric@orange.fr",
+  "acceptsReservations":"True",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"19:00","closes":"21:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"12:00","closes":"14:00"}
+  ],
+  "areaServed":["Ambierle","Côte roannaise"],
+  "sameAs":["https://www.facebook.com/LeLancelotAmbierle"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour Le Lancelot (Ambierle), non contractuelle</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a href="#accueil" class="logo">Le Lancelot<small>Bistrot de Pays · Ambierle</small></a>
+    <ul class="menu" id="menu">
+      <li><a href="#auberge">L'auberge</a></li>
+      <li><a href="#ardoise">L'ardoise</a></li>
+      <li><a href="#venir">Réserver</a></li>
+      <li><a href="#groupes">Groupes &amp; salles</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-rouge" href="tel:+33469345642">☎ 04 69 34 56 42</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+  <div class="store" aria-hidden="true"></div>
+</header>
+
+<main id="accueil">
+  <section class="hero" style="padding:0">
+    <div class="hero-img"><img id="heroImg" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/589498/b124bbcced037ec3.webp" alt="La terrasse et la devanture du Lancelot, place Lancelot à Ambierle"></div>
+    <div class="wrap hero-txt">
+      <div class="statut" id="statut" role="status" aria-live="polite"><span class="point"></span><span id="statutTxt">Horaires du jour…</span></div>
+      <h1><span class="mot">Le Lancelot</span><span class="mot" style="animation-delay:.25s">Bistrot de Pays au cœur d'Ambierle</span></h1>
+      <p class="lead mot" style="animation-delay:.45s">Des p'tits plats simples et traditionnels qui privilégient les « produits du coin », dans un Village de Caractère de la Côte roannaise.</p>
+      <div class="ctas mot" style="animation-delay:.6s">
+        <a class="btn btn-rouge" href="#venir">Préparer ma venue</a>
+        <a class="btn btn-ligne" href="#ardoise">Voir l'ardoise</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="defile" aria-hidden="true">
+    <div class="defile-piste">
+      <span>Menu du jour en semaine</span><span>Pizzas maison</span><span>Burgers locaux</span><span>Planches apéritives</span><span>Pièces de bœuf locales</span><span>Soirées à thème le week-end</span><span>Terrasse ombragée</span>
+      <span>Menu du jour en semaine</span><span>Pizzas maison</span><span>Burgers locaux</span><span>Planches apéritives</span><span>Pièces de bœuf locales</span><span>Soirées à thème le week-end</span><span>Terrasse ombragée</span>
+    </div>
+  </div>
+
+  <!-- L'AUBERGE -->
+  <section id="auberge">
+    <div class="wrap auberge">
+      <div class="cadre reveal">
+        <img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/589498/068948a34b7a4003.webp" alt="La salle du Lancelot : murs en pierre, bois et ardoises" loading="lazy">
+        <span class="etiq">La salle · pierre, bois et ardoises</span>
+      </div>
+      <div>
+        <p class="surtitre reveal">L'auberge</p>
+        <h2 class="reveal d1">Un p'tit moment convivial, place Lancelot</h2>
+        <p class="reveal d2">Dans ce Village de Caractère, venez passer un p'tit moment convivial avec des p'tits plats simples et traditionnels privilégiant les « produits du coin ». Vous pourrez également tester la carte des pizzas maison et burgers locaux.</p>
+        <p class="citation reveal d2">« Le restaurant est labellisé Bistrot de Pays. Un label prônant la convivialité et un lieu de rencontre. »</p>
+        <div class="puces reveal d3">
+          <span class="puce"><b>✦</b> Bistrot de Pays®</span>
+          <span class="puce"><b>✦</b> Label Vignobles &amp; Découvertes</span>
+          <span class="puce"><b>✦</b> Cuisine traditionnelle française</span>
+          <span class="puce"><b>✦</b> English spoken</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- L'ARDOISE -->
+  <section id="ardoise" class="ardoise-sec">
+    <div class="wrap">
+      <p class="surtitre reveal">L'ardoise</p>
+      <h2 class="reveal d1">Les menus du Lancelot</h2>
+      <p class="reveal d2" style="max-width:640px;opacity:.85">Tarifs 2026 tels que publiés par l'auberge auprès de l'office de tourisme.</p>
+      <div class="ardoises">
+        <article class="slate reveal">
+          <h3>Menu du jour</h3>
+          <div class="prix" data-compte="16">16 €</div>
+          <p>En semaine, le midi.</p>
+        </article>
+        <article class="slate reveal d1">
+          <h3>Menu adulte</h3>
+          <div class="prix">20,50 – 24,50 €</div>
+          <p>Les soirs en semaine, et les midis et soirs le week-end et les jours fériés.</p>
+        </article>
+        <article class="slate reveal d2">
+          <h3>Menu enfant</h3>
+          <div class="prix">dès 12 €</div>
+          <p>Pour les petits gourmands. Chaise bébé disponible.</p>
+        </article>
+      </div>
+
+      <h3 class="craie-txt reveal" style="margin-top:56px;font-size:2rem">Et le soir…</h3>
+      <p class="reveal d1" style="opacity:.85;max-width:680px">Pizzas et burgers maison, à base de produits locaux, sur place ou à emporter tous les soirs. Planches apéritives, pièces de bœuf locales, menus et/ou soirées à thème le week-end.</p>
+      <div class="carte-soir">
+        <div class="plat reveal"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=70&auto=format&fit=crop" alt="Pizza" loading="lazy"><span class="illu">Photo d'illustration</span><span class="nom">Pizzas maison</span></div>
+        <div class="plat reveal d1"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=70&auto=format&fit=crop" alt="Burger" loading="lazy"><span class="illu">Photo d'illustration</span><span class="nom">Burgers locaux</span></div>
+        <div class="plat reveal d2"><img src="https://images.unsplash.com/photo-1541529086526-db283c563270?w=600&q=70&auto=format&fit=crop" alt="Planche apéritive" loading="lazy"><span class="illu">Photo d'illustration</span><span class="nom">Planches apéritives</span></div>
+        <div class="plat reveal d3"><img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=70&auto=format&fit=crop" alt="Pièce de bœuf" loading="lazy"><span class="illu">Photo d'illustration</span><span class="nom">Pièces de bœuf locales</span></div>
+      </div>
+      <div class="a-fournir reveal">
+        <p class="craie-txt">L'ardoise du jour : plats, desserts et carte des pizzas — à compléter par l'équipe, modifiable en quelques secondes depuis un téléphone.</p>
+        <a class="btn btn-rouge" href="tel:+33469345642">Demander le plat du jour</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTIL CENTRAL -->
+  <section id="venir">
+    <div class="wrap">
+      <p class="surtitre reveal">Préparer ma venue</p>
+      <h2 class="reveal d1">Un jour, un service, combien de couverts ?</h2>
+      <p class="reveal d2" style="max-width:700px">Choisissez votre jour : la maquette vérifie les horaires réels de l'auberge, indique le menu qui s'applique et prépare votre demande de réservation à envoyer en un clic, ou à confirmer par téléphone.</p>
+
+      <div class="outil">
+        <div class="panneau reveal">
+          <div class="etape">
+            <span class="lbl"><span class="num">1</span>Le jour</span>
+            <div class="jours" id="jours" role="group" aria-label="Choisir un jour"></div>
+          </div>
+          <div class="etape">
+            <span class="lbl"><span class="num">2</span>Le service</span>
+            <div class="choix" id="services" role="group" aria-label="Choisir le service">
+              <button type="button" data-s="midi" aria-pressed="true">Midi · 12h–14h</button>
+              <button type="button" data-s="soir" aria-pressed="false">Soir · 19h–21h</button>
+            </div>
+          </div>
+          <div class="etape">
+            <span class="lbl"><span class="num">3</span>Sur place ou à emporter</span>
+            <div class="choix" id="formules" role="group" aria-label="Choisir la formule">
+              <button type="button" data-f="place" aria-pressed="true">À table</button>
+              <button type="button" data-f="emporter" aria-pressed="false">Pizzas / burgers à emporter</button>
+            </div>
+          </div>
+          <div class="etape">
+            <span class="lbl"><span class="num">4</span>Les convives</span>
+            <div class="compteurs">
+              <div class="cpt"><span>Adultes</span><div><button type="button" data-c="ad" data-d="-1" aria-label="Retirer un adulte">−</button><output id="ad">2</output><button type="button" data-c="ad" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+              <div class="cpt"><span>Enfants</span><div><button type="button" data-c="en" data-d="-1" aria-label="Retirer un enfant">−</button><output id="en">0</output><button type="button" data-c="en" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+            </div>
+          </div>
+          <div class="etape" style="margin-bottom:0">
+            <label for="nom"><span class="num">5</span>Votre nom (pour la demande)</label>
+            <input id="nom" type="text" placeholder="Ex. Famille Martin" style="width:100%;padding:13px 16px;border-radius:12px;border:2px solid rgba(71,48,31,.15);font:1rem var(--font-texte);background:#fff;color:var(--brun)">
+          </div>
+        </div>
+
+        <aside class="ticket reveal d1" aria-live="polite">
+          <p class="surtitre" style="color:#f0b6a0;margin-top:6px">Votre venue</p>
+          <h3 id="tTitre">—</h3>
+          <div class="ligne"><span>Service</span><b id="tService">—</b></div>
+          <div class="ligne"><span>Formule</span><b id="tFormule">—</b></div>
+          <div class="ligne"><span>Convives</span><b id="tConvives">—</b></div>
+          <div class="total" id="tTotal">—</div>
+          <p class="note" id="tNote">Budget indicatif calculé sur les tarifs publiés, boissons non comprises.</p>
+          <div id="tAlerte"></div>
+          <div class="actions">
+            <a class="btn btn-rouge" id="aMail" href="#">✉ Envoyer ma demande</a>
+            <a class="btn btn-ligne" href="tel:+33469345642">☎ Appeler l'auberge</a>
+            <button class="btn btn-ligne" type="button" id="aIcs" style="color:var(--creme)">📅 Ajouter à mon agenda</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- GROUPES -->
+  <section id="groupes" class="groupes">
+    <div class="wrap">
+      <p class="surtitre reveal">Groupes &amp; salles</p>
+      <h2 class="reveal d1">Anniversaires, réunions, repas de famille</h2>
+      <p class="reveal d2" style="max-width:680px">L'auberge se privatise et loue ses salles. Une salle de réunion est aussi disponible.</p>
+      <div class="salles">
+        <div class="salle reveal"><div class="gros" data-compte="28">28</div><h3>Salle 1</h3><p>personnes</p></div>
+        <div class="salle reveal d1"><div class="gros" data-compte="40">40</div><h3>Salle 2</h3><p>personnes</p></div>
+        <div class="salle reveal d2"><div class="gros" data-compte="20">20</div><h3>Terrasse</h3><p>couverts, en partie ombragée</p></div>
+        <div class="salle reveal d3"><div class="gros" data-compte="68">68</div><h3>Au total</h3><p>couverts maximum</p></div>
+      </div>
+      <div class="services reveal">
+        <span class="puce">Location de salles</span><span class="puce">Privatisable</span><span class="puce">Salle de réunion</span><span class="puce">Plats à emporter / plats cuisinés</span><span class="puce">Service midi et soir</span>
+      </div>
+      <p class="reveal" style="margin-top:26px"><a class="btn btn-rouge" href="mailto:cottin.eric@orange.fr?subject=Demande%20pour%20un%20groupe%20-%20Le%20Lancelot">Demander un devis groupe</a></p>
+    </div>
+  </section>
+
+  <!-- VILLAGE -->
+  <section id="village">
+    <div class="wrap">
+      <p class="surtitre reveal">Autour de l'auberge</p>
+      <h2 class="reveal d1">Ambierle, sur la Côte roannaise</h2>
+      <div class="village">
+        <article class="carte-v reveal"><div class="ico">🏘️</div><h3>Village de Caractère</h3><p>L'auberge est au centre du bourg d'Ambierle, labellisé Village de Caractère en Loire.</p></article>
+        <article class="carte-v reveal d1"><div class="ico">🍇</div><h3>Route des Vins</h3><p>Sur la Route des Vins en Côte roannaise, destination labellisée Vignobles &amp; Découvertes.</p></article>
+        <article class="carte-v reveal d2"><div class="ico">🥾</div><h3>Randonneurs &amp; pèlerins</h3><p>À moins de 500 m du chemin de Saint-Martin de Tours : une halte pour le déjeuner.</p></article>
+      </div>
+      <p class="reveal" style="margin-top:24px;max-width:760px">Dormir sur place : des chambres d'hôtes ont ouvert au-dessus de l'auberge (trois chambres, avec douche et WC). Elles disposent de leur propre site, <a href="http://www.giteslelancelot.nl" target="_blank" rel="noopener">giteslelancelot.nl</a>.</p>
+    </div>
+  </section>
+
+  <!-- INFOS -->
+  <section id="infos" style="padding-top:0">
+    <div class="wrap">
+      <p class="surtitre reveal">Infos pratiques</p>
+      <h2 class="reveal d1">Horaires &amp; accès</h2>
+      <div class="infos">
+        <table class="horaires reveal" aria-label="Horaires d'ouverture">
+          <tbody id="tabHoraires"></tbody>
+        </table>
+        <div class="coord reveal d1">
+          <p><strong>Le Lancelot</strong><br>25 place Lancelot<br>42820 Ambierle</p>
+          <p>Réservation directe : <a href="tel:+33469345642">04 69 34 56 42</a></p>
+          <p>E-mail : <a href="mailto:cottin.eric@orange.fr">cottin.eric@orange.fr</a></p>
+          <p>Facebook : <a href="https://www.facebook.com/LeLancelotAmbierle" target="_blank" rel="noopener">LeLancelotAmbierle</a></p>
+          <p style="font-size:.92rem">Paiement : carte bancaire, sans contact, chèque, espèces. Animaux non acceptés.</p>
+          <a class="plan" href="https://www.google.com/maps/search/?api=1&query=46.10451,3.896397" target="_blank" rel="noopener">📍 Itinéraire jusqu'à la place Lancelot →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#accueil" class="logo">Le Lancelot<small>Bistrot de Pays · Ambierle</small></a>
+    <p style="margin-top:14px">25 place Lancelot, 42820 Ambierle · 04 69 34 56 42</p>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non contractuelle. Textes, tarifs (menus 2026), horaires, capacités, services et coordonnées proviennent de la fiche publiée par l'auberge auprès de Roannais Tourisme. Les photos de la terrasse et de la salle sont celles de l'auberge ; les photos de plats sont des illustrations libres de droits (Unsplash) à remplacer par vos propres photos. Le contenu de l'ardoise du jour et la carte des pizzas restent à fournir. Couleurs et typographie approchées d'après la devanture (enseigne, store rayé, volets), ajustables. Budgets indicatifs, boissons non comprises. Le bouton « Envoyer ma demande » ouvre un e-mail prérempli : sur le site final, il pourra alimenter directement un agenda de réservations.</p>
+  </div>
+</footer>
+
+<div class="barre-mobile">
+  <a class="btn btn-rouge" href="tel:+33469345642">☎ Appeler</a>
+  <a class="btn btn-ligne" href="#venir" style="color:var(--brun)">Réserver</a>
+</div>
+
+<script>
+(function(){
+  /* Horaires réels (fiche Roannais Tourisme 2026) — 0 = dimanche */
+  var H = {0:[["12:00","14:00"]],1:[],2:[["12:00","14:00"],["19:00","21:00"]],3:[["12:00","14:00"],["19:00","21:00"]],4:[["12:00","14:00"],["19:00","21:00"]],5:[["12:00","14:00"],["19:00","21:00"]],6:[["12:00","14:00"],["19:00","21:00"]]};
+  var JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  var MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  var MAIL="cottin.eric@orange.fr";
+
+  function maintenantParis(){
+    var s=new Date().toLocaleString("en-US",{timeZone:"Europe/Paris"});return new Date(s);
+  }
+  function min(t){var p=t.split(":");return +p[0]*60+ +p[1];}
+  function fmt(t){return t.replace(":00","h").replace(":","h");}
+
+  /* Statut en direct */
+  function statut(){
+    var n=maintenantParis(),d=n.getDay(),m=n.getHours()*60+n.getMinutes(),el=document.getElementById("statut"),tx=document.getElementById("statutTxt");
+    var plages=H[d],ouvert=null;
+    plages.forEach(function(p){if(m>=min(p[0])&&m<min(p[1]))ouvert=p;});
+    if(ouvert){el.classList.remove("ferme");tx.textContent="Ouvert · service jusqu'à "+fmt(ouvert[1]);return;}
+    el.classList.add("ferme");
+    var prochain=null;
+    for(var i=0;i<8&&!prochain;i++){
+      var dd=(d+i)%7;
+      H[dd].forEach(function(p){if(!prochain&&(i>0||min(p[0])>m))prochain={j:i,h:p[0],dd:dd};});
+    }
+    var quand=prochain.j===0?"aujourd'hui":prochain.j===1?"demain":JOURS[prochain.dd].toLowerCase();
+    tx.textContent="Fermé · ouvre "+quand+" à "+fmt(prochain.h);
+  }
+  statut();setInterval(statut,60000);
+
+  /* Tableau des horaires */
+  var tb=document.getElementById("tabHoraires"),auj=maintenantParis().getDay();
+  [2,3,4,5,6,0,1].forEach(function(d){
+    var tr=document.createElement("tr");if(d===auj)tr.className="auj";
+    var v=H[d].length?H[d].map(function(p){return fmt(p[0])+" – "+fmt(p[1]);}).join(" · "):"Fermé";
+    tr.innerHTML="<td>"+JOURS[d]+"</td><td>"+v+"</td>";tb.appendChild(tr);
+  });
+
+  /* Outil de réservation */
+  var etat={date:null,service:"midi",formule:"place",ad:2,en:0};
+  var cont=document.getElementById("jours"),base=maintenantParis();base.setHours(0,0,0,0);
+  for(var i=0;i<14;i++){
+    var dt=new Date(base);dt.setDate(base.getDate()+i);
+    var b=document.createElement("button");b.type="button";b.className="jour"+(H[dt.getDay()].length?"":" ferme");
+    b.innerHTML=(i===0?"Auj.":JOURS[dt.getDay()].slice(0,3)+".")+"<b>"+dt.getDate()+"</b>"+MOIS[dt.getMonth()];
+    b.setAttribute("aria-pressed","false");b.dataset.t=dt.getTime();
+    if(!H[dt.getDay()].length){b.disabled=true;b.title="Fermé le lundi";}
+    b.addEventListener("click",function(){choisirJour(this);});
+    cont.appendChild(b);
+  }
+  function choisirJour(b){
+    cont.querySelectorAll(".jour").forEach(function(x){x.setAttribute("aria-pressed","false");});
+    b.setAttribute("aria-pressed","true");etat.date=new Date(+b.dataset.t);
+    var aSoir=H[etat.date.getDay()].length>1;
+    var bs=document.querySelector('[data-s="soir"]');bs.disabled=!aSoir;
+    if(!aSoir&&etat.service==="soir"){etat.service="midi";maj("services","s","midi");}
+    calc();
+  }
+  choisirJour(cont.querySelector(".jour:not(.ferme)"));
+
+  function maj(id,attr,val){document.querySelectorAll("#"+id+" button").forEach(function(x){x.setAttribute("aria-pressed",x.dataset[attr]===val?"true":"false");});}
+  document.querySelectorAll("#services button").forEach(function(b){b.addEventListener("click",function(){etat.service=b.dataset.s;maj("services","s",b.dataset.s);calc();});});
+  document.querySelectorAll("#formules button").forEach(function(b){b.addEventListener("click",function(){etat.formule=b.dataset.f;maj("formules","f",b.dataset.f);if(etat.formule==="emporter"&&!document.querySelector('[data-s="soir"]').disabled){etat.service="soir";maj("services","s","soir");}calc();});});
+  document.querySelectorAll(".cpt button").forEach(function(b){b.addEventListener("click",function(){var c=b.dataset.c;etat[c]=Math.max(c==="ad"?1:0,Math.min(68,etat[c]+ +b.dataset.d));document.getElementById(c).textContent=etat[c];calc();});});
+  document.getElementById("nom").addEventListener("input",calc);
+
+  function euros(x){return x.toFixed(2).replace(".",",").replace(",00","")+" €";}
+  function calc(){
+    var d=etat.date,jd=d.getDay(),semaine=jd>=2&&jd<=5,midi=etat.service==="midi";
+    var titre=JOURS[jd]+" "+d.getDate()+" "+MOIS[d.getMonth()];
+    document.getElementById("tTitre").textContent=titre;
+    document.getElementById("tService").textContent=midi?"Midi (12h – 14h)":"Soir (19h – 21h)";
+    document.getElementById("tConvives").textContent=etat.ad+" adulte"+(etat.ad>1?"s":"")+(etat.en?" · "+etat.en+" enfant"+(etat.en>1?"s":""):"");
+    var total,form,note="Budget indicatif calculé sur les tarifs publiés, boissons non comprises.",alerte="";
+    if(etat.formule==="emporter"){
+      form="Pizzas / burgers à emporter";
+      total="Selon la carte";
+      note="Les pizzas et burgers maison sont proposés à emporter le soir : carte et prix à confirmer par l'auberge.";
+      if(midi)alerte="La vente à emporter est annoncée le soir : choisissez un service du soir.";
+    }else if(midi&&semaine){
+      form="Menu du jour";total=euros(etat.ad*16+etat.en*12)+(etat.en?" (enfants dès 12 €)":"");
+    }else{
+      form="Menu adulte";
+      var lo=etat.ad*20.5+etat.en*12,hi=etat.ad*24.5+etat.en*12;
+      total=euros(lo)+" – "+euros(hi);
+    }
+    if(etat.formule==="place"&&jd===6&&!midi||etat.formule==="place"&&jd===5&&!midi)note+=" Menus ou soirées à thème possibles le week-end.";
+    if(etat.ad+etat.en>20)alerte="Pour "+(etat.ad+etat.en)+" personnes, l'auberge peut réserver une salle (28 ou 40 places) : un appel est recommandé.";
+    document.getElementById("tFormule").textContent=form;
+    var t=document.getElementById("tTotal");t.textContent=total;t.classList.remove("pop");void t.offsetWidth;t.classList.add("pop");
+    document.getElementById("tNote").textContent=note;
+    document.getElementById("tAlerte").innerHTML=alerte?'<div class="alerte">'+alerte+"</div>":"";
+    var nom=document.getElementById("nom").value.trim()||"(votre nom)";
+    var corps="Bonjour,\n\nJe souhaiterais réserver au Lancelot :\n- "+titre+", service du "+(midi?"midi":"soir")+"\n- "+form+"\n- "+document.getElementById("tConvives").textContent+"\n\nAu nom de : "+nom+"\n\nMerci de me confirmer la disponibilité.\n";
+    document.getElementById("aMail").href="mailto:"+MAIL+"?subject="+encodeURIComponent("Demande de réservation - "+titre)+"&body="+encodeURIComponent(corps);
+  }
+
+  /* Export .ics */
+  document.getElementById("aIcs").addEventListener("click",function(){
+    var d=etat.date,midi=etat.service==="midi",p=function(n){return(n<10?"0":"")+n;};
+    var ymd=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate());
+    var ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Le Lancelot//Maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@lelancelot","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z","DTSTART;TZID=Europe/Paris:"+ymd+(midi?"T120000":"T190000"),"DTEND;TZID=Europe/Paris:"+ymd+(midi?"T140000":"T210000"),"SUMMARY:Le Lancelot - Ambierle (à confirmer au 04 69 34 56 42)","LOCATION:25 place Lancelot\\, 42820 Ambierle","END:VEVENT","END:VCALENDAR"].join("\r\n");
+    var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="le-lancelot.ics";document.body.appendChild(a);a.click();a.remove();
+  });
+
+  /* Révélations au défilement + compteurs */
+  var io="IntersectionObserver" in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("vu");var c=e.target.querySelector("[data-compte]")||(e.target.dataset.compte?e.target:null);if(c&&!c.dataset.fait){c.dataset.fait=1;var fin=+c.dataset.compte,suf=c.textContent.replace(/[0-9]/g,""),k=0,st=Date.now();(function f(){k=Math.min(1,(Date.now()-st)/900);c.textContent=Math.round(fin*k)+suf;if(k<1)requestAnimationFrame(f);})();}io.unobserve(e.target);}});},{threshold:.18}):null;
+  document.querySelectorAll(".reveal").forEach(function(el){io?io.observe(el):el.classList.add("vu");});
+  /* filet de sécurité : tout élément déjà passé à l'écran est révélé */
+  function filet(){document.querySelectorAll(".reveal:not(.vu)").forEach(function(el){if(el.getBoundingClientRect().top<innerHeight*.95){el.classList.add("vu");var c=el.querySelector("[data-compte]");if(c)c.dataset.fait=1;}});}
+  addEventListener("scroll",filet,{passive:true});addEventListener("load",filet);filet();
+
+  /* En-tête, parallaxe, menu actif */
+  var hd=document.getElementById("haut"),img=document.getElementById("heroImg"),liens=document.querySelectorAll(".menu a"),reduit=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  addEventListener("scroll",function(){
+    var y=scrollY;hd.classList.toggle("scrolled",y>10);
+    if(!reduit&&y<900)img.style.setProperty("--py",(y*.25)+"px");
+    liens.forEach(function(a){var s=document.querySelector(a.getAttribute("href"));if(s){var r=s.getBoundingClientRect();a.classList.toggle("actif",r.top<140&&r.bottom>140);}});
+  },{passive:true});
+  var bg=document.getElementById("burger"),mn=document.getElementById("menu");
+  bg.addEventListener("click",function(){var o=mn.classList.toggle("ouvert");bg.setAttribute("aria-expanded",o);});
+  liens.forEach(function(a){a.addEventListener("click",function(){mn.classList.remove("ouvert");bg.setAttribute("aria-expanded","false");});});
+})();
+</script>
+</body>
+</html>
