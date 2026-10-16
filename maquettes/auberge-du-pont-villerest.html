@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auberge du Pont — Restaurant à Villerest, au pied du barrage | Grenouilles, fritures</title>
+<meta name="description" content="Restaurant traditionnel à Villerest, au pied du barrage et à 5 min de Roanne : grenouilles, fritures et salades sur une terrasse ombragée et couverte au bord de la Loire.">
+<meta name="robots" content="noindex">
+<!--
+  Maquette de démonstration — Auberge du Pont, Villerest.
+  L'auberge n'a pas de site internet (page Facebook uniquement) : aucune charte graphique
+  n'a pu être récupérée. La palette ci-dessous est relevée sur les photos réelles de
+  l'établissement (nappes bordeaux, volets rouges, façade crépie claire, feuillage du
+  chemin de halage, guirlande guinguette). Tout est regroupé dans :root pour être ajusté
+  en quelques lignes dès que l'auberge fournit son logo ou ses couleurs.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Bitter:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* — Couleurs relevées sur les photos de l'auberge (à ajuster avec le logo) — */
+  --bordeaux:#7b1e2c;      /* nappes de la terrasse */
+  --volet:#b3262e;         /* volets rouges de la façade */
+  --facade:#f6f1e7;        /* crépi clair de la façade */
+  --facade-2:#ece4d3;
+  --feuillage:#3d5a2a;     /* platanes / chemin de halage */
+  --loire:#24505e;         /* la Loire au pied du barrage */
+  --encre:#231a17;
+  --encre-2:#5b4d47;
+  --ampoule-1:#f2b632; --ampoule-2:#e0533a; --ampoule-3:#3f8f5a; --ampoule-4:#3d7fb8;
+  /* — Typographies — */
+  --f-script:'Yellowtail',cursive;     /* écho de l'écriture manuscrite déjà utilisée par l'auberge sur ses visuels */
+  --f-titre:'Bitter',Georgia,serif;    /* esprit enseigne d'auberge */
+  --f-texte:'Work Sans',system-ui,sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--facade);line-height:1.6;font-size:clamp(1rem,.95rem + .2vw,1.075rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ampoule-1);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--encre);color:#e9dfd6;font-size:.82rem;text-align:center;padding:7px 16px}
+.demo b{color:#fff;font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(246,241,231,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(123,30,44,.12);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(35,26,23,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.logo{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.logo span:first-child{font-family:var(--f-script);font-size:2rem;color:var(--bordeaux)}
+.logo span:last-child{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--encre-2);margin-top:2px}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--volet);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:600 .98rem var(--f-texte);text-decoration:none;padding:13px 22px;border-radius:999px;transition:transform .2s var(--ease),box-shadow .2s,background .2s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-r{background:var(--bordeaux);color:#fff;box-shadow:0 8px 20px -8px rgba(123,30,44,.7)}
+.btn-r:hover{background:var(--volet);transform:translateY(-2px)}
+.btn-o{background:transparent;color:var(--encre);box-shadow:inset 0 0 0 2px var(--encre)}
+.btn-o:hover{background:var(--encre);color:#fff}
+.btn-c{background:#fff;color:var(--bordeaux)}
+.btn-c:hover{transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media (max-width:860px){
+  .nav ul{position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--facade);padding:22px 24px 28px;gap:16px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility .35s;box-shadow:0 20px 40px rgba(0,0,0,.12);border-bottom:1px solid var(--facade-2)}
+  .nav ul.ouvert{opacity:1;visibility:visible;transform:none}
+  .nav ul a{font-size:1.2rem}
+  .burger{display:block;position:relative;z-index:2}
+  .nav .btn-r{display:none}
+}
+
+/* guirlande guinguette */
+.guirlande{position:absolute;left:0;right:0;top:0;height:90px;pointer-events:none;z-index:3}
+.guirlande svg{width:100%;height:100%}
+.ampoule{animation:scintille 3.2s ease-in-out infinite}
+@keyframes scintille{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:0;z-index:-2}
+.hero__img img{width:100%;height:100%;object-fit:cover;object-position:50% 60%;transform:scale(1.08);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{to{transform:scale(1.16) translateY(-1.5%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(35,26,23,.55) 0%,rgba(35,26,23,.15) 35%,rgba(35,26,23,.85) 100%)}
+.hero__txt{padding:140px 0 64px}
+.surtitre{font-family:var(--f-script);font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem);color:#ffd88a;display:block;margin-bottom:6px}
+.hero h1{font-family:var(--f-titre);font-weight:800;font-size:clamp(2.3rem,1.4rem + 4.4vw,4.8rem);line-height:1.02;max-width:15ch;letter-spacing:-.01em}
+.hero h1 .mot{display:inline-block;opacity:0;transform:translateY(28px);animation:monte .9s var(--ease) forwards}
+@keyframes monte{to{opacity:1;transform:none}}
+.hero p.lead{margin:18px 0 28px;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:46ch;color:#f3ebe3}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn-o{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.8)}
+.hero .btn-o:hover{background:#fff;color:var(--encre)}
+.statut{display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.22);padding:9px 16px;border-radius:999px;font-size:.92rem}
+.statut i{width:10px;height:10px;border-radius:50%;background:#7bd389;box-shadow:0 0 0 0 rgba(123,211,137,.7);animation:pouls 2s infinite}
+.statut.ferme i{background:#ffb35c;box-shadow:0 0 0 0 rgba(255,179,92,.7)}
+@keyframes pouls{70%{box-shadow:0 0 0 10px rgba(123,211,137,0)}100%{box-shadow:0 0 0 0 rgba(123,211,137,0)}}
+
+/* ruban défilant */
+.ruban{background:var(--bordeaux);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--f-titre);font-weight:700;font-size:1.05rem;letter-spacing:.03em}
+.ruban__piste{display:inline-flex;gap:38px;animation:defile 32s linear infinite;padding-left:38px}
+.ruban__piste span::after{content:"✦";margin-left:38px;color:#ffd88a}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(64px,8vw,112px) 0}
+.kicker{font-family:var(--f-script);color:var(--volet);font-size:1.7rem;line-height:1}
+h2{font-family:var(--f-titre);font-weight:800;font-size:clamp(1.9rem,1.3rem + 2.4vw,3.1rem);line-height:1.08;margin:6px 0 16px;letter-spacing:-.01em}
+.intro{max-width:60ch;color:var(--encre-2)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* la table */
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.carte{background:#fff;border-radius:var(--r);padding:30px 26px 28px;position:relative;overflow:hidden;border:1px solid var(--facade-2);transition:transform .45s var(--ease),box-shadow .45s}
+.carte:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 22px 40px -22px rgba(123,30,44,.45)}
+.carte::before{content:"";position:absolute;inset:auto -30% -60% auto;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(242,182,50,.22),transparent 70%);transition:transform .6s var(--ease)}
+.carte:hover::before{transform:scale(1.4)}
+.carte svg{width:56px;height:56px;color:var(--bordeaux);margin-bottom:16px}
+.carte h3{font-family:var(--f-titre);font-size:1.45rem;margin-bottom:6px}
+.carte p{color:var(--encre-2);font-size:.98rem}
+.carte .afournir{display:inline-block;margin-top:14px;font-size:.78rem;background:var(--facade);border:1px dashed #c9b9a2;border-radius:6px;padding:4px 9px;color:var(--encre-2)}
+.prix{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px;background:var(--encre);color:#fff;border-radius:var(--r);padding:26px 30px}
+.prix strong{font-family:var(--f-titre);font-size:clamp(1.6rem,1.2rem + 1.4vw,2.3rem);color:#ffd88a}
+.prix small{color:#cdbfb5;display:block}
+.prix .sep{flex:1}
+
+/* le lieu */
+.lieu{background:var(--loire);color:#fff;position:relative;overflow:hidden}
+.lieu .kicker{color:#ffd88a}
+.lieu .intro{color:#d6e3e6}
+.lieu__grille{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.photo-cadre{position:relative;width:min(340px,70%);margin-left:6%;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.photo-cadre img{width:100%;aspect-ratio:232/520;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo-cadre:hover img{transform:scale(1.05)}
+.photo-cadre figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.55);font-size:.75rem;padding:4px 10px;border-radius:6px}
+.photo-mini{position:absolute;right:0;bottom:-26px;width:min(280px,52%);border:6px solid var(--facade);border-radius:12px;overflow:hidden;transform:rotate(3deg);box-shadow:0 18px 30px -12px rgba(0,0,0,.5)}
+.photo-mini img{aspect-ratio:4/3;object-fit:cover}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0}
+.chiffre{border-top:2px solid rgba(255,255,255,.25);padding-top:12px}
+.chiffre b{font-family:var(--f-titre);font-size:clamp(2rem,1.5rem + 2vw,3rem);display:block;line-height:1;color:#ffd88a}
+.chiffre span{font-size:.88rem;color:#d6e3e6}
+.atouts{display:flex;flex-wrap:wrap;gap:10px;list-style:none}
+.atouts li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:7px 14px;border-radius:999px;font-size:.9rem}
+.vague{position:absolute;left:0;right:0;bottom:-1px;height:60px;color:var(--facade)}
+
+/* réservation */
+.resa__grille{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;margin-top:38px;align-items:start}
+.panneau{background:#fff;border-radius:18px;padding:clamp(20px,3vw,34px);border:1px solid var(--facade-2);box-shadow:0 30px 60px -40px rgba(35,26,23,.35)}
+.etape{margin-bottom:26px}
+.etape h3{font:700 1rem var(--f-texte);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.etape h3 em{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--bordeaux);color:#fff;display:grid;place-items:center;font-size:.8rem}
+.saison{font-size:.85rem;color:var(--encre-2);margin:-4px 0 12px}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.jour{border:1.5px solid var(--facade-2);background:var(--facade);border-radius:12px;padding:8px 2px;text-align:center;cursor:pointer;font:inherit;transition:transform .2s var(--ease),border-color .2s,background .2s;min-height:64px}
+.jour small{display:block;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--encre-2)}
+.jour b{font-family:var(--f-titre);font-size:1.2rem}
+.jour:hover:not(:disabled){transform:translateY(-3px);border-color:var(--volet)}
+.jour:disabled{opacity:.38;cursor:not-allowed;background:repeating-linear-gradient(-45deg,#f3eee4 0 6px,#ebe3d4 6px 12px)}
+.jour[aria-pressed=true]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.jour[aria-pressed=true] small{color:#f1d6d9}
+.choix{display:flex;flex-wrap:wrap;gap:10px}
+.puce{border:1.5px solid var(--facade-2);background:var(--facade);border-radius:999px;padding:10px 18px;font:500 .95rem var(--f-texte);cursor:pointer;transition:.2s;min-height:44px}
+.puce:hover{border-color:var(--volet)}
+.puce[aria-pressed=true]{background:var(--encre);color:#fff;border-color:var(--encre)}
+.compteur{display:flex;align-items:center;gap:16px}
+.compteur button{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--facade-2);background:var(--facade);font-size:1.4rem;cursor:pointer;transition:.2s}
+.compteur button:hover{background:var(--bordeaux);color:#fff;border-color:var(--bordeaux)}
+.compteur output{font-family:var(--f-titre);font-size:2rem;min-width:2ch;text-align:center}
+.note-groupe{font-size:.85rem;color:var(--volet);margin-top:8px;min-height:1.3em}
+.champ{display:grid;gap:6px;margin-top:10px}
+.champ input{font:inherit;padding:12px 14px;border-radius:10px;border:1.5px solid var(--facade-2);background:var(--facade)}
+.champ input:focus{border-color:var(--bordeaux);outline:none}
+.ticket{position:sticky;top:92px;background:var(--encre);color:#fff;border-radius:18px;padding:28px 26px;overflow:hidden}
+.ticket::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:repeating-linear-gradient(90deg,var(--ampoule-1) 0 18px,var(--ampoule-2) 18px 36px,var(--ampoule-3) 36px 54px,var(--ampoule-4) 54px 72px)}
+.ticket h3{font-family:var(--f-script);font-weight:400;font-size:2rem;color:#ffd88a;margin-bottom:12px}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:.95rem;margin-bottom:22px}
+.ticket dt{color:#bfb0a6}
+.ticket dd{font-weight:600;transition:color .3s}
+.ticket dd.flash{color:#ffd88a}
+.ticket .actions{display:grid;gap:10px}
+.ticket .btn{justify-content:center}
+.ticket .btn-o{color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.5)}
+.ticket .btn-o:hover{background:#fff;color:var(--encre)}
+.ticket .avert{font-size:.78rem;color:#bfb0a6;margin-top:14px}
+.ticket .btn[aria-disabled=true]{opacity:.45;pointer-events:none}
+
+/* à emporter */
+.emporter{display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;background:var(--feuillage);color:#fff;border-radius:22px;padding:clamp(24px,4vw,44px)}
+.emporter svg{width:74px;height:74px}
+.emporter h2{margin:0 0 6px;font-size:clamp(1.5rem,1.1rem + 1.4vw,2.2rem)}
+.emporter p{color:#dfe9d6;max-width:56ch}
+
+/* infos */
+.infos__grille{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px;align-items:start}
+.horaires{background:#fff;border-radius:18px;padding:28px;border:1px solid var(--facade-2)}
+.horaires h3,.coord h3{font-family:var(--f-titre);font-size:1.3rem;margin-bottom:14px}
+.periode{padding:14px 0;border-bottom:1px dashed #dacdb9;display:grid;gap:4px}
+.periode:last-of-type{border:0}
+.periode.encours{background:linear-gradient(90deg,rgba(242,182,50,.16),transparent);margin:0 -14px;padding:14px}
+.periode b{font-size:.95rem}
+.periode span{font-size:.92rem;color:var(--encre-2)}
+.badge{display:inline-block;font-size:.7rem;background:var(--bordeaux);color:#fff;border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:middle}
+.coord{display:grid;gap:18px}
+.coord .bloc{background:#fff;border-radius:18px;padding:26px 28px;border:1px solid var(--facade-2)}
+.coord a{text-decoration:none;font-weight:600}
+.coord a:hover{color:var(--volet)}
+.coord ul{list-style:none;display:grid;gap:8px}
+.carte-geo{border-radius:18px;overflow:hidden;border:1px solid var(--facade-2);min-height:260px}
+.carte-geo iframe{width:100%;height:100%;min-height:260px;border:0;display:block;filter:saturate(.85)}
+.petit{font-size:.82rem;color:var(--encre-2);margin-top:12px}
+
+/* footer */
+footer{background:var(--encre);color:#d9cdc4;padding:56px 0 30px;font-size:.92rem}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer .logo span:first-child{color:#ffd88a}
+footer .logo span:last-child{color:#bfb0a6}
+footer h4{color:#fff;font-family:var(--f-titre);margin-bottom:10px}
+footer a{color:#fff;text-decoration:none}
+.mention{margin-top:40px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;color:#a99a90;line-height:1.55}
+
+/* barre mobile */
+.barre-mobile{display:none}
+@media (max-width:860px){
+  .photo-cadre{margin-left:0}
+  .cartes,.lieu__grille,.resa__grille,.infos__grille,.foot{grid-template-columns:1fr}
+  .photo-mini{right:8px;bottom:-20px;width:42%}
+  .ticket{position:static}
+  .emporter{grid-template-columns:1fr;text-align:left}
+  .barre-mobile{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(246,241,231,.96);backdrop-filter:blur(8px);border-top:1px solid var(--facade-2)}
+  .barre-mobile .btn{justify-content:center;padding:12px}
+  body{padding-bottom:72px}
+}
+@media (max-width:420px){
+  .jours{gap:5px}
+  .jour b{font-size:1.05rem}
+  .chiffres{grid-template-columns:1fr 1fr 1fr;gap:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.hero h1 .mot{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Auberge du Pont",
+  "description":"Restaurant traditionnel au pied du barrage de Villerest, à 5 min de Roanne : grenouilles, fritures, salades, terrasse ombragée et couverte au bord de la Loire.",
+  "servesCuisine":"Cuisine traditionnelle française",
+  "priceRange":"Menus de 16,90 € à 35,50 €",
+  "telephone":"+33477696216",
+  "email":"couturierphilippe@orange.fr",
+  "image":"https://thibaultquentin.github.io/PROSPECTION-ROANNE/maquettes/assets/auberge-du-pont-villerest/terrasse-large.webp",
+  "address":{"@type":"PostalAddress","streetAddress":"601 route du Halage","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"},
+  "areaServed":["Villerest","Roanne","Le Coteau","Commelle-Vernay","Riorges"],
+  "acceptsReservations":true,
+  "paymentAccepted":"Carte bancaire, chèque, espèces, paiement sans contact",
+  "sameAs":["https://www.facebook.com/Auberge-Du-Pont-151795448671366"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour l'Auberge du Pont, construite à partir des informations publiques de l'établissement. Aucune réservation n'est réellement enregistrée.</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="Auberge du Pont, accueil"><span>Auberge du Pont</span><span>Villerest · au pied du barrage</span></a>
+    <ul id="menu">
+      <li><a href="#table">La table</a></li>
+      <li><a href="#lieu">La terrasse</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-r" href="#reserver">Réserver une table</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="guirlande" aria-hidden="true"><svg id="guirlande" viewBox="0 0 1200 90" preserveAspectRatio="none"></svg></div>
+  <div class="hero__img"><img src="assets/auberge-du-pont-villerest/terrasse-large.webp" alt="La terrasse ombragée de l'Auberge du Pont, tables aux nappes bordeaux sous les arbres" fetchpriority="high"></div>
+  <div class="wrap hero__txt">
+    <span class="surtitre">Au bord de la Loire</span>
+    <h1 id="titre">Grenouilles, fritures et salades, au pied du barrage.</h1>
+    <p class="lead">L'auberge du Pont vous accueille à Villerest, à 5 min de Roanne, sur sa terrasse ombragée et couverte au bord de la Loire.</p>
+    <div class="ctas">
+      <a class="btn btn-r" href="#reserver">Réserver une table</a>
+      <a class="btn btn-o" href="tel:+33477696216">04 77 69 62 16</a>
+    </div>
+    <div class="statut" id="statut" role="status" aria-live="polite"><i></i><span>Calcul des horaires…</span></div>
+  </div>
+</section>
+
+<div class="ruban" aria-hidden="true"><div class="ruban__piste">
+  <span>Grenouilles</span><span>Fritures</span><span>Salades</span><span>Terrasse ombragée et couverte</span><span>Au bord de la Loire</span><span>Plats à emporter</span>
+  <span>Grenouilles</span><span>Fritures</span><span>Salades</span><span>Terrasse ombragée et couverte</span><span>Au bord de la Loire</span><span>Plats à emporter</span>
+</div></div>
+
+<section id="table">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">La table</span>
+      <h2>Une cuisine traditionnelle, au bord de l'eau</h2>
+      <p class="intro">Ce qui fait la réputation de la maison, servi en salle ou sur la terrasse, face à la Loire.</p>
+    </div>
+    <div class="cartes">
+      <article class="carte reveal">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="22" cy="20" r="6"/><circle cx="42" cy="20" r="6"/><circle cx="22" cy="20" r="1.6" fill="currentColor"/><circle cx="42" cy="20" r="1.6" fill="currentColor"/><path d="M12 34c4 12 36 12 40 0"/><path d="M16 26c-6 4-8 10-6 16M48 26c6 4 8 10 6 16"/><path d="M24 36c4 3 12 3 16 0"/></svg>
+        <h3>Les grenouilles</h3>
+        <p>La spécialité qui fait venir les habitués jusqu'au pied du barrage.</p>
+        <span class="afournir">Préparation et prix : à compléter par l'auberge</span>
+      </article>
+      <article class="carte reveal">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 32c8-12 28-14 40 0-12 14-32 12-40 0z"/><path d="M48 32l9-8v16z"/><circle cx="20" cy="29" r="1.8" fill="currentColor"/><path d="M28 26c2 4 2 8 0 12M35 25c2 5 2 9 0 14"/></svg>
+        <h3>Les fritures</h3>
+        <p>La friture, l'autre classique des bords de Loire, à partager en terrasse.</p>
+        <span class="afournir">Détail de la carte : à compléter par l'auberge</span>
+      </article>
+      <article class="carte reveal">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 32h48c0 13-11 22-24 22S8 45 8 32z"/><path d="M20 32c-4-8 0-16 8-16 0 8-2 12-8 16zM34 32c0-10 8-16 16-12-2 8-8 12-16 12z"/><path d="M28 32c2-6 6-9 10-10"/></svg>
+        <h3>Les salades</h3>
+        <p>Pour les déjeuners d'été et les tablées qui préfèrent plus léger.</p>
+        <span class="afournir">Détail de la carte : à compléter par l'auberge</span>
+      </article>
+    </div>
+    <div class="prix reveal">
+      <div><small>Menus adultes</small><strong>de 16,90 € à 35,50 €</strong></div>
+      <div class="sep"></div>
+      <p style="max-width:40ch;color:#cdbfb5;font-size:.92rem">Tarifs 2026 communiqués à Roannais Tourisme. Carte complète et menu du jour à afficher ici.</p>
+      <a class="btn btn-c" href="#reserver">Réserver</a>
+    </div>
+  </div>
+</section>
+
+<section class="lieu" id="lieu">
+  <div class="wrap lieu__grille">
+    <div class="reveal" style="position:relative">
+      <figure class="photo-cadre">
+        <img src="assets/auberge-du-pont-villerest/facade-guirlande.webp" alt="La façade aux volets rouges et la guirlande guinguette de la terrasse" loading="lazy">
+      </figure>
+      <figure class="photo-mini">
+        <img src="assets/auberge-du-pont-villerest/vue-exterieure.webp" alt="Vue extérieure de l'Auberge du Pont, route du Halage" loading="lazy">
+      </figure>
+    </div>
+    <div class="reveal">
+      <span class="kicker">La terrasse</span>
+      <h2>Sous les arbres, au bord de la Loire</h2>
+      <p class="intro">Une terrasse ombragée et couverte, à deux pas du lac de Villerest, où chacun peut profiter d'activités au bord de l'eau avant ou après le repas.</p>
+      <div class="chiffres">
+        <div class="chiffre"><b data-compte="120">0</b><span>couverts en terrasse</span></div>
+        <div class="chiffre"><b data-compte="60">0</b><span>couverts en salle</span></div>
+        <div class="chiffre"><b data-compte="2">0</b><span>salles</span></div>
+      </div>
+      <ul class="atouts">
+        <li>Terrasse couverte</li><li>Aire de jeux</li><li>Chaise bébé</li><li>Animaux acceptés</li><li>Plats à emporter</li>
+      </ul>
+    </div>
+  </div>
+  <svg class="vague" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 40 C 200 10 400 60 600 34 S 1000 10 1200 36 V60 H0Z"><animate attributeName="d" dur="9s" repeatCount="indefinite" values="M0 40 C 200 10 400 60 600 34 S 1000 10 1200 36 V60 H0Z;M0 32 C 220 54 420 14 620 40 S 1000 54 1200 28 V60 H0Z;M0 40 C 200 10 400 60 600 34 S 1000 10 1200 36 V60 H0Z"/></path></svg>
+</section>
+
+<section id="reserver">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Réserver</span>
+      <h2>Une table, en trente secondes</h2>
+      <p class="intro">Le calendrier suit les jours d'ouverture de la saison en cours. Choisissez votre jour, votre service et le nombre de couverts : la demande part par SMS, par mail ou par téléphone, et vous gardez le rappel dans votre agenda.</p>
+    </div>
+    <div class="resa__grille">
+      <div class="panneau reveal">
+        <div class="etape">
+          <h3><em>1</em> Le jour</h3>
+          <p class="saison" id="saison"></p>
+          <div class="jours" id="jours" role="group" aria-label="Jours disponibles"></div>
+        </div>
+        <div class="etape">
+          <h3><em>2</em> Le service</h3>
+          <div class="choix" id="services">
+            <button class="puce" type="button" data-service="Midi" aria-pressed="false">Midi · 12h – 13h30</button>
+            <button class="puce" type="button" data-service="Soir" aria-pressed="false">Soir · 19h – 21h</button>
+          </div>
+        </div>
+        <div class="etape">
+          <h3><em>3</em> Combien êtes-vous ?</h3>
+          <div class="compteur">
+            <button type="button" id="moins" aria-label="Un couvert de moins">−</button>
+            <output id="nb" aria-live="polite">2</output>
+            <button type="button" id="plus" aria-label="Un couvert de plus">+</button>
+          </div>
+          <p class="note-groupe" id="groupe"></p>
+        </div>
+        <div class="etape">
+          <h3><em>4</em> Où et comment ?</h3>
+          <div class="choix" id="places">
+            <button class="puce" type="button" data-place="En terrasse" aria-pressed="true">En terrasse</button>
+            <button class="puce" type="button" data-place="En salle" aria-pressed="false">En salle</button>
+            <button class="puce" type="button" data-place="Peu importe" aria-pressed="false">Peu importe</button>
+          </div>
+          <div class="choix" id="options" style="margin-top:10px">
+            <button class="puce" type="button" data-option="chaise bébé" aria-pressed="false">+ Chaise bébé</button>
+            <button class="puce" type="button" data-option="avec un chien" aria-pressed="false">+ Avec un chien</button>
+          </div>
+          <label class="champ"><span style="font-size:.9rem;font-weight:500">Votre nom</span><input id="nom" type="text" autocomplete="name" placeholder="Ex. Famille Martin"></label>
+        </div>
+      </div>
+      <aside class="ticket reveal" aria-live="polite">
+        <h3>Votre table</h3>
+        <dl>
+          <dt>Jour</dt><dd id="t-jour">—</dd>
+          <dt>Service</dt><dd id="t-service">—</dd>
+          <dt>Couverts</dt><dd id="t-nb">2</dd>
+          <dt>Place</dt><dd id="t-place">En terrasse</dd>
+          <dt>Nom</dt><dd id="t-nom">—</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-r" id="a-sms" href="#" aria-disabled="true">Envoyer par SMS</a>
+          <a class="btn btn-o" id="a-mail" href="#" aria-disabled="true">Envoyer par mail</a>
+          <a class="btn btn-o" href="tel:+33477696216">Appeler l'auberge</a>
+          <button class="btn btn-o" id="a-ics" type="button" aria-disabled="true">Ajouter à mon agenda</button>
+        </div>
+        <p class="avert">La réservation est confirmée par l'auberge. Maquette de démonstration : les envois ouvrent simplement votre messagerie, rien n'est enregistré.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="emporter reveal">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22h40l-4 32H16z"/><path d="M22 22v-6a10 10 0 0 1 20 0v6"/><path d="M24 34c4 4 12 4 16 0"/></svg>
+      <div>
+        <h2>Aussi à emporter</h2>
+        <p>L'auberge propose des plats à emporter : un coup de fil avant de passer, et la friture vous attend.</p>
+      </div>
+      <a class="btn btn-c" href="tel:+33477696216">Commander par téléphone</a>
+    </div>
+  </div>
+</section>
+
+<section id="infos" style="background:var(--facade-2)">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Infos pratiques</span>
+      <h2>Nous trouver, route du Halage</h2>
+      <p class="intro">Au pied du barrage de Villerest, à 5 minutes de Roanne, le long de la Loire.</p>
+    </div>
+    <div class="infos__grille">
+      <div class="horaires reveal">
+        <h3>Horaires d'ouverture</h3>
+        <div class="periode" data-debut="03-09" data-fin="10-19">
+          <b>Du 9 mars au 19 octobre</b>
+          <span>Du mercredi au dimanche</span>
+        </div>
+        <div class="periode" data-debut="10-20" data-fin="03-08">
+          <b>Du 20 octobre au 8 mars</b>
+          <span>Vendredi, samedi et dimanche</span>
+        </div>
+        <p class="petit">Services : midi 12h – 13h30, soir 19h – 21h. Horaires communiqués à Roannais Tourisme pour 2026, à confirmer par l'auberge.</p>
+      </div>
+      <div class="coord reveal">
+        <div class="bloc">
+          <h3>Coordonnées</h3>
+          <ul>
+            <li>601 route du Halage, 42300 Villerest</li>
+            <li><a href="tel:+33477696216">04 77 69 62 16</a> · <a href="tel:+33626970033">06 26 97 00 33</a></li>
+            <li><a href="mailto:couturierphilippe@orange.fr">couturierphilippe@orange.fr</a></li>
+            <li style="color:var(--encre-2);font-size:.92rem">Carte bancaire, chèque, espèces, sans contact</li>
+          </ul>
+        </div>
+        <div class="carte-geo">
+          <iframe title="Plan d'accès à l'Auberge du Pont" loading="lazy" src="https://maps.google.com/maps?q=Auberge%20du%20Pont%2C%20601%20route%20du%20Halage%2C%2042300%20Villerest&z=14&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#accueil"><span>Auberge du Pont</span><span>Villerest · au pied du barrage</span></a>
+        <p style="margin-top:14px;max-width:34ch">Grenouilles, fritures, salades, au bord de la Loire, sur une terrasse ombragée et couverte.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>601 route du Halage<br>42300 Villerest<br><a href="tel:+33477696216">04 77 69 62 16</a><br><a href="mailto:couturierphilippe@orange.fr">couturierphilippe@orange.fr</a></p>
+      </div>
+      <div>
+        <h4>Suivre l'auberge</h4>
+        <p><a href="https://www.facebook.com/Auberge-Du-Pont-151795448671366" rel="noopener" target="_blank">Facebook</a></p>
+      </div>
+    </div>
+    <p class="mention"><b>Maquette de démonstration</b> réalisée pour l'Auberge du Pont (Villerest) à partir des informations publiées par l'établissement sur Roannais Tourisme : ce n'est pas le site officiel, aucune réservation ni commande n'est enregistrée. Photos : vraies photos de l'auberge (vue extérieure et terrasse, crédit M. Couturier, diffusées par Roannais Tourisme, recadrées pour la maquette) ; aucune photo d'illustration n'a été ajoutée, les visuels des plats restent à fournir. L'auberge n'ayant pas de site internet, aucune charte graphique n'a pu être reprise : les couleurs sont relevées sur les photos de la terrasse (nappes bordeaux, volets rouges) et s'ajustent en quelques minutes avec votre logo. Tarifs et horaires indicatifs, non contractuels.</p>
+  </div>
+</footer>
+
+<div class="barre-mobile">
+  <a class="btn btn-o" href="tel:+33477696216">Appeler</a>
+  <a class="btn btn-r" href="#reserver">Réserver</a>
+</div>
+
+<script>
+(function(){
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* titre : mots qui montent un par un */
+  const h1 = document.getElementById('titre');
+  h1.innerHTML = h1.textContent.split(' ').map((m,i)=>`<span class="mot" style="animation-delay:${.15+i*.08}s">${m}</span>`).join(' ');
+
+  /* guirlande guinguette */
+  const svg = document.getElementById('guirlande');
+  const couleurs = ['var(--ampoule-1)','var(--ampoule-2)','var(--ampoule-3)','var(--ampoule-4)'];
+  let d = 'M0 10', pts = [];
+  const travees = 5, larg = 1200 / travees;
+  for(let t=0;t<travees;t++){
+    const x0 = t*larg, x1 = x0+larg;
+    d += ` Q ${x0+larg/2} 70 ${x1} 10`;
+    for(let k=1;k<8;k++){
+      const u = k/8, x = (1-u)*(1-u)*x0 + 2*(1-u)*u*(x0+larg/2) + u*u*x1;
+      const y = (1-u)*(1-u)*10 + 2*(1-u)*u*70 + u*u*10;
+      pts.push([x,y]);
+    }
+  }
+  svg.innerHTML = `<path d="${d}" fill="none" stroke="rgba(35,26,23,.7)" stroke-width="1.5"/>` +
+    pts.map((p,i)=>`<g><line x1="${p[0]}" y1="${p[1]}" x2="${p[0]}" y2="${p[1]+6}" stroke="rgba(35,26,23,.7)" stroke-width="1.5"/><ellipse class="ampoule" cx="${p[0]}" cy="${p[1]+11}" rx="4" ry="6" fill="${couleurs[i%4]}" style="animation-delay:${(i*0.37)%3}s;filter:drop-shadow(0 0 6px ${couleurs[i%4]})"/></g>`).join('');
+
+  /* header + menu mobile */
+  const header = document.getElementById('haut');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20),{passive:true});
+  const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}));
+
+  /* apparitions + compteurs */
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.classList.add('vu');
+    e.target.querySelectorAll('[data-compte]').forEach(el=>{
+      const fin=+el.dataset.compte, t0=performance.now(), dur=reduit?1:1400;
+      (function pas(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(fin*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(pas)})(t0);
+    });
+    io.unobserve(e.target);
+  }),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*.08+'s';io.observe(el)});
+
+  /* saisons : 9 mars → 19 oct : mer–dim ; 20 oct → 8 mars : ven–dim */
+  const md = dt => (dt.getMonth()+1)*100 + dt.getDate();
+  const hauteSaison = dt => md(dt) >= 309 && md(dt) <= 1019;
+  const joursOuverts = dt => hauteSaison(dt) ? [3,4,5,6,0] : [5,6,0];
+  const estOuvert = dt => joursOuverts(dt).includes(dt.getDay());
+  const services = [{nom:'Midi',d:[12,0],f:[13,30]},{nom:'Soir',d:[19,0],f:[21,0]}];
+  const JOURS = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+
+  /* statut en direct dans le hero */
+  (function statut(){
+    const el = document.getElementById('statut'), now = new Date();
+    const min = now.getHours()*60+now.getMinutes();
+    let txt, ouvert=false;
+    if(estOuvert(now)){
+      const s = services.find(s=>min>=s.d[0]*60+s.d[1] && min<s.f[0]*60+s.f[1]);
+      const prochain = services.find(s=>min<s.d[0]*60+s.d[1]);
+      if(s){ouvert=true;txt=`En service ce ${s.nom.toLowerCase()} — jusqu'à ${s.f[0]}h${s.f[1]?s.f[1]:''}`}
+      else if(prochain){ouvert=true;txt=`Ouvert aujourd'hui — service du ${prochain.nom.toLowerCase()} à ${prochain.d[0]}h`}
+    }
+    if(!txt){
+      const d = new Date(now); d.setHours(0,0,0,0);
+      do{d.setDate(d.getDate()+1)}while(!estOuvert(d));
+      const quand = `${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]} à midi`;
+      txt = estOuvert(now) ? `Service terminé pour aujourd'hui — prochain service ${quand}` : `Fermé aujourd'hui — réouverture ${quand}`;
+    }
+    el.classList.toggle('ferme',!ouvert);
+    el.querySelector('span').textContent = txt;
+    document.querySelectorAll('.periode').forEach(p=>{
+      const deb=+p.dataset.debut.replace('-',''), fin=+p.dataset.fin.replace('-',''), m=md(now);
+      const dedans = deb<=fin ? (m>=deb&&m<=fin) : (m>=deb||m<=fin);
+      if(dedans){p.classList.add('encours');p.querySelector('b').insertAdjacentHTML('beforeend','<span class="badge">en ce moment</span>')}
+    });
+  })();
+
+  /* outil de réservation */
+  const etat = {date:null,service:null,nb:2,place:'En terrasse',options:new Set(),nom:''};
+  const zj = document.getElementById('jours');
+  const auj = new Date(); auj.setHours(0,0,0,0);
+  document.getElementById('saison').textContent = hauteSaison(auj)
+    ? "Saison d'été : ouvert du mercredi au dimanche, jusqu'au 19 octobre."
+    : "Saison d'hiver : ouvert le vendredi, le samedi et le dimanche.";
+  for(let i=0;i<14;i++){
+    const dt = new Date(auj); dt.setDate(auj.getDate()+i);
+    const b = document.createElement('button');
+    b.type='button'; b.className='jour'; b.setAttribute('aria-pressed','false');
+    b.innerHTML = `<small>${i===0?"auj.":JOURS[dt.getDay()].slice(0,3)}</small><b>${dt.getDate()}</b><small>${MOIS[dt.getMonth()]}</small>`;
+    b.setAttribute('aria-label', `${JOURS[dt.getDay()]} ${dt.getDate()} ${MOIS[dt.getMonth()]}${estOuvert(dt)?'':' — fermé'}`);
+    if(!estOuvert(dt)) b.disabled = true;
+    b.addEventListener('click',()=>{
+      zj.querySelectorAll('.jour').forEach(x=>x.setAttribute('aria-pressed','false'));
+      b.setAttribute('aria-pressed','true'); etat.date = dt; maj('t-jour');
+    });
+    zj.appendChild(b);
+  }
+  function groupeUnique(id, cle){
+    document.querySelectorAll(`#${id} .puce`).forEach(p=>p.addEventListener('click',()=>{
+      document.querySelectorAll(`#${id} .puce`).forEach(x=>x.setAttribute('aria-pressed','false'));
+      p.setAttribute('aria-pressed','true'); etat[cle]=p.dataset[cle]; maj(cle==='service'?'t-service':'t-place');
+    }));
+  }
+  groupeUnique('services','service'); groupeUnique('places','place');
+  document.querySelectorAll('#options .puce').forEach(p=>p.addEventListener('click',()=>{
+    const o=p.dataset.option, on=!etat.options.has(o);
+    on?etat.options.add(o):etat.options.delete(o); p.setAttribute('aria-pressed',on); maj('t-place');
+  }));
+  const nb = document.getElementById('nb'), groupe = document.getElementById('groupe');
+  document.getElementById('moins').onclick=()=>{etat.nb=Math.max(1,etat.nb-1);maj('t-nb')};
+  document.getElementById('plus').onclick=()=>{etat.nb=Math.min(60,etat.nb+1);maj('t-nb')};
+  document.getElementById('nom').addEventListener('input',e=>{etat.nom=e.target.value.trim();maj('t-nom')});
+
+  const fmtDate = dt => `${JOURS[dt.getDay()]} ${dt.getDate()} ${MOIS[dt.getMonth()]}`;
+  function message(){
+    let m = `Bonjour, je souhaite réserver une table à l'Auberge du Pont le ${fmtDate(etat.date)} (${etat.service.toLowerCase()}) pour ${etat.nb} personne${etat.nb>1?'s':''}, ${etat.place.toLowerCase()}`;
+    if(etat.options.size) m += `, ${[...etat.options].join(', ')}`;
+    m += '.'; if(etat.nom) m += ` Au nom de ${etat.nom}.`;
+    return m + ' Merci de me confirmer.';
+  }
+  function maj(champ){
+    nb.textContent = etat.nb;
+    groupe.textContent = etat.nb>=15 ? "Pour un groupe, mieux vaut appeler l'auberge directement : elle vous proposera la meilleure installation." : '';
+    document.getElementById('t-jour').textContent = etat.date ? fmtDate(etat.date) : '—';
+    document.getElementById('t-service').textContent = etat.service ? (etat.service==='Midi'?'Midi · 12h – 13h30':'Soir · 19h – 21h') : '—';
+    document.getElementById('t-nb').textContent = etat.nb;
+    document.getElementById('t-place').textContent = etat.place + (etat.options.size?' + '+[...etat.options].join(', '):'');
+    document.getElementById('t-nom').textContent = etat.nom || '—';
+    if(champ){const dd=document.getElementById(champ);dd.classList.add('flash');setTimeout(()=>dd.classList.remove('flash'),500)}
+    const pret = etat.date && etat.service;
+    ['a-sms','a-mail','a-ics'].forEach(id=>document.getElementById(id).setAttribute('aria-disabled',!pret));
+    if(pret){
+      const msg = encodeURIComponent(message());
+      document.getElementById('a-sms').href = `sms:+33626970033?&body=${msg}`;
+      document.getElementById('a-mail').href = `mailto:couturierphilippe@orange.fr?subject=${encodeURIComponent('Réservation – '+fmtDate(etat.date))}&body=${msg}`;
+    }
+  }
+  document.getElementById('a-ics').addEventListener('click',()=>{
+    if(!(etat.date&&etat.service)) return;
+    const s = services.find(x=>x.nom===etat.service), p = n=>String(n).padStart(2,'0');
+    const jour = `${etat.date.getFullYear()}${p(etat.date.getMonth()+1)}${p(etat.date.getDate())}`;
+    const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Auberge du Pont//Maquette//FR','BEGIN:VEVENT',
+      `UID:${Date.now()}@auberge-du-pont`,`DTSTART:${jour}T${p(s.d[0])}${p(s.d[1])}00`,`DTEND:${jour}T${p(s.d[0]+2)}${p(s.d[1])}00`,
+      `SUMMARY:Auberge du Pont – table pour ${etat.nb}`,'LOCATION:601 route du Halage\\, 42300 Villerest',
+      'DESCRIPTION:Réservation à confirmer par l\'auberge – 04 77 69 62 16','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));
+    a.download = 'auberge-du-pont.ics'; a.click();
+  });
+  maj();
+})();
+</script>
+</body>
+</html>
