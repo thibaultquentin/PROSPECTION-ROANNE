@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Maquette de démonstration — Château du Bourg (Perreux) -->
+<title>Château du Bourg — Salle de réception, mariages et chambres d'hôtes près de Roanne | Perreux</title>
+<meta name="description" content="L'Orangerie du Château du Bourg à Perreux, à 5 min de Roanne : réceptions et mariages jusqu'à 200 convives, cinq chambres d'hôtes dans la maison du 17e et pêche au Domaine de la Comtesse.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel orangeriechateaudubourg.fr
+   Mêmes variables que le CSS d'origine (OKLCH, teinte 256) :
+   gris neutres « principale » + bleu des boutons « bleue ».
+   Police : Poppins (identique au site actuel).
+   ========================================================= */
+:root{
+  --couleur-principale-100: oklch(99% 0 256);
+  --couleur-principale-200: oklch(89% 0 256);
+  --couleur-principale-300: oklch(80% 0 256);
+  --couleur-principale-500: oklch(60% 0 256);
+  --couleur-principale-700: oklch(38% 0 256);
+  --couleur-principale-800: oklch(25% 0 256);
+  --couleur-principale-900: oklch(12% 0 256);
+  --couleur-bleue-100: oklch(97% 0.02 256);
+  --couleur-bleue-200: oklch(89% 0.05 256);
+  --couleur-bleue-300: oklch(80% 0.12 256);
+  --couleur-bleue-400: oklch(71% 0.19 256);
+  --couleur-bleue-500: oklch(60% 0.27 256);
+  --couleur-bleue-600: oklch(49% 0.19 256);
+  --couleur-bleue-800: oklch(25% 0.05 256);
+  --brique: oklch(55% 0.12 40); /* teinte prise sur la brique de l'orangerie (photos), usage ponctuel */
+  --font: "Poppins", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --ombre: 0 10px 30px rgba(0,0,0,.12);
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --img: "https://orangeriechateaudubourg.fr/";
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--couleur-principale-800);background:var(--couleur-principale-100);line-height:1.65;font-size:clamp(.95rem,.9rem + .25vw,1.05rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{line-height:1.15;margin:0 0 .5em;font-weight:600}
+h2{font-size:clamp(1.7rem,1.3rem + 1.8vw,2.6rem)}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--couleur-bleue-400);outline-offset:3px}
+
+/* Bandeau démo */
+.demo-bar{background:var(--couleur-principale-900);color:var(--couleur-principale-200);font-size:.78rem;text-align:center;padding:.45rem 16px}
+.demo-bar b{color:#fff}
+
+/* En-tête : même dégradé radial gris que le site actuel */
+header.top{position:sticky;top:0;z-index:50;background:var(--couleur-principale-700) radial-gradient(at top center,var(--couleur-principale-500),var(--couleur-principale-800));color:#fff;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.brand{font-weight:600;font-size:clamp(1.1rem,1rem + .6vw,1.55rem);text-decoration:none;letter-spacing:-.01em}
+.tel{display:inline-flex;align-items:center;background:var(--couleur-bleue-400);color:var(--couleur-principale-900);text-decoration:none;font-weight:500;white-space:nowrap}
+.tel span:first-child{background:var(--couleur-bleue-500);color:#fff;padding:.45rem .7rem;display:grid;place-items:center}
+.tel span:last-child{padding:.45rem .9rem}
+nav.menu{display:flex;justify-content:space-between;gap:1rem;padding:.2rem 0 .9rem;flex-wrap:wrap}
+nav.menu a{text-decoration:none;position:relative;padding:.25rem 0;font-size:.98rem}
+nav.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:1.4rem;background:var(--couleur-bleue-400);transition:width .35s var(--ease)}
+nav.menu a:hover::after,nav.menu a.on::after{width:100%}
+.burger{display:none;background:none;border:0;color:#fff;font:inherit;cursor:pointer;padding:.4rem}
+@media (max-width:820px){
+  nav.menu{display:none;flex-direction:column;gap:.6rem;padding-bottom:1rem}
+  nav.menu.open{display:flex}
+  .burger{display:block}
+  .tel span:last-child{display:none}
+}
+
+/* Hero : fondu enchaîné lent sur les vraies photos d'en-tête du site */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;place-items:center;color:#fff;overflow:hidden;isolation:isolate}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 9s linear;z-index:-2}
+.hero .slide.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.45),rgba(0,0,0,.15) 40%,rgba(0,0,0,.55));z-index:-1}
+.hero-inner{text-align:center;padding:4rem 0 6rem}
+.hero h1{font-size:clamp(2rem,1.2rem + 4vw,4.2rem);text-transform:uppercase;letter-spacing:-.02em;text-shadow:0 3px 18px rgba(0,0,0,.45)}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(.6em);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.glass{max-width:640px;margin:1.4rem auto 0;background:rgba(230,230,230,.69);backdrop-filter:blur(8px);color:var(--couleur-principale-900);padding:1.4rem 1.6rem;text-align:left;opacity:0;animation:up 1s .7s var(--ease) forwards}
+.hero-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.6rem;opacity:0;animation:up 1s 1s var(--ease) forwards}
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--couleur-bleue-400);color:var(--couleur-principale-900);border:0;padding:.8rem 1.3rem;font:500 1rem var(--font);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:44px}
+.btn:hover{background:var(--couleur-bleue-300);transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.18)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.6)}
+.btn.ghost:hover{background:rgba(255,255,255,.25)}
+.dots{position:absolute;bottom:1.4rem;left:50%;translate:-50% 0;display:flex;gap:.5rem}
+.dots button{width:34px;height:4px;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0}
+.dots button.on{background:#fff}
+.photo-tag{position:absolute;right:1rem;bottom:1rem;font-size:.72rem;color:rgba(255,255,255,.85)}
+
+/* Atouts (pictos du site actuel) */
+.atouts{background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.06);position:relative;z-index:2}
+.atouts ul{list-style:none;margin:0;padding:1.1rem 0;display:flex;justify-content:center;gap:clamp(1rem,4vw,3.5rem);flex-wrap:wrap}
+.atouts li{display:flex;align-items:center;gap:.6rem;font-size:.95rem}
+.atouts svg{width:28px;height:28px;color:var(--couleur-bleue-500)}
+
+/* Avis affichés sur le site actuel */
+.avis{display:flex;justify-content:space-around;gap:1rem;flex-wrap:wrap;padding:2rem 0 1rem;font-size:.92rem}
+.stars{color:#f5b301;letter-spacing:2px;margin-right:.35rem}
+
+section{padding:clamp(3rem,6vw,6rem) 0}
+.kicker{display:inline-block;font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--couleur-bleue-600);font-weight:600;margin-bottom:.6rem}
+.lead{max-width:62ch;color:var(--couleur-principale-700)}
+
+/* Les 4 univers — cartes du site actuel, animées */
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1rem,2.5vw,2rem)}
+@media (max-width:720px){.cards{grid-template-columns:1fr}}
+.card{position:relative;background:#fff;padding:9px;box-shadow:var(--ombre);text-decoration:none;color:#fff;overflow:hidden}
+.card .ph{aspect-ratio:3/2;overflow:hidden;position:relative}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover img{transform:scale(1.07)}
+.card h3{position:absolute;top:9px;left:9px;right:9px;margin:0;padding:1rem 1.1rem 2.2rem;font-size:clamp(1.2rem,1rem + .8vw,1.7rem);background:linear-gradient(to bottom,rgba(0,0,0,.65),transparent)}
+.card p{position:absolute;left:9px;right:9px;bottom:9px;margin:0;padding:3rem 1.1rem 1rem;background:linear-gradient(to top,rgba(0,0,0,.7),transparent);font-size:.92rem;transform:translateY(30%);opacity:0;transition:.5s var(--ease)}
+.card:hover p,.card:focus-visible p{transform:none;opacity:1}
+.card .btn{position:absolute;right:23px;bottom:23px;z-index:2;pointer-events:none}
+.card:hover .btn{opacity:0}
+
+/* Orangerie */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+@media (max-width:880px){.split{grid-template-columns:1fr}}
+.mosaic{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(70px,9vw,120px);gap:8px}
+.mosaic img{width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:filter .3s}
+.mosaic img:hover{filter:brightness(1.08)}
+.m1{grid-column:span 4;grid-row:span 3}.m2{grid-column:span 2;grid-row:span 2}.m3{grid-column:span 2;grid-row:span 1}.m4{grid-column:span 3;grid-row:span 2}.m5{grid-column:span 3;grid-row:span 2}
+.chiffres{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--couleur-principale-200);margin:1.6rem 0}
+.chiffres div{background:var(--couleur-principale-100);padding:1rem}
+.chiffres b{display:block;font-size:clamp(1.6rem,1.2rem + 1.5vw,2.4rem);font-weight:600;color:var(--couleur-principale-900);line-height:1.1}
+.chiffres span{font-size:.85rem;color:var(--couleur-principale-700)}
+
+/* Jour / nuit : l'orangerie en soirée */
+.daynight{position:relative;aspect-ratio:16/9;overflow:hidden;box-shadow:var(--ombre);margin-top:2.5rem;user-select:none;touch-action:pan-y}
+.daynight img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.daynight .night{clip-path:inset(0 0 0 50%)}
+.daynight .handle{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;cursor:ew-resize}
+.daynight .handle::after{content:"⟷";position:absolute;top:50%;left:50%;translate:-50% -50%;background:#fff;color:var(--couleur-principale-900);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.daynight .lbl{position:absolute;bottom:.8rem;font-size:.8rem;background:rgba(0,0,0,.55);color:#fff;padding:.25rem .6rem}
+
+/* Chambres */
+.bg-soft{background:var(--couleur-principale-200)}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.2rem 0 1.8rem}
+.chip{border:1px solid var(--couleur-principale-500);background:#fff;padding:.45rem .95rem;font:inherit;font-size:.88rem;cursor:pointer;transition:.2s;min-height:40px}
+.chip.on{background:var(--couleur-bleue-400);border-color:var(--couleur-bleue-400);color:var(--couleur-principale-900)}
+.rooms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.room{background:#fff;box-shadow:var(--ombre);display:flex;flex-direction:column;transition:opacity .4s,transform .4s var(--ease)}
+.room.off{opacity:.25;transform:scale(.97)}
+.room .ph{aspect-ratio:4/3;overflow:hidden;position:relative}
+.room .ph img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .6s}
+.room .ph img+img{opacity:0}
+.room:hover .ph img+img{opacity:1}
+.room .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.room h3{font-size:1.15rem;margin:0}
+.room p{margin:0;font-size:.9rem;color:var(--couleur-principale-700)}
+.tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-top:auto}
+.tags span{font-size:.72rem;background:var(--couleur-bleue-100);color:var(--couleur-bleue-800);padding:.15rem .5rem}
+.room .add{margin-top:.6rem;align-self:flex-start;background:none;border:1px solid var(--couleur-bleue-500);color:var(--couleur-bleue-600);font:500 .88rem var(--font);padding:.5rem .9rem;cursor:pointer;transition:.2s;min-height:40px}
+.room .add.sel{background:var(--couleur-bleue-500);color:#fff}
+.tarifs{margin-top:1.5rem;font-size:.88rem;color:var(--couleur-principale-700)}
+
+/* Outil central : préparer sa demande */
+.planner{background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.14);display:grid;grid-template-columns:1.2fr .9fr}
+@media (max-width:900px){.planner{grid-template-columns:1fr}}
+.p-form{padding:clamp(1.2rem,3vw,2.4rem)}
+.p-side{background:var(--couleur-principale-700) radial-gradient(at top center,var(--couleur-principale-500),var(--couleur-principale-800));color:#fff;padding:clamp(1.2rem,3vw,2.4rem);display:flex;flex-direction:column;gap:1rem}
+.steps{display:flex;gap:.4rem;margin-bottom:1.4rem}
+.steps i{flex:1;height:4px;background:var(--couleur-principale-200);transition:background .4s}
+.steps i.on{background:var(--couleur-bleue-500)}
+.types{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+@media (max-width:480px){.types{grid-template-columns:1fr}}
+.type{border:1px solid var(--couleur-principale-300);background:var(--couleur-principale-100);padding:.9rem;text-align:left;font:inherit;cursor:pointer;transition:.25s var(--ease);display:flex;gap:.7rem;align-items:center}
+.type:hover{border-color:var(--couleur-bleue-400);transform:translateY(-2px)}
+.type.on{border-color:var(--couleur-bleue-500);background:var(--couleur-bleue-100);box-shadow:inset 0 0 0 1px var(--couleur-bleue-500)}
+.type svg{width:30px;height:30px;flex:none;color:var(--couleur-bleue-500)}
+.type b{display:block;font-weight:500}
+.type small{color:var(--couleur-principale-700)}
+.field{margin-top:1.2rem}
+.field label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;font:inherit;padding:.65rem .75rem;border:1px solid var(--couleur-principale-300);background:#fff;min-height:44px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:480px){.row2{grid-template-columns:1fr}}
+input[type=range]{padding:0;accent-color:var(--couleur-bleue-500)}
+.range-out{font-weight:600;color:var(--couleur-bleue-600)}
+.hide{display:none!important}
+.tables{display:grid;grid-template-columns:repeat(11,1fr);gap:6px;margin:.4rem 0}
+.tables i{aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,255,255,.45);transition:background .35s,transform .35s var(--ease)}
+.tables i.f{background:var(--couleur-bleue-400);border-color:var(--couleur-bleue-400);transform:scale(1.08)}
+.tables i.part{background:linear-gradient(90deg,var(--couleur-bleue-300) 50%,transparent 50%)}
+.side-line{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(255,255,255,.18);padding:.45rem 0;font-size:.92rem}
+.side-line b{font-weight:600;text-align:right}
+.warn{background:rgba(255,255,255,.12);padding:.7rem .8rem;font-size:.85rem}
+.recap{white-space:pre-line;font-size:.85rem;background:rgba(0,0,0,.22);padding:.8rem;max-height:220px;overflow:auto}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:auto}
+.toast{position:fixed;left:50%;bottom:1.4rem;translate:-50% 200%;background:var(--couleur-principale-900);color:#fff;padding:.7rem 1.1rem;transition:translate .4s var(--ease);z-index:99;font-size:.9rem}
+.toast.on{translate:-50% 0}
+
+/* Domaine de la Comtesse */
+.comtesse{position:relative;color:#fff;background:var(--couleur-principale-900);overflow:hidden}
+.comtesse .bgimg{position:absolute;inset:-10% 0;background:url("https://orangeriechateaudubourg.fr/images/header-comtesse-1920.jpg") center/cover;opacity:.45;will-change:transform}
+.comtesse .wrap{position:relative}
+.comtesse .lead{color:var(--couleur-principale-200)}
+.fish{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
+@media (max-width:640px){.fish{grid-template-columns:1fr}}
+.fish div{border-top:2px solid var(--couleur-bleue-400);padding-top:.8rem}
+.fish b{font-size:clamp(1.8rem,1.3rem + 2vw,3rem);font-weight:600;display:block;line-height:1}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.6rem;scrollbar-width:thin}
+.strip img{height:clamp(150px,22vw,230px);width:auto;scroll-snap-align:start;cursor:zoom-in;flex:none}
+
+/* Accès */
+.acces{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:stretch}
+@media (max-width:820px){.acces{grid-template-columns:1fr}}
+.dist{list-style:none;padding:0;margin:1rem 0}
+.dist li{display:flex;justify-content:space-between;border-bottom:1px solid var(--couleur-principale-200);padding:.7rem 0}
+.dist b{font-weight:600}
+.map{min-height:320px;border:0;width:100%;height:100%;box-shadow:var(--ombre);filter:grayscale(.35)}
+
+/* Pied de page (structure du site actuel) */
+footer{background:var(--couleur-principale-800);color:var(--couleur-principale-200);padding:2.4rem 0 1.4rem;font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;gap:1rem 2.2rem;justify-content:center;border-bottom:1px solid var(--couleur-principale-700);padding-bottom:1.4rem}
+.foot a{color:#fff}
+.mention{font-size:.78rem;color:var(--couleur-principale-300);text-align:center;margin-top:1.2rem;max-width:900px;margin-inline:auto}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);display:grid;place-items:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
+.lb.on{opacity:1;pointer-events:auto}
+.lb img{max-width:92vw;max-height:86vh;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.lb button{position:absolute;top:1rem;right:1rem;background:#fff;border:0;width:44px;height:44px;font-size:1.3rem;cursor:pointer}
+
+/* Révélations au défilement */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["EventVenue","BedAndBreakfast"],
+  "name":"Château du Bourg — L'Orangerie",
+  "description":"Ancienne orangerie restaurée pour réceptions, mariages et évènements jusqu'à 200 convives, chambres d'hôtes dans la maison du 17e siècle et plan d'eau de pêche (Domaine de la Comtesse), sur une propriété de 200 hectares.",
+  "url":"https://orangeriechateaudubourg.fr/",
+  "telephone":"+33613221447",
+  "email":"42lebourg@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"Le Bourg","postalCode":"42120","addressLocality":"Perreux","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.041817,"longitude":4.122286},
+  "areaServed":["Roanne","Roannais","Loire","Lyon"],
+  "maximumAttendeeCapacity":200,
+  "petsAllowed":true,
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Parking gratuit","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Accès handicapés","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Espace traiteur","value":true}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo-bar"><b>Maquette de démonstration</b> — proposition de site pour le Château du Bourg (Perreux), réalisée à partir des informations publiques du domaine. Aucune réservation n'est enregistrée depuis cette page.</div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <div class="top-row">
+      <a class="brand" href="#accueil">Château du Bourg - Perreux</a>
+      <div style="display:flex;align-items:center;gap:.4rem">
+        <a class="tel" href="tel:+33613221447" aria-label="Appeler le 06 13 22 14 47"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg></span><span>06 13 22 14 47</span></a>
+        <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰ Menu</button>
+      </div>
+    </div>
+    <nav class="menu" aria-label="Navigation principale">
+      <a href="#reception">Réception-mariages-évènements</a>
+      <a href="#chambres">Chambres d'hôtes</a>
+      <a href="#comtesse">Domaine de la Comtesse</a>
+      <a href="#demande">Contact-réservation-accès</a>
+    </nav>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" style="padding:0" aria-label="Accueil">
+  <div class="slide on" style="background-image:url('https://orangeriechateaudubourg.fr/images/header-index-1920.jpg')"></div>
+  <div class="slide" style="background-image:url('https://orangeriechateaudubourg.fr/images/header-mariages-1920.jpg')"></div>
+  <div class="slide" style="background-image:url('https://orangeriechateaudubourg.fr/images/header-hote-1920.jpg')"></div>
+  <div class="slide" style="background-image:url('https://orangeriechateaudubourg.fr/reception/reception-15.jpg')"></div>
+  <div class="wrap hero-inner">
+    <h1 aria-label="Profitez d'un lieu exceptionnel"><span class="w">Profitez</span> <span class="w" style="animation-delay:.12s">d'un</span> <span class="w" style="animation-delay:.24s">lieu</span> <span class="w" style="animation-delay:.36s">exceptionnel</span></h1>
+    <div class="glass">Situé au calme dans une propriété de 200 hectares, à 50 minutes de Lyon (nouvelle autoroute A89), à 5mn de la gare de Roanne et à mi-chemin entre Paris et la Côte d'Azur, le Château du Bourg vous accueille dans le plus grand confort pour de petits ou grands évènements, pour passer la nuit ou encore profiter du point d'eau du domaine.</div>
+    <div class="hero-cta">
+      <a class="btn" href="#demande">Préparer ma demande</a>
+      <a class="btn ghost" href="#reception">Découvrir l'Orangerie</a>
+    </div>
+  </div>
+  <div class="dots" role="tablist" aria-label="Photos d'en-tête"></div>
+</section>
+
+<div class="atouts">
+  <ul class="wrap">
+    <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3h8a5 5 0 0 1 0 10H9v8H5V3zm4 4v2h4a1 1 0 0 0 0-2H9z"/></svg>Parking gratuit</li>
+    <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2"/><path d="M11 7h2v5h4v2h-6zm-1 3.3V13a4 4 0 1 0 5.4 3.7h2A6 6 0 1 1 10 10.3z"/></svg>Accès handicapés</li>
+    <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="6" cy="9" rx="2" ry="2.6"/><ellipse cx="10" cy="5.5" rx="2" ry="2.6"/><ellipse cx="14" cy="5.5" rx="2" ry="2.6"/><ellipse cx="18" cy="9" rx="2" ry="2.6"/><path d="M12 11c3 0 6 4.5 6 7a3 3 0 0 1-3 3c-1.2 0-2-.6-3-.6s-1.8.6-3 .6a3 3 0 0 1-3-3c0-2.5 3-7 6-7z"/></svg>Accepte les animaux</li>
+    <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 3v8h8a8 8 0 0 0-8-8zM3 11h8V9H6.3L5 6H2v2h1.7L6 13.5A6 6 0 0 0 9 19.7a2 2 0 1 0 3.5 1.1h2a2 2 0 1 0 3.9-.6A6 6 0 0 0 21 13H3z"/></svg>Adapté aux enfants</li>
+  </ul>
+</div>
+
+<div class="wrap avis rv" aria-label="Avis affichés sur le site actuel">
+  <span><span class="stars">★★★★½</span>4.5 (60 avis) Google</span>
+  <span><span class="stars">★★★★½</span>4.7 (11 avis) Mariages.net</span>
+  <span><span class="stars">★★★★★</span>5 (3 avis) tripadvisor</span>
+</div>
+
+<section style="padding-top:2rem">
+  <div class="wrap">
+    <div class="cards">
+      <a class="card rv" href="#reception">
+        <div class="ph"><img src="https://orangeriechateaudubourg.fr/reception/reception-9.jpg" alt="Tables dressées dans l'Orangerie" loading="lazy"></div>
+        <h3>Réception - Mariages</h3>
+        <p>L'ancienne orangerie restaurée : plus de 200 personnes, un espace traiteur, les chambres à deux pas.</p>
+        <span class="btn">En savoir plus</span>
+      </a>
+      <a class="card rv d1" href="#evenements">
+        <div class="ph"><img src="https://orangeriechateaudubourg.fr/reception/reception-19.jpg" alt="Exposition dans l'Orangerie" loading="lazy"></div>
+        <h3>Évènements</h3>
+        <p>Séminaires, concerts, expositions, réceptions : jusqu'à 400 personnes debout.</p>
+        <span class="btn">En savoir plus</span>
+      </a>
+      <a class="card rv" href="#chambres">
+        <div class="ph"><img src="https://orangeriechateaudubourg.fr/hote/ch3.jpg" alt="Chambre d'hôtes" loading="lazy"></div>
+        <h3>Chambres d'hôtes</h3>
+        <p>Trois vastes chambres et deux suites dans l'ancienne maison du 17e siècle.</p>
+        <span class="btn">En savoir plus</span>
+      </a>
+      <a class="card rv d1" href="#comtesse">
+        <div class="ph"><img src="https://orangeriechateaudubourg.fr/comtesse/peche-3.jpg" alt="Le plan d'eau du Domaine de la Comtesse" loading="lazy"></div>
+        <h3>Domaine de la Comtesse</h3>
+        <p>40 hectares d'eau naturellement sauvage, île, presqu'îles et hauts fonds.</p>
+        <span class="btn">En savoir plus</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="reception" class="bg-soft">
+  <div class="wrap split">
+    <div class="mosaic rv">
+      <img class="m1" src="https://orangeriechateaudubourg.fr/reception/reception-7.jpg" alt="Orangerie dressée pour un mariage" loading="lazy">
+      <img class="m2" src="https://orangeriechateaudubourg.fr/reception/reception-1-3.jpg" alt="Façade de l'Orangerie" loading="lazy">
+      <img class="m3" src="https://orangeriechateaudubourg.fr/reception/reception-1-4.jpg" alt="Rosier sur la brique de l'Orangerie" loading="lazy">
+      <img class="m4" src="https://orangeriechateaudubourg.fr/reception/reception-4.jpg" alt="Vin d'honneur devant l'Orangerie" loading="lazy">
+      <img class="m5" src="https://orangeriechateaudubourg.fr/reception/reception-11.jpg" alt="Tables rondes dans l'Orangerie" loading="lazy">
+    </div>
+    <div class="rv d1">
+      <span class="kicker">Réception-mariages-évènements</span>
+      <h2>L'ancienne orangerie du Château du Bourg</h2>
+      <p class="lead">L'ancienne orangerie du Château du Bourg a été restaurée et aménagée pour recevoir plus de 200 personnes dans le plus grand confort, avec un espace traiteur. Vous avez la possibilité de vous loger dans les chambres d'hôtes dans l'ancienne maison du 17e siècle, proche de l'orangerie.</p>
+      <div class="chiffres">
+        <div><b data-count="200">0</b><span>personnes</span></div>
+        <div><b data-count="200">0</b><span>chaises</span></div>
+        <div><b data-count="22">0</b><span>tables rondes de 10 personnes</span></div>
+        <div><b>✓</b><span>Espace traiteur</span></div>
+      </div>
+      <a class="btn" href="#demande" data-type="mariage">Vérifier ma date pour un mariage</a>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="daynight rv" id="dn" aria-label="Comparer l'Orangerie de jour et de nuit">
+      <img src="https://orangeriechateaudubourg.fr/reception/reception-1-2.jpg" alt="L'Orangerie en journée" loading="lazy">
+      <img class="night" src="https://orangeriechateaudubourg.fr/reception/reception-16.jpg" alt="L'Orangerie illuminée le soir" loading="lazy">
+      <div class="handle" role="slider" tabindex="0" aria-label="Glisser pour passer du jour à la nuit" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></div>
+      <span class="lbl" style="left:.8rem">Le jour</span><span class="lbl" style="right:.8rem">Le soir</span>
+    </div>
+  </div>
+</section>
+
+<section id="evenements">
+  <div class="wrap split">
+    <div class="rv">
+      <span class="kicker">Évènements</span>
+      <h2>Séminaires, concerts, expositions</h2>
+      <p class="lead">Au-delà des mariages, l'Orangerie se loue pour des séminaires, des réceptions d'entreprise, des concerts, des spectacles ou des expositions temporaires. 200 m², jusqu'à 200 personnes en banquet et 400 en cocktail, avec terrasse ombragée et parking privé dans le parc.</p>
+      <a class="btn" href="#demande" data-type="evenement">Préparer une demande d'évènement</a>
+    </div>
+    <div class="mosaic rv d1">
+      <img class="m1" src="https://orangeriechateaudubourg.fr/reception/reception-18.jpg" alt="Exposition dans l'Orangerie" loading="lazy">
+      <img class="m2" src="https://orangeriechateaudubourg.fr/reception/reception-20.jpg" alt="Œuvre exposée" loading="lazy">
+      <img class="m3" src="https://orangeriechateaudubourg.fr/reception/reception-6.jpg" alt="Buffet lors d'une réception" loading="lazy">
+      <img class="m4" src="https://orangeriechateaudubourg.fr/reception/reception-5.jpg" alt="Invités devant l'Orangerie" loading="lazy">
+      <img class="m5" src="https://orangeriechateaudubourg.fr/reception/reception-13.jpg" alt="L'Orangerie illuminée" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="chambres" class="bg-soft">
+  <div class="wrap">
+    <span class="kicker rv">Chambres d'hôtes</span>
+    <h2 class="rv">Trois vastes chambres et deux suites</h2>
+    <p class="lead rv">L'ancienne maison du 17<sup>e</sup> siècle, proche de l'Orangerie, vous offre trois vastes chambres et deux suites. Filtrez selon vos besoins, puis ajoutez les chambres souhaitées à votre demande.</p>
+    <div class="filters rv" role="group" aria-label="Filtrer les chambres">
+      <button class="chip on" data-f="all">Toutes</button>
+      <button class="chip" data-f="pmr">Accessible PMR</button>
+      <button class="chip" data-f="jardin">Vue sur le jardin</button>
+      <button class="chip" data-f="bain">Baignoire</button>
+      <button class="chip" data-f="famille">Famille (4 pers.)</button>
+    </div>
+    <div class="rooms" id="rooms"></div>
+    <p class="tarifs rv">Petit-déjeuner compris. Tarifs 2026 publiés par Roannais Tourisme : 125 € la nuit pour une chambre, 200 € pour l'appartement, hors taxe de séjour — à confirmer par le domaine. Lits de 160 cm séparables en deux lits de 80 cm.</p>
+  </div>
+</section>
+
+<section id="demande">
+  <div class="wrap">
+    <span class="kicker rv">Contact-réservation-accès</span>
+    <h2 class="rv">Préparez votre demande en une minute</h2>
+    <p class="lead rv">Choisissez votre projet, indiquez votre date et le nombre de personnes : la page vérifie ce que le domaine peut accueillir et prépare un message complet, prêt à envoyer. Le Château du Bourg vous répond avec ses disponibilités.</p>
+    <div class="planner rv">
+      <div class="p-form">
+        <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        <div class="types" role="radiogroup" aria-label="Votre projet">
+          <button class="type" data-t="mariage" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/><path d="M10 4l2 3 2-3"/></svg><span><b>Mariage</b><small>Réception dans l'Orangerie</small></span></button>
+          <button class="type" data-t="evenement" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="1"/><path d="M8 21h8M12 17v4"/></svg><span><b>Évènement</b><small>Séminaire, fête, concert…</small></span></button>
+          <button class="type" data-t="chambres" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 18V8M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/></svg><span><b>Chambres d'hôtes</b><small>Une ou plusieurs nuits</small></span></button>
+          <button class="type" data-t="peche" role="radio" aria-checked="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12c3-4 8-5 12-3l4-3v12l-4-3c-4 2-9 1-12-3z"/><circle cx="8" cy="11" r=".8" fill="currentColor"/></svg><span><b>Pêche</b><small>Domaine de la Comtesse</small></span></button>
+        </div>
+
+        <div id="f-details" class="hide">
+          <div class="row2">
+            <div class="field"><label for="d1" id="d1l">Date souhaitée</label><input type="date" id="d1"></div>
+            <div class="field" id="d2w"><label for="d2">Date de départ</label><input type="date" id="d2"></div>
+          </div>
+          <div class="field" id="gw">
+            <label for="guests">Nombre d'invités : <span class="range-out" id="gout">120</span></label>
+            <input type="range" id="guests" min="10" max="400" step="5" value="120">
+          </div>
+          <div class="field" id="fmt">
+            <label for="format">Format</label>
+            <select id="format"><option value="assis">Repas assis (banquet)</option><option value="cocktail">Cocktail debout</option></select>
+          </div>
+          <div class="field hide" id="pw">
+            <label for="pers">Nombre de personnes à loger : <span class="range-out" id="pout">2</span></label>
+            <input type="range" id="pers" min="1" max="12" value="2">
+          </div>
+          <div class="field" id="roomsw">
+            <label>Chambres d'hôtes <small style="font-weight:400">(cliquez pour ajouter / retirer)</small></label>
+            <div class="filters" id="roompick" style="margin:.2rem 0 0"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="nom">Votre nom</label><input id="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+            <div class="field"><label for="tel2">Téléphone</label><input id="tel2" type="tel" autocomplete="tel" placeholder="06 …"></div>
+          </div>
+          <div class="field"><label for="msg">Précisions (facultatif)</label><textarea id="msg" rows="3" placeholder="Traiteur envisagé, horaires, besoins particuliers…"></textarea></div>
+        </div>
+      </div>
+
+      <aside class="p-side" aria-live="polite">
+        <h3 style="font-size:1.25rem;margin:0" id="s-title">Votre projet</h3>
+        <p id="s-empty" style="margin:0;color:var(--couleur-principale-200);font-size:.92rem">Choisissez un type de projet à gauche pour commencer.</p>
+        <div id="s-tables" class="hide">
+          <div style="font-size:.85rem;color:var(--couleur-principale-200)">Les 22 tables rondes de l'Orangerie</div>
+          <div class="tables" id="tbl"></div>
+        </div>
+        <div id="s-lines"></div>
+        <div id="s-warn" class="warn hide"></div>
+        <div id="s-recap" class="recap hide"></div>
+        <div class="actions hide" id="s-act">
+          <a class="btn" id="mail" href="#">Envoyer la demande par e-mail</a>
+          <a class="btn ghost" href="tel:+33613221447">Appeler</a>
+          <button class="btn ghost" id="copy" type="button">Copier</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="comtesse" class="comtesse">
+  <div class="bgimg" id="parallax"></div>
+  <div class="wrap">
+    <span class="kicker rv" style="color:var(--couleur-bleue-300)">Pêche</span>
+    <h2 class="rv">"Le Domaine de la Comtesse"</h2>
+    <p class="lead rv">"Le Domaine de la Comtesse" est une gravière qui dévoile son charme naturel au travers de ses nombreux obstacles, comme son île, ses presqu'îles et ses hauts fonds. Sa profondeur est en moyenne de trois à cinq mètres, la nature du fond étant variable : sable, vase, herbiers ainsi que galets. La gravière est constituée principalement de carpes communes et de carpes miroir.</p>
+    <div class="fish">
+      <div class="rv"><b><span data-count="40">0</span> ha</b>naturellement sauvages</div>
+      <div class="rv d1"><b>10 à 12 kg</b>poids moyen des carpes</div>
+      <div class="rv d2"><b><span data-count="24.8" data-dec="1">0</span> kg</b>le record du domaine</div>
+    </div>
+    <div class="strip rv" id="strip"></div>
+    <p style="margin-top:1.6rem" class="rv"><a class="btn" href="#demande" data-type="peche">Demander les conditions de pêche</a></p>
+  </div>
+</section>
+
+<section id="acces">
+  <div class="wrap acces">
+    <div class="rv">
+      <span class="kicker">Accès</span>
+      <h2>Le Bourg, 42120 Perreux</h2>
+      <p class="lead">Au calme, dans une propriété de 200 hectares, aux portes de Roanne.</p>
+      <ul class="dist">
+        <li><span>Gare de Roanne</span><b>5 min</b></li>
+        <li><span>Lyon (autoroute A89)</span><b>50 min</b></li>
+        <li><span>Paris – Côte d'Azur</span><b>à mi-chemin</b></li>
+        <li><span>Coordonnées GPS</span><b>46°2'30.54''N / 4°7'20.23''E</b></li>
+      </ul>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=46.041817,4.122286" target="_blank" rel="noopener">Itinéraire</a>
+        <a class="btn" style="background:var(--couleur-principale-200)" href="mailto:42lebourg@gmail.com">42lebourg@gmail.com</a>
+      </div>
+    </div>
+    <iframe class="map rv d1" title="Carte d'accès au Château du Bourg" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.095%2C46.028%2C4.150%2C46.056&amp;layer=mapnik&amp;marker=46.041817%2C4.122286"></iframe>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span>Le Bourg, 42120 Perreux</span>
+      <a href="tel:+33613221447">06 13 22 14 47</a>
+      <a href="mailto:42lebourg@gmail.com">e-mail</a>
+      <span>Coordonnées GPS : 46°2'30.54''N / 4°7'20.23''E</span>
+      <span>Site partenaire : <a href="https://manoirdelaprevote-parigny.fr/" target="_blank" rel="noopener">Gîte Prévôté à Parigny</a></span>
+    </div>
+    <p class="mention"><b>Maquette de démonstration</b> — cette page est une proposition de site réalisée pour le Château du Bourg ; elle n'est pas le site officiel et n'enregistre aucune réservation (le bouton d'envoi prépare un e-mail à l'adresse du domaine). Textes, photos, capacités, avis et coordonnées repris du site actuel orangeriechateaudubourg.fr ; surface, capacité cocktail et tarifs des chambres issus de la fiche Roannais Tourisme 2026 (indicatifs, non contractuels). Toutes les photos sont celles du domaine. Couleurs et police reprises du site actuel, ajustables.</p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button aria-label="Fermer">✕</button><img alt=""></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const IMG='https://orangeriechateaudubourg.fr/';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* Chambres — descriptions reprises mot pour mot du site actuel */
+const ROOMS=[
+ {id:'alix',n:'Chambre Alix',d:"Chambre Alix, à l'étage, avec salon, chambre avec lit double, salle de bain avec douche, toilettes.",p:2,img:['hote/ch2bis.jpg','hote/ch2.jpg'],t:['À l\'étage','Salon','Douche'],f:[]},
+ {id:'felix',n:'Chambre Félix',d:"Chambre Félix, à l'étage et vue sur le jardin, lit double, douche, toilettes.",p:2,img:['hote/ch5.jpg','hote/ch6.jpg'],t:['À l\'étage','Vue jardin','Douche'],f:['jardin']},
+ {id:'zoe',n:'Chambre Zoé',d:"Chambre Zoé, en rez de jardin et facile d'accès. Aménagée pour les personnes à mobilité réduite, lit double, douche italienne, toilettes.",p:2,img:['hote/ch1.jpg','hote/ch11.jpg'],t:['Rez de jardin','PMR','Douche italienne'],f:['pmr']},
+ {id:'suite',n:'Suite parentale',d:"Suite parentale, à l'étage, avec une chambre lit double et une chambre avec deux lits séparés, salle de bain avec douche et baignoire, toilettes.",p:4,img:['hote/ch10.jpg','hote/ch9.jpg'],t:['À l\'étage','2 chambres','Baignoire'],f:['bain','famille']},
+ {id:'elisabeth',n:'Chambre Elisabeth',d:"Chambre Elisabeth, à l'étage et vue sur le jardin, lit double, baignoire, toilettes.",p:2,img:['hote/ch7.jpg','hote/ch8.jpg'],t:['À l\'étage','Vue jardin','Baignoire'],f:['jardin','bain']}
+];
+const sel=new Set();
+const roomsEl=$('#rooms');
+roomsEl.innerHTML=ROOMS.map(r=>`<article class="room rv" data-f="${r.f.join(' ')}" data-id="${r.id}">
+ <div class="ph"><img src="${IMG+r.img[0]}" alt="${r.n}" loading="lazy"><img src="${IMG+r.img[1]}" alt="" loading="lazy"></div>
+ <div class="body"><h3>${r.n}</h3><p>${r.d}</p><div class="tags">${r.t.map(x=>`<span>${x}</span>`).join('')}<span>${r.p} pers.</span></div>
+ <button class="add" data-id="${r.id}" type="button">+ Ajouter à ma demande</button></div></article>`).join('');
+$('#roompick').innerHTML=ROOMS.map(r=>`<button class="chip" type="button" data-id="${r.id}">${r.n.replace('Chambre ','')}</button>`).join('');
+
+$$('.filters .chip[data-f]').forEach(c=>c.onclick=()=>{
+  $$('.chip[data-f]').forEach(x=>x.classList.toggle('on',x===c));
+  const f=c.dataset.f;
+  $$('.room').forEach(r=>r.classList.toggle('off',f!=='all'&&!r.dataset.f.split(' ').includes(f)));
+});
+function toggleRoom(id){sel.has(id)?sel.delete(id):sel.add(id);syncRooms();update();}
+function syncRooms(){
+  $$('.room .add').forEach(b=>{const on=sel.has(b.dataset.id);b.classList.toggle('sel',on);b.textContent=on?'✓ Dans ma demande':'+ Ajouter à ma demande'});
+  $$('#roompick .chip').forEach(b=>b.classList.toggle('on',sel.has(b.dataset.id)));
+}
+$$('.room .add').forEach(b=>b.onclick=()=>{toggleRoom(b.dataset.id);if(!type){setType('chambres')}toast(sel.has(b.dataset.id)?'Chambre ajoutée à votre demande':'Chambre retirée');});
+$$('#roompick .chip').forEach(b=>b.onclick=()=>toggleRoom(b.dataset.id));
+
+/* Planificateur */
+let type=null;
+const LABEL={mariage:'Mariage',evenement:'Évènement',chambres:"Chambres d'hôtes",peche:'Pêche au Domaine de la Comtesse'};
+const tbl=$('#tbl'); tbl.innerHTML='<i></i>'.repeat(22);
+function setType(t){
+  type=t;
+  $$('.type').forEach(b=>{const on=b.dataset.t===t;b.classList.toggle('on',on);b.setAttribute('aria-checked',on)});
+  $('#f-details').classList.remove('hide');
+  const ev=t==='mariage'||t==='evenement', ch=t==='chambres';
+  $('#gw').classList.toggle('hide',!ev); $('#fmt').classList.toggle('hide',!ev);
+  $('#pw').classList.toggle('hide',!ch);
+  $('#roomsw').classList.toggle('hide',t==='peche');
+  $('#d2w').classList.toggle('hide',!ch);
+  $('#d1l').textContent=ch?"Date d'arrivée":'Date souhaitée';
+  $('#s-tables').classList.toggle('hide',!ev);
+  update();
+}
+$$('.type').forEach(b=>b.onclick=()=>setType(b.dataset.t));
+$$('[data-type]').forEach(a=>a.addEventListener('click',()=>setType(a.dataset.type)));
+['guests','pers','d1','d2','format','nom','tel2','msg'].forEach(id=>$('#'+id).addEventListener('input',update));
+
+const fmtD=v=>v?new Date(v+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'à préciser';
+function nights(){const a=$('#d1').value,b=$('#d2').value;if(!a||!b)return 0;return Math.max(0,Math.round((new Date(b)-new Date(a))/864e5));}
+function update(){
+  const steps=$$('.steps i'); steps.forEach((s,i)=>s.classList.toggle('on',i===0||(i===1&&type)||(i===2&&type&&$('#d1').value)));
+  if(!type)return;
+  $('#s-empty').classList.add('hide');
+  $('#s-title').textContent=LABEL[type];
+  const g=+$('#guests').value; $('#gout').textContent=g;
+  const p=+$('#pers').value; $('#pout').textContent=p;
+  const lines=[], warn=[];
+  const capRooms=[...sel].reduce((s,id)=>s+ROOMS.find(r=>r.id===id).p,0);
+  if(type==='mariage'||type==='evenement'){
+    const assis=$('#format').value==='assis';
+    const t=Math.ceil(g/10);
+    $$('#tbl i').forEach((el,i)=>{el.className=assis&&i<Math.min(t,22)?'f':''});
+    if(assis){lines.push(['Tables rondes de 10',`${Math.min(t,22)} / 22`]);lines.push(['Chaises',`${Math.min(g,200)} / 200`]);}
+    else lines.push(['Format','Cocktail debout']);
+    lines.push(['Capacité',assis?'200 personnes assises':'400 personnes debout']);
+    if(assis&&g>200)warn.push(`Au-delà de 200 convives assis, la capacité de l'Orangerie est dépassée : le domaine pourra vous conseiller (format cocktail jusqu'à 400 personnes).`);
+    if(!assis&&g>400)warn.push(`La capacité en cocktail est de 400 personnes debout.`);
+    lines.push(['Espace traiteur','Inclus']);
+    if(sel.size)lines.push(["Chambres d'hôtes",`${sel.size} chambre(s), ${capRooms} couchages`]);
+    else lines.push(["Chambres d'hôtes",'Aucune (jusqu\'à 12 couchages possibles)']);
+  }
+  if(type==='chambres'){
+    const n=nights();
+    lines.push(['Arrivée',$('#d1').value?fmtD($('#d1').value):'à préciser']);
+    lines.push(['Nuits',n||'à préciser']);
+    lines.push(['Personnes',p]);
+    lines.push(['Chambres choisies',sel.size?[...sel].map(id=>ROOMS.find(r=>r.id===id).n.replace('Chambre ','')).join(', '):'à choisir']);
+    if(sel.size&&capRooms<p)warn.push(`Les chambres choisies offrent ${capRooms} couchage(s) pour ${p} personne(s) : ajoutez une chambre ou la suite parentale.`);
+    if(!sel.size&&p>2)warn.push(`Astuce : la suite parentale accueille jusqu'à 4 personnes sur deux chambres.`);
+    if(n&&sel.size){
+      const est=[...sel].reduce((s,id)=>s+(id==='suite'?200:125),0)*n;
+      lines.push(['Estimation indicative',`${est.toLocaleString('fr-FR')} € (petit-déjeuner compris)`]);
+    }
+  }
+  if(type==='peche'){
+    lines.push(['Plan d\'eau','40 ha, carpes communes et miroir']);
+    lines.push(['Tarifs et conditions','Sur demande auprès du domaine']);
+    if(sel.size)lines.push(['Hébergement',`${sel.size} chambre(s) d'hôtes`]);
+  }
+  if(type!=='chambres')lines.unshift(['Date',fmtD($('#d1').value)]);
+  if(type==='mariage'||type==='evenement')lines.splice(1,0,['Invités',g]);
+  $('#s-lines').innerHTML=lines.map(([a,b])=>`<div class="side-line"><span>${a}</span><b>${b}</b></div>`).join('');
+  $('#s-warn').classList.toggle('hide',!warn.length); $('#s-warn').textContent=warn.join(' ');
+  const nom=$('#nom').value.trim(), tel=$('#tel2').value.trim(), msg=$('#msg').value.trim();
+  const body=`Bonjour,\n\nJe souhaiterais connaître vos disponibilités pour le projet suivant :\n\nProjet : ${LABEL[type]}\n`+lines.map(([a,b])=>`${a} : ${b}`).join('\n')+(type==='chambres'&&$('#d2').value?`\nDépart : ${fmtD($('#d2').value)}`:'')+(msg?`\n\nPrécisions : ${msg}`:'')+`\n\nMerci d'avance,\n${nom||'[Votre nom]'}${tel?'\n'+tel:''}`;
+  $('#s-recap').textContent=body; $('#s-recap').classList.remove('hide'); $('#s-act').classList.remove('hide');
+  const subj=`Demande de disponibilité — ${LABEL[type]}${$('#d1').value?' — '+new Date($('#d1').value+'T12:00').toLocaleDateString('fr-FR'):''}`;
+  $('#mail').href=`mailto:42lebourg@gmail.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+}
+$('#copy').onclick=()=>{navigator.clipboard?.writeText($('#s-recap').textContent).then(()=>toast('Demande copiée'),()=>toast('Copie impossible'))};
+const today=new Date().toISOString().slice(0,10); $('#d1').min=today; $('#d2').min=today;
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200);}
+
+/* Hero : diaporama */
+const slides=$$('.hero .slide'), dots=$('.dots'); let cur=0, timer;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));b.onclick=()=>{go(i);restart()};dots.appendChild(b)});
+function go(i){slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');dots.children[cur].classList.add('on');}
+function restart(){clearInterval(timer);timer=setInterval(()=>go((cur+1)%slides.length),6500)}
+dots.children[0].classList.add('on'); restart();
+
+/* Galerie pêche */
+const fish=[1,10,11,12,13,14,15,16,2,3,4,5,6,7,8,9];
+$('#strip').innerHTML=fish.map(n=>`<img src="${IMG}comtesse/${n}.jpg" alt="Prise au Domaine de la Comtesse" loading="lazy">`).join('');
+
+/* Lightbox */
+const lb=$('#lb');
+document.addEventListener('click',e=>{const im=e.target.closest('.mosaic img,.strip img');if(im){lb.querySelector('img').src=im.src;lb.querySelector('img').alt=im.alt;lb.classList.add('on');lb.querySelector('button').focus()}});
+lb.onclick=e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* Jour / nuit */
+const dn=$('#dn'), night=dn.querySelector('.night'), hd=dn.querySelector('.handle');
+function setDN(pct){pct=Math.max(0,Math.min(100,pct));night.style.clipPath=`inset(0 0 0 ${pct}%)`;hd.style.left=pct+'%';hd.setAttribute('aria-valuenow',Math.round(pct));}
+let drag=false;
+dn.addEventListener('pointerdown',e=>{drag=true;dn.setPointerCapture(e.pointerId);move(e)});
+dn.addEventListener('pointermove',e=>drag&&move(e));
+dn.addEventListener('pointerup',()=>drag=false);
+function move(e){const r=dn.getBoundingClientRect();setDN((e.clientX-r.left)/r.width*100)}
+hd.addEventListener('keydown',e=>{const v=+hd.getAttribute('aria-valuenow');if(e.key==='ArrowLeft')setDN(v-5);if(e.key==='ArrowRight')setDN(v+5)});
+
+/* Révélations + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;en.target.classList.add('in');io.unobserve(en.target)}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const co=new IntersectionObserver(es=>es.forEach(en=>{if(!en.isIntersecting)return;const el=en.target,end=+el.dataset.count,dec=+(el.dataset.dec||0);co.unobserve(el);
+  if(reduce){el.textContent=end.toLocaleString('fr-FR',{minimumFractionDigits:dec});return}
+  const t0=performance.now();(function f(t){const k=Math.min(1,(t-t0)/1400),v=end*(1-Math.pow(1-k,3));el.textContent=v.toLocaleString('fr-FR',{minimumFractionDigits:dec,maximumFractionDigits:dec});if(k<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+$$('[data-count]').forEach(el=>co.observe(el));
+
+/* En-tête, menu mobile, parallaxe, lien actif */
+const hdr=$('header.top'), par=$('#parallax'), com=$('#comtesse');
+addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',scrollY>10);
+  if(!reduce){const r=com.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)par.style.transform=`translateY(${(r.top-innerHeight/2)*-.12}px)`}
+},{passive:true});
+const burger=$('.burger'), menu=$('nav.menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+$$('nav.menu a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded','false')});
+const so=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)$$('nav.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['reception','chambres','comtesse','demande'].forEach(id=>so.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
