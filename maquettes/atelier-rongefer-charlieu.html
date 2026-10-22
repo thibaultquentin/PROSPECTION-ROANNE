@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Atelier Rongefer — Restaurant gastronomique et gîtes à Charlieu</title>
+<meta name="description" content="Restaurant gastronomique et gîtes de caractère à Charlieu, à 20 minutes de Roanne : la cuisine de saison de Carine et Fabien Gauthier dans une ancienne usine de tissage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Damion&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel atelierrongefer.fr (css/general.css)
+   Couleurs relevées dans la feuille de style existante,
+   polices : Damion (titres, menu) + Georgia (texte), comme aujourd'hui.
+   ========================================================= */
+:root{
+  --anthracite:#303030;      /* texte et fonds sombres du site actuel */
+  --or:#e0af2c;              /* doré des liens et survols */
+  --or-doux:rgba(255,216,128,.66);
+  --prune:#5e3c3d;           /* voile prune rgba(94,60,61,.7) */
+  --lin:#f0ece3;             /* fond crème */
+  --rose-pale:#f8f2f2;
+  --gris:#949494;
+  --blanc:#fff;
+  --f-titre:'Damion',cursive;
+  --f-texte:Georgia,'Times New Roman',serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--anthracite);background:var(--lin);line-height:1.65;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--f-titre);font-weight:400;line-height:1.1}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--anthracite);color:#ddd;font-size:13px;text-align:center;padding:7px 16px}
+.demo b{color:var(--or);font-weight:400}
+
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(48,48,48,.92);backdrop-filter:blur(8px);color:#fff;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{font-family:var(--f-titre);font-size:30px;text-decoration:none;color:#fff;white-space:nowrap}
+.brand span{color:var(--or)}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{font-family:var(--f-titre);font-size:22px;text-decoration:none;position:relative;color:#f3efe6}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover{color:var(--or)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 24px;border-radius:999px;border:1px solid var(--or);background:var(--or);color:var(--anthracite);font-family:var(--f-texte);font-size:15px;text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(224,175,44,.35)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:inherit}
+.btn.ghost:hover{background:var(--or);color:var(--anthracite)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:28px;cursor:pointer;min-width:44px;min-height:44px}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;align-items:center;gap:6px;background:var(--anthracite);padding:18px 0 26px;transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .btn.call{display:none}
+}
+
+/* hero */
+.hero{position:relative;height:min(88vh,820px);min-height:520px;overflow:hidden;color:#fff;display:grid;align-items:end}
+.slides{position:absolute;inset:0}
+.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 9s linear}
+.slides img.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(48,48,48,.15) 0%,rgba(48,48,48,.25) 45%,rgba(94,60,61,.82) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-bottom:64px}
+.hero small{letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--or-doux)}
+.hero h1{font-size:clamp(54px,9vw,118px);margin:6px 0 4px}
+.hero p.lead{max-width:620px;font-size:clamp(17px,1.6vw,20px);opacity:.95}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.hero .ctas .ghost{color:#fff;border-color:rgba(255,255,255,.7)}
+.dots{position:absolute;right:24px;bottom:28px;z-index:3;display:flex;gap:8px}
+.dots button{width:34px;height:3px;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0}
+.dots button.on{background:var(--or)}
+.hero h1 .l{display:inline-block;opacity:0;transform:translateY(30px);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* fil doré (clin d'oeil à l'ancienne usine de tissage) */
+.thread{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.thread path{fill:none;stroke:var(--or);stroke-width:1.4;opacity:.55}
+
+section{position:relative;padding:clamp(70px,9vw,120px) 0}
+.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--prune)}
+.h2{font-size:clamp(44px,6vw,74px);color:var(--anthracite);margin:4px 0 18px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* bienvenue */
+.welcome{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,80px);align-items:center}
+.welcome .pics{position:relative;aspect-ratio:4/4.4}
+.welcome .pics img{position:absolute;object-fit:cover;border-radius:4px;box-shadow:0 30px 60px rgba(48,48,48,.22)}
+.welcome .pics .a{inset:0 18% 22% 0;width:82%;height:78%}
+.welcome .pics .b{right:0;bottom:0;width:52%;height:46%;border:8px solid var(--lin)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.facts div{border-top:1px solid rgba(48,48,48,.25);padding-top:12px}
+.facts strong{display:block;font-family:var(--f-titre);font-size:40px;color:var(--prune);font-weight:400;line-height:1}
+.facts span{font-size:14px;color:#555}
+@media (max-width:860px){.welcome{grid-template-columns:1fr}.welcome .pics{aspect-ratio:4/3.6}}
+
+/* lieux : salles / terrasse / cuisine */
+.places{background:var(--anthracite);color:#eee;overflow:hidden}
+.places .h2{color:#fff}
+.places .eyebrow{color:var(--or-doux)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 30px}
+.tabs button{font-family:var(--f-titre);font-size:24px;background:none;border:1px solid rgba(255,255,255,.25);color:#ddd;border-radius:999px;padding:6px 22px;cursor:pointer;min-height:44px;transition:all .3s}
+.tabs button[aria-selected=true]{background:var(--or);border-color:var(--or);color:var(--anthracite)}
+.panel{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,60px);align-items:center}
+.panel[hidden]{display:none}
+.panel figure{overflow:hidden;border-radius:4px;aspect-ratio:16/10}
+.panel figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.panel figure:hover img{transform:scale(1.05)}
+.panel h3{font-size:46px;color:var(--or);margin-bottom:10px}
+.panel blockquote{font-style:italic;color:#bbb;border-left:2px solid var(--or);padding-left:16px;margin-top:18px;font-size:15px}
+.panel ul{list-style:none;margin-top:14px}
+.panel li{padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.15);font-size:15px}
+.panel li::before{content:"— ";color:var(--or)}
+@media (max-width:860px){.panel{grid-template-columns:1fr}}
+
+/* menus */
+.menus-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+.card-menu{background:#fff;border-radius:6px;padding:clamp(24px,3vw,40px);box-shadow:0 20px 50px rgba(48,48,48,.08);position:relative;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s}
+.card-menu:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(48,48,48,.14)}
+.card-menu::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--or),var(--prune))}
+.card-menu h3{font-size:46px}
+.card-menu .when{font-size:14px;color:var(--prune);margin-bottom:16px}
+.card-menu .from{position:absolute;top:28px;right:28px;font-family:var(--f-titre);font-size:30px;color:var(--or)}
+.prices{list-style:none;margin:14px 0}
+.prices li{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid #eee;font-size:15px}
+.prices li b{font-weight:400;color:var(--prune);white-space:nowrap}
+details.carte{margin-top:14px}
+details.carte summary{cursor:pointer;color:var(--prune);font-size:15px;list-style:none;display:flex;align-items:center;gap:8px;min-height:44px}
+details.carte summary::before{content:"+";display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid var(--prune);border-radius:50%;transition:transform .3s}
+details.carte[open] summary::before{transform:rotate(45deg)}
+.carte h4{font-family:var(--f-titre);font-weight:400;font-size:24px;color:var(--or);margin-top:12px}
+.carte p{font-size:15px;color:#444}
+.note{font-size:13px;color:#777;margin-top:20px}
+.trees{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.trees span{font-family:var(--f-titre);font-size:24px;padding:4px 16px;border-radius:999px;background:rgba(94,60,61,.08);color:var(--prune)}
+@media (max-width:860px){.menus-grid{grid-template-columns:1fr}}
+
+/* OUTIL : préparer votre venue */
+.planner{background:linear-gradient(180deg,var(--rose-pale),var(--lin))}
+.tool{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;margin-top:30px;align-items:start}
+.step{background:#fff;border-radius:6px;padding:24px;margin-bottom:18px;box-shadow:0 12px 32px rgba(48,48,48,.06)}
+.step h3{font-size:30px;display:flex;align-items:center;gap:12px}
+.step h3 i{font-style:normal;font-family:var(--f-texte);font-size:13px;width:28px;height:28px;border-radius:50%;display:inline-grid;place-items:center;background:var(--anthracite);color:var(--or)}
+.days{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 6px;scroll-snap-type:x mandatory}
+.day{scroll-snap-align:start;flex:0 0 74px;border:1px solid #ddd;border-radius:10px;background:#fff;padding:10px 4px;text-align:center;cursor:pointer;font-family:var(--f-texte);transition:all .25s var(--ease);min-height:44px}
+.day small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#777}
+.day strong{display:block;font-size:22px;font-weight:400}
+.day em{display:block;font-style:normal;font-size:10px;color:var(--prune)}
+.day.closed{opacity:.45;cursor:not-allowed;text-decoration:line-through}
+.day[aria-pressed=true]{background:var(--anthracite);color:#fff;border-color:var(--anthracite);transform:translateY(-3px)}
+.day[aria-pressed=true] small,.day[aria-pressed=true] em{color:var(--or)}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.seg button{flex:1 1 140px;border:1px solid #ddd;background:#fff;border-radius:10px;padding:12px;cursor:pointer;font-family:var(--f-texte);font-size:15px;text-align:left;min-height:44px;transition:all .25s}
+.seg button small{display:block;color:#777;font-size:12px}
+.seg button[aria-pressed=true]{border-color:var(--or);box-shadow:0 0 0 2px var(--or) inset;background:#fffaf0}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.counter{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #eee}
+.counter .c{display:flex;align-items:center;gap:10px}
+.counter button{width:40px;height:40px;border-radius:50%;border:1px solid var(--anthracite);background:#fff;font-size:20px;cursor:pointer}
+.counter output{min-width:26px;text-align:center;font-size:20px}
+.opt{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #eee;cursor:pointer;font-size:15px}
+.opt input{margin-top:5px;accent-color:var(--prune);width:18px;height:18px}
+.opt small{display:block;color:#777}
+.ticket{position:sticky;top:96px;background:var(--anthracite);color:#eee;border-radius:6px;padding:28px;overflow:hidden}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:16px;background:radial-gradient(circle at 8px 0,var(--lin) 7px,transparent 8px) repeat-x;background-size:16px 16px}
+.ticket h3{font-size:38px;color:var(--or)}
+.ticket .line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.15);font-size:15px}
+.ticket .total{font-family:var(--f-titre);font-size:48px;color:#fff;margin-top:10px;transition:transform .3s var(--ease)}
+.ticket .total.bump{transform:scale(1.08)}
+.ticket .msg{font-size:14px;color:#ccc;margin:10px 0 16px}
+.ticket .msg.warn{color:#ffbdb8}
+.ticket .act{display:grid;gap:10px}
+.ticket .act .ghost{color:#fff;border-color:rgba(255,255,255,.4)}
+@media (max-width:900px){.tool{grid-template-columns:minmax(0,1fr)}.ticket{position:relative;top:0}}
+
+/* loges */
+.loges-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:30px}
+.loge{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(48,48,48,.08)}
+.loge figure{aspect-ratio:982/407;overflow:hidden;position:relative}
+.loge figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.loge:hover figure img{transform:scale(1.06)}
+.loge figure figcaption{position:absolute;left:16px;bottom:12px;font-family:var(--f-titre);font-size:40px;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.loge .body{padding:24px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.chips span{font-size:13px;border:1px solid #e6dfd0;border-radius:999px;padding:4px 12px;background:var(--lin)}
+.loge p{font-size:15px}
+.included{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.included div{padding:18px;border:1px solid rgba(48,48,48,.12);border-radius:6px;background:rgba(255,255,255,.5);font-size:15px}
+.included b{display:block;font-family:var(--f-titre);font-weight:400;font-size:26px;color:var(--prune)}
+@media (max-width:860px){.loges-grid{grid-template-columns:1fr}}
+
+/* cuisine / chef */
+.chef{background:var(--prune);color:#f4ecea}
+.chef .h2{color:#fff}
+.chef .eyebrow{color:var(--or-doux)}
+.chef-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.chef-grid img{border-radius:4px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.route{list-style:none;margin-top:22px;position:relative;padding-left:28px}
+.route::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1px;background:var(--or)}
+.route li{position:relative;padding:8px 0;font-size:16px}
+.route li::before{content:"";position:absolute;left:-25px;top:16px;width:11px;height:11px;border-radius:50%;background:var(--prune);border:2px solid var(--or)}
+.route li b{color:var(--or);font-weight:400}
+@media (max-width:860px){.chef-grid{grid-template-columns:1fr}}
+
+/* galerie défilante */
+.strip{overflow:hidden;padding:0;background:var(--anthracite)}
+.strip .track{display:flex;gap:6px;width:max-content;animation:slide 60s linear infinite}
+.strip:hover .track{animation-play-state:paused}
+.strip img{height:clamp(160px,22vw,260px);width:auto;object-fit:cover}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* offrir */
+.gift{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+.gcard{border-radius:6px;padding:28px;background:#fff;border:1px solid #eadfca;position:relative;transition:transform .45s var(--ease)}
+.gcard:hover{transform:rotate(-1deg) translateY(-6px)}
+.gcard .p{font-family:var(--f-titre);font-size:52px;color:var(--prune);line-height:1}
+.gcard h3{font-size:30px;margin:8px 0}
+.gcard p{font-size:15px}
+.gcard.dark{background:var(--anthracite);color:#eee;border-color:var(--anthracite)}
+.gcard.dark .p{color:var(--or)}
+@media (max-width:860px){.gift{grid-template-columns:1fr}}
+
+/* infos */
+.infos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px}
+.infos h3{font-size:34px;color:var(--prune);margin-bottom:8px}
+.infos p,.infos li{font-size:15px}
+.infos ul{list-style:none}
+.hours{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:6px 0;border-bottom:1px solid #e3dccd}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:var(--prune);font-weight:bold}
+.map{margin-top:40px;border-radius:6px;overflow:hidden;filter:grayscale(.4) sepia(.15);height:320px}
+.map iframe{width:100%;height:100%;border:0}
+@media (max-width:860px){.infos{grid-template-columns:1fr}}
+
+footer{background:var(--anthracite);color:#aaa;padding:50px 0 90px;font-size:14px}
+footer .brand{font-size:36px}
+footer .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-start}
+footer .disclaimer{margin-top:28px;border-top:1px solid #444;padding-top:18px;font-size:12.5px;color:#999}
+
+/* barre d'action mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:8px}
+.mbar a{flex:1}
+@media (max-width:700px){.mbar{display:flex}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"L'Atelier Rongefer",
+  "description":"Restaurant gastronomique et gîtes de caractère (Les Loges de l'Atelier) dans une ancienne usine de tissage au cœur de Charlieu.",
+  "url":"https://www.atelierrongefer.fr/",
+  "telephone":"+33477600157",
+  "email":"contact@atelierrongefer.fr",
+  "servesCuisine":"Cuisine gastronomique de saison",
+  "priceRange":"22 € – 70 €",
+  "acceptsReservations":"True",
+  "address":{"@type":"PostalAddress","streetAddress":"22 rue Jean Jaurès","postalCode":"42190","addressLocality":"Charlieu","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.1620364,"longitude":4.1751841},
+  "areaServed":["Charlieu","Pays de Charlieu-Belmont","Roannais"],
+  "founder":[{"@type":"Person","name":"Fabien Gauthier"},{"@type":"Person","name":"Carine Gauthier"}],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Thursday","Friday","Saturday","Sunday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday"],"opens":"19:30","closes":"21:30"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour <b>L'Atelier Rongefer</b>, Charlieu. Non contractuelle.</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#accueil">L'Atelier <span>Rongefer</span></a>
+    <ul id="menu">
+      <li><a href="#restaurant">Restaurant</a></li>
+      <li><a href="#menus">Menus</a></li>
+      <li><a href="#venue">Réserver</a></li>
+      <li><a href="#loges">Les loges</a></li>
+      <li><a href="#offrir">Offrir L'Atelier</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn call" href="tel:+33477600157">04 77 60 01 57</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" aria-label="Bienvenue">
+  <div class="slides" aria-hidden="true">
+    <img class="on" src="https://www.atelierrongefer.fr/IMG/arton20.jpg" alt="">
+    <img src="https://www.atelierrongefer.fr/IMG/arton21.jpg" alt="">
+    <img src="https://www.atelierrongefer.fr/IMG/arton3.jpg" alt="">
+    <img src="https://www.atelierrongefer.fr/IMG/arton22.jpg" alt="">
+  </div>
+  <div class="wrap">
+    <small>Restaurant &amp; gîtes · Charlieu</small>
+    <h1 id="h1">Bienvenue à l'Atelier</h1>
+    <p class="lead">Carine et Fabien vous accueillent dans une ancienne usine de tissage du 20<sup>e</sup> siècle, au 22 rue Jean Jaurès : une cuisine de caractère au fil des saisons, un parc aux arbres centenaires, et deux gîtes à l'étage.</p>
+    <div class="ctas">
+      <a class="btn" href="#venue">Préparer ma venue</a>
+      <a class="btn ghost" href="#menus">Voir les menus</a>
+    </div>
+  </div>
+  <div class="dots" role="tablist" aria-label="Photos"></div>
+</section>
+
+<section id="restaurant">
+  <svg class="thread" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"><path id="fil" d="M-20 120 C 220 40, 380 260, 600 180 S 980 60, 1220 260"/></svg>
+  <div class="wrap welcome">
+    <div class="reveal">
+      <p class="eyebrow">En quelques mots</p>
+      <h2 class="h2">Le Restaurant</h2>
+      <p>L'Atelier Rongefer, un restaurant créé par Carine et Fabien dans cette bâtisse datant du 20<sup>e</sup> siècle. Une bâtisse cossue, des pierres jaunes de Charlieu, un parc magnifique avec des arbres centenaires…</p>
+      <p style="margin-top:12px">Du moderne, de l'élégance, tout en conservant l'esprit de cette usine : les poutres et châssis métalliques, la verrière.</p>
+      <div class="facts">
+        <div><strong data-count="2">0</strong><span>salles climatisées</span></div>
+        <div><strong data-count="35">0</strong><span>couverts en salle</span></div>
+        <div><strong data-count="25">0</strong><span>couverts en terrasse</span></div>
+      </div>
+    </div>
+    <div class="pics reveal">
+      <img class="a" src="https://www.atelierrongefer.fr/IMG/arton2.jpg" alt="Salle de restaurant de L'Atelier Rongefer, sous la verrière" loading="lazy">
+      <img class="b" src="https://www.atelierrongefer.fr/IMG/jpg/restaurant-charlieu-7.jpg" alt="Détail de la salle" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="places" aria-label="Le lieu">
+  <div class="wrap">
+    <p class="eyebrow">Restaurant</p>
+    <h2 class="h2">Salles, terrasse, cuisine</h2>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="p1" id="t1">En Salles</button>
+      <button role="tab" aria-selected="false" aria-controls="p2" id="t2">En Terrasse</button>
+      <button role="tab" aria-selected="false" aria-controls="p3" id="t3">En Cuisine</button>
+    </div>
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+      <figure><img src="https://www.atelierrongefer.fr/IMG/arton20.jpg" alt="Entrée du restaurant, ancienne machine à coudre et verrière" loading="lazy"></figure>
+      <div>
+        <h3>En Salles</h3>
+        <p>Une belle salle de restaurant de 35 couverts, lumineuse et moderne dans un esprit confiné et chaleureux.</p>
+        <ul><li>2 salles climatisées</li><li>Parking au sein même du restaurant</li><li>Accessible aux personnes à mobilité réduite</li></ul>
+        <blockquote>« Le bel art de la gastronomie est un art chaleureux. »</blockquote>
+      </div>
+    </div>
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <figure><img src="https://www.atelierrongefer.fr/IMG/arton3.jpg" alt="Table dressée en terrasse face au parc" loading="lazy"></figure>
+      <div>
+        <h3>En Terrasse</h3>
+        <p>Une belle terrasse d'été ombragée avec vue sur le parc, d'une capacité de 25 couverts. Côté ombre ou côté soleil, vous pourrez vous détendre tout au long de votre repas.</p>
+        <blockquote>« La gourmandise est un acte de notre jugement… »</blockquote>
+      </div>
+    </div>
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+      <figure><img src="https://www.atelierrongefer.fr/IMG/arton4.jpg" alt="Assiette du chef : poisson, légumes confits et jus" loading="lazy"></figure>
+      <div>
+        <h3>En Cuisine</h3>
+        <p>Carine et Fabien vous proposent de découvrir leur cuisine : du caractère, de la sensibilité et de l'harmonie dans les plats. Tous les plats sont « maison », élaborés sur place à partir de produits bruts.</p>
+        <blockquote>« Cuisiner suppose une tête légère, un esprit généreux et un cœur large. »</blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menus">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Une gourmandise au fil des saisons</p>
+      <h2 class="h2">Menus</h2>
+      <p style="max-width:680px">Nos menus suivent toujours la saisonnalité des produits. Ils portent les noms des arbres centenaires situés dans le parc du restaurant.</p>
+      <div class="trees"><span>Tilleul</span><span>Magnolia</span><span>Érable</span><span>Séquoia</span></div>
+    </div>
+    <div class="menus-grid">
+      <article class="card-menu reveal">
+        <span class="from">dès 22 €</span>
+        <h3>Saveur du moment</h3>
+        <p class="when">Servi uniquement le midi, du lundi au vendredi (hors jours fériés) · change toutes les semaines</p>
+        <ul class="prices">
+          <li>Entrée, plat <i>ou</i> plat, dessert <b>22 €</b></li>
+          <li>Entrée, plat, fromage <i>ou</i> dessert <b>27 €</b></li>
+          <li>Entrée, plat, fromage, dessert <b>35 €</b></li>
+        </ul>
+        <details class="carte"><summary>Voir un exemple de la carte</summary>
+          <h4>Entrées</h4><p>Ravioles de lieu jaune, beurre blanc au curry — ou tarte inversée au parmesan et vinaigrette de canard</p>
+          <h4>Plats</h4><p>Dos d'églefin poêlé, courgettes, coquillages, citrons confits et crème de coquillage — ou pressé d'effiloché de veau, polenta, girolles et sauce soja</p>
+          <h4>Desserts</h4><p>Cannelloni au caramel et poires fondantes — ou sablé aux chocolats et fleur de sureau — ou découverte de glaces et sorbets maison</p>
+        </details>
+      </article>
+      <article class="card-menu reveal">
+        <span class="from">dès 38 €</span>
+        <h3>Saveur Gourmande</h3>
+        <p class="when">Servi le soir, le week-end et les jours fériés</p>
+        <ul class="prices">
+          <li>Entrée, plat <i>ou</i> plat, dessert <b>38 €</b></li>
+          <li>Entrée, plat, fromage <i>ou</i> dessert <b>47 €</b></li>
+          <li>Entrée, plat, fromage, dessert <b>55 €</b></li>
+          <li>Entrée, poisson, viande, fromage, dessert <b>70 €</b></li>
+        </ul>
+        <details class="carte"><summary>Voir un exemple de la carte</summary>
+          <h4>Entrées</h4><p>Pain perdu de noix de Saint-Jacques, andouille de Charlieu, jus de volaille et fondue de poireaux — ou opéra de pintade, pomme de terre, foie gras, fruits secs et confit de Côte roannaise</p>
+          <h4>Plats</h4><p>Dos de cabillaud confit et poêlé, amandes de mer, jus de coquillages au fenouil et agrumes — ou le plat « confiance au chef » — ou faux-filet de bœuf charolais poêlé (supplément 5 €)</p>
+          <h4>Fromages &amp; desserts</h4><p>Faisselle de la Roharie ou assiette de fromages de notre région · Tarte au citron meringuée déstructurée, figues et coriandre — ou feuillantine chocolat et pop-corn</p>
+        </details>
+      </article>
+    </div>
+    <p class="note">Menus indicatifs, pouvant connaître quelques modifications. Menu enfant à 15 € (filet de poisson ou steak haché + fromage blanc ou glace maison). Toutes nos viandes bovines sont nées, élevées et abattues en France.</p>
+  </div>
+</section>
+
+<section class="strip" aria-label="Galerie">
+  <div class="track">
+    <img src="https://www.atelierrongefer.fr/IMG/arton6.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/dessert-restaurant-atelier-rongefer-8.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/arton21.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/cuisine-restaurant-charlieu-9.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/restaurant-charlieu-1.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/atelier-rongefer-charlieu-5.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/arton6.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/dessert-restaurant-atelier-rongefer-8.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/arton21.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/cuisine-restaurant-charlieu-9.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/restaurant-charlieu-1.jpg" alt="" loading="lazy">
+    <img src="https://www.atelierrongefer.fr/IMG/jpg/atelier-rongefer-charlieu-5.jpg" alt="" loading="lazy">
+  </div>
+</section>
+
+<!-- ===== OUTIL CENTRAL ===== -->
+<section class="planner" id="venue">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Réservation</p>
+      <h2 class="h2">Préparer votre venue</h2>
+      <p style="max-width:700px">Choisissez un jour : le site vous dit tout de suite si nous sommes ouverts, quel menu est servi ce jour-là et ce que coûtera votre repas. Vous pouvez y ajouter une nuit aux Loges de l'Atelier, puis nous envoyer votre demande en un clic.</p>
+    </div>
+    <div class="tool">
+      <div>
+        <div class="step reveal">
+          <h3><i>1</i>Le jour</h3>
+          <div class="days" id="days" aria-label="Choisir un jour"></div>
+        </div>
+        <div class="step reveal">
+          <h3><i>2</i>Le service</h3>
+          <div class="seg" id="services">
+            <button data-s="midi" aria-pressed="true">Le midi<small id="sMidi"></small></button>
+            <button data-s="soir" aria-pressed="false">Le soir<small id="sSoir"></small></button>
+          </div>
+        </div>
+        <div class="step reveal">
+          <h3><i>3</i>Votre menu</h3>
+          <p id="menuName" style="font-size:15px;color:var(--prune);margin-top:8px"></p>
+          <div class="seg" id="formulas"></div>
+          <div class="counter"><span>Adultes</span><div class="c"><button data-k="ad" data-d="-1" aria-label="Retirer un adulte">−</button><output id="ad">2</output><button data-k="ad" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+          <div class="counter"><span>Enfants <small style="color:#777">(menu à 15 €)</small></span><div class="c"><button data-k="enf" data-d="-1" aria-label="Retirer un enfant">−</button><output id="enf">0</output><button data-k="enf" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+          <label class="opt"><input type="checkbox" id="terrasse"><span>En terrasse si le temps le permet<small>25 couverts face au parc</small></span></label>
+        </div>
+        <div class="step reveal">
+          <h3><i>4</i>Prolonger à l'étage</h3>
+          <label class="opt"><input type="radio" name="nuit" value="" checked><span>Pas de nuit, merci</span></label>
+          <label class="opt"><input type="radio" name="nuit" value="gite"><span>Une nuit aux Loges de l'Atelier<small>Le Bosrozier ou Le Calinon · tarif communiqué à la réservation</small></span></label>
+          <label class="opt"><input type="radio" name="nuit" value="etape"><span>Soirée étape — 95 € TTC<small>Réservée aux professionnels : la nuit, un dîner et un petit-déjeuner à disposition</small></span></label>
+          <label class="opt" id="pdjRow"><input type="checkbox" id="pdj"><span>Plateau petit-déjeuner dans la loge — 12 € / personne<small>Brioche, pain, confiture, beurre, yaourt, céréales, fruit frais</small></span></label>
+        </div>
+      </div>
+      <aside class="ticket" aria-live="polite">
+        <h3>Votre venue</h3>
+        <div id="lines"></div>
+        <div class="total" id="total">0 €</div>
+        <p class="msg" id="msg"></p>
+        <div class="act">
+          <a class="btn" id="send" href="#">Envoyer ma demande</a>
+          <a class="btn ghost" href="tel:+33477600157">Appeler le 04 77 60 01 57</a>
+          <button class="btn ghost" id="ics" type="button">Ajouter à mon agenda</button>
+        </div>
+      </aside>
+    </div>
+    <p class="note">Estimation indicative à partir des tarifs affichés, hors boissons. La réservation n'est confirmée qu'après réponse du restaurant.</p>
+  </div>
+</section>
+
+<section class="chef" aria-label="Le chef">
+  <div class="wrap chef-grid">
+    <img class="reveal" src="https://www.atelierrongefer.fr/IMG/jpg/restaurant-atelier-rongefer-charlieu-1.jpg" alt="En cuisine à L'Atelier Rongefer" loading="lazy">
+    <div class="reveal">
+      <p class="eyebrow">En Cuisine</p>
+      <h2 class="h2">Fabien Gauthier</h2>
+      <p>Une cuisine de caractère, qui s'applique sans cesse à évoluer et à s'améliorer — aux côtés de Carine, son épouse.</p>
+      <ul class="route">
+        <li><b>Chamalières</b> — cinq années d'école hôtelière</li>
+        <li><b>Troisgros</b> à Roanne, <b>Georges Blanc</b> à Vonnas</li>
+        <li><b>Paris</b> — une année au service du ministre de l'Intérieur</li>
+        <li><b>2002</b> — retour au pays natal : le Moulin de Rongefer à Saint-Nizier-sous-Charlieu</li>
+        <li><b>Aujourd'hui</b> — L'Atelier Rongefer, au cœur de Charlieu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="loges">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Gîte de caractère</p>
+      <h2 class="h2">Les Loges de l'Atelier</h2>
+      <p style="max-width:720px">Le calme et le charme opèrent… Attenant au restaurant, au premier étage, deux gîtes pour vos séjours en duo, en famille ou professionnels, à quelques minutes du centre ancien, des musées et de l'abbaye de Charlieu, classé « village de caractère en Loire ».</p>
+    </div>
+    <div class="loges-grid">
+      <article class="loge reveal">
+        <figure><img src="https://www.atelierrongefer.fr/IMG/jpg/bosrozier-gite-charlieu-10.jpg" alt="Le gîte Le Bosrozier" loading="lazy"><figcaption>Le Bosrozier</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span>75 m²</span><span>Loge Berthe · 2 lits 90</span><span>Loge Auguste · lit 160</span><span>Climatisé</span></div>
+          <p>Pièce de vie de 25 m² avec salon (canapé convertible), séjour et cuisine équipée. Deux chambres avec salle de bain (douche à l'italienne) et toilettes privatives. Lit supplémentaire possible.</p>
+        </div>
+      </article>
+      <article class="loge reveal">
+        <figure><img src="https://www.atelierrongefer.fr/IMG/jpg/le-calinon-gite-charlieu-6.jpg" alt="Le gîte Le Calinon" loading="lazy"><figcaption>Le Calinon</figcaption></figure>
+        <div class="body">
+          <div class="chips"><span>70 m²</span><span>Loge Louise · vue sur le parc</span><span>Loge Gilbert · lit 160</span></div>
+          <p>Pièce de vie de 20 m² donnant sur le parc, salon et cuisine équipée. Deux chambres avec lit 160, bureau, salle de bain (douche à l'italienne) et toilettes privatives.</p>
+        </div>
+      </article>
+    </div>
+    <div class="included reveal">
+      <div><b>Tout compris</b>Charges, linge de lit, de toilette et de maison, lits faits à l'arrivée, cadeau de bienvenue, wifi.</div>
+      <div><b>Ménage inclus</b>Vous rendez le logement rangé, nous nous chargeons du reste.</div>
+      <div><b>Le parc</b>Espace détente avec chaise transat au cœur du parc arboré.</div>
+      <div><b>Bon à savoir</b>Gîtes non fumeurs, animaux non admis. Chèques vacances acceptés.</div>
+    </div>
+  </div>
+</section>
+
+<section id="offrir" style="background:var(--rose-pale)">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">Offrir L'Atelier</p>
+      <h2 class="h2">Chèques Cadeaux</h2>
+      <p style="max-width:680px">Le plaisir d'offrir un cadeau original, parfumé aux couleurs des saisons : un délicieux repas au restaurant ou une nuit paisible au gîte.</p>
+    </div>
+    <div class="gift">
+      <div class="gcard reveal"><div class="p">80 €</div><h3>Pour une personne</h3><p>Menu Saveur Gourmande (entrée, plat, fromage et dessert), un apéritif maison, 2 verres de vin et 1 café.</p></div>
+      <div class="gcard dark reveal"><div class="p">195 €</div><h3>Pour deux personnes</h3><p>1 nuit pour 2 aux Loges avec plateau petit-déjeuner à disposition + 2 menus confiance (entrée, plat et dessert).</p></div>
+      <div class="gcard reveal"><div class="p">Sur mesure</div><h3>Selon votre budget</h3><p>Formule sur devis : contactez-nous au 04 77 60 01 57.</p></div>
+    </div>
+    <p style="margin-top:28px"><a class="btn" href="https://paypro.monetico.fr/atelier-rongefer/paiement" target="_blank" rel="noopener">Commander un bon cadeau en ligne</a></p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2 class="h2 reveal">Contact</h2>
+    <div class="infos">
+      <div class="reveal">
+        <h3>Nous trouver</h3>
+        <p>L'Atelier Rongefer<br>22, rue Jean Jaurès<br>42190 Charlieu</p>
+        <p style="margin-top:10px"><a href="tel:+33477600157">04 77 60 01 57</a><br><a href="mailto:contact@atelierrongefer.fr">contact@atelierrongefer.fr</a></p>
+        <p style="margin-top:10px;font-size:14px;color:#666">Parking au sein du restaurant · accessible PMR · chèques vacances acceptés · tickets restaurant non acceptés.</p>
+      </div>
+      <div class="reveal">
+        <h3>Ouverture</h3>
+        <table class="hours" id="hours"></table>
+        <p style="font-size:13px;color:#666;margin-top:8px">Vendredi soir : de juin à août.</p>
+      </div>
+      <div class="reveal">
+        <h3>Depuis…</h3>
+        <ul>
+          <li>Roanne — 20 min</li><li>Digoin — 1 h</li><li>Mâcon — 1 h 20</li><li>Saint-Étienne — 1 h 20</li><li>Lyon — 1 h 30</li><li>Clermont-Ferrand — 1 h 30</li>
+        </ul>
+      </div>
+    </div>
+    <div class="map reveal"><iframe title="Plan d'accès L'Atelier Rongefer" loading="lazy" src="https://www.google.com/maps?q=46.1620364,4.1751841&z=16&output=embed"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><div class="brand">L'Atelier <span style="color:var(--or)">Rongefer</span></div><p>Restaurant &amp; Les Loges de l'Atelier · Charlieu</p></div>
+      <div><p>Carine et Fabien Gauthier<br>22, rue Jean Jaurès · 42190 Charlieu<br>04 77 60 01 57</p></div>
+      <div><a href="https://www.facebook.com/atelierrongefer" target="_blank" rel="noopener">Facebook</a></div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration réalisée à partir des informations publiques du site actuel atelierrongefer.fr — non contractuelle. Toutes les photos sont celles du site actuel de L'Atelier Rongefer (crédits : Patricia Foraison). Couleurs et polices reprises de la feuille de style actuelle. Menus, tarifs et horaires repris tels qu'affichés aujourd'hui, à titre indicatif ; l'estimation de l'outil de réservation n'a pas de valeur contractuelle. Le tarif des nuitées n'étant pas publié, il reste « communiqué à la réservation ».</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn" href="tel:+33477600157">Appeler</a><a class="btn ghost" style="background:var(--anthracite);color:#fff" href="#venue">Préparer ma venue</a></div>
+
+<script>
+(function(){
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* titre lettre à lettre */
+const h1=$('#h1');const words=h1.textContent.split(' ');h1.innerHTML=words.map((w,i)=>`<span class="l" style="animation-delay:${.15+i*.12}s">${w}</span>`).join(' ');
+
+/* header + burger */
+addEventListener('scroll',()=>$('header.top').classList.toggle('scrolled',scrollY>20),{passive:true});
+const burger=$('.burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* diaporama */
+const imgs=$$('.slides img'),dots=$('.dots');let cur=0;
+imgs.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));b.onclick=()=>show(i);dots.appendChild(b)});
+function show(i){imgs[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=i;imgs[cur].classList.add('on');dots.children[cur].classList.add('on')}
+show(0);if(!reduce)setInterval(()=>show((cur+1)%imgs.length),6000);
+
+/* apparitions + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.reveal').forEach(el=>io.observe(el));
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,n=+el.dataset.count;let t0=null;
+  const step=t=>{t0??=t;const p=Math.min((t-t0)/1200,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step);co.unobserve(el)}),{threshold:.6});
+$$('[data-count]').forEach(el=>co.observe(el));
+
+/* fil doré qui se déroule au scroll */
+const fil=$('#fil');if(fil){const L=fil.getTotalLength();fil.style.strokeDasharray=L;fil.style.strokeDashoffset=L;
+  const sec=$('#restaurant');const upd=()=>{const r=sec.getBoundingClientRect();const p=Math.min(Math.max((innerHeight-r.top)/(innerHeight+r.height*.6),0),1);fil.style.strokeDashoffset=L*(1-p)};
+  addEventListener('scroll',upd,{passive:true});upd();}
+
+/* onglets salles / terrasse / cuisine */
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>{x.setAttribute('aria-selected',x===b);$('#'+x.getAttribute('aria-controls')).hidden=x!==b})});
+
+/* ======== OUTIL : PRÉPARER VOTRE VENUE ======== */
+const JOURS=['dim','lun','mar','mer','jeu','ven','sam'],JL=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+function paques(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=(h+l-7*m+114)%31+1;return new Date(y,mo-1,da)}
+function feries(y){const p=paques(y),add=n=>{const d=new Date(p);d.setDate(d.getDate()+n);return d};
+  return [new Date(y,0,1),add(1),new Date(y,4,1),new Date(y,4,8),add(39),add(50),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25)].map(d=>d.toDateString())}
+const isFerie=d=>feries(d.getFullYear()).includes(d.toDateString());
+/* horaires affichés sur le site actuel : midi lun, jeu, ven, sam, dim ; soir vendredi (juin à août) et samedi */
+function ouvert(d){const w=d.getDay(),m=d.getMonth();return{midi:[1,4,5,6,0].includes(w),soir:w===6||(w===5&&m>=5&&m<=7)}}
+function menuDe(d,s){const w=d.getDay();if(s==='soir'||w===0||w===6||isFerie(d))return'G';return'M'}
+const MENUS={M:{nom:'Saveur du moment',f:[['Entrée, plat ou plat, dessert',22],['Entrée, plat, fromage ou dessert',27],['Entrée, plat, fromage, dessert',35]]},
+             G:{nom:'Saveur Gourmande',f:[['Entrée, plat ou plat, dessert',38],['Entrée, plat, fromage ou dessert',47],['Entrée, plat, fromage, dessert',55],['Entrée, poisson, viande, fromage, dessert',70]]}};
+const st={date:null,s:'midi',f:0,ad:2,enf:0,nuit:'',pdj:false,terrasse:false};
+const days=$('#days');const today=new Date();today.setHours(0,0,0,0);
+for(let i=0;i<21;i++){const d=new Date(today);d.setDate(d.getDate()+i);const o=ouvert(d);const b=document.createElement('button');b.className='day';b.type='button';
+  const open=o.midi||o.soir;b.innerHTML=`<small>${JOURS[d.getDay()]}</small><strong>${d.getDate()}</strong><em>${open?(o.soir?'midi + soir':'midi'):'fermé'}</em>`;
+  b.setAttribute('aria-label',`${JL[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}${open?'':' — fermé'}`);
+  if(!open){b.classList.add('closed');b.disabled=true}
+  b.onclick=()=>{st.date=d;$$('.day').forEach(x=>x.setAttribute('aria-pressed',x===b));const o2=ouvert(d);if(!o2[st.s])st.s=o2.midi?'midi':'soir';render()};
+  days.appendChild(b);if(!st.date&&open){st.date=d;b.setAttribute('aria-pressed','true')}else b.setAttribute('aria-pressed','false')}
+$$('#services button').forEach(b=>b.onclick=()=>{if(b.disabled)return;st.s=b.dataset.s;render()});
+$$('.counter button').forEach(b=>b.onclick=()=>{const k=b.dataset.k;st[k]=Math.max(k==='ad'?1:0,Math.min(20,st[k]+ +b.dataset.d));render()});
+$$('input[name=nuit]').forEach(r=>r.onchange=()=>{st.nuit=r.value;render()});
+$('#pdj').onchange=e=>{st.pdj=e.target.checked;render()};
+$('#terrasse').onchange=e=>{st.terrasse=e.target.checked;render()};
+const fmt=n=>n.toLocaleString('fr-FR')+' €';
+let last=0;
+function render(){
+  const d=st.date,o=ouvert(d);
+  $$('#services button').forEach(b=>{const ok=o[b.dataset.s];b.disabled=!ok;b.setAttribute('aria-pressed',b.dataset.s===st.s)});
+  $('#sMidi').textContent=o.midi?'ouvert':'fermé ce jour';$('#sSoir').textContent=o.soir?'ouvert':'fermé ce jour';
+  const mk=menuDe(d,st.s),M=MENUS[mk];if(st.f>=M.f.length)st.f=M.f.length-1;
+  $('#menuName').textContent=`Ce ${JL[d.getDay()].toLowerCase()}${isFerie(d)?' (jour férié)':''} ${st.s==='midi'?'midi':'soir'}, c'est le menu ${M.nom} :`;
+  const F=$('#formulas');F.innerHTML='';M.f.forEach(([n,p],i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',i===st.f);b.innerHTML=`${fmt(p)}<small>${n}</small>`;b.onclick=()=>{st.f=i;render()};F.appendChild(b)});
+  $('#ad').textContent=st.ad;$('#enf').textContent=st.enf;
+  const etape=st.nuit==='etape';$('#pdjRow').style.display=st.nuit==='gite'?'':'none';
+  const lines=[];let tot=0;const pers=st.ad+st.enf;
+  if(etape){lines.push([`Soirée étape (nuit, dîner, petit-déjeuner) × ${st.ad}`,95*st.ad]);tot+=95*st.ad}
+  else{const p=M.f[st.f][1];lines.push([`${M.nom} · ${M.f[st.f][0]} × ${st.ad}`,p*st.ad]);tot+=p*st.ad}
+  if(st.enf){lines.push([`Menu enfant × ${st.enf}`,15*st.enf]);tot+=15*st.enf}
+  if(st.nuit==='gite'){lines.push(['Nuit aux Loges de l\'Atelier','sur devis']);if(st.pdj){lines.push([`Plateau petit-déjeuner × ${pers}`,12*pers]);tot+=12*pers}}
+  $('#lines').innerHTML=`<div class="line"><span>${JL[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]} · ${st.s}${st.terrasse?' · terrasse':''}</span><span>${pers} pers.</span></div>`+lines.map(([a,b])=>`<div class="line"><span>${a}</span><span>${typeof b==='number'?fmt(b):b}</span></div>`).join('');
+  const T=$('#total');T.textContent=(st.nuit==='gite'?'≈ ':'')+fmt(tot)+(st.nuit==='gite'?' + nuit':'');if(tot!==last){T.classList.remove('bump');void T.offsetWidth;T.classList.add('bump');last=tot}
+  const msg=$('#msg');msg.className='msg';
+  if(etape&&st.s!=='soir'){msg.textContent='La soirée étape comprend le dîner : pensez à choisir le service du soir si le restaurant est ouvert ce soir-là, sinon nous vous rappelons pour organiser votre étape.';msg.classList.add('warn')}
+  else msg.textContent=st.s==='midi'&&mk==='M'?'Le menu Saveur du moment change toutes les semaines.':'Menu indicatif pouvant avoir quelques modifications.';
+  const corps=`Bonjour Carine et Fabien,\n\nJe souhaiterais réserver pour le ${JL[d.getDay()].toLowerCase()} ${d.getDate()} ${MOIS[d.getMonth()]} ${d.getFullYear()}, le ${st.s}, pour ${st.ad} adulte(s)${st.enf?' et '+st.enf+' enfant(s)':''}${st.terrasse?', en terrasse si possible':''}.\nMenu envisagé : ${etape?'soirée étape':M.nom+' — '+M.f[st.f][0]}.${st.nuit==='gite'?'\nJe souhaiterais également une nuit aux Loges de l\'Atelier'+(st.pdj?' avec plateau petit-déjeuner':'')+'.':''}\n\nMerci de me confirmer la disponibilité.\n`;
+  $('#send').href=`mailto:contact@atelierrongefer.fr?subject=${encodeURIComponent('Demande de réservation — '+d.toLocaleDateString('fr-FR'))}&body=${encodeURIComponent(corps)}`;
+}
+render();
+$('#ics').onclick=()=>{const d=st.date,p=n=>String(n).padStart(2,'0'),h=st.s==='midi'?'120000':'193000',h2=st.s==='midi'?'143000':'220000',ds=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}`;
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Atelier Rongefer//Maquette//FR','BEGIN:VEVENT',`UID:${Date.now()}@atelierrongefer`,`DTSTART:${ds}T${h}`,`DTEND:${ds}T${h2}`,'SUMMARY:L\'Atelier Rongefer — repas','LOCATION:22 rue Jean Jaurès\\, 42190 Charlieu','DESCRIPTION:Demande de réservation à confirmer par le restaurant (04 77 60 01 57).','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='atelier-rongefer.ics';a.click()};
+
+/* horaires du jour */
+const H=[['Lundi','Midi'],['Mardi','Fermé'],['Mercredi','Fermé'],['Jeudi','Midi'],['Vendredi','Midi · soir (juin–août)'],['Samedi','Midi et soir'],['Dimanche','Midi']];
+const wd=(new Date().getDay()+6)%7;$('#hours').innerHTML=H.map(([j,v],i)=>`<tr class="${i===wd?'today':''}"><td>${j}</td><td>${v}</td></tr>`).join('');
+})();
+</script>
+</body>
+</html>
