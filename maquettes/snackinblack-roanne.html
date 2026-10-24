@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SnackinBlack — Food truck burgers dans le Roannais | Roanne</title>
+<meta name="description" content="Food truck de burgers artisanaux dans le Roannais : pain artisanal, Black Angus ou charolais, frites fraîches. Roanne, Ouches, Coutouvre. Commande par SMS.">
+<link rel="icon" href="assets/snackinblack-roanne/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Oswald:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel snackinblack.fr et des cartes-menus
+   - fond anthracite / noir, textes blanc et gris clair (#e1dfdb)
+   - "SnackinBlack" en Lobster (titre du site actuel)
+   - intitulés en capitales condensées (style des ardoises-menus) → Oswald
+   - corps de texte Open Sans (site actuel)
+   Pas de couleur d'accent dans la charte : on reste en noir et blanc,
+   ce sont les photos qui apportent la couleur. Ajustable ici.
+   ========================================================== */
+:root{
+  --noir:#0f0f10;
+  --anthracite:#212121;
+  --gris-fonce:#303033;
+  --gris:#bbb7af;
+  --craie:#e1dfdb;
+  --blanc:#ffffff;
+  --ligne:rgba(255,255,255,.12);
+  --f-logo:'Lobster', cursive;
+  --f-titre:'Oswald', 'Arial Narrow', sans-serif;
+  --f-texte:'Open Sans', Arial, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--craie);font-family:var(--f-texte);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blanc);outline-offset:3px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+/* grain discret, façon caravane noire mate */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.demo{background:var(--craie);color:var(--noir);font-size:.8rem;text-align:center;padding:7px 16px}
+
+/* ---------- En-tête ---------- */
+header.top{position:sticky;top:0;z-index:50;background:rgba(15,15,16,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne);transition:padding .3s}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:54px;height:42px;object-fit:cover;border-radius:6px}
+.brand span{font-family:var(--f-logo);font-size:1.6rem;color:var(--blanc)}
+nav.menu{display:flex;gap:22px}
+nav.menu a{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;font-size:.9rem;text-decoration:none;color:var(--gris);position:relative;padding:4px 0}
+nav.menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--blanc);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+nav.menu a:hover{color:var(--blanc)}
+nav.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;font-size:.95rem;text-decoration:none;border:1px solid var(--blanc);color:var(--noir);background:var(--blanc);padding:12px 22px;border-radius:3px;cursor:pointer;transition:transform .2s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--blanc)}
+.btn.ghost:hover{background:var(--blanc);color:var(--noir)}
+.btn.small{padding:9px 16px;font-size:.85rem}
+.cart-btn .count{background:var(--noir);color:var(--blanc);border-radius:20px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:.75rem;padding:0 6px;transition:transform .3s var(--ease)}
+.cart-btn .count.bump{transform:scale(1.4)}
+@media (max-width:860px){nav.menu{display:none}.brand span{font-size:1.3rem}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:64px 0 40px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ligne);border-radius:40px;padding:7px 16px 7px 12px;font-size:.88rem;background:var(--anthracite)}
+.status i{width:9px;height:9px;border-radius:50%;background:var(--gris);flex:none}
+.status.open i{background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.hero h1{font-family:var(--f-logo);font-weight:400;font-size:clamp(3.4rem,2rem + 6vw,7rem);line-height:1;color:var(--blanc);margin:22px 0 6px}
+.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(40px) rotate(6deg);animation:up .8s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .tag{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.32em;color:var(--gris);font-size:clamp(.9rem,.8rem + .4vw,1.1rem);display:flex;align-items:center;gap:14px}
+.hero .tag::before,.hero .tag::after{content:"";height:1px;width:38px;background:var(--gris)}
+.hero p.lead{max-width:520px;margin:24px 0 30px;font-size:1.05rem;color:var(--craie)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.stack{position:relative;height:460px}
+.stack figure{position:absolute;border:8px solid var(--craie);background:var(--craie);box-shadow:0 30px 60px rgba(0,0,0,.6);transition:transform .6s var(--ease)}
+.stack figure img{width:100%;height:100%;object-fit:cover}
+.stack figcaption{font-family:var(--f-logo);color:var(--noir);text-align:center;font-size:1.05rem;padding-top:4px}
+.stack .p1{width:78%;height:300px;right:0;top:0;transform:rotate(3deg)}
+.stack .p2{width:58%;height:250px;left:0;bottom:0;transform:rotate(-5deg)}
+.stack:hover .p1{transform:rotate(1deg) translateY(-6px)}
+.stack:hover .p2{transform:rotate(-2deg) translateY(6px)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.stack{height:380px}.stack .p1{height:240px}.stack .p2{height:200px}}
+
+/* ---------- Bandeau défilant ---------- */
+.ticker{border-block:1px solid var(--ligne);background:var(--anthracite);overflow:hidden;white-space:nowrap;padding:14px 0}
+.ticker div{display:inline-flex;gap:38px;animation:defile 38s linear infinite;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;font-size:1.15rem;color:var(--gris)}
+.ticker b{color:var(--blanc);font-weight:500}
+.ticker span::after{content:"★";margin-left:38px;color:var(--gris);font-size:.8rem;vertical-align:middle}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section.bloc{padding:88px 0}
+.kicker{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.3em;color:var(--gris);font-size:.85rem}
+h2{font-family:var(--f-titre);text-transform:uppercase;font-weight:600;color:var(--blanc);font-size:clamp(2rem,1.4rem + 2.4vw,3.4rem);line-height:1.05;margin:8px 0 18px}
+h2 em{font-family:var(--f-logo);text-transform:none;font-style:normal;font-weight:400}
+.intro{max-width:640px;color:var(--craie)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* ---------- Où et quand ---------- */
+.planning{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:38px}
+.stop{background:var(--anthracite);border:1px solid var(--ligne);border-radius:6px;padding:20px 18px;position:relative;transition:transform .3s var(--ease),border-color .3s}
+.stop:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.35)}
+.stop .jour{font-family:var(--f-titre);text-transform:uppercase;font-size:1.4rem;color:var(--blanc);letter-spacing:.04em}
+.stop .moment{font-size:.78rem;text-transform:uppercase;letter-spacing:.18em;color:var(--gris)}
+.stop .h{font-family:var(--f-titre);font-size:1.05rem;margin:14px 0 6px;color:var(--blanc)}
+.stop address{font-style:normal;font-size:.9rem;color:var(--craie);min-height:66px}
+.stop a.carte{display:inline-block;margin-top:12px;font-size:.82rem;color:var(--gris)}
+.stop .note{font-size:.75rem;color:var(--gris);margin-top:6px;font-style:italic}
+.stop.now{background:var(--craie);color:var(--noir)}
+.stop.now .jour,.stop.now .h,.stop.now address,.stop.now a.carte,.stop.now .moment,.stop.now .note{color:var(--noir)}
+.stop .badge{position:absolute;top:-11px;right:12px;background:var(--blanc);color:var(--noir);font-family:var(--f-titre);text-transform:uppercase;font-size:.72rem;letter-spacing:.1em;padding:3px 9px;border-radius:3px;display:none}
+.stop.now .badge,.stop.next .badge{display:block}
+.stop.now .badge{background:var(--noir);color:var(--blanc)}
+.ferme{margin-top:18px;font-size:.9rem;color:var(--gris)}
+@media (max-width:980px){.planning{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.planning{grid-template-columns:1fr}}
+
+/* ---------- La carte ---------- */
+.carte-sec{background:linear-gradient(var(--noir),#151516)}
+.onglets{display:flex;flex-wrap:wrap;gap:8px;margin:34px 0 26px}
+.onglets button{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;background:transparent;color:var(--gris);border:1px solid var(--ligne);border-radius:40px;padding:9px 18px;cursor:pointer;font-size:.9rem;transition:all .25s}
+.onglets button:hover{color:var(--blanc);border-color:var(--gris)}
+.onglets button[aria-selected="true"]{background:var(--blanc);color:var(--noir);border-color:var(--blanc)}
+.ardoise{background:#080808;border:1px solid rgba(255,255,255,.25);outline:1px solid rgba(255,255,255,.1);outline-offset:6px;border-radius:4px;padding:30px clamp(18px,3vw,40px)}
+.ardoise h3{font-family:var(--f-titre);text-transform:uppercase;color:var(--blanc);font-size:1.7rem;text-align:center;background:linear-gradient(100deg,transparent 4%,#2a2a2c 6%,#2a2a2c 94%,transparent 96%);padding:4px 0;margin-bottom:10px}
+.ardoise .sous{text-align:center;color:var(--gris);font-size:.92rem;margin-bottom:12px}
+.plats{display:grid;grid-template-columns:1fr 1fr;column-gap:46px}
+.plat{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:16px 0;border-bottom:1px dashed rgba(255,255,255,.22);opacity:0;transform:translateY(14px);animation:up .5s var(--ease) forwards}
+.plat .nom{font-family:var(--f-titre);text-transform:uppercase;color:var(--blanc);font-size:1.2rem;letter-spacing:.03em}
+.plat .desc{grid-column:1;font-family:var(--f-titre);font-weight:400;color:var(--craie);font-size:.95rem;line-height:1.45}
+.plat .droite{grid-row:1 / span 2;grid-column:2;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px}
+.plat .prix{font-family:var(--f-titre);color:var(--blanc);font-size:1.25rem;white-space:nowrap}
+.plat .add{font-family:var(--f-titre);text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;background:transparent;color:var(--blanc);border:1px solid rgba(255,255,255,.5);border-radius:3px;padding:6px 10px;cursor:pointer;white-space:nowrap;transition:all .2s}
+.plat .add:hover{background:var(--blanc);color:var(--noir)}
+.plat .add.ok{background:var(--blanc);color:var(--noir)}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts button{font-size:.72rem}
+.infos-carte{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.infos-carte p{border:1px solid var(--ligne);border-radius:4px;padding:14px 16px;font-size:.88rem;color:var(--craie);background:var(--anthracite)}
+@media (max-width:760px){.plats{grid-template-columns:1fr}.infos-carte{grid-template-columns:1fr}}
+
+/* ---------- Commande ---------- */
+.commande{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+.etapes{list-style:none;counter-reset:e;margin-top:26px}
+.etapes li{counter-increment:e;display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--ligne)}
+.etapes li::before{content:counter(e);font-family:var(--f-titre);font-size:1.8rem;color:var(--blanc);width:34px;flex:none;line-height:1}
+.panier{background:var(--craie);color:var(--noir);border-radius:6px;padding:26px;box-shadow:0 30px 60px rgba(0,0,0,.5);position:sticky;top:90px}
+.panier h3{font-family:var(--f-titre);text-transform:uppercase;font-size:1.5rem;display:flex;justify-content:space-between;align-items:baseline}
+.panier h3 small{font-family:var(--f-texte);text-transform:none;font-size:.85rem;font-weight:400;color:#555}
+.lignes{margin:14px 0;min-height:60px}
+.lignes .vide{color:#666;font-size:.92rem;padding:10px 0}
+.ligne{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px dashed #bdbab3;font-size:.93rem;animation:up .35s var(--ease)}
+.qte{display:inline-flex;align-items:center;border:1px solid #999;border-radius:3px}
+.qte button{background:none;border:0;width:28px;height:28px;cursor:pointer;font-size:1rem}
+.qte span{min-width:20px;text-align:center;font-weight:700}
+.ligne .p{font-family:var(--f-titre);min-width:62px;text-align:right}
+.total{display:flex;justify-content:space-between;font-family:var(--f-titre);text-transform:uppercase;font-size:1.3rem;padding:8px 0 16px}
+.panier label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:10px 0 5px}
+.panier select,.panier input,.panier textarea{width:100%;font:inherit;font-size:.95rem;padding:10px 12px;border:1px solid #999;border-radius:3px;background:#fff;color:var(--noir)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.panier .btn{width:100%;justify-content:center;margin-top:16px;background:var(--noir);color:var(--blanc);border-color:var(--noir)}
+.panier .btn.ghost{background:transparent;color:var(--noir);margin-top:8px}
+.apercu{margin-top:14px;font-size:.82rem;background:#fff;border:1px solid #ccc;border-radius:12px 12px 12px 2px;padding:12px 14px;white-space:pre-wrap;color:#333;max-height:170px;overflow:auto}
+.mini{font-size:.78rem;color:#555;margin-top:10px}
+@media (max-width:900px){.commande{grid-template-columns:1fr}.panier{position:static}}
+
+/* ---------- Photos ---------- */
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px;margin-top:34px}
+.galerie figure{overflow:hidden;border-radius:4px;position:relative;background:var(--anthracite)}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s;filter:grayscale(.35)}
+.galerie figure:hover img{transform:scale(1.06);filter:none}
+.galerie figcaption{position:absolute;left:10px;bottom:10px;font-family:var(--f-titre);text-transform:uppercase;font-size:.78rem;letter-spacing:.1em;background:rgba(0,0,0,.7);color:#fff;padding:3px 8px}
+.galerie .big{grid-column:span 2;grid-row:span 2}
+@media (max-width:760px){.galerie{grid-template-columns:1fr 1fr;grid-auto-rows:160px}}
+
+/* ---------- Alice & David ---------- */
+.duo-sec .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.duo-sec .photo{border:8px solid var(--craie);transform:rotate(-2deg);box-shadow:0 30px 60px rgba(0,0,0,.6)}
+.duo-sec blockquote{font-family:var(--f-logo);font-size:clamp(1.5rem,1.1rem + 1.4vw,2.3rem);color:var(--blanc);line-height:1.3;margin:20px 0}
+@media (max-width:860px){.duo-sec .wrap{grid-template-columns:1fr}}
+
+/* ---------- Avis ---------- */
+.avis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.avi{background:var(--anthracite);border:1px solid var(--ligne);border-radius:6px;padding:24px}
+.avi .etoiles{letter-spacing:4px;color:var(--blanc)}
+.avi p{margin:12px 0;font-size:.95rem}
+.avi cite{font-style:normal;font-size:.82rem;color:var(--gris)}
+.distinctions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.distinctions span{border:1px solid var(--gris);border-radius:3px;padding:8px 14px;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;font-size:.85rem}
+@media (max-width:860px){.avis{grid-template-columns:1fr}}
+
+/* ---------- Privatisation ---------- */
+.priva{background:var(--craie);color:var(--noir)}
+.priva h2,.priva .kicker{color:var(--noir)}
+.priva .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.priva form{background:#fff;border-radius:6px;padding:26px;box-shadow:0 20px 40px rgba(0,0,0,.12)}
+.priva label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin:12px 0 5px}
+.priva input,.priva select,.priva textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid #aaa;border-radius:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips input{position:absolute;opacity:0;width:1px}
+.chips label{margin:0;text-transform:none;letter-spacing:0;font-weight:600;font-size:.9rem;border:1px solid #999;border-radius:30px;padding:7px 14px;cursor:pointer;transition:all .2s}
+.chips input:checked+label{background:var(--noir);color:#fff;border-color:var(--noir)}
+.chips input:focus-visible+label{outline:2px solid var(--noir);outline-offset:2px}
+.priva .btn{background:var(--noir);color:#fff;border-color:var(--noir);margin-top:18px;width:100%;justify-content:center}
+.jauge{font-size:.85rem;margin-top:6px;color:#444}
+.priva ul{list-style:none;margin-top:18px}
+.priva li{padding:9px 0;border-bottom:1px solid rgba(0,0,0,.15)}
+@media (max-width:860px){.priva .wrap{grid-template-columns:1fr}}
+
+/* ---------- Pied ---------- */
+.paiements{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.paiements span{border:1px solid var(--ligne);padding:6px 12px;border-radius:3px;font-size:.85rem}
+.paiements span.non{text-decoration:line-through;color:var(--gris)}
+footer{border-top:1px solid var(--ligne);padding:56px 0 30px;background:#0a0a0a}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:36px}
+footer h4{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;color:var(--blanc);margin-bottom:12px}
+footer p,footer li{font-size:.92rem;list-style:none}
+footer .logo{font-family:var(--f-logo);font-size:2.2rem;color:var(--blanc)}
+.mention{margin-top:40px;font-size:.78rem;color:var(--gris);border-top:1px solid var(--ligne);padding-top:18px}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+/* barre mobile */
+.barre{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:8px}
+.barre a{flex:1;justify-content:center}
+@media (max-width:760px){.barre{display:flex}body{padding-bottom:70px}}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);opacity:0;background:var(--blanc);color:var(--noir);padding:10px 18px;border-radius:30px;font-weight:600;font-size:.9rem;z-index:80;transition:all .35s var(--ease);pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FoodEstablishment",
+  "name":"SnackinBlack",
+  "description":"Food truck de street food : burgers sur pain artisanal, Black Angus ou charolais, frites fraîches, sandwichs, salades et desserts du jour. Privatisation pour événements.",
+  "servesCuisine":["Burgers","Street food"],
+  "telephone":"+33744408047",
+  "email":"snackinblack42@gmail.com",
+  "url":"https://www.snackinblack.fr/",
+  "priceRange":"€-€€",
+  "paymentAccepted":"Carte bancaire, espèces, titres-restaurant",
+  "address":{"@type":"PostalAddress","streetAddress":"98-100 boulevard Jean-Baptiste Clément","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":["Roanne","Ouches","Coutouvre","La Gresle","Roannais"],
+  "sameAs":["https://www.facebook.com/profile.php?id=61553212520753","https://www.instagram.com/snackinblack42/"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"11:30","closes":"13:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday"],"opens":"18:30","closes":"21:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site de <b>SnackinBlack</b>. Carte et prix relevés sur snackinblack.fr en octobre 2026, indicatifs.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil"><img src="assets/snackinblack-roanne/logo.png" alt="Logo SnackinBlack" width="54" height="42"><span>SnackinBlack</span></a>
+    <nav class="menu" aria-label="Navigation principale">
+      <a href="#ou">Où et quand</a>
+      <a href="#carte">La carte</a>
+      <a href="#commander">Commander</a>
+      <a href="#privatisation">Privatisation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn small cart-btn" href="#commander">Ma commande <span class="count" id="count">0</span></a>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="status" id="status" role="status"><i></i><span>Chargement du planning…</span></div>
+      <h1 aria-label="SnackinBlack" id="titre">SnackinBlack</h1>
+      <div class="tag">StreetFood de Qualité</div>
+      <p class="lead">Burgers sur pain artisanal, steak façon bouchère, frites fraîches cuites sur place. Alice et David vous attendent dans leur caravane noire, à Roanne, Ouches et Coutouvre.</p>
+      <div class="ctas">
+        <a class="btn" href="#carte">Composer ma commande</a>
+        <a class="btn ghost" href="#ou">Où est le camion ?</a>
+      </div>
+    </div>
+    <div class="stack reveal" aria-hidden="true">
+      <figure class="p1"><img src="assets/snackinblack-roanne/truck-soir.webp" alt=""><figcaption>Back in Black</figcaption></figure>
+      <figure class="p2"><img src="assets/snackinblack-roanne/back-to-black.webp" alt=""><figcaption>Le pain noir</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
+
+<!-- OÙ ET QUAND -->
+<section class="bloc" id="ou">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Retrouvez-nous sur nos emplacements</div>
+      <h2>Où et quand <em>cette semaine</em></h2>
+      <p class="intro">Le camion bouge, le site suit : l'arrêt en cours s'allume tout seul, le suivant est indiqué. Un clic sur l'adresse ouvre l'itinéraire.</p>
+    </div>
+    <div class="planning" id="planning"></div>
+    <p class="ferme">Fermé le lundi, mardi, mercredi et dimanche. Réservation et commande à l'avance très fortement conseillées.</p>
+  </div>
+</section>
+
+<!-- CARTE -->
+<section class="bloc carte-sec" id="carte">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Burgers, sandwichs, finger food</div>
+      <h2>La carte <em>du camion</em></h2>
+      <p class="intro">Toute la carte, lisible sur téléphone. Ajoutez ce qui vous fait envie : le message de commande se prépare en dessous, prêt à partir par SMS.</p>
+    </div>
+    <div class="onglets" role="tablist" id="onglets"></div>
+    <div class="ardoise" id="ardoise" role="tabpanel"></div>
+    <div class="infos-carte reveal">
+      <p><b>Végétarien ou poulet ?</b> Nos burgers signature sont également disponibles en version végétarienne ou poulet croustillant.</p>
+      <p><b>Double signature</b> (2 × 150 g Black Angus ou charolais selon le burger, et double fromage) pour 3 € de plus que le prix du burger.</p>
+      <p><b>Avec des frites ?</b> Tous nos burgers peuvent être accompagnés d'une portion de frites fraîches pour 2,50 € de plus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDER -->
+<section class="bloc" id="commander">
+  <div class="wrap commande">
+    <div class="reveal">
+      <div class="kicker">Commande à l'avance</div>
+      <h2>Prêt quand <em>vous arrivez</em></h2>
+      <p class="intro">Aujourd'hui, on commande en écrivant un SMS au 07 44 40 80 47. Le site le prépare pour vous : rien ne change pour Alice et David, le message arrive juste complet et sans erreur.</p>
+      <ol class="etapes">
+        <li><div><b>Choisissez dans la carte</b><br>Burgers, menus, frites, desserts : un clic sur « Ajouter ».</div></li>
+        <li><div><b>Indiquez l'arrêt et l'heure</b><br>Seuls les emplacements et créneaux du camion sont proposés.</div></li>
+        <li><div><b>Envoyez le SMS</b><br>Votre téléphone s'ouvre avec le message déjà rédigé. Sur ordinateur, copiez-le.</div></li>
+      </ol>
+    </div>
+    <aside class="panier" aria-label="Ma commande">
+      <h3>Ma commande <small id="nbart">0 article</small></h3>
+      <div class="lignes" id="lignes"><p class="vide">Rien pour l'instant : ajoutez un burger depuis la carte.</p></div>
+      <div class="total"><span>Total estimé</span><span id="total">0,00 €</span></div>
+      <label for="arret">Arrêt</label>
+      <select id="arret"></select>
+      <div class="duo">
+        <div><label for="heure">Heure de retrait</label><select id="heure"></select></div>
+        <div><label for="nom">Prénom</label><input id="nom" autocomplete="given-name" placeholder="Votre prénom"></div>
+      </div>
+      <label for="rq">Précision (sans oignons, sauce…)</label>
+      <input id="rq" placeholder="Facultatif">
+      <a class="btn" id="sms" href="#">Envoyer par SMS</a>
+      <button class="btn ghost" id="copier" type="button">Copier le message</button>
+      <div class="apercu" id="apercu" aria-live="polite"></div>
+      <p class="mini">La commande n'est confirmée qu'à la réponse de SnackinBlack. Prix indicatifs relevés sur la carte actuelle.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="bloc" style="padding-top:0">
+  <div class="wrap">
+    <div class="reveal"><div class="kicker">En images</div><h2>Fait <em>sur place</em></h2></div>
+    <div class="galerie reveal">
+      <figure class="big"><img src="assets/snackinblack-roanne/burger-frites.webp" alt="Burger au pain noir et frites fraîches SnackinBlack" loading="lazy"><figcaption>Burger + frites fraîches</figcaption></figure>
+      <figure><img src="assets/snackinblack-roanne/truck-jour.webp" alt="La caravane noire SnackinBlack en service" loading="lazy"><figcaption>La caravane</figcaption></figure>
+      <figure><img src="assets/snackinblack-roanne/burger-bacon.webp" alt="Burger au bacon sur pain artisanal" loading="lazy"><figcaption>Bacon's fan</figcaption></figure>
+      <figure><img src="assets/snackinblack-roanne/desserts.webp" alt="Desserts du jour faits maison" loading="lazy"><figcaption>Desserts du jour</figcaption></figure>
+      <figure><img src="assets/snackinblack-roanne/back-to-black.webp" alt="Le burger Back to Black au pain noir" loading="lazy"><figcaption>Back to Black</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ALICE & DAVID -->
+<section class="bloc duo-sec" style="background:var(--anthracite)">
+  <div class="wrap">
+    <img class="photo reveal" src="assets/snackinblack-roanne/alice-david.webp" alt="Alice et David, SnackinBlack" loading="lazy">
+    <div class="reveal">
+      <div class="kicker">Bienvenue chez Snackinblack !</div>
+      <blockquote>Un food truck convivial, un accueil chaleureux et des produits de qualité.</blockquote>
+      <p>Alice et David vous accueillent dans leur caravane noire, ambiance rock'n'roll et décontractée. Pain artisanal à l'encre de seiche, steak haché de Black Angus ou de charolaise façon bouchère, fourme de Montbrison, frites fraîches coupées et cuites sur place : une carte courte, et tout est fait pour qu'on y revienne.</p>
+      <div class="distinctions">
+        <span>Restaurant Guru 2025 · Meilleurs burgers</span>
+        <span>Restaurant Guru 2025 · Meilleur à emporter</span>
+        <span>Restaurant Guru 2026 · Meilleur à emporter</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="bloc">
+  <div class="wrap">
+    <div class="reveal"><div class="kicker">Avis Google publiés sur snackinblack.fr</div><h2>Ils en <em>parlent</em></h2></div>
+    <div class="avis">
+      <article class="avi reveal"><div class="etoiles" aria-label="5 étoiles sur 5">★★★★★</div><p>« Super expérience chez SnackinBlack ! Accueil vraiment sympa, Alice et David sont souriants et très accueillants. Service au top, et surtout des burgers vraiment bons avec des portions bien généreuses. »</p><cite>Cynthia F. — avis Google</cite></article>
+      <article class="avi reveal"><div class="etoiles" aria-label="5 étoiles sur 5">★★★★★</div><p>« Nous avons fait appel à Snack in Black pour notre mariage et nous sommes ravis, le service a été extraordinaire et tous nos invités ont vraiment apprécié. Nous recommandons pour vos événements, même nombreux ! »</p><cite>Laura B. — avis Google</cite></article>
+      <article class="avi reveal"><div class="etoiles" aria-label="5 étoiles sur 5">★★★★★</div><p>« C'était le repas pour notre mariage et c'était vraiment super ! Autant pour la qualité que pour la quantité. Merci encore pour la prestation. »</p><cite>Jeremy O. — avis Google</cite></article>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVATISATION -->
+<section class="bloc priva" id="privatisation">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Disponible pour vos événements</div>
+      <h2>Privatisez <em>le camion</em></h2>
+      <p>Pour vos évènements, que vous soyez un particulier, une entreprise ou représentant d'une collectivité, nous sommes à votre disposition par téléphone et mail et serons ravis de répondre à toutes vos demandes de renseignements, devis ou tarifs.</p>
+      <ul>
+        <li>Privatisation à partir de 50 personnes</li>
+        <li>Mariages, anniversaires, événements d'entreprise</li>
+        <li>Devis par mail : snackinblack42@gmail.com</li>
+        <li>Ou par téléphone / SMS : 07 44 40 80 47</li>
+      </ul>
+    </div>
+    <form id="formPriva" class="reveal">
+      <label>Type d'événement</label>
+      <div class="chips">
+        <input type="radio" name="type" id="t1" value="Mariage" checked><label for="t1">Mariage</label>
+        <input type="radio" name="type" id="t2" value="Anniversaire"><label for="t2">Anniversaire</label>
+        <input type="radio" name="type" id="t3" value="Événement d'entreprise"><label for="t3">Entreprise</label>
+        <input type="radio" name="type" id="t4" value="Collectivité / association"><label for="t4">Collectivité</label>
+      </div>
+      <label for="pers">Nombre de personnes : <b id="persv">80</b></label>
+      <input type="range" id="pers" min="50" max="300" step="10" value="80">
+      <p class="jauge" id="jauge"></p>
+      <div class="duo">
+        <div><label for="pdate">Date</label><input type="date" id="pdate"></div>
+        <div><label for="plieu">Commune</label><input id="plieu" placeholder="ex. Riorges"></div>
+      </div>
+      <label for="pmsg">Votre message</label>
+      <textarea id="pmsg" rows="3" placeholder="Horaires, formule souhaitée…"></textarea>
+      <button class="btn" type="submit">Demander un devis par mail</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="logo">SnackinBlack</div>
+        <p style="font-family:var(--f-titre);letter-spacing:.3em;text-transform:uppercase;color:var(--gris);font-size:.85rem">StreetFood de Qualité</p>
+        <p style="margin-top:14px">Food truck — Roanne, Ouches, Coutouvre et le Roannais.</p>
+        <h4 style="margin-top:22px">Paiements</h4>
+        <div class="paiements"><span>Carte bleue</span><span>Espèces</span><span>Titres-restaurant</span><span class="non">Chèques</span></div>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>Téléphone et SMS : <a href="tel:0744408047">07 44 40 80 47</a></li>
+          <li><a href="mailto:snackinblack42@gmail.com">snackinblack42@gmail.com</a></li>
+          <li style="margin-top:10px">Emplacement principal :<br>parking de V and B Roanne<br>98-100 boulevard Jean-Baptiste Clément, 42300 Roanne</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Suivez le camion</h4>
+        <ul>
+          <li><a href="https://www.facebook.com/profile.php?id=61553212520753" target="_blank" rel="noopener">Facebook — Snackinblack</a></li>
+          <li><a href="https://www.instagram.com/snackinblack42/" target="_blank" rel="noopener">Instagram — @snackinblack42</a></li>
+        </ul>
+        <h4 style="margin-top:22px">Horaires</h4>
+        <ul><li>Jeudi et vendredi : 11h30-13h30 et 18h30-21h</li><li>Fermé lundi, mardi, mercredi et dimanche</li></ul>
+      </div>
+    </div>
+    <p class="mention">Maquette de démonstration, non contractuelle. Carte, prix, emplacements, horaires, avis et distinctions repris du site actuel snackinblack.fr (relevés en octobre 2026) ; le créneau du samedi à La Gresle provient de la fiche de l'Office de Tourisme du Roannais et reste à confirmer. Photos : celles de SnackinBlack (site actuel et fiche Office de Tourisme, © Snack in Black) — aucune photo d'illustration. Couleurs et typographies reprises du logo, du site et des ardoises-menus actuels, ajustables. La commande par SMS reprend le fonctionnement actuel (commande au 07 44 40 80 47) ; aucun paiement en ligne.</p>
+  </div>
+</footer>
+
+<div class="barre"><a class="btn" href="#commander">Commander</a><a class="btn ghost" href="tel:0744408047" style="background:var(--noir)">Appeler</a></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Données réelles (snackinblack.fr, octobre 2026) ---------- */
+const TEL = "0744408047";
+const ARRETS = [
+  {id:"jeu-midi", j:4, jour:"Jeudi",    moment:"Midi", de:"11:30", a:"13:30", lieu:"Parking de V and B", adr:"98-100 bd Jean-Baptiste Clément, Roanne", q:"98 boulevard Jean-Baptiste Clément 42300 Roanne"},
+  {id:"jeu-soir", j:4, jour:"Jeudi",    moment:"Soir", de:"18:30", a:"21:00", lieu:"Place Saint-Georges", adr:"Ouches", q:"Place Saint-Georges 42155 Ouches"},
+  {id:"ven-midi", j:5, jour:"Vendredi", moment:"Midi", de:"11:30", a:"13:30", lieu:"Parking de V and B", adr:"98-100 bd Jean-Baptiste Clément, Roanne", q:"98 boulevard Jean-Baptiste Clément 42300 Roanne"},
+  {id:"ven-soir", j:5, jour:"Vendredi", moment:"Soir", de:"18:30", a:"21:00", lieu:"Place des Auges", adr:"Coutouvre", q:"Place des Auges 42460 Coutouvre"},
+  {id:"sam-soir", j:6, jour:"Samedi",   moment:"Soir", de:"18:30", a:"21:00", lieu:"Devant la salle Bistanclaque", adr:"La Gresle", q:"Salle Bistanclaque La Gresle", note:"Selon l'Office de Tourisme — à confirmer"}
+];
+const CARTE = [
+  {cat:"Burgers signatures", items:[
+    ["Back to Black","Pain artisanal, steak haché de Black Angus 150 g façon bouchère, cheddar rouge, salade, oignons frits, sauce burger",13],
+    ["Burger éphémère","Un burger différent toutes les deux semaines — 15 € avec frites ou dans le Big menu",13],
+    ["Bacon's fan","Pain artisanal, steak de charolaise 150 g façon bouchère, double poitrine fumée, emmental, salade verte, tomate, sauce barbecue",13],
+    ["Forez burger","Pain artisanal, steak de charolaise 150 g façon bouchère, fourme de Montbrison, salade verte, tomate, mayonnaise et ketchup",13],
+    ["Frisson burger","Pain artisanal, steak 150 g Black Angus façon bouchère, tomme de Savoie, confit d'oignons, salade verte, sauce tartare",13]
+  ], frites:true},
+  {cat:"Autres burgers", items:[
+    ["Le Colosse burger","Pain artisanal nature, 2 steaks de 150 g de charolais, salade verte, tomate et oignons frits, sauce burger, double fromage au choix : cheddar, emmental ou fourme de Montbrison",18],
+    ["Doublecheese","Pain brioché, double steak VBF de 80 g (160 g de bœuf à 15 % MG), double cheddar fondu, cornichons, ketchup, mayonnaise",11],
+    ["Double cheesebacon","Comme le doublecheese, avec double poitrine fumée",11.5],
+    ["Cheeseburger","Pain brioché, steak haché VBF 15 % MG 80 g, cheddar fondu, cornichon, sauce mayonnaise/ketchup",8],
+    ["Cheesebacon","Pain brioché, steak haché VBF 15 % MG 80 g, cheddar fondu, cornichon, poitrine fumée, mayonnaise/ketchup",8.5],
+    ["Fish burger","Pain brioché, filet de poisson pané façon fish'n'chips, salade verte et mayonnaise",8]
+  ], frites:true},
+  {cat:"Menus", sous:"Tous nos burgers peuvent être accompagnés d'une portion de frites fraîches pour 2,50 € de plus que le prix du burger.", items:[
+    ["Big menu","Un menu Back to Black, Forez, Éphémère, Bacon's fan ou Frisson (burger + frites) + un cheeseburger, un cheesebacon, un petit wrap ou 6 nuggets",20.5],
+    ["Menu P'tit Kid","Moins de 10 ans : un Kid'Cheese ou 4 nuggets, petite portion de frites fraîches, un Capri-Sun, une compote à boire + une surprise",8],
+    ["Menu Grand Kid","Moins de 12 ans : un cheeseburger, cheesebacon ou 6 nuggets, portion de frites enfants, compote à boire, Capri-Sun + une surprise",10.5]
+  ]},
+  {cat:"Sandwichs & salades", items:[
+    ["Petit wrap","Galette de blé, steak haché VBF 15 % MG 80 g, salade, tomate, oignons frits, cheddar et mayonnaise",8.5],
+    ["Américain","Pain baguette artisanale, 160 g de bœuf haché VBF 15 % MG, frites fraîches, sauce au choix",12.5],
+    ["Salade César","Salade verte, poulet pané croustillant, croûtons à l'ail, copeaux de parmesan AOP, sauce césar et son petit morceau de pain",11],
+    ["Salade au chèvre chaud","Salade verte, tomate, 3 bâtonnets de fromage de chèvre panés croustillants, poitrine fumée grillée, sauce à la moutarde à l'ancienne",11]
+  ]},
+  {cat:"Finger food", items:[
+    ["Nuggets de poulet × 4","Morceaux de filet de poulet enrobés d'une panure croustillante",4],
+    ["Nuggets de poulet × 6","Morceaux de filet de poulet enrobés d'une panure croustillante",5],
+    ["Frites fraîches — petite","Frites fraîches de pommes de terre, cuites sur place",3],
+    ["Frites fraîches — grande","Frites fraîches de pommes de terre, cuites sur place",5],
+    ["Les Friponnes — petite","Frites fraîches nappées de sauce cheddar fondante, éclats de bacon grillés et oignons frits croustillants",5.5],
+    ["Les Friponnes — grande","Frites fraîches nappées de sauce cheddar fondante, éclats de bacon grillés et oignons frits croustillants",8.5],
+    ["Onion rings × 6","Anneaux d'oignons croustillants",4],
+    ["Mozza sticks × 6","Ou bouchées de camembert, à préciser",5],
+    ["Black Box","18 pièces : 6 nuggets + 6 onion rings + 6 mozza sticks ou 6 bouchées de camembert, à partager (ou pas !)",12.5]
+  ]},
+  {cat:"Desserts & boissons", items:[
+    ["Dessert du jour","Selon fabrication",3.5],
+    ["Soft canette 33 cl","Diverses options",2],
+    ["« La blonde en noir » 33 cl","Bière blonde artisanale par Snackinblack Foodtruck",4.5],
+    ["Eau plate ou gazeuse 50 cl","",1.5]
+  ]}
+];
+
+/* ---------- Utilitaires ---------- */
+const $ = s => document.querySelector(s);
+const eur = n => n.toFixed(2).replace(".", ",") + " €";
+const mins = t => { const [h,m] = t.split(":").map(Number); return h*60+m; };
+const reduit = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function toast(t){ const el=$("#toast"); el.textContent=t; el.classList.add("on"); clearTimeout(el._t); el._t=setTimeout(()=>el.classList.remove("on"),1800); }
+
+/* ---------- Titre lettre par lettre ---------- */
+(() => { const h=$("#titre"); const t=h.textContent; h.textContent="";
+  [...t].forEach((c,i)=>{ const s=document.createElement("span"); s.className="ch"; s.textContent=c; s.style.animationDelay=(i*55)+"ms"; s.setAttribute("aria-hidden","true"); h.appendChild(s); }); })();
+
+/* ---------- Bandeau ---------- */
+(() => { const noms = CARTE.slice(0,2).flatMap(c=>c.items.map(i=>i[0])).concat(["Frites fraîches","Les Friponnes","Black Box","La blonde en noir"]);
+  const html = noms.map((n,i)=> i%3===0 ? `<span><b>${n}</b></span>` : `<span>${n}</span>`).join("");
+  $("#ticker").innerHTML = html + html; })();
+
+/* ---------- Planning en direct (heure de Paris) ---------- */
+function maintenantParis(){
+  const p = new Intl.DateTimeFormat("fr-FR",{timeZone:"Europe/Paris",weekday:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date());
+  const jours = {"lun.":1,"mar.":2,"mer.":3,"jeu.":4,"ven.":5,"sam.":6,"dim.":0};
+  const g = t => p.find(x=>x.type===t).value;
+  return { j: jours[g("weekday")], m: Number(g("hour"))*60 + Number(g("minute")) };
+}
+function etatPlanning(){
+  const n = maintenantParis();
+  let enCours = ARRETS.find(a => a.j===n.j && n.m>=mins(a.de) && n.m<mins(a.a));
+  // prochain arrêt : on parcourt les 7 prochains jours
+  let prochain = null;
+  for (let d=0; d<8 && !prochain; d++){
+    const jj = (n.j + d) % 7;
+    const cands = ARRETS.filter(a => a.j===jj && (d>0 || mins(a.de)>n.m));
+    if (cands.length) prochain = {a:cands[0], d};
+  }
+  return {enCours, prochain};
+}
+function rendPlanning(){
+  const {enCours, prochain} = etatPlanning();
+  $("#planning").innerHTML = ARRETS.map(a => {
+    const cls = enCours && enCours.id===a.id ? "now" : (!enCours && prochain && prochain.a.id===a.id ? "next" : "");
+    const badge = cls==="now" ? "Ouvert maintenant" : "Prochain arrêt";
+    return `<article class="stop ${cls}"><span class="badge">${badge}</span>
+      <div class="moment">${a.moment}</div><div class="jour">${a.jour}</div>
+      <div class="h">${a.de.replace(":","h")} – ${a.a.replace(":","h")}</div>
+      <address><b>${a.lieu}</b><br>${a.adr}</address>
+      ${a.note?`<div class="note">${a.note}</div>`:""}
+      <a class="carte" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(a.q)}" target="_blank" rel="noopener">Itinéraire →</a></article>`;
+  }).join("");
+  const st = $("#status");
+  if (enCours){ st.classList.add("open"); st.querySelector("span").innerHTML = `Ouvert maintenant · ${enCours.lieu}, ${enCours.adr.split(",").pop().trim()} jusqu'à ${enCours.a.replace(":","h")}`; }
+  else if (prochain){ st.classList.remove("open");
+    const quand = prochain.d===0 ? "aujourd'hui" : prochain.d===1 ? "demain" : prochain.a.jour.toLowerCase();
+    st.querySelector("span").textContent = `Prochain arrêt ${quand} ${prochain.a.de.replace(":","h")} · ${prochain.a.lieu}, ${prochain.a.adr.split(",").pop().trim()}`; }
+  observe();
+}
+
+/* ---------- Carte à onglets ---------- */
+let ongletActif = 0;
+function rendOnglets(){
+  $("#onglets").innerHTML = CARTE.map((c,i)=>`<button role="tab" aria-selected="${i===ongletActif}" data-i="${i}">${c.cat}</button>`).join("");
+  $("#onglets").querySelectorAll("button").forEach(b => b.onclick = () => { ongletActif=+b.dataset.i; rendOnglets(); rendArdoise(); });
+}
+function rendArdoise(){
+  const c = CARTE[ongletActif];
+  $("#ardoise").innerHTML = `<h3>${c.cat}</h3>${c.sous?`<p class="sous">${c.sous}</p>`:""}<div class="plats">${
+    c.items.map((it,k)=>`<div class="plat" style="animation-delay:${k*60}ms">
+      <div class="nom">${it[0]}</div><div class="desc">${it[1]}</div>
+      <div class="droite"><div class="prix">${eur(it[2])}</div>
+        <div class="opts"><button class="add" data-n="${it[0]}" data-p="${it[2]}">+ Ajouter</button>
+        ${c.frites?`<button class="add" data-n="${it[0]} + frites" data-p="${it[2]+2.5}">+ avec frites</button>`:""}</div></div></div>`).join("")
+  }</div>`;
+  $("#ardoise").querySelectorAll(".add").forEach(b => b.onclick = () => {
+    ajoute(b.dataset.n, +b.dataset.p); b.classList.add("ok"); b.textContent="✓ Ajouté";
+    setTimeout(()=>{ b.classList.remove("ok"); b.textContent = b.dataset.n.endsWith("+ frites") ? "+ avec frites" : "+ Ajouter"; }, 1200);
+  });
+}
+
+/* ---------- Panier ---------- */
+const panier = new Map();
+function ajoute(n,p){ const l = panier.get(n) || {p, q:0}; l.q++; panier.set(n,l); rendPanier(); toast(n+" ajouté");
+  const c=$("#count"); c.classList.add("bump"); setTimeout(()=>c.classList.remove("bump"),300); }
+function rendPanier(){
+  let total=0, nb=0;
+  const html = [...panier].map(([n,l]) => { total+=l.p*l.q; nb+=l.q;
+    return `<div class="ligne"><span>${n}</span><span class="qte"><button aria-label="Retirer" data-n="${n}" data-d="-1">−</button><span>${l.q}</span><button aria-label="Ajouter" data-n="${n}" data-d="1">+</button></span><span class="p">${eur(l.p*l.q)}</span></div>`; }).join("");
+  $("#lignes").innerHTML = html || `<p class="vide">Rien pour l'instant : ajoutez un burger depuis la carte.</p>`;
+  $("#lignes").querySelectorAll(".qte button").forEach(b => b.onclick = () => { const l=panier.get(b.dataset.n); l.q+=+b.dataset.d; if(l.q<=0) panier.delete(b.dataset.n); rendPanier(); });
+  $("#total").textContent = eur(total); $("#count").textContent = nb; $("#nbart").textContent = nb+(nb>1?" articles":" article");
+  majMessage();
+}
+function remplitArrets(){
+  const {enCours, prochain} = etatPlanning();
+  const defaut = enCours ? enCours.id : prochain ? prochain.a.id : ARRETS[0].id;
+  $("#arret").innerHTML = ARRETS.map(a=>`<option value="${a.id}" ${a.id===defaut?"selected":""}>${a.jour} ${a.moment.toLowerCase()} — ${a.lieu}, ${a.adr.split(",").pop().trim()}</option>`).join("");
+  remplitHeures();
+}
+function remplitHeures(){
+  const a = ARRETS.find(x=>x.id===$("#arret").value); const out=[];
+  for (let m=mins(a.de); m<mins(a.a); m+=15) out.push(`${String(Math.floor(m/60)).padStart(2,"0")}h${String(m%60).padStart(2,"0")}`);
+  $("#heure").innerHTML = out.map(h=>`<option>${h}</option>`).join("");
+  majMessage();
+}
+function message(){
+  const a = ARRETS.find(x=>x.id===$("#arret").value);
+  const lignes = [...panier].map(([n,l])=>`- ${l.q} × ${n}`);
+  const nom = $("#nom").value.trim(), rq = $("#rq").value.trim();
+  let total=0; panier.forEach(l=>total+=l.p*l.q);
+  return `Bonjour Alice et David,\nCommande à retirer ${a.jour.toLowerCase()} à ${$("#heure").value} (${a.lieu}, ${a.adr.split(",").pop().trim()}) :\n${lignes.join("\n") || "- (à compléter)"}\n${rq?"Précision : "+rq+"\n":""}Total estimé : ${eur(total)}\n${nom?"Merci ! "+nom:"Merci !"}`;
+}
+function majMessage(){ const m = message(); $("#apercu").textContent = m; $("#sms").href = `sms:${TEL}?&body=${encodeURIComponent(m)}`; }
+$("#arret").onchange = remplitHeures;
+["#heure","#nom","#rq"].forEach(s => $(s).addEventListener("input", majMessage));
+$("#sms").addEventListener("click", e => { if(!panier.size){ e.preventDefault(); toast("Ajoutez d'abord un plat depuis la carte"); location.hash="#carte"; } });
+$("#copier").onclick = () => { navigator.clipboard?.writeText(message()).then(()=>toast("Message copié — à envoyer au 07 44 40 80 47")); };
+
+/* ---------- Privatisation ---------- */
+const jauge = () => { const v=+$("#pers").value; $("#persv").textContent=v + (v>=300?"+":"");
+  $("#jauge").textContent = v>=150 ? "Grand événement : pensez à réserver tôt, en précisant les horaires du service." : "Privatisation possible à partir de 50 personnes."; };
+$("#pers").oninput = jauge; jauge();
+$("#formPriva").onsubmit = e => { e.preventDefault();
+  const type = document.querySelector('input[name="type"]:checked').value;
+  const corps = `Bonjour,\n\nType d'événement : ${type}\nNombre de personnes : ${$("#persv").textContent}\nDate : ${$("#pdate").value||"à préciser"}\nCommune : ${$("#plieu").value||"à préciser"}\n\n${$("#pmsg").value}\n`;
+  location.href = `mailto:snackinblack42@gmail.com?subject=${encodeURIComponent("Demande de privatisation — "+type)}&body=${encodeURIComponent(corps)}`; };
+
+/* ---------- Apparitions au défilement ---------- */
+let io;
+function observe(){
+  if (reduit || !("IntersectionObserver" in window)) { document.querySelectorAll(".reveal").forEach(e=>e.classList.add("vu")); return; }
+  io = io || new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add("vu"); io.unobserve(e.target); } }), {threshold:.12});
+  document.querySelectorAll(".reveal:not(.vu)").forEach((e,i) => { e.style.transitionDelay = (i%5)*70+"ms"; io.observe(e); });
+}
+
+/* ---------- Parallaxe légère des photos du hero ---------- */
+if (!reduit) addEventListener("scroll", () => { const y=scrollY; if(y<700){
+  document.querySelector(".stack .p1").style.translate = `0 ${y*-.06}px`;
+  document.querySelector(".stack .p2").style.translate = `0 ${y*.05}px`; } }, {passive:true});
+
+rendPlanning(); rendOnglets(); rendArdoise(); remplitArrets(); rendPanier(); observe();
+setInterval(rendPlanning, 60000);
+</script>
+</body>
+</html>
