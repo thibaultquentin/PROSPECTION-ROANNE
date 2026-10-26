@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galerie DEZA — Galerie d'art contemporain à Roanne, Lyon et Villerest</title>
+<meta name="description" content="Galerie d'art contemporain figuratif et coloré à Roanne, Lyon et au Domaine de Champlong (Villerest) : peintures, sculptures, sérigraphies, leasing d'art pour les entreprises.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Eczar:wght@400;500&family=Libre+Franklin:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise du site actuel galeriedeza.com
+   Typo : Libre Franklin (titres en capitales, graisse 500) + Eczar (texte courant)
+   Couleurs : bleu ciel des lignes du logo, noir profond du bandeau,
+   anthracite du pied de page, gris du texte courant.
+   Pour ajuster : modifier uniquement ces variables.
+   ===================================================================== */
+:root{
+  --bleu:#5FCAF0;          /* lignes du logo, liens et boutons du site actuel */
+  --bleu-fonce:#15779B;    /* survol des liens (site actuel) */
+  --noir:#0D1113;          /* bandeau titre et titres */
+  --anthracite:#1B1F21;    /* pied de page */
+  --texte:#717476;         /* texte courant */
+  --gris-clair:#EFEFEF;
+  --fond:#FFFFFF;
+  --f-titre:"Libre Franklin", system-ui, sans-serif;
+  --f-texte:"Eczar", Georgia, serif;
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-titre);color:var(--texte);background:var(--fond);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1240px,100% - 32px);margin-inline:auto}
+h1,h2,h3,h4{font-family:var(--f-titre);color:var(--noir);text-transform:uppercase;font-weight:500;letter-spacing:.02em;line-height:1.15}
+.sur{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bleu-fonce);font-weight:600;display:inline-flex;align-items:center;gap:.7rem}
+.sur::before{content:"";width:28px;height:1px;background:currentColor}
+.serif{font-family:var(--f-texte)}
+:focus-visible{outline:3px solid var(--bleu);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--bleu);color:var(--noir);font-size:.78rem;text-align:center;padding:.45rem 16px;font-weight:500}
+
+/* Barre haute — comme le site actuel */
+.topbar{background:var(--noir);color:#c9cbcc;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+.topbar .wrap{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;flex-wrap:wrap}
+.topbar a:hover{color:var(--bleu)}
+
+/* En-tête */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:#e8e8e8;box-shadow:0 6px 24px rgba(13,17,19,.06)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;gap:1rem}
+.logo img{height:46px;width:auto}
+nav ul{display:flex;gap:1.6rem;list-style:none}
+nav a{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;color:var(--noir);position:relative;padding:.4rem 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--bleu);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+nav a:hover::after,nav a.actif::after{transform:scaleX(1);transform-origin:left}
+nav a.actif{color:var(--bleu-fonce)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;border-radius:999px;padding:.85rem 1.6rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;border:1.5px solid var(--bleu);background:var(--bleu);color:var(--noir);transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(95,202,240,.35)}
+.btn:active{transform:scale(.97)}
+.btn.ligne{background:transparent;color:inherit}
+.btn.ligne:hover{background:var(--bleu);color:var(--noir)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--noir);transition:.3s}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+.nav-cta{display:flex;gap:.8rem;align-items:center}
+.nav-cta .tel{font-size:.78rem;font-weight:600;color:var(--noir);white-space:nowrap}
+
+/* Héros */
+.hero{position:relative;background:var(--noir);color:#fff;overflow:hidden;border-radius:0 0 48px 48px;margin:0 clamp(0px,1.6vw,24px)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;min-height:min(88vh,760px);padding:5rem 0 6rem}
+.hero h1{color:#fff;font-size:clamp(2rem,1.2rem + 3vw,3.5rem);font-weight:500}
+.hero h1 .bleu{color:var(--bleu)}
+.hero p.lead{font-family:var(--f-texte);font-size:clamp(1.05rem,1rem + .3vw,1.25rem);color:#cfd3d5;margin:1.4rem 0 2rem;max-width:34rem}
+.hero .actions{display:flex;flex-wrap:wrap;gap:1rem}
+.hero .btn.ligne{color:#fff;border-color:rgba(255,255,255,.4)}
+.hero .chips{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:2.4rem}
+.chip{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;border:1px solid rgba(95,202,240,.45);color:#d9f3fc;padding:.45rem .9rem;border-radius:999px}
+.mur{position:relative;height:540px}
+.mur figure{position:absolute;background:#fff;padding:10px;box-shadow:0 30px 60px rgba(0,0,0,.45);transition:transform .8s var(--ease);will-change:transform}
+.mur figure img{width:100%;height:100%;object-fit:cover}
+.mur figure figcaption{position:absolute;left:10px;bottom:-30px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#9aa3a7;white-space:nowrap}
+.mur .f1{width:58%;height:62%;left:0;top:4%}
+.mur .f1 figcaption{bottom:auto;top:-28px}
+.mur .f2{width:40%;height:46%;right:2%;top:0}
+.mur .f3{width:44%;height:40%;right:6%;bottom:2%}
+.mur .f4{width:30%;height:30%;left:12%;bottom:0}
+.hero .defile{position:absolute;left:50%;bottom:1.6rem;transform:translateX(-50%);font-size:.62rem;letter-spacing:.3em;color:#8c9599;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.hero .defile i{width:1px;height:38px;background:linear-gradient(var(--bleu),transparent);animation:goutte 2s infinite}
+@keyframes goutte{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Atouts (repris du site actuel) */
+.atouts{margin-top:-46px;position:relative;z-index:3}
+.atouts ul{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-radius:22px;box-shadow:0 20px 50px rgba(13,17,19,.1);overflow:hidden}
+.atouts li{padding:1.6rem 1.2rem;text-align:center;border-right:1px solid #eee;transition:background .3s}
+.atouts li:last-child{border-right:0}
+.atouts li:hover{background:#f6fbfd}
+.atouts svg{width:34px;height:34px;stroke:var(--noir);fill:none;stroke-width:1.6;margin:0 auto .7rem;transition:transform .4s var(--ease),stroke .3s}
+.atouts li:hover svg{transform:translateY(-4px) rotate(-4deg);stroke:var(--bleu-fonce)}
+.atouts strong{display:block;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--noir);font-weight:600}
+
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.tete{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+.tete h2{font-size:clamp(1.7rem,1.2rem + 2vw,2.6rem);margin-top:.8rem}
+.tete p{max-width:30rem;font-family:var(--f-texte)}
+
+/* Histoire */
+.histoire .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:4rem;align-items:center}
+.citation{font-family:var(--f-texte);font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem);color:var(--noir);line-height:1.25}
+.citation em{font-style:normal;background:linear-gradient(transparent 62%,rgba(95,202,240,.45) 62%);padding:0 .15em}
+.histoire p{font-family:var(--f-texte);margin-bottom:1rem;font-size:1.05rem}
+.histoire .chiffres{display:flex;gap:2.5rem;margin-top:2rem;flex-wrap:wrap}
+.histoire .chiffres div{border-left:2px solid var(--bleu);padding-left:1rem}
+.histoire .chiffres b{display:block;font-size:1.9rem;color:var(--noir);font-weight:500}
+.histoire .chiffres span{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.noms{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.noms span{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .8rem;border:1px solid #dcdcdc;border-radius:999px;color:var(--noir);transition:.3s}
+.noms span:hover{border-color:var(--bleu);background:#f2fbfe}
+
+/* Œuvres */
+.oeuvres{background:#f7f8f8}
+.filtres{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:1rem}
+.filtres button{border:1px solid #d7d9da;background:#fff;color:var(--noir);border-radius:999px;padding:.55rem 1.1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:.25s}
+.filtres button:hover{border-color:var(--bleu)}
+.filtres button[aria-pressed="true"]{background:var(--noir);color:#fff;border-color:var(--noir)}
+.filtres .sep{width:1px;background:#d7d9da;margin:0 .3rem}
+.compteur{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.6rem}
+.grille{columns:4 240px;column-gap:1.4rem}
+.carte{break-inside:avoid;margin-bottom:1.4rem;background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s,opacity .4s;box-shadow:0 2px 10px rgba(13,17,19,.05);position:relative}
+.carte:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(13,17,19,.14)}
+.carte .img{overflow:hidden;background:#eceeee}
+.carte img{width:100%;height:auto;transition:transform .9s var(--ease)}
+.carte:hover img{transform:scale(1.05)}
+.carte .infos{padding:1rem 1.1rem 1.2rem}
+.carte h3{font-size:.95rem;letter-spacing:.04em}
+.carte .art{font-size:.78rem;color:var(--texte);margin-top:.2rem}
+.carte .bas{display:flex;justify-content:space-between;align-items:center;margin-top:.6rem}
+.prix{color:var(--bleu-fonce);font-weight:600;font-size:1.02rem}
+.badge{position:absolute;top:12px;left:12px;background:var(--noir);color:#fff;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:.35rem .7rem;border-radius:999px}
+.badge.vendu{background:#ff6600}
+.carte .voir{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--noir);opacity:0;transform:translateX(-6px);transition:.3s}
+.carte:hover .voir{opacity:1;transform:none}
+.carte.cache{display:none}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(13,17,19,.86);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px}
+.lb.ouvert{display:flex;animation:fondu .35s var(--ease)}
+@keyframes fondu{from{opacity:0}to{opacity:1}}
+.lb .boite{background:#fff;border-radius:20px;max-width:1080px;width:100%;max-height:92vh;overflow:auto;display:grid;grid-template-columns:1.15fr .85fr}
+.lb .visuel{background:#e9e6e1;position:relative;min-height:420px;display:flex;align-items:center;justify-content:center;padding:2rem}
+.lb .visuel .seule{max-height:70vh;width:auto;box-shadow:0 20px 40px rgba(0,0,0,.25)}
+.salon{position:absolute;inset:0;display:none;background:linear-gradient(#efece7 0 78%,#d8d2c8 78%)}
+.salon.on{display:block}
+.salon .oeuvre{position:absolute;left:50%;transform:translateX(-50%);box-shadow:0 14px 26px rgba(0,0,0,.28);transition:all .5s var(--ease)}
+.salon .canape{position:absolute;left:50%;transform:translateX(-50%);bottom:22%;}
+.salon .canape svg{width:100%;height:100%}
+.salon .echelle{position:absolute;right:14px;bottom:10px;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#6d675e}
+.lb .texte{padding:2rem 2rem 2.2rem;position:relative}
+.lb .fermer{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:1px solid #ddd;background:#fff;font-size:1.3rem;line-height:1}
+.lb h3{font-size:1.5rem;margin:.6rem 2.6rem .3rem 0}
+.lb dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;margin:1.2rem 0;font-size:.9rem}
+.lb dt{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#9a9d9f;padding-top:.15rem}
+.lb dd{color:var(--noir)}
+.lb .bascule{display:inline-flex;border:1px solid #ddd;border-radius:999px;padding:3px;margin-bottom:1rem}
+.lb .bascule button{border:0;background:none;border-radius:999px;padding:.45rem .9rem;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+.lb .bascule button[aria-pressed="true"]{background:var(--noir);color:#fff}
+.lb .actions{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.lb .note{font-size:.75rem;color:#999;margin-top:1rem}
+
+/* Simulateur leasing */
+.simu{background:var(--noir);color:#d6dadc;position:relative;overflow:hidden;border-radius:48px;margin:0 clamp(0px,1.6vw,24px)}
+.simu h2,.simu h3{color:#fff}
+.simu .sur{color:var(--bleu)}
+.simu .tete p{color:#b7bec1}
+.simu .lignes{position:absolute;right:-120px;top:-60px;width:520px;opacity:.12;pointer-events:none}
+.onglets{display:inline-flex;background:rgba(255,255,255,.06);border-radius:999px;padding:4px;margin-bottom:2rem}
+.onglets button{border:0;background:none;color:#cfd5d8;padding:.7rem 1.3rem;border-radius:999px;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;transition:.3s}
+.onglets button[aria-selected="true"]{background:var(--bleu);color:var(--noir)}
+.simu .grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.champ{margin-bottom:1.6rem}
+.champ label,.champ .lab{display:flex;justify-content:space-between;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0b7;margin-bottom:.6rem;font-weight:600}
+.champ label output,.champ .lab output{color:#fff;font-size:.95rem;letter-spacing:.02em}
+.champ select,.champ input[type=number]{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:12px;padding:.85rem 1rem;font:inherit;font-size:.95rem}
+.champ select option{color:#000}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--bleu) var(--p,50%),rgba(255,255,255,.15) var(--p,50%));outline-offset:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:4px solid var(--bleu);box-shadow:0 0 0 6px rgba(95,202,240,.15);transition:transform .2s}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid var(--bleu)}
+.choix{display:flex;flex-wrap:wrap;gap:.5rem}
+.choix button{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#dfe5e7;border-radius:10px;padding:.55rem .85rem;font-size:.8rem;transition:.25s}
+.choix button[aria-pressed="true"]{border-color:var(--bleu);background:rgba(95,202,240,.14);color:#fff}
+.oeuvre-choisie{display:flex;gap:1rem;align-items:center;background:rgba(255,255,255,.05);border-radius:14px;padding:.8rem;margin-bottom:1.6rem}
+.oeuvre-choisie img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+.oeuvre-choisie b{color:#fff;font-weight:500;display:block}
+.oeuvre-choisie small{font-size:.75rem}
+.resultat{background:#fff;color:var(--texte);border-radius:24px;padding:2rem;position:sticky;top:100px}
+.resultat .gros{font-size:clamp(2.4rem,1.8rem + 2vw,3.4rem);color:var(--noir);font-weight:500;line-height:1}
+.resultat .gros small{font-size:1rem;color:var(--texte);font-weight:400}
+.resultat .lab{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--bleu-fonce)}
+.resultat ul{list-style:none;margin:1.4rem 0;border-top:1px solid #eee}
+.resultat li{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid #eee;font-size:.92rem}
+.resultat li b{color:var(--noir);font-weight:600}
+.resultat li.vert b{color:#1c8a5a}
+.barre{height:12px;border-radius:12px;background:#eef0f0;overflow:hidden;display:flex;margin:.6rem 0 .4rem}
+.barre i{display:block;height:100%;transition:width .6s var(--ease)}
+.barre .net{background:var(--noir)}.barre .eco{background:var(--bleu)}
+.legende{display:flex;gap:1rem;font-size:.72rem}
+.legende span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:.35rem;background:var(--noir)}
+.legende span.e::before{background:var(--bleu)}
+.resultat .mention{font-size:.74rem;color:#999;margin-top:1rem;line-height:1.5}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3.5rem;counter-reset:e}
+.etapes div{border-top:1px solid rgba(255,255,255,.18);padding-top:1rem;font-size:.9rem;color:#b9c2c6}
+.etapes b{display:block;color:#fff;font-weight:500;text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;margin-bottom:.3rem}
+.etapes b::before{counter-increment:e;content:"0" counter(e);color:var(--bleu);margin-right:.6rem}
+.panneau[hidden]{display:none}
+.versements{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin:1.2rem 0}
+.versements div{background:#f4f8fa;border-radius:12px;padding:.8rem;text-align:center;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.versements b{display:block;font-size:1.05rem;color:var(--noir);letter-spacing:0;text-transform:none;margin-top:.2rem}
+
+/* Galeries */
+.lieux{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.lieu{border:1px solid #e6e6e6;border-radius:20px;overflow:hidden;background:#fff;transition:transform .4s var(--ease),box-shadow .4s;display:flex;flex-direction:column}
+.lieu:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(13,17,19,.1)}
+.lieu .photo{aspect-ratio:16/10;background:repeating-linear-gradient(135deg,#f3f4f4 0 14px,#eceeee 14px 28px);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:#9a9d9f;padding:1rem;position:relative}
+.lieu .photo b{position:absolute;top:14px;left:14px;background:var(--noir);color:#fff;padding:.35rem .75rem;border-radius:999px;font-weight:500;letter-spacing:.14em}
+.lieu .corps{padding:1.4rem 1.4rem 1.6rem;flex:1;display:flex;flex-direction:column}
+.lieu h3{font-size:1.15rem}
+.lieu p{font-family:var(--f-texte);margin:.5rem 0 1rem}
+.lieu .horaires{font-size:.85rem;border-top:1px solid #eee;padding-top:.9rem;margin-top:auto}
+.lieu .horaires div{display:flex;justify-content:space-between;gap:1rem;padding:.2rem 0}
+.lieu .horaires span:first-child{color:var(--noir)}
+.etat{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:.6rem}
+.etat::before{content:"";width:8px;height:8px;border-radius:50%;background:#bbb}
+.etat.ouvert::before{background:#22b07d;box-shadow:0 0 0 4px rgba(34,176,125,.18)}
+.etat.ferme::before{background:#e0a100}
+
+/* Services */
+.services .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.service{padding:1.8rem;border-radius:18px;background:#f7f8f8;position:relative;overflow:hidden;transition:background .3s}
+.service::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;background:repeating-linear-gradient(60deg,transparent 0 6px,rgba(95,202,240,.35) 6px 7px);border-radius:50%;transform:scale(.6);opacity:0;transition:.5s var(--ease)}
+.service:hover::after{transform:scale(1);opacity:1}
+.service:hover{background:#f1f9fc}
+.service h3{font-size:.95rem;letter-spacing:.06em;margin-bottom:.5rem}
+.service p{font-family:var(--f-texte);font-size:.98rem}
+
+/* Agenda */
+.agenda .bloc{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:stretch}
+.agenda .vide{border:1.5px dashed #cfd3d5;border-radius:20px;padding:2rem;display:flex;flex-direction:column;justify-content:center}
+.agenda .vide h3{font-size:1.05rem;margin-bottom:.5rem}
+.agenda .vide p{font-family:var(--f-texte)}
+.newsletter{background:#f2fbfe;border-radius:20px;padding:2rem}
+.newsletter h3{font-size:1.05rem;margin-bottom:.5rem}
+.newsletter form{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+.newsletter input{flex:1;min-width:200px;border:1px solid #cfe7f0;border-radius:999px;padding:.85rem 1.2rem;font:inherit}
+.newsletter label.rgpd{display:flex;gap:.5rem;font-size:.78rem;margin-top:.8rem;align-items:flex-start}
+
+/* Contact */
+.contact .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:3rem}
+.coord li{list-style:none;padding:1rem 0;border-bottom:1px solid #eee}
+.coord small{display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#9a9d9f}
+.coord a,.coord span{color:var(--noir);font-size:1.05rem}
+.coord a:hover{color:var(--bleu-fonce)}
+form.formulaire{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+form.formulaire .full{grid-column:1/-1}
+form.formulaire label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#8d9193;display:block;margin-bottom:.35rem}
+form.formulaire input,form.formulaire textarea,form.formulaire select{width:100%;border:1px solid #dcdfe0;border-radius:12px;padding:.85rem 1rem;font:inherit;color:var(--noir);background:#fff;transition:border-color .2s,box-shadow .2s}
+form.formulaire input:focus,form.formulaire textarea:focus,form.formulaire select:focus{border-color:var(--bleu);box-shadow:0 0 0 4px rgba(95,202,240,.18);outline:0}
+.merci{display:none;background:#e9f8f1;color:#13704a;padding:1rem;border-radius:12px;font-size:.9rem}
+
+/* Pied de page */
+footer{background:var(--anthracite);color:#a9b0b3;padding:4rem 0 2rem;font-size:.9rem}
+footer .grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-size:.72rem;letter-spacing:.18em;margin-bottom:1rem}
+footer li{list-style:none;padding:.25rem 0}
+footer a:hover{color:var(--bleu)}
+footer .logo-f{height:56px;width:auto;margin-bottom:1rem}
+.mention-demo{border-top:1px solid rgba(255,255,255,.1);margin-top:3rem;padding-top:1.4rem;font-size:.78rem;color:#80898d;line-height:1.6}
+
+/* Apparitions */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+
+@media (max-width:1060px){
+  nav ul{display:none}
+  .burger{display:block}
+  nav.ouvert ul{display:flex;flex-direction:column;position:absolute;top:78px;left:0;right:0;background:#fff;padding:1rem 16px 1.6rem;gap:1rem;box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .nav-cta .tel{display:none}
+  .hero .wrap{grid-template-columns:1fr;padding:4rem 0 6rem}
+  .mur{height:380px}
+  .atouts ul{grid-template-columns:repeat(3,1fr)}
+  .atouts li:nth-child(3){border-right:0}
+  .histoire .grid,.simu .grid,.contact .grid,.agenda .bloc{grid-template-columns:1fr}
+  .lieux,.services .grid{grid-template-columns:1fr 1fr}
+  .lb .boite{grid-template-columns:1fr}
+  .etapes{grid-template-columns:1fr 1fr}
+  footer .grid{grid-template-columns:1fr 1fr}
+  .resultat{position:static}
+}
+@media (max-width:640px){
+  .topbar .adr{display:none}
+  .nav-cta .btn{display:none}
+  .mur{height:300px}
+  .atouts ul{grid-template-columns:1fr 1fr}
+  .atouts li{border-right:0;border-bottom:1px solid #eee}
+  .lieux,.services .grid,form.formulaire,footer .grid{grid-template-columns:1fr}
+  .versements{grid-template-columns:1fr 1fr}
+  .hero,.simu{border-radius:0 0 28px 28px;margin:0}
+  .simu{border-radius:28px}
+  .lb .texte{padding:1.4rem}
+  .lb .visuel{min-height:300px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ArtGallery",
+  "name":"Galerie DEZA",
+  "description":"Galerie d'art contemporain spécialisée dans l'art figuratif et la couleur : peintures, sculptures, sérigraphies. Leasing d'art pour les entreprises et paiement en 3 ou 4 fois pour les particuliers.",
+  "url":"https://galeriedeza.com/",
+  "telephone":"+33686169459",
+  "email":"contact@galeriedeza.com",
+  "address":{"@type":"PostalAddress","streetAddress":"11 rue Alexandre Roche","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "founder":{"@type":"Person","name":"Axel Plasse"},
+  "foundingDate":"2016",
+  "areaServed":["Roanne","Villerest","Lyon","France"],
+  "department":[
+    {"@type":"ArtGallery","name":"Galerie DEZA Lyon","address":{"@type":"PostalAddress","streetAddress":"7 rue Thomassin","postalCode":"69002","addressLocality":"Lyon","addressCountry":"FR"}},
+    {"@type":"ArtGallery","name":"Galerie DEZA — Domaine de Champlong","address":{"@type":"PostalAddress","streetAddress":"100 chemin de la Chapelle","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"}}
+  ],
+  "sameAs":["https://www.artsy.net/galerie-deza","https://www.artsper.com/fr/galeries-d-art/france/1411/galerie-deza"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour la Galerie DEZA</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span>Contemporary art</span>
+    <span class="adr">11 rue Alexandre Roche 42300 Roanne – France · 7 rue Thomassin 69002 Lyon – France</span>
+  </div>
+</div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a href="#accueil" class="logo" aria-label="Galerie DEZA, accueil"><img src="https://galeriedeza.com/wp-content/uploads/2025/07/cropped-LOGO4-copie3-copie-3-scaled-2.png" alt="Galerie DEZA — Contemporary art — Roanne, Lyon, Champlong"></a>
+    <nav id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#accueil" class="actif">Accueil</a></li>
+        <li><a href="#artistes">Artistes</a></li>
+        <li><a href="#oeuvres">Shop</a></li>
+        <li><a href="#agenda">Évènements</a></li>
+        <li><a href="#galeries">Les galeries</a></li>
+        <li><a href="#leasing">Financements/LOA</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="tel" href="tel:+33686169459">06 86 16 94 59</a>
+      <a class="btn" href="#leasing">Simuler un leasing</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <canvas id="lignes" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="sur" style="color:var(--bleu)">Art figuratif contemporain · depuis 2016</span>
+      <h1 style="margin-top:1.2rem">Votre galerie d'art à Lyon et Roanne : <span class="bleu">expositions &amp; œuvres uniques</span></h1>
+      <p class="lead">Une ligne artistique centrée sur la couleur, des artistes émergents et des talents établis, et une conviction : passer la porte d'une galerie doit être un acte totalement décomplexé.</p>
+      <div class="actions">
+        <a class="btn" href="#oeuvres">Découvrir les œuvres</a>
+        <a class="btn ligne" href="#leasing">L'art dans votre entreprise</a>
+      </div>
+      <div class="chips"><span class="chip">Roanne</span><span class="chip">Lyon</span><span class="chip">Domaine de Champlong</span></div>
+    </div>
+    <div class="mur" aria-hidden="true">
+      <figure class="f1" data-v="-0.06"><img src="https://galeriedeza.com/wp-content/uploads/2026/09/0fd43370f4a0d1554cd7c97b9fd1ec9b-en-rouge-et-noir-130x97cm.jpg" alt=""><figcaption>Fauve — En rouge et noir</figcaption></figure>
+      <figure class="f2" data-v="0.08"><img src="https://galeriedeza.com/wp-content/uploads/2026/07/550a55a23e5bd4ee5c0252de5bc573de-les-arbres-06-07-26-120x120cm-j.jpg" alt=""><figcaption>Laurent Bouro — Les arbres</figcaption></figure>
+      <figure class="f3" data-v="-0.1"><img src="https://galeriedeza.com/wp-content/uploads/2025/07/c0c167b7c374685f6ea28c0e43000d1b-scene-of-the-crime-80x80cm.jpg" alt=""><figcaption>Nolwenn Samson</figcaption></figure>
+      <figure class="f4" data-v="0.12"><img src="https://galeriedeza.com/wp-content/uploads/2025/07/henri-iglesis-petit-bonhomme-f1-miami-blue-2264-6737c95021af3.jpg" alt=""></figure>
+    </div>
+  </div>
+  <div class="defile"><span>Défiler</span><i></i></div>
+</section>
+
+<div class="atouts wrap rv">
+  <ul>
+    <li><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="1"/><circle cx="8" cy="10" r="2.2"/><path d="M7 12.5 6 17l2-1 2 1-1-4.5M13 9h5M13 12h5M13 15h3"/></svg><strong>Certificat d'authenticité</strong></li>
+    <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/></svg><strong>Livraison en France &amp; à l'étranger</strong></li>
+    <li><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.5 2.7-6 6-6s6 2.5 6 6M15 4h6v5h-3l-2 2v-2h-1z"/></svg><strong>Service clientèle</strong></li>
+    <li><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19M6 15h4"/></svg><strong>Paiement 3x 4x</strong></li>
+    <li><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 14h5M9 17h3"/></svg><strong>Leasing d'art</strong></li>
+  </ul>
+</div>
+
+<section class="histoire" id="artistes">
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="sur">Notre histoire</span>
+      <p class="citation" style="margin-top:1.2rem">Une galerie décrite comme une <em>« attrape-couleurs »</em>, joyeuse, bienveillante et conviviale.</p>
+      <div class="chiffres">
+        <div><b data-compte="2016">2016</b><span>Ouverture à Roanne</span></div>
+        <div><b>3</b><span>Galeries</span></div>
+      </div>
+    </div>
+    <div class="rv d1">
+      <p>Inaugurée en plein centre-ville de Roanne en 2016 par Axel Plasse, la Galerie DEZA a rapidement imposé son identité. À la fois marchand d'art et collectionneur, Axel promeut une ligne artistique centrée sur la couleur, avec une sélection variée de peintures, sculptures, photographies et sérigraphies.</p>
+      <p>Des expositions temporaires renouvelées tous les mois et demi, des vernissages réguliers pour rencontrer les artistes, et une présence sur les foires et salons d'art contemporain en France comme à l'étranger.</p>
+      <div class="noms" aria-label="Quelques artistes représentés">
+        <span>Fauve</span><span>Xavier Marabout</span><span>David Cumps</span><span>Laurent Bouro</span><span>Nolwenn Samson</span><span>Bernard Saint-Maxent</span><span>David Jamin</span><span>Lolek</span><span>Sophie Barut</span><span>Henri Iglesis</span><span>Perrine Vilmot</span><span>Virginia Benedicto</span><span>Robert Combas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="oeuvres" id="oeuvres">
+  <div class="wrap">
+    <div class="tete rv">
+      <div><span class="sur">Shop</span><h2>Une sélection d'œuvres</h2></div>
+      <p>Cliquez sur une œuvre : fiche complète, aperçu à l'échelle au-dessus d'un canapé, et simulation de leasing en un geste.</p>
+    </div>
+    <div class="filtres rv" role="group" aria-label="Filtrer par nature">
+      <button data-f="type" data-v="tout" aria-pressed="true">Tout</button>
+      <button data-f="type" data-v="peinture" aria-pressed="false">Peinture</button>
+      <button data-f="type" data-v="sculpture" aria-pressed="false">Sculpture</button>
+      <button data-f="type" data-v="mixte" aria-pressed="false">Technique mixte</button>
+      <button data-f="type" data-v="serigraphie" aria-pressed="false">Sérigraphie</button>
+    </div>
+    <div class="filtres rv" role="group" aria-label="Filtrer par prix">
+      <button data-f="prix" data-v="tout" aria-pressed="true">Tous les prix</button>
+      <button data-f="prix" data-v="a" aria-pressed="false">Moins de 500 €</button>
+      <button data-f="prix" data-v="b" aria-pressed="false">500 € – 1 500 €</button>
+      <button data-f="prix" data-v="c" aria-pressed="false">Plus de 1 500 €</button>
+    </div>
+    <p class="compteur" aria-live="polite"><span id="nb">0</span> œuvres affichées</p>
+    <div class="grille" id="grille"></div>
+  </div>
+</section>
+
+<div style="height:clamp(3rem,2rem + 3vw,5rem)"></div>
+
+<section class="simu" id="leasing">
+  <svg class="lignes" viewBox="0 0 200 120" aria-hidden="true"><g stroke="#5FCAF0" stroke-width=".6" fill="none" id="motif"></g></svg>
+  <div class="wrap">
+    <div class="tete">
+      <div><span class="sur">Financements / LOA</span><h2>Combien coûte vraiment<br>une œuvre en leasing ?</h2></div>
+      <p>Le leasing d'art (location avec option d'achat) étale l'acquisition sur 13 à 48 mois et ses loyers sont déductibles. Faites le calcul vous-même, puis la galerie établit la simulation définitive avec l'organisme financier.</p>
+    </div>
+
+    <div class="onglets" role="tablist">
+      <button role="tab" aria-selected="true" aria-controls="p-pro" id="t-pro">Entreprise / profession libérale</button>
+      <button role="tab" aria-selected="false" aria-controls="p-part" id="t-part">Particulier</button>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="oeuvre-choisie" id="choisie">
+          <img src="https://galeriedeza.com/wp-content/uploads/2026/09/0fd43370f4a0d1554cd7c97b9fd1ec9b-en-rouge-et-noir-130x97cm.jpg" alt="">
+          <div><b>En rouge et noir — Fauve</b><small>Choisissez une autre œuvre dans le shop, ou saisissez un montant.</small></div>
+        </div>
+        <div class="champ">
+          <label for="montant">Prix de l'œuvre (TTC) <output id="o-montant"></output></label>
+          <input type="range" id="montant" min="500" max="30000" step="50" value="2200">
+        </div>
+
+        <div class="panneau" id="p-pro" role="tabpanel" aria-labelledby="t-pro">
+          <div class="champ">
+            <label for="duree">Durée du contrat <output id="o-duree"></output></label>
+            <input type="range" id="duree" min="13" max="48" step="1" value="36">
+          </div>
+          <div class="champ">
+            <label for="vr">Valeur résiduelle (levée d'option) <output id="o-vr"></output></label>
+            <input type="range" id="vr" min="3" max="5" step="0.5" value="4">
+          </div>
+          <div class="champ">
+            <span class="lab">Votre imposition</span>
+            <div class="choix" id="taux" role="group" aria-label="Taux d'imposition">
+              <button data-t="15" aria-pressed="false">IS 15 %</button>
+              <button data-t="25" aria-pressed="true">IS 25 %</button>
+              <button data-t="30" aria-pressed="false">IR · TMI 30 %</button>
+              <button data-t="41" aria-pressed="false">IR · TMI 41 %</button>
+              <button data-t="45" aria-pressed="false">IR · TMI 45 %</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panneau" id="p-part" role="tabpanel" aria-labelledby="t-part" hidden>
+          <div class="champ">
+            <span class="lab">Paiement</span>
+            <div class="choix" id="fois" role="group" aria-label="Nombre de versements">
+              <button data-n="1" aria-pressed="false">Comptant</button>
+              <button data-n="3" aria-pressed="true">3 fois</button>
+              <button data-n="4" aria-pressed="false">4 fois</button>
+            </div>
+          </div>
+          <p class="serif" style="color:#b7bec1">La galerie propose aussi la liste de mariage (vous choisissez l'œuvre, elle tient à jour le registre des participations) et les bons cadeaux.</p>
+        </div>
+      </div>
+
+      <div class="resultat" aria-live="polite">
+        <div id="r-pro">
+          <span class="lab">Loyer mensuel indicatif</span>
+          <p class="gros" style="margin-top:.5rem"><span id="loyer">0</span> €<small> / mois · hors frais de financement</small></p>
+          <ul>
+            <li><span>Total des loyers sur <span id="r-duree"></span> mois</span><b id="total"></b></li>
+            <li class="vert"><span>Économie d'impôt estimée</span><b id="eco"></b></li>
+            <li><span>Coût net après impôt</span><b id="net"></b></li>
+            <li><span>Levée d'option en fin de contrat</span><b id="option"></b></li>
+          </ul>
+          <div class="barre"><i class="net" id="b-net"></i><i class="eco" id="b-eco"></i></div>
+          <div class="legende"><span>Coût net</span><span class="e">Économie d'impôt</span></div>
+          <div class="actions" style="display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.4rem">
+            <a class="btn" href="#contact" data-sujet="leasing">Demander ma simulation</a>
+          </div>
+          <p class="mention">Estimation simplifiée : loyers = (prix − valeur résiduelle) ÷ durée, économie = loyers × taux choisi. Les frais du financeur, l'assurance et votre situation fiscale réelle modifient le résultat : la simulation définitive est réalisée par la galerie avec la banque ou l'organisme financier.</p>
+        </div>
+        <div id="r-part" hidden>
+          <span class="lab">Votre échéancier</span>
+          <p class="gros" style="margin-top:.5rem"><span id="mens">0</span> €<small id="mens-l"> × 3</small></p>
+          <div class="versements" id="versements"></div>
+          <a class="btn" href="#contact" data-sujet="achat">Réserver cette œuvre</a>
+          <p class="mention">Facilités de paiement à confirmer avec la galerie. Moyens de règlement acceptés : chèque, virement, PayPal, carte bancaire, paiement par téléphone.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="etapes">
+      <div><b>Sélection</b>Vous choisissez l'œuvre qui correspond à vos goûts, à votre image et à votre budget.</div>
+      <div><b>Simulation</b>Loyers, durée de 13 à 48 mois et économies d'impôts sont calculés avec vous.</div>
+      <div><b>Mise en place</b>Le contrat est signé avec la banque ou l'organisme financier ; l'œuvre rejoint vos murs.</div>
+      <div><b>Levée d'option</b>En fin de contrat, l'œuvre vous appartient pour sa valeur résiduelle.</div>
+    </div>
+  </div>
+</section>
+
+<section id="galeries">
+  <div class="wrap">
+    <div class="tete rv">
+      <div><span class="sur">Les galeries</span><h2>Roanne, Lyon<br>et le Domaine de Champlong</h2></div>
+      <p>Trois lieux, une même ligne : faire découvrir l'art contemporain en toute simplicité, sans élitisme ni tiédeur.</p>
+    </div>
+    <div class="lieux">
+      <article class="lieu rv">
+        <div class="photo"><b>Roanne</b>Photo de la galerie<br>à fournir par la galerie</div>
+        <div class="corps">
+          <span class="etat ferme" data-lieu="roanne">En cours de déménagement</span>
+          <h3>Galerie DEZA Roanne</h3>
+          <p>Le berceau de la galerie, ouverte en plein centre-ville en 2016.</p>
+          <div class="horaires">
+            <div><span>Adresse</span><span>11 rue Alexandre Roche, 42300 Roanne</span></div>
+            <div><span>Horaires</span><span>Galerie fermée pendant le déménagement</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="lieu rv d1">
+        <div class="photo"><b>Lyon</b>Photo de la galerie<br>à fournir par la galerie</div>
+        <div class="corps">
+          <span class="etat" data-lieu="lyon">Horaires</span>
+          <h3>Galerie DEZA Lyon</h3>
+          <p>Depuis 2022, un lieu de rencontres et d'échanges autour de l'art contemporain.</p>
+          <div class="horaires">
+            <div><span>Adresse</span><span>7 rue Thomassin, 69002 Lyon</span></div>
+            <div><span>Mar – Sam</span><span>11h–13h · 14h–18h</span></div>
+            <div><span>Dim – Lun</span><span>Sur rendez-vous</span></div>
+          </div>
+        </div>
+      </article>
+      <article class="lieu rv d2">
+        <div class="photo"><b>Villerest</b>Photo de la galerie<br>à fournir par la galerie</div>
+        <div class="corps">
+          <span class="etat" data-lieu="champlong">Horaires</span>
+          <h3>Domaine de Champlong</h3>
+          <p>Depuis juin 2024, les œuvres dialoguent avec le parc et la demeure historique, entre gastronomie, spa et golf.</p>
+          <div class="horaires">
+            <div><span>Adresse</span><span>100 chemin de la Chapelle, 42300 Villerest</span></div>
+            <div><span>Mer – Jeu</span><span>10h–12h · 14h–18h30</span></div>
+            <div><span>Ven – Sam</span><span>10h–12h · 14h–19h</span></div>
+            <div><span>Lun – Mar</span><span>Sur rendez-vous</span></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="services" style="padding-top:0">
+  <div class="wrap">
+    <div class="tete rv"><div><span class="sur">Nos services</span><h2>Acheter une œuvre, simplement</h2></div></div>
+    <div class="grid">
+      <div class="service rv"><h3>Certificat d'authenticité</h3><p>Toutes les œuvres sont certifiées par les artistes, les ayants droit ou la galerie.</p></div>
+      <div class="service rv d1"><h3>Expédition assurée</h3><p>Envoi en France et à l'étranger par transporteur spécialisé, assuré jusqu'à bonne réception.</p></div>
+      <div class="service rv d2"><h3>Liste de mariage</h3><p>Vous choisissez l'œuvre, la galerie tient à jour le registre des participations.</p></div>
+      <div class="service rv"><h3>Bons cadeaux</h3><p>Pour un anniversaire, une fête, ou simplement pour offrir une découverte.</p></div>
+      <div class="service rv d1"><h3>Paiement en 3 ou 4 fois</h3><p>Des facilités de paiement pour rendre l'acquisition d'une œuvre plus accessible.</p></div>
+      <div class="service rv d2"><h3>Leasing pour les pros</h3><p>Location avec option d'achat pour les sociétés et cabinets libéraux, de 13 à 48 mois.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="agenda" id="agenda" style="padding-top:0">
+  <div class="wrap">
+    <div class="tete rv"><div><span class="sur">Évènements</span><h2>Expositions &amp; vernissages</h2></div><p>Une programmation renouvelée tous les mois et demi, et des vernissages pour rencontrer les artistes.</p></div>
+    <div class="bloc">
+      <div class="vide rv">
+        <h3>Prochaine exposition</h3>
+        <p>Emplacement prévu pour l'agenda de la galerie : titre, artistes, dates, lieu et vernissage, mis à jour par la galerie elle-même. Informations à fournir.</p>
+      </div>
+      <div class="newsletter rv d1">
+        <h3>Recevoir les invitations</h3>
+        <p class="serif">Les dates d'expositions, d'évènements et de vernissages, directement par e-mail.</p>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Merci !'">
+          <input type="email" required placeholder="Votre e-mail" aria-label="Votre e-mail">
+          <button class="btn" type="submit">S'inscrire</button>
+          <label class="rgpd"><input type="checkbox" required> J'accepte de recevoir vos e-mails et confirme avoir pris connaissance de votre politique de confidentialité et mentions légales.</label>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" style="background:#f7f8f8">
+  <div class="wrap grid">
+    <div class="rv">
+      <span class="sur">Contact</span>
+      <h2 style="font-size:clamp(1.7rem,1.2rem + 2vw,2.6rem);margin:.8rem 0 1rem">Besoin d'informations ou d'une visite ?</h2>
+      <ul class="coord">
+        <li><small>Téléphone</small><a href="tel:+33686169459">+33 (0)6 86 16 94 59</a></li>
+        <li><small>E-mail</small><a href="mailto:contact@galeriedeza.com">contact@galeriedeza.com</a></li>
+        <li><small>Roanne</small><span>11 rue Alexandre Roche, 42300 Roanne</span></li>
+        <li><small>Lyon</small><span>7 rue Thomassin, 69002 Lyon</span></li>
+        <li><small>Domaine de Champlong</small><span>100 chemin de la Chapelle, 42300 Villerest</span></li>
+      </ul>
+    </div>
+    <form class="formulaire rv d1" id="form">
+      <div><label for="c-nom">Votre nom</label><input id="c-nom" required></div>
+      <div><label for="c-tel">Votre téléphone</label><input id="c-tel" type="tel"></div>
+      <div class="full"><label for="c-mail">Votre e-mail</label><input id="c-mail" type="email" required></div>
+      <div class="full"><label for="c-objet">Objet</label>
+        <select id="c-objet"><option>Renseignement sur une œuvre</option><option value="achat">Réserver une œuvre</option><option value="leasing">Simulation de leasing (entreprise)</option><option>Visite d'une galerie</option><option>Liste de mariage / bon cadeau</option></select></div>
+      <div class="full"><label for="c-msg">Votre message</label><textarea id="c-msg" rows="5"></textarea></div>
+      <div class="full"><button class="btn" type="submit">Envoyer</button></div>
+      <p class="merci full" id="merci">Merci, votre message a bien été pris en compte (démonstration : aucun envoi réel).</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <img class="logo-f" src="https://galeriedeza.com/wp-content/uploads/2019/06/logo_texte_blanc.png" alt="Galerie DEZA">
+        <p><a href="mailto:contact@galeriedeza.com">contact@galeriedeza.com</a><br><a href="tel:+33686169459">+33 (0)6 86 16 94 59</a></p>
+      </div>
+      <div><h4>Galerie</h4><ul><li><a href="#accueil">Accueil</a></li><li><a href="#artistes">Artistes</a></li><li><a href="#oeuvres">Shop</a></li><li><a href="#agenda">Évènements</a></li></ul></div>
+      <div><h4>Services</h4><ul><li><a href="#leasing">Défiscalisation / leasing</a></li><li><a href="#leasing">Financement pour les particuliers</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Les galeries</h4><ul><li><a href="#galeries">Roanne</a></li><li><a href="#galeries">Lyon</a></li><li><a href="#galeries">Domaine de Champlong</a></li></ul></div>
+    </div>
+    <p class="mention-demo">Maquette de démonstration non contractuelle, réalisée à partir des informations publiques de galeriedeza.com (octobre 2026). Les visuels des œuvres et le logo proviennent du site actuel de la galerie ; aucune photo d'illustration extérieure n'a été utilisée. Les photos des trois galeries restent à fournir. Prix affichés tels que publiés sur le site, à confirmer. Le simulateur de leasing donne un ordre de grandeur hors frais de financement et ne constitue ni une offre de crédit ni un conseil fiscal. L'agenda des expositions est à alimenter par la galerie.</p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lb-titre">
+  <div class="boite">
+    <div class="visuel">
+      <img class="seule" id="lb-img" alt="">
+      <div class="salon" id="salon">
+        <img class="oeuvre" id="salon-img" alt="">
+        <div class="canape" id="canape"><svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M8 30q0-10 10-10h164q10 0 10 10v22H8z" fill="#8f877b"/><rect x="0" y="40" width="200" height="28" rx="8" fill="#a49b8e"/><rect x="10" y="66" width="6" height="12" fill="#5c564e"/><rect x="184" y="66" width="6" height="12" fill="#5c564e"/></svg></div>
+        <span class="echelle">Canapé de 2 m · échelle indicative</span>
+      </div>
+    </div>
+    <div class="texte">
+      <button class="fermer" id="lb-fermer" aria-label="Fermer">×</button>
+      <span class="sur" id="lb-art"></span>
+      <h3 id="lb-titre"></h3>
+      <p class="prix" id="lb-prix" style="font-size:1.3rem"></p>
+      <dl id="lb-dl"></dl>
+      <div class="bascule" id="bascule" role="group" aria-label="Mode d'affichage">
+        <button aria-pressed="true" data-m="oeuvre">L'œuvre</button>
+        <button aria-pressed="false" data-m="salon">Au mur, à l'échelle</button>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#contact" id="lb-reserver">Réserver cette œuvre</a>
+        <a class="btn ligne" href="#leasing" id="lb-leasing">Simuler en leasing</a>
+      </div>
+      <p class="note">Œuvre unique, accompagnée de son certificat d'authenticité. Livraison en France et à l'étranger.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(()=>{
+const U='https://galeriedeza.com/wp-content/uploads/';
+/* Œuvres réelles publiées sur galeriedeza.com (titre, artiste, prix, technique, dimensions en cm si indiquées) */
+const O=[
+ {t:"En rouge et noir",a:"Fauve",p:2200,n:"Acrylique sur toile",ty:"peinture",d:[130,97],i:"2026/09/0fd43370f4a0d1554cd7c97b9fd1ec9b-en-rouge-et-noir-130x97cm.jpg"},
+ {t:"Les arbres 06.07.26",a:"Laurent Bouro",p:6800,n:"Huile sur bois",ty:"peinture",d:[120,120],i:"2026/07/550a55a23e5bd4ee5c0252de5bc573de-les-arbres-06-07-26-120x120cm-j.jpg"},
+ {t:"Scene of the crime",a:"Nolwenn Samson",p:3200,n:"Technique mixte sur toile avec châssis",ty:"mixte",d:[80,80],i:"2025/07/c0c167b7c374685f6ea28c0e43000d1b-scene-of-the-crime-80x80cm.jpg"},
+ {t:"Kaléidoscope",a:"Fauve",p:700,n:"Acrylique et collages sur papier",ty:"mixte",d:[51,36],i:"2026/10/58d85435f06e4e93dbcbcecce2b6d6d0-kaleidoscope-51x36cm-j.jpg"},
+ {t:"Petit bonhomme F1 Miami Blue",a:"Henri Iglesis",p:2500,n:"Sculpture en tôle soufflée",ty:"sculpture",i:"2025/07/henri-iglesis-petit-bonhomme-f1-miami-blue-2264-6737c95021af3.jpg"},
+ {t:"La grande course 1/25",a:"Xavier Marabout",p:1200,n:"Sérigraphie",ty:"serigraphie",i:"2025/07/la-grande-course.png"},
+ {t:"Monsieur et Madame",a:"Virginia Benedicto",p:2790,n:"Acrylique sur toile",ty:"peinture",d:[116,81],i:"2025/07/caacb15f051b76a5b7962812e4724542-monsieur-et-madame-116x81-cm.jpg"},
+ {t:"SPIDER",a:"David Cumps",p:2500,n:"Acrylique, feutre, collage sur toile avec encadrement plexiglass",ty:"mixte",i:"2025/08/85d5bdbc38bf89650e11d87c87c6c316-img-1412-2-j.jpg"},
+ {t:"Hésitation",a:"Sophie Barut",p:1900,n:"Bronze n°2/8 + 4EA",ty:"sculpture",d:[36,22,14],i:"2025/07/f6c11fd6fac89f5f3db089e4b11723d8-hesitation-36x22x14cm-j.jpg"},
+ {t:"Deux ou trois",a:"Perrine Vilmot",p:2200,n:"Huile sur toile",ty:"peinture",d:[100,100],i:"2025/07/6cadb9097484f4d741f43c941baf4aad-deux-ou-trois-100x100cm-j.jpg"},
+ {t:"En gare de Roanne, saumon à l'oseille, je pars pour Sète",a:"Lydie Foliot",p:190,n:"Mixte sur papier",ty:"mixte",i:"2026/09/8ffaf8352c479e4b165f5919e829eba5-n05-20-en-gare-de-roanne-saumon-a-l-oseille-je-pars-pour-sete-j.jpg"},
+ {t:"Gris chaud et Rouge Tatami",a:"Xavier Marabout",p:3400,n:"Huile",ty:"peinture",i:"2025/07/img-2536.jpeg"},
+ {t:"Les arbres 02.07.26",a:"Laurent Bouro",p:2800,n:"Huile sur bois",ty:"peinture",d:[80,60],i:"2026/07/b809c21d5ddecb59c6050ab2ba2abbbd-les-arbres-02-07-26-80x60cm-j.jpg"},
+ {t:"Grand Chat EA II/IV",a:"Lolek",p:8300,n:"Bronze",ty:"sculpture",i:"2025/07/lolek-grand-chat-ea-ii-iv-2762-680286f2aec02.jpg"},
+ {t:"Stripes Daft Punk",a:"Melkio",p:2400,n:"Acrylique sur toile",ty:"peinture",d:[100,100],i:"2025/11/a0159ea392205ae76b69cadca52a608f-stripes-daft-punk-100x100cm-j.jpg"},
+ {t:"Mystérieuse 1",a:"Fauve",p:2200,n:"Acrylique sur toile",ty:"peinture",d:[131,89],i:"2026/09/1faa67326d98c94ead230895cefacc2d-mysteriseuse-1-131x89cm.jpg"},
+ {t:"Piece of wall #12",a:"Jérémy Ferreira",p:480,n:"Aérosol, résine, poudre de marbre",ty:"mixte",i:"2025/11/97a4ecb7e1888e03fc323189a05960ce-piece-of-wall-12-grande-j.jpg"},
+ {t:"Essentiel",a:"Lydie Thonnerieux",p:1800,n:"Grès noir, ciré, fine feuille d'or",ty:"sculpture",d:[41,28,20],i:"2026/04/f2cff7b0635b5d5f294dca45ff13ef95-essentiel-41x28x20cm-j.jpg"},
+ {t:"Bord de mer",a:"Lydie Foliot",p:1900,n:"Acrylique sur toile",ty:"peinture",d:[60,240],i:"2025/07/70be117bd176b7ca8757d728a048d3ee-bord-de-mer-60x240cm-j.jpg"},
+ {t:"Soho",a:"Virginia Benedicto",p:990,n:"Acrylique sur toile",ty:"peinture",d:[60,50],v:1,i:"2025/07/3f03260d2297a8aba8b7b81a2d9ff69d-soho-60x50cm.jpg"},
+ {t:"Blue Chair !",a:"Robert Combas",p:29000,n:"Technique mixte (peinture et tissus de doublure de veste) sur papier marouflé sur toile sur châssis",ty:"mixte",i:"2025/07/53c03c1a1e31ca14a0f8b6682062f2ae-img-9753-copie-j.jpg"},
+ {t:"Urban Illusion",a:"Mathieu Lainé Graffmatt",p:270,n:"Peinture aérosol, acrylique",ty:"peinture",d:[29,19],i:"2025/08/97607c49f3684f1c19b13b8021babe43-urban-illustion-29x19cm.jpg"}
+];
+const eur=n=>n.toLocaleString('fr-FR',{maximumFractionDigits:0})+' €';
+const bande=p=>p<500?'a':p<=1500?'b':'c';
+const typeLib={peinture:'Peinture',sculpture:'Sculpture',mixte:'Technique mixte',serigraphie:'Sérigraphie'};
+
+/* Grille */
+const g=document.getElementById('grille');
+O.forEach((o,k)=>{
+  const c=document.createElement('article');c.className='carte';c.tabIndex=0;c.dataset.k=k;c.dataset.type=o.ty;c.dataset.prix=bande(o.p);
+  c.innerHTML=`${o.v?'<span class="badge vendu">Vendu</span>':''}<div class="img"><img loading="lazy" src="${U+o.i}" alt="${o.t}, ${o.a}"></div><div class="infos"><h3>${o.t}</h3><p class="art">${o.a}</p><div class="bas"><span class="prix">${eur(o.p)}</span><span class="voir">Voir →</span></div></div>`;
+  c.addEventListener('click',()=>ouvrir(k));c.addEventListener('keydown',e=>{if(e.key==='Enter')ouvrir(k)});
+  g.appendChild(c);
+});
+const F={type:'tout',prix:'tout'};
+function filtrer(){let n=0;g.querySelectorAll('.carte').forEach(c=>{const ok=(F.type==='tout'||c.dataset.type===F.type)&&(F.prix==='tout'||c.dataset.prix===F.prix);c.classList.toggle('cache',!ok);if(ok)n++});document.getElementById('nb').textContent=n}
+document.querySelectorAll('.filtres button').forEach(b=>b.addEventListener('click',()=>{
+  F[b.dataset.f]=b.dataset.v;document.querySelectorAll(`.filtres button[data-f="${b.dataset.f}"]`).forEach(x=>x.setAttribute('aria-pressed',x===b));filtrer()}));
+filtrer();
+
+/* Lightbox + vue au mur */
+const lb=document.getElementById('lb');let cur=0,dernierFocus=null;
+function ouvrir(k){
+  cur=k;const o=O[k];dernierFocus=document.activeElement;
+  document.getElementById('lb-img').src=U+o.i;document.getElementById('lb-img').alt=o.t;
+  document.getElementById('salon-img').src=U+o.i;
+  document.getElementById('lb-art').textContent=o.a;
+  document.getElementById('lb-titre').textContent=o.t;
+  document.getElementById('lb-prix').textContent=o.v?'Vendue':eur(o.p);
+  document.getElementById('lb-dl').innerHTML=`<dt>Nature</dt><dd>${o.n}</dd><dt>Catégorie</dt><dd>${typeLib[o.ty]}</dd>${o.d?`<dt>Dimensions</dt><dd>${o.d.join(' × ')} cm</dd>`:''}`;
+  const peutMur=o.d&&o.d.length===2;
+  document.getElementById('bascule').style.display=peutMur?'inline-flex':'none';
+  mode('oeuvre');
+  document.getElementById('lb-reserver').style.display=o.v?'none':'';
+  document.getElementById('lb-leasing').style.display=o.v?'none':'';
+  lb.classList.add('ouvert');document.body.style.overflow='hidden';document.getElementById('lb-fermer').focus();
+}
+function fermer(){lb.classList.remove('ouvert');document.body.style.overflow='';dernierFocus&&dernierFocus.focus()}
+document.getElementById('lb-fermer').onclick=fermer;
+lb.addEventListener('click',e=>{if(e.target===lb)fermer()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lb.classList.contains('ouvert'))fermer()});
+function mode(m){
+  document.querySelectorAll('#bascule button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===m));
+  const s=document.getElementById('salon');s.classList.toggle('on',m==='salon');
+  document.getElementById('lb-img').style.visibility=m==='salon'?'hidden':'visible';
+  if(m==='salon')placer();
+}
+document.querySelectorAll('#bascule button').forEach(b=>b.onclick=()=>mode(b.dataset.m));
+function placer(){
+  const o=O[cur],s=document.getElementById('salon'),W=s.clientWidth,H=s.clientHeight;
+  const cmpx=W/360; /* le mur visible représente 3,60 m de large */
+  const im=document.getElementById('salon-img'),cap=document.getElementById('canape');
+  cap.style.width=(200*cmpx)+'px';cap.style.height=(80*cmpx)+'px';
+  const go=()=>{const r=im.naturalWidth/im.naturalHeight||1,grand=Math.max(...o.d)*cmpx;
+    let w=r>=1?grand:grand*r,h=r>=1?grand/r:grand;
+    im.style.width=w+'px';im.style.height=h+'px';
+    const solCanape=H*0.78-(80*cmpx)*0.55;
+    im.style.top=Math.max(12,solCanape-25*cmpx-h)+'px'};
+  im.complete?go():im.onload=go;
+}
+window.addEventListener('resize',()=>{if(document.getElementById('salon').classList.contains('on'))placer()});
+document.getElementById('lb-leasing').onclick=()=>{choisir(cur);fermer()};
+document.getElementById('lb-reserver').onclick=()=>{document.getElementById('c-objet').value='achat';document.getElementById('c-msg').value=`Bonjour, je souhaite réserver l'œuvre « ${O[cur].t} » de ${O[cur].a}.`;fermer()};
+
+/* Simulateur */
+const $=id=>document.getElementById(id);
+let taux=25,fois=3,pro=true;
+function rempl(r){const p=(r.value-r.min)/(r.max-r.min)*100;r.style.setProperty('--p',p+'%')}
+function calc(){
+  const m=+$('montant').value,d=+$('duree').value,vr=+$('vr').value;
+  ['montant','duree','vr'].forEach(i=>rempl($(i)));
+  $('o-montant').textContent=eur(m);$('o-duree').textContent=d+' mois';$('o-vr').textContent=vr.toLocaleString('fr-FR')+' %';
+  const opt=m*vr/100,loyer=(m-opt)/d,tot=loyer*d,eco=tot*taux/100,net=tot-eco;
+  $('loyer').textContent=Math.round(loyer).toLocaleString('fr-FR');$('r-duree').textContent=d;
+  $('total').textContent=eur(tot);$('eco').textContent='− '+eur(eco);$('net').textContent=eur(net);$('option').textContent=eur(opt);
+  $('b-net').style.width=(net/tot*100)+'%';$('b-eco').style.width=(eco/tot*100)+'%';
+  const part=Math.floor(m/fois*100)/100,der=m-part*(fois-1);
+  $('mens').textContent=part.toLocaleString('fr-FR',{minimumFractionDigits:0,maximumFractionDigits:2});
+  $('mens-l').textContent=fois>1?' × '+fois:' en une fois';
+  $('versements').innerHTML=Array.from({length:fois},(_,i)=>`<div>${i===0?'À la commande':'Échéance '+(i+1)}<b>${(i===fois-1?der:part).toLocaleString('fr-FR',{maximumFractionDigits:2})} €</b></div>`).join('');
+}
+['montant','duree','vr'].forEach(i=>$(i).addEventListener('input',()=>{calc();if(i==='montant')$('choisie').querySelector('b').textContent='Montant personnalisé'}));
+$('taux').querySelectorAll('button').forEach(b=>b.onclick=()=>{taux=+b.dataset.t;$('taux').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()});
+$('fois').querySelectorAll('button').forEach(b=>b.onclick=()=>{fois=+b.dataset.n;$('fois').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()});
+document.querySelectorAll('[role=tab]').forEach(t=>t.onclick=()=>{
+  pro=t.id==='t-pro';document.querySelectorAll('[role=tab]').forEach(x=>x.setAttribute('aria-selected',x===t));
+  $('p-pro').hidden=!pro;$('p-part').hidden=pro;$('r-pro').hidden=!pro;$('r-part').hidden=pro});
+function choisir(k){const o=O[k];$('montant').value=Math.min(30000,o.p);
+  $('choisie').querySelector('img').src=U+o.i;$('choisie').querySelector('b').textContent=o.t+' — '+o.a;calc()}
+document.querySelectorAll('[data-sujet]').forEach(a=>a.addEventListener('click',()=>{$('c-objet').value=a.dataset.sujet;
+  const b=$('choisie').querySelector('b').textContent;
+  $('c-msg').value=a.dataset.sujet==='leasing'?`Bonjour, je souhaite une simulation de leasing pour : ${b} (${$('o-montant').textContent}, ${$('o-duree').textContent}).`:`Bonjour, je souhaite réserver : ${b}, paiement en ${fois} fois.`}));
+calc();
+
+/* Formulaire (démo) */
+$('form').addEventListener('submit',e=>{e.preventDefault();$('merci').style.display='block'});
+
+/* Statut d'ouverture en temps réel (Lyon, Champlong) */
+const H={lyon:{2:[[11,13],[14,18]],3:[[11,13],[14,18]],4:[[11,13],[14,18]],5:[[11,13],[14,18]],6:[[11,13],[14,18]]},
+         champlong:{3:[[10,12],[14,18.5]],4:[[10,12],[14,18.5]],5:[[10,12],[14,19]],6:[[10,12],[14,19]]}};
+const now=new Date(),h=now.getHours()+now.getMinutes()/60,j=now.getDay();
+document.querySelectorAll('.etat[data-lieu]').forEach(e=>{const l=H[e.dataset.lieu];if(!l)return;
+  const ouvert=(l[j]||[]).some(([a,b])=>h>=a&&h<b);e.classList.add(ouvert?'ouvert':'ferme');e.textContent=ouvert?'Ouvert en ce moment':'Fermé en ce moment'});
+
+/* Motif de lignes du logo, animé (héros) */
+const cv=$('lignes'),cx=cv.getContext('2d');let t0=0,W,Hh;
+const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function taille(){W=cv.width=cv.offsetWidth*devicePixelRatio;Hh=cv.height=cv.offsetHeight*devicePixelRatio}
+taille();addEventListener('resize',taille);
+let mx=.5;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth});
+function dessin(t){
+  cx.clearRect(0,0,W,Hh);cx.strokeStyle='rgba(95,202,240,.55)';cx.lineWidth=1*devicePixelRatio;
+  const base=Hh*1.02,haut=Hh*0.12,larg=W*0.34,ph=t/4000;
+  for(let p=0;p<3;p++){
+    const sommet=W*(0.18+p*0.32)+Math.sin(ph+p)*W*0.012+(mx-.5)*W*0.03*(p-1);
+    for(let i=0;i<9;i++){const dx=i*W*0.009;cx.beginPath();
+      cx.moveTo(sommet-larg/2+dx,base);cx.lineTo(sommet+dx,haut+i*4);cx.lineTo(sommet+larg/2+dx,base);cx.stroke()}
+  }
+  if(!reduit)requestAnimationFrame(dessin);
+}
+requestAnimationFrame(dessin);
+
+/* Motif statique du simulateur */
+const m=$('motif');for(let p=0;p<3;p++)for(let i=0;i<8;i++){const s=40+p*60+i*1.8;m.insertAdjacentHTML('beforeend',`<polyline points="${s-45},120 ${s},${8+i} ${s+45},120"/>`)}
+
+/* Parallaxe douce du mur d'œuvres + en-tête */
+const figs=document.querySelectorAll('.mur figure'),nav=document.querySelector('header.nav');
+addEventListener('scroll',()=>{const y=scrollY;nav.classList.toggle('scrolled',y>10);
+  if(!reduit)figs.forEach(f=>f.style.transform=`translateY(${y*f.dataset.v}px)`)},{passive:true});
+
+/* Apparitions au défilement */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* Menu mobile */
+const bg=document.querySelector('.burger');bg.onclick=()=>{const o=$('menu').classList.toggle('ouvert');bg.setAttribute('aria-expanded',o)};
+$('menu').querySelectorAll('a').forEach(a=>a.onclick=()=>{$('menu').classList.remove('ouvert');bg.setAttribute('aria-expanded',false)});
+})();
+</script>
+</body>
+</html>
