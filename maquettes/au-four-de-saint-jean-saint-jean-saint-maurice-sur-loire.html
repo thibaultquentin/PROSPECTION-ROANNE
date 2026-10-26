@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Au Four de Saint-Jean — Pizzeria au feu de bois à Saint-Jean-Saint-Maurice-sur-Loire</title>
+<meta name="description" content="Bar, restaurant traditionnel et pizzeria au feu de bois place Saint-Jean, à Saint-Jean-Saint-Maurice-sur-Loire : sur place, en terrasse ombragée ou à emporter.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<!--
+  CHARTE — relevée sur les photos réelles de l'établissement (salle, façade, enseigne),
+  le site actuel n'ayant pas pu être lu (accès bloqué). Couleurs approchées, ajustables ici :
+  vert pétrole des lambris et de l'enseigne, sable de la façade, bleu ciel de l'anneau du logo.
+-->
+<style>
+:root{
+  --petrole:#1d5856;        /* lambris de la salle, bandeau de l'enseigne */
+  --petrole-fonce:#123b3a;
+  --sable:#ecd3a0;          /* façade place Saint-Jean */
+  --sable-clair:#f8efdc;
+  --ciel:#74b6cc;           /* anneau du logo (four) */
+  --braise:#d9662b;         /* lueur du four — usage ponctuel */
+  --encre:#1e2626;
+  --gris:#5d6866;
+  --blanc:#fffdf8;
+  --titre:'Fraunces', Georgia, serif;
+  --texte:'Nunito Sans', system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--blanc);line-height:1.6;font-size:clamp(1rem,.95rem + .2vw,1.08rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ciel);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--petrole-fonce);color:#cfe3e2;font-size:.78rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--sable)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,253,248,.88);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid rgba(29,88,86,.12);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(18,59,58,.10)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:70px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand svg{width:44px;height:44px;flex:none}
+.brand strong{font-family:var(--titre);font-size:1.25rem;color:var(--petrole);line-height:1}
+.brand small{display:block;font-size:.72rem;color:var(--gris);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--braise);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.75rem 1.4rem;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;font-size:.95rem;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-braise{background:var(--braise);color:#fff;box-shadow:0 8px 22px rgba(217,102,43,.35)}
+.btn-petrole{background:var(--petrole);color:#fff}
+.btn-ghost{border-color:currentColor;background:transparent}
+.burger{display:none;background:none;border:0;width:46px;height:46px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--petrole);margin:5px auto;transition:.3s}
+
+/* Héros */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:lent 18s var(--ease) forwards}
+@keyframes lent{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,59,58,.15) 0%,rgba(18,59,58,.55) 45%,rgba(18,59,58,.94) 100%)}
+.braises{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.braises i{position:absolute;bottom:-10px;width:5px;height:5px;border-radius:50%;background:#ffb070;box-shadow:0 0 10px 3px rgba(255,140,60,.7);opacity:0;animation:monte linear infinite}
+@keyframes monte{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),-70vh)}}
+.hero-content{padding:5rem 0 3.5rem}
+.statut{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);padding:.45rem .9rem;border-radius:999px;font-size:.88rem;font-weight:600;margin-bottom:1.3rem}
+.statut .pt{width:9px;height:9px;border-radius:50%;background:#9be29b;box-shadow:0 0 0 0 rgba(155,226,155,.7);animation:pouls 2s infinite}
+.statut.ferme .pt{background:#f3a07a;animation:none}
+@keyframes pouls{70%{box-shadow:0 0 0 10px rgba(155,226,155,0)}100%{box-shadow:0 0 0 0 rgba(155,226,155,0)}}
+.hero h1{font-family:var(--titre);font-weight:700;font-size:clamp(2.4rem,1.6rem + 4.2vw,5.2rem);line-height:1.02;letter-spacing:-.02em;max-width:14ch}
+.hero h1 em{font-style:normal;color:var(--sable)}
+.hero p.lead{max-width:56ch;margin:1.2rem 0 2rem;font-size:clamp(1.05rem,1rem + .3vw,1.22rem);color:#e7f1ef}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero .btn-ghost{color:#fff}
+.credit{position:absolute;right:12px;bottom:10px;font-size:.7rem;background:rgba(0,0,0,.45);color:#fff;padding:.2rem .55rem;border-radius:6px}
+.reveal-mot{display:inline-block;opacity:0;transform:translateY(.5em);animation:mot .8s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+
+/* Bandeau infos */
+.ruban{background:var(--petrole);color:#fff}
+.ruban .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1.4rem 0}
+.ruban div{display:flex;gap:.8rem;align-items:center;font-size:.92rem;line-height:1.35}
+.ruban b{font-family:var(--titre);font-size:1.6rem;color:var(--sable);font-weight:700;min-width:2.4ch}
+
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.surtitre{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--braise)}
+h2{font-family:var(--titre);font-size:clamp(2rem,1.5rem + 2.2vw,3.3rem);line-height:1.08;color:var(--petrole);margin:.4rem 0 1rem;letter-spacing:-.01em}
+.intro{max-width:62ch;color:var(--gris)}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* La maison */
+.maison{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,4vw,5rem);align-items:center}
+.maison .photos{position:relative;aspect-ratio:1/1.05}
+.maison .photos figure{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:0 24px 50px rgba(18,59,58,.22)}
+.maison .photos figure:nth-child(1){inset:0 22% 18% 0}
+.maison .photos figure:nth-child(2){width:52%;right:0;bottom:0;aspect-ratio:4/5;border:6px solid var(--blanc)}
+.maison .photos img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.maison .photos figure:hover img{transform:scale(1.05)}
+.points{list-style:none;margin-top:1.6rem;display:grid;gap:.9rem}
+.points li{display:flex;gap:.9rem;align-items:flex-start}
+.points svg{flex:none;width:26px;height:26px;color:var(--petrole);margin-top:2px}
+
+/* Formules */
+.formules{background:var(--sable-clair);position:relative}
+.formules::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,rgba(116,182,204,.25),transparent 45%);pointer-events:none}
+.cartes-f{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:2.4rem;position:relative}
+.f{background:#fff;border-radius:var(--r);padding:1.6rem 1.4rem;border:1px solid rgba(29,88,86,.12);transition:transform .35s var(--ease),box-shadow .35s;display:flex;flex-direction:column}
+.f:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(18,59,58,.12)}
+.f h3{font-family:var(--titre);font-size:1.25rem;color:var(--petrole);line-height:1.2}
+.f .quand{font-size:.82rem;color:var(--gris);margin:.3rem 0 1rem}
+.f .prix{font-family:var(--titre);font-size:2.3rem;font-weight:700;color:var(--encre);margin-top:auto}
+.f .prix small{font-size:1rem;font-weight:500}
+.f.vedette{background:var(--petrole);color:#fff;border:0}
+.f.vedette h3,.f.vedette .prix{color:var(--sable)}
+.f.vedette .quand{color:#cfe3e2}
+.note{font-size:.85rem;color:var(--gris);margin-top:1.2rem;position:relative}
+
+/* Nos pizzas */
+.filtres{display:flex;flex-wrap:wrap;gap:.5rem;margin:2rem 0 1.6rem}
+.filtres button{border:1.5px solid rgba(29,88,86,.3);background:transparent;color:var(--petrole);padding:.55rem 1.1rem;border-radius:999px;font-weight:700;font-family:inherit;cursor:pointer;min-height:42px;transition:.25s}
+.filtres button[aria-pressed="true"]{background:var(--petrole);color:#fff;border-color:var(--petrole)}
+.grille-p{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem}
+.pz{background:#fff;border:1px solid rgba(29,88,86,.14);border-radius:var(--r);padding:1.3rem 1.3rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;transition:transform .3s var(--ease),box-shadow .3s,opacity .3s}
+.pz:hover{transform:translateY(-4px);box-shadow:0 14px 32px rgba(18,59,58,.1)}
+.pz.cache{display:none}
+.pz header{all:unset;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.pz h3{font-family:var(--titre);font-size:1.22rem;color:var(--petrole)}
+.pz .p{font-weight:800;white-space:nowrap}
+.pz p{font-size:.92rem;color:var(--gris);flex:1}
+.pz p.vague{font-style:italic}
+.ajout{display:flex;align-items:center;gap:.5rem;margin-top:.4rem}
+.ajout button{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--petrole);background:#fff;color:var(--petrole);font-size:1.2rem;font-weight:800;cursor:pointer;transition:.2s}
+.ajout button:hover{background:var(--petrole);color:#fff}
+.ajout output{min-width:1.6ch;text-align:center;font-weight:800}
+.ajout .lbl{font-size:.8rem;color:var(--gris);margin-left:auto}
+.astx{font-size:.85rem;color:var(--gris);margin-top:1.4rem}
+
+/* Commande à emporter */
+.emporter{background:var(--petrole-fonce);color:#eaf3f2;position:relative;overflow:hidden}
+.emporter h2{color:#fff}
+.emporter .intro{color:#bcd4d2}
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2.4rem 0}
+.etape{border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:1.2rem;position:relative}
+.etape b{font-family:var(--titre);font-size:2rem;color:var(--sable);display:block;line-height:1}
+.outil{display:grid;grid-template-columns:1.2fr .8fr;gap:1.4rem;align-items:start}
+.panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:1.5rem}
+.panneau h3{font-family:var(--titre);color:#fff;font-size:1.3rem;margin-bottom:1rem}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem}
+.jours button{background:rgba(255,255,255,.08);border:1.5px solid transparent;color:#fff;border-radius:12px;padding:.55rem .2rem;font-family:inherit;cursor:pointer;line-height:1.15;min-height:58px;transition:.2s}
+.jours button small{display:block;font-size:.7rem;opacity:.75;text-transform:uppercase}
+.jours button b{font-size:1.1rem}
+.jours button[disabled]{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.jours button[aria-pressed="true"]{background:var(--sable);color:var(--encre);border-color:var(--sable)}
+.creneaux{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.creneaux button{background:transparent;border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:.45rem .8rem;font-family:inherit;font-weight:600;cursor:pointer;min-height:40px}
+.creneaux button[aria-pressed="true"]{background:var(--braise);border-color:var(--braise)}
+.creneaux .titre{width:100%;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:#9fbcb9;margin-top:.5rem}
+.formule-toggle{display:flex;gap:.7rem;align-items:flex-start;margin-top:1.2rem;padding:1rem;border-radius:14px;background:rgba(236,211,160,.1);cursor:pointer}
+.formule-toggle input{width:20px;height:20px;accent-color:var(--braise);margin-top:3px}
+.recap{position:sticky;top:90px;background:var(--sable-clair);color:var(--encre);border-radius:var(--r);padding:1.5rem;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.recap h3{font-family:var(--titre);color:var(--petrole);font-size:1.3rem}
+.recap ul{list-style:none;margin:1rem 0;display:grid;gap:.4rem;font-size:.95rem;min-height:2rem}
+.recap li{display:flex;justify-content:space-between;gap:1rem;animation:mot .4s var(--ease)}
+.recap .vide{color:var(--gris);font-style:italic}
+.recap .total{display:flex;justify-content:space-between;border-top:2px dashed rgba(29,88,86,.25);padding-top:.8rem;font-weight:800;font-size:1.15rem}
+.recap .quand{margin:.8rem 0 1.2rem;font-size:.92rem;color:var(--petrole);font-weight:700;min-height:1.4em}
+.recap .btn{width:100%;margin-top:.5rem}
+.recap .petit{font-size:.78rem;color:var(--gris);margin-top:.8rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8rem 1.2rem;border-radius:12px;transition:transform .4s var(--ease);z-index:90;font-size:.92rem}
+.toast.on{transform:translate(-50%,0)}
+
+/* Pain */
+.pain{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;margin-top:3.5rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,.12)}
+.pain label{display:block;font-size:.85rem;color:#bcd4d2;margin-bottom:.35rem}
+.pain input{width:100%;padding:.75rem 1rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font-family:inherit;font-size:1rem;color-scheme:dark}
+.pain .ligne{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.pain .msg{min-height:1.4em;font-size:.9rem;margin:.4rem 0 .8rem;color:var(--sable)}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:.8rem;margin-top:2.4rem}
+.galerie figure{border-radius:var(--r);overflow:hidden;position:relative}
+.galerie figure:first-child{grid-row:span 2}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.galerie figure:hover img{transform:scale(1.06)}
+.galerie figcaption{position:absolute;left:10px;bottom:10px;background:rgba(18,59,58,.8);color:#fff;font-size:.78rem;padding:.25rem .6rem;border-radius:8px}
+.galerie .afournir{background:repeating-linear-gradient(45deg,var(--sable-clair),var(--sable-clair) 12px,#f1e4c8 12px,#f1e4c8 24px);display:grid;place-items:center;text-align:center;color:var(--gris);font-size:.88rem;padding:1rem}
+
+/* Infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.horaires{width:100%;border-collapse:collapse;margin-top:1rem}
+.horaires td{padding:.65rem .2rem;border-bottom:1px solid rgba(29,88,86,.12)}
+.horaires td:last-child{text-align:right;font-weight:700}
+.horaires tr.auj td{color:var(--braise)}
+.horaires tr.ferme td:last-child{color:var(--gris);font-weight:600}
+.coord{display:grid;gap:1rem;margin-top:1.2rem}
+.coord a{text-decoration:none;font-weight:700;color:var(--petrole)}
+.carte{border-radius:var(--r);overflow:hidden;min-height:360px;border:1px solid rgba(29,88,86,.15)}
+.carte iframe{width:100%;height:100%;min-height:360px;border:0}
+.acces{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.acces span{font-size:.8rem;background:var(--sable-clair);padding:.35rem .7rem;border-radius:999px;color:var(--petrole);font-weight:600}
+
+footer{background:var(--petrole-fonce);color:#9fbcb9;padding:3rem 0 2rem;font-size:.85rem}
+footer .haut{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;margin-bottom:2rem;color:#eaf3f2}
+footer .mention{border-top:1px solid rgba(255,255,255,.12);padding-top:1.4rem;max-width:90ch}
+
+.barre-mobile{display:none}
+
+@media (max-width:960px){
+  .menu{display:none}
+  .menu.ouvert{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:var(--blanc);padding:1.2rem 16px;gap:1rem;box-shadow:0 12px 30px rgba(0,0,0,.1)}
+  .burger{display:block}
+  .nav>.btn{display:none}
+  .ruban .wrap{grid-template-columns:repeat(2,1fr)}
+  .maison,.outil,.infos,.pain{grid-template-columns:1fr}
+  .cartes-f{grid-template-columns:repeat(2,1fr)}
+  .etapes{grid-template-columns:1fr}
+  .recap{position:static}
+  .galerie{grid-template-columns:1fr 1fr;grid-template-rows:200px 200px 200px}
+  .galerie figure:first-child{grid-column:span 2;grid-row:auto}
+  .barre-mobile{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;gap:.5rem;padding:.6rem 16px calc(.6rem + env(safe-area-inset-bottom));background:rgba(255,253,248,.95);backdrop-filter:blur(8px);border-top:1px solid rgba(29,88,86,.15)}
+  .barre-mobile .btn{flex:1;padding:.6rem .8rem}
+  footer{padding-bottom:6rem}
+}
+@media (max-width:560px){
+  .cartes-f{grid-template-columns:1fr}
+  .ruban .wrap{grid-template-columns:1fr}
+  .jours{grid-template-columns:repeat(4,1fr)}
+  .pain .ligne{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .braises{display:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Au Four de Saint-Jean",
+  "description":"Bar, restauration traditionnelle et pizzeria au feu de bois, sur place ou à emporter. Salle lumineuse et terrasse ombragée.",
+  "servesCuisine":["Pizza au feu de bois","Cuisine traditionnelle"],
+  "address":{"@type":"PostalAddress","streetAddress":"10 place Saint-Jean","postalCode":"42155","addressLocality":"Saint-Jean-Saint-Maurice-sur-Loire","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.966138,"longitude":4.002624},
+  "telephone":"+33477629604",
+  "email":"damores21@gmail.com",
+  "url":"https://www.aufourdesaintjean.com",
+  "areaServed":"Saint-Jean-Saint-Maurice-sur-Loire",
+  "priceRange":"9,80 € – 25,40 €",
+  "acceptsReservations":true,
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Thursday","Friday","Saturday","Sunday"],"opens":"17:30","closes":"21:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Au Four de Saint-Jean</b> — non officielle, informations reprises du site actuel et de la fiche Roannais Tourisme</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="brand" href="#accueil" aria-label="Au Four de Saint-Jean, accueil">
+      <!-- Pictogramme provisoire inspiré du four de l'enseigne : à remplacer par le vrai logo -->
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" fill="none" stroke="#74b6cc" stroke-width="3.5"/><path d="M11 32h26v-4c0-8-5.8-14-13-14s-13 6-13 14z" fill="#ecd3a0" stroke="#1d5856" stroke-width="1.6"/><path d="M18 32v-3.5a6 6 0 0 1 12 0V32z" fill="#1d5856"/><rect x="10" y="32" width="28" height="3" rx="1" fill="#1d5856"/></svg>
+      <span><strong>Au Four de Saint-Jean</strong><small>Bar · Restaurant · Pizzeria</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#maison">Le restaurant</a></li>
+      <li><a href="#formules">Menus</a></li>
+      <li><a href="#pizzas">Nos pizzas</a></li>
+      <li><a href="#emporter">À emporter</a></li>
+      <li><a href="#infos">Contact</a></li>
+    </ul>
+    <a class="btn btn-braise" href="#emporter">Commander à emporter</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" style="padding:0">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1800&q=70&auto=format" alt="Pizza cuite au feu de bois, fromage gratiné" fetchpriority="high"></div>
+  <div class="braises" aria-hidden="true"></div>
+  <div class="wrap hero-content">
+    <div class="statut" id="statut" role="status"><span class="pt"></span><span id="statut-txt">Horaires du jour…</span></div>
+    <h1 id="titre-hero">Pizzas au feu de bois, <em>place Saint-Jean</em></h1>
+    <p class="lead">Bar, restauration traditionnelle et pizzeria au feu de bois, sur place ou à emporter. Salle lumineuse, terrasse ombragée, et le cantal râpé sur place par le pizzaïolo pour chaque pizza.</p>
+    <div class="ctas">
+      <a class="btn btn-braise" href="#emporter">Préparer ma commande</a>
+      <a class="btn btn-ghost" href="tel:+33477629604">Réserver une table · 04 77 62 96 04</a>
+    </div>
+  </div>
+  <span class="credit">Photo d'illustration</span>
+</section>
+
+<div class="ruban">
+  <div class="wrap">
+    <div class="rv"><b data-compte="50">0</b><span>couverts dans une salle lumineuse</span></div>
+    <div class="rv d1"><b data-compte="60">0</b><span>places en terrasse ombragée</span></div>
+    <div class="rv d2"><b data-compte="12">0</b><span>parfums de glace artisanale</span></div>
+    <div class="rv d3"><b>9h</b><span>petit-déjeuner possible dès l'ouverture</span></div>
+  </div>
+</div>
+
+<section id="maison">
+  <div class="wrap maison">
+    <div class="photos rv">
+      <figure><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/578316ad5cede4f7-800x520.webp" alt="La terrasse ombragée devant la façade, place Saint-Jean" loading="lazy"></figure>
+      <figure><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/ddc2e98ee38737ef-800x520.webp" alt="La salle du restaurant" loading="lazy"></figure>
+    </div>
+    <div>
+      <p class="surtitre rv">Le restaurant</p>
+      <h2 class="rv d1">Un restaurant familial à Saint-Jean-Saint-Maurice-sur-Loire</h2>
+      <p class="intro rv d2">Au cœur du village, sur la place Saint-Jean, on vient pour une pizza sortie du four à bois, un plat traditionnel du midi, un café en terrasse ou un petit-déjeuner dès 9 heures.</p>
+      <ul class="points">
+        <li class="rv d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18h16M6 18v-4a6 6 0 0 1 12 0v4"/><path d="M10 18v-2a2 2 0 0 1 4 0v2"/></svg><span><b>Le four à bois</b> pour les pizzas et les gratinés, sur place midi et soir ou à emporter.</span></li>
+        <li class="rv d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11h18l-2 9H5z"/><path d="M8 11l4-6 4 6"/></svg><span><b>Le cantal AOP</b>, jeune et au lait pasteurisé, livré en meule et râpé sur place pour chaque pizza.</span></li>
+        <li class="rv d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M9 13l3 9 3-9"/></svg><span><b>Des glaces artisanales</b> : 12 parfums au choix en dessert, sur place ou à emporter.</span></li>
+        <li class="rv d3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18M12 7v13M8 7c-2-3 2-5 4 0 2-5 6-3 4 0"/></svg><span><b>Dépôt de pain</b> sur réservation, journaux (Le Progrès, Le Pays Roannais) et <b>carte cadeau</b>.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="formules" id="formules">
+  <div class="wrap">
+    <p class="surtitre rv">Menus</p>
+    <h2 class="rv d1">Le midi, le week-end, à emporter</h2>
+    <div class="cartes-f">
+      <article class="f rv"><h3>Menu du midi en semaine</h3><p class="quand">Entrée, plat, dessert, café · uniquement le midi</p><p class="prix">17,00<small> €</small></p></article>
+      <article class="f rv d1"><h3>Menu du midi le week-end</h3><p class="quand">Entrée, plat, fromage, dessert · uniquement le midi</p><p class="prix">25,40<small> €</small></p></article>
+      <article class="f vedette rv d2"><h3>Pizza + glace artisanale + boisson</h3><p class="quand">Uniquement à emporter</p><p class="prix">18,40<small> €</small></p></article>
+      <article class="f rv d3"><h3>Menu enfant</h3><p class="quand">Groupes : menus de 25 à 40 € sur demande</p><p class="prix">10,40<small> €</small></p></article>
+    </div>
+    <p class="note rv">Quantités limitées pour les menus du midi. Tickets restaurant, Chèques-Vacances et American Express acceptés.</p>
+  </div>
+</section>
+
+<section id="pizzas">
+  <div class="wrap">
+    <p class="surtitre rv">Nos pizzas</p>
+    <h2 class="rv d1">Cuites au feu de bois</h2>
+    <p class="intro rv d2">Ajoutez directement vos pizzas à la commande à emporter avec les boutons + et −, le récapitulatif se met à jour plus bas.</p>
+    <div class="filtres rv" role="group" aria-label="Filtrer les pizzas">
+      <button aria-pressed="true" data-f="tout">Toutes</button>
+      <button aria-pressed="false" data-f="classique">Les classiques</button>
+      <button aria-pressed="false" data-f="maison">Les spécialités</button>
+      <button aria-pressed="false" data-f="creme">Base crème</button>
+    </div>
+    <div class="grille-p" id="grille"></div>
+    <p class="astx">* Cantal AOP jeune au lait pasteurisé, râpé sur place. Les garnitures marquées « selon la carte » sont à reprendre du site actuel. Prix indicatifs, à confirmer.</p>
+  </div>
+</section>
+
+<section class="emporter" id="emporter">
+  <div class="wrap">
+    <p class="surtitre rv">À emporter</p>
+    <h2 class="rv d1">Votre commande prête à l'heure</h2>
+    <p class="intro rv d2">Choisissez vos pizzas, le jour et l'heure de retrait : seuls les jours et créneaux d'ouverture sont proposés. Un appel au restaurant suffit ensuite pour valider.</p>
+    <div class="etapes">
+      <div class="etape rv"><b>1</b>Vos pizzas, depuis la carte ou ci-dessous</div>
+      <div class="etape rv d1"><b>2</b>Le jour et le créneau de retrait</div>
+      <div class="etape rv d2"><b>3</b>Un appel pour valider, la commande est au four</div>
+    </div>
+    <div class="outil">
+      <div class="panneau rv">
+        <h3>Jour de retrait</h3>
+        <div class="jours" id="jours"></div>
+        <div class="creneaux" id="creneaux"></div>
+        <label class="formule-toggle"><input type="checkbox" id="formule"><span><b>Formule pizza + glace artisanale + boisson (18,40 €)</b><br><small>Appliquée à chaque pizza commandée — parfum de glace et boisson à préciser au téléphone.</small></span></label>
+      </div>
+      <aside class="recap rv d1" aria-live="polite">
+        <h3>Ma commande</h3>
+        <ul id="lignes"><li class="vide">Aucune pizza pour l'instant.</li></ul>
+        <div class="total"><span>Total indicatif</span><span id="total">0,00 €</span></div>
+        <p class="quand" id="quand">Choisissez un jour et un créneau.</p>
+        <a class="btn btn-braise" id="appeler" href="tel:+33477629604">Appeler pour valider · 04 77 62 96 04</a>
+        <button class="btn btn-petrole" id="copier" type="button">Copier le récapitulatif</button>
+        <p class="petit">Démonstration : la commande n'est transmise qu'au moment de l'appel. Une version en ligne pourrait l'envoyer directement au restaurant.</p>
+      </aside>
+    </div>
+
+    <div class="pain">
+      <div class="rv">
+        <p class="surtitre">Dépôt de pain</p>
+        <h2 style="font-size:clamp(1.6rem,1.3rem + 1.4vw,2.4rem)">Votre pain, réservé deux jours avant</h2>
+        <p class="intro">Le pain se réserve au minimum deux jours à l'avance. Le calendrier ci-contre ne propose que les dates possibles.</p>
+      </div>
+      <form class="rv d1" id="form-pain">
+        <div class="ligne">
+          <div><label for="pain-date">Date de retrait</label><input type="date" id="pain-date" required></div>
+          <div><label for="pain-nom">Nom</label><input type="text" id="pain-nom" placeholder="Votre nom" required></div>
+        </div>
+        <label for="pain-detail">Votre demande</label>
+        <input type="text" id="pain-detail" placeholder="Ex. 2 pains" required>
+        <p class="msg" id="pain-msg"></p>
+        <button class="btn btn-braise" type="submit">Préparer la réservation</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <p class="surtitre rv">En images</p>
+    <h2 class="rv d1">La salle, la terrasse, les desserts</h2>
+    <div class="galerie">
+      <figure class="rv"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/ddc2e98ee38737ef-800x520.webp" alt="La salle lumineuse du restaurant" loading="lazy"></figure>
+      <figure class="rv d1"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/02b46adae71ea65d-800x520.webp" alt="L'enseigne au four peint sur la façade" loading="lazy"></figure>
+      <figure class="rv d2"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/d08ebde7cbdef32c-800x520.webp" alt="Dessert à l'assiette" loading="lazy"></figure>
+      <figure class="rv d1"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/647622/6d93aac2a66ece4e-800x520.webp" alt="Dessert aux fraises et chantilly" loading="lazy"></figure>
+      <figure class="rv d2 afournir">Photos des pizzas<br>sortant du four<br><b>à fournir par le restaurant</b></figure>
+    </div>
+  </div>
+</section>
+
+<section id="infos" style="background:var(--sable-clair)">
+  <div class="wrap infos">
+    <div>
+      <p class="surtitre rv">Contact pizzeria</p>
+      <h2 class="rv d1">Place Saint-Jean, à Saint-Jean-Saint-Maurice-sur-Loire</h2>
+      <table class="horaires rv d2" id="horaires" aria-label="Horaires d'ouverture"></table>
+      <div class="coord rv">
+        <span>10 place Saint-Jean<br>42155 Saint-Jean-Saint-Maurice-sur-Loire</span>
+        <a href="tel:+33477629604">04 77 62 96 04</a>
+        <a href="mailto:damores21@gmail.com">damores21@gmail.com</a>
+      </div>
+      <div class="acces rv">
+        <span>Accès fauteuil avec aide</span><span>Stationnement PMR</span><span>WC adaptés</span><span>Animaux acceptés</span><span>Wifi</span><span>Chaise bébé</span>
+      </div>
+    </div>
+    <div class="carte rv d1">
+      <iframe title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.9966%2C45.9636%2C4.0086%2C45.9686&amp;layer=mapnik&amp;marker=45.966138%2C4.002624"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut">
+      <div><b style="font-family:var(--titre);font-size:1.2rem">Au Four de Saint-Jean</b><br>Bar · Restaurant · Pizzeria au feu de bois</div>
+      <div>Lun., jeu., ven., sam., dim. · 9h–14h et 17h30–21h<br>Fermé mardi et mercredi</div>
+    </div>
+    <p class="mention">Maquette de démonstration, non contractuelle. Menus, prix, horaires, services et coordonnées repris du site actuel aufourdesaintjean.com et de la fiche Roannais Tourisme (mise à jour juin 2026) ; prix indicatifs, à confirmer. Photos de la salle, de la terrasse, de l'enseigne et des desserts : photos réelles de l'établissement (fiche Roannais Tourisme). Photo de pizza en tête de page : photo d'illustration (Unsplash). Photos des pizzas maison à fournir. Le site actuel n'ayant pas pu être consulté directement, les couleurs (vert pétrole, sable, bleu ciel) ont été relevées sur la façade et l'enseigne et restent ajustables, tout comme le pictogramme provisoire, à remplacer par le vrai logo.</p>
+  </div>
+</footer>
+
+<div class="barre-mobile">
+  <a class="btn btn-petrole" href="tel:+33477629604">Appeler</a>
+  <a class="btn btn-braise" href="#emporter">À emporter</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = n => n.toFixed(2).replace('.', ',') + ' €';
+
+  /* --- Horaires réels : lun, jeu, ven, sam, dim 9h-14h et 17h30-21h ; fermé mar & mer --- */
+  const OUVERT = [0,1,4,5,6]; // getDay(): 0 = dimanche
+  const PLAGES = [[9*60,14*60],[17*60+30,21*60]];
+  const NOMS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const hm = m => Math.floor(m/60)+'h'+(m%60? String(m%60).padStart(2,'0') : '');
+
+  function statut(){
+    const d = new Date(), j = d.getDay(), m = d.getHours()*60 + d.getMinutes();
+    const el = document.getElementById('statut'), t = document.getElementById('statut-txt');
+    if (OUVERT.includes(j)) {
+      const p = PLAGES.find(([a,b]) => m >= a && m < b);
+      if (p) { t.textContent = 'Ouvert en ce moment · jusqu’à ' + hm(p[1]); el.classList.remove('ferme'); return; }
+      const suiv = PLAGES.find(([a]) => m < a);
+      if (suiv) { t.textContent = 'Fermé pour l’instant · réouverture à ' + hm(suiv[0]); el.classList.add('ferme'); return; }
+    }
+    let k = 1; while (!OUVERT.includes((j+k)%7)) k++;
+    t.textContent = 'Fermé · réouverture ' + (k===1?'demain':NOMS[(j+k)%7].toLowerCase()) + ' à 9h';
+    el.classList.add('ferme');
+  }
+  statut(); setInterval(statut, 60000);
+
+  // Tableau des horaires (lundi en premier), jour courant mis en avant
+  const tab = document.getElementById('horaires');
+  [1,2,3,4,5,6,0].forEach(j => {
+    const tr = document.createElement('tr');
+    if (j === new Date().getDay()) tr.className = 'auj';
+    if (!OUVERT.includes(j)) tr.classList.add('ferme');
+    tr.innerHTML = `<td>${NOMS[j]}</td><td>${OUVERT.includes(j) ? '9h – 14h · 17h30 – 21h' : 'Fermé'}</td>`;
+    tab.appendChild(tr);
+  });
+
+  /* --- Carte des pizzas (reprise du site actuel) --- */
+  const PIZZAS = [
+    {n:'Marguerite', p:9.80, c:'classique', d:'Tomate, cantal*, olives'},
+    {n:'Reine', p:10.40, c:'classique', d:'Tomate, cantal*, jambon, champignons, olives'},
+    {n:'Hawaïenne', p:12.70, c:'classique', d:'Base tomate et cantal* — garniture selon la carte', v:1},
+    {n:'L’Abeille', p:12.80, c:'maison', d:'Base tomate et cantal* — garniture selon la carte', v:1},
+    {n:'La St Jean', p:13.30, c:'maison', d:'La pizza de la maison, avec pommes de terre et deux œufs'},
+    {n:'4 Fromages', p:13.60, c:'classique', d:'Tomate, cantal*, gorgonzola, chèvre, mozzarella'},
+    {n:'Végétarienne', p:13.70, c:'classique', d:'Garniture selon la carte', v:1},
+    {n:'Piquante', p:13.70, c:'maison', d:'Base tomate et cantal* — garniture selon la carte', v:1},
+    {n:'Biquette', p:13.90, c:'maison', d:'Base tomate et cantal* — garniture selon la carte', v:1},
+    {n:'Magret', p:13.90, c:'maison', d:'Base tomate et cantal* — garniture selon la carte', v:1},
+    {n:'Bolognaise', p:14.30, c:'maison', d:'Garniture selon la carte', v:1},
+    {n:'Troyenne', p:14.30, c:'creme', d:'Crème moutarde, cantal*, andouillette de Troyes, chaource AOP, olives'},
+    {n:'Norvégienne', p:14.40, c:'creme', d:'Tomate, cantal*, saumon fumé, crème, citron'}
+  ];
+  const panier = {};
+  const grille = document.getElementById('grille');
+  PIZZAS.forEach((z,i) => {
+    const a = document.createElement('article');
+    a.className = 'pz rv'; a.dataset.c = z.c; a.style.transitionDelay = (i%4)*.06+'s';
+    a.innerHTML = `<header><h3>${z.n}</h3><span class="p">${fmt(z.p)}</span></header>
+      <p class="${z.v?'vague':''}">${z.d}</p>
+      <div class="ajout"><button type="button" aria-label="Retirer une ${z.n}" data-i="${i}" data-s="-1">−</button><output id="q${i}">0</output><button type="button" aria-label="Ajouter une ${z.n}" data-i="${i}" data-s="1">+</button><span class="lbl">à emporter</span></div>`;
+    grille.appendChild(a);
+  });
+  grille.addEventListener('click', e => {
+    const b = e.target.closest('button[data-i]'); if (!b) return;
+    const i = +b.dataset.i; panier[i] = Math.max(0, Math.min(20, (panier[i]||0) + +b.dataset.s));
+    document.getElementById('q'+i).textContent = panier[i];
+    if (+b.dataset.s > 0) toast(PIZZAS[i].n + ' ajoutée à la commande');
+    maj();
+  });
+  document.querySelectorAll('.filtres button').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.filtres button').forEach(x => x.setAttribute('aria-pressed', x===b));
+    grille.querySelectorAll('.pz').forEach(c => c.classList.toggle('cache', b.dataset.f !== 'tout' && c.dataset.c !== b.dataset.f));
+  }));
+
+  /* --- Jours et créneaux de retrait : uniquement pendant l'ouverture --- */
+  let jourChoisi = null, creneau = null;
+  const jours = document.getElementById('jours'), cr = document.getElementById('creneaux');
+  const auj = new Date(); auj.setHours(0,0,0,0);
+  for (let k=0;k<7;k++){
+    const d = new Date(auj); d.setDate(auj.getDate()+k);
+    const b = document.createElement('button'); b.type='button';
+    b.innerHTML = `<small>${k===0?'Auj.':NOMS[d.getDay()].slice(0,3)}</small><b>${d.getDate()}</b>`;
+    b.setAttribute('aria-pressed','false');
+    b.setAttribute('aria-label', NOMS[d.getDay()]+' '+d.getDate()+(OUVERT.includes(d.getDay())?'':' (fermé)'));
+    if (!OUVERT.includes(d.getDay())) b.disabled = true;
+    b.addEventListener('click', () => { jours.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false')); b.setAttribute('aria-pressed','true'); jourChoisi = d; creneau = null; creneaux(); maj(); });
+    jours.appendChild(b);
+  }
+  function creneaux(){
+    cr.innerHTML = '';
+    const maint = new Date(), estAuj = jourChoisi.getTime() === auj.getTime();
+    const blocs = [['Midi',11*60+45,13*60+45],['Soir',18*60,20*60+45]];
+    let n = 0;
+    blocs.forEach(([lib,a,b]) => {
+      const t = document.createElement('span'); t.className='titre'; t.textContent=lib; cr.appendChild(t);
+      for (let m=a;m<=b;m+=15){
+        if (estAuj && m < maint.getHours()*60+maint.getMinutes()+30) continue;
+        const btn = document.createElement('button'); btn.type='button'; btn.textContent = hm(m); btn.setAttribute('aria-pressed','false'); n++;
+        btn.addEventListener('click', () => { cr.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false')); btn.setAttribute('aria-pressed','true'); creneau = hm(m); maj(); });
+        cr.appendChild(btn);
+      }
+    });
+    if (!n) cr.innerHTML = '<span class="titre">Plus de créneau aujourd’hui, choisissez un autre jour.</span>';
+  }
+  document.getElementById('formule').addEventListener('change', maj);
+
+  function texteCommande(){
+    const l = Object.entries(panier).filter(([,q])=>q>0);
+    const f = document.getElementById('formule').checked;
+    let tot = 0; const lignes = l.map(([i,q]) => { const z = PIZZAS[i]; const pu = f ? 18.40 : z.p; tot += pu*q; return {t: q+' × '+z.n+(f?' (formule)':''), p: pu*q}; });
+    return {lignes, tot};
+  }
+  function maj(){
+    const {lignes, tot} = texteCommande();
+    const ul = document.getElementById('lignes');
+    ul.innerHTML = lignes.length ? lignes.map(x=>`<li><span>${x.t}</span><span>${fmt(x.p)}</span></li>`).join('') : '<li class="vide">Aucune pizza pour l’instant.</li>';
+    document.getElementById('total').textContent = fmt(tot);
+    document.getElementById('quand').textContent = jourChoisi ? ('Retrait ' + NOMS[jourChoisi.getDay()].toLowerCase() + ' ' + jourChoisi.getDate() + (creneau ? ' à ' + creneau : ' · choisissez un créneau')) : 'Choisissez un jour et un créneau.';
+  }
+  document.getElementById('copier').addEventListener('click', () => {
+    const {lignes, tot} = texteCommande();
+    if (!lignes.length) return toast('Ajoutez au moins une pizza');
+    const txt = 'Commande à emporter — Au Four de Saint-Jean\n' + lignes.map(x=>x.t+' : '+fmt(x.p)).join('\n') + '\nTotal indicatif : ' + fmt(tot) + '\n' + document.getElementById('quand').textContent;
+    (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(()=>toast('Récapitulatif copié'), ()=>toast('Copie impossible sur ce navigateur'));
+  });
+
+  /* --- Pain : date minimum J+2, jours d'ouverture uniquement --- */
+  const pd = document.getElementById('pain-date'), pm = document.getElementById('pain-msg');
+  const min = new Date(auj); min.setDate(min.getDate()+2);
+  while (!OUVERT.includes(min.getDay())) min.setDate(min.getDate()+1);
+  const iso = d => d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  pd.min = iso(min); pd.value = iso(min);
+  pd.addEventListener('change', () => {
+    const d = new Date(pd.value+'T00:00');
+    pm.textContent = d < min ? 'Le pain se réserve au minimum deux jours à l’avance.' : (!OUVERT.includes(d.getDay()) ? 'Le restaurant est fermé ce jour-là (mardi et mercredi).' : '');
+  });
+  document.getElementById('form-pain').addEventListener('submit', e => {
+    e.preventDefault();
+    const d = new Date(pd.value+'T00:00');
+    if (d < min || !OUVERT.includes(d.getDay())) { pd.dispatchEvent(new Event('change')); return; }
+    pm.textContent = 'Demande prête pour le ' + d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}) + ' : appelez le 04 77 62 96 04 pour la confirmer.';
+  });
+
+  /* --- Ambiance : braises du four, apparition du titre, compteurs, reveal --- */
+  if (!reduit) {
+    const br = document.querySelector('.braises');
+    for (let k=0;k<22;k++){ const i = document.createElement('i'); i.style.left = Math.random()*100+'%'; i.style.setProperty('--dx',(Math.random()*120-60)+'px'); i.style.animationDuration = (6+Math.random()*7)+'s'; i.style.animationDelay = (Math.random()*8)+'s'; i.style.transform='scale('+(.5+Math.random())+')'; br.appendChild(i); }
+    const h = document.getElementById('titre-hero');
+    let n = 0;
+    const decoupe = node => [...node.childNodes].forEach(c => {
+      if (c.nodeType === 3) { const f = document.createDocumentFragment(); c.textContent.split(/(\s+)/).forEach(w => { if (!w.trim()) { f.appendChild(document.createTextNode(w)); return; } const s = document.createElement('span'); s.className='reveal-mot'; s.style.animationDelay = (.15 + n++*.08)+'s'; s.textContent = w; f.appendChild(s); }); c.replaceWith(f); }
+      else decoupe(c);
+    });
+    decoupe(h);
+  }
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('vu'); io.unobserve(e.target);
+    const b = e.target.querySelector('[data-compte]');
+    if (b) { const fin = +b.dataset.compte; if (reduit) { b.textContent = fin; return; } let t0; const pas = t => { t0 ??= t; const k = Math.min(1,(t-t0)/1200); b.textContent = Math.round(fin*(1-Math.pow(1-k,3))); if (k<1) requestAnimationFrame(pas); }; requestAnimationFrame(pas); }
+  }), {threshold:.15});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  /* --- En-tête, menu mobile, toast --- */
+  const hd = document.getElementById('haut');
+  addEventListener('scroll', () => hd.classList.toggle('scrolled', scrollY > 10), {passive:true});
+  const bg = document.querySelector('.burger'), mn = document.getElementById('menu');
+  bg.addEventListener('click', () => { const o = mn.classList.toggle('ouvert'); bg.setAttribute('aria-expanded', o); });
+  mn.addEventListener('click', e => { if (e.target.closest('a')) { mn.classList.remove('ouvert'); bg.setAttribute('aria-expanded', false); } });
+  let tt; function toast(m){ const t = document.getElementById('toast'); t.textContent = m; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(()=>t.classList.remove('on'), 1800); }
+})();
+</script>
+</body>
+</html>
