@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brasserie La Limaille — Brasserie artisanale au Coteau | Roannais</title>
+<meta name="description" content="Bières artisanales brassées au Coteau, près de Roanne : Belgian Pale Ale, APA, IPA, Amber, Stout. Boutique à la brasserie, visites guidées pour les groupes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Yellowtail&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Brewery",
+  "name": "Brasserie La Limaille",
+  "address": {"@type": "PostalAddress","streetAddress": "40 boulevard des Étines","postalCode": "42120","addressLocality": "Le Coteau","addressCountry": "FR"},
+  "geo": {"@type": "GeoCoordinates","latitude": 46.020816,"longitude": 4.092288},
+  "telephone": "+33763103697",
+  "email": "julien.rabourg@brasserie-lalimaille.fr",
+  "areaServed": ["Le Coteau","Roanne","Roannais"],
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Thursday","Friday"],"opens": "09:00","closes": "18:30"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": "Saturday","opens": "09:30","closes": "12:30"}
+  ],
+  "paymentAccepted": "Carte bancaire, chèque, espèces, sans contact",
+  "sameAs": ["https://www.facebook.com/profile.php?id=61552345821141","https://www.instagram.com/brasserie.lalimaille"]
+}
+</script>
+<style>
+/* ===================================================================
+   CHARTE — relevée sur les étiquettes et la signalétique de la brasserie
+   (bleu marine du bandeau et du stand, blanc, bleu acier du soudeur,
+   courbes topographiques en filigrane). Codes exacts non communiqués :
+   couleurs approchées, à ajuster ici en quelques lignes.
+   =================================================================== */
+:root{
+  --marine:#1f3350;        /* bandeau "LA LIMAILLE", kakémono du stand */
+  --marine-900:#14223a;
+  --acier:#5f86a6;         /* veste / chope du soudeur */
+  --acier-clair:#c9d8e4;   /* teinte claire des courbes de niveau */
+  --blanc:#ffffff;
+  --papier:#f3f5f7;
+  --cuivre:#b8733c;        /* cuve de brassage (photo atelier) */
+  --texte:#16202e;
+  --muted:#5b6878;
+  --f-titre:"Oswald","Arial Narrow",sans-serif;  /* capitales condensées du logo */
+  --f-script:"Yellowtail",cursive;               /* mention manuscrite des étiquettes */
+  --f-texte:"Inter",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--blanc);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acier);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+.demo{background:var(--marine-900);color:var(--acier-clair);font-size:.78rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+
+/* ---------- Navigation ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:#e3e8ee;box-shadow:0 6px 24px rgba(20,34,58,.06)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:38px;height:38px}
+.logo b{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;letter-spacing:.04em;color:var(--marine);line-height:1}
+.logo small{display:block;font-family:var(--f-script);color:var(--acier);font-size:1rem;line-height:1}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{text-decoration:none;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;font-size:.88rem;color:var(--marine);position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--acier);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after,.nav ul a.on::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.08em;font-size:.92rem;padding:13px 22px;border-radius:999px;border:2px solid var(--marine);background:var(--marine);color:#fff;text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--marine)}
+.btn.ghost:hover{background:var(--marine);color:#fff}
+.btn.light{background:#fff;color:var(--marine);border-color:#fff}
+.btn.sm{padding:10px 16px;font-size:.82rem}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--marine);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:#fff;padding:24px 16px;gap:18px;transform:translateY(-120%);transition:transform .35s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .cta-nav{display:none}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--marine);color:#fff;overflow:hidden;isolation:isolate}
+.hero .topo{position:absolute;inset:0;z-index:-1;opacity:.35}
+.hero .topo path{fill:none;stroke:var(--acier-clair);stroke-width:1.2;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 6s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:72px 0 88px}
+.kicker{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.2em;font-size:.85rem;color:var(--acier-clair)}
+.hero h1{font-family:var(--f-titre);font-weight:700;text-transform:uppercase;line-height:.92;font-size:clamp(3.4rem,2rem + 6vw,7.4rem);letter-spacing:.01em;margin:10px 0 4px}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+.hero .script{font-family:var(--f-script);font-size:clamp(1.7rem,1.2rem + 1.6vw,2.6rem);color:var(--acier-clair);opacity:0;animation:fade .8s .5s forwards}
+.hero p.lead{max-width:30em;margin:22px 0 30px;color:#dbe5ee;font-size:1.08rem;opacity:0;animation:fade .8s .65s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;opacity:0;animation:fade .8s .8s forwards}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero-photo{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35);transform:rotate(1.2deg);opacity:0;animation:fade 1s .3s forwards}
+.hero-photo img{width:100%;aspect-ratio:4/4.4;object-fit:cover;transition:transform 1.2s var(--ease)}
+.hero-photo:hover img{transform:scale(1.04)}
+.status{position:absolute;left:16px;bottom:16px;background:rgba(20,34,58,.85);backdrop-filter:blur(6px);border-radius:999px;padding:9px 15px;font-size:.85rem;display:flex;align-items:center;gap:8px}
+.status i{width:9px;height:9px;border-radius:50%;background:#8a97a6}
+.status.open i{background:#5fd18b;box-shadow:0 0 0 0 rgba(95,209,139,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(95,209,139,0)}100%{box-shadow:0 0 0 0 rgba(95,209,139,0)}}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:48px 0 64px}.hero-photo{transform:none}}
+
+/* ---------- Bandeau défilant ---------- */
+.marquee{background:var(--acier-clair);color:var(--marine);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;font-size:1.05rem}
+.marquee .track{display:inline-flex;gap:42px;animation:scroll 32s linear infinite}
+.marquee span::after{content:"✦";margin-left:42px;color:var(--acier)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section{padding:96px 0}
+.sec-head{max-width:640px;margin-bottom:46px}
+.sec-head h2{font-family:var(--f-titre);text-transform:uppercase;font-weight:700;color:var(--marine);font-size:clamp(2.1rem,1.5rem + 2.4vw,3.4rem);line-height:1}
+.sec-head .script{font-family:var(--f-script);color:var(--acier);font-size:1.7rem;display:block;margin-bottom:2px}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:1.05rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Histoire */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.story .imgs{position:relative;min-height:460px}
+.story .imgs figure{position:absolute;border-radius:18px;overflow:hidden;box-shadow:0 20px 40px rgba(20,34,58,.18)}
+.story .imgs figure:first-child{inset:0 22% 18% 0}
+.story .imgs figure:last-child{inset:42% 0 0 38%;border:6px solid #fff}
+.story .imgs img{width:100%;height:100%;object-fit:cover}
+.story h3{font-family:var(--f-titre);text-transform:uppercase;color:var(--marine);font-size:1.5rem;margin:26px 0 8px}
+.story p{color:#334155;margin-bottom:14px}
+.facts{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.facts span{border:1.5px solid var(--acier-clair);border-radius:999px;padding:7px 14px;font-size:.88rem;color:var(--marine)}
+@media (max-width:900px){.story{grid-template-columns:1fr}.story .imgs{min-height:340px}}
+
+/* Bières */
+.beers{background:var(--papier);position:relative;overflow:hidden}
+.grid-beers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.beer{background:#fff;border-radius:20px;padding:26px 24px 22px;position:relative;overflow:hidden;border:1px solid #e3e8ee;transition:transform .35s var(--ease),box-shadow .35s}
+.beer:hover{transform:translateY(-6px);box-shadow:0 24px 40px rgba(20,34,58,.12)}
+.beer::before{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;background:var(--c);opacity:.16;transition:transform .5s var(--ease)}
+.beer:hover::before{transform:scale(1.5)}
+.beer .tag{display:inline-block;font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.beer h3{font-family:var(--f-titre);text-transform:uppercase;color:var(--marine);font-size:1.6rem;line-height:1.05;margin:6px 0 14px}
+.beer .new{position:absolute;top:18px;right:18px;background:var(--marine);color:#fff;font-family:var(--f-titre);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+.abv{display:flex;align-items:center;gap:12px;font-family:var(--f-titre);color:var(--marine)}
+.abv .bar{flex:1;height:8px;border-radius:99px;background:#e9eef3;overflow:hidden}
+.abv .bar i{display:block;height:100%;width:0;background:var(--c);border-radius:99px;transition:width 1.4s var(--ease)}
+.beer.in .abv .bar i{width:var(--w)}
+.beer .add{margin-top:18px;width:100%;justify-content:center}
+.beers .wide{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:20px}
+.beers .wide figure{border-radius:20px;overflow:hidden;min-height:260px}
+.beers .wide img{width:100%;height:100%;object-fit:cover}
+@media (max-width:900px){.grid-beers{grid-template-columns:1fr 1fr}.beers .wide{grid-template-columns:1fr}}
+@media (max-width:560px){.grid-beers{grid-template-columns:1fr}}
+
+/* Outil : la caisse */
+.crate-sec{background:var(--marine);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.crate-sec .topo{position:absolute;inset:0;z-index:-1;opacity:.18}
+.crate-sec .topo path{fill:none;stroke:var(--acier-clair);stroke-width:1}
+.crate-sec .sec-head h2{color:#fff}
+.crate-sec .sec-head .script{color:var(--acier-clair)}
+.crate-sec .sec-head p{color:#c9d6e2}
+.tool{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:24px}
+.panel h3{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.06em;font-size:1.05rem;margin-bottom:14px;color:var(--acier-clair)}
+.formats{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap}
+.chip{border:1.5px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;padding:9px 16px;font-family:var(--f-titre);letter-spacing:.06em;cursor:pointer;transition:.2s;min-height:44px}
+.chip[aria-pressed="true"],.chip:hover{background:#fff;color:var(--marine);border-color:#fff}
+.crate{max-width:440px;margin-inline:auto;background:linear-gradient(180deg,#c7a47a,#a9845a);border-radius:14px;padding:14px;display:grid;gap:8px;box-shadow:inset 0 0 0 3px rgba(0,0,0,.12),0 18px 30px rgba(0,0,0,.3)}
+.slot{aspect-ratio:1;border-radius:50%;background:rgba(60,40,20,.35);box-shadow:inset 0 3px 6px rgba(0,0,0,.35);display:grid;place-items:center;position:relative;cursor:pointer;border:0}
+.slot.full{background:var(--c)}
+.slot.full::after{content:attr(data-s);font-family:var(--f-titre);font-size:.62rem;color:#fff;letter-spacing:.04em;text-shadow:0 1px 2px rgba(0,0,0,.4)}
+.slot.drop{animation:drop .45s var(--ease)}
+@keyframes drop{0%{transform:translateY(-30px) scale(.6);opacity:0}70%{transform:translateY(3px) scale(1.05)}100%{transform:none;opacity:1}}
+.picker{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.pick{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;text-align:left;font:inherit;font-size:.9rem;transition:.2s;min-height:44px}
+.pick:hover{background:rgba(255,255,255,.16)}
+.pick i{width:14px;height:14px;border-radius:50%;background:var(--c);flex:none}
+.pick b{font-weight:600}
+.count{font-family:var(--f-titre);font-size:1.1rem;margin:14px 0 4px}
+.recap{list-style:none;font-size:.95rem;margin:8px 0 16px;min-height:48px}
+.recap li{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.18);padding:6px 0}
+.recap li button{background:none;border:0;color:var(--acier-clair);cursor:pointer;font-size:1rem;padding:0 6px}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.day{border:1.5px solid rgba(255,255,255,.3);background:transparent;color:#fff;border-radius:12px;padding:10px 6px;cursor:pointer;font:inherit;font-size:.85rem;line-height:1.3;transition:.2s}
+.day b{display:block;font-family:var(--f-titre);font-size:1rem;letter-spacing:.04em}
+.day[aria-pressed="true"],.day:hover{background:#fff;color:var(--marine)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;font-size:.85rem;color:#c9d6e2}
+.field input,.field textarea,.field select{font:inherit;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;padding:11px 12px}
+.light-form .field{color:var(--muted)}
+.light-form .field input,.light-form .field textarea,.light-form .field select{background:#fff;border-color:#d5dde6;color:var(--texte)}
+.note{font-size:.8rem;color:#a9bacb;margin-top:10px}
+.ok{display:none;margin-top:12px;background:rgba(95,209,139,.15);border:1px solid rgba(95,209,139,.5);border-radius:12px;padding:12px;font-size:.9rem}
+.ok.show{display:block;animation:fade .4s}
+@media (max-width:900px){.tool{grid-template-columns:1fr}}
+
+/* Boutique & visites */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{border-radius:22px;overflow:hidden;background:var(--papier);display:flex;flex-direction:column}
+.card figure{height:300px;overflow:hidden}
+.card figure img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.card:hover figure img{transform:scale(1.05)}
+.card .body{padding:28px}
+.card h3{font-family:var(--f-titre);text-transform:uppercase;color:var(--marine);font-size:1.7rem;margin-bottom:10px}
+.hours{list-style:none;margin:16px 0}
+.hours li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #e1e7ee}
+.hours li.today{font-weight:600;color:var(--marine)}
+.hours li.today span:first-child::before{content:"● ";color:var(--acier)}
+.ticks{list-style:none;margin:14px 0 20px}
+.ticks li{padding:6px 0 6px 28px;position:relative}
+.ticks li::before{content:"";position:absolute;left:0;top:12px;width:16px;height:9px;border-left:2.5px solid var(--acier);border-bottom:2.5px solid var(--acier);transform:rotate(-45deg)}
+@media (max-width:900px){.duo{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--papier)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:stretch}
+.coords{background:var(--marine);color:#fff;border-radius:22px;padding:34px}
+.coords h3{font-family:var(--f-titre);text-transform:uppercase;font-size:1.6rem;margin-bottom:18px}
+.coords dl{display:grid;gap:16px}
+.coords dt{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--acier-clair)}
+.coords dd a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.coords .socials{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.map{border-radius:22px;overflow:hidden;min-height:360px;background:#dfe6ee;position:relative}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:var(--marine-900);color:#aebdcc;padding:44px 0 30px;font-size:.88rem}
+footer .wrap{display:grid;gap:16px}
+footer b{color:#fff;font-family:var(--f-titre);letter-spacing:.06em;text-transform:uppercase}
+footer .small{font-size:.78rem;color:#8698ab;border-top:1px solid rgba(255,255,255,.1);padding-top:16px}
+
+.sticky-call{display:none}
+@media (max-width:700px){.sticky-call{display:flex;position:fixed;left:16px;right:16px;bottom:14px;z-index:60;justify-content:center;box-shadow:0 12px 30px rgba(0,0,0,.3)}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span{transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour la Brasserie La Limaille</div>
+
+<header class="nav" id="top">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Brasserie La Limaille, accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1f3350"/><rect x="11" y="12" width="18" height="10" rx="3" fill="#fff"/><rect x="13" y="14.5" width="14" height="4" rx="1" fill="#1f3350"/><path d="M12 26h16v6a3 3 0 0 1-3 3H15a3 3 0 0 1-3-3z" fill="#c9d8e4"/><path d="M28 27h2a3 3 0 0 1 0 6h-2" stroke="#c9d8e4" stroke-width="2" fill="none"/></svg>
+      <span><b>La Limaille</b><small>Brasserie</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul id="menu">
+        <li><a href="#brasserie">La brasserie</a></li>
+        <li><a href="#bieres">Nos bières</a></li>
+        <li><a href="#caisse">Votre caisse</a></li>
+        <li><a href="#boutique">Boutique &amp; visites</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="tel:+33763103697" class="btn sm cta-nav">07 63 10 36 97</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <svg class="topo" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50 120 C 200 60, 380 200, 620 140 S 1000 40, 1260 130"/>
+    <path d="M-50 190 C 180 130, 400 280, 640 210 S 1020 110, 1260 200"/>
+    <path d="M-50 260 C 220 210, 380 350, 660 280 S 980 190, 1260 270"/>
+    <path d="M-50 340 C 160 300, 420 430, 680 360 S 1000 260, 1260 350"/>
+    <path d="M-50 420 C 240 380, 380 520, 700 440 S 1020 340, 1260 430"/>
+    <path d="M-50 500 C 200 460, 440 600, 720 520 S 980 420, 1260 510"/>
+    <path d="M-50 590 C 260 540, 400 680, 740 600 S 1040 500, 1260 600"/>
+    <path d="M820 330 c 60 -40 160 -20 170 40 s -80 90 -150 60 s -70 -70 -20 -100z"/>
+    <path d="M845 345 c 40 -24 110 -12 116 26 s -54 60 -100 40 s -46 -46 -16 -66z"/>
+  </svg>
+  <div class="wrap">
+    <div>
+      <span class="kicker">Brasserie artisanale · Le Coteau</span>
+      <h1><span class="line"><span>La</span></span><span class="line"><span>Limaille</span></span></h1>
+      <div class="script">Brassée au Coteau, par un passionné</div>
+      <p class="lead">Belgian Pale Ale, American Pale Ale, IPA, Amber, Stout… Des bières brassées sur place, boulevard des Étines, à emporter directement depuis la petite boutique de la brasserie.</p>
+      <div class="ctas">
+        <a href="#caisse" class="btn light">Composer ma caisse</a>
+        <a href="#bieres" class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.6)">Découvrir les bières</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/brasserie-la-limaille-le-coteau/gamme-touret.jpg" alt="La gamme de bières La Limaille posée sur un touret en bois">
+      <div class="status" id="status"><i></i><span>Boutique</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
+
+<section id="brasserie">
+  <div class="wrap story">
+    <div class="imgs reveal">
+      <figure><img src="assets/brasserie-la-limaille-le-coteau/cuve.webp" alt="La cuve de brassage en cuivre de la brasserie" loading="lazy"></figure>
+      <figure><img src="assets/brasserie-la-limaille-le-coteau/bouteilles.webp" alt="Bouteilles de Belgian Pale Ale La Limaille" loading="lazy"></figure>
+    </div>
+    <div class="reveal">
+      <div class="sec-head" style="margin-bottom:0">
+        <span class="script">L'histoire</span>
+        <h2>Un nom forgé en famille</h2>
+      </div>
+      <h3>La Limaille, un clin d'œil</h3>
+      <p>Le nom de la brasserie rend hommage à l'entreprise du père, et les étiquettes en gardent la trace : un soudeur, masque relevé, chope à la main, sur fond de courbes de niveau.</p>
+      <p>La brasserie est installée sur une partie du site Metallox, au Coteau. On y brasse sur place, et on peut repartir avec ses bières directement depuis la boutique, à côté des cuves.</p>
+      <div class="facts">
+        <span>Brassée au Coteau</span><span>5 styles + nouveauté</span><span>Boutique sur place</span><span>Visites guidées</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="beers" id="bieres">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="script">La gamme</span>
+      <h2>Nos bières</h2>
+      <p>Cinq styles brassés à l'année, et une nouveauté. Ajoutez celles qui vous tentent à votre caisse, elle vous attendra à la boutique.</p>
+    </div>
+    <div class="grid-beers" id="grid"></div>
+    <div class="wide">
+      <figure class="reveal"><img src="assets/brasserie-la-limaille-le-coteau/etiquettes.webp" alt="Les étiquettes illustrées de la gamme La Limaille" loading="lazy"></figure>
+      <figure class="reveal"><img src="assets/brasserie-la-limaille-le-coteau/gamme.webp" alt="Bouteilles La Limaille sur fond bleu" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="crate-sec" id="caisse">
+  <svg class="topo" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50 80 C 300 20, 500 180, 800 100 S 1100 40, 1260 90"/><path d="M-50 180 C 260 120, 520 280, 820 200 S 1120 140, 1260 190"/><path d="M-50 300 C 320 240, 480 400, 840 320 S 1080 250, 1260 310"/><path d="M-50 430 C 280 370, 540 530, 860 450 S 1100 380, 1260 440"/><path d="M-50 570 C 300 510, 500 670, 880 590 S 1120 520, 1260 580"/>
+  </svg>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="script">Réservez, passez la chercher</span>
+      <h2>Composez votre caisse</h2>
+      <p>Choisissez un format, remplissez-le bouteille par bouteille, puis indiquez quand vous passez à la boutique. La demande part directement à la brasserie.</p>
+    </div>
+    <div class="tool">
+      <div class="panel reveal">
+        <h3>1 · Le format</h3>
+        <div class="formats" role="group" aria-label="Format de la caisse">
+          <button class="chip" data-n="6" aria-pressed="true">Pack de 6</button>
+          <button class="chip" data-n="12" aria-pressed="false">Caisse de 12</button>
+          <button class="chip" data-n="24" aria-pressed="false">Caisse de 24</button>
+        </div>
+        <h3>2 · Les bières</h3>
+        <div class="crate" id="crate" aria-label="Caisse"></div>
+        <div class="picker" id="picker"></div>
+        <p class="note">Touchez une bouteille dans la caisse pour la retirer.</p>
+      </div>
+      <div class="panel reveal">
+        <h3>3 · Votre retrait</h3>
+        <div class="count" id="count" aria-live="polite">0 / 6 bouteilles</div>
+        <ul class="recap" id="recap"></ul>
+        <div class="days" id="days" role="group" aria-label="Jour de retrait"></div>
+        <label class="field">Votre nom<input id="nom" autocomplete="name" placeholder="Prénom Nom"></label>
+        <label class="field">Téléphone<input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></label>
+        <button class="btn light" id="send" style="width:100%;justify-content:center">Envoyer ma demande</button>
+        <button class="btn ghost sm" id="ics" style="width:100%;justify-content:center;margin-top:10px;color:#fff;border-color:rgba(255,255,255,.4)">Ajouter le retrait à mon agenda</button>
+        <div class="ok" id="ok"></div>
+        <p class="note">Demande sans paiement en ligne : la brasserie confirme la disponibilité, le règlement se fait sur place (carte, sans contact, chèque ou espèces).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="boutique">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="script">Sur place</span>
+      <h2>Boutique &amp; visites</h2>
+      <p>Au 40 boulevard des Étines, la boutique est installée au cœur de la brasserie, à deux pas des cuves.</p>
+    </div>
+    <div class="duo">
+      <article class="card reveal">
+        <figure><img src="assets/brasserie-la-limaille-le-coteau/boutique.webp" alt="La boutique de la brasserie, caisses en bois et bouteilles" loading="lazy"></figure>
+        <div class="body">
+          <h3>La boutique</h3>
+          <p>Bières à emporter, en bouteille ou en pack, directement à la brasserie.</p>
+          <ul class="hours" id="hours"></ul>
+          <a href="#caisse" class="btn">Préparer ma caisse</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <figure><img src="assets/brasserie-la-limaille-le-coteau/stand.webp" alt="Présentation des bières La Limaille" loading="lazy"></figure>
+        <div class="body">
+          <h3>Visites guidées</h3>
+          <p>Découvrir le brassage, voir les cuves et déguster les bières sur place.</p>
+          <ul class="ticks">
+            <li>Groupes jusqu'à 30 personnes</li>
+            <li>Parking, y compris pour les autocars</li>
+            <li>Accessible en fauteuil roulant</li>
+            <li>Dégustation des produits</li>
+          </ul>
+          <form class="light-form" id="visit">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <label class="field">Nombre de personnes<input id="vp" type="number" min="1" max="30" value="10"></label>
+              <label class="field">Date souhaitée<input id="vd" type="date"></label>
+            </div>
+            <label class="field">Groupe / contact<input id="vn" placeholder="Association, CE, anniversaire…"></label>
+            <button class="btn" type="submit">Demander une visite</button>
+          </form>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="script">Venir nous voir</span>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="coords reveal">
+        <h3>Brasserie La Limaille</h3>
+        <dl>
+          <div><dt>Adresse</dt><dd>40 boulevard des Étines<br>42120 Le Coteau</dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+33763103697">07 63 10 36 97</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:julien.rabourg@brasserie-lalimaille.fr">julien.rabourg@brasserie-lalimaille.fr</a></dd></div>
+          <div><dt>Paiement</dt><dd>Carte bancaire, sans contact, chèque, espèces</dd></div>
+        </dl>
+        <div class="socials">
+          <a class="btn light sm" href="https://www.facebook.com/profile.php?id=61552345821141" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn light sm" href="https://www.instagram.com/brasserie.lalimaille" target="_blank" rel="noopener">Instagram</a>
+          <a class="btn light sm" href="https://www.google.com/maps/dir/?api=1&destination=46.020816,4.092288" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe title="Plan d'accès à la Brasserie La Limaille" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0843%2C46.0163%2C4.1003%2C46.0253&amp;layer=mapnik&amp;marker=46.020816%2C4.092288"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a href="tel:+33763103697" class="btn sticky-call">Appeler la brasserie</a>
+
+<footer>
+  <div class="wrap">
+    <div><b>Brasserie La Limaille</b> — 40 boulevard des Étines, 42120 Le Coteau · 07 63 10 36 97</div>
+    <p class="small">Maquette de démonstration, non contractuelle. Les informations (gamme, degrés, horaires, services) proviennent des fiches publiques de la brasserie (Roannais Tourisme, Loire Tourisme) et restent à valider ; les horaires de la boutique sont ceux communiqués pour 2026. Aucun prix n'est affiché, la gamme n'ayant pas de tarifs publiés. Photos : visuels publiés pour la brasserie sur ses fiches touristiques (crédit Julien Rabourg) — aucune photo d'illustration. Couleurs et typographies approchées à partir des étiquettes, ajustables dès réception du logo et des codes de la charte. Le formulaire prépare un email vers la brasserie, il ne réalise aucun paiement.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const EMAIL='julien.rabourg@brasserie-lalimaille.fr';
+  const BEERS=[
+    {id:'bpa',s:'BPA',name:'Belgian Pale Ale',type:'Blonde',abv:6,c:'#5f86a6'},
+    {id:'apa',s:'APA',name:'American Pale Ale',type:'Blonde',abv:4.5,c:'#d9a93a'},
+    {id:'ipa',s:'IPA',name:'IPA',type:'India Pale Ale',abv:7.5,c:'#d9622b'},
+    {id:'amb',s:'AMB',name:'American Amber Ale',type:'Ambrée',abv:6.4,c:'#a2552a'},
+    {id:'sto',s:'STO',name:'Stout',type:'Brune',abv:7,c:'#2b2a33'},
+    {id:'svn',s:'SVN',name:'Stout Vanille Noisette',type:'Brune · Nouveauté',abv:7.5,c:'#6b4a3a',isNew:true}
+  ];
+  // Horaires boutique 2026 (Roannais Tourisme / Loire Tourisme) — 0 = dimanche
+  const HOURS={4:[[9,0],[18,30]],5:[[9,0],[18,30]],6:[[9,30],[12,30]]};
+  const DAYN=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const fmt=(h,m)=>h+'h'+(m?String(m).padStart(2,'0'):'');
+
+  /* Nav */
+  const nav=document.querySelector('.nav'),burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  /* Marquee */
+  const m=document.getElementById('marq');const items=BEERS.map(b=>`<span>${b.name} · ${String(b.abv).replace('.',',')} %</span>`).join('');m.innerHTML=items+items;
+
+  /* Statut ouvert / fermé + horaires */
+  const now=new Date(),d=now.getDay(),mins=now.getHours()*60+now.getMinutes();
+  const st=document.getElementById('status');
+  if(HOURS[d]&&mins>=HOURS[d][0][0]*60+HOURS[d][0][1]&&mins<HOURS[d][1][0]*60+HOURS[d][1][1]){st.classList.add('open');st.querySelector('span').textContent='Boutique ouverte jusqu\'à '+fmt(...HOURS[d][1])}
+  else{let k=1;while(!HOURS[(d+k)%7]&&k<8)k++;const nd=(d+k)%7;const same=HOURS[d]&&mins<HOURS[d][0][0]*60+HOURS[d][0][1];const t=same?d:nd;st.querySelector('span').textContent='Boutique fermée · ouvre '+(same?'aujourd\'hui':DAYN[t].toLowerCase())+' à '+fmt(...HOURS[t][0])}
+  document.getElementById('hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===d?'today':''}"><span>${DAYN[i]}</span><span>${HOURS[i]?fmt(...HOURS[i][0])+' – '+fmt(...HOURS[i][1]):'Fermé'}</span></li>`).join('');
+
+  /* Cartes bières */
+  const grid=document.getElementById('grid');
+  grid.innerHTML=BEERS.map(b=>`<article class="beer reveal" style="--c:${b.c};--w:${b.abv/8*100}%">${b.isNew?'<span class="new">Nouveau</span>':''}<span class="tag">${b.type}</span><h3>${b.name}</h3><div class="abv"><span>${String(b.abv).replace('.',',')} %</span><span class="bar"><i></i></span></div><button class="btn ghost sm add" data-id="${b.id}">+ Ajouter à ma caisse</button></article>`).join('');
+
+  /* Caisse */
+  let size=6,crate=[],day=null;
+  const crateEl=document.getElementById('crate'),picker=document.getElementById('picker'),recap=document.getElementById('recap'),count=document.getElementById('count');
+  picker.innerHTML=BEERS.map(b=>`<button class="pick" style="--c:${b.c}" data-id="${b.id}"><i></i><span><b>${b.name}</b><br><small>${String(b.abv).replace('.',',')} %</small></span></button>`).join('');
+  function render(last){
+    crateEl.style.gridTemplateColumns=`repeat(${size===6?3:size===12?4:6},1fr)`;
+    crateEl.innerHTML=Array.from({length:size},(_,i)=>{const b=BEERS.find(x=>x.id===crate[i]);return b?`<button class="slot full${i===last?' drop':''}" style="--c:${b.c}" data-s="${b.s}" data-i="${i}" aria-label="Retirer ${b.name}"></button>`:`<span class="slot" aria-hidden="true"></span>`}).join('');
+    count.textContent=`${crate.length} / ${size} bouteilles`;
+    const tally={};crate.forEach(id=>tally[id]=(tally[id]||0)+1);
+    recap.innerHTML=Object.keys(tally).length?Object.entries(tally).map(([id,n])=>`<li><span>${n} × ${BEERS.find(b=>b.id===id).name}</span><button data-rm="${id}" aria-label="Retirer une bouteille">−</button></li>`).join(''):'<li><span style="color:#a9bacb">Votre caisse est vide</span></li>';
+  }
+  function add(id){if(crate.length>=size){count.textContent='Caisse pleine — passez au format supérieur ?';return}crate.push(id);render(crate.length-1)}
+  picker.addEventListener('click',e=>{const p=e.target.closest('.pick');if(p)add(p.dataset.id)});
+  grid.addEventListener('click',e=>{const p=e.target.closest('.add');if(p){add(p.dataset.id);p.textContent='✓ Ajoutée';setTimeout(()=>p.textContent='+ Ajouter à ma caisse',1200)}});
+  crateEl.addEventListener('click',e=>{const s=e.target.closest('.slot.full');if(s){crate.splice(+s.dataset.i,1);render()}});
+  recap.addEventListener('click',e=>{const r=e.target.closest('[data-rm]');if(r){const i=crate.lastIndexOf(r.dataset.rm);crate.splice(i,1);render()}});
+  document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));size=+c.dataset.n;crate=crate.slice(0,size);render()}));
+  render();
+
+  /* Prochains jours d'ouverture */
+  const daysEl=document.getElementById('days');const opts=[];
+  for(let k=0;opts.length<3&&k<14;k++){const dt=new Date(now);dt.setDate(now.getDate()+k);const h=HOURS[dt.getDay()];if(!h)continue;if(k===0&&mins>=h[1][0]*60+h[1][1]-30)continue;opts.push(dt)}
+  daysEl.innerHTML=opts.map((dt,i)=>{const h=HOURS[dt.getDay()];return `<button class="day" data-i="${i}" aria-pressed="false"><b>${DAYN[dt.getDay()].slice(0,3)}. ${dt.getDate()}</b>${fmt(...h[0])}–${fmt(...h[1])}</button>`}).join('');
+  daysEl.addEventListener('click',e=>{const b=e.target.closest('.day');if(!b)return;daysEl.querySelectorAll('.day').forEach(x=>x.setAttribute('aria-pressed',x===b));day=opts[+b.dataset.i]});
+  const ok=document.getElementById('ok');
+  function summary(){const tally={};crate.forEach(id=>tally[id]=(tally[id]||0)+1);return Object.entries(tally).map(([id,n])=>`${n} x ${BEERS.find(b=>b.id===id).name}`).join('\n')}
+  function check(){if(!crate.length){ok.textContent='Ajoutez au moins une bouteille à votre caisse.';ok.classList.add('show');return false}if(!day){ok.textContent='Choisissez un jour de retrait.';ok.classList.add('show');return false}return true}
+  document.getElementById('send').addEventListener('click',()=>{if(!check())return;const dl=day.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});const body=`Bonjour,\n\nJe souhaite réserver une caisse (${crate.length} bouteilles) :\n${summary()}\n\nRetrait prévu : ${dl}\nNom : ${document.getElementById('nom').value}\nTéléphone : ${document.getElementById('tel').value}\n\nMerci !`;location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Réservation caisse — retrait '+dl)}&body=${encodeURIComponent(body)}`;ok.textContent=`Demande prête pour ${dl} : votre messagerie s'ouvre avec le récapitulatif.`;ok.classList.add('show')});
+  document.getElementById('ics').addEventListener('click',()=>{if(!check())return;const h=HOURS[day.getDay()];const p=n=>String(n).padStart(2,'0');const ymd=`${day.getFullYear()}${p(day.getMonth()+1)}${p(day.getDate())}`;const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//La Limaille//Caisse//FR','BEGIN:VEVENT',`UID:${Date.now()}@lalimaille`,`DTSTAMP:${ymd}T000000`,`DTSTART:${ymd}T${p(h[0][0])}${p(h[0][1])}00`,`DTEND:${ymd}T${p(h[1][0])}${p(h[1][1])}00`,'SUMMARY:Retrait caisse — Brasserie La Limaille','LOCATION:40 boulevard des Étines\\, 42120 Le Coteau',`DESCRIPTION:${summary().replace(/\n/g,'\\n')}`,'END:VEVENT','END:VCALENDAR'].join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='retrait-la-limaille.ics';a.click()});
+
+  /* Visite */
+  document.getElementById('visit').addEventListener('submit',e=>{e.preventDefault();const n=document.getElementById('vp').value,dv=document.getElementById('vd').value,g=document.getElementById('vn').value;location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Demande de visite guidée')}&body=${encodeURIComponent(`Bonjour,\n\nNous souhaiterions visiter la brasserie.\nNombre de personnes : ${n}\nDate souhaitée : ${dv||'à définir'}\nGroupe / contact : ${g}\n\nMerci !`)}`});
+
+  /* Révélations au scroll */
+  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.15}):null;
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*80+'ms';io?io.observe(el):el.classList.add('in')});
+  /* Menu actif */
+  const secs=[...document.querySelectorAll('main section[id]')];
+  addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY+120>=s.offsetTop)cur=s.id});menu.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+})();
+</script>
+</body>
+</html>
