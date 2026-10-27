@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Grand Café — Bar brasserie à Charlieu | Carte, menu du jour, groupes</title>
+<meta name="description" content="Bar-brasserie au cœur historique de Charlieu, place Saint-Philibert : cuisine traditionnelle et maison, menu du jour en semaine, terrasse et repas de groupe.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel legrandcafe-charlieu.fr
+   (relevée dans sa feuille de style ; à ajuster ici en 1 minute
+   si le Grand Café fournit ses codes exacts)
+   ========================================================= */
+:root{
+  --sauge:#a7b78e;        /* fond principal / bandeau de navigation */
+  --sauge-clair:#c3cfb0;
+  --sauge-fonce:#7d8e66;
+  --bleu:#1b71c6;         /* couleur principale (sections, liens) */
+  --bleu-vif:#318ce7;
+  --ambre:#ad6a1f;        /* soulignés des boutons, flèche "haut de page" */
+  --brun:#5a3a22;         /* couleur tertiaire */
+  --noir:#141414;         /* titres + logo */
+  --blanc:#fff;
+  --creme:#f6f1e6;
+  --font-titre:"Bebas Neue",Impact,sans-serif;
+  --font-texte:Roboto,system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --ombre:0 18px 40px -18px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--noir);background:var(--sauge);line-height:1.6;overflow-x:hidden;letter-spacing:.01em}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+h1,h2,h3,.titre{font-family:var(--font-titre);font-weight:400;letter-spacing:.02em;line-height:1}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--ambre);outline-offset:3px;border-radius:4px}
+
+/* ---- Bandeau démo ---- */
+.demo{background:var(--noir);color:#e9e9e9;font-size:.78rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--sauge-clair)}
+
+/* ---- Progression ---- */
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--ambre);width:0;z-index:100}
+
+/* ---- Navigation (reprend le bandeau sauge du site) ---- */
+header.nav{position:sticky;top:0;z-index:50;background:var(--sauge);transition:box-shadow .3s,background .3s}
+header.nav.scrolled{box-shadow:0 6px 24px -10px rgba(0,0,0,.35);background:rgba(167,183,142,.94);backdrop-filter:blur(8px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;transition:height .3s}
+.nav.scrolled .wrap{height:60px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{width:50px;height:50px;border-radius:50%;transition:transform .6s var(--ease)}
+.logo:hover img{transform:rotate(-12deg) scale(1.05)}
+.logo span{font-family:var(--font-titre);font-size:1.5rem;line-height:.9}
+.logo small{display:block;font-family:var(--font-texte);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;font-weight:500}
+.menu{display:flex;gap:1.6rem;align-items:center;list-style:none}
+.menu a{text-decoration:none;color:#fff;font-weight:500;position:relative;padding:.3rem 0;text-shadow:0 1px 1px rgba(0,0,0,.12)}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--ambre);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn-tel{background:var(--noir);color:#fff!important;padding:.55rem 1rem!important;border-radius:999px;text-shadow:none!important}
+.btn-tel::after{display:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px}
+.burger span{display:block;height:2px;background:#fff;margin:6px 8px;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);flex-direction:column;align-items:flex-start;justify-content:center;padding:2rem;background:var(--noir);transform:translateX(100%);visibility:hidden;transition:transform .45s var(--ease),visibility .45s}
+  .menu.open{transform:none;visibility:visible}
+  .menu a{font-size:1.25rem}
+  .burger{display:block;position:relative;z-index:60}
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+}
+
+/* ---- Boutons : souligné ambre du site, rendu vivant ---- */
+.btn{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;font-weight:500;font-size:1.05rem;padding:.8rem 1.3rem;border:0;background:transparent;color:inherit;position:relative;transition:transform .3s var(--ease)}
+.btn::before{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ambre);transition:height .35s var(--ease);z-index:-1;border-radius:2px}
+.btn:hover::before{height:100%}
+.btn:hover{color:#fff}
+.btn.plein{background:var(--noir);color:#fff;border-radius:999px;padding:.9rem 1.5rem}
+.btn.plein::before{display:none}
+.btn.plein:hover{background:var(--ambre)}
+.btn svg{width:18px;height:18px;transition:transform .3s var(--ease)}
+.btn:hover svg{transform:translateX(4px)}
+.btn{isolation:isolate}
+
+/* ---- Hero ---- */
+.hero{position:relative;min-height:calc(100svh - 110px);display:grid;place-items:center;overflow:hidden;color:#fff;text-align:center}
+.hero-bg{position:absolute;inset:-6%;background:url("https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/67227496d8fb4_images_large.jpeg") center/cover;animation:kenburns 22s ease-in-out infinite alternate;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,20,.25),rgba(20,20,20,.55) 60%,rgba(20,20,20,.8))}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}to{transform:scale(1.08) translate(-1.5%,-1%)}}
+.hero-in{position:relative;z-index:2;padding:4rem 0 6rem}
+.hero .sur{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);padding:.45rem .9rem;border-radius:999px;backdrop-filter:blur(6px)}
+.hero h1{font-size:clamp(3rem,9vw,7.5rem);margin:1.2rem 0 .4rem;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.hero h1 .l{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p.sous{font-size:clamp(1.1rem,2.6vw,1.9rem);font-weight:300;letter-spacing:.12em;text-transform:uppercase}
+.hero .ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.2rem}
+.hero .btn{color:#fff}
+.statut{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.8rem;font-size:.92rem;background:rgba(0,0,0,.35);padding:.5rem 1rem;border-radius:999px}
+.statut i{width:10px;height:10px;border-radius:50%;background:#bbb;box-shadow:0 0 0 0 rgba(255,255,255,.6)}
+.statut.ouvert i{background:#7bd88f;animation:pulse 1.8s infinite}
+.statut.ferme i{background:#e36b5b}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(123,216,143,.7)}100%{box-shadow:0 0 0 12px rgba(123,216,143,0)}}
+.scroll-ind{position:absolute;bottom:1.6rem;left:50%;translate:-50% 0;z-index:2;width:26px;height:42px;border:2px solid rgba(255,255,255,.7);border-radius:14px}
+.scroll-ind::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:#fff;border-radius:2px;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(14px);opacity:0}}
+
+/* ---- Bandeau défilant ---- */
+.ruban{background:var(--noir);color:#fff;overflow:hidden;white-space:nowrap;padding:.9rem 0}
+.ruban .piste{display:inline-flex;gap:2.5rem;animation:defile 38s linear infinite;font-family:var(--font-titre);font-size:1.6rem;letter-spacing:.06em}
+.ruban span::after{content:"✦";color:var(--ambre);margin-left:2.5rem;font-size:1rem;vertical-align:middle}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---- Sections ---- */
+section{position:relative}
+.pad{padding:clamp(4rem,9vw,7rem) 0}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-titre);font-size:1.4rem;letter-spacing:.06em}
+.eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+h2{font-size:clamp(2.4rem,5.4vw,4.2rem);margin:.4rem 0 1.1rem}
+.lead{font-size:1.06rem;max-width:60ch}
+.lead strong{color:var(--bleu);font-weight:700}
+.bleu .lead strong{color:#fff}
+.bleu{background:var(--bleu);color:#fff}
+.creme{background:var(--creme)}
+.blason{position:absolute;width:300px;opacity:.09;pointer-events:none}
+#intro,#carte{overflow-x:clip}
+
+/* Intro (reprend le texte du site) */
+.intro{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.intro .photos{position:relative;aspect-ratio:1/1}
+.intro .photos img{position:absolute;border-radius:14px;box-shadow:var(--ombre);object-fit:cover}
+.intro .p1{width:72%;height:78%;top:0;right:0}
+.intro .p2{width:52%;height:52%;bottom:0;left:0;border:8px solid var(--sauge)}
+.intro .badge-velo{position:absolute;right:6%;bottom:6%;background:#fff;border-radius:14px;padding:.7rem .9rem;display:flex;gap:.6rem;align-items:center;box-shadow:var(--ombre);font-size:.82rem;font-weight:500;max-width:230px}
+.intro .badge-velo img{width:42px;height:auto;position:static;box-shadow:none;border-radius:6px}
+@media (max-width:860px){.intro{grid-template-columns:1fr}}
+
+/* Chiffres (uniquement des données publiées par le Grand Café) */
+.chiffres{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3.5rem}
+.chiffre{background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.4);border-radius:16px;padding:1.4rem;text-align:left}
+.chiffre b{display:block;font-family:var(--font-titre);font-weight:400;font-size:3rem;line-height:1}
+.chiffre span{font-size:.9rem}
+@media (max-width:860px){.chiffres{grid-template-columns:repeat(2,1fr)}}
+
+/* Prestations (3 cartes, comme les 3 rubriques du site) */
+.presta{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem}
+.carte-p{position:relative;border-radius:18px;overflow:hidden;min-height:420px;color:#fff;text-decoration:none;display:flex;align-items:flex-end;isolation:isolate}
+.carte-p img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1.2s var(--ease)}
+.carte-p::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,.82));z-index:-1}
+.carte-p:hover img{transform:scale(1.07)}
+.carte-p .in{padding:1.6rem}
+.carte-p h3{font-size:2.4rem}
+.carte-p p{font-size:.95rem;opacity:.9;max-height:0;overflow:hidden;transition:max-height .5s var(--ease),margin .5s}
+.carte-p:hover p,.carte-p:focus-visible p{max-height:120px;margin-top:.5rem}
+.carte-p .fleche{position:absolute;top:1.1rem;right:1.1rem;width:44px;height:44px;border-radius:50%;background:var(--ambre);display:grid;place-items:center;transition:transform .4s var(--ease)}
+.carte-p:hover .fleche{transform:rotate(-45deg)}
+@media (max-width:900px){.presta{grid-template-columns:1fr}.carte-p{min-height:300px}.carte-p p{max-height:none;margin-top:.5rem}}
+
+/* ===== CARTE INTERACTIVE (outil central) ===== */
+.outil-carte{background:#fff;color:var(--noir);border-radius:22px;box-shadow:var(--ombre);overflow:hidden;margin-top:2.4rem}
+.oc-tete{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem;border-bottom:1px solid #eee;background:#fafaf7}
+.recherche{flex:1 1 260px;display:flex;align-items:center;gap:.5rem;background:#fff;border:1.5px solid #ddd;border-radius:999px;padding:.55rem 1rem;transition:border-color .2s}
+.recherche:focus-within{border-color:var(--bleu)}
+.recherche input{border:0;outline:0;font:inherit;width:100%;background:transparent}
+.filtres{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{border:1.5px solid #ddd;background:#fff;border-radius:999px;padding:.45rem .9rem;font-size:.88rem;transition:.25s}
+.chip[aria-pressed="true"]{background:var(--sauge-fonce);border-color:var(--sauge-fonce);color:#fff}
+.onglets{display:flex;gap:.3rem;overflow-x:auto;padding:.8rem 1.2rem 0;scrollbar-width:none;position:relative}
+.onglets::-webkit-scrollbar{display:none}
+.onglet{flex:none;border:0;background:none;padding:.7rem 1rem;font-family:var(--font-titre);font-size:1.35rem;letter-spacing:.04em;color:#777;position:relative;transition:color .25s}
+.onglet[aria-selected="true"]{color:var(--noir)}
+.onglet[aria-selected="true"]::after{content:"";position:absolute;left:.8rem;right:.8rem;bottom:0;height:3px;background:var(--ambre);border-radius:3px;animation:grow .35s var(--ease)}
+@keyframes grow{from{transform:scaleX(0)}}
+.oc-corps{display:grid;grid-template-columns:1fr 320px;min-height:420px}
+.plats{padding:1.2rem 1.4rem 1.6rem;display:grid;grid-template-columns:1fr 1fr;gap:.2rem 2rem;align-content:start}
+.plat{display:grid;grid-template-columns:1fr auto;gap:.1rem 1rem;padding:.85rem 0;border-bottom:1px dashed #e2e2e2;animation:pin .45s var(--ease) both}
+@keyframes pin{from{opacity:0;transform:translateY(10px)}}
+.plat h4{font-weight:700;font-size:.98rem;text-transform:uppercase;letter-spacing:.02em}
+.plat .prix{font-family:var(--font-titre);font-size:1.4rem;color:var(--bleu);white-space:nowrap}
+.plat p{grid-column:1/-1;font-size:.86rem;color:#666;line-height:1.45}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .45rem;border-radius:4px;margin-left:.35rem;vertical-align:2px}
+.tag.coin{background:#f3e3cf;color:var(--brun)}
+.tag.veg{background:#e3ecd6;color:#3f5a26}
+.vide{grid-column:1/-1;padding:2rem 0;color:#777;text-align:center}
+.oc-cote{background:var(--noir);color:#fff;padding:1.6rem;display:flex;flex-direction:column;gap:1rem}
+.oc-cote h3{font-size:2rem}
+.formule{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:1rem}
+.formule .l{display:flex;justify-content:space-between;gap:.6rem;font-size:.92rem;padding:.3rem 0}
+.formule .l b{font-family:var(--font-titre);font-weight:400;font-size:1.35rem;color:var(--sauge-clair);white-space:nowrap}
+.oc-cote small{opacity:.7;font-size:.78rem;line-height:1.45}
+.compteur{font-size:.85rem;color:#777;padding:0 1.4rem 1rem}
+@media (max-width:900px){.oc-corps{grid-template-columns:1fr}.plats{grid-template-columns:1fr}}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:.8rem;margin-top:2.4rem}
+.galerie figure{overflow:hidden;border-radius:14px;position:relative;cursor:zoom-in}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .6s}
+.galerie figure:hover img{transform:scale(1.06)}
+.galerie .g1{grid-column:span 2;grid-row:span 2}
+.galerie .g4{grid-row:span 2}
+.galerie figcaption{position:absolute;left:.7rem;bottom:.7rem;background:rgba(0,0,0,.55);color:#fff;font-size:.75rem;padding:.25rem .6rem;border-radius:999px;opacity:0;transform:translateY(6px);transition:.35s}
+.galerie figure:hover figcaption{opacity:1;transform:none}
+@media (max-width:860px){.galerie{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.galerie .g1{grid-column:span 2}}
+.lightbox{position:fixed;inset:0;background:rgba(10,10,10,.9);display:none;place-items:center;z-index:200;padding:16px}
+.lightbox.on{display:grid;animation:fade .3s}
+.lightbox img{max-height:86vh;border-radius:10px}
+.lightbox button{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:0;background:#fff;font-size:1.4rem}
+@keyframes fade{from{opacity:0}}
+
+/* ===== Repas de groupe : simulateur ===== */
+.groupe{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,4vw,4rem);align-items:start}
+.menus{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+.menu-g{position:relative;background:#fff;color:var(--noir);border-radius:18px;padding:1.4rem 1.2rem 1.2rem;border:2px solid transparent;cursor:pointer;transition:transform .35s var(--ease),border-color .25s,box-shadow .35s;text-align:center}
+.menu-g:hover{transform:translateY(-4px)}
+.menu-g[aria-checked="true"]{border-color:var(--ambre);box-shadow:0 0 0 4px rgba(173,106,31,.18)}
+.menu-g .px{font-family:var(--font-titre);font-size:2.6rem;color:var(--bleu)}
+.menu-g ol{list-style:none;font-size:.84rem;line-height:1.35;color:#444}
+.menu-g ol li{padding:.32rem 0}
+.menu-g ol li+li::before{content:"✦";display:block;color:var(--ambre);font-size:.6rem;margin-bottom:.32rem}
+.menu-g .check{position:absolute;top:.8rem;right:.8rem;width:24px;height:24px;border-radius:50%;border:2px solid #ccc;display:grid;place-items:center;transition:.25s}
+.menu-g[aria-checked="true"] .check{background:var(--ambre);border-color:var(--ambre)}
+.menu-g[aria-checked="true"] .check::after{content:"";width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+@media (max-width:560px){.menus{grid-template-columns:1fr}}
+.simu{background:var(--noir);color:#fff;border-radius:22px;padding:clamp(1.4rem,3vw,2.2rem);box-shadow:var(--ombre);position:sticky;top:90px}
+.simu h3{font-size:2.2rem;margin-bottom:1rem}
+.champ{margin-bottom:1.15rem}
+.champ label,.champ .lab{display:block;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:.45rem}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;background:rgba(255,255,255,.07);padding:.3rem;border-radius:12px}
+.seg button{border:0;background:none;color:#fff;padding:.6rem .4rem;border-radius:9px;font-size:.86rem;transition:.25s}
+.seg button[aria-pressed="true"]{background:var(--sauge);color:var(--noir);font-weight:700}
+.range-l{display:flex;align-items:center;gap:1rem}
+input[type=range]{flex:1;accent-color:var(--ambre);height:28px}
+.nb{font-family:var(--font-titre);font-size:2.4rem;min-width:3ch;text-align:right}
+input[type=date],input[type=text],input[type=tel]{width:100%;font:inherit;color:#fff;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;padding:.7rem .8rem;color-scheme:dark}
+.avertir{font-size:.84rem;margin-top:.5rem;min-height:1.2em;color:#f2c48d}
+.total{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(255,255,255,.15);padding-top:1.1rem;margin-top:.4rem}
+.total .m{font-family:var(--font-titre);font-size:3.2rem;line-height:.9;color:var(--sauge-clair)}
+.total small{display:block;font-size:.78rem;opacity:.7}
+.simu .actions{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.3rem}
+.simu .btn.plein{background:var(--ambre)}
+.simu .btn.plein:hover{background:#c27a2a}
+.simu .btn{color:#fff}
+.note{font-size:.76rem;opacity:.65;margin-top:1rem;line-height:1.45}
+@media (max-width:900px){.groupe{grid-template-columns:1fr}.simu{position:static}}
+
+/* Horaires */
+.horaires{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2.2rem}
+.saison{background:rgba(255,255,255,.3);border:1px solid rgba(255,255,255,.5);border-radius:18px;padding:1.5rem;transition:transform .35s var(--ease)}
+.saison.active{background:#fff;box-shadow:var(--ombre);transform:translateY(-4px)}
+.saison h3{font-size:1.9rem;display:flex;justify-content:space-between;align-items:center;gap:.6rem}
+.saison h3 em{font-style:normal;font-family:var(--font-texte);font-size:.7rem;background:var(--ambre);color:#fff;border-radius:999px;padding:.25rem .6rem;letter-spacing:.08em;text-transform:uppercase}
+.jours{list-style:none;margin-top:.8rem}
+.jours li{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px dashed rgba(0,0,0,.12);font-size:.95rem}
+.jours li.auj{font-weight:700;color:var(--bleu)}
+.jours li span:last-child{font-variant-numeric:tabular-nums}
+@media (max-width:760px){.horaires{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:stretch}
+.carte-contact{background:#fff;color:var(--noir);border-radius:22px;padding:2rem;box-shadow:var(--ombre)}
+.ligne{display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid #eee}
+.ligne:last-child{border:0}
+.ligne .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--sauge);display:grid;place-items:center}
+.ligne a{text-decoration:none;font-weight:700;color:var(--bleu)}
+.plan{border-radius:22px;overflow:hidden;min-height:340px;box-shadow:var(--ombre);background:#ddd}
+.plan iframe{width:100%;height:100%;min-height:340px;border:0;filter:saturate(.85)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+
+/* Footer */
+footer{background:var(--noir);color:#cfcfcf;padding:3rem 0 2rem;font-size:.9rem}
+footer .haut{display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:center;padding-bottom:2rem;border-bottom:1px solid #2c2c2c}
+footer .logo span{color:#fff}
+footer .reseaux{display:flex;gap:.7rem}
+footer .reseaux a{width:42px;height:42px;border-radius:50%;border:1px solid #444;display:grid;place-items:center;transition:.3s}
+footer .reseaux a:hover{background:var(--ambre);border-color:var(--ambre)}
+.mention{font-size:.78rem;line-height:1.55;color:#9a9a9a;margin-top:1.6rem}
+
+/* Flèche haut (blason ambre du site) */
+.haut-page{position:fixed;right:18px;bottom:18px;width:50px;height:58px;background:var(--ambre);clip-path:polygon(0 0,100% 0,100% 72%,50% 100%,0 72%);display:grid;place-items:center;color:#fff;text-decoration:none;font-size:1.3rem;z-index:40;opacity:0;transform:translateY(20px);transition:.4s var(--ease)}
+.haut-page.on{opacity:1;transform:none}
+
+/* Apparitions au scroll */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Grand Café",
+  "description":"Bar-brasserie restaurant au cœur historique de Charlieu : cuisine traditionnelle et maison, produits locaux, menu du jour en semaine, terrasse et repas de groupe.",
+  "url":"https://legrandcafe-charlieu.fr",
+  "telephone":"+33477601030",
+  "email":"legrandcafe.charlieu@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"6 place Saint-Philibert","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+  "servesCuisine":["Cuisine traditionnelle","Brasserie"],
+  "areaServed":["Charlieu","Saint-Nizier-sous-Charlieu","Pouilly-sous-Charlieu","Briennon"],
+  "acceptsReservations":true,
+  "sameAs":["https://www.facebook.com/people/LE-GRAND-CAFE/100024269845661/","https://www.instagram.com/legdcafe/"]
+}
+</script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div class="demo">Maquette de démonstration — <b>Le Grand Café, Charlieu</b> · proposition de refonte, non officielle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#accueil" class="logo" aria-label="Le Grand Café, accueil">
+      <img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/da60bea76bc622c76df2ca66c22341d1952c5288.jpeg" alt="Logo Le Grand Café">
+      <span>Le Grand Café<small>Bar · Brasserie</small></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#bar">Bar</a></li>
+      <li><a href="#groupe">Repas de groupe</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+      <li><a href="#contact">Nous contacter</a></li>
+      <li><a href="tel:+33477601030" class="btn-tel">04 77 60 10 30</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-bg" id="heroBg" role="img" aria-label="La terrasse du Grand Café, place Saint-Philibert"></div>
+  <div class="hero-in wrap">
+    <span class="sur">Au cœur historique de Charlieu</span>
+    <h1 id="titre">Le Grand Café</h1>
+    <p class="sous">Bar · Brasserie · Restaurant<br>depuis plus de 10 ans</p>
+    <div class="ctas">
+      <a class="btn plein" href="#carte">Voir la carte <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn" href="tel:+33477601030">04 77 60 10 30</a>
+      <a class="btn" href="#groupe">Repas de groupe</a>
+    </div>
+    <div class="statut" id="statut" aria-live="polite"><i></i><span>Calcul des horaires…</span></div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true"></div>
+</section>
+
+<div class="ruban" aria-hidden="true">
+  <div class="piste">
+    <span>Grenouilles au beurre persillé</span><span>Andouillette Bobosse</span><span>Tête de veau sauce gribiche</span><span>Salade Charliendine</span><span>Entrecôte charolaise</span><span>Bières locales</span><span>Café Lavazza</span><span>Gaufres maison</span>
+    <span>Grenouilles au beurre persillé</span><span>Andouillette Bobosse</span><span>Tête de veau sauce gribiche</span><span>Salade Charliendine</span><span>Entrecôte charolaise</span><span>Bières locales</span><span>Café Lavazza</span><span>Gaufres maison</span>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="pad" id="intro">
+  <img class="blason" src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/26e313186c60fc9fb415a3c216c5515d3e80959f.png" alt="" style="top:8%;left:-60px">
+  <div class="wrap intro">
+    <div>
+      <span class="eyebrow rv">Dans la Loire</span>
+      <h2 class="rv d1">Votre bar-brasserie au cœur de Charlieu</h2>
+      <p class="lead rv d2">Vous avez envie de passer un bon moment dans un <strong>cadre chaleureux et convivial</strong> ? Existant depuis de nombreuses années, notre bar-brasserie restaurant est situé au cœur de la ville de Charlieu. Au fil des années, Le Grand Café est devenu une institution locale.</p>
+      <p class="lead rv d2" style="margin-top:1rem">Que vous souhaitiez profiter de la <strong>terrasse pendant les beaux jours</strong> ou <strong>boire un café au chaud en hiver</strong>, nos équipes seront aux petits soins pour vous.</p>
+      <div class="rv d3" style="margin-top:1.6rem"><a class="btn" href="#carte">Découvrir la carte <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="photos rv d2">
+      <img class="p1" src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/65f0a39355147_images_large.jpeg" alt="Salle du Grand Café" loading="lazy">
+      <img class="p2" src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/65dddec3af672_images_large.jpeg" alt="Bière pression servie au bar" loading="lazy">
+      <div class="badge-velo"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/654119ee12c6b_images_large.png" alt="Label Accueil Vélo">Labellisé Accueil Vélo depuis 2019</div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="chiffres">
+      <div class="chiffre rv"><b><span data-count="10">0</span>+</b><span>années au cœur de Charlieu</span></div>
+      <div class="chiffre rv d1"><b><span data-count="2019">2000</span></b><span>labellisé Accueil Vélo</span></div>
+      <div class="chiffre rv d2"><b><span data-count="17.5" data-dec="2">0</span> €</b><span>formule entrée + plat + dessert, en semaine le midi</span></div>
+      <div class="chiffre rv d3"><b><span data-count="4">0</span></b><span>bières locales à la carte</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESTATIONS -->
+<section class="pad bleu" id="prestations">
+  <div class="wrap">
+    <span class="eyebrow rv">Toutes nos prestations</span>
+    <h2 class="rv d1">Des spécialités locales savoureuses et abordables</h2>
+    <p class="lead rv d2">Le Grand Café vous sert des <strong>plats traditionnels et faits maison</strong>, avec des produits frais et issus du terroir, cultivés ou fabriqués dans notre belle région.</p>
+    <div class="presta">
+      <a class="carte-p rv" href="#bar" id="bar">
+        <img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/65f0a35e71e45_images_large.jpeg" alt="Le comptoir du bar" loading="lazy">
+        <span class="fleche" aria-hidden="true">↗</span>
+        <div class="in"><h3>Bar</h3><p>Un verre, un café Lavazza, un chocolat ou une gaufre maison, en famille ou entre amis. Et la terrasse au printemps et en été.</p></div>
+      </a>
+      <a class="carte-p rv d1" href="#carte">
+        <img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/672275b5d488e_images_large.jpeg" alt="Assiette de tataki de thon" loading="lazy">
+        <span class="fleche" aria-hidden="true">↗</span>
+        <div class="in"><h3>Brasserie</h3><p>Menu du jour en semaine le midi et une large carte de brasserie avec des recettes locales.</p></div>
+      </a>
+      <a class="carte-p rv d2" href="#groupe">
+        <img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/67227a68da94e_images_large.jpeg" alt="Repas de groupe au Grand Café" loading="lazy">
+        <span class="fleche" aria-hidden="true">↗</span>
+        <div class="in"><h3>Repas de groupe</h3><p>Autocaristes, repas d'entreprise, fêtes de famille : des repas adaptés à vos horaires et besoins.</p></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CARTE INTERACTIVE -->
+<section class="pad" id="carte">
+  <img class="blason" src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/26e313186c60fc9fb415a3c216c5515d3e80959f.png" alt="" style="top:4%;right:-80px">
+  <div class="wrap">
+    <span class="eyebrow rv">Découvrez notre carte</span>
+    <h2 class="rv d1">La carte, sans rien télécharger</h2>
+    <p class="lead rv d2">Toute la carte brasserie et la carte du bar, lisibles sur téléphone. Cherchez un plat, filtrez les spécialités du coin ou les plats veggie.</p>
+
+    <div class="outil-carte rv d2">
+      <div class="oc-tete">
+        <label class="recherche"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Un plat, un ingrédient… (charolais, chèvre, thon)" aria-label="Rechercher dans la carte"></label>
+        <div class="filtres">
+          <button class="chip" data-f="coin" aria-pressed="false">Spécialités du coin</button>
+          <button class="chip" data-f="veg" aria-pressed="false">Veggie</button>
+        </div>
+      </div>
+      <div class="onglets" role="tablist" id="onglets"></div>
+      <div class="oc-corps">
+        <div>
+          <div class="plats" id="plats" aria-live="polite"></div>
+          <div class="compteur" id="compteur"></div>
+        </div>
+        <aside class="oc-cote">
+          <h3>Formule du jour</h3>
+          <div class="formule">
+            <div class="l"><span>Entrée + plat + dessert</span><b>17,50 €</b></div>
+            <div class="l"><span>Entrée + plat ou plat + dessert</span><b>14,50 €</b></div>
+            <div class="l"><span>Plat du jour</span><b>12,50 €</b></div>
+            <div class="l"><span>Entrée du jour</span><b>5,00 €</b></div>
+          </div>
+          <small>Uniquement du mardi au vendredi midi. Le plat du jour change chaque jour : il pourrait s'afficher ici, mis à jour en deux clics depuis un téléphone.</small>
+          <div class="formule">
+            <div class="l"><span>Menu enfant (10 ans max)</span><b>11,00 €</b></div>
+            <small>Poulet croustillant, burger ou croque-monsieur, frites · 1 boule de glace ou 1 compote à boire · sirop, jus ou coca</small>
+          </div>
+          <small>Pensez à signaler vos allergies ou intolérances.</small>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="pad creme" id="galerie">
+  <div class="wrap">
+    <span class="eyebrow rv">Suivez notre actualité</span>
+    <h2 class="rv d1">La terrasse, la salle, l'assiette</h2>
+    <div class="galerie">
+      <figure class="g1 rv"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/653fd0ab5906e_images_large.jpeg" alt="Terrasse couverte du Grand Café" loading="lazy"><figcaption>La terrasse</figcaption></figure>
+      <figure class="rv d1"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6722773f3a7ac_images_large.jpeg" alt="Planche de charcuterie" loading="lazy"><figcaption>Planche à partager</figcaption></figure>
+      <figure class="rv d2"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6541203b49997_images_large.jpeg" alt="Le comptoir Bienvenue" loading="lazy"><figcaption>Le comptoir</figcaption></figure>
+      <figure class="g4 rv d1"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/654117817667a_images_large.jpeg" alt="Coin mange-debout" loading="lazy"><figcaption>Côté bar</figcaption></figure>
+      <figure class="rv d2"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6722781b68691_images_large.jpeg" alt="Repas servi en salle" loading="lazy"><figcaption>À table</figcaption></figure>
+      <figure class="rv d3"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/thumb_/cms/medias/67227a5ce39c7_images_large.jpeg" alt="Banquettes de la salle" loading="lazy"><figcaption>La salle</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- REPAS DE GROUPE -->
+<section class="pad bleu" id="groupe">
+  <div class="wrap groupe">
+    <div>
+      <span class="eyebrow rv">Repas de groupes</span>
+      <h2 class="rv d1">Adaptés à vos horaires et besoins</h2>
+      <p class="lead rv d2">Si vous êtes un <strong>autocariste</strong> à la recherche d'une escale gourmande, pour vos <strong>repas d'entreprises</strong> ou vos <strong>événements spéciaux</strong> : choisissez un menu, indiquez le nombre de convives, et votre demande part toute prête.</p>
+      <div class="menus" role="radiogroup" aria-label="Choix du menu de groupe">
+        <div class="menu-g rv" role="radio" tabindex="0" aria-checked="true" data-prix="25" data-nom="Menu à 25 €">
+          <span class="check"></span>
+          <div class="px">25 €</div>
+          <ol><li>Kir de bienvenue</li><li>Salade Charliendine<br><small>pomme de terre grenaille, andouille de Charlieu, fourme</small></li><li>Cuisse de canard confit, sauce forestière<br><small>gratin dauphinois et légumes de saison</small></li><li>Fromage blanc fermier de la Ferme de Roharie</li><li>Fondant au chocolat</li><li>¼ de vin et café</li></ol>
+        </div>
+        <div class="menu-g rv d1" role="radio" tabindex="-1" aria-checked="false" data-prix="29" data-nom="Menu à 29 €">
+          <span class="check"></span>
+          <div class="px">29 €</div>
+          <ol><li>Kir de bienvenue</li><li>Pâté Charliendin « by Munini traiteur »<br><small>confit d'oignons, salade mélangée</small></li><li>Noix de joue de bœuf charolais au Beaujolais<br><small>écrasé de pomme de terre, légumes de saison</small></li><li>Fromage blanc fermier de la Ferme de Roharie</li><li>Tarte Tatin, glace vanille</li><li>¼ de vin et café</li></ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="simu rv d2" id="simu">
+      <h3>Préparer ma demande</h3>
+      <div class="champ">
+        <span class="lab">Type de repas</span>
+        <div class="seg" id="type">
+          <button aria-pressed="true" data-v="Autocariste">Autocariste</button>
+          <button aria-pressed="false" data-v="Repas d'entreprise">Entreprise</button>
+          <button aria-pressed="false" data-v="Fête / famille">Famille</button>
+        </div>
+      </div>
+      <div class="champ">
+        <label for="nb">Nombre de convives</label>
+        <div class="range-l"><input type="range" id="nb" min="8" max="60" value="20"><span class="nb" id="nbV">20</span></div>
+      </div>
+      <div class="champ">
+        <label for="date">Date souhaitée</label>
+        <input type="date" id="date">
+        <div class="avertir" id="avert"></div>
+      </div>
+      <div class="champ">
+        <label for="nom">Votre nom / société</label>
+        <input type="text" id="nom" placeholder="Ex. Autocars du Brionnais" autocomplete="organization">
+      </div>
+      <div class="total">
+        <div><small>Estimation indicative</small><span id="detail">20 × 25 €</span></div>
+        <div class="m" id="total">500 €</div>
+      </div>
+      <div class="actions">
+        <a class="btn plein" id="envoyer" href="#">Envoyer la demande <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn" href="tel:+33477601030">Appeler</a>
+      </div>
+      <p class="note">La demande s'ouvre dans votre messagerie, adressée au Grand Café avec tous les détails. Prix relevés sur les menus de groupe publiés ; capacité et disponibilités à confirmer avec l'équipe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section class="pad" id="horaires">
+  <div class="wrap">
+    <span class="eyebrow rv">Les horaires de notre bar-brasserie</span>
+    <h2 class="rv d1">Quand venir au Grand Café</h2>
+    <p class="lead rv d2">Les horaires changent avec la saison : la bonne période se met en avant toute seule, et le jour du jour est surligné.</p>
+    <div class="horaires">
+      <div class="saison rv" id="hiver">
+        <h3>Mi-septembre à avril <em>En ce moment</em></h3>
+        <ul class="jours">
+          <li data-j="2"><span>Mardi</span><span>8h00 – 15h00</span></li>
+          <li data-j="3"><span>Mercredi</span><span>8h00 – 15h00</span></li>
+          <li data-j="4"><span>Jeudi</span><span>8h00 – 15h00</span></li>
+          <li data-j="5"><span>Vendredi</span><span>8h00 – 23h00</span></li>
+          <li data-j="6"><span>Samedi</span><span>8h00 – 23h00</span></li>
+          <li data-j="0"><span>Dimanche</span><span>Fermé</span></li>
+          <li data-j="1"><span>Lundi</span><span>Fermé</span></li>
+        </ul>
+      </div>
+      <div class="saison rv d1" id="ete">
+        <h3>Mai à mi-septembre <em>En ce moment</em></h3>
+        <ul class="jours">
+          <li data-j="2"><span>Mardi</span><span>8h00 – 23h00</span></li>
+          <li data-j="3"><span>Mercredi</span><span>8h00 – 23h00</span></li>
+          <li data-j="4"><span>Jeudi</span><span>8h00 – 23h00</span></li>
+          <li data-j="5"><span>Vendredi</span><span>8h00 – 23h00</span></li>
+          <li data-j="6"><span>Samedi</span><span>8h00 – 23h00</span></li>
+          <li data-j="0"><span>Dimanche</span><span>8h00 – 15h00</span></li>
+          <li data-j="1"><span>Lundi</span><span>Fermé</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="pad bleu" id="contact">
+  <div class="wrap">
+    <span class="eyebrow rv">N'hésitez pas à nous contacter</span>
+    <h2 class="rv d1">Place Saint-Philibert, Charlieu</h2>
+    <p class="lead rv d2" style="margin-bottom:2rem">Nous avons le plaisir de recevoir les habitants de Charlieu mais aussi ceux des villes voisines, St Nizier sous Charlieu, Pouilly sous Charlieu, Briennon…</p>
+    <div class="contact">
+      <div class="carte-contact rv">
+        <div class="ligne"><span class="ic">📍</span><div><b>Adresse</b><br>6 place Saint-Philibert<br>42190 Charlieu<br><a href="https://www.google.com/maps?cid=12848142557053827494" target="_blank" rel="noopener">Itinéraire</a></div></div>
+        <div class="ligne"><span class="ic">📞</span><div><b>Téléphone</b><br><a href="tel:+33477601030">04 77 60 10 30</a></div></div>
+        <div class="ligne"><span class="ic">✉️</span><div><b>E-mail</b><br><a href="mailto:legrandcafe.charlieu@gmail.com">legrandcafe.charlieu@gmail.com</a></div></div>
+        <div class="ligne"><span class="ic">🚲</span><div><b>Accueil Vélo</b><br>Labellisé depuis 2019 : une étape pour les cyclistes de passage.</div></div>
+      </div>
+      <div class="plan rv d1">
+        <iframe title="Plan d'accès au Grand Café" loading="lazy" src="https://www.google.com/maps?q=46.158906,4.170879&z=17&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut">
+      <a href="#accueil" class="logo"><img src="https://legrandcafe-charlieu.fr/uploads/media/images/cms/medias/da60bea76bc622c76df2ca66c22341d1952c5288.jpeg" alt="" style="width:46px;height:46px;border-radius:50%"><span>Le Grand Café<small>Bar · Brasserie · Charlieu</small></span></a>
+      <div class="reseaux">
+        <a href="https://www.facebook.com/people/LE-GRAND-CAFE/100024269845661/" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v8h4v-8h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg></a>
+        <a href="https://www.instagram.com/legdcafe/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
+      </div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée pour présenter une proposition de refonte du site du Grand Café ; elle n'est pas le site officiel. Textes, prix et horaires repris du site actuel (legrandcafe-charlieu.fr), de ses cartes en PDF et de la fiche de l'Office de Tourisme du Pays de Charlieu-Belmont : prix indicatifs, non contractuels, à mettre à jour. Toutes les photos sont celles publiées par Le Grand Café sur son site actuel. Couleurs et typographies reprises de la feuille de style du site actuel, ajustables. Les plats signalés « du coin » et « veggie » l'ont été d'après leur intitulé : à valider avec l'équipe.</p>
+  </div>
+</footer>
+
+<a href="#accueil" class="haut-page" id="hautPage" aria-label="Revenir en haut">↑</a>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button aria-label="Fermer">×</button><img alt=""></div>
+
+<script>
+/* ---------- Données de la carte (relevées sur les cartes PDF du site) ---------- */
+const CARTE = {
+  "À partager":[
+    ["Planche charcuterie","2 pers. 15,00 € · 4 pers. 30,00 €","15,00 €"],
+    ["Planche mixte","Charcuterie et fromages · 2 pers. 21,50 € · 4 pers. 43,00 €","21,50 €"],
+    ["Saucisson sec à découper","250 g · entier 9,50 € · demi 5,50 €","9,50 €"]
+  ],
+  "Plats & viandes":[
+    ["Grenouilles au beurre persillé","Légumes (navet, carotte, pomme de terre) ou frites maison","23,50 €",["coin"]],
+    ["Tête de veau sauce gribiche","Légumes (navet, carotte, pomme de terre) ou frites maison","15,50 €",["coin"]],
+    ["Foie de veau au beurre persillé","","16,00 €"],
+    ["Authentique andouillette maison Bobosse","Andouillette à la fraise de veau, tirée à la ficelle 180/200 g, sauce moutarde ou sauce vin blanc","19,00 €",["coin"]],
+    ["Fish and chips au cabillaud","","15,50 €"],
+    ["Entrecôte charolaise 350 g env.","Sauce moutarde ou fourme (supp. 1,00 €)","28,00 €"],
+    ["Steak haché charolais","Façon bouchère, env. 150 g · supp. œuf à cheval 1,00 €","13,50 €"],
+    ["Double steak haché charolais","Façon bouchère, 2 × 150 g","23,00 €"],
+    ["Tartare de bœuf charolais","Coupé au couteau, 180 g, non préparé","19,50 €"],
+    ["Double carpaccio de bœuf XXL","Câpres, parmigiano, sauce basilic et toast de chèvre chaud sur lit de salade verte","22,00 €"],
+    ["Assiette de tataki de thon","Thon saisi et mariné, sauce thaï","17,50 €"],
+    ["Assiette Charliendine","Andouille froide, salade, frites","15,50 €",["coin"]],
+    ["Ribs de porc marinés","Tex-mex ou barbecue, frites et salade","18,50 €"],
+    ["Croque-monsieur","2 pièces, épaule, comté, pain de mie, frites et salade","13,50 €"]
+  ],
+  "Burgers":[
+    ["Grand Café","Bœuf haché charolais frais 150 g, reblochon, lard, salade, tomate, compotée d'oignons, cornichons, sauce tartare · double 26,00 €","18,50 €"],
+    ["Américain","Bœuf charolais 150 g, cheddar, bacon, compotée d'oignons, sauce barbecue · double 25,00 €","17,50 €"],
+    ["Italien","Bœuf charolais 150 g, jambon cru, mozzarella, tomates séchées, pesto · double 27,00 €","19,00 €"],
+    ["Berger","Bœuf charolais 150 g, chèvre, lard, compotée d'oignons, sauce moutarde miel · double 26,00 €","18,50 €"],
+    ["Fish","Filet de cabillaud croustillant, salade, tomates, compotée d'oignons, sauce tartare","19,00 €"],
+    ["Veggie","Pavé végétal, salade, tomate, compotée d'oignons, sauce mayonnaise","17,50 €",["veg"]]
+  ],
+  "Salades & poke":[
+    ["Charliendine","Salade verte, tomate cerise, pomme de terre rissolée, fourme, andouille de Charlieu tiède","18,00 €",["coin"]],
+    ["César","Salade verte, poulet croustillant, croûtons, copeaux de parmigiano","17,50 €"],
+    ["Bergère","Salade verte, tomate cerise, lard grillé, toast de chèvre chaud au miel","18,00 €"],
+    ["Italienne","Roquette, tomates cerise, chiffonnade de jambon cru, focaccia, mozzarella, pesto","18,00 €"],
+    ["César veggie","Salade verte, nugget végétal, croûtons, copeaux de parmigiano","17,50 €",["veg"]],
+    ["Poke au thon","Riz basmati, tataki de thon mariné, avocat, pickles de chou rouge, carotte, pois chiches grillés, radis","17,50 €"],
+    ["Poke au poulet","Riz basmati, poulet croustillant, avocat, pickles de chou rouge, carotte, pois chiches grillés, radis","17,50 €"],
+    ["Poke veggie","Riz basmati, boulette sarrasin/lentille, avocat, pickles de chou rouge, carotte, pois chiches grillés","17,00 €",["veg"]]
+  ],
+  "Desserts":[
+    ["Fromage blanc","","4,50 €"],["Fromage sec à l'assiette","","6,00 €"],["Panna cotta","","6,50 €"],["Crème brûlée","","6,50 €"],
+    ["Dessert du moment","","7,50 €"],["Fondant au chocolat","","7,50 €"],["Gaufre au sucre glace","","4,00 €"],["Gaufre au Nutella","","5,50 €"],
+    ["Coupe de glace","Avec alcool : 9,00 €","7,50 €"],["Café gourmand","","8,50 €"],["Thé gourmand","","9,50 €"]
+  ],
+  "Le bar":[
+    ["Bière locale · Charliendine","Blonde, 33 cl","5,80 €",["coin"]],
+    ["Bière locale · Sornin","Ambrée","5,80 €",["coin"]],
+    ["Bière locale · Pierre blanche","Blanche","5,80 €",["coin"]],
+    ["Bière locale · Bec rose","Fruitée","5,80 €",["coin"]],
+    ["Saint Omer pression","25 cl 3,10 € · 33 cl 4,00 € · 50 cl 6,00 €","3,10 €"],
+    ["Goudale ambrée / IPA pression","25 cl 4,60 € · 33 cl 5,90 € · 50 cl 8,90 €","4,60 €"],
+    ["Côte Roannaise rosé · Coup de Soleil","Domaine de la Paroisse, bouteille","24,00 €",["coin"]],
+    ["Coup de Cœur · Côte Roannaise rouge","Domaine de la Paroisse, bouteille","27,00 €",["coin"]],
+    ["Spritz Apérol, Lemon…","","8,00 €"],
+    ["Mojito, piña colada, espresso martini…","","9,00 €"],
+    ["Kir (cassis, mûre, châtaigne, pêche)","","3,00 €"],
+    ["Expresso","Café Lavazza","1,50 €"],
+    ["Cappuccino","","3,00 €"],
+    ["Irish coffee","","7,50 €"]
+  ]
+};
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const ong=document.getElementById("onglets"),pl=document.getElementById("plats"),cpt=document.getElementById("compteur"),q=document.getElementById("q");
+let cat="Plats & viandes",filtres=new Set();
+Object.keys(CARTE).forEach(c=>{const b=document.createElement("button");b.className="onglet";b.role="tab";b.textContent=c;b.setAttribute("aria-selected",c===cat);b.onclick=()=>{cat=c;q.value="";rendu();};ong.appendChild(b);});
+function rendu(){
+  const t=norm(q.value.trim());
+  [...ong.children].forEach(b=>b.setAttribute("aria-selected",!t&&b.textContent===cat));
+  let items=[];
+  const cats=t||filtres.size?Object.keys(CARTE):[cat];
+  cats.forEach(c=>CARTE[c].forEach(p=>items.push([p[0],p[1],p[2],p[3]||[],c])));
+  if(!t&&!filtres.size)items=items.filter(p=>p[4]===cat);
+  if(t)items=items.filter(p=>norm(p[0]+" "+p[1]).includes(t));
+  filtres.forEach(f=>items=items.filter(p=>(p[3]||[]).includes(f)));
+  pl.innerHTML=items.length?items.map((p,i)=>`<div class="plat" style="animation-delay:${Math.min(i,12)*35}ms"><h4>${p[0]}${(p[3]||[]).map(x=>`<span class="tag ${x}">${x==="coin"?"du coin":"veggie"}</span>`).join("")}</h4><span class="prix">${p[2]}</span>${p[1]?`<p>${p[1]}${(t||filtres.size)?` · <em>${p[4]}</em>`:""}</p>`:((t||filtres.size)?`<p><em>${p[4]}</em></p>`:"")}</div>`).join(""):`<div class="vide">Rien ne correspond à « ${q.value} »… essayez « charolais » ou « chèvre ».</div>`;
+  cpt.textContent=items.length+" proposition"+(items.length>1?"s":"")+(t||filtres.size?" trouvée"+(items.length>1?"s":""):" dans « "+cat+" »");
+}
+q.addEventListener("input",rendu);
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{const f=c.dataset.f;filtres.has(f)?filtres.delete(f):filtres.add(f);c.setAttribute("aria-pressed",filtres.has(f));rendu();});
+rendu();
+
+/* ---------- Horaires vivants (heure de Paris) ---------- */
+const H={hiver:{2:[8,15],3:[8,15],4:[8,15],5:[8,23],6:[8,23]},ete:{2:[8,23],3:[8,23],4:[8,23],5:[8,23],6:[8,23],0:[8,15]}};
+const CONGES=[["2026-10-18","2026-11-02","Fermeture pour congés · réouverture le mardi 3 novembre"]]; /* fiche Office de Tourisme */
+function paris(){const p=new Intl.DateTimeFormat("fr-FR",{timeZone:"Europe/Paris",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",weekday:"short",hour12:false}).formatToParts(new Date());const g=k=>p.find(x=>x.type===k).value;const d=new Date(+g("year"),+g("month")-1,+g("day"),+g("hour"),+g("minute"));return d;}
+function saison(d){const m=d.getMonth()+1,j=d.getDate();return (m>=5&&m<9)||(m===9&&j<15)?"ete":"hiver";}
+function majStatut(){
+  const d=paris(),s=saison(d),jour=d.getDay(),h=d.getHours()+d.getMinutes()/60,iso=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+  document.getElementById("hiver").classList.toggle("active",s==="hiver");document.getElementById("ete").classList.toggle("active",s==="ete");
+  document.querySelectorAll(".saison:not(.active) h3 em").forEach(e=>e.style.display="none");
+  document.querySelectorAll(".saison.active li[data-j='"+jour+"']").forEach(l=>l.classList.add("auj"));
+  const st=document.getElementById("statut"),sp=st.querySelector("span");
+  const c=CONGES.find(c=>iso>=c[0]&&iso<=c[1]);
+  if(c){st.className="statut ferme";sp.textContent=c[2];return;}
+  const r=H[s][jour];
+  if(r&&h>=r[0]&&h<r[1]){st.className="statut ouvert";sp.textContent="Ouvert en ce moment · jusqu'à "+r[1]+"h00";}
+  else{st.className="statut ferme";let k=1;while(k<8&&!H[s][(jour+k)%7])k++;const n=(r&&h<r[0])?"aujourd'hui à "+r[0]+"h00":(k===1?"demain":["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"][(jour+k)%7])+" à "+H[s][(jour+k)%7][0]+"h00";sp.textContent="Fermé pour le moment · ouverture "+n;}
+}
+majStatut();
+
+/* ---------- Simulateur repas de groupe ---------- */
+const menusG=[...document.querySelectorAll(".menu-g")],nb=document.getElementById("nb"),nbV=document.getElementById("nbV"),dt=document.getElementById("date"),av=document.getElementById("avert");
+let menu=menusG[0],type="Autocariste";
+function choisir(m){menusG.forEach(x=>{x.setAttribute("aria-checked",x===m);x.tabIndex=x===m?0:-1});menu=m;calc();}
+menusG.forEach(m=>{m.onclick=()=>choisir(m);m.onkeydown=e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();choisir(m)}if(e.key.startsWith("Arrow")){e.preventDefault();const o=menusG[(menusG.indexOf(m)+1)%2];choisir(o);o.focus();}}});
+document.querySelectorAll("#type button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#type button").forEach(x=>x.setAttribute("aria-pressed",x===b));type=b.dataset.v;calc();});
+function fmt(n){return n.toLocaleString("fr-FR")+" €"}
+function calc(){
+  const n=+nb.value,p=+menu.dataset.prix;nbV.textContent=n;
+  document.getElementById("detail").textContent=n+" × "+p+" €";
+  const t=document.getElementById("total");t.textContent=fmt(n*p);t.animate([{transform:"scale(1.08)"},{transform:"scale(1)"}],{duration:250});
+  av.textContent="";
+  if(dt.value){const d=new Date(dt.value+"T12:00"),s=saison(d);if(!H[s][d.getDay()])av.textContent="Le Grand Café est habituellement fermé ce jour-là : à voir directement avec l'équipe.";
+    const c=CONGES.find(c=>dt.value>=c[0]&&dt.value<=c[1]);if(c)av.textContent="Période de congés annoncée : choisissez une autre date ou appelez.";}
+  const corps=`Bonjour,\n\nJe souhaiterais organiser un repas de groupe au Grand Café.\n\nType : ${type}\nMenu : ${menu.dataset.nom}\nNombre de convives : ${n}\nDate souhaitée : ${dt.value?new Date(dt.value+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}):"à définir"}\nNom / société : ${document.getElementById("nom").value||"—"}\n\nEstimation indiquée sur le site : ${fmt(n*p)}\n\nMerci de me recontacter pour confirmer.\n`;
+  document.getElementById("envoyer").href="mailto:legrandcafe.charlieu@gmail.com?subject="+encodeURIComponent("Demande de repas de groupe – "+n+" personnes")+"&body="+encodeURIComponent(corps);
+}
+const demain=new Date();demain.setDate(demain.getDate()+1);dt.min=demain.toISOString().slice(0,10);
+[nb,dt,document.getElementById("nom")].forEach(e=>e.addEventListener("input",calc));calc();
+
+/* ---------- Animations ---------- */
+const reduit=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const titre=document.getElementById("titre");
+if(!reduit){titre.innerHTML=[...titre.textContent].map((c,i)=>c===" "?" ":`<span class="l" style="animation-delay:${.15+i*.045}s">${c}</span>`).join("");}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}}),{threshold:.15,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+const ioC=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,fin=+el.dataset.count,dec=+(el.dataset.dec||0),deb=+el.textContent||0,t0=performance.now(),D=reduit?1:1400;
+  (function f(t){const k=Math.min(1,(t-t0)/D),v=deb+(fin-deb)*(1-Math.pow(1-k,3));el.textContent=dec?v.toFixed(dec).replace(".",","):Math.round(v);if(k<1)requestAnimationFrame(f);})(t0);ioC.unobserve(el);}),{threshold:.6});
+document.querySelectorAll("[data-count]").forEach(el=>ioC.observe(el));
+const nav=document.getElementById("nav"),prog=document.getElementById("progress"),hp=document.getElementById("hautPage"),bg=document.getElementById("heroBg");
+addEventListener("scroll",()=>{const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;nav.classList.toggle("scrolled",y>40);prog.style.width=(y/h*100)+"%";hp.classList.toggle("on",y>700);if(!reduit&&y<innerHeight)bg.style.translate="0 "+(y*.25)+"px";},{passive:true});
+const burger=document.getElementById("burger"),menuEl=document.getElementById("menu");
+burger.onclick=()=>{const o=menuEl.classList.toggle("open");burger.classList.toggle("open",o);burger.setAttribute("aria-expanded",o);};
+menuEl.querySelectorAll("a").forEach(a=>a.onclick=()=>{menuEl.classList.remove("open");burger.classList.remove("open");burger.setAttribute("aria-expanded",false);});
+/* Boutons magnétiques (souris uniquement) */
+if(matchMedia("(hover:hover)").matches&&!reduit)document.querySelectorAll(".btn.plein").forEach(b=>{b.addEventListener("mousemove",e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.25}px)`;});b.addEventListener("mouseleave",()=>b.style.transform="");});
+/* Lightbox */
+const lb=document.getElementById("lb");
+document.querySelectorAll(".galerie figure").forEach(f=>f.onclick=()=>{lb.querySelector("img").src=f.querySelector("img").src;lb.querySelector("img").alt=f.querySelector("img").alt;lb.classList.add("on");lb.querySelector("button").focus();});
+lb.onclick=e=>{if(e.target!==lb.querySelector("img"))lb.classList.remove("on")};
+addEventListener("keydown",e=>{if(e.key==="Escape")lb.classList.remove("on")});
+</script>
+</body>
+</html>
