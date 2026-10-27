@@ -1,6 +1,6 @@
 ---
 name: prospection-roanne
-description: "Méthodologie complète pour prospecter une entreprise locale du Roannais (Roanne et alentour) en vue de lui vendre un site web ou une application sur mesure : repérage d'un commerce ou artisan cible, recherche de son site actuel, construction d'une maquette HTML qui reprend la direction artistique existante du client (couleurs, typographie, structure, formulations) en y ajoutant des fonctionnalités vivantes plutôt que de la remplacer, rédaction d'un mail de démarchage dans un format et un ton précis, et création d'un rappel de relance sur Google Calendar. Utilise ce skill dès que l'utilisateur demande de \"faire pareil avec une autre entreprise/boîte\", de prospecter un nouveau client, de lancer le processus sur un nouveau secteur, ou fait référence à sa méthodologie habituelle de prospection à Roanne. Règle impérative : un seul projet par conversation, si l'utilisateur demande d'enchaîner sur une nouvelle entreprise, le signaler et proposer d'ouvrir une nouvelle conversation."
+description: "Méthodologie complète pour prospecter une entreprise locale du Roannais (Roanne et alentour) en vue de lui vendre un site web ou une application sur mesure : repérage d'un commerce ou artisan cible, recherche de son site actuel, construction d'une maquette HTML qui reprend la direction artistique existante du client (couleurs, typographie, structure, formulations) en y ajoutant des fonctionnalités vivantes plutôt que de la remplacer, rédaction d'un mail de démarchage dans un format et un ton précis, et enregistrement dans la plateforme de gestion, qui s'occupe des relances. Utilise ce skill dès que l'utilisateur demande de \"faire pareil avec une autre entreprise/boîte\", de prospecter un nouveau client, de lancer le processus sur un nouveau secteur, ou fait référence à sa méthodologie habituelle de prospection à Roanne. Règle impérative : un seul projet par conversation, si l'utilisateur demande d'enchaîner sur une nouvelle entreprise, le signaler et proposer d'ouvrir une nouvelle conversation."
 ---
 
 # Prospection Roanne — de la cible au mail envoyé
@@ -24,7 +24,7 @@ Cette méthodologie sert à démarcher, un commerce ou artisan du Roannais à la
 3. Rechercher le contexte utile (prix de marché du secteur, actualité réglementaire, aides, etc. — tout ce qui rend le mail crédible et pertinent)
 4. Construire la maquette HTML autonome
 5. Rédiger le mail de démarchage (voir format strict ci-dessous), créer le brouillon Gmail, puis enregistrer l'entreprise dans la plateforme de gestion et dans le Sheets
-6. Créer un rappel de relance sur Google Calendar
+6. (Plus de rappel de relance sur Google Calendar : la plateforme de gestion gère les relances, voir Étape 6)
 7. Livrer la maquette à l'utilisateur et lui indiquer ce qui reste éventuellement à faire manuellement (coller la ligne de suivi dans le Sheets si aucun outil d'édition Sheets n'était disponible)
 
 ## Étape 0 — Le suivi des statuts n'est plus fait par la routine
@@ -185,17 +185,15 @@ curl -s -X POST https://plateforme-nu-smoky.vercel.app/api/prospection/prospects
 - Vérifier la réponse : `"resultat":"cree"` est le cas normal. `"existe"` (déjà connue) ou `"erreur"` est à signaler dans le compte rendu, sans rien recréer. Ne jamais suivre de redirection (pas de `-L`).
 - Une panne de la plateforme ne bloque rien : le Sheets reste rempli, et l'entreprise est à signaler dans le compte rendu comme « à enregistrer dans la plateforme ».
 
-## Étape 6 — Rappel de relance
+## Étape 6 — Pas de rappel de relance dans Google Agenda
 
-- Créer un événement `Google Calendar:create_event` environ 2 jours après l'envoi prévu, 15 minutes de durée, avec rappel popup 30 minutes avant.
-- Titre : `Relancer [Nom entreprise] (maquette de site)`.
-- Description : rappelle à qui le mail a été envoyé (nom + mail), donne le(s) numéro(s) de téléphone de l'entreprise trouvés en étape 2, et résume en une phrase l'angle de relance (l'observation ou l'urgence identifiée en étape 2/3).
-- Si plusieurs rappels sont créés le même jour dans des conversations différentes, les décaler de 15-30 minutes les uns des autres pour éviter le chevauchement (vérifier via `recent_chats`/mémoire si un autre rappel a déjà été pris à ce créneau).
+- Ne rien créer dans Google Agenda : les relances sont gérées par la plateforme de gestion (Bizy), qui lit Gmail et prépare elle-même la relance au bon moment.
+- Aucun appel à `Google Calendar:create_event` dans cette routine.
 
 ## Étape 7 — Livraison
 
 - Copier le fichier final dans `/mnt/user-data/outputs/` et le présenter avec `present_files`, en plus de sa publication sur GitHub (étape 4).
-- Résumer en quelques lignes ce qui a été fait (maquette publiée + URL GitHub Pages + brouillon + rappel), sans reformuler tout le mail dans le chat.
+- Résumer en quelques lignes ce qui a été fait (maquette publiée + URL GitHub Pages + brouillon + enregistrement dans la plateforme), sans reformuler tout le mail dans le chat.
 - Rappeler explicitement le seul geste manuel qui reste, le cas échéant : coller la ligne dans le Sheets SUIVI PROSPECTION si aucun outil d'édition Sheets n'était disponible (voir étape 4). Il n'y a plus de fichier à joindre manuellement au brouillon.
 - Indiquer le titre à donner à la conversation (`Nom entreprise - Ville`).
 
