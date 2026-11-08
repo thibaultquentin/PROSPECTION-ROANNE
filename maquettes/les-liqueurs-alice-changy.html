@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Liqueurs Alice — Liqueurs artisanales bio de la Loire, près de Roanne</title>
+<meta name="description" content="Liqueurs artisanales bio fabriquées à la main près de Roanne par Élodie et Ludovic, d'après la recette de Mémé Alice. Verveine, fraise basilic, menthe… sans colorant ni conservateur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel les-liqueurs-alice.fr
+   Rouge principal #b81825 et rouge sombre #8b121c (feuille de style du site),
+   police Poppins (site), fond noir des étiquettes et du coffret,
+   pastilles multicolores du coffret mignonnettes, script « Alice » du logo.
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --rouge:#b81825;
+  --rouge-sombre:#8b121c;
+  --noir:#0e0d0d;
+  --noir-2:#181616;
+  --noir-3:#232020;
+  --blanc:#ffffff;
+  --gris:#bdb6b3;
+  --gris-2:#8c8583;
+  /* pastilles du coffret */
+  --p-rose:#e8336f; --p-vert:#9cc63b; --p-orange:#f39a1e; --p-violet:#8a3f8f; --p-jaune:#f2d33a; --p-rouge:#e2231a;
+  --police:"Poppins",system-ui,sans-serif;
+  --script:"Great Vibes",cursive;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--police);background:var(--noir);color:var(--blanc);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--p-jaune);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--rouge);color:#fff;font-size:.78rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+.loi{background:#000;color:var(--gris);font-size:.72rem;text-align:center;padding:4px 12px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;transition:background .4s var(--ease),box-shadow .4s}
+header.scrolled{background:rgba(14,13,13,.86);backdrop-filter:blur(12px);box-shadow:0 6px 30px rgba(0,0,0,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+.nav .logo img{height:52px;width:auto}
+.nav ul{display:flex;gap:26px;list-style:none;font-size:.9rem}
+.nav ul a{text-decoration:none;opacity:.85;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--rouge);transition:width .3s var(--ease)}
+.nav ul a:hover{opacity:1}.nav ul a:hover::after{width:100%}
+.cart-btn{display:flex;align-items:center;gap:8px;background:var(--rouge);border:0;color:#fff;border-radius:40px;padding:10px 18px;font-weight:600;font-size:.88rem;transition:transform .2s,background .2s}
+.cart-btn:hover{background:var(--rouge-sombre);transform:translateY(-2px)}
+.cart-count{background:#fff;color:var(--rouge);border-radius:20px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.75rem;font-weight:700}
+.cart-count.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.45)}}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;align-items:center;overflow:hidden;isolation:isolate}
+#confetti{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:40px 0 70px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris)}
+.kicker::before{content:"";width:34px;height:2px;background:var(--rouge)}
+.hero h1{font-size:clamp(2.3rem,1.4rem + 4vw,4.6rem);line-height:1.04;font-weight:700;margin:18px 0 8px;letter-spacing:-.02em}
+.hero h1 .s{font-family:var(--script);font-weight:400;color:#fff;font-size:1.35em;display:inline-block;transform:translateY(.1em);position:relative}
+.hero p.lead{font-size:clamp(1rem,.9rem + .4vw,1.2rem);color:var(--gris);max-width:540px;margin-bottom:28px}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:50px;font-weight:600;text-decoration:none;border:2px solid transparent;transition:transform .25s var(--ease),background .25s,border-color .25s;font-size:.95rem}
+.btn-r{background:var(--rouge);color:#fff}.btn-r:hover{background:var(--rouge-sombre);transform:translateY(-3px)}
+.btn-o{border-color:rgba(255,255,255,.35);color:#fff;background:transparent}.btn-o:hover{border-color:#fff;transform:translateY(-3px)}
+.hero-badges{display:flex;gap:22px;flex-wrap:wrap;margin-top:34px;font-size:.82rem;color:var(--gris)}
+.hero-badges span{display:flex;align-items:center;gap:8px}
+.hero-badges i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.hero-visual{position:relative;justify-self:center;width:min(440px,100%)}
+.bottle-stage{position:relative;aspect-ratio:1/1;border-radius:50%;overflow:hidden;box-shadow:0 30px 80px rgba(184,24,37,.35)}
+.bottle-stage img{width:100%;height:100%;object-fit:cover;transition:opacity .9s ease,transform 6s linear;transform:scale(1.05)}
+.bottle-stage img.out{opacity:0}
+.bottle-name{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);background:#fff;color:var(--noir);border-radius:40px;padding:8px 20px;font-weight:600;font-size:.88rem;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.bottle-name b{color:var(--rouge)}
+.dots-nav{display:flex;gap:8px;justify-content:center;margin-top:34px}
+.dots-nav button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.25);transition:all .3s}
+.dots-nav button.on{background:var(--rouge);width:28px;border-radius:6px}
+.scroll-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.2em;color:var(--gris-2);text-transform:uppercase}
+.scroll-hint::after{content:"";display:block;width:1px;height:30px;background:linear-gradient(var(--rouge),transparent);margin:8px auto 0;animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* sections */
+section{padding:clamp(70px,8vw,120px) 0;position:relative}
+.sec-head{max-width:720px;margin-bottom:46px}
+.sec-head h2{font-size:clamp(1.8rem,1.2rem + 2.4vw,3rem);line-height:1.12;font-weight:700;letter-spacing:-.01em;margin-top:12px}
+.sec-head h2 em{font-family:var(--script);font-style:normal;font-weight:400;color:var(--rouge);font-size:1.3em}
+.sec-head p{color:var(--gris);margin-top:14px}
+.light{background:#fff;color:var(--noir)}
+.light .kicker,.light .sec-head p{color:#5b5352}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* histoire */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+.story-img{position:relative}
+.story-img img{border-radius:var(--r);width:100%;aspect-ratio:1/1;object-fit:cover}
+.story-img .tag{position:absolute;left:-14px;bottom:28px;background:var(--rouge);color:#fff;padding:12px 18px;border-radius:12px;font-size:.85rem;box-shadow:0 14px 30px rgba(184,24,37,.35)}
+.story-img .tag b{font-family:var(--script);font-weight:400;font-size:1.6rem;display:block;line-height:1}
+.timeline{margin-top:30px;border-left:2px solid #eee;padding-left:26px;display:grid;gap:22px}
+.timeline div{position:relative}
+.timeline div::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--c,var(--rouge));box-shadow:0 0 0 4px #fff}
+.timeline h4{font-size:1rem}
+.timeline p{color:#5b5352;font-size:.94rem}
+.engag{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:70px}
+.engag div{border:1px solid #eee;border-radius:var(--r);padding:24px;transition:transform .35s var(--ease),box-shadow .35s}
+.engag div:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.engag i{display:block;width:40px;height:40px;border-radius:50%;margin-bottom:14px;background:var(--c)}
+.engag h4{font-size:1rem;margin-bottom:6px}
+.engag p{font-size:.88rem;color:#5b5352}
+
+/* finder */
+.finder{background:var(--noir-2)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.chip{border:1.5px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:40px;padding:10px 18px;font-size:.88rem;font-weight:500;transition:all .25s var(--ease);display:flex;align-items:center;gap:8px}
+.chip i{width:9px;height:9px;border-radius:50%;background:var(--c)}
+.chip:hover{border-color:#fff}
+.chip.on{background:#fff;color:var(--noir);border-color:#fff}
+.degree{display:flex;align-items:center;gap:16px;margin:18px 0 34px;color:var(--gris);font-size:.88rem;flex-wrap:wrap}
+.degree input{accent-color:var(--rouge);width:220px}
+.degree output{color:#fff;font-weight:600}
+.result-line{font-size:.85rem;color:var(--gris-2);margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.card{background:var(--noir-3);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .45s var(--ease),opacity .4s,box-shadow .45s;position:relative}
+.card:hover{transform:translateY(-8px);box-shadow:0 26px 50px rgba(0,0,0,.5)}
+.card.hide{display:none}
+.card .ph{aspect-ratio:1/1;overflow:hidden;position:relative;background:#000}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover .ph img{transform:scale(1.07)}
+.card .abv{position:absolute;top:14px;left:14px;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);border-radius:30px;padding:5px 12px;font-size:.78rem;font-weight:600}
+.card .badge{position:absolute;top:14px;right:14px;background:var(--rouge);border-radius:30px;padding:5px 12px;font-size:.72rem;font-weight:600}
+.card .body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:1.12rem;line-height:1.25}
+.card h3 small{display:block;font-weight:400;font-size:.78rem;color:var(--gris-2);margin-top:2px}
+.card p{font-size:.86rem;color:var(--gris)}
+.meter{height:5px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.meter span{display:block;height:100%;background:linear-gradient(90deg,var(--p-orange),var(--rouge));width:0;transition:width 1.2s var(--ease)}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap}
+.card .tags span{font-size:.7rem;border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:2px 9px;color:var(--gris)}
+.buy{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.buy button{flex:1;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:#fff;border-radius:12px;padding:10px 6px;font-size:.82rem;font-weight:600;transition:all .2s;line-height:1.25}
+.buy button small{display:block;font-weight:400;color:var(--gris-2);font-size:.7rem}
+.buy button:hover{background:var(--rouge);border-color:var(--rouge)}
+.buy button:hover small{color:#fff}
+.buy button.added{background:#fff;color:var(--noir)}
+.empty{display:none;color:var(--gris);padding:30px 0}
+
+/* coffret */
+.coffret{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.coffret img{border-radius:var(--r);box-shadow:0 30px 70px rgba(0,0,0,.18)}
+.coffret ul{list-style:none;margin:18px 0 24px;display:grid;gap:10px}
+.coffret li{display:flex;gap:12px;align-items:center;font-weight:500}
+.coffret li i{width:14px;height:14px;border-radius:50%;background:var(--c);flex:none}
+.price-big{font-size:2.4rem;font-weight:700;color:var(--rouge)}
+.price-big small{font-size:.9rem;color:#5b5352;font-weight:400;margin-left:8px}
+
+/* fabrication */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;top:34px;left:8%;right:8%;height:2px;background:rgba(255,255,255,.1)}
+.steps .bar{position:absolute;top:34px;left:8%;height:2px;background:var(--rouge);width:0;transition:width 1.6s var(--ease)}
+.step{position:relative;text-align:center;padding:0 10px}
+.step .n{width:68px;height:68px;border-radius:50%;margin:0 auto 20px;display:grid;place-items:center;background:var(--noir-3);border:2px solid rgba(255,255,255,.12);font-weight:700;font-size:1.2rem;position:relative;z-index:1;transition:all .5s var(--ease)}
+.steps.in .step .n{border-color:var(--rouge);background:var(--rouge)}
+.step h4{margin-bottom:8px}
+.step p{color:var(--gris);font-size:.9rem}
+.fab-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:60px}
+.fab-photos img{border-radius:var(--r);aspect-ratio:4/3;object-fit:cover;width:100%;filter:saturate(.95);transition:transform .6s var(--ease)}
+.fab-photos img:hover{transform:scale(1.03)}
+
+/* avis */
+.reviews{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.rv{border-radius:var(--r);padding:24px;background:#f7f5f5;position:relative}
+.rv .score{font-weight:700;color:var(--rouge);font-size:.9rem}
+.rv p{margin:10px 0 14px;font-size:.95rem}
+.rv small{color:#5b5352}
+.avis-head{display:flex;gap:18px;align-items:center;margin-bottom:28px;flex-wrap:wrap}
+.avis-head .big{font-size:2.6rem;font-weight:700;color:var(--rouge);line-height:1}
+
+/* revendeurs */
+.shops-tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;align-items:center}
+.shops-tools input{flex:1;min-width:220px;background:var(--noir-3);border:1.5px solid rgba(255,255,255,.15);color:#fff;border-radius:40px;padding:12px 20px;font-family:inherit;font-size:.92rem}
+.shops-tools input::placeholder{color:var(--gris-2)}
+.shops{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.shop{background:var(--noir-3);border-radius:14px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;animation:pop .45s var(--ease) both}
+.shop i{width:12px;height:12px;border-radius:50%;background:var(--c);margin-top:6px;flex:none}
+.shop b{display:block;font-size:.95rem}
+.shop span{font-size:.82rem;color:var(--gris)}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}}
+.pro{margin-top:40px;border:1.5px dashed rgba(255,255,255,.2);border-radius:var(--r);padding:26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.coord{display:grid;gap:16px}
+.coord a,.coord div{display:flex;gap:14px;align-items:center;text-decoration:none;background:#f7f5f5;border-radius:14px;padding:16px 18px}
+.coord b{display:block}
+.coord span{font-size:.88rem;color:#5b5352}
+.coord .ic{width:42px;height:42px;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+form{display:grid;gap:12px}
+form input,form textarea,form select{font-family:inherit;font-size:.95rem;padding:14px 16px;border-radius:12px;border:1.5px solid #e2dcdc;background:#fff}
+form textarea{min-height:120px;resize:vertical}
+form .ok{display:none;color:var(--rouge);font-weight:600}
+
+/* footer */
+footer{background:#000;padding:60px 0 30px;color:var(--gris);font-size:.86rem}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px}
+footer img{height:56px;width:auto;margin-bottom:14px}
+footer h5{color:#fff;font-size:.95rem;margin-bottom:10px}
+footer ul{list-style:none;display:grid;gap:6px}
+footer a{text-decoration:none}footer a:hover{color:#fff}
+.mention{margin-top:40px;padding-top:20px;border-top:1px solid #222;font-size:.76rem;color:var(--gris-2)}
+
+/* panier */
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:#fff;color:var(--noir);z-index:100;transform:translateX(100%);transition:transform .5s var(--ease);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.4)}
+.drawer.open{transform:none}
+.veil{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90;opacity:0;pointer-events:none;transition:opacity .4s}
+.veil.open{opacity:1;pointer-events:auto}
+.dr-head{display:flex;justify-content:space-between;align-items:center;padding:22px 24px;border-bottom:1px solid #eee}
+.dr-head button{background:none;border:0;font-size:1.6rem;line-height:1}
+.dr-items{flex:1;overflow:auto;padding:12px 24px}
+.dr-item{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #f1eded}
+.dr-item img{width:60px;height:60px;border-radius:10px;object-fit:cover}
+.dr-item .t{flex:1;font-size:.88rem}
+.dr-item .t b{display:block}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid #ddd;background:#fff}
+.dr-foot{padding:20px 24px;border-top:1px solid #eee;display:grid;gap:10px}
+.dr-foot .tot{display:flex;justify-content:space-between;font-size:1.15rem;font-weight:700}
+.dr-foot small{color:#5b5352}
+.dr-empty{color:#5b5352;padding:30px 0;text-align:center}
+.gift{display:flex;gap:10px;align-items:center;font-size:.88rem;background:#f7f5f5;padding:10px 12px;border-radius:10px}
+.gift input{accent-color:var(--rouge)}
+.gift-msg{display:none}
+.gift-msg.on{display:block}
+.gift-msg textarea{width:100%;font-family:inherit;border:1.5px solid #e2dcdc;border-radius:10px;padding:10px;font-size:.88rem;min-height:70px}
+
+/* age gate */
+.age{position:fixed;inset:0;z-index:200;background:rgba(8,7,7,.94);backdrop-filter:blur(8px);display:grid;place-items:center;padding:16px}
+.age.gone{opacity:0;pointer-events:none;transition:opacity .5s}
+.age-box{background:var(--noir-2);border-radius:24px;padding:40px 30px;text-align:center;max-width:420px;border:1px solid #2a2626}
+.age-box img{height:70px;margin:0 auto 20px}
+.age-box p{color:var(--gris);font-size:.92rem;margin-bottom:22px}
+.age-box .row{display:flex;gap:12px;justify-content:center}
+.age-box small{display:block;margin-top:20px;color:var(--gris-2);font-size:.72rem}
+
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,120px);background:#fff;color:var(--noir);border-radius:40px;padding:12px 22px;font-weight:600;font-size:.88rem;z-index:120;box-shadow:0 14px 40px rgba(0,0,0,.4);transition:transform .45s var(--ease)}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:960px){
+  .hero-grid,.story,.coffret,.contact{grid-template-columns:1fr}
+  .hero-visual{order:-1;width:min(320px,80%)}
+  .engag,.reviews{grid-template-columns:repeat(2,1fr)}
+  .foot{grid-template-columns:1fr}
+  .nav ul{position:fixed;top:0;right:0;height:100vh;width:min(300px,85%);background:var(--noir-2);flex-direction:column;padding:90px 30px;transform:translateX(100%);transition:transform .4s var(--ease);z-index:60}
+  .nav ul{visibility:hidden;transition:transform .4s var(--ease),visibility .4s}
+  .nav ul.open{transform:none;visibility:visible}
+  .burger{display:block;z-index:70}
+  .steps{grid-template-columns:1fr}.steps::before,.steps .bar{display:none}
+  .fab-photos{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .engag,.reviews{grid-template-columns:1fr}
+  .cart-btn .lbl{display:none}
+  .nav .logo img{height:42px}
+  .story-img .tag{left:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Store",
+  "name":"Les Liqueurs Alice",
+  "description":"Fabrication artisanale de liqueurs à base de plantes et de fruits issus de l'agriculture biologique, d'après une recette familiale.",
+  "telephone":"+33763456418",
+  "email":"eb.herbothera@gmail.com",
+  "url":"https://www.les-liqueurs-alice.fr",
+  "image":"https://primary.jwwb.nl/public/u/w/u/temp-qrgpfgbvtcqlezvrnroi/les-liqueurs-dalice-fraise-basilic-v2-high.jpg",
+  "address":{"@type":"PostalAddress","addressLocality":"Changy","postalCode":"42310","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Roanne","Loire","Auvergne-Rhône-Alpes","France"],
+  "sameAs":["https://www.facebook.com/profile.php?id=100089976557159","https://www.instagram.com/les_liqueurs_alice/"]
+}
+</script>
+</head>
+<body>
+
+<div class="age" id="age" role="dialog" aria-modal="true" aria-labelledby="ageT">
+  <div class="age-box">
+    <img src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/logo.png" alt="Les Liqueurs Alice">
+    <h2 id="ageT" style="font-size:1.3rem;margin-bottom:8px">Avez-vous 18 ans ou plus ?</h2>
+    <p>La vente d'alcool est interdite aux mineurs. Merci de confirmer votre âge pour découvrir nos liqueurs.</p>
+    <div class="row"><button class="btn btn-r" id="ageYes">Oui, entrer</button><button class="btn btn-o" id="ageNo">Non</button></div>
+    <small>L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</small>
+  </div>
+</div>
+
+<div class="demo">Maquette de démonstration — proposition de site pour Les Liqueurs Alice, non officielle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Les Liqueurs Alice — accueil"><img src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/logo.png" alt="Les Liqueurs Alice"></a>
+    <ul id="menu">
+      <li><a href="#histoire">Notre histoire</a></li>
+      <li><a href="#liqueurs">Liqueurs artisanales</a></li>
+      <li><a href="#savoir-faire">Notre savoir-faire</a></li>
+      <li><a href="#revendeurs">Nos revendeurs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;gap:10px;align-items:center">
+      <button class="cart-btn" id="openCart" aria-label="Ouvrir le panier"><span class="lbl">Panier</span><span class="cart-count" id="count">0</span></button>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Liqueurs artisanales à Roanne</span>
+      <h1>La recette de Mémé <span class="s">Alice</span>,<br>dépoussiérée.</h1>
+      <p class="lead">Des liqueurs à base de plantes, ou de plantes associées à un fruit, cultivées chez nous en agriculture biologique et mises en bouteille à la main. Ni colorant, ni conservateur.</p>
+      <div class="ctas">
+        <a class="btn btn-r" href="#liqueurs">Trouver ma liqueur →</a>
+        <a class="btn btn-o" href="#revendeurs">Où les acheter près de chez moi</a>
+      </div>
+      <div class="hero-badges">
+        <span><i style="background:var(--p-vert)"></i>Plantes bio cultivées chez nous</span>
+        <span><i style="background:var(--p-orange)"></i>Macération de plusieurs semaines</span>
+        <span><i style="background:var(--p-rose)"></i>Livraison offerte sur la boutique</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="bottle-stage" id="stage">
+        <img id="heroImg" src="https://primary.jwwb.nl/public/u/w/u/temp-qrgpfgbvtcqlezvrnroi/les-liqueurs-dalice-fraise-basilic-v2-high.jpg" alt="Liqueur Fraise Basilic">
+      </div>
+      <div class="bottle-name" id="heroName"><b>Fraise Basilic</b> · 29 %</div>
+      <div class="dots-nav" id="heroDots" aria-label="Changer de bouteille"></div>
+    </div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<section class="light" id="histoire">
+  <div class="wrap">
+    <div class="story">
+      <div class="story-img reveal">
+        <img src="https://primary.jwwb.nl/public/u/w/u/temp-qrgpfgbvtcqlezvrnroi/fabrication-de-liqueurs-artisanales-les-liqueurs-alice-a-roanne-7-high.jpg" alt="Élodie et Ludovic avec leurs liqueurs" loading="lazy">
+        <div class="tag"><b>Élo &amp; Ludo</b>paysans et éleveurs de charolaises</div>
+      </div>
+      <div class="reveal">
+        <span class="kicker">Notre histoire</span>
+        <div class="sec-head" style="margin-bottom:0">
+          <h2>Un hommage aux anciens, une liqueur pour <em>tout le monde</em></h2>
+          <p>Les Liqueurs Alice, c'est l'envie de « dépoussiérer » le nom liqueur en la rendant accessible aux plus jeunes, et surtout à la gent féminine.</p>
+        </div>
+        <div class="timeline">
+          <div style="--c:var(--p-violet)"><h4>Seconde Guerre mondiale</h4><p>Mémé Alice tient l'exploitation familiale. Dans son jardin, elle cultive plantes aromatiques et médicinales, qu'elle transforme en liqueur. Sa recette de verveine se transmet à chaque génération.</p></div>
+          <div style="--c:var(--p-vert)"><h4>Mars 2022 — Herbothéra</h4><p>Après une infusion maison aux effets relaxants, Élodie et Ludovic apprennent les bases de l'herboristerie. Chaque année, ils continuent de se former.</p></div>
+          <div style="--c:var(--rouge)"><h4>Les Liqueurs Alice</h4><p>L'idée vient de Ludovic, petit-fils d'Alice. Les recettes sont d'abord testées sur les marchés de campagne, avant de rejoindre les caves de la région.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="engag">
+      <div class="reveal" style="--c:var(--p-vert)"><i></i><h4>Produits bio et 100 % locaux</h4><p>Plantes cultivées sur l'exploitation, fruits de maraîchers bio voisins, cueillettes sauvages.</p></div>
+      <div class="reveal" style="--c:var(--p-orange)"><i></i><h4>Fabrication artisanale</h4><p>Élaborées et mises en bouteille à la main, par macération.</p></div>
+      <div class="reveal" style="--c:var(--p-rose)"><i></i><h4>100 % naturel</h4><p>Nos liqueurs n'ont ni colorants, ni conservateurs.</p></div>
+      <div class="reveal" style="--c:var(--p-violet)"><i></i><h4>Partenaires locaux</h4><p>Emballage et ingrédients : nous travaillons avec des partenaires de la région.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="finder" id="liqueurs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Liqueurs artisanales</span>
+      <h2>Quelle liqueur <em>pour vous</em> ?</h2>
+      <p>Choisissez une envie, réglez le degré, et la gamme se trie toute seule. Ajoutez au panier en 20 cl ou en 50 cl, sans changer de site.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filtrer par envie">
+      <button class="chip on" data-f="all"><i style="--c:#fff"></i>Toute la gamme</button>
+      <button class="chip" data-f="fruit"><i style="--c:var(--p-rose)"></i>Fruitée &amp; douce</button>
+      <button class="chip" data-f="plante"><i style="--c:var(--p-vert)"></i>Plantes &amp; fraîcheur</button>
+      <button class="chip" data-f="gourmand"><i style="--c:var(--p-orange)"></i>Gourmande &amp; épicée</button>
+      <button class="chip" data-f="digestif"><i style="--c:var(--p-violet)"></i>Pour le digestif</button>
+      <button class="chip" data-f="famille"><i style="--c:var(--rouge)"></i>La recette de famille</button>
+    </div>
+    <div class="degree">
+      <label for="deg">Degré maximum :</label>
+      <input type="range" id="deg" min="29" max="41" step="1" value="41">
+      <output id="degOut">41 %</output>
+    </div>
+    <p class="result-line" id="resLine" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty">Aucune liqueur ne correspond à ce réglage — essayez un degré un peu plus haut.</p>
+  </div>
+</section>
+
+<section class="light" id="coffret">
+  <div class="wrap coffret">
+    <img class="reveal" src="https://primary.jwwb.nl/public/u/w/u/temp-qrgpfgbvtcqlezvrnroi/whatsapp-image-2024-09-27-10-25-17_76669776-high.jpg" alt="Coffret de quatre mignonnettes Les Liqueurs Alice" loading="lazy">
+    <div class="reveal">
+      <span class="kicker">Idée cadeau</span>
+      <div class="sec-head" style="margin-bottom:10px"><h2>Le coffret <em>mignonnettes</em></h2>
+      <p>Coffret dégustation idéal pour un cadeau : quatre recettes à découvrir côte à côte.</p></div>
+      <ul>
+        <li><i style="--c:var(--p-vert)"></i>La Dinguerie de Mémé</li>
+        <li><i style="--c:var(--p-rouge)"></i>Fraise Basilic</li>
+        <li><i style="--c:var(--p-orange)"></i>Orange Café</li>
+        <li><i style="--c:var(--p-violet)"></i>Mûre Feuilles de Cassis</li>
+      </ul>
+      <div class="price-big">27 €<small>livraison offerte</small></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:18px">
+        <button class="btn btn-r" data-add="coffret|unique">Ajouter au panier</button>
+        <a class="btn" style="border-color:#ddd" href="#contact">Un message à glisser ? Écrivez-nous</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="savoir-faire">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Notre savoir-faire</span>
+      <h2>De la plante à la bouteille, <em>chez nous</em></h2>
+      <p>Toutes nos liqueurs sont élaborées et embouteillées dans notre atelier, dans la Loire.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="bar" id="stepsBar"></div>
+      <div class="step"><div class="n">1</div><h4>Cultiver &amp; cueillir</h4><p>Les plantes poussent sur l'exploitation, en bio. Les fruits viennent de maraîchers bio autour de nous ; certaines recettes demandent des cueillettes sauvages.</p></div>
+      <div class="step"><div class="n">2</div><h4>Laisser macérer</h4><p>Plusieurs semaines, à l'abri de la lumière et de la chaleur, pour extraire les arômes, les pigments et les propriétés des plantes.</p></div>
+      <div class="step"><div class="n">3</div><h4>Embouteiller à la main</h4><p>Chaque bouteille est remplie par nos soins. Avec le temps, un léger dépôt naturel peut se former, sans rien altérer.</p></div>
+    </div>
+    <div class="fab-photos">
+      <img class="reveal" src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/styles/vignette_card/public/2024-03/fabrication-de-liqueurs-artisanales-les-liqueurs-alice-a-roanne-9_0.jpg.webp" alt="Fabrication des liqueurs" loading="lazy">
+      <img class="reveal" src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/acc1.jpg" alt="La Dinguerie de Mémé" loading="lazy">
+      <img class="reveal" src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/styles/bloc_actualite/public/actualite/2026-03/69ae89bf93730-Mach%C3%A9%20liqueurs%20Alice.webp" alt="Les Liqueurs Alice sur un marché" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section class="light" id="avis">
+  <div class="wrap">
+    <div class="avis-head reveal">
+      <div class="big">10/10</div>
+      <div><b>Avis clients certifiés Avis-Go</b><br><small style="color:#5b5352">4 avis publiés sur le site actuel</small></div>
+    </div>
+    <div class="reviews">
+      <div class="rv reveal"><span class="score">10 / 10</span><p>« La liqueur de verveine à 41° une merveille ! »</p><small>Gilles · 06/03/2023</small></div>
+      <div class="rv reveal"><span class="score">10 / 10</span><p>« Difficile de consommer avec modération ;) vraiment de très bonne liqueurs que je recommande »</p><small>Jessy · 21/04/2023</small></div>
+      <div class="rv reveal"><span class="score">10 / 10</span><p>« Liqueur de framboise très féminine et jolie bouteille »</p><small>Audrey · 06/03/2023</small></div>
+      <div class="rv reveal"><span class="score">10 / 10</span><p>« Liqueurs gourmandes et très bonnes ! »</p><small>Nicolas · 06/03/2023</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="revendeurs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Nos revendeurs</span>
+      <h2>Trouver nos liqueurs <em>près de chez vous</em></h2>
+      <p>Cavistes, restaurants, épiceries fines : tapez votre ville pour voir qui nous a déjà adoptés.</p>
+    </div>
+    <div class="shops-tools">
+      <input type="search" id="shopQ" placeholder="Votre ville (ex. Roanne, Charlieu, Vichy…)" aria-label="Rechercher une ville">
+      <button class="chip on" data-t="all">Tous</button>
+      <button class="chip" data-t="Caviste"><i style="--c:var(--p-violet)"></i>Cavistes</button>
+      <button class="chip" data-t="Restaurant"><i style="--c:var(--p-orange)"></i>Restaurants</button>
+      <button class="chip" data-t="Épicerie"><i style="--c:var(--p-vert)"></i>Épiceries, bars, salons de thé</button>
+      <button class="chip" data-t="Hôtel"><i style="--c:var(--p-rose)"></i>Hôtels</button>
+    </div>
+    <p class="result-line" id="shopLine" aria-live="polite"></p>
+    <div class="shops" id="shops"></div>
+    <div class="pro reveal">
+      <div><b style="font-size:1.1rem">Professionnels, cavistes et restaurateurs</b><br><span style="color:var(--gris)">Contactez-nous pour recevoir nos tarifs et rejoindre nos revendeurs.</span></div>
+      <a class="btn btn-r" href="#contact" data-pro>Recevoir les tarifs pro</a>
+    </div>
+  </div>
+</section>
+
+<section class="light" id="contact">
+  <div class="wrap contact">
+    <div class="reveal">
+      <span class="kicker">Contact</span>
+      <div class="sec-head" style="margin-bottom:26px"><h2>Vous souhaitez vous procurer <em>nos produits</em> ?</h2>
+      <p>Vente à la propriété et dégustation sur rendez-vous. Pour toute demande, prenez contact dès à présent.</p></div>
+      <div class="coord">
+        <a href="tel:+33763456418"><span class="ic">☎</span><span><b>07 63 45 64 18</b><span>Appel ou SMS</span></span></a>
+        <a href="mailto:eb.herbothera@gmail.com"><span class="ic">@</span><span><b>eb.herbothera@gmail.com</b><span>Réponse dans les plus brefs délais</span></span></a>
+        <div><span class="ic">⌂</span><span><b>Changy (42310), près de Roanne</b><span>Visite et dégustation sur rendez-vous</span></span></div>
+        <a href="https://www.instagram.com/les_liqueurs_alice/" target="_blank" rel="noopener"><span class="ic">◎</span><span><b>Instagram &amp; Facebook</b><span>@les_liqueurs_alice</span></span></a>
+      </div>
+    </div>
+    <form class="reveal" id="form" onsubmit="return sendForm(event)">
+      <select aria-label="Objet" id="obj">
+        <option>Une question sur nos liqueurs</option>
+        <option>Prendre rendez-vous pour une dégustation</option>
+        <option>Je suis professionnel : recevoir vos tarifs</option>
+        <option>Commande pour un cadeau</option>
+      </select>
+      <input required placeholder="Nom Prénom" aria-label="Nom Prénom">
+      <input type="email" required placeholder="Email" aria-label="Email">
+      <input placeholder="Téléphone" aria-label="Téléphone">
+      <textarea placeholder="Votre message" aria-label="Message"></textarea>
+      <button class="btn btn-r" type="submit">Envoyer le message</button>
+      <p class="ok" id="ok">Merci ! (formulaire de démonstration — aucun envoi réel)</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><img src="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/logo.png" alt="Les Liqueurs Alice"><p>Liquoristerie française basée dans la Loire, dans un village à côté de Roanne. Liqueurs artisanales à base de plantes, en agriculture biologique.</p></div>
+      <div><h5>Navigation</h5><ul><li><a href="#histoire">Notre histoire</a></li><li><a href="#liqueurs">Liqueurs artisanales</a></li><li><a href="#coffret">Coffret mignonnettes</a></li><li><a href="#revendeurs">Nos revendeurs</a></li></ul></div>
+      <div><h5>Nous joindre</h5><ul><li><a href="tel:+33763456418">07 63 45 64 18</a></li><li><a href="mailto:eb.herbothera@gmail.com">eb.herbothera@gmail.com</a></li><li>Changy (42310)</li><li>Livraison Colissimo 4 à 6 jours ouvrables, relais colis 3 à 5 jours</li></ul></div>
+    </div>
+    <p class="mention"><b>L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</b> Vente interdite aux mineurs.<br>
+    Maquette de démonstration réalisée sans engagement à partir des informations publiques de Les Liqueurs Alice (sites les-liqueurs-alice.fr et les-liqueurs-alice.com, fiche Roannais Tourisme). Toutes les photos proviennent des sites actuels de l'entreprise. Prix repris de la boutique en ligne actuelle, donnés à titre indicatif et non contractuels ; panier et formulaire non fonctionnels. Couleurs et police reprises de la charte du site actuel, ajustables.</p>
+  </div>
+</footer>
+
+<div class="veil" id="veil"></div>
+<aside class="drawer" id="drawer" aria-label="Panier" aria-hidden="true">
+  <div class="dr-head"><h3>Votre panier</h3><button id="closeCart" aria-label="Fermer">×</button></div>
+  <div class="dr-items" id="items"></div>
+  <div class="dr-foot">
+    <div class="tot"><span>Total</span><span id="total">0,00 €</span></div>
+    <small>Livraison offerte · Colissimo 4 à 6 jours ouvrables</small>
+    <button class="btn btn-r" style="justify-content:center" onclick="toast('Paiement non actif sur la maquette')">Commander</button>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+const J="https://primary.jwwb.nl/public/u/w/u/temp-qrgpfgbvtcqlezvrnroi/";
+const F="https://www.les-liqueurs-alice.fr/sites/4935cw0123/files/";
+const P=[
+ {id:"verveine",name:"Liqueur de Verveine",sub:"« LA RECETTE » de la famille",abv:41,img:F+"styles/wide/public/2024-03/les-liqueurs-dalice-verveine-v2.jpg.webp",
+  txt:"La recette laissée en héritage par Mémé Alice. Verveine citronnée cultivée chez nous. En digestif après un repas copieux, avec un cake, une crème, un flan ou une mousse.",
+  tags:["plante","digestif","famille"],t:["Verveine","Digestif"],p:{"20 cl":21,"50 cl":37},badge:"Recette de Mémé"},
+ {id:"fraise",name:"Liqueur Fraise Basilic",sub:"Gourmande et douce",abv:29,img:J+"les-liqueurs-dalice-fraise-basilic-v2-high.jpg",
+  txt:"La fraise bio des hauteurs de la Loire domine, gourmande ; le basilic se révèle en fin de dégustation et apporte de la fraîcheur.",
+  tags:["fruit","plante"],t:["Fraise","Basilic"],p:{"20 cl":21,"50 cl":37}},
+ {id:"framboise",name:"Liqueur Framboise Estragon",sub:"Acidulée et parfumée",abv:30,img:J+"les-liqueurs-dalice-framboise-estragon-v2_0-high.jpg",
+  txt:"L'estragon se fait d'abord remarquer, puis la framboise bio, légèrement acidulée, apporte l'équilibre. Une association qui reste bien parfumée.",
+  tags:["fruit","plante"],t:["Framboise","Estragon"],p:{"20 cl":21,"50 cl":37}},
+ {id:"pomme",name:"Liqueur Pomme Épice de Noël",sub:"Comme un pain d'épices",abv:30,img:J+"les-liqueurs-dalice-pomme-epices-de-noel-v2-high.jpg",
+  txt:"Pomme bio des monts du Pilat, légèrement acidulée, et un mélange gourmand de cannelle, girofle, gingembre, badiane et cardamome.",
+  tags:["fruit","gourmand"],t:["Pomme","Épices"],p:{"20 cl":21,"50 cl":37},badge:"De saison"},
+ {id:"orange",name:"Liqueur Orange Café",sub:"Surprenante",abv:31,img:J+"les-liqueurs-dalice-orange-cafe-v2-high.jpg",
+  txt:"L'orange bio domine au nez et en bouche, puis le café — moitié arabica, moitié robusta — fait un aller-retour en bouche.",
+  tags:["fruit","gourmand"],t:["Orange","Café"],p:{"20 cl":21,"50 cl":37}},
+ {id:"menthe",name:"Liqueur de Menthe",sub:"Intense et fraîche",abv:38,img:J+"les-liqueurs-dalice-menthe-v2-high.jpg",
+  txt:"Trois menthes cultivées chez nous — poivrée, douce et marocaine — pour une saveur intense et fraîche.",
+  tags:["plante","digestif"],t:["Menthe ×3"],p:{"20 cl":21,"50 cl":37}},
+ {id:"dinguerie",name:"« La Dinguerie de Mémé »",sub:"Le choc des générations",abv:38,img:J+"les-liqueurs-dalice-cbd-verveine-v2_0-high.jpg",
+  txt:"La verveine des anciens rencontre les fleurs de chanvre bio cultivées à 15 km par Les Plantes de Tomine. « Vous prendrez bien une dinguerie ? »",
+  tags:["plante","famille"],t:["Verveine","Chanvre"],p:{"20 cl":24,"50 cl":41}},
+ {id:"citron",name:"Liqueur Citron Mélisse",sub:"Fraîcheur et sérénité",abv:38,img:J+"citron-m-lisse-high.jpg",
+  txt:"Le citron éveille, la mélisse apaise en fin de bouche. Bien fraîche en digestif, ou en trou normand avec un sorbet fruité.",
+  tags:["plante","fruit","digestif"],t:["Citron","Mélisse"],p:{"Bouteille":21},badge:"Nouveauté"}
+];
+const COFFRET={id:"coffret",name:"Coffret mignonnettes",img:J+"whatsapp-image-2024-09-27-10-25-17_76669776-high.jpg",p:{"unique":27}};
+const eur=n=>n.toFixed(2).replace(".",",")+" €";
+
+/* age gate */
+const age=document.getElementById("age");
+let okAge=false;try{okAge=sessionStorage.getItem("age18")==="1"}catch(e){}
+if(okAge)age.remove();
+document.getElementById("ageYes").onclick=()=>{try{sessionStorage.setItem("age18","1")}catch(e){};age.classList.add("gone");setTimeout(()=>age.remove(),600)};
+document.getElementById("ageNo").onclick=()=>{age.querySelector("p").textContent="Revenez nous voir à vos 18 ans. En attendant, il existe de très bonnes infusions de plantes !"};
+
+/* header */
+const hdr=document.querySelector("header");
+addEventListener("scroll",()=>hdr.classList.toggle("scrolled",scrollY>30),{passive:true});
+const burger=document.getElementById("burger"),menu=document.getElementById("menu");
+burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o);burger.textContent=o?"×":"☰"};
+menu.querySelectorAll("a").forEach(a=>a.onclick=()=>{menu.classList.remove("open");burger.textContent="☰"});
+
+/* hero rotation */
+const heroSet=["fraise","dinguerie","orange","menthe","framboise"].map(id=>P.find(p=>p.id===id));
+const hImg=document.getElementById("heroImg"),hName=document.getElementById("heroName"),hDots=document.getElementById("heroDots");
+let hi=0,hTimer;
+heroSet.forEach((p,i)=>{const b=document.createElement("button");b.setAttribute("aria-label",p.name);b.onclick=()=>{showHero(i);restart()};hDots.appendChild(b)});
+function showHero(i){hi=i;hImg.classList.add("out");setTimeout(()=>{hImg.src=heroSet[i].img;hImg.alt=heroSet[i].name;hName.innerHTML="<b>"+heroSet[i].name.replace(/Liqueur (de )?/,"")+"</b> · "+heroSet[i].abv+" %";hImg.onload=()=>hImg.classList.remove("out")},450);[...hDots.children].forEach((d,j)=>d.classList.toggle("on",j===i))}
+function restart(){clearInterval(hTimer);hTimer=setInterval(()=>showHero((hi+1)%heroSet.length),4200)}
+[...hDots.children][0].classList.add("on");restart();
+
+/* confetti — pastilles du coffret */
+const cv=document.getElementById("confetti"),cx=cv.getContext("2d");
+const cols=["#e8336f","#9cc63b","#f39a1e","#8a3f8f","#f2d33a","#e2231a","#b81825"];
+let W,H,dots=[],mx=0,my=0;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function size(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;
+ dots=Array.from({length:Math.min(46,Math.round(W/38))},()=>({x:Math.random()*W,y:Math.random()*H,r:(Math.random()*16+4)*devicePixelRatio,c:cols[Math.random()*cols.length|0],v:Math.random()*.25+.08,d:Math.random()*.6+.2,a:Math.random()*.35+.12}))}
+size();addEventListener("resize",size);
+addEventListener("mousemove",e=>{mx=(e.clientX/innerWidth-.5);my=(e.clientY/innerHeight-.5)},{passive:true});
+function draw(){cx.clearRect(0,0,W,H);dots.forEach(d=>{if(!reduce){d.y-=d.v*devicePixelRatio;if(d.y<-d.r){d.y=H+d.r;d.x=Math.random()*W}}
+ cx.globalAlpha=d.a;cx.fillStyle=d.c;cx.beginPath();cx.arc(d.x+mx*60*d.d*devicePixelRatio,d.y+my*40*d.d*devicePixelRatio,d.r,0,7);cx.fill()});
+ if(!reduce)requestAnimationFrame(draw)}
+draw();
+
+/* finder */
+const grid=document.getElementById("grid");
+grid.innerHTML=P.map(p=>`<article class="card" data-tags="${p.tags.join(" ")}" data-abv="${p.abv}">
+ <div class="ph"><img src="${p.img}" alt="${p.name}" loading="lazy"><span class="abv">${p.abv} % vol.</span>${p.badge?`<span class="badge">${p.badge}</span>`:""}</div>
+ <div class="body"><h3>${p.name}<small>${p.sub}</small></h3>
+ <div class="meter" title="Degré d'alcool"><span data-w="${Math.round((p.abv-20)/25*100)}"></span></div>
+ <p>${p.txt}</p><div class="tags">${p.t.map(x=>`<span>${x}</span>`).join("")}</div>
+ <div class="buy">${Object.entries(p.p).map(([k,v])=>`<button data-add="${p.id}|${k}">${k}<small>${eur(v)}</small></button>`).join("")}</div></div></article>`).join("");
+let fTag="all";
+const deg=document.getElementById("deg"),degOut=document.getElementById("degOut"),resLine=document.getElementById("resLine");
+function filter(){let n=0;const max=+deg.value;degOut.textContent=max+" %";
+ grid.querySelectorAll(".card").forEach(c=>{const ok=(fTag==="all"||c.dataset.tags.includes(fTag))&&+c.dataset.abv<=max;c.classList.toggle("hide",!ok);if(ok){n++;c.animate([{opacity:0,transform:"translateY(14px)"},{opacity:1,transform:"none"}],{duration:450,easing:"ease-out",delay:n*50,fill:"backwards"})}});
+ resLine.textContent=n+" liqueur"+(n>1?"s":"")+" pour cette envie";document.getElementById("empty").style.display=n?"none":"block"}
+document.querySelectorAll(".filters .chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filters .chip").forEach(x=>x.classList.remove("on"));b.classList.add("on");fTag=b.dataset.f;filter()});
+deg.oninput=filter;filter();
+
+/* panier */
+let cart={};
+const ALL=[...P,COFFRET];
+function add(key){cart[key]=(cart[key]||0)+1;render();const c=document.getElementById("count");c.classList.remove("bump");void c.offsetWidth;c.classList.add("bump");
+ const [id,f]=key.split("|");const p=ALL.find(x=>x.id===id);toast((p.name)+(f!=="unique"?" · "+f:"")+" ajouté au panier")}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-add]");if(!b)return;add(b.dataset.add);b.classList.add("added");setTimeout(()=>b.classList.remove("added"),700)});
+function render(){const it=document.getElementById("items");let tot=0,n=0;const keys=Object.keys(cart).filter(k=>cart[k]>0);
+ it.innerHTML=keys.length?keys.map(k=>{const [id,f]=k.split("|");const p=ALL.find(x=>x.id===id);const pr=p.p[f]*cart[k];tot+=pr;n+=cart[k];
+ return `<div class="dr-item"><img src="${p.img}" alt=""><div class="t"><b>${p.name}</b>${f!=="unique"?f+" · ":""}${eur(p.p[f])}</div><div class="qty"><button data-q="${k}|-1" aria-label="Retirer">−</button>${cart[k]}<button data-q="${k}|1" aria-label="Ajouter">+</button></div></div>`}).join(""):`<p class="dr-empty">Votre panier est vide.<br>Laissez-vous guider par le sélecteur de liqueurs.</p>`;
+ document.getElementById("total").textContent=eur(tot);document.getElementById("count").textContent=n}
+document.getElementById("items").addEventListener("click",e=>{const b=e.target.closest("[data-q]");if(!b)return;const [id,f,d]=b.dataset.q.split("|");const k=id+"|"+f;cart[k]=Math.max(0,cart[k]+ +d);render()});
+const drawer=document.getElementById("drawer"),veil=document.getElementById("veil");
+function openC(o){drawer.classList.toggle("open",o);veil.classList.toggle("open",o);drawer.setAttribute("aria-hidden",!o)}
+document.getElementById("openCart").onclick=()=>openC(true);document.getElementById("closeCart").onclick=()=>openC(false);veil.onclick=()=>openC(false);
+addEventListener("keydown",e=>{if(e.key==="Escape")openC(false)});
+render();
+
+/* revendeurs — liste reprise de la page « Nos revendeurs » du site actuel */
+const S=[
+ ["Les Vins de Sylvain et autres merveilles","Roanne","Caviste"],["V and B","Roanne","Caviste"],["Comptoir des Vignes","Renaison","Caviste"],["Comptoir des Vignes","Chaponnay","Caviste"],["Comptoir des Vignes","Saint-Éloy-les-Mines","Caviste"],
+ ["La Cave de Marius","Charlieu","Caviste"],["O'Clos des Amateurs","Le Coteau","Caviste"],["L'atelier Rouge Raisin","Paray-le-Monial","Caviste"],["Cave Naudot","Gannat","Caviste"],["Cave Max Jourdain","Cusset","Caviste"],
+ ["Les Vins Girard","Thiers","Caviste"],["Artisan Caviste","Saint-Pourçain-sur-Sioule","Caviste"],["Les Domaines Qui Montent","Clermont-Ferrand","Caviste"],["Les Domaines Qui Montent","Cournon-d'Auvergne","Caviste"],["La Cave de la Madeleine","Saint-Germain-Laval","Caviste"],
+ ["L'Isle au Vins","L'Isle-d'Abeau","Caviste"],["Le Moulin de Gribory","Châtelus","Caviste"],["Caviste des Volcans","Orcines","Caviste"],["Cave Jovin","Saint-Étienne","Caviste"],["Le Repaire du Sommelier","Montbrison","Caviste"],["Cave des Toqués","Néris-les-Bains","Caviste"],
+ ["L'Assiette Roannaise","Saint-Forgeux-Lespinasse","Restaurant"],["Le Petit Prince","Saint-Alban-les-Eaux","Restaurant"],["L'Atelier Locavore","Le Coteau","Restaurant"],["Le Relais de l'Abbaye","Charlieu","Restaurant"],["Les Agapes de Vinci","Civens","Restaurant"],
+ ["Le Pont de Jons","Pont-de-Jons","Restaurant"],["Pasta Nona","Roanne","Restaurant"],["L'Auberge des Délices","Roanne","Restaurant"],["L'Original","Saint-Haon-le-Châtel","Restaurant"],["Le 1451","Renaison","Restaurant"],
+ ["Le Duc de Gascogne","Roanne","Épicerie"],["L'épicerie d'Anna","Saint-Alban-les-Eaux","Épicerie"],["Épicerie Martin","Vichy","Épicerie"],["L'Échoppe des Saveurs","Lapalisse","Épicerie"],["Au Petit Marché","Briennon","Épicerie"],
+ ["Chez Pep'André","Charroux","Épicerie"],["La Vie en Rose","Roanne","Épicerie"],["Le Terroir","Saint-Sorlin-d'Arves","Épicerie"],["Les Plantes de Tomine","Thizy-les-Bourgs","Épicerie"],
+ ["Hôtel Mercure Beaux-Arts 4*","Lyon","Hôtel"],["Hôtel Mercure Charpennes 4*","Lyon","Hôtel"]
+];
+const colT={"Caviste":"var(--p-violet)","Restaurant":"var(--p-orange)","Épicerie":"var(--p-vert)","Hôtel":"var(--p-rose)"};
+const lbl={"Épicerie":"Épicerie fine, bar, salon de thé"};
+let sT="all";const q=document.getElementById("shopQ"),sh=document.getElementById("shops"),sl=document.getElementById("shopLine");
+const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+function shops(){const v=norm(q.value.trim());const r=S.filter(s=>(sT==="all"||s[2]===sT)&&(!v||norm(s[1]+" "+s[0]).includes(v)));
+ sh.innerHTML=r.map((s,i)=>`<div class="shop" style="animation-delay:${Math.min(i,12)*30}ms"><i style="--c:${colT[s[2]]}"></i><div><b>${s[0]}</b><span>${s[1]} · ${lbl[s[2]]||s[2]}</span></div></div>`).join("");
+ sl.textContent=r.length?r.length+" adresse"+(r.length>1?"s":"")+(v?" pour « "+q.value.trim()+" »":""):"Pas encore de revendeur ici — commandez en ligne, la livraison est offerte."}
+q.oninput=shops;
+document.querySelectorAll(".shops-tools .chip").forEach(b=>b.onclick=()=>{document.querySelectorAll(".shops-tools .chip").forEach(x=>x.classList.remove("on"));b.classList.add("on");sT=b.dataset.t;shops()});
+shops();
+document.querySelector("[data-pro]").addEventListener("click",()=>{document.getElementById("obj").selectedIndex=2});
+
+/* reveals */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll(".meter span").forEach(s=>s.style.width=s.dataset.w+"%");io2.unobserve(e.target)}}),{threshold:.2});
+io2.observe(grid);
+const st=document.getElementById("steps");
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){st.classList.add("in");document.getElementById("stepsBar").style.width="84%";o.disconnect()}}),{threshold:.4}).observe(st);
+
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),2200)}
+function sendForm(e){e.preventDefault();document.getElementById("ok").style.display="block";return false}
+</script>
+</body>
+</html>
