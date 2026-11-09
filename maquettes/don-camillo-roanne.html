@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don Camillo — Restaurant italien à Roanne | Pizzas, pâtes, terrasse</title>
+<meta name="description" content="Restaurant italien du chef Vito à Roanne, à deux pas de la gare : antipasti, pâtes, risotto, pizzas et tiramisu, deux salles climatisées et une terrasse.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&family=Yellowtail&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE DON CAMILLO — relevée sur la devanture et les salles
+   (photos de l'établissement publiées par l'office de tourisme)
+   - Devanture : noir profond, lettrage blanc capitales + écriture
+     manuscrite « l'italien », store aux couleurs italiennes
+   - Salles : nappes vichy vert et blanc, serviettes rouges,
+     soubassements vert bouteille, fanions bleus
+   Aucun logo officiel ni code couleur n'a pu être récupéré :
+   ces valeurs sont approchées et s'ajustent ici en quelques lignes.
+   ========================================================= */
+:root{
+  --noir:#121212;          /* devanture */
+  --noir-2:#1c1c1c;
+  --creme:#fbf8f1;         /* murs clairs */
+  --blanc:#ffffff;
+  --vert:#1f5b3c;          /* vichy / soubassement */
+  --vert-clair:#e7efe9;
+  --rouge:#c42032;         /* serviettes */
+  --bleu:#1f3f8f;          /* fanions */
+  --texte:#1d1d1b;
+  --gris:#6b6b66;
+  --f-sans:"Jost",system-ui,sans-serif;     /* lettrage capitales de l'enseigne */
+  --f-script:"Yellowtail",cursive;          /* « l'italien » de l'enseigne */
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-sans);color:var(--texte);background:var(--creme);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Vichy — élément signature, repris des nappes */
+.vichy{background-color:#fff;
+  background-image:linear-gradient(90deg,rgba(31,91,60,.55) 50%,transparent 50%),linear-gradient(rgba(31,91,60,.55) 50%,transparent 50%);
+  background-size:28px 28px}
+.tricolore{height:6px;background:linear-gradient(90deg,#1f8a4c 0 33.3%,#fff 33.3% 66.6%,var(--rouge) 66.6%)}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:#d9d9d4;font-size:13px;text-align:center;padding:7px 16px}
+.demo b{color:#fff}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(18,18,18,.94);backdrop-filter:blur(8px);color:#fff;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.logo{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.logo b{font-weight:800;letter-spacing:.14em;font-size:20px}
+.logo span{font-family:var(--f-script);font-size:22px;color:#fff;opacity:.9;margin-top:-2px;margin-left:44px}
+.nav ul{display:flex;gap:26px;list-style:none;font-size:15px;font-weight:500;letter-spacing:.04em}
+.nav ul a{text-decoration:none;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.nav .cta{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 22px;border-radius:999px;border:0;font:600 15px var(--f-sans);letter-spacing:.03em;text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 8px 20px rgba(196,32,50,.3)}
+.btn-rouge:hover{background:#a91a2a}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+.btn-ghost:hover{border-color:#fff}
+.btn-vert{background:var(--vert);color:#fff}
+.btn-outline{background:#fff;color:var(--texte);border:1.5px solid #d8d4c9}
+.burger{display:none;background:none;border:0;color:#fff;width:44px;height:44px;font-size:26px;cursor:pointer}
+
+/* Hero — la devanture */
+.hero{background:var(--noir);color:#fff;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding:70px 0 90px}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:7px 14px;border-radius:999px}
+.status i{width:9px;height:9px;border-radius:50%;background:#9a9a9a}
+.status.open i{background:#3ccf73;box-shadow:0 0 0 0 rgba(60,207,115,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(60,207,115,0)}100%{box-shadow:0 0 0 0 rgba(60,207,115,0)}}
+.enseigne{margin:26px 0 8px}
+.enseigne .r{display:block;font-weight:600;letter-spacing:.32em;font-size:clamp(14px,1.3vw,17px);color:#cfcfca}
+.enseigne h1{font-weight:800;font-size:clamp(52px,8.4vw,112px);line-height:.92;letter-spacing:.02em;text-transform:uppercase}
+.enseigne .s{display:block;font-family:var(--f-script);font-size:clamp(40px,5vw,66px);line-height:1;margin:-4px 0 0 clamp(60px,10vw,150px);color:#fff;text-shadow:0 0 22px rgba(255,255,255,.35)}
+.hero p.lead{color:#d6d6d1;max-width:520px;font-size:18px;margin:22px 0 30px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{font-size:14px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.chip b{color:#fff}
+.vitrine{position:relative}
+.store{position:relative;z-index:2;height:44px;margin:0 -14px -2px;display:flex;border-radius:6px 6px 0 0;overflow:hidden;box-shadow:0 10px 20px rgba(0,0,0,.35)}
+.store span{flex:1;transform-origin:top;animation:store 4s ease-in-out infinite}
+.store span:nth-child(3n+1){background:#1f8a4c}.store span:nth-child(3n+2){background:#f4f1ea}.store span:nth-child(3n){background:var(--rouge)}
+.store span:nth-child(odd){animation-delay:.4s}
+@keyframes store{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.08)}}
+.vitrine figure{position:relative;border-radius:0 0 var(--r) var(--r);overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.vitrine img{width:100%;aspect-ratio:4/3.3;object-fit:cover;transform:scale(1.04);transition:transform 1.2s var(--ease)}
+.vitrine:hover img{transform:scale(1.08)}
+.vitrine figcaption{position:absolute;left:14px;bottom:14px;background:rgba(0,0,0,.6);font-size:12px;padding:5px 10px;border-radius:6px;color:#eee}
+.glow{position:absolute;inset:auto -10% -40% auto;width:520px;height:520px;background:radial-gradient(circle,rgba(196,32,50,.25),transparent 65%);pointer-events:none}
+
+/* Marquee */
+.marquee{background:var(--vert);color:#fff;overflow:hidden;white-space:nowrap;padding:16px 0;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:15px}
+.marquee div{display:inline-block;animation:defile 38s linear infinite}
+.marquee em{font-family:var(--f-script);text-transform:none;font-style:normal;font-size:24px;letter-spacing:0;margin:0 22px;color:#f3d9dc}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:100px 0}
+.kicker{font-family:var(--f-script);color:var(--rouge);font-size:30px;line-height:1}
+h2{font-size:clamp(34px,4.4vw,56px);line-height:1.05;font-weight:800;letter-spacing:-.01em;text-transform:uppercase;margin:6px 0 18px}
+.intro{max-width:640px;color:var(--gris);font-size:18px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* Maison */
+.maison{display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center}
+.photo-stack{position:relative;min-height:460px}
+.photo-stack img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.photo-stack .a{width:78%;aspect-ratio:4/3;top:0;left:0}
+.photo-stack .b{width:58%;aspect-ratio:4/3;bottom:0;right:0;border:8px solid var(--creme)}
+.photo-stack .nappe{position:absolute;width:120px;height:120px;left:-18px;bottom:30px;border-radius:12px;transform:rotate(-8deg);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.faits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.fait{background:#fff;border:1px solid #ebe6da;border-radius:var(--r);padding:18px 20px}
+.fait b{display:block;font-size:30px;font-weight:800;color:var(--vert);line-height:1.1}
+.fait span{font-size:14px;color:var(--gris)}
+.langues{margin-top:22px;font-size:15px;color:var(--gris)}
+
+/* Carte */
+.carte{background:#fff;position:relative}
+.carte::before{content:"";position:absolute;inset:0 0 auto 0;height:28px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 34px}
+.tab{min-height:44px;padding:10px 20px;border-radius:999px;border:1.5px solid #ddd8cc;background:#fff;font:600 15px var(--f-sans);cursor:pointer;transition:all .25s}
+.tab[aria-selected="true"]{background:var(--vert);border-color:var(--vert);color:#fff}
+.plats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.plat{position:relative;border-radius:var(--r);padding:26px 24px 24px;background:var(--creme);border:1px solid #ece7db;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,opacity .3s}
+.plat:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.plat::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:var(--vert-clair);transition:transform .5s var(--ease)}
+.plat:hover::after{transform:scale(1.6)}
+.plat .cat{position:relative;z-index:1;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rouge);font-weight:700}
+.plat h3{position:relative;z-index:1;font-size:22px;margin:8px 0 6px;font-weight:700}
+.plat p{position:relative;z-index:1;font-size:15px;color:var(--gris)}
+.plat.hide{display:none}
+.carte-note{margin-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;background:var(--vert-clair);border-radius:var(--r);padding:18px 22px;font-size:15px}
+.menus{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
+.menu-card{background:var(--noir);color:#fff;border-radius:var(--r);padding:30px;position:relative;overflow:hidden}
+.menu-card .prix{font-size:44px;font-weight:800;line-height:1}
+.menu-card .prix small{font-size:16px;font-weight:500;color:#bbb}
+.menu-card h3{font-family:var(--f-script);font-weight:400;font-size:34px;margin-bottom:6px}
+.menu-card p{color:#cfcfca;font-size:15px;margin-top:10px}
+.menu-card .bande{position:absolute;right:0;top:0;bottom:0;width:10px}
+
+/* Salles — galerie défilante */
+.galerie{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 0 18px;cursor:grab;scrollbar-width:thin}
+.galerie.drag{cursor:grabbing}
+.galerie figure{flex:0 0 min(460px,82%);scroll-snap-align:start;border-radius:var(--r);overflow:hidden;position:relative;background:#ddd}
+.galerie img{width:100%;aspect-ratio:8/5.2;object-fit:cover;pointer-events:none;transition:transform .8s var(--ease)}
+.galerie figure:hover img{transform:scale(1.05)}
+.galerie figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.65);color:#fff;font-size:13px;padding:5px 11px;border-radius:6px}
+.vide{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:8/5.2;text-align:center;color:var(--gris);border:2px dashed #c9c3b5;background:#f3efe6;padding:20px}
+.vide b{color:var(--texte);font-size:18px}
+.galerie-nav{display:flex;gap:10px;justify-content:flex-end}
+.galerie-nav button{width:46px;height:46px;border-radius:50%;border:1.5px solid #d8d4c9;background:#fff;font-size:20px;cursor:pointer;transition:background .2s}
+.galerie-nav button:hover{background:var(--vert);color:#fff;border-color:var(--vert)}
+
+/* Réservation — l'outil central */
+.resa{background:var(--noir);color:#fff;position:relative;overflow:hidden}
+.resa .kicker{color:#ff8f9b}
+.resa .intro{color:#c9c9c4}
+.resa-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;margin-top:40px;align-items:start}
+.panel{background:var(--noir-2);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:26px}
+.step{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#a9a9a4;font-weight:600;margin:4px 0 12px;display:flex;align-items:center;gap:10px}
+.step i{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;font-size:12px;letter-spacing:0}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-head b{font-size:18px;text-transform:capitalize}
+.cal-head button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:18px;cursor:pointer}
+.cal-head button:disabled{opacity:.25;cursor:default}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.cal .dow{font-size:12px;color:#8d8d88;padding:4px 0;text-transform:uppercase}
+.cal button{height:46px;border-radius:10px;border:1px solid transparent;background:rgba(255,255,255,.06);color:#fff;font:600 15px var(--f-sans);cursor:pointer;transition:all .2s}
+.cal button:hover:not(:disabled){border-color:#fff}
+.cal button:disabled{background:transparent;color:#55554f;cursor:not-allowed;text-decoration:line-through}
+.cal button.sel{background:var(--rouge);border-color:var(--rouge)}
+.cal button.today{box-shadow:inset 0 0 0 1.5px #3ccf73}
+.cal-legend{font-size:13px;color:#9a9a95;margin-top:10px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.seg{min-height:44px;padding:9px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;font:500 15px var(--f-sans);cursor:pointer;transition:all .2s}
+.seg:hover:not(:disabled){border-color:#fff}
+.seg.sel{background:#fff;color:var(--noir);border-color:#fff;font-weight:700}
+.seg:disabled{opacity:.3;cursor:not-allowed}
+.bloc{margin-top:22px}
+.compteur{display:flex;align-items:center;gap:16px}
+.compteur button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;font-size:22px;cursor:pointer}
+.compteur output{font-size:34px;font-weight:800;min-width:56px;text-align:center}
+.couverts{display:flex;gap:4px;flex-wrap:wrap;margin-top:12px;min-height:22px}
+.couverts span{width:18px;height:18px;border-radius:4px;animation:pop .3s var(--ease)}
+.couverts span:nth-child(odd){background:var(--vert)}.couverts span:nth-child(even){background:#fff}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.groupe{display:none;margin-top:12px;font-size:14px;background:rgba(196,32,50,.15);border:1px solid rgba(196,32,50,.4);padding:12px 14px;border-radius:12px;color:#ffd4d9}
+.groupe.on{display:block}
+label.f{display:block;font-size:14px;color:#bdbdb8;margin-bottom:6px}
+input.i,textarea.i{width:100%;min-height:46px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04);color:#fff;font:16px var(--f-sans)}
+textarea.i{min-height:80px;resize:vertical}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* Ticket « comanda » */
+.ticket{background:#fffdf7;color:var(--texte);border-radius:6px;padding:26px 24px 30px;position:sticky;top:96px;box-shadow:0 30px 60px rgba(0,0,0,.45);
+  -webkit-mask:radial-gradient(circle 8px at 50% 100%,transparent 98%,#000) 0 0/22px 100% repeat-x;mask:radial-gradient(circle 8px at 50% 100%,transparent 98%,#000) bottom/22px 16px repeat-x,linear-gradient(#000,#000) top/100% calc(100% - 15px) no-repeat}
+.ticket h3{font-weight:800;letter-spacing:.2em;text-align:center;font-size:18px}
+.ticket .sc{font-family:var(--f-script);text-align:center;font-size:28px;color:var(--rouge);line-height:1;margin-top:2px}
+.ticket hr{border:0;border-top:2px dashed #cfc9bb;margin:16px 0}
+.ligne{display:flex;justify-content:space-between;gap:12px;font-size:15px;padding:5px 0}
+.ligne span{color:var(--gris)}
+.ligne b{text-align:right}
+.ticket .vide-t{color:#a39d90;font-style:italic}
+.ticket .act{display:grid;gap:10px;margin-top:18px}
+.ticket .btn{width:100%}
+.ticket small{display:block;font-size:12.5px;color:var(--gris);margin-top:14px;line-height:1.45}
+.ticket.flash{animation:flash .5s}
+@keyframes flash{50%{transform:translateY(-4px) rotate(-.6deg)}}
+
+/* Infos */
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{background:#fff;border:1px solid #ebe6da;border-radius:20px;padding:30px}
+.card h3{font-size:22px;margin-bottom:14px}
+table.h{width:100%;border-collapse:collapse;font-size:16px}
+table.h td{padding:10px 0;border-bottom:1px solid #eee9de}
+table.h td:last-child{text-align:right}
+table.h tr.auj td{color:var(--rouge);font-weight:700}
+table.h tr.ferme td:last-child{color:#a19b8e}
+.coord p{margin-bottom:10px}
+.coord a{font-weight:600}
+.services{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.services span{font-size:14px;background:var(--vert-clair);color:var(--vert);padding:6px 12px;border-radius:999px;font-weight:500}
+.map{border-radius:20px;overflow:hidden;margin-top:28px;border:1px solid #ebe6da;height:340px}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.3)}
+
+/* CTA final */
+.final{background:var(--vert);color:#fff;text-align:center;position:relative;overflow:hidden}
+.final h2{color:#fff}
+.final p{color:#dbe9e0;max-width:560px;margin:0 auto 28px}
+.final .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{background:var(--noir);color:#bdbdb8;padding:56px 0 30px;font-size:14px}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer b{color:#fff}
+.mention{margin-top:36px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#8f8f8a;line-height:1.6}
+
+/* Barre mobile */
+.mbar{display:none}
+
+@media (max-width:960px){
+  .nav ul,.nav .cta .btn-ghost{display:none}
+  .burger{display:block}
+  .nav ul.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--noir);padding:20px 16px;gap:16px}
+  .hero-grid,.maison,.resa-grid,.infos-grid,.foot{grid-template-columns:1fr}
+  .hero-grid{padding:44px 0 60px;gap:40px}
+  .plats{grid-template-columns:1fr 1fr}
+  .menus{grid-template-columns:1fr}
+  .ticket{position:static}
+  section{padding:70px 0}
+  .photo-stack{min-height:340px}
+  .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:8px;background:rgba(18,18,18,.95);padding:8px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+  .mbar .btn{flex:1;min-height:44px;padding:10px}
+  footer{padding-bottom:100px}
+}
+@media (max-width:560px){
+  .plats{grid-template-columns:1fr}
+  .faits{grid-template-columns:1fr 1fr}
+  .duo{grid-template-columns:1fr}
+  .nav .cta .btn-rouge{display:none}
+  .panel{padding:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Don Camillo",
+  "servesCuisine":["Italienne","Méditerranéenne"],
+  "address":{"@type":"PostalAddress","streetAddress":"6 rue Pierre Brossolette","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.042978,"longitude":4.066623},
+  "telephone":"+33477704864",
+  "priceRange":"€€",
+  "areaServed":"Roanne",
+  "acceptsReservations":true,
+  "paymentAccepted":"Carte bancaire, American Express, chèque, espèces",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"12:00","closes":"13:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"19:00","closes":"21:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"12:00","closes":"13:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"19:00","closes":"22:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour Don Camillo, non officielle.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Don Camillo, accueil"><b>DON CAMILLO</b><span>l'italien</span></a>
+    <ul id="menu">
+      <li><a href="#maison">La maison</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#salles">Les salles</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <div class="cta">
+      <a class="btn btn-ghost" href="tel:+33477704864">04 77 70 48 64</a>
+      <a class="btn btn-rouge" href="#reserver">Réserver une table</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="glow"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status" id="status" role="status"><i></i><span>Horaires du jour…</span></span>
+      <div class="enseigne">
+        <span class="r">RESTAURANT</span>
+        <h1>Don Camillo</h1>
+        <span class="s">l'italien</span>
+      </div>
+      <p class="lead">Restaurant italien à Roanne, à deux pas de la gare. Le chef Vito y sert antipasti à partager, pâtes, risotto, pizzas et tiramisu, avec des vins italiens et locaux.</p>
+      <div class="actions">
+        <a class="btn btn-rouge" href="#reserver">Réserver une table</a>
+        <a class="btn btn-ghost" href="#carte">Voir la carte</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><b>70</b> couverts</span>
+        <span class="chip"><b>2</b> salles climatisées</span>
+        <span class="chip">Terrasse <b>90</b> places</span>
+        <span class="chip">Menu du jour dès <b>15 €</b></span>
+      </div>
+    </div>
+    <div class="vitrine reveal d2">
+      <div class="store" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <figure>
+        <img src="assets/don-camillo-roanne/facade.webp" alt="Devanture du restaurant Don Camillo, rue Pierre Brossolette à Roanne" width="800" height="520">
+        <figcaption>6 rue Pierre Brossolette</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div>
+  Antipasti <em>da condividere</em> Calamars frits <em>·</em> Pâtes <em>·</em> Risotto <em>·</em> Pizzas <em>·</em> Parmigiana <em>·</em> Tiramisu <em>dolce vita</em> Vins italiens <em>·</em>
+  Antipasti <em>da condividere</em> Calamars frits <em>·</em> Pâtes <em>·</em> Risotto <em>·</em> Pizzas <em>·</em> Parmigiana <em>·</em> Tiramisu <em>dolce vita</em> Vins italiens <em>·</em>
+</div></div>
+
+<section id="maison">
+  <div class="wrap maison">
+    <div class="photo-stack reveal">
+      <img class="a" src="assets/don-camillo-roanne/salle-1.webp" alt="Salle du restaurant, nappes vichy vertes et serviettes rouges" loading="lazy" width="800" height="520">
+      <img class="b" src="assets/don-camillo-roanne/salle-5.webp" alt="Seconde salle, chaises en bois et murs couverts de cadres" loading="lazy" width="800" height="520">
+      <div class="nappe vichy" aria-hidden="true"></div>
+    </div>
+    <div>
+      <p class="kicker reveal">Benvenuti</p>
+      <h2 class="reveal d1">Une table italienne au cœur de Roanne</h2>
+      <p class="intro reveal d2">Derrière la devanture noire de la rue Pierre Brossolette, deux salles aux nappes vichy, des murs couverts de cadres et de fanions, et une cuisine qui fait voyager : antipasti à partager, calamars frits, pâtes, risotto, pizzas, et le tiramisu pour finir. Aux beaux jours, la terrasse prend le relais.</p>
+      <div class="faits">
+        <div class="fait reveal d1"><b>Chef Vito</b><span>en cuisine</span></div>
+        <div class="fait reveal d2"><b>&lt; 500 m</b><span>de la gare SNCF</span></div>
+        <div class="fait reveal d2"><b>2 salles</b><span>climatisées, 70 couverts</span></div>
+        <div class="fait reveal d3"><b>90 places</b><span>en terrasse</span></div>
+      </div>
+      <p class="langues reveal d3">On vous accueille en français, en italien, en anglais et en espagnol.</p>
+    </div>
+  </div>
+</section>
+
+<section class="carte" id="carte">
+  <div class="wrap">
+    <p class="kicker reveal">Il menù</p>
+    <h2 class="reveal d1">La carte</h2>
+    <p class="intro reveal d2">Quelques spécialités de la maison. La carte complète, avec les prix, est à intégrer ici.</p>
+    <div class="tabs" role="tablist" aria-label="Catégories de la carte">
+      <button class="tab" role="tab" aria-selected="true" data-f="tout">Tout</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="antipasti">Pour commencer</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="primi">Pâtes &amp; risotto</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="pizze">Pizzas</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="dolci">Desserts</button>
+    </div>
+    <div class="plats" id="plats">
+      <article class="plat" data-c="antipasti"><span class="cat">Antipasti</span><h3>Antipasti à partager</h3><p>Pour ouvrir le repas à plusieurs, au centre de la table.</p></article>
+      <article class="plat" data-c="antipasti"><span class="cat">Antipasti</span><h3>Calamars frits</h3><p>En entrée, ou à partager.</p></article>
+      <article class="plat" data-c="antipasti"><span class="cat">Antipasti</span><h3>Parmigiana</h3><p>Un plat typique de la cuisine italienne.</p></article>
+      <article class="plat" data-c="primi"><span class="cat">Primi</span><h3>Pâtes</h3><p>Les pâtes, au cœur de la carte.</p></article>
+      <article class="plat" data-c="primi"><span class="cat">Primi</span><h3>Raviolis à la truffe</h3><p>Une des assiettes de la carte.</p></article>
+      <article class="plat" data-c="primi"><span class="cat">Primi</span><h3>Risotto aux gambas</h3><p>Le risotto de la maison.</p></article>
+      <article class="plat" data-c="pizze"><span class="cat">Pizze</span><h3>Pizzas</h3><p>Au déjeuner comme au dîner.</p></article>
+      <article class="plat" data-c="dolci"><span class="cat">Dolci</span><h3>Tiramisu</h3><p>Pour finir à l'italienne.</p></article>
+      <article class="plat" data-c="dolci"><span class="cat">Dolci</span><h3>Panna cotta &amp; café gourmand</h3><p>Pour finir en douceur, avec un moelleux au chocolat aussi à la carte.</p></article>
+    </div>
+    <div class="carte-note reveal">
+      <span>Vins italiens et vins locaux · bières italiennes · plats à emporter</span>
+      <a class="btn btn-vert" href="#reserver">Réserver pour goûter</a>
+    </div>
+    <div class="menus">
+      <div class="menu-card reveal d1"><div class="bande tricolore" style="height:auto;width:10px;background:linear-gradient(#1f8a4c 0 33%,#fff 33% 66%,var(--rouge) 66%)"></div>
+        <h3>Menu du jour</h3><div class="prix">dès 15 € <small></small></div><p>Le midi, pour une pause déjeuner rapide près de la gare.</p></div>
+      <div class="menu-card reveal d2"><div class="bande" style="background:linear-gradient(#1f8a4c 0 33%,#fff 33% 66%,var(--rouge) 66%)"></div>
+        <h3>Menus groupes</h3><div class="prix">35 – 40 € <small>par personne</small></div><p>Anniversaires, repas d'équipe, associations : deux salles et une terrasse pour vous recevoir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="salles">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap">
+      <div><p class="kicker reveal">La sala</p><h2 class="reveal d1">Les salles</h2></div>
+      <div class="galerie-nav"><button id="gPrev" aria-label="Photo précédente">←</button><button id="gNext" aria-label="Photo suivante">→</button></div>
+    </div>
+    <div class="galerie" id="galerie" tabindex="0" aria-label="Galerie des salles, faites défiler">
+      <figure><img src="assets/don-camillo-roanne/salle-1.webp" alt="Grande salle, tables en vichy vert" loading="lazy"><figcaption>La grande salle</figcaption></figure>
+      <figure><img src="assets/don-camillo-roanne/salle-4.webp" alt="Salle avec fanions et maillots aux murs" loading="lazy"><figcaption>Fanions et souvenirs d'Italie</figcaption></figure>
+      <figure><img src="assets/don-camillo-roanne/salle-3.webp" alt="Salle avec escalier en bois" loading="lazy"><figcaption>Côté escalier</figcaption></figure>
+      <figure><img src="assets/don-camillo-roanne/salle-2.webp" alt="Vue d'ensemble de la salle" loading="lazy"><figcaption>Climatisée, 70 couverts</figcaption></figure>
+      <figure><img src="assets/don-camillo-roanne/salle-5.webp" alt="Seconde salle aux murs couverts de cadres" loading="lazy"><figcaption>La seconde salle</figcaption></figure>
+      <figure><div class="vide"><b>La terrasse — 90 places</b><span>Photo à fournir par le restaurant</span></div></figure>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <p class="kicker reveal">Prenota</p>
+    <h2 class="reveal d1">Réserver une table</h2>
+    <p class="intro reveal d2">Choisissez votre jour, le service et l'heure. Les jours de fermeture sont déjà grisés. Votre demande part au restaurant, qui vous la confirme.</p>
+
+    <div class="resa-grid">
+      <div class="panel">
+        <div class="step"><i>1</i> Le jour</div>
+        <div class="cal-head"><button id="mPrev" aria-label="Mois précédent">‹</button><b id="mois"></b><button id="mNext" aria-label="Mois suivant">›</button></div>
+        <div class="cal" id="cal" aria-label="Calendrier"></div>
+        <p class="cal-legend">Fermé le dimanche et le lundi, ainsi qu'en février et en août.</p>
+
+        <div class="bloc">
+          <div class="step"><i>2</i> Le service et l'heure</div>
+          <div class="row" id="services">
+            <button class="seg" data-s="midi">Midi</button>
+            <button class="seg" data-s="soir">Soir</button>
+          </div>
+          <div class="row" id="heures" style="margin-top:10px"></div>
+        </div>
+
+        <div class="bloc">
+          <div class="step"><i>3</i> Combien de couverts ?</div>
+          <div class="compteur">
+            <button id="moins" aria-label="Un couvert de moins">−</button>
+            <output id="nb" aria-live="polite">2</output>
+            <button id="plus" aria-label="Un couvert de plus">+</button>
+          </div>
+          <div class="couverts" id="couverts" aria-hidden="true"></div>
+          <div class="groupe" id="groupe">À partir de 12 personnes, pensez aux <b>menus groupes (35 à 40 €)</b> : le restaurant vous rappellera pour caler le menu.</div>
+        </div>
+
+        <div class="bloc">
+          <div class="step"><i>4</i> Où vous installer ?</div>
+          <div class="row" id="places">
+            <button class="seg sel" data-p="Peu importe">Peu importe</button>
+            <button class="seg" data-p="En salle">En salle</button>
+            <button class="seg" data-p="En terrasse (selon météo)">En terrasse</button>
+          </div>
+        </div>
+
+        <div class="bloc">
+          <div class="step"><i>5</i> Vos coordonnées</div>
+          <div class="duo">
+            <div><label class="f" for="nom">Nom</label><input class="i" id="nom" autocomplete="name" placeholder="Votre nom"></div>
+            <div><label class="f" for="tel">Téléphone</label><input class="i" id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+          </div>
+          <div style="margin-top:12px"><label class="f" for="note">Une précision ?</label><textarea class="i" id="note" placeholder="Anniversaire, chaise bébé, chien…"></textarea></div>
+        </div>
+      </div>
+
+      <aside class="ticket" id="ticket" aria-live="polite">
+        <h3>DON CAMILLO</h3>
+        <div class="sc">la comanda</div>
+        <hr>
+        <div class="ligne"><span>Jour</span><b id="tJour" class="vide-t">à choisir</b></div>
+        <div class="ligne"><span>Service</span><b id="tServ" class="vide-t">—</b></div>
+        <div class="ligne"><span>Heure</span><b id="tHeure" class="vide-t">—</b></div>
+        <div class="ligne"><span>Couverts</span><b id="tNb">2</b></div>
+        <div class="ligne"><span>Place</span><b id="tPlace">Peu importe</b></div>
+        <div class="ligne"><span>Au nom de</span><b id="tNom" class="vide-t">—</b></div>
+        <hr>
+        <div class="act">
+          <a class="btn btn-rouge" id="envoyer" href="#" aria-disabled="true">Envoyer ma demande</a>
+          <a class="btn btn-outline" href="tel:+33477704864">Appeler le 04 77 70 48 64</a>
+          <button class="btn btn-outline" id="ics" disabled>Ajouter à mon agenda</button>
+        </div>
+        <small id="msg">Choisissez un jour, un service et une heure pour préparer votre demande.</small>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <p class="kicker reveal">Informazioni</p>
+    <h2 class="reveal d1">Infos pratiques</h2>
+    <div class="infos-grid" style="margin-top:30px">
+      <div class="card reveal">
+        <h3>Horaires</h3>
+        <table class="h" id="horaires"></table>
+        <p style="font-size:14px;color:var(--gris);margin-top:12px">Fermeture annuelle en février et en août. Réservation conseillée.</p>
+      </div>
+      <div class="card coord reveal d1">
+        <h3>Nous trouver</h3>
+        <p>6 rue Pierre Brossolette<br>42300 Roanne</p>
+        <p>À moins de 500 m de la gare SNCF et d'un arrêt de bus.</p>
+        <p><a href="tel:+33477704864">04 77 70 48 64</a></p>
+        <p style="font-size:15px;color:var(--gris)">Paiement : carte bancaire, American Express, chèque, espèces.</p>
+        <div class="services">
+          <span>Terrasse</span><span>Climatisation</span><span>Plats à emporter</span><span>Traiteur</span><span>Chaise bébé</span><span>Animaux acceptés</span>
+        </div>
+        <p style="margin-top:18px"><a class="btn btn-vert" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=46.042978,4.066623">Itinéraire</a></p>
+      </div>
+    </div>
+    <div class="map reveal"><iframe title="Plan d'accès au restaurant Don Camillo" loading="lazy" src="https://maps.google.com/maps?q=6%20rue%20Pierre%20Brossolette%2042300%20Roanne&z=16&output=embed"></iframe></div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="vichy" style="position:absolute;inset:auto 0 0 0;height:28px;opacity:.35"></div>
+  <div class="wrap">
+    <p class="kicker" style="color:#f3d9dc">A presto</p>
+    <h2>Une table pour ce soir ?</h2>
+    <p>Réservez en ligne en une minute, ou appelez directement le restaurant.</p>
+    <div class="actions">
+      <a class="btn btn-rouge" href="#reserver">Réserver une table</a>
+      <a class="btn btn-ghost" href="tel:+33477704864">04 77 70 48 64</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a class="logo" href="#top" style="color:#fff"><b>DON CAMILLO</b><span>l'italien</span></a><p style="margin-top:14px">Restaurant italien à Roanne.</p></div>
+      <div><b>Adresse</b><p>6 rue Pierre Brossolette<br>42300 Roanne<br><a href="tel:+33477704864">04 77 70 48 64</a></p></div>
+      <div><b>Horaires</b><p>Du mardi au samedi, midi et soir.<br>Fermé dimanche et lundi.<br>Fermé en février et en août.</p></div>
+    </div>
+    <p class="mention">
+      Maquette de démonstration réalisée sans engagement pour présenter une proposition de site au restaurant Don Camillo ; elle n'est pas le site officiel de l'établissement. Informations reprises de la fiche de l'office de tourisme du Roannais (horaires 2026, capacité, services, menus) et des cartes publiées en ligne : à vérifier et compléter par le restaurant. Prix indicatifs non contractuels.
+      Photos : devanture et salles de l'établissement, telles que publiées sur sa fiche Roannais Tourisme ; la photo de la terrasse, les photos de plats, le logo et la carte complète avec prix restent à fournir.
+      Couleurs et typographies approchées d'après la devanture et la décoration des salles, ajustables. Le formulaire de réservation prépare une demande par e-mail, sans enregistrement en ligne.
+    </p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-ghost" href="tel:+33477704864">Appeler</a><a class="btn btn-rouge" href="#reserver">Réserver</a></div>
+
+<script>
+(function(){
+  const EMAIL="don-camillo1@wanadoo.fr";
+  // Horaires réels (fiche Roannais Tourisme 2026) — 0 = dimanche
+  const H={2:{midi:["12:00","13:30"],soir:["19:00","21:30"]},3:{midi:["12:00","13:30"],soir:["19:00","21:30"]},4:{midi:["12:00","13:30"],soir:["19:00","21:30"]},5:{midi:["12:00","13:30"],soir:["19:00","22:00"]},6:{midi:["12:00","13:30"],soir:["19:00","22:00"]}};
+  const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  const fermeMois=m=>m===1||m===7; // février, août
+  const ouvertLe=d=>!fermeMois(d.getMonth())&&!!H[d.getDay()];
+  const toMin=s=>{const[a,b]=s.split(":");return +a*60+ +b};
+  const fmt=m=>String(Math.floor(m/60)).padStart(2,"0")+"h"+String(m%60).padStart(2,"0");
+
+  // Statut en direct
+  (function(){
+    const el=document.getElementById("status"),t=el.querySelector("span"),now=new Date(),cur=now.getHours()*60+now.getMinutes();
+    let txt="Fermé aujourd'hui";
+    if(ouvertLe(now)){const j=H[now.getDay()];
+      for(const k of ["midi","soir"]){const[o,c]=j[k].map(toMin);
+        if(cur>=o&&cur<c){el.classList.add("open");txt="Ouvert — service jusqu'à "+fmt(c);break}
+        if(cur<o){txt="Ouvre aujourd'hui à "+fmt(o);break}
+        txt="Service terminé pour aujourd'hui";}
+    } else if(fermeMois(now.getMonth())) txt="Fermeture annuelle ce mois-ci";
+    t.textContent=txt;
+  })();
+
+  // Tableau des horaires
+  (function(){
+    const tb=document.getElementById("horaires"),auj=new Date().getDay();
+    [1,2,3,4,5,6,0].forEach(d=>{const tr=document.createElement("tr");
+      const j=H[d];tr.innerHTML="<td>"+JOURS[d]+"</td><td>"+(j?j.midi.join("–").replace(/:/g,"h")+" · "+j.soir.join("–").replace(/:/g,"h"):"Fermé")+"</td>";
+      if(d===auj)tr.classList.add("auj");if(!j)tr.classList.add("ferme");tb.appendChild(tr)});
+  })();
+
+  // Header + menu mobile
+  const header=document.querySelector("header");
+  addEventListener("scroll",()=>header.classList.toggle("scrolled",scrollY>10),{passive:true});
+  const burger=document.querySelector(".burger"),menu=document.getElementById("menu");
+  burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+  menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{menu.classList.remove("open");burger.setAttribute("aria-expanded",false)}));
+
+  // Apparitions au défilement
+  if("IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+    document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+  } else document.querySelectorAll(".reveal").forEach(el=>el.classList.add("in"));
+
+  // Filtres de la carte
+  document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===b));
+    const f=b.dataset.f;document.querySelectorAll(".plat").forEach(p=>p.classList.toggle("hide",f!=="tout"&&p.dataset.c!==f));
+  }));
+
+  // Galerie : glisser + flèches
+  const g=document.getElementById("galerie");let down=false,sx=0,sl=0;
+  g.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;down=true;sx=e.clientX;sl=g.scrollLeft;g.classList.add("drag");g.style.scrollSnapType="none"});
+  addEventListener("pointerup",()=>{if(!down)return;down=false;g.classList.remove("drag");g.style.scrollSnapType=""});
+  g.addEventListener("pointermove",e=>{if(down)g.scrollLeft=sl-(e.clientX-sx)});
+  const pas=()=>g.querySelector("figure").offsetWidth+16;
+  document.getElementById("gPrev").onclick=()=>g.scrollBy({left:-pas(),behavior:"smooth"});
+  document.getElementById("gNext").onclick=()=>g.scrollBy({left:pas(),behavior:"smooth"});
+
+  // ===== Réservation =====
+  const S={date:null,service:null,heure:null,nb:2,place:"Peu importe"};
+  const today=new Date();today.setHours(0,0,0,0);
+  let vue=new Date(today.getFullYear(),today.getMonth(),1);
+  const maxVue=new Date(today.getFullYear(),today.getMonth()+3,1);
+  const cal=document.getElementById("cal"),mois=document.getElementById("mois");
+
+  function rendCal(){
+    cal.innerHTML="";["L","M","M","J","V","S","D"].forEach(d=>{const s=document.createElement("div");s.className="dow";s.textContent=d;cal.appendChild(s)});
+    mois.textContent=vue.toLocaleDateString("fr-FR",{month:"long",year:"numeric"});
+    const premier=(vue.getDay()+6)%7,nbj=new Date(vue.getFullYear(),vue.getMonth()+1,0).getDate();
+    for(let i=0;i<premier;i++)cal.appendChild(document.createElement("div"));
+    for(let j=1;j<=nbj;j++){const d=new Date(vue.getFullYear(),vue.getMonth(),j),b=document.createElement("button");
+      b.textContent=j;b.type="button";
+      const ok=d>=today&&ouvertLe(d);b.disabled=!ok;
+      b.setAttribute("aria-label",d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+(ok?"":" — fermé"));
+      if(+d===+today)b.classList.add("today");
+      if(S.date&&+d===+S.date)b.classList.add("sel");
+      b.onclick=()=>{S.date=d;S.heure=null;rendCal();rendHeures();maj()};
+      cal.appendChild(b)}
+    document.getElementById("mPrev").disabled=vue<=new Date(today.getFullYear(),today.getMonth(),1);
+    document.getElementById("mNext").disabled=vue>=maxVue;
+  }
+  document.getElementById("mPrev").onclick=()=>{vue=new Date(vue.getFullYear(),vue.getMonth()-1,1);rendCal()};
+  document.getElementById("mNext").onclick=()=>{vue=new Date(vue.getFullYear(),vue.getMonth()+1,1);rendCal()};
+
+  const servBtns=document.querySelectorAll("#services .seg");
+  servBtns.forEach(b=>b.onclick=()=>{S.service=b.dataset.s;S.heure=null;rendHeures();maj()});
+  function rendHeures(){
+    const box=document.getElementById("heures");box.innerHTML="";
+    servBtns.forEach(b=>b.classList.toggle("sel",b.dataset.s===S.service));
+    if(!S.date||!S.service){box.innerHTML='<span style="color:#8d8d88;font-size:14px">'+(S.date?"Choisissez midi ou soir.":"Choisissez d'abord un jour.")+'</span>';return}
+    const[o,c]=H[S.date.getDay()][S.service].map(toMin),now=new Date(),estAuj=+S.date===+today;
+    for(let m=o;m<=c-30;m+=15){const b=document.createElement("button");b.className="seg";b.type="button";b.textContent=fmt(m);
+      if(estAuj&&m<=now.getHours()*60+now.getMinutes()+30)b.disabled=true;
+      if(S.heure===m)b.classList.add("sel");
+      b.onclick=()=>{S.heure=m;rendHeures();maj()};box.appendChild(b)}
+  }
+
+  const nbOut=document.getElementById("nb");
+  function rendNb(){nbOut.textContent=S.nb;const c=document.getElementById("couverts");c.innerHTML="";
+    for(let i=0;i<Math.min(S.nb,30);i++)c.appendChild(document.createElement("span"));
+    document.getElementById("groupe").classList.toggle("on",S.nb>=12);maj()}
+  document.getElementById("moins").onclick=()=>{if(S.nb>1){S.nb--;rendNb()}};
+  document.getElementById("plus").onclick=()=>{if(S.nb<70){S.nb++;rendNb()}};
+
+  document.querySelectorAll("#places .seg").forEach(b=>b.onclick=()=>{document.querySelectorAll("#places .seg").forEach(x=>x.classList.toggle("sel",x===b));S.place=b.dataset.p;maj()});
+  ["nom","tel","note"].forEach(id=>document.getElementById(id).addEventListener("input",maj));
+
+  function set(id,v){const e=document.getElementById(id);e.textContent=v||"—";e.classList.toggle("vide-t",!v)}
+  function maj(){
+    set("tJour",S.date?S.date.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}):"");
+    set("tServ",S.service?(S.service==="midi"?"Déjeuner":"Dîner"):"");
+    set("tHeure",S.heure!=null?fmt(S.heure):"");
+    set("tNb",S.nb+(S.nb>1?" personnes":" personne"));
+    set("tPlace",S.place);
+    const nom=document.getElementById("nom").value.trim();set("tNom",nom);
+    const pret=S.date&&S.service&&S.heure!=null;
+    const env=document.getElementById("envoyer"),ics=document.getElementById("ics"),msg=document.getElementById("msg");
+    env.setAttribute("aria-disabled",!pret);env.style.opacity=pret?1:.45;ics.disabled=!pret;
+    if(pret){
+      const corps="Bonjour,\n\nJe souhaite réserver une table :\n- "+document.getElementById("tJour").textContent+" ("+(S.service==="midi"?"déjeuner":"dîner")+") à "+fmt(S.heure)+"\n- "+S.nb+" couvert(s)\n- Placement : "+S.place+"\n- Nom : "+(nom||"…")+"\n- Téléphone : "+(document.getElementById("tel").value.trim()||"…")+(document.getElementById("note").value.trim()?"\n- Précision : "+document.getElementById("note").value.trim():"")+"\n\nMerci de me confirmer la réservation.";
+      env.href="mailto:"+EMAIL+"?subject="+encodeURIComponent("Demande de réservation — "+document.getElementById("tJour").textContent)+"&body="+encodeURIComponent(corps);
+      msg.textContent=S.nb>=12?"Groupe : le restaurant vous recontactera pour le menu (35 à 40 € par personne).":"Votre demande est prête. Le restaurant vous confirme la table par téléphone ou par e-mail.";
+      const t=document.getElementById("ticket");t.classList.remove("flash");void t.offsetWidth;t.classList.add("flash");
+    } else {env.removeAttribute("href");msg.textContent="Choisissez un jour, un service et une heure pour préparer votre demande."}
+  }
+  document.getElementById("envoyer").addEventListener("click",e=>{if(e.currentTarget.getAttribute("aria-disabled")==="true")e.preventDefault()});
+
+  document.getElementById("ics").onclick=()=>{
+    const d=new Date(S.date);d.setHours(Math.floor(S.heure/60),S.heure%60,0,0);const f=new Date(d.getTime()+90*60000);
+    const z=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,"0")+String(x.getDate()).padStart(2,"0")+"T"+String(x.getHours()).padStart(2,"0")+String(x.getMinutes()).padStart(2,"0")+"00";
+    const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Don Camillo//Maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@doncamillo","DTSTAMP:"+z(new Date()),"DTSTART:"+z(d),"DTEND:"+z(f),
+      "SUMMARY:Don Camillo — table pour "+S.nb,"LOCATION:6 rue Pierre Brossolette\\, 42300 Roanne","DESCRIPTION:Demande de réservation (à confirmer par le restaurant). Tél. 04 77 70 48 64","END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="don-camillo-reservation.ics";a.click();
+  };
+
+  rendCal();rendHeures();rendNb();
+})();
+</script>
+</body>
+</html>
