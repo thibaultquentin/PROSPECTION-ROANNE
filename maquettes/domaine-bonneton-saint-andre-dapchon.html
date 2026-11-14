@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domaine Bonneton — Vigneron en Côte Roannaise | Saint-André-d'Apchon</title>
+<meta name="description" content="Cave Thierry Bonneton, vigneron à Saint-André-d'Apchon : gamay de Côte Roannaise né sur le coteau du Bouthéran, vente à la propriété, visites et livraison.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — à ajuster en quelques lignes
+   Le site d'origine (domaine-bonneton.fr) ne répond plus :
+   aucune couleur officielle n'a pu être relevée.
+   - Lettrage script : repris du verre gravé « Cave Thierry Bonneton »
+     (photo publiée par le domaine).
+   - Couleurs : approchées à partir de cette photo (vert de vigne,
+     arène granitique rosée) et de la robe du gamay.
+   ========================================================= */
+:root{
+  --gamay:#5a1f3c;        /* robe du gamay — couleur principale */
+  --gamay-deep:#3b1227;
+  --vigne:#56702f;        /* feuillage du coteau */
+  --vigne-light:#8fa65a;
+  --granite:#b0705a;      /* arène granitique rosée du Bouthéran */
+  --pierre:#efeeea;       /* fond clair, gris pierre */
+  --pierre-2:#e3e1da;
+  --encre:#24201f;
+  --gris:#6b6461;
+  --blanc:#ffffff;
+  --font-script:"Pinyon Script", cursive;
+  --font-titre:"Cormorant Garamond", Georgia, serif;
+  --font-texte:"Source Sans 3", system-ui, sans-serif;
+  --radius:14px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--encre);background:var(--pierre);line-height:1.6;font-size:clamp(1rem,.95rem + .25vw,1.12rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--granite);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--encre);color:#e9e4e1;font-size:.82rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:#fff}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(239,238,234,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--pierre-2);box-shadow:0 6px 24px rgba(36,32,31,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.brand .script{font-family:var(--font-script);font-size:1.9rem;color:var(--gamay)}
+.brand small{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gris);margin-top:.15rem}
+.menu{display:flex;gap:1.4rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.96rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--granite);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;font:600 .98rem var(--font-texte);text-decoration:none;padding:.8rem 1.35rem;border-radius:999px;min-height:44px;transition:transform .2s var(--ease),background .25s,box-shadow .25s}
+.btn:active{transform:scale(.96)}
+.btn-gamay{background:var(--gamay);color:#fff}
+.btn-gamay:hover{background:var(--gamay-deep);box-shadow:0 10px 24px rgba(90,31,60,.28);transform:translateY(-2px)}
+.btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.26)}
+.btn-line{background:transparent;color:var(--gamay);border:1.5px solid var(--gamay)}
+.btn-line:hover{background:var(--gamay);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--pierre);padding:5.5rem 1.5rem 2rem;gap:1rem;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .menu.open{transform:none}
+  .menu a{font-size:1.25rem}
+  .burger{display:block;position:relative;z-index:60}
+  .nav .btn-gamay.call{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:0;z-index:-2;background:url("https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/6344/28959816-diaporama.png") center 40%/cover no-repeat;animation:kb 22s ease-in-out infinite alternate;transform-origin:60% 50%}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14) translate(-1.5%,1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(36,20,28,.15) 0%,rgba(36,20,28,.25) 40%,rgba(42,14,30,.86) 100%)}
+.hero__in{padding:6rem 0 4.5rem}
+.hero .script{font-family:var(--font-script);font-size:clamp(2.6rem,2rem + 3vw,4.8rem);line-height:1.05;display:block;opacity:0;transform:translateY(20px);animation:up 1.1s .2s var(--ease) forwards}
+.hero h1{font-family:var(--font-titre);font-weight:600;font-size:clamp(2rem,1.5rem + 2.6vw,3.9rem);line-height:1.08;max-width:17ch;margin:.4rem 0 1rem;opacity:0;transform:translateY(20px);animation:up 1.1s .45s var(--ease) forwards}
+.hero p{max-width:52ch;font-size:1.12rem;color:#f2e9ec;opacity:0;animation:up 1.1s .7s var(--ease) forwards}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem;opacity:0;animation:up 1.1s .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.scroll-hint{position:absolute;right:2rem;bottom:2rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;writing-mode:vertical-rl;opacity:.8}
+.scroll-hint::after{content:"";display:block;width:1px;height:46px;background:#fff;margin:.6rem auto 0;animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@media (max-width:640px){.scroll-hint{display:none}}
+
+/* repères */
+.reperes{background:var(--gamay);color:#fff}
+.reperes .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2.2rem 0}
+.rep{text-align:center;padding:.4rem}
+.rep strong{display:block;font-family:var(--font-titre);font-size:clamp(2rem,1.6rem + 1.6vw,3rem);line-height:1}
+.rep > span{font-size:.9rem;color:#ecd3df}
+[hidden]{display:none!important}
+@media (max-width:760px){.reperes .grid{grid-template-columns:repeat(2,1fr)}}
+
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.kicker{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--granite);font-weight:700}
+h2{font-family:var(--font-titre);font-weight:600;font-size:clamp(2rem,1.6rem + 2vw,3.2rem);line-height:1.1;margin:.5rem 0 1.1rem;color:var(--gamay-deep)}
+.lead{font-size:1.15rem;color:#3f3836;max-width:60ch}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* coteau */
+.coteau{background:var(--blanc)}
+.coteau .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+.quote{font-family:var(--font-titre);font-style:italic;font-size:1.35rem;color:var(--gamay);border-left:3px solid var(--granite);padding-left:1.1rem;margin:1.4rem 0}
+.hill{width:100%;height:auto;border-radius:var(--radius);background:linear-gradient(180deg,#f7efe9,#efe6dd)}
+.facts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+.chip{background:var(--pierre);border:1px solid var(--pierre-2);padding:.45rem .9rem;border-radius:999px;font-size:.92rem;font-weight:500}
+@media (max-width:860px){.coteau .grid{grid-template-columns:1fr}}
+
+/* histoire / timeline */
+.histoire .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,4vw,4rem);align-items:start}
+.timeline{list-style:none;position:relative;padding-left:2rem}
+.timeline::before{content:"";position:absolute;left:.45rem;top:.3rem;bottom:.3rem;width:2px;background:var(--pierre-2)}
+.timeline .bar{position:absolute;left:.45rem;top:.3rem;width:2px;background:var(--granite);height:0;transition:height 1.6s var(--ease)}
+.timeline.in .bar{height:calc(100% - .6rem)}
+.timeline li{position:relative;margin-bottom:1.8rem}
+.timeline li::before{content:"";position:absolute;left:-1.85rem;top:.45rem;width:14px;height:14px;border-radius:50%;background:var(--pierre);border:3px solid var(--granite)}
+.timeline b{font-family:var(--font-titre);font-size:1.5rem;color:var(--gamay);display:block;line-height:1.1}
+.placeholder{border:2px dashed #c7c1b9;border-radius:var(--radius);aspect-ratio:4/3;display:grid;place-items:center;text-align:center;color:var(--gris);padding:1.5rem;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(176,112,90,.06) 14px 28px)}
+.placeholder b{display:block;color:var(--encre);margin-bottom:.3rem}
+@media (max-width:860px){.histoire .grid{grid-template-columns:1fr}}
+
+/* vins */
+.vins{background:linear-gradient(180deg,var(--pierre) 0%,#ebe5e3 100%)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem}
+.card{background:var(--blanc);border-radius:var(--radius);padding:1.8rem 1.6rem;position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(59,18,39,.12)}
+.card .robe{width:58px;height:58px;border-radius:50%;margin-bottom:1rem;box-shadow:inset 0 -8px 14px rgba(0,0,0,.25)}
+.card h3{font-family:var(--font-titre);font-size:1.6rem;line-height:1.15;color:var(--gamay-deep)}
+.card .app{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--granite);font-weight:700;margin:.2rem 0 .8rem}
+.card p{color:#4a4341;font-size:.98rem}
+.pair{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.pair span{font-size:.82rem;background:#f4ecef;color:var(--gamay);padding:.25rem .65rem;border-radius:999px}
+.card.todo{background:transparent;border:2px dashed #c9bfc2}
+.src{font-size:.78rem;color:var(--gris);margin-top:.9rem;font-style:italic}
+@media (max-width:900px){.cards{grid-template-columns:1fr}}
+
+/* outil commande */
+.commande{background:var(--gamay-deep);color:#fff;position:relative;overflow:hidden}
+.commande h2{color:#fff}
+.commande .lead{color:#ecd3df}
+.commande::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(176,112,90,.35),transparent 70%)}
+.tool{display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;margin-top:2.4rem;position:relative}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:1.6rem}
+.panel h3{font-family:var(--font-titre);font-size:1.45rem;margin-bottom:1rem}
+.line{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.line:last-child{border:0}
+.line .nm b{display:block}
+.line .nm small{color:#d8bfcb}
+.step{display:flex;align-items:center;gap:.3rem;background:rgba(0,0,0,.2);border-radius:999px;padding:.2rem}
+.step button{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;font-size:1.2rem;cursor:pointer;transition:background .2s,transform .15s}
+.step button:hover{background:var(--granite)}
+.step button:active{transform:scale(.9)}
+.step output{min-width:2.2rem;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.4rem 0 1.1rem}
+.seg label{cursor:pointer}
+.seg input{position:absolute;opacity:0}
+.seg span{display:block;text-align:center;padding:.75rem .5rem;border-radius:10px;border:1px solid rgba(255,255,255,.25);transition:.25s;font-weight:600;font-size:.95rem}
+.seg input:checked+span{background:#fff;color:var(--gamay-deep);border-color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--granite);outline-offset:2px}
+.field{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.9rem}
+.field label{font-size:.85rem;color:#e6cfd9}
+.field input,.field textarea{font:inherit;padding:.7rem .85rem;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.18);color:#fff}
+.field input::placeholder,.field textarea::placeholder{color:#bfa7b2}
+.recap{background:#fff;color:var(--encre);border-radius:var(--radius);padding:1.5rem}
+.recap h3{color:var(--gamay-deep)}
+.bottles{display:flex;flex-wrap:wrap;gap:4px;min-height:52px;margin:.6rem 0 1rem}
+.bt{width:12px;height:40px;border-radius:5px 5px 3px 3px;position:relative;animation:pop .35s var(--ease)}
+.bt::before{content:"";position:absolute;left:3px;top:-8px;width:6px;height:10px;border-radius:2px;background:inherit}
+@keyframes pop{from{transform:translateY(10px) scale(.6);opacity:0}}
+.recap .tot{display:flex;justify-content:space-between;font-weight:600;padding:.5rem 0;border-top:1px solid var(--pierre-2)}
+.recap .note{font-size:.85rem;color:var(--gris);margin:.6rem 0 1rem}
+.recap .btn{width:100%;justify-content:center;margin-top:.5rem}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,240%);opacity:0;background:var(--encre);color:#fff;padding:.85rem 1.3rem;border-radius:12px;z-index:90;transition:transform .45s var(--ease);font-size:.95rem;max-width:calc(100% - 2rem)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+@media (max-width:900px){.tool{grid-template-columns:1fr}}
+
+/* visite */
+.visite .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin:1rem 0}
+.day{border:1px solid var(--pierre-2);background:#fff;border-radius:12px;padding:.55rem .2rem;text-align:center;cursor:pointer;transition:.2s;font:inherit}
+.day small{display:block;font-size:.72rem;color:var(--gris);text-transform:uppercase}
+.day b{font-size:1.15rem}
+.day:hover{border-color:var(--granite)}
+.day[aria-pressed="true"]{background:var(--gamay);color:#fff;border-color:var(--gamay)}
+.day[aria-pressed="true"] small{color:#ecd3df}
+.slots{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+.slot{border:1px solid var(--pierre-2);background:#fff;border-radius:999px;padding:.5rem 1rem;cursor:pointer;font:inherit;transition:.2s;min-height:44px}
+.slot[aria-pressed="true"]{background:var(--vigne);color:#fff;border-color:var(--vigne)}
+.visit-card{background:#fff;border-radius:var(--radius);padding:1.8rem;box-shadow:0 20px 40px rgba(36,32,31,.07)}
+.visit-out{font-size:.95rem;color:var(--gris);min-height:1.5rem;margin-bottom:.8rem}
+.visit-actions{display:flex;flex-wrap:wrap;gap:.6rem}
+@media (max-width:860px){.visite .grid{grid-template-columns:1fr}}
+@media (max-width:420px){.days{grid-template-columns:repeat(4,1fr)}}
+
+/* contact */
+.contact{background:var(--blanc)}
+.contact .grid{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:stretch}
+.coord{list-style:none;display:grid;gap:1.1rem;margin-top:1.4rem}
+.coord li{display:flex;gap:.9rem;align-items:flex-start}
+.ico{flex:0 0 42px;height:42px;border-radius:12px;background:#f4ecef;display:grid;place-items:center;color:var(--gamay)}
+.coord a{text-decoration:none;font-weight:600}
+.coord a:hover{color:var(--gamay)}
+.map{border-radius:var(--radius);overflow:hidden;min-height:360px;border:1px solid var(--pierre-2)}
+.map iframe{width:100%;height:100%;min-height:360px;border:0;filter:saturate(.8)}
+@media (max-width:860px){.contact .grid{grid-template-columns:1fr}}
+
+footer{background:var(--encre);color:#cfc8c5;padding:3rem 0 2rem;font-size:.92rem}
+footer .script{font-family:var(--font-script);font-size:2.2rem;color:#fff}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem}
+footer .demo-note{margin-top:2rem;padding-top:1.4rem;border-top:1px solid #3e3836;font-size:.82rem;color:#a39b97}
+.evin{margin-top:1rem;font-weight:600;color:#fff;font-size:.85rem}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+/* barre mobile */
+.mobilebar{display:none}
+@media (max-width:760px){
+  .mobilebar{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;position:fixed;left:.75rem;right:.75rem;bottom:.75rem;z-index:70;transform:translateY(150%);transition:transform .4s var(--ease)}
+  .mobilebar.show{transform:none}
+  .mobilebar .btn{justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.2)}
+  .mobilebar .btn-line{background:#fff}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Winery",
+  "name":"Domaine Bonneton",
+  "alternateName":"Cave Thierry Bonneton",
+  "founder":{"@type":"Person","name":"Thierry Bonneton"},
+  "foundingDate":"1988",
+  "address":{"@type":"PostalAddress","streetAddress":"140 route de la Prébande","postalCode":"42370","addressLocality":"Saint-André-d'Apchon","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.034954,"longitude":3.927075},
+  "telephone":["+33477658540","+33677849205"],
+  "email":"thierry.bonneton@orange.fr",
+  "areaServed":["Côte Roannaise","Roannais"],
+  "paymentAccepted":"Carte bancaire, chèque, espèces",
+  "openingHours":"Mo-Su (sur rendez-vous téléphonique)",
+  "image":"https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/6344/28959816-diaporama.png"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de site pour le Domaine Bonneton</b>, non officielle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Domaine Bonneton, retour en haut">
+      <span class="script">Cave Thierry Bonneton</span>
+      <small>Côte Roannaise · Saint-André-d'Apchon</small>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#coteau">Le coteau</a></li>
+        <li><a href="#domaine">Le domaine</a></li>
+        <li><a href="#vins">Les vins</a></li>
+        <li><a href="#commande">Commander</a></li>
+        <li><a href="#visite">Visite</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-gamay call" href="tel:+33477658540">04 77 65 85 40</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Présentation" style="padding:0">
+  <div class="hero__img" role="img" aria-label="Verre gravé « Cave Thierry Bonneton » devant les vignes du coteau"></div>
+  <div class="wrap hero__in">
+    <span class="script">Domaine Bonneton</span>
+    <h1>Vigneron en Côte Roannaise, à Saint-André-d'Apchon</h1>
+    <p>Un coteau exposé plein Sud, à 400 mètres d'altitude, et des vignes dont certaines ont plus de 80 ans. Vente à la propriété, visites et livraison à domicile.</p>
+    <div class="hero__cta">
+      <a class="btn btn-gamay" href="#commande">Préparer une commande</a>
+      <a class="btn btn-ghost" href="#visite">Venir déguster</a>
+    </div>
+  </div>
+  <span class="scroll-hint" aria-hidden="true">Le coteau</span>
+</section>
+
+<div class="reperes" aria-label="Repères du domaine">
+  <div class="wrap grid">
+    <div class="rep"><strong data-count="1988">1988</strong><span>création du domaine</span></div>
+    <div class="rep"><strong><span data-count="400">400</span> m</strong><span>d'altitude sur le Bouthéran</span></div>
+    <div class="rep"><strong>Plein Sud</strong><span>exposition des vignes</span></div>
+    <div class="rep"><strong><span data-count="80">80</span> ans</strong><span>et plus pour certaines vignes</span></div>
+  </div>
+</div>
+
+<section class="coteau" id="coteau">
+  <div class="wrap grid">
+    <div>
+      <span class="kicker rv">Le terroir</span>
+      <h2 class="rv d1">Le coteau du Bouthéran</h2>
+      <p class="lead rv d2">L'exploitation est située en partie sur le coteau de Bouthéran, à 400 m d'altitude. Les vignes, dont certaines ont plus de 80 ans, sont exposées plein Sud.</p>
+      <p class="quote rv d3">« Un coteau unique à St-André-d'Apchon. Le vin né de ce coteau révèle les arômes de son terroir. »</p>
+      <div class="facts rv d3">
+        <span class="chip">Sols granitiques</span>
+        <span class="chip">Gamay</span>
+        <span class="chip">AOC Côte Roannaise</span>
+      </div>
+    </div>
+    <figure class="rv d2">
+      <svg class="hill" id="hill" viewBox="0 0 600 420" role="img" aria-label="Schéma du coteau exposé plein sud, avec la course du soleil">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fa65a"/><stop offset="1" stop-color="#56702f"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4866d"/><stop offset="1" stop-color="#9c5a46"/></linearGradient>
+        </defs>
+        <path id="arc" d="M60 300 Q300 -40 540 300" fill="none" stroke="#d9c3b6" stroke-width="2" stroke-dasharray="5 7"/>
+        <g id="sun"><circle r="22" fill="#e9b65a"/><circle r="34" fill="#e9b65a" opacity=".25"/></g>
+        <path d="M0 420 L0 330 Q170 250 330 200 Q470 160 600 210 L600 420 Z" fill="url(#g2)"/>
+        <path d="M0 420 L0 350 Q170 270 330 222 Q470 182 600 232 L600 420 Z" fill="url(#g1)"/>
+        <g stroke="#3f5420" stroke-width="3" stroke-linecap="round" opacity=".8" id="rows"></g>
+        <text x="330" y="190" fill="#3b1227" font-family="Cormorant Garamond, serif" font-size="20" font-weight="700">400 m</text>
+        <text x="24" y="404" fill="#fff" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="600" letter-spacing="2">SUD →</text>
+      </svg>
+      <figcaption class="src">Schéma illustratif — le soleil suit le défilement de la page.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="histoire" id="domaine">
+  <div class="wrap grid">
+    <div>
+      <span class="kicker rv">Le domaine</span>
+      <h2 class="rv d1">Thierry Bonneton, vigneron</h2>
+      <p class="lead rv d2">Le domaine est né en 1988, avec un seul hectare de vigne. Il s'est agrandi au fil des années sur les sols granitiques de la Côte Roannaise, toujours avec le gamay au cœur du travail.</p>
+      <ol class="timeline rv d3" id="timeline">
+        <span class="bar" aria-hidden="true"></span>
+        <li><b>1988</b>Thierry Bonneton crée son domaine avec 1 hectare.</li>
+        <li><b>Aujourd'hui</b>Une dizaine d'hectares de vignes sur sols granitiques, en partie sur le coteau du Bouthéran.</li>
+        <li><b>Toute l'année</b>Accueil à la propriété sur simple appel : dégustation, vente et visites gratuites.</li>
+      </ol>
+    </div>
+    <div class="placeholder rv d2"><div><b>Photo du chai ou de la cave</b>à fournir par le domaine</div></div>
+  </div>
+</section>
+
+<section class="vins" id="vins">
+  <div class="wrap">
+    <span class="kicker rv">Les vins</span>
+    <h2 class="rv d1">Le gamay du coteau</h2>
+    <p class="lead rv d2">La gamme complète reste à présenter avec vous : chaque fiche ci-dessous se remplit en quelques lignes (millésime, cépage, accords, tarif).</p>
+    <div class="cards">
+      <article class="card rv">
+        <div class="robe" style="background:radial-gradient(circle at 35% 30%,#b0304f,#5a1f3c)"></div>
+        <h3>Bouthéran</h3>
+        <div class="app">Côte Roannaise · rouge · gamay</div>
+        <p>Robe rubis vif, arômes de petits fruits rouges et notes minérales marquées. Bouche longue et aromatique, tanins assez fermes mais équilibrés.</p>
+        <div class="pair"><span>Viandes grillées</span><span>Viandes blanches</span><span>Fromages</span></div>
+        <p class="src">Description d'après le Guide Hachette des vins (millésime 2004) — à mettre à jour.</p>
+      </article>
+      <article class="card rv d1">
+        <div class="robe" style="background:radial-gradient(circle at 35% 30%,#f3eab0,#cdb75e)"></div>
+        <h3>Vin blanc</h3>
+        <div class="app">Cuvée à préciser</div>
+        <p>Le verre gravé « Cave Thierry Bonneton » en photo le montre : un blanc fait partie de la cave. Nom, cépage et description à fournir par le domaine.</p>
+        <div class="pair"><span>À compléter</span></div>
+      </article>
+      <article class="card todo rv d2">
+        <div class="robe" style="background:var(--pierre-2)"></div>
+        <h3>Autres cuvées</h3>
+        <div class="app">À ajouter</div>
+        <p>Rosé, cuvées de vieilles vignes, millésimes en cours : chaque vin aura sa fiche, avec un bouton pour l'ajouter directement à la commande.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="commande" id="commande">
+  <div class="wrap">
+    <span class="kicker" style="color:#e2a891">Commander</span>
+    <h2>Préparez votre commande en ligne</h2>
+    <p class="lead">Choisissez vos vins et le nombre de bouteilles, retrait au domaine ou livraison à domicile : la demande part directement chez Thierry Bonneton, qui vous rappelle pour confirmer.</p>
+
+    <div class="tool">
+      <div class="panel">
+        <h3>1. Vos vins</h3>
+        <div id="lines"></div>
+        <h3 style="margin-top:1.4rem">2. Retrait ou livraison</h3>
+        <div class="seg" role="radiogroup" aria-label="Mode de remise">
+          <label><input type="radio" name="mode" value="Retrait à la propriété" checked><span>Retrait au domaine</span></label>
+          <label><input type="radio" name="mode" value="Livraison à domicile"><span>Livraison à domicile</span></label>
+        </div>
+        <h3>3. Vos coordonnées</h3>
+        <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+        <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="Pour vous rappeler"></div>
+        <div class="field" id="adrWrap" hidden><label for="adr">Adresse de livraison</label><input id="adr" autocomplete="street-address" placeholder="Rue, commune"></div>
+        <div class="field"><label for="msg">Un mot (facultatif)</label><textarea id="msg" rows="2" placeholder="Occasion, date souhaitée…"></textarea></div>
+      </div>
+
+      <aside class="recap" aria-live="polite">
+        <h3 style="font-family:var(--font-titre);font-size:1.45rem">Votre sélection</h3>
+        <div class="bottles" id="bottles" aria-hidden="true"></div>
+        <div id="recapList" style="font-size:.95rem;color:var(--gris)">Aucune bouteille pour l'instant.</div>
+        <div class="tot"><span>Bouteilles</span><span id="nb">0</span></div>
+        <div class="tot"><span>Soit</span><span id="ct">—</span></div>
+        <p class="note">Tarifs communiqués par le domaine à la confirmation. Paiement accepté : carte bancaire, chèque, espèces.</p>
+        <button class="btn btn-gamay" id="send">Envoyer ma demande</button>
+        <a class="btn btn-line" href="tel:+33677849205" style="width:100%;justify-content:center;margin-top:.5rem">Ou appeler le 06 77 84 92 05</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="visite" id="visite">
+  <div class="wrap grid">
+    <div>
+      <span class="kicker rv">Venir au domaine</span>
+      <h2 class="rv d1">Dégustation et visite, toute l'année</h2>
+      <p class="lead rv d2">Le domaine accueille tous les jours, toute l'année, sur simple appel. Les visites sont gratuites. Proposez un créneau ici : il est envoyé à Thierry Bonneton et vous pouvez l'ajouter à votre agenda.</p>
+    </div>
+    <div class="visit-card rv d2">
+      <h3 style="font-family:var(--font-titre);font-size:1.4rem;color:var(--gamay-deep)">Proposer un créneau</h3>
+      <div class="days" id="days" role="group" aria-label="Choix du jour"></div>
+      <div class="slots" id="slots" role="group" aria-label="Choix de l'horaire">
+        <button class="slot" type="button" aria-pressed="false" data-h="10:00">Matin · 10 h</button>
+        <button class="slot" type="button" aria-pressed="false" data-h="14:30">Début d'après-midi · 14 h 30</button>
+        <button class="slot" type="button" aria-pressed="false" data-h="17:00">Fin de journée · 17 h</button>
+      </div>
+      <p class="visit-out" id="visitOut">Choisissez un jour et un horaire.</p>
+      <div class="visit-actions">
+        <button class="btn btn-gamay" id="visitSend" type="button">Proposer ce créneau</button>
+        <button class="btn btn-line" id="visitIcs" type="button">Ajouter à mon agenda</button>
+      </div>
+      <p class="src">Le créneau reste à confirmer par téléphone avec le domaine.</p>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <span class="kicker rv">Contact</span>
+      <h2 class="rv d1">Domaine Bonneton</h2>
+      <ul class="coord">
+        <li class="rv"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div>140 route de la Prébande<br>42370 Saint-André-d'Apchon</div></li>
+        <li class="rv d1"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><div><a href="tel:+33477658540">04 77 65 85 40</a><br><a href="tel:+33677849205">06 77 84 92 05</a></div></li>
+        <li class="rv d2"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><div><a href="mailto:thierry.bonneton@orange.fr">thierry.bonneton@orange.fr</a></div></li>
+        <li class="rv d3"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><div>Toute l'année, tous les jours,<br>sur appel téléphonique</div></li>
+      </ul>
+      <p style="margin-top:1.4rem;color:var(--gris)">Vente à la propriété · Visites gratuites · Livraison à domicile<br>Carte bancaire, chèque, espèces</p>
+    </div>
+    <div class="map rv d2">
+      <iframe title="Plan d'accès au Domaine Bonneton" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.9071%2C46.0249%2C3.9471%2C46.0449&amp;layer=mapnik&amp;marker=46.034954%2C3.927075"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <span class="script">Cave Thierry Bonneton</span>
+        <p>Domaine Bonneton · vigneron en Côte Roannaise<br>140 route de la Prébande, 42370 Saint-André-d'Apchon</p>
+        <p class="evin">L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+      </div>
+      <div>
+        <p><a href="tel:+33477658540" style="text-decoration:none">04 77 65 85 40</a> · <a href="tel:+33677849205" style="text-decoration:none">06 77 84 92 05</a><br><a href="mailto:thierry.bonneton@orange.fr">thierry.bonneton@orange.fr</a></p>
+      </div>
+    </div>
+    <p class="demo-note">Maquette de démonstration réalisée à titre de proposition, non officielle et non contractuelle. Informations reprises des fiches publiques du domaine (Roannais Tourisme, Guide Hachette des vins). Photo du haut de page : photo réelle publiée par le domaine. Photo du chai et fiches des autres cuvées : à fournir. Le site d'origine n'étant plus accessible, les couleurs sont approchées à partir de la photo du domaine et s'ajustent en quelques lignes. Aucun tarif n'est affiché : ils seront ceux du domaine.</p>
+  </div>
+</footer>
+
+<div class="mobilebar" id="mobilebar">
+  <a class="btn btn-line" href="tel:+33477658540">Appeler</a>
+  <a class="btn btn-gamay" href="#commande">Commander</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const EMAIL = "thierry.bonneton@orange.fr";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = s => document.querySelector(s);
+
+  /* header + barre mobile */
+  const header = $("header"), mb = $("#mobilebar");
+  addEventListener("scroll", () => {
+    header.classList.toggle("scrolled", scrollY > 10);
+    mb.classList.toggle("show", scrollY > innerHeight * .6);
+  }, {passive:true});
+
+  /* menu mobile */
+  const burger = $("#burger"), menu = $("#menu");
+  burger.addEventListener("click", () => {
+    const o = menu.classList.toggle("open");
+    burger.setAttribute("aria-expanded", o);
+  });
+  menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", false); }));
+
+  /* lien actif */
+  const secs = [...document.querySelectorAll("main section[id]")];
+  const links = [...menu.querySelectorAll("a")];
+  const so = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + e.target.id));
+  }), {rootMargin:"-45% 0px -50% 0px"});
+  secs.forEach(s => so.observe(s));
+
+  /* reveals */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+  }), {threshold:.15});
+  document.querySelectorAll(".rv, .timeline").forEach(el => io.observe(el));
+
+  /* compteurs */
+  const co = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, end = +el.dataset.count;
+    co.unobserve(el);
+    if (reduce) return;
+    const start = end === 1988 ? 1900 : 0, t0 = performance.now(), d = 1400;
+    (function tick(t){
+      const p = Math.min(1, (t - t0) / d), v = Math.round(start + (end - start) * (1 - Math.pow(1 - p, 3)));
+      el.textContent = v; if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }), {threshold:.6});
+  document.querySelectorAll("[data-count]").forEach(el => co.observe(el));
+
+  /* coteau : rangs de vigne + soleil lié au scroll */
+  const rows = $("#rows");
+  for (let i = 0; i < 16; i++){
+    const x = 40 + i * 36, y = 345 - i * 9 + Math.sin(i / 2) * 4;
+    const l = document.createElementNS("http://www.w3.org/2000/svg","line");
+    l.setAttribute("x1", x); l.setAttribute("y1", y + 60);
+    l.setAttribute("x2", x + 14); l.setAttribute("y2", y + 6);
+    rows.appendChild(l);
+  }
+  const arc = $("#arc"), sun = $("#sun"), hill = $("#hill"), L = arc.getTotalLength();
+  function placeSun(){
+    const r = hill.getBoundingClientRect();
+    let p = 1 - (r.top + r.height / 2) / (innerHeight + r.height / 2);
+    p = Math.max(.05, Math.min(.95, p));
+    const pt = arc.getPointAtLength(L * p);
+    sun.setAttribute("transform", `translate(${pt.x} ${pt.y})`);
+  }
+  placeSun();
+  if (!reduce) addEventListener("scroll", () => requestAnimationFrame(placeSun), {passive:true});
+
+  /* outil commande */
+  const vins = [
+    {id:"bouth", nom:"Bouthéran", sous:"Côte Roannaise rouge · gamay", c:"#7a1f3d"},
+    {id:"blanc", nom:"Vin blanc", sous:"Cuvée à préciser", c:"#d6c36c"}
+  ];
+  const q = {}; vins.forEach(v => q[v.id] = 0);
+  const lines = $("#lines");
+  vins.forEach(v => {
+    const d = document.createElement("div"); d.className = "line";
+    d.innerHTML = `<div class="nm"><b>${v.nom}</b><small>${v.sous}</small></div>
+      <div class="step"><button type="button" aria-label="Retirer une bouteille de ${v.nom}" data-a="-1">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter une bouteille de ${v.nom}" data-a="1">+</button>
+      <button type="button" aria-label="Ajouter un carton de 6 de ${v.nom}" data-a="6" style="width:auto;padding:0 .8rem;border-radius:999px;font-size:.85rem">+6</button></div>`;
+    d.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+      q[v.id] = Math.max(0, Math.min(120, q[v.id] + +b.dataset.a));
+      d.querySelector("output").textContent = q[v.id];
+      render();
+    }));
+    lines.appendChild(d);
+  });
+  function render(){
+    const tot = Object.values(q).reduce((a, b) => a + b, 0);
+    $("#nb").textContent = tot;
+    const cartons = Math.floor(tot / 6), rest = tot % 6;
+    $("#ct").textContent = tot ? (cartons ? cartons + " carton" + (cartons > 1 ? "s" : "") + " de 6" : "") + (cartons && rest ? " + " : "") + (rest ? rest + " bouteille" + (rest > 1 ? "s" : "") : "") : "—";
+    const b = $("#bottles"); b.innerHTML = "";
+    vins.forEach(v => { for (let i = 0; i < Math.min(q[v.id], 36); i++){ const s = document.createElement("span"); s.className = "bt"; s.style.background = v.c; b.appendChild(s); } });
+    $("#recapList").innerHTML = tot ? vins.filter(v => q[v.id]).map(v => `${q[v.id]} × ${v.nom}`).join("<br>") : "Aucune bouteille pour l'instant.";
+  }
+  document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener("change", () => {
+    $("#adrWrap").hidden = !document.querySelector('input[name="mode"][value="Livraison à domicile"]').checked;
+  }));
+  function toast(t){ const el = $("#toast"); el.textContent = t; el.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove("show"), 3800); }
+  $("#send").addEventListener("click", () => {
+    const tot = Object.values(q).reduce((a, b) => a + b, 0);
+    if (!tot){ toast("Ajoutez au moins une bouteille."); return; }
+    if (!$("#nom").value.trim() || !$("#tel").value.trim()){ toast("Indiquez votre nom et votre téléphone pour être rappelé."); return; }
+    const mode = document.querySelector('input[name="mode"]:checked').value;
+    const body = ["Bonjour,", "", "Je souhaite commander :", ...vins.filter(v => q[v.id]).map(v => `- ${q[v.id]} × ${v.nom}`), "", "Mode : " + mode,
+      mode === "Livraison à domicile" ? "Adresse : " + $("#adr").value : "", "", "Nom : " + $("#nom").value, "Téléphone : " + $("#tel").value,
+      $("#msg").value ? "\n" + $("#msg").value : "", "", "Merci de me rappeler pour confirmer."].filter(x => x !== null).join("\n");
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Commande de vin – " + $("#nom").value)}&body=${encodeURIComponent(body)}`;
+    toast("Votre messagerie s'ouvre avec la commande prête à envoyer.");
+  });
+  render();
+
+  /* visite : jours + créneaux + .ics */
+  const days = $("#days"), jours = ["dim","lun","mar","mer","jeu","ven","sam"];
+  let selDay = null, selH = null;
+  for (let i = 1; i <= 7; i++){
+    const d = new Date(); d.setDate(d.getDate() + i);
+    const b = document.createElement("button"); b.type = "button"; b.className = "day"; b.setAttribute("aria-pressed","false");
+    b.innerHTML = `<small>${jours[d.getDay()]}</small><b>${d.getDate()}</b>`;
+    b.addEventListener("click", () => { days.querySelectorAll(".day").forEach(x => x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); selDay = d; out(); });
+    days.appendChild(b);
+  }
+  document.querySelectorAll(".slot").forEach(s => s.addEventListener("click", () => {
+    document.querySelectorAll(".slot").forEach(x => x.setAttribute("aria-pressed","false")); s.setAttribute("aria-pressed","true"); selH = s.dataset.h; out();
+  }));
+  function label(){ return selDay.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}) + " à " + selH.replace(":"," h "); }
+  function out(){ $("#visitOut").textContent = selDay && selH ? "Créneau proposé : " + label() + "." : "Choisissez un jour et un horaire."; }
+  function ready(){ if (!(selDay && selH)){ toast("Choisissez d'abord un jour et un horaire."); return false; } return true; }
+  $("#visitSend").addEventListener("click", () => {
+    if (!ready()) return;
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent("Demande de visite – dégustation")}&body=${encodeURIComponent("Bonjour,\n\nJe souhaiterais venir au domaine le " + label() + " pour une dégustation.\n\nNom :\nTéléphone :\n\nMerci de me confirmer.")}`;
+  });
+  $("#visitIcs").addEventListener("click", () => {
+    if (!ready()) return;
+    const [h, m] = selH.split(":").map(Number), s = new Date(selDay); s.setHours(h, m, 0, 0);
+    const e = new Date(s.getTime() + 60 * 60000);
+    const f = d => d.getFullYear() + String(d.getMonth() + 1).padStart(2,"0") + String(d.getDate()).padStart(2,"0") + "T" + String(d.getHours()).padStart(2,"0") + String(d.getMinutes()).padStart(2,"0") + "00";
+    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Domaine Bonneton//Maquette//FR","BEGIN:VEVENT","UID:" + Date.now() + "@domaine-bonneton","DTSTAMP:" + f(new Date()),
+      "DTSTART:" + f(s),"DTEND:" + f(e),"SUMMARY:Dégustation au Domaine Bonneton (à confirmer)","LOCATION:140 route de la Prébande\\, 42370 Saint-André-d'Apchon",
+      "DESCRIPTION:Créneau à confirmer par téléphone au 04 77 65 85 40.","END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([ics], {type:"text/calendar"})); a.download = "visite-domaine-bonneton.ics"; a.click();
+    toast("Rendez-vous ajouté à télécharger dans votre agenda.");
+  });
+})();
+</script>
+</body>
+</html>
