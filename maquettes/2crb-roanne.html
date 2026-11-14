@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2CRB — Climatisation, pompe à chaleur et chauffage à Roanne et dans le Roannais</title>
+<meta name="description" content="2CRB, chauffagiste et climaticien à Roanne : climatisation réversible, pompes à chaleur, chauffage et froid dans le Roannais. Préparez votre demande de visite en ligne.">
+<!--
+  2CRB — maquette de démonstration réalisée par Thibault Quentin.
+  L'entreprise n'a pas de site internet : aucune charte graphique ni logo n'ont pu être récupérés.
+  Les couleurs ci-dessous sont une PROPOSITION (bleu « froid » / orange « chaud », pour un métier
+  qui fait les deux) et se changent en quelques lignes dans :root le jour où le vrai logo est fourni.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- Couleurs (proposition, à remplacer par la charte réelle) ---- */
+  --ink:#0f1b2d;          /* texte principal, bleu nuit */
+  --ink-2:#44536a;        /* texte secondaire */
+  --paper:#f3f6f9;        /* fond général, gris très clair froid */
+  --card:#ffffff;
+  --line:#d9e1ea;
+  --cold:#2b8fd6;         /* accent froid */
+  --cold-soft:#e3f1fb;
+  --warm:#ef6b2a;         /* accent chaud */
+  --warm-soft:#fdeee5;
+  /* --accent bascule entre --cold et --warm selon le curseur du haut de page */
+  --accent:var(--warm);
+  /* ---- Typographies ---- */
+  --f-sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,monospace;
+  --r:14px;
+  --shadow:0 1px 2px rgba(15,27,45,.06),0 8px 24px rgba(15,27,45,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+.demo{background:var(--ink);color:#cfd8e3;font-size:13px;text-align:center;padding:7px 16px}
+.demo b{color:#fff}
+
+/* ---------- En-tête ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(243,246,249,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:22px;letter-spacing:-.02em}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--cold) 0 50%,var(--warm) 50% 100%);display:grid;place-items:center;color:#fff;font-size:13px;font-family:var(--f-mono)}
+.menu{display:flex;gap:26px;font-weight:500;font-size:15px}
+.menu a{text-decoration:none;color:var(--ink-2);position:relative}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.menu a:hover{color:var(--ink)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:transform .15s,box-shadow .2s,background .3s}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--accent);color:#fff;box-shadow:0 6px 18px color-mix(in oklab,var(--accent) 35%,transparent)}
+.btn-main:hover{transform:translateY(-2px)}
+.btn-ghost{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink-2)}
+@media (max-width:860px){.menu{display:none}.nav .btn-ghost{display:none}}
+
+/* ---------- Hero ---------- */
+.hero{padding:56px 0 72px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:640px;height:640px;border-radius:50%;background:radial-gradient(circle,color-mix(in oklab,var(--accent) 22%,transparent),transparent 65%);transition:background .4s;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative}
+.eyebrow{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.eyebrow i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:8px;vertical-align:1px;animation:pulse 2.4s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px color-mix(in oklab,var(--accent) 18%,transparent)}}
+h1{font-size:clamp(2.3rem,1.4rem + 3.6vw,4.1rem);line-height:1.03;letter-spacing:-.035em;margin:14px 0 18px;font-weight:800}
+h1 .swap{color:var(--accent);transition:color .3s;display:inline-block}
+.lead{font-size:clamp(1.05rem,1rem + .3vw,1.2rem);color:var(--ink-2);max-width:34em;margin:0 0 28px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:14px;color:var(--ink-2)}
+.meta-row span::before{content:"—";margin-right:8px;color:var(--accent)}
+
+/* Thermostat (élément signature) */
+.thermo{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:var(--shadow)}
+.dial{position:relative;width:min(300px,100%);aspect-ratio:1;margin:0 auto}
+.dial svg{width:100%;height:100%;transform:rotate(135deg)}
+.dial .track{fill:none;stroke:var(--line);stroke-width:14;stroke-linecap:round}
+.dial .arc{fill:none;stroke:var(--accent);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .25s,stroke .3s}
+.dial-read{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.dial-read .t{font-family:var(--f-mono);font-weight:700;font-size:clamp(2.6rem,2rem + 2vw,3.4rem);letter-spacing:-.04em;line-height:1}
+.dial-read .l{font-size:13px;color:var(--ink-2);margin-top:6px}
+.dial-read .m{margin-top:10px;font-weight:700;color:var(--accent);font-size:15px}
+.thermo label{display:block;font-size:13px;color:var(--ink-2);margin:18px 0 8px;text-align:center}
+input[type=range]{width:100%;accent-color:var(--accent);height:28px}
+.thermo .hint{font-size:13px;color:var(--ink-2);text-align:center;margin:10px 0 0}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero{padding-top:36px}}
+
+/* ---------- Sections ---------- */
+section{padding:80px 0}
+.s-head{max-width:640px;margin-bottom:40px}
+.s-head h2{font-size:clamp(1.8rem,1.3rem + 2vw,2.7rem);letter-spacing:-.03em;line-height:1.08;margin:10px 0 12px}
+.s-head p{color:var(--ink-2);margin:0}
+
+.trades{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.trade{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:24px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.trade:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.trade .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;margin-bottom:18px}
+.trade.c .ic{background:var(--cold-soft);color:var(--cold)}
+.trade.w .ic{background:var(--warm-soft);color:var(--warm)}
+.trade.b .ic{background:linear-gradient(135deg,var(--cold-soft) 50%,var(--warm-soft) 50%);color:var(--ink)}
+.trade h3{margin:0 0 8px;font-size:19px;letter-spacing:-.01em}
+.trade p{margin:0;color:var(--ink-2);font-size:15px}
+.trade .tag{position:absolute;top:18px;right:18px;font-family:var(--f-mono);font-size:11px;color:var(--ink-2)}
+@media (max-width:980px){.trades{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.trades{grid-template-columns:1fr}}
+
+/* ---------- Outil ---------- */
+#outil{background:var(--ink);color:#e8eef5}
+#outil .s-head p{color:#a9b7c8}
+#outil .eyebrow{color:#a9b7c8}
+.tool{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
+.panel{background:#16263c;border:1px solid #263a55;border-radius:18px;padding:26px}
+.step{margin-bottom:26px}
+.step:last-child{margin-bottom:0}
+.step h4{margin:0 0 12px;font-size:14px;font-family:var(--f-mono);font-weight:500;color:#a9b7c8;letter-spacing:.04em}
+.step h4 b{color:#fff;margin-right:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid #2f4664;background:transparent;color:#e8eef5;border-radius:999px;padding:10px 16px;font:500 15px var(--f-sans);cursor:pointer;min-height:44px;transition:background .2s,border-color .2s,transform .15s}
+.chip:hover{border-color:#6f86a3}
+.chip:active{transform:scale(.97)}
+.chip[aria-pressed=true]{background:#e8eef5;color:var(--ink);border-color:#e8eef5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field label{display:flex;justify-content:space-between;font-size:14px;color:#a9b7c8;margin-bottom:4px}
+.field output{font-family:var(--f-mono);color:#fff}
+.result{display:flex;flex-direction:column;gap:16px}
+.reco{background:#fff;color:var(--ink);border-radius:18px;padding:26px;position:relative;overflow:hidden}
+.reco::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--cold),var(--warm))}
+.reco .k{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.reco h3{font-size:clamp(1.4rem,1.1rem + 1vw,1.9rem);letter-spacing:-.02em;margin:8px 0 10px;line-height:1.12}
+.reco p{margin:0 0 10px;color:var(--ink-2);font-size:15px}
+.reco ul{margin:6px 0 0;padding-left:18px;color:var(--ink-2);font-size:15px}
+.reco li{margin-bottom:4px}
+.reco.flash{animation:flash .45s ease}
+@keyframes flash{from{transform:translateY(6px);opacity:.4}to{transform:none;opacity:1}}
+.note{font-size:13px;color:#a9b7c8;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn-light{background:#e8eef5;color:var(--ink)}
+.btn-line{background:transparent;color:#e8eef5;border:1px solid #2f4664}
+.btn-line:hover{border-color:#6f86a3}
+.ics{display:none;background:#16263c;border:1px solid #263a55;border-radius:14px;padding:16px 18px;font-size:14px;color:#cfd8e3}
+.ics.show{display:block}
+.ics b{color:#fff}
+@media (max-width:900px){.tool{grid-template-columns:1fr}.row2{grid-template-columns:1fr}}
+
+/* ---------- Entretien ---------- */
+.band{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px 34px}
+.band .big{font-family:var(--f-mono);font-weight:700;font-size:clamp(2.4rem,2rem + 2vw,3.6rem);color:var(--warm);letter-spacing:-.05em;line-height:1}
+.band .big small{font-size:.38em;color:var(--ink-2);letter-spacing:0;display:block;margin-top:6px;font-weight:500}
+.band h3{margin:0 0 6px;font-size:20px}
+.band p{margin:0;color:var(--ink-2);font-size:15px}
+@media (max-width:760px){.band{grid-template-columns:1fr;padding:24px}}
+
+/* ---------- Déroulé ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
+.st{padding:24px;border-top:2px solid var(--ink);counter-increment:s}
+.st::before{content:"0" counter(s);font-family:var(--f-mono);font-size:13px;color:var(--ink-2)}
+.st h3{margin:10px 0 6px;font-size:19px}
+.st p{margin:0;color:var(--ink-2);font-size:15px}
+@media (max-width:760px){.steps{grid-template-columns:1fr}}
+
+/* ---------- Réalisations (à fournir) ---------- */
+.gal{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+.ph{aspect-ratio:4/3;border-radius:var(--r);border:1.5px dashed #b8c6d6;background:repeating-linear-gradient(135deg,#eef3f8 0 12px,#e8eef5 12px 24px);display:grid;place-content:center;text-align:center;color:var(--ink-2);font-size:14px;padding:16px}
+.ph b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
+.gal .ph:first-child{grid-row:span 2;aspect-ratio:auto}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr}.gal .ph:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:16/9}}
+
+/* ---------- Contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px}
+.ccard h3{margin:0 0 18px;font-size:22px;letter-spacing:-.02em}
+.line{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.line:first-of-type{border-top:0}
+.line .k{width:92px;flex:none;font-family:var(--f-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);padding-top:3px}
+.line a{font-weight:600;text-decoration:none}
+.line a:hover{color:var(--accent)}
+.map{border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:320px;background:#e8eef5}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+
+footer{padding:40px 0 60px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;margin-bottom:22px}
+.disclaimer{font-size:13px;line-height:1.6;max-width:900px;margin:0}
+
+/* Barre d'appel mobile */
+.callbar{position:fixed;left:16px;right:16px;bottom:14px;z-index:60;display:none;gap:10px}
+.callbar a{flex:1;justify-content:center}
+@media (max-width:640px){.callbar{display:flex}footer{padding-bottom:100px}}
+
+/* Apparitions au défilement */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HVACBusiness",
+  "name":"2CRB",
+  "legalName":"SARL 2CRB",
+  "description":"Climatisation, pompes à chaleur, chauffage et froid à Roanne et dans le Roannais.",
+  "telephone":"+33629144799",
+  "email":"rboucaud42@gmail.com",
+  "foundingDate":"2020-03-09",
+  "address":{"@type":"PostalAddress","streetAddress":"29 rue Jean Jaurès","postalCode":"42300","addressLocality":"Roanne","addressRegion":"Auvergne-Rhône-Alpes","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.0342,"longitude":4.0754},
+  "areaServed":[{"@type":"City","name":"Roanne"},{"@type":"AdministrativeArea","name":"Roannais"}],
+  "identifier":"SIREN 882332646"
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition réalisée par Thibault Quentin, non commandée par l'entreprise.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="2CRB, accueil"><span class="logo-mark">2C</span>2CRB</a>
+    <nav class="menu" aria-label="Navigation principale">
+      <a href="#metiers">Nos métiers</a>
+      <a href="#outil">Votre projet</a>
+      <a href="#entretien">Entretien</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="display:flex;gap:10px">
+      <a class="btn btn-ghost" href="mailto:rboucaud42@gmail.com">Écrire</a>
+      <a class="btn btn-main" href="tel:+33629144799">06 29 14 47 99</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow rv"><i></i>Chauffagiste &amp; climaticien · Roanne</div>
+      <h1 class="rv d1">Au chaud l'hiver,<br>au frais l'été. <span class="swap" id="swap">Toute l'année.</span></h1>
+      <p class="lead rv d2">2CRB installe et entretient climatisations, pompes à chaleur et équipements de chauffage à Roanne et dans le Roannais. Décrivez votre logement en quelques clics, on vous rappelle avec une piste concrète.</p>
+      <div class="cta-row rv d3">
+        <a class="btn btn-main" href="#outil">Préparer ma demande</a>
+        <a class="btn btn-ghost" href="tel:+33629144799">Appeler le 06 29 14 47 99</a>
+      </div>
+      <div class="meta-row rv d3">
+        <span>Climatisation</span><span>Pompe à chaleur</span><span>Chauffage</span><span>Froid</span>
+      </div>
+    </div>
+
+    <div class="thermo rv d2" aria-label="Curseur de température extérieure">
+      <div class="dial">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="track" cx="100" cy="100" r="80" stroke-dasharray="377 503"/>
+          <circle class="arc" id="arc" cx="100" cy="100" r="80" stroke-dasharray="377 503" stroke-dashoffset="188"/>
+        </svg>
+        <div class="dial-read">
+          <div class="t"><span id="tval">8</span>°</div>
+          <div class="l">dehors, à Roanne</div>
+          <div class="m" id="tmode">Mi-saison</div>
+        </div>
+      </div>
+      <label for="temp">Faites varier la température extérieure</label>
+      <input type="range" id="temp" min="-6" max="38" value="8" step="1">
+      <p class="hint" id="thint">Une PAC réversible chauffe et rafraîchit avec le même équipement.</p>
+    </div>
+  </div>
+</section>
+
+<section id="metiers">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="eyebrow">Nos métiers</div>
+      <h2>Le chaud et le froid, chez vous, à Roanne et alentour</h2>
+      <p>Installation, mise en service, entretien et dépannage : un seul interlocuteur pour les équipements thermiques de la maison.</p>
+    </div>
+    <div class="trades">
+      <article class="trade c rv">
+        <span class="tag">01</span>
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M4.9 6l14.2 12M19.1 6 4.9 18M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5"/></svg></div>
+        <h3>Climatisation</h3>
+        <p>Climatisation réversible pour une ou plusieurs pièces, de la pose à la mise en service.</p>
+      </article>
+      <article class="trade b rv d1">
+        <span class="tag">02</span>
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="10" cy="12" r="4"/><path d="M10 8v8M6 12h8M17 9h1M17 12h1M17 15h1"/></svg></div>
+        <h3>Pompes à chaleur</h3>
+        <p>Air/air ou air/eau, en remplacement d'un chauffage existant ou en construction.</p>
+      </article>
+      <article class="trade w rv d2">
+        <span class="tag">03</span>
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22c4 0 7-3 7-7 0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-4-2 2-5 5-5 8 0 4 3 7 7 7z"/></svg></div>
+        <h3>Chauffage</h3>
+        <p>Installation, entretien et dépannage des équipements de chauffage.</p>
+      </article>
+      <article class="trade c rv d3">
+        <span class="tag">04</span>
+        <div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0z"/></svg></div>
+        <h3>Froid &amp; plomberie</h3>
+        <p>Frigoriste et plombier : circuits, raccordements et interventions liées à vos équipements.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="outil">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="eyebrow">Votre projet en 1 minute</div>
+      <h2 style="color:#fff">Quel équipement pour votre logement ?</h2>
+      <p>Trois questions, une première orientation, et votre demande part toute prête par mail. Le choix définitif se fait toujours après une visite sur place.</p>
+    </div>
+    <div class="tool">
+      <div class="panel rv">
+        <div class="step">
+          <h4><b>1</b>Ce que vous voulez</h4>
+          <div class="chips" data-group="besoin">
+            <button class="chip" aria-pressed="true" data-v="frais">Rafraîchir l'été</button>
+            <button class="chip" aria-pressed="false" data-v="chaud">Chauffer l'hiver</button>
+            <button class="chip" aria-pressed="false" data-v="deux">Les deux</button>
+            <button class="chip" aria-pressed="false" data-v="entretien">Entretien</button>
+            <button class="chip" aria-pressed="false" data-v="panne">Dépannage</button>
+          </div>
+        </div>
+        <div class="step">
+          <h4><b>2</b>Votre logement</h4>
+          <div class="chips" data-group="logement" style="margin-bottom:16px">
+            <button class="chip" aria-pressed="true" data-v="maison">Maison</button>
+            <button class="chip" aria-pressed="false" data-v="appartement">Appartement</button>
+            <button class="chip" aria-pressed="false" data-v="local">Local pro</button>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="surf">Surface <output id="surfo">90 m²</output></label><input type="range" id="surf" min="15" max="250" step="5" value="90"></div>
+            <div class="field"><label for="pieces">Pièces à traiter <output id="pieceso">2</output></label><input type="range" id="pieces" min="1" max="6" step="1" value="2"></div>
+          </div>
+        </div>
+        <div class="step">
+          <h4><b>3</b>Votre chauffage actuel</h4>
+          <div class="chips" data-group="actuel">
+            <button class="chip" aria-pressed="false" data-v="fioul">Chaudière fioul</button>
+            <button class="chip" aria-pressed="false" data-v="gaz">Chaudière gaz</button>
+            <button class="chip" aria-pressed="true" data-v="elec">Radiateurs électriques</button>
+            <button class="chip" aria-pressed="false" data-v="bois">Bois / poêle</button>
+            <button class="chip" aria-pressed="false" data-v="pac">Déjà une PAC</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="reco rv d1" id="reco" aria-live="polite">
+          <div class="k" id="rk">Piste à étudier</div>
+          <h3 id="rt">—</h3>
+          <p id="rp"></p>
+          <ul id="rl"></ul>
+        </div>
+        <div class="actions rv d2">
+          <a class="btn btn-light" id="sendmail" href="mailto:rboucaud42@gmail.com">Envoyer ma demande par mail</a>
+          <a class="btn btn-line" href="tel:+33629144799">Appeler</a>
+          <button class="btn btn-line" id="icsbtn" type="button">Rappel d'entretien (.ics)</button>
+        </div>
+        <div class="ics" id="icsbox"><b>Rappel ajouté à votre agenda.</b> Un événement « Entretien de la pompe à chaleur » a été téléchargé, daté de deux ans après aujourd'hui, avec le numéro de 2CRB dans la description.</div>
+        <p class="note">Orientation indicative : la puissance, le type d'unité et l'emplacement se décident sur place, après visite. Aucun tarif n'est calculé ici.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="entretien">
+  <div class="wrap">
+    <div class="band rv">
+      <div class="big">2 ans<small>entretien maximum</small></div>
+      <div>
+        <h3>Votre pompe à chaleur doit être entretenue au moins tous les deux ans</h3>
+        <p>Depuis le décret n° 2020-912 du 28 juillet 2020, les pompes à chaleur de 4 à 70 kW font l'objet d'un entretien obligatoire, au plus tous les deux ans, par un professionnel. Un appareil entretenu consomme moins et dure plus longtemps.</p>
+      </div>
+      <a class="btn btn-main" href="mailto:rboucaud42@gmail.com?subject=Entretien%20pompe%20%C3%A0%20chaleur">Planifier un entretien</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="eyebrow">Comment ça se passe</div>
+      <h2>De la première question à la mise en service</h2>
+    </div>
+    <div class="steps">
+      <div class="st rv"><h3>Vous décrivez votre besoin</h3><p>Par téléphone ou avec l'outil ci-dessus : logement, pièces, chauffage en place.</p></div>
+      <div class="st rv d1"><h3>Visite et devis</h3><p>Passage sur place pour dimensionner l'équipement et choisir l'emplacement des unités.</p></div>
+      <div class="st rv d2"><h3>Pose et mise en service</h3><p>Installation, réglages, explications d'usage, puis entretien quand il le faut.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="eyebrow">Réalisations</div>
+      <h2>Nos chantiers dans le Roannais</h2>
+      <p>Emplacements réservés aux photos de chantiers de 2CRB.</p>
+    </div>
+    <div class="gal rv">
+      <div class="ph"><span><b>Photo à fournir par le client</b>Unité extérieure posée, vue d'ensemble</span></div>
+      <div class="ph"><span><b>Photo à fournir</b>Split intérieur</span></div>
+      <div class="ph"><span><b>Photo à fournir</b>PAC air/eau</span></div>
+      <div class="ph"><span><b>Photo à fournir</b>Chaufferie</span></div>
+      <div class="ph"><span><b>Photo à fournir</b>Intervention</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="s-head rv">
+      <div class="eyebrow">Contact</div>
+      <h2>Parlons de votre projet</h2>
+    </div>
+    <div class="contact">
+      <div class="ccard rv">
+        <h3>2CRB</h3>
+        <div class="line"><span class="k">Téléphone</span><a href="tel:+33629144799">06 29 14 47 99</a></div>
+        <div class="line"><span class="k">Mail</span><a href="mailto:rboucaud42@gmail.com">rboucaud42@gmail.com</a></div>
+        <div class="line"><span class="k">Adresse</span><span>29 rue Jean Jaurès<br>42300 Roanne</span></div>
+        <div class="line"><span class="k">Horaires</span><span>Sur rendez-vous — horaires à confirmer</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px">
+          <a class="btn btn-main" href="tel:+33629144799">Appeler</a>
+          <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&query=29+rue+Jean+Jaur%C3%A8s+42300+Roanne" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <div class="map rv d1">
+        <iframe title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0664%2C46.0292%2C4.0844%2C46.0392&amp;layer=mapnik&amp;marker=46.0342%2C4.0754"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <span><b>2CRB</b> — SARL · 29 rue Jean Jaurès, 42300 Roanne · SIREN 882 332 646</span>
+      <span>Climatisation · Pompe à chaleur · Chauffage · Froid</span>
+    </div>
+    <p class="disclaimer"><b>Maquette de démonstration.</b> Cette page a été réalisée par Thibault Quentin à titre de proposition, sans commande de l'entreprise. Les informations (raison sociale, adresse, téléphone, mail, métiers) proviennent de fiches publiques (registre des entreprises, annuaires professionnels) et sont à confirmer par l'entreprise ; les horaires ne sont pas connus. L'entreprise n'ayant pas de site, les couleurs et le logo sont une proposition provisoire, ajustable en quelques lignes. Aucune photo réelle n'était disponible : tous les emplacements photos sont à fournir. L'outil donne une orientation générale, pas un dimensionnement ; aucun tarif n'est affiché. La périodicité d'entretien indiquée reprend le décret n° 2020-912 (pompes à chaleur de 4 à 70 kW).</p>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a class="btn btn-main" href="tel:+33629144799">Appeler</a>
+  <a class="btn btn-ghost" href="#outil">Mon projet</a>
+</div>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  /* En-tête */
+  const hd=document.querySelector('header');
+  addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+  /* Apparitions */
+  const els=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+    els.forEach(e=>io.observe(e));
+  }else els.forEach(e=>e.classList.add('in'));
+
+  /* Thermostat */
+  const t=document.getElementById('temp'),tv=document.getElementById('tval'),tm=document.getElementById('tmode'),th=document.getElementById('thint'),arc=document.getElementById('arc'),sw=document.getElementById('swap');
+  const L=377;
+  function thermo(){
+    const v=+t.value, p=(v-(+t.min))/((+t.max)-(+t.min));
+    tv.textContent=v;
+    arc.style.strokeDashoffset=L*(1-p);
+    /* froid dehors -> on chauffe (orange) ; chaud dehors -> on rafraîchit (bleu) */
+    root.style.setProperty('--accent',v>=20?'var(--cold)':'var(--warm)');
+    if(v>=26){tm.textContent='Mode froid';th.textContent='Il fait chaud dehors : la climatisation rafraîchit les pièces de vie.';sw.textContent='Même en juillet.'}
+    else if(v<=10){tm.textContent='Mode chauffage';th.textContent='Il fait froid dehors : la pompe à chaleur prend le relais pour chauffer.';sw.textContent='Même en janvier.'}
+    else{tm.textContent=v>=20?'Mi-saison, côté frais':'Mi-saison, côté chaud';th.textContent='Une PAC réversible chauffe et rafraîchit avec le même équipement.';sw.textContent='Toute l’année.'}
+  }
+  t.addEventListener('input',thermo);thermo();
+  /* petit mouvement automatique au chargement, arrêté dès que l'on touche */
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    let k=0,stop=false;const seq=[12,18,24,30,34,28,20,12,6,8];
+    t.addEventListener('pointerdown',()=>stop=true,{once:true});
+    t.addEventListener('keydown',()=>stop=true,{once:true});
+    const iv=setInterval(()=>{if(stop||k>=seq.length){clearInterval(iv);return}t.value=seq[k++];thermo()},650);
+  }
+
+  /* Outil */
+  const st={besoin:'frais',logement:'maison',actuel:'elec'};
+  const lbl={frais:'Rafraîchir l’été',chaud:'Chauffer l’hiver',deux:'Chauffer et rafraîchir',entretien:'Entretien',panne:'Dépannage',
+    maison:'Maison',appartement:'Appartement',local:'Local professionnel',
+    fioul:'Chaudière fioul',gaz:'Chaudière gaz',elec:'Radiateurs électriques',bois:'Bois / poêle',pac:'Pompe à chaleur existante'};
+  document.querySelectorAll('.chips').forEach(g=>{
+    g.addEventListener('click',e=>{
+      const b=e.target.closest('.chip');if(!b)return;
+      g.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));
+      st[g.dataset.group]=b.dataset.v;reco();
+    });
+  });
+  const surf=document.getElementById('surf'),pc=document.getElementById('pieces');
+  [surf,pc].forEach(i=>i.addEventListener('input',reco));
+
+  const R=document.getElementById('reco'),rk=document.getElementById('rk'),rt=document.getElementById('rt'),rp=document.getElementById('rp'),rl=document.getElementById('rl'),sm=document.getElementById('sendmail');
+  let last='';
+  function reco(){
+    const s=+surf.value,n=+pc.value;
+    document.getElementById('surfo').textContent=s+' m²';
+    document.getElementById('pieceso').textContent=n;
+    let k='Piste à étudier',title,p,li=[];
+    const hydro=(st.actuel==='fioul'||st.actuel==='gaz');
+    if(st.besoin==='entretien'){
+      k='Entretien';title= st.actuel==='pac'?'Entretien de votre pompe à chaleur':'Entretien de vos équipements';
+      p='Contrôle, nettoyage et vérification du fonctionnement, au rythme prévu par la réglementation et le fabricant.';
+      li=['PAC de 4 à 70 kW : entretien au plus tous les deux ans','Pensez au rappel .ics pour ne pas oublier la prochaine échéance'];
+    }else if(st.besoin==='panne'){
+      k='Dépannage';title='Décrivez la panne, on vous rappelle';
+      p='Indiquez dans le mail la marque de l’appareil, le message d’erreur éventuel et depuis quand le problème est apparu.';
+      li=['Une photo de la plaque signalétique aide beaucoup','Le téléphone reste le plus rapide en cas d’urgence'];
+    }else if((st.besoin==='chaud'||st.besoin==='deux')&&hydro){
+      title='Pompe à chaleur air/eau';
+      p='Votre maison a déjà des radiateurs ou un plancher alimentés en eau chaude : une PAC air/eau peut remplacer la chaudière en réutilisant ce réseau.';
+      li=['Réutilisation possible des émetteurs existants, à vérifier sur place','Production d’eau chaude sanitaire envisageable selon le modèle', st.besoin==='deux'?'Le rafraîchissement dépend des émetteurs : on en parle à la visite':'Dimensionnement selon l’isolation et la surface ('+s+' m²)'];
+    }else if(st.besoin==='frais'&&n===1){
+      title='Climatisation réversible mono-split';
+      p='Une unité intérieure dans la pièce à traiter, reliée à une unité extérieure. Elle rafraîchit l’été et peut aussi chauffer à la mi-saison.';
+      li=['Idéal pour une chambre, un bureau ou un séjour','Emplacement des unités choisi ensemble lors de la visite',st.logement==='appartement'?'En copropriété, l’accord pour l’unité extérieure est à prévoir':'Unité extérieure en façade, au sol ou sur support'];
+    }else{
+      title=n>=2?'Pompe à chaleur air/air multi-split':'Pompe à chaleur air/air';
+      p=st.besoin==='frais'
+        ?'Plusieurs pièces à rafraîchir : une seule unité extérieure peut alimenter '+n+' unités intérieures, chacune réglable séparément.'
+        :'Une PAC air/air réversible chauffe l’hiver et rafraîchit l’été '+(st.actuel==='elec'?'— une alternative courante aux radiateurs électriques.':'avec le même équipement.');
+      li=[n+' unité'+(n>1?'s':'')+' intérieure'+(n>1?'s':'')+' à prévoir, une par pièce','Surface déclarée : '+s+' m², à affiner selon l’isolation',st.actuel==='pac'?'Remplacement ou complément de la PAC existante à étudier':'Le chauffage actuel peut rester en appoint si besoin'];
+    }
+    rk.textContent=k;rt.textContent=title;rp.textContent=p;
+    rl.innerHTML=li.map(x=>'<li>'+x+'</li>').join('');
+    if(title!==last){R.classList.remove('flash');void R.offsetWidth;R.classList.add('flash');last=title}
+    const body='Bonjour,\n\nJe vous contacte depuis votre site.\n\nBesoin : '+lbl[st.besoin]+'\nLogement : '+lbl[st.logement]+', '+s+' m², '+n+' pièce(s) à traiter\nChauffage actuel : '+lbl[st.actuel]+'\nPiste évoquée : '+title+'\n\nCommune : \nTéléphone : \nDisponibilités : \n\nMerci.';
+    sm.href='mailto:rboucaud42@gmail.com?subject='+encodeURIComponent('Demande — '+lbl[st.besoin]+' — '+title)+'&body='+encodeURIComponent(body);
+  }
+  reco();
+
+  /* Rappel .ics */
+  document.getElementById('icsbtn').addEventListener('click',()=>{
+    const d=new Date();d.setFullYear(d.getFullYear()+2);
+    const f=x=>String(x).padStart(2,'0');
+    const ds=d.getFullYear()+f(d.getMonth()+1)+f(d.getDate());
+    const now=new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//2CRB//Rappel entretien//FR','BEGIN:VEVENT','UID:'+Date.now()+'@2crb','DTSTAMP:'+now,'DTSTART;VALUE=DATE:'+ds,'SUMMARY:Entretien de la pompe à chaleur','DESCRIPTION:Prendre rendez-vous avec 2CRB au 06 29 14 47 99 (rboucaud42@gmail.com).','BEGIN:VALARM','TRIGGER:-P14D','ACTION:DISPLAY','DESCRIPTION:Entretien PAC dans 2 semaines','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='rappel-entretien-pac-2crb.ics';document.body.appendChild(a);a.click();a.remove();
+    document.getElementById('icsbox').classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>
