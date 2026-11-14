@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Grand Logis — Café, bar-tabac et épicerie à Villerest</title>
+<meta name="description" content="Café « rencontres » du bourg médiéval de Villerest : bar, tabac, presse, relais colis, épicerie de créateurs locaux, soirées jeux et repas concerts.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<!--
+  LE GRAND LOGIS (Villerest) — maquette de démonstration
+  ---------------------------------------------------------------------------
+  L'établissement n'a pas de site internet (page Facebook + fiche Office de
+  tourisme uniquement) : il n'existe donc aucune charte graphique en ligne.
+  La palette ci-dessous est tirée de la façade elle-même, telle qu'elle
+  apparaît sur les photos publiées par l'établissement : pierre du bourg,
+  volets bois miel, store crème rayé, olivier de la terrasse, guirlandes.
+  Tout se règle dans les variables ci-dessous (logo / codes exacts à fournir).
+-->
+<style>
+:root{
+  --pierre:#2e2a26;      /* pierre sombre du bourg — textes, fonds nuit */
+  --pierre-2:#4a443d;
+  --miel:#c9782e;        /* volets bois — couleur d'accent, boutons */
+  --miel-clair:#e9a95c;
+  --store:#f4ead6;       /* store crème — fond principal */
+  --store-2:#ebdcbf;
+  --olive:#5f6b34;       /* olivier de la terrasse — accents secondaires */
+  --lampion:#ffd68a;     /* lumière des guirlandes */
+  --blanc:#fffaf1;
+  --f-titre:"Fraunces", Georgia, serif;
+  --f-texte:"Karla", system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);background:var(--store);color:var(--pierre);font-size:clamp(1rem,.95rem + .25vw,1.12rem);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+:focus-visible{outline:3px solid var(--miel);outline-offset:3px;border-radius:6px}
+
+.demo-bar{background:var(--pierre);color:var(--store);font-size:.8rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo-bar strong{color:var(--lampion)}
+
+/* ---------- En-tête ---------- */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--store) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--store-2);box-shadow:0 6px 24px -18px rgba(46,42,38,.5)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.logo{font-family:var(--f-titre);font-weight:800;font-size:1.35rem;text-decoration:none;letter-spacing:-.01em;display:flex;align-items:center;gap:.55rem}
+.logo small{display:block;font-family:var(--f-texte);font-weight:500;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--olive)}
+.logo-bulb{width:14px;height:14px;border-radius:50%;background:var(--lampion);box-shadow:0 0 0 4px rgba(255,214,138,.35),0 0 18px var(--lampion);animation:glow 3s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 7px rgba(255,214,138,.15),0 0 26px var(--lampion)}}
+.nav ul{display:flex;gap:1.6rem;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--miel);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.status-pill{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;font-weight:700;padding:.45rem .9rem;border-radius:99px;background:var(--blanc);border:1px solid var(--store-2);white-space:nowrap}
+.status-pill i{width:9px;height:9px;border-radius:50%;background:#9a9a9a}
+.status-pill.open i{background:#4f8a3a;box-shadow:0 0 0 0 rgba(79,138,58,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(79,138,58,0)}}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
+@media (max-width:860px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--store);padding:1rem 1.25rem 1.5rem;gap:1rem;border-bottom:1px solid var(--store-2)}
+  .nav ul.open{display:flex}
+  .burger{display:block}
+  .status-pill{display:none}
+}
+
+/* ---------- Héros ---------- */
+.hero{position:relative;min-height:min(92vh,820px);display:grid;align-items:end;color:var(--blanc);overflow:hidden;isolation:isolate}
+.hero-img{position:absolute;inset:0;z-index:-2}
+.hero-img img{width:100%;height:110%;object-fit:cover;object-position:center 40%;transform:translateY(var(--py,0));will-change:transform}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(46,42,38,.15) 0%,rgba(46,42,38,.25) 40%,rgba(30,26,22,.88) 100%)}
+.guirlande{position:absolute;top:0;left:0;width:100%;height:140px;z-index:1;pointer-events:none}
+.guirlande circle{fill:var(--lampion);filter:drop-shadow(0 0 6px var(--lampion));animation:twinkle 2.6s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.35}}
+.hero-content{padding:6rem 0 4.5rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--lampion)}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.hero h1{font-family:var(--f-titre);font-weight:800;font-size:clamp(2.8rem,1.6rem + 6vw,6.4rem);line-height:.95;letter-spacing:-.02em;margin:.7rem 0 1.1rem;max-width:12ch}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--lampion)}
+.hero p.lead{max-width:56ch;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);opacity:.92}
+.split span{display:inline-block;opacity:0;transform:translateY(.5em) rotate(2deg);animation:rise .9s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.95rem 1.5rem;border-radius:99px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-size:1rem;font-family:inherit;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s;min-height:48px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-miel{background:var(--miel);color:var(--blanc);box-shadow:0 10px 30px -12px var(--miel)}
+.btn-miel:hover{background:#b56a25}
+.btn-ghost{border-color:rgba(255,250,241,.6);color:var(--blanc)}
+.btn-ghost:hover{background:var(--blanc);color:var(--pierre)}
+.btn-dark{background:var(--pierre);color:var(--store)}
+.hero-strip{display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:2.4rem;padding-top:1.4rem;border-top:1px solid rgba(255,250,241,.25);font-size:.9rem;opacity:.9}
+.hero-strip b{color:var(--lampion);font-weight:700}
+
+/* ---------- Bandeau défilant ---------- */
+.ticker{background:var(--miel);color:var(--blanc);overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:var(--f-titre);font-size:1.3rem;font-style:italic}
+.ticker-track{display:inline-flex;gap:2.4rem;animation:defile 38s linear infinite}
+.ticker-track span::after{content:"✦";margin-left:2.4rem;font-style:normal;color:var(--lampion)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(4rem,3rem + 5vw,7.5rem) 0}
+.sec-head{display:grid;gap:.8rem;max-width:720px;margin-bottom:3rem}
+.sec-head h2{font-family:var(--f-titre);font-size:clamp(2rem,1.4rem + 2.8vw,3.6rem);line-height:1.02;letter-spacing:-.015em;font-weight:600}
+.sec-head h2 em{color:var(--miel);font-style:italic}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--olive)}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Esprit */
+.esprit-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+.esprit-txt p{margin-bottom:1.1rem;max-width:58ch}
+.esprit-txt .quote{font-family:var(--f-titre);font-size:clamp(1.4rem,1.1rem + 1vw,2rem);line-height:1.25;font-style:italic;color:var(--pierre);border-left:3px solid var(--miel);padding-left:1.2rem;margin:1.8rem 0}
+.photo-stack{position:relative;aspect-ratio:4/5}
+.photo-stack figure{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:0 30px 60px -30px rgba(46,42,38,.6)}
+.photo-stack figure:nth-child(1){inset:0 18% 18% 0;transform:rotate(-2deg)}
+.photo-stack figure:nth-child(2){inset:30% 0 0 30%;border:6px solid var(--store);transform:rotate(2.5deg)}
+.photo-stack img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo-stack figure:hover img{transform:scale(1.06)}
+@media (max-width:860px){.esprit-grid{grid-template-columns:1fr}.photo-stack{max-width:460px}}
+
+/* Services du quotidien */
+.services{background:var(--pierre);color:var(--store)}
+.services .sec-head h2{color:var(--blanc)}
+.services .kicker{color:var(--miel-clair)}
+.serv-search{display:flex;gap:.6rem;align-items:center;background:rgba(255,250,241,.07);border:1px solid rgba(255,250,241,.15);border-radius:99px;padding:.4rem .4rem .4rem 1.3rem;max-width:620px;margin-bottom:1.2rem}
+.serv-search input{flex:1;background:none;border:0;color:var(--blanc);font:inherit;padding:.6rem 0;min-width:0}
+.serv-search input::placeholder{color:rgba(244,234,214,.55)}
+.serv-search input:focus{outline:none}
+.serv-answer{min-height:1.6em;margin-bottom:2rem;color:var(--lampion);font-weight:500}
+.serv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.serv{position:relative;background:rgba(255,250,241,.05);border:1px solid rgba(255,250,241,.12);border-radius:var(--r);padding:1.4rem 1.3rem 1.3rem;transition:transform .35s var(--ease),background .35s,border-color .35s,opacity .35s}
+.serv:hover{transform:translateY(-4px);background:rgba(201,120,46,.14);border-color:var(--miel)}
+.serv .ic{font-size:1.7rem;line-height:1;margin-bottom:.8rem;display:block}
+.serv h3{font-family:var(--f-titre);font-size:1.2rem;font-weight:600;color:var(--blanc);margin-bottom:.3rem}
+.serv p{font-size:.92rem;opacity:.75}
+.serv.dim{opacity:.22}
+.serv.hit{border-color:var(--lampion);background:rgba(255,214,138,.12)}
+
+/* Agenda — outil central */
+.agenda{background:linear-gradient(180deg,var(--store) 0%,var(--store-2) 100%)}
+.ag-layout{display:grid;grid-template-columns:340px 1fr;gap:2rem;align-items:start}
+@media (max-width:960px){.ag-layout{grid-template-columns:1fr}}
+.ag-side{position:sticky;top:96px;background:var(--blanc);border-radius:var(--r);padding:1.5rem;box-shadow:0 20px 50px -35px rgba(46,42,38,.6)}
+.ag-side h3{font-family:var(--f-titre);font-size:1.3rem;margin-bottom:.4rem}
+.ag-side p{font-size:.92rem;color:var(--pierre-2);margin-bottom:1rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.3rem}
+.chip{border:1.5px solid var(--store-2);background:var(--store);border-radius:99px;padding:.5rem .9rem;font:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .25s var(--ease);min-height:40px}
+.chip[aria-pressed="true"]{background:var(--pierre);color:var(--store);border-color:var(--pierre)}
+.chip .d{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
+.month{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.8rem}
+.month .h{font-weight:700;color:var(--olive);padding:.2rem 0}
+.month .c{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative;background:var(--store)}
+.month .c.out{background:transparent;color:transparent}
+.month .c.today{outline:2px solid var(--miel)}
+.month .c .dots{display:flex;gap:2px;height:6px}
+.month .c .dots i{width:5px;height:5px;border-radius:50%}
+.month-nav{display:flex;justify-content:space-between;align-items:center;margin:.4rem 0 .8rem}
+.month-nav button{background:var(--store);border:0;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:1rem}
+.month-nav strong{font-family:var(--f-titre);text-transform:capitalize}
+.ev-list{display:grid;gap:1rem}
+.ev{display:grid;grid-template-columns:86px 1fr auto;gap:1.2rem;align-items:center;background:var(--blanc);border-radius:var(--r);padding:1.1rem 1.3rem;border-left:5px solid var(--c,var(--miel));box-shadow:0 14px 40px -32px rgba(46,42,38,.7);transition:transform .35s var(--ease),box-shadow .35s;animation:rise .6s var(--ease) both}
+.ev:hover{transform:translateX(4px);box-shadow:0 18px 44px -28px rgba(46,42,38,.7)}
+.ev-date{text-align:center;line-height:1}
+.ev-date b{display:block;font-family:var(--f-titre);font-size:2.2rem;font-weight:800}
+.ev-date span{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:var(--pierre-2)}
+.ev h4{font-family:var(--f-titre);font-size:1.18rem;font-weight:600}
+.ev p{font-size:.9rem;color:var(--pierre-2)}
+.ev .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.15rem .55rem;border-radius:99px;background:var(--store);margin-top:.35rem}
+.ev-actions{display:flex;flex-direction:column;gap:.4rem}
+.mini{border:1.5px solid var(--store-2);background:none;border-radius:99px;padding:.45rem .85rem;font:inherit;font-size:.82rem;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;white-space:nowrap;transition:background .2s,color .2s}
+.mini:hover{background:var(--pierre);color:var(--store);border-color:var(--pierre)}
+@media (max-width:560px){.ev{grid-template-columns:64px 1fr}.ev-actions{grid-column:1/-1;flex-direction:row}}
+.rec-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:2.2rem}
+.rec{background:var(--pierre);color:var(--store);border-radius:var(--r);padding:1.4rem;position:relative;overflow:hidden}
+.rec h4{font-family:var(--f-titre);font-size:1.25rem;color:var(--blanc);margin-bottom:.3rem}
+.rec p{font-size:.9rem;opacity:.8}
+.rec::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,var(--lampion) 0%,transparent 70%);opacity:.25}
+.empty{padding:2rem;text-align:center;background:var(--blanc);border-radius:var(--r);color:var(--pierre-2)}
+
+/* Boutique créateurs */
+.boutique-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+@media (max-width:860px){.boutique-grid{grid-template-columns:1fr}}
+.b-card{background:var(--blanc);border-radius:var(--r);padding:1.6rem;border:1px solid var(--store-2);transition:transform .35s var(--ease)}
+.b-card:hover{transform:translateY(-5px) rotate(-.4deg)}
+.b-card h3{font-family:var(--f-titre);font-size:1.35rem;margin:.6rem 0 .4rem}
+.b-card .ic{font-size:2rem}
+.placeholder{margin-top:1.2rem;border:2px dashed var(--store-2);border-radius:12px;aspect-ratio:16/9;display:grid;place-items:center;text-align:center;font-size:.8rem;color:var(--pierre-2);padding:1rem;background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(235,220,191,.35) 10px 20px)}
+
+/* Horaires & contact */
+.infos{background:var(--pierre);color:var(--store)}
+.infos .sec-head h2{color:var(--blanc)}
+.infos .kicker{color:var(--miel-clair)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+@media (max-width:860px){.info-grid{grid-template-columns:1fr}}
+.hours{list-style:none;background:rgba(255,250,241,.05);border-radius:var(--r);padding:.6rem 1.4rem;border:1px solid rgba(255,250,241,.12)}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px dashed rgba(255,250,241,.15)}
+.hours li:last-child{border:0}
+.hours li.now{color:var(--lampion);font-weight:700}
+.hours li.now span:first-child::before{content:"● ";color:var(--lampion)}
+.contact-card{display:grid;gap:1rem}
+.contact-card a.line{display:flex;gap:1rem;align-items:center;background:rgba(255,250,241,.05);border:1px solid rgba(255,250,241,.12);border-radius:var(--r);padding:1.1rem 1.3rem;text-decoration:none;transition:border-color .3s,background .3s}
+.contact-card a.line:hover{border-color:var(--miel);background:rgba(201,120,46,.12)}
+.contact-card .ic{font-size:1.4rem}
+.contact-card small{display:block;opacity:.65;font-size:.8rem}
+.map{border-radius:var(--r);overflow:hidden;border:1px solid rgba(255,250,241,.12);height:260px;margin-top:.5rem}
+.map iframe{width:100%;height:100%;border:0;filter:sepia(.25) saturate(.9)}
+
+footer{background:#1f1c19;color:rgba(244,234,214,.7);padding:3rem 0 2.4rem;font-size:.85rem}
+footer .f-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;margin-bottom:2rem}
+footer .logo{color:var(--store)}
+.f-note{border-top:1px solid rgba(244,234,214,.12);padding-top:1.5rem;line-height:1.7}
+.f-note strong{color:var(--store)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--pierre);color:var(--store);padding:.9rem 1.4rem;border-radius:99px;font-weight:500;z-index:99;transition:transform .45s var(--ease);box-shadow:0 20px 40px -20px rgba(0,0,0,.6);max-width:calc(100% - 2rem)}
+.toast.show{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CafeOrCoffeeShop",
+  "name":"Le Grand Logis",
+  "description":"Commerce de proximité dans le bourg du village médiéval de Villerest : café, bar, cave à vin, tabac, presse, Française des Jeux, épicerie, relais colis. Un café « rencontres », le rendez-vous incontournable du village.",
+  "address":{"@type":"PostalAddress","streetAddress":"3 place Jules Rabourdin","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.993397,"longitude":4.0386},
+  "telephone":"+33477697013",
+  "email":"sncdomoma@outlook.com",
+  "areaServed":"Villerest",
+  "sameAs":["https://www.facebook.com/legrandlogisvillerest/"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday"],"opens":"07:00","closes":"13:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday","Saturday"],"opens":"15:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Sunday"],"opens":"07:00","closes":"13:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo-bar">Maquette de démonstration — <strong>Le Grand Logis</strong>, Villerest · proposition non contractuelle</div>
+
+<header id="hd">
+  <div class="wrap nav">
+    <a href="#top" class="logo"><span class="logo-bulb" aria-hidden="true"></span><span>Le Grand Logis<small>Villerest · bourg médiéval</small></span></a>
+    <ul id="menu">
+      <li><a href="#esprit">Le lieu</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#boutique">Créateurs locaux</a></li>
+      <li><a href="#infos">Horaires &amp; accès</a></li>
+    </ul>
+    <span class="status-pill" id="pill"><i></i><span>…</span></span>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="hero-img"><img id="heroImg" src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/122/240/36499578.jpg" alt="La terrasse du Grand Logis un soir d'été, sous les guirlandes lumineuses"></div>
+  <svg class="guirlande" viewBox="0 0 1200 140" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,20 Q300,120 600,40 T1200,30" fill="none" stroke="rgba(255,250,241,.35)" stroke-width="1.5"/>
+    <g id="bulbs"></g>
+  </svg>
+  <div class="wrap hero-content">
+    <span class="eyebrow">Café · bar · tabac · épicerie</span>
+    <h1 class="split" id="h1">Le café <em>rencontres</em> de Villerest</h1>
+    <p class="lead">Plus qu'un commerce de proximité : le rendez-vous incontournable du village, après une balade dans le très joli bourg médiéval.</p>
+    <div class="cta-row">
+      <a href="#agenda" class="btn btn-miel">Voir les prochaines soirées →</a>
+      <a href="tel:+33477697013" class="btn btn-ghost">📞 04 77 69 70 13</a>
+    </div>
+    <div class="hero-strip">
+      <span><b>3</b> place Jules Rabourdin</span>
+      <span>Ouvert <b>7 jours sur 7</b> dès 7h</span>
+      <span id="heroNow">—</span>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<section id="esprit">
+  <div class="wrap esprit-grid">
+    <div class="esprit-txt reveal">
+      <span class="kicker">Le lieu</span>
+      <div class="sec-head" style="margin-bottom:1.2rem"><h2>Un café de village, <em>au cœur du bourg médiéval</em></h2></div>
+      <p>Café, bar, cave à vin, tabac, presse, Française des Jeux, épicerie : au Grand Logis, on vient chercher son journal le matin, déposer un colis, prendre le pain… et on finit souvent par rester.</p>
+      <p class="quote">« Plus qu'un commerce de proximité, un café rencontres. »</p>
+      <p>La terrasse ombragée, très appréciée des touristes l'été, s'illumine le soir pour les planches apéritives, les cocktails maison et les repas concerts.</p>
+      <div class="cta-row"><a href="#services" class="btn btn-dark">Tout ce qu'on trouve ici</a></div>
+    </div>
+    <div class="photo-stack reveal">
+      <figure><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/123/240/36499579.jpg" alt="Façade en pierre du Grand Logis, volets bois et terrasse ombragée" loading="lazy"></figure>
+      <figure><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/122/240/36499578.jpg" alt="Soirée sur la terrasse du Grand Logis" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Au quotidien</span>
+      <h2>Tout le village tient <em style="color:var(--lampion)">sur un comptoir</em></h2>
+    </div>
+    <div class="serv-search reveal">
+      <span aria-hidden="true">🔎</span>
+      <input id="q" type="search" placeholder="Est-ce que je peux… déposer un colis ? acheter du gaz ?" aria-label="Rechercher un service">
+    </div>
+    <p class="serv-answer" id="ans" aria-live="polite"></p>
+    <div class="serv-grid" id="servGrid"></div>
+  </div>
+</section>
+
+<section id="agenda" class="agenda">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Agenda</span>
+      <h2>Ce qui se passe <em>au Grand Logis</em></h2>
+      <p>Des évènements toute l'année : soirées jeux, tricot, fête du vintage, ateliers pour les enfants, repas concerts. Filtrez, et ajoutez une date à votre agenda en un clic.</p>
+    </div>
+    <div class="ag-layout">
+      <aside class="ag-side reveal">
+        <h3>Je cherche…</h3>
+        <p>Choisissez ce qui vous intéresse :</p>
+        <div class="chips" id="chips"></div>
+        <div class="month-nav"><button id="prevM" aria-label="Mois précédent">‹</button><strong id="mLabel"></strong><button id="nextM" aria-label="Mois suivant">›</button></div>
+        <div class="month" id="month"></div>
+      </aside>
+      <div>
+        <div class="ev-list" id="evList"></div>
+        <div class="rec-cards">
+          <div class="rec reveal"><h4>🎸 Repas concerts</h4><p>De mai à novembre. Les dates et les groupes sont annoncés sur la page Facebook — réservation conseillée au 04 77 69 70 13.</p></div>
+          <div class="rec reveal"><h4>🎨 Ateliers créatifs enfants</h4><p>À chaque période de vacances scolaires. Thèmes et horaires communiqués à l'avance.</p></div>
+          <div class="rec reveal"><h4>🧀 Planches apéritives</h4><p>Le soir, en terrasse ou au comptoir, avec un verre de la cave (droit de bouchon) ou un cocktail maison.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="boutique">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Créateurs &amp; producteurs</span>
+      <h2>Une boutique <em>100 % locale</em>, glissée dans le café</h2>
+      <p>Toute une gamme d'articles de créateurs, de cosmétiques et d'épicerie, en provenance d'artisans exclusivement locaux.</p>
+    </div>
+    <div class="boutique-grid">
+      <article class="b-card reveal"><span class="ic">🧺</span><h3>Épicerie locale</h3><p>Produits d'artisans du coin, à emporter ou à offrir.</p><div class="placeholder">Photo des rayons<br>à fournir par l'établissement</div></article>
+      <article class="b-card reveal"><span class="ic">🪡</span><h3>Articles de créateurs</h3><p>Objets, cartes et pièces uniques d'artisans locaux.</p><div class="placeholder">Photo de la boutique<br>à fournir par l'établissement</div></article>
+      <article class="b-card reveal"><span class="ic">🧴</span><h3>Cosmétiques</h3><p>Une sélection de cosmétiques fabriqués par des artisans locaux.</p><div class="placeholder">Photo produits<br>à fournir par l'établissement</div></article>
+    </div>
+  </div>
+</section>
+
+<section id="infos" class="infos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Horaires &amp; accès</span>
+      <h2>Place Jules Rabourdin, <em style="color:var(--lampion)">dans le bourg de Villerest</em></h2>
+    </div>
+    <div class="info-grid">
+      <div class="reveal">
+        <ul class="hours" id="hours"></ul>
+      </div>
+      <div class="contact-card reveal">
+        <a class="line" href="tel:+33477697013"><span class="ic">📞</span><span><small>Téléphone</small>04 77 69 70 13</span></a>
+        <a class="line" href="tel:+33674157811"><span class="ic">📱</span><span><small>Portable</small>06 74 15 78 11</span></a>
+        <a class="line" href="mailto:sncdomoma@outlook.com"><span class="ic">✉️</span><span><small>Mail</small>sncdomoma@outlook.com</span></a>
+        <a class="line" href="https://www.facebook.com/legrandlogisvillerest/" target="_blank" rel="noopener"><span class="ic">👍</span><span><small>Actualités &amp; dates des concerts</small>Facebook · Le Grand Logis Villerest</span></a>
+        <div class="map"><iframe title="Plan d'accès au Grand Logis" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0306%2C45.9894%2C4.0466%2C45.9974&amp;layer=mapnik&amp;marker=45.993397%2C4.0386"></iframe></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div><a href="#top" class="logo"><span class="logo-bulb" aria-hidden="true"></span>Le Grand Logis</a><p style="margin-top:.6rem">3 place Jules Rabourdin · 42300 Villerest</p></div>
+      <div>Café · bar · cave à vin · tabac · presse · FDJ<br>poste · relais colis · épicerie · dépôt de pain et de gaz</div>
+    </div>
+    <p class="f-note">
+      <strong>Maquette de démonstration</strong> réalisée à partir des informations publiées par l'établissement (fiche Office de tourisme du Roannais, page Facebook) et des registres publics — ce n'est pas le site officiel du Grand Logis et elle n'a aucune valeur contractuelle.<br>
+      L'établissement n'ayant pas de site internet, il n'existait pas de charte graphique à reprendre : <strong>les couleurs sont tirées de la façade</strong> (volets bois, store crème, pierre) et restent entièrement ajustables, comme les typographies, dès que le logo est fourni.<br>
+      <strong>Photos :</strong> les deux photos de la terrasse sont celles publiées par l'établissement ; les emplacements de la boutique sont <strong>à fournir</strong>. Les dates de l'agenda sont calculées à partir du rythme annoncé (1<sup>er</sup> vendredi du mois, lundis après-midi, 8 mai) et restent à confirmer.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* En-tête */
+const hd=$('#hd');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>10),{passive:true});
+$('#burger').onclick=e=>{const m=$('#menu');m.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',m.classList.contains('open'))};
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+
+/* Titre lettre par lettre (mots) */
+const h1=$('#h1');
+if(!RM){let i=0;h1.innerHTML=h1.innerHTML.replace(/(<em>)?([^<\s]+)(<\/em>)?/g,(m,a,w,b)=>`${a||''}<span style="animation-delay:${(i++)*90+150}ms">${w}</span>${b||''}`);}else h1.classList.remove('split');
+
+/* Guirlande */
+const g=$('#bulbs');const N=26;
+for(let k=0;k<=N;k++){const t=k/N;const x=t*1200;
+  // approx. de la courbe : Q(0,20)(300,120)(600,40) puis T -> (1200,30)
+  let y; if(t<=.5){const u=t*2;y=(1-u)**2*20+2*(1-u)*u*120+u*u*40}else{const u=(t-.5)*2;y=(1-u)**2*40+2*(1-u)*u*(-40)+u*u*30}
+  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');c.setAttribute('cx',x);c.setAttribute('cy',y+7);c.setAttribute('r',4.2);c.style.animationDelay=(Math.random()*2.6).toFixed(2)+'s';g.appendChild(c)}
+
+/* Parallaxe douce du héros */
+if(!RM){const im=$('#heroImg');addEventListener('scroll',()=>{if(scrollY<900)im.style.setProperty('--py',(scrollY*.18)+'px')},{passive:true})}
+
+/* Bandeau défilant */
+const tk=['Tabac · presse','Cocktails maison','Soirée jeux le 1er vendredi du mois','Relais colis','Terrasse ombragée','Fête du vintage le 8 mai','Dépôt de pain et de gaz','Planches apéritives','Repas concerts de mai à novembre','Créateurs locaux'];
+$('#ticker').innerHTML=[...tk,...tk].map(t=>`<span>${t}</span>`).join('');
+
+/* Horaires + statut ouvert/fermé */
+const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const H={0:[[7,13]],1:[[7,13],[15,19]],2:[[7,13],[15,19]],3:[[7,13]],4:[[7,13],[15,19]],5:[[7,13],[15,19]],6:[[7,13],[15,19]]};
+const fmt=r=>r.map(([a,b])=>`${String(a).padStart(2,'0')}h – ${b}h`).join(' · ');
+function status(){
+  const n=new Date(),d=n.getDay(),h=n.getHours()+n.getMinutes()/60;
+  const cur=H[d].find(([a,b])=>h>=a&&h<b);
+  if(cur)return{open:true,txt:`Ouvert · jusqu'à ${cur[1]}h`};
+  const later=H[d].find(([a])=>h<a);
+  if(later)return{open:false,txt:`Fermé · réouvre à ${later[0]}h`};
+  return{open:false,txt:`Fermé · réouvre demain à 7h`};
+}
+function paintStatus(){const s=status();const p=$('#pill');p.classList.toggle('open',s.open);p.querySelector('span').textContent=s.txt;$('#heroNow').innerHTML=`<b>${s.open?'●':'○'}</b> ${s.txt}`;
+  const today=new Date().getDay();$('#hours').innerHTML=[1,2,3,4,5,6,0].map(d=>`<li class="${d===today?'now':''}"><span>${JOURS[d]}</span><span>${fmt(H[d])}</span></li>`).join('')}
+paintStatus();setInterval(paintStatus,60000);
+
+/* Services */
+const S=[
+ ['☕','Café & bar','Du premier café de 7h à l\'apéritif.','cafe boire bar biere verre expresso chocolat'],
+ ['🍸','Cocktails maison','Préparés sur place, à déguster en terrasse.','cocktail apero alcool'],
+ ['🍷','Cave à vin','Avec droit de bouchon pour boire sur place.','vin bouteille cave droit bouchon'],
+ ['🚬','Tabac','Bureau de tabac du village.','tabac cigarette cigare'],
+ ['📰','Presse','Journaux et magazines.','journal presse magazine quotidien'],
+ ['🍀','Française des Jeux','Loto, grattage, paris.','fdj loto jeu grattage pari euromillions'],
+ ['✉️','Poste','Services postaux de proximité.','poste timbre lettre courrier envoyer'],
+ ['📦','Relais colis','Déposer ou retirer un colis.','colis relais retirer deposer paquet colissimo'],
+ ['🥖','Dépôt de pain','Le pain du jour, au village.','pain baguette boulangerie'],
+ ['🔥','Dépôt de gaz','Bouteilles de gaz.','gaz bouteille butane propane'],
+ ['💌','Carterie','Cartes pour toutes les occasions.','carte anniversaire voeux postale'],
+ ['🍬','Confiserie','Bonbons et douceurs.','bonbon confiserie sucrerie chocolat'],
+ ['🧺','Épicerie locale','Produits d\'artisans du coin.','epicerie course produit local'],
+ ['🎁','Créateurs locaux','Articles et cosmétiques d\'artisans locaux.','cadeau createur artisan cosmetique offrir']
+];
+const grid=$('#servGrid');
+grid.innerHTML=S.map(([i,t,d])=>`<article class="serv reveal"><span class="ic" aria-hidden="true">${i}</span><h3>${t}</h3><p>${d}</p></article>`).join('');
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+$('#q').addEventListener('input',e=>{
+  const q=norm(e.target.value).split(/\s+/).filter(w=>w.length>2&&!['est','que','peux','puis','acheter','une','des','les','pour','avec'].includes(w));
+  const cards=[...grid.children];let hits=[];
+  cards.forEach((c,k)=>{const hay=norm(S[k][1]+' '+S[k][3]);const ok=q.length&&q.some(w=>hay.includes(w)||hay.includes(w.replace(/s$/,'')));c.classList.toggle('hit',!!ok);c.classList.toggle('dim',q.length>0&&!ok);if(ok)hits.push(S[k][1])});
+  $('#ans').textContent=!q.length?'':hits.length?`Oui ✔ — au Grand Logis : ${hits.join(', ')}.`:'Pas sûr… le plus simple : appelez le 04 77 69 70 13.';
+});
+
+/* Agenda : dates calculées à partir du rythme annoncé */
+const CATS={jeux:{l:'Soirée jeux',c:'#c9782e'},tricot:{l:'Tricot',c:'#5f6b34'},vintage:{l:'Fête du vintage',c:'#8a4f7d'}};
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const JC=['dim','lun','mar','mer','jeu','ven','sam'];
+const MC=['janv','févr','mars','avr','mai','juin','juil','août','sept','oct','nov','déc'];
+const today=new Date();today.setHours(0,0,0,0);
+const end=new Date(today);end.setMonth(end.getMonth()+7);
+const EV=[];
+for(let d=new Date(today);d<=end;d.setDate(d.getDate()+1)){
+  const x=new Date(d);
+  if(x.getDay()===5&&x.getDate()<=7)EV.push({d:x,k:'jeux',t:'Soirée jeux de société',p:'Tous les premiers vendredis du mois, en partenariat avec l\'association villerestoise l\'AVAL.',h:[19,23]});
+  if(x.getDay()===1)EV.push({d:x,k:'tricot',t:'Après-midi tricot',p:'Nouveauté 2026 · tous les lundis après-midi, sur inscription.',h:[15,18],ins:true});
+  if(x.getMonth()===4&&x.getDate()===8)EV.push({d:x,k:'vintage',t:'Fête du vintage',p:'Le rendez-vous des passionnés de brocante et d\'objets chinés, chaque 8 mai.',h:[9,18]});
+}
+const active=new Set(Object.keys(CATS));
+const chips=$('#chips');
+chips.innerHTML=Object.entries(CATS).map(([k,v])=>`<button class="chip" aria-pressed="true" data-k="${k}"><span class="d" style="background:${v.c}"></span>${v.l}</button>`).join('');
+chips.onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const k=b.dataset.k;active.has(k)?active.delete(k):active.add(k);b.setAttribute('aria-pressed',active.has(k));renderList();renderMonth()};
+let mv=new Date(today.getFullYear(),today.getMonth(),1);
+$('#prevM').onclick=()=>{if(mv>new Date(today.getFullYear(),today.getMonth(),1)){mv.setMonth(mv.getMonth()-1);renderMonth()}};
+$('#nextM').onclick=()=>{mv.setMonth(mv.getMonth()+1);renderMonth()};
+const same=(a,b)=>a.toDateString()===b.toDateString();
+function renderMonth(){
+  $('#mLabel').textContent=MOIS[mv.getMonth()]+' '+mv.getFullYear();
+  const first=(mv.getDay()+6)%7,days=new Date(mv.getFullYear(),mv.getMonth()+1,0).getDate();
+  let h=['L','M','M','J','V','S','D'].map(x=>`<div class="h">${x}</div>`).join('');
+  for(let i=0;i<first;i++)h+='<div class="c out">.</div>';
+  for(let dd=1;dd<=days;dd++){const dt=new Date(mv.getFullYear(),mv.getMonth(),dd);const evs=EV.filter(e=>same(e.d,dt)&&active.has(e.k));
+    h+=`<div class="c ${same(dt,today)?'today':''}" title="${evs.map(e=>e.t).join(', ')}">${dd}<span class="dots">${evs.map(e=>`<i style="background:${CATS[e.k].c}"></i>`).join('')}</span></div>`}
+  $('#month').innerHTML=h;
+}
+function renderList(){
+  const list=EV.filter(e=>active.has(e.k));
+  // On garde : les 4 prochains tricots max, toutes les soirées jeux / vintage, 8 lignes au total
+  let tr=0;const shown=list.filter(e=>e.k!=='tricot'||tr++<3).slice(0,8);
+  $('#evList').innerHTML=shown.length?shown.map((e,i)=>`<article class="ev" style="--c:${CATS[e.k].c};animation-delay:${i*60}ms">
+    <div class="ev-date"><span>${JC[e.d.getDay()]}</span><b>${e.d.getDate()}</b><span>${MC[e.d.getMonth()]}</span></div>
+    <div><h4>${e.t}</h4><p>${e.p}</p><span class="tag" style="color:${CATS[e.k].c}">${CATS[e.k].l}</span></div>
+    <div class="ev-actions"><button class="mini" data-i="${EV.indexOf(e)}">+ Mon agenda</button>${e.ins?`<a class="mini" href="tel:+33477697013">S'inscrire</a>`:''}</div></article>`).join('')
+    :'<div class="empty">Sélectionnez au moins un type d\'évènement.</div>';
+}
+const pad=n=>String(n).padStart(2,'0');
+const stamp=(d,h)=>`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(h)}0000`;
+$('#evList').onclick=e=>{const b=e.target.closest('button.mini');if(!b)return;const ev=EV[+b.dataset.i];
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Le Grand Logis//Agenda//FR','BEGIN:VEVENT',`UID:${Date.now()}@legrandlogis`,`DTSTAMP:${stamp(new Date(),new Date().getHours())}`,`DTSTART:${stamp(ev.d,ev.h[0])}`,`DTEND:${stamp(ev.d,ev.h[1])}`,`SUMMARY:${ev.t} – Le Grand Logis`,'LOCATION:3 place Jules Rabourdin\\, 42300 Villerest',`DESCRIPTION:${ev.p.replace(/,/g,'\\,')} Horaire à confirmer au 04 77 69 70 13.`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='grand-logis-'+ev.k+'.ics';a.click();
+  toast(`« ${ev.t} » du ${ev.d.getDate()} ${MOIS[ev.d.getMonth()]} ajouté — fichier agenda téléchargé`)};
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),3200)}
+renderList();renderMonth();
+
+/* Apparitions au défilement */
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12}):null;
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io?io.observe(el):el.classList.add('in')});
+})();
+</script>
+</body>
+</html>
