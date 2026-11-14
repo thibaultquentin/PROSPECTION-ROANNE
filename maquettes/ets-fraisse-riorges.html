@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ets Fraisse — Maître d'œuvre rénovation à Roanne et Riorges</title>
+<meta name="description" content="Rénovation tous corps d'état dans le Roannais : plans 3D, devis par poste, coordination des artisans et suivi de chantier par un interlocuteur unique, depuis 1987.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel fraisse-travaux.fr
+   (variables Elementor relevées sur le site + façade de l'agence)
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================== */
+:root{
+  --noir:#181818;           /* --e-global-color-text */
+  --anthracite:#3c3c3c;     /* gris du logo FRAISSE */
+  --sauge:#6C7C69;          /* --e-global-color-secondary / accent */
+  --sauge-fonce:#444F42;    /* couleur secondaire foncée du site */
+  --creme:#f6f7ee;          /* #E7E9D0 à faible opacité sur le site */
+  --creme-2:#E7E9D0;
+  --blanc:#ffffff;
+  /* Les tracés de couleur peints sur la façade de l'agence (un par corps d'état) */
+  --t-bleu:#2f5db0;
+  --t-jaune:#e2b12c;
+  --t-turquoise:#2b9a93;
+  --t-rouge:#c4392f;
+  --t-gris:#6b6f78;
+  --f-titre:"Sarabun",system-ui,sans-serif;     /* typo principale du site */
+  --f-label:"Alexandria",system-ui,sans-serif;  /* typo secondaire du site */
+  --f-logo:"Montserrat",system-ui,sans-serif;   /* boutons / logotype */
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-titre);color:var(--noir);background:var(--blanc);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.label{font-family:var(--f-label);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--sauge)}
+h1,h2,h3{font-weight:600;line-height:1.12;letter-spacing:-.01em}
+h2{font-size:clamp(28px,3.6vw,46px)}
+.btn{font-family:var(--f-logo);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:var(--r);border:2px solid var(--sauge);background:var(--sauge);color:#fff;text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn:hover{background:var(--sauge-fonce);border-color:var(--sauge-fonce);transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(68,79,66,.6)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--noir);border-color:var(--noir)}
+.btn.ghost:hover{background:var(--noir);color:#fff}
+.btn.light{background:#fff;color:var(--sauge-fonce);border-color:#fff}
+:focus-visible{outline:3px solid var(--t-jaune);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--sauge-fonce);color:#e9ece2;font-family:var(--f-label);font-size:12px;text-align:center;padding:7px 16px;letter-spacing:.04em}
+
+/* Barre d'info + nav (structure du site actuel) */
+.topbar{background:var(--noir);color:#d7d9d2;font-size:13px;font-family:var(--f-label)}
+.topbar .wrap{display:flex;gap:22px;justify-content:flex-end;padding:7px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eceee6;transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 6px 24px -14px rgba(0,0,0,.35)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:52px;height:52px;object-fit:contain}
+.brand b{font-family:var(--f-logo);font-weight:800;font-size:22px;letter-spacing:.04em;color:var(--anthracite)}
+.brand small{display:block;font-family:var(--f-label);font-size:10px;letter-spacing:.2em;color:var(--sauge);text-transform:uppercase}
+.menu{display:flex;gap:26px;align-items:center;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:15px;position:relative;padding:4px 0}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--sauge);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:not(.btn):hover::after{transform:scaleX(1)}
+.menu .btn{padding:11px 18px;font-size:12px}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--noir);margin:5px auto;transition:.3s}
+@media(max-width:980px){
+  .menu{position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:24px;gap:18px;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .3s,transform .4s var(--ease),visibility .3s;box-shadow:0 20px 30px -20px rgba(0,0,0,.3)}
+  .menu.open{opacity:1;visibility:visible;transform:none}
+  .burger{display:block}
+}
+
+/* HERO */
+.hero{position:relative;min-height:calc(100vh - 140px);display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--noir)}
+.hero__img{position:absolute;inset:0;background:url("https://fraisse-travaux.fr/wp-content/uploads/2026/11/facade-fraisse-travaux-roanne-1024x731.jpg") center 40%/cover;transform:scale(1.08);animation:heroZoom 14s var(--ease) forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,24,24,.25) 0%,rgba(24,24,24,.35) 40%,rgba(24,24,24,.86) 100%)}
+.hero__lines{position:absolute;right:-40px;top:10%;width:min(560px,70vw);height:auto;z-index:1;opacity:.95}
+.hero__lines path{fill:none;stroke-width:5;stroke-linecap:square;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.4s var(--ease) forwards}
+.hero__lines path:nth-child(2){animation-delay:.25s}.hero__lines path:nth-child(3){animation-delay:.5s}.hero__lines path:nth-child(4){animation-delay:.75s}.hero__lines path:nth-child(5){animation-delay:1s}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero__content{position:relative;z-index:2;padding:80px 0 56px}
+.hero h1{font-size:clamp(38px,6.2vw,84px);max-width:14ch;margin:14px 0 18px}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p.lead{max-width:56ch;font-size:clamp(17px,1.5vw,20px);color:#e8eae3;opacity:0;animation:up .9s .7s var(--ease) forwards}
+.hero .label{color:#cfd8c9}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;opacity:0;animation:up .9s .9s var(--ease) forwards}
+.hero__cta .btn.ghost{color:#fff;border-color:#fff}
+.hero__cta .btn.ghost:hover{background:#fff;color:var(--noir)}
+.trades{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:38px;font-family:var(--f-label);font-size:13px;color:#e1e4dc}
+.trades span{display:flex;align-items:center;gap:8px}
+.trades i{width:22px;height:3px;display:inline-block}
+
+/* Bande d'atouts */
+.strip{background:var(--creme);border-bottom:1px solid #e6e8dc}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.strip div{padding:26px 22px;border-left:1px solid #e3e6d6}
+.strip div:first-child{border-left:0}
+.strip b{display:block;font-size:clamp(22px,2.4vw,30px);font-weight:600;color:var(--sauge-fonce)}
+.strip span{font-size:14px;color:#4b4f48}
+@media(max-width:820px){.strip .wrap{grid-template-columns:1fr 1fr}.strip div:nth-child(3){border-left:0}.strip div{border-top:1px solid #e3e6d6}}
+
+section{padding:clamp(70px,9vw,120px) 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:48px}
+.head p{color:#4b4f48;max-width:52ch}
+@media(max-width:820px){.head{grid-template-columns:1fr;gap:14px}}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}
+
+/* Domaines / métiers */
+.metiers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.metier{position:relative;padding:28px 26px 30px;border:1px solid #e7e9df;border-radius:var(--r);background:#fff;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.metier::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--c);transform:scaleX(.18);transform-origin:left;transition:transform .5s var(--ease)}
+.metier:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(0,0,0,.35)}
+.metier:hover::before{transform:scaleX(1)}
+.metier h3{font-size:21px;margin-bottom:8px}
+.metier p{font-size:15px;color:#50544c}
+.metier small{display:block;margin-top:14px;font-family:var(--f-label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--c)}
+.metier.wide{grid-column:span 3;display:grid;grid-template-columns:1.1fr 1fr;padding:0;background:var(--noir);color:#fff;border:0}
+.metier.wide .txt{padding:36px}
+.metier.wide p{color:#cfd2c9}
+.metier.wide img{height:100%;width:100%;object-fit:cover;min-height:260px}
+@media(max-width:900px){.metiers{grid-template-columns:1fr 1fr}.metier.wide{grid-column:span 2;grid-template-columns:1fr}}
+@media(max-width:600px){.metiers{grid-template-columns:1fr}.metier.wide{grid-column:span 1}}
+
+/* ESTIMATEUR */
+.estim{background:var(--creme)}
+.est{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+@media(max-width:940px){.est{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid #e3e6d6;border-radius:10px;padding:28px}
+.step{margin-bottom:26px}
+.step>.label{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.step>.label em{font-style:normal;width:24px;height:24px;border-radius:50%;background:var(--sauge);color:#fff;display:grid;place-items:center;font-size:11px;letter-spacing:0}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{font:inherit;font-size:15px;padding:10px 16px;border:1px solid #d6d9cc;background:#fff;border-radius:40px;cursor:pointer;transition:.2s}
+.seg button[aria-pressed="true"]{background:var(--noir);border-color:var(--noir);color:#fff}
+.range{display:flex;align-items:center;gap:16px}
+.range input{flex:1;accent-color:var(--sauge);height:30px}
+.range output{font-weight:600;font-size:22px;min-width:92px;text-align:right}
+.postes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:520px){.postes{grid-template-columns:1fr}}
+.poste{position:relative;display:flex;gap:12px;align-items:center;padding:13px 14px;border:1px solid #dfe2d4;border-radius:8px;cursor:pointer;transition:.25s;user-select:none;background:#fff}
+.poste input{position:absolute;opacity:0;pointer-events:none}
+.poste .bar{width:5px;align-self:stretch;border-radius:3px;background:var(--c);opacity:.3;transition:.25s}
+.poste b{font-weight:500;font-size:15px;line-height:1.25}
+.poste small{display:block;font-size:12px;color:#777b72}
+.poste:has(input:checked){border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+.poste:has(input:checked) .bar{opacity:1}
+.poste:has(input:focus-visible){outline:3px solid var(--t-jaune);outline-offset:2px}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:15px;margin-top:6px;cursor:pointer}
+.check input{accent-color:var(--sauge);width:18px;height:18px;margin-top:3px}
+.result{position:sticky;top:96px;background:var(--noir);color:#fff;border-radius:10px;padding:30px;overflow:hidden}
+.result .label{color:#b8c3b4}
+.total{font-size:clamp(34px,4.4vw,52px);font-weight:600;line-height:1.05;margin:10px 0 6px;font-variant-numeric:tabular-nums}
+.total small{font-size:.42em;font-weight:400;color:#c9cdc4}
+.permq{font-size:14px;color:#b9bdb3;margin-bottom:22px}
+.lines{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;min-height:40px}
+.line{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px;animation:up .45s var(--ease)}
+.line .track{grid-column:span 2;height:6px;background:#2c2c2c;border-radius:4px;overflow:hidden}
+.line .fill{height:100%;background:var(--c);width:0;transition:width .8s var(--ease)}
+.empty{color:#9aa095;font-size:14px}
+.result .note{font-size:12px;color:#9aa095;border-top:1px solid #333;padding-top:14px;margin-top:6px}
+.result .btn{width:100%;justify-content:center;margin-top:18px}
+.planlines{position:absolute;right:-24px;bottom:-24px;width:200px;opacity:.28;pointer-events:none;z-index:0}
+.result>*:not(.planlines){position:relative;z-index:1}
+.planlines path{fill:none;stroke-width:4;transition:stroke-dashoffset 1s var(--ease);stroke-dasharray:600;stroke-dashoffset:600}
+.planlines path.on{stroke-dashoffset:0}
+
+/* Avant / après */
+.ba-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px}
+@media(max-width:900px){.ba-grid{grid-template-columns:1fr}}
+.ba{position:relative;overflow:hidden;border-radius:10px;background:#ddd;user-select:none;touch-action:pan-y;aspect-ratio:16/10}
+.ba.tall{aspect-ratio:auto;height:100%;min-height:420px}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .top{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:#fff;transform:translateX(-1px)}
+.ba .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:#fff;color:var(--noir);display:grid;place-items:center;font-size:20px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.ba .tag{position:absolute;bottom:14px;font-family:var(--f-label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:rgba(24,24,24,.75);color:#fff;padding:6px 10px;border-radius:4px}
+.ba .tag.l{left:14px}.ba .tag.r{right:14px}
+.ba input{position:absolute;inset:0;opacity:0;cursor:ew-resize;width:100%;height:100%;margin:0}
+.cap{font-size:14px;color:#55594f;margin-top:10px}
+
+/* Accompagnement */
+.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:34px 28px;counter-reset:s}
+.steps::before{content:"";position:absolute;left:0;right:0;top:22px;height:2px;background:#e3e6d6}
+.steps .prog{position:absolute;left:0;top:22px;height:2px;background:var(--sauge);width:var(--p,0%);transition:width .2s linear}
+.st{position:relative;padding-top:58px}
+.st::before{counter-increment:s;content:"0" counter(s);position:absolute;top:0;left:0;width:46px;height:46px;border-radius:50%;background:#fff;border:2px solid var(--sauge);display:grid;place-items:center;font-family:var(--f-label);font-size:14px;color:var(--sauge-fonce)}
+.st h3{font-size:20px;margin-bottom:6px}
+.st .label{display:block;margin-bottom:6px}
+.st p{font-size:15px;color:#50544c}
+@media(max-width:820px){.steps{grid-template-columns:1fr}.steps::before,.steps .prog{display:none}}
+
+/* Histoire */
+.hist{background:var(--noir);color:#fff}
+.hist .head p{color:#c4c8bf}
+.timeline{display:grid;grid-template-columns:260px 1fr;gap:46px;align-items:start}
+@media(max-width:820px){.timeline{grid-template-columns:1fr}}
+.mof{position:sticky;top:110px;border-radius:10px;overflow:hidden;background:#222}
+.mof img{width:100%;height:420px;object-fit:cover;object-position:top}
+.mof figcaption{padding:16px;font-size:14px;color:#c9cdc4}
+.mof figcaption b{color:#fff;display:block;font-size:16px}
+.years{list-style:none;border-left:2px solid #333;padding-left:30px}
+.years li{position:relative;padding:0 0 36px}
+.years li::before{content:"";position:absolute;left:-38px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--noir);border:2px solid var(--c,var(--sauge))}
+.years b{font-family:var(--f-logo);font-size:28px;color:var(--c,#cfd8c9)}
+.years p{color:#d2d5cd;max-width:60ch}
+
+/* Avis */
+.avis{border:2px dashed #cfd3c3;border-radius:10px;padding:34px;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;background:#fbfbf7}
+.avis .g{font-family:var(--f-logo);font-weight:800;font-size:40px;color:var(--sauge)}
+@media(max-width:760px){.avis{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:40px}
+@media(max-width:900px){.contact{grid-template-columns:1fr}}
+.coords p{margin-bottom:14px}
+.coords a{text-decoration:none;border-bottom:1px solid var(--sauge)}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:15px;margin-top:6px}
+.open{display:inline-flex;align-items:center;gap:8px;font-size:14px;padding:6px 12px;border-radius:30px;background:var(--creme);margin:6px 0 18px}
+.open i{width:8px;height:8px;border-radius:50%;background:#999}
+.open.on i{background:#3c9a4c;box-shadow:0 0 0 4px rgba(60,154,76,.2)}
+form{display:grid;gap:14px}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){form .row{grid-template-columns:1fr}}
+label.f{display:grid;gap:6px;font-size:14px;font-weight:500}
+input.t,select,textarea{font:inherit;font-size:16px;padding:13px 14px;border:1px solid #d6d9cc;border-radius:var(--r);background:#fff;width:100%}
+textarea{min-height:150px;resize:vertical}
+input.t:focus,select:focus,textarea:focus{outline:none;border-color:var(--sauge);box-shadow:0 0 0 3px rgba(108,124,105,.2)}
+.flash{background:var(--creme-2);padding:10px 14px;border-radius:6px;font-size:14px;display:none}
+.flash.show{display:block;animation:up .4s var(--ease)}
+
+footer{background:var(--noir);color:#b9bdb3;padding:54px 0 30px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;margin-bottom:34px}
+footer h4{color:#fff;font-weight:600;margin-bottom:10px;font-size:15px}
+footer ul{list-style:none}
+footer a{text-decoration:none}
+footer .demo-note{border-top:1px solid #2e2e2e;padding-top:18px;font-size:12px;color:#8d9188;line-height:1.7}
+@media(max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+.callfab{position:fixed;right:16px;bottom:16px;z-index:60;display:none}
+@media(max-width:760px){.callfab{display:inline-flex}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"GeneralContractor",
+  "name":"Ets Fraisse",
+  "legalName":"ETS FRAISSE",
+  "description":"Maître d'œuvre en rénovation tous corps d'état : agencement, plans 3D et rendus photoréalistes, plâtrerie peinture, électricité, revêtements de sols, plomberie, menuiserie, meubles sur mesure.",
+  "url":"https://www.fraisse-travaux.fr",
+  "logo":"https://fraisse-travaux.fr/wp-content/uploads/2023/02/FRAISSE-Logo-nom-gris.png",
+  "image":"https://fraisse-travaux.fr/wp-content/uploads/2026/11/facade-fraisse-travaux-roanne-1024x731.jpg",
+  "telephone":"+33426244909",
+  "email":"contact@fraisse-travaux.fr",
+  "foundingDate":"1987",
+  "founder":{"@type":"Person","name":"Jean-François Fraisse"},
+  "address":{"@type":"PostalAddress","streetAddress":"805 rue du Marclet","postalCode":"42153","addressLocality":"Riorges","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[{"@type":"City","name":"Roanne"},{"@type":"City","name":"Riorges"},{"@type":"AdministrativeArea","name":"Roannais"},{"@type":"Country","name":"France"}],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour Ets Fraisse · non officielle</div>
+
+<div class="topbar"><div class="wrap">
+  <a href="tel:+33426244909">04 26 24 49 09</a>
+  <a href="mailto:contact@fraisse-travaux.fr">contact@fraisse-travaux.fr</a>
+  <span>805 rue du Marclet, 42153 Riorges</span>
+</div></div>
+
+<header class="nav" id="nav"><div class="wrap">
+  <a class="brand" href="#top" aria-label="Ets Fraisse, accueil">
+    <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/02/FRAISSE-Logo-nom-gris.png" alt="">
+    <span><b>FRAISSE</b><small>Maître d'œuvre · depuis 1987</small></span>
+  </a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <ul class="menu" id="menu">
+    <li><a href="#savoir-faire">Notre savoir-faire</a></li>
+    <li><a href="#histoire">Notre histoire</a></li>
+    <li><a href="#accompagnement">Accompagnement</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a class="btn" href="#estimer">Obtenir un devis</a></li>
+  </ul>
+</div></header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="hero__img" role="img" aria-label="Façade de l'agence Ets Fraisse à Riorges"></div>
+  <svg class="hero__lines" viewBox="0 0 560 420" aria-hidden="true">
+    <path d="M20 400 V120 H300 V60 H520" stroke="var(--t-bleu)"/>
+    <path d="M60 400 V160 H340 V100 H540" stroke="var(--t-jaune)"/>
+    <path d="M100 400 V200 H380 V140 H560" stroke="var(--t-turquoise)"/>
+    <path d="M140 400 V240 H420 V180 H560" stroke="var(--t-rouge)"/>
+    <path d="M180 400 V280 H460 V220 H560" stroke="#d9dbd4"/>
+  </svg>
+  <div class="wrap hero__content">
+    <span class="label">Ets Fraisse, maître d'œuvre Roanne</span>
+    <h1><span class="w">Tous</span> <span class="w" style="animation-delay:.08s">travaux</span> <span class="w" style="animation-delay:.16s">de</span> <span class="w" style="animation-delay:.24s">bâtiment,</span> <span class="w" style="animation-delay:.32s">un</span> <span class="w" style="animation-delay:.4s">seul</span> <span class="w" style="animation-delay:.48s">interlocuteur.</span></h1>
+    <p class="lead">Notre agence de maîtrise d'œuvre vous accompagne dans la conception et la réalisation de vos travaux de rénovation, jusqu'à la réception du chantier — pour les particuliers comme pour les professionnels.</p>
+    <div class="hero__cta">
+      <a class="btn" href="#estimer">Estimer mon projet</a>
+      <a class="btn ghost" href="tel:+33426244909">04 26 24 49 09</a>
+    </div>
+    <div class="trades" aria-label="Corps d'état">
+      <span><i style="background:var(--t-bleu)"></i>Plâtrerie</span>
+      <span><i style="background:var(--t-jaune)"></i>Peinture</span>
+      <span><i style="background:var(--t-turquoise)"></i>Plomberie</span>
+      <span><i style="background:var(--t-rouge)"></i>Électricité</span>
+      <span><i style="background:#d9dbd4"></i>Menuiserie</span>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="wrap">
+  <div class="rv"><b>1987</b><span>Création de l'entreprise par Jean-François Fraisse</span></div>
+  <div class="rv d1"><b>MOF 2000</b><span>Meilleur Ouvrier de France, métiers du verre liés à l'architecture</span></div>
+  <div class="rv d2"><b>~200</b><span>magasins d'optique agencés à travers la France</span></div>
+  <div class="rv d3"><b>1</b><span>interlocuteur dédié, de la conception à la réception</span></div>
+</div></div>
+
+<section id="savoir-faire">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label rv">Notre savoir-faire</span><h2 class="rv d1">Nos différents corps d'état</h2></div>
+      <p class="rv d2">Une prestation unique pour l'ensemble des corps d'état. Plâtriers peintres sous notre toit, et un réseau d'artisans qualifiés pour le reste : chaque corps de métier se coordonne dans le respect et le soin du travail de l'autre.</p>
+    </div>
+    <div class="metiers">
+      <article class="metier rv" style="--c:var(--t-bleu)"><h3>Plâtrerie peinture</h3><p>Plaques de plâtre et moulures, plafonds, isolation des murs, peinture intérieure et extérieure, effets décoratifs (chaux, béton ciré), aménagement de combles.</p><small>Équipe interne</small></article>
+      <article class="metier rv d1" style="--c:var(--t-rouge)"><h3>Électricité générale</h3><p>Mise aux normes, rénovation complète ou partielle de l'installation, éclairage pensé avec l'agencement.</p><small>Réseau d'artisans</small></article>
+      <article class="metier rv d2" style="--c:var(--t-jaune)"><h3>Revêtements de sols</h3><p>Carrelage, parquet et sols souples, choisis et visualisés en amont sur les rendus 3D.</p><small>Réseau d'artisans</small></article>
+      <article class="metier rv" style="--c:var(--t-turquoise)"><h3>Plomberie</h3><p>Rénovation de salle de bain et de cuisine, réseaux, sanitaires.</p><small>Réseau d'artisans</small></article>
+      <article class="metier rv d1" style="--c:var(--t-gris)"><h3>Menuiserie</h3><p>Portes, placards, habillages et menuiseries intérieures, ajustés au millimètre.</p><small>Réseau d'artisans</small></article>
+      <article class="metier rv d2" style="--c:var(--sauge)"><h3>Meubles sur mesure</h3><p>Conception de mobilier sur mesure, pour la maison comme pour les espaces professionnels.</p><small>Conception Fraisse</small></article>
+      <article class="metier wide rv">
+        <div class="txt">
+          <span class="label" style="color:#b8c3b4">Agenceur · Architecture d'intérieur</span>
+          <h3 style="font-size:28px;margin:10px 0 12px">Restaurants, bureaux, boutiques… et votre maison.</h3>
+          <p>Nos agenceurs réfléchissent à la meilleure façon d'optimiser vos espaces pour allier fonctionnalité et esthétisme. Modélisation de plans 3D et rendus photoréalistes pour vous projeter dans les volumes, et prise en charge des dossiers administratifs (permis, déclarations préalables, autorisations d'enseigne).</p>
+          <a class="btn light" style="margin-top:22px" href="#realisations">Voir les réalisations</a>
+        </div>
+        <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/05/Agence-darchitecte-dinterieur-Roanne-scaled.jpeg" alt="Agencement intérieur réalisé par Ets Fraisse" loading="lazy">
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======== OUTIL CENTRAL : DEVIS PAR POSTE ======== -->
+<section class="estim" id="estimer">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label rv">Courtage en travaux · chiffrage</span><h2 class="rv d1">Composez votre rénovation, poste par poste</h2></div>
+      <p class="rv d2">Nous établissons un devis par poste pour une estimation au plus juste de votre budget travaux. Avant même le premier rendez-vous, faites-vous une première idée — puis envoyez-nous votre sélection, elle arrive prête dans votre demande.</p>
+    </div>
+    <div class="est">
+      <div class="panel rv">
+        <div class="step">
+          <div class="label"><em>1</em>Votre projet</div>
+          <div class="seg" id="lieu">
+            <button type="button" data-v="maison" aria-pressed="true">Maison</button>
+            <button type="button" data-v="appartement" aria-pressed="false">Appartement</button>
+            <button type="button" data-v="pro" aria-pressed="false">Local professionnel</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="label"><em>2</em>Surface concernée</div>
+          <div class="range"><input type="range" id="surf" min="8" max="250" step="1" value="60" aria-label="Surface en mètres carrés"><output id="surfOut">60 m²</output></div>
+        </div>
+        <div class="step">
+          <div class="label"><em>3</em>Corps d'état à prévoir</div>
+          <div class="postes" id="postes"></div>
+        </div>
+        <div class="step">
+          <div class="label"><em>4</em>Niveau de finition</div>
+          <div class="seg" id="fin">
+            <button type="button" data-v="0.85" aria-pressed="false">Essentiel</button>
+            <button type="button" data-v="1" aria-pressed="true">Soigné</button>
+            <button type="button" data-v="1.3" aria-pressed="false">Haut de gamme</button>
+          </div>
+          <label class="check"><input type="checkbox" id="ancien"> Bâti ancien (avant 1975) : prévoir une marge pour les imprévus</label>
+        </div>
+      </div>
+
+      <aside class="result rv d1" aria-live="polite">
+        <svg class="planlines" viewBox="0 0 220 220" aria-hidden="true" id="planlines"></svg>
+        <span class="label">Fourchette indicative TTC</span>
+        <div class="total" id="total">—</div>
+        <div class="permq" id="permq">Sélectionnez au moins un poste.</div>
+        <div class="lines" id="lines"><p class="empty">Vos postes apparaîtront ici, chacun avec sa couleur.</p></div>
+        <p class="note">Conception, plans 3D, rendus photoréalistes et suivi de chantier : chiffrés sur devis après visite. Fourchettes calculées à partir de moyennes de marché nationales, fourniture et pose — non contractuelles. Le devis détaillé est établi après relevé de mesures sur place.</p>
+        <a class="btn light" href="#contact" id="sendEst">Envoyer ma sélection</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label rv">Nos réalisations</span><h2 class="rv d1">Du projet 3D au chantier livré</h2></div>
+      <p class="rv d2">Notre capacité à réaliser votre projet en 3D puis à le projeter en rendu photoréaliste vous aide à valider vos choix. Faites glisser le curseur pour comparer.</p>
+    </div>
+    <div class="ba-grid">
+      <div class="rv">
+        <div class="ba" style="--x:50%">
+          <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/03/CHI.jpg" alt="Espace livré après travaux" loading="lazy">
+          <img class="top" src="https://fraisse-travaux.fr/wp-content/uploads/2023/03/CHI-SU.jpg" alt="Modélisation 3D du même espace" loading="lazy">
+          <div class="handle"></div><span class="tag l">Projet 3D</span><span class="tag r">Chantier livré</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Comparer le projet 3D et le chantier livré">
+        </div>
+        <p class="cap">Espace de présentation : la modélisation remise au client, puis la photo prise à la remise du chantier.</p>
+        <div class="ba" style="--x:50%;margin-top:20px">
+          <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/03/SER-RENDU.jpg" alt="Rendu photoréaliste d'un séjour" loading="lazy">
+          <img class="top" src="https://fraisse-travaux.fr/wp-content/uploads/2023/03/SER-SU.jpg" alt="Plan 3D du séjour" loading="lazy">
+          <div class="handle"></div><span class="tag l">Plan 3D</span><span class="tag r">Rendu photoréaliste</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Comparer le plan 3D et le rendu photoréaliste">
+        </div>
+        <p class="cap">Séjour : du volume au rendu, pour choisir matériaux et couleurs avant le premier coup de pinceau.</p>
+      </div>
+      <div class="rv d1">
+        <div class="ba tall" style="--x:50%">
+          <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/05/fraisse-nos-realisations-salon-apres.jpg" alt="Salon après rénovation" loading="lazy">
+          <img class="top" src="https://fraisse-travaux.fr/wp-content/uploads/2023/05/fraisse-nos-realisations-salon-avant.jpg" alt="Salon avant rénovation" loading="lazy">
+          <div class="handle"></div><span class="tag l">Avant</span><span class="tag r">Après</span>
+          <input type="range" min="0" max="100" value="50" aria-label="Comparer le salon avant et après">
+        </div>
+        <p class="cap">Votre intérieur évolue : un salon avant et après rénovation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="accompagnement" style="background:var(--creme)">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label rv">Accompagnement</span><h2 class="rv d1">Les étapes de votre projet de rénovation</h2></div>
+      <p class="rv d2">Vous avez des envies pour votre projet de rénovation, nous avons les compétences pour les concrétiser. Une équipe dédiée gère vos travaux dans leur intégralité.</p>
+    </div>
+    <div class="steps" id="steps">
+      <div class="prog"></div>
+      <div class="st rv"><span class="label">Prise de contact</span><h3>Premier rendez-vous</h3><p>Nous échangeons sur vos désirs et vos attentes, pour que contraintes techniques et besoins restent en harmonie.</p></div>
+      <div class="st rv d1"><span class="label">Relevé de mesures</span><h3>État des lieux</h3><p>Sur les lieux du futur chantier : prise de côtes, étude de faisabilité, puis plans.</p></div>
+      <div class="st rv d2"><span class="label">Devis, plans 3D</span><h3>Agencement</h3><p>Dossier complet : plans 3D, rendus photoréalistes, plans techniques et devis par poste.</p></div>
+      <div class="st rv"><span class="label">Coordination</span><h3>Réalisation des travaux</h3><p>Nos artisans qualifiés, habitués à travailler ensemble, mènent à bien chaque lot.</p></div>
+      <div class="st rv d1"><span class="label">Suivi du chantier</span><h3>Maîtrise d'œuvre</h3><p>Un chef de projet dédié coordonne les corps d'état et suit les délais sur place.</p></div>
+      <div class="st rv d2"><span class="label">Remise des clés</span><h3>Remise du chantier</h3><p>Un tour exhaustif du chantier et un état des lieux de chaque prestation effectuée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="hist" id="histoire">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="label rv" style="color:#b8c3b4">Notre histoire</span><h2 class="rv d1">La force d'un savoir-faire depuis 1987</h2></div>
+      <p class="rv d2">Petite entreprise de miroiterie à ses débuts, les établissements Fraisse n'ont eu de cesse d'évoluer.</p>
+    </div>
+    <div class="timeline">
+      <figure class="mof rv">
+        <img src="https://fraisse-travaux.fr/wp-content/uploads/2023/05/Fraisse-Jean-Francois-MOF-Roanne.jpg" alt="Jean-François Fraisse, Meilleur Ouvrier de France" loading="lazy">
+        <figcaption><b>Jean-François Fraisse</b>Fondateur · Meilleur Ouvrier de France 2000</figcaption>
+      </figure>
+      <ul class="years">
+        <li class="rv" style="--c:var(--t-bleu)"><b>1987</b><p>Création de l'entreprise par Jean-François Fraisse, à ses débuts en miroiterie.</p></li>
+        <li class="rv" style="--c:var(--t-jaune)"><b>1998</b><p>Obtention de l'agrément d'aluminier.</p></li>
+        <li class="rv" style="--c:var(--t-turquoise)"><b>1999</b><p>L'entreprise devient maître d'œuvre et agence pas loin de 200 magasins d'optique à travers la France.</p></li>
+        <li class="rv" style="--c:var(--t-rouge)"><b>2000</b><p>Titre de Meilleur Ouvrier de France, catégorie « Métiers du verre liés à l'architecture », pour la conception et la réalisation d'une étagère en verre.</p></li>
+        <li class="rv" style="--c:#d9dbd4"><b>2015</b><p>L'entreprise prend une tournure familiale : Julie Fraisse et son conjoint rejoignent l'équipe.</p></li>
+        <li class="rv" style="--c:var(--sauge)"><b>2022</b><p>Julie Fraisse reprend les rênes de l'entreprise, qui propose ses services 360° aux professionnels comme aux particuliers.</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="padding-bottom:0">
+  <div class="wrap">
+    <div class="avis rv">
+      <div class="g">G</div>
+      <div>
+        <span class="label">Avis de nos clients</span>
+        <h3 style="font-size:24px;margin:6px 0">Emplacement prévu pour vos vrais avis Google</h3>
+        <p style="color:#55594f;font-size:15px">Dans la version finale, cette zone affiche automatiquement vos avis clients publiés — aucun avis n'a été inventé pour cette maquette.</p>
+      </div>
+      <a class="btn ghost" href="#contact">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div class="coords rv">
+      <span class="label">Confiez vos travaux à des experts</span>
+      <h2 style="margin:10px 0 18px">Vous souhaitez nous parler de votre projet ?</h2>
+      <div class="open" id="open"><i></i><span>Horaires</span></div>
+      <p><b>Entreprise FRAISSE</b><br>805 rue du Marclet (face au Scarabée)<br>42153 Riorges</p>
+      <p><a href="tel:+33426244909">04 26 24 49 09</a><br><a href="mailto:contact@fraisse-travaux.fr">contact@fraisse-travaux.fr</a></p>
+      <div class="hours"><span>Lundi – vendredi</span><span>9h00 – 12h00 · 14h00 – 18h00</span><span>Samedi</span><span>sur rendez-vous</span></div>
+    </div>
+    <form class="rv d1" id="form" onsubmit="return sendForm(event)">
+      <div class="flash" id="flash">Votre sélection de l'estimateur a été ajoutée au message.</div>
+      <div class="row">
+        <label class="f">Identité<input class="t" name="nom" required autocomplete="name"></label>
+        <label class="f">Numéro de téléphone<input class="t" name="tel" type="tel" autocomplete="tel"></label>
+      </div>
+      <label class="f">E-mail<input class="t" name="email" type="email" required autocomplete="email"></label>
+      <label class="f">Besoin client
+        <select name="besoin">
+          <option>Expertise pour rénovation</option>
+          <option selected>Besoin d'un devis</option>
+          <option>Attente de devis après expertise</option>
+          <option>Service après vente</option>
+          <option>Candidature</option>
+          <option>Autre, précisez ci-dessous</option>
+        </select>
+      </label>
+      <label class="f">Message<textarea name="msg" id="msg"></textarea></label>
+      <button class="btn" type="submit">Envoyer</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">
+  <div class="cols">
+    <div><h4>Ets Fraisse</h4><p>Maître d'œuvre en rénovation tous corps d'état à Riorges, pour Roanne, le Roannais et vos projets partout en France.</p></div>
+    <div><h4>Savoir-faire</h4><ul><li>Plâtrerie peinture</li><li>Électricité générale</li><li>Revêtements de sols</li><li>Menuiserie · Plomberie</li><li>Meubles sur mesure</li><li>Architecture d'intérieur</li></ul></div>
+    <div><h4>Contact</h4><ul><li>805 rue du Marclet, 42153 Riorges</li><li><a href="tel:+33426244909">04 26 24 49 09</a></li><li><a href="mailto:contact@fraisse-travaux.fr">contact@fraisse-travaux.fr</a></li><li>Lun–ven 9h–12h / 14h–18h</li></ul></div>
+  </div>
+  <p class="demo-note">Maquette de démonstration réalisée à titre de proposition, non mise en ligne par l'entreprise. Textes, logo et photos repris du site actuel fraisse-travaux.fr (toutes les photos sont celles de l'entreprise ; aucune photo d'illustration). Les couleurs reprennent la charte du site actuel et les tracés colorés de la façade de l'agence, ajustables. Les fourchettes de l'estimateur sont indicatives, issues de moyennes de marché nationales, non contractuelles. Aucun avis client n'a été ajouté : l'emplacement est prévu pour les avis réels.</p>
+</div></footer>
+
+<a class="btn callfab" href="tel:+33426244909" aria-label="Appeler Ets Fraisse">Appeler</a>
+
+<script>
+/* ---------- Navigation ---------- */
+const nav=document.getElementById('nav'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* ---------- Apparitions au scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+/* ---------- Ligne de progression des étapes ---------- */
+const steps=document.getElementById('steps'),prog=steps.querySelector('.prog');
+addEventListener('scroll',()=>{const r=steps.getBoundingClientRect();const p=Math.min(1,Math.max(0,(innerHeight*.75-r.top)/(r.height)));prog.style.setProperty('--p',(p*100)+'%')},{passive:true});
+
+/* ---------- Avant / après ---------- */
+document.querySelectorAll('.ba').forEach(b=>{const i=b.querySelector('input');i.addEventListener('input',()=>b.style.setProperty('--x',i.value+'%'))});
+
+/* ---------- Estimateur par poste ----------
+   Fourchettes €/m² TTC fourniture + pose, moyennes nationales 2026 (indicatives).
+   Les coefficients se règlent ici le jour où l'entreprise donne ses propres prix. */
+const POSTES=[
+  {id:'platre',nom:'Plâtrerie peinture',sub:'murs, plafonds, finitions',c:'var(--t-bleu)',min:55,max:110,on:true},
+  {id:'elec',nom:'Électricité générale',sub:'mise aux normes',c:'var(--t-rouge)',min:80,max:160},
+  {id:'sols',nom:'Revêtements de sols',sub:'carrelage, parquet, souple',c:'var(--t-jaune)',min:50,max:120,on:true},
+  {id:'plomb',nom:'Plomberie',sub:'réseaux, sanitaires',c:'var(--t-turquoise)',min:60,max:140},
+  {id:'menuis',nom:'Menuiserie',sub:'portes, placards',c:'var(--t-gris)',min:35,max:95},
+  {id:'meubles',nom:'Meubles sur mesure',sub:'forfait par ensemble',c:'var(--sauge)',forfait:[3000,9000]}
+];
+const LIEU={maison:1,appartement:1.05,pro:1.12};
+const wrapP=document.getElementById('postes');
+POSTES.forEach(p=>{
+  const l=document.createElement('label');l.className='poste';l.style.setProperty('--c',p.c);
+  l.innerHTML=`<input type="checkbox" value="${p.id}" ${p.on?'checked':''}><span class="bar"></span><span><b>${p.nom}</b><small>${p.sub}</small></span>`;
+  wrapP.appendChild(l);
+});
+const plan=document.getElementById('planlines');
+plan.innerHTML=POSTES.map((p,i)=>`<path data-id="${p.id}" stroke="${p.c}" d="M${10+i*18} 220 V${60+i*14} H${200} V${10+i*8}"/>`).join('');
+
+function seg(id){const el=document.getElementById(id);el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;el.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));calc()});return()=>el.querySelector('[aria-pressed="true"]').dataset.v}
+const getLieu=seg('lieu'),getFin=seg('fin');
+const surf=document.getElementById('surf'),surfOut=document.getElementById('surfOut'),ancien=document.getElementById('ancien');
+const fmt=n=>Math.round(n/100)*100;const eur=n=>fmt(n).toLocaleString('fr-FR')+' €';
+let last=[0,0],current=null;
+function tween(el,from,to){const t0=performance.now(),d=700;const f=now=>{const k=Math.min(1,(now-t0)/d),e=1-Math.pow(1-k,3);const a=from[0]+(to[0]-from[0])*e,b=from[1]+(to[1]-from[1])*e;el.innerHTML=`${eur(a)} <small>à</small> ${eur(b)}`;if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function calc(){
+  const s=+surf.value;surfOut.textContent=s+' m²';
+  const k=LIEU[getLieu()]*(+getFin())*(ancien.checked?1.18:1);
+  const sel=[...wrapP.querySelectorAll('input:checked')].map(i=>POSTES.find(p=>p.id===i.value));
+  plan.querySelectorAll('path').forEach(p=>p.classList.toggle('on',sel.some(x=>x.id===p.dataset.id)));
+  const lines=document.getElementById('lines');
+  if(!sel.length){lines.innerHTML='<p class="empty">Vos postes apparaîtront ici, chacun avec sa couleur.</p>';document.getElementById('total').textContent='—';document.getElementById('permq').textContent='Sélectionnez au moins un poste.';last=[0,0];current=null;return}
+  const rows=sel.map(p=>{const lo=p.forfait?p.forfait[0]*(+getFin()):p.min*s*k,hi=p.forfait?p.forfait[1]*(+getFin()):p.max*s*k;return{...p,lo,hi}});
+  const tot=[rows.reduce((a,r)=>a+r.lo,0),rows.reduce((a,r)=>a+r.hi,0)];
+  const maxHi=Math.max(...rows.map(r=>r.hi));
+  lines.innerHTML=rows.map(r=>`<div class="line"><span>${r.nom}</span><span>${eur(r.lo)} – ${eur(r.hi)}</span><div class="track"><div class="fill" style="--c:${r.c};background:${r.c}" data-w="${(r.hi/maxHi*100).toFixed(1)}"></div></div></div>`).join('');
+  requestAnimationFrame(()=>lines.querySelectorAll('.fill').forEach(f=>f.style.width=f.dataset.w+'%'));
+  tween(document.getElementById('total'),last,tot);last=tot;
+  document.getElementById('permq').textContent=`soit environ ${Math.round(tot[0]/s)} à ${Math.round(tot[1]/s)} €/m² pour ${s} m²`;
+  current={lieu:document.querySelector('#lieu [aria-pressed="true"]').textContent,s,fin:document.querySelector('#fin [aria-pressed="true"]').textContent,ancien:ancien.checked,rows,tot};
+}
+wrapP.addEventListener('change',calc);surf.addEventListener('input',calc);ancien.addEventListener('change',calc);calc();
+
+document.getElementById('sendEst').addEventListener('click',()=>{
+  if(!current)return;
+  const m=`Bonjour,\n\nProjet : ${current.lieu}, ${current.s} m², finition ${current.fin.toLowerCase()}${current.ancien?', bâti ancien':''}.\nPostes souhaités :\n${current.rows.map(r=>'- '+r.nom+' ('+eur(r.lo)+' – '+eur(r.hi)+')').join('\n')}\nFourchette indicative : ${eur(current.tot[0])} à ${eur(current.tot[1])}.\n\nJe souhaiterais un premier rendez-vous pour en parler.`;
+  document.getElementById('msg').value=m;const f=document.getElementById('flash');f.classList.add('show');
+});
+function sendForm(e){e.preventDefault();const d=new FormData(e.target);const body=`${d.get('msg')}\n\n${d.get('nom')} – ${d.get('tel')||''} – ${d.get('email')}`;location.href=`mailto:contact@fraisse-travaux.fr?subject=${encodeURIComponent(d.get('besoin')+' – demande depuis le site')}&body=${encodeURIComponent(body)}`;return false}
+
+/* ---------- Ouvert / fermé ---------- */
+(function(){const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes();const on=d>=1&&d<=5&&((m>=540&&m<720)||(m>=840&&m<1080));const el=document.getElementById('open');el.classList.toggle('on',on);el.querySelector('span').textContent=on?'Ouvert en ce moment':(d===6?'Samedi : sur rendez-vous':'Fermé · lun–ven 9h–12h / 14h–18h')})();
+</script>
+</body>
+</html>
