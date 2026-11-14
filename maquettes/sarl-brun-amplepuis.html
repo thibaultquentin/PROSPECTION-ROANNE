@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SARL Brun — Charpente, couverture, menuiserie autour d'Amplepuis</title>
+<meta name="description" content="Entreprise familiale depuis 1990 à Amplepuis : menuiserie, charpente, couverture tuile et métallique, construction et isolation bois, qualifiée Qualibat RGE.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE SARL BRUN — reprise du site actuel (brun-amplepuis.fr)
+   accent1 sienna #A0522D (boutons, logo) · accent2 burlywood #DEB887
+   accent3 #d0cecd · texte #151515 · fond #f8f8f8 · brun logo #856d4f
+   Titres : Bebas Neue (police du logo) · Texte : Open Sans / Arial
+   ============================================================ */
+:root{
+  --sienna:#A0522D;
+  --sienna-dark:#7e3f22;
+  --wood:#DEB887;
+  --wood-soft:#f1e3cf;
+  --stone:#d0cecd;
+  --earth:#856d4f;
+  --ink:#151515;
+  --paper:#f8f8f8;
+  --white:#ffffff;
+  --muted:#5c5752;
+  --f-title:'Bebas Neue', 'BebasNeue', Impact, sans-serif;
+  --f-body:'Open Sans', Arial, Helvetica, sans-serif;
+  --r:6px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--f-body);color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-title);font-weight:400;letter-spacing:.02em;line-height:1}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--sienna)}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.5em;border-radius:var(--r);font-weight:700;text-decoration:none;border:2px solid var(--sienna);transition:transform .25s var(--ease),background .25s,color .25s;cursor:pointer;font-family:var(--f-body);font-size:.95rem}
+.btn-primary{background:var(--sienna);color:#f8f8f8}
+.btn-primary:hover{background:var(--sienna-dark);border-color:var(--sienna-dark);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--white);border-color:rgba(255,255,255,.7)}
+.btn-ghost:hover{background:var(--white);color:var(--ink)}
+.btn svg{width:18px;height:18px}
+
+/* bandeau démo */
+.demo{background:var(--ink);color:#e9e4dc;font-size:.78rem;text-align:center;padding:.45em 1em}
+.demo b{color:var(--wood)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(248,248,248,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--stone);box-shadow:0 6px 24px rgba(21,21,21,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{height:52px;width:auto;border-radius:3px}
+.menu{display:flex;gap:1.6rem;list-style:none;font-size:.92rem;font-weight:600}
+.menu a{text-decoration:none;position:relative;padding:.3em 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--sienna);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+.nav-tel{font-weight:700;text-decoration:none;color:var(--sienna);white-space:nowrap}
+.burger{display:none;background:none;border:0;width:42px;height:42px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--ink);margin:7px 8px;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:74px 0 auto 0;flex-direction:column;background:var(--paper);padding:1.5rem 16px 2rem;gap:1.1rem;transform:translateY(-130%);transition:transform .4s var(--ease);border-bottom:1px solid var(--stone)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav-tel{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:calc(100svh - 104px);display:flex;align-items:flex-end;color:var(--white);overflow:hidden;background:var(--ink)}
+.hero-slides{position:absolute;inset:0}
+.hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s linear}
+.hero-slides img.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,21,21,.15) 0%,rgba(21,21,21,.35) 45%,rgba(21,21,21,.85) 100%)}
+.hero-in{position:relative;z-index:2;padding:clamp(3rem,8vw,6rem) 0 clamp(2.5rem,7vw,5rem)}
+.hero .eyebrow{color:var(--wood)}
+.hero h1{font-size:clamp(2.8rem,7vw,5.6rem);margin:.3em 0 .25em;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--wood)}
+.hero p.lead{max-width:56ch;font-size:clamp(1rem,1.4vw,1.15rem);color:#eee8df}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
+.hero-tags span{border:1px solid rgba(222,184,135,.55);color:#f3e6d3;border-radius:99px;padding:.3em .9em;font-size:.8rem}
+.scroll-hint{position:absolute;right:16px;bottom:24px;z-index:2;writing-mode:vertical-rl;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:#ddd;display:flex;align-items:center;gap:.8rem}
+.scroll-hint::after{content:"";width:1px;height:60px;background:linear-gradient(var(--wood),transparent);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* strip métier */
+.ticker{background:var(--sienna);color:#f8f8f8;overflow:hidden;white-space:nowrap;padding:.9rem 0}
+.ticker div{display:inline-block;animation:tick 38s linear infinite;font-family:var(--f-title);font-size:1.5rem;letter-spacing:.06em}
+.ticker span{margin:0 1.4rem;opacity:.95}
+.ticker i{font-style:normal;color:var(--wood)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,9vw,7rem) 0}
+.sec-head{display:grid;gap:.8rem;margin-bottom:2.6rem;max-width:760px}
+.sec-head h2{font-size:clamp(2.4rem,5vw,3.8rem)}
+.sec-head p{color:var(--muted)}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.intro h2{font-size:clamp(2.4rem,5vw,3.8rem);margin:.4rem 0 1rem}
+.intro p{color:#3a3632;margin-bottom:1rem}
+.intro-figs{position:relative;aspect-ratio:1/1}
+.intro-figs img{position:absolute;object-fit:cover;border-radius:var(--r);box-shadow:0 20px 50px rgba(21,21,21,.18)}
+.intro-figs .a{width:72%;height:72%;top:0;left:0}
+.intro-figs .b{width:56%;height:56%;right:0;bottom:0;border:6px solid var(--paper)}
+.since{position:absolute;left:6%;bottom:6%;background:var(--ink);color:var(--wood);padding:1rem 1.2rem;border-radius:var(--r);font-family:var(--f-title);font-size:1rem;letter-spacing:.08em;z-index:3}
+.since strong{display:block;font-size:3rem;line-height:.9;color:#fff}
+@media (max-width:860px){.intro{grid-template-columns:1fr}}
+
+/* services */
+.services{background:var(--white)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.svc{position:relative;border-radius:var(--r);overflow:hidden;min-height:340px;color:#fff;display:flex;align-items:flex-end;isolation:isolate;cursor:default}
+.svc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--ease)}
+.svc::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(21,21,21,.88));transition:background .4s}
+.svc:hover img{transform:scale(1.07)}
+.svc:hover::before{background:linear-gradient(180deg,rgba(160,82,45,.25) 0%,rgba(21,21,21,.92))}
+.svc-body{padding:1.4rem}
+.svc h3{font-size:2rem;margin-bottom:.4rem}
+.svc p{font-size:.9rem;color:#ebe5dc;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s}
+.svc:hover p,.svc:focus-within p{max-height:200px;opacity:1}
+.svc .num{position:absolute;top:1rem;left:1.2rem;font-family:var(--f-title);font-size:1rem;color:var(--wood);letter-spacing:.1em}
+.rge{display:inline-block;margin-top:.5rem;background:var(--wood);color:var(--ink);font-size:.72rem;font-weight:700;padding:.2em .6em;border-radius:3px}
+@media (hover:none){.svc p{max-height:none;opacity:1}}
+@media (max-width:900px){.svc-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.svc-grid{grid-template-columns:1fr}.svc{min-height:280px}}
+
+/* ===== OUTIL : préparer son projet ===== */
+.tool{background:var(--ink);color:#f3efe9;position:relative;overflow:hidden}
+.tool .sec-head p{color:#bdb5aa}
+.tool .eyebrow{color:var(--wood)}
+.tool-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:start}
+.panel{background:#1f1d1b;border:1px solid #34302c;border-radius:10px;padding:clamp(1.2rem,3vw,2rem)}
+.steps{display:flex;gap:.4rem;margin-bottom:1.4rem}
+.steps i{flex:1;height:4px;border-radius:4px;background:#3a3531;transition:background .4s}
+.steps i.done{background:var(--sienna)}
+.step{display:none;animation:fade .5s var(--ease)}
+.step.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.step h3{font-size:1.9rem;color:#fff;margin-bottom:.3rem}
+.step .hint{color:#a79f94;font-size:.88rem;margin-bottom:1.2rem}
+.chips{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.field .chip label,.chip label{justify-content:flex-start;text-align:left}
+.chip label{display:flex;gap:.7rem;align-items:flex-start;padding:.85rem .9rem;border:1px solid #3d3833;border-radius:8px;cursor:pointer;transition:border-color .25s,background .25s;font-size:.9rem;line-height:1.35}
+.chip label b{display:block;color:#fff;font-weight:600}
+.chip label small{color:#9d958a}
+.chip label::before{content:"";flex:none;width:18px;height:18px;border:2px solid #6b635a;border-radius:4px;margin-top:2px;transition:.2s}
+.chip input[type=radio]+label::before{border-radius:50%}
+.chip input:checked+label{border-color:var(--sienna);background:rgba(160,82,45,.14)}
+.chip input:checked+label::before{background:var(--sienna);border-color:var(--sienna);box-shadow:inset 0 0 0 3px #1f1d1b}
+.chip input:focus-visible+label{outline:2px solid var(--wood);outline-offset:2px}
+@media (max-width:560px){.chips{grid-template-columns:1fr}}
+.field{margin-bottom:1.1rem}
+.field label{display:flex;justify-content:space-between;font-size:.88rem;color:#d6cfc5;margin-bottom:.45rem}
+.field output{font-weight:700;color:var(--wood)}
+input[type=range]{width:100%;accent-color:var(--sienna)}
+.field input[type=text],.field input[type=email],.field input[type=tel],.field textarea,.field select{width:100%;background:#151413;border:1px solid #3d3833;color:#fff;border-radius:6px;padding:.75rem .8rem;font:inherit;font-size:.92rem}
+.field textarea{min-height:90px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.nav-steps{display:flex;justify-content:space-between;gap:.8rem;margin-top:1.4rem}
+.nav-steps .btn{padding:.75em 1.2em}
+.btn-dark{background:transparent;color:#ddd;border-color:#4a443e}
+.btn-dark:hover{border-color:var(--wood);color:#fff}
+/* visuel toiture */
+.roof-card{position:sticky;top:96px}
+.roof-svg{width:100%;height:auto;display:block}
+.roof-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem}
+.stat{background:#151413;border:1px solid #34302c;border-radius:8px;padding:.8rem;text-align:center}
+.stat b{display:block;font-family:var(--f-title);font-size:2rem;color:#fff;line-height:1}
+.stat span{font-size:.72rem;color:#9d958a;text-transform:uppercase;letter-spacing:.08em}
+.note{font-size:.78rem;color:#8f877c;margin-top:.9rem}
+.aid{margin-top:1rem;border-left:3px solid var(--wood);padding:.6rem .9rem;background:rgba(222,184,135,.08);font-size:.86rem;color:#e6dccd;display:none}
+.aid.on{display:block;animation:fade .5s}
+.recap{background:#151413;border:1px dashed #5a524a;border-radius:8px;padding:1rem;font-size:.86rem;white-space:pre-wrap;color:#e3dcd2;max-height:260px;overflow:auto;margin-bottom:1rem}
+.sent{display:none;margin-top:1rem;color:var(--wood);font-size:.9rem}
+@media (max-width:960px){.tool-grid{grid-template-columns:1fr}.roof-card{position:static;order:-1}}
+
+/* réalisations */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.filters button{border:1px solid var(--stone);background:var(--white);padding:.55em 1.1em;border-radius:99px;font:600 .85rem var(--f-body);cursor:pointer;transition:.25s}
+.filters button.on,.filters button:hover{background:var(--ink);border-color:var(--ink);color:var(--white)}
+.gallery{columns:3 280px;column-gap:1rem}
+.gallery figure{break-inside:avoid;margin-bottom:1rem;position:relative;overflow:hidden;border-radius:var(--r);cursor:zoom-in;transition:opacity .4s,transform .4s}
+.gallery figure.hide{display:none}
+.gallery img{width:100%;transition:transform .8s var(--ease)}
+.gallery figure:hover img{transform:scale(1.05)}
+.gallery figcaption{position:absolute;left:.7rem;bottom:.7rem;background:rgba(21,21,21,.78);color:#fff;font-size:.75rem;padding:.25em .65em;border-radius:3px;letter-spacing:.04em}
+.feature{display:grid;grid-template-columns:auto 1fr;gap:1.4rem;align-items:center;background:var(--wood-soft);border-radius:var(--r);padding:1.4rem 1.6rem;margin-bottom:2rem}
+.feature b{font-family:var(--f-title);font-size:2.1rem;color:var(--sienna);line-height:1}
+.feature p{font-size:.95rem;color:#3a3632}
+@media (max-width:600px){.feature{grid-template-columns:1fr}}
+.lightbox{position:fixed;inset:0;background:rgba(10,10,10,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.lightbox.on{display:flex}
+.lightbox img{max-height:86vh;width:auto;border-radius:4px}
+.lightbox button{position:absolute;top:16px;right:16px;background:none;border:0;color:#fff;font-size:2.2rem;cursor:pointer}
+
+/* engagements */
+.values{background:var(--white)}
+.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.val{padding:1.6rem 1.3rem;border:1px solid var(--stone);border-radius:var(--r);background:var(--paper);transition:transform .35s var(--ease),border-color .3s}
+.val:hover{transform:translateY(-6px);border-color:var(--sienna)}
+.val svg{width:38px;height:38px;color:var(--sienna);margin-bottom:.8rem}
+.val h3{font-size:1.6rem;margin-bottom:.4rem}
+.val p{font-size:.9rem;color:var(--muted)}
+@media (max-width:900px){.val-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.val-grid{grid-template-columns:1fr}}
+
+/* famille */
+.family{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.family img{border-radius:var(--r);width:100%;aspect-ratio:4/3;object-fit:cover}
+.family h2{font-size:clamp(2.4rem,5vw,3.6rem);margin:.4rem 0 1rem}
+.family p{margin-bottom:1rem;color:#3a3632}
+.timeline{display:flex;gap:0;margin-top:1.5rem;border-top:2px solid var(--stone);padding-top:1rem}
+.timeline div{flex:1;position:relative;padding-right:.6rem}
+.timeline div::before{content:"";position:absolute;top:-1.43rem;left:0;width:12px;height:12px;border-radius:50%;background:var(--sienna)}
+.timeline b{font-family:var(--f-title);font-size:1.8rem;color:var(--sienna);display:block;line-height:1}
+.timeline span{font-size:.82rem;color:var(--muted)}
+@media (max-width:860px){.family{grid-template-columns:1fr}}
+
+/* zone */
+.zone{background:var(--wood-soft)}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.radar{position:relative;aspect-ratio:1;max-width:440px;margin-inline:auto;width:100%}
+.radar .ring{position:absolute;border:1.5px dashed rgba(160,82,45,.45);border-radius:50%;inset:0}
+.radar .ring.r2{inset:18%}
+.radar .ring.r3{inset:36%}
+.radar .sweep{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(160,82,45,.28),transparent 25%);animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.radar .c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--sienna);color:#fff;font-family:var(--f-title);padding:.5rem .9rem;border-radius:4px;font-size:1.2rem;letter-spacing:.05em;box-shadow:0 0 0 8px rgba(160,82,45,.18)}
+.radar .lbl{position:absolute;font-size:.8rem;font-weight:600;color:var(--earth)}
+.zone h2{font-size:clamp(2.4rem,5vw,3.6rem);margin:.4rem 0 1rem}
+@media (max-width:860px){.zone-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.card{background:var(--white);border:1px solid var(--stone);border-radius:var(--r);padding:1.8rem}
+.card h3{font-size:2rem;margin-bottom:1rem}
+.card ul{list-style:none;display:grid;gap:.9rem}
+.card li{display:flex;gap:.8rem;align-items:flex-start}
+.card li svg{width:22px;height:22px;color:var(--sienna);flex:none;margin-top:2px}
+.card a{text-decoration:none;font-weight:600}
+.card a:hover{color:var(--sienna)}
+.social{display:flex;gap:.6rem;margin-top:1.2rem}
+.social a{border:1px solid var(--stone);border-radius:99px;padding:.4em .9em;font-size:.82rem}
+.map{border-radius:var(--r);overflow:hidden;min-height:320px;border:1px solid var(--stone)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.3) sepia(.15)}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:#bdb5aa;padding:3rem 0 2rem;font-size:.85rem}
+footer .f-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;margin-bottom:1.5rem}
+footer img{height:56px;border-radius:3px}
+footer .disclaimer{border-top:1px solid #34302c;padding-top:1.2rem;font-size:.76rem;color:#8f877c}
+
+.sticky-call{position:fixed;right:16px;bottom:16px;z-index:60;display:none;background:var(--sienna);color:#fff;border-radius:99px;padding:.85em 1.2em;font-weight:700;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+@media (max-width:900px){.sticky-call{display:inline-flex;gap:.5em;align-items:center}}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"RoofingContractor",
+  "name":"SARL Brun",
+  "description":"Entreprise familiale de menuiserie, charpente, couverture tuile et métallique, construction bois et isolation, en activité depuis 1990, qualifiée Qualibat RGE.",
+  "url":"https://www.brun-amplepuis.fr/",
+  "telephone":"+33474895662",
+  "email":"contact@brun-amplepuis.fr",
+  "foundingDate":"1990",
+  "address":{"@type":"PostalAddress","streetAddress":"8 impasse Jean Moos","postalCode":"69550","addressLocality":"Amplepuis","addressRegion":"Auvergne-Rhône-Alpes","addressCountry":"FR"},
+  "areaServed":{"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","addressLocality":"Amplepuis"},"geoRadius":"50000"},
+  "sameAs":["https://www.facebook.com/Brunfreres/","https://www.instagram.com/sarl_brun/","https://www.linkedin.com/company/entreprise-brun-freres/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de nouveau site</b> pour SARL Brun · contenus repris du site actuel</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="SARL Brun, accueil">
+      <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/7d0cdf5e-fc26-4d39-aeb5-13d810b8c229/image-512x341.jpg" alt="Logo Brun — Menuiserie, charpente, couverture, construction bois">
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#savoir-faire">Savoir-faire</a></li>
+      <li><a href="#projet">Préparer mon projet</a></li>
+      <li><a href="#realisations">Nos réalisations</a></li>
+      <li><a href="#a-propos">À propos de nous</a></li>
+      <li><a href="#contact">Contactez-nous</a></li>
+    </ul>
+    <a class="nav-tel" href="tel:+33474895662">04 74 89 56 62</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero-slides" id="slides">
+    <img class="on" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/ef6562c8-8e97-4b5a-b9c2-d1e8b8357e5f/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Couverture en tuiles terre cuite réalisée par SARL Brun">
+    <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/ebbb26d4-addf-4f70-be57-20ac41f3a67b/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Charpente bois apparente">
+    <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/c8813f4a-851e-4d65-a2ed-d84478f035e1/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Construction en bois avec terrasse">
+  </div>
+  <div class="wrap hero-in">
+    <span class="eyebrow">Menuiserie · Charpente · Couverture · Construction bois</span>
+    <h1>Des solutions <em>sur mesure</em> pour vos projets</h1>
+    <p class="lead">SARL BRUN, votre partenaire de confiance en menuiserie et charpente, vous accompagne depuis 1990 dans la réalisation de vos projets de construction et rénovation, depuis Amplepuis.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projet">Préparer mon projet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="tel:+33474895662">04 74 89 56 62</a>
+    </div>
+    <div class="hero-tags"><span>Entreprise familiale</span><span>Qualibat RGE</span><span>Bois & fournisseurs locaux</span></div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>Menuiserie sur mesure</span><i>◆</i><span>Charpente bois</span><i>◆</i><span>Couverture tuile et zinguerie</span><i>◆</i><span>Couverture métallique</span><i>◆</i><span>Construction en bois</span><i>◆</i><span>Isolation par l'extérieur</span><i>◆</i>
+  <span>Menuiserie sur mesure</span><i>◆</i><span>Charpente bois</span><i>◆</i><span>Couverture tuile et zinguerie</span><i>◆</i><span>Couverture métallique</span><i>◆</i><span>Construction en bois</span><i>◆</i><span>Isolation par l'extérieur</span><i>◆</i>
+</div></div>
+
+<section>
+  <div class="wrap intro">
+    <div class="reveal">
+      <span class="eyebrow">Votre spécialiste en menuiserie et charpente</span>
+      <h2>Qualité et savoir-faire depuis 1990</h2>
+      <p>En activité depuis 1990, nous intervenons dans les domaines de menuiserie, charpente, couverture, zinguerie. En 2012, nous emménageons dans nos nouveaux locaux situés à Amplepuis. Ces locaux plus grands nous permettent maintenant de réaliser des projets complets en construction bois.</p>
+      <p>Dans une démarche écologique, nous travaillons avec des fournisseurs locaux, pour la plupart issus de la région Rhône-Alpes. Nous sommes à l'écoute de vos projets, qu'ils soient en rénovation ou en construction.</p>
+      <a class="btn btn-primary" href="#contact" style="margin-top:.6rem">Contactez-nous</a>
+    </div>
+    <div class="intro-figs reveal">
+      <img class="a" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/4fac759e-d75a-41a0-8929-5363bf1d4a73/l438,t0,w1125,h1125/image-768x768.jpg" alt="Chantier de couverture avec camion-grue SARL Brun">
+      <img class="b" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/0a308fdc-c33e-44ae-816a-75575f6a4a33/l479,t133,w1233,h1233/image-768x768.jpg" alt="Les locaux de SARL Brun à Amplepuis vus du ciel">
+      <div class="since">Depuis<strong id="years">1990</strong>à Amplepuis</div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="savoir-faire">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Savoir-faire</span>
+      <h2>Six métiers, une seule équipe</h2>
+      <p>De la charpente à la tuile, du bardage aux menuiseries : un seul interlocuteur pour l'ensemble de l'enveloppe de votre maison.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal" tabindex="0"><span class="num">01</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/e10bfb03-a788-437f-ace0-3449e3f795c9/l0,t414,w1500,h1005/image-1366x915.jpg" alt="Menuiserie sur mesure" loading="lazy">
+        <div class="svc-body"><h3>Menuiserie sur mesure</h3><p>Nous concevons des menuiseries et aménagements intérieurs adaptés à vos besoins et à votre espace. Menuiseries extérieures bois, PVC, alu, mixte ; portes à galandage, parquets, rayonnages, terrasses bois.</p></div></article>
+      <article class="svc reveal" tabindex="0"><span class="num">02</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/ebbb26d4-addf-4f70-be57-20ac41f3a67b/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Charpente bois" loading="lazy">
+        <div class="svc-body"><h3>Charpente bois</h3><p>Nous réalisons la fabrication et la pose de charpente en bois suivant vos besoins et votre budget. Fermette ou traditionnelle, avec du bois local de préférence.</p></div></article>
+      <article class="svc reveal" tabindex="0"><span class="num">03</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/ef6562c8-8e97-4b5a-b9c2-d1e8b8357e5f/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Couverture tuile et zinguerie" loading="lazy">
+        <div class="svc-body"><h3>Couverture tuile et zinguerie</h3><p>Nos experts en couverture vous garantissent une toiture solide, étanche et esthétique. Dans 90 % des cas, des tuiles fabriquées localement, à 1 h de notre dépôt.</p></div></article>
+      <article class="svc reveal" tabindex="0"><span class="num">04</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/0a36bae9-b9d9-457a-b9b8-bfba7cd3da0d/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Couverture métallique" loading="lazy">
+        <div class="svc-body"><h3>Couverture métallique</h3><p>Idéalement prescrite pour les bâtiments ayant des surfaces de toiture importantes et avec des installations photovoltaïques en prévision.</p></div></article>
+      <article class="svc reveal" tabindex="0"><span class="num">05</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/c8813f4a-851e-4d65-a2ed-d84478f035e1/l0,t84,w2000,h1332/image-1366x910.jpg" alt="Construction en bois" loading="lazy">
+        <div class="svc-body"><h3>Construction en bois</h3><p>Nous bâtissons des bâtiments en bois qui allient esthétisme et durabilité, respectueux de l'environnement et des normes, en travaillant avec des acteurs locaux.</p></div></article>
+      <article class="svc reveal" tabindex="0"><span class="num">06</span>
+        <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/b58bc9e6-2c71-41f5-8a54-ee39f4196c01/l0,t372,w1500,h999/image-1366x910.jpg" alt="Isolation par l'extérieur en fibre de bois" loading="lazy">
+        <div class="svc-body"><h3>Isolation par l'extérieur</h3><p>Isolants biosourcés de préférence, dont certains fabriqués localement. Notre qualification Qualibat RGE vous permet d'obtenir des aides à la rénovation énergétique.</p><span class="rge">Qualibat RGE</span></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OUTIL CENTRAL ===================== -->
+<section class="tool" id="projet">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Préparer mon projet</span>
+      <h2>Décrivez votre toit, on vous rappelle avec les bonnes questions déjà posées</h2>
+      <p>Trois étapes pour estimer la surface de votre toiture, signaler les travaux qui peuvent ouvrir droit à des aides, et envoyer à l'atelier une demande de devis complète.</p>
+    </div>
+
+    <div class="tool-grid">
+      <div class="panel reveal">
+        <div class="steps" aria-hidden="true"><i class="done"></i><i></i><i></i></div>
+        <form id="wizard" onsubmit="return false">
+          <!-- Étape 1 -->
+          <div class="step on" data-step="1">
+            <h3>1 · Vos travaux</h3>
+            <p class="hint">Cochez tout ce qui concerne votre projet.</p>
+            <div class="chips">
+              <div class="chip"><input type="checkbox" id="t1" name="travaux" value="Charpente" data-roof="1"><label for="t1"><span><b>Charpente</b><small>neuve ou reprise</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t2" name="travaux" value="Couverture tuile et zinguerie" data-roof="1" checked><label for="t2"><span><b>Couverture tuile</b><small>et zinguerie</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t3" name="travaux" value="Couverture métallique" data-roof="1"><label for="t3"><span><b>Couverture métallique</b><small>grands volumes, photovoltaïque</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t4" name="travaux" value="Isolation toiture / murs" data-aid="1"><label for="t4"><span><b>Isolation</b><small>toiture, murs, par l'extérieur</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t5" name="travaux" value="Extension / construction bois"><label for="t5"><span><b>Construction bois</b><small>extension, ossature</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t6" name="travaux" value="Menuiseries extérieures" data-aid="1"><label for="t6"><span><b>Menuiseries</b><small>fenêtres, portes, volets</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t7" name="travaux" value="Bardage / façade"><label for="t7"><span><b>Bardage</b><small>revêtement de façade</small></span></label></div>
+              <div class="chip"><input type="checkbox" id="t8" name="travaux" value="Menuiserie intérieure / terrasse"><label for="t8"><span><b>Intérieur & terrasse</b><small>parquet, escalier, terrasse bois</small></span></label></div>
+            </div>
+            <div class="aid" id="aid">Ces travaux peuvent ouvrir droit à des aides à la rénovation énergétique, sous conditions : SARL Brun est qualifiée <b>Qualibat RGE</b>. Pour vérifier votre éligibilité, renseignez-vous auprès des organismes locaux (COR, ANAH, SOLIHA).</div>
+          </div>
+          <!-- Étape 2 -->
+          <div class="step" data-step="2">
+            <h3>2 · Votre toiture</h3>
+            <p class="hint">Les dimensions au sol suffisent : la pente et les débords font le reste.</p>
+            <div class="field"><label>Forme du toit</label>
+              <div class="chips">
+                <div class="chip"><input type="radio" id="f2" name="forme" value="2" checked><label for="f2"><span><b>Deux pans</b><small>pignons</small></span></label></div>
+                <div class="chip"><input type="radio" id="f4" name="forme" value="4"><label for="f4"><span><b>Quatre pans</b><small>croupes</small></span></label></div>
+                <div class="chip"><input type="radio" id="f1" name="forme" value="1"><label for="f1"><span><b>Un pan</b><small>appentis, extension</small></span></label></div>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="L">Longueur <output id="oL">12 m</output></label><input type="range" id="L" min="3" max="40" step="0.5" value="12"></div>
+              <div class="field"><label for="W">Largeur <output id="oW">9 m</output></label><input type="range" id="W" min="3" max="25" step="0.5" value="9"></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="P">Pente <output id="oP">35 %</output></label><input type="range" id="P" min="5" max="100" step="1" value="35"></div>
+              <div class="field"><label for="D">Débords de toit <output id="oD">40 cm</output></label><input type="range" id="D" min="0" max="100" step="5" value="40"></div>
+            </div>
+          </div>
+          <!-- Étape 3 -->
+          <div class="step" data-step="3">
+            <h3>3 · Vos coordonnées</h3>
+            <p class="hint">Votre demande arrive à l'atelier avec le récapitulatif ci-dessous.</p>
+            <div class="row2">
+              <div class="field"><label for="nom">Nom</label><input type="text" id="nom" autocomplete="name"></div>
+              <div class="field"><label for="tel">Téléphone</label><input type="tel" id="tel" autocomplete="tel"></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="mail">E-mail</label><input type="email" id="mail" autocomplete="email"></div>
+              <div class="field"><label for="ville">Commune du chantier</label><input type="text" id="ville"></div>
+            </div>
+            <div class="field"><label for="delai">Échéance souhaitée</label>
+              <select id="delai"><option>Dès que possible</option><option>Dans les 6 mois</option><option>Dans l'année</option><option>Je me renseigne</option></select></div>
+            <div class="field"><label for="msg">Précisions</label><textarea id="msg" placeholder="Rénovation, construction neuve, état actuel, accès au chantier…"></textarea></div>
+            <div class="recap" id="recap"></div>
+            <a class="btn btn-primary" id="send" href="#">Envoyer ma demande de devis
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg></a>
+            <p class="sent" id="sent">Votre messagerie s'ouvre avec la demande pré-remplie. Pensez à joindre deux ou trois photos de la toiture.</p>
+          </div>
+          <div class="nav-steps">
+            <button type="button" class="btn btn-dark" id="prev" style="visibility:hidden">← Retour</button>
+            <button type="button" class="btn btn-primary" id="next">Continuer →</button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="panel roof-card reveal" aria-live="polite">
+        <svg class="roof-svg" viewBox="0 0 400 260" id="roofSvg" role="img" aria-label="Schéma de la toiture">
+          <defs>
+            <pattern id="tiles" width="16" height="10" patternUnits="userSpaceOnUse">
+              <rect width="16" height="10" fill="#A0522D"/>
+              <path d="M0 10 Q4 4 8 10 Q12 4 16 10" fill="none" stroke="#7e3f22" stroke-width="1.2"/>
+            </pattern>
+            <pattern id="steel" width="12" height="10" patternUnits="userSpaceOnUse">
+              <rect width="12" height="10" fill="#8d8a87"/><line x1="0" y1="0" x2="0" y2="10" stroke="#6f6c69" stroke-width="2"/>
+            </pattern>
+          </defs>
+          <line x1="20" y1="232" x2="380" y2="232" stroke="#3a3531" stroke-width="2"/>
+          <rect id="wall" x="90" y="160" width="220" height="72" fill="#d0cecd"/>
+          <rect x="185" y="190" width="30" height="42" fill="#856d4f"/>
+          <rect x="115" y="180" width="34" height="26" fill="#DEB887"/><rect x="251" y="180" width="34" height="26" fill="#DEB887"/>
+          <polygon id="roof" points="70,160 200,90 330,160" fill="url(#tiles)" stroke="#151515" stroke-width="2" style="transition:all .4s"/>
+          <text id="angleTxt" x="200" y="252" text-anchor="middle" fill="#9d958a" font-size="12" font-family="Open Sans">pente 35 % · ≈ 19°</text>
+        </svg>
+        <div class="roof-stats">
+          <div class="stat"><b id="sSurf">0</b><span>m² de toiture</span></div>
+          <div class="stat"><b id="sSol">0</b><span>m² au sol</span></div>
+          <div class="stat"><b id="sRamp">0</b><span>pente (°)</span></div>
+        </div>
+        <p class="note">Surface estimée à partir de l'emprise au sol, des débords et de la pente. Calcul indicatif : la surface réelle est relevée sur place avant tout devis.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Nos réalisations</span>
+      <h2>Peut-être en avez-vous déjà croisé une</h2>
+      <p>Découvrez quelques unes de nos réalisations de menuiserie, charpente, couverture, et de constructions bois. Peut-être qu'en sillonnant le Beaujolais, vous en apercevrez quelques unes.</p>
+    </div>
+    <div class="feature reveal">
+      <b>MARPA de Ternand (69)</b>
+      <p>Une des plus grosses réalisations de l'entreprise en ossature bois, avec charpente en lamellé-collé, isolation et bardage.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">Tout</button>
+      <button data-f="charpente">Charpente</button>
+      <button data-f="couverture">Couverture</button>
+      <button data-f="bois">Construction bois</button>
+      <button data-f="menuiserie">Menuiserie & terrasse</button>
+    </div>
+    <div class="gallery" id="gallery">
+      <figure data-c="charpente"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/b3927181-2247-49a1-802d-6e53927ed29c/image-607x455.jpg" alt="Charpente en douglas massif du Beaujolais"><figcaption>Charpente</figcaption></figure>
+      <figure data-c="couverture"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/e71a7cb5-efe6-46c1-896c-d5f6fe03c993/image-607x455.jpg" alt="Couverture en tuiles en cours de pose"><figcaption>Couverture tuile</figcaption></figure>
+      <figure data-c="bois"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/1619547c-f113-4a0d-8132-ea8cbbc0b473/image-607x455.jpg" alt="Bâtiment en ossature bois avec bardage"><figcaption>Construction bois</figcaption></figure>
+      <figure data-c="menuiserie"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/5892c45d-bcce-4d6c-b02f-020cb24dbdf7/image-455x607.jpg" alt="Escalier bois"><figcaption>Menuiserie intérieure</figcaption></figure>
+      <figure data-c="couverture"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/9b02307b-c77f-4d26-a9dc-05fb7afa948e/image-607x455.jpg" alt="Toiture en tuiles d'une maison en pierre"><figcaption>Couverture tuile</figcaption></figure>
+      <figure data-c="charpente"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/eb03ec10-f9f5-435e-988b-5bfd338fc675/image-607x455.jpg" alt="Charpente traditionnelle apparente"><figcaption>Charpente</figcaption></figure>
+      <figure data-c="couverture"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/717d7026-97ed-491b-b130-825dd844fc61/image-607x455.jpg" alt="Couverture métallique d'un bâtiment en centre-bourg"><figcaption>Couverture métallique</figcaption></figure>
+      <figure data-c="menuiserie"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/42c280d2-2645-43a1-8abe-760c851d96b9/image-607x455.jpg" alt="Terrasse bois autour d'un arbre"><figcaption>Terrasse bois</figcaption></figure>
+      <figure data-c="bois"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/d96891d5-3a0f-40e2-a143-b1d800dd31a1/image-778x455.jpg" alt="Préau en bois"><figcaption>Construction bois</figcaption></figure>
+      <figure data-c="couverture"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/2c031846-5d09-4e48-8949-6965bd593f6e/image-607x455.jpg" alt="Couverture en tuiles terre cuite"><figcaption>Couverture tuile</figcaption></figure>
+      <figure data-c="bois"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/1cf28135-1ee7-40b5-aa8b-dde190f0a316/image-607x455.jpg" alt="Construction bois en cours"><figcaption>Construction bois</figcaption></figure>
+      <figure data-c="menuiserie"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/50e5d589-0236-46eb-ba39-0ecd5ebf8916/image-607x455.jpg" alt="Parquet bois posé"><figcaption>Parquet</figcaption></figure>
+      <figure data-c="couverture"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/d6d3983b-2cd3-4b74-b17e-0ac89da40c6a/image-607x455.jpg" alt="Couverture métallique d'un immeuble"><figcaption>Couverture métallique</figcaption></figure>
+      <figure data-c="menuiserie"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/6389fcef-fae0-4089-a644-fe1d5a88ea23/image-607x455.jpg" alt="Terrasse bois sur structure"><figcaption>Terrasse bois</figcaption></figure>
+      <figure data-c="bois"><img loading="lazy" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/31c70a7e-e54c-43e4-845d-add8cfcc8091/image-607x455.jpg" alt="Bâtiment bardé bois avec couverture métallique"><figcaption>Bardage & couverture</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Notre façon de travailler</span><h2>Du bois d'ici, des tuiles d'à côté</h2></div>
+    <div class="val-grid">
+      <div class="val reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 14h5l-3 8 10-12h-5l3-8z"/></svg><h3>Bois local</h3><p>Charpentes en douglas massif du Beaujolais, avec du bois local de préférence.</p></div>
+      <div class="val reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg><h3>Tuiles locales</h3><p>Dans 90 % des cas, des tuiles fabriquées à 1 h de notre dépôt, avec d'autres modèles et coloris possibles.</p></div>
+      <div class="val reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c-5-3-8-7-8-11a8 8 0 0 1 16 0c0 4-3 8-8 11z"/><path d="M12 7v6M9 10h6"/></svg><h3>Isolants biosourcés</h3><p>Privilégiés pour l'isolation des murs et de la toiture, certains fabriqués localement.</p></div>
+      <div class="val reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><h3>Qualibat RGE</h3><p>Une qualification qui vous permet d'obtenir des aides à la rénovation énergétique.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="a-propos">
+  <div class="wrap family">
+    <img class="reveal" src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/f610e023-a753-4f76-b7f5-21b02a1a7541/l0,t0,w2000,h1500/image-768x576.jpg" alt="Le dépôt et les véhicules de SARL Brun à Amplepuis" loading="lazy">
+    <div class="reveal">
+      <span class="eyebrow">À propos de nous</span>
+      <h2>Une entreprise familiale qui a fait ses preuves</h2>
+      <p>Fort de plus de 30 ans d'expérience, SARL BRUN se positionne comme un acteur de confiance dans le domaine de la construction en bois. Fondée en 1990 par les frères Brun, l'entreprise est aujourd'hui dirigée par Jean-Paul, épaulé par sa famille et par un personnel qualifié, motivé et attentionné, qui a le goût du travail bien fait.</p>
+      <p>Chaque réalisation est unique, conçue pour s'adapter à vos besoins, en alliant savoir-faire traditionnel et innovation.</p>
+      <div class="timeline">
+        <div><b>1990</b><span>Fondation par les frères Brun</span></div>
+        <div><b>2012</b><span>Nouveaux locaux à Amplepuis</span></div>
+        <div><b>2023</b><span>Jean-Paul, gérant</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="zone">
+  <div class="wrap zone-grid">
+    <div class="reveal">
+      <span class="eyebrow">Zone d'intervention</span>
+      <h2>Amplepuis, le Beaujolais vert et le Roannais</h2>
+      <p>Depuis notre dépôt d'Amplepuis, nous intervenons dans un rayon d'environ 50 km, ce qui couvre le Beaujolais et le Roannais.</p>
+      <a class="btn btn-primary" href="#projet" style="margin-top:1.4rem">Vérifier pour mon chantier</a>
+    </div>
+    <div class="radar reveal" aria-hidden="true">
+      <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div><div class="sweep"></div>
+      <div class="c">Amplepuis</div>
+      <span class="lbl" style="left:2%;top:40%">Roanne</span>
+      <span class="lbl" style="left:54%;top:72%">Tarare</span>
+      <span class="lbl" style="left:12%;top:12%">Thizy-les-Bourgs</span>
+      <span class="lbl" style="right:4%;top:28%">Beaujolais</span>
+      <span class="lbl" style="right:8%;bottom:10%">Ternand</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Contactez-nous</span><h2>Prêt à commencer votre projet ?</h2><p>Nous sommes ici pour répondre à toutes vos questions et vous aider à donner vie à vos idées de construction et de rénovation.</p></div>
+    <div class="contact-grid">
+      <div class="card reveal">
+        <h3>SARL Brun</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>8 impasse Jean Moos<br>69550 Amplepuis</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:+33474895662">04 74 89 56 62</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="m4 6 8 7 8-7"/></svg><a href="mailto:contact@brun-amplepuis.fr">contact@brun-amplepuis.fr</a></li>
+        </ul>
+        <div class="social">
+          <a href="https://www.facebook.com/Brunfreres/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/sarl_brun/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/entreprise-brun-freres/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <a class="btn btn-primary" href="#projet" style="margin-top:1.4rem">Obtenez un devis</a>
+      </div>
+      <div class="map reveal">
+        <iframe loading="lazy" title="Plan d'accès SARL Brun, Amplepuis" src="https://www.google.com/maps?q=8+impasse+Jean+Moos+69550+Amplepuis&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <img src="https://www.brun-amplepuis.fr/wp-content/uploads/go-x/u/7d0cdf5e-fc26-4d39-aeb5-13d810b8c229/image-512x341.jpg" alt="Logo Brun">
+      <div>SARL Brun · 8 impasse Jean Moos, 69550 Amplepuis · 04 74 89 56 62</div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration non contractuelle, réalisée à partir des contenus publics du site brun-amplepuis.fr. Toutes les photos sont celles publiées par l'entreprise sur son site actuel ; le logo et les couleurs (sienne #A0522D, beige bois #DEB887) sont repris de la charte en place et restent ajustables. Le calcul de surface est indicatif et ne remplace pas un relevé sur place. Horaires d'ouverture à compléter par l'entreprise.</p>
+  </div>
+</footer>
+
+<a class="sticky-call" href="tel:+33474895662">Appeler l'atelier</a>
+<div class="lightbox" id="lb"><button aria-label="Fermer">×</button><img alt=""></div>
+
+<script>
+// header + menu
+const hdr=document.querySelector('header');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+// hero slideshow
+const sl=[...document.querySelectorAll('#slides img')];let si=0;
+setInterval(()=>{sl[si].classList.remove('on');si=(si+1)%sl.length;sl[si].classList.add('on')},6000);
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
+
+// years counter
+const yEl=document.getElementById('years');
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();let y=2026;const t=setInterval(()=>{y--;yEl.textContent=y;if(y<=1990)clearInterval(t)},40)}}).observe(yEl);
+
+// active link
+const secs=[...document.querySelectorAll('main section[id]')],links=[...menu.querySelectorAll('a')];
+addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-140)cur=s.id});links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+cur))},{passive:true});
+
+// gallery filter + lightbox
+const fb=document.querySelectorAll('#filters button'),figs=document.querySelectorAll('#gallery figure');
+fb.forEach(b=>b.onclick=()=>{fb.forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;figs.forEach(g=>g.classList.toggle('hide',f!=='all'&&g.dataset.c!==f))});
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+figs.forEach(g=>g.onclick=()=>{lbi.src=g.querySelector('img').src;lbi.alt=g.querySelector('img').alt;lb.classList.add('on')});
+lb.onclick=e=>{if(e.target!==lbi)lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+// ===== Outil =====
+const $=id=>document.getElementById(id);
+let step=1;const steps=[...document.querySelectorAll('.step')],bars=[...document.querySelectorAll('.steps i')];
+function show(){steps.forEach(s=>s.classList.toggle('on',+s.dataset.step===step));bars.forEach((b,i)=>b.classList.toggle('done',i<step));
+  $('prev').style.visibility=step>1?'visible':'hidden';$('next').style.display=step<3?'':'none';if(step===3)recap()}
+$('next').onclick=()=>{if(step<3){step++;show()}};$('prev').onclick=()=>{if(step>1){step--;show()}};
+const tr=()=>[...document.querySelectorAll('input[name=travaux]:checked')];
+document.querySelectorAll('input[name=travaux]').forEach(c=>c.onchange=()=>{$('aid').classList.toggle('on',tr().some(x=>x.dataset.aid));calc()});
+
+function calc(){
+  const L=+$('L').value,W=+$('W').value,P=+$('P').value,D=+$('D').value/100,f=+document.querySelector('input[name=forme]:checked').value;
+  $('oL').textContent=L+' m';$('oW').textContent=W+' m';$('oP').textContent=P+' %';$('oD').textContent=Math.round(D*100)+' cm';
+  const ang=Math.atan(P/100),k=1/Math.cos(ang),deg=Math.round(ang*180/Math.PI);
+  const sol=L*W, proj=(L+2*D)*(W+2*D), surf=proj*k;
+  $('sSol').textContent=Math.round(sol);$('sSurf').textContent=Math.round(surf);$('sRamp').textContent=deg;
+  $('angleTxt').textContent='pente '+P+' % · ≈ '+deg+'° · '+(f===2?'deux pans':f===4?'quatre pans':'un pan');
+  // dessin
+  const cx=200,base=160,half=110+D*25,h=Math.min(120,(P/100)*110);
+  const roof=$('roof');let pts;
+  if(f===2)pts=`${cx-half},${base} ${cx},${base-h} ${cx+half},${base}`;
+  else if(f===4)pts=`${cx-half},${base} ${cx-45},${base-h} ${cx+45},${base-h} ${cx+half},${base}`;
+  else pts=`${cx-half},${base} ${cx-half},${base-h} ${cx+half},${base-h*0.15} ${cx+half},${base}`;
+  roof.setAttribute('points',pts);
+  roof.setAttribute('fill',$('t3').checked&&!$('t2').checked?'url(#steel)':'url(#tiles)');
+  window._calc={L,W,P,deg,D,f,sol,surf};
+}
+['L','W','P','D'].forEach(i=>$(i).oninput=calc);document.querySelectorAll('input[name=forme]').forEach(r=>r.onchange=calc);calc();
+
+function recap(){const c=window._calc,t=tr().map(x=>x.value);
+  const txt=`Travaux : ${t.length?t.join(', '):'à préciser'}
+Toiture : ${c.f===2?'deux pans':c.f===4?'quatre pans':'un pan'}, ${c.L} m × ${c.W} m au sol, pente ${c.P} % (≈ ${c.deg}°), débords ${Math.round(c.D*100)} cm
+Surface de toiture estimée : ≈ ${Math.round(c.surf)} m²
+Commune : ${$('ville').value||'—'}
+Échéance : ${$('delai').value}
+Précisions : ${$('msg').value||'—'}
+Contact : ${$('nom').value||'—'} · ${$('tel').value||'—'} · ${$('mail').value||'—'}`;
+  $('recap').textContent=txt;return txt}
+['nom','tel','mail','ville','delai','msg'].forEach(i=>$(i).addEventListener('input',recap));$('delai').onchange=recap;
+$('send').onclick=e=>{e.preventDefault();const body=recap();
+  location.href='mailto:contact@brun-amplepuis.fr?subject='+encodeURIComponent('Demande de devis — '+($('ville').value||'projet'))+'&body='+encodeURIComponent(body);
+  $('sent').style.display='block'};
+</script>
+</body>
+</html>
