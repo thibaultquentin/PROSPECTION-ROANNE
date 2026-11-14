@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Au Jardin Gourmand — Restaurant bistronomique à Roanne | Bords de Loire</title>
+<meta name="description" content="Restaurant bistronomique sur les bords de Loire à Roanne : cuisine de saison faite maison, bar à cocktails, parc arboré et terrasse couverte. Carte et réservation en ligne.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Style+Script&family=Jost:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE AU JARDIN GOURMAND (relevée sur aujardingourmand.fr)
+   - Fond crème des cartes-menus, texte noir
+   - Gris-bleu #b2bec3 : couleur d'accent du site actuel
+   - Polices du site : Amatic SC (nom), Style Script (baseline), Jost (texte)
+   - Lora : approche du serif utilisé sur les cartes-menus
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --creme:#FCF6EC;
+  --creme-2:#F4EBDC;
+  --beige:#E6D8C3;
+  --noir:#141414;
+  --brun:#3D3631;        /* mur taupe de la salle */
+  --gris-bleu:#b2bec3;   /* accent du site actuel */
+  --gris-bleu-fonce:#5f7179;
+  --vert:#2F3B2C;        /* parc arboré */
+  --f-nom:"Amatic SC", sans-serif;
+  --f-script:"Style Script", cursive;
+  --f-texte:"Jost", sans-serif;
+  --f-carte:"Lora", Georgia, serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--creme);color:var(--noir);font-family:var(--f-texte);font-weight:300;line-height:1.65;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gris-bleu-fonce);outline-offset:3px}
+.wrap{width:min(1200px,100% - 40px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:var(--creme);font-size:12.5px;text-align:center;padding:7px 14px;letter-spacing:.03em}
+.demo b{font-weight:500}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;transition:background .4s,box-shadow .4s,color .4s;color:var(--creme)}
+header .logo small{color:var(--creme)}
+header:not(.solid) .btn{background:var(--creme);color:var(--noir);border-color:var(--creme)}
+header:not(.solid) .burger span{background:var(--creme)}
+header.solid{color:var(--noir)}
+header.solid .logo small{color:var(--gris-bleu-fonce)}
+header.solid{background:rgba(252,246,236,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
+.logo{font-family:var(--f-nom);font-size:30px;font-weight:700;letter-spacing:.08em;text-decoration:none;line-height:1}
+.logo small{display:block;font-family:var(--f-script);font-size:15px;letter-spacing:0;font-weight:400;color:var(--gris-bleu-fonce)}
+.menu{display:flex;gap:26px;list-style:none;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border:1px solid var(--noir);background:var(--noir);color:var(--creme);text-decoration:none;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:transform .25s var(--ease),background .3s,color .3s;font-family:var(--f-texte)}
+.btn:hover{transform:translateY(-2px);background:transparent;color:var(--noir)}
+.btn.ghost{background:transparent;color:var(--noir)}
+.btn.ghost:hover{background:var(--noir);color:var(--creme)}
+.btn.light{border-color:var(--creme);background:var(--creme);color:var(--noir)}
+.btn.light:hover{background:transparent;color:var(--creme)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:1px;background:var(--noir);margin:7px 8px;transition:.3s}
+@media(max-width:960px){
+  .menu{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);background:var(--creme);color:var(--noir);visibility:hidden;flex-direction:column;padding:100px 34px;gap:22px;transform:translateX(100%);transition:transform .5s var(--ease);box-shadow:-10px 0 40px rgba(0,0,0,.08)}
+  .menu.open{transform:none;visibility:visible}
+  .menu.open~.burger span{background:var(--noir)}
+  .burger{display:block;z-index:60}
+  .nav .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 110px);display:grid;place-items:end start;color:var(--creme);overflow:hidden;margin-top:-72px}
+.hero__img{position:absolute;inset:0}
+.hero__img img{width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,20,.45) 0%,rgba(20,20,20,.12) 30%,rgba(20,20,20,.25) 55%,rgba(20,20,20,.8) 100%)}
+.hero__in{position:relative;z-index:2;padding:0 0 64px;width:min(1200px,100% - 40px);margin-inline:auto}
+.hero h1{font-family:var(--f-nom);font-weight:700;font-size:clamp(64px,11vw,150px);line-height:.9;letter-spacing:.04em}
+.hero .script{font-family:var(--f-script);font-size:clamp(30px,4vw,48px);display:block;margin:6px 0 18px}
+.hero p.lead{max-width:540px;font-size:18px;opacity:.92}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;background:rgba(252,246,236,.14);backdrop-filter:blur(8px);border:1px solid rgba(252,246,236,.35);padding:8px 14px;margin-bottom:22px}
+.status i{width:8px;height:8px;border-radius:50%;background:#9fd3a0;box-shadow:0 0 0 0 rgba(159,211,160,.7);animation:pulse 2s infinite}
+.status.closed i{background:var(--gris-bleu);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(159,211,160,0)}100%{box-shadow:0 0 0 0 rgba(159,211,160,0)}}
+.split{display:inline-block;overflow:hidden;vertical-align:bottom}
+.split>span{display:inline-block;transform:translateY(105%);animation:up 1.1s var(--ease) forwards}
+@keyframes up{to{transform:none}}
+
+/* Marquee */
+.marquee{background:var(--noir);color:var(--creme);overflow:hidden;white-space:nowrap;padding:16px 0}
+.marquee__t{display:inline-flex;gap:46px;animation:mq 38s linear infinite;font-family:var(--f-nom);font-size:30px;letter-spacing:.08em}
+.marquee__t span::after{content:"✦";font-size:14px;margin-left:46px;color:var(--gris-bleu);vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(70px,10vw,130px) 0}
+.eyebrow{font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--gris-bleu-fonce);font-weight:500;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+h2{font-family:var(--f-carte);font-weight:400;font-size:clamp(34px,4.6vw,58px);line-height:1.08;letter-spacing:-.01em;margin:16px 0 22px}
+h2 em{font-family:var(--f-script);font-style:normal;color:var(--gris-bleu-fonce);font-size:1.12em}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* Restaurant intro */
+.intro{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+.intro__photos{position:relative;aspect-ratio:4/5}
+.intro__photos figure{position:absolute;overflow:hidden}
+.intro__photos figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.intro__photos figure:hover img{transform:scale(1.05)}
+.ph1{inset:0 22% 18% 0}
+.ph2{inset:42% 0 0 46%;border:10px solid var(--creme)}
+.intro p+p{margin-top:14px}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px;border-top:1px solid var(--beige);padding-top:26px}
+.values div{font-size:14.5px}
+.values b{display:block;font-family:var(--f-nom);font-size:26px;font-weight:700;letter-spacing:.04em;line-height:1.1;margin-bottom:4px}
+@media(max-width:860px){.intro{grid-template-columns:1fr}.values{grid-template-columns:1fr}}
+
+/* CARTE — outil central */
+.carte{background:var(--creme-2)}
+.carte__head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.carte__head p{max-width:520px}
+.tabs{display:inline-flex;border:1px solid var(--noir);margin-top:34px}
+.tab{background:none;border:0;padding:14px 26px;font-family:var(--f-texte);font-size:14px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s}
+.tab[aria-selected="true"]{background:var(--noir);color:var(--creme)}
+.carte__grid{display:grid;grid-template-columns:1.25fr .9fr;gap:34px;margin-top:30px;align-items:start}
+.menu-card{background:var(--creme);padding:clamp(26px,4vw,52px);box-shadow:0 30px 60px -30px rgba(61,54,49,.35);position:relative}
+.menu-card__title{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:1px solid var(--noir);padding-bottom:8px}
+.menu-card__title h3{font-family:var(--f-carte);font-weight:400;font-size:clamp(40px,5vw,62px);line-height:1}
+.menu-card__title .px{font-family:var(--f-carte);font-size:28px;white-space:nowrap}
+.menu-card .script{font-family:var(--f-script);font-size:24px;color:var(--brun);display:block;margin:4px 0 22px}
+.course{margin-top:22px}
+.course__h{display:flex;justify-content:space-between;font-family:var(--f-carte);font-size:20px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px}
+.dish{display:flex;gap:14px;align-items:flex-start;padding:12px 14px;margin:0 -14px;cursor:pointer;border:1px solid transparent;transition:background .25s,border-color .25s}
+.dish:hover{background:var(--creme-2)}
+.dish input{appearance:none;width:18px;height:18px;border:1px solid var(--noir);border-radius:50%;margin-top:5px;flex:none;display:grid;place-items:center;cursor:pointer}
+.dish input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--noir)}
+.dish input:checked{border-width:1.5px}
+.dish.on{border-color:var(--beige);background:var(--creme-2)}
+.dish strong{display:block;font-family:var(--f-carte);font-weight:500;font-size:17px}
+.dish span{display:block;font-family:var(--f-carte);font-style:italic;font-size:14.5px;color:#4a4540;line-height:1.5}
+.menu-card .anim{animation:fadeCard .6s var(--ease)}
+@keyframes fadeCard{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.compo{position:sticky;top:96px;background:var(--noir);color:var(--creme);padding:30px}
+.compo h3{font-family:var(--f-nom);font-size:34px;letter-spacing:.06em;font-weight:700;line-height:1}
+.compo p.small{font-size:14px;opacity:.75;margin:6px 0 18px}
+.compo__sel{border-top:1px solid rgba(252,246,236,.2);padding-top:14px;min-height:118px;font-size:15px}
+.compo__sel li{list-style:none;display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.compo__sel li em{opacity:.6;font-style:normal}
+.couverts{display:flex;align-items:center;justify-content:space-between;margin:18px 0;border:1px solid rgba(252,246,236,.25);padding:8px 10px}
+.couverts button{width:38px;height:38px;border:1px solid rgba(252,246,236,.4);background:none;color:var(--creme);font-size:20px;cursor:pointer;transition:background .2s}
+.couverts button:hover{background:rgba(252,246,236,.12)}
+.couverts output{font-family:var(--f-carte);font-size:22px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid rgba(252,246,236,.2);padding-top:14px}
+.total b{font-family:var(--f-carte);font-weight:400;font-size:40px}
+.compo .btn{width:100%;justify-content:center;margin-top:18px}
+.compo .hint{font-size:12.5px;opacity:.6;margin-top:12px}
+@media(max-width:900px){.carte__grid{grid-template-columns:1fr}.compo{position:relative;top:0}}
+
+/* Planificateur */
+.planner{margin-top:60px;background:var(--creme);padding:clamp(24px,4vw,44px);border:1px solid var(--beige)}
+.planner h3{font-family:var(--f-carte);font-weight:400;font-size:30px;margin-bottom:6px}
+.days{display:flex;gap:10px;overflow-x:auto;padding:18px 2px 10px;scrollbar-width:thin}
+.day{flex:none;width:76px;padding:12px 0;text-align:center;border:1px solid var(--beige);background:var(--creme);cursor:pointer;font-family:var(--f-texte);transition:transform .25s var(--ease),border-color .25s,background .25s}
+.day:hover{transform:translateY(-3px);border-color:var(--noir)}
+.day small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d665f}
+.day b{display:block;font-family:var(--f-carte);font-weight:400;font-size:26px;line-height:1.2}
+.day.closed{opacity:.4;cursor:not-allowed}
+.day.closed:hover{transform:none;border-color:var(--beige)}
+.day[aria-pressed="true"]{background:var(--noir);color:var(--creme);border-color:var(--noir)}
+.day[aria-pressed="true"] small{color:var(--gris-bleu)}
+.slots{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:16px}
+.slot{border:1px solid var(--beige);padding:18px 20px;animation:fadeCard .5s var(--ease) both}
+.slot h4{font-family:var(--f-nom);font-size:28px;letter-spacing:.05em;font-weight:700;line-height:1}
+.slot p{font-size:14.5px;margin:6px 0 14px}
+.slot .btn{padding:10px 16px;font-size:12px}
+.slot.group{background:var(--creme-2)}
+.slot.group label{font-size:13.5px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.slot.group input{width:70px;padding:7px;border:1px solid var(--noir);background:var(--creme);font-family:var(--f-texte);font-size:15px}
+.planner .msg{font-size:15px;margin-top:14px;color:#5a534c}
+
+/* Concept / lieu */
+.lieu{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.hscroll{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-top:50px;scrollbar-width:thin}
+.hscroll figure{flex:none;width:clamp(240px,30vw,360px);aspect-ratio:3/4;overflow:hidden;scroll-snap-align:start;position:relative}
+.hscroll img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.hscroll figure:hover img{transform:scale(1.06)}
+.hscroll figcaption{position:absolute;left:14px;bottom:12px;color:var(--creme);font-family:var(--f-nom);font-size:24px;letter-spacing:.06em;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--beige);border:1px solid var(--beige);margin-top:10px}
+.cards3 div{background:var(--creme);padding:26px}
+.cards3 h4{font-family:var(--f-nom);font-size:30px;letter-spacing:.05em;line-height:1;margin-bottom:8px}
+.cards3 p{font-size:15px}
+@media(max-width:860px){.lieu{grid-template-columns:1fr}.cards3{grid-template-columns:1fr}}
+
+/* Parc */
+.parc{position:relative;color:var(--creme);padding:0;overflow:hidden}
+.parc__bg{position:absolute;inset:-12% 0;background-size:cover;background-position:center;will-change:transform}
+.parc::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(28,34,26,.82) 0%,rgba(28,34,26,.45) 55%,rgba(28,34,26,.1) 100%)}
+.parc__in{position:relative;z-index:2;padding:clamp(90px,14vw,180px) 0}
+.parc__in>div{max-width:560px}
+.parc .eyebrow{color:var(--gris-bleu)}
+.parc h2 em{color:var(--creme)}
+.parc ul{list-style:none;margin:22px 0 30px;display:grid;gap:8px}
+.parc li::before{content:"— ";color:var(--gris-bleu)}
+
+/* Concerts */
+.music{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.music figure{aspect-ratio:4/5;overflow:hidden}
+.music figure img{width:100%;height:100%;object-fit:cover}
+.timeline{display:flex;gap:0;margin:26px 0;border:1px solid var(--noir)}
+.timeline div{flex:1;padding:16px;border-right:1px solid var(--noir)}
+.timeline div:last-child{border:0}
+.timeline b{font-family:var(--f-carte);font-weight:400;font-size:32px;display:block;line-height:1}
+.timeline small{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:860px){.music{grid-template-columns:1fr}}
+
+/* Infos */
+.infos{background:var(--noir);color:var(--creme)}
+.infos__grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px}
+.infos h3{font-family:var(--f-nom);font-size:36px;font-weight:700;letter-spacing:.06em;margin-bottom:16px}
+.hours li{list-style:none;display:flex;justify-content:space-between;border-bottom:1px solid rgba(252,246,236,.12);padding:8px 0;font-size:15px}
+.hours li.today{color:var(--gris-bleu);font-weight:500}
+.hours li.today::before{content:"●";font-size:9px;margin-right:8px;align-self:center}
+.hours li span:first-child{flex:1}
+.infos a{text-decoration:none;border-bottom:1px solid rgba(252,246,236,.3)}
+.infos form{display:grid;gap:10px}
+.infos input,.infos textarea{background:transparent;border:1px solid rgba(252,246,236,.3);color:var(--creme);padding:12px;font-family:var(--f-texte);font-size:15px}
+.infos input::placeholder,.infos textarea::placeholder{color:rgba(252,246,236,.55)}
+@media(max-width:900px){.infos__grid{grid-template-columns:1fr}}
+
+footer{background:#0c0c0c;color:rgba(252,246,236,.7);font-size:13px;padding:34px 0}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px}
+footer .logo{color:var(--creme)}
+.note{max-width:720px;line-height:1.6}
+
+/* Barre mobile */
+.mbar{display:none}
+@media(max-width:700px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--noir)}
+  .mbar a{flex:1;text-align:center;color:var(--creme);text-decoration:none;padding:15px 6px;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .mbar a+a{border-left:1px solid rgba(252,246,236,.2)}
+  footer{padding-bottom:80px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.split>span{transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Restaurant",
+ "name":"Au Jardin Gourmand",
+ "slogan":"L'art du moment partagé",
+ "url":"https://www.aujardingourmand.fr/",
+ "telephone":"+33477721944",
+ "email":"restaurant@aujardingourmand.fr",
+ "address":{"@type":"PostalAddress","streetAddress":"1 Allée Claude Barge","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+ "areaServed":"Roanne",
+ "servesCuisine":"Cuisine bistronomique de saison",
+ "acceptsReservations":"https://reservation.laddition.com/booking/aujardingourmand#/date",
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"15:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"18:00","closes":"23:00"}
+ ],
+ "sameAs":["https://www.facebook.com/aujardingourmandroanne/","https://www.instagram.com/au.jardin.gourmand42"]
+}
+</script>
+</head>
+<body>
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour Au Jardin Gourmand, non officielle.</div>
+
+<header id="top">
+ <div class="wrap nav">
+  <a class="logo" href="#top">Au Jardin Gourmand<small>L'art du moment partagé</small></a>
+  <ul class="menu" id="menu">
+   <li><a href="#restaurant">Accueil</a></li>
+   <li><a href="#concept">Notre concept</a></li>
+   <li><a href="#parc">Parc arboré</a></li>
+   <li><a href="#carte">Notre carte</a></li>
+   <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn" href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réservation en ligne</a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+ </div>
+</header>
+
+<section class="hero" aria-label="Accueil">
+ <div class="hero__img"><img src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ee5e52f2e_images_large.jpeg" alt="Tables dressées sur la terrasse du parc arboré d'Au Jardin Gourmand" fetchpriority="high"></div>
+ <div class="hero__in">
+  <div class="status" id="status"><i></i><span>…</span></div>
+  <h1><span class="split"><span>Au Jardin</span></span><br><span class="split"><span style="animation-delay:.15s">Gourmand</span></span></h1>
+  <span class="script">L'art du moment partagé</span>
+  <p class="lead">Restaurant bistronomique sur les bords de Loire, en plein cœur de Roanne. Un cadre bucolique et chaleureux, une cuisine de produits frais et de saison.</p>
+  <div class="hero__cta">
+   <a class="btn light" href="#carte">Découvrir la carte</a>
+   <a class="btn light" style="background:transparent;color:var(--creme)" href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réserver une table</a>
+  </div>
+ </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee__t">
+ <span>Cuisine bistronomique</span><span>Produits frais et de saison</span><span>Bar à cocktails</span><span>Bières artisanales</span><span>Parc arboré</span><span>Terrasse couverte</span><span>Bords de Loire</span>
+ <span>Cuisine bistronomique</span><span>Produits frais et de saison</span><span>Bar à cocktails</span><span>Bières artisanales</span><span>Parc arboré</span><span>Terrasse couverte</span><span>Bords de Loire</span>
+</div></div>
+
+<section id="restaurant">
+ <div class="wrap intro">
+  <div class="intro__photos reveal">
+   <figure class="ph1"><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ea8f063d0_images_large.jpeg" alt="Salle du restaurant, tons doux et beiges"></figure>
+   <figure class="ph2"><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/3337cd310d3f8016c3a23194ee8bac92.jpeg" alt="Assiette du chef"></figure>
+  </div>
+  <div>
+   <div class="eyebrow reveal">Restaurant</div>
+   <h2 class="reveal d1">Un cadre unique, <em>en bord de Loire</em></h2>
+   <p class="reveal d2">Situé sur les bords de Loire, en plein cœur de Roanne, Au Jardin Gourmand vous accueille dans un cadre bucolique et chaleureux. Notre établissement allie cuisine bistronomique et esprit convivial.</p>
+   <p class="reveal d2">Repris en janvier 2021 par un cuisinier et une serveuse passionnés, l'établissement reflète leur amour du métier. Côté bar, profitez d'une belle sélection de vins, de bières artisanales et de cocktails signatures, à savourer en terrasse ou dans nos différentes salles.</p>
+   <div class="values reveal d3">
+    <div><b>Frais &amp; de saison</b>Une carte guidée par les saisons et les produits locaux.</div>
+    <div><b>Naturel</b>Un service authentique, placé sous le signe de la convivialité.</div>
+    <div><b>Comme chez vous</b>Une ambiance familiale et douce, un parking et un parc arboré.</div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="carte" id="carte">
+ <div class="wrap">
+  <div class="carte__head">
+   <div>
+    <div class="eyebrow reveal">Notre carte</div>
+    <h2 class="reveal d1">La carte d'automne, <em>lisible partout</em></h2>
+   </div>
+   <p class="reveal d2">Entrées, plats et desserts faits maison. Choisissez vos plats directement sur la carte : la table se compose à droite, avec le total pour tous les couverts, avant de réserver.</p>
+  </div>
+
+  <div class="tabs reveal" role="tablist">
+   <button class="tab" role="tab" aria-selected="true" data-menu="gourmand">Le gourmand · 39 €</button>
+   <button class="tab" role="tab" aria-selected="false" data-menu="gourmet">Le gourmet · 52 €</button>
+  </div>
+
+  <div class="carte__grid">
+   <article class="menu-card reveal" id="menuCard" aria-live="polite"></article>
+   <aside class="compo reveal d1" aria-label="Composer sa table">
+    <h3>Votre table</h3>
+    <p class="small">Cochez un plat par étape — ou seulement ceux qui vous tentent.</p>
+    <ul class="compo__sel" id="sel"></ul>
+    <div class="couverts"><span>Couverts</span><button type="button" id="minus" aria-label="Retirer un couvert">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Ajouter un couvert">+</button></div>
+    <div class="total"><span>Total estimé</span><b id="tot">0 €</b></div>
+    <a class="btn light" href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réserver cette table</a>
+    <p class="hint" id="hint">Prix de la carte publiée sur le site. Menu complet = entrée + plat + dessert.</p>
+   </aside>
+  </div>
+
+  <div class="planner reveal" id="venir">
+   <h3>Quand venir ?</h3>
+   <p>Choisissez un jour : les services ouverts s'affichent avec nos horaires réels.</p>
+   <div class="days" id="days" role="group" aria-label="Choisir un jour"></div>
+   <div class="slots" id="slots"></div>
+   <p class="msg" id="pmsg"></p>
+  </div>
+ </div>
+</section>
+
+<section id="concept">
+ <div class="wrap">
+  <div class="lieu">
+   <div>
+    <div class="eyebrow reveal">Notre concept</div>
+    <h2 class="reveal d1">Un concept en <em>service continu</em></h2>
+   </div>
+   <p class="reveal d2">Nous proposons une carte variée et gourmande, du mercredi midi au dimanche midi et le samedi soir. Notre univers mêle élégance contemporaine et chaleur naturelle, dans un décor aux tons doux et beiges : mobilier raffiné, lumières tamisées, matières naturelles. Un lieu où le temps ralentit.</p>
+  </div>
+  <div class="cards3 reveal">
+   <div><h4>Le restaurant</h4><p>Une cuisine authentique et généreuse, préparée à partir de produits frais et de saison.</p></div>
+   <div><h4>Le bar</h4><p>Cocktails classiques ou signatures, un large choix de vins et de bières, dans une ambiance cosy et lounge.</p></div>
+   <div><h4>Les groupes</h4><p>Le restaurant se privatise pour les groupes de dix personnes et plus, le jeudi soir et le vendredi soir.</p></div>
+  </div>
+  <div class="hscroll reveal" aria-label="Le lieu en images">
+   <figure><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905eaf25d374_images_large.jpeg" alt="Salle sous verrière, suspensions en osier"><figcaption>La salle</figcaption></figure>
+   <figure><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ec0b140c9_images_large.jpeg" alt="Carpaccio dressé à l'assiette"><figcaption>L'assiette</figcaption></figure>
+   <figure><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ecb7ec6bd_images_large.jpeg" alt="Passage en arche vers la salle"><figcaption>L'ambiance</figcaption></figure>
+   <figure><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ec948b1fb_images_large.jpeg" alt="Plat accompagné de sa sauce"><figcaption>Fait maison</figcaption></figure>
+   <figure><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/3e088b15fef2ef1f3e6765e9af89565e.jpeg" alt="Table dressée près d'un miroir"><figcaption>Le décor</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<section class="parc" id="parc">
+ <div class="parc__bg" id="parcBg" style="background-image:url('https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905ee6d4ecca_images_large.jpeg')"></div>
+ <div class="wrap parc__in">
+  <div>
+   <div class="eyebrow reveal">Parc arboré</div>
+   <h2 class="reveal d1">Un déjeuner dans <em>un écrin de verdure</em></h2>
+   <p class="reveal d2">Nichée au cœur d'un parc arboré, la terrasse d'Au Jardin Gourmand est une véritable bulle de verdure, à deux pas de la ville. Un lieu paisible où le temps semble suspendu.</p>
+   <ul class="reveal d2">
+    <li>Terrasse couverte, à l'abri du soleil ou des intempéries</li>
+    <li>Coins lounge pour l'apéritif entre amis</li>
+    <li>Parking sur place</li>
+   </ul>
+   <a class="btn light reveal d3" href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réserver en terrasse</a>
+  </div>
+ </div>
+</section>
+
+<section id="musique">
+ <div class="wrap music">
+  <figure class="reveal"><img loading="lazy" src="https://www.aujardingourmand.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6905f00646297_images_large.jpeg" alt="Concert sous la pergola du parc"></figure>
+  <div>
+   <div class="eyebrow reveal">Évènements</div>
+   <h2 class="reveal d1">En avant <em>la musique</em></h2>
+   <p class="reveal d2">Durant la période estivale, des concerts une à deux fois par mois, le mercredi soir, sous la pergola du parc.</p>
+   <div class="timeline reveal d2">
+    <div><b>19h00</b><small>Arrivée</small></div>
+    <div><b>19h30</b><small>Début du concert</small></div>
+    <div><b>Mer.</b><small>Soirs d'été</small></div>
+   </div>
+   <p class="reveal d3">Une participation pour les artistes est demandée. La programmation est annoncée sur nos réseaux.</p>
+   <p class="reveal d3" style="margin-top:18px"><a class="btn ghost" href="https://www.instagram.com/au.jardin.gourmand42" target="_blank" rel="noopener">Suivre sur Instagram</a></p>
+  </div>
+ </div>
+</section>
+
+<section class="infos" id="contact">
+ <div class="wrap infos__grid">
+  <div>
+   <h3>Horaires</h3>
+   <ul class="hours" id="hours"></ul>
+  </div>
+  <div>
+   <h3>Nous trouver</h3>
+   <p>1 Allée Claude Barge<br>42300 Roanne</p>
+   <p style="margin-top:14px">Téléphone : <a href="tel:+33477721944">04 77 72 19 44</a><br>E-mail : <a href="mailto:restaurant@aujardingourmand.fr">restaurant@aujardingourmand.fr</a></p>
+   <p style="margin-top:14px"><a href="https://www.google.com/maps/search/?api=1&query=Au+Jardin+Gourmand+1+All%C3%A9e+Claude+Barge+42300+Roanne" target="_blank" rel="noopener">Itinéraire</a> · <a href="https://www.facebook.com/aujardingourmandroanne/" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/au.jardin.gourmand42" target="_blank" rel="noopener">Instagram</a></p>
+   <p style="margin-top:22px"><a class="btn light" href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réservation en ligne</a></p>
+  </div>
+  <div>
+   <h3>Contactez-nous</h3>
+   <form id="cform">
+    <input required name="nom" placeholder="Votre nom" autocomplete="name">
+    <input required name="tel" placeholder="Téléphone ou e-mail">
+    <textarea name="msg" rows="4" placeholder="Votre message (réservation, groupe, question…)"></textarea>
+    <button class="btn light" type="submit">Envoyer</button>
+   </form>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <a class="logo" href="#top">Au Jardin Gourmand<small>L'art du moment partagé</small></a>
+  <p class="note">Maquette de démonstration réalisée à titre de proposition, non officielle. Textes, horaires, coordonnées et carte d'automne repris du site actuel aujardingourmand.fr ; toutes les photos sont celles publiées par le restaurant. Prix indicatifs, non contractuels. Couleurs et typographies reprises du site actuel, ajustables.</p>
+ </div>
+</footer>
+
+<nav class="mbar" aria-label="Actions rapides">
+ <a href="tel:+33477721944">Appeler</a>
+ <a href="#carte">La carte</a>
+ <a href="https://reservation.laddition.com/booking/aujardingourmand#/date" target="_blank" rel="noopener">Réserver</a>
+</nav>
+
+<script>
+const RESA="https://reservation.laddition.com/booking/aujardingourmand#/date";
+const MENUS={
+ gourmand:{titre:"Le gourmand",prix:39,etapes:[
+  {nom:"Entrées",prix:12.5,plats:[["La tarte à l'oignon revisitée","Compoté d'oignons, biscuit cacao, écume de parmesan et guanciale"],["Velouté d'automne","Blanc-manger aux éclats de marrons, velouté de butternut"]]},
+  {nom:"Les plats",prix:20.5,plats:[["La pintade","Ballotine de pintade aux écrevisses, millefeuille de pomme de terre et sauce écrevisses"],["Le lieu noir","Lieu noir flambé au chalumeau, fondue de poireaux et émulsion de coques"]]},
+  {nom:"Les desserts",prix:6,plats:[["Millefeuille pomme, vanille",""],["Mariage de la mûre et de la meringue",""],["Glace artisanale 2 boules",""]]}
+ ]},
+ gourmet:{titre:"Le gourmet",prix:52,etapes:[
+  {nom:"Entrées",prix:16,plats:[["La Saint-Jacques","Saint-Jacques farcies à la truffe sur lit d'épinard, sauce au pain de mie toasté, amandes torréfiées"],["Le foie gras et la figue","Foie gras, tuile mendiant amande et déclinaison autour de la figue et du raisin"]]},
+  {nom:"Les plats",prix:30,plats:[["La lotte et le cabillaud","Duo de cabillaud et de lotte, jus de crustacés et piperade de seiches et poivrons"],["Le canard en duo","Magret de canard et foie gras juste saisi flambé minute, sauce porto / foie gras, girolles et pommes de terre salardaises"]]},
+  {nom:"Les desserts",prix:6,plats:[["Tarte citron meringuée revisitée",""],["Dessert autour de la noisette et du chocolat",""]]}
+ ]}
+};
+let cur="gourmand",nb=2,choix={gourmand:{},gourmet:{}};
+const eur=v=>(Math.round(v*100)/100).toLocaleString("fr-FR",{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2})+" €";
+function renderCard(){
+ const m=MENUS[cur],c=document.getElementById("menuCard");
+ let h=`<div class="anim"><div class="menu-card__title"><h3>${m.titre}</h3><span class="px">${m.prix} euros</span></div><span class="script">L'art du moment partagé</span>`;
+ m.etapes.forEach((e,i)=>{
+  h+=`<div class="course"><div class="course__h"><span>${e.nom}</span><span>${String(e.prix).replace(".",",")} €</span></div>`;
+  e.plats.forEach((p,j)=>{const on=choix[cur][i]===j;
+   h+=`<label class="dish${on?" on":""}"><input type="radio" name="${cur}-${i}" value="${j}" ${on?"checked":""} data-e="${i}"><div><strong>${p[0]}</strong>${p[1]?`<span>${p[1]}</span>`:""}</div></label>`;});
+  h+=`</div>`;});
+ c.innerHTML=h+`</div>`;
+ c.querySelectorAll("input").forEach(inp=>{
+  inp.addEventListener("click",ev=>{const e=+inp.dataset.e,j=+inp.value;
+   if(choix[cur][e]===j){delete choix[cur][e];inp.checked=false}else choix[cur][e]=j;
+   c.querySelectorAll(`input[data-e="${e}"]`).forEach(x=>x.closest(".dish").classList.toggle("on",x.checked));
+   renderCompo();});
+ });
+}
+function renderCompo(){
+ const m=MENUS[cur],sel=document.getElementById("sel");let t=0,li="";
+ m.etapes.forEach((e,i)=>{const j=choix[cur][i];
+  if(j!==undefined){t+=e.prix;li+=`<li><span>${m.etapes[i].plats[j][0]}</span><em>${eur(e.prix)}</em></li>`}
+  else li+=`<li><span style="opacity:.45">${e.nom} — à choisir</span><em></em></li>`;});
+ sel.innerHTML=li;
+ const n=Object.keys(choix[cur]).length;
+ document.getElementById("tot").textContent=eur(t*nb);
+ document.getElementById("nb").textContent=nb;
+ document.getElementById("hint").textContent=n===3?`Menu « ${m.titre} » complet : ${m.prix} € par personne, soit ${eur(m.prix*nb)} pour ${nb}.`:"Prix de la carte publiée sur le site. Menu complet = entrée + plat + dessert.";
+}
+document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{
+ document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===b));
+ cur=b.dataset.menu;renderCard();renderCompo();}));
+document.getElementById("plus").onclick=()=>{if(nb<30){nb++;renderCompo()}};
+document.getElementById("minus").onclick=()=>{if(nb>1){nb--;renderCompo()}};
+renderCard();renderCompo();
+
+/* Horaires réels du site actuel */
+const H={0:[[9,15]],1:[],2:[],3:[[9,15]],4:[[9,15]],5:[[9,15]],6:[[9,15],[18,23]]};
+const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+function status(){
+ const d=new Date(),h=d.getHours()+d.getMinutes()/60,el=document.getElementById("status");
+ const open=(H[d.getDay()]||[]).some(([a,b])=>h>=a&&h<b);
+ if(open){el.querySelector("span").textContent="Ouvert en ce moment";return}
+ el.classList.add("closed");
+ for(let k=0;k<8;k++){const dd=(d.getDay()+k)%7;for(const [a] of H[dd]){if(k>0||a>h){
+  el.querySelector("span").textContent=`Fermé · ouvre ${k===0?"aujourd'hui":k===1?"demain":JOURS[dd].toLowerCase()} à ${a}h`;return}}}
+}
+status();
+const hl=document.getElementById("hours"),today=new Date().getDay();
+[1,2,3,4,5,6,0].forEach(i=>{const s=H[i].length?H[i].map(([a,b])=>`${a}h00 – ${b}h00`).join(" · "):"Fermé";
+ hl.insertAdjacentHTML("beforeend",`<li class="${i===today?"today":""}"><span>${JOURS[i]}</span><span>${s}</span></li>`)});
+
+/* Planificateur */
+const days=document.getElementById("days"),slots=document.getElementById("slots"),pmsg=document.getElementById("pmsg");
+const base=new Date();base.setHours(0,0,0,0);
+for(let k=0;k<14;k++){const d=new Date(base);d.setDate(d.getDate()+k);const w=d.getDay();
+ const closed=w===1||w===2;
+ const b=document.createElement("button");b.type="button";b.className="day"+(closed?" closed":"");b.setAttribute("aria-pressed","false");
+ b.innerHTML=`<small>${k===0?"Auj.":JOURS[w].slice(0,3)}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString("fr-FR",{month:"short"})}</small>`;
+ if(closed)b.setAttribute("aria-disabled","true");
+ b.onclick=()=>{if(closed){pmsg.textContent=`Le restaurant est fermé le ${JOURS[w].toLowerCase()}.`;return}
+  days.querySelectorAll(".day").forEach(x=>x.setAttribute("aria-pressed",x===b));pick(d)};
+ days.appendChild(b);}
+function pick(d){
+ const w=d.getDay(),lib=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});let h="";
+ h+=`<div class="slot"><h4>Le midi</h4><p>Service continu de 9h00 à 15h00. Déjeuner en salle ou sous la terrasse couverte.</p><a class="btn" href="${RESA}" target="_blank" rel="noopener">Réserver</a></div>`;
+ if(w===6)h+=`<div class="slot"><h4>Le soir</h4><p>Samedi soir, de 18h00 à 23h00. Dîner et bar à cocktails.</p><a class="btn" href="${RESA}" target="_blank" rel="noopener">Réserver</a></div>`;
+ if(w===4||w===5)h+=`<div class="slot group"><h4>Soirée privatisée</h4><p>Le ${JOURS[w].toLowerCase()} soir, le restaurant se privatise pour les groupes de dix personnes et plus.</p><label>Nombre de personnes <input type="number" min="10" value="12" id="gp"></label><a class="btn" id="gmail" href="#">Demander par e-mail</a></div>`;
+ slots.innerHTML=h;pmsg.textContent=`Services pour le ${lib}.`;
+ const g=document.getElementById("gmail");
+ if(g){const upd=()=>{const n=Math.max(10,+document.getElementById("gp").value||10);
+  g.href=`mailto:restaurant@aujardingourmand.fr?subject=${encodeURIComponent("Privatisation – "+lib)}&body=${encodeURIComponent(`Bonjour,\n\nNous souhaiterions privatiser le restaurant le ${lib} au soir, pour un groupe de ${n} personnes.\n\nMerci de nous recontacter.\n`)}`};
+  document.getElementById("gp").oninput=upd;upd();}
+}
+const first=[...days.children].find(b=>!b.classList.contains("closed"));if(first)first.click();
+
+/* Formulaire → mail */
+document.getElementById("cform").addEventListener("submit",e=>{e.preventDefault();const f=e.target;
+ location.href=`mailto:restaurant@aujardingourmand.fr?subject=${encodeURIComponent("Message de "+f.nom.value)}&body=${encodeURIComponent(f.msg.value+"\n\nContact : "+f.tel.value)}`});
+
+/* Menu mobile */
+const burger=document.getElementById("burger"),menu=document.getElementById("menu");
+burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)};
+menu.querySelectorAll("a").forEach(a=>a.onclick=()=>{menu.classList.remove("open");burger.setAttribute("aria-expanded",false)});
+
+/* Header, reveals, parallaxe */
+const header=document.querySelector("header");
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+const parc=document.getElementById("parc"),bg=document.getElementById("parcBg");
+const rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+addEventListener("scroll",()=>{header.classList.toggle("solid",scrollY>40);
+ if(!rm){const r=parc.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)bg.style.transform=`translateY(${(r.top-innerHeight/2)*-0.12}px)`}},{passive:true});
+</script>
+</body>
+</html>
