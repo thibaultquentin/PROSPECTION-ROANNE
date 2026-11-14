@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Maquette de démonstration — L'Assiette Roannaise (Saint-Forgeux-Lespinasse) -->
+<title>L'Assiette Roannaise — Restaurant semi-gastronomique près de Roanne | Saint-Forgeux-Lespinasse</title>
+<meta name="description" content="Restaurant semi-gastronomique à Saint-Forgeux-Lespinasse, à 10 minutes de Roanne : cuisine 100 % maison du chef Christophe Guillon, menus de saison et gîte face au restaurant.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — relevée sur restaurant-assiette-roannaise.fr
+   Or « laiton » #c6ac83 (couleur d'accent du site actuel),
+   fonds très sombres #0e1618 / #171412, brun #4e4a3d,
+   fond marbre noir veiné d'or (recréé en CSS, image d'origine trop lourde).
+   Titres : Cormorant Infant (police du site actuel).
+   Texte : DM Sans (proche de CerebriSans, police non libre du site).
+   ========================================================== */
+:root{
+  --gold:#c6ac83;
+  --gold-soft:#d9c6a6;
+  --ink:#0e1618;
+  --ink-2:#171412;
+  --brown:#4e4a3d;
+  --cream:#f3eee6;
+  --text:#e9e3d8;
+  --muted:#a9a196;
+  --line:rgba(198,172,131,.28);
+  --serif:"Cormorant Infant", Georgia, serif;
+  --sans:"DM Sans", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.65;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.eyebrow{font-size:.74rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;color:var(--cream)}
+h2{font-size:clamp(2.2rem,1.6rem + 2.6vw,3.8rem)}
+h2 em,h1 em{font-style:italic;color:var(--gold)}
+.lead{color:var(--muted);max-width:60ch}
+
+/* Marbre noir veiné d'or, en CSS */
+.marble{background:
+  radial-gradient(120% 60% at 15% 20%,rgba(198,172,131,.10),transparent 60%),
+  radial-gradient(80% 50% at 85% 80%,rgba(160,110,40,.12),transparent 60%),
+  linear-gradient(115deg,transparent 46%,rgba(198,172,131,.16) 47.2%,transparent 48.5%),
+  linear-gradient(160deg,transparent 62%,rgba(198,172,131,.10) 63%,transparent 64.5%),
+  linear-gradient(28deg,transparent 30%,rgba(198,172,131,.08) 31%,transparent 32%),
+  var(--ink-2)}
+
+/* Bandeau démo */
+.demo-bar{background:var(--gold);color:var(--ink);font-size:.82rem;text-align:center;padding:7px 16px;line-height:1.4}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;transition:background .4s,backdrop-filter .4s,border-color .4s;border-bottom:1px solid transparent}
+header.scrolled{background:rgba(14,22,24,.86);backdrop-filter:blur(10px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:78px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:46px;height:46px;border-radius:50%}
+.brand span{font-family:var(--serif);font-size:1.35rem;color:var(--cream)}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{text-decoration:none;font-size:.88rem;letter-spacing:.06em;color:var(--text);position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .4s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 24px;border:1px solid var(--gold);background:var(--gold);color:var(--ink);text-decoration:none;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;transition:background .3s,color .3s,transform .3s var(--ease);min-height:44px}
+.btn:hover{background:transparent;color:var(--gold)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--gold)}
+.btn.ghost:hover{background:var(--gold);color:var(--ink)}
+.burger{display:none;background:none;border:1px solid var(--line);width:44px;height:44px}
+@media (max-width:960px){
+  .nav ul{position:fixed;inset:78px 0 auto 0;flex-direction:column;gap:0;background:var(--ink);border-bottom:1px solid var(--line);padding:8px 20px 18px;transform:translateY(-130%);transition:transform .45s var(--ease)}
+  .nav ul.open{transform:none}
+  .nav ul a{display:block;padding:12px 0;border-bottom:1px solid rgba(198,172,131,.12)}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 110px);display:grid;align-items:end;overflow:hidden;margin-top:-78px;padding-top:78px}
+.hero-img{position:absolute;inset:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:slowzoom 18s var(--ease) forwards}
+@keyframes slowzoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,24,.55) 0%,rgba(14,22,24,.25) 40%,rgba(14,22,24,.95) 100%)}
+.hero-in{position:relative;z-index:2;padding:0 0 70px}
+.hero h1{font-size:clamp(3rem,2rem + 5.5vw,6.6rem);max-width:12ch}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.15s}
+@keyframes rise{to{transform:none}}
+.hero p.sub{margin:22px 0 30px;max-width:52ch;color:#d8d0c3;font-size:1.06rem;opacity:0;animation:fade 1s .6s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;opacity:0;animation:fade 1s .8s forwards}
+@keyframes fade{to{opacity:1}}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:38px;opacity:0;animation:fade 1s 1s forwards}
+.badges span{border:1px solid var(--line);padding:7px 14px;font-size:.78rem;letter-spacing:.08em;color:var(--gold-soft);background:rgba(14,22,24,.45);backdrop-filter:blur(6px)}
+.hours-pill{position:absolute;right:20px;bottom:74px;z-index:2;text-align:right;font-size:.85rem;color:var(--muted)}
+.hours-pill b{display:block;font-family:var(--serif);font-size:1.4rem;color:var(--cream);font-weight:500}
+@media (max-width:760px){.hours-pill{display:none}.hero::after{background:linear-gradient(180deg,rgba(14,22,24,.7) 0%,rgba(14,22,24,.6) 45%,rgba(14,22,24,.96) 100%)}}
+
+/* Sections */
+section{padding:clamp(80px,9vw,140px) 0}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.clip{clip-path:inset(12% 12% 12% 12%);transition:clip-path 1.4s var(--ease)}
+.clip.in{clip-path:inset(0 0 0 0)}
+
+/* Le restaurant */
+.resto{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,6vw,90px);align-items:center}
+.resto p{margin-top:18px;color:#cfc7ba}
+.resto .pics{position:relative;aspect-ratio:4/5}
+.resto .pics img{position:absolute;object-fit:cover;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.resto .pics .a{inset:0 18% 18% 0;width:82%;height:82%}
+.resto .pics .b{right:0;bottom:0;width:52%;height:46%;border:6px solid var(--ink)}
+.quote{margin-top:28px;padding-left:20px;border-left:1px solid var(--gold);font-family:var(--serif);font-style:italic;font-size:1.35rem;color:var(--gold-soft)}
+@media (max-width:860px){.resto{grid-template-columns:1fr}}
+
+/* En cuisine : bandeau défilant d'assiettes */
+.kitchen-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:46px}
+@media (max-width:860px){.kitchen-head{grid-template-columns:1fr}}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.duo div{border-top:1px solid var(--line);padding-top:12px}
+.duo b{font-family:var(--serif);font-size:1.3rem;font-weight:500;color:var(--cream);display:block}
+.duo small{color:var(--muted)}
+.strip{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 18px;cursor:grab;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+.strip.drag{cursor:grabbing;scroll-snap-type:none}
+.strip figure{flex:0 0 clamp(250px,30vw,380px);scroll-snap-align:center;position:relative;overflow:hidden}
+.strip img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform 1.2s var(--ease);pointer-events:none}
+.strip figure:hover img{transform:scale(1.06)}
+.labels{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.labels div{background:var(--ink);padding:24px 22px}
+.labels b{font-family:var(--serif);font-size:1.35rem;font-weight:500;color:var(--gold)}
+.labels p{font-size:.9rem;color:var(--muted);margin-top:6px}
+@media (max-width:860px){.labels{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.labels{grid-template-columns:1fr}}
+
+/* OUTIL : Composer sa table */
+.planner{border:1px solid var(--line);background:rgba(14,22,24,.72);backdrop-filter:blur(4px);display:grid;grid-template-columns:1.35fr .9fr}
+@media (max-width:960px){.planner{grid-template-columns:1fr}}
+.p-main{padding:clamp(22px,3.5vw,44px)}
+.p-side{padding:clamp(22px,3.5vw,44px);border-left:1px solid var(--line);background:rgba(198,172,131,.05);display:flex;flex-direction:column}
+@media (max-width:960px){.p-side{border-left:0;border-top:1px solid var(--line)}}
+.step{margin-bottom:30px}
+.step h3{font-size:1.45rem;margin-bottom:12px;display:flex;gap:12px;align-items:baseline}
+.step h3 i{font-style:normal;font-family:var(--sans);font-size:.72rem;letter-spacing:.2em;color:var(--gold)}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.day{border:1px solid var(--line);background:transparent;padding:8px 0;text-align:center;line-height:1.2;transition:background .25s,border-color .25s,transform .25s var(--ease);min-height:54px}
+.day small{display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.day b{font-family:var(--serif);font-size:1.3rem;font-weight:500}
+.day:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px)}
+.day:disabled{opacity:.28;cursor:not-allowed;text-decoration:line-through}
+.day[aria-pressed=true]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.day[aria-pressed=true] small{color:var(--ink)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1px solid var(--line);background:transparent;padding:10px 18px;min-height:44px;transition:all .25s}
+.seg button[aria-pressed=true]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.seg button:disabled{opacity:.3;cursor:not-allowed}
+.count{display:flex;align-items:center;gap:14px}
+.count button{width:44px;height:44px;border:1px solid var(--line);background:transparent;font-size:1.3rem}
+.count button:hover{border-color:var(--gold);color:var(--gold)}
+.count output{font-family:var(--serif);font-size:2rem;min-width:2ch;text-align:center;color:var(--cream)}
+.menus{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.mcard{border:1px solid var(--line);background:transparent;text-align:left;padding:14px 16px;transition:border-color .25s,background .25s,transform .25s var(--ease);position:relative}
+.mcard:hover:not(:disabled){border-color:var(--gold);transform:translateY(-2px)}
+.mcard b{font-family:var(--serif);font-size:1.25rem;font-weight:500;color:var(--cream);display:block}
+.mcard span{font-size:.82rem;color:var(--muted);display:block}
+.mcard em{font-style:normal;color:var(--gold);font-size:.95rem}
+.mcard[aria-pressed=true]{background:rgba(198,172,131,.14);border-color:var(--gold)}
+.mcard[aria-pressed=true]::after{content:"✓";position:absolute;top:10px;right:12px;color:var(--gold)}
+.mcard:disabled{opacity:.3;cursor:not-allowed}
+.opt{display:flex;align-items:center;gap:12px;margin-top:10px;font-size:.95rem;cursor:pointer}
+.opt input{appearance:none;width:42px;height:24px;border:1px solid var(--gold);border-radius:20px;position:relative;cursor:pointer;flex:none;transition:background .3s}
+.opt input::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--gold);transition:transform .35s var(--ease)}
+.opt input:checked{background:rgba(198,172,131,.25)}
+.opt input:checked::after{transform:translateX(18px)}
+.opt input:disabled{opacity:.3}
+select{background:var(--ink);color:var(--text);border:1px solid var(--line);padding:10px 12px;font:inherit;width:100%;min-height:44px}
+.note{font-size:.8rem;color:var(--muted);margin-top:8px}
+.recap{font-size:.95rem}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:16px 0}
+.recap dt{color:var(--muted)}
+.recap dd{text-align:right;color:var(--cream)}
+.total{border-top:1px solid var(--line);padding-top:16px;margin-top:auto}
+.total small{color:var(--muted);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.total strong{display:block;font-family:var(--serif);font-weight:500;font-size:3rem;color:var(--gold);line-height:1.1}
+.p-actions{display:grid;gap:10px;margin-top:18px}
+.p-actions .btn{justify-content:center}
+.live{min-height:1.4em;font-size:.85rem;color:var(--gold-soft);margin-top:10px}
+
+/* Menus (onglets) */
+.tabs{display:flex;flex-wrap:wrap;gap:6px;border-bottom:1px solid var(--line);margin:36px 0 0}
+.tabs button{background:none;border:0;padding:12px 18px;color:var(--muted);font-family:var(--serif);font-size:1.25rem;position:relative}
+.tabs button[aria-selected=true]{color:var(--cream)}
+.tabs button[aria-selected=true]::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--gold)}
+.panel{display:grid;grid-template-columns:1fr 340px;gap:50px;padding:40px 0 0;animation:fade .6s}
+.panel[hidden]{display:none}
+@media (max-width:860px){.panel{grid-template-columns:1fr}}
+.course{border-bottom:1px dashed var(--line);padding:14px 0}
+.course small{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.course p{font-family:var(--serif);font-size:1.25rem;color:var(--cream);line-height:1.35}
+.course p.or{font-family:var(--sans);font-size:.8rem;color:var(--muted);font-style:italic}
+.price-box{border:1px solid var(--line);padding:26px;align-self:start}
+.price-box b{font-family:var(--serif);font-size:2.6rem;font-weight:500;color:var(--gold);display:block;line-height:1}
+.price-box p{color:var(--muted);font-size:.9rem;margin-top:10px}
+.small-print{font-size:.82rem;color:var(--muted);margin-top:26px;max-width:80ch}
+
+/* Gîte */
+.gite{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+@media (max-width:860px){.gite{grid-template-columns:1fr}}
+.gite-pics{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gite-pics img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.gite-pics img:first-child{grid-column:1/-1;aspect-ratio:16/8}
+.rates{margin-top:24px;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
+.rates div{display:flex;justify-content:space-between;gap:16px;background:var(--ink-2);padding:12px 16px;font-size:.93rem}
+.rates b{color:var(--gold);font-weight:500;white-space:nowrap}
+
+/* À offrir */
+.gifts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+@media (max-width:860px){.gifts{grid-template-columns:1fr}}
+.gift{border:1px solid var(--line);padding:28px;position:relative;overflow:hidden;transition:transform .5s var(--ease),border-color .4s}
+.gift:hover{transform:translateY(-6px);border-color:var(--gold)}
+.gift::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 40%,rgba(198,172,131,.12) 50%,transparent 60%);transform:translateX(-100%);transition:transform 1s var(--ease)}
+.gift:hover::before{transform:translateX(100%)}
+.gift h3{font-size:1.6rem}
+.gift ul{list-style:none;margin-top:14px}
+.gift li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid rgba(198,172,131,.14);font-size:.92rem}
+.gift li b{color:var(--gold);font-weight:500;white-space:nowrap}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,5vw,70px)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.c-list{margin-top:26px;display:grid;gap:18px}
+.c-list div small{display:block;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.c-list a,.c-list p{font-family:var(--serif);font-size:1.45rem;color:var(--cream);text-decoration:none}
+.map{border:1px solid var(--line);min-height:360px;filter:grayscale(.7) contrast(1.05)}
+.map iframe{width:100%;height:100%;min-height:360px;border:0;display:block}
+
+footer{border-top:1px solid var(--line);padding:40px 0 60px;font-size:.84rem;color:var(--muted)}
+footer .disclaimer{margin-top:18px;line-height:1.6;max-width:110ch}
+
+/* Bouton réserver flottant (mobile) */
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;display:none}
+@media (max-width:960px){.fab{display:inline-flex;opacity:0;pointer-events:none;transition:opacity .4s}.fab.on{opacity:1;pointer-events:auto}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}.clip{clip-path:none}
+  .hero h1 .line span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"L'Assiette Roannaise",
+  "description":"Restaurant semi-gastronomique, cuisine 100 % maison à partir de produits frais et locaux. Gîte face au restaurant.",
+  "url":"https://www.restaurant-assiette-roannaise.fr/",
+  "telephone":"+33477656599",
+  "email":"assietteroannaise@sfr.fr",
+  "servesCuisine":"Cuisine française de saison",
+  "priceRange":"23 € – 120 €",
+  "acceptsReservations":"True",
+  "address":{"@type":"PostalAddress","streetAddress":"97 place de Verdun","postalCode":"42640","addressLocality":"Saint-Forgeux-Lespinasse","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Saint-Forgeux-Lespinasse","Roanne","Roannais"],
+  "openingHours":"We-Su",
+  "founder":[{"@type":"Person","name":"Christophe Guillon","jobTitle":"Chef"},{"@type":"Person","name":"Carole Guillon"}]
+}
+</script>
+</head>
+<body>
+<div class="demo-bar"><b>Maquette de démonstration</b> : proposition de site pour L'Assiette Roannaise, construite à partir des informations publiques du restaurant. Aucune réservation n'est enregistrée depuis cette page.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="L'Assiette Roannaise, accueil">
+      <img src="https://www.restaurant-assiette-roannaise.fr/build/OriginalAssets/images/logo.png" alt="Monogramme AR de L'Assiette Roannaise" width="46" height="46">
+      <span>L'Assiette Roannaise</span>
+    </a>
+    <ul id="menu">
+      <li><a href="#le-restaurant">Le Restaurant</a></li>
+      <li><a href="#en-cuisine">En Cuisine</a></li>
+      <li><a href="#nos-menus">Nos menus</a></li>
+      <li><a href="#le-gite">Le gîte</a></li>
+      <li><a href="#a-offrir">À offrir</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="#reserver">Réserver</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Bienvenue">
+  <div class="hero-img"><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/10/designsanstitre3.jpeg" alt="Assiette du chef dressée sur une table de L'Assiette Roannaise" fetchpriority="high"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Saint-Forgeux-Lespinasse · à 10 minutes de Roanne</p>
+    <h1><span class="line"><span>Bienvenue à</span></span><span class="line"><span><em>l'Assiette Roannaise</em></span></span></h1>
+    <p class="sub">Authenticité et saveurs du terroir se mêlent pour vous offrir un moment gourmand. Une cuisine 100 % fait maison, du pain aux desserts, dans une salle entièrement rénovée.</p>
+    <div class="ctas">
+      <a class="btn" href="#reserver">Composer ma table</a>
+      <a class="btn ghost" href="tel:+33477656599">04 77 65 65 99</a>
+    </div>
+    <div class="badges" aria-label="Distinctions affichées par le restaurant">
+      <span>Maître Cuisinier de France</span><span>Sélection Guide Michelin</span><span>Gault &amp; Millau</span><span>Table Roannaise</span>
+    </div>
+  </div>
+  <div class="hours-pill">Sur réservation<b>Du mercredi midi<br>au dimanche soir</b></div>
+</section>
+
+<section id="le-restaurant" class="marble">
+  <div class="wrap resto">
+    <div class="reveal">
+      <p class="eyebrow">Le Restaurant</p>
+      <h2>Une expérience gourmande au cœur de <em>St Forgeux Lespinasse</em></h2>
+      <p>Bienvenue à l'Assiette Roannaise, où authenticité et saveurs du terroir se mêlent pour vous offrir un moment gourmand inoubliable. Notre chef met à l'honneur des produits frais et locaux pour sublimer chaque plat.</p>
+      <p>Nous avons récemment rénové notre salle : un cadre moderne et épuré, romantique à souhait, parfait pour un dîner en tête-à-tête ou un moment de détente entre amis. Ambiance feutrée et décoration soignée créent une atmosphère chaleureuse et cocooning.</p>
+      <p class="quote">« Venez vivre une expérience culinaire alliant tradition et créativité. »</p>
+    </div>
+    <div class="pics">
+      <img class="a clip" src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/10/designsanstitre9.jpeg" alt="La salle rénovée, tables dressées" loading="lazy">
+      <img class="b clip" src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/10/designsanstitre6.jpeg" alt="La cave vitrée et les tables rondes" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="en-cuisine">
+  <div class="wrap kitchen-head">
+    <div class="reveal">
+      <p class="eyebrow">En Cuisine</p>
+      <h2>Une cuisine <em>authentique</em> et créative</h2>
+    </div>
+    <div class="reveal">
+      <p class="lead">Chaque jour, le chef et son équipe subliment des produits frais et locaux pour une cuisine 100 % fait maison, du pain aux desserts. Tradition et modernité se rencontrent dans les assiettes, reflet d'un savoir-faire acquis dans des maisons prestigieuses.</p>
+      <div class="duo">
+        <div><b>Christophe Guillon</b><small>Chef, en cuisine</small></div>
+        <div><b>Carole Guillon</b><small>En salle, accords mets et vins</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="strip" id="strip" aria-label="Assiettes du chef (faire glisser)">
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/6/designsanstitre2-1.jpeg" alt="Assiette du chef" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/10/designsanstitre12.jpeg" alt="Dessert dressé sur assiette bleue" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/6/4designsanstitre4.jpeg" alt="Assiette sur lit de mousse" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/8/1designsanstitre.jpeg" alt="Bol de saison en salle" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/6/6designsanstitre10.jpeg" alt="Poisson et légumes de saison" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/10/designsanstitre15.jpeg" alt="Mise en bouche dans un bol en bois" loading="lazy"></figure>
+    <figure><img src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/8/2designsanstitre.jpeg" alt="Dessert au chocolat" loading="lazy"></figure>
+  </div>
+  <div class="wrap">
+    <div class="labels reveal">
+      <div><b>Maître Cuisinier</b><p>Membre des Maîtres Cuisiniers de France.</p></div>
+      <div><b>Guide Michelin</b><p>Restaurant sélectionné : des assiettes esthétiques, créativité et fraîcheur.</p></div>
+      <div><b>Gault &amp; Millau</b><p>Reconnu par le guide.</p></div>
+      <div><b>Table Roannaise</b><p>Membre de l'association, au service du terroir.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= OUTIL CENTRAL : composer sa table ======= -->
+<section id="reserver" class="marble">
+  <div class="wrap">
+    <div class="reveal" style="max-width:760px;margin-bottom:40px">
+      <p class="eyebrow">Réserver</p>
+      <h2>Composez votre <em>table</em>, avant d'appeler</h2>
+      <p class="lead" style="margin-top:14px">Choisissez le jour, le service, le nombre de convives et votre menu : la page n'affiche que les jours d'ouverture et les menus servis à ce moment-là, et calcule une estimation. Il ne reste qu'à confirmer avec Carole et Christophe, par téléphone ou par mail.</p>
+    </div>
+    <div class="planner reveal">
+      <div class="p-main">
+        <div class="step">
+          <h3><i>01</i>Le jour</h3>
+          <div class="days" id="days" role="group" aria-label="Choix du jour"></div>
+          <p class="note">Fermé le lundi et le mardi. Ouvert du mercredi midi au dimanche soir.</p>
+        </div>
+        <div class="step">
+          <h3><i>02</i>Le service</h3>
+          <div class="seg" id="service" role="group" aria-label="Choix du service">
+            <button type="button" data-v="midi" aria-pressed="true">Midi</button>
+            <button type="button" data-v="soir" aria-pressed="false">Soir</button>
+          </div>
+        </div>
+        <div class="step">
+          <h3><i>03</i>Les convives</h3>
+          <div class="count">
+            <button type="button" id="minus" aria-label="Retirer un convive">−</button>
+            <output id="guests" aria-live="polite">2</output>
+            <button type="button" id="plus" aria-label="Ajouter un convive">+</button>
+          </div>
+        </div>
+        <div class="step">
+          <h3><i>04</i>Le menu</h3>
+          <div class="menus" id="menus" role="group" aria-label="Choix du menu"></div>
+          <label class="opt"><input type="checkbox" id="wine"> Formule vins compris / accord mets et vins</label>
+          <label class="opt" id="fishWrap"><input type="checkbox" id="fish"> Menu du mois : avec le poisson</label>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <h3><i>05</i>Prolonger la soirée</h3>
+          <select id="stay" aria-label="Hébergement">
+            <option value="none">Pas d'hébergement</option>
+            <option value="chambre">Chambre face au restaurant, 2 personnes (53 €)</option>
+            <option value="gite2">Gîte à la nuitée, 2 personnes (68 €)</option>
+            <option value="gite4">Gîte à la nuitée, 4 personnes (130 €)</option>
+          </select>
+          <p class="note">Les formules tout compris (nuit, dîner et petit-déjeuner) sont présentées dans la rubrique Le gîte.</p>
+        </div>
+      </div>
+      <aside class="p-side recap" aria-live="polite">
+        <p class="eyebrow">Votre demande</p>
+        <dl id="recap"></dl>
+        <p class="note" id="menuNote"></p>
+        <div class="total">
+          <small>Estimation pour la table</small>
+          <strong id="total">0 €</strong>
+          <p class="note">Indicatif, d'après les menus affichés. Les plats varient selon le marché et la saison.</p>
+        </div>
+        <div class="p-actions">
+          <a class="btn" href="tel:+33477656599">Appeler le 04 77 65 65 99</a>
+          <a class="btn ghost" id="mailBtn" href="mailto:assietteroannaise@sfr.fr">Envoyer la demande par mail</a>
+          <button class="btn ghost" type="button" id="copyBtn">Copier le récapitulatif</button>
+        </div>
+        <p class="live" id="live"></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="nos-menus">
+  <div class="wrap">
+    <div class="reveal" style="max-width:760px">
+      <p class="eyebrow">Nos menus</p>
+      <h2>Quels menus allez-vous <em>déguster</em> ?</h2>
+      <p class="lead" style="margin-top:14px">Dans votre restaurant l'Assiette Roannaise, chaque menu est une invitation au plaisir… Laissez-vous séduire par des saveurs authentiques et raffinées !</p>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div id="panels"></div>
+    <p class="small-print">« Je me réserve le droit de changer les plats en fonction des livraisons et des augmentations des tarifs des fournisseurs. La plupart de nos plats sont préparés à la minute, merci de votre patience et de votre compréhension. » Toutes nos viandes et volailles sont d'origine France, abats d'origine CEE (décret du 17/12/02 n°2002-1465). Le pain qui accompagne nos menus est fabriqué par nos soins.</p>
+  </div>
+</section>
+
+<section id="le-gite" class="marble">
+  <div class="wrap gite">
+    <div class="gite-pics">
+      <img class="clip" src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/9/designsanstitre.jpeg" alt="Pièce de vie du gîte" loading="lazy">
+      <img class="clip" src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/9/designsanstitre4.jpeg" alt="Chambre du gîte" loading="lazy">
+      <img class="clip" src="https://www.restaurant-assiette-roannaise.fr/upload/BundleContent/9/designsanstitre2.jpeg" alt="Le gîte, intérieur" loading="lazy">
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Le gîte</p>
+      <h2>Séjournez en toute sérénité, <em>face au restaurant</em></h2>
+      <p class="lead" style="margin-top:16px">Une maison entièrement rénovée à Saint-Forgeux-Lespinasse, à 10 minutes de Roanne : 60 m², terrasse de 20 m², cuisine américaine équipée, salon, trois chambres (deux lits doubles, deux lits simples) et un jardin aménagé. De 6 à 8 personnes.</p>
+      <div class="rates">
+        <div><span>Gîte à la nuitée, 2 personnes</span><b>68 €</b></div>
+        <div><span>Gîte à la nuitée, 4 personnes</span><b>130 €</b></div>
+        <div><span>Chambre, 2 personnes</span><b>53 €</b></div>
+        <div><span>Chambre avec repas et petit-déjeuner, 2 pers.</span><b>220 €</b></div>
+        <div><span>Weekend : une nuit, dîner, petit-déjeuner</span><b>240 €</b></div>
+        <div><span>Deux nuits, 2 petits-déjeuners, 1 repas (ven. soir → dim. matin)</span><b>340 €</b></div>
+        <div><span>Petit-déjeuner adulte / enfant · supplément enfant</span><b>11 € / 5 € · 15 €</b></div>
+      </div>
+      <p class="note">Draps et serviettes non fournis, ménage à faire au départ. Formules weekend pour deux personnes.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:22px">
+        <a class="btn" href="tel:+33477656599">Réserver le gîte</a>
+        <a class="btn ghost" href="https://www.visitevirtuellehebergement.fr/LeGiteLAssietteRoannaiseStForgeuxLespinasse.html" target="_blank" rel="noopener">Visite virtuelle</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="a-offrir">
+  <div class="wrap">
+    <div class="reveal" style="max-width:760px">
+      <p class="eyebrow">À offrir</p>
+      <h2>Offrez un moment <em>d'exception</em></h2>
+      <p class="lead" style="margin-top:14px">Un repas, un atelier de cuisine avec le chef ou une nuit au gîte : un cadeau original pour une occasion spéciale, ou juste pour le plaisir.</p>
+    </div>
+    <div class="gifts">
+      <article class="gift reveal">
+        <h3>Restaurant</h3>
+        <ul>
+          <li><span>Menu 2 plats, pour 2</span><b>90 €</b></li>
+          <li><span>Menu 3 plats, pour 2</span><b>120 €</b></li>
+          <li><span>Avec boissons (2 / 3 plats)</span><b>130 / 160 €</b></li>
+        </ul>
+      </article>
+      <article class="gift reveal">
+        <h3>Ateliers cuisine</h3>
+        <ul>
+          <li><span>Cours de cuisine, 1 personne (14h–17h)</span><b>100 €</b></li>
+          <li><span>Cours pour 1 + dîner pour 2</span><b>160 €</b></li>
+        </ul>
+      </article>
+      <article class="gift reveal">
+        <h3>Weekend tout compris</h3>
+        <ul>
+          <li><span>Nuit en chambre, dîner boissons comprises, petit-déjeuner</span><b>240 €</b></li>
+        </ul>
+      </article>
+    </div>
+    <div style="margin-top:30px"><a class="btn" href="https://restaurant-assiette-roannaise.secretbox.fr/" target="_blank" rel="noopener">Commander un chèque cadeau</a></div>
+  </div>
+</section>
+
+<section id="contact" class="marble">
+  <div class="wrap contact">
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
+      <h2>Réservez <em>votre table</em></h2>
+      <div class="c-list">
+        <div><small>Adresse</small><p>97 place de Verdun<br>42640 Saint-Forgeux-Lespinasse</p></div>
+        <div><small>Téléphone</small><a href="tel:+33477656599">04 77 65 65 99</a><br><a href="tel:+33629284666">06 29 28 46 66</a></div>
+        <div><small>Mail</small><a href="mailto:assietteroannaise@sfr.fr">assietteroannaise@sfr.fr</a></div>
+        <div><small>Ouverture</small><p>Sur réservation, du mercredi midi au dimanche soir. Fermé le lundi et le mardi.</p></div>
+      </div>
+    </div>
+    <div class="map reveal">
+      <iframe title="Plan d'accès : 97 place de Verdun, Saint-Forgeux-Lespinasse" loading="lazy" src="https://maps.google.com/maps?q=97%20place%20de%20Verdun%2042640%20Saint-Forgeux-Lespinasse&z=15&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>L'Assiette Roannaise · Restaurant semi-gastronomique et gîte · 97 place de Verdun, 42640 Saint-Forgeux-Lespinasse · 04 77 65 65 99</p>
+    <p class="disclaimer"><b>Maquette de démonstration</b> : cette page est une proposition de site pour L'Assiette Roannaise. Ce n'est pas le site officiel du restaurant et elle n'enregistre aucune réservation : les boutons ouvrent un appel ou un mail préremplis. Textes, menus, prix, horaires, distinctions et tarifs du gîte et des chèques cadeaux sont repris du site actuel restaurant-assiette-roannaise.fr ; les montants calculés sont indicatifs et non contractuels. Toutes les photos (assiettes, salle, gîte) et le monogramme sont ceux publiés par le restaurant sur son site actuel. Couleurs (or #c6ac83, fonds sombres, marbre) et police de titre relevées sur le site actuel, ajustables ; le fond marbre est recréé en CSS.</p>
+  </div>
+</footer>
+
+<a class="btn fab" href="#reserver">Réserver</a>
+
+<script>
+/* ---------- En-tête, menu mobile ---------- */
+const header=document.querySelector('header');
+const fab=document.querySelector('.fab');
+addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>40);fab.classList.toggle('on',scrollY>innerHeight*.8)},{passive:true});
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+/* ---------- Apparitions au défilement ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal,.clip').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('gift')?(i%3)*.12:0)+'s';io.observe(el)});
+
+/* ---------- Bandeau d'assiettes : glisser à la souris ---------- */
+const strip=document.getElementById('strip');let down=false,sx=0,sl=0;
+strip.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;sx=e.clientX;sl=strip.scrollLeft;strip.classList.add('drag')});
+addEventListener('pointerup',()=>{down=false;strip.classList.remove('drag')});
+strip.addEventListener('pointermove',e=>{if(down){strip.scrollLeft=sl-(e.clientX-sx)}});
+
+/* ---------- Données menus (reprises du site actuel) ---------- */
+const MENUS=[
+ {id:'expresse',name:'Expresse',p:23,pw:27.5,when:'midi en semaine',cond:(d,s)=>s==='midi'&&[3,4,5].includes(d.getDay()),
+  courses:[['Entrée',['Selon l’arrivée du marché, la saison et les envies du Chef']],['Plat chaud',['Selon l’arrivée du marché, la saison et les envies du Chef']],['Dessert',['Selon l’arrivée du marché, la saison et les envies du Chef']]],
+  info:'Le chef prépare les plats suivant le retour du marché. Menu servi le midi en semaine.'},
+ {id:'locavore',name:'Escapade locavore',p:37,pw:null,when:'pour toute la table',cond:()=>true,
+  courses:[['Entrée',['Mise en bouche + entrée selon l’arrivée du marché']],['Plat chaud',['Plat selon l’arrivée du marché, la saison et les envies du Chef']],['Dessert',['Dessert selon l’arrivée du marché']]],
+  info:'Menu servi à l’ensemble de la table : mise en bouche, entrée, plat et dessert.'},
+ {id:'mois',name:'Menu du Mois',p:45,pw:65,fish:[65,90],when:'4 temps',cond:()=>true,
+  courses:[['Entrée',['Le Cabillaud et les Agrumes Yuzu : ceviche de cabillaud, betterave et artichauds','La Caille et les épices : terrine de caille au romarin','Le Foie Gras et les Pommes : marbré de foie gras aux pommes et pain d’épices (+6 €)']],['Plat chaud',['La Mer et l’Océan : suivant arrivage, vinaigrette aux câpres','La Canette et l’Ail Noir de Billom : filet de canette rosé, champignons, jus à l’ail noir']],['Fromage',['Les fromages de notre campagne : Maison Livet (St Martin d’Estreaux), le Cabrion (Ambierle), la fourme de Montbrison','Le grand tour de notre région : fromages retravaillés (+3 €)']],['Dessert',['Le Chocolat suivant le temps et l’humeur','Les Agrumes et les Fruits','La Meringue et les Fruits']]],
+  info:'45 € entrée, plat, fromage, dessert · 65 € avec le poisson. Vins compris : 65 € / 90 €.'},
+ {id:'terroir',name:'Terroir',p:60,pw:80,when:'3 temps',cond:()=>true,
+  courses:[['Entrée',['Carpaccio de St Jacques et Veau de la maison Gonin aux agrumes et citron combava']],['Plat chaud',['Filet de Bœuf Charolais Maison Gonin aux Morilles, légumes de saison']],['Dessert',['Assiette de fromages retravaillés par nos soins et dessert au choix']]],
+  info:'60 € · 80 € vin compris.'},
+ {id:'decouverte',name:'Découverte',p:63,pw:90,when:'5 services',cond:()=>true,
+  courses:[['Menu complet en 5 services',['Selon l’arrivée du marché, la saison et les envies du Chef']]],
+  info:'Servi sans les vins, ou en accord mets et vins (90 €).'},
+ {id:'degustation',name:'Dégustation',p:80,pw:120,when:'7 services',cond:()=>true,
+  courses:[['7 services',['Les couleurs, parfums et saveurs de la saison : une palette colorée des produits de la Terre et de la Mer']]],
+  info:'80 € · 120 € vins compris.'}
+];
+const STAY={none:[0,''],chambre:[53,'Chambre, 2 personnes'],gite2:[68,'Gîte, 2 personnes'],gite4:[130,'Gîte, 4 personnes']};
+const eur=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})+' €';
+
+/* ---------- Onglets « Nos menus » ---------- */
+const tabs=document.getElementById('tabs'),panels=document.getElementById('panels');
+MENUS.forEach((m,i)=>{
+  const b=document.createElement('button');b.role='tab';b.id='t-'+m.id;b.textContent=m.name;b.setAttribute('aria-selected',i===2);b.setAttribute('aria-controls','p-'+m.id);tabs.appendChild(b);
+  const p=document.createElement('div');p.className='panel';p.id='p-'+m.id;p.role='tabpanel';p.setAttribute('aria-labelledby',b.id);p.hidden=i!==2;
+  p.innerHTML='<div>'+m.courses.map(([t,l])=>'<div class="course"><small>'+t+'</small>'+l.map((x,j)=>(j?'<p class="or">ou</p>':'')+'<p>'+x+'</p>').join('')+'</div>').join('')+'</div>'+
+   '<div class="price-box"><b>'+eur(m.p)+'</b><p>'+m.info+'</p><a class="btn" style="margin-top:18px" href="#reserver" data-pick="'+m.id+'">Choisir ce menu</a></div>';
+  panels.appendChild(p);
+  b.addEventListener('click',()=>{tabs.querySelectorAll('button').forEach(x=>x.setAttribute('aria-selected',x===b));panels.querySelectorAll('.panel').forEach(x=>x.hidden=x!==p)});
+});
+panels.addEventListener('click',e=>{const a=e.target.closest('[data-pick]');if(a){state.menu=a.dataset.pick;render()}});
+
+/* ---------- Outil : composer sa table ---------- */
+const state={date:null,service:'midi',guests:2,menu:'mois',wine:false,fish:false,stay:'none'};
+const daysEl=document.getElementById('days'),DN=['dim','lun','mar','mer','jeu','ven','sam'];
+const today=new Date();today.setHours(0,0,0,0);
+for(let i=0;i<14;i++){
+  const d=new Date(today);d.setDate(d.getDate()+i);const closed=[1,2].includes(d.getDay());
+  const b=document.createElement('button');b.type='button';b.className='day';b.disabled=closed;b.setAttribute('aria-pressed','false');
+  b.innerHTML='<small>'+DN[d.getDay()]+'</small><b>'+d.getDate()+'</b>';b.setAttribute('aria-label',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(closed?' (fermé)':''));
+  b._d=d;b.addEventListener('click',()=>{state.date=d;render()});daysEl.appendChild(b);
+  if(!closed&&!state.date)state.date=d;
+}
+document.querySelectorAll('#service button').forEach(b=>b.addEventListener('click',()=>{state.service=b.dataset.v;render()}));
+document.getElementById('minus').onclick=()=>{state.guests=Math.max(1,state.guests-1);render()};
+document.getElementById('plus').onclick=()=>{state.guests=Math.min(12,state.guests+1);render()};
+document.getElementById('wine').onchange=e=>{state.wine=e.target.checked;render()};
+document.getElementById('fish').onchange=e=>{state.fish=e.target.checked;render()};
+document.getElementById('stay').onchange=e=>{state.stay=e.target.value;render()};
+const menusEl=document.getElementById('menus');
+MENUS.forEach(m=>{const b=document.createElement('button');b.type='button';b.className='mcard';b.dataset.id=m.id;
+  b.innerHTML='<b>'+m.name+'</b><span>'+m.when+'</span><em>'+eur(m.p)+(m.pw?' · vins '+eur(m.pw):'')+'</em>';
+  b.addEventListener('click',()=>{state.menu=m.id;render()});menusEl.appendChild(b)});
+
+function unitPrice(m){
+  if(m.id==='mois'&&state.fish)return state.wine?m.fish[1]:m.fish[0];
+  return state.wine&&m.pw?m.pw:m.p;
+}
+function summary(){
+  const m=MENUS.find(x=>x.id===state.menu),d=state.date;
+  return {m,d,lines:[
+    ['Jour',d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})],
+    ['Service',state.service==='midi'?'Midi':'Soir'],
+    ['Convives',state.guests],
+    ['Menu',m.name+(m.id==='mois'&&state.fish?' avec poisson':'')+(state.wine&&m.pw?', vins compris':'')],
+    ['Prix par personne',eur(unitPrice(m))]
+  ].concat(state.stay!=='none'?[['Hébergement',STAY[state.stay][1]+' ('+eur(STAY[state.stay][0])+')']]:[])};
+}
+function render(){
+  daysEl.querySelectorAll('.day').forEach(b=>b.setAttribute('aria-pressed',state.date&&b._d.getTime()===state.date.getTime()));
+  document.querySelectorAll('#service button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===state.service));
+  document.getElementById('guests').textContent=state.guests;
+  // Menus disponibles selon jour et service
+  menusEl.querySelectorAll('.mcard').forEach(b=>{const m=MENUS.find(x=>x.id===b.dataset.id),ok=m.cond(state.date,state.service);b.disabled=!ok;b.setAttribute('aria-pressed',m.id===state.menu)});
+  let m=MENUS.find(x=>x.id===state.menu);
+  if(!m.cond(state.date,state.service)){state.menu='mois';m=MENUS[2];menusEl.querySelectorAll('.mcard').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id==='mois'));flash('Le menu Expresse est servi le midi en semaine : menu du mois sélectionné.')}
+  const w=document.getElementById('wine');w.disabled=!m.pw;if(!m.pw){w.checked=false;state.wine=false}
+  document.getElementById('fishWrap').style.display=m.id==='mois'?'flex':'none';
+  const s=summary();
+  document.getElementById('recap').innerHTML=s.lines.map(([k,v])=>'<dt>'+k+'</dt><dd>'+v+'</dd>').join('');
+  document.getElementById('menuNote').textContent=m.info;
+  const total=unitPrice(m)*state.guests+STAY[state.stay][0];
+  animateTotal(total);
+  const body='Bonjour Carole et Christophe,\n\nJe souhaiterais réserver une table :\n'+s.lines.map(([k,v])=>'- '+k+' : '+v).join('\n')+'\n- Estimation : '+eur(total)+'\n\nMerci de me confirmer la disponibilité.\n';
+  document.getElementById('mailBtn').href='mailto:assietteroannaise@sfr.fr?subject='+encodeURIComponent('Demande de réservation - '+s.lines[0][1])+'&body='+encodeURIComponent(body);
+  document.getElementById('copyBtn').dataset.txt=body;
+}
+let shown=0,raf;
+function animateTotal(t){cancelAnimationFrame(raf);const from=shown,st=performance.now(),el=document.getElementById('total');
+  const step=n=>{const k=Math.min(1,(n-st)/500),e=1-Math.pow(1-k,3);shown=from+(t-from)*e;el.textContent=eur(Math.round(shown*2)/2);if(k<1)raf=requestAnimationFrame(step);else{shown=t;el.textContent=eur(t)}};raf=requestAnimationFrame(step)}
+function flash(t){const l=document.getElementById('live');l.textContent=t;clearTimeout(flash._t);flash._t=setTimeout(()=>l.textContent='',4000)}
+document.getElementById('copyBtn').onclick=e=>{navigator.clipboard?.writeText(e.currentTarget.dataset.txt).then(()=>flash('Récapitulatif copié.'),()=>flash('Copie impossible sur ce navigateur.'))};
+render();
+</script>
+</body>
+</html>
