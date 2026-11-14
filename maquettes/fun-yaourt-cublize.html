@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fun'Yaourt — Glaces artisanales au Lac des Sapins | Cublize</title>
+<meta name="description" content="Fun'Yaourt, glace à l'italienne au yaourt fermier de Ronno et glaces artisanales, côté plage du Lac des Sapins à Cublize. Crêpes, gaufres, granités, bubble tea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE FUN'YAOURT — reprise de l'existant (pas de site web) :
+   chalet en bois clair du Lac des Sapins, lettrage gris anthracite
+   « FUN' YAOURT » en capitales géométriques (type Futura → Jost),
+   étiquettes jaunes des parfums, rouge fraise et vert du logo.
+   Couleurs approchées à partir des photos : ajustables ici.
+   ========================================================= */
+:root{
+  --bois:#c8945c;        /* bardage du chalet */
+  --bois-clair:#f1dfc4;
+  --bois-fonce:#8a5a2e;
+  --charbon:#3a332d;     /* lettrage de l'enseigne */
+  --jaune:#f6cf1d;       /* étiquettes parfums */
+  --fraise:#d9283f;      /* logo / fraise */
+  --vert:#3d7a45;        /* vert du logo, du lac */
+  --creme:#fffaf2;
+  --blanc:#ffffff;
+  --font:'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+  --radius:22px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--font);color:var(--charbon);background:var(--creme);line-height:1.6;overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--fraise);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--charbon);color:var(--bois-clair);font-size:.8rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--jaune)}
+
+/* Navigation */
+header{position:sticky;top:0;z-index:50;transition:background .4s,box-shadow .4s}
+header.scrolled{background:rgba(255,250,242,.92);backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(58,51,45,.08)}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem}
+.logo{font-weight:800;font-size:1.45rem;letter-spacing:.06em;text-decoration:none;text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.logo span{color:var(--fraise)}
+.logo small{display:block;font-size:.62rem;letter-spacing:.18em;font-weight:500;color:var(--vert)}
+.nav ul{display:flex;gap:1.6rem;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:3px;border-radius:3px;background:var(--jaune);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 1.5rem;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:1rem;transition:transform .3s var(--spring),box-shadow .3s}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:scale(.96)}
+.btn-fraise{background:var(--fraise);color:#fff;box-shadow:0 10px 24px rgba(217,40,63,.28)}
+.btn-jaune{background:var(--jaune);color:var(--charbon);box-shadow:0 10px 24px rgba(246,207,29,.35)}
+.btn-ghost{background:transparent;color:var(--charbon);border:2px solid var(--charbon)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;color:var(--charbon)}
+
+/* Hero */
+.hero{position:relative;max-width:1200px;margin:0 auto;padding:2.5rem 1.25rem 4rem;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+.tag{display:inline-block;background:var(--jaune);padding:.3rem .9rem;border-radius:999px;font-weight:600;font-size:.85rem;margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.4vw,5.2rem);line-height:.98;font-weight:800;letter-spacing:-.01em;text-transform:uppercase}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:inline-block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s;color:var(--fraise)}
+.hero h1 .l:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.hero p.lead{font-size:1.2rem;margin:1.4rem 0 2rem;max-width:34ch;opacity:0;animation:fade .9s .5s forwards}
+.hero .ctas{display:flex;gap:.9rem;flex-wrap:wrap;opacity:0;animation:fade .9s .65s forwards}
+@keyframes fade{to{opacity:1}}
+.hero-visual{position:relative;aspect-ratio:4/5;border-radius:200px 200px var(--radius) var(--radius);overflow:hidden;box-shadow:0 30px 60px rgba(58,51,45,.18)}
+.hero-visual img{width:100%;height:115%;object-fit:cover;will-change:transform}
+.badge-open{position:absolute;left:-1.2rem;bottom:2rem;background:#fff;border-radius:18px;padding:.9rem 1.1rem;box-shadow:0 16px 40px rgba(58,51,45,.16);display:flex;gap:.7rem;align-items:center;font-size:.92rem;z-index:2;animation:float 5s ease-in-out infinite}
+.dot{width:12px;height:12px;border-radius:50%;background:#aaa;flex:none;position:relative}
+.dot.on{background:#2fa84f}.dot.on::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #2fa84f;animation:ping 1.6s infinite}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+@keyframes float{50%{transform:translateY(-8px)}}
+.swirl{position:absolute;right:-1.5rem;top:-1.5rem;width:120px;z-index:2;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Bandeau défilant */
+.marquee{background:var(--charbon);color:var(--creme);overflow:hidden;padding:1rem 0;transform:rotate(-1.2deg);margin:0 -2rem}
+.marquee .track{display:flex;gap:2.5rem;width:max-content;animation:scroll 32s linear infinite;font-weight:600;font-size:1.15rem;text-transform:uppercase;letter-spacing:.05em}
+.marquee .track span::after{content:"✦";margin-left:2.5rem;color:var(--jaune)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+section{padding:6rem 1.25rem}
+.wrap{max-width:1200px;margin:auto}
+.kicker{font-weight:600;color:var(--fraise);letter-spacing:.14em;text-transform:uppercase;font-size:.82rem}
+h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);line-height:1.05;font-weight:800;margin:.5rem 0 1rem;letter-spacing:-.01em}
+.sub{max-width:58ch;font-size:1.08rem;opacity:.85}
+
+/* Circuit court */
+.circuit{background:var(--bois-clair);position:relative;overflow:hidden}
+.circuit::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 38px,rgba(138,90,46,.07) 38px 41px);pointer-events:none}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;position:relative}
+.path{position:absolute;top:56px;left:8%;right:8%;height:4px}
+.path svg{width:100%;height:20px;overflow:visible}
+.path path{stroke:var(--bois-fonce);stroke-width:3;fill:none;stroke-dasharray:8 10;stroke-dashoffset:400;transition:stroke-dashoffset 2.2s var(--ease)}
+.steps.in .path path{stroke-dashoffset:0}
+.step{background:var(--creme);border-radius:var(--radius);padding:2rem 1.6rem;position:relative;box-shadow:0 10px 30px rgba(138,90,46,.1)}
+.step .n{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.5rem;margin-bottom:1rem;background:var(--jaune)}
+.step:nth-child(3) .n{background:var(--fraise);color:#fff}
+.step:nth-child(4) .n{background:var(--vert);color:#fff}
+.step h3{font-size:1.3rem;margin-bottom:.4rem}
+
+/* Carte */
+.menu-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.2rem;margin-top:3rem}
+.card{position:relative;border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(58,51,45,.08);transition:transform .5s var(--ease)}
+.card:hover{transform:translateY(-6px) rotate(-.4deg)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.card:hover img{transform:scale(1.06)}
+.card .cap{position:absolute;left:0;right:0;bottom:0;padding:1.3rem;color:#fff;background:linear-gradient(transparent,rgba(30,25,20,.82))}
+.card .cap h3{font-size:1.35rem;line-height:1.15}
+.card .cap p{font-size:.92rem;opacity:.92}
+.c1{grid-column:span 7;height:420px}.c2{grid-column:span 5;height:420px}
+.c3{grid-column:span 4;height:300px}.c4{grid-column:span 4;height:300px}.c5{grid-column:span 4;height:300px}
+.list{grid-column:span 12;background:var(--charbon);color:var(--creme);border-radius:var(--radius);padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.list h4{color:var(--jaune);text-transform:uppercase;letter-spacing:.08em;font-size:.9rem;margin-bottom:.5rem}
+.list ul{list-style:none}
+.list li{padding:.15rem 0}
+.price{display:inline-block;background:var(--jaune);color:var(--charbon);font-weight:700;padding:.2rem .7rem;border-radius:999px;font-size:.9rem;margin-top:.6rem}
+
+/* Configurateur */
+.config{background:var(--charbon);color:var(--creme);border-radius:36px;max-width:1200px;margin:0 auto;padding:4rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.config .kicker{color:var(--jaune)}
+.opts{margin-top:1.6rem}
+.opts h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.12em;opacity:.7;margin:1.4rem 0 .6rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem}
+.chip{border:2px solid rgba(255,250,242,.3);background:transparent;color:var(--creme);padding:.6rem 1.1rem;border-radius:999px;font-family:inherit;font-size:.98rem;cursor:pointer;transition:all .3s var(--spring)}
+.chip:hover{border-color:var(--jaune)}
+.chip[aria-pressed="true"]{background:var(--jaune);color:var(--charbon);border-color:var(--jaune);transform:scale(1.05)}
+.stage{position:relative;display:grid;place-items:center;min-height:420px}
+.stage::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(246,207,29,.25),transparent 70%)}
+#ice{width:min(300px,80%);position:relative;filter:drop-shadow(0 24px 30px rgba(0,0,0,.35))}
+#ice .swirlLayer{transition:fill .6s var(--ease)}
+#ice .bob{animation:bob 3.5s ease-in-out infinite;transform-origin:center bottom}
+@keyframes bob{50%{transform:translateY(-6px) rotate(1deg)}}
+.pop{animation:pop .55s var(--spring)}
+@keyframes pop{0%{transform:scale(.85)}100%{transform:scale(1)}}
+.recap{margin-top:2rem;background:rgba(255,250,242,.08);border-radius:18px;padding:1.2rem 1.4rem}
+.recap strong{color:var(--jaune)}
+.recap small{display:block;opacity:.7;margin-top:.4rem}
+
+/* Ouverture */
+.open-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:start;margin-top:2.5rem}
+.checker{background:#fff;border-radius:var(--radius);padding:2rem;box-shadow:0 14px 40px rgba(58,51,45,.1)}
+.checker label{font-weight:600;display:block;margin-bottom:.5rem}
+.checker input{font-family:inherit;font-size:1.05rem;padding:.75rem 1rem;border-radius:12px;border:2px solid var(--bois-clair);width:100%}
+.verdict{margin-top:1.4rem;border-radius:16px;padding:1.2rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;transition:background .4s}
+.verdict.ok{background:#e6f4e8}.verdict.ko{background:#fdeaea}.verdict.maybe{background:#fff6d1}
+.verdict .ico{font-size:1.8rem;line-height:1}
+.year{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem}
+.m{border-radius:14px;padding:.8rem .4rem;text-align:center;font-weight:600;font-size:.9rem;background:#ece6dc;color:#8b8178;cursor:default;transition:transform .3s var(--spring)}
+.m:hover{transform:translateY(-3px)}
+.m small{display:block;font-weight:400;font-size:.7rem;margin-top:.2rem}
+.m.we{background:var(--bois-clair);color:var(--charbon)}
+.m.mid{background:var(--jaune);color:var(--charbon)}
+.m.full{background:var(--fraise);color:#fff}
+.m.now{outline:3px solid var(--charbon);outline-offset:2px}
+.legend{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;font-size:.85rem}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:.35rem;vertical-align:-1px}
+
+/* Événements */
+.events{background:var(--vert);color:#fff;position:relative;overflow:hidden}
+.events .kicker{color:var(--jaune)}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.ev-items{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.6rem 0}
+.ev-items label{display:flex;gap:.6rem;align-items:center;background:rgba(255,255,255,.1);padding:.85rem 1rem;border-radius:14px;cursor:pointer;transition:background .3s}
+.ev-items label:hover{background:rgba(255,255,255,.18)}
+.ev-items input{accent-color:var(--jaune);width:18px;height:18px}
+form .row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+form input[type=text],form input[type=date],form input[type=number],form textarea{width:100%;font-family:inherit;font-size:1rem;padding:.8rem 1rem;border-radius:12px;border:0;color:var(--charbon)}
+form textarea{min-height:90px;resize:vertical;margin-bottom:.8rem}
+.ev-photo{border-radius:var(--radius);overflow:hidden;transform:rotate(2deg);box-shadow:0 30px 60px rgba(0,0,0,.25)}
+
+/* Confiseries */
+.sweets{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+.sweet-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.tile{aspect-ratio:1;border-radius:24px;display:grid;place-items:center;text-align:center;font-weight:700;padding:1rem;transition:transform .4s var(--spring)}
+.tile:hover{transform:rotate(-4deg) scale(1.05)}
+.t1{background:var(--fraise);color:#fff}.t2{background:var(--jaune)}.t3{background:var(--bois);color:#fff}
+.verif{font-size:.85rem;background:#fff6d1;border-radius:12px;padding:.7rem 1rem;margin-top:1rem}
+
+/* Infos */
+.infos{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;margin-top:2.5rem}
+.info-card{background:#fff;border-radius:var(--radius);padding:2rem;box-shadow:0 14px 40px rgba(58,51,45,.08)}
+.info-card dt{font-weight:700;margin-top:1rem;color:var(--fraise);font-size:.85rem;text-transform:uppercase;letter-spacing:.1em}
+.info-card dd{margin-top:.2rem}
+.map{border-radius:var(--radius);overflow:hidden;min-height:380px;box-shadow:0 14px 40px rgba(58,51,45,.08)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0}
+
+footer{background:var(--charbon);color:var(--bois-clair);padding:3rem 1.25rem;font-size:.88rem}
+footer .wrap{display:grid;gap:1rem}
+footer .logo{color:var(--creme)}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(2){transition-delay:.1s}.stagger.in>*:nth-child(3){transition-delay:.2s}.stagger.in>*:nth-child(4){transition-delay:.3s}.stagger.in>*:nth-child(5){transition-delay:.4s}.stagger.in>*:nth-child(6){transition-delay:.5s}
+
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--charbon);color:#fff;padding:.9rem 1.4rem;border-radius:999px;z-index:99;transition:transform .5s var(--spring);font-size:.95rem}
+.toast.show{transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--creme);padding:5rem 1.5rem 2rem;gap:1.2rem;transform:translateY(-110%);transition:transform .5s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+  .nav ul.open{transform:none}
+  .burger{display:block;position:relative;z-index:60}
+  .nav .btn-fraise{display:none}
+  .hero,.config,.open-wrap,.ev-grid,.sweets,.infos{grid-template-columns:1fr}
+  .hero-visual{max-width:440px;margin:auto;width:100%}
+  .steps{grid-template-columns:1fr}.path{display:none}
+  .c1,.c2,.c3,.c4,.c5{grid-column:span 12;height:300px}
+  .list{grid-template-columns:1fr 1fr}
+  .config{padding:3rem 1.4rem;border-radius:0}
+  .year{grid-template-columns:repeat(4,1fr)}
+  form .row,.ev-items{grid-template-columns:1fr}
+  section{padding:4.5rem 1rem}
+  .badge-open{left:.6rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.hero h1 .l span{transform:none}.hero p.lead,.hero .ctas{opacity:1}.reveal,.stagger>*{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"IceCreamShop",
+  "name":"Fun'Yaourt — Glaces et confiseries artisanales",
+  "description":"Glace à l'italienne au yaourt fermier, glaces artisanales, granités, crêpes, gaufres, beignets et bubble tea, côté plage du Lac des Sapins.",
+  "telephone":"+33781132927",
+  "email":"l.moissonnier@orange.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"Lac des Sapins, côté plage (derrière le mini-golf)","postalCode":"69550","addressLocality":"Cublize","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.012105,"longitude":4.378309},
+  "areaServed":["Cublize","Lac des Sapins","Beaujolais Vert","Roannais"],
+  "servesCuisine":"Glaces",
+  "priceRange":"Dès 2,50 €",
+  "sameAs":["https://www.facebook.com/p/Fun-Yaourt-Glaces-et-confiseries-artisanales-Lac-des-Sapins-100063950445502/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de site pour Fun'Yaourt</b>, non officielle</div>
+
+<header id="top">
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#top" class="logo" aria-label="Fun'Yaourt, accueil"><div>Fun<span>'</span> Yaourt<small>Lac des Sapins</small></div></a>
+    <ul id="menu">
+      <li><a href="#circuit">Notre yaourt</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#composer">Composer</a></li>
+      <li><a href="#ouverture">Ouverture</a></li>
+      <li><a href="#evenements">Événements</a></li>
+      <li><a href="#infos">Nous trouver</a></li>
+    </ul>
+    <a href="tel:+33781132927" class="btn btn-fraise">07 81 13 29 27</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" style="padding-top:2.5rem">
+  <div>
+    <span class="tag">Glaces et confiseries artisanales</span>
+    <h1><span class="l"><span>La glace</span></span><span class="l"><span>au yaourt</span></span><span class="l"><span>fermier</span></span></h1>
+    <p class="lead">Glace à l'italienne au yaourt de la ferme, servie en cornet ou en pot, côté plage du Lac des Sapins à Cublize.</p>
+    <div class="ctas">
+      <a href="#composer" class="btn btn-jaune">Composer ma glace</a>
+      <a href="#ouverture" class="btn btn-ghost">Est-ce ouvert aujourd'hui ?</a>
+    </div>
+  </div>
+  <div style="position:relative">
+    <svg class="swirl" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="c" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><circle cx="60" cy="60" r="58" fill="#f6cf1d"/><text font-family="Jost" font-weight="700" font-size="11.5" letter-spacing="2.4" fill="#3a332d"><textPath href="#c">YAOURT FERMIER • CIRCUIT COURT • </textPath></text><text x="60" y="67" text-anchor="middle" font-size="22">🍦</text></svg>
+    <div class="hero-visual"><img id="parallax" src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/1.jpg?1770866090" alt="Glace à l'italienne Fun'Yaourt en cornet"></div>
+    <div class="badge-open" id="badge"><span class="dot" id="badgeDot"></span><span id="badgeTxt">Calcul de l'ouverture…</span></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="track">
+  <span>Glace à l'italienne au yaourt fermier</span><span>Glace boule artisanale</span><span>Granités</span><span>Bubble tea</span><span>Crêpes</span><span>Gaufres</span><span>Beignets</span><span>Bière artisanale locale</span>
+</div></div>
+
+<section id="circuit" class="circuit">
+  <div class="wrap">
+    <p class="kicker">Du pré au cornet</p>
+    <h2 class="reveal">Un yaourt qui vient<br>de juste à côté.</h2>
+    <p class="sub reveal">Le Fun'Yaourt, c'est une glace à l'italienne façon frozen yogurt, mais en version artisanale et en circuit court : le lait est produit et transformé à deux pas du lac.</p>
+    <div class="steps stagger">
+      <div class="path" aria-hidden="true"><svg viewBox="0 0 1000 20" preserveAspectRatio="none"><path d="M0,10 C250,-10 750,30 1000,10"/></svg></div>
+      <div class="step"><div class="n">1</div><h3>Le yaourt du Gaec Barras</h3><p>Lait produit et transformé à la ferme, à Ronno, tout près du Lac des Sapins.</p></div>
+      <div class="step"><div class="n">2</div><h3>Des fruits d'ici</h3><p>Purées de fruits : fraises des Monts du Lyonnais, mûres du Haut Beaujolais.</p></div>
+      <div class="step"><div class="n">3</div><h3>Servi au bord du lac</h3><p>En cornet, en pot ou en pot avec topping, côté plage, derrière le mini-golf.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="carte">
+  <div class="wrap">
+    <p class="kicker">La carte</p>
+    <h2 class="reveal">Glaces, gourmandises<br>et boissons fraîches.</h2>
+    <div class="menu-grid stagger">
+      <article class="card c1"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/2.jpg?1770866090" alt="Vitrine des glaces artisanales" loading="lazy"><div class="cap"><h3>Glaces boules artisanales</h3><p>La vitrine de parfums, à composer selon vos envies.</p></div></article>
+      <article class="card c2"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/5.jpg?1770866090" alt="Glace à l'italienne et glace boule, panneaux Fun'Yaourt" loading="lazy"><div class="cap"><h3>Le Fun'Yaourt</h3><p>Glace à l'italienne au yaourt fermier, cornet ou pot.</p></div></article>
+      <article class="card c3"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/3.jpg?1770866090" alt="Beignet garni de chantilly" loading="lazy"><div class="cap"><h3>Beignets</h3><p>À croquer après la baignade.</p></div></article>
+      <article class="card c4"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/6.jpg?1770866090" alt="Bubble tea frais et fruité" loading="lazy"><div class="cap"><h3>Bubble tea</h3><p>Frais et fruité.</p></div></article>
+      <article class="card c5"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/4.jpg?1770866090" alt="Beignet servi dans du papier journal" loading="lazy"><div class="cap"><h3>À emporter</h3><p>Tout se prend sur le pouce, direction la plage.</p></div></article>
+      <div class="list">
+        <div><h4>Glaces</h4><ul><li>Fun'Yaourt à l'italienne</li><li>Glaces boules artisanales</li><li>Granités</li></ul><span class="price">Glaces dès 2,50 €</span></div>
+        <div><h4>Sucré</h4><ul><li>Crêpes</li><li>Gaufres</li><li>Beignets</li></ul></div>
+        <div><h4>Boissons</h4><ul><li>Bubble tea</li><li>Café</li><li>Boissons fraîches</li><li>Bière artisanale locale</li></ul></div>
+        <div><h4>Salé</h4><ul><li>Petite sélection de snacks salés</li></ul><p style="font-size:.85rem;opacity:.7;margin-top:.6rem">Tarifs détaillés à compléter par Fun'Yaourt.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="composer" style="padding-top:2rem">
+  <div class="config">
+    <div>
+      <p class="kicker">Composez votre Fun'Yaourt</p>
+      <h2>Cornet, pot<br>ou topping ?</h2>
+      <p class="sub" style="opacity:.8">Choisissez le format et le parfum : la glace se compose sous vos yeux. Une idée en tête avant d'arriver au comptoir.</p>
+      <div class="opts">
+        <h4>Le format</h4>
+        <div class="chips" data-group="format">
+          <button class="chip" aria-pressed="true" data-v="cornet">Cornet</button>
+          <button class="chip" aria-pressed="false" data-v="pot">Pot</button>
+          <button class="chip" aria-pressed="false" data-v="topping">Pot avec topping</button>
+        </div>
+        <h4>Le parfum</h4>
+        <div class="chips" data-group="parfum">
+          <button class="chip" aria-pressed="true" data-v="vanille">Vanille</button>
+          <button class="chip" aria-pressed="false" data-v="fraise">Fraise</button>
+          <button class="chip" aria-pressed="false" data-v="chocolat">Chocolat</button>
+        </div>
+      </div>
+      <div class="recap" aria-live="polite"><span id="recapTxt"></span><small>Parfums affichés au comptoir du chalet. Toppings et parfums du moment à préciser par Fun'Yaourt.</small></div>
+    </div>
+    <div class="stage">
+      <svg id="ice" viewBox="0 0 300 380" role="img" aria-label="Aperçu de la glace composée">
+        <g class="bob">
+          <g id="cone">
+            <path d="M95 190 L150 365 L205 190 Z" fill="#d9a35f"/>
+            <path d="M95 190 L150 365 L205 190 Z" fill="url(#gauf)" opacity=".55"/>
+          </g>
+          <g id="cup" style="display:none">
+            <path d="M70 200 L90 340 Q150 356 210 340 L230 200 Z" fill="#fffaf2"/>
+            <path d="M70 200 L230 200 L226 226 L74 226 Z" fill="#f6cf1d"/>
+            <text x="150" y="292" text-anchor="middle" font-family="Jost" font-weight="800" font-size="22" fill="#3a332d">FUN' YAOURT</text>
+          </g>
+          <g id="swirlG">
+            <path class="swirlLayer" d="M80 195 Q150 160 220 195 Q232 215 150 222 Q68 215 80 195Z" fill="#fff4dc"/>
+            <path class="swirlLayer" d="M92 170 Q150 140 208 170 Q220 192 150 198 Q80 192 92 170Z" fill="#fff4dc"/>
+            <path class="swirlLayer" d="M106 146 Q150 122 194 146 Q204 166 150 172 Q96 166 106 146Z" fill="#fff4dc"/>
+            <path class="swirlLayer" d="M122 124 Q150 104 178 124 Q186 140 150 146 Q114 140 122 124Z" fill="#fff4dc"/>
+            <path class="swirlLayer" d="M150 70 Q170 100 168 118 Q150 128 132 118 Q136 96 150 70Z" fill="#fff4dc"/>
+            <path d="M118 150 Q150 132 182 150" stroke="#fff" stroke-width="4" fill="none" opacity=".5" stroke-linecap="round"/>
+          </g>
+          <g id="topping" style="display:none">
+            <circle cx="120" cy="150" r="5" fill="#d9283f"/><circle cx="165" cy="128" r="5" fill="#3d7a45"/><circle cx="185" cy="170" r="5" fill="#f6cf1d"/><circle cx="140" cy="180" r="5" fill="#d9283f"/><circle cx="150" cy="100" r="5" fill="#f6cf1d"/><circle cx="105" cy="185" r="4" fill="#3d7a45"/><circle cx="196" cy="140" r="4" fill="#d9283f"/>
+            <path d="M110 135 Q150 120 190 140 Q170 150 150 146 Q125 150 110 135Z" fill="#5a3522" opacity=".85"/>
+          </g>
+        </g>
+        <defs><pattern id="gauf" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="18" height="18" fill="none"/><path d="M0 0 H18 M0 0 V18" stroke="#8a5a2e" stroke-width="2"/></pattern></defs>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="ouverture">
+  <div class="wrap">
+    <p class="kicker">Avant de venir</p>
+    <h2 class="reveal">Le chalet est-il ouvert<br>le jour de votre balade ?</h2>
+    <p class="sub reveal">Le chalet vit au rythme de la saison. Choisissez une date : la réponse tombe tout de suite, jours fériés compris.</p>
+    <div class="open-wrap">
+      <div class="checker reveal">
+        <label for="d">Votre date de venue</label>
+        <input type="date" id="d">
+        <div class="verdict" id="verdict" aria-live="polite"><span class="ico" id="vIco">🍦</span><div><strong id="vTitle"></strong><p id="vTxt" style="font-size:.95rem"></p></div></div>
+        <p style="font-size:.8rem;opacity:.7;margin-top:1rem">D'après le calendrier publié par l'office de tourisme. Ouvert aussi pendant les vacances scolaires et les ponts d'avril, mai, septembre et octobre : le chalet confirme sur sa page Facebook.</p>
+      </div>
+      <div class="reveal">
+        <div class="year" id="year"></div>
+        <div class="legend"><span><i style="background:var(--fraise)"></i>Tous les jours</span><span><i style="background:var(--jaune)"></i>Mercredis, week-ends, fériés</span><span><i style="background:var(--bois-clair)"></i>Week-ends, fériés, ponts, vacances</span><span><i style="background:#ece6dc"></i>Fermé</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="evenements" class="events">
+  <div class="wrap ev-grid">
+    <div>
+      <p class="kicker">Mariages, fêtes, événements</p>
+      <h2>Fun'Yaourt vient<br>à votre événement.</h2>
+      <p class="sub" style="opacity:.9">Pour vos fêtes et événements, Fun'Yaourt propose des animations gourmandes. Cochez ce qui vous fait envie, la demande part directement par mail.</p>
+      <form id="evForm">
+        <div class="ev-items">
+          <label><input type="checkbox" value="Glace au yaourt" checked> Glace au yaourt</label>
+          <label><input type="checkbox" value="Churros bio"> Churros bio</label>
+          <label><input type="checkbox" value="Crêpes bio"> Crêpes bio</label>
+          <label><input type="checkbox" value="Barbe à papa"> Barbe à papa</label>
+        </div>
+        <div class="row"><input type="text" id="evType" placeholder="Type d'événement (mariage, anniversaire…)" aria-label="Type d'événement"><input type="date" id="evDate" aria-label="Date de l'événement"></div>
+        <div class="row"><input type="number" id="evNb" min="1" placeholder="Nombre d'invités" aria-label="Nombre d'invités"><input type="text" id="evLieu" placeholder="Lieu" aria-label="Lieu"></div>
+        <textarea id="evMsg" placeholder="Un mot sur votre projet" aria-label="Message"></textarea>
+        <button class="btn btn-jaune" type="submit">Demander un devis</button>
+      </form>
+    </div>
+    <div class="ev-photo reveal"><img src="https://fichier0.cirkwi.com/image/photo/poi/800x500/2177515/fr/0.jpg?1770866090" alt="Le chalet Fun'Yaourt au Lac des Sapins" loading="lazy"></div>
+  </div>
+</section>
+
+<section id="confiseries">
+  <div class="wrap sweets">
+    <div>
+      <p class="kicker">Toute l'année</p>
+      <h2 class="reveal">Quand le lac s'endort,<br>les confiseries prennent le relais.</h2>
+      <p class="sub reveal">Pâtes de fruits faites avec les fruits non utilisés pour les glaces et allégées en sucre grâce à une fibre de chicorée, guimauves, caramels au beurre salé : de quoi garnir les tables de fête.</p>
+      <p class="verif">À vérifier avec Fun'Yaourt : gamme et points de vente actuels des confiseries (informations de la fiche Roannais Tourisme de janvier 2024).</p>
+      <a href="tel:+33781132927" class="btn btn-fraise" style="margin-top:1.4rem">Se renseigner par téléphone</a>
+    </div>
+    <div class="sweet-tiles stagger">
+      <div class="tile t1">Pâtes de fruits</div>
+      <div class="tile t2">Guimauves</div>
+      <div class="tile t3">Caramels beurre salé</div>
+    </div>
+  </div>
+</section>
+
+<section id="infos" style="padding-top:2rem">
+  <div class="wrap">
+    <p class="kicker">Nous trouver</p>
+    <h2 class="reveal">Côté plage,<br>derrière le mini-golf.</h2>
+    <div class="infos">
+      <dl class="info-card reveal">
+        <dt>Le chalet</dt><dd>Lac des Sapins, côté plage (derrière le mini-golf)<br>69550 Cublize</dd>
+        <dt>Téléphone</dt><dd><a href="tel:+33781132927">07 81 13 29 27</a></dd>
+        <dt>Mail</dt><dd><a href="mailto:l.moissonnier@orange.fr">l.moissonnier@orange.fr</a></dd>
+        <dt>Saison</dt><dd>Avril, mai, septembre, octobre : week-ends, fériés, ponts et vacances scolaires<br>Juin : mercredis, week-ends et fériés<br>Juillet et août : tous les jours</dd>
+        <dt>Suivre l'actualité</dt><dd><a href="https://www.facebook.com/p/Fun-Yaourt-Glaces-et-confiseries-artisanales-Lac-des-Sapins-100063950445502/" target="_blank" rel="noopener">Page Facebook Fun'Yaourt</a></dd>
+        <dd style="margin-top:1.4rem"><a class="btn btn-fraise" href="tel:+33781132927">Appeler</a></dd>
+      </dl>
+      <div class="map reveal"><iframe title="Carte du Lac des Sapins" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.366%2C46.004%2C4.391%2C46.020&amp;layer=mapnik&amp;marker=46.012105%2C4.378309"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo"><div>Fun<span>'</span> Yaourt<small>Lac des Sapins</small></div></a>
+    <p>Glaces et confiseries artisanales — Lac des Sapins, 69550 Cublize — 07 81 13 29 27</p>
+    <p style="opacity:.7">Maquette de démonstration réalisée sans engagement, non officielle. Photos : visuels de Fun'Yaourt publiés sur sa fiche touristique (Beaujolais Vert / Cirkwi). Couleurs approchées d'après le chalet et la signalétique, ajustables. Tarifs, toppings et parfums du moment à compléter ; seul le prix « glaces dès 2,50 € » provient d'une source publique. Les horaires suivent le calendrier publié par l'office de tourisme et restent à confirmer.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header + parallax
+  const header=$('header'), img=$('#parallax');
+  addEventListener('scroll',()=>{
+    header.classList.toggle('scrolled',scrollY>20);
+    if(!reduce&&img){const y=Math.min(scrollY,700);img.style.transform=`translateY(${-y*0.08}px)`}
+  },{passive:true});
+
+  // Menu mobile
+  const burger=$('.burger'), menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.textContent=o?'✕':'☰'});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.textContent='☰';burger.setAttribute('aria-expanded',false)}));
+
+  // Marquee : dupliquer pour boucle
+  const tr=$('#track'); tr.innerHTML+=tr.innerHTML;
+
+  // Reveals
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  $$('.reveal,.stagger').forEach(el=>io.observe(el));
+
+  // Configurateur
+  const colors={vanille:['#fff4dc','#fbe8bf'],fraise:['#f7a3b0','#f0899b'],chocolat:['#7a4a30','#64381f']};
+  const state={format:'cornet',parfum:'vanille'};
+  const labels={cornet:'en cornet',pot:'en pot',topping:'en pot avec topping'};
+  function render(){
+    $('#cone').style.display=state.format==='cornet'?'':'none';
+    $('#cup').style.display=state.format==='cornet'?'none':'';
+    $('#topping').style.display=state.format==='topping'?'':'none';
+    $$('#ice .swirlLayer').forEach((p,i)=>p.setAttribute('fill',colors[state.parfum][i%2]));
+    $('#recapTxt').innerHTML=`Votre choix : <strong>Fun'Yaourt ${state.parfum} ${labels[state.format]}</strong>. Glaces dès 2,50 €.`;
+    const s=$('#ice'); s.classList.remove('pop'); void s.offsetWidth; s.classList.add('pop');
+  }
+  $$('.chips').forEach(g=>g.addEventListener('click',e=>{
+    const b=e.target.closest('.chip'); if(!b)return;
+    g.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); state[g.dataset.group]=b.dataset.v; render();
+  }));
+  render();
+
+  // Ouverture : calendrier publié + jours fériés calculés
+  function easter(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da)}
+  const key=d=>`${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  function holidays(y){const e=easter(y),add=n=>{const x=new Date(e);x.setDate(x.getDate()+n);return x};
+    return new Set([new Date(y,0,1),add(1),new Date(y,4,1),new Date(y,4,8),add(39),add(50),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25)].map(key))}
+  const fmt=d=>d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  function status(d){
+    const m=d.getMonth(), wd=d.getDay(), we=wd===0||wd===6, fer=holidays(d.getFullYear()).has(key(d));
+    if(m===6||m===7) return ['ok','Ouvert !','En juillet et août, le chalet est ouvert tous les jours.'];
+    if(m===5) return (we||fer||wd===3)?['ok','Ouvert !',fer?'Jour férié : le chalet est ouvert.':'En juin, le chalet ouvre les mercredis, week-ends et jours fériés.']:['ko','Fermé ce jour-là','En juin, rendez-vous le mercredi, le week-end ou un jour férié.'];
+    if([3,4,8,9].includes(m)) return (we||fer)?['ok','Ouvert !',fer?'Jour férié : le chalet est ouvert.':'Le week-end, le chalet est ouvert.']:['maybe','Peut-être','En semaine, ouverture seulement pendant les ponts et les vacances scolaires : vérifiez sur la page Facebook.'];
+    return ['ko','Hors saison','Le chalet est fermé de novembre à mars. Rendez-vous en avril pour la reprise !'];
+  }
+  function show(d){const [c,t,x]=status(d);const v=$('#verdict');v.className='verdict '+c;$('#vIco').textContent=c==='ok'?'🍦':c==='maybe'?'🤔':'❄️';$('#vTitle').textContent=`${fmt(d)} — ${t}`;$('#vTxt').textContent=x}
+  const today=new Date(), inp=$('#d');
+  inp.value=today.toISOString().slice(0,10);
+  inp.addEventListener('change',()=>{if(inp.value){const [y,m,dd]=inp.value.split('-').map(Number);show(new Date(y,m-1,dd))}});
+  show(today);
+  const [c0,t0]=status(today);
+  $('#badgeDot').classList.toggle('on',c0==='ok');
+  $('#badgeTxt').innerHTML=c0==='ok'?'<b>Ouvert aujourd\'hui</b><br>côté plage':c0==='maybe'?'<b>Ouverture possible</b><br>voir le calendrier':'<b>Fermé pour la saison</b><br>retour en avril';
+  const months=['Jan','Fév','Mars','Avr','Mai','Juin','Juil','Août','Sept','Oct','Nov','Déc'];
+  const cls=m=>(m===6||m===7)?['full','tous les jours']:m===5?['mid','mer. + w-e']:[3,4,8,9].includes(m)?['we','w-e + vacances']:['','fermé'];
+  $('#year').innerHTML=months.map((n,i)=>{const [c,s]=cls(i);return `<div class="m ${c} ${i===today.getMonth()?'now':''}">${n}<small>${s}</small></div>`}).join('');
+
+  // Formulaire événement → mailto
+  const toast=$('#toast');
+  $('#evForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const items=[...$$('#evForm input[type=checkbox]:checked')].map(i=>i.value).join(', ')||'à définir';
+    const body=`Bonjour,\n\nJe souhaite un devis pour : ${items}\nÉvénement : ${$('#evType').value}\nDate : ${$('#evDate').value}\nInvités : ${$('#evNb').value}\nLieu : ${$('#evLieu').value}\n\n${$('#evMsg').value}`;
+    location.href=`mailto:l.moissonnier@orange.fr?subject=${encodeURIComponent('Demande de devis événement')}&body=${encodeURIComponent(body)}`;
+    toast.textContent='Votre messagerie s\'ouvre avec la demande pré-remplie.';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3500);
+  });
+})();
+</script>
+</body>
+</html>
