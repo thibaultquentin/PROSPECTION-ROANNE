@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iris Spa — Spa et institut de beauté à Saint-André-d'Apchon, près de Roanne</title>
+<meta name="description" content="Iris Spa, institut de bien-être à Saint-André-d'Apchon, à quelques minutes de Roanne : massages, jacuzzi et sauna privatifs, soins du corps et du visage, bronzage sans UV.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE IRIS SPA — relevée sur iris-spa-detente.fr
+   Couleurs : variables globales du thème du site + fond du logo.
+   Polices : Open Sans (texte du site) ; Josefin Sans approche
+   le lettrage du logo « IRIS SPA » (à remplacer par la police
+   exacte du logo si elle est fournie).
+   ========================================================= */
+:root{
+  --lavande-logo:#AA9EC2;   /* fond du logo */
+  --violet:#875EAB;         /* couleur 1 du thème */
+  --violet-fonce:#5E3F7D;   /* violet assombri pour les textes sur clair */
+  --lavande-clair:#E6CFF9;  /* couleur 0 du thème */
+  --orchidee:#E7A0F5;       /* couleur 4 du thème */
+  --rose:#E5ABAB;           /* couleur 3 du thème (survol des liens) */
+  --gris-perle:#ECE9E9;     /* couleur 5 du thème */
+  --creme-lotus:#F6E6DA;    /* lotus du logo */
+  --nuit:#0F172A;           /* couleur 2 du thème */
+  --encre:#070614;          /* couleur 7 du thème */
+  --blanc:#FFFFFF;
+  --f-titre:"Josefin Sans", "Open Sans", sans-serif;
+  --f-texte:"Open Sans", Arial, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--f-texte);color:var(--nuit);background:var(--blanc);line-height:1.65;overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--violet);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+.demo{background:var(--encre);color:var(--creme-lotus);font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.03em}
+.surtitre{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.28em;font-size:.78rem;color:var(--violet);font-weight:600}
+h1,h2,h3{font-family:var(--f-titre);font-weight:400;line-height:1.1;letter-spacing:.01em}
+h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.14em;font-size:.86rem;font-weight:600;padding:1rem 1.6rem;border-radius:999px;border:2px solid var(--violet);background:var(--violet);color:var(--blanc);text-decoration:none;cursor:pointer;transition:transform .3s var(--ease),background .3s,color .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(94,63,125,.7)}
+.btn:active{transform:scale(.97)}
+.btn--ghost{background:transparent;color:var(--violet-fonce)}
+.btn--ghost:hover{background:var(--violet);color:var(--blanc)}
+.btn--clair{background:var(--creme-lotus);border-color:var(--creme-lotus);color:var(--violet-fonce)}
+
+/* ---------- En-tête ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--gris-perle);box-shadow:0 8px 30px -22px rgba(15,23,42,.5)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{width:50px;height:50px;border-radius:12px}
+.logo span{font-family:var(--f-titre);font-size:1.35rem;letter-spacing:.18em;color:var(--violet-fonce);font-weight:600}
+.menu{display:flex;gap:1.8rem;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-size:.92rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rose);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.menu .btn{padding:.7rem 1.2rem;font-size:.78rem}
+.menu .btn::after{display:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--nuit);margin:5px auto;transition:.3s}
+@media(max-width:900px){
+  .burger{display:block}
+  .menu{position:fixed;inset:76px 0 auto 0;flex-direction:column;background:var(--blanc);padding:1.5rem;gap:1.1rem;border-bottom:1px solid var(--gris-perle);transform:translateY(-130%);transition:transform .45s var(--ease)}
+  .menu.open{transform:none}
+}
+
+/* ---------- Héros ---------- */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;align-items:center;overflow:hidden;background:linear-gradient(160deg,var(--blanc) 0%,var(--lavande-clair) 55%,var(--creme-lotus) 100%)}
+.hero__mot{position:absolute;right:-2vw;top:50%;transform:translateY(-50%);font-family:var(--f-titre);font-weight:300;font-size:clamp(9rem,26vw,24rem);letter-spacing:.06em;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(135,94,171,.28);pointer-events:none;user-select:none}
+.hero__grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding:4rem 0 5rem}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.2vw,5.2rem);color:var(--encre);margin:.9rem 0 1.2rem}
+.hero h1 em{font-style:normal;color:var(--violet)}
+.hero p.lead{font-size:1.08rem;max-width:34rem;color:#2d2a3a}
+.hero__cta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2rem}
+.hero__infos{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.4rem;font-size:.86rem;color:#4a4560}
+.hero__infos b{display:block;font-family:var(--f-titre);font-size:1rem;color:var(--violet-fonce);letter-spacing:.06em}
+.hero__visuel{position:relative;aspect-ratio:4/5;max-height:620px}
+.hero__photo{position:absolute;inset:0;border-radius:220px 220px 24px 24px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(15,23,42,.55)}
+.hero__photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:respire 14s ease-in-out infinite alternate}
+@keyframes respire{to{transform:scale(1.0) translateY(-1.5%)}}
+.hero__cadre{position:absolute;inset:-18px 18px 18px -18px;border:1.5px solid var(--violet);border-radius:220px 220px 24px 24px;z-index:-1}
+.hero__badge{position:absolute;left:-2.2rem;bottom:2.4rem;background:var(--blanc);border-radius:18px;padding:1rem 1.2rem;box-shadow:0 20px 40px -20px rgba(15,23,42,.45);display:flex;gap:.8rem;align-items:center;max-width:250px;animation:flotte 6s ease-in-out infinite}
+.hero__badge svg{flex:none}
+.hero__badge p{font-size:.82rem;line-height:1.35}
+.hero__badge strong{font-family:var(--f-titre);font-size:1.02rem;color:var(--violet-fonce)}
+@keyframes flotte{50%{transform:translateY(-8px)}}
+.lotus-anim path{stroke-dasharray:420;stroke-dashoffset:420;animation:trace 2.4s var(--ease) forwards}
+.lotus-anim path:nth-child(2){animation-delay:.25s}.lotus-anim path:nth-child(3){animation-delay:.5s}
+@keyframes trace{to{stroke-dashoffset:0}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;padding-top:2.5rem}.hero__visuel{max-width:420px;margin:0 auto;width:100%}.hero__badge{left:0}}
+
+/* ---------- Défilant ---------- */
+.ruban{background:var(--violet);color:var(--creme-lotus);overflow:hidden;white-space:nowrap;padding:1rem 0;font-family:var(--f-titre);letter-spacing:.2em;text-transform:uppercase;font-size:.9rem}
+.ruban__piste{display:inline-flex;gap:3rem;animation:defile 38s linear infinite}
+.ruban__piste span::before{content:"✿";margin-right:3rem;color:var(--orchidee)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(4.5rem,8vw,7.5rem) 0}
+.entete{max-width:44rem;margin-bottom:3rem}
+.entete p{margin-top:1rem;color:#46425a}
+
+/* Prestations : tuiles décalées */
+.tuiles{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem}
+.tuile{position:relative;display:grid;grid-template-columns:1fr 42%;min-height:260px;border-radius:22px;overflow:hidden;text-decoration:none;isolation:isolate;transition:transform .5s var(--ease),box-shadow .5s}
+.tuile:nth-child(2),.tuile:nth-child(4){transform:translateY(2.6rem)}
+.tuile:hover{box-shadow:0 30px 60px -32px rgba(94,63,125,.6)}
+.tuile:nth-child(1){background:var(--creme-lotus)}.tuile:nth-child(2){background:var(--lavande-clair)}
+.tuile:nth-child(3){background:var(--gris-perle)}.tuile:nth-child(4){background:#F6DCE3}
+.tuile__txt{padding:2rem;display:flex;flex-direction:column;gap:.7rem}
+.tuile h3{font-size:1.6rem;color:var(--encre)}
+.tuile p{font-size:.94rem;color:#3b3750}
+.tuile .lien{margin-top:auto;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:600;color:var(--violet-fonce);display:inline-flex;gap:.5rem;align-items:center}
+.tuile .lien i{transition:transform .35s var(--ease);font-style:normal}
+.tuile:hover .lien i{transform:translateX(6px)}
+.tuile__img{overflow:hidden}
+.tuile__img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.tuile:hover .tuile__img img{transform:scale(1.07)}
+.tuile .prix-des{font-size:.82rem;color:var(--violet-fonce);font-weight:600}
+@media(max-width:820px){.tuiles{grid-template-columns:1fr}.tuile:nth-child(2),.tuile:nth-child(4){transform:none}.tuile{grid-template-columns:1fr 38%}}
+
+/* Havre de paix */
+.havre{background:var(--encre);color:var(--creme-lotus);position:relative;overflow:hidden}
+.havre__grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.havre__cadre{position:relative;padding:2.6rem;border:1.5px solid rgba(231,160,245,.5)}
+.havre__cadre::before{content:"";position:absolute;left:-1px;top:2.2rem;width:40%;height:3.2rem;background:var(--violet);z-index:0;opacity:.55}
+.havre h2{position:relative;color:var(--blanc)}
+.havre h2 span{display:block;font-family:var(--f-texte);font-style:italic;font-size:.5em;color:var(--orchidee);margin-top:.6rem;letter-spacing:0}
+.havre p{color:#d9d2e6;margin-top:1.1rem}
+.havre__photos{position:relative;display:grid;grid-template-columns:1.3fr 1fr;gap:1rem}
+.havre__photos figure{border-radius:18px;overflow:hidden;position:relative}
+.havre__photos figure:first-child{grid-row:span 2;aspect-ratio:3/4}
+.havre__photos img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.havre__photos figure:hover img{transform:scale(1.06)}
+.havre__photos figcaption{position:absolute;left:.8rem;bottom:.8rem;background:rgba(7,6,20,.65);backdrop-filter:blur(6px);padding:.3rem .7rem;border-radius:999px;font-size:.72rem;letter-spacing:.06em}
+@media(max-width:900px){.havre__grid{grid-template-columns:1fr}}
+
+/* ---------- Composeur ---------- */
+.composeur{background:linear-gradient(180deg,var(--blanc),var(--lavande-clair))}
+.compo{display:grid;grid-template-columns:1.25fr .75fr;gap:2rem;align-items:start}
+.compo>*{min-width:0}
+.panneau{background:var(--blanc);border-radius:24px;padding:clamp(1.4rem,3vw,2.4rem);box-shadow:0 30px 70px -45px rgba(15,23,42,.55)}
+.etape{margin-bottom:2rem}
+.etape__titre{display:flex;align-items:center;gap:.8rem;font-family:var(--f-titre);font-size:1.15rem;margin-bottom:1rem}
+.etape__titre b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--violet);color:var(--blanc);font-size:.9rem}
+.puces{display:flex;flex-wrap:wrap;gap:.6rem}
+.puce{border:1.5px solid var(--lavande-logo);background:var(--blanc);border-radius:999px;padding:.6rem 1.1rem;font:inherit;font-size:.9rem;cursor:pointer;transition:.25s;min-height:44px}
+.puce:hover{border-color:var(--violet)}
+.puce[aria-pressed="true"]{background:var(--violet);border-color:var(--violet);color:var(--blanc)}
+.onglets{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.4rem;margin-bottom:1rem;scrollbar-width:thin}
+.onglet{flex:none;font:inherit;font-size:.82rem;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.1em;padding:.6rem .9rem;border-radius:10px;border:0;background:var(--gris-perle);cursor:pointer;min-height:40px}
+.onglet[aria-selected="true"]{background:var(--encre);color:var(--creme-lotus)}
+.soins{display:grid;gap:.55rem;max-height:420px;overflow-y:auto;padding-right:.3rem}
+.soin{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:center;text-align:left;font:inherit;background:var(--blanc);border:1.5px solid var(--gris-perle);border-radius:14px;padding:.8rem 1rem;cursor:pointer;transition:border-color .25s,background .25s,transform .25s}
+.soin:hover{border-color:var(--lavande-logo);transform:translateX(3px)}
+.soin[aria-pressed="true"]{border-color:var(--violet);background:#F7F0FD}
+.soin .coche{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--lavande-logo);display:grid;place-items:center;font-size:.8rem;color:transparent;transition:.25s}
+.soin[aria-pressed="true"] .coche{background:var(--violet);border-color:var(--violet);color:var(--blanc)}
+.soin strong{display:block;font-weight:600;font-size:.95rem}
+.soin small{color:#6b6680;font-size:.8rem}
+.soin .px{font-family:var(--f-titre);font-size:1.05rem;color:var(--violet-fonce);white-space:nowrap;text-align:right}
+.soin .px small{display:block;font-family:var(--f-texte)}
+.soin[disabled]{opacity:.4;cursor:not-allowed}
+.recap{position:sticky;top:96px;background:var(--encre);color:var(--creme-lotus);border-radius:24px;padding:2rem;overflow:hidden}
+.recap::before{content:"";position:absolute;width:260px;height:260px;right:-90px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(231,160,245,.35),transparent 70%)}
+.recap h3{font-size:1.5rem;color:var(--blanc);position:relative}
+.recap__liste{list-style:none;margin:1.2rem 0;display:grid;gap:.6rem;font-size:.9rem;min-height:3rem}
+.recap__liste li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed rgba(246,230,218,.2);padding-bottom:.5rem;animation:entre .4s var(--ease)}
+@keyframes entre{from{opacity:0;transform:translateY(6px)}}
+.recap__vide{color:#a59fb8;font-style:italic}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:.6rem}
+.total span{font-size:.85rem;color:#c9c0da}
+.total output{font-family:var(--f-titre);font-size:2.6rem;color:var(--blanc)}
+.duree{font-size:.85rem;color:#c9c0da}
+.note{font-size:.76rem;color:#a59fb8;margin-top:.6rem}
+.inclus{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0}
+.inclus span{font-size:.72rem;border:1px solid rgba(231,160,245,.45);border-radius:999px;padding:.25rem .65rem;color:#eadff5}
+.cadeau{display:flex;align-items:center;gap:.7rem;margin:1rem 0;font-size:.9rem;cursor:pointer}
+.cadeau input{appearance:none;width:44px;height:24px;border-radius:999px;background:#3a3550;position:relative;cursor:pointer;transition:.3s;flex:none}
+.cadeau input::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:var(--creme-lotus);transition:transform .3s var(--ease)}
+.cadeau input:checked{background:var(--violet)}
+.cadeau input:checked::after{transform:translateX(20px)}
+.envoi{display:grid;gap:.6rem;margin-top:1rem}
+.envoi .btn{justify-content:center;width:100%}
+.envoi .btn--ghost{color:var(--creme-lotus);border-color:rgba(246,230,218,.45)}
+.envoi .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.maillot{display:none;font-size:.8rem;background:rgba(135,94,171,.3);border-radius:10px;padding:.55rem .8rem;margin-top:.6rem}
+.maillot.on{display:block}
+@media(max-width:960px){.compo{grid-template-columns:1fr}.recap{position:relative;top:0}}
+
+/* ---------- Carte des soins ---------- */
+.carte{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.carte article{border:1.5px solid var(--gris-perle);border-radius:20px;padding:1.6rem;background:var(--blanc);transition:border-color .3s,transform .4s var(--ease)}
+.carte article:hover{border-color:var(--lavande-logo);transform:translateY(-4px)}
+.carte h3{font-size:1.3rem;margin-bottom:1rem;color:var(--violet-fonce)}
+.carte ul{list-style:none;display:grid;gap:.55rem;font-size:.9rem}
+.carte li{display:flex;justify-content:space-between;gap:.8rem;border-bottom:1px dotted #d8d2e2;padding-bottom:.4rem}
+.carte li span:last-child{white-space:nowrap;font-weight:600}
+.carte .remarque{font-size:.78rem;color:#6b6680;margin-top:.8rem}
+@media(max-width:960px){.carte{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.carte{grid-template-columns:1fr}}
+
+/* Avantages */
+.avantages{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:3.5rem}
+.avantage{background:var(--lavande-logo);color:var(--blanc);border-radius:20px;padding:1.6rem 1.2rem;text-align:center}
+.avantage svg{margin:0 auto .8rem}
+.avantage strong{display:block;font-family:var(--f-titre);letter-spacing:.14em;text-transform:uppercase;font-size:.95rem}
+.avantage span{font-size:.85rem;opacity:.92}
+@media(max-width:820px){.avantages{grid-template-columns:1fr 1fr}}
+
+/* Avis */
+.avis{background:var(--creme-lotus)}
+.avis__tete{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem}
+.google{display:flex;align-items:center;gap:1rem;background:var(--blanc);border-radius:16px;padding:1rem 1.3rem}
+.google strong{font-family:var(--f-titre);font-size:1.3rem;letter-spacing:.12em;color:var(--violet-fonce)}
+.google small{display:block;color:#6b6680}
+.avis__piste{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:1rem;scrollbar-width:thin}
+.avis__piste blockquote{flex:0 0 min(360px,80vw);scroll-snap-align:start;background:var(--blanc);border-radius:20px;padding:1.6rem;font-size:.93rem;position:relative}
+.avis__piste blockquote::before{content:"“";font-family:var(--f-titre);font-size:4rem;line-height:1;color:var(--orchidee);position:absolute;top:.4rem;right:1.2rem}
+.avis__piste cite{display:block;margin-top:1rem;font-style:normal;font-weight:600;color:var(--violet-fonce);font-size:.85rem}
+.etoiles{color:#E0A82E;letter-spacing:.1em;margin-bottom:.6rem}
+
+/* Infos pratiques */
+.infos__grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:stretch}
+.infos__bloc{display:grid;gap:1.4rem}
+.info{display:flex;gap:1rem;align-items:flex-start}
+.info svg{flex:none;margin-top:.2rem}
+.info h3{font-size:1.1rem;margin-bottom:.2rem}
+.info a{color:var(--violet-fonce);font-weight:600}
+.facade{border-radius:24px;overflow:hidden;position:relative;min-height:320px}
+.facade img{width:100%;height:100%;object-fit:cover}
+.facade a{position:absolute;right:1rem;bottom:1rem}
+.villes{font-size:.85rem;color:#5d5873}
+@media(max-width:900px){.infos__grid{grid-template-columns:1fr}}
+
+/* Pied */
+footer{background:var(--encre);color:#cfc6de;padding:4rem 0 2rem;font-size:.88rem}
+.pied{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2.5rem;align-items:start}
+.pied h3{color:var(--blanc);font-size:1.1rem;margin-bottom:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.horaires{border:1.5px solid rgba(231,160,245,.45);padding:1.3rem;border-radius:4px}
+.pied ul{list-style:none;display:grid;gap:.4rem}
+.pied a{text-decoration:none}
+.pied a:hover{color:var(--orchidee)}
+.mention{margin-top:3rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);font-size:.76rem;color:#8f88a6}
+@media(max-width:820px){.pied{grid-template-columns:1fr}}
+
+/* Bouton flottant mobile */
+.rdv-flottant{position:fixed;right:1rem;bottom:1rem;z-index:60;display:none;box-shadow:0 16px 30px -12px rgba(15,23,42,.6)}
+@media(max-width:700px){.rdv-flottant{display:inline-flex}}
+
+/* Apparitions */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.tuile.rv.vu:nth-child(2),.tuile.rv.vu:nth-child(4){transform:translateY(2.6rem)}
+@media(max-width:820px){.tuile.rv.vu:nth-child(2),.tuile.rv.vu:nth-child(4){transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.lotus-anim path{stroke-dashoffset:0}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"DaySpa",
+  "name":"Iris Spa",
+  "url":"https://iris-spa-detente.fr/",
+  "image":"https://iris-spa-detente.fr/wp-content/uploads/2024/11/cropped-logo-irisspa-1-300x300.jpg",
+  "telephone":"+33772329086",
+  "email":"irisspa42@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"66 Route de la Rue Franche","postalCode":"42370","addressLocality":"Saint-André-d'Apchon","addressCountry":"FR"},
+  "areaServed":["Saint-André-d'Apchon","Roanne","Renaison","Les Noës","Saint-Alban-les-Eaux","Lentigny","Le Coteau","Saint-Martin-d'Estréaux"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"10:00","closes":"19:00"}],
+  "priceRange":"10 € – 249 €"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de nouveau site pour Iris Spa. Tarifs repris du site actuel, à titre indicatif.</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="Iris Spa, accueil">
+      <img src="https://iris-spa-detente.fr/wp-content/uploads/2024/11/cropped-logo-irisspa-1-300x300.jpg" alt="Logo Iris Spa">
+      <span>IRIS SPA</span>
+    </a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#services">Nos Services</a></li>
+      <li><a href="#carte">Tarifs</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn" href="#composer">Rendez-vous</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<!-- ============ HÉROS ============ -->
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero__mot" aria-hidden="true">IRIS</div>
+  <div class="wrap hero__grid">
+    <div class="rv">
+      <p class="surtitre">Institut de beauté et bien-être</p>
+      <h1>Bienvenue chez <em>IRIS SPA</em></h1>
+      <p class="lead">Envie d’un moment de relaxation&nbsp;? Découvrez notre institut de bien-être à Saint-André-d’Apchon&nbsp;: massage, sauna, soins du corps et rituel bien-être à deux pas de Roanne&nbsp;!</p>
+      <div class="hero__cta">
+        <a class="btn" href="#composer">Composer mon moment</a>
+        <a class="btn btn--ghost" href="#services">Je découvre les soins</a>
+      </div>
+      <div class="hero__infos">
+        <div><b>Mardi → samedi</b>10h – 19h</div>
+        <div><b>Jacuzzi &amp; sauna</b>Espace privatisé, jusqu’à 6</div>
+        <div><b>Seul(e), à deux</b>ou entre amis</div>
+      </div>
+    </div>
+    <div class="hero__visuel rv">
+      <div class="hero__cadre" aria-hidden="true"></div>
+      <div class="hero__photo"><img src="https://iris-spa-detente.fr/wp-content/uploads/2025/11/17.png" alt="L’espace jacuzzi et sauna d’Iris Spa, éclairage tamisé"></div>
+      <div class="hero__badge">
+        <svg class="lotus-anim" width="46" height="46" viewBox="0 0 64 64" fill="none" stroke="#875EAB" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M32 50C24 42 24 24 32 12c8 12 8 30 0 38Z"/>
+          <path d="M32 50C22 48 12 38 12 24c10 2 18 12 20 26Z"/>
+          <path d="M32 50c10-2 20-12 20-26-10 2-18 12-20 26Z"/>
+        </svg>
+        <p><strong>Excellent</strong><br>62 avis publiés sur Google</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ruban" aria-hidden="true"><div class="ruban__piste">
+  <span>Massages bien-être</span><span>Jacuzzi &amp; sauna privatifs</span><span>Soins au lait d’ânesse bio</span><span>Bronzage sans UV</span><span>Espace tisanerie</span><span>Chèque cadeau</span>
+  <span>Massages bien-être</span><span>Jacuzzi &amp; sauna privatifs</span><span>Soins au lait d’ânesse bio</span><span>Bronzage sans UV</span><span>Espace tisanerie</span><span>Chèque cadeau</span>
+</div></div>
+
+<!-- ============ PRESTATIONS ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="entete rv">
+      <p class="surtitre">Nos prestations</p>
+      <h2>Un soin pour chaque envie de pause</h2>
+    </div>
+    <div class="tuiles">
+      <a class="tuile rv" href="#composer" data-cat="corps">
+        <div class="tuile__txt"><h3>Soins corps &amp; rituels</h3><p>Des soins essentiels pour révéler l’éclat naturel du corps et du visage.</p><span class="prix-des">Gommage dès 37 €</span><span class="lien">Voir les prestations <i>→</i></span></div>
+        <div class="tuile__img"><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2020/02/IMG_7033-1024x658.jpg" alt="Soin du corps à l’huile"></div>
+      </a>
+      <a class="tuile rv" href="#composer" data-cat="hydro">
+        <div class="tuile__txt"><h3>Espace Hydro</h3><p>Un espace jacuzzi et sauna dédié à la détente complète du corps et de l’esprit.</p><span class="prix-des">25 € / pers. les 30 min</span><span class="lien">Voir les prestations <i>→</i></span></div>
+        <div class="tuile__img"><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2020/02/DSC_0483-33bc1730-1024x576.jpg" alt="Jacuzzi et sauna d’Iris Spa"></div>
+      </a>
+      <a class="tuile rv" href="#composer" data-cat="massages">
+        <div class="tuile__txt"><h3>Massages Bien-être</h3><p>Des massages relaxants pour libérer les tensions et retrouver une sérénité profonde.</p><span class="prix-des">Californien, lomi-lomi, balinais…</span><span class="lien">Voir les prestations <i>→</i></span></div>
+        <div class="tuile__img"><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2025/11/12.png" alt="Massage relaxant du dos"></div>
+      </a>
+      <a class="tuile rv" href="#composer" data-cat="bronzage">
+        <div class="tuile__txt"><h3>Bronzage expert</h3><p>Un bronzage maîtrisé pour un teint lumineux et uniforme toute l’année.</p><span class="prix-des">Sans UV, dès 15 €</span><span class="lien">Voir les prestations <i>→</i></span></div>
+        <div class="tuile__img"><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2025/07/WhatsApp-Image-2025-07-04-at-15.39.36-706x1024.jpeg" alt="Cabine Bronzage expert d’Iris Spa"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HAVRE DE PAIX ============ -->
+<section class="havre">
+  <div class="wrap havre__grid">
+    <div class="havre__cadre rv">
+      <p class="surtitre" style="color:var(--orchidee)">Découvrez le havre de paix</p>
+      <h2 style="margin-top:.8rem">Prenez un moment pour vous-même<span>Laissez-moi vous aider à relâcher le stress et les tensions&nbsp;!</span></h2>
+      <p>Situé à quelques minutes de Roanne, à Saint-André-d’Apchon, IRIS SPA est un lieu de détente unique où chaque visite est une invitation à la relaxation.</p>
+      <p>Nos soins sont conçus pour vous procurer un véritable moment d’évasion. Nos praticiennes qualifiées mettent leur savoir-faire au service de votre bien-être, dans un cadre raffiné et apaisant — seul(e) ou bien à plusieurs.</p>
+      <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap">
+        <a class="btn btn--clair" href="#composer">Réserver maintenant</a>
+        <a class="btn btn--ghost" style="color:var(--creme-lotus);border-color:rgba(246,230,218,.5)" href="#composer" data-cadeau>Possibilité d’offrir en cadeau</a>
+      </div>
+    </div>
+    <div class="havre__photos rv">
+      <figure><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2020/02/DSC_0504__2_-a27288d2.jpg" alt="Massage chez Iris Spa"></figure>
+      <figure><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2020/02/DSC_0507__2_-1024x921.jpg" alt="Huiles de massage ayurvédique"></figure>
+      <figure><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2022/12/Sans-titre-1024x682.jpg" alt="Soin du visage"><figcaption>Lait d’ânesse bio</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPOSEUR ============ -->
+<section class="composeur" id="composer">
+  <div class="wrap">
+    <div class="entete rv">
+      <p class="surtitre">Prendre rendez-vous</p>
+      <h2>Composez votre moment, on vous rappelle pour le créneau</h2>
+      <p>Choisissez pour qui, ajoutez un ou plusieurs soins&nbsp;: le prix et la durée s’affichent tout de suite. Votre demande part ensuite par SMS ou par mail, déjà rédigée.</p>
+    </div>
+    <div class="compo">
+      <div class="panneau rv">
+        <div class="etape">
+          <div class="etape__titre"><b>1</b>Pour qui&nbsp;?</div>
+          <div class="puces" id="qui">
+            <button class="puce" data-n="1" aria-pressed="true">Seul(e)</button>
+            <button class="puce" data-n="2" aria-pressed="false">En duo</button>
+            <button class="puce" data-n="3" aria-pressed="false">3 personnes</button>
+            <button class="puce" data-n="4" aria-pressed="false">4</button>
+            <button class="puce" data-n="5" aria-pressed="false">5</button>
+            <button class="puce" data-n="6" aria-pressed="false">6</button>
+          </div>
+        </div>
+        <div class="etape">
+          <div class="etape__titre"><b>2</b>Choisissez vos soins</div>
+          <div class="onglets" role="tablist" id="onglets"></div>
+          <div class="soins" id="soins" aria-live="polite"></div>
+        </div>
+        <div class="etape" style="margin-bottom:0">
+          <div class="etape__titre"><b>3</b>Votre préférence de jour</div>
+          <div class="puces" id="jours">
+            <button class="puce" aria-pressed="false">Mardi</button><button class="puce" aria-pressed="false">Mercredi</button><button class="puce" aria-pressed="false">Jeudi</button><button class="puce" aria-pressed="false">Vendredi</button><button class="puce" aria-pressed="false">Samedi</button>
+          </div>
+          <div class="puces" id="moments" style="margin-top:.6rem">
+            <button class="puce" aria-pressed="false">Matin</button><button class="puce" aria-pressed="false">Début d’après-midi</button><button class="puce" aria-pressed="false">Fin de journée</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="recap rv" aria-label="Récapitulatif">
+        <h3>Votre moment</h3>
+        <p class="duree" id="pour">Pour 1 personne</p>
+        <ul class="recap__liste" id="liste"><li class="recap__vide">Ajoutez un soin pour commencer.</li></ul>
+        <div class="total"><span>Total indicatif</span><output id="total">0 €</output></div>
+        <p class="duree" id="duree"></p>
+        <p class="maillot" id="maillot">Pensez à prendre votre maillot de bain pour l’accès au spa.</p>
+        <div class="inclus"><span>Espace tisanerie offert</span><span>Chaussons, peignoirs, serviettes fournis</span></div>
+        <label class="cadeau"><input type="checkbox" id="cadeau"> C’est pour offrir (chèque cadeau)</label>
+        <div class="envoi">
+          <a class="btn btn--clair" id="sms" href="#" aria-disabled="true">Envoyer ma demande par SMS</a>
+          <a class="btn btn--ghost" id="mail" href="#" aria-disabled="true">Envoyer par mail</a>
+          <a class="btn btn--ghost" href="tel:+33772329086">Appeler le 07 72 32 90 86</a>
+        </div>
+        <p class="note" id="note">Prix repris de la carte du site, à confirmer par l’institut lors du rappel.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARTE ============ -->
+<section id="carte">
+  <div class="wrap">
+    <div class="entete rv">
+      <p class="surtitre">La carte</p>
+      <h2>Tous les tarifs, sur une seule page</h2>
+    </div>
+    <div class="carte">
+      <article class="rv"><h3>Espace détente</h3><ul>
+        <li><span>Jacuzzi · 30 min</span><span>25 € / pers.</span></li>
+        <li><span>Sauna · 30 min</span><span>25 € / pers.</span></li>
+        <li><span>Jacuzzi et sauna · 1 h privatif</span><span>42 € / pers.</span></li>
+        <li><span>Jacuzzi ou sauna + modelage dos/jambes</span><span>69 € · duo 129 €</span></li>
+        <li><span>Jacuzzi ou sauna + modelage californien</span><span>109 € · duo 209 €</span></li>
+        <li><span>Jacuzzi et sauna + modelage dos/jambes</span><span>89 € · duo 169 €</span></li>
+        <li><span>Jacuzzi et sauna + modelage californien</span><span>129 € · duo 249 €</span></li>
+      </ul><p class="remarque">6 personnes maximum. Pensez à prendre un maillot de bain.</p></article>
+      <article class="rv"><h3>Massages · 60 min</h3><ul>
+        <li><span>Californien</span><span>88 € · duo 169 €</span></li>
+        <li><span>Suédois</span><span>92 €</span></li>
+        <li><span>Femme enceinte (4 à 8 mois)</span><span>88 €</span></li>
+        <li><span>Lomi-lomi</span><span>88 €</span></li>
+        <li><span>Japonais</span><span>88 €</span></li>
+        <li><span>Balinais</span><span>92 €</span></li>
+        <li><span>Ayurvédique</span><span>88 €</span></li>
+        <li><span>Pierres chaudes</span><span>92 €</span></li>
+      </ul></article>
+      <article class="rv"><h3>Modelages spécifiques</h3><ul>
+        <li><span>Modelage crânien · 20 min</span><span>29 €</span></li>
+        <li><span>Réflexologie plantaire · 30 min</span><span>42 €</span></li>
+        <li><span>Modelage dos/jambes · 30 min</span><span>45 € · duo 85 €</span></li>
+        <li><span>Modelage drainant · 45 min</span><span>79 €</span></li>
+        <li><span>Carte 5 modelages 60 min</span><span>415 €</span></li>
+        <li><span>Carte 5 modelages 30 min</span><span>205 €</span></li>
+      </ul><p class="remarque">Cartes valables 6 mois.</p></article>
+      <article class="rv"><h3>Soins du corps</h3><ul>
+        <li><span>Gommage corps · 40 min</span><span>37 €</span></li>
+        <li><span>Enveloppement corps · 60 min</span><span>42 €</span></li>
+        <li><span>Soin détox · 50 min</span><span>79 €</span></li>
+        <li><span>Soin au chocolat · 75 min</span><span>99 €</span></li>
+        <li><span>Gommage au chocolat · 80 min</span><span>109 €</span></li>
+        <li><span>Gommage + modelage dos/jambes · 1h10</span><span>79 €</span></li>
+        <li><span>Gommage + modelage californien · 1h10</span><span>119 €</span></li>
+        <li><span>Gommage + dos/jambes + soin visage · 2h05</span><span>129 €</span></li>
+        <li><span>Gommage + californien + soin visage · 2h40</span><span>169 €</span></li>
+      </ul></article>
+      <article class="rv"><h3>Soins du visage</h3><ul>
+        <li><span>Anti-âge et coup d’éclat · 50 min</span><span>55 €</span></li>
+        <li><span>Soin essentiel sur mesure · 65 min</span><span>65 €</span></li>
+      </ul><p class="remarque">Au lait d’ânesse bio, pour hommes et femmes, tout type de peau.</p>
+      <h3 style="margin-top:1.6rem">Épilation</h3><ul>
+        <li><span>Aisselles</span><span>10 €</span></li><li><span>Bras</span><span>13 €</span></li>
+        <li><span>Maillot simple</span><span>15 €</span></li><li><span>Maillot intégral</span><span>26 €</span></li>
+        <li><span>Demi-jambes</span><span>16 €</span></li><li><span>Jambes complètes</span><span>25 €</span></li>
+      </ul></article>
+      <article class="rv"><h3>Bronzage expert</h3><ul>
+        <li><span>Visage, buste et bras</span><span>25 €</span></li>
+        <li><span>Jambes</span><span>25 €</span></li>
+        <li><span>Corps complet, visage inclus</span><span>40 €</span></li>
+        <li><span>Abonnement 3 mois</span><span>25 €</span></li>
+        <li><span>Abonnement 6 mois</span><span>45 €</span></li>
+        <li><span>Abonnement 12 mois</span><span>70 €</span></li>
+      </ul><p class="remarque">Avec abonnement en cours&nbsp;: 15 € (visage/buste/bras, jambes), 25 € (corps complet). Sans UV, formule élaborée en France, 93 % d’ingrédients d’origine naturelle.</p></article>
+    </div>
+
+    <div class="avantages">
+      <div class="avantage rv"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><strong>Carte de fidélité</strong><span>Valable 6 mois</span></div>
+      <div class="avantage rv"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><path d="M5 10h12v4a6 6 0 0 1-12 0z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M9 3c0 2 2 2 2 4M13 3c0 2 2 2 2 4"/></svg><strong>Espace tisanerie</strong><span>Libre accès après chaque soin</span></div>
+      <div class="avantage rv"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13M3 12h18M12 8S10 3 7.5 4.5 9 8 12 8Zm0 0s2-5 4.5-3.5S15 8 12 8Z"/></svg><strong>Chèque cadeau</strong><span>Montant au choix</span></div>
+      <div class="avantage rv"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><path d="M8 3 4 6l2 3 2-1v13h8V8l2 1 2-3-4-3c-1 2-3 2-4 2s-3 0-4-2Z"/></svg><strong>Linges fournis</strong><span>Chaussons, peignoirs, serviettes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AVIS ============ -->
+<section class="avis" id="avis">
+  <div class="wrap">
+    <div class="avis__tete rv">
+      <div><p class="surtitre">Témoignages</p><h2 style="margin-top:.6rem">Ce que mes clients disent</h2></div>
+      <div class="google"><svg width="34" height="34" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"/></svg><div><strong>EXCELLENT</strong><small>Basée sur 62 avis publiés sur Google</small></div></div>
+    </div>
+    <div class="avis__piste rv" tabindex="0" aria-label="Avis clients, faire défiler horizontalement">
+      <blockquote><div class="etoiles" aria-label="5 étoiles">★★★★★</div>Un moment fabuleux avec le massage californien qui a ainsi fait disparaître toutes les petites tensions. Espace de détente après le massage pour profiter d’une boisson réconfortante offerte.<cite>Marie Hélène A. · Google</cite></blockquote>
+      <blockquote><div class="etoiles" aria-label="5 étoiles">★★★★★</div>Plusieurs fois que nous venons pour un moment de détente en couple, personnes toujours aussi sympathiques, accueillantes et professionnelles. Nous reviendrons sans hésitation.<cite>Jérémy D. · Google</cite></blockquote>
+      <blockquote><div class="etoiles" aria-label="5 étoiles">★★★★★</div>Nous sommes venues à 6 pour un EVJF spa sauna, gommage et la salle tisanière, c’était parfait&nbsp;! Un accueil très agréable, aux petits soins.<cite>Amélie M. · Google</cite></blockquote>
+      <blockquote><div class="etoiles" aria-label="5 étoiles">★★★★★</div>Bel espace de détente avec du personnel accueillant et professionnel. Bon moment de relâchement et de bien-être avec le massage lomi-lomi.<cite>Chantal G. · Google</cite></blockquote>
+      <blockquote><div class="etoiles" aria-label="5 étoiles">★★★★★</div>Je recommande Iris Spa, des masseuses très bienveillantes pour un post-accouchement et une séance de massage en duo parfaite pour relâcher&nbsp;!<cite>Lou P. · Google</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap infos__grid">
+    <div class="infos__bloc rv">
+      <div><p class="surtitre">Retrouvez-nous</p><h2 style="margin-top:.6rem">À environ 15 km de Roanne</h2></div>
+      <div class="info"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#875EAB" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg><div><h3>Adresse</h3><p>66 Route de la Rue Franche<br>42370 Saint-André-d’Apchon</p><a href="https://www.google.com/maps/search/?api=1&amp;query=Iris+Spa+66+Route+de+la+Rue+Franche+42370+Saint-Andr%C3%A9-d%27Apchon" target="_blank" rel="noopener">Itinéraire →</a></div></div>
+      <div class="info"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#875EAB" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><h3>Horaires d’ouverture</h3><p>Du mardi au samedi, de 10h à 19h<br>(ouvert certains lundis du mois)</p><p id="ouvert" style="font-weight:600;color:var(--violet-fonce)"></p></div></div>
+      <div class="info"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#875EAB" stroke-width="1.8" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><div><h3>Contact</h3><p><a href="tel:+33772329086">07 72 32 90 86</a><br><a href="mailto:irisspa42@gmail.com">irisspa42@gmail.com</a></p></div></div>
+      <p class="villes">À proximité de Renaison, Les Noës, Saint-Alban-les-Eaux, Lentigny, Le Coteau, Saint-Martin-d’Estréaux…</p>
+    </div>
+    <div class="facade rv"><img loading="lazy" src="https://iris-spa-detente.fr/wp-content/uploads/2020/02/DSC_0531-1-1024x443.jpg" alt="Façade de l’institut Iris Spa à Saint-André-d’Apchon"><a class="btn" href="#composer">Prendre rendez-vous</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="pied">
+      <div>
+        <a class="logo" href="#accueil"><img src="https://iris-spa-detente.fr/wp-content/uploads/2024/11/cropped-logo-irisspa-1-300x300.jpg" alt="" width="50" height="50"><span style="color:var(--creme-lotus)">IRIS SPA</span></a>
+        <p style="margin-top:1rem">Institut de beauté et bien-être à Saint-André-d’Apchon&nbsp;: massages, espace hydro, soins du corps et du visage, bronzage expert.</p>
+      </div>
+      <div class="horaires">
+        <h3>Horaires</h3>
+        <ul><li>Mardi au samedi · 10h – 19h</li><li>Certains lundis du mois</li><li>Dimanche · fermé</li></ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul><li>66 Route de la Rue Franche, 42370 Saint-André-d’Apchon</li><li><a href="tel:+33772329086">07 72 32 90 86</a></li><li><a href="mailto:irisspa42@gmail.com">irisspa42@gmail.com</a></li></ul>
+      </div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non affiliée à Iris Spa. Textes, horaires et tarifs repris du site iris-spa-detente.fr (prix indicatifs, non contractuels). Dans l’outil de composition, quand aucun tarif duo n’est publié pour un soin, le montant affiché correspond au prix unitaire multiplié par le nombre de personnes, à confirmer par l’institut. Toutes les photos proviennent du site actuel d’Iris Spa. Avis repris du widget Google affiché sur le site actuel. Couleurs relevées sur le site et le logo ; la police des titres est approchée et ajustable en quelques lignes.</p>
+  </div>
+</footer>
+
+<a class="btn rdv-flottant" href="#composer">Rendez-vous</a>
+
+<script>
+(() => {
+  const TEL = "0772329086", MAIL = "irisspa42@gmail.com";
+  // Tarifs repris du site iris-spa-detente.fr — p : prix unitaire ; duo : tarif duo publié ; parPers : tarif par personne ; d : durée en minutes
+  const CATS = [
+    {id:"hydro", nom:"Espace détente", items:[
+      {n:"Jacuzzi", d:30, p:25, parPers:true, hydro:true, max:6},
+      {n:"Sauna", d:30, p:25, parPers:true, hydro:true, max:6},
+      {n:"Jacuzzi et sauna (privatif)", d:60, p:42, parPers:true, hydro:true, max:6}]},
+    {id:"rituels", nom:"Rituels évasion", items:[
+      {n:"Jacuzzi ou sauna + modelage dos/jambes", d:60, p:69, duo:129, hydro:true},
+      {n:"Jacuzzi ou sauna + modelage californien", d:60, p:109, duo:209, hydro:true},
+      {n:"Jacuzzi et sauna + modelage dos/jambes", d:60, p:89, duo:169, hydro:true},
+      {n:"Jacuzzi et sauna + modelage californien", d:60, p:129, duo:249, hydro:true}]},
+    {id:"massages", nom:"Massages", items:[
+      {n:"Massage californien", d:60, p:88, duo:169},
+      {n:"Massage suédois", d:60, p:92},
+      {n:"Massage femme enceinte", d:60, p:88, s:"Entre 4 et 8 mois de grossesse"},
+      {n:"Lomi-lomi", d:60, p:88},{n:"Massage japonais", d:60, p:88},
+      {n:"Massage balinais", d:60, p:92},{n:"Massage ayurvédique", d:60, p:88},
+      {n:"Massage pierres chaudes", d:60, p:92},
+      {n:"Modelage crânien", d:20, p:29},{n:"Réflexologie plantaire", d:30, p:42},
+      {n:"Modelage dos/jambes", d:30, p:45, duo:85},{n:"Modelage drainant", d:45, p:79}]},
+    {id:"corps", nom:"Soins du corps", items:[
+      {n:"Gommage corps", d:40, p:37},{n:"Enveloppement corps", d:60, p:42},
+      {n:"Soin détox", d:50, p:79, s:"Gommage, boue auto-chauffante, hydratation"},
+      {n:"Soin au chocolat", d:75, p:99, s:"Enveloppement + massage au chocolat"},
+      {n:"Gommage au chocolat", d:80, p:109, s:"Enveloppement + massage relaxant"},
+      {n:"Gommage + modelage dos/jambes", d:70, p:79},
+      {n:"Gommage + modelage californien", d:70, p:119},
+      {n:"Gommage + dos/jambes + soin visage", d:125, p:129},
+      {n:"Gommage + californien + soin visage", d:160, p:169}]},
+    {id:"visage", nom:"Visage", items:[
+      {n:"Soin anti-âge et coup d’éclat", d:50, p:55, s:"Au lait d’ânesse bio"},
+      {n:"Soin essentiel sur mesure", d:65, p:65, s:"Au lait d’ânesse bio, tout type de peau"}]},
+    {id:"bronzage", nom:"Bronzage", items:[
+      {n:"Bronzage visage, buste et bras", d:0, p:25},
+      {n:"Bronzage jambes", d:0, p:25},
+      {n:"Bronzage corps complet", d:0, p:40}]}
+  ];
+  const all = CATS.flatMap(c => c.items.map(i => (i.cat=c.id, i)));
+  let n = 1, cat = "hydro", choix = new Set(), jour = "", moment = "";
+  const $ = s => document.querySelector(s);
+  const euros = v => v.toLocaleString("fr-FR") + " €";
+  const prixDe = i => {
+    if (i.parPers) return {v:i.p*n, t: n>1 ? `${n} × ${i.p} €` : ""};
+    if (n===1) return {v:i.p, t:""};
+    if (n===2 && i.duo) return {v:i.duo, t:"tarif duo"};
+    return {v:i.p*n, t:`${n} × ${i.p} €*`};
+  };
+  const ok = i => !(n>2 && !i.parPers && !i.hydro && i.cat==="rituels");
+
+  function onglets(){
+    $("#onglets").innerHTML = CATS.map(c => `<button class="onglet" role="tab" aria-selected="${c.id===cat}" data-c="${c.id}">${c.nom}</button>`).join("");
+  }
+  function soins(){
+    const c = CATS.find(c => c.id===cat);
+    $("#soins").innerHTML = c.items.map(i => {
+      const k = all.indexOf(i), pr = prixDe(i), dis = !ok(i);
+      return `<button class="soin" data-k="${k}" aria-pressed="${choix.has(k)}" ${dis?"disabled":""}>
+        <span class="coche">✓</span>
+        <span><strong>${i.n}</strong><small>${[i.d?formatD(i.d):"", i.s||"", i.parPers?"par personne · 6 max":""].filter(Boolean).join(" · ")}</small></span>
+        <span class="px">${euros(pr.v)}${pr.t?`<small>${pr.t}</small>`:""}</span></button>`;
+    }).join("");
+  }
+  const formatD = m => m>=60 ? `${Math.floor(m/60)}h${m%60?String(m%60).padStart(2,"0"):""}` : `${m} min`;
+
+  function recap(){
+    const sel = [...choix].map(k => all[k]);
+    $("#pour").textContent = `Pour ${n} personne${n>1?"s":""}${jour?` · ${jour}`:""}${moment?` · ${moment.toLowerCase()}`:""}`;
+    if (!sel.length){
+      $("#liste").innerHTML = `<li class="recap__vide">Ajoutez un soin pour commencer.</li>`;
+    } else {
+      $("#liste").innerHTML = sel.map(i => { const pr = prixDe(i); return `<li><span>${i.n}</span><span>${euros(pr.v)}</span></li>`; }).join("");
+    }
+    const tot = sel.reduce((s,i) => s + prixDe(i).v, 0);
+    animer($("#total"), tot);
+    const d = sel.reduce((s,i) => s + i.d, 0);
+    $("#duree").textContent = d ? `Durée indicative : ${formatD(d)} + 15 min de tisanerie` : "";
+    $("#maillot").classList.toggle("on", sel.some(i => i.hydro));
+    const estim = sel.some(i => !i.parPers && n>1 && !(n===2 && i.duo));
+    $("#note").textContent = estim ? "* Pas de tarif de groupe publié pour ce soin : prix unitaire × nombre de personnes, à confirmer par l’institut." : "Prix repris de la carte du site, à confirmer par l’institut lors du rappel.";
+    const cadeau = $("#cadeau").checked;
+    const msg = `Bonjour Iris Spa, ${cadeau ? "je souhaite offrir un chèque cadeau" : "je souhaite réserver"} pour ${n} personne${n>1?"s":""} : ${sel.map(i=>i.n).join(", ")} (environ ${euros(tot)}).${jour||moment ? ` Ma préférence : ${[jour,moment.toLowerCase()].filter(Boolean).join(", ")}.` : ""} Merci de me recontacter pour fixer le créneau.`;
+    const on = sel.length>0;
+    ["#sms","#mail"].forEach(s => $(s).setAttribute("aria-disabled", String(!on)));
+    $("#sms").href = on ? `sms:${TEL}?&body=${encodeURIComponent(msg)}` : "#";
+    $("#mail").href = on ? `mailto:${MAIL}?subject=${encodeURIComponent(cadeau?"Chèque cadeau":"Demande de rendez-vous")}&body=${encodeURIComponent(msg)}` : "#";
+  }
+  let cur = 0;
+  function animer(el, cible){
+    const dep = cur, t0 = performance.now();
+    const pas = t => { const k = Math.min(1,(t-t0)/450), e = 1-Math.pow(1-k,3); el.textContent = euros(Math.round(dep+(cible-dep)*e)); if(k<1) requestAnimationFrame(pas); else cur = cible; };
+    requestAnimationFrame(pas);
+  }
+
+  $("#qui").addEventListener("click", e => {
+    const b = e.target.closest(".puce"); if(!b) return;
+    $("#qui").querySelectorAll(".puce").forEach(x => x.setAttribute("aria-pressed", String(x===b)));
+    n = +b.dataset.n;
+    choix.forEach(k => { if(!ok(all[k])) choix.delete(k); });
+    soins(); recap();
+  });
+  $("#onglets").addEventListener("click", e => { const b = e.target.closest(".onglet"); if(!b) return; cat = b.dataset.c; onglets(); soins(); });
+  $("#soins").addEventListener("click", e => { const b = e.target.closest(".soin"); if(!b||b.disabled) return; const k = +b.dataset.k; choix.has(k)?choix.delete(k):choix.add(k); soins(); recap(); });
+  const unique = (id, set) => $(id).addEventListener("click", e => {
+    const b = e.target.closest(".puce"); if(!b) return;
+    const on = b.getAttribute("aria-pressed")!=="true";
+    $(id).querySelectorAll(".puce").forEach(x => x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed", String(on)); set(on ? b.textContent : ""); recap();
+  });
+  unique("#jours", v => jour = v); unique("#moments", v => moment = v);
+  $("#cadeau").addEventListener("change", recap);
+  document.querySelectorAll(".tuile[data-cat]").forEach(t => t.addEventListener("click", () => { cat = t.dataset.cat === "corps" ? "corps" : t.dataset.cat; onglets(); soins(); }));
+  document.querySelector("[data-cadeau]").addEventListener("click", () => { $("#cadeau").checked = true; recap(); });
+  onglets(); soins(); recap();
+
+  // Ouvert maintenant ?
+  const d = new Date(), j = d.getDay(), h = d.getHours() + d.getMinutes()/60;
+  $("#ouvert").textContent = (j>=2 && j<=6 && h>=10 && h<19) ? "● Ouvert en ce moment" : "Actuellement fermé — votre demande sera traitée à la réouverture.";
+
+  // En-tête, menu mobile, apparitions
+  const header = $("header");
+  addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 10), {passive:true});
+  const burger = $(".burger"), menu = $("#menu");
+  burger.addEventListener("click", () => { const o = menu.classList.toggle("open"); burger.setAttribute("aria-expanded", String(o)); });
+  menu.addEventListener("click", e => { if(e.target.closest("a")){ menu.classList.remove("open"); burger.setAttribute("aria-expanded","false"); } });
+  if ("IntersectionObserver" in window){
+    const io = new IntersectionObserver(es => es.forEach(x => { if(x.isIntersecting){ x.target.classList.add("vu"); io.unobserve(x.target); } }), {threshold:.12, rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll(".rv").forEach((el,i) => { el.style.transitionDelay = (i%4)*80 + "ms"; io.observe(el); });
+  } else document.querySelectorAll(".rv").forEach(el => el.classList.add("vu"));
+})();
+</script>
+</body>
+</html>
