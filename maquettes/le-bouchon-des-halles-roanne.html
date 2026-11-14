@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Bouchon des Halles — Restaurant à Roanne | Bouchon lyonnais aux Halles Diderot</title>
+<meta name="description" content="Restaurant de tradition lyonnaise au cœur des Halles Diderot à Roanne : quenelle de brochet, ris de veau, huîtres toute l'année, produits frais du marché. Réservez votre table.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — à ajuster en quelques lignes
+   Le restaurant n'a pas de site en ligne (domaine réservé,
+   aucune page publiée) et sa page Facebook n'est pas lisible
+   sans connexion : couleurs et polices APPROCHÉES, inspirées
+   de l'univers bouchon / halles (bois, ardoise, bordeaux, laiton).
+   ========================================================= */
+:root{
+  --bordeaux:#7a1f2b;      /* couleur principale (à remplacer par la vraie) */
+  --bordeaux-fonce:#561520;
+  --laiton:#c8a25a;        /* accent */
+  --ardoise:#1e2326;       /* fond tableau noir */
+  --ardoise-2:#2a3033;
+  --craie:#f2efe8;
+  --papier:#faf7f2;
+  --encre:#231f1c;
+  --gris:#6b645d;
+  --f-titre:"DM Serif Display", Georgia, serif;
+  --f-craie:"Caveat", "Comic Sans MS", cursive;
+  --f-texte:"Work Sans", system-ui, sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--papier);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--laiton);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--ardoise);color:#d9d4ca;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--laiton);font-weight:600}
+
+/* Barre infos */
+.topbar{background:var(--bordeaux-fonce);color:#f3e6e0;font-size:.85rem}
+.topbar .wrap{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+.statut{display:inline-flex;align-items:center;gap:.5rem}
+.statut i{width:9px;height:9px;border-radius:50%;background:#9a9a9a;box-shadow:0 0 0 0 rgba(120,220,140,.6)}
+.statut.ouvert i{background:#6fd08c;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(120,220,140,0)}100%{box-shadow:0 0 0 0 rgba(120,220,140,0)}}
+
+/* Nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(0,0,0,.06);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 24px rgba(0,0,0,.08)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:var(--f-titre);font-size:1.45rem;text-decoration:none;color:var(--bordeaux);line-height:1}
+.logo small{display:block;font-family:var(--f-texte);font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gris);margin-top:4px}
+nav ul{display:flex;gap:1.6rem;list-style:none;align-items:center}
+nav a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative}
+nav a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;width:100%;height:2px;background:var(--laiton);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav a:not(.btn):hover::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.4rem;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-size:.95rem;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:44px}
+.btn:active{transform:scale(.96)}
+.btn-p{background:var(--bordeaux);color:#fff}
+.btn-p:hover{background:var(--bordeaux-fonce);transform:translateY(-2px);box-shadow:0 10px 20px rgba(122,31,43,.25)}
+.btn-o{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6)}
+.btn-o:hover{background:rgba(255,255,255,.12)}
+
+/* Hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden}
+.hero .bg{position:absolute;inset:0;background:url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=2000&q=70&auto=format&fit=crop") center/cover;transform:scale(1.08);animation:zoom 14s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,12,.25) 0%,rgba(20,14,12,.55) 50%,rgba(30,12,14,.92) 100%)}
+.hero .wrap{position:relative;z-index:2;padding:0 0 4.5rem}
+.kicker{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--laiton);font-weight:600}
+.hero h1{font-family:var(--f-titre);font-weight:400;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:1.02;margin:.6rem 0 1rem;max-width:12ch}
+.hero h1 em{color:var(--laiton)}
+.hero p.lead{max-width:52ch;font-size:clamp(1rem,.95rem + .3vw,1.2rem);color:#eee6df}
+.hero .ctas{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.photo-tag{position:absolute;right:12px;bottom:12px;z-index:3;font-size:.68rem;background:rgba(0,0,0,.55);color:#fff;padding:.2rem .55rem;border-radius:4px;letter-spacing:.03em}
+.line{display:block;overflow:hidden}
+.line>span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+.line:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+.fade-in{opacity:0;animation:fi .9s .5s var(--ease) forwards}
+@keyframes fi{to{opacity:1}}
+
+/* Bandeau défilant */
+.ticker{background:var(--bordeaux);color:#f6e7df;overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:var(--f-titre);font-size:1.2rem}
+.ticker .track{display:inline-flex;gap:2.5rem;animation:tick 40s linear infinite;padding-left:2.5rem}
+.ticker span::after{content:"✦";color:var(--laiton);margin-left:2.5rem;font-size:.8rem}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.s-head{max-width:640px;margin-bottom:2.8rem}
+.s-head h2{font-family:var(--f-titre);font-weight:400;font-size:clamp(2rem,1.5rem + 2.2vw,3.2rem);line-height:1.1;margin:.4rem 0 .8rem;color:var(--encre)}
+.s-head p{color:var(--gris)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Maison */
+.maison{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+.maison p+p{margin-top:1rem}
+.label{display:flex;gap:1rem;align-items:center;margin-top:1.8rem;padding:1rem 1.2rem;border:1px solid rgba(122,31,43,.18);border-radius:var(--r);background:#fff}
+.label .sceau{flex:none;width:58px;height:58px;border-radius:50%;background:var(--bordeaux);color:var(--laiton);display:grid;place-items:center;font-family:var(--f-titre);font-size:1.4rem;border:3px double var(--laiton)}
+.label strong{display:block}
+.label small{color:var(--gris)}
+.points{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.point{background:#fff;border-radius:var(--r);padding:1.4rem;border:1px solid rgba(0,0,0,.06);transition:transform .3s var(--ease),box-shadow .3s}
+.point:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.08)}
+.point .ic{font-size:1.6rem}
+.point h3{font-family:var(--f-titre);font-weight:400;font-size:1.25rem;margin:.4rem 0 .2rem}
+.point p{font-size:.92rem;color:var(--gris)}
+
+/* Ardoise */
+.ardoise-sec{background:var(--ardoise);color:var(--craie);position:relative}
+.ardoise-sec .s-head h2{color:var(--craie)}
+.ardoise-sec .s-head p{color:#b9b4ab}
+.ardoise{position:relative;border-radius:10px;padding:clamp(1.5rem,3vw,3rem);background:
+ radial-gradient(ellipse at 20% 10%,rgba(255,255,255,.06),transparent 60%),
+ radial-gradient(ellipse at 80% 90%,rgba(255,255,255,.04),transparent 60%),var(--ardoise-2);
+ border:14px solid #6b4a2f;box-shadow:inset 0 0 40px rgba(0,0,0,.5),0 25px 50px rgba(0,0,0,.35)}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.tab{font-family:var(--f-craie);font-size:1.45rem;background:none;border:1.5px dashed rgba(242,239,232,.35);color:var(--craie);padding:.2rem 1rem;border-radius:999px;cursor:pointer;transition:.25s;min-height:44px}
+.tab[aria-selected="true"],.tab:hover{background:var(--craie);color:var(--ardoise);border-style:solid}
+.plats{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem 3rem}
+.plat{font-family:var(--f-craie);font-size:clamp(1.45rem,1.2rem + .8vw,1.9rem);line-height:1.25;padding:.55rem 0;border-bottom:1px dashed rgba(242,239,232,.18);opacity:0;transform:translateX(-10px);transition:opacity .45s,transform .45s}
+.plat.show{opacity:1;transform:none}
+.plat small{display:block;font-family:var(--f-texte);font-size:.8rem;color:#a9a399;letter-spacing:.02em}
+.ardoise .note{margin-top:1.8rem;font-size:.85rem;color:#a9a399}
+.craie-titre{font-family:var(--f-craie);font-size:2.2rem;color:var(--laiton);margin-bottom:.6rem}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px}
+.g{position:relative;border-radius:var(--r);overflow:hidden;background:#e8e2d8}
+.g img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease);clip-path:inset(0 0 100% 0)}
+.g.in img{clip-path:inset(0);transition:clip-path 1.1s var(--ease),transform .8s var(--ease)}
+.g:hover img{transform:scale(1.06)}
+.g.big{grid-column:span 2;grid-row:span 2}
+.g figcaption{position:absolute;left:12px;bottom:12px;color:#fff;font-family:var(--f-titre);font-size:1.15rem;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.g .photo-tag{bottom:auto;top:10px;right:10px}
+.g.vide{display:grid;place-items:center;text-align:center;border:2px dashed #c9bfb1;color:var(--gris);padding:1rem;font-size:.9rem}
+.g.vide strong{display:block;font-family:var(--f-titre);font-weight:400;font-size:1.2rem;color:var(--encre)}
+
+/* Réservation */
+.resa-sec{background:linear-gradient(180deg,var(--papier),#f1e9df)}
+.resa{display:grid;grid-template-columns:1.25fr .75fr;gap:1.5rem;align-items:start}
+.card{background:#fff;border-radius:20px;padding:clamp(1.3rem,3vw,2.2rem);box-shadow:0 20px 50px rgba(60,30,20,.08);border:1px solid rgba(0,0,0,.05)}
+.etape{display:flex;align-items:center;gap:.6rem;font-weight:600;margin:1.4rem 0 .8rem}
+.etape:first-child{margin-top:0}
+.etape b{width:28px;height:28px;border-radius:50%;background:var(--bordeaux);color:#fff;display:grid;place-items:center;font-size:.85rem}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:.45rem}
+.jour{border:1.5px solid #e2dbd1;background:#fff;border-radius:12px;padding:.5rem .2rem;text-align:center;cursor:pointer;transition:.2s;font:inherit;min-height:60px}
+.jour span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gris)}
+.jour strong{font-size:1.1rem}
+.jour:hover:not(:disabled){border-color:var(--bordeaux);transform:translateY(-2px)}
+.jour[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.jour[aria-pressed="true"] span{color:#f2d9cf}
+.jour:disabled{opacity:.38;cursor:not-allowed;background:repeating-linear-gradient(135deg,#f6f2ec 0 6px,#efe9e1 6px 12px)}
+.services,.heures{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{border:1.5px solid #e2dbd1;background:#fff;border-radius:999px;padding:.55rem 1.1rem;cursor:pointer;font:inherit;font-weight:500;transition:.2s;min-height:44px}
+.chip:hover:not(:disabled){border-color:var(--bordeaux)}
+.chip[aria-pressed="true"]{background:var(--encre);border-color:var(--encre);color:#fff}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.couverts{display:flex;align-items:center;gap:1rem}
+.couverts button{width:46px;height:46px;border-radius:50%;border:1.5px solid #e2dbd1;background:#fff;font-size:1.4rem;cursor:pointer;transition:.2s}
+.couverts button:hover{border-color:var(--bordeaux);color:var(--bordeaux)}
+.couverts output{font-family:var(--f-titre);font-size:2.2rem;min-width:2ch;text-align:center}
+.couverts .plates{display:flex;gap:4px;flex-wrap:wrap;max-width:240px}
+.couverts .plates i{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle,#fff 40%,#e4dcd0 42%,#fff 70%,#d6ccbe 72%);box-shadow:0 1px 2px rgba(0,0,0,.15);animation:pop .3s var(--ease)}
+@keyframes pop{from{transform:scale(0)}}
+.field{display:grid;gap:.35rem;margin-top:.6rem}
+.field label{font-size:.85rem;font-weight:500}
+.field input,.field select,.field textarea{font:inherit;padding:.75rem .9rem;border:1.5px solid #e2dbd1;border-radius:10px;background:#fff;min-height:44px}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--bordeaux);outline:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.ticket{position:sticky;top:90px;background:var(--ardoise);color:var(--craie);border-radius:20px;padding:1.8rem;overflow:hidden}
+.ticket::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:repeating-linear-gradient(90deg,var(--laiton) 0 14px,transparent 14px 22px)}
+.ticket h3{font-family:var(--f-craie);font-size:2rem;color:var(--laiton);line-height:1}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:.55rem 1rem;margin:1.2rem 0;font-size:.95rem}
+.ticket dt{color:#a9a399}
+.ticket dd{text-align:right;font-weight:600}
+.ticket .vide-t{color:#a9a399;font-style:italic}
+.ticket .actions{display:grid;gap:.6rem}
+.ticket .btn{justify-content:center}
+.btn-l{background:var(--craie);color:var(--ardoise)}
+.btn-l:hover{background:#fff;transform:translateY(-2px)}
+.btn-g{background:transparent;color:var(--craie);border:1.5px solid rgba(242,239,232,.35)}
+.btn-g:hover{border-color:var(--craie)}
+.ticket .btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.ticket p.mini{font-size:.78rem;color:#a9a399;margin-top:1rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8rem 1.3rem;border-radius:999px;font-size:.9rem;transition:transform .4s var(--ease);z-index:99}
+.toast.on{transform:translate(-50%,0)}
+
+/* Infos */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.horaires{list-style:none}
+.horaires li{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid #ece5db;gap:1rem}
+.horaires li.today{color:var(--bordeaux);font-weight:600}
+.horaires li.ferme span:last-child{color:var(--gris)}
+.map{border-radius:20px;overflow:hidden;min-height:340px;border:0;width:100%;height:100%;background:#e8e2d8}
+.coord p{margin:.35rem 0}
+.coord a{font-weight:600;color:var(--bordeaux)}
+
+/* Footer */
+footer{background:#161a1c;color:#bdb6ab;padding:3.5rem 0 2rem;font-size:.9rem}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-family:var(--f-titre);font-weight:400;font-size:1.3rem;margin-bottom:.6rem}
+footer a{color:#e6dfd4}
+.mention{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);font-size:.78rem;color:#8d877e;line-height:1.7}
+
+/* Mobile CTA */
+.fab{display:none}
+
+@media (max-width:920px){
+  nav ul{position:fixed;inset:70px 0 auto 0;flex-direction:column;background:var(--papier);padding:1.5rem;gap:1.2rem;transform:translateY(-130%);transition:transform .4s var(--ease);box-shadow:0 20px 30px rgba(0,0,0,.1)}
+  nav ul.open{transform:none}
+  .burger{display:block}
+  .maison,.resa,.infos{grid-template-columns:1fr}
+  .ticket{position:relative;top:0}
+  .galerie{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  .plats{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr}
+  .fab{display:flex;position:fixed;right:16px;bottom:16px;z-index:60;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+}
+@media (max-width:520px){
+  .points{grid-template-columns:1fr}
+  .jours{grid-template-columns:repeat(4,1fr)}
+  .grid2{grid-template-columns:1fr}
+  .topbar .wrap{justify-content:center;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+  .g img{clip-path:none}
+  .plat{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Bouchon des Halles",
+  "servesCuisine":["Cuisine lyonnaise","Cuisine traditionnelle","Fruits de mer"],
+  "telephone":"+33477700238",
+  "email":"contact@lebouchondeshalles.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"Halles Diderot, 12 rue Roger Salengro","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.037609,"longitude":4.075546},
+  "areaServed":"Roanne",
+  "acceptsReservations":true,
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Thursday","Friday","Saturday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Thursday","Friday","Saturday"],"opens":"19:00","closes":"21:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"12:00","closes":"14:00"}
+  ],
+  "sameAs":["https://www.facebook.com/lebouchondeshallesroanne"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour Le Bouchon des Halles, non officielle.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="statut" id="statut"><i></i><span id="statutTxt">Horaires du jour…</span></span>
+    <span>Halles Diderot · 12 rue Roger Salengro, Roanne · <a href="tel:+33477700238">04 77 70 02 38</a></span>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo">Le Bouchon des Halles<small>Roanne · Halles Diderot</small></a>
+    <nav aria-label="Navigation principale">
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul id="menu">
+        <li><a href="#maison">La maison</a></li>
+        <li><a href="#ardoise">L'ardoise</a></li>
+        <li><a href="#galerie">En images</a></li>
+        <li><a href="#infos">Horaires & accès</a></li>
+        <li><a href="#reserver" class="btn btn-p">Réserver une table</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="Accueil">
+  <div class="bg" role="img" aria-label="Table dressée dans un restaurant"></div>
+  <span class="photo-tag">Photo d'illustration</span>
+  <div class="wrap">
+    <p class="kicker fade-in">Restaurant · Maître Restaurateur</p>
+    <h1><span class="line"><span>Un bouchon</span></span><span class="line"><span>au cœur <em>des Halles</em></span></span></h1>
+    <p class="lead fade-in">Spécialités lyonnaises, plats traditionnels de brasserie et produits frais des Halles Diderot, dans une ambiance familiale où l'on est accueilli comme à la maison.</p>
+    <div class="ctas fade-in">
+      <a href="#reserver" class="btn btn-p">Réserver une table</a>
+      <a href="#ardoise" class="btn btn-o">Voir l'ardoise</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="track">
+  <span>Quenelle de brochet</span><span>Ris de veau</span><span>Huîtres toute l'année</span><span>Rognon de veau</span><span>Sole meunière</span><span>Foie gras maison</span><span>Ardoise de fromages</span>
+  <span>Quenelle de brochet</span><span>Ris de veau</span><span>Huîtres toute l'année</span><span>Rognon de veau</span><span>Sole meunière</span><span>Foie gras maison</span><span>Ardoise de fromages</span>
+</div></div>
+
+<section id="maison">
+  <div class="wrap maison">
+    <div class="reveal">
+      <p class="kicker">La maison</p>
+      <div class="s-head" style="margin-bottom:1.2rem"><h2>Restaurant traditionnel aux Halles Diderot, à Roanne</h2></div>
+      <p>Au Bouchon des Halles, on vous reçoit comme à la maison. Ambiance conviviale, comptoir animé et cuisine de bouchon : les plats de brasserie traditionnelle côtoient les grandes spécialités lyonnaises.</p>
+      <p>Installé dans les Halles Diderot, le restaurant travaille avec ce que le marché offre de plus frais, de la mer comme de la terre. Pour un déjeuner rapide, un dîner entre amis ou un repas d'affaires.</p>
+      <div class="label">
+        <div class="sceau">MR</div>
+        <div><strong>Titre de Maître Restaurateur</strong><small>Le titre d'État qui distingue une cuisine faite maison, à partir de produits bruts.</small></div>
+      </div>
+    </div>
+    <div class="points">
+      <div class="point reveal"><div class="ic">🦪</div><h3>Huîtres toute l'année</h3><p>Fines de claire, crustacés et produits de la mer.</p></div>
+      <div class="point reveal"><div class="ic">🍷</div><h3>Esprit bouchon</h3><p>Quenelle, ris de veau, rognon, andouillette.</p></div>
+      <div class="point reveal"><div class="ic">🧺</div><h3>Le marché à côté</h3><p>Des produits frais, pris aux Halles Diderot.</p></div>
+      <div class="point reveal"><div class="ic">☀️</div><h3>Terrasse</h3><p>Deux salles climatisées et une terrasse aux beaux jours.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ardoise" class="ardoise-sec">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="kicker">L'ardoise</p>
+      <h2>Ce qu'on vient chercher au Bouchon</h2>
+      <p>Les spécialités de la maison. L'ardoise change avec le marché : cette page pourra être mise à jour en quelques secondes, chaque semaine.</p>
+    </div>
+    <div class="ardoise reveal">
+      <div class="tabs" role="tablist" aria-label="Catégories de l'ardoise">
+        <button class="tab" role="tab" aria-selected="true" data-cat="bouchon">Le bouchon</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="mer">La mer</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="fin">Pour finir</button>
+        <button class="tab" role="tab" aria-selected="false" data-cat="formules">Formules</button>
+      </div>
+      <p class="craie-titre" id="craieTitre">Spécialités lyonnaises</p>
+      <div class="plats" id="plats" aria-live="polite"></div>
+      <p class="note">Plats repris des fiches publiques du restaurant ; la carte du jour et les tarifs sont à l'ardoise, sur place.</p>
+    </div>
+  </div>
+</section>
+
+<section id="galerie">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="kicker">En images</p>
+      <h2>De la mer, du terroir, et une bonne table</h2>
+      <p>Emplacements prévus pour vos propres photos : salle, comptoir, assiettes, terrasse.</p>
+    </div>
+    <div class="galerie">
+      <figure class="g big"><img loading="lazy" src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=1100&q=70&auto=format&fit=crop" alt="Poissons et coquillages frais sur glace"><span class="photo-tag">Photo d'illustration</span><figcaption>La marée</figcaption></figure>
+      <figure class="g"><img loading="lazy" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=700&q=70&auto=format&fit=crop" alt="Plat mijoté en sauce"><span class="photo-tag">Photo d'illustration</span><figcaption>Les mijotés</figcaption></figure>
+      <figure class="g"><img loading="lazy" src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=700&q=70&auto=format&fit=crop" alt="Fromages sur une planche"><span class="photo-tag">Photo d'illustration</span><figcaption>L'ardoise de fromages</figcaption></figure>
+      <figure class="g"><img loading="lazy" src="https://images.unsplash.com/photo-1625943553852-781c6dd46faa?w=700&q=70&auto=format&fit=crop" alt="Crevettes sautées"><span class="photo-tag">Photo d'illustration</span><figcaption>Crevettes sautées</figcaption></figure>
+      <figure class="g vide"><div><strong>Votre salle, votre comptoir</strong>Photo à fournir par le restaurant</div></figure>
+    </div>
+  </div>
+</section>
+
+<section id="reserver" class="resa-sec">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="kicker">Réserver</p>
+      <h2>Votre table en quatre choix</h2>
+      <p>Les jours de fermeture sont grisés, les services proposés suivent les horaires du restaurant. La demande part directement au Bouchon, par mail ou par téléphone.</p>
+    </div>
+    <div class="resa">
+      <div class="card reveal">
+        <div class="etape"><b>1</b>Quel jour ?</div>
+        <div class="jours" id="jours"></div>
+        <div class="etape"><b>2</b>Midi ou soir ?</div>
+        <div class="services" id="services">
+          <button class="chip" data-s="midi" aria-pressed="false">Déjeuner · 12h–14h</button>
+          <button class="chip" data-s="soir" aria-pressed="false">Dîner · 19h–21h30</button>
+        </div>
+        <div class="heures" id="heures" style="margin-top:.7rem"></div>
+        <div class="etape"><b>3</b>Combien de couverts ?</div>
+        <div class="couverts">
+          <button type="button" id="moins" aria-label="Retirer un couvert">−</button>
+          <output id="nb">2</output>
+          <button type="button" id="plus" aria-label="Ajouter un couvert">+</button>
+          <div class="plates" id="plates" aria-hidden="true"></div>
+        </div>
+        <div class="etape"><b>4</b>À quel nom ?</div>
+        <div class="grid2">
+          <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label for="occ">Occasion</label><select id="occ"><option value="">—</option><option>Déjeuner rapide</option><option>Repas d'affaires</option><option>Anniversaire</option><option>Entre amis</option><option>En famille</option></select></div>
+          <div class="field"><label for="place">Préférence</label><select id="place"><option value="">Indifférent</option><option>En salle</option><option>En terrasse</option><option>Près du comptoir</option></select></div>
+        </div>
+        <div class="field"><label for="msg">Un mot pour la cuisine (allergie, chaise bébé…)</label><textarea id="msg" rows="2"></textarea></div>
+      </div>
+
+      <aside class="ticket reveal" aria-live="polite">
+        <h3>Votre réservation</h3>
+        <dl>
+          <dt>Jour</dt><dd id="tJour" class="vide-t">à choisir</dd>
+          <dt>Service</dt><dd id="tServ" class="vide-t">à choisir</dd>
+          <dt>Heure</dt><dd id="tHeure" class="vide-t">—</dd>
+          <dt>Couverts</dt><dd id="tNb">2</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-l" id="bMail" aria-disabled="true" href="#">Envoyer la demande par mail</a>
+          <a class="btn btn-g" href="tel:+33477700238">Appeler le 04 77 70 02 38</a>
+          <a class="btn btn-g" id="bIcs" aria-disabled="true" href="#">Ajouter à mon agenda</a>
+        </div>
+        <p class="mini">La table est confirmée par le restaurant. Pour un groupe de plus de 10 personnes, un appel est préférable.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <p class="kicker">Horaires & accès</p>
+      <h2>Aux Halles Diderot, en centre-ville</h2>
+    </div>
+    <div class="infos">
+      <div class="card reveal">
+        <ul class="horaires" id="horaires"></ul>
+        <div class="coord" style="margin-top:1.4rem">
+          <p>Halles Diderot · 12 rue Roger Salengro · 42300 Roanne</p>
+          <p><a href="tel:+33477700238">04 77 70 02 38</a> · <a href="mailto:contact@lebouchondeshalles.fr">contact@lebouchondeshalles.fr</a></p>
+          <p style="color:var(--gris);font-size:.9rem">Parking à proximité · Accès personnes à mobilité réduite · Wi-Fi · Animaux acceptés · Plats à emporter · Titres-restaurant acceptés</p>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem">
+          <a class="btn btn-p" href="#reserver">Réserver</a>
+          <a class="btn" style="border:1.5px solid #e2dbd1" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=46.037609,4.075546">Itinéraire</a>
+        </div>
+      </div>
+      <iframe class="map reveal" title="Plan d'accès au Bouchon des Halles" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0705%2C46.0350%2C4.0805%2C46.0402&layer=mapnik&marker=46.037609%2C4.075546"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<a href="#reserver" class="btn btn-p fab">Réserver</a>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><h4>Le Bouchon des Halles</h4><p>Restaurant de tradition lyonnaise aux Halles Diderot, Roanne. Titre de Maître Restaurateur.</p></div>
+      <div><h4>Nous trouver</h4><p>12 rue Roger Salengro<br>42300 Roanne<br><a href="tel:+33477700238">04 77 70 02 38</a></p></div>
+      <div><h4>Suivre</h4><p><a href="https://www.facebook.com/lebouchondeshallesroanne" target="_blank" rel="noopener">Page Facebook</a></p></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non officielle. Informations reprises des fiches publiques du restaurant (Loire Tourisme, annuaires) et à confirmer : horaires, services, plats. Aucun tarif affiché. Couleurs et typographies approchées (aucun site en ligne ni charte graphique accessible), ajustables en quelques lignes. Toutes les photos sont des photos d'illustration libres de droits (Unsplash) : à remplacer par les vraies photos du restaurant ; la photo de salle reste à fournir.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const TEL="+33477700238", MAIL="contact@lebouchondeshalles.fr";
+/* Horaires (fiche Loire Tourisme 2026) — 0=dimanche */
+const H={0:{midi:true,soir:false},1:null,2:{midi:true,soir:true},3:null,4:{midi:true,soir:true},5:{midi:true,soir:true},6:{midi:true,soir:true}};
+const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+const MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+
+/* Statut ouvert / fermé */
+const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+const st=document.getElementById('statut'),stt=document.getElementById('statutTxt');
+const h=H[d];
+const inMidi=h&&h.midi&&m>=720&&m<840, inSoir=h&&h.soir&&m>=1140&&m<1290;
+if(inMidi||inSoir){st.classList.add('ouvert');stt.textContent="En service en ce moment";}
+else if(!h){stt.textContent="Fermé aujourd'hui · réservez pour un autre jour";}
+else if(m<720){stt.textContent="Ouvert aujourd'hui dès 12h";}
+else if(h.soir&&m<1140){stt.textContent="Réouverture ce soir à 19h";}
+else stt.textContent="Service terminé · à bientôt";
+
+/* Tableau des horaires */
+const ul=document.getElementById('horaires');
+[2,3,4,5,6,0,1].forEach(i=>{const x=H[i];const li=document.createElement('li');
+ if(!x)li.classList.add('ferme'); if(i===d)li.classList.add('today');
+ li.innerHTML=`<span>${JOURS[i]}${i===d?' · aujourd\'hui':''}</span><span>${!x?'Fermé':(x.midi?'12h – 14h':'')+(x.soir?' · 19h – 21h30':'')}</span>`;ul.appendChild(li);});
+
+/* Ardoise */
+const ARD={
+ bouchon:{t:"Spécialités lyonnaises",p:[["Quenelle de brochet","La grande classique du bouchon"],["Ris de veau","Sauce aux champignons des bois"],["Rognon de veau",""],["Andouillette grillée","À la dijonnaise ou au beaujolais"],["Tripes à la lyonnaise",""],["Foie gras maison",""]]},
+ mer:{t:"Retour du marché",p:[["Huîtres fines de claire","Toute l'année"],["Crustacés",""],["Sole meunière",""],["Aile de raie aux câpres",""],["Moules de bouchot frites",""],["Crevettes sautées · calamars à l'huile d'olive",""]]},
+ fin:{t:"Pour finir",p:[["L'ardoise de fromages","Selon l'arrivage des Halles"],["Desserts du jour","À l'ardoise, sur place"]]},
+ formules:{t:"Formules",p:[["Menu du jour","Le midi"],["Menus","Entrée, plat, dessert"],["À la carte",""],["Menu enfant",""],["Plats à emporter",""]]}
+};
+const plats=document.getElementById('plats'),ct=document.getElementById('craieTitre');
+function showArd(k){const a=ARD[k];ct.textContent=a.t;plats.innerHTML='';a.p.forEach((p,i)=>{const e=document.createElement('div');e.className='plat';e.innerHTML=p[0]+(p[1]?`<small>${p[1]}</small>`:'');plats.appendChild(e);setTimeout(()=>e.classList.add('show'),60+i*90);});}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');showArd(b.dataset.cat);}));
+showArd('bouchon');
+
+/* Réservation */
+const S={date:null,serv:null,heure:null,nb:2};
+const jWrap=document.getElementById('jours');
+for(let i=0;i<14;i++){const dt=new Date();dt.setHours(0,0,0,0);dt.setDate(dt.getDate()+i);const x=H[dt.getDay()];
+ let ok=!!x; if(i===0&&x){ok=(x.midi&&m<810)||(x.soir&&m<1260);}
+ const b=document.createElement('button');b.className='jour';b.disabled=!ok;b.setAttribute('aria-pressed','false');
+ b.innerHTML=`<span>${i===0?"Auj.":JOURS[dt.getDay()].slice(0,3)}</span><strong>${dt.getDate()}</strong>`;
+ b.title=ok?`${JOURS[dt.getDay()]} ${dt.getDate()} ${MOIS[dt.getMonth()]}`:"Fermé";
+ b.addEventListener('click',()=>{jWrap.querySelectorAll('.jour').forEach(z=>z.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.date=dt;S.serv=null;S.heure=null;majServ();maj();});
+ jWrap.appendChild(b);}
+const servBtns=document.querySelectorAll('#services .chip'),hWrap=document.getElementById('heures');
+function majServ(){const x=S.date?H[S.date.getDay()]:null;const today=S.date&&S.date.toDateString()===new Date().toDateString();
+ servBtns.forEach(b=>{const s=b.dataset.s;let ok=x&&x[s];if(ok&&today){ok=s==='midi'?m<810:m<1260;}b.disabled=!ok;b.setAttribute('aria-pressed',String(S.serv===s));});hWrap.innerHTML='';
+ if(S.serv){const slots=S.serv==='midi'?["12:00","12:15","12:30","12:45","13:00","13:15","13:30"]:["19:00","19:15","19:30","19:45","20:00","20:15","20:30","20:45","21:00"];
+  slots.forEach(t=>{const[hh,mm]=t.split(':').map(Number);const past=today&&(hh*60+mm)<=m+30;const c=document.createElement('button');c.className='chip';c.textContent=t.replace(':','h');c.disabled=past;c.setAttribute('aria-pressed',String(S.heure===t));c.addEventListener('click',()=>{S.heure=t;majServ();maj();});hWrap.appendChild(c);});}}
+servBtns.forEach(b=>b.addEventListener('click',()=>{S.serv=b.dataset.s;S.heure=null;majServ();maj();}));
+majServ();
+const nbO=document.getElementById('nb'),pl=document.getElementById('plates');
+function majNb(){nbO.textContent=S.nb;pl.innerHTML='<i></i>'.repeat(S.nb);maj();}
+document.getElementById('moins').onclick=()=>{if(S.nb>1){S.nb--;majNb();}};
+document.getElementById('plus').onclick=()=>{if(S.nb<20){S.nb++;majNb();}};
+majNb();
+['nom','tel','occ','place','msg'].forEach(id=>document.getElementById(id).addEventListener('input',maj));
+function fmt(dt){return `${JOURS[dt.getDay()]} ${dt.getDate()} ${MOIS[dt.getMonth()]}`;}
+function setDD(id,v){const e=document.getElementById(id);e.textContent=v||(id==='tHeure'?'—':'à choisir');e.classList.toggle('vide-t',!v);}
+function maj(){setDD('tJour',S.date&&fmt(S.date));setDD('tServ',S.serv&&(S.serv==='midi'?'Déjeuner':'Dîner'));setDD('tHeure',S.heure&&S.heure.replace(':','h'));document.getElementById('tNb').textContent=S.nb+(S.nb>1?' personnes':' personne');
+ const ready=S.date&&S.serv&&S.heure;const bm=document.getElementById('bMail'),bi=document.getElementById('bIcs');
+ bm.setAttribute('aria-disabled',String(!ready));bi.setAttribute('aria-disabled',String(!ready));
+ if(ready){const v=id=>document.getElementById(id).value.trim();
+  const corps=`Bonjour,\n\nJe souhaite réserver une table au Bouchon des Halles :\n- ${fmt(S.date)}, ${S.serv==='midi'?'déjeuner':'dîner'} à ${S.heure.replace(':','h')}\n- ${S.nb} couvert(s)\n${v('occ')?'- Occasion : '+v('occ')+'\n':''}${v('place')?'- Préférence : '+v('place')+'\n':''}${v('msg')?'- Remarque : '+v('msg')+'\n':''}\nNom : ${v('nom')||'…'}\nTéléphone : ${v('tel')||'…'}\n\nMerci de me confirmer la réservation.`;
+  bm.href=`mailto:${MAIL}?subject=${encodeURIComponent('Réservation – '+fmt(S.date)+' '+S.heure.replace(':','h')+' – '+S.nb+' pers.')}&body=${encodeURIComponent(corps)}`;}
+ else bm.href='#';}
+document.getElementById('bIcs').addEventListener('click',e=>{e.preventDefault();if(!(S.date&&S.serv&&S.heure))return;
+ const[hh,mm]=S.heure.split(':').map(Number);const st=new Date(S.date);st.setHours(hh,mm);const en=new Date(st.getTime()+90*60000);
+ const f=x=>`${x.getFullYear()}${String(x.getMonth()+1).padStart(2,'0')}${String(x.getDate()).padStart(2,'0')}T${String(x.getHours()).padStart(2,'0')}${String(x.getMinutes()).padStart(2,'0')}00`;
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bouchon des Halles//Maquette//FR","BEGIN:VEVENT",`UID:${Date.now()}@bouchondeshalles`,`DTSTART:${f(st)}`,`DTEND:${f(en)}`,`SUMMARY:Le Bouchon des Halles – ${S.nb} pers.`,"LOCATION:Halles Diderot\\, 12 rue Roger Salengro\\, 42300 Roanne","DESCRIPTION:Demande de réservation – à confirmer par le restaurant (04 77 70 02 38)","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='bouchon-des-halles.ics';a.click();toast("Rendez-vous ajouté à votre agenda");});
+document.getElementById('bMail').addEventListener('click',()=>{if(document.getElementById('bMail').getAttribute('aria-disabled')==='false')toast("Votre messagerie s'ouvre avec la demande prête");});
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2600);}
+
+/* Nav, burger, reveals */
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+const bg=document.getElementById('burger'),menu=document.getElementById('menu');
+bg.addEventListener('click',()=>{const o=menu.classList.toggle('open');bg.setAttribute('aria-expanded',o);});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');bg.setAttribute('aria-expanded','false');}));
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+ document.querySelectorAll('.reveal,.g').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('point')?(i%4)*80:0)+'ms';io.observe(el);});}
+else document.querySelectorAll('.reveal,.g').forEach(e=>e.classList.add('in'));
+})();
+</script>
+</body>
+</html>
