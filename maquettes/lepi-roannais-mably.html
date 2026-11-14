@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'épi Roannais — Farines et pâtes fermières à Mably, Roannais</title>
+<meta name="description" content="Farines T80, T110, T150 et seigle écrasées à la meule de pierre, pâtes sèches fermières : blé cultivé à Mably, vente à la ferme et à l'Office de Tourisme de Roanne.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du logo et des étiquettes de L'épi Roannais
+   (épis dorés, lettrage brun manuscrit, sachets bleu pastel
+   fermés d'un ruban rouge). Valeurs approchées à partir des
+   visuels publiés : ajustables ici en quelques lignes.
+   ========================================================= */
+:root{
+  --ble:#F2B321;        /* jaune des épis du logo */
+  --ble-fonce:#D98E12;  /* orange doré, ombres des épis */
+  --brun:#5A3B22;       /* lettrage « L'épi Roannais » */
+  --brun-clair:#9A6B3F; /* arc brun du logo */
+  --etiquette:#A8D5D8;  /* bleu pastel des étiquettes de pâtes */
+  --etiquette-pale:#E3F2F2;
+  --ruban:#D2392C;      /* ruban rouge des sachets */
+  --creme:#FFFBF2;
+  --papier:#FBF3E2;
+  --ink:#2E2016;
+  --font-titre:'Kaushan Script',cursive; /* proche du lettrage du logo */
+  --font-texte:'Nunito',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--ink);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ble-fonce);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{position:fixed;top:0;left:0;right:0;z-index:70;background:var(--brun);color:#fff;font-size:13px;text-align:center;padding:6px 12px}
+.demo b{color:var(--ble)}
+
+/* Navigation */
+header.nav{position:fixed;top:30px;left:0;right:0;z-index:60;transition:background .4s,box-shadow .4s,top .4s}
+header.nav.scrolled{background:rgba(255,251,242,.92);backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(90,59,34,.12)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:58px;height:58px;object-fit:cover;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.brand span{font-family:var(--font-titre);font-size:1.55rem;color:var(--brun);line-height:1}
+.nav ul{display:flex;gap:26px;list-style:none;align-items:center}
+.nav ul a{text-decoration:none;font-weight:700;color:var(--brun);position:relative;font-size:.97rem}
+.nav ul a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--ble-fonce);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:not(.btn):hover::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--brun);margin:7px 8px;transition:.3s}
+
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:800 1rem var(--font-texte);text-decoration:none;padding:13px 24px;border-radius:999px;background:var(--ble);color:var(--brun);box-shadow:0 6px 0 var(--ble-fonce);transition:transform .25s var(--spring),box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--ble-fonce)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ble-fonce)}
+.btn.ghost{background:transparent;color:var(--brun);box-shadow:inset 0 0 0 2px var(--brun)}
+.btn.ghost:hover{background:var(--brun);color:#fff}
+.btn.blue{background:var(--etiquette);box-shadow:0 6px 0 #79b3b7}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;padding:150px 0 80px;display:flex;align-items:center;background:radial-gradient(1200px 600px at 85% 20%,#fff3cf 0%,transparent 60%),var(--creme);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:7px 16px 7px 12px;font-weight:700;font-size:.9rem;box-shadow:0 4px 18px rgba(90,59,34,.1);margin-bottom:22px}
+.status i{width:10px;height:10px;border-radius:50%;background:#bbb;position:relative}
+.status.open i{background:#3aa55c}
+.status.open i::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #3aa55c;animation:ping 1.8s infinite}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+.hero h1{font-family:var(--font-titre);font-weight:400;color:var(--brun);font-size:clamp(2.6rem,1.6rem + 4vw,5rem);line-height:1.05;margin-bottom:10px}
+.hero h1 em{font-style:normal;color:var(--ble-fonce);display:inline-block}
+.hero .kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brun-clair);font-size:.82rem;margin-bottom:14px}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:34ch;margin:18px 0 30px;color:#4a3626}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-visual{position:relative}
+.hero-photo{border-radius:28px 28px 28px 140px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(90,59,34,.45);transform:rotate(2deg);transition:transform .6s var(--ease);aspect-ratio:4/3.3}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.4s var(--ease)}
+.hero-visual:hover .hero-photo{transform:rotate(0)}
+.hero-visual:hover .hero-photo img{transform:scale(1.02)}
+.hve{position:absolute;left:-26px;bottom:34px;background:#fff;border-radius:18px;padding:14px 18px;box-shadow:0 14px 30px rgba(90,59,34,.18);display:flex;gap:12px;align-items:center;animation:float 5s ease-in-out infinite}
+.hve b{display:block;color:var(--brun);font-size:1.05rem}
+.hve small{color:#6b5442}
+.hve .ico{width:42px;height:42px;border-radius:50%;background:var(--etiquette-pale);display:grid;place-items:center;font-size:1.3rem}
+.tag-ruban{position:absolute;right:20px;top:-18px;background:var(--ruban);color:#fff;font-weight:800;padding:8px 14px;border-radius:10px;transform:rotate(6deg);box-shadow:0 8px 18px rgba(210,57,44,.35);font-size:.9rem}
+@keyframes float{50%{transform:translateY(-10px)}}
+/* épis animés en fond */
+.epis{position:absolute;inset:auto 0 0 0;height:240px;pointer-events:none;opacity:.55}
+.epis svg{position:absolute;bottom:-10px;transform-origin:bottom center;animation:sway 6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+
+/* Sections */
+section{padding:110px 0;position:relative}
+.sec-head{max-width:720px;margin-bottom:52px}
+.sec-head .kicker{font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--brun-clair);font-size:.8rem}
+.sec-head h2{font-family:var(--font-titre);font-weight:400;color:var(--brun);font-size:clamp(2.1rem,1.5rem + 2.5vw,3.5rem);line-height:1.1;margin:8px 0 14px}
+.sec-head p{font-size:1.1rem;color:#4a3626}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* Du champ au moulin */
+.parcours{background:var(--brun);color:#fdf3dc;overflow:hidden}
+.parcours .sec-head h2,.parcours .sec-head .kicker{color:var(--ble)}
+.parcours .sec-head p{color:#f1e2c6}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;position:relative}
+.steps::before{content:"";position:absolute;top:58px;left:8%;right:8%;height:3px;background:repeating-linear-gradient(90deg,var(--ble) 0 14px,transparent 14px 26px);opacity:.5}
+.step{position:relative;text-align:center;padding:0 10px}
+.step .disc{width:116px;height:116px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;background:#6d4a2d;border:3px solid var(--ble);position:relative;z-index:1}
+.step h3{font-size:1.3rem;color:#fff;margin-bottom:8px}
+.step p{color:#e9d6b5}
+.meule{animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.champ-photo{margin-top:70px;border-radius:26px;overflow:hidden;position:relative;height:380px}
+.champ-photo img{width:100%;height:150%;margin-top:-10%;object-fit:cover;will-change:transform}
+.illu{position:absolute;right:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;font-size:.75rem;padding:4px 10px;border-radius:6px}
+.champ-photo blockquote{position:absolute;left:0;bottom:0;right:0;padding:40px 34px 28px;background:linear-gradient(transparent,rgba(46,32,22,.85));font-family:var(--font-titre);font-size:clamp(1.4rem,1rem + 1.4vw,2.2rem);color:#fff;line-height:1.25}
+
+/* Farines */
+.farines{background:var(--papier)}
+.farine-grid{display:grid;grid-template-columns:320px 1fr;gap:40px;align-items:start}
+.farine-tabs{display:flex;flex-direction:column;gap:12px}
+.farine-tab{all:unset;cursor:pointer;display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:16px 18px;box-shadow:0 2px 0 rgba(90,59,34,.08);transition:transform .3s var(--spring),box-shadow .3s,background .3s}
+.farine-tab:hover{transform:translateX(6px)}
+.farine-tab .pastille{width:46px;height:46px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 3px rgba(255,255,255,.6)}
+.farine-tab b{display:block;font-size:1.1rem;color:var(--brun)}
+.farine-tab small{color:#7a634f}
+.farine-tab[aria-selected="true"]{background:var(--brun);box-shadow:0 10px 24px rgba(90,59,34,.25)}
+.farine-tab[aria-selected="true"] b{color:var(--ble)}
+.farine-tab[aria-selected="true"] small{color:#e9d6b5}
+.farine-panel{background:#fff;border-radius:28px;padding:38px;box-shadow:0 20px 50px -24px rgba(90,59,34,.35);display:grid;grid-template-columns:180px 1fr;gap:34px;align-items:center;min-height:330px}
+.tas{position:relative;width:180px;height:180px}
+.tas .heap{position:absolute;inset:auto 0 0 0;height:120px;border-radius:50% 50% 12px 12px/80% 80% 12px 12px;transition:background .6s var(--ease),transform .6s var(--spring)}
+.tas .grain{position:absolute;width:5px;height:5px;border-radius:50%;background:#5c3b1c;opacity:0;transition:opacity .5s}
+.farine-panel h3{font-family:var(--font-titre);font-weight:400;font-size:2.2rem;color:var(--brun);line-height:1.1}
+.farine-panel .ton{display:inline-block;background:var(--etiquette-pale);color:#2d6a6e;font-weight:800;font-size:.8rem;padding:4px 10px;border-radius:999px;margin:8px 0 14px;letter-spacing:.04em}
+.jauge{margin:16px 0 18px}
+.jauge label{font-size:.85rem;font-weight:700;color:#7a634f;display:flex;justify-content:space-between}
+.jauge .bar{height:12px;background:var(--papier);border-radius:999px;overflow:hidden;margin-top:6px}
+.jauge .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--ble),var(--brun-clair));border-radius:999px;transition:width .8s var(--ease)}
+.usages{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.usages li{background:var(--creme);border:1px solid #ecdcbc;padding:6px 12px;border-radius:999px;font-weight:600;font-size:.92rem;animation:pop .5s var(--spring) both}
+@keyframes pop{from{transform:scale(.6);opacity:0}}
+.mini{font-size:.82rem;color:#8a735f;margin-top:16px}
+
+/* Pâtes */
+.pates .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.pates-photo{position:relative}
+.pates-photo .frame{border-radius:140px 28px 28px 28px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(90,59,34,.4)}
+.pates-photo .frame img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.chiffres{display:flex;gap:16px;margin:26px 0;flex-wrap:wrap}
+.chiffre{background:var(--etiquette-pale);border-radius:20px;padding:16px 20px;min-width:130px;border-top:5px solid var(--ruban)}
+.chiffre b{font-family:var(--font-titre);font-size:2.4rem;color:var(--brun);line-height:1;display:block}
+.chiffre span{font-weight:700;font-size:.9rem;color:#2d6a6e}
+.minuteur{margin-top:12px;background:#fff;border-radius:24px;padding:22px;box-shadow:0 14px 34px -18px rgba(90,59,34,.35);display:flex;gap:20px;align-items:center}
+.casserole{position:relative;width:96px;height:96px;flex:none}
+.casserole svg{width:100%;height:100%}
+.vapeur span{position:absolute;bottom:70px;width:8px;height:22px;border-radius:50%;background:rgba(168,213,216,.9);opacity:0}
+.boiling .vapeur span{animation:steam 1.6s ease-in infinite}
+.vapeur span:nth-child(1){left:30px}.vapeur span:nth-child(2){left:46px;animation-delay:.5s!important}.vapeur span:nth-child(3){left:62px;animation-delay:1s!important}
+@keyframes steam{0%{transform:translateY(0) scale(.6);opacity:0}30%{opacity:.9}100%{transform:translateY(-34px) scale(1.4);opacity:0}}
+.minuteur .t{font-family:var(--font-texte);font-weight:800;font-size:2.2rem;color:var(--brun);font-variant-numeric:tabular-nums}
+.minuteur .seg{display:flex;gap:6px;margin:6px 0 10px}
+.minuteur .seg button{all:unset;cursor:pointer;padding:5px 12px;border-radius:999px;font-weight:700;font-size:.85rem;background:var(--papier)}
+.minuteur .seg button[aria-pressed="true"]{background:var(--brun);color:#fff}
+
+/* Commande — outil central */
+.commande{background:linear-gradient(180deg,var(--creme),#fff4d8)}
+.cmd{display:grid;grid-template-columns:1.3fr .9fr;gap:30px;align-items:start}
+.produits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.prod{background:#fff;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:10px;border:2px solid transparent;transition:border-color .3s,transform .3s var(--spring),box-shadow .3s;position:relative}
+.prod.on{border-color:var(--ble);box-shadow:0 12px 28px -16px rgba(217,142,18,.6)}
+.prod .top{display:flex;gap:12px;align-items:center}
+.prod .sac{width:38px;height:48px;border-radius:8px 8px 12px 12px;position:relative;flex:none}
+.prod .sac::before{content:"";position:absolute;top:6px;left:50%;width:16px;height:5px;margin-left:-8px;background:var(--ruban);border-radius:3px}
+.prod b{color:var(--brun);display:block}
+.prod small{color:#8a735f}
+.qty{display:flex;align-items:center;gap:10px;margin-top:auto}
+.qty button{width:38px;height:38px;border-radius:50%;border:0;background:var(--papier);font:800 1.2rem var(--font-texte);color:var(--brun);cursor:pointer;transition:transform .2s var(--spring),background .2s}
+.qty button:hover{background:var(--ble)}
+.qty button:active{transform:scale(.88)}
+.qty output{min-width:26px;text-align:center;font-weight:800;font-size:1.15rem}
+.qty .u{font-size:.85rem;color:#8a735f}
+.panier{background:var(--brun);color:#fdf3dc;border-radius:28px;padding:28px;position:sticky;top:120px}
+.panier h3{font-family:var(--font-titre);font-weight:400;color:var(--ble);font-size:2rem;margin-bottom:12px}
+.panier ul{list-style:none;margin-bottom:18px;min-height:40px}
+.panier li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed rgba(242,179,33,.3);animation:pop .4s var(--spring) both}
+.panier .vide{opacity:.7;font-style:italic;border:0}
+.panier label{display:block;font-weight:700;font-size:.85rem;margin:12px 0 6px;color:#f1e2c6}
+.creneaux{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.creneaux button{all:unset;cursor:pointer;text-align:center;padding:10px 6px;border-radius:12px;background:#6d4a2d;font-weight:700;font-size:.85rem;line-height:1.3;transition:background .2s,transform .2s var(--spring)}
+.creneaux button:hover{transform:translateY(-2px)}
+.creneaux button[aria-pressed="true"]{background:var(--ble);color:var(--brun)}
+.panier input{width:100%;padding:11px 14px;border-radius:12px;border:0;font:600 1rem var(--font-texte);background:#fffaf0}
+.panier .actions{display:grid;gap:10px;margin-top:18px}
+.panier .actions .btn{justify-content:center}
+.panier .actions .btn[disabled]{opacity:.45;pointer-events:none}
+.panier .note{font-size:.8rem;color:#e0caa6;margin-top:14px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--brun);color:#fff;padding:12px 20px;border-radius:999px;font-weight:700;z-index:80;opacity:0;visibility:hidden;transition:transform .5s var(--spring),opacity .3s,visibility .3s}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+
+/* Où trouver */
+.trouver .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.carte{background:#fff;border-radius:24px;padding:28px;box-shadow:0 16px 40px -26px rgba(90,59,34,.45);transition:transform .4s var(--spring)}
+.carte:hover{transform:translateY(-6px) rotate(-.5deg)}
+.carte h3{color:var(--brun);font-size:1.25rem;margin:10px 0 8px}
+.carte .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;background:var(--etiquette-pale)}
+.horaires{list-style:none;margin-top:6px}
+.horaires li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #ecdcbc;font-size:.95rem}
+.horaires li.today{font-weight:800;color:var(--ble-fonce)}
+.horaires li span:last-child{color:#6b5442}
+.facade{margin-top:22px;border:2px dashed #d7c09a;border-radius:24px;height:200px;display:grid;place-items:center;color:#9a8166;font-weight:700;background:repeating-linear-gradient(45deg,#fff8ea 0 12px,#fbf1dc 12px 24px);text-align:center;padding:16px}
+
+/* CTA final */
+.final{background:var(--ble);text-align:center;padding:90px 0;overflow:hidden}
+.final h2{font-family:var(--font-titre);font-weight:400;color:var(--brun);font-size:clamp(2.2rem,1.5rem + 3vw,4rem);line-height:1.1}
+.final p{max-width:560px;margin:14px auto 28px;font-weight:600;color:#4a3626}
+.final .btn{background:var(--brun);color:#fff;box-shadow:0 6px 0 #3c2716}
+
+footer{background:var(--ink);color:#d8c7ad;padding:56px 0 30px;font-size:.95rem}
+footer .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;margin-bottom:28px}
+footer h4{color:var(--ble);font-family:var(--font-titre);font-weight:400;font-size:1.5rem;margin-bottom:10px}
+footer a{color:#fff}
+footer .note{border-top:1px solid #4a3a2c;padding-top:20px;font-size:.82rem;color:#a8957a}
+
+@media (max-width:960px){
+  .hero .wrap,.pates .wrap,.cmd,.farine-grid{grid-template-columns:1fr}
+  .farine-panel{grid-template-columns:1fr;text-align:left}
+  .steps{grid-template-columns:1fr;gap:40px}.steps::before{display:none}
+  .trouver .grid,footer .cols{grid-template-columns:1fr}
+  .panier{position:static}
+  .hve{left:10px}
+}
+@media (max-width:760px){
+  .demo{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav ul{position:fixed;inset:104px 0 auto 0;flex-direction:column;background:var(--creme);padding:24px;gap:18px;box-shadow:0 20px 30px rgba(0,0,0,.1);transform:translateY(-130%);transition:transform .45s var(--ease)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .produits{grid-template-columns:1fr}
+  section{padding:80px 0}
+  .farine-panel{padding:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Store",
+  "name":"L'épi Roannais",
+  "description":"Production de farine et de pâtes fermières à partir du blé cultivé sur l'exploitation, écrasé à la ferme avec un moulin à meule de pierre. Exploitation certifiée HVE.",
+  "address":{"@type":"PostalAddress","streetAddress":"131 impasse Bufferdan","postalCode":"42300","addressLocality":"Mably","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.097577,"longitude":4.089037},
+  "telephone":"+33683264446",
+  "email":"lepiroannais@gmail.com",
+  "areaServed":["Mably","Roanne","Roannais"],
+  "paymentAccepted":"Chèque, Espèces",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"10:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"15:00","closes":"18:30"}
+  ],
+  "sameAs":["https://www.facebook.com/anthonychargueraud42"]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — <b>proposition de site pour L'épi Roannais</b> · non officielle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="L'épi Roannais, accueil">
+      <img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/6408999/f4ed99950b35e8dc-335x335.webp" alt="Logo L'épi Roannais">
+      <span>L'épi Roannais</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul id="menu">
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#farines">Nos farines</a></li>
+      <li><a href="#pates">Nos pâtes</a></li>
+      <li><a href="#trouver">Où nous trouver</a></li>
+      <li><a class="btn" href="#commande">Préparer ma commande</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="status" id="status"><i></i><span>Vente à la ferme</span></div>
+      <p class="kicker">Producteur à Mably · Céréales et produits dérivés</p>
+      <h1>Farine et pâtes <em>fermières</em>, de notre blé</h1>
+      <p class="lead">Production de farine et de pâtes fermières à partir de notre blé cultivé sur l'exploitation, écrasé à la ferme sur un moulin à meule de pierre.</p>
+      <div class="ctas">
+        <a class="btn" href="#commande">Préparer ma commande</a>
+        <a class="btn ghost" href="#farines">Choisir ma farine</a>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <span class="tag-ruban">Cuisson 4 à 5 min</span>
+      <div class="hero-photo"><img id="heroImg" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/6408999/ccc83bba100b3e23-800x520.webp" alt="Sachets de pâtes fermières L'épi Roannais sur les étagères de la ferme"></div>
+      <div class="hve"><div class="ico">🌾</div><div><b>Exploitation certifiée HVE</b><small>Haute Valeur Environnementale</small></div></div>
+    </div>
+  </div>
+  <div class="epis" id="epis" aria-hidden="true"></div>
+</section>
+
+<!-- DU CHAMP AU MOULIN -->
+<section class="parcours" id="ferme">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">La ferme</span>
+      <h2>Du champ au moulin, sans détour</h2>
+      <p>Nous cultivons notre blé et nous l'écrasons à la ferme avec un moulin à meule de pierre, afin de garder ses qualités nutritives et gustatives.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="disc"><svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true"><g fill="#F2B321"><ellipse cx="30" cy="12" rx="5" ry="8"/><ellipse cx="22" cy="22" rx="5" ry="8" transform="rotate(-30 22 22)"/><ellipse cx="38" cy="22" rx="5" ry="8" transform="rotate(30 38 22)"/><ellipse cx="22" cy="34" rx="5" ry="8" transform="rotate(-30 22 34)"/><ellipse cx="38" cy="34" rx="5" ry="8" transform="rotate(30 38 34)"/></g><path d="M30 18v40" stroke="#F2B321" stroke-width="3"/></svg></div>
+        <h3>Cultivé sur l'exploitation</h3>
+        <p>Le blé pousse à Mably, sur les terres de la ferme, avant d'être récolté.</p>
+      </div>
+      <div class="step reveal d1">
+        <div class="disc"><svg class="meule" width="66" height="66" viewBox="0 0 66 66" aria-hidden="true"><circle cx="33" cy="33" r="29" fill="#9A6B3F" stroke="#F2B321" stroke-width="3"/><circle cx="33" cy="33" r="7" fill="#5A3B22"/><g stroke="#5A3B22" stroke-width="2">
+          <path d="M33 6v16M33 44v16M6 33h16M44 33h16M14 14l11 11M41 41l11 11M52 14 41 25M25 41 14 52"/></g></svg></div>
+        <h3>Écrasé à la meule de pierre</h3>
+        <p>Le grain est moulu à la ferme, sur un moulin à meule de pierre.</p>
+      </div>
+      <div class="step reveal d2">
+        <div class="disc"><svg width="58" height="64" viewBox="0 0 58 64" aria-hidden="true"><path d="M10 14h38l4 46H6z" fill="#A8D5D8"/><rect x="20" y="8" width="18" height="7" rx="3" fill="#D2392C"/><circle cx="29" cy="38" r="9" fill="#fff"/><path d="M29 31v14" stroke="#F2B321" stroke-width="3"/></svg></div>
+        <h3>Farines &amp; pâtes fermières</h3>
+        <p>Trois farines de blé, une farine de seigle, et des pâtes sèches faites avec notre farine semi-complète.</p>
+      </div>
+    </div>
+    <div class="champ-photo reveal">
+      <img id="champ" src="https://images.unsplash.com/photo-1437252611977-07f74518abd7?w=1800&q=70&auto=format&fit=crop" alt="Champ de blé (photo d'illustration)" loading="lazy">
+      <blockquote>« Nous cultivons notre blé et nous l'écrasons à la ferme. »</blockquote>
+      <span class="illu">Photo d'illustration</span>
+    </div>
+  </div>
+</section>
+
+<!-- FARINES -->
+<section class="farines" id="farines">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Nos farines</span>
+      <h2>Quelle farine pour quelle recette ?</h2>
+      <p>Nous faisons 3 sortes de farine de blé — T80, T110, T150 — ainsi que de la farine de seigle. Choisissez-en une pour voir à quoi elle sert le mieux.</p>
+    </div>
+    <div class="farine-grid">
+      <div class="farine-tabs" role="tablist" aria-label="Choisir une farine" id="tabs"></div>
+      <div class="farine-panel reveal" role="tabpanel" id="panel" aria-live="polite">
+        <div class="tas" id="tas"><div class="heap" id="heap"></div></div>
+        <div>
+          <h3 id="fNom"></h3>
+          <span class="ton" id="fTon"></span>
+          <p id="fTxt"></p>
+          <div class="jauge"><label><span>Part de l'enveloppe du grain conservée</span><span id="fPct"></span></label><div class="bar"><i id="fBar" style="width:0"></i></div></div>
+          <ul class="usages" id="fUs"></ul>
+          <p class="mini">Repères généraux sur les types de farine, à adapter selon vos habitudes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PÂTES -->
+<section class="pates" id="pates">
+  <div class="wrap">
+    <div class="pates-photo reveal">
+      <div class="frame"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/6408999/ccc83bba100b3e23.webp" alt="Pâtes sèches fermières L'épi Roannais en sachets" loading="lazy"></div>
+    </div>
+    <div class="reveal d1">
+      <div class="sec-head" style="margin-bottom:10px">
+        <span class="kicker">Nos pâtes</span>
+        <h2>Des pâtes sèches fermières</h2>
+        <p>Nous faisons également, avec notre farine semi-complète, des pâtes sèches fermières. Elles cuisent en 4 à 5 minutes.</p>
+      </div>
+      <div class="chiffres">
+        <div class="chiffre"><b>6</b><span>sortes de pâtes nature</span></div>
+        <div class="chiffre"><b>+</b><span>une gamme de pâtes aromatisées</span></div>
+        <div class="chiffre"><b>4-5</b><span>minutes de cuisson</span></div>
+      </div>
+      <div class="minuteur" id="minuteur">
+        <div class="casserole" id="casserole">
+          <div class="vapeur"><span></span><span></span><span></span></div>
+          <svg viewBox="0 0 96 96" aria-hidden="true"><rect x="14" y="44" width="68" height="40" rx="10" fill="#5A3B22"/><rect x="8" y="40" width="80" height="8" rx="4" fill="#9A6B3F"/><rect x="82" y="52" width="14" height="6" rx="3" fill="#5A3B22"/><rect x="0" y="52" width="14" height="6" rx="3" fill="#5A3B22"/><path d="M22 60q6-6 12 0t12 0 12 0 12 0" stroke="#F2B321" stroke-width="3" fill="none"/></svg>
+        </div>
+        <div>
+          <strong style="color:var(--brun)">Minuteur de cuisson</strong>
+          <div class="seg" role="group" aria-label="Cuisson">
+            <button aria-pressed="true" data-s="240">Al dente · 4 min</button>
+            <button aria-pressed="false" data-s="300">Fondante · 5 min</button>
+          </div>
+          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+            <span class="t" id="tps">4:00</span>
+            <button class="btn blue" id="go" style="padding:10px 18px">Lancer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMANDE -->
+<section class="commande" id="commande">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Vente à la ferme</span>
+      <h2>Préparez votre commande, passez la récupérer</h2>
+      <p>La ferme est ouverte le lundi matin et le vendredi après-midi. Composez votre panier, choisissez votre créneau, et votre demande part directement à L'épi Roannais.</p>
+    </div>
+    <div class="cmd">
+      <div class="produits" id="produits"></div>
+      <aside class="panier" aria-live="polite">
+        <h3>Mon panier</h3>
+        <ul id="liste"><li class="vide">Ajoutez une farine ou des pâtes.</li></ul>
+        <label>Je passe à la ferme…</label>
+        <div class="creneaux" id="creneaux"></div>
+        <label for="nom">Mon nom</label>
+        <input id="nom" autocomplete="name" placeholder="Prénom Nom">
+        <label for="tel">Mon téléphone</label>
+        <input id="tel" autocomplete="tel" inputmode="tel" placeholder="06 …">
+        <div class="actions">
+          <a class="btn" id="mail" href="#" role="button">Envoyer par mail</a>
+          <a class="btn blue" id="sms" href="#" role="button">Envoyer par SMS</a>
+          <button class="btn ghost" id="ics" style="color:#fff;box-shadow:inset 0 0 0 2px #fff">Ajouter à mon agenda</button>
+        </div>
+        <p class="note">Demande de réservation à confirmer par la ferme. Règlement sur place : chèque ou espèces.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- OÙ TROUVER -->
+<section class="trouver" id="trouver">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Où nous trouver</span>
+      <h2>À la ferme, à Mably, et à Roanne</h2>
+      <p>Vente à la propriété, et nos produits sont aussi disponibles à l'Office de Tourisme du Roannais, à Roanne.</p>
+    </div>
+    <div class="grid">
+      <div class="carte reveal">
+        <div class="ic">🕙</div>
+        <h3>Horaires de la ferme</h3>
+        <ul class="horaires" id="horaires">
+          <li data-d="1"><span>Lundi</span><span>10h – 12h</span></li>
+          <li data-d="5"><span>Vendredi</span><span>15h – 18h30</span></li>
+          <li data-d="x"><span>Autres jours</span><span>Fermé</span></li>
+        </ul>
+        <p class="mini">Animaux acceptés · Chèque et espèces</p>
+      </div>
+      <div class="carte reveal d1">
+        <div class="ic">📍</div>
+        <h3>Vente à la ferme</h3>
+        <p>131 impasse Bufferdan<br>42300 Mably</p>
+        <p style="margin-top:14px"><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=46.097577,4.089037" target="_blank" rel="noopener">Itinéraire</a></p>
+      </div>
+      <div class="carte reveal d2">
+        <div class="ic">☎️</div>
+        <h3>Nous contacter</h3>
+        <p><a href="tel:+33683264446">06 83 26 44 46</a><br><a href="mailto:lepiroannais@gmail.com">lepiroannais@gmail.com</a><br><a href="https://www.facebook.com/anthonychargueraud42" target="_blank" rel="noopener">Facebook</a></p>
+        <p class="mini">Produits aussi en vente à l'Office de Tourisme – Roannais Tourisme, à Roanne.</p>
+      </div>
+    </div>
+    <div class="facade reveal">Photo de la ferme, du moulin ou du point de vente — à fournir par le client</div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap reveal">
+    <h2>Une farine, un paquet de pâtes ?</h2>
+    <p>Préparez votre panier en deux minutes et passez le chercher à la ferme lundi matin ou vendredi après-midi.</p>
+    <a class="btn" href="#commande">Préparer ma commande</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><h4>L'épi Roannais</h4><p>Production de farine et de pâtes fermières à partir de notre blé cultivé sur l'exploitation. Exploitation certifiée HVE.</p></div>
+      <div><h4>Adresse</h4><p>131 impasse Bufferdan<br>42300 Mably</p></div>
+      <div><h4>Contact</h4><p><a href="tel:+33683264446">06 83 26 44 46</a><br><a href="mailto:lepiroannais@gmail.com">lepiroannais@gmail.com</a></p></div>
+    </div>
+    <p class="note">Maquette de démonstration réalisée à titre de proposition, non officielle et non mise en ligne par L'épi Roannais. Textes, horaires, coordonnées, logo et photo des pâtes repris de la fiche publiée sur roannais-tourisme.com ; la photo de champ de blé est une photo d'illustration (Unsplash) ; une photo de la ferme ou du moulin reste à fournir. Couleurs et police approchées à partir du logo et des étiquettes, ajustables. Les repères sur les types de farine sont généraux et indicatifs ; aucun prix n'est affiché. Le module de commande est une proposition : la réservation reste à confirmer par la ferme.</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=s=>document.querySelector(s);
+
+/* nav */
+const nav=$('#nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+const burger=$('#burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* épis animés */
+const epis=$('#epis');
+for(let i=0;i<22;i++){
+  const h=90+Math.random()*140,x=Math.random()*100,s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 20 100');s.setAttribute('width',14+Math.random()*10);s.setAttribute('height',h);
+  s.style.left=x+'%';s.style.animationDelay=(-Math.random()*6)+'s';s.style.animationDuration=(5+Math.random()*3)+'s';
+  let g='<path d="M10 100V22" stroke="#D98E12" stroke-width="1.5"/>';
+  for(let k=0;k<6;k++){const y=6+k*7;g+=`<ellipse cx="6" cy="${y+4}" rx="3" ry="6" fill="#F2B321" transform="rotate(-25 6 ${y+4})"/><ellipse cx="14" cy="${y+4}" rx="3" ry="6" fill="#F2B321" transform="rotate(25 14 ${y+4})"/>`}
+  s.innerHTML=g;epis.appendChild(s);
+}
+
+/* parallax léger */
+const champ=$('#champ'),hero=$('#heroImg');
+if(!RM){addEventListener('scroll',()=>{requestAnimationFrame(()=>{
+  const r=champ.parentElement.getBoundingClientRect();champ.style.transform=`translateY(${(r.top-innerHeight/2)*-.08}px)`;
+  hero.style.transform=`scale(1.08) translateY(${scrollY*.04}px)`;
+})},{passive:true})}
+
+/* horaires : statut ouvert/fermé */
+const H={1:[[10,0],[12,0]],5:[[15,0],[18,30]]};
+const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+function statut(){
+  const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes(),el=$('#status');
+  const li=document.querySelector(`#horaires li[data-d="${d}"]`)||document.querySelector('#horaires li[data-d="x"]');li.classList.add('today');
+  if(H[d]){const[o,c]=H[d];if(m>=o[0]*60+o[1]&&m<c[0]*60+c[1]){el.classList.add('open');el.querySelector('span').textContent=`Vente à la ferme ouverte jusqu'à ${c[0]}h${c[1]?c[1]:''}`;return}}
+  for(let k=0;k<8;k++){const dd=(d+k)%7;if(H[dd]){const o=H[dd][0];if(k===0&&m>=o[0]*60+o[1])continue;
+    el.querySelector('span').textContent=`Vente à la ferme · prochaine ouverture ${k===0?"aujourd'hui":k===1?'demain':JOURS[dd]} à ${o[0]}h`;return}}
+}
+statut();
+
+/* farines */
+const F=[
+ {id:'T80',nom:'Farine T80',ton:'Farine bise',c:'#E9D2A6',pct:35,grains:8,txt:"Une farine bise, encore douce, qui garde une partie du son. Polyvalente, elle convient aussi bien au pain qu'aux pâtes à tarte un peu rustiques.",us:['Pain de campagne','Pâte à tarte','Pizza','Crêpes rustiques','Brioche maison']},
+ {id:'T110',nom:'Farine T110',ton:'Farine semi-complète',c:'#D6B47E',pct:60,grains:18,txt:"Une farine semi-complète, plus riche en goût et en fibres. Nos pâtes fermières sont faites avec notre farine semi-complète.",us:['Pain semi-complet','Pâtes fraîches','Cookies','Pain au levain','Galettes']},
+ {id:'T150',nom:'Farine T150',ton:'Farine complète',c:'#B98E5A',pct:90,grains:32,txt:"Une farine complète, qui conserve presque tout le grain : plus de goût, plus de fibres, une mie plus dense.",us:['Pain complet','Pain aux graines','Biscuits rustiques','Mélange avec une T80']},
+ {id:'Seigle',nom:'Farine de seigle',ton:'Seigle',c:'#9E7B5C',pct:70,grains:24,txt:"Une farine au goût marqué, légèrement acidulé, qui donne des pains denses et qui se gardent bien.",us:['Pain de seigle','Pain d\'épices','Pain au levain','Mélange avec du blé']}
+];
+const tabs=$('#tabs'),tas=$('#tas'),heap=$('#heap');
+for(let i=0;i<34;i++){const g=document.createElement('i');g.className='grain';g.style.left=(25+Math.random()*130)+'px';g.style.bottom=(10+Math.random()*85)+'px';tas.appendChild(g)}
+F.forEach((f,i)=>{const b=document.createElement('button');b.className='farine-tab';b.setAttribute('role','tab');b.setAttribute('aria-selected',i===0);
+  b.innerHTML=`<span class="pastille" style="background:${f.c}"></span><span><b>${f.nom}</b><small>${f.ton}</small></span>`;b.onclick=()=>show(i);tabs.appendChild(b)});
+function show(i){const f=F[i];tabs.querySelectorAll('button').forEach((b,k)=>b.setAttribute('aria-selected',k===i));
+  heap.style.background=`radial-gradient(circle at 40% 30%,#fff8 0,transparent 40%),${f.c}`;heap.style.transform='scaleY(.85)';setTimeout(()=>heap.style.transform='',120);
+  tas.querySelectorAll('.grain').forEach((g,k)=>g.style.opacity=k<f.grains?.75:0);
+  $('#fNom').textContent=f.nom;$('#fTon').textContent=f.ton;$('#fTxt').textContent=f.txt;
+  $('#fPct').textContent=f.pct>80?'élevée':f.pct>50?'moyenne':'faible';$('#fBar').style.width=f.pct+'%';
+  $('#fUs').innerHTML=f.us.map((u,k)=>`<li style="animation-delay:${k*60}ms">${u}</li>`).join('');
+}
+show(0);
+
+/* minuteur */
+let dur=240,left=240,timer=null;
+const tps=$('#tps'),go=$('#go'),cas=$('#casserole');
+const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));dur=left=+b.dataset.s;stop();tps.textContent=fmt(left)});
+function stop(){clearInterval(timer);timer=null;go.textContent='Lancer';cas.classList.remove('boiling')}
+go.onclick=()=>{if(timer){stop();return}if(left<=0)left=dur;cas.classList.add('boiling');go.textContent='Pause';
+  timer=setInterval(()=>{left--;tps.textContent=fmt(left);if(left<=0){stop();toast('Vos pâtes sont prêtes, égouttez !');left=dur}},1000)};
+
+/* commande */
+const P=[
+ {id:'t80',n:'Farine T80',d:'Farine bise de blé',c:'#E9D2A6',u:'sachet'},
+ {id:'t110',n:'Farine T110',d:'Farine semi-complète de blé',c:'#D6B47E',u:'sachet'},
+ {id:'t150',n:'Farine T150',d:'Farine complète de blé',c:'#B98E5A',u:'sachet'},
+ {id:'seigle',n:'Farine de seigle',d:'Seigle',c:'#9E7B5C',u:'sachet'},
+ {id:'pn',n:'Pâtes nature',d:'6 sortes, à préciser à la ferme',c:'#A8D5D8',u:'paquet'},
+ {id:'pa',n:'Pâtes aromatisées',d:'Gamme du moment',c:'#F2B321',u:'paquet'}
+];
+const Q={};const prodEl=$('#produits');
+P.forEach(p=>{Q[p.id]=0;const d=document.createElement('div');d.className='prod';d.id='p-'+p.id;
+  d.innerHTML=`<div class="top"><span class="sac" style="background:${p.c}"></span><span><b>${p.n}</b><small>${p.d}</small></span></div>
+  <div class="qty"><button aria-label="Retirer ${p.n}" data-a="-1">−</button><output>0</output><button aria-label="Ajouter ${p.n}" data-a="1">+</button><span class="u">${p.u}(s)</span></div>`;
+  d.querySelectorAll('button').forEach(b=>b.onclick=()=>{Q[p.id]=Math.max(0,Math.min(20,Q[p.id]+ +b.dataset.a));d.querySelector('output').textContent=Q[p.id];d.classList.toggle('on',Q[p.id]>0);maj()});
+  prodEl.appendChild(d)});
+/* créneaux : 4 prochaines ouvertures */
+const cr=$('#creneaux');let choix=null;const slots=[];
+{const n=new Date();for(let k=0;k<21&&slots.length<4;k++){const dt=new Date(n.getFullYear(),n.getMonth(),n.getDate()+k);const d=dt.getDay();if(!H[d])continue;
+  const[o,c]=H[d];const end=new Date(dt);end.setHours(c[0],c[1]);if(end<=n)continue;const st=new Date(dt);st.setHours(o[0],o[1]);slots.push({st,end})}}
+slots.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-pressed',i===0);
+  b.innerHTML=`${JOURS[s.st.getDay()][0].toUpperCase()+JOURS[s.st.getDay()].slice(1)} ${s.st.getDate()}/${s.st.getMonth()+1}<br><small>${s.st.getHours()}h – ${s.end.getHours()}h${s.end.getMinutes()||''}</small>`;
+  b.onclick=()=>{cr.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));choix=s;maj()};cr.appendChild(b)});
+choix=slots[0];
+function texte(){const l=P.filter(p=>Q[p.id]).map(p=>`- ${p.n} : ${Q[p.id]} ${p.u}${Q[p.id]>1?'s':''}`).join('\n');
+  const j=choix?`${JOURS[choix.st.getDay()]} ${choix.st.toLocaleDateString('fr-FR')} (${choix.st.getHours()}h-${choix.end.getHours()}h${choix.end.getMinutes()||''})`:'';
+  return `Bonjour,\n\nJe souhaiterais réserver :\n${l}\n\nJe passerai à la ferme le ${j}.\n\n${$('#nom').value||''}\n${$('#tel').value||''}`}
+function maj(){const items=P.filter(p=>Q[p.id]);const ul=$('#liste');
+  ul.innerHTML=items.length?items.map(p=>`<li><span>${p.n}</span><b>× ${Q[p.id]}</b></li>`).join(''):'<li class="vide">Ajoutez une farine ou des pâtes.</li>';
+  const ok=items.length>0;['#mail','#sms','#ics'].forEach(s=>{$(s).toggleAttribute('disabled',!ok)});
+  $('#mail').href='mailto:lepiroannais@gmail.com?subject='+encodeURIComponent('Réservation — vente à la ferme')+'&body='+encodeURIComponent(texte());
+  $('#sms').href='sms:+33683264446?&body='+encodeURIComponent(texte());}
+['#nom','#tel'].forEach(s=>$(s).addEventListener('input',maj));maj();
+$('#ics').onclick=()=>{if(!choix)return;const z=d=>d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Maquette L epi Roannais//FR','BEGIN:VEVENT','UID:'+Date.now()+'@lepiroannais','DTSTAMP:'+z(new Date()),'DTSTART:'+z(choix.st),'DTEND:'+z(choix.end),
+   'SUMMARY:Retrait commande - L\'épi Roannais','LOCATION:131 impasse Bufferdan\\, 42300 Mably','DESCRIPTION:'+texte().replace(/\n/g,'\\n'),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='retrait-lepi-roannais.ics';a.click();toast('Créneau ajouté à votre agenda')};
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
+})();
+</script>
+</body>
+</html>
