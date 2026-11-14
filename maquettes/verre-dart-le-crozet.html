@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verre d'Art — Bijoux en verre recyclé et ateliers verre filé | Le Crozet (Loire)</title>
+<meta name="description" content="Bijoux et objets façonnés au chalumeau à partir de verre non recyclable, par Andreia Matos au Crozet, sur la Côte roannaise. Boutique en ligne et ateliers d'initiation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@400;600;800&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel verredart.fr
+   Couleurs relevées dans la feuille de style du site :
+   mauve des boutons #b497ad, prune/bordeaux #74314c, #7f3e4f,
+   #561f37, aubergine profond #2c1124, roses pâles #f6edf2 / #d8c1cc.
+   Titres : Grenze Gotisch (police déjà utilisée sur le site).
+   Texte courant : Jost (police de lecture proposée, ajustable).
+   Pour ajuster : modifier uniquement les variables ci-dessous.
+   ========================================================= */
+:root{
+  --mauve:#b497ad;
+  --mauve-dark:#a78ca1;
+  --prune:#74314c;
+  --vieux-rose:#7f3e4f;
+  --bordeaux:#561f37;
+  --aubergine:#2c1124;
+  --rose-pale:#f6edf2;
+  --rose-poudre:#d8c1cc;
+  --blanc:#ffffff;
+  --texte:#3a1d2b;
+  --texte-doux:#6f5a64;
+  --flamme:#f3a35b;
+  --f-titre:'Grenze Gotisch', Georgia, serif;
+  --f-texte:'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--rose-pale);line-height:1.6;font-size:clamp(1rem,.95rem + .25vw,1.1rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--prune);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-titre);font-weight:600;line-height:1.05;color:var(--bordeaux)}
+h2{font-size:clamp(2.2rem,1.6rem + 3vw,4rem)}
+.eyebrow{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--prune);font-weight:500}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.6rem;border-radius:999px;font-weight:500;text-decoration:none;border:1.5px solid transparent;cursor:pointer;font-family:inherit;font-size:1rem;transition:transform .3s var(--ease),background .3s,color .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--prune);color:#fff;box-shadow:0 10px 24px -12px var(--prune)}
+.btn-main:hover{background:var(--bordeaux)}
+.btn-ghost{border-color:var(--prune);color:var(--prune);background:transparent}
+.btn-ghost:hover{background:var(--prune);color:#fff}
+.btn-mauve{background:var(--mauve);color:#fff}
+.btn-mauve:hover{background:var(--mauve-dark)}
+
+/* bandeau démo */
+.demo{background:var(--aubergine);color:var(--rose-poudre);font-size:.8rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:#fff;font-weight:500}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(246,237,242,.82);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid rgba(116,49,76,.12);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px -18px rgba(44,17,36,.45)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:1rem}
+.logo{font-family:var(--f-titre);font-size:1.9rem;color:var(--bordeaux);text-decoration:none;font-weight:800;letter-spacing:.01em}
+.logo span{color:var(--mauve)}
+.menu{display:flex;gap:1.6rem;list-style:none;font-size:.92rem}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:100%;background:var(--prune);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-cta{display:flex;align-items:center;gap:.8rem}
+.cart{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(116,49,76,.25);text-decoration:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:22px;height:2px;background:var(--bordeaux);margin:5px auto;transition:.3s}
+@media (max-width:980px){
+  .menu{position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--rose-pale);padding:1.5rem 16px 2rem;gap:1rem;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .35s,transform .45s var(--ease),visibility .35s;box-shadow:0 20px 40px -20px rgba(44,17,36,.4)}
+  .menu.open{opacity:1;visibility:visible;transform:none}
+  .burger{display:block}
+  .nav-cta .btn{display:none}
+}
+
+/* HERO — mot géant + bijou flottant */
+.hero{position:relative;min-height:calc(100svh - 100px);display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem;overflow:hidden;padding:2.2rem 0 2.5rem;isolation:isolate}
+.stage{position:relative;padding:1.5rem 0}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 55% at 50% 55%,#fff 0%,var(--rose-pale) 55%,var(--rose-poudre) 120%);z-index:-2}
+.ember{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(243,163,91,.38),rgba(180,151,173,.18) 45%,transparent 70%);filter:blur(10px);z-index:-1;pointer-events:none;transform:translate(-50%,-50%);left:50%;top:55%;transition:left .9s var(--ease),top .9s var(--ease);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.7;scale:1.08}}
+.hero-top{margin-left:max(16px,calc((100% - 1200px)/2));font-size:.8rem;letter-spacing:.26em;text-transform:uppercase;color:var(--prune);line-height:2}
+.hero-top i{display:block;width:40px;height:1px;background:var(--prune);margin-top:.4rem}
+.giant{white-space:nowrap;font-family:var(--f-titre);font-weight:800;font-size:clamp(4.2rem,2rem + 15vw,15rem);line-height:.85;color:var(--bordeaux);text-align:center;letter-spacing:-.01em;user-select:none;position:relative}
+.giant .l{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);animation:rise 1s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.jewel{position:absolute;left:50%;top:50%;width:clamp(170px,14vw + 80px,320px);aspect-ratio:1;transform:translate(-50%,-46%);border-radius:50%;overflow:hidden;box-shadow:0 40px 60px -30px rgba(44,17,36,.55),0 0 0 10px rgba(255,255,255,.55);animation:float 6s ease-in-out infinite;z-index:2}
+.jewel img{width:100%;height:100%;object-fit:cover}
+@keyframes float{50%{transform:translate(-50%,-52%) rotate(-2deg)}}
+.hero-bottom{position:relative}
+.hero-bottom .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}
+.hero-copy{max-width:470px}
+.hero-copy h1{font-size:clamp(1.8rem,1.3rem + 1.6vw,2.6rem);margin-bottom:.6rem}
+.hero-copy p{color:var(--texte-doux);margin-bottom:1.3rem}
+.hero-copy .btns{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-tags{text-align:right;font-size:.78rem;letter-spacing:.24em;text-transform:uppercase;color:var(--prune);line-height:2.1}
+@media (max-width:760px){
+  .hero{min-height:auto;padding:1.6rem 0 2rem}
+  .giant{font-size:19vw}
+  .stage{padding:3.2rem 0}
+  .jewel{width:150px}
+  .hero-tags{text-align:left}
+}
+
+/* bande promesses */
+.promises{background:var(--aubergine);color:var(--rose-pale)}
+.promises .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.promise{background:var(--aubergine);padding:2rem 1.4rem;display:flex;gap:1rem;align-items:flex-start}
+.promise svg{flex:none;width:34px;height:34px;stroke:var(--mauve);fill:none;stroke-width:1.5}
+.promise h3{font-family:var(--f-texte);font-size:1rem;font-weight:600;color:#fff;margin-bottom:.2rem;letter-spacing:.02em}
+.promise p{font-size:.9rem;color:var(--rose-poudre)}
+@media (max-width:860px){.promises .wrap{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.promises .wrap{grid-template-columns:1fr}}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+section{position:relative}
+.sec{padding:clamp(4rem,3rem + 5vw,8rem) 0}
+
+/* parcours du verre (scrollytelling) */
+.journey{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+.journey-sticky{position:sticky;top:110px}
+.journey-sticky p{color:var(--texte-doux);margin-top:1.2rem;max-width:440px}
+.glassbar{margin-top:2rem;height:6px;border-radius:9px;background:var(--rose-poudre);overflow:hidden;max-width:440px}
+.glassbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--mauve),var(--flamme),var(--prune));border-radius:9px;transition:width .2s linear}
+.steps{list-style:none;display:grid;gap:1.4rem}
+.step{background:#fff;border-radius:var(--r);padding:1.8rem 1.8rem 1.8rem 5rem;position:relative;border:1px solid rgba(116,49,76,.1);transition:transform .5s var(--ease),box-shadow .5s,border-color .5s}
+.step.on{border-color:var(--mauve);box-shadow:0 30px 50px -35px rgba(86,31,55,.55);transform:translateX(-6px)}
+.step .n{position:absolute;left:1.6rem;top:1.5rem;font-family:var(--f-titre);font-size:2.4rem;color:var(--mauve);line-height:1}
+.step h3{font-size:1.7rem;margin-bottom:.4rem}
+.step p{color:var(--texte-doux);font-size:.97rem}
+@media (max-width:860px){.journey{grid-template-columns:1fr}.journey-sticky{position:static}}
+
+/* collections */
+.coll-head{display:flex;justify-content:space-between;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:1px solid rgba(116,49,76,.3);background:transparent;border-radius:999px;padding:.55rem 1rem;font-family:inherit;font-size:.88rem;color:var(--prune);cursor:pointer;transition:.25s;min-height:40px}
+.chip:hover{border-color:var(--prune)}
+.chip[aria-pressed="true"]{background:var(--prune);color:#fff;border-color:var(--prune)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.3rem}
+.card{background:#fff;border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s,opacity .4s;border:1px solid rgba(116,49,76,.08)}
+.card:hover{transform:translateY(-6px);box-shadow:0 30px 40px -30px rgba(86,31,55,.6)}
+.card .ph{aspect-ratio:1;overflow:hidden;background:var(--rose-poudre)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover img{transform:scale(1.07)}
+.card .meta{padding:1rem 1.1rem 1.2rem;display:flex;justify-content:space-between;gap:.6rem;align-items:baseline}
+.card h3{font-family:var(--f-texte);font-size:1rem;font-weight:500;color:var(--texte)}
+.card small{display:block;color:var(--texte-doux);font-size:.8rem}
+.card .price{font-weight:600;color:var(--prune);white-space:nowrap}
+.card.hide{display:none}
+.coll-foot{margin-top:2rem;text-align:center}
+
+/* ATELIERS — outil central */
+.atelier-sec{background:linear-gradient(180deg,var(--aubergine),var(--bordeaux));color:var(--rose-pale);overflow:hidden}
+.atelier-sec h2{color:#fff}
+.atelier-sec .eyebrow{color:var(--mauve)}
+.atelier-intro{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem}
+.atelier-intro p{color:var(--rose-poudre)}
+@media (max-width:860px){.atelier-intro{grid-template-columns:1fr;gap:1rem}}
+.planner{display:grid;grid-template-columns:1.45fr 1fr;gap:1.5rem;align-items:start}
+@media (max-width:960px){.planner{grid-template-columns:1fr}}
+.pbox{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:clamp(1.2rem,2.5vw,2rem)}
+.pstep{margin-bottom:2rem}
+.pstep:last-child{margin-bottom:0}
+.pstep h3{font-family:var(--f-texte);font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mauve);font-weight:500;margin-bottom:1rem;display:flex;align-items:center;gap:.7rem}
+.pstep h3 b{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--mauve);color:var(--aubergine);font-size:.8rem;letter-spacing:0}
+.workshops{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:560px){.workshops{grid-template-columns:1fr}}
+.ws{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;border:2px solid transparent;background:rgba(0,0,0,.2);text-align:left;color:inherit;font-family:inherit;padding:0;transition:border-color .3s,transform .3s var(--ease)}
+.ws:hover{transform:translateY(-3px)}
+.ws[aria-checked="true"]{border-color:var(--flamme)}
+.ws img{width:100%;aspect-ratio:16/9;object-fit:cover;opacity:.85;transition:opacity .3s}
+.ws[aria-checked="true"] img{opacity:1}
+.ws .wt{padding:.8rem 1rem 1rem}
+.ws strong{display:block;color:#fff;font-weight:500;font-size:.98rem;line-height:1.3}
+.ws span{font-size:.82rem;color:var(--rose-poudre)}
+.ws .tick{position:absolute;top:.6rem;right:.6rem;width:28px;height:28px;border-radius:50%;background:var(--flamme);color:var(--aubergine);display:grid;place-items:center;font-weight:700;transform:scale(0);transition:transform .35s var(--ease-spring,cubic-bezier(.34,1.56,.64,1))}
+.ws[aria-checked="true"] .tick{transform:scale(1)}
+.row{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.stepper{display:flex;align-items:center;border:1px solid rgba(255,255,255,.25);border-radius:999px;overflow:hidden}
+.stepper button{width:46px;height:46px;background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer}
+.stepper button:hover{background:rgba(255,255,255,.1)}
+.stepper output{min-width:44px;text-align:center;font-size:1.1rem;font-weight:600;color:#fff}
+.opt{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1rem;border-radius:999px;border:1px solid rgba(255,255,255,.25);cursor:pointer;font-size:.92rem;user-select:none;transition:.25s;min-height:44px}
+.opt input{accent-color:var(--flamme)}
+.opt:has(input:checked){background:rgba(243,163,91,.16);border-color:var(--flamme);color:#fff}
+.glass-types{display:flex;flex-wrap:wrap;gap:.5rem}
+.note{font-size:.85rem;color:var(--rose-poudre);margin-top:.8rem;line-height:1.5}
+.fade{transition:opacity .4s,max-height .5s var(--ease);overflow:hidden}
+.fade.off{opacity:.35;pointer-events:none}
+textarea,input[type=text],input[type=email]{width:100%;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;padding:.8rem 1rem;font-family:inherit;font-size:.95rem}
+textarea::placeholder,input::placeholder{color:rgba(216,193,204,.6)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem}
+@media (max-width:560px){.fields{grid-template-columns:1fr}}
+.summary{position:sticky;top:100px;background:var(--rose-pale);color:var(--texte);border-radius:22px;padding:1.8rem;box-shadow:0 40px 60px -40px #000}
+.summary h3{font-size:2rem;margin-bottom:1rem}
+.sum-line{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed rgba(116,49,76,.25);font-size:.93rem}
+.sum-line span:first-child{color:var(--texte-doux)}
+.sum-line span:last-child{text-align:right;font-weight:500}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:1.2rem 0 .3rem}
+.total b{font-family:var(--f-titre);font-size:2.8rem;color:var(--prune);line-height:1}
+.summary .small{font-size:.8rem;color:var(--texte-doux);margin-bottom:1.2rem}
+.summary .btn{width:100%;justify-content:center}
+.summary .alt{display:block;text-align:center;margin-top:.8rem;font-size:.88rem;color:var(--prune)}
+.toast{margin-top:1rem;font-size:.85rem;color:var(--prune);min-height:1.2em}
+
+/* atelier galerie */
+.flame-strip{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:1rem;margin-top:3rem}
+.flame-strip figure{border-radius:18px;overflow:hidden;position:relative}
+.flame-strip img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.flame-strip figcaption{position:absolute;left:.8rem;bottom:.8rem;background:rgba(44,17,36,.7);color:#fff;font-size:.78rem;padding:.3rem .7rem;border-radius:999px}
+@media (max-width:760px){.flame-strip{grid-template-columns:1fr}}
+
+/* à propos */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.about-img{border-radius:28px;overflow:hidden;position:relative}
+.about-img img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:28% center;transition:transform 1.5s var(--ease)}
+.about-img:hover img{transform:scale(1.04)}
+.about p{color:var(--texte-doux);margin-top:1rem}
+.about blockquote{font-family:var(--f-titre);font-size:clamp(1.6rem,1.2rem + 1.5vw,2.3rem);color:var(--prune);margin:1.6rem 0;line-height:1.15}
+.about ul{list-style:none;margin-top:1.4rem;display:grid;gap:.6rem}
+.about li{display:flex;gap:.7rem;align-items:center}
+.about li::before{content:"";width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--mauve) 60%,var(--prune));flex:none}
+@media (max-width:860px){.about{grid-template-columns:1fr}}
+
+/* avis */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.review{background:#fff;border-radius:var(--r);padding:1.8rem;border:1px solid rgba(116,49,76,.08);display:flex;flex-direction:column;gap:1rem}
+.review p{font-size:.97rem}
+.review footer{margin-top:auto;font-size:.85rem;color:var(--texte-doux)}
+.review footer b{color:var(--texte);font-weight:600;display:block}
+.stars{color:#e0a03a;letter-spacing:2px}
+@media (max-width:900px){.reviews{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--rose-poudre)}
+.contact-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:2rem}
+.cbox{background:#fff;border-radius:22px;padding:2rem}
+.cbox h3{font-size:1.9rem;margin-bottom:1rem}
+.cline{display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px solid rgba(116,49,76,.12)}
+.cline:last-child{border:0}
+.cline span{min-width:110px;color:var(--texte-doux);font-size:.9rem}
+.cline a{text-decoration:none;color:var(--prune);font-weight:500}
+.map{border-radius:22px;overflow:hidden;min-height:320px;border:0;width:100%;height:100%}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+
+footer.site{background:var(--aubergine);color:var(--rose-poudre);padding:3rem 0 2rem;font-size:.88rem}
+footer.site .logo{color:#fff}
+.foot-grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+.foot-grid ul{list-style:none;display:grid;gap:.4rem}
+.foot-grid a{text-decoration:none}
+.foot-grid a:hover{color:#fff}
+.disclaimer{border-top:1px solid rgba(255,255,255,.12);padding-top:1.5rem;font-size:.78rem;line-height:1.6;color:#b9a1ad}
+
+.mobile-cta{display:none}
+@media (max-width:760px){
+  .mobile-cta{display:flex;position:fixed;left:16px;right:16px;bottom:16px;z-index:60;justify-content:center;box-shadow:0 20px 30px -10px rgba(44,17,36,.6);transform:translateY(120px);transition:transform .5s var(--ease)}
+  .mobile-cta.show{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .giant .l{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Store",
+  "name":"Verre d'Art",
+  "description":"Bijoux et objets façonnés au chalumeau à partir de verre non recyclable. Ateliers d'initiation au verre filé et de recyclage de verre.",
+  "url":"https://www.verredart.fr/",
+  "telephone":"+33695957516",
+  "email":"verredart@gmail.com",
+  "founder":{"@type":"Person","name":"Andreia Matos"},
+  "address":{"@type":"PostalAddress","streetAddress":"30 place Mario Meunier","postalCode":"42310","addressLocality":"Le Crozet","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[{"@type":"Place","name":"Le Crozet"},{"@type":"Place","name":"Roannais"},{"@type":"Place","name":"Marcenat (Allier)"},{"@type":"Country","name":"France"}],
+  "sameAs":["https://www.facebook.com/Verredart"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de refonte</b> pour Verre d'Art · contenus et tarifs repris du site actuel, à titre indicatif</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top">Verre <span>d'</span>Art</a>
+    <ul class="menu" id="menu">
+      <li><a href="#collections">Nouveautés</a></li>
+      <li><a href="#collections">Bijoux</a></li>
+      <li><a href="#collections">Maison &amp; accessoires</a></li>
+      <li><a href="#parcours">Le verre</a></li>
+      <li><a href="#ateliers">Les ateliers</a></li>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-main" href="#ateliers">Réserver un atelier</a>
+      <a class="cart" href="https://www.verredart.fr/panier-verre-dart/" aria-label="Panier"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#561f37" stroke-width="1.6"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero">
+  <div class="ember" id="ember" aria-hidden="true"></div>
+  <div class="hero-top">Verre récupéré<br>Façonné à la flamme<br>Le Crozet — Loire<i></i></div>
+  <div class="stage">
+    <div class="giant" aria-hidden="true" id="giant">Verre d'Art</div>
+    <div class="jewel"><img src="https://www.verredart.fr/wp-content/uploads/2026/11/Pendentif-bordeaux-irise-sur-velours-rose.png" alt="Pendentif Mosaïque d'Iris en verre recyclé"></div>
+  </div>
+  <div class="hero-bottom">
+    <div class="wrap">
+      <div class="hero-copy rv">
+        <h1>Le verre renaît en créations d'exception</h1>
+        <p>Bijoux et objets d'art façonnés à la flamme, à partir de verres destinés à être jetés. Du cristal aux anciens lustres, chaque fragment retrouve une seconde vie.</p>
+        <div class="btns">
+          <a class="btn btn-main" href="#collections">Découvrir les créations</a>
+          <a class="btn btn-ghost" href="#ateliers">Voir les ateliers</a>
+        </div>
+      </div>
+      <div class="hero-tags rv">Fait main en France<br>Pièces uniques<br>Depuis 2006</div>
+    </div>
+  </div>
+</section>
+
+<section class="promises" aria-label="Engagements">
+  <div class="wrap">
+    <div class="promise"><svg viewBox="0 0 24 24"><path d="M7 4h10l-1 16H8z"/><path d="M7.5 9h9"/><path d="M4 20l3-3M20 20l-3-3"/></svg><div><h3>Verre récupéré</h3><p>Des verres exclus des filières classiques.</p></div></div>
+    <div class="promise"><svg viewBox="0 0 24 24"><path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-3l-2.5-4.5a1.5 1.5 0 0 1 2.6-1.5L7 13"/></svg><div><h3>Fait main en France</h3><p>Chaque création est façonnée à la main dans mon atelier.</p></div></div>
+    <div class="promise"><svg viewBox="0 0 24 24"><path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-6 1.5 1 2 2 2 3 1-2 1-4 1-7z"/></svg><div><h3>Façonné au chalumeau</h3><p>Le verre se transforme dans la flamme.</p></div></div>
+    <div class="promise"><svg viewBox="0 0 24 24"><path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3l3 18 3-18"/></svg><div><h3>Pièces uniques</h3><p>Chaque création possède sa propre histoire.</p></div></div>
+  </div>
+</section>
+
+<section class="sec" id="parcours">
+  <div class="wrap journey">
+    <div class="journey-sticky rv">
+      <span class="eyebrow">Une démarche écoresponsable</span>
+      <h2 style="margin-top:.8rem">Ce que l'on considère comme perdu peut devenir précieux</h2>
+      <p>Contrairement à la plupart des verriers, aucun verre neuf : tout commence par de la récupération. Vaisselle brisée, vitraux anciens, pyrex, cristal — un verre trop souvent destiné à l'enfouissement.</p>
+      <div class="glassbar" aria-hidden="true"><i id="glassbar"></i></div>
+    </div>
+    <ol class="steps" id="steps">
+      <li class="step rv"><span class="n">01</span><h3>Récupérer</h3><p>Auprès de particuliers, de recycleries, ou lors de collectes organisées avec des mairies.</p></li>
+      <li class="step rv"><span class="n">02</span><h3>Trier, tester, couper</h3><p>Chaque verre est trié et testé : tous ne réagissent pas de la même manière à la chaleur.</p></li>
+      <li class="step rv"><span class="n">03</span><h3>Filer à la flamme</h3><p>Une pratique minutieuse, lente et exigeante, au chalumeau, pour lui donner une nouvelle forme.</p></li>
+      <li class="step rv"><span class="n">04</span><h3>Une pièce unique</h3><p>Bijou, objet ou accessoire : une trace tangible d'un engagement — moins de déchets, plus de sens.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="collections" style="padding-top:0">
+  <div class="wrap">
+    <div class="coll-head">
+      <div class="rv"><span class="eyebrow">Découvrez les dernières créations</span><h2 style="margin-top:.6rem">Les collections</h2></div>
+      <div class="chips" role="group" aria-label="Filtrer les créations">
+        <button class="chip" aria-pressed="true" data-f="all">Tout</button>
+        <button class="chip" aria-pressed="false" data-f="bo">Boucles d'oreilles</button>
+        <button class="chip" aria-pressed="false" data-f="col">Colliers</button>
+        <button class="chip" aria-pressed="false" data-f="olf">Colliers olfactifs</button>
+        <button class="chip" aria-pressed="false" data-f="bro">Broches &amp; épingles</button>
+        <button class="chip" aria-pressed="false" data-f="bra">Bracelets</button>
+        <button class="chip" aria-pressed="false" data-f="mai">Maison</button>
+      </div>
+    </div>
+    <div class="grid" id="grid">
+      <a class="card rv" data-c="col" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/collier-en-verre-recycle/collier-verre-artisanal-mosaique-iris/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Pendentif-bordeaux-irise-sur-velours-rose.png" alt="Collier Mosaïque d'Iris"></div><div class="meta"><div><h3>Mosaïque d'Iris</h3><small>Collier</small></div><span class="price">49,00 €</span></div></a>
+      <a class="card rv" data-c="bo" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/boucles-doreilles-en-verre-recycle/boucles-oreilles-verre-reflets-de-prune/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Boucles-doreilles-en-verre-marbre.png" alt="Boucles d'oreilles Reflets de Prune"></div><div class="meta"><div><h3>Reflets de Prune</h3><small>Boucles d'oreilles</small></div><span class="price">39,00 €</span></div></a>
+      <a class="card rv" data-c="bro" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/broches-verre-recycle-et-cuir/floraison-celeste/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Broche-fleur-en-verre-turquoise.png" alt="Broche Floraison Céleste"></div><div class="meta"><div><h3>Floraison Céleste</h3><small>Broche</small></div><span class="price">36,00 €</span></div></a>
+      <a class="card rv" data-c="col" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/collier-en-verre-recycle/collier-verre-mineral-vestige-de-lumiere/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Collier-en-verre-ambre-sur-fond-rose-pastel.png" alt="Collier Vestige de Lumière"></div><div class="meta"><div><h3>Vestige de Lumière</h3><small>Collier</small></div><span class="price">42,00 €</span></div></a>
+      <a class="card rv" data-c="olf col" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/collier-en-verre-recycle/collier-olfactif-cristal-murmure-de-cristal/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Pendentif-en-verre-bulle-sur-fond-rose-poudre-1.png" alt="Collier olfactif Murmure de Cristal"></div><div class="meta"><div><h3>Murmure de Cristal</h3><small>Collier olfactif</small></div><span class="price">52,00 €</span></div></a>
+      <a class="card rv" data-c="bo" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/boucles-doreilles-en-verre-recycle/boucles-oreilles-verre-souffle-souffle-de-sepia/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Boucles-doreilles-ambrees-sur-fond-rose-velours.png" alt="Boucles d'oreilles Souffle de Sépia"></div><div class="meta"><div><h3>Souffle de Sépia</h3><small>Boucles d'oreilles</small></div><span class="price">39,00 €</span></div></a>
+      <a class="card rv" data-c="bra" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/bracelets-en-verre-recycle/bracelet-verre-recycle-groseilles-enchantees/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/10/bracelet-groseilles-1.png" alt="Bracelet Groseilles Enchantées"></div><div class="meta"><div><h3>Groseilles Enchantées</h3><small>Bracelet</small></div><span class="price">58,00 €</span></div></a>
+      <a class="card rv" data-c="bro" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/broches-verre-recycle-et-cuir/broche-fleur-verre-rose-de-grenat/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Broche-rose-en-verre-pourpre.png" alt="Broche Rose de Grenat"></div><div class="meta"><div><h3>Rose de Grenat</h3><small>Broche</small></div><span class="price">36,00 €</span></div></a>
+      <a class="card rv" data-c="olf" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/bijoux-diffuseurs-huiles-essentielles-femme/pendentif-olfactif-verre-recycle-bleu/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/03/IMG_6020.jpg" alt="Pendentif olfactif Goutte Cobalt"></div><div class="meta"><div><h3>Goutte Cobalt</h3><small>Collier olfactif</small></div><span class="price">39,00 €</span></div></a>
+      <a class="card rv" data-c="bro" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/pince-cheveux-verre-recycle-non-recyclable/epingle-cheveux-verre-aube-imperiale/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Epingle-a-cheveux-florale-argentee.png" alt="Épingle à cheveux Aube Impériale"></div><div class="meta"><div><h3>Aube Impériale</h3><small>Épingle à cheveux</small></div><span class="price">29,00 €</span></div></a>
+      <a class="card rv" data-c="mai" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/porte-encens-verre-recycle/porte-encens-verre-recycle-violet/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/01/encens-violet.png" alt="Porte-encens Fleur des Songes"></div><div class="meta"><div><h3>Fleur des Songes</h3><small>Porte-encens</small></div><span class="price">29,00 €</span></div></a>
+      <a class="card rv" data-c="mai" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/art-de-la-table-verre-recycle-non-recyclable/infuseurs-a-the-en-verre-non-recyclable-art-de-la-table-verre-recycle-non-recyclable/boule-the-verre-recycle/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2025/11/IMG_5500.jpg" alt="Infuseur à thé Onde Azur"></div><div class="meta"><div><h3>Onde Azur</h3><small>Infuseur à thé</small></div><span class="price">30,00 €</span></div></a>
+      <a class="card rv" data-c="bra" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/bracelets-en-verre-recycle/bracelet-en-verre-recycle-citrons-bijou-vitamine-fait-main/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/01/presentoire-citrons.png" alt="Bracelet Zeste de Soleil"></div><div class="meta"><div><h3>Zeste de Soleil</h3><small>Bracelet</small></div><span class="price">38,00 €</span></div></a>
+      <a class="card rv" data-c="olf" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/bijoux-diffuseurs-huiles-essentielles-femme/pendentif-olfactif-verre-recycle-artisanal/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/06/IMG_6362.jpg" alt="Pendentif olfactif Essence de Verre"></div><div class="meta"><div><h3>Essence de Verre</h3><small>Collier olfactif</small></div><span class="price">39,00 €</span></div></a>
+      <a class="card rv" data-c="bro" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/pince-cheveux-verre-recycle-non-recyclable/pic-chignon-rose-verre-recycle-artisanal/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/06/IMG_6291.jpg" alt="Pic à chignon Rose de Minuit"></div><div class="meta"><div><h3>Rose de Minuit</h3><small>Épingle à cheveux</small></div><span class="price">36,00 €</span></div></a>
+      <a class="card rv" data-c="col" href="https://www.verredart.fr/verre-dart-bijoux-en-verre-recycle/breloques-en-verre-recycle-non-recyclable/pampille-verre-recycle-ange-esperance/"><div class="ph"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2026/11/Pendentif-ange-vert-sur-velours-rose.png" alt="Pampille Ange d'Espérance"></div><div class="meta"><div><h3>Ange d'Espérance</h3><small>Pampille</small></div><span class="price">12,00 €</span></div></a>
+    </div>
+    <div class="coll-foot"><a class="btn btn-ghost" href="https://www.verredart.fr/toutes-les-collections/">Voir toutes les collections</a></div>
+  </div>
+</section>
+
+<section class="sec atelier-sec" id="ateliers">
+  <div class="wrap">
+    <div class="atelier-intro">
+      <div class="rv"><span class="eyebrow">Les ateliers — un savoir-faire vivant</span><h2 style="margin-top:.8rem">Préparez votre atelier en quelques clics</h2></div>
+      <p class="rv">Initiez-vous au verre filé au chalumeau, explorez le recyclage créatif ou laissez-vous séduire par la dentelle de frivolité. Choisissez votre atelier, le nombre de participants et vos disponibilités : Andreia reçoit une demande complète et vous propose une date.</p>
+    </div>
+
+    <div class="planner">
+      <div class="pbox">
+        <div class="pstep">
+          <h3><b>1</b>Choisissez votre atelier</h3>
+          <div class="workshops" role="radiogroup" aria-label="Atelier" id="workshops">
+            <button class="ws" role="radio" aria-checked="true" data-id="init" data-name="Initiation au verre filé" data-price="95" data-dur="2 h" data-age="Dès 11 ans" data-unit="participant">
+              <img src="https://www.verredart.fr/wp-content/uploads/2024/12/04f91848-838c-42e9-91da-638748010d95.png" alt="">
+              <div class="wt"><strong>Initiation au verre filé</strong><span>2 h · 95 € / participant · dès 11 ans</span></div><i class="tick">✓</i>
+            </button>
+            <button class="ws" role="radio" aria-checked="false" data-id="recy" data-name="Recyclez votre propre verre" data-price="180" data-dur="4 h" data-age="Dès 11 ans" data-unit="participant">
+              <img src="https://www.verredart.fr/wp-content/uploads/2024/12/2fb14088-a45d-46f4-83ac-69b978111077.png" alt="">
+              <div class="wt"><strong>Recyclez votre propre verre</strong><span>4 h · 180 € / participant · dès 11 ans</span></div><i class="tick">✓</i>
+            </button>
+            <button class="ws" role="radio" aria-checked="false" data-id="friv" data-name="Initiation à la dentelle de frivolité" data-price="49" data-dur="2 h" data-age="Débutants" data-unit="participant">
+              <img src="https://www.verredart.fr/wp-content/uploads/2025/09/d9fb0755-b0d7-4967-aa0b-ad634ec388a6.png" alt="">
+              <div class="wt"><strong>Dentelle de frivolité à la navette</strong><span>2 h · 49 € / participant</span></div><i class="tick">✓</i>
+            </button>
+            <button class="ws" role="radio" aria-checked="false" data-id="evjf" data-name="Épingles à cheveux mariée &amp; EVJF" data-price="55" data-dur="2 h" data-age="Débutantes" data-unit="participante">
+              <img src="https://www.verredart.fr/wp-content/uploads/2025/09/f0074463-113b-451f-b75b-8a32b7eebcc1.png" alt="">
+              <div class="wt"><strong>Épingles à cheveux mariée &amp; EVJF</strong><span>2 h · 55 € / participante</span></div><i class="tick">✓</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="pstep">
+          <h3><b>2</b>Pour qui ?</h3>
+          <div class="row">
+            <div class="stepper"><button type="button" id="minus" aria-label="Retirer un participant">−</button><output id="count" aria-live="polite">1</output><button type="button" id="plus" aria-label="Ajouter un participant">+</button></div>
+            <label class="opt"><input type="checkbox" id="gift"> C'est pour offrir</label>
+          </div>
+        </div>
+
+        <div class="pstep fade off" id="glassStep" aria-disabled="true">
+          <h3><b>3</b>Quel verre apportez-vous ?</h3>
+          <div class="glass-types" id="glassTypes">
+            <label class="opt"><input type="checkbox" value="Vaisselle"> Vaisselle</label>
+            <label class="opt"><input type="checkbox" value="Morceau de vitrail"> Morceau de vitrail</label>
+            <label class="opt"><input type="checkbox" value="Pyrex"> Pyrex</label>
+            <label class="opt"><input type="checkbox" value="Cristal"> Cristal</label>
+            <label class="opt"><input type="checkbox" value="Verre de famille / objet souvenir"> Objet souvenir</label>
+            <label class="opt"><input type="checkbox" value="Je ne sais pas"> Je ne sais pas</label>
+          </div>
+          <p class="note">Tous les verres ne réagissent pas de la même manière à la chaleur : la compatibilité de votre objet est validée avec Andreia avant l'atelier. En cas d'incompatibilité, une autre matière pourra être envisagée.</p>
+        </div>
+
+        <div class="pstep">
+          <h3><b id="stepLieu">3</b>Où et quand ?</h3>
+          <div class="row" style="margin-bottom:.8rem">
+            <label class="opt"><input type="radio" name="lieu" value="Le Crozet (Loire)" checked> Le Crozet (42)</label>
+            <label class="opt"><input type="radio" name="lieu" value="Marcenat (Allier)"> Marcenat (03)</label>
+          </div>
+          <div class="row" id="slots">
+            <label class="opt"><input type="checkbox" value="en semaine"> En semaine</label>
+            <label class="opt"><input type="checkbox" value="le week-end"> Le week-end</label>
+            <label class="opt"><input type="checkbox" value="le matin"> Le matin</label>
+            <label class="opt"><input type="checkbox" value="l'après-midi"> L'après-midi</label>
+          </div>
+          <div class="fields">
+            <input type="text" id="name" placeholder="Votre prénom et nom" autocomplete="name">
+            <input type="text" id="phone" placeholder="Téléphone (facultatif)" autocomplete="tel">
+          </div>
+          <textarea id="msg" rows="2" style="margin-top:.7rem" placeholder="Une période en tête, une précision sur votre objet en verre…"></textarea>
+        </div>
+      </div>
+
+      <aside class="summary" aria-live="polite">
+        <h3>Votre demande</h3>
+        <div class="sum-line"><span>Atelier</span><span id="sWs">Initiation au verre filé</span></div>
+        <div class="sum-line"><span>Durée</span><span id="sDur">2 h</span></div>
+        <div class="sum-line"><span>Participants</span><span id="sCount">1</span></div>
+        <div class="sum-line"><span>Lieu</span><span id="sLieu">Le Crozet (Loire)</span></div>
+        <div class="sum-line"><span>Disponibilités</span><span id="sSlots">À préciser</span></div>
+        <div class="sum-line" id="sGlassRow" hidden><span>Verre apporté</span><span id="sGlass">À préciser</span></div>
+        <div class="total"><span>Total indicatif</span><b id="sTotal">95 €</b></div>
+        <p class="small" id="sSmall">Matériel fourni · la date est convenue ensemble · tarif repris du site actuel</p>
+        <button class="btn btn-main" id="send">Envoyer ma demande à Andreia</button>
+        <a class="alt" href="tel:+33695957516">ou appeler le 06 95 95 75 16</a>
+        <p class="toast" id="toast" role="status"></p>
+      </aside>
+    </div>
+
+    <div class="flame-strip">
+      <figure class="rv"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2024/12/04f91848-838c-42e9-91da-638748010d95.png" alt="Perle de verre façonnée au chalumeau"><figcaption>Initiation au verre filé</figcaption></figure>
+      <figure class="rv"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2024/12/2fb14088-a45d-46f4-83ac-69b978111077.png" alt="Atelier recyclage de verre au chalumeau"><figcaption>Recyclez votre propre verre</figcaption></figure>
+      <figure class="rv"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2025/09/d9fb0755-b0d7-4967-aa0b-ad634ec388a6.png" alt="Dentelle de frivolité"><figcaption>Dentelle de frivolité</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="apropos">
+  <div class="wrap about">
+    <div class="about-img rv"><img loading="lazy" src="https://www.verredart.fr/wp-content/uploads/2024/05/Photo-06-05-2024-12-51-023-scaled.jpg" alt="Illustration de l'univers Verre d'Art"></div>
+    <div class="rv">
+      <span class="eyebrow">À propos</span>
+      <h2 style="margin-top:.8rem">Une artisane engagée, un verre transformé</h2>
+      <p>Je m'appelle Andreia, et je suis artisane fileuse de verre au chalumeau depuis 2006. Mon atelier est niché au cœur du village du Crozet, là où le calme de la campagne rencontre le feu du chalumeau.</p>
+      <blockquote>« Ce que l'on considère comme perdu peut devenir précieux. »</blockquote>
+      <p>Je travaille seule, à la main, et je prends le temps de façonner chaque détail pour qu'il ait une âme. Au-delà des créations, mon atelier est aussi un lieu de rencontre et de partage.</p>
+      <ul>
+        <li>Un artisanat local, fait main et durable</li>
+        <li>Le recyclage du verre non recyclable</li>
+        <li>Une économie circulaire et responsable</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0" aria-labelledby="avis-t">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">Avis publiés sur Google</span><h2 id="avis-t" style="margin-top:.6rem">Vos mots, ma plus belle récompense</h2></div>
+    <div class="reviews">
+      <article class="review rv"><span class="stars" aria-hidden="true">★★★★★</span><p>« L'atelier est convivial, passionnant et parfaitement adapté même pour des débutants. […] Andreia est une excellente pédagogue, patiente, passionnée et de très bon conseil tout au long du stage. »</p><footer><b>Ophélie Bâtard</b>Stage d'initiation aux perles en verre</footer></article>
+      <article class="review rv"><span class="stars" aria-hidden="true">★★★★★</span><p>« Bijoux magnifiques et d'une finesse exceptionnelle. Je trouve également que le principe de créer à partir de verre non recyclable est juste génial. »</p><footer><b>Bénédicte Paumen</b>Avis Google</footer></article>
+      <article class="review rv"><span class="stars" aria-hidden="true">★★★★★</span><p>« Un magnifique savoir-faire, beaucoup de créativité et un univers absolument superbe. […] Une belle adresse pour découvrir l'artisanat local et trouver une pièce vraiment originale. »</p><footer><b>Stéphan Devingt</b>Avis Google</footer></article>
+    </div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="cbox rv">
+      <span class="eyebrow">Contact</span>
+      <h3 style="margin-top:.6rem">Passer à l'atelier, poser une question</h3>
+      <div class="cline"><span>Atelier</span><div>30 place Mario Meunier<br>42310 Le Crozet</div></div>
+      <div class="cline"><span>Téléphone</span><a href="tel:+33695957516">06 95 95 75 16</a></div>
+      <div class="cline"><span>E-mail</span><a href="mailto:verredart@gmail.com">verredart@gmail.com</a></div>
+      <div class="cline"><span>Ateliers</span><div>Le Crozet (Loire) ou Marcenat (Allier), date convenue ensemble</div></div>
+      <div class="cline"><span>Suivre</span><a href="https://www.facebook.com/Verredart">Facebook — Verre d'Art</a></div>
+      <div class="row" style="margin-top:1.4rem">
+        <a class="btn btn-main" href="#ateliers">Préparer un atelier</a>
+        <a class="btn btn-ghost" href="https://www.verredart.fr/toutes-les-collections/">La boutique</a>
+      </div>
+    </div>
+    <iframe class="map rv" title="Plan d'accès — Le Crozet" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.835%2C46.155%2C3.875%2C46.180&amp;layer=mapnik"></iframe>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><a class="logo" href="#top">Verre d'Art</a><p style="margin-top:.6rem;max-width:300px">Recyclage de verre dit non recyclable — bijoux et objets façonnés au chalumeau au Crozet.</p></div>
+      <ul><li><a href="#collections">Bijoux</a></li><li><a href="#collections">Maison &amp; accessoires</a></li><li><a href="#ateliers">Les ateliers</a></li></ul>
+      <ul><li><a href="#apropos">À propos</a></li><li><a href="https://www.verredart.fr/partenaires-engages/">Partenaires</a></li><li><a href="#contact">Contact</a></li></ul>
+    </div>
+    <p class="disclaimer">Maquette de démonstration réalisée à partir du site actuel verredart.fr : textes, intitulés, tarifs des créations et des ateliers, avis Google et coordonnées en sont repris ; les prix sont indicatifs et non contractuels. Toutes les photos et l'illustration sont celles du site actuel (aucune image extérieure). Couleurs et police de titre relevées sur le site ; la police de texte courant est une proposition, ajustable. L'outil « Préparez votre atelier » ne réserve rien automatiquement : il prépare un message complet à envoyer à l'artisane. Plan indicatif.</p>
+  </div>
+</footer>
+
+<a class="btn btn-main mobile-cta" id="mcta" href="#ateliers">Préparer un atelier</a>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* lettres du mot géant */
+const g=$('#giant'); const txt=g.textContent; g.textContent='';
+[...txt].forEach((c,i)=>{const s=document.createElement('span');s.className='l';s.textContent=c===' '?' ':c;s.style.animationDelay=(i*55)+'ms';g.appendChild(s)});
+
+/* braise qui suit la souris dans le hero */
+const hero=$('#hero'), ember=$('#ember');
+if(!reduce && matchMedia('(pointer:fine)').matches){
+  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();ember.style.left=(e.clientX-r.left)+'px';ember.style.top=(e.clientY-r.top)+'px'});
+  hero.addEventListener('pointerleave',()=>{ember.style.left='50%';ember.style.top='55%'});
+}
+
+/* menu */
+const burger=$('#burger'), menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+/* header + barre de progression + CTA mobile */
+const header=$('header'), bar=$('#glassbar'), steps=$('#steps'), mcta=$('#mcta'), ateliers=$('#ateliers');
+const onScroll=()=>{
+  header.classList.toggle('scrolled',scrollY>20);
+  const r=steps.getBoundingClientRect(); const p=Math.min(1,Math.max(0,(innerHeight*.6-r.top)/r.height));
+  bar.style.width=(p*100)+'%';
+  const a=ateliers.getBoundingClientRect();
+  mcta.classList.toggle('show',scrollY>innerHeight*.8 && !(a.top<innerHeight && a.bottom>0));
+};
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+/* apparitions */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach((el,i)=>{el.style.transitionDelay=((i%4)*80)+'ms';io.observe(el)});
+const io2=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{rootMargin:'-40% 0px -40% 0px'});
+$$('.step').forEach(s=>io2.observe(s));
+
+/* filtres collections */
+$$('.chip').forEach(c=>c.addEventListener('click',()=>{
+  $$('.chip').forEach(x=>x.setAttribute('aria-pressed','false')); c.setAttribute('aria-pressed','true');
+  const f=c.dataset.f;
+  $$('#grid .card').forEach(card=>{const ok=f==='all'||card.dataset.c.split(' ').includes(f);card.classList.toggle('hide',!ok);if(ok){card.classList.add('in')}});
+}));
+
+/* outil ateliers */
+let ws=$('.ws[aria-checked="true"]'), count=1;
+const fmt=n=>n.toLocaleString('fr-FR')+' €';
+function update(){
+  const price=+ws.dataset.price, isRecy=ws.dataset.id==='recy';
+  $('#sWs').textContent=ws.dataset.name.replace('&amp;','&');
+  $('#sDur').textContent=ws.dataset.dur+' · '+ws.dataset.age.toLowerCase();
+  $('#sCount').textContent=count+' '+ws.dataset.unit+(count>1?'s':'')+($('#gift').checked?' · à offrir':'');
+  $('#sLieu').textContent=document.querySelector('input[name=lieu]:checked').value;
+  const sl=$$('#slots input:checked').map(i=>i.value); $('#sSlots').textContent=sl.length?sl.join(', '):'À préciser';
+  const gs=$('#glassStep'); gs.classList.toggle('off',!isRecy); gs.setAttribute('aria-disabled',!isRecy);
+  $('#stepLieu').textContent=isRecy?'4':'3';
+  $('#sGlassRow').hidden=!isRecy;
+  const gl=$$('#glassTypes input:checked').map(i=>i.value); $('#sGlass').textContent=gl.length?gl.join(', '):'À préciser';
+  const tot=$('#sTotal'); tot.textContent=fmt(price*count);
+  if(!reduce) tot.animate([{transform:'scale(1.12)',color:'#f3a35b'},{transform:'scale(1)'}],{duration:450,easing:'ease-out'});
+  $('#minus').disabled=count<=1;
+}
+$$('.ws').forEach(b=>b.addEventListener('click',()=>{$$('.ws').forEach(x=>x.setAttribute('aria-checked','false'));b.setAttribute('aria-checked','true');ws=b;update()}));
+$('#plus').addEventListener('click',()=>{if(count<8){count++;$('#count').textContent=count;update()}});
+$('#minus').addEventListener('click',()=>{if(count>1){count--;$('#count').textContent=count;update()}});
+$$('#ateliers input').forEach(i=>i.addEventListener('change',update));
+$('#send').addEventListener('click',()=>{
+  const lines=['Bonjour Andreia,','','Je souhaiterais réserver un atelier :',
+   '- Atelier : '+$('#sWs').textContent+' ('+ws.dataset.dur+')',
+   '- Participants : '+$('#sCount').textContent,
+   '- Lieu souhaité : '+$('#sLieu').textContent,
+   '- Disponibilités : '+$('#sSlots').textContent];
+  if(ws.dataset.id==='recy') lines.push('- Verre que je souhaite apporter : '+$('#sGlass').textContent);
+  lines.push('- Total indicatif : '+$('#sTotal').textContent);
+  if($('#msg').value.trim()) lines.push('','Précisions : '+$('#msg').value.trim());
+  lines.push('',$('#name').value.trim()||'', $('#phone').value.trim()||'');
+  const href='mailto:verredart@gmail.com?subject='+encodeURIComponent('Demande d\'atelier — '+$('#sWs').textContent)+'&body='+encodeURIComponent(lines.join('\n'));
+  location.href=href;
+  $('#toast').textContent='Votre messagerie s\'ouvre avec la demande déjà rédigée.';
+});
+update();
+})();
+</script>
+</body>
+</html>
