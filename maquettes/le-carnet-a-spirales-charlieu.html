@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Carnet à spirales — Librairie indépendante à Charlieu | Livres, papeterie, jeux</title>
+<meta name="description" content="Librairie indépendante à Charlieu depuis 2004 : 300 m² de livres, papeterie et jeux, conseils de libraires, rencontres d'auteurs et click &amp; collect place de la Bouverie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel (feuille carnet_spirales.css)
+   --crimson : rgb(187,28,64), couleur principale (rond {s} du logo, boutons)
+   --crimson-dark : #a51031, couleur de survol du site actuel
+   --teal : #28b4af, couleur de marque (boutons de recherche, liens)
+   Titres : sans-serif « à empattements évasés » proche du logo -> Tenor Sans
+   Texte : sans-serif neutre proche du site actuel -> Inter
+   ========================================================== */
+:root{
+  --crimson:#bb1c40; --crimson-dark:#a51031; --teal:#28b4af; --teal-dark:#1d8c88;
+  --ink:#111; --ink-soft:#4a4a4a; --paper:#fff; --paper-2:#f6f4f1; --line:#e4e0da;
+  --ff-title:"Tenor Sans", Optima, "Segoe UI", sans-serif;
+  --ff-text:"Inter", system-ui, sans-serif;
+  --radius:18px; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-text);color:var(--ink);background:var(--paper);line-height:1.6;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--ff-title);font-weight:400;line-height:1.15;letter-spacing:.005em}
+.kicker{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--crimson)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;font:600 .95rem var(--ff-text);padding:.85rem 1.4rem;border-radius:999px;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-crimson{background:var(--crimson);color:#fff;box-shadow:0 8px 20px -10px var(--crimson)}
+.btn-crimson:hover{background:var(--crimson-dark)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn-teal:hover{background:var(--teal-dark)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+
+/* bandeau démo */
+.demo{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:#ffb3c4}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(0,0,0,.35)}
+.topbar{font-size:.8rem;color:var(--ink-soft);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+.open-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#aaa;margin-right:.35rem;vertical-align:middle}
+.open-dot.on{background:#2fa36b;box-shadow:0 0 0 0 rgba(47,163,107,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(47,163,107,0)}100%{box-shadow:0 0 0 0 rgba(47,163,107,0)}}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.logo img{height:46px;width:auto}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--crimson);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px auto;transition:.3s}
+@media(max-width:900px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:#fff;padding:5rem 1.5rem 2rem;gap:1.2rem;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px -20px rgba(0,0,0,.3)}
+  .menu.open{transform:none}
+  .menu a{font-size:1.2rem}
+  .burger{display:block;position:relative;z-index:60}
+  .nav .btn{display:none}
+}
+
+/* héro */
+.hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(4rem,8vw,7rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4vw,5rem);margin:.8rem 0 1.2rem}
+.hero h1 .brace{color:var(--crimson)}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .3vw,1.25rem);color:var(--ink-soft);max-width:34rem}
+.search{margin-top:2rem;display:flex;background:#fff;border:1.5px solid var(--ink);border-radius:999px;padding:.35rem;max-width:560px;box-shadow:0 18px 40px -26px rgba(0,0,0,.45);transition:box-shadow .3s}
+.search:focus-within{box-shadow:0 0 0 4px rgba(40,180,175,.25)}
+.search input{flex:1;border:0;font:inherit;padding:.7rem 1.1rem;background:transparent;min-width:0}
+.search input:focus{outline:none}
+.search .btn{padding:.7rem 1.3rem}
+.search-hint{font-size:.82rem;color:var(--ink-soft);margin-top:.7rem}
+.hero-art{position:relative;aspect-ratio:1;max-width:460px;justify-self:center;width:100%}
+.hero-art svg{width:100%;height:100%;overflow:visible}
+.spiral-path{fill:none;stroke:var(--crimson);stroke-width:2.2;stroke-linecap:round}
+.book{position:absolute;width:31%;border-radius:6px;box-shadow:0 18px 30px -14px rgba(0,0,0,.45);transition:transform .6s var(--ease)}
+.book img{border-radius:6px;width:100%}
+.b1{left:6%;top:16%;transform:rotate(-8deg)}
+.b2{left:36%;top:4%;transform:rotate(3deg);z-index:2}
+.b3{right:4%;top:22%;transform:rotate(9deg)}
+.b4{left:22%;bottom:6%;transform:rotate(-3deg)}
+.b5{right:16%;bottom:2%;transform:rotate(6deg);z-index:2}
+@media(max-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr)}.hero-art{max-width:340px}}
+.hero-grid>*,.story>*,.infos>*{min-width:0}
+@media(max-width:600px){.topbar .mail{display:none}.kicker{letter-spacing:.14em}}
+
+/* reliure spirale (élément signature) */
+.ringed{position:relative;padding-top:20px}
+.ringed::before{content:"";position:absolute;left:18px;right:18px;top:0;height:22px;
+  background:radial-gradient(circle at 50% 70%,transparent 4px,var(--ink) 4.5px,var(--ink) 6px,transparent 6.5px) 0 0/22px 22px repeat-x;opacity:.85}
+
+/* sections */
+section{scroll-margin-top:110px}
+.sec{padding:clamp(4rem,8vw,7rem) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.sec-head h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin-top:.5rem}
+.sec-head p{max-width:30rem;color:var(--ink-soft)}
+.alt{background:var(--paper-2)}
+
+/* histoire */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:3.5rem;align-items:start}
+.story-intro p{color:var(--ink-soft);margin-top:1rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.stat{background:#fff;border-radius:var(--radius);padding:1.2rem;border:1px solid var(--line)}
+.stat b{display:block;font-family:var(--ff-title);font-size:2.1rem;color:var(--crimson);font-weight:400}
+.stat span{font-size:.85rem;color:var(--ink-soft)}
+.timeline{position:relative;list-style:none;padding-left:2.2rem}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline .fill{position:absolute;left:9px;top:6px;width:2px;background:var(--crimson);height:0;transition:height .2s linear}
+.timeline li{position:relative;padding:0 0 2rem}
+.timeline li::before{content:"";position:absolute;left:-2.2rem;top:.3rem;width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid var(--crimson)}
+.timeline .y{font-family:var(--ff-title);font-size:1.6rem;color:var(--crimson)}
+.timeline h3{font-family:var(--ff-text);font-weight:600;font-size:1.05rem;margin:.1rem 0 .3rem}
+.timeline p{color:var(--ink-soft);font-size:.95rem}
+.photo-slot{margin-top:1.5rem;border:2px dashed #c9c3bb;border-radius:var(--radius);aspect-ratio:16/9;display:grid;place-items:center;text-align:center;color:#8a8379;font-size:.9rem;padding:1rem;background:repeating-linear-gradient(45deg,#faf8f5 0 12px,#f3f0eb 12px 24px)}
+@media(max-width:900px){.story{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:480px){.stats{grid-template-columns:1fr}}
+
+/* outil conseil */
+.tool{background:var(--ink);color:#fff;border-radius:28px;padding:clamp(1.5rem,4vw,3.5rem);position:relative;overflow:hidden}
+.tool::after{content:"{s}";position:absolute;right:-1rem;bottom:-3.5rem;font-family:var(--ff-title);font-size:16rem;color:rgba(187,28,64,.18);pointer-events:none;line-height:1}
+.tool .kicker{color:#ff9fb5}
+.tool h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin:.5rem 0 .6rem}
+.tool > p{color:#cfcfcf;max-width:36rem}
+.step{margin-top:2rem}
+.step-label{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:#9a9a9a;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem}
+.chip{background:transparent;color:#fff;border:1.5px solid #555;border-radius:999px;padding:.6rem 1.1rem;font:500 .95rem var(--ff-text);cursor:pointer;transition:all .25s var(--ease);min-height:44px}
+.chip:hover{border-color:#fff;transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--crimson);border-color:var(--crimson)}
+.results{margin-top:2.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;position:relative;z-index:1}
+.reco{background:#fff;color:var(--ink);border-radius:var(--radius);padding:1.1rem;display:grid;grid-template-columns:86px 1fr;gap:1rem;opacity:0;transform:translateY(16px);animation:in .5s var(--ease) forwards}
+@keyframes in{to{opacity:1;transform:none}}
+.reco img{width:86px;border-radius:4px;box-shadow:0 8px 16px -8px rgba(0,0,0,.5)}
+.reco h3{font-family:var(--ff-text);font-weight:600;font-size:.98rem;line-height:1.3}
+.reco .by{font-size:.8rem;color:var(--ink-soft);margin:.15rem 0 .4rem}
+.reco p{font-size:.84rem;color:#333;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.reco a{display:inline-block;margin-top:.5rem;font-size:.85rem;font-weight:600;color:var(--crimson);text-decoration:none}
+.reco a:hover{text-decoration:underline}
+.empty{grid-column:1/-1;background:#1d1d1d;border:1px dashed #444;border-radius:var(--radius);padding:1.5rem;color:#ddd}
+.ask{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;border-top:1px solid #333;padding-top:1.8rem;position:relative;z-index:1}
+.ask p{color:#cfcfcf;flex:1 1 280px}
+
+/* rayons */
+.rayons{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1rem}
+.rayon{position:relative;display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:1.15rem 1.2rem;border-radius:14px;background:#fff;border:1px solid var(--line);text-decoration:none;font-weight:500;transition:all .3s var(--ease);overflow:hidden}
+.rayon::before{content:"";position:absolute;inset:0;background:var(--teal);transform:translateY(101%);transition:transform .35s var(--ease);z-index:0}
+.rayon span{position:relative;z-index:1}
+.rayon:hover{color:#fff;border-color:var(--teal)}
+.rayon:hover::before{transform:none}
+.rayon .arr{transition:transform .3s}
+.rayon:hover .arr{transform:translateX(4px)}
+
+/* agenda */
+.events{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem}
+.event{background:#fff;border-radius:var(--radius);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
+.event:hover{transform:translateY(-6px);box-shadow:0 24px 40px -26px rgba(0,0,0,.4)}
+.event-img{aspect-ratio:1;background:#eee;position:relative;overflow:hidden}
+.event-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.event:hover .event-img img{transform:scale(1.05)}
+.date{position:absolute;top:12px;left:12px;background:#fff;border-radius:10px;padding:.35rem .6rem;text-align:center;line-height:1.1;box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
+.date b{display:block;font-family:var(--ff-title);font-size:1.5rem;font-weight:400}
+.date span{font-size:.72rem;text-transform:uppercase;color:var(--crimson);font-weight:700}
+.event-body{padding:1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.tag{align-self:flex-start;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal-dark);background:#e3f5f4;border-radius:999px;padding:.2rem .6rem}
+.event h3{font-family:var(--ff-text);font-weight:600;font-size:1.02rem;line-height:1.35}
+.event .when{font-size:.86rem;color:var(--ink-soft)}
+.event .acts{margin-top:auto;display:flex;gap:.5rem;flex-wrap:wrap;padding-top:.6rem}
+.event .acts .btn{padding:.55rem .95rem;font-size:.84rem}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.svc{padding:1.6rem;border-radius:var(--radius);background:#fff;border:1px solid var(--line)}
+.svc .ico{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#fbe8ec;color:var(--crimson);margin-bottom:1rem}
+.svc h3{font-family:var(--ff-text);font-weight:600;font-size:1.05rem;margin-bottom:.35rem}
+.svc p{font-size:.92rem;color:var(--ink-soft)}
+@media(max-width:900px){.services{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.services{grid-template-columns:1fr}}
+
+/* livre du mois */
+.lotm{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+.lotm img{width:200px;border-radius:6px;box-shadow:0 30px 50px -24px rgba(0,0,0,.55);transform:rotate(-3deg);transition:transform .6s var(--ease)}
+.lotm img:hover{transform:rotate(0) scale(1.03)}
+.lotm blockquote{font-size:1.05rem;color:#333;border-left:3px solid var(--crimson);padding-left:1.2rem;margin:1rem 0}
+@media(max-width:700px){.lotm{grid-template-columns:1fr}.lotm img{width:160px}}
+
+/* infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.card{background:#fff;border-radius:var(--radius);padding:2rem;border:1px solid var(--line)}
+.card h3{font-size:1.6rem;margin-bottom:1rem}
+.hours{width:100%;border-collapse:collapse;font-size:.95rem}
+.hours td{padding:.5rem 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:var(--crimson);font-weight:600}
+.contact-line{display:flex;gap:.8rem;align-items:flex-start;margin:.7rem 0}
+.contact-line a{text-decoration:none;font-weight:500}
+.contact-line a:hover{color:var(--crimson)}
+.map{border:0;width:100%;height:260px;border-radius:14px;margin-top:1.2rem;filter:grayscale(.3)}
+@media(max-width:900px){.infos{grid-template-columns:1fr}}
+
+/* newsletter */
+.news{display:flex;gap:2rem;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--teal);color:#fff;border-radius:28px;padding:clamp(1.5rem,4vw,3rem)}
+.news h2{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem)}
+.news form{display:flex;gap:.5rem;flex:1 1 320px;max-width:480px;background:#fff;border-radius:999px;padding:.3rem}
+.news input{flex:1;border:0;font:inherit;padding:.6rem 1rem;border-radius:999px;min-width:0}
+.news input:focus{outline:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,160%);opacity:0;background:var(--ink);color:#fff;padding:.9rem 1.3rem;border-radius:12px;font-size:.92rem;z-index:100;transition:transform .45s var(--ease),opacity .3s;max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0);opacity:1}
+
+footer{background:var(--ink);color:#bbb;padding:3.5rem 0 2rem;font-size:.9rem}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-family:var(--ff-title);font-weight:400;font-size:1.2rem;margin-bottom:.8rem}
+footer a{text-decoration:none;color:#ddd}
+footer a:hover{color:#fff}
+footer ul{list-style:none;display:grid;gap:.35rem}
+.foot-logo{background:#fff;display:inline-block;padding:.5rem .8rem;border-radius:10px;margin-bottom:1rem}
+.foot-logo img{height:34px}
+.disclaimer{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid #333;font-size:.8rem;color:#999}
+@media(max-width:800px){.foot{grid-template-columns:1fr}}
+
+/* révélations au défilement */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"BookStore",
+ "name":"Le Carnet à spirales",
+ "legalName":"EURL ARTHIPPO",
+ "url":"https://www.librairie-lecarnetaspirales.fr/",
+ "logo":"https://static.leslibraires.fr//logos/website/470/main.webp",
+ "telephone":"+33477600855",
+ "email":"commandes@librairie-lecarnetaspirales.fr",
+ "foundingDate":"2004",
+ "address":{"@type":"PostalAddress","streetAddress":"3 bis place de la Bouverie","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+ "areaServed":"Charlieu et alentours",
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"10:00","closes":"12:30"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"14:00","closes":"19:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"10:00","closes":"19:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"19:00"}
+ ],
+ "sameAs":["https://www.facebook.com/librairielecarnetaspirales/","https://www.instagram.com/librairielecarnetaspirales/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de refonte</b> pour Le Carnet à spirales, non officielle</div>
+
+<header id="top">
+  <div class="topbar"><div class="wrap">
+    <span><span class="open-dot" id="dot"></span><span id="openTxt">Horaires</span> · 3 bis place de la Bouverie, Charlieu</span>
+    <span><a href="tel:+33477600855">04 77 60 08 55</a> <span class="mail">· <a href="mailto:commandes@librairie-lecarnetaspirales.fr">commandes@librairie-lecarnetaspirales.fr</a></span></span>
+  </div></div>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Le Carnet à spirales, accueil"><img src="https://static.leslibraires.fr//logos/website/470/main.webp" alt="Le Carnet à spirales"></a>
+    <nav aria-label="Menu principal">
+      <ul class="menu" id="menu">
+        <li><a href="#conseil">Nos conseils de lecture</a></li>
+        <li><a href="#rayons">Rayons</a></li>
+        <li><a href="#agenda">Agenda</a></li>
+        <li><a href="#librairie">Notre librairie</a></li>
+        <li><a href="#infos">Nous contacter</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-crimson" href="#conseil">Trouver mon prochain livre</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- HÉRO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker reveal">Librairie indépendante · Charlieu · depuis 2004</span>
+      <h1 class="reveal d1">Le Carnet <span class="brace">à</span> spirales</h1>
+      <p class="lead reveal d2">Livres, papeterie et jeux sur 300 m², place de la Bouverie. Des libraires qui lisent, conseillent, et commandent pour vous ce qui n'est pas en rayon.</p>
+      <form class="search reveal d3" action="https://www.librairie-lecarnetaspirales.fr/recherche/" method="get" role="search" target="_blank">
+        <label for="q" class="sr" style="position:absolute;left:-9999px">Rechercher un livre</label>
+        <input id="q" name="q" type="search" placeholder="Titre, auteur, éditeur, collection…" autocomplete="off">
+        <button class="btn btn-teal" type="submit">Rechercher</button>
+      </form>
+      <p class="search-hint reveal d3">Recherche dans le vrai catalogue de la librairie · retrait en magasin, livraison ou point relais</p>
+    </div>
+    <div class="hero-art reveal d2" id="heroArt" aria-hidden="true">
+      <svg viewBox="0 0 400 400"><path id="spiral" class="spiral-path" d=""/></svg>
+      <a class="book b1" href="#conseil" tabindex="-1"><img src="https://leslibraires.b-cdn.net/K5-nJJCuWyNLRHGHy8XAp_dqv4vbtxLAhWtEITScI5A/s:250:300/MTM0Mzg2MDg.webp" alt=""></a>
+      <a class="book b2" href="#conseil" tabindex="-1"><img src="https://leslibraires.b-cdn.net/U82YktQ78jMYSozGpmyBuLDAqjgYIRqwhh6NMN6mo0s/s:250:300/MTcwMjIwOTE.webp" alt=""></a>
+      <a class="book b3" href="#conseil" tabindex="-1"><img src="https://leslibraires.b-cdn.net/1cdorA1swL_2WAJiD6HcwKQiPGW6rotnl7Uaf9K97FA/s:250:300/MTMyODc5OTk.webp" alt=""></a>
+      <a class="book b4" href="#conseil" tabindex="-1"><img src="https://leslibraires.b-cdn.net/h4U-xPdzbpH_ouK9jpzobTOaSdwmaGRI94pVRFNaMRk/s:250:300/MTYyNDUxNzA.webp" alt=""></a>
+      <a class="book b5" href="#conseil" tabindex="-1"><img src="https://leslibraires.b-cdn.net/DVYb0B0fJ5cxIC6l7RHFIC4AcjUEbaaf_pJsxx1TNRo/s:250:300/MTY5NzQ2NTg.webp" alt=""></a>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CONSEIL -->
+<section id="conseil" class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="tool reveal">
+      <span class="kicker">Le conseil du Carnet</span>
+      <h2>Pour qui, et quelle envie ?</h2>
+      <p>Deux clics, et les coups de cœur de l'équipe ressortent, avec leur avis complet. Un livre vous plaît : réservez-le, il vous attend en caisse.</p>
+
+      <div class="step">
+        <div class="step-label">1 · Pour qui ?</div>
+        <div class="chips" id="who">
+          <button class="chip" data-v="bebe" aria-pressed="false">Un bébé</button>
+          <button class="chip" data-v="petit" aria-pressed="false">Un enfant de 3 à 6 ans</button>
+          <button class="chip" data-v="enfant" aria-pressed="false">Un enfant de 8 ans et +</button>
+          <button class="chip" data-v="ado" aria-pressed="false">Un ado</button>
+          <button class="chip" data-v="adulte" aria-pressed="true">Un adulte</button>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-label">2 · Quelle envie ?</div>
+        <div class="chips" id="mood">
+          <button class="chip" data-v="tout" aria-pressed="true">Surprenez-moi</button>
+          <button class="chip" data-v="rire" aria-pressed="false">Rire</button>
+          <button class="chip" data-v="frisson" aria-pressed="false">Frissonner</button>
+          <button class="chip" data-v="reve" aria-pressed="false">Rêver</button>
+          <button class="chip" data-v="comprendre" aria-pressed="false">Comprendre le monde</button>
+          <button class="chip" data-v="offrir" aria-pressed="false">Offrir</button>
+        </div>
+      </div>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="ask">
+        <p>Rien qui colle ? Décrivez ce que vous avez aimé dernièrement, un libraire vous répond avec une sélection faite à la main.</p>
+        <a class="btn btn-crimson" id="askBtn" href="mailto:commandes@librairie-lecarnetaspirales.fr?subject=Demande%20de%20conseil%20de%20lecture">Demander un conseil à un libraire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIVRE DU MOIS -->
+<section class="sec alt">
+  <div class="wrap lotm">
+    <img class="reveal" src="https://leslibraires.b-cdn.net/K5-nJJCuWyNLRHGHy8XAp_dqv4vbtxLAhWtEITScI5A/s:250:300/MTM0Mzg2MDg.webp" alt="Couverture de La Petite Communiste qui ne souriait jamais, Lola Lafon">
+    <div class="reveal d1">
+      <span class="kicker">Livre du mois · Novembre 2026</span>
+      <h2 style="font-size:clamp(1.8rem,1.3rem + 2vw,2.8rem);margin-top:.5rem">La Petite Communiste qui ne souriait jamais</h2>
+      <p style="color:var(--ink-soft)">Lola Lafon · Actes Sud</p>
+      <blockquote>« Chaque mois, le Carnet vous propose un roman classique ou contemporain sorti de son fonds littéraire français ou traduit. » … « A lire absolument. »</blockquote>
+      <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.librairie-lecarnetaspirales.fr/livre/23345303-la-petite-communiste-qui-ne-souriait-jamais-lola-lafon-actes-sud?review=155198#reviews-anchor">Lire l'avis et réserver</a>
+    </div>
+  </div>
+</section>
+
+<!-- RAYONS -->
+<section id="rayons" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="kicker">Rayons</span><h2>Tout le Carnet, rayon par rayon</h2></div>
+      <p>Les rayons de la librairie, reliés au catalogue en ligne : disponibilité en temps réel et commande en click &amp; collect.</p>
+    </div>
+    <div class="rayons" id="rayonGrid"></div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section id="agenda" class="sec alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="kicker">Dans l'agenda</span><h2>Rencontres, dédicaces, lectures</h2></div>
+      <p>Places limitées pour la plupart des rencontres : réservez en ligne et ajoutez la date à votre agenda en un clic.</p>
+    </div>
+    <div class="events" id="events"></div>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section id="librairie" class="sec">
+  <div class="wrap story">
+    <div class="story-intro reveal">
+      <span class="kicker">Notre librairie</span>
+      <h2 style="font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin-top:.5rem">De 25 m² à une librairie où l'on vient exprès</h2>
+      <p>Ouverte en 2004 par Jean-Baptiste et Christelle Hamelin, la librairie a grandi avec ses lecteurs, jusqu'à s'installer en 2014 dans une ancienne boîte de nuit de la place de la Bouverie. Après quatre mois de travaux confiés à des artisans de Charlieu et des environs, elle a rouvert en 2026 avec un nouveau logo et un mobilier sur mesure.</p>
+      <div class="stats">
+        <div class="stat ringed"><b data-count="30000">0</b><span>références environ</span></div>
+        <div class="stat ringed"><b data-count="300" data-suffix=" m²">0</b><span>de librairie</span></div>
+        <div class="stat ringed"><b data-count="6">0</b><span>libraires à temps plein</span></div>
+      </div>
+      <div class="photo-slot">Photo de l'intérieur rénové<br><b>à fournir par la librairie</b></div>
+    </div>
+    <ol class="timeline reveal d1" id="timeline">
+      <span class="fill" id="tlFill"></span>
+      <li><div class="y">2004</div><h3>Ouverture à Charlieu</h3><p>Un premier local de 25 m² et environ 7 000 références.</p></li>
+      <li><div class="y">2008</div><h3>Premier agrandissement</h3><p>La librairie passe à 75 m².</p></li>
+      <li><div class="y">2014</div><h3>Place de la Bouverie</h3><p>Installation dans une ancienne boîte de nuit de 300 m².</p></li>
+      <li><div class="y">2026</div><h3>Le Carnet fait peau neuve</h3><p>Quatre mois de travaux, nouveau logo, nouvel agencement, mobilier sur mesure.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="kicker">Services</span><h2>Votre livre, comme vous voulez</h2></div></div>
+    <div class="services">
+      <div class="svc reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l1-5h16l1 5M4 9v11h16V9M9 20v-6h6v6"/></svg></div><h3>Click &amp; collect</h3><p>Réservez en ligne, retirez en librairie.</p></div>
+      <div class="svc reveal d1"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></div><h3>Livraison à domicile</h3><p>Le livre vient à vous, où que vous soyez.</p></div>
+      <div class="svc reveal d2"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3>Point relais</h3><p>Livraison dans le point relais de votre choix.</p></div>
+      <div class="svc reveal d3"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 012-2h12v16H6a2 2 0 00-2 2zM8 7h6"/></svg></div><h3>Collectivités &amp; écoles</h3><p>Commandes des collectivités et des établissements scolaires.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFOS -->
+<section id="infos" class="sec">
+  <div class="wrap infos">
+    <div class="card reveal">
+      <h3>Horaires d'ouverture</h3>
+      <table class="hours" id="hours"></table>
+      <p style="margin-top:1rem;font-size:.85rem;color:var(--ink-soft)">Fermé le dimanche et le lundi.</p>
+    </div>
+    <div class="card reveal d1">
+      <h3>Nous trouver</h3>
+      <div class="contact-line"><span>📍</span><span>3 bis place de la Bouverie<br>42190 Charlieu</span></div>
+      <div class="contact-line"><span>☎</span><a href="tel:+33477600855">04 77 60 08 55</a></div>
+      <div class="contact-line"><span>✉</span><a href="mailto:commandes@librairie-lecarnetaspirales.fr">commandes@librairie-lecarnetaspirales.fr</a></div>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem">
+        <a class="btn btn-crimson" href="https://www.openstreetmap.org/search?query=3%20bis%20place%20de%20la%20Bouverie%2042190%20Charlieu" target="_blank" rel="noopener">Itinéraire</a>
+        <a class="btn btn-ghost" href="tel:+33477600855">Appeler</a>
+      </div>
+      <iframe class="map" title="Plan d'accès, Charlieu" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.160%2C46.153%2C4.185%2C46.166&amp;layer=mapnik"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="news reveal">
+      <h2>Restez informés de nos actualités</h2>
+      <form id="newsForm"><label for="nm" style="position:absolute;left:-9999px">Adresse e-mail</label><input id="nm" type="email" required placeholder="Votre adresse e-mail"><button class="btn btn-crimson" type="submit">S'inscrire</button></form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="foot-logo"><img src="https://static.leslibraires.fr//logos/website/470/main.webp" alt="Le Carnet à spirales"></div>
+        <p>Librairie indépendante · EURL ARTHIPPO<br>3 bis place de la Bouverie, 42190 Charlieu</p>
+      </div>
+      <div><h4>Liens utiles</h4><ul>
+        <li><a href="#conseil">Nos conseils de lecture</a></li><li><a href="#agenda">Agenda</a></li><li><a href="#librairie">Découvrez notre librairie</a></li>
+        <li><a href="https://www.librairie-lecarnetaspirales.fr/" target="_blank" rel="noopener">Catalogue en ligne</a></li></ul></div>
+      <div><h4>Suivez-nous</h4><ul>
+        <li><a href="https://www.facebook.com/librairielecarnetaspirales/" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://www.instagram.com/librairielecarnetaspirales/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="tel:+33477600855">04 77 60 08 55</a></li></ul></div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration réalisée à titre de proposition, non contractuelle. Couleurs et logo repris du site actuel de la librairie ; polices approchées. Couvertures, avis de libraires, rencontres et horaires repris du site actuel (novembre 2026) ; chiffres et historique issus de l'article de Livres Hebdo du 19 juin 2026. La photo de l'intérieur de la librairie reste à fournir. Les liens de réservation et de recherche pointent vers le catalogue en ligne existant.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const BASE="https://www.librairie-lecarnetaspirales.fr";
+const CDN="https://leslibraires.b-cdn.net/";
+/* Coups de cœur réels de l'équipe (page « Nos conseils de lecture ») */
+const BOOKS=[
+ {t:"La Petite Communiste qui ne souriait jamais",a:"Lola Lafon · Actes Sud",img:"K5-nJJCuWyNLRHGHy8XAp_dqv4vbtxLAhWtEITScI5A/s:250:300/MTM0Mzg2MDg.webp",u:"/livre/23345303-la-petite-communiste-qui-ne-souriait-jamais-lola-lafon-actes-sud?review=155198#reviews-anchor",who:["adulte"],mood:["comprendre"],x:"Livre du mois de novembre. Un formidable témoignage sur une époque : Comaneci, marionnette du pouvoir roumain. Lola Lafon décrit avec habileté ces étranges compétitions… A lire absolument."},
+ {t:"Peindre l'univers",a:"Jean-Pierre Luminet · Seghers",img:"U82YktQ78jMYSozGpmyBuLDAqjgYIRqwhh6NMN6mo0s/s:250:300/MTcwMjIwOTE.webp",u:"/livre/26547415-peindre-l-univers-une-histoire-artistique-du-ciel-des-astres-et-du-cosmos-jean-pierre-luminet-seghers?review=155184#reviews-anchor",who:["adulte"],mood:["comprendre","reve","offrir"],x:"Quarante œuvres majeures, de la Tapisserie de Bayeux à Anselm Kiefer, pour montrer comment chaque révolution scientifique a bouleversé l'imaginaire des artistes."},
+ {t:"Les nuits étoilées de Van Gogh",a:"Jean-Pierre Luminet · Seghers",img:"KJzM43Qpx85UpWZz9ATJXxvhMG_cbbzmzKBYw_H2KwQ/s:250:300/MTQ4NzU2ODg.webp",u:"/livre/21713140-les-nuits-etoilees-de-van-gogh-jean-pierre-luminet-seghers?review=155171#reviews-anchor",who:["adulte"],mood:["reve","comprendre","offrir"],x:"Sous les volutes folles et les étoiles géantes se cache une vérité astronomique d'une précision chirurgicale."},
+ {t:"On ne sépare pas les morts d'amour",a:"Muriel Zürcher · Didier Jeunesse",img:"1cdorA1swL_2WAJiD6HcwKQiPGW6rotnl7Uaf9K97FA/s:250:300/MTMyODc5OTk.webp",u:"/livre/21968630-on-ne-separe-pas-les-morts-d-amour-muriel-zurcher-didier-jeunesse?review=154839#reviews-anchor",who:["ado","adulte"],mood:["frisson"],x:"Une réécriture sublime de Roméo et Juliette dans un Marseille désabusé, ultra violent, impitoyable."},
+ {t:"L'École des pouvoirs secrets — Un chat nommé Treize",a:"Faustina Fiore · Casterman",img:"r0CZ-gByu01F4uV30fRHps6YhMq08VDxJdrcrjHvdoA/s:250:300/MTcwNjg5MTg.webp",u:"/livre/24134186-l-ecole-des-pouvoirs-secrets-un-chat-nomme-treize-faustina-fiore-casterman?review=155002#reviews-anchor",who:["enfant"],mood:["rire","reve","frisson"],x:"Axel adopte un vieux chat tout moche qui lui PARLE ! Une série de petits romans illustrés pour les 8 ans et plus."},
+ {t:"Raconte-moi l'archéologie !",a:"Sandra Sicard · Actes Sud",img:"2vPwiQeqT34ZhHaLY6h7NM_SCyeza-cWMFV7SIYw7QA/s:250:300/MTU5Nzk5MDk.webp",u:"/livre/25910904-raconte-moi-l-archeologie--sandra-sicard-actes-sud?review=154838#reviews-anchor",who:["enfant"],mood:["comprendre","offrir"],x:"Un documentaire très complet, coédité avec l'Inrap. De quoi répondre à de nombreuses questions dès 8 ans, et pourquoi pas susciter une vocation !"},
+ {t:"Mystère chez la libraire",a:"Julien Martinière, Nathalie Wyss · Kaléidoscope",img:"h4U-xPdzbpH_ouK9jpzobTOaSdwmaGRI94pVRFNaMRk/s:250:300/MTYyNDUxNzA.webp",u:"/livre/24566110-mystere-chez-la-libraire-julien-martiniere-nathalie-wyss-kaleidoscope?review=154836#reviews-anchor",who:["petit"],mood:["frisson","rire"],x:"Il se passe quelque chose de bizarre dans la librairie de l'ourse Romane à la nuit tombée. Une illustration qui fourmille de détails, pour les 3 à 6 ans."},
+ {t:"Mon ami le dragon",a:"Gallimard Jeunesse",img:"DVYb0B0fJ5cxIC6l7RHFIC4AcjUEbaaf_pJsxx1TNRo/s:250:300/MTY5NzQ2NTg.webp",u:"/livre/26520159-mon-ami-le-dragon-catherine-gibert-gallimard-jeunesse?review=154835#reviews-anchor",who:["petit"],mood:["reve","offrir"],x:"Un album d'une douceur infinie pour un moment hors du temps. De quoi faire rêver petits et grands, dès 3 ans."},
+ {t:"Le très long cri de Tonton Grégory",a:"Danielle Chaperon · Monsieur Ed",img:"sZSXy4Kns3KU25F8wn66mchcvb4ik6Xw3_wa1aVS2nc/s:250:300/MTY5NDM4MjM.webp",u:"/livre/26515881-le-tres-long-cri-detonton-gregory-chaperon-danielle-monsieur-ed?review=154987#reviews-anchor",who:["petit"],mood:["rire"],x:"Un album-BD humoristique et fantasque. À se faire lire par une personne qui a de bons poumons et du souffle, dès 4 ans."},
+ {t:"Little Eyes — Premières images, premiers regards",a:"Katsumi Komagata · Les Grandes Personnes",img:"PPIrSClZy66JAhLt9GHrnYwn1-BJsVJ8QyUuLngAjjQ/s:250:300/MTYyMDY2MDc.webp",u:"/livre/26248359-little-eyes-premieres-images-premiers-regards-katsumi-komagata-les-grandes-personnes?review=154994#reviews-anchor",who:["bebe"],mood:["offrir","reve"],x:"Une première échappée dans le monde du livre, un détour par l'art. Un beau cadeau de naissance à garder toute sa vie !"},
+ {t:"Little Eyes — À la rencontre des couleurs",a:"Katsumi Komagata · Les Grandes Personnes",img:"I9MxOvWBdyT5hcX_DgxH5gz5Zq5woio36Y1d1h5JhbY/s:250:300/MTYyMDY4NTI.webp",u:"/livre/26248378-little-eyes-les-premiers-mois-a-la-rencontre-des-couleurs-katsumi-komagata-les-grandes-personnes?review=154995#reviews-anchor",who:["bebe"],mood:["offrir"],x:"Une introduction aux formes et aux symboles pour les petits yeux qui ne distinguent pas encore grand-chose."},
+ {t:"Little Eyes — Jouons avec les couleurs",a:"Katsumi Komagata · Les Grandes Personnes",img:"bUzJWHLDUR-q92HW2qaP3HjLlBtDrt0lOzn9Ldjqs4A/s:250:300/MTYyMDY5Nzk.webp",u:"/livre/26248377-little-eyes-les-progres-de-bebe-jouons-avec-les-couleurs-katsumi-komagata-les-grandes-personnes?review=154996#reviews-anchor",who:["bebe"],mood:["rire","offrir"],x:"Un petit pied potelé dans les premières notions, pour accompagner les progrès de bébé."}
+];
+const LABELS={bebe:"un bébé",petit:"un enfant de 3 à 6 ans",enfant:"un enfant de 8 ans et plus",ado:"un ado",adulte:"un adulte"};
+const MOODS={tout:"",rire:"rire",frisson:"frissonner",reve:"rêver",comprendre:"comprendre le monde",offrir:"offrir"};
+let who="adulte",mood="tout";
+function pick(group,cb){document.querySelectorAll('#'+group+' .chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('#'+group+' .chip').forEach(x=>x.setAttribute('aria-pressed','false'));c.setAttribute('aria-pressed','true');cb(c.dataset.v);render();}));}
+pick('who',v=>who=v);pick('mood',v=>mood=v);
+function render(){
+  const r=document.getElementById('results');
+  let list=BOOKS.filter(b=>b.who.includes(who)&&(mood==="tout"||b.mood.includes(mood)));
+  let note="";
+  if(!list.length){list=BOOKS.filter(b=>b.who.includes(who));note=`<div class="empty">Pas encore de coup de cœur « ${MOODS[mood]} » pour ${LABELS[who]} dans cette sélection : voici les autres conseils de l'équipe pour ${LABELS[who]}. Les libraires complètent la sélection au fil des parutions.</div>`;}
+  r.innerHTML=note+list.map((b,i)=>`<article class="reco" style="animation-delay:${i*70}ms">
+    <img src="${CDN+b.img}" alt="Couverture : ${b.t}" loading="lazy">
+    <div><h3>${b.t}</h3><div class="by">${b.a}</div><p>${b.x}</p>
+    <a href="${BASE+b.u}" target="_blank" rel="noopener">Lire l'avis et réserver →</a></div></article>`).join('');
+  const body=`Bonjour,\n\nJe cherche un livre pour ${LABELS[who]}${mood!=="tout"?", avec l'envie de "+MOODS[mood]:""}.\nDernières lectures appréciées : \n\nMerci !`;
+  document.getElementById('askBtn').href="mailto:commandes@librairie-lecarnetaspirales.fr?subject="+encodeURIComponent("Demande de conseil de lecture")+"&body="+encodeURIComponent(body);
+}
+render();
+
+/* Rayons réels du catalogue */
+const RAYONS=[["Littérature & Essais littéraires","113534/litterature-generale"],["Policier & Thriller","821433/policier-thriller"],["Science-fiction, Fantastique & Fantasy","821434/science-fiction-fantastique-fantasy"],["Romance","821432/romance"],["Littérature Jeunes adultes","746338/litterature-jeunes-adultes"],["Jeunesse","113821/jeunesse-"],["BD, Comics & Manga","113870/bd-comics-mangas"],["Arts & Beaux livres","113766/arts-beaux-livres"],["Sciences humaines et sociales & Histoire","821435/sciences-humaines-sociales"],["Tourisme & Voyages","821436/tourisme-voyages"],["Vie pratique & Loisirs","113901/vie-pratique-loisirs"],["Scolaire & Parascolaire","821439/scolaire-parascolaire"]];
+document.getElementById('rayonGrid').innerHTML=RAYONS.map((r,i)=>`<a class="rayon reveal ${['','d1','d2','d3'][i%4]}" target="_blank" rel="noopener" href="${BASE}/boutique/531/rayons/${r[1]}"><span>${r[0]}</span><span class="arr">→</span></a>`).join('')+
+ `<a class="rayon reveal" target="_blank" rel="noopener" href="${BASE}/boutique/544/papeterie-jeux/715635/papeterie"><span>Papeterie</span><span class="arr">→</span></a><a class="rayon reveal d1" target="_blank" rel="noopener" href="${BASE}/boutique/544/papeterie-jeux/715647/jeux-jouets"><span>Jeux - Jouets</span><span class="arr">→</span></a><a class="rayon reveal d2" target="_blank" rel="noopener" href="${BASE}/boutique/544/papeterie-jeux/715663/loisirs-creatifs-beaux-arts"><span>Loisirs créatifs / beaux arts</span><span class="arr">→</span></a>`;
+
+/* Agenda réel */
+const EVENTS=[
+ {d:"2026-11-18",s:"15:00",e:"16:00",tag:"Jeunesse",t:"Lecture — L'heure du conte · Donnez à lire 2026",img:"Q01UmLXC_jobnLYfYFcEUH1nOgFFSj8Ojgk7GM2dLLM/s:350:350/MTczNzYyNTc.webp",book:"tel:+33477600855",bl:"Réserver par téléphone",info:"Lecture gratuite d'albums jeunesse pour les 3-6 ans par l'antenne charliendine du Secours populaire. Réservation obligatoire."},
+ {d:"2026-11-20",s:"19:30",e:"20:30",tag:"Rencontre",t:"Rencontre — Bernard Lahire · Pourquoi comprenons-nous le monde ?",img:"f8vM6oxThaP1b6olo-PZX_ds5Qncc9fuD-BZjlUu-GY/s:350:350/MTcwMjgzOTA.webp",book:"https://framaforms.org/rencontre-bernard-lahire-vendredi-20-novembre-19-h-30-1790955545",bl:"Réserver ma place",info:"Places limitées, réservation obligatoire."},
+ {d:"2026-12-11",s:"19:30",e:"20:30",tag:"Rencontre",t:"Rencontre — Pierre-Olivier Capéran · Les hallucinés",img:"9V6VvwpX9RnSc27Z5foCzJa41mrybFYvsYXmB2Ed_fA/s:350:350/MTcwNjM5ODI.webp",book:"https://framaforms.org/rencontre-pierre-olivier-caperan-vendredi-11-decembre-19h30-1791539588",bl:"Réserver ma place",info:"Premier roman, collection Rouergue noir. Places limitées, réservation obligatoire."},
+ {d:"2026-12-12",s:"10:00",e:"12:00",tag:"Dédicace",t:"Dédicace — Pierre-Olivier Capéran · Les hallucinés",img:"zFC5tb4mVr83P95up9yRvhVx5jXQ91xX3cStH43OWQ8/s:350:350/MTcwODk5MTQ.webp",book:"",bl:"",info:"Entrée libre."}
+];
+const MOIS=["janv","févr","mars","avr","mai","juin","juil","août","sept","oct","nov","déc"];
+const JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+document.getElementById('events').innerHTML=EVENTS.map((ev,i)=>{const dt=new Date(ev.d+"T12:00");return `<article class="event reveal ${['','d1','d2','d3'][i%4]}">
+ <div class="event-img"><img src="${CDN+ev.img}" alt="Affiche : ${ev.t}" loading="lazy"><div class="date"><b>${dt.getDate()}</b><span>${MOIS[dt.getMonth()]}</span></div></div>
+ <div class="event-body"><span class="tag">${ev.tag}</span><h3>${ev.t}</h3><div class="when">Le ${JOURS[dt.getDay()]} ${dt.getDate()} ${MOIS[dt.getMonth()]}. · ${ev.s.replace(':','h')} à ${ev.e.replace(':','h')}</div><p class="when">${ev.info}</p>
+ <div class="acts">${ev.book?`<a class="btn btn-crimson" href="${ev.book}" ${ev.book.startsWith('http')?'target="_blank" rel="noopener"':''}>${ev.bl}</a>`:''}<button class="btn btn-ghost" data-ics="${i}">+ Mon agenda</button></div></div></article>`}).join('');
+document.querySelectorAll('[data-ics]').forEach(b=>b.addEventListener('click',()=>{
+  const ev=EVENTS[b.dataset.ics];const f=(d,t)=>d.replace(/-/g,'')+'T'+t.replace(':','')+'00';
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Le Carnet a spirales//FR","BEGIN:VEVENT","UID:"+ev.d+ev.s+"@lecarnetaspirales","DTSTAMP:20261114T120000Z","DTSTART;TZID=Europe/Paris:"+f(ev.d,ev.s),"DTEND;TZID=Europe/Paris:"+f(ev.d,ev.e),"SUMMARY:"+ev.t,"LOCATION:Librairie Le Carnet à spirales\\, 3 bis place de la Bouverie\\, 42190 Charlieu","DESCRIPTION:"+ev.info,"END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="carnet-a-spirales-"+ev.d+".ics";a.click();
+  toast("Rendez-vous ajouté : ouvrez le fichier pour l'enregistrer dans votre agenda.");
+}));
+
+/* Horaires + ouvert maintenant */
+const H={2:[["10:00","12:30"],["14:00","19:00"]],3:[["10:00","12:30"],["14:00","19:00"]],4:[["10:00","12:30"],["14:00","19:00"]],5:[["10:00","19:00"]],6:[["09:00","19:00"]],0:[],1:[]};
+const order=[1,2,3,4,5,6,0];const now=new Date();const today=now.getDay();
+document.getElementById('hours').innerHTML=order.map(d=>`<tr class="${d===today?'today':''}"><td>${JOURS[d][0].toUpperCase()+JOURS[d].slice(1)}</td><td>${H[d].length?H[d].map(r=>r.map(x=>x.replace(':00','h').replace(':','h')).join(' – ')).join(' · '):'fermé'}</td></tr>`).join('');
+(function(){const m=now.getHours()*60+now.getMinutes();const toM=s=>+s.slice(0,2)*60+ +s.slice(3);const open=H[today].some(r=>m>=toM(r[0])&&m<toM(r[1]));
+ document.getElementById('dot').classList.toggle('on',open);document.getElementById('openTxt').textContent=open?"Ouvert en ce moment":"Fermé en ce moment";})();
+
+/* Spirale du héro, dessinée au défilement */
+(function(){const p=document.getElementById('spiral');let d="";const cx=200,cy=200;for(let a=0;a<=Math.PI*10;a+=0.05){const r=6+a*5.6;d+=(a?"L":"M")+(cx+r*Math.cos(a)).toFixed(1)+" "+(cy+r*Math.sin(a)).toFixed(1);}p.setAttribute('d',d);
+ const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+ const draw=()=>{const k=Math.min(1,0.35+window.scrollY/600);p.style.strokeDashoffset=L*(1-k);};draw();addEventListener('scroll',draw,{passive:true});
+ const art=document.getElementById('heroArt');if(matchMedia('(hover:hover)').matches){art.addEventListener('mousemove',e=>{const b=art.getBoundingClientRect();const x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;art.querySelectorAll('.book').forEach((bk,i)=>{const f=(i%2?1:-1)*(8+i*3);bk.style.translate=`${x*f}px ${y*f}px`;});});art.addEventListener('mouseleave',()=>art.querySelectorAll('.book').forEach(bk=>bk.style.translate='0 0'));}
+})();
+
+/* Révélations, compteurs, frise */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||"";const t0=performance.now();
+ (function step(t){const k=Math.min(1,(t-t0)/1400),v=Math.round(end*(1-Math.pow(1-k,3)));el.textContent=v.toLocaleString('fr-FR')+suf;if(k<1)requestAnimationFrame(step);})(t0);co.unobserve(el);}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+addEventListener('scroll',()=>{document.getElementById('top').classList.toggle('scrolled',scrollY>10);
+ const tl=document.getElementById('timeline'),b=tl.getBoundingClientRect(),k=Math.max(0,Math.min(1,(innerHeight*.7-b.top)/b.height));document.getElementById('tlFill').style.height=(k*(b.height-12))+'px';},{passive:true});
+
+/* Menu mobile */
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false);}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.classList.remove('open');burger.setAttribute('aria-expanded',false);}});
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),3800);}
+document.getElementById('newsForm').addEventListener('submit',e=>{e.preventDefault();toast("Merci ! (démonstration : l'inscription n'est pas encore branchée)");e.target.reset();});
+</script>
+</body>
+</html>
