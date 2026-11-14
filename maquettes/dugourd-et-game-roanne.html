@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dugourd &amp; Game — Agence immobilière à Roanne et dans le Roannais</title>
+<meta name="description" content="Agence immobilière à Roanne depuis des décennies : vente, location, gestion locative et syndic de copropriété, à Roanne et dans un rayon d'environ 30 km.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="https://www.dugourd-immo.fr/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE DUGOURD & GAME — relevée sur dugourd-immo.fr
+   (feuille de style du site + logo). Ajustable ici en 1 ligne.
+   ========================================================= */
+:root{
+  --rouge:#dc002e;        /* rouge de la flèche du logo et des boutons du site */
+  --rouge-fonce:#b10025;
+  --marine:#002f49;       /* bleu marine du site (titres, bandeaux) */
+  --marine-logo:#173a5e;  /* bleu du carré du logo */
+  --encre:#25282b;        /* texte courant du site */
+  --gris:#f7f9f9;         /* fonds clairs du site */
+  --trait:#e6e6e6;
+  --creme:#fdf7ef;        /* ton chaud présent dans la feuille de style */
+  --police:"Afacad", Arial, sans-serif; /* police du site actuel */
+  --rayon:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--police);color:var(--encre);background:#fff;font-size:18px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+
+/* bandeau démo */
+.demo{background:var(--marine);color:#fff;font-size:14px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+.demo b{color:#ff8aa3;font-weight:600}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--trait);box-shadow:0 6px 24px rgba(0,47,73,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:82px}
+.logo img{height:56px;width:auto}
+.menu{display:flex;gap:26px;list-style:none}
+.menu a{text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.06em;color:var(--marine);position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.tel{display:inline-flex;align-items:center;gap:8px;background:var(--rouge);color:#fff;text-decoration:none;font-weight:600;padding:11px 18px;border-radius:999px;white-space:nowrap;transition:transform .2s,background .2s}
+.tel:hover{background:var(--rouge-fonce);transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--marine);margin:7px 8px;transition:.3s}
+@media (max-width:1020px){
+  .menu{position:fixed;inset:82px 0 auto 0;flex-direction:column;background:#fff;padding:20px 24px 28px;gap:16px;border-bottom:1px solid var(--trait);transform:translateY(-12px);opacity:0;visibility:hidden;transition:transform .4s var(--ease),opacity .3s,visibility .4s}
+  .menu.open{transform:none;opacity:1;visibility:visible}
+  .burger{display:block}
+  .tel .t-txt{display:none}
+}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:var(--marine);color:#fff}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;min-height:min(640px,86vh);padding:64px 0 88px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.14em;font-size:14px;color:#ffd0da;text-transform:uppercase}
+.kicker::before{content:"";width:34px;height:2px;background:var(--rouge)}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4vw,4.8rem);line-height:1;margin:18px 0 18px;font-weight:700;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:#fff;background:linear-gradient(transparent 62%,var(--rouge) 62% 92%,transparent 92%);padding:0 .08em}
+.hero p.lead{font-size:1.2rem;max-width:34ch;color:#d5e3ec}
+.hero .arrow-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.55}
+.hero-grid{position:relative;z-index:1}
+.hero .arrow-bg path{fill:none;stroke:var(--rouge);stroke-width:46;stroke-linecap:square;stroke-dasharray:2000;stroke-dashoffset:2000;animation:draw 2.2s .3s var(--ease) forwards}
+.hero .arrow-bg .head{fill:var(--rouge);opacity:0;animation:fade .5s 2.1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{to{opacity:1}}
+
+/* recherche */
+.search{margin-top:30px;background:#fff;color:var(--encre);border-radius:var(--rayon);padding:8px;box-shadow:0 24px 60px rgba(0,0,0,.25);max-width:560px}
+.tabs{display:flex;gap:4px;padding:4px}
+.tabs button{flex:1;border:0;background:none;font:600 15px var(--police);letter-spacing:.06em;color:var(--marine);padding:10px;border-radius:10px;cursor:pointer;transition:.25s}
+.tabs button[aria-selected=true]{background:var(--marine);color:#fff}
+.fields{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;padding:8px}
+.fields select,.fields input{font:500 16px var(--police);border:1px solid var(--trait);border-radius:10px;padding:12px;background:var(--gris);color:var(--encre);width:100%}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 16px var(--police);border:0;border-radius:10px;padding:12px 20px;background:var(--rouge);color:#fff;cursor:pointer;text-decoration:none;transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{background:var(--rouge-fonce);transform:translateY(-2px);box-shadow:0 10px 24px rgba(220,0,46,.3)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--marine);border:2px solid var(--marine)}
+.btn.ghost:hover{background:var(--marine);color:#fff;box-shadow:none}
+
+/* mosaïque photos hero */
+.mosaic{position:relative;height:520px}
+.mosaic figure{position:absolute;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35);opacity:0;transform:translateY(30px);animation:rise .9s var(--ease) forwards}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform 6s ease}
+.mosaic figure:hover img{transform:scale(1.08)}
+.mosaic figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,47,73,.85);color:#fff;font-size:14px;padding:5px 11px;border-radius:999px}
+.m1{width:62%;height:62%;right:0;top:0;animation-delay:.5s!important}
+.m1 figcaption{top:12px;bottom:auto;left:auto;right:12px}
+.m2{width:50%;height:46%;left:0;top:30%;animation-delay:.75s!important}
+.m3{width:46%;height:38%;right:8%;bottom:0;animation-delay:1s!important}
+@keyframes rise{to{opacity:1;transform:none}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;padding:44px 0 60px}.mosaic{height:360px}.fields{grid-template-columns:1fr 1fr}.fields .btn{grid-column:1/-1}}
+
+/* sections */
+section{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(2rem,1.4rem + 2.2vw,3.2rem);line-height:1.05;color:var(--marine);max-width:20ch}
+.sec-head p{max-width:46ch;color:#4a5560}
+.eyebrow{color:var(--rouge);font-weight:700;letter-spacing:.14em;font-size:14px;text-transform:uppercase;margin-bottom:10px;display:block}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* annonces */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{border:1px solid var(--trait);background:#fff;border-radius:999px;padding:8px 16px;font:600 15px var(--police);color:var(--marine);cursor:pointer;transition:.25s}
+.chip[aria-pressed=true]{background:var(--marine);color:#fff;border-color:var(--marine)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:22px}
+.card{background:#fff;border:1px solid var(--trait);border-radius:var(--rayon);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s;position:relative}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(0,47,73,.14)}
+.card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--gris)}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .ph img{transform:scale(1.06)}
+.card .badge{position:absolute;top:12px;left:12px;background:var(--rouge);color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:6px;text-transform:uppercase}
+.card .bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card .city{font-size:14px;color:#6b7680}
+.card h3{font-size:1.15rem;color:var(--marine);line-height:1.2}
+.card .meta{font-size:15px;color:#4a5560}
+.card .price{margin-top:auto;padding-top:10px;font-size:1.35rem;font-weight:700;color:var(--rouge)}
+.card.hide{display:none}
+.count{font-size:15px;color:#6b7680;margin-top:18px}
+
+/* SIMULATEUR — pièce centrale */
+.simu{background:var(--gris);position:relative;overflow:hidden}
+.simu::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border:46px solid rgba(220,0,46,.07);transform:rotate(45deg)}
+.sim-box{display:grid;grid-template-columns:1fr 1fr;background:#fff;border-radius:22px;box-shadow:0 30px 70px rgba(0,47,73,.12);overflow:hidden;position:relative}
+.sim-in{padding:36px}
+.sim-out{background:var(--marine);color:#fff;padding:36px;display:flex;flex-direction:column;gap:18px}
+.sim-tabs{display:inline-flex;background:var(--gris);border-radius:12px;padding:4px;margin-bottom:26px}
+.sim-tabs button{border:0;background:none;font:600 16px var(--police);padding:10px 18px;border-radius:9px;color:var(--marine);cursor:pointer;transition:.25s}
+.sim-tabs button[aria-selected=true]{background:var(--rouge);color:#fff}
+.field{margin-bottom:22px}
+.field label{display:flex;justify-content:space-between;font-weight:600;color:var(--marine);margin-bottom:8px}
+.field label output{color:var(--rouge);font-size:1.15rem}
+input[type=range]{width:100%;accent-color:var(--rouge);height:28px}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{flex:1;min-width:110px;border:1px solid var(--trait);background:#fff;border-radius:10px;padding:11px;font:600 15px var(--police);color:var(--marine);cursor:pointer;transition:.2s}
+.seg button[aria-pressed=true]{border-color:var(--marine);background:var(--marine);color:#fff}
+.switch{display:flex;align-items:center;gap:12px;cursor:pointer;font-weight:600;color:var(--marine);user-select:none}
+.switch input{appearance:none;width:50px;height:28px;border-radius:999px;background:#c9d2d8;position:relative;cursor:pointer;transition:.25s;flex:none}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.switch input:checked{background:var(--rouge)}
+.switch input:checked::after{transform:translateX(22px)}
+.switch small{display:block;font-weight:400;color:#6b7680;font-size:14px}
+.big{font-size:clamp(2.4rem,1.8rem + 2vw,3.4rem);font-weight:700;line-height:1}
+.out-lab{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#9fbfd2}
+.bar{height:16px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;display:flex}
+.bar i{display:block;height:100%;transition:width .6s var(--ease)}
+.bar .b1{background:#fff}
+.bar .b2{background:var(--rouge)}
+.legend{display:flex;gap:18px;font-size:14px;color:#cfe0ea;flex-wrap:wrap}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.legend .l1::before{background:#fff}.legend .l2::before{background:var(--rouge)}
+.lines{list-style:none;border-top:1px solid rgba(255,255,255,.15);padding-top:12px;font-size:16px}
+.lines li{display:flex;justify-content:space-between;padding:5px 0;color:#d5e3ec}
+.lines li b{color:#fff}
+.save{background:rgba(220,0,46,.18);border:1px solid rgba(255,138,163,.4);border-radius:10px;padding:10px 14px;font-size:15px}
+.sim-note{font-size:14px;color:#6b7680;margin-top:16px;max-width:80ch}
+.pane[hidden]{display:none}
+@media (max-width:900px){.sim-box{grid-template-columns:1fr}.sim-in,.sim-out{padding:26px 20px}}
+
+/* services */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.svc article{border:1px solid var(--trait);border-radius:var(--rayon);padding:28px 24px;position:relative;overflow:hidden;transition:transform .35s var(--ease),border-color .35s;background:#fff}
+.svc article::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.svc article:hover{transform:translateY(-6px);border-color:#cfd8de}
+.svc article:hover::after{transform:scaleX(1)}
+.svc .n{font-size:14px;font-weight:700;color:var(--rouge);letter-spacing:.1em}
+.svc h3{color:var(--marine);font-size:1.4rem;margin:10px 0 8px;line-height:1.15}
+.svc p{font-size:16px;color:#4a5560}
+.svc a{display:inline-block;margin-top:14px;font-weight:600;color:var(--rouge);text-decoration:none}
+.svc a:hover{text-decoration:underline}
+@media (max-width:1000px){.svc{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.svc{grid-template-columns:1fr}}
+
+/* agence */
+.agence{background:var(--marine);color:#fff}
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.agence h2{font-size:clamp(2rem,1.4rem + 2.2vw,3.2rem);line-height:1.05;margin-bottom:18px}
+.agence p{color:#d5e3ec;margin-bottom:14px}
+.facts{display:flex;gap:16px;flex-wrap:wrap;margin-top:24px}
+.fact{border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:14px 18px;min-width:130px}
+.fact b{display:block;font-size:2rem;line-height:1;color:#fff}
+.fact span{font-size:14px;color:#9fbfd2}
+.zone{position:relative;aspect-ratio:1;max-width:480px;margin-inline:auto;width:100%}
+.zone svg{width:100%;height:100%;overflow:visible}
+.zone .ring{fill:none;stroke:rgba(255,255,255,.18);stroke-dasharray:4 6}
+.zone .pulse{fill:rgba(220,0,46,.25);transform-origin:250px 250px;animation:pulse 3s infinite}
+@keyframes pulse{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1);opacity:0}}
+.zone .town circle{fill:#fff;transition:r .3s}
+.zone .town text{fill:#d5e3ec;font:500 15px var(--police)}
+.zone .town:hover circle{r:9}
+.zone .hq{fill:var(--rouge)}
+.zone .lbl{fill:#fff;font:700 17px var(--police)}
+@media (max-width:900px){.ag-grid{grid-template-columns:1fr}}
+
+/* contact */
+.ct-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}
+.ct-card{border:1px solid var(--trait);border-radius:var(--rayon);padding:30px}
+.ct-card h3{color:var(--marine);font-size:1.5rem;margin-bottom:14px}
+.ct-list{list-style:none;display:grid;gap:12px}
+.ct-list a{color:var(--marine);font-weight:600;text-decoration:none}
+.ct-list a:hover{color:var(--rouge)}
+.hours{width:100%;border-collapse:collapse;font-size:16px}
+.hours td{padding:7px 0;border-bottom:1px solid var(--trait)}
+.hours td:last-child{text-align:right;color:var(--marine);font-weight:600}
+.hours tr.today td{color:var(--rouge)}
+.open-now{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;margin-bottom:12px;color:var(--marine)}
+.open-now i{width:10px;height:10px;border-radius:50%;background:#9aa5ad}
+.open-now.yes i{background:#1aa36a;box-shadow:0 0 0 0 rgba(26,163,106,.5);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(26,163,106,0)}100%{box-shadow:0 0 0 0 rgba(26,163,106,0)}}
+form.ct{display:grid;gap:12px;margin-top:6px}
+form.ct input,form.ct select,form.ct textarea{font:500 16px var(--police);border:1px solid var(--trait);border-radius:10px;padding:12px;background:var(--gris);width:100%}
+.ok-msg{display:none;background:#e9f7f0;color:#11603f;border-radius:10px;padding:12px;font-size:15px}
+@media (max-width:860px){.ct-grid{grid-template-columns:1fr}}
+
+/* pied */
+footer{background:#0d1d27;color:#b8c7d1;padding:56px 0 28px;font-size:15px}
+.ft{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px}
+footer h4{color:#fff;font-size:16px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+footer ul{list-style:none;display:grid;gap:6px}
+footer a{color:#dbe6ec;text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+.legal{border-top:1px solid rgba(255,255,255,.1);margin-top:36px;padding-top:20px;font-size:13.5px;color:#8ea2af;display:grid;gap:8px}
+@media (max-width:860px){.ft{grid-template-columns:1fr}}
+
+/* barre mobile */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--trait);padding:8px;gap:8px}
+  .mbar a{text-align:center}
+  body{padding-bottom:64px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.hero .arrow-bg path{stroke-dashoffset:0}.hero .arrow-bg .head{opacity:1}.mosaic figure{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"RealEstateAgent",
+  "name":"Dugourd & Game",
+  "url":"https://www.dugourd-immo.fr/",
+  "logo":"https://www.dugourd-immo.fr/images/logoSite.png",
+  "telephone":"+33477712153",
+  "email":"agence@dugourd-immo.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"47 cours de la République","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "description":"Agence immobilière à Roanne : transaction pour les particuliers et les professionnels, location, gestion locative et syndic de copropriété dans le bassin roannais.",
+  "areaServed":[
+    {"@type":"City","name":"Roanne"},{"@type":"City","name":"Riorges"},{"@type":"City","name":"Mably"},
+    {"@type":"City","name":"Le Coteau"},{"@type":"City","name":"Villerest"},{"@type":"City","name":"Renaison"},{"@type":"City","name":"Charlieu"},
+    {"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.036,"longitude":4.068},"geoRadius":"30000"}
+  ],
+  "memberOf":{"@type":"Organization","name":"FNAIM"},
+  "sameAs":["https://www.facebook.com/dugourdimmo","https://www.instagram.com/dugourdetgame"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo" id="demo">Maquette de démonstration — <b>non officielle</b>, réalisée pour Dugourd &amp; Game. Honoraires calculés d'après votre barème publié, à titre indicatif.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Dugourd &amp; Game, accueil"><img src="https://www.dugourd-immo.fr/images/logoSite.png" alt="Dugourd &amp; Game" width="155" height="56"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#annonces" data-t="acheter">ACHETER</a></li>
+      <li><a href="#annonces" data-t="louer">LOUER</a></li>
+      <li><a href="#simulateur">ESTIMER</a></li>
+      <li><a href="#agence">NOTRE AGENCE</a></li>
+      <li><a href="#services">NOS SERVICES</a></li>
+      <li><a href="https://dugourd.monespaceclient.immo/" target="_blank" rel="noopener">ESPACE CLIENT</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+    <a class="tel" href="tel:+33477712153"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span class="t-txt">04 77 71 21 53</span></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <svg class="arrow-bg" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M700 780 L1330 110"/>
+    <polygon class="head" points="1280,70 1410,30 1370,160"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Agence immobilière à Roanne</span>
+      <h1>Trouvez le bien <em>idéal</em>&nbsp;!</h1>
+      <p class="lead">Acheter, vendre, louer, faire gérer : l'agence Dugourd &amp; Game vous accompagne sur tout le bassin roannais.</p>
+      <div class="search" role="search">
+        <div class="tabs" role="tablist" aria-label="Type de recherche">
+          <button role="tab" aria-selected="true" data-mode="acheter">ACHETER</button>
+          <button role="tab" aria-selected="false" data-mode="louer">LOUER</button>
+          <button role="tab" aria-selected="false" data-mode="estimer">ESTIMER</button>
+        </div>
+        <div class="fields" id="fields">
+          <select id="f-type" aria-label="Type de bien"><option value="">Type de bien</option><option value="appartement">Appartement</option><option value="maison">Maison</option></select>
+          <select id="f-budget" aria-label="Budget maximum"><option value="">Budget maxi</option><option value="100000">100 000 €</option><option value="150000">150 000 €</option><option value="200000">200 000 €</option><option value="600000">600 000 €</option></select>
+          <button class="btn" id="f-go">Voir les biens</button>
+        </div>
+      </div>
+    </div>
+    <div class="mosaic" aria-hidden="true">
+      <figure class="m1"><img src="https://dugourdetgame.staticlbi.com/600xauto/images/biens/1/be1c7a7e5ab2471f5ee4ad2b57a1f7d8/photo_import_f6fa3d95075c41753958b5b370cb4edb.jpg" alt=""><figcaption>Roanne — hypercentre</figcaption></figure>
+      <figure class="m2"><img src="https://dugourdetgame.staticlbi.com/600xauto/images/biens/1/48d582ff0b5c3e77d3bde34ad7d4df85/photo_import_7bd9a0fbae3b4df5e05453c820073407.jpg" alt=""><figcaption>Ouches</figcaption></figure>
+      <figure class="m3"><img src="https://dugourdetgame.staticlbi.com/600xauto/images/biens/1/3e635cac3f3965af303021773a0598ec/photo_import_98f8d86b70cf8b59a18622e2dff23c27.jpg" alt=""><figcaption>Le Coteau</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ANNONCES (biens réellement en vente sur dugourd-immo.fr au 14/11/2026) -->
+<section id="annonces">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Nos coups de cœur</span><h2>Ces biens sont recherchés&nbsp;!</h2></div>
+      <p>Une sélection de nos biens en vente à Roanne et aux alentours. Filtrez par commune, chaque fiche renvoie vers l'annonce complète.</p>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Filtrer par commune">
+      <button class="chip" aria-pressed="true" data-c="">Toutes</button>
+      <button class="chip" aria-pressed="false" data-c="Roanne">Roanne</button>
+      <button class="chip" aria-pressed="false" data-c="Riorges">Riorges</button>
+      <button class="chip" aria-pressed="false" data-c="Le Coteau">Le Coteau</button>
+      <button class="chip" aria-pressed="false" data-c="Ouches">Ouches</button>
+    </div>
+    <div class="cards" id="cards"></div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- SIMULATEUR -->
+<section class="simu" id="simulateur">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Vos honoraires, en clair</span><h2>Combien ça vous coûte, combien il vous reste.</h2></div>
+      <p>Notre barème s'applique directement à votre situation&nbsp;: vous vendez ou vous confiez votre bien en gestion, le calcul se fait en direct.</p>
+    </div>
+    <div class="sim-box reveal">
+      <div class="sim-in">
+        <div class="sim-tabs" role="tablist" aria-label="Simulateur">
+          <button role="tab" aria-selected="true" data-p="vente">Je vends</button>
+          <button role="tab" aria-selected="false" data-p="gestion">Je confie la gestion</button>
+        </div>
+
+        <div class="pane" id="p-vente">
+          <div class="field">
+            <label for="prix">Prix de vente affiché <output id="prix-o">150 000 €</output></label>
+            <input type="range" id="prix" min="20000" max="800000" step="2500" value="150000">
+          </div>
+          <div class="field">
+            <label>Type de bien</label>
+            <div class="seg" id="seg-v">
+              <button aria-pressed="true" data-v="logement">Maison / appartement</button>
+              <button aria-pressed="false" data-v="terrain">Terrain / droit au bail</button>
+              <button aria-pressed="false" data-v="garage">Garage / parking</button>
+            </div>
+          </div>
+          <label class="switch"><input type="checkbox" id="excl"> <span>Mandat exclusif<small>Taux réduit prévu au barème en cas d'exclusivité</small></span></label>
+        </div>
+
+        <div class="pane" id="p-gestion" hidden>
+          <div class="field">
+            <label for="loyer">Loyer mensuel encaissé (charges comprises) <output id="loyer-o">550 €</output></label>
+            <input type="range" id="loyer" min="150" max="2500" step="10" value="550">
+          </div>
+          <div class="field">
+            <label>Votre bien</label>
+            <div class="seg" id="seg-g">
+              <button aria-pressed="true" data-g="appartement">Appartement</button>
+              <button aria-pressed="false" data-g="maison">Maison</button>
+              <button aria-pressed="false" data-g="immeuble">Immeuble</button>
+            </div>
+          </div>
+          <label class="switch" style="margin-bottom:14px"><input type="checkbox" id="gli"> <span>Garantie loyers impayés<small>Option facultative du barème</small></span></label>
+          <label class="switch"><input type="checkbox" id="frf" checked> <span>État préparatoire des revenus fonciers<small>Pour votre déclaration annuelle</small></span></label>
+        </div>
+      </div>
+
+      <div class="sim-out" aria-live="polite">
+        <div>
+          <div class="out-lab" id="o1-lab">Honoraires d'agence TTC</div>
+          <div class="big" id="o1">—</div>
+        </div>
+        <div class="bar" aria-hidden="true"><i class="b1" id="bar1"></i><i class="b2" id="bar2"></i></div>
+        <div class="legend"><span class="l1" id="lg1">Net vendeur</span><span class="l2" id="lg2">Honoraires</span></div>
+        <ul class="lines" id="lines"></ul>
+        <div class="save" id="save"></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:auto">
+          <a class="btn" href="#contact" id="sim-cta">Demander une estimation</a>
+        </div>
+      </div>
+    </div>
+    <p class="sim-note">Calcul basé sur le barème d'honoraires maximums publié par l'agence (négociation : en vigueur au 1er novembre 2024 ; gestion locative : au 1er juillet 2024). Montants indicatifs et non contractuels — seul le mandat signé fait foi. Un avis de valeur écrit (rayon de 25 km) est proposé à 250&nbsp;€ TTC.</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Nos services</span><h2>Une seule agence pour tout votre patrimoine.</h2></div>
+      <p>Avec un effectif de 18 personnes, notre agence affiliée à la FNAIM gère la transaction, la gestion locative et le syndic de copropriété.</p>
+    </div>
+    <div class="svc">
+      <article class="reveal"><span class="n">01</span><h3>Transaction immobilière</h3><p>Appartements, maisons, propriétés de caractère et terrains à bâtir, à Roanne et aux environs. Pour vendre, nous maximisons la visibilité de votre bien.</p><a href="#simulateur">Simuler mes honoraires →</a></article>
+      <article class="reveal"><span class="n">02</span><h3>Location &amp; gestion locative</h3><p>Recherche de locataires, baux, encaissement des loyers, suivi technique et garantie loyers impayés en option&nbsp;: une prise en charge complète.</p><a href="#simulateur" data-open="gestion">Calculer mon revenu net →</a></article>
+      <article class="reveal"><span class="n">03</span><h3>Syndic de copropriété</h3><p>Administration d'immeubles et gestion de copropriétés à Roanne. Une équipe dédiée, un espace client en ligne pour suivre votre immeuble.</p><a href="#contact" data-sujet="Syndic de copropriété">Demander une proposition →</a></article>
+      <article class="reveal"><span class="n">04</span><h3>Immobilier d'entreprise</h3><p>Locaux commerciaux, professionnels et industriels, en ville et sur les zones d'activités du Roannais&nbsp;: vente, location, baux commerciaux.</p><a href="#contact" data-sujet="Immobilier d'entreprise">Nous parler de votre projet →</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- AGENCE -->
+<section class="agence" id="agence">
+  <div class="wrap ag-grid">
+    <div class="reveal">
+      <span class="eyebrow" style="color:#ff8aa3">Le petit mot de l'agence</span>
+      <h2>À Roanne depuis de nombreuses décennies.</h2>
+      <p>L'agence immobilière Dugourd &amp; Game, implantée à Roanne depuis de nombreuses décennies, est une des plus importantes agences de l'agglomération roannaise.</p>
+      <p>Son secteur s'étend sur tout le bassin roannais, de Roanne aux communes avoisinantes dans un rayon d'environ 30&nbsp;km. Notre clientèle&nbsp;: des Roannais, mais aussi des investisseurs venus de Lyon ou de région parisienne.</p>
+      <div class="facts">
+        <div class="fact"><b data-count="18">0</b><span>personnes dans l'équipe</span></div>
+        <div class="fact"><b data-count="30">0</b><span>km de rayon d'action</span></div>
+        <div class="fact"><b>FNAIM</b><span>cabinet affilié</span></div>
+      </div>
+    </div>
+    <div class="zone reveal" aria-label="Zone d'intervention : Roanne, Riorges, Mably, Le Coteau, Villerest, Renaison, Charlieu">
+      <svg viewBox="0 0 500 500" role="img">
+        <title>Zone d'intervention autour de Roanne</title>
+        <circle class="ring" cx="250" cy="250" r="225"/><circle class="ring" cx="250" cy="250" r="150"/><circle class="ring" cx="250" cy="250" r="75"/>
+        <circle class="pulse" cx="250" cy="250" r="225"/>
+        <!-- positions schématiques, non à l'échelle -->
+        <g class="town"><circle cx="205" cy="245" r="6"/><text x="150" y="232">Riorges</text></g>
+        <g class="town"><circle cx="268" cy="196" r="6"/><text x="280" y="190">Mably</text></g>
+        <g class="town"><circle cx="292" cy="268" r="6"/><text x="304" y="273">Le Coteau</text></g>
+        <g class="town"><circle cx="262" cy="330" r="6"/><text x="274" y="345">Villerest</text></g>
+        <g class="town"><circle cx="128" cy="232" r="6"/><text x="52" y="270">Renaison</text></g>
+        <g class="town"><circle cx="352" cy="62" r="6"/><text x="364" y="66">Charlieu</text></g>
+        <circle class="hq" cx="250" cy="250" r="12"/><text class="lbl" x="226" y="290">Roanne</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Contact</span><h2>Contactez notre agence immobilière à Roanne.</h2></div>
+      <p>Appelez-nous, écrivez-nous ou venez nous rendre visite directement dans nos locaux, cours de la République.</p>
+    </div>
+    <div class="ct-grid">
+      <div class="ct-card reveal">
+        <h3>Votre demande</h3>
+        <form class="ct" id="ct" novalidate>
+          <select id="sujet" aria-label="Objet de la demande">
+            <option>Estimation de mon bien</option><option>Achat</option><option>Location</option><option>Gestion locative</option><option>Syndic de copropriété</option><option>Immobilier d'entreprise</option>
+          </select>
+          <input id="nom" placeholder="Nom et prénom" aria-label="Nom et prénom" autocomplete="name">
+          <input id="tel" placeholder="Téléphone" aria-label="Téléphone" autocomplete="tel">
+          <textarea id="msg" rows="4" placeholder="Votre message" aria-label="Votre message"></textarea>
+          <button class="btn" type="submit">Envoyer ma demande</button>
+          <div class="ok-msg" id="ok" role="status">Démonstration : sur le site réel, votre demande arriverait directement à l'agence.</div>
+        </form>
+      </div>
+      <div class="ct-card reveal">
+        <h3>Dugourd &amp; Game</h3>
+        <ul class="ct-list" style="margin-bottom:22px">
+          <li>47 cours de la République<br>42300 Roanne</li>
+          <li><a href="tel:+33477712153">04 77 71 21 53</a></li>
+          <li><a href="mailto:agence@dugourd-immo.fr">agence@dugourd-immo.fr</a></li>
+        </ul>
+        <div class="open-now" id="open-now"><i></i><span>Horaires</span></div>
+        <table class="hours" id="hours">
+          <tr data-d="1"><td>Lundi</td><td>8h45–12h · 13h30–18h</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>8h45–12h · 13h30–18h</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>8h45–12h · 13h30–18h</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>8h45–12h · 13h30–18h</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>9h–12h · 14h–17h</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>9h–12h</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+        <p style="font-size:13.5px;color:#6b7680;margin-top:10px">Horaires repris de votre fiche en ligne, à confirmer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <img src="https://www.dugourd-immo.fr/images/logoSite.png" alt="Dugourd &amp; Game" style="height:48px;background:#fff;border-radius:8px;padding:6px;margin-bottom:14px">
+        <p>47 cours de la République, 42300 Roanne<br>04 77 71 21 53 · agence@dugourd-immo.fr</p>
+      </div>
+      <div><h4>L'agence</h4><ul><li><a href="#annonces">Acheter</a></li><li><a href="#simulateur">Estimer</a></li><li><a href="#services">Nos services</a></li><li><a href="https://www.dugourd-immo.fr/honoraires.pdf" target="_blank" rel="noopener">Nos honoraires (PDF)</a></li></ul></div>
+      <div><h4>Suivez-nous</h4><ul><li><a href="https://www.facebook.com/dugourdimmo" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/dugourdetgame" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://dugourd.monespaceclient.immo/" target="_blank" rel="noopener">Espace client</a></li></ul></div>
+    </div>
+    <div class="legal">
+      <p><b>Mentions légales</b> (reprises de votre barème d'honoraires) — Dugourd et Game, 47 cours de la République, 42300 Roanne. SIRET 776 342 719 00023. TVA intracommunautaire FR 66 776 342 719. Cabinet affilié FNAIM. Carte professionnelle n° 4201 2016 000 010 893. Garantie financière : Caisse de Garantie de l'Immobilier FNAIM, 89 rue La Boétie, 75008 Paris. Médiateur : ANM Consommation.</p>
+      <p><b>Maquette de démonstration</b>, non officielle. Photos : visuels réels des annonces publiées par l'agence sur dugourd-immo.fr ; aucune photo d'illustration. Photo de l'équipe et de la vitrine à fournir par l'agence. Honoraires calculés à titre indicatif d'après le barème publié, non contractuels. Couleurs et police reprises de votre site actuel.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn" href="tel:+33477712153">Appeler</a><a class="btn ghost" href="#simulateur">Simuler</a></div>
+
+<script>
+(function(){
+const IMG='https://dugourdetgame.staticlbi.com/600xauto/images/biens/1/';
+const BASE='https://www.dugourd-immo.fr';
+// Biens réellement publiés sur dugourd-immo.fr (page d'accueil, 14/11/2026)
+const biens=[
+ {c:'Riorges',cp:'42153',t:'appartement',titre:'Appartement 4 pièces, 108 m²',m:'3 chambres · ascenseur · garage double',p:177000,x:1,img:'ebbdd4161577ae5903d95d3c1b9d3f5d/photo_import_2eb07b94d4b19bf5b1d86aa74de68fb6.jpg',u:'/vente/63-riorges/appartement/316-appartement-riorges-4-pieces-108-m2-garage-double-parking-balcon'},
+ {c:'Le Coteau',cp:'42120',t:'appartement',titre:'Appartement 4 pièces, 91 m²',m:'Résidence La Costelloise · garage et cave',p:139900,x:0,img:'04d295474356032b481e1656f50bb150/photo_import_f31f947752aca42b7a37e2d84ea63f15.jpg',u:'/vente/60-le-coteau/appartement/385-le-coteau-residence-la-costelloise-bel-appartement-91m-au-sol-avec-garage-et-cave'},
+ {c:'Roanne',cp:'42300',t:'appartement',titre:'T3 de 60 m² avec balcon',m:'2 chambres · idéal investisseur ou premier achat',p:73900,x:1,img:'8c8a5825b0ab6e44b87e0b4203d6500f/photo_import_279e48203d01363fe4b4065493883410.jpg',u:'/vente/1-roanne/appartement/418-appartement-t3-2-chambres-balcon-ideal-investisseur-ou-premier-achat'},
+ {c:'Roanne',cp:'42300',t:'appartement',titre:'Haussmannien de 180 m²',m:'5 pièces · 3 chambres · hypercentre',p:1280000,x:1,img:'be1c7a7e5ab2471f5ee4ad2b57a1f7d8/photo_import_f6fa3d95075c41753958b5b370cb4edb.jpg',u:'/vente/1-roanne/appartement/430-bel-appartement-haussmannien-de-180-m-en-hypercentre-ville'},
+ {c:'Le Coteau',cp:'42120',t:'maison',titre:'Maison de ville de 137 m²',m:'3 chambres · garage et jardin · terrain 220 m²',p:170000,x:1,img:'3e635cac3f3965af303021773a0598ec/photo_import_98f8d86b70cf8b59a18622e2dff23c27.jpg',u:'/vente/60-le-coteau/maison/462-le-coteau-maison-de-ville-de-137-m-avec-garage-et-jardin'},
+ {c:'Roanne',cp:'42300',t:'appartement',titre:'T3 de 65 m²',m:'2 chambres · proche gare et IUT',p:93900,x:1,img:'17d801e8edc5b3d2ce12d535ce8fbbdd/photo_import_e04e73edff34c85c81cfcb1528044867.jpg',u:'/vente/1-roanne/appartement/465-appartement-t3-de-65-m-proche-gare-et-iut'},
+ {c:'Riorges',cp:'42153',t:'appartement',titre:'Appartement familial de 88 m²',m:'3 chambres · garage, cave et balcon',p:119000,x:1,img:'773c62ecbc548196b54d74dcfdd87c41/photo_import_fb26a8d0d43dd360b86acd3ed739ed28.jpg',u:'/vente/63-riorges/appartement/502-riorges-bel-appartement-familial-de-88-m-avec-garage-cave-et-balcon'},
+ {c:'Roanne',cp:'42300',t:'appartement',titre:'T4 de 71 m² avec balcons',m:'Résidence Les Peupliers · 3 chambres',p:79900,x:1,img:'5abf9eaad09d9b5f3e23d260115e5e5d/photo_import_8138c652d8234ed8706a178af82a260e.jpg',u:'/vente/1-roanne/appartement/504-roanne-residence-les-peupliers-appartement-t4-de-71-m-avec-balcons'},
+ {c:'Roanne',cp:'42300',t:'appartement',titre:'T3 rénové de 60 m²',m:'Terrasse · ascenseur · 2 chambres',p:110000,x:0,img:'13eeacd6363a8874885b4da6c351818d/photo_import_45f0e6aae4bc79a98e4de1f8ec1ea419.jpg',u:'/vente/1-roanne/appartement/505-roanne-appartement-t3-renove-de-60-m-avec-terrasse-ascenseur'},
+ {c:'Ouches',cp:'42155',t:'maison',titre:'Propriété de charme, 210 m²',m:'Parc arboré de 4 800 m² · piscine miroir',p:520000,x:0,img:'48d582ff0b5c3e77d3bde34ad7d4df85/photo_import_7bd9a0fbae3b4df5e05453c820073407.jpg',u:'/vente/65-ouches/maison/530-propriete-de-charme-avec-parc-arbore-et-piscine-miroir-ouches'}
+];
+const eur=n=>Math.round(n).toLocaleString('fr-FR')+' €';
+const cards=document.getElementById('cards');
+cards.innerHTML=biens.map(b=>`<a class="card" href="${BASE+b.u}" target="_blank" rel="noopener" data-c="${b.c}" data-t="${b.t}" data-p="${b.p}">
+ ${b.x?'<span class="badge">Exclusif</span>':''}
+ <div class="ph"><img loading="lazy" src="${IMG+b.img}" alt="${b.titre} à ${b.c}"></div>
+ <div class="bd"><span class="city">${b.c} (${b.cp})</span><h3>${b.titre}</h3><span class="meta">${b.m}</span><span class="price">${eur(b.p)}</span></div></a>`).join('');
+let fC='',fT='',fB=0;
+function apply(){let n=0;cards.querySelectorAll('.card').forEach(c=>{const ok=(!fC||c.dataset.c===fC)&&(!fT||c.dataset.t===fT)&&(!fB||+c.dataset.p<=fB);c.classList.toggle('hide',!ok);if(ok)n++});
+ document.getElementById('count').textContent=n?`${n} bien${n>1?'s':''} affiché${n>1?'s':''} sur cette sélection.`:'Aucun bien de cette sélection ne correspond — créez une alerte e-mail, l\'agence vous prévient dès qu\'un bien arrive.';}
+document.querySelectorAll('.chip').forEach(ch=>ch.onclick=()=>{document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed','false'));ch.setAttribute('aria-pressed','true');fC=ch.dataset.c;apply()});
+apply();
+
+// recherche hero
+let mode='acheter';
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');mode=b.dataset.mode;
+ document.getElementById('f-go').textContent=mode==='estimer'?'Simuler':'Voir les biens';
+ document.getElementById('f-budget').style.display=mode==='acheter'?'':'none';});
+document.getElementById('f-go').onclick=()=>{
+ if(mode==='estimer'){location.hash='simulateur';return}
+ if(mode==='louer'){window.open(BASE+'/location/1','_blank','noopener');return}
+ fT=document.getElementById('f-type').value;fB=+document.getElementById('f-budget').value||0;apply();
+ document.getElementById('annonces').scrollIntoView({behavior:'smooth'});};
+
+// SIMULATEUR — barème d'honoraires maximums publié par l'agence
+function honoVente(p,type,ex){
+  if(type==='garage') return {h:1000,lab:'Forfait garage / parking'};
+  if(type==='terrain') return {h:p*(ex?.09:.10),lab:`Terrain / droit au bail : ${ex?'9':'10'} % TTC`};
+  if(p<=62500) return {h:ex?4500:5000,lab:`Forfait jusqu'à 62 500 €${ex?' (exclusivité)':''}`};
+  const t=[[100000,.08,.07],[200000,.07,.06],[300000,.06,.05],[Infinity,.05,.04]].find(r=>p<=r[0]);
+  const r=ex?t[2]:t[1];
+  return {h:p*r,lab:`Tranche ${p<=100000?'62 501 – 100 000 €':p<=200000?'100 001 – 200 000 €':p<=300000?'200 001 – 300 000 €':'au-delà de 300 000 €'} : ${(r*100).toLocaleString('fr-FR')} % TTC`};
+}
+const $=id=>document.getElementById(id);
+let vType='logement',gType='appartement',pane='vente';
+function anim(el,val){const from=+el.dataset.v||0,to=val,t0=performance.now();el.dataset.v=to;
+ (function step(t){const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);el.textContent=eur(from+(to-from)*e);if(k<1)requestAnimationFrame(step)})(t0);}
+function calc(){
+ if(pane==='vente'){
+  const p=+$('prix').value,ex=$('excl').checked,r=honoVente(p,vType,ex),base=honoVente(p,vType,false);
+  $('prix-o').textContent=eur(p);
+  const h=Math.min(r.h,p),net=p-h;
+  $('o1-lab').textContent='Honoraires d\'agence TTC';anim($('o1'),h);
+  $('bar1').style.width=(net/p*100)+'%';$('bar2').style.width=(h/p*100)+'%';
+  $('lg1').textContent='Net vendeur';$('lg2').textContent='Honoraires';
+  $('lines').innerHTML=`<li>Prix affiché<b>${eur(p)}</b></li><li>${r.lab}<b>− ${eur(h)}</b></li><li>Vous percevez (net vendeur)<b>${eur(net)}</b></li>`;
+  const gain=base.h-r.h;
+  $('save').innerHTML=ex?(gain>0?`Avec un mandat exclusif, vous économisez <b>${eur(gain)}</b> par rapport au mandat simple.`:'Tarif identique en mandat simple ou exclusif pour ce type de bien.'):(vType==='garage'?'Forfait unique pour les garages et parkings.':`En mandat exclusif, ces honoraires passeraient à <b>${eur(honoVente(p,vType,true).h)}</b>.`);
+  $('sim-cta').textContent='Demander une estimation';
+ }else{
+  const l=+$('loyer').value,an=l*12,rate={appartement:.066,maison:.072,immeuble:.084}[gType];
+  $('loyer-o').textContent=eur(l);
+  let g=Math.max(an*rate,150);const cpt=40,frf=$('frf').checked?65:0,gli=$('gli').checked?an*.0285:0;
+  const tot=g+cpt+frf+gli,net=an-tot;
+  $('o1-lab').textContent='Revenu locatif net de frais d\'agence / an';anim($('o1'),net);
+  $('bar1').style.width=(net/an*100)+'%';$('bar2').style.width=(tot/an*100)+'%';
+  $('lg1').textContent='Ce qui vous reste';$('lg2').textContent='Frais de gestion';
+  $('lines').innerHTML=`<li>Loyers encaissés sur 12 mois<b>${eur(an)}</b></li><li>Gestion ${gType} (${(rate*100).toLocaleString('fr-FR')} % TTC${an*rate<150?', minimum 150 €':''})<b>− ${eur(g)}</b></li><li>Compte rendu trimestriel (4 × 10 €)<b>− ${eur(cpt)}</b></li>${frf?`<li>État des revenus fonciers<b>− ${eur(frf)}</b></li>`:''}${gli?`<li>Garantie loyers impayés (2,85 %)<b>− ${eur(gli)}</b></li>`:''}`;
+  $('save').innerHTML=`Soit <b>${eur(tot/12)}</b> par mois pour une gestion complète : locataires, loyers, travaux, démarches.`;
+  $('sim-cta').textContent='Confier mon bien en gestion';
+ }
+}
+['prix','loyer'].forEach(id=>$(id).addEventListener('input',calc));
+['excl','gli','frf'].forEach(id=>$(id).addEventListener('change',calc));
+document.querySelectorAll('#seg-v button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#seg-v button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');vType=b.dataset.v;calc()});
+document.querySelectorAll('#seg-g button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#seg-g button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');gType=b.dataset.g;calc()});
+function setPane(p){pane=p;document.querySelectorAll('.sim-tabs button').forEach(x=>x.setAttribute('aria-selected',x.dataset.p===p));$('p-vente').hidden=p!=='vente';$('p-gestion').hidden=p!=='gestion';$('o1').dataset.v=0;calc();}
+document.querySelectorAll('.sim-tabs button').forEach(b=>b.onclick=()=>setPane(b.dataset.p));
+document.querySelectorAll('[data-open]').forEach(a=>a.addEventListener('click',()=>setPane(a.dataset.open)));
+$('sim-cta').addEventListener('click',()=>{$('sujet').value=pane==='vente'?'Estimation de mon bien':'Gestion locative'});
+document.querySelectorAll('[data-sujet]').forEach(a=>a.addEventListener('click',()=>{$('sujet').value=a.dataset.sujet}));
+calc();
+
+// contact
+$('ct').addEventListener('submit',e=>{e.preventDefault();$('ok').style.display='block'});
+
+// horaires : ouvert maintenant ?
+const H={1:[[525,720],[810,1080]],2:[[525,720],[810,1080]],3:[[525,720],[810,1080]],4:[[525,720],[810,1080]],5:[[540,720],[840,1020]],6:[[540,720]],0:[]};
+const now=new Date(),d=now.getDay(),mn=now.getHours()*60+now.getMinutes();
+const tr=document.querySelector(`#hours tr[data-d="${d}"]`);if(tr)tr.classList.add('today');
+const open=H[d].some(([a,b])=>mn>=a&&mn<b);const on=$('open-now');on.classList.toggle('yes',open);on.querySelector('span').textContent=open?'Ouvert en ce moment':'Fermé en ce moment';
+
+// en-tête, menu, reveals, compteurs
+const hd=document.querySelector('header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>10),{passive:true});
+const bg=$('burger'),mn2=$('menu');bg.onclick=()=>{const o=mn2.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+mn2.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn2.classList.remove('open');bg.setAttribute('aria-expanded','false')}));
+const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15}):null;
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io?io.observe(el):el.classList.add('in')});
+document.querySelectorAll('[data-count]').forEach(el=>{const n=+el.dataset.count;const o=new IntersectionObserver(es=>{if(es[0].isIntersecting){let t0=performance.now();(function s(t){const k=Math.min(1,(t-t0)/1200);el.textContent=Math.round(n*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(s)})(t0);o.disconnect()}});o.observe(el)});
+})();
+</script>
+</body>
+</html>
