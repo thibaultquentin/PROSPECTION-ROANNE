@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Gouttenoire — Boucherie charcuterie traiteur à Roanne</title>
+<meta name="description" content="Boucherie, charcuterie et traiteur artisanal à Roanne depuis 1991 : viandes d'éleveurs de la région, terrines et pâtés croûte maison, menus sur mesure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel michel-gouttenoire.com
+   (variables globales Elementor relevées sur le site)
+   ========================================================== */
+:root{
+  --noir:#101010;        /* couleur primaire du site */
+  --creme:#FFF8EE;       /* couleur secondaire (fonds) */
+  --texte:#5F5D5A;       /* couleur de texte */
+  --bordeaux:#95010E;    /* couleur d'accent (boutons, titres) */
+  --beige:#D9D0C5;       /* filets, séparateurs */
+  --blanc:#FFFFFF;
+  --bordeaux-fonce:#6d000a;
+  --f-titre:"Fraunces", Georgia, serif;          /* police titres du site */
+  --f-texte:"Libre Franklin", Arial, sans-serif; /* police texte du site */
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-titre);color:var(--noir);line-height:1.1;font-weight:600}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.eyebrow{font-family:var(--f-titre);font-style:italic;color:var(--bordeaux);font-size:1.15rem;display:block;margin-bottom:.4rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.5rem;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--bordeaux);background:var(--bordeaux);color:#fff;cursor:pointer;font-family:var(--f-texte);font-size:1rem;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(149,1,14,.28)}
+.btn:active{transform:scale(.97)}
+.btn--ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.btn--ghost:hover{background:#fff;color:var(--noir)}
+.btn--line{background:transparent;color:var(--bordeaux)}
+.btn--line:hover{background:var(--bordeaux);color:#fff}
+:focus-visible{outline:3px solid var(--bordeaux);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:#e8e1d8;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:#fff}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,248,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--beige);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(16,16,16,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:78px}
+.nav__logo img{height:56px;width:auto}
+.nav__links{display:flex;gap:1.6rem;list-style:none}
+.nav__links a{text-decoration:none;color:var(--noir);font-weight:500;position:relative;padding:.3rem 0}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--bordeaux);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav__links a:hover::after{transform:scaleX(1)}
+.nav__right{display:flex;align-items:center;gap:.8rem}
+.status{display:inline-flex;align-items:center;gap:.45rem;font-size:.82rem;font-weight:600;padding:.4rem .8rem;border-radius:999px;background:#fff;border:1px solid var(--beige);color:var(--noir);white-space:nowrap}
+.status i{width:9px;height:9px;border-radius:50%;background:#999}
+.status.open i{background:#1f8a3b;box-shadow:0 0 0 0 rgba(31,138,59,.5);animation:pulse 2s infinite}
+.status.closed i{background:var(--bordeaux)}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(31,138,59,0)}100%{box-shadow:0 0 0 0 rgba(31,138,59,0)}}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--noir);margin:6px 8px;transition:.3s}
+@media (max-width:960px){
+  .nav__links{position:fixed;inset:78px 0 auto 0;flex-direction:column;background:var(--creme);padding:1.5rem 20px;gap:1rem;border-bottom:1px solid var(--beige);transform:translateY(-130%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s;z-index:-1}
+  .nav__links.open{transform:none;visibility:visible}
+  .burger{display:block}
+  .nav__right .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;place-items:center start;color:#fff;overflow:hidden;background:var(--noir)}
+.hero__slides{position:absolute;inset:0}
+.hero__slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 8s linear}
+.hero__slides img.on{opacity:.62;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(16,16,16,.88) 0%,rgba(16,16,16,.55) 50%,rgba(16,16,16,.15) 100%)}
+.hero__in{position:relative;z-index:2;padding:5rem 0}
+.hero .eyebrow{color:#f3cfc9}
+.hero h1{color:#fff;font-size:clamp(2.6rem,6.4vw,5.6rem);font-weight:800;letter-spacing:-.02em;max-width:13ch}
+.hero h1 em{font-style:italic;font-weight:400;color:#f3cfc9;display:block;font-size:.5em;letter-spacing:0;margin-top:.6rem}
+.hero p{max-width:52ch;margin:1.4rem 0 2rem;font-size:1.1rem;color:#eee6dc}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero__line{display:block;overflow:hidden}
+.hero__line>span{display:block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+.hero__line:nth-child(2)>span{animation-delay:.12s}
+.hero__line:nth-child(3)>span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.hero__since{position:absolute;right:4vw;bottom:3rem;z-index:2;font-family:var(--f-titre);text-align:right;color:#fff}
+.hero__since b{display:block;font-size:clamp(3rem,7vw,6rem);font-weight:800;line-height:.9;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.75)}
+.hero__since small{font-style:italic;font-size:1rem;color:#e8dcd0}
+@media (max-width:700px){.hero__since{display:none}}
+
+/* Bandeau défilant produits */
+.ticker{background:var(--bordeaux);color:#fff;overflow:hidden;padding:.9rem 0;white-space:nowrap}
+.ticker__track{display:inline-flex;gap:2.4rem;animation:tick 38s linear infinite;font-family:var(--f-titre);font-size:1.15rem;font-style:italic}
+.ticker__track span::after{content:"✦";margin-left:2.4rem;font-style:normal;opacity:.6}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,8vw,7rem) 0}
+.sec-head{max-width:720px;margin-bottom:2.8rem}
+.sec-head h2{font-size:clamp(2rem,4vw,3.2rem)}
+.sec-head p{margin-top:1rem;font-size:1.05rem}
+.texture{background:var(--creme) url("https://michel-gouttenoire.com/wp-content/uploads/2025/02/bg-05.jpg") center/cover}
+
+/* Cartes métiers */
+.metiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.metier{position:relative;border-radius:var(--r);overflow:hidden;min-height:440px;color:#fff;text-decoration:none;display:flex;align-items:flex-end;isolation:isolate}
+.metier img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
+.metier::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 35%,rgba(16,16,16,.9))}
+.metier:hover img{transform:scale(1.07)}
+.metier__in{padding:1.8rem}
+.metier h3{color:#fff;font-size:2rem}
+.metier p{color:#eadfd4;margin:.3rem 0 1rem}
+.metier .more{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;border-bottom:2px solid var(--bordeaux);padding-bottom:2px}
+.metier .more svg{transition:transform .3s}
+.metier:hover .more svg{transform:translateX(5px)}
+@media (max-width:900px){.metiers{grid-template-columns:1fr}.metier{min-height:340px}}
+
+/* Provenance */
+.prov{display:grid;grid-template-columns:1.05fr 1fr;gap:2.5rem;align-items:start}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.4rem}
+.tab{border:1.5px solid var(--beige);background:#fff;color:var(--noir);padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;font-family:var(--f-texte);font-weight:600;font-size:.95rem;transition:.25s}
+.tab:hover{border-color:var(--bordeaux)}
+.tab[aria-selected="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.eleveurs{list-style:none;display:grid;gap:.6rem}
+.eleveur{display:flex;justify-content:space-between;align-items:center;gap:1rem;background:#fff;border:1px solid var(--beige);border-radius:12px;padding:.9rem 1.1rem;animation:fadeUp .5s var(--ease) both;cursor:default;transition:border-color .2s,transform .2s}
+.eleveur:hover,.eleveur.hl{border-color:var(--bordeaux);transform:translateX(4px)}
+.eleveur b{color:var(--noir);font-weight:600}
+.eleveur span{font-size:.9rem;white-space:nowrap}
+.eleveur .dep{display:inline-block;min-width:2.4em;text-align:center;font-size:.75rem;font-weight:700;background:var(--creme);border:1px solid var(--beige);border-radius:6px;padding:.1rem .35rem;margin-left:.4rem;color:var(--bordeaux)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}}
+.prov__note{margin-top:1.2rem;font-size:.95rem;font-style:italic}
+.map{background:#fff;border:1px solid var(--beige);border-radius:var(--r);padding:1rem;position:sticky;top:100px}
+.map svg{width:100%;height:auto}
+.map .pt{transition:opacity .4s,transform .4s;transform-box:fill-box;transform-origin:center}
+.map .pt.dim{opacity:.15}
+.map .pt.hl circle{r:9}
+.map__cap{font-size:.8rem;margin-top:.4rem;text-align:center}
+@media (max-width:900px){.prov{grid-template-columns:1fr}.map{position:static}}
+
+/* Commande (outil central) */
+.order{background:var(--noir);color:#e8e1d8}
+.order h2{color:#fff}
+.order .sec-head p{color:#cfc5ba}
+.order__grid{display:grid;grid-template-columns:1.35fr 1fr;gap:1.6rem;align-items:start}
+.panel{min-width:0;background:#1b1a19;border:1px solid #2e2b29;border-radius:var(--r);padding:1.6rem}
+.mode{display:flex;background:#262422;border-radius:999px;padding:4px;margin-bottom:1.4rem;width:max-content;max-width:100%}
+.mode button{border:0;background:none;color:#cfc5ba;font:600 .95rem var(--f-texte);padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;transition:.25s}
+.mode button[aria-selected="true"]{background:var(--bordeaux);color:#fff}
+.cat{margin-bottom:1.3rem}
+.cat h3{color:#fff;font-size:1.25rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.cat h3 small{font-family:var(--f-texte);font-size:.78rem;color:#a99f94;font-weight:400}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.5rem}
+.item{display:flex;align-items:center;justify-content:space-between;gap:.6rem;background:#232120;border:1px solid #33302d;border-radius:10px;padding:.55rem .7rem;transition:border-color .2s,background .2s}
+.item.has{border-color:var(--bordeaux);background:#2a1415}
+.item label{font-size:.92rem;color:#eee6dc;line-height:1.25}
+.qty{display:flex;align-items:center;gap:.3rem;flex-shrink:0}
+.qty button{width:30px;height:30px;border-radius:50%;border:1px solid #4a4542;background:transparent;color:#fff;font-size:1.05rem;cursor:pointer;line-height:1;transition:.2s}
+.qty button:hover{background:var(--bordeaux);border-color:var(--bordeaux)}
+.qty output{min-width:1.6em;text-align:center;font-weight:700;color:#fff}
+.field{display:grid;gap:.35rem;margin-bottom:1rem}
+.field label{font-size:.85rem;color:#cfc5ba;font-weight:600}
+.field input,.field select,.field textarea{width:100%;background:#232120;border:1px solid #3a3633;color:#fff;border-radius:10px;padding:.75rem .85rem;font:inherit;font-size:.95rem}
+.field textarea{min-height:84px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--bordeaux)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{border:1px solid #4a4542;background:transparent;color:#eee6dc;border-radius:999px;padding:.45rem .85rem;cursor:pointer;font:500 .88rem var(--f-texte);transition:.2s}
+.chip[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.recap{position:sticky;top:100px}
+.recap h3{color:#fff;font-size:1.5rem;margin-bottom:.3rem}
+.recap__list{list-style:none;margin:1rem 0;display:grid;gap:.4rem;max-height:260px;overflow:auto}
+.recap__list li{display:flex;justify-content:space-between;gap:.8rem;border-bottom:1px dashed #3a3633;padding-bottom:.4rem;font-size:.93rem;animation:fadeUp .3s both}
+.recap__list li b{color:#fff}
+.recap__empty{color:#8f867c;font-style:italic;font-size:.92rem;padding:1rem 0}
+.recap__actions{display:grid;gap:.6rem;margin-top:1rem}
+.recap__actions .btn{justify-content:center}
+.recap__hint{font-size:.8rem;color:#a99f94;margin-top:.8rem}
+.toast{visibility:hidden;position:fixed;left:50%;bottom:24px;transform:translate(-50%,150%);background:var(--bordeaux);color:#fff;padding:.8rem 1.3rem;border-radius:999px;font-weight:600;z-index:90;transition:transform .4s var(--ease)}
+.toast.on{visibility:visible;transform:translate(-50%,0)}
+@media (max-width:960px){.panel{padding:1.1rem}.mode{width:100%}.mode button{flex:1;padding:.6rem .5rem;font-size:.88rem}.order__grid{grid-template-columns:1fr}.recap{position:static}.row2{grid-template-columns:1fr}}
+
+/* Histoire */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.story__imgs{position:relative;aspect-ratio:4/4.4}
+.story__imgs img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 20px 50px rgba(16,16,16,.18)}
+.story__imgs img:first-child{width:72%;height:78%;left:0;top:0}
+.story__imgs img:last-child{width:58%;height:52%;right:0;bottom:0;border:6px solid var(--creme)}
+.timeline{margin-top:2rem;border-left:2px solid var(--beige);padding-left:1.4rem;display:grid;gap:1.4rem}
+.timeline div{position:relative}
+.timeline div::before{content:"";position:absolute;left:calc(-1.4rem - 7px);top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--bordeaux);box-shadow:0 0 0 4px var(--creme)}
+.timeline b{font-family:var(--f-titre);font-size:1.8rem;color:var(--bordeaux);display:block;line-height:1}
+@media (max-width:900px){.story{grid-template-columns:1fr}}
+
+/* Charcuterie */
+.charc{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.charc ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.charc li{background:#fff;border:1px solid var(--beige);padding:.45rem .9rem;border-radius:999px;font-size:.93rem;color:var(--noir);transition:.25s}
+.charc li:hover{background:var(--bordeaux);color:#fff;border-color:var(--bordeaux)}
+.badge-nitrite{display:flex;gap:1rem;align-items:center;background:#fff;border-left:4px solid var(--bordeaux);padding:1rem 1.2rem;border-radius:0 12px 12px 0;margin-top:1rem}
+.badge-nitrite b{color:var(--noir)}
+.charc__img{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.charc__img img{border-radius:12px;aspect-ratio:3/4;object-fit:cover;width:100%}
+.charc__img img:nth-child(2){margin-top:2.5rem}
+@media (max-width:900px){.charc{grid-template-columns:1fr}}
+
+/* Galerie traiteur défilante */
+.gallery{overflow:hidden;padding-bottom:1rem}
+.gallery__track{display:flex;gap:1rem;width:max-content;animation:gal 60s linear infinite}
+.gallery:hover .gallery__track{animation-play-state:paused}
+.gallery__track img{height:320px;width:auto;aspect-ratio:4/3;object-fit:cover;border-radius:12px;transition:transform .4s var(--ease)}
+.gallery__track img:hover{transform:scale(1.03)}
+@keyframes gal{to{transform:translateX(-50%)}}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:3rem}
+.service{background:#fff;border:1px solid var(--beige);border-radius:var(--r);padding:1.6rem;transition:transform .3s var(--ease),box-shadow .3s}
+.service:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(16,16,16,.08)}
+.service .ico{width:52px;height:52px;border-radius:50%;background:var(--bordeaux);display:grid;place-items:center;margin-bottom:1rem}
+.service .ico img{width:30px}
+.service h3{font-size:1.35rem;margin-bottom:.5rem}
+@media (max-width:900px){.services{grid-template-columns:1fr}}
+
+/* Partenaires */
+.partners{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.pcol{background:#fff;border:1px solid var(--beige);border-radius:var(--r);padding:1.6rem}
+.pcol h3{font-size:1.4rem;margin-bottom:1rem}
+.pcol ul{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem}
+.pcol li{border:1px solid var(--beige);border-radius:999px;padding:.4rem .85rem;font-size:.92rem;color:var(--noir)}
+@media (max-width:800px){.partners{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:2rem}
+.card{background:#fff;border:1px solid var(--beige);border-radius:var(--r);padding:1.8rem}
+.hours{width:100%;border-collapse:collapse;margin-top:1rem}
+.hours td{padding:.55rem .3rem;border-bottom:1px solid var(--beige)}
+.hours td:last-child{text-align:right;color:var(--noir);font-weight:500}
+.hours tr.today td{color:var(--bordeaux);font-weight:700}
+.hours tr.today td:first-child::before{content:"● ";}
+.coord{display:grid;gap:.8rem;margin-top:1.2rem}
+.coord a{text-decoration:none;font-weight:600;color:var(--noir)}
+.coord a:hover{color:var(--bordeaux)}
+.mapframe{border-radius:var(--r);overflow:hidden;border:1px solid var(--beige);min-height:380px}
+.mapframe iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.3) contrast(1.05)}
+@media (max-width:900px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--noir);color:#bdb3a8;padding:3rem 0 2rem;font-size:.9rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+footer h4{font-family:var(--f-titre);color:#fff;font-size:1.3rem;margin-bottom:.6rem;font-weight:600}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.foot__demo{border-top:1px solid #2e2b29;margin-top:2rem;padding-top:1.4rem;font-size:.8rem;color:#8f867c;line-height:1.6}
+
+/* Révélations au scroll */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}
+.mobile-call{display:none}
+@media (max-width:700px){
+  .mobile-call{display:flex;position:fixed;bottom:14px;right:14px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--bordeaux);color:#fff;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(149,1,14,.4)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .hero__line>span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ButcherShop",
+  "name":"Maison Gouttenoire",
+  "description":"Boucherie, charcuterie et traiteur artisanal à Roanne. Viandes issues d'éleveurs de la région, charcuterie faite maison, menus traiteur sur mesure.",
+  "url":"https://michel-gouttenoire.com/",
+  "telephone":"+33 4 81 17 07 51",
+  "email":"boucheriegouttenoire@gmail.com",
+  "image":"https://michel-gouttenoire.com/wp-content/uploads/2025/02/output-onlinepngtools.png",
+  "foundingDate":"1991",
+  "address":{"@type":"PostalAddress","streetAddress":"128 rue de Charlieu","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"06:00","closes":"12:45"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"15:00","closes":"19:15"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"07:30","closes":"12:45"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"15:00","closes":"19:15"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"06:30","closes":"12:30"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour la Maison Gouttenoire. Aucune commande n'est réellement transmise depuis cette page.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="nav__logo" href="#top" aria-label="Maison Gouttenoire, accueil"><img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/output-onlinepngtools.png" alt="Samuel Gouttenoire — logo"></a>
+    <ul class="nav__links" id="menu">
+      <li><a href="#boucherie">Boucherie</a></li>
+      <li><a href="#charcuterie">Charcuterie</a></li>
+      <li><a href="#traiteur">Traiteur</a></li>
+      <li><a href="#partenaires">Partenaire</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav__right">
+      <span class="status" id="status"><i></i><span>Horaires</span></span>
+      <a class="btn" href="#commande">Préparer ma commande</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Présentation">
+  <div class="hero__slides" id="slides">
+    <img class="on" src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/3.jpg" alt="">
+    <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/2.jpg" alt="">
+    <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/4.jpg" alt="">
+    <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/af43f452-24d1-4be2-9100-f7924db0b55e.jpg" alt="">
+  </div>
+  <div class="wrap hero__in">
+    <span class="eyebrow">Nous vous accueillons à Roanne (42)</span>
+    <h1>
+      <span class="hero__line"><span>Maison</span></span>
+      <span class="hero__line"><span>Gouttenoire</span></span>
+      <span class="hero__line"><span><em>Boucherie · Charcuterie · Traiteur</em></span></span>
+    </h1>
+    <p>Découvrez dans notre boutique nos pièces de boucherie, charcuterie et traiteur. Toutes nos viandes sont issues d'élevages de proximité.</p>
+    <div class="hero__cta">
+      <a class="btn" href="#commande">Préparer ma commande
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn--ghost" href="tel:+33481170751">04 81 17 07 51</a>
+    </div>
+  </div>
+  <div class="hero__since"><b>1991</b><small>une affaire de famille</small></div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="ticker">
+    <span>Terrine de campagne</span><span>Pâté croûte pintade forestière</span><span>Lapin moutarde noisette</span><span>Jambon blanc sans sel nitrité</span><span>Rosette</span><span>Andouillettes</span><span>Boudin noir</span><span>Tête roulée</span><span>Jambonneau en gelée</span><span>Saucissons à cuire</span><span>Volailles label rouge et fermières</span>
+  </div>
+</div>
+
+<section class="texture" aria-labelledby="t-metiers">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Maison Gouttenoire</span>
+      <h2 id="t-metiers">Un menu personnalisé selon vos envies</h2>
+      <p>La Maison Gouttenoire vous propose une carte traiteur variable au fil des saisons et de vos envies. Alors laissez-vous séduire par nos plats cuisinés faits maison, à partir de produits de qualité.</p>
+    </div>
+    <div class="metiers">
+      <a class="metier rv" href="#boucherie">
+        <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/boucherie-2-768x1024-1.jpeg" alt="Pièces de boucherie Maison Gouttenoire" loading="lazy">
+        <div class="metier__in"><h3>Boucherie</h3><p>Découvrez la provenance de nos viandes…</p><span class="more">Lire plus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="metier rv rv-d1" href="#charcuterie">
+        <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/charcuterie-4-768x1024-1.jpg" alt="Saucissons et charcuterie maison" loading="lazy">
+        <div class="metier__in"><h3>Charcuterie</h3><p>Toutes nos terrines sont faites maison…</p><span class="more">Lire plus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+      <a class="metier rv rv-d2" href="#traiteur">
+        <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/10014.jpg" alt="Porcelet à la broche, grill traiteur" loading="lazy">
+        <div class="metier__in"><h3>Traiteur</h3><p>Grill pour viandes diverses : porcelet, jambon…</p><span class="more">Lire plus <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="boucherie" aria-labelledby="t-prov">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Boucherie</span>
+      <h2 id="t-prov">Découvrez la provenance de nos viandes</h2>
+      <p>Afin de vous garantir les meilleurs produits, nos viandes sont toutes issues d'agriculteurs de la région. Choisissez une viande : ses éleveurs s'affichent sur la carte.</p>
+    </div>
+    <div class="prov">
+      <div class="rv">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <ul class="eleveurs" id="eleveurs" aria-live="polite"></ul>
+        <p class="prov__note">Votre boucher saura vous conseiller sur le choix et le temps de cuisson de votre viande. Vous pourrez ainsi déguster votre plat dans les meilleures conditions.</p>
+      </div>
+      <div class="map rv rv-d1" aria-label="Carte schématique des éleveurs autour de Roanne">
+        <svg viewBox="0 0 500 460" id="mapsvg" role="img" aria-labelledby="maptitle">
+          <title id="maptitle">Carte schématique : la boucherie à Roanne et ses éleveurs</title>
+          <defs>
+            <radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#95010E" stop-opacity=".10"/><stop offset="1" stop-color="#95010E" stop-opacity="0"/></radialGradient>
+          </defs>
+          <rect width="500" height="460" fill="#FFF8EE" rx="10"/>
+          <g id="rings"></g>
+          <path d="M255 40 C 250 120, 262 180, 248 250 S 240 380, 230 440" stroke="#9fb7c9" stroke-width="3" fill="none" opacity=".55"/>
+          <text x="262" y="150" font-size="11" fill="#7d93a3" font-style="italic" font-family="Fraunces">la Loire</text>
+          <g id="pts"></g>
+        </svg>
+        <p class="map__cap">Carte schématique — positions approximatives des communes. Volailles : Maison Laurent à Digoin (71) et les fermiers Landais à Saint-Sever (40, hors carte).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="order" id="commande" aria-labelledby="t-cmd">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow" style="color:#f3cfc9">Commande &amp; devis</span>
+      <h2 id="t-cmd">Préparez votre commande, on la prépare pour vous</h2>
+      <p>Aujourd'hui, tout passe par le téléphone. Ici, votre client compose sa liste, choisit son jour et son créneau de retrait dans vos horaires d'ouverture, et vous l'envoie en un clic. Pour un événement, il décrit son projet et vous recevez une demande de devis complète.</p>
+    </div>
+    <div class="order__grid">
+      <div class="panel rv">
+        <div class="mode" role="tablist">
+          <button role="tab" aria-selected="true" data-mode="retrait">Commande à retirer</button>
+          <button role="tab" aria-selected="false" data-mode="devis">Devis traiteur</button>
+        </div>
+
+        <div id="pane-retrait">
+          <div id="cats"></div>
+          <div class="row2">
+            <div class="field"><label for="jour">Jour de retrait</label><select id="jour"></select></div>
+            <div class="field"><label for="creneau">Créneau</label><select id="creneau"></select></div>
+          </div>
+          <div class="field"><label for="note">Précisions (épaisseur, nombre de parts, cuisson…)</label><textarea id="note" placeholder="Ex. : 4 tranches de jambon fines, rôti ficelé pour 6 personnes…"></textarea></div>
+        </div>
+
+        <div id="pane-devis" hidden>
+          <div class="field"><label>Type d'événement</label>
+            <div class="chips" id="evts"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="convives">Nombre de convives</label><input id="convives" type="number" min="1" value="20"></div>
+            <div class="field"><label for="dateEvt">Date souhaitée</label><input id="dateEvt" type="date"></div>
+          </div>
+          <div class="field"><label>Ce qui vous intéresse</label>
+            <div class="chips" id="prestas"></div>
+          </div>
+          <div class="field"><label for="noteEvt">Vos envies, vos attentes</label><textarea id="noteEvt" placeholder="Lieu, déroulé, régimes particuliers…"></textarea></div>
+        </div>
+
+        <div class="row2">
+          <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+        </div>
+      </div>
+
+      <aside class="panel recap rv rv-d1" aria-live="polite">
+        <span class="eyebrow" style="color:#f3cfc9" id="recapEyebrow">Votre commande</span>
+        <h3 id="recapTitle">Récapitulatif</h3>
+        <ul class="recap__list" id="recapList"></ul>
+        <p class="recap__empty" id="recapEmpty">Ajoutez des produits avec les boutons +.</p>
+        <p id="recapWhen" style="font-size:.93rem;color:#eee6dc"></p>
+        <div class="recap__actions">
+          <button class="btn" id="send">Envoyer à la boucherie</button>
+          <button class="btn btn--line" id="copy" style="color:#f3cfc9;border-color:#5a2a2d">Copier le récapitulatif</button>
+          <a class="btn btn--ghost" href="tel:+33481170751">Ou appeler le 04 81 17 07 51</a>
+        </div>
+        <p class="recap__hint">La commande est confirmée par l'équipe. Sur cette maquette, l'envoi ouvre simplement votre messagerie avec le récapitulatif prérempli.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="texture" aria-labelledby="t-histoire">
+  <div class="wrap story">
+    <div class="story__imgs rv">
+      <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/gouttenoire2.jpg" alt="Michel et Sylvie Gouttenoire" loading="lazy">
+      <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/accueil-3.jpg" alt="La famille Gouttenoire" loading="lazy">
+    </div>
+    <div class="rv rv-d1">
+      <span class="eyebrow">Maison Gouttenoire</span>
+      <h2 id="t-histoire" style="font-size:clamp(2rem,4vw,3rem)">La Maison Gouttenoire, une affaire de famille</h2>
+      <div class="timeline">
+        <div><b>1991</b>Après avoir travaillé 20 ans en tant que salarié, Michel reprend l'entreprise avec Sylvie. Ainsi commence l'aventure de la Maison Gouttenoire !</div>
+        <div><b>2013</b>Leur fils, Samuel, marche dans les pas de son père. Il reprend la boutique avec son épouse Anaïs.</div>
+        <div><b>Aujourd'hui</b>L'histoire continue… Il s'est entouré d'une équipe de bouchers, charcutiers professionnels et expérimentés.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="charcuterie" aria-labelledby="t-charc">
+  <div class="wrap charc">
+    <div class="rv">
+      <span class="eyebrow">Charcuterie</span>
+      <h2 id="t-charc" style="font-size:clamp(2rem,4vw,3rem)">Découvrez notre gamme de charcuterie maison</h2>
+      <p style="margin-top:1rem">Nous proposons une large gamme de charcuterie faite maison, et différentes sortes de pâté croûte. Et encore bien d'autres charcuteries au choix à découvrir dans notre boutique.</p>
+      <ul>
+        <li>Terrine de campagne</li><li>Terrine de lapin</li><li>Terrine de canard</li><li>Tête roulée</li><li>Fromage de tête</li><li>Jambonneau en gelée</li><li>Pâté croûte pintade forestière</li><li>Pâté croûte lapin moutarde noisette</li><li>Richelieu</li><li>Cocktail</li><li>Saucissons à cuire et secs</li><li>Rosette</li><li>Andouille</li><li>Andouillettes</li><li>Boudin noir</li>
+      </ul>
+      <div class="badge-nitrite"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#95010E" stroke-width="1.8"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.8 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg><p><b>Nos jambons blancs</b> sont issus de porcs fermiers, entièrement faits maison, sans sel nitrité.</p></div>
+    </div>
+    <div class="charc__img rv rv-d1">
+      <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/charcuterie-2.jpg" alt="Saucissons secs et rosettes maison" loading="lazy">
+      <img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/2e781d70-abab-4ff5-a497-a1ce611c695a.jpg" alt="Préparations maison" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="traiteur" class="texture" aria-labelledby="t-trait" style="padding-bottom:4rem">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Traiteur</span>
+      <h2 id="t-trait">Des menus sur mesure pour tous vos événements</h2>
+      <p>Anniversaire, mariage, repas d'entreprise, soirée cocktail, repas associatif… Prenez rendez-vous avec notre équipe : nous échangeons sur votre projet de réception, le type d'événement, le nombre de convives, vos envies et vos attentes, pour établir un devis gratuit entièrement personnalisé.</p>
+    </div>
+  </div>
+  <div class="gallery" aria-label="Réalisations traiteur">
+    <div class="gallery__track" id="gal"></div>
+  </div>
+  <div class="wrap">
+    <div class="services">
+      <div class="service rv"><div class="ico"><img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/icon-white-03.png" alt=""></div><h3>Menus personnalisés</h3><p>Une carte traiteur variable au fil des saisons, des plats cuisinés faits maison à partir de produits issus d'agriculteurs de la région.</p></div>
+      <div class="service rv rv-d1"><div class="ico"><img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/icon-white-04.png" alt=""></div><h3>Grill à la broche</h3><p>Grill pour viandes diverses : porcelet, jambon… pour vos réceptions.</p></div>
+      <div class="service rv rv-d2"><div class="ico"><img src="https://michel-gouttenoire.com/wp-content/uploads/2025/02/icon-white-05.png" alt=""></div><h3>Nos services de livraison</h3><p>Nous livrons au quotidien des formules repas pour les personnes âgées, et proposons des plateaux repas, chauds ou froids, pour les entreprises.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:2.4rem" class="rv"><a class="btn" href="#commande" data-go="devis">Demander un devis traiteur</a></p>
+  </div>
+</section>
+
+<section id="partenaires" aria-labelledby="t-part">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Partenaire</span>
+      <h2 id="t-part">Ils travaillent nos produits</h2>
+    </div>
+    <div class="partners">
+      <div class="pcol rv"><h3>Restaurateurs</h3><ul><li>Abbaye de Charlieu</li><li>La Table de Nini</li><li>Wine Note Elle</li><li>La Nonna</li><li>La Brasserie Avant 1er</li><li>La Brasserie 9 – 18</li><li>Le Coq en Poulpe</li></ul></div>
+      <div class="pcol rv rv-d1"><h3>Collectivités</h3><ul><li>École de Parigny</li><li>Pays d'Arthur les jardins d'enfants</li><li>Les P'tits Mickeys</li><li>Centre social La Livatte</li><li>Centre social Bourgogne</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="texture" aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Contact</span>
+      <h2 id="t-contact">À très bientôt dans notre boucherie !</h2>
+      <p>Notre équipe vous accueille dans sa boucherie du mardi au dimanche au 128 rue de Charlieu, 42300 Roanne.</p>
+    </div>
+    <div class="contact">
+      <div class="card rv">
+        <h3 style="font-size:1.5rem">Vous pouvez nous rendre visite</h3>
+        <table class="hours" id="hours"></table>
+        <div class="coord">
+          <div>128 rue de Charlieu, 42300 Roanne</div>
+          <a href="tel:+33481170751">04 81 17 07 51</a>
+          <a href="mailto:boucheriegouttenoire@gmail.com">boucheriegouttenoire@gmail.com</a>
+        </div>
+        <p style="margin-top:1.4rem"><a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=128+rue+de+Charlieu+42300+Roanne" target="_blank" rel="noopener">Itinéraire</a></p>
+      </div>
+      <div class="mapframe rv rv-d1">
+        <iframe title="Plan d'accès Maison Gouttenoire" loading="lazy" src="https://www.google.com/maps?q=128+rue+de+Charlieu,+42300+Roanne&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4>Maison Gouttenoire</h4>Boucherie · Charcuterie · Traiteur<br>128 rue de Charlieu, 42300 Roanne<br><a href="tel:+33481170751">04 81 17 07 51</a></div>
+      <div><h4>Menus</h4><a href="#boucherie">Boucherie</a><br><a href="#charcuterie">Charcuterie</a><br><a href="#traiteur">Traiteur</a><br><a href="#partenaires">Partenaire</a></div>
+      <div><h4>Horaires</h4>Mardi à vendredi : 6h–12h45 et 15h–19h15<br>Samedi : 7h30–12h45 et 15h–19h15<br>Dimanche matin : 6h30–12h30</div>
+    </div>
+    <p class="foot__demo">Maquette de démonstration non contractuelle, réalisée à partir des informations publiées sur le site actuel de la Maison Gouttenoire (textes, horaires, éleveurs, partenaires). Couleurs et polices reprises de la charte du site actuel. Toutes les photos proviennent du site actuel de la Maison Gouttenoire. Aucun prix n'est affiché ; l'outil de commande est une démonstration et ne transmet rien automatiquement. La carte des éleveurs est schématique.</p>
+  </div>
+</footer>
+
+<a class="mobile-call" href="tel:+33481170751" aria-label="Appeler la boucherie"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const EMAIL="boucheriegouttenoire@gmail.com";
+
+/* ---- Horaires réels (site actuel) : [jour 0=dim] -> plages en minutes ---- */
+const H={0:[[390,750]],1:[],2:[[360,765],[900,1155]],3:[[360,765],[900,1155]],4:[[360,765],[900,1155]],5:[[360,765],[900,1155]],6:[[450,765],[900,1155]]};
+const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+const fmt=m=>Math.floor(m/60)+"h"+(m%60?String(m%60).padStart(2,"0"):"");
+function status(){
+  const d=new Date(),m=d.getHours()*60+d.getMinutes(),pl=H[d.getDay()];
+  const open=pl.some(([a,b])=>m>=a&&m<b);
+  const el=$("#status");el.className="status "+(open?"open":"closed");
+  let txt;
+  if(open){const p=pl.find(([a,b])=>m>=a&&m<b);txt="Ouvert · jusqu'à "+fmt(p[1]);}
+  else{
+    let next=pl.find(([a])=>a>m);
+    if(next)txt="Fermé · réouvre à "+fmt(next[0]);
+    else{for(let i=1;i<8;i++){const j=(d.getDay()+i)%7;if(H[j].length){txt="Fermé · "+JOURS[j].toLowerCase()+" "+fmt(H[j][0][0]);break;}}}
+  }
+  el.querySelector("span").textContent=txt;
+}
+status();setInterval(status,60000);
+// tableau horaires
+const order=[2,3,4,5,6,0,1],today=new Date().getDay();
+$("#hours").innerHTML=order.map(j=>`<tr class="${j===today?"today":""}"><td>${JOURS[j]}</td><td>${H[j].length?H[j].map(([a,b])=>fmt(a)+" – "+fmt(b)).join(" · "):"Fermé"}</td></tr>`).join("");
+
+/* ---- Menu mobile & header ---- */
+$("#burger").addEventListener("click",e=>{const o=$("#menu").classList.toggle("open");e.currentTarget.setAttribute("aria-expanded",o)});
+$$("#menu a").forEach(a=>a.addEventListener("click",()=>$("#menu").classList.remove("open")));
+addEventListener("scroll",()=>$("header").classList.toggle("scrolled",scrollY>10),{passive:true});
+
+/* ---- Diaporama hero ---- */
+const sl=$$("#slides img");let si=0;
+setInterval(()=>{sl[si].classList.remove("on");si=(si+1)%sl.length;sl[si].classList.add("on")},5500);
+
+/* ---- Ticker & galerie dupliqués pour boucle continue ---- */
+$("#ticker").innerHTML+=$("#ticker").innerHTML;
+const gal=["10002.jpeg","10003.jpeg","10013.jpg","10004.jpg","10007.jpg","10009.jpg","10016.jpg","10015.jpg","10020.jpg","10018.jpg","10006.jpg"];
+const gh=gal.map(f=>`<img src="https://michel-gouttenoire.com/wp-content/uploads/2025/04/${f}" alt="Réalisation traiteur Maison Gouttenoire" loading="lazy">`).join("");
+$("#gal").innerHTML=gh+gh;
+
+/* ---- Provenance : éleveurs réels (site actuel) ---- */
+const R={lat:46.036,lon:4.068};
+const ELEV={
+ "Porc":[["GAEC des porcs d'Urfé","Chausseterre","42",45.89,3.80],["M. Vincent Saunier","Cordelle","42",45.94,4.06]],
+ "Bœuf":[["M. Alexandre Cadot","Urbise","42",46.25,3.89],["M. et Mme Verchère, GAEC du Pont Gauthier","Pont-Trambouze","69",46.07,4.33],["M. Gadet","Saint-Félix","03",46.16,3.48]],
+ "Veau":[["Mme Reynaud","Poncins","42",45.73,4.15],["M. et Mme Verchère, GAEC du Pont Gauthier","Pont-Trambouze","69",46.07,4.33],["M. Chollet","Montagny","42",46.03,4.23],["M. Goutard","Coutouvre","42",46.07,4.20],["M. Burdin","St Ingny","71",46.22,4.29],["M. Recorbet","St Just la Pendue","42",45.89,4.24]],
+ "Agneau":[["M. Mickaël Rivolier","Maizilly","42",46.18,4.24],["M. et Mme Berchoux","Nandax","42",46.10,4.17]],
+ "Volaille":[["Maison Laurent","Digoin","71",46.48,3.98],["Les fermiers Landais","Saint-Sever","40",null,null]]
+};
+const LBL={'Coutouvre':[-4,-10,'end'],'Pont-Trambouze':[10,-6,'start'],'Nandax':[-10,-4,'end'],'Montagny':[10,12,'start'],'Maizilly':[10,4,'start'],'St Ingny':[10,-2,'start'],'Cordelle':[10,10,'start'],'Chausseterre':[-10,4,'end'],'Saint-Félix':[0,-12,'middle'],'Digoin':[10,4,'start']};
+const proj=(la,lo)=>[250+(lo-R.lon)*290,230-(la-R.lat)*410];
+// anneaux de distance
+$("#rings").innerHTML=[60,120,180].map((r,i)=>`<circle cx="250" cy="230" r="${r}" fill="${i?'none':'url(#rg)'}" stroke="#D9D0C5" stroke-dasharray="3 5"/><text x="${250+r*.72}" y="${230-r*.72}" font-size="10" fill="#a39a90" font-family="Libre Franklin">~${[15,30,45][i]} km</text>`).join("");
+// points uniques
+const places={};
+Object.entries(ELEV).forEach(([k,l])=>l.forEach(e=>{if(e[3]==null)return;const id=e[1];(places[id]=places[id]||{n:e[1],d:e[2],la:e[3],lo:e[4],t:new Set()}).t.add(k)}));
+const pts=Object.values(places).map(p=>{const[x,y]=proj(p.la,p.lo);const o=LBL[p.n]||[10,4,'start'];return `<g class="pt" data-n="${p.n}" data-t="${[...p.t].join("|")}"><line x1="250" y1="230" x2="${x}" y2="${y}" stroke="#95010E" stroke-opacity=".18"/><circle cx="${x}" cy="${y}" r="6" fill="#95010E" stroke="#fff" stroke-width="2"/><text x="${x+o[0]}" y="${y+o[1]}" text-anchor="${o[2]}" font-size="12" fill="#101010" font-family="Libre Franklin">${p.n}</text></g>`}).join("");
+$("#pts").innerHTML=pts+`<g><circle cx="250" cy="230" r="13" fill="#101010"/><circle cx="250" cy="230" r="5" fill="#fff"/><text x="234" y="226" text-anchor="end" font-size="15" font-weight="700" fill="#95010E" font-family="Fraunces">Roanne</text></g>`;
+const tabs=$("#tabs");
+Object.keys(ELEV).forEach((k,i)=>{const b=document.createElement("button");b.className="tab";b.role="tab";b.textContent=k==="Agneau"?"Viande d'agneau":"Viande de "+k.toLowerCase();if(k==="Volaille")b.textContent="Volailles";b.setAttribute("aria-selected",i===0);b.onclick=()=>show(k);tabs.appendChild(b)});
+function show(k){
+  $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.textContent.toLowerCase().includes(k.toLowerCase().slice(0,4))));
+  $("#eleveurs").innerHTML=ELEV[k].map((e,i)=>`<li class="eleveur" data-n="${e[1]}" style="animation-delay:${i*60}ms"><b>${e[0]}</b><span>${e[1]}<i class="dep">${e[2]}</i></span></li>`).join("")+(k==="Volaille"?`<li class="eleveur" style="animation-delay:200ms"><span style="white-space:normal">Tous nos poulets, pintades, canettes, pigeons et cailles sont des volailles label rouge et fermières.</span></li>`:"");
+  $$(".pt").forEach(p=>p.classList.toggle("dim",!p.dataset.t.split("|").includes(k)));
+  $$(".eleveur[data-n]").forEach(li=>{
+    li.addEventListener("mouseenter",()=>$$(".pt").forEach(p=>p.classList.toggle("hl",p.dataset.n===li.dataset.n)));
+    li.addEventListener("mouseleave",()=>$$(".pt").forEach(p=>p.classList.remove("hl")));
+  });
+}
+show("Porc");
+
+/* ---- Outil de commande ---- */
+const CATS=[
+ {t:"Boucherie",s:"pièces conseillées par votre boucher",u:"pièce(s)",i:["Bœuf — pièce à griller","Bœuf — pièce à rôtir","Bœuf — pièce à mijoter","Veau — rôti ou escalopes","Porc — rôti ou côtes","Agneau — gigot ou côtes","Volaille label rouge et fermière"]},
+ {t:"Charcuterie maison",s:"à la tranche ou à la pièce",u:"portion(s)",i:["Terrine de campagne","Terrine de lapin","Terrine de canard","Pâté croûte pintade forestière","Pâté croûte lapin moutarde noisette","Jambon blanc maison sans sel nitrité","Rosette","Saucisson à cuire","Andouillettes","Boudin noir"]},
+ {t:"Traiteur",s:"plats du jour et plateaux",u:"part(s)",i:["Plat cuisiné maison du jour","Plateau repas froid","Plateau repas chaud"]}
+];
+const cart={};
+$("#cats").innerHTML=CATS.map((c,ci)=>`<div class="cat"><h3>${c.t} <small>${c.s}</small></h3><div class="items">${c.i.map((n,ii)=>{const id=ci+"-"+ii;return `<div class="item" id="it-${id}"><label>${n}</label><div class="qty"><button type="button" data-id="${id}" data-d="-1" aria-label="Retirer ${n}">−</button><output id="q-${id}">0</output><button type="button" data-id="${id}" data-d="1" aria-label="Ajouter ${n}">+</button></div></div>`}).join("")}</div></div>`).join("");
+$("#cats").addEventListener("click",e=>{const b=e.target.closest("button[data-id]");if(!b)return;const id=b.dataset.id;cart[id]=Math.max(0,(cart[id]||0)+ +b.dataset.d);$("#q-"+id).textContent=cart[id];$("#it-"+id).classList.toggle("has",cart[id]>0);render()});
+
+// jours de retrait : 14 prochains jours ouverts
+const jSel=$("#jour");const now=new Date();
+for(let i=0;i<15;i++){const d=new Date(now);d.setDate(now.getDate()+i);if(!H[d.getDay()].length)continue;
+  const o=document.createElement("option");o.value=d.toISOString().slice(0,10);o.dataset.dow=d.getDay();
+  o.textContent=(i===0?"Aujourd'hui":i===1?"Demain":JOURS[d.getDay()])+" "+d.toLocaleDateString("fr-FR",{day:"numeric",month:"long"});jSel.appendChild(o)}
+function slots(){
+  const o=jSel.selectedOptions[0];const dow=+o.dataset.dow;const isToday=o.value===now.toISOString().slice(0,10);
+  const m=now.getHours()*60+now.getMinutes()+60;const c=$("#creneau");c.innerHTML="";
+  H[dow].forEach(([a,b])=>{for(let t=Math.ceil(a/30)*30;t+30<=b+15;t+=30){if(isToday&&t<m)continue;const op=document.createElement("option");op.textContent=fmt(t)+" – "+fmt(Math.min(t+30,b));c.appendChild(op)}});
+  if(!c.options.length){c.innerHTML="<option>Plus de créneau ce jour</option>"}
+  render();
+}
+jSel.addEventListener("change",slots);$("#creneau").addEventListener("change",render);
+
+// devis
+const EVTS=["Anniversaire","Mariage","Repas d'entreprise","Soirée cocktail","Repas associatif","Autre"];
+const PRES=["Menu sur mesure","Grill porcelet / jambon","Plateaux repas","Charcuterie maison","Livraison"];
+const chips=(el,l,multi)=>{$(el).innerHTML=l.map((x,i)=>`<button type="button" class="chip" aria-pressed="${!multi&&i===0}">${x}</button>`).join("");
+  $(el).addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(!multi)$$(el+" .chip").forEach(c=>c.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed",multi?b.getAttribute("aria-pressed")!=="true":"true");render()})};
+chips("#evts",EVTS,false);chips("#prestas",PRES,true);
+const dEvt=new Date();dEvt.setDate(dEvt.getDate()+30);$("#dateEvt").value=dEvt.toISOString().slice(0,10);
+
+let mode="retrait";
+$$(".mode button").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+function setMode(m){mode=m;$$(".mode button").forEach(x=>x.setAttribute("aria-selected",x.dataset.mode===m));$("#pane-retrait").hidden=m!=="retrait";$("#pane-devis").hidden=m!=="devis";render()}
+$$("[data-go=devis]").forEach(a=>a.addEventListener("click",()=>setMode("devis")));
+["#convives","#dateEvt","#note","#noteEvt","#nom","#tel"].forEach(s=>$(s).addEventListener("input",render));
+
+function lines(){
+  if(mode==="retrait"){const L=[];CATS.forEach((c,ci)=>c.i.forEach((n,ii)=>{const q=cart[ci+"-"+ii];if(q)L.push([n,q+" "+c.u])}));return L}
+  const ev=$$("#evts .chip").find(c=>c.getAttribute("aria-pressed")==="true");
+  const pr=$$("#prestas .chip").filter(c=>c.getAttribute("aria-pressed")==="true").map(c=>c.textContent);
+  const L=[["Événement",ev?ev.textContent:"—"],["Convives",$("#convives").value||"—"],["Date",$("#dateEvt").value?new Date($("#dateEvt").value).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long",year:"numeric"}):"—"]];
+  if(pr.length)L.push(["Prestations",pr.join(", ")]);return L;
+}
+function render(){
+  const L=lines();
+  $("#recapEyebrow").textContent=mode==="retrait"?"Votre commande":"Votre demande de devis";
+  $("#recapList").innerHTML=L.map(([a,b])=>`<li><span>${a}</span><b>${b}</b></li>`).join("");
+  $("#recapEmpty").hidden=L.length>0;
+  $("#recapWhen").textContent=mode==="retrait"&&jSel.selectedOptions[0]?"Retrait : "+jSel.selectedOptions[0].textContent+", "+$("#creneau").value:"Devis gratuit et entièrement personnalisé.";
+}
+function text(){
+  const L=lines();let t=(mode==="retrait"?"Commande à retirer":"Demande de devis traiteur")+" — Maison Gouttenoire\n\n";
+  t+=L.map(([a,b])=>"- "+a+" : "+b).join("\n");
+  if(mode==="retrait"){t+="\n\nRetrait : "+jSel.selectedOptions[0].textContent+", "+$("#creneau").value;if($("#note").value)t+="\nPrécisions : "+$("#note").value}
+  else if($("#noteEvt").value)t+="\n\nMes envies : "+$("#noteEvt").value;
+  t+="\n\nNom : "+($("#nom").value||"")+"\nTéléphone : "+($("#tel").value||"");return t;
+}
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2600)};
+$("#send").addEventListener("click",()=>{
+  if(mode==="retrait"&&!lines().length){toast("Ajoutez au moins un produit");return}
+  if(!$("#tel").value){toast("Indiquez un téléphone pour la confirmation");$("#tel").focus();return}
+  location.href="mailto:"+EMAIL+"?subject="+encodeURIComponent(mode==="retrait"?"Commande à retirer":"Demande de devis traiteur")+"&body="+encodeURIComponent(text());
+});
+$("#copy").addEventListener("click",()=>{navigator.clipboard&&navigator.clipboard.writeText(text()).then(()=>toast("Récapitulatif copié"),()=>toast("Copie impossible"))});
+slots();
+
+/* ---- Révélations au scroll ---- */
+if("IntersectionObserver"in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});$$(".rv").forEach(el=>io.observe(el))}
+else $$(".rv").forEach(el=>el.classList.add("in"));
+})();
+</script>
+</body>
+</html>
