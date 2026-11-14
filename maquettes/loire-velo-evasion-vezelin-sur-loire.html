@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loire Vélo Évasion — Location de vélos électriques à Vézelin-sur-Loire | Gorges de la Loire</title>
+<meta name="description" content="Location de vélos VTC à assistance électrique à Vézelin-sur-Loire : neuf balades balisées au départ, entre Loire, Vals d'Aix et d'Isable. Demi-journée, journée ou week-end.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE LOIRE VÉLO ÉVASION — reprise telle quelle du site actuel
+   (loireveloevasion.com/styles.css). Ajuster ici uniquement.
+   ===================================================================== */
+:root{
+  --ink:#0f1f17;          /* texte très foncé */
+  --forest:#14301f;       /* vert forêt (fonds sombres, header) */
+  --forest-2:#1d4430;
+  --moss:#7fa35a;         /* vert mousse */
+  --accent:#c4e36f;       /* vert anis (boutons) */
+  --accent-ink:#13240f;
+  --loire:#2e6a96;        /* bleu Loire */
+  --loire-soft:#dce9f2;
+  --cream:#f6f3ec;        /* fond principal */
+  --paper:#fffdf8;
+  --sand:#ece5d6;
+  --line:rgba(15,31,23,.1);
+  --text:#18281f;
+  --muted:#56655b;
+  --on-dark:#eef2ea;
+  --on-dark-muted:rgba(238,242,234,.68);
+  --radius-xl:32px;--radius-lg:24px;--radius:16px;
+  --shadow:0 1px 2px rgba(15,31,23,.04),0 8px 24px -8px rgba(15,31,23,.12);
+  --shadow-lg:0 2px 4px rgba(15,31,23,.04),0 24px 48px -16px rgba(15,31,23,.25);
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-accent:"Instrument Serif",Georgia,serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --gutter:clamp(16px,4vw,40px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;font-family:var(--font);font-size:1.0625rem;line-height:1.65;color:var(--text);background:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--font-display);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin:0}
+p{margin:0 0 1em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--loire);outline-offset:3px;border-radius:6px}
+.container{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+.serif{font-family:var(--font-accent);font-style:italic;font-weight:400;letter-spacing:0}
+.eyebrow{display:inline-flex;gap:.6rem;align-items:center;font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--moss)}
+.eyebrow b{font-family:var(--font-display);color:var(--loire);font-size:.95rem;letter-spacing:0}
+
+/* Bandeau démo */
+.demo{background:var(--accent);color:var(--accent-ink);font-size:.8rem;text-align:center;padding:.45rem 1rem;font-weight:500}
+
+/* Header */
+header.site{position:sticky;top:0;z-index:50;background:rgba(246,243,236,.86);backdrop-filter:blur(14px) saturate(160%);border-bottom:1px solid var(--line);transition:background .3s}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--forest)}
+.brand img{height:44px;width:auto}
+.nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;font-size:.93rem}
+.nav ul a{text-decoration:none;color:var(--muted);position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--moss);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover{color:var(--forest)}.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.35rem;border-radius:999px;border:0;font:600 .95rem var(--font);cursor:pointer;text-decoration:none;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn-accent{background:var(--accent);color:var(--accent-ink)}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(127,163,90,.9)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.btn-dark{background:var(--forest);color:var(--on-dark)}
+.btn-dark:hover{background:var(--forest-2);transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+@media(max-width:900px){.nav ul{display:none}}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 100px);display:flex;align-items:flex-end;color:var(--on-dark);overflow:hidden;background:var(--forest)}
+.hero-bg{position:absolute;inset:-6% 0 0;background:url("https://loireveloevasion.com/images/paysage1.jpeg") center 60%/cover;transform:scale(1.08);animation:heroIn 2.2s var(--ease) forwards;will-change:transform}
+@keyframes heroIn{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,22,16,.15) 0%,rgba(10,22,16,.25) 40%,rgba(10,22,16,.85) 100%)}
+.hero .container{position:relative;z-index:2;padding-bottom:clamp(2.5rem,7vh,5rem);width:100%}
+.hero h1{font-size:clamp(2.8rem,8.5vw,7.4rem);font-weight:800;max-width:12ch;line-height:.95}
+.hero h1 .serif{color:var(--accent);font-size:1.05em}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero-sub{max-width:520px;color:var(--on-dark-muted);font-size:1.1rem;margin:1.4rem 0 1.8rem}
+.hero-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:2rem}
+.hero-cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);border-radius:var(--radius-lg);padding:1.1rem 1.3rem;display:grid;grid-template-columns:repeat(3,auto);gap:1.6rem}
+.hero-card strong{display:block;font-family:var(--font-display);font-size:1.7rem;color:var(--accent);line-height:1}
+.hero-card span{font-size:.78rem;color:var(--on-dark-muted)}
+.marquee{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.14);overflow:hidden;white-space:nowrap;padding:.8rem 0;font-family:var(--font-accent);font-style:italic;font-size:1.4rem;color:var(--on-dark-muted)}
+.marquee div{display:inline-block;animation:mq 30s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,10vw,7.5rem) 0}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:1.5rem;margin-bottom:2.8rem}
+.sec-head h2{font-size:clamp(2.1rem,5vw,3.8rem);max-width:16ch;margin-top:.7rem}
+.sec-head p{max-width:440px;color:var(--muted);margin:0}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Présentation */
+.pres{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.pres-text p{font-size:1.12rem}
+.pres-text strong{color:var(--forest)}
+.collage{position:relative;height:clamp(380px,48vw,560px)}
+.collage figure{position:absolute;margin:0;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg)}
+.collage img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.collage figure:hover img{transform:scale(1.06)}
+.collage .c1{inset:0 28% 22% 0}
+.collage .c2{width:48%;height:46%;right:0;top:12%}
+.collage .c3{width:44%;height:40%;right:6%;bottom:0;border:6px solid var(--cream)}
+@media(max-width:860px){.pres{grid-template-columns:1fr}}
+
+/* Balades */
+.balades{background:var(--paper)}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.chip{padding:.55rem 1rem;border-radius:999px;border:1.5px solid var(--line);background:transparent;font:500 .9rem var(--font);cursor:pointer;color:var(--muted);transition:all .25s}
+.chip[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--on-dark)}
+.chip:hover{border-color:var(--moss)}
+.routes{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.2rem}
+.route{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s,opacity .4s}
+.route:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.route.hide{display:none}
+.route .thumb{aspect-ratio:16/10;overflow:hidden;background:var(--sand)}
+.route .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.route:hover .thumb img{transform:scale(1.05)}
+.route .body{padding:1.1rem 1.2rem 1.25rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
+.route h3{font-size:1.22rem}
+.stats{display:flex;gap:1rem;font-size:.85rem;color:var(--muted)}
+.stats b{display:block;font-family:var(--font-display);font-size:1.1rem;color:var(--forest)}
+.level{height:6px;border-radius:6px;background:var(--sand);overflow:hidden}
+.level i{display:block;height:100%;background:linear-gradient(90deg,var(--moss),var(--loire));width:0;transition:width 1.2s var(--ease)}
+.route .actions{margin-top:auto;display:flex;gap:.5rem;flex-wrap:wrap}
+.route .actions a,.route .actions button{font-size:.85rem;padding:.55rem .95rem}
+.lvl-tag{font-size:.75rem;font-weight:600;color:var(--loire)}
+
+/* Réservation (outil central) */
+.resa{background:var(--forest);color:var(--on-dark);position:relative;overflow:hidden}
+.resa::before{content:"";position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(196,227,111,.16),transparent 65%);top:-260px;right:-200px}
+.resa .sec-head p{color:var(--on-dark-muted)}
+.resa .eyebrow{color:var(--accent)}.resa .eyebrow b{color:var(--accent)}
+.planner{position:relative;display:grid;grid-template-columns:1.35fr 1fr;gap:1.5rem}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);padding:clamp(1.2rem,3vw,2rem)}
+.step{margin-bottom:1.6rem}
+.step:last-child{margin-bottom:0}
+.step-t{display:flex;align-items:center;gap:.6rem;font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-bottom:.8rem}
+.step-t span{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.85rem}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.seg button{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.15);color:var(--on-dark);border-radius:var(--radius);padding:.8rem .5rem;cursor:pointer;font:500 .9rem var(--font);transition:all .25s;text-align:center}
+.seg button b{display:block;font-family:var(--font-display);font-size:1.35rem;color:var(--accent)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.seg button[aria-pressed="true"] b{color:var(--accent-ink)}
+select,input[type=date],input[type=text],input[type=email],input[type=tel]{width:100%;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.18);color:var(--on-dark);border-radius:12px;padding:.75rem .9rem;font:500 .95rem var(--font)}
+select option{color:var(--ink)}
+input::placeholder{color:var(--on-dark-muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.bikes{display:flex;gap:.45rem;flex-wrap:wrap}
+.bike{width:54px;height:54px;border-radius:14px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:var(--on-dark);cursor:pointer;display:grid;place-items:center;transition:all .25s;font:600 .8rem var(--font)}
+.bike svg{width:30px;height:30px;stroke:currentColor;fill:none;stroke-width:1.6}
+.bike.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);transform:translateY(-3px)}
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);cursor:pointer;font-size:.92rem}
+.opt input{accent-color:var(--accent);width:18px;height:18px}
+.opt small{color:var(--on-dark-muted);margin-left:auto;font-size:.78rem}
+.summary{position:sticky;top:100px;align-self:start;background:var(--paper);color:var(--text);border-radius:var(--radius-xl);padding:clamp(1.3rem,3vw,2rem);box-shadow:var(--shadow-lg)}
+.summary h3{font-size:1.4rem;margin-bottom:1rem}
+.sum-line{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed var(--line);font-size:.93rem}
+.sum-line span:first-child{color:var(--muted)}
+.sum-line span:last-child{text-align:right;font-weight:500}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:1.2rem 0 .3rem}
+.total b{font-family:var(--font-display);font-size:3rem;color:var(--forest);line-height:1}
+.note{font-size:.78rem;color:var(--muted)}
+.warn{font-size:.85rem;background:var(--loire-soft);color:var(--loire);padding:.6rem .8rem;border-radius:12px;margin-top:.8rem;display:none}
+.warn.show{display:block}
+.sum-actions{display:grid;gap:.5rem;margin-top:1.2rem}
+.sum-actions .btn{justify-content:center}
+.timeline{margin-top:1rem;height:38px;position:relative;border-radius:10px;background:var(--sand);overflow:hidden}
+.timeline i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,var(--moss),var(--accent));border-radius:10px;transition:left .6s var(--ease),width .6s var(--ease)}
+.timeline span{position:absolute;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--muted)}
+@media(max-width:960px){.planner{grid-template-columns:1fr}.summary{position:relative;top:0}}
+@media(max-width:520px){.seg{grid-template-columns:1fr 1fr 1fr}.seg button b{font-size:1.1rem}.row2{grid-template-columns:1fr}}
+
+/* Vélos */
+.fleet{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.vtc{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);border:1px solid var(--line);transition:transform .4s var(--ease)}
+.vtc:hover{transform:translateY(-6px) rotate(-.4deg)}
+.vtc .ph{aspect-ratio:4/3;overflow:hidden}
+.vtc img{width:100%;height:100%;object-fit:cover}
+.vtc div.t{padding:.9rem 1rem}
+.vtc b{font-family:var(--font-display);font-size:1.1rem;color:var(--forest)}
+.vtc p{font-size:.85rem;color:var(--muted);margin:.25rem 0 0}
+@media(max-width:1000px){.fleet{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.fleet{grid-template-columns:1fr}}
+
+/* Tarifs + cadeau */
+.tarifs{background:var(--sand)}
+.price-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:1.5rem}
+.prices{background:var(--paper);border-radius:var(--radius-xl);padding:2rem;box-shadow:var(--shadow)}
+.price{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0;border-bottom:1px solid var(--line)}
+.price:last-child{border:0}
+.price b{font-family:var(--font-display);font-size:2.2rem;color:var(--forest)}
+.gift{background:var(--forest);color:var(--on-dark);border-radius:var(--radius-xl);padding:2rem;display:grid;grid-template-columns:1fr 150px;gap:1.5rem;position:relative;overflow:hidden}
+.gift h3{font-size:1.8rem;margin:.4rem 0 1rem}
+.gift .eyebrow{color:var(--accent)}
+.gift-opts{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1rem}
+.gift-opts button{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.16);color:var(--on-dark);border-radius:14px;padding:.75rem;text-align:left;cursor:pointer;font:500 .85rem var(--font);transition:all .25s}
+.gift-opts button b{display:block;font-family:var(--font-display);font-size:1.4rem;color:var(--accent)}
+.gift-opts button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.gift-opts button[aria-pressed="true"] b{color:var(--accent-ink)}
+.gift-card{align-self:center;aspect-ratio:2/3;border-radius:18px;background:url("https://loireveloevasion.com/images/promo_noel.jpeg") center/cover;box-shadow:0 20px 40px -12px rgba(0,0,0,.6);transform:rotate(4deg);transition:transform .6s var(--ease)}
+.gift:hover .gift-card{transform:rotate(-2deg) scale(1.04)}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.gift{grid-template-columns:1fr}.gift-card{max-width:160px}}
+
+/* Avis */
+.reviews{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.rev{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius-lg);padding:1.4rem;display:flex;flex-direction:column;gap:.8rem}
+.rev .stars{color:#e0a82e;letter-spacing:2px}
+.rev p{font-size:.95rem;margin:0}
+.rev footer{margin-top:auto;font-size:.82rem;color:var(--muted);display:flex;align-items:center;gap:.6rem}
+.rev footer i{width:32px;height:32px;border-radius:50%;background:var(--loire-soft);color:var(--loire);display:grid;place-items:center;font-style:normal;font-weight:600}
+@media(max-width:1000px){.reviews{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.reviews{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--forest);color:var(--on-dark)}
+.contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center}
+.contact h2{font-size:clamp(2.3rem,6vw,4.6rem)}
+.contact h2 .serif{color:var(--accent)}
+.c-items{display:grid;gap:.8rem}
+.c-item{display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;border-radius:var(--radius);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);text-decoration:none;transition:background .25s,transform .25s var(--ease)}
+.c-item:hover{background:rgba(255,255,255,.12);transform:translateX(6px)}
+.c-item small{display:block;color:var(--on-dark-muted);font-size:.78rem}
+.c-item svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:2;flex-shrink:0}
+@media(max-width:860px){.contact-grid{grid-template-columns:1fr}}
+footer.site{background:var(--ink);color:var(--on-dark-muted);font-size:.82rem;padding:2rem 0}
+footer.site p{margin:.3rem 0}
+
+/* Barre mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:.5rem}
+.mbar .btn{flex:1;justify-content:center;box-shadow:var(--shadow-lg)}
+@media(max-width:700px){.mbar{display:flex}body{padding-bottom:76px}}
+
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:var(--on-dark);padding:.8rem 1.2rem;border-radius:12px;font-size:.9rem;transition:all .4s var(--ease);z-index:80;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.hero h1 .w{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"LocalBusiness",
+ "additionalType":"https://schema.org/SportsActivityLocation",
+ "name":"Loire Vélo Évasion",
+ "description":"Location de vélos VTC à assistance électrique et balades balisées au départ de Vézelin-sur-Loire.",
+ "url":"https://www.loireveloevasion.com",
+ "telephone":"+33675189977",
+ "email":"jeanjacquesmarchas@gmail.com",
+ "image":"https://loireveloevasion.com/images/paysage1.jpeg",
+ "address":{"@type":"PostalAddress","streetAddress":"499 Impasse des Grandes Côtes","postalCode":"42260","addressLocality":"Vézelin-sur-Loire","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":45.882593,"longitude":4.061977},
+ "areaServed":["Vézelin-sur-Loire","Gorges de la Loire","Roannais","Forez"],
+ "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:30","closes":"18:00"}],
+ "priceRange":"25 € – 70 €"
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de site pour Loire Vélo Évasion · prix indicatifs non contractuels</div>
+
+<header class="site">
+  <div class="container nav">
+    <a class="brand" href="#accueil"><img src="https://loireveloevasion.com/images/logo.png" alt="Logo Loire Vélo Évasion" width="88" height="44"></a>
+    <ul>
+      <li><a href="#presentation">Présentation</a></li>
+      <li><a href="#balades">Nos balades</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#velos">Nos vélos</a></li>
+      <li><a href="#tarifs">Tarifs &amp; carte cadeaux</a></li>
+      <li><a href="#avis">Avis</a></li>
+    </ul>
+    <a class="btn btn-accent" href="#reserver">Réserver maintenant</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <div class="hero-bg" role="img" aria-label="Vue sur la Loire et ses coteaux boisés près de Vézelin-sur-Loire"></div>
+  <div class="container">
+    <p class="eyebrow" style="color:var(--accent)">Vézelin-sur-Loire · Location de VTC électriques</p>
+    <h1><span class="w">Respirez,</span> <span class="w" style="animation-delay:.12s">pédalez,</span> <span class="w serif" style="animation-delay:.24s">profitez.</span></h1>
+    <div class="hero-row">
+      <div>
+        <p class="hero-sub">Une parenthèse nature, accessible et agréable. Location de vélos VTC avec assistance électrique pour de belles balades entre Loire, Vals d'Aix et d'Isable.</p>
+        <div class="hero-cta">
+          <a class="btn btn-accent" href="#reserver">Préparer ma sortie →</a>
+          <a class="btn btn-ghost" href="#balades">Voir les 9 balades</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="En bref">
+        <div><strong>9</strong><span>balades<br>au départ</span></div>
+        <div><strong>5</strong><span>VTC électriques<br>présentés</span></div>
+        <div><strong>25 €</strong><span>la demi-journée<br>par vélo</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true"><div>Respirez · pédalez · profitez · Château de la Roche · Port de Bully · Pet d'Âne · Barrage de Villerest · Pommiers-en-Forez · Respirez · pédalez · profitez · Château de la Roche · Port de Bully · Pet d'Âne · Barrage de Villerest · Pommiers-en-Forez · </div></div>
+</section>
+
+<section id="presentation">
+  <div class="container pres">
+    <div class="pres-text reveal">
+      <p class="eyebrow"><b>01</b> Présentation</p>
+      <h2 style="font-size:clamp(2.1rem,5vw,3.6rem);margin:.7rem 0 1.4rem">Entre Loire et nature, offrez-vous une balade <span class="serif">en toute liberté.</span></h2>
+      <p>Partez à la découverte de la Loire, des Vals d'Aix et d'Isable : panoramas ouverts sur la Loire et la campagne, villages de caractère, paysages qui se déroulent au fil de l'eau…</p>
+      <p>Parmi les itinéraires balisés du territoire, vous croiserez notamment des parcours comme le <strong>Pet d'Âne</strong>, idéal pour varier les points de vue sans viser la performance pure.</p>
+      <p>En couple, entre amis ou en solo : le fil conducteur, c'est <strong>le calme, le plaisir des paysages</strong> et une activité facile à modérée.</p>
+    </div>
+    <div class="collage reveal">
+      <figure class="c1"><img src="https://loireveloevasion.com/images/petdaneloire.jpeg" alt="Vue sur la Loire depuis le Pet d'Âne" loading="lazy"></figure>
+      <figure class="c2"><img src="https://loireveloevasion.com/images/chemin.jpeg" alt="Chemin de balade à travers la campagne" loading="lazy"></figure>
+      <figure class="c3"><img src="https://loireveloevasion.com/images/paysage3.jpeg" alt="Paysage des alentours de Vézelin-sur-Loire" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="balades" id="balades">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow"><b>02</b> Nos balades</p><h2>Des parcours <span class="serif">faciles et lisibles.</span></h2></div>
+      <p>Distance, durée, dénivelé : filtrez selon le temps dont vous disposez, puis réservez la balade en un clic. Chaque parcours s'ouvre aussi sur Komoot.</p>
+    </div>
+    <div class="filters reveal" role="group" aria-label="Filtrer les balades">
+      <button class="chip" data-f="all" aria-pressed="true">Toutes</button>
+      <button class="chip" data-f="short" aria-pressed="false">2 h ou moins</button>
+      <button class="chip" data-f="half" aria-pressed="false">Une demi-journée (≤ 4 h)</button>
+      <button class="chip" data-f="day" aria-pressed="false">La journée</button>
+    </div>
+    <div class="routes" id="routes"></div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow"><b>03</b> Réserver en ligne</p><h2>Votre sortie, <span class="serif">prête en une minute.</span></h2></div>
+      <p>Choisissez la balade, la date, la formule et vos vélos : le prix se calcule tout seul et votre demande part directement à Jean-Jacques, qui confirme la disponibilité.</p>
+    </div>
+    <div class="planner">
+      <div class="panel reveal">
+        <div class="step">
+          <div class="step-t"><span>1</span>La balade</div>
+          <select id="pRoute" aria-label="Choix de la balade"></select>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>2</span>La formule</div>
+          <div class="seg" id="pFormula" role="group" aria-label="Formule">
+            <button data-k="demi" aria-pressed="false"><b>25 €</b>Demi-journée</button>
+            <button data-k="jour" aria-pressed="true"><b>40 €</b>Journée</button>
+            <button data-k="we" aria-pressed="false"><b>70 €</b>Week-end</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>3</span>La date et l'heure de départ</div>
+          <div class="row2">
+            <input type="date" id="pDate" aria-label="Date">
+            <select id="pHour" aria-label="Heure de départ"></select>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>4</span>Combien de vélos ?</div>
+          <div class="bikes" id="pBikes"></div>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>5</span>Équipements</div>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" id="oHelmet"> Casques<small>location sur place</small></label>
+            <label class="opt"><input type="checkbox" id="oTrailer"> Remorque enfant<small>possible sur le VTC 2</small></label>
+            <label class="opt"><input type="checkbox" id="oBaby"> Porte-bébé<small>VTC 3 ou VTC 5</small></label>
+            <label class="opt"><input type="checkbox" id="oBasket"> Panier<small>possible sur le VTC 4</small></label>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>6</span>Vos coordonnées</div>
+          <div class="row2">
+            <input type="text" id="pName" placeholder="Nom et prénom" autocomplete="name">
+            <input type="tel" id="pTel" placeholder="Téléphone" autocomplete="tel">
+          </div>
+        </div>
+      </div>
+
+      <aside class="summary reveal" aria-live="polite">
+        <h3>Récapitulatif</h3>
+        <div class="sum-line"><span>Balade</span><span id="sRoute">—</span></div>
+        <div class="sum-line"><span>Repères</span><span id="sStats">—</span></div>
+        <div class="sum-line"><span>Formule</span><span id="sFormula">—</span></div>
+        <div class="sum-line"><span>Date</span><span id="sDate">À choisir</span></div>
+        <div class="sum-line"><span>Vélos</span><span id="sBikes">—</span></div>
+        <div class="sum-line"><span>Équipements</span><span id="sOpts">Aucun</span></div>
+        <div class="timeline" aria-hidden="true"><span style="left:8px">8h30</span><span style="right:8px">18h</span><i id="tBar"></i></div>
+        <p class="note" id="sTime" style="margin-top:.4rem"></p>
+        <div class="total"><span>Total indicatif</span><b id="sTotal">40 €</b></div>
+        <p class="note">Tarif de location par vélo · casques en location sur place · paiement et confirmation auprès du loueur.</p>
+        <p class="warn" id="sWarn"></p>
+        <div class="sum-actions">
+          <button class="btn btn-dark" id="bSend">Envoyer ma demande par e-mail</button>
+          <button class="btn btn-ghost" id="bIcs" style="color:var(--forest)">Ajouter à mon agenda (.ics)</button>
+          <a class="btn btn-ghost" href="tel:+33675189977" style="color:var(--forest)">Appeler le 06 75 18 99 77</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="velos">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow"><b>04</b> Nos vélos</p><h2>Des VTC électriques <span class="serif">de qualité.</span></h2></div>
+      <p>Une très bonne autonomie de batterie et un GPS intégré pour suivre les parcours. Casques disponibles à la location sur place.</p>
+    </div>
+    <div class="fleet">
+      <article class="vtc reveal"><div class="ph"><img src="https://loireveloevasion.com/images/velo1.jpeg" alt="VTC 1, Cube Touring Hybrid One 600" loading="lazy"></div><div class="t"><b>VTC 1</b><p>Touring Hybrid One 600 Cube.</p></div></article>
+      <article class="vtc reveal"><div class="ph"><img src="https://loireveloevasion.com/images/velo2.jpeg" alt="VTC 2" loading="lazy"></div><div class="t"><b>VTC 2</b><p>Possibilité d'atteler une remorque pour les enfants.</p></div></article>
+      <article class="vtc reveal"><div class="ph"><img src="https://loireveloevasion.com/images/velo3.jpeg" alt="VTC 3, Lombardo" loading="lazy"></div><div class="t"><b>VTC 3</b><p>Lombardo. Possibilité de rajouter un porte-bébé.</p></div></article>
+      <article class="vtc reveal"><div class="ph"><img src="https://loireveloevasion.com/images/velo4.jpeg" alt="VTC 4" loading="lazy"></div><div class="t"><b>VTC 4</b><p>Possibilité de rajouter un panier.</p></div></article>
+      <article class="vtc reveal"><div class="ph"><img src="https://loireveloevasion.com/images/velo5.jpeg" alt="VTC 5" loading="lazy"></div><div class="t"><b>VTC 5</b><p>Possibilité de rajouter un porte-bébé.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="tarifs" id="tarifs">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow"><b>05</b> Tarifs et carte cadeaux</p><h2>Une grille <span class="serif">simple.</span></h2></div>
+      <p>Tarifs de location d'un vélo. Des cartes cadeaux sont possibles sur demande.</p>
+    </div>
+    <div class="price-grid">
+      <div class="prices reveal">
+        <div class="price"><span>Demi-journée</span><b>25 €</b></div>
+        <div class="price"><span>Journée</span><b>40 €</b></div>
+        <div class="price"><span>Week-end</span><b>70 €</b></div>
+        <a class="btn btn-accent" href="#reserver" style="margin-top:1rem">Réserver un vélo</a>
+      </div>
+      <div class="gift reveal">
+        <div>
+          <p class="eyebrow">Offre spéciale Noël</p>
+          <h3>Offrez une balade en vélo électrique à vos proches</h3>
+          <div class="gift-opts" id="giftOpts">
+            <button data-g="Journée pour 2 personnes" data-p="60" aria-pressed="true"><b>60 €</b>Journée pour 2 personnes</button>
+            <button data-g="Demi-journée pour 2 personnes" data-p="40" aria-pressed="false"><b>40 €</b>Demi-journée pour 2</button>
+            <button data-g="Journée solo" data-p="30" aria-pressed="false"><b>30 €</b>Journée solo</button>
+            <button data-g="Demi-journée solo" data-p="20" aria-pressed="false"><b>20 €</b>Demi-journée solo</button>
+          </div>
+          <input type="text" id="giftFor" placeholder="Pour qui ? (prénom du bénéficiaire)" style="margin-bottom:.8rem">
+          <button class="btn btn-accent" id="giftSend">Commander cette carte cadeau</button>
+        </div>
+        <div class="gift-card" role="img" aria-label="Affiche de l'offre spéciale Noël"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="avis">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div><p class="eyebrow"><b>06</b> Ils en parlent</p><h2>Avis <span class="serif">Google.</span></h2></div>
+      <p>Extraits d'avis clients publiés sur Google, repris du site actuel.</p>
+    </div>
+    <div class="reviews">
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>« Nous avons passé un excellent moment. Les vélos sont d'excellente qualité et le GPS intégré permet de suivre des parcours parfaitement clairs tout en découvrant de magnifiques paysages. Un grand merci à Jean-Jacques pour son accueil chaleureux et sa sympathie. »</p><footer><i>B</i>Benoit · Avis Google</footer></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>« Service au top ! Loueur serviable et aimable. Vélo haut de gamme, balades au départ du point de location, magnifiques paysages et panoramas. Je recommande. »</p><footer><i>C</i>Charles · Avis Google</footer></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>« Une expérience absolument parfaite ! Nous avons passé une journée exceptionnelle à découvrir les magnifiques paysages de la Loire à vélo. »</p><footer><i>R</i>Robin · Avis Google</footer></article>
+      <article class="rev reveal"><div class="stars">★★★★★</div><p>« Nous avons choisi une balade de 2 heures et c'était une très belle expérience ! Les chemins le long de la Loire sont magnifiques et vraiment dépaysants. […] très peu de voitures, ce qui permet de profiter pleinement de la balade dans un cadre calme et agréable. »</p><footer><i>A</i>Anaïs · Avis Google</footer></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--accent)"><b style="color:var(--accent)">07</b> Contact</p>
+      <h2 style="margin:.7rem 0 1.2rem">On se retrouve <span class="serif">au départ ?</span></h2>
+      <p style="color:var(--on-dark-muted);max-width:460px">Jean-Jacques Marchas répond par téléphone ou par e-mail (8h30–18h30) sur les disponibilités, les vélos et les créneaux. Ouvert tous les jours.</p>
+    </div>
+    <div class="c-items reveal">
+      <a class="c-item" href="tel:+33675189977"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><small>Téléphone</small>06 75 18 99 77</span></a>
+      <a class="c-item" href="mailto:jeanjacquesmarchas@gmail.com"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span><small>E-mail</small>jeanjacquesmarchas@gmail.com</span></a>
+      <a class="c-item" href="https://www.google.com/maps/search/?api=1&query=499+Impasse+des+Grandes+C%C3%B4tes+42260+V%C3%A9zelin-sur-Loire" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span><small>Adresse · point de départ</small>499 Impasse des Grandes Côtes, 42260 Vézelin-sur-Loire</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="container">
+    <p>Loire Vélo Évasion — 499 Impasse des Grandes Côtes, 42260 Vézelin-sur-Loire · 06 75 18 99 77</p>
+    <p>Maquette de démonstration réalisée à titre de proposition, non mise en ligne par l'entreprise. Prix indicatifs non contractuels. Textes, couleurs, typographies, photos, tarifs, parcours et avis repris du site actuel loireveloevasion.com. Le module de réservation envoie une simple demande par e-mail : la disponibilité reste confirmée par le loueur.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-dark" href="tel:+33675189977">Appeler</a><a class="btn btn-accent" href="#reserver">Réserver</a></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const IMG="https://loireveloevasion.com/images/";
+const K="https://www.komoot.com/fr-fr/tour/";
+const ROUTES=[
+ {n:"Château de la Roche / Port de Bully",km:31,h:3,d:580,img:"ballade_tour_de_loire.png",k:"2954363478?share_token=asPNPFnaI89MN3m25lrB36NaZgeHWn6lc9kPtrDOR2TrNSZKCd"},
+ {n:"Petits villages et Pet d'Âne",km:19,h:2,d:410,img:"petite_ballade.png",k:"2954420411?share_token=aVSE5y8dpM58QPIBbm1Nm2v40qc0YwcF39tgtSkW77sD25qvLQ"},
+ {n:"Barrage de Villerest / St-Jean-Saint-Maurice",km:44,h:5,d:860,img:"ballade_barrage%20saint_jean_saint_Maurice.png",k:"2954382655?share_token=aHR5TxBm6uqvIjtpTe25l1HSdXaMXr2zLjmDW0GRFVvbmJe2s4"},
+ {n:"Vézelin-sur-Loire",km:19,h:2,d:310,img:"balade_vezelin_sur_loire.png",k:"2973359859?share_token=abb6WBAXZ7kJPLkw4i3ENMj1sDESmYK0FxlP0sfT0hrm5ibai6"},
+ {n:"Bully / Crémeaux / St-Paul",km:44,h:4,d:810,img:"balade_bully_cremeaux_vezelin.png",k:"2973378628?share_token=afuuipIo1xMuCUh0DSKeQjaA5DPqOwcsxv8orOJf2lvRcGFHD9"},
+ {n:"Pommiers-en-Forez",km:40,h:3.5,d:540,img:"balade_pommiers.png",k:"2973401573?share_token=a8OWa12aCB0ZXFE435MK5eN2VCOKfzt2IVNBl3WUJOL3zudOvl"},
+ {n:"Grande boucle",km:56,h:6,d:1060,img:"grand_tour.png",k:"2954289178"},
+ {n:"Balade des deux châteaux",km:69,h:5,d:1000,img:"balade_des_2_chateaux.png",k:"3196545291?share_token=agv5bywYgBswoDM64AkFVu5qYuAGTSjAAdNGFQlJpD2CJ1WHrR"},
+ {n:"Tour de Loire / St-Jean-St-Maurice / Barrage",km:69,h:5,d:1200,img:"tour%20de%20loire%20st%20jean%20st%20maurice%20barrage.png",k:"3202842193?share_token=aLrf8GqACTzuH1rZcvsowjYIWjkQm4xKhDWYyhhDwFSWQ2NEBD"}
+];
+const PRICES={demi:{l:"Demi-journée",p:25},jour:{l:"Journée",p:40},we:{l:"Week-end",p:70}};
+const fmtH=h=>{const m=Math.round((h%1)*60);return Math.floor(h)+" h"+(m?" "+String(m).padStart(2,"0"):"")};
+const maxD=Math.max(...ROUTES.map(r=>r.d));
+const $=s=>document.querySelector(s);
+const toast=t=>{const e=$("#toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2600)};
+
+// Cartes balades
+const box=$("#routes");
+ROUTES.forEach((r,i)=>{
+  const lvl=r.d<450?"Facile":r.d<850?"Modéré":"Soutenu";
+  const a=document.createElement("article");a.className="route reveal";a.dataset.h=r.h;
+  a.innerHTML=`<div class="thumb"><img src="${IMG+r.img}" alt="Tracé de la balade ${r.n}" loading="lazy"></div>
+  <div class="body"><span class="lvl-tag">${lvl}</span><h3>${r.n}</h3>
+  <div class="stats"><span><b>≈ ${r.km} km</b>distance</span><span><b>≈ ${fmtH(r.h)}</b>durée</span><span><b>${r.d} m</b>dénivelé</span></div>
+  <div class="level" title="Dénivelé relatif"><i data-w="${Math.round(r.d/maxD*100)}"></i></div>
+  <div class="actions"><button class="btn btn-dark" data-pick="${i}">Réserver cette balade</button><a class="btn btn-ghost" href="${K+r.k}" target="_blank" rel="noopener">Tracé Komoot</a></div></div>`;
+  box.appendChild(a);
+});
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed","false"));c.setAttribute("aria-pressed","true");
+  const f=c.dataset.f;
+  document.querySelectorAll(".route").forEach(r=>{const h=+r.dataset.h;
+    const ok=f==="all"||(f==="short"&&h<=2)||(f==="half"&&h<=4)||(f==="day"&&h>4);r.classList.toggle("hide",!ok)});
+}));
+
+// Planificateur
+const sel=$("#pRoute");
+ROUTES.forEach((r,i)=>sel.add(new Option(`${r.n} — ${r.km} km · ${fmtH(r.h)}`,i)));
+sel.selectedIndex=1;
+const hourSel=$("#pHour");
+["08:30","09:00","09:30","10:00","10:30","11:00","13:30","14:00","14:30","15:00"].forEach(h=>hourSel.add(new Option("Départ "+h.replace(":"," h "),h)));
+hourSel.value="09:30";
+const dateIn=$("#pDate");
+const today=new Date();dateIn.min=today.toISOString().slice(0,10);
+let formula="jour",bikes=2;
+const bikeSvg='<svg viewBox="0 0 32 32"><circle cx="8" cy="21" r="5"/><circle cx="24" cy="21" r="5"/><path d="M8 21l5-9h7l4 9M13 12l-2-3H9m11 3l-3 9h-4"/></svg>';
+const bWrap=$("#pBikes");
+for(let i=1;i<=5;i++){const b=document.createElement("button");b.className="bike";b.type="button";b.setAttribute("aria-label",i+" vélo"+(i>1?"s":""));b.innerHTML=bikeSvg;b.onclick=()=>{bikes=i;update()};bWrap.appendChild(b)}
+document.querySelectorAll("#pFormula button").forEach(b=>b.onclick=()=>{formula=b.dataset.k;update()});
+["#pRoute","#pDate","#pHour","#oHelmet","#oTrailer","#oBaby","#oBasket"].forEach(s=>$(s).addEventListener("change",update));
+document.addEventListener("click",e=>{const p=e.target.closest("[data-pick]");if(!p)return;sel.value=p.dataset.pick;
+  const h=ROUTES[p.dataset.pick].h;formula=h<=3?"demi":"jour";update();$("#reserver").scrollIntoView({behavior:"smooth"});toast("Balade sélectionnée : "+ROUTES[p.dataset.pick].n)});
+
+function toMin(t){const[a,b]=t.split(":");return +a*60+ +b}
+function opts(){const o=[];if($("#oHelmet").checked)o.push("casques");if($("#oTrailer").checked)o.push("remorque enfant");if($("#oBaby").checked)o.push("porte-bébé");if($("#oBasket").checked)o.push("panier");return o}
+function update(){
+  const r=ROUTES[sel.value];
+  document.querySelectorAll("#pFormula button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===formula));
+  [...bWrap.children].forEach((b,i)=>b.classList.toggle("on",i<bikes));
+  $("#sRoute").textContent=r.n;
+  $("#sStats").textContent=`${r.km} km · ${fmtH(r.h)} · ${r.d} m D+`;
+  $("#sFormula").textContent=PRICES[formula].l+" · "+PRICES[formula].p+" € / vélo";
+  $("#sBikes").textContent=bikes+" vélo"+(bikes>1?"s":"");
+  const o=opts();$("#sOpts").textContent=o.length?o.join(", "):"Aucun";
+  if(dateIn.value){const d=new Date(dateIn.value+"T12:00");$("#sDate").textContent=d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})+" · "+hourSel.value.replace(":"," h ")}
+  else $("#sDate").textContent="À choisir";
+  const total=PRICES[formula].p*bikes;
+  animateNum($("#sTotal"),total);
+  // frise horaire 8h30-18h
+  const s=toMin(hourSel.value),start=510,end=1080,ret=Math.min(s+r.h*60,end);
+  $("#tBar").style.left=((s-start)/(end-start)*100)+"%";$("#tBar").style.width=(Math.max(ret-s,10)/(end-start)*100)+"%";
+  const rh=Math.floor((s+r.h*60)/60),rm=Math.round((s+r.h*60)%60);
+  $("#sTime").textContent=`Retour estimé vers ${rh} h ${String(rm).padStart(2,"0")} (durée indicative du parcours, hors pauses).`;
+  const w=[];
+  if(formula==="demi"&&r.h>3.5)w.push("Ce parcours dure environ "+fmtH(r.h)+" : la formule journée est plus confortable.");
+  if(s+r.h*60>end&&formula!=="we")w.push("Avec ce départ, le retour dépasse 18 h : choisissez un départ plus tôt.");
+  if($("#oTrailer").checked&&$("#oBaby").checked&&bikes<3)w.push("Remorque et porte-bébé se montent sur des vélos différents (VTC 2 et VTC 3/5).");
+  $("#sWarn").textContent=w.join(" ");$("#sWarn").classList.toggle("show",w.length>0);
+}
+let cur=40;
+function animateNum(el,to){const from=cur;cur=to;const t0=performance.now();
+  (function f(t){const k=Math.min((t-t0)/450,1),e=1-Math.pow(1-k,3);el.textContent=Math.round(from+(to-from)*e)+" €";if(k<1)requestAnimationFrame(f)})(t0)}
+function summaryText(){const r=ROUTES[sel.value],o=opts();
+  return `Bonjour Jean-Jacques,\n\nJe souhaite réserver :\n- Balade : ${r.n} (${r.km} km, ${fmtH(r.h)})\n- Formule : ${PRICES[formula].l}\n- Date : ${$("#sDate").textContent}\n- Nombre de vélos : ${bikes}\n- Équipements : ${o.length?o.join(", "):"aucun"}\n- Total indicatif : ${PRICES[formula].p*bikes} €\n\nNom : ${$("#pName").value||"…"}\nTéléphone : ${$("#pTel").value||"…"}\n\nMerci de me confirmer la disponibilité.`}
+$("#bSend").onclick=()=>{if(!dateIn.value){toast("Choisissez d'abord une date");dateIn.focus();return}
+  location.href="mailto:jeanjacquesmarchas@gmail.com?subject="+encodeURIComponent("Demande de réservation — "+ROUTES[sel.value].n)+"&body="+encodeURIComponent(summaryText())};
+$("#bIcs").onclick=()=>{if(!dateIn.value){toast("Choisissez d'abord une date");dateIn.focus();return}
+  const r=ROUTES[sel.value],d=dateIn.value.replace(/-/g,""),s=toMin(hourSel.value),e=Math.min(s+r.h*60,23*60);
+  const hh=m=>String(Math.floor(m/60)).padStart(2,"0")+String(Math.round(m%60)).padStart(2,"0")+"00";
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Loire Velo Evasion//Maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@loireveloevasion","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART:"+d+"T"+hh(s),"DTEND:"+d+"T"+hh(e),"SUMMARY:Balade vélo électrique — "+r.n,"LOCATION:499 Impasse des Grandes Côtes, 42260 Vézelin-sur-Loire","DESCRIPTION:Loire Vélo Évasion · "+bikes+" vélo(s) · 06 75 18 99 77","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="balade-loire-velo-evasion.ics";a.click();toast("Événement ajouté (fichier .ics)")};
+
+// Carte cadeau
+let gift={g:"Journée pour 2 personnes",p:60};
+document.querySelectorAll("#giftOpts button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#giftOpts button").forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true");gift={g:b.dataset.g,p:b.dataset.p}});
+$("#giftSend").onclick=()=>{const f=$("#giftFor").value||"…";location.href="mailto:jeanjacquesmarchas@gmail.com?subject="+encodeURIComponent("Carte cadeau — "+gift.g)+"&body="+encodeURIComponent(`Bonjour Jean-Jacques,\n\nJe souhaite offrir une carte cadeau « ${gift.g} » (${gift.p} €) pour ${f}.\n\nMerci de me dire comment procéder.`)};
+
+update();
+
+// Apparitions au scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");e.target.querySelectorAll(".level i").forEach(i=>i.style.width=i.dataset.w+"%");io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+"ms";io.observe(el)});
+// Parallaxe légère du hero
+const bg=document.querySelector(".hero-bg");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches)addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight)bg.style.translate="0 "+(y*.25)+"px"},{passive:true});
+</script>
+</body>
+</html>
