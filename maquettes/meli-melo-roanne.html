@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Méli-Melo — Poke bowl à Roanne | Sur place et à emporter</title>
+<meta name="description" content="Méli-Melo, poke bowl rue Maréchal Foch à Roanne : composez votre poke (base, protéine, garnitures, toppings, sauce), sur place ou à emporter, du mardi au samedi midi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&family=Yellowtail&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   CHARTE MÉLI-MELO — reprise de la carte « Fais ton poke ! »
+   (fond turquoise, texte ardoise, titres manuscrits, capitales grasses)
+   Codes exacts non fournis : teintes relevées à l'œil, ajustables ici.
+   =========================================================== */
+:root{
+  --aqua:#8fe3e8;        /* fond principal de la carte */
+  --aqua-pale:#d3f5f7;   /* feuillages clairs de la carte */
+  --aqua-deep:#3cbfc8;   /* turquoise soutenu (contours, logo) */
+  --ink:#24323f;         /* texte ardoise de la carte */
+  --ink-soft:#4a5a68;
+  --white:#ffffff;
+  --leaf:#5fae3c;        /* vert edamame / feuille (accent ponctuel) */
+  --mango:#f5c33b;       /* jaune mangue / maïs (accent ponctuel) */
+  --beet:#b0223f;        /* betterave / thon (accent ponctuel) */
+  --font-script:'Yellowtail', cursive;   /* titres manuscrits de la carte */
+  --font-sans:'Poppins', system-ui, sans-serif; /* capitales grasses de la carte */
+  --radius:22px;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);color:var(--ink);background:var(--white);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--aqua-deep);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.script{font-family:var(--font-script);font-weight:400;letter-spacing:.5px}
+.caps{text-transform:uppercase;font-weight:800;letter-spacing:.06em}
+
+/* bandeau démo */
+.demo{background:var(--ink);color:#fff;font-size:.78rem;text-align:center;padding:7px 16px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(36,50,63,.06);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(36,50,63,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:42px;height:42px}
+.logo .script{font-size:2rem;color:var(--aqua-deep);line-height:1;text-shadow:1px 1px 0 var(--ink)}
+.logo small{display:block;font-size:.6rem;font-weight:800;letter-spacing:.2em;color:var(--ink);margin-top:2px}
+.nav ul{display:flex;list-style:none;gap:26px;font-size:.88rem;font-weight:600}
+.nav ul a{text-decoration:none;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--aqua-deep);transition:width .3s}
+.nav ul a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:700 .9rem var(--font-sans);text-decoration:none;padding:13px 22px;border-radius:999px;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-ink{background:var(--ink);color:#fff;box-shadow:0 8px 20px rgba(36,50,63,.25)}
+.btn-aqua{background:var(--aqua);color:var(--ink)}
+.btn-ghost{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+
+/* hero */
+.hero{position:relative;background:var(--aqua);overflow:hidden;padding:70px 0 110px}
+.hero .leaves{position:absolute;inset:0;pointer-events:none;opacity:.55}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:10px;background:#fff;padding:8px 16px;border-radius:999px;font-size:.78rem;font-weight:700}
+.dot{width:9px;height:9px;border-radius:50%;background:#aaa}
+.dot.open{background:var(--leaf);box-shadow:0 0 0 0 rgba(95,174,60,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(95,174,60,0)}100%{box-shadow:0 0 0 0 rgba(95,174,60,0)}}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.4vw,5rem);line-height:1.02;margin:22px 0 10px;font-weight:800}
+.hero h1 .script{display:block;font-size:1.25em;color:#fff;text-shadow:3px 3px 0 var(--ink);font-weight:400;line-height:1.05}
+.hero .sub{font-size:.8rem;letter-spacing:.35em;font-weight:600;color:#fff;margin-bottom:18px}
+.hero p.lead{font-size:1.08rem;max-width:480px;color:var(--ink)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.bowl-stage{position:relative;aspect-ratio:1;max-width:520px;justify-self:center;width:100%}
+.bowl-stage .ring{position:absolute;inset:6%;border-radius:50%;border:2px dashed rgba(255,255,255,.8);animation:spin 40s linear infinite}
+.bowl-stage .photo{position:absolute;inset:12%;border-radius:50%;overflow:hidden;box-shadow:0 30px 60px rgba(36,50,63,.3);border:8px solid #fff}
+.bowl-stage .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.2s}
+.bowl-stage:hover .photo img{transform:scale(1.22) rotate(-3deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.float{position:absolute;background:#fff;border-radius:16px;padding:10px 14px;font-size:.78rem;font-weight:700;box-shadow:0 12px 30px rgba(36,50,63,.18);animation:bob 5s ease-in-out infinite}
+.float b{display:block;font-family:var(--font-script);font-size:1.5rem;font-weight:400;color:var(--aqua-deep);line-height:1}
+.f1{top:8%;left:-2%}.f2{bottom:12%;right:-2%;animation-delay:-2.5s}.f3{bottom:2%;left:8%;animation-delay:-1.2s}
+@keyframes bob{50%{transform:translateY(-12px)}}
+.wave{position:absolute;bottom:-1px;left:0;width:100%;height:70px}
+
+/* marquee */
+.marquee{background:var(--ink);color:#fff;overflow:hidden;padding:14px 0;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:38px;animation:mq 38s linear infinite;font-weight:800;letter-spacing:.12em;font-size:.85rem}
+.marquee span::after{content:"✦";margin-left:38px;color:var(--aqua)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{padding:96px 0}
+.kicker{font-family:var(--font-script);font-size:2rem;color:var(--aqua-deep);line-height:1}
+h2{font-size:clamp(1.9rem,1.3rem + 2.4vw,3rem);line-height:1.1;font-weight:800;margin:6px 0 16px}
+.intro{max-width:620px;color:var(--ink-soft)}
+
+/* composer */
+#composer{background:linear-gradient(180deg,#fff 0,var(--aqua-pale) 100%)}
+.comp{display:grid;grid-template-columns:1.25fr .75fr;gap:34px;margin-top:40px;align-items:start}
+.steps{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.steps button{border:2px solid var(--ink);background:#fff;border-radius:999px;padding:8px 16px;font:700 .8rem var(--font-sans);cursor:pointer;transition:.25s}
+.steps button.active{background:var(--ink);color:#fff}
+.steps button.done{background:var(--aqua);border-color:var(--aqua)}
+.panel{background:#fff;border-radius:var(--radius);padding:30px;box-shadow:0 20px 50px rgba(36,50,63,.08);min-height:380px}
+.panel h3{font-family:var(--font-script);font-weight:400;font-size:2.4rem;line-height:1}
+.panel .rule{font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--ink-soft);margin:6px 0 20px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.opt{position:relative;border:2px solid #e3eef0;background:#fff;border-radius:14px;padding:14px 12px;text-align:left;font:700 .82rem var(--font-sans);letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:transform .2s var(--ease),border-color .2s,background .2s;display:flex;align-items:center;gap:10px;color:var(--ink)}
+.opt i{width:14px;height:14px;border-radius:50%;flex:none;background:var(--c,#ccc)}
+.opt:hover{transform:translateY(-3px);border-color:var(--aqua-deep)}
+.opt.on{background:var(--aqua);border-color:var(--ink)}
+.opt.on::after{content:"✓";position:absolute;top:6px;right:10px;font-size:.9rem}
+.opt.off{opacity:.38;cursor:not-allowed;transform:none}
+.opt em{font-style:normal;font-weight:500;text-transform:none;letter-spacing:0;font-size:.72rem;color:var(--ink-soft);display:block}
+.size{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.size .opt{flex-direction:column;align-items:flex-start;padding:22px}
+.size .opt b{font-size:1.6rem;font-weight:800}
+.reco{font-size:.6rem;color:var(--beet);margin-left:4px;vertical-align:super}
+.panel-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:10px;flex-wrap:wrap}
+.counter{font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+.ticket{position:sticky;top:92px;background:var(--ink);color:#fff;border-radius:var(--radius);padding:26px;overflow:hidden}
+.ticket .viz{width:100%;max-width:240px;margin:0 auto 14px;display:block}
+.ticket h4{font-family:var(--font-script);font-weight:400;font-size:2rem;line-height:1;color:var(--aqua)}
+.ticket input{width:100%;margin:10px 0 14px;border:0;border-radius:999px;padding:11px 16px;font:600 .9rem var(--font-sans)}
+.ticket ul{list-style:none;font-size:.82rem;display:grid;gap:4px;margin-bottom:14px;min-height:60px}
+.ticket li span{color:var(--aqua);font-weight:700;text-transform:uppercase;font-size:.68rem;letter-spacing:.1em;margin-right:6px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px dashed rgba(255,255,255,.3);padding-top:12px;margin-bottom:16px}
+.total b{font-size:2rem}
+.ticket .btn{width:100%;justify-content:center;margin-top:8px}
+.mode{display:flex;background:rgba(255,255,255,.1);border-radius:999px;padding:4px;margin-bottom:12px}
+.mode button{flex:1;border:0;background:none;color:#fff;font:700 .75rem var(--font-sans);padding:8px;border-radius:999px;cursor:pointer;letter-spacing:.06em}
+.mode button.on{background:var(--aqua);color:var(--ink)}
+.note{font-size:.7rem;opacity:.7;margin-top:10px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;font-size:.85rem;transition:transform .4s var(--ease);z-index:99}
+.toast.show{transform:translate(-50%,0)}
+
+/* lieu / galerie */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:14px;margin-top:40px}
+.gal figure{position:relative;border-radius:var(--radius);overflow:hidden}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.gal figure:hover img{transform:scale(1.07)}
+.gal .tall{grid-row:span 2}.gal .wide{grid-column:span 2}
+.gal figcaption{position:absolute;left:12px;bottom:12px;background:#fff;border-radius:999px;padding:5px 12px;font-size:.72rem;font-weight:700}
+
+/* services */
+.serv{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.card{background:var(--aqua-pale);border-radius:var(--radius);padding:24px;transition:transform .3s var(--ease),background .3s}
+.card:hover{transform:translateY(-6px) rotate(-.6deg);background:var(--aqua)}
+.card .ico{font-size:1.6rem}
+.card h3{font-size:1rem;font-weight:800;margin:10px 0 4px}
+.card p{font-size:.85rem;color:var(--ink-soft)}
+.pay{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.pay span{border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-size:.78rem;font-weight:700}
+
+/* infos */
+#infos{background:var(--aqua);position:relative}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:30px}
+.box{background:#fff;border-radius:var(--radius);padding:30px}
+.hours{list-style:none;display:grid;gap:6px}
+.hours li{display:flex;justify-content:space-between;padding:8px 12px;border-radius:10px;font-size:.92rem}
+.hours li.today{background:var(--aqua-pale);font-weight:800}
+.hours li.closed span:last-child{color:var(--ink-soft)}
+.map{border-radius:var(--radius);overflow:hidden;min-height:300px}
+.map iframe{width:100%;height:100%;min-height:300px;border:0}
+.contact-line{display:flex;gap:12px;align-items:center;margin:10px 0;font-weight:600}
+.contact-line a{text-decoration:none;border-bottom:2px solid var(--aqua)}
+
+footer{background:var(--ink);color:#cfd8de;padding:50px 0 30px;font-size:.82rem}
+footer .script{font-size:2.4rem;color:var(--aqua)}
+.foot-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+.disclaimer{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:.74rem;opacity:.8}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+  .hero-grid,.comp,.info-grid,.foot-grid{grid-template-columns:1fr}
+  .serv{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:1fr 1fr;grid-auto-rows:180px}
+  .ticket{position:relative;top:0}
+  .nav ul{display:none;position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;padding:20px 16px;gap:16px;box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .nav ul.open{display:flex}
+  .burger{display:block}
+  .nav .btn-ink{display:none}
+}
+@media (max-width:560px){
+  .serv{grid-template-columns:1fr}
+  .gal .wide{grid-column:span 2}
+  .size{grid-template-columns:1fr}
+  .panel{padding:20px}
+  .float{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Méli-Melo",
+  "description":"Poke bowl à composer soi-même, sur place ou à emporter.",
+  "servesCuisine":["Poke bowl","Cuisine hawaïenne"],
+  "slogan":"Le plaisir de manger sain et varié",
+  "telephone":"+33954369341",
+  "email":"melimelo.poke@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"73 rue Maréchal Foch","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"11:45","closes":"14:00"}],
+  "paymentAccepted":"Espèces, carte bancaire, sans contact, Apple Pay, Ticket Restaurant",
+  "priceRange":"€",
+  "image":"https://cdn.website.dish.co/media/bb/38/5676676/MELI-MELO-IMG-0153-1-jpg.jpg"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de nouveau site pour Méli-Melo</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Méli-Melo, accueil">
+      <svg viewBox="0 0 48 48" fill="none" stroke="#24323f" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 24h36c0 10-8 17-18 17S6 34 6 24z" fill="#8fe3e8"/><path d="M14 20c4-7 14-9 20-3-3 1-5 3-6 5"/><circle cx="29" cy="15" r="1.2" fill="#24323f"/><path d="M34 17l6-5v9z" fill="#fff"/></svg>
+      <span><span class="script">Méli-Melo</span><small>POKE BOWL</small></span>
+    </a>
+    <ul id="menu">
+      <li><a href="#composer">Fais ton poke</a></li>
+      <li><a href="#lieu">Le lieu</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#infos">Horaires &amp; accès</a></li>
+    </ul>
+    <a class="btn btn-ink" href="tel:+33954369341">☎ 09 54 36 93 41</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-top:60px">
+  <svg class="leaves" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="#d3f5f7"><path d="M-40 120c120-90 260-60 330 40-140 10-240 0-330-40z"/><path d="M980 40c90 40 160 140 140 250-90-60-140-150-140-250z"/><path d="M60 620c40-120 150-180 270-160-60 100-160 160-270 160z"/><path d="M1080 600c-70-80-60-200 20-260 40 90 30 190-20 260z"/></g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div class="rv">
+      <span class="tag"><span class="dot" id="statusDot"></span><span id="statusTxt">Ouvert du mardi au samedi, 11h45 – 14h</span></span>
+      <h1><span class="script">Fais ton poke !</span>Le plaisir de manger sain et varié</h1>
+      <div class="sub">HAWAI · PARIS · ROANNE</div>
+      <p class="lead">Une base, une protéine, des garnitures, des toppings et une sauce : vous composez votre bowl, on le prépare devant vous, rue Maréchal Foch. Sur place ou à emporter.</p>
+      <div class="ctas">
+        <a class="btn btn-ink" href="#composer">Composer mon poke →</a>
+        <a class="btn btn-ghost" href="tel:+33954369341">Appeler le restaurant</a>
+      </div>
+    </div>
+    <div class="bowl-stage rv">
+      <div class="ring"></div>
+      <div class="photo"><img src="https://cdn.website.dish.co/media/0d/d0/5449468/MELI-MELO-BB127AD8-6125-46F2-AE96-AA7E5C33476B-jpeg.jpg" alt="Poke bowl saumon, edamame, avocat et carottes de Méli-Melo" fetchpriority="high"></div>
+      <div class="float f1"><b>Moyen</b>9,90 €</div>
+      <div class="float f2"><b>Grand</b>12,90 €</div>
+      <div class="float f3">🌿 Préparé devant vous</div>
+    </div>
+  </div>
+  <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40c240 40 480 40 720 10s480-40 720 0v20H0z" fill="#24323f"/></svg>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="mq"></div></div>
+
+<section id="composer">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kicker">Fais ton poke !</div>
+      <h2>Composez votre bowl, étape par étape</h2>
+      <p class="intro">La carte du comptoir, en version interactive : choisissez votre taille, puis suivez les cinq étapes. Le prix et le récapitulatif se mettent à jour en direct — il ne reste qu'à appeler ou à montrer le ticket au comptoir.</p>
+    </div>
+    <div class="comp">
+      <div class="rv">
+        <div class="steps" id="steps"></div>
+        <div class="panel" id="panel" aria-live="polite"></div>
+      </div>
+      <aside class="ticket rv" aria-label="Récapitulatif de votre poke">
+        <svg class="viz" id="viz" viewBox="0 0 200 140" aria-hidden="true"></svg>
+        <h4>Ton prénom ?</h4>
+        <input id="prenom" placeholder="Votre prénom" maxlength="20" aria-label="Votre prénom">
+        <div class="mode" role="group" aria-label="Sur place ou à emporter">
+          <button class="on" data-mode="Sur place">SUR PLACE</button>
+          <button data-mode="À emporter">À EMPORTER</button>
+        </div>
+        <ul id="recap"></ul>
+        <div class="total"><span>Total indicatif</span><b id="total">9,90 €</b></div>
+        <button class="btn btn-aqua" id="copy">Copier ma commande</button>
+        <a class="btn btn-ghost" href="tel:+33954369341" style="border-color:#fff;background:transparent;color:#fff">☎ Appeler pour commander</a>
+        <p class="note">Prix repris de la carte affichée sur le site actuel. Garnitures : 4 en Moyen, 6 en Grand · Toppings : 2 en Moyen, 3 en Grand · 1 sauce au choix.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="lieu">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kicker">Le lieu</div>
+      <h2>Bois clair, rotin et comptoir à vue</h2>
+      <p class="intro">Tout est préparé au comptoir, sous vos yeux : riz, salade ou quinoa, puis les garnitures fraîches que vous choisissez. Tables, mange-debout en rotin et salle climatisée.</p>
+    </div>
+    <div class="gal">
+      <figure class="tall rv"><img loading="lazy" src="https://cdn.website.dish.co/media/f5/3a/5449458/MELI-MELO-EBD914E0-2E13-4730-80DB-DD8AEDDE15D5-jpeg.jpg" alt="Entrée du restaurant Méli-Melo"><figcaption>L'entrée</figcaption></figure>
+      <figure class="wide rv"><img loading="lazy" src="https://cdn.website.dish.co/media/bb/38/5676676/MELI-MELO-IMG-0153-1-jpg.jpg" alt="Plusieurs poke bowls Méli-Melo sur une table"><figcaption>Nos bowls</figcaption></figure>
+      <figure class="tall rv"><img loading="lazy" src="https://cdn.website.dish.co/media/d7/b0/5449488/MELI-MELO-3102C50E-5103-4E91-AEAA-ADA0EB2DCF97-jpeg.jpg" alt="Mange-debout et tabourets en rotin"><figcaption>La salle</figcaption></figure>
+      <figure class="rv"><img loading="lazy" src="https://cdn.website.dish.co/media/19/47/5449483/MELI-MELO-AA4CE06B-AF8D-425E-A034-F5ECA3339017-jpeg.jpg" alt="Le comptoir de préparation"><figcaption>Le comptoir</figcaption></figure>
+      <figure class="rv"><img loading="lazy" src="https://cdn.website.dish.co/media/16/05/5449518/MELI-MELO-AF2AA375-32E0-4B3D-A87F-9723DAD8C5E0-jpeg.jpg" alt="Mangue fraîche découpée"><figcaption>Mangue fraîche</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="padding-top:20px">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kicker">Services</div>
+      <h2>Sur place, à emporter, en livraison</h2>
+    </div>
+    <div class="serv">
+      <div class="card rv"><div class="ico">🥢</div><h3>Sur place</h3><p>En salle ou en terrasse, avec Wi-Fi gratuit et climatisation.</p></div>
+      <div class="card rv"><div class="ico">🥡</div><h3>À emporter</h3><p>Votre bowl prêt à partir, pour la pause de midi au bureau.</p></div>
+      <div class="card rv"><div class="ico">🛵</div><h3>Livraison</h3><p>Service de livraison proposé par le restaurant.</p></div>
+      <div class="card rv"><div class="ico">🎉</div><h3>Événements privés</h3><p>Le restaurant accueille aussi vos événements : parlons-en par téléphone.</p></div>
+    </div>
+    <div class="pay rv" aria-label="Moyens de paiement">
+      <span>Espèces</span><span>Carte bancaire</span><span>Sans contact</span><span>Apple Pay</span><span>Ticket Restaurant</span><span>Carte Ticket Restaurant</span><span>Accessible</span><span>Parking</span>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <div class="rv">
+      <div class="kicker" style="color:#fff;text-shadow:2px 2px 0 var(--ink)">Horaires &amp; accès</div>
+      <h2>Le midi, du mardi au samedi</h2>
+    </div>
+    <div class="info-grid">
+      <div class="box rv">
+        <ul class="hours" id="hours"></ul>
+        <div style="margin-top:22px">
+          <div class="contact-line">📍 73 rue Maréchal Foch, 42300 Roanne</div>
+          <div class="contact-line">☎ <a href="tel:+33954369341">09 54 36 93 41</a></div>
+          <div class="contact-line">✉ <a href="mailto:melimelo.poke@gmail.com">melimelo.poke@gmail.com</a></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+          <a class="btn btn-ink" href="https://www.google.com/maps/search/?api=1&query=73+rue+Mar%C3%A9chal+Foch+42300+Roanne" target="_blank" rel="noopener">Itinéraire</a>
+          <a class="btn btn-aqua" href="#composer">Composer mon poke</a>
+        </div>
+      </div>
+      <div class="map rv"><iframe loading="lazy" title="Plan d'accès Méli-Melo" src="https://maps.google.com/maps?q=73%20rue%20Mar%C3%A9chal%20Foch%2042300%20Roanne&z=16&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><div class="script">Méli-Melo</div><p>Poke bowl · Hawai · Paris · Roanne<br>« Le plaisir de manger sain et varié »</p></div>
+      <div><p><b style="color:#fff">Adresse</b><br>73 rue Maréchal Foch<br>42300 Roanne</p></div>
+      <div><p><b style="color:#fff">Contact</b><br><a href="tel:+33954369341">09 54 36 93 41</a><br><a href="mailto:melimelo.poke@gmail.com">melimelo.poke@gmail.com</a></p></div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration non officielle, réalisée pour présenter une proposition de site à Méli-Melo. Les photos sont celles publiées sur le site actuel du restaurant. Les prix et la composition des bowls reprennent la carte « Fais ton poke ! » affichée en ligne : ils sont indicatifs, non contractuels, et à confirmer (notamment le supplément protéine). Les couleurs sont relevées sur la carte et approchées : elles s'ajustent en quelques lignes. Horaires et services repris de la fiche actuelle.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+// ===== Données reprises de la carte « Fais ton poke ! » =====
+const SIZES={Moyen:{price:9.90,garn:4,top:2},Grand:{price:12.90,garn:6,top:3}};
+const STEPS=[
+ {k:'taille',t:'Taille',rule:'MOYEN 9,90 € · GRAND 12,90 €'},
+ {k:'base',t:'1. Base',rule:'UNE BASE AU CHOIX',max:()=>1,items:[['Riz poke','#f4f1ea'],['Salade','#7cc35a'],['Quinoa','#d9c49a']]},
+ {k:'prot',t:'2. Protéine',rule:'1 PROTÉINE (+2 € SUPPLÉMENT PAR PROTÉINE EN PLUS)',max:()=>4,items:[['Saumon','#f59a7a'],['Crevette','#f7b59a'],['Thon cru','#b0223f',' ❄'],['Poulet crispy','#d99a3c']]},
+ {k:'garn',t:'3. Garniture',rule:()=>`${S.size==='Grand'?'6':'4'} GARNITURES (${S.size.toUpperCase()})`,max:()=>SIZES[S.size].garn,items:[['Avocat','#9cc65a'],['Ananas','#f5d34a'],['Carotte','#f08a2c'],['Radis','#e0607a'],['Chou rouge','#7d3c8c'],['Oignon rouge','#a8507a'],['Concombre','#8ed06a'],['Maïs','#f5c33b'],['Gingembre','#f3c9b5'],['Edamamé','#5fae3c'],['Tofu','#efe8d6'],['Betterave','#9b1d3a'],['Tomate cerise','#e2402f'],['Wakame','#3f8a3a'],['Pomme','#c7e07a'],['Mangue','#f7b733']]},
+ {k:'top',t:'4. Topping',rule:()=>`${S.size==='Grand'?'3':'2'} TOPPINGS (${S.size.toUpperCase()})`,max:()=>SIZES[S.size].top,items:[['Oignon frit','#c98a3c'],['Sésame','#efe3c4'],['Sésame grillé','#b8894f'],['Cacahuète','#c9955a'],['Baie de goji','#d8432f'],['Noix','#9a6b3e'],['Graine de courge','#5b7d3a'],['Raisin sec','#5c2c3a']]},
+ {k:'sauce',t:'5. Sauce',rule:'1 SAUCE AU CHOIX',max:()=>1,items:[['Soja sucrée','#6b3d22'],['Soja salée','#3e2a1c'],['Goma sésame','#d9b77c','reco'],['Mangue','#f7b733'],['Poke épicée','#e04a2a',' 🌶'],['Cacahuète','#b9844b']]}
+];
+const S={size:'Moyen',step:0,mode:'Sur place',sel:{base:[],prot:[],garn:[],top:[],sauce:[]}};
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+const $=s=>document.querySelector(s);
+
+function price(){const extra=Math.max(0,S.sel.prot.length-1)*2;return SIZES[S.size].price+extra}
+function isDone(i){if(i===0)return true;const st=STEPS[i];return S.sel[st.k].length>0}
+
+function renderSteps(){
+  $('#steps').innerHTML=STEPS.map((s,i)=>`<button class="${i===S.step?'active':''} ${i!==S.step&&isDone(i)?'done':''}" data-i="${i}">${s.t}</button>`).join('');
+  document.querySelectorAll('#steps button').forEach(b=>b.onclick=()=>{S.step=+b.dataset.i;render()});
+}
+function renderPanel(){
+  const st=STEPS[S.step];const rule=typeof st.rule==='function'?st.rule():st.rule;
+  let h=`<h3>${st.t}</h3><div class="rule">${rule}</div>`;
+  if(st.k==='taille'){
+    h+=`<div class="size">${Object.entries(SIZES).map(([n,v])=>`<button class="opt ${S.size===n?'on':''}" data-size="${n}"><span>${n}</span><b>${eur(v.price)}</b><em>${v.garn} garnitures · ${v.top} toppings</em></button>`).join('')}</div>`;
+  }else{
+    const max=st.max();const cur=S.sel[st.k];
+    h+=`<div class="opts">${st.items.map(([n,c,x])=>{const on=cur.includes(n);const off=!on&&cur.length>=max&&max>1;return `<button class="opt ${on?'on':''} ${off?'off':''}" style="--c:${c}" data-n="${n}" aria-pressed="${on}"><i></i><span>${n}${x==='reco'?'<span class="reco">RECOMMANDÉE</span>':(x||'')}${st.k==='prot'&&on&&cur.indexOf(n)>0?'<em>+2 €</em>':''}</span></button>`}).join('')}</div>`;
+  }
+  const cnt=st.k==='taille'?'':`${S.sel[st.k].length} / ${st.max()} choisi${S.sel[st.k].length>1?'s':''}`;
+  h+=`<div class="panel-foot"><span class="counter">${cnt}</span><div style="display:flex;gap:8px">${S.step>0?'<button class="btn btn-ghost" id="prev">← Retour</button>':''}${S.step<STEPS.length-1?'<button class="btn btn-ink" id="next">Étape suivante →</button>':'<a class="btn btn-ink" href="#recap" id="fin">Voir mon ticket ✓</a>'}</div></div>`;
+  $('#panel').innerHTML=h;
+  document.querySelectorAll('[data-size]').forEach(b=>b.onclick=()=>{S.size=b.dataset.size;['garn','top'].forEach(k=>S.sel[k]=S.sel[k].slice(0,SIZES[S.size][k]));render()});
+  document.querySelectorAll('[data-n]').forEach(b=>b.onclick=()=>{
+    const k=st.k,n=b.dataset.n,max=st.max(),a=S.sel[k];
+    if(a.includes(n))S.sel[k]=a.filter(x=>x!==n);
+    else if(max===1)S.sel[k]=[n];
+    else if(a.length<max)a.push(n);
+    else{toast(`Maximum ${max} pour ${S.size.toLowerCase()} — retirez-en un d'abord`);return}
+    render();
+  });
+  const p=$('#prev'),nx=$('#next');if(p)p.onclick=()=>{S.step--;render()};if(nx)nx.onclick=()=>{S.step++;render()};
+}
+function renderTicket(){
+  const L=[['Taille',S.size]];
+  const lab={base:'Base',prot:'Protéine',garn:'Garnitures',top:'Toppings',sauce:'Sauce'};
+  for(const k in lab)if(S.sel[k].length)L.push([lab[k],S.sel[k].join(', ')]);
+  $('#recap').innerHTML=L.map(([a,b])=>`<li><span>${a}</span>${b}</li>`).join('');
+  $('#total').textContent=eur(price());
+  // visuel du bowl : chaque ingrédient devient un quartier coloré
+  const all=[];STEPS.slice(1,5).forEach(st=>S.sel[st.k].forEach(n=>{const it=st.items.find(x=>x[0]===n);all.push(it[1])}));
+  let svg=`<ellipse cx="100" cy="120" rx="80" ry="10" fill="rgba(0,0,0,.25)"/><path d="M15 62h170c0 38-38 66-85 66S15 100 15 62z" fill="#fff"/><path d="M15 62h170c0 6-2 12-5 18H20c-3-6-5-12-5-18z" fill="#8fe3e8"/>`;
+  svg+=`<ellipse cx="100" cy="62" rx="85" ry="26" fill="#f4f1ea"/>`;
+  const n=all.length;
+  all.forEach((c,i)=>{const a=(i/Math.max(n,1))*Math.PI*2-Math.PI/2;const r=n<2?0:48;const x=100+Math.cos(a)*r,y=62+Math.sin(a)*r*0.32;svg+=`<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${n>8?16:20}" ry="${n>8?7:9}" fill="${c}" style="transform-origin:${x}px ${y}px;animation:pop .45s var(--ease)"/>`});
+  if(S.sel.sauce.length)svg+=`<path d="M70 58q30-12 60 0" stroke="${STEPS[5].items.find(x=>x[0]===S.sel.sauce[0])[1]}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+  $('#viz').innerHTML=svg;
+}
+function render(){renderSteps();renderPanel();renderTicket()}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2400)}
+document.head.insertAdjacentHTML('beforeend','<style>@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}</style>');
+document.querySelectorAll('.mode button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.mode button').forEach(x=>x.classList.remove('on'));b.classList.add('on');S.mode=b.dataset.mode});
+$('#copy').onclick=()=>{
+  const p=$('#prenom').value.trim();
+  const lab={base:'Base',prot:'Protéine',garn:'Garnitures',top:'Toppings',sauce:'Sauce'};
+  let t=`Poke ${S.size} (${S.mode})${p?' — '+p:''}\n`;for(const k in lab)if(S.sel[k].length)t+=`${lab[k]} : ${S.sel[k].join(', ')}\n`;t+=`Total indicatif : ${eur(price())}`;
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Commande copiée ✓')).catch(()=>toast('Copie impossible sur ce navigateur'));
+};
+render();
+
+// ===== Ouvert / fermé en direct + horaires =====
+(function(){
+  const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+  const openDay=d>=2&&d<=6,open=openDay&&m>=705&&m<840;
+  const order=[1,2,3,4,5,6,0];
+  $('#hours').innerHTML=order.map(i=>{const o=i>=2&&i<=6;return `<li class="${i===d?'today':''} ${o?'':'closed'}"><span>${days[i]}</span><span>${o?'11h45 – 14h00':'Fermé'}</span></li>`}).join('');
+  const dot=$('#statusDot'),txt=$('#statusTxt');
+  if(open){dot.classList.add('open');txt.textContent='Ouvert maintenant · jusqu\'à 14h'}
+  else if(openDay&&m<705){txt.textContent='Ouvre aujourd\'hui à 11h45'}
+  else{let n=d;do{n=(n+1)%7}while(!(n>=2&&n<=6));txt.textContent=`Fermé · réouverture ${days[n].toLowerCase()} 11h45`}
+})();
+
+// ===== Bandeau défilant d'ingrédients =====
+(function(){const w=['Riz poke','Saumon','Avocat','Edamamé','Mangue','Wakame','Quinoa','Crevette','Goma sésame','Chou rouge','Poulet crispy','Ananas','Tofu','Graine de courge'];const h=w.map(x=>`<span>${x.toUpperCase()}</span>`).join('');$('#mq').innerHTML=h+h})();
+
+// ===== Header, menu mobile, apparitions =====
+addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>10),{passive:true});
+$('#burger').onclick=function(){const u=$('#menu');u.classList.toggle('open');this.setAttribute('aria-expanded',u.classList.contains('open'))};
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.rv').forEach(el=>io.observe(el))}else document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+</script>
+</body>
+</html>
