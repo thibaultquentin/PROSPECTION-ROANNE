@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Duelec42 — Électricien dans le Roannais | Installation, conformité, dépannage</title>
+<meta name="description" content="Duelec42, artisan électricien du Roannais : tableau électrique, rénovation, borne de recharge, climatisation, domotique et dépannage à Roanne, Riorges, Mably, Charlieu.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE DUELEC42 — reprise du site actuel (duelec42.fr)
+   - Fond noir du bandeau / logo, cyan des titres et boutons (#16C0F3)
+   - Titres « machine à écrire » (Gungsuh sur le site → Courier Prime ici)
+   - Texte courant en Montserrat léger, comme sur le site
+   - Dégradés magenta / vert / cyan repris des pictos du logo
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --noir:#000;
+  --noir-2:#0b0d10;
+  --gris-fonce:#3d3d3d;
+  --texte:#4a4a4a;
+  --cyan:#16c0f3;
+  --cyan-2:#09a8f2;
+  --magenta:#e2287f;
+  --violet:#8b3fd1;
+  --vert:#19d39a;
+  --gris-clair:#f7f7f7;
+  --blanc:#fff;
+  --titre:"Courier Prime","Courier New",monospace;
+  --corps:"Montserrat",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--corps);font-weight:300;color:var(--texte);background:var(--blanc);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--cyan);color:#001018;font:500 12px/1.4 var(--corps);text-align:center;padding:6px 12px;letter-spacing:.02em}
+
+/* En-tête noir, comme le site actuel */
+header.top{position:sticky;top:0;z-index:50;background:#000;border-bottom:1px solid #1b1f24}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff}
+.logo img{height:46px;width:auto}
+nav.menu{display:flex;gap:22px;align-items:center}
+nav.menu a{font:700 14px var(--titre);color:#fff;text-decoration:none;text-transform:uppercase;letter-spacing:.02em;position:relative;padding:6px 0}
+nav.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav.menu a:hover::after{transform:scaleX(1)}
+.tel-top{font:700 15px var(--titre);color:#001018;background:var(--cyan);padding:10px 16px;text-decoration:none;white-space:nowrap;transition:transform .2s}
+.tel-top:hover{transform:translateY(-2px)}
+.burger{display:none;background:none;border:1px solid #333;color:#fff;font:700 14px var(--titre);padding:8px 12px;cursor:pointer}
+@media(max-width:1020px){
+  nav.menu{position:absolute;top:100%;left:0;right:0;background:#000;flex-direction:column;align-items:flex-start;padding:16px;gap:10px;display:none}
+  nav.menu.open{display:flex}
+  .burger{display:block}
+}
+@media(max-width:520px){.tel-top{display:none}}
+
+/* Hero */
+.hero{position:relative;background:var(--noir);color:#fff;overflow:hidden;padding:72px 0 0}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:end}
+.hero .kicker{display:inline-block;border-top:4px solid var(--cyan);padding-top:14px;font-size:clamp(16px,1.6vw,19px);font-weight:400}
+.hero h1{font-family:var(--titre);font-weight:700;font-size:clamp(54px,9vw,118px);line-height:.95;letter-spacing:-.02em;margin:18px 0 6px;display:flex;align-items:flex-start;gap:6px}
+.hero h1 .bolt{width:.42em;height:.8em;fill:#fff;margin-top:.05em;animation:flick 4s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.2}94%{opacity:1}96%{opacity:.4}97%{opacity:1}}
+.hero .sous{font-weight:400;text-transform:uppercase;font-size:clamp(15px,1.6vw,20px);line-height:1.5;letter-spacing:.02em}
+.hero .sous span{color:var(--cyan)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 56px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:700 15px var(--titre);text-transform:uppercase;text-decoration:none;padding:15px 22px;border:2px solid var(--cyan);cursor:pointer;transition:transform .2s var(--ease),background .2s,color .2s}
+.btn.plein{background:var(--cyan);color:#001018}
+.btn.plein:hover{background:#fff;border-color:#fff}
+.btn.vide{background:transparent;color:#fff}
+.btn.vide:hover{background:var(--cyan);color:#001018}
+.btn:active{transform:scale(.97)}
+.btn svg{width:16px;height:16px}
+.hero-photo{position:relative;align-self:stretch;min-height:440px}
+.hero-photo img{position:absolute;bottom:0;right:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;filter:grayscale(.15) contrast(1.05);clip-path:polygon(18% 0,100% 0,100% 100%,0 100%)}
+.hero-photo .badge{position:absolute;left:4%;bottom:28px;background:#000;border:1px solid #222;padding:14px 16px;font-size:13px;max-width:240px}
+.hero-photo .badge b{display:block;font:700 18px var(--titre);color:var(--cyan)}
+.hero-pictos{display:flex;gap:18px;margin-bottom:22px}
+.hero-pictos i{width:34px;height:34px;border-radius:50%;border:2px solid;display:block;opacity:.9}
+.hero-pictos i:nth-child(1){border-color:var(--magenta);box-shadow:0 0 14px var(--magenta)}
+.hero-pictos i:nth-child(2){border-color:var(--vert);box-shadow:0 0 14px var(--vert)}
+.hero-pictos i:nth-child(3){border-color:#f2b84b;box-shadow:0 0 14px #f2b84b}
+.hero-pictos i:nth-child(4){border-color:var(--cyan);box-shadow:0 0 14px var(--cyan)}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero-photo{min-height:320px;margin:0 -16px}.hero-photo img{clip-path:none}}
+
+/* Fil conducteur animé (élément signature) */
+.fil{height:4px;background:linear-gradient(90deg,var(--magenta),var(--violet),var(--cyan),var(--vert));transform-origin:left;transform:scaleX(var(--p,0));transition:transform .1s linear}
+
+/* Sections */
+section{padding:clamp(64px,9vw,110px) 0}
+.trait{width:114px;height:4px;background:var(--cyan);margin-bottom:22px}
+h2{font-family:var(--corps);font-weight:400;color:var(--cyan);font-size:clamp(30px,4.2vw,46px);line-height:1.1;text-transform:uppercase;letter-spacing:.01em}
+h2 small{display:block;font-size:.5em;margin-top:10px;font-weight:400}
+h3{font:700 21px var(--titre);color:var(--cyan)}
+.lead{max-width:780px;margin-top:18px;font-size:17px}
+.lead strong{color:#111;font-weight:500}
+
+/* Atouts */
+.atouts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.atout{border-bottom:3px solid var(--cyan);padding:26px 22px;background:var(--gris-clair);position:relative;overflow:hidden}
+.atout .num{font:700 13px var(--titre);color:#999}
+.atout h3{margin:8px 0 10px}
+.atout p{font-size:14.5px}
+.atout::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:linear-gradient(90deg,var(--magenta),var(--cyan));transition:width .6s var(--ease)}
+.atout:hover::before{width:100%}
+@media(max-width:800px){.atouts{grid-template-columns:1fr}}
+
+/* Domaines */
+.domaines{background:var(--noir);color:#d9dde2}
+.domaines h2{color:#fff}
+.dom-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+.dom{position:relative;aspect-ratio:1/1.1;overflow:hidden;background:#111;text-decoration:none;color:#fff;border:1px solid #1d2228}
+.dom img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .5s;filter:grayscale(.35) brightness(.7)}
+.dom:hover img{transform:scale(1.06);filter:none}
+.dom .lbl{position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.dom .lbl b{font:700 17px var(--titre);text-transform:uppercase;display:block}
+.dom .lbl span{font-size:12.5px;color:#b8c0c8}
+.dom.picto{display:flex;align-items:center;justify-content:center;background:#fff}
+.dom.picto img{width:62%;height:auto;filter:none;object-fit:contain}
+.dom.picto .lbl{background:#000}
+@media(max-width:900px){.dom-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* Assistant */
+.assistant{background:linear-gradient(180deg,#f7f7f7,#fff)}
+.as-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;margin-top:40px;align-items:start}
+.as-grid>*{min-width:0}
+@media(max-width:860px){.as-grid{grid-template-columns:1fr}}
+.as-side p{margin-bottom:14px}
+.as-side .note{font-size:13.5px;border-left:3px solid var(--cyan);padding-left:14px;color:#555}
+.as-box{background:#000;color:#e6e9ec;padding:28px;position:relative;box-shadow:0 30px 60px -30px rgba(0,0,0,.5)}
+.as-steps{display:flex;gap:6px;margin-bottom:22px}
+.as-steps i{flex:1;height:4px;background:#222;transition:background .3s}
+.as-steps i.on{background:var(--cyan)}
+.as-q{font:700 20px var(--titre);color:#fff;margin-bottom:16px}
+.choix{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choix button{background:#0f1215;border:1px solid #2a3037;color:#e6e9ec;text-align:left;padding:14px;font:400 14px var(--corps);cursor:pointer;transition:border-color .2s,transform .15s,background .2s;min-height:52px}
+.choix button b{display:block;font:700 15px var(--titre);color:#fff;margin-bottom:2px}
+.choix button:hover{border-color:var(--cyan);transform:translateY(-2px)}
+.choix button.sel{border-color:var(--cyan);background:#06202b}
+@media(max-width:560px){.choix{grid-template-columns:1fr}}
+.as-panel{display:none;animation:in .35s var(--ease)}
+.as-panel.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.conseil{margin-top:16px;padding:14px 16px;border:1px solid #2a3037;font-size:14px;display:none}
+.conseil.on{display:block}
+.conseil.alerte{border-color:var(--magenta);background:#1d0712}
+.conseil b{color:#fff}
+.as-field{margin-top:14px}
+.as-field label{display:block;font:700 13px var(--titre);text-transform:uppercase;color:#9aa4ae;margin-bottom:6px}
+.as-field select,.as-field input,.as-field textarea{width:100%;background:#0f1215;border:1px solid #2a3037;color:#fff;padding:12px;font:400 15px var(--corps)}
+.as-field textarea{min-height:84px;resize:vertical}
+.as-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.as-nav .btn{padding:12px 16px;font-size:13px}
+.recap{background:#0f1215;border:1px dashed var(--cyan);padding:16px;font:400 14px/1.6 var(--titre);white-space:pre-wrap;color:#dff6ff}
+.as-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+
+/* Chantiers */
+.filtres{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.filtres button{font:700 13px var(--titre);text-transform:uppercase;background:none;border:1px solid #ccc;padding:9px 14px;cursor:pointer;transition:.2s}
+.filtres button.on,.filtres button:hover{background:#000;color:#fff;border-color:#000}
+.galerie{columns:4 220px;column-gap:12px;margin-top:26px}
+.galerie figure{break-inside:avoid;margin-bottom:12px;position:relative;overflow:hidden;cursor:zoom-in;transition:opacity .35s,transform .35s}
+.galerie figure.off{display:none}
+.galerie img{width:100%;transition:transform .6s var(--ease)}
+.galerie figure:hover img{transform:scale(1.04)}
+.galerie figcaption{position:absolute;left:8px;bottom:8px;background:#000;color:#fff;font:700 11.5px var(--titre);text-transform:uppercase;padding:4px 8px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.lightbox.on{display:flex}
+.lightbox img{max-height:88vh;max-width:92vw}
+.lightbox button{position:absolute;top:16px;right:16px;background:var(--cyan);border:0;font:700 16px var(--titre);padding:10px 14px;cursor:pointer}
+
+/* À propos */
+.apropos{background:var(--noir);color:#d9dde2}
+.ap-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.ap-photo{position:relative}
+.ap-photo img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.ap-photo::after{content:"";position:absolute;inset:14px -14px -14px 14px;border:2px solid var(--cyan);z-index:-1}
+.ap-photo{z-index:1}
+.apropos h2{color:#fff}
+.apropos blockquote{font:400 italic 22px/1.4 var(--titre);color:var(--cyan);margin:22px 0}
+.chiffre-reel{display:flex;gap:30px;margin-top:26px;flex-wrap:wrap}
+.chiffre-reel div b{display:block;font:700 40px var(--titre);color:#fff}
+.chiffre-reel div span{font-size:13px;color:#9aa4ae}
+@media(max-width:860px){.ap-grid{grid-template-columns:1fr}.ap-photo{max-width:340px}}
+
+/* Zone */
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:36px}
+.zone-map{position:relative;aspect-ratio:1;max-width:460px;width:100%}
+.zone-map svg{width:100%;height:100%}
+.zone-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.zone-list span{border:1px solid #d6d6d6;padding:8px 12px;font:700 14px var(--titre);transition:.2s;cursor:default}
+.zone-list span:hover,.zone-list span.hl{background:var(--cyan);border-color:var(--cyan);color:#001018}
+@media(max-width:860px){.zone-grid{grid-template-columns:1fr}}
+
+/* Avis */
+.avis{background:var(--gris-clair)}
+.avis-head{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:16px}
+.avis-head .src{font-size:13.5px}
+.avis-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 0 10px;scrollbar-width:thin}
+.avis-card{flex:0 0 min(360px,85%);scroll-snap-align:start;background:#fff;padding:24px;border-top:3px solid var(--cyan);font-size:15px}
+.avis-card .etoiles{color:#f2b84b;letter-spacing:2px;margin-bottom:10px}
+.avis-card cite{display:block;margin-top:14px;font:700 13px var(--titre);color:#111;font-style:normal}
+
+/* Partenaires */
+.marques{background:#000;color:#fff;padding:26px 0;overflow:hidden;white-space:nowrap}
+.marques .defile{display:inline-flex;gap:56px;animation:defile 40s linear infinite;font:700 22px var(--titre);text-transform:uppercase;color:#6f7880}
+.marques .defile span:nth-child(3n){color:var(--cyan)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* FAQ */
+.faq-list{margin-top:34px;border-top:1px solid #e2e2e2}
+.faq-list details{border-bottom:1px solid #e2e2e2}
+.faq-list summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font:700 17px var(--titre);color:#111;position:relative}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";position:absolute;right:6px;top:16px;font-size:26px;color:var(--cyan);transition:transform .3s}
+.faq-list details[open] summary::after{transform:rotate(45deg)}
+.faq-list p{padding:0 0 20px;max-width:820px}
+
+/* Contact */
+.contact{background:var(--noir);color:#d9dde2}
+.contact h2{color:#fff}
+.ct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.ct{border:1px solid #20262c;padding:24px;text-decoration:none;color:#d9dde2;transition:border-color .2s,transform .2s;display:block}
+.ct:hover{border-color:var(--cyan);transform:translateY(-3px)}
+.ct small{font:700 12px var(--titre);text-transform:uppercase;color:#7c8792}
+.ct b{display:block;font:700 22px var(--titre);color:#fff;margin-top:6px;word-break:break-word}
+@media(max-width:860px){.ct-grid{grid-template-columns:1fr}}
+
+footer{background:#000;color:#7c8792;font-size:13px;padding:30px 0 90px;border-top:1px solid #15191d}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer b{color:#cfd5da}
+
+/* Barre d'action mobile */
+.mob-bar{position:fixed;left:0;right:0;bottom:0;display:none;z-index:60;background:#000;border-top:1px solid #222}
+.mob-bar a{flex:1;text-align:center;padding:14px 8px;font:700 14px var(--titre);text-transform:uppercase;text-decoration:none;color:#fff}
+.mob-bar a.c{background:var(--cyan);color:#001018}
+@media(max-width:760px){.mob-bar{display:flex}}
+
+/* Révélations au scroll */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Electrician",
+ "name":"Duelec42",
+ "founder":{"@type":"Person","name":"Sébastien Dulinski"},
+ "url":"https://duelec42.fr/",
+ "telephone":"+33626122927",
+ "email":"duelec42@outlook.fr",
+ "logo":"https://duelec42.fr/wp-content/uploads/2023/04/thumbnail_MAQ_LOGO-DUELEC.png",
+ "address":{"@type":"PostalAddress","addressLocality":"Saint-Jean-Saint-Maurice-sur-Loire","postalCode":"42155","addressRegion":"Loire","addressCountry":"FR"},
+ "areaServed":["Roanne","Riorges","Mably","Le Coteau","Renaison","Villemontais","Saint-Jean-Saint-Maurice-sur-Loire","Charlieu"],
+ "description":"Artisan électricien dans le Roannais : installation, mise en conformité, dépannage, tableau électrique, borne de recharge, climatisation, domotique, fibre optique.",
+ "sameAs":["https://www.facebook.com/duelec42"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour Duelec42 — proposition non officielle, aucun contenu n'est en ligne sur duelec42.fr</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#accueil" aria-label="Duelec42, accueil">
+      <img src="assets/duelec42-saint-jean-saint-maurice-sur-loire/thumbnail_MAQ_LOGO-DUELEC-300x115.png" alt="Logo Duelec42">
+    </a>
+    <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="menu" id="menu">
+      <a href="#domaines">Électricité générale</a>
+      <a href="#domaines">Borne de recharge</a>
+      <a href="#domaines">Climatisation</a>
+      <a href="#assistant">Dépannage</a>
+      <a href="#chantiers">Chantiers</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="tel-top" href="tel:+33626122927">06 26 12 29 27</a>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" style="padding-bottom:0">
+  <canvas id="courant" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <div class="hero-pictos" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <p class="kicker">Avec Duelec42 le courant passe mieux !</p>
+      <h1>DUELEC42<svg class="bolt" viewBox="0 0 24 44" aria-hidden="true"><path d="M15 0 3 24h8L6 44 21 16h-8z"/></svg></h1>
+      <p class="sous">Électricien à Roanne et alentours<br><span>Installation – mise en conformité – dépannage</span></p>
+      <div class="cta-row">
+        <a class="btn plein" href="#assistant"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Décrire ma demande</a>
+        <a class="btn vide" href="tel:+33626122927">Appeler le 06 26 12 29 27</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/duelec42-saint-jean-saint-maurice-sur-loire/20230425_145938-1152x1536.jpg" alt="Sébastien Dulinski, électricien Duelec42, au travail sur un tableau électrique">
+      <div class="badge"><b>+ de 20 ans</b>d'électricité dans le Roannais, retour de devis par mail sous 48 h pour la majorité des demandes</div>
+    </div>
+  </div>
+</section>
+<div class="fil" id="fil" aria-hidden="true"></div>
+
+<section id="presentation">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Duelec42<small>Vos travaux électriques dans le Roannais</small></h2>
+    <p class="lead rv">Avec Duelec42, j'interviens à Roanne et dans les communes alentour pour installer, rénover ou sécuriser votre installation électrique. Qu'il s'agisse de <strong>remplacer un tableau électrique</strong>, de <strong>réaliser l'installation d'une maison neuve</strong> ou de trouver l'origine d'une panne, je vous accompagne selon vos besoins.</p>
+    <div class="atouts">
+      <div class="atout rv"><span class="num">01</span><h3>Expertise technique reconnue</h3><p>Je suis un professionnel qualifié et soucieux de me former régulièrement, pouvant réaliser la création entière de votre réseau électrique et sa mise en sécurité.</p></div>
+      <div class="atout rv"><span class="num">02</span><h3>Réactivité</h3><p>Pour la majorité des demandes, vous aurez un rendez-vous rapide et un retour de devis par mail sous 48h. Dans le cas d'un dépannage urgent, je mets tout en œuvre pour intervenir le plus rapidement possible.</p></div>
+      <div class="atout rv"><span class="num">03</span><h3>Le soin du détail</h3><p>Ma priorité est de réaliser des travaux de qualité. J'ai l'amour du travail bien fait et je veille ainsi en permanence à une parfaite finition de chacun de mes chantiers.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="domaines" id="domaines">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Mes domaines d'intervention</h2>
+    <div class="dom-grid">
+      <a class="dom rv" href="#assistant" data-projet="tableau"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.57.55_9621d13b-600x600.jpg" alt="Tableau électrique posé par Duelec42"><div class="lbl"><b>Tableau électrique</b><span>Remplacement, mise en conformité</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="clim"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2026-02-15-at-11.25.07-1-768x576.jpeg" alt="Unité extérieure de climatisation installée"><div class="lbl"><b>Climatisation</b><span>Monosplit, multisplit, réversible, gainable</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="borne"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/DUELEC-42-5-600x600.png" alt="Borne de recharge murale"><div class="lbl"><b>Borne de recharge</b><span>Particuliers et professionnels</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="chauffage"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/DUELEC-42-3-600x600.png" alt="Réglage d'un radiateur"><div class="lbl"><b>Chauffage électrique</b><span>Radiateurs à inertie</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="eclairage"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.55.26_4d8a1b11-600x600.jpg" alt="Éclairage sur rail posé dans une pièce rénovée"><div class="lbl"><b>Éclairage</b><span>Confort et sobriété énergétique</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="renovation"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-12.02.00_b3ebb757-600x600.jpg" alt="Cuisine rénovée, installation électrique refaite"><div class="lbl"><b>Installation &amp; rénovation</b><span>Maison neuve ou existante</span></div></a>
+      <a class="dom rv" href="#assistant" data-projet="tableau"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-11-a-20.18.57_d6b542d6-600x600.jpg" alt="Gaine et mise à la terre sur un chantier Duelec42"><div class="lbl"><b>Mise en conformité</b><span>Sécurisation de l'installation</span></div></a>
+      <a class="dom picto rv" href="#assistant" data-projet="portail"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/DUELEC-42-2-300x300.png" alt=""><div class="lbl"><b>Fibre · Portail · VMC · Domotique</b><span>Fibre optique, motorisation, ventilation, maison connectée</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="assistant" id="assistant">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Une panne, un projet ?<small>Décrivez votre demande en une minute</small></h2>
+    <div class="as-grid">
+      <div class="as-side rv">
+        <p>Sur une panne, ce qui fait gagner du temps, c'est de savoir <strong>où</strong> vous êtes et <strong>ce qui se passe</strong> : le disjoncteur qui saute, une pièce sans courant, une prise qui chauffe…</p>
+        <p>Cet assistant pose les bonnes questions, donne les premiers réflexes de sécurité, puis prépare un message complet à envoyer par mail ou à lire au téléphone. Pour un projet, il réunit ce qu'il faut pour établir le devis.</p>
+        <p class="note">Rien n'est envoyé automatiquement : vous relisez le récapitulatif avant de l'envoyer. En cas d'odeur de brûlé, de fumée ou d'étincelles, coupez le disjoncteur général et appelez directement.</p>
+      </div>
+      <div class="as-box rv" aria-live="polite">
+        <div class="as-steps"><i class="on"></i><i></i><i></i><i></i></div>
+
+        <div class="as-panel on" data-step="1">
+          <p class="as-q">Vous avez besoin de quoi ?</p>
+          <div class="choix" data-name="type">
+            <button data-v="panne"><b>Une panne</b>Quelque chose ne marche plus</button>
+            <button data-v="projet"><b>Un projet</b>Installation, rénovation, devis</button>
+          </div>
+        </div>
+
+        <div class="as-panel" data-step="2" data-for="panne">
+          <p class="as-q">Que se passe-t-il ?</p>
+          <div class="choix" data-name="symptome">
+            <button data-v="disjoncteur"><b>Le disjoncteur saute</b>À répétition</button>
+            <button data-v="piece"><b>Une pièce sans courant</b>Le reste fonctionne</button>
+            <button data-v="prise"><b>Prise / interrupteur HS</b>Un point précis</button>
+            <button data-v="tout"><b>Plus de courant du tout</b>Tout le logement</button>
+            <button data-v="chauffe"><b>Ça chauffe / odeur</b>Prise, câble, tableau</button>
+            <button data-v="autre"><b>Autre chose</b>Je décris moi-même</button>
+          </div>
+          <div class="conseil" id="conseil"></div>
+        </div>
+
+        <div class="as-panel" data-step="2" data-for="projet">
+          <p class="as-q">Quel projet ?</p>
+          <div class="choix" data-name="projet">
+            <button data-v="tableau"><b>Tableau électrique</b>Remplacement, conformité</button>
+            <button data-v="renovation"><b>Installation / rénovation</b>Maison neuve ou existante</button>
+            <button data-v="borne"><b>Borne de recharge</b>Véhicule électrique</button>
+            <button data-v="clim"><b>Climatisation</b>Mono, multi, réversible, gainable</button>
+            <button data-v="chauffage"><b>Chauffage électrique</b>Radiateurs à inertie</button>
+            <button data-v="eclairage"><b>Éclairage</b>Intérieur, extérieur</button>
+            <button data-v="fibre"><b>Fibre optique</b>Déplacement, réparation</button>
+            <button data-v="portail"><b>Portail, VMC, domotique</b>Autre équipement</button>
+          </div>
+        </div>
+
+        <div class="as-panel" data-step="3">
+          <p class="as-q">Où et quand ?</p>
+          <div class="as-field"><label for="commune">Commune</label>
+            <select id="commune"><option>Roanne</option><option>Riorges</option><option>Mably</option><option>Le Coteau</option><option>Renaison</option><option>Villemontais</option><option>Saint-Jean-Saint-Maurice-sur-Loire</option><option>Charlieu</option><option>Autre commune du Roannais</option></select></div>
+          <div class="as-field"><label for="lieu">Type de lieu</label>
+            <select id="lieu"><option>Maison</option><option>Appartement</option><option>Local professionnel / commerce</option></select></div>
+          <div class="as-field"><label for="delai">Délai souhaité</label>
+            <select id="delai"><option>Dès que possible</option><option>Dans les 15 jours</option><option>Dans le mois</option><option>Pas pressé, je prépare un projet</option></select></div>
+          <div class="as-field"><label for="details">Précisions (facultatif)</label>
+            <textarea id="details" placeholder="Ex. : le disjoncteur saute quand le four et le lave-linge tournent ensemble"></textarea></div>
+        </div>
+
+        <div class="as-panel" data-step="4">
+          <p class="as-q">Votre demande est prête</p>
+          <div class="recap" id="recap"></div>
+          <div class="as-field"><label for="nom">Votre nom et téléphone</label><input id="nom" placeholder="Nom — 06 …"></div>
+          <div class="as-actions">
+            <a class="btn plein" id="envoyer" href="#">Envoyer par mail</a>
+            <a class="btn vide" href="tel:+33626122927">Appeler</a>
+            <button class="btn vide" id="copier" type="button">Copier</button>
+          </div>
+        </div>
+
+        <div class="as-nav">
+          <button class="btn vide" id="prec" type="button" hidden>← Retour</button>
+          <button class="btn plein" id="suiv" type="button" hidden>Continuer →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="chantiers">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Chantiers récents<small>Photos publiées par Duelec42</small></h2>
+    <div class="filtres" role="group" aria-label="Filtrer les chantiers">
+      <button class="on" data-f="tous">Tous</button>
+      <button data-f="tableau">Tableaux</button>
+      <button data-f="renov">Rénovation &amp; éclairage</button>
+      <button data-f="clim">Climatisation</button>
+      <button data-f="ext">Extérieur</button>
+    </div>
+    <div class="galerie" id="galerie">
+      <figure data-c="tableau"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.57.55_9621d13b-600x600.jpg" alt="Tableau électrique"><figcaption>Tableau</figcaption></figure>
+      <figure data-c="renov"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.55.26_4d8a1b11-600x600.jpg" alt="Spots sur rail"><figcaption>Éclairage</figcaption></figure>
+      <figure data-c="clim"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2026-02-15-at-12.15.25-768x1013.jpeg" alt="Climatiseur mural intérieur"><figcaption>Climatisation</figcaption></figure>
+      <figure data-c="ext"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.56.00_0ea32c98-600x600.jpg" alt="Coffret extérieur"><figcaption>Coffret extérieur</figcaption></figure>
+      <figure data-c="renov"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-12.02.00_b3ebb757-600x600.jpg" alt="Cuisine rénovée"><figcaption>Rénovation</figcaption></figure>
+      <figure data-c="tableau"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-11.57.28_244cd20d-600x600.jpg" alt="Tableau électrique encastré"><figcaption>Tableau</figcaption></figure>
+      <figure data-c="clim"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2026-02-15-at-11.25.07-1-768x576.jpeg" alt="Unité extérieure de climatisation"><figcaption>Climatisation</figcaption></figure>
+      <figure data-c="ext"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-12.00.52_7e604893-600x600.jpg" alt="Raccordement extérieur"><figcaption>Raccordement</figcaption></figure>
+      <figure data-c="renov"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-19-a-12.02.53_420494c7-600x600.jpg" alt="Local professionnel rénové"><figcaption>Local pro</figcaption></figure>
+      <figure data-c="ext"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/WhatsApp-Image-2025-09-11-a-20.18.57_d6b542d6-600x600.jpg" alt="Gaine et mise à la terre"><figcaption>Gaine &amp; terre</figcaption></figure>
+      <figure data-c="tableau"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/DUELEC-42-7-600x600.png" alt="Tableau électrique complet"><figcaption>Tableau</figcaption></figure>
+    </div>
+  </div>
+</section>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button type="button" aria-label="Fermer">✕</button><img alt=""></div>
+
+<section class="apropos" id="apropos">
+  <div class="wrap ap-grid">
+    <div class="ap-photo rv"><img loading="lazy" src="assets/duelec42-saint-jean-saint-maurice-sur-loire/Capture-decran-17.png" alt="Portrait de Sébastien Dulinski"></div>
+    <div class="rv">
+      <div class="trait"></div>
+      <h2>Sébastien Dulinski<small style="color:#9aa4ae">Artisan électricien, Duelec42</small></h2>
+      <blockquote>« J'ai l'amour du travail bien fait. »</blockquote>
+      <p>Électricien depuis plus de 20 ans, je réalise aussi bien la création entière d'un réseau électrique que sa mise en sécurité, pour les particuliers comme pour les professionnels. Un seul interlocuteur, du devis à la finition.</p>
+      <div class="chiffre-reel">
+        <div><b data-count="20">0</b><span>ans d'expérience</span></div>
+        <div><b>48 h</b><span>retour de devis par mail<br>(majorité des demandes)</span></div>
+        <div><b data-count="8">0</b><span>communes citées<br>dans la zone d'intervention</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marques" aria-label="Marques partenaires">
+  <div class="defile"><span>Schneider Electric</span><span>Legrand</span><span>Hager</span><span>Thermor</span><span>Atlantic</span><span>Netatmo</span><span>FAAC</span><span>Nexans</span><span>Sonepar</span><span>Aric</span><span>Thorn</span><span>G-Totem</span><span>Schneider Electric</span><span>Legrand</span><span>Hager</span><span>Thermor</span><span>Atlantic</span><span>Netatmo</span><span>FAAC</span><span>Nexans</span><span>Sonepar</span><span>Aric</span><span>Thorn</span><span>G-Totem</span></div>
+</div>
+
+<section id="zone">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Zone d'intervention<small>Roanne et le Roannais</small></h2>
+    <div class="zone-grid">
+      <div class="rv">
+        <p class="lead" style="margin-top:0">J'interviens à Roanne et dans le Roannais, notamment à Riorges, Mably, au Coteau, à Renaison, à Villemontais, à Saint-Jean-Saint-Maurice-sur-Loire et à Charlieu.</p>
+        <div class="zone-list" id="zlist">
+          <span data-z="roanne">Roanne</span><span data-z="riorges">Riorges</span><span data-z="mably">Mably</span><span data-z="coteau">Le Coteau</span><span data-z="renaison">Renaison</span><span data-z="villemontais">Villemontais</span><span data-z="sjsm">St-Jean-St-Maurice</span><span data-z="charlieu">Charlieu</span>
+        </div>
+        <p style="margin-top:18px;font-size:14px">Vous êtes dans une autre commune du Roannais ? Indiquez-la dans votre demande.</p>
+      </div>
+      <div class="zone-map rv">
+        <svg viewBox="0 0 400 400" role="img" aria-label="Schéma de la zone d'intervention autour de Roanne">
+          <defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#16c0f3" stop-opacity=".25"/><stop offset="1" stop-color="#16c0f3" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="200" cy="215" r="170" fill="url(#g)"/>
+          <circle cx="200" cy="215" r="170" fill="none" stroke="#16c0f3" stroke-dasharray="4 6" opacity=".5"/>
+          <path d="M215 20 C210 90 190 150 205 215 S230 330 215 390" stroke="#9fd8ef" stroke-width="6" fill="none" opacity=".6"/>
+          <text x="226" y="372" font-family="Courier Prime" font-size="12" fill="#6aa9c2">la Loire</text>
+          <g font-family="Courier Prime" font-size="13" font-weight="700" fill="#111">
+            <g data-z="roanne"><circle cx="200" cy="215" r="9" fill="#16c0f3"/><text x="214" y="219">Roanne</text></g>
+            <g data-z="riorges"><circle cx="166" cy="208" r="6" fill="#000"/><text x="138" y="236">Riorges</text></g>
+            <g data-z="mably"><circle cx="196" cy="168" r="6" fill="#000"/><text x="148" y="160">Mably</text></g>
+            <g data-z="coteau"><circle cx="222" cy="226" r="6" fill="#000"/><text x="234" y="246">Le Coteau</text></g>
+            <g data-z="renaison"><circle cx="112" cy="196" r="6" fill="#000"/><text x="40" y="226">Renaison</text></g>
+            <g data-z="villemontais"><circle cx="150" cy="290" r="6" fill="#000"/><text x="68" y="312">Villemontais</text></g>
+            <g data-z="sjsm"><circle cx="186" cy="276" r="6" fill="#000"/><text x="196" y="292">St-Jean-St-Maurice</text></g>
+            <g data-z="charlieu"><circle cx="262" cy="74" r="6" fill="#000"/><text x="274" y="78">Charlieu</text></g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="avis" id="avis">
+  <div class="wrap">
+    <div class="avis-head">
+      <div><div class="trait rv"></div><h2 class="rv">Ils en parlent</h2></div>
+      <p class="src">Extraits d'avis Google, tels qu'affichés sur duelec42.fr</p>
+    </div>
+    <div class="avis-track">
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Très professionnel, très réactif et très compétent avec des tarifs plus que correct. Je recommande a 100% »<cite>Jérôme D.</cite></div>
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Le travail réalisé est impeccable, propre, efficace et est fait en toute intelligence. La facture est modérée et plus qu'honnête. »<cite>Xavier S. — installation de la fibre, maison ancienne à Neulise</cite></div>
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Patron souriant, arrangeant, soigneux et ponctuel. Travail propre et de qualité avec des prix très corrects, devis bien respecté. »<cite>Dennis L.</cite></div>
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Une entreprise très professionnelle, consciencieuse, travail réalisé de très bonne qualité »<cite>Christian G.</cite></div>
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Travail soigné, fin de chantier propre, donne de bons conseils si on est demandeur comme nous. »<cite>Annie G.</cite></div>
+      <div class="avis-card"><div class="etoiles">★★★★★</div>« Super service !!! A recommander rapide efficace rien a redire juste Merci ! »<cite>Johann R.</cite></div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Foire aux questions<small>Électricien à Roanne — Duelec42</small></h2>
+    <div class="faq-list">
+      <details><summary>Quels services propose Duelec42 ?</summary><p>L'installation, la réparation et la maintenance électrique pour les particuliers et les entreprises : tableau électrique, rénovation, chauffage électrique, ventilation, éclairage, borne de recharge, climatisation, domotique, fibre optique et motorisation de portail.</p></details>
+      <details><summary>Comment obtenir un devis ?</summary><p>Le devis est gratuit : appelez le 06 26 12 29 27, écrivez à duelec42@outlook.fr, ou utilisez l'assistant ci-dessus qui prépare votre demande. Pour la majorité des demandes, le retour de devis se fait par mail sous 48 h.</p></details>
+      <details><summary>Êtes-vous agréé et assuré ?</summary><p>Électricien à Roanne depuis plus de 20 ans, je suis agréé et qualifié pour répondre à tous vos besoins.</p></details>
+      <details><summary>Pouvez-vous m'aider à faire des économies d'énergie ?</summary><p>Oui, notamment sur l'éclairage, le chauffage électrique à inertie et la climatisation réversible.</p></details>
+      <details><summary>Quels sont vos tarifs ?</summary><p>Ils varient en fonction du type de service et de la complexité du projet. Contactez Duelec42 pour une estimation adaptée à votre situation.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="trait rv"></div>
+    <h2 class="rv">Contact<small style="color:#9aa4ae">Demande de devis gratuit</small></h2>
+    <div class="ct-grid">
+      <a class="ct rv" href="tel:+33626122927"><small>Téléphone</small><b>06 26 12 29 27</b></a>
+      <a class="ct rv" href="mailto:duelec42@outlook.fr"><small>E-mail</small><b>duelec42@outlook.fr</b></a>
+      <a class="ct rv" href="https://www.facebook.com/duelec42" target="_blank" rel="noopener"><small>Suivre les chantiers</small><b>Facebook · Duelec42</b></a>
+    </div>
+    <p style="margin-top:22px;font-size:14px">Siège : Saint-Jean-Saint-Maurice-sur-Loire (42155) — interventions à Roanne et dans le Roannais.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Duelec42</b> — Sébastien Dulinski, artisan électricien. Maquette de démonstration, non contractuelle.</p>
+    <p>Textes, avis et photos repris du site actuel duelec42.fr (photos de chantiers réelles publiées par Duelec42). Couleurs et typographies approchées d'après le site et le logo, ajustables. Aucun prix n'est affiché : les tarifs restent sur devis.</p>
+  </div>
+</footer>
+
+<div class="mob-bar"><a href="tel:+33626122927">Appeler</a><a class="c" href="#assistant">Ma demande</a></div>
+
+<script>
+(()=>{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Menu mobile */
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+/* Révélations */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+
+/* Fil de progression aux couleurs du logo */
+const fil=document.getElementById('fil');
+addEventListener('scroll',()=>{const h=document.documentElement;fil.style.setProperty('--p',h.scrollTop/(h.scrollHeight-h.clientHeight))},{passive:true});
+
+/* Compteurs */
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,end=+el.dataset.count;let t0=null;
+  const step=t=>{t0??=t;const k=Math.min(1,(t-t0)/1200);el.textContent=Math.round(end*(1-Math.pow(1-k,3)))+(el.dataset.count==='20'&&k===1?'+':'');if(k<1)requestAnimationFrame(step)};
+  reduce?el.textContent=end:requestAnimationFrame(step);cio.unobserve(el)}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+/* Courant dans le hero : impulsions le long de pistes, comme les pictos du logo */
+const cv=document.getElementById('courant'),cx=cv.getContext('2d');let W,H,tracks=[],pulses=[];
+const cols=['#e2287f','#19d39a','#16c0f3','#16c0f3'];
+function setup(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;tracks=[];
+  for(let i=0;i<7;i++){const y=H*(.12+i*.12),pts=[[0,y]];let x=0,yy=y;while(x<W){x+=W*(.08+Math.random()*.12);if(Math.random()<.4)yy+= (Math.random()<.5?-1:1)*H*.05;pts.push([x,yy])}tracks.push(pts)}}
+function draw(){cx.clearRect(0,0,W,H);cx.lineWidth=1*devicePixelRatio;cx.strokeStyle='rgba(22,192,243,.12)';
+  tracks.forEach(p=>{cx.beginPath();p.forEach(([x,y],i)=>i?cx.lineTo(x,y):cx.moveTo(x,y));cx.stroke()});
+  if(Math.random()<.04&&pulses.length<5)pulses.push({t:Math.floor(Math.random()*tracks.length),d:0,c:cols[Math.floor(Math.random()*4)]});
+  pulses.forEach(p=>{p.d+=8*devicePixelRatio;const pts=tracks[p.t];let rem=p.d,pos=null;
+    for(let i=1;i<pts.length;i++){const[a,b]=[pts[i-1],pts[i]],L=Math.hypot(b[0]-a[0],b[1]-a[1]);if(rem<=L){const k=rem/L;pos=[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];break}rem-=L}
+    if(!pos){p.dead=1;return}cx.shadowBlur=18;cx.shadowColor=p.c;cx.fillStyle=p.c;cx.beginPath();cx.arc(pos[0],pos[1],2.6*devicePixelRatio,0,7);cx.fill();cx.shadowBlur=0});
+  pulses=pulses.filter(p=>!p.dead);requestAnimationFrame(draw)}
+setup();addEventListener('resize',setup);if(!reduce)draw();
+
+/* ===== Assistant de demande ===== */
+const box=document.querySelector('.as-box'),steps=[...box.querySelectorAll('.as-steps i')];
+const st={type:null,symptome:null,projet:null,step:1};
+const prec=document.getElementById('prec'),suiv=document.getElementById('suiv'),conseil=document.getElementById('conseil');
+const L={panne:'Une panne',projet:'Un projet',disjoncteur:'Le disjoncteur saute à répétition',piece:'Une pièce privée de courant',prise:'Prise ou interrupteur hors service',tout:'Plus de courant dans tout le logement',chauffe:'Échauffement / odeur de brûlé',autre:'Autre panne',
+  tableau:'Tableau électrique',renovation:'Installation / rénovation électrique',borne:'Borne de recharge',clim:'Climatisation',chauffage:'Chauffage électrique',eclairage:'Éclairage',fibre:'Fibre optique',portail:'Portail, VMC ou domotique'};
+const CONSEILS={
+  disjoncteur:'<b>Premier réflexe :</b> notez quels appareils tournaient au moment où ça saute, et si c\'est le disjoncteur général ou un disjoncteur divisionnaire. C\'est l\'information la plus utile pour trouver l\'origine.',
+  piece:'<b>Premier réflexe :</b> regardez au tableau si un disjoncteur divisionnaire ou un interrupteur différentiel est descendu. S\'il redescend aussitôt réarmé, n\'insistez pas.',
+  prise:'<b>Premier réflexe :</b> ne démontez pas la prise sous tension. Si elle est noircie ou fondue, coupez le circuit au tableau.',
+  tout:'<b>Premier réflexe :</b> vérifiez si vos voisins ont du courant. Si le quartier est coupé, c\'est une panne réseau : dépannage Enedis au 09 726 750 42 (Loire). Sinon, regardez le disjoncteur général.',
+  chauffe:'<b>Sécurité :</b> coupez le disjoncteur général s\'il est accessible sans risque, ne touchez pas l\'élément qui chauffe, et appelez directement le 06 26 12 29 27. En cas de fumée ou de flammes : 18 ou 112.',
+  autre:'Décrivez ce que vous observez à l\'étape suivante, même en quelques mots.'};
+function show(){
+  box.querySelectorAll('.as-panel').forEach(p=>{const s=+p.dataset.step,f=p.dataset.for;p.classList.toggle('on',s===st.step&&(!f||f===st.type))});
+  steps.forEach((s,i)=>s.classList.toggle('on',i<st.step));
+  prec.hidden=st.step===1;
+  const ok2=st.type==='panne'?!!st.symptome:!!st.projet;
+  suiv.hidden=!(st.step===2&&ok2||st.step===3);
+  if(st.step===4)recap();
+}
+box.querySelectorAll('.choix').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  g.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const n=g.dataset.name,v=b.dataset.v;st[n]=v;
+  if(n==='type'){st.symptome=st.projet=null;box.querySelectorAll('[data-name="symptome"] button,[data-name="projet"] button').forEach(x=>x.classList.remove('sel'));conseil.className='conseil';st.step=2}
+  if(n==='symptome'){conseil.innerHTML=CONSEILS[v];conseil.className='conseil on'+(v==='chauffe'?' alerte':'')}
+  show()}));
+prec.onclick=()=>{st.step--;show()};suiv.onclick=()=>{st.step++;show()};
+const $=id=>document.getElementById(id);
+function texte(){
+  const objet=st.type==='panne'?L[st.symptome]:L[st.projet];
+  return `Demande : ${L[st.type]} — ${objet}\nCommune : ${$('commune').value}\nLieu : ${$('lieu').value}\nDélai : ${$('delai').value}`+($('details').value.trim()?`\nPrécisions : ${$('details').value.trim()}`:'')+($('nom').value.trim()?`\nContact : ${$('nom').value.trim()}`:'');
+}
+function recap(){$('recap').textContent=texte();const sujet=(st.type==='panne'?'Dépannage':'Demande de devis')+' — '+$('commune').value;
+  $('envoyer').href='mailto:duelec42@outlook.fr?subject='+encodeURIComponent(sujet)+'&body='+encodeURIComponent(texte()+'\n\n(Envoyé depuis le site Duelec42)')}
+$('nom').addEventListener('input',recap);
+$('copier').onclick=()=>{navigator.clipboard?.writeText(texte());$('copier').textContent='Copié ✓';setTimeout(()=>$('copier').textContent='Copier',1600)};
+/* Les tuiles « domaines » pré-remplissent l'assistant */
+document.querySelectorAll('.dom[data-projet]').forEach(a=>a.addEventListener('click',()=>{st.type='projet';st.projet=a.dataset.projet;st.step=2;
+  box.querySelectorAll('[data-name="type"] button').forEach(x=>x.classList.toggle('sel',x.dataset.v==='projet'));
+  box.querySelectorAll('[data-name="projet"] button').forEach(x=>x.classList.toggle('sel',x.dataset.v===st.projet));show()}));
+show();
+
+/* Galerie filtrable + visionneuse */
+const fb=document.querySelectorAll('.filtres button'),figs=document.querySelectorAll('#galerie figure');
+fb.forEach(b=>b.onclick=()=>{fb.forEach(x=>x.classList.toggle('on',x===b));figs.forEach(f=>f.classList.toggle('off',b.dataset.f!=='tous'&&f.dataset.c!==b.dataset.f))});
+const lb=$('lb');figs.forEach(f=>f.onclick=()=>{lb.querySelector('img').src=f.querySelector('img').src;lb.querySelector('img').alt=f.querySelector('img').alt;lb.classList.add('on')});
+lb.onclick=e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on')};addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* Zone : survol commune ↔ carte */
+document.querySelectorAll('#zlist span').forEach(s=>{const g=document.querySelector('svg g[data-z="'+s.dataset.z+'"] circle');const r=g.getAttribute('r');
+  s.onmouseenter=()=>{g.setAttribute('r',r*1.8);g.setAttribute('fill','#e2287f')};s.onmouseleave=()=>{g.setAttribute('r',r);g.setAttribute('fill',s.dataset.z==='roanne'?'#16c0f3':'#000')}});
+})();
+</script>
+</body>
+</html>
