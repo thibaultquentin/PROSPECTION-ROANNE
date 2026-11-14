@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Domaine du Tafret — Vigneron en Côte Roannaise au Crozet | Dégustation sur rendez-vous</title>
+<meta name="description" content="Victor Lehuger, vigneron en AOC Côte Roannaise et IGP Urfé au Crozet. Vins en levures indigènes, vignoble en sélection massale. Dégustation au chai sur rendez-vous.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE DOMAINE DU TAFRET
+   Couleurs relevées sur les étiquettes publiées sur domainedutafret.fr
+   (Garde-Bœufs, Mélanocéphale, Bihoreau). Valeurs approchées,
+   à ajuster dès réception des fichiers de l'étiquette.
+   ========================================================= */
+:root{
+  --petrole:#01313d;      /* fond des étiquettes rouges */
+  --petrole-2:#0a4250;    /* variante claire pour survols */
+  --creme:#e2dacd;        /* fond de l'étiquette Bihoreau */
+  --creme-2:#f2ede5;      /* crème éclaircie pour les grands fonds */
+  --cuivre:#c87a4e;       /* nom des cuvées sur les étiquettes */
+  --ardoise:#5f6360;      /* gris du site actuel */
+  --encre:#111;           /* texte du site actuel (noir) */
+  --blanc:#fff;
+  --serif:'Playfair Display', Georgia, serif;   /* titres du site actuel */
+  --sans:'Inter', Helvetica, Arial, sans-serif;  /* proche de l'Helvetica du site */
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--encre);background:var(--creme-2);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.caps{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;font-weight:500}
+h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.08}
+h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem)}
+.grain{position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:#ddd;font-size:.78rem;text-align:center;padding:7px 14px}
+.demo b{color:var(--cuivre);font-weight:600}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(242,237,229,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(1,49,61,.12);transition:background .3s}
+header.dark{background:rgba(1,49,61,.92);color:var(--creme);border-color:transparent}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.brand{text-decoration:none;display:flex;flex-direction:column;line-height:1}
+.brand small{font-size:.58rem;letter-spacing:.38em;text-transform:uppercase}
+.brand strong{font-family:var(--serif);font-size:1.55rem;letter-spacing:.06em}
+.nav ul{display:flex;list-style:none;gap:28px;font-size:.88rem}
+.nav ul a{text-decoration:none;position:relative;padding:6px 0}
+.nav ul a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--cuivre);transition:right .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.on::after{right:0}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:500 .9rem var(--sans);padding:14px 24px;border-radius:999px;text-decoration:none;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-cuivre{background:var(--cuivre);color:#fff;box-shadow:0 10px 24px -12px rgba(200,122,78,.9)}
+.btn-cuivre:hover{background:#b56a40}
+.btn-ghost{border:1px solid currentColor;background:transparent;color:inherit}
+.btn-petrole{background:var(--petrole);color:var(--creme)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;color:inherit;cursor:pointer}
+
+/* Héros */
+.hero{background:var(--petrole);color:var(--creme);overflow:hidden;position:relative}
+.hero-in{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;min-height:calc(100vh - 104px);gap:40px;padding:60px 0 90px}
+.hero h1{font-size:clamp(3rem,1.8rem + 5.4vw,6.4rem);letter-spacing:.01em;margin:18px 0 22px}
+.hero h1 .sub{display:block;font-size:.34em;font-style:italic;font-weight:400;letter-spacing:.02em;color:var(--cuivre);margin-top:14px}
+.hero p.lead{max-width:30em;font-size:1.06rem;opacity:.88}
+.hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.word{display:inline-block;overflow:hidden;vertical-align:bottom}
+.word>i{display:inline-block;font-style:normal;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+@keyframes up{to{transform:none}}
+.label-stage{position:relative;height:min(78vh,620px);display:grid;place-items:center;perspective:1200px}
+.label{z-index:2;width:min(300px,62vw);aspect-ratio:.6;border-radius:4px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.7);transform-style:preserve-3d;transition:transform .2s linear;position:relative}
+.label img{width:100%;height:100%;object-fit:cover}
+.label.l2{z-index:1;position:absolute;width:min(200px,40vw);right:0;bottom:4%;transform:rotate(9deg);filter:brightness(.8)}
+.label.l3{z-index:1;position:absolute;width:min(190px,38vw);left:0;top:4%;transform:rotate(-9deg);filter:brightness(.9)}
+.float{animation:float 7s ease-in-out infinite}
+@keyframes float{50%{translate:0 -14px}}
+.hero .scroll{position:absolute;left:50%;bottom:22px;translate:-50% 0;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;opacity:.6;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero .scroll::after{content:"";width:1px;height:38px;background:var(--creme);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Bande de faits réels */
+.facts{background:var(--creme);border-bottom:1px solid rgba(1,49,61,.15);overflow:hidden}
+.marquee{display:flex;gap:56px;white-space:nowrap;padding:20px 0;animation:defile 38s linear infinite;width:max-content}
+.marquee span{font-family:var(--serif);font-size:1.25rem;color:var(--petrole);display:flex;align-items:center;gap:56px}
+.marquee span::after{content:"✦";font-size:.7rem;color:var(--cuivre)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(70px,9vw,130px) 0}
+.kicker{color:var(--cuivre);margin-bottom:16px;display:block}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* Domaine */
+.domaine{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+.domaine .pic{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5}
+.domaine .pic img{width:100%;height:118%;object-fit:cover;will-change:transform}
+.domaine .pic figcaption{position:absolute;left:16px;bottom:14px;color:#fff;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.domaine p{margin-top:18px;color:#2a2a2a}
+.domaine p:first-of-type{font-family:var(--serif);font-size:1.3rem;line-height:1.5;color:var(--petrole)}
+
+/* Altitude */
+.alti{background:var(--petrole);color:var(--creme);overflow:hidden}
+.alti-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center}
+.alti p{opacity:.85;margin-top:16px;max-width:34em}
+.colline{position:relative;height:300px}
+.colline svg{width:100%;height:100%;overflow:visible}
+.colline .ligne{stroke-dasharray:1400;stroke-dashoffset:1400;transition:stroke-dashoffset 2.6s var(--ease)}
+.colline.vu .ligne{stroke-dashoffset:0}
+.repere{font:500 12px var(--sans);fill:var(--creme);letter-spacing:.1em}
+.compteur{font-family:var(--serif);font-size:clamp(3rem,2rem+4vw,5.5rem);color:var(--cuivre);line-height:1}
+.alti-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.alti-list div{border-top:1px solid rgba(226,218,205,.3);padding-top:14px;font-size:.92rem}
+.alti-list b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:600;color:var(--blanc);margin-bottom:4px}
+
+/* Vins */
+.vins-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:46px}
+.vins-head p{max-width:34em;color:#333}
+.filtres{display:flex;gap:8px}
+.chip{border:1px solid var(--petrole);background:transparent;color:var(--petrole);padding:9px 18px;border-radius:999px;cursor:pointer;font:500 .85rem var(--sans);transition:all .25s}
+.chip.on,.chip:hover{background:var(--petrole);color:var(--creme)}
+.cuvees{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.cuvee{background:#fff;border-radius:6px;overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s,opacity .4s;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.cuvee:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(1,49,61,.45)}
+.cuvee.off{opacity:.25;transform:scale(.97)}
+.cuvee.match{box-shadow:0 0 0 2px var(--cuivre),0 30px 60px -30px rgba(200,122,78,.6)}
+.cuvee .etq{background:var(--petrole);display:grid;place-items:center;padding:34px 0;overflow:hidden}
+.cuvee.blanc .etq{background:var(--creme)}
+.cuvee .etq img{width:52%;aspect-ratio:.6;object-fit:cover;box-shadow:0 20px 40px -18px rgba(0,0,0,.6);transition:transform .7s var(--ease)}
+.cuvee:hover .etq img{transform:rotate(-3deg) scale(1.04)}
+.cuvee .txt{padding:24px 26px 28px}
+.cuvee h3{font-size:1.7rem;letter-spacing:.04em}
+.cuvee .type{color:var(--cuivre);margin:6px 0 14px;display:block}
+.cuvee dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.88rem;margin-top:14px}
+.cuvee dt{color:var(--ardoise);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding-top:3px}
+.tirage{margin-top:18px;font-size:.8rem;color:var(--ardoise);display:flex;justify-content:space-between;align-items:center}
+.tirage .barre{flex:1;height:3px;background:#eee;margin:0 12px;border-radius:2px;overflow:hidden}
+.tirage .barre i{display:block;height:100%;background:var(--cuivre);width:0;transition:width 1.6s var(--ease)}
+.cave-note{margin-top:30px;font-size:.92rem;color:#333;max-width:52em}
+
+/* Accords */
+.accords{background:var(--creme);}
+.acc-box{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.plats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.plat{background:#fff;border:1px solid rgba(1,49,61,.2);color:var(--petrole);border-radius:999px;padding:11px 18px;cursor:pointer;font:500 .9rem var(--sans);transition:all .25s var(--ease)}
+.plat:hover{border-color:var(--petrole);transform:translateY(-2px)}
+.plat.on{background:var(--petrole);color:var(--creme);border-color:var(--petrole)}
+.verdict{background:var(--petrole);color:var(--creme);border-radius:8px;padding:36px;min-height:280px;position:relative;overflow:hidden}
+.verdict .vide{opacity:.7;font-family:var(--serif);font-size:1.3rem;font-style:italic}
+.verdict h3{font-size:2.2rem;margin:10px 0 6px}
+.verdict .pourquoi{opacity:.85;font-size:.95rem}
+.verdict img{position:absolute;right:-30px;bottom:-40px;width:150px;opacity:.9;transform:rotate(8deg);transition:transform .6s var(--ease)}
+.verdict.pop img{transform:rotate(2deg) translateY(-10px)}
+.verdict .alt{margin-top:16px;font-size:.85rem;opacity:.8}
+
+/* Réservation */
+.resa{background:var(--petrole);color:var(--creme)}
+.resa-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:start}
+.resa-grid>div:first-child p{opacity:.85;margin-top:16px}
+.resa-photo{margin-top:30px;border-radius:6px;overflow:hidden;aspect-ratio:3/2}
+.resa-photo img{width:100%;height:100%;object-fit:cover;object-position:80% center}
+.form{background:var(--creme-2);color:var(--encre);border-radius:10px;padding:clamp(22px,3vw,38px)}
+.steps{display:flex;gap:8px;margin-bottom:26px}
+.steps span{flex:1;height:4px;border-radius:2px;background:#d9d2c6;transition:background .4s}
+.steps span.on{background:var(--cuivre)}
+.etape{display:none;animation:fade .5s var(--ease)}
+.etape.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateX(16px)}}
+.etape h3{font-size:1.5rem;color:var(--petrole);margin-bottom:6px}
+.etape .aide{font-size:.85rem;color:var(--ardoise);margin-bottom:18px}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.jour{border:1px solid #d6cfc3;background:#fff;border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font:500 .8rem var(--sans);transition:all .2s}
+.jour b{display:block;font-family:var(--serif);font-size:1.25rem;font-weight:600}
+.jour:hover{border-color:var(--petrole)}
+.jour.on{background:var(--petrole);color:var(--creme);border-color:var(--petrole)}
+.jour.dim{border-style:dashed}
+.creneaux{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.creneau{border:1px solid #d6cfc3;background:#fff;border-radius:999px;padding:8px 16px;cursor:pointer;font:500 .85rem var(--sans)}
+.creneau.on{background:var(--cuivre);border-color:var(--cuivre);color:#fff}
+.champ{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;font-size:.85rem}
+.champ input,.champ select,.champ textarea{font:400 .95rem var(--sans);padding:12px 14px;border:1px solid #d6cfc3;border-radius:8px;background:#fff}
+.champ input:focus,.champ select:focus,.champ textarea:focus,.jour:focus-visible,.creneau:focus-visible,.btn:focus-visible,.chip:focus-visible,.plat:focus-visible{outline:2px solid var(--cuivre);outline-offset:2px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.qte{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #e3dccf}
+.qte .nom{font-family:var(--serif);font-size:1.1rem;color:var(--petrole)}
+.qte .nom small{display:block;font-family:var(--sans);font-size:.75rem;color:var(--ardoise)}
+.pm{display:flex;align-items:center;gap:10px}
+.pm button{width:34px;height:34px;border-radius:50%;border:1px solid var(--petrole);background:#fff;color:var(--petrole);cursor:pointer;font-size:1.1rem}
+.pm output{min-width:22px;text-align:center;font-weight:600}
+.nav-etapes{display:flex;justify-content:space-between;gap:10px;margin-top:24px}
+.ticket{background:#fff;border-radius:8px;padding:22px;border:1px dashed var(--cuivre);font-size:.92rem}
+.ticket div{display:flex;justify-content:space-between;gap:20px;padding:6px 0;border-bottom:1px solid #f0ebe3}
+.ticket div:last-child{border:0}
+.ticket span{color:var(--ardoise)}
+.ok-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.mention{font-size:.75rem;color:var(--ardoise);margin-top:14px}
+
+/* Venir */
+.venir-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.carte{border-radius:8px;overflow:hidden;min-height:360px;background:#ddd}
+.carte iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(.4) sepia(.15)}
+.infos{display:grid;gap:22px;margin-top:28px}
+.infos h4{font:500 .72rem var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--cuivre);margin-bottom:6px}
+.infos a{text-decoration:none;border-bottom:1px solid rgba(1,49,61,.3)}
+.horaires{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:.92rem}
+.horaires .auj{color:var(--cuivre);font-weight:600}
+
+/* Pied */
+footer{background:var(--encre);color:#bbb;padding:60px 0 30px;font-size:.88rem}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px}
+footer .brand strong{color:var(--creme)}
+footer a{color:var(--creme);text-decoration:none}
+.legal{border-top:1px solid #333;margin-top:40px;padding-top:20px;font-size:.76rem;color:#888;line-height:1.7}
+
+/* Bouton flottant mobile */
+.fab{display:none}
+
+@media (max-width:900px){
+  .nav ul{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:var(--creme-2);color:var(--encre);padding:10px 20px 20px;box-shadow:0 20px 30px -20px rgba(0,0,0,.3)}
+  .nav ul.open{display:flex}
+  .nav ul li{border-bottom:1px solid rgba(0,0,0,.08)}
+  .nav ul a{display:block;padding:14px 0}
+  .burger{display:block}
+  .nav .btn{display:none}
+  .hero-in,.domaine,.alti-grid,.acc-box,.resa-grid,.venir-grid,.foot{grid-template-columns:1fr}
+  .hero-in{min-height:auto;padding:40px 0 80px}
+  .label-stage{height:440px}
+  .cuvees{grid-template-columns:1fr}
+  .alti-list{grid-template-columns:1fr}
+  .jours{grid-template-columns:repeat(4,1fr)}
+  .duo{grid-template-columns:1fr}
+  .fab{display:flex;position:fixed;right:16px;bottom:16px;z-index:60}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .word>i{transform:none}
+  .colline .ligne{stroke-dashoffset:0}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Winery",
+  "name":"Domaine du Tafret",
+  "description":"Vigneron en AOC Côte Roannaise et IGP Urfé. Vignoble planté en sélection massale, vinification en levures indigènes. Dégustation au chai sur rendez-vous.",
+  "founder":{"@type":"Person","name":"Victor Lehuger"},
+  "foundingDate":"2023",
+  "address":{"@type":"PostalAddress","streetAddress":"296 impasse du Bas Bourg","postalCode":"42310","addressLocality":"Le Crozet","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.173282,"longitude":3.856837},
+  "telephone":"+33665427027",
+  "email":"victor@domainedutafret.fr",
+  "url":"https://www.domainedutafret.fr",
+  "areaServed":["Le Crozet","La Pacaudière","Saint-Haon-le-Vieux","Côte Roannaise","Roannais"],
+  "knowsLanguage":["fr","en","es"],
+  "paymentAccepted":"Carte bancaire, espèces, paiement sans contact",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
+  "sameAs":["https://www.instagram.com/domaine_du_tafret/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour le <b>Domaine du Tafret</b> — non officielle, contenus repris du site et de la fiche Roannais Tourisme.</div>
+
+<header id="top">
+  <nav class="nav wrap" aria-label="Navigation principale">
+    <a class="brand" href="#accueil" aria-label="Domaine du Tafret, accueil"><small>Domaine du</small><strong>TAFRET</strong></a>
+    <ul id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#domaine">À propos</a></li>
+      <li><a href="#vins">Les Vins</a></li>
+      <li><a href="#accords">Accords</a></li>
+      <li><a href="#venir">Nous rendre visite</a></li>
+    </ul>
+    <a class="btn btn-cuivre" href="#reserver">Réserver une dégustation</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </nav>
+</header>
+
+<main>
+<!-- HÉROS -->
+<section class="hero grain" id="accueil" style="padding:0">
+  <div class="wrap hero-in">
+    <div>
+      <span class="caps" style="color:var(--cuivre)">AOC Côte Roannaise &amp; IGP Urfé · Le Crozet</span>
+      <h1><span class="word"><i>Domaine</i></span> <span class="word"><i style="animation-delay:.12s">du&nbsp;Tafret</i></span>
+        <span class="sub">Victor Lehuger, vigneron</span></h1>
+      <p class="lead">Pratique d'une agriculture biologique &amp; biodynamique. Installé sur les terroirs granitiques oubliés du Tafret, la zone la plus septentrionale de l'appellation Côte Roannaise.</p>
+      <div class="cta">
+        <a class="btn btn-cuivre" href="#reserver">Réserver une dégustation au chai</a>
+        <a class="btn btn-ghost" href="#vins">Découvrir les vins</a>
+      </div>
+    </div>
+    <div class="label-stage" id="stage">
+      <div class="label l3 float" style="animation-delay:-2s"><img src="https://static.wixstatic.com/media/37da09_35e402f35f9446ebba692fc5af592d2c~mv2.jpg/v1/fit/w_500,h_800,q_85/bihoreau.jpg" alt="Étiquette Bihoreau, Chardonnay, Colline du Tafret"></div>
+      <div class="label float" id="mainLabel"><img src="https://static.wixstatic.com/media/37da09_09fb9ee559be4c0a867a909a965d6b4e~mv2.jpg/v1/fit/w_700,h_1100,q_85/garde-boeufs.jpg" alt="Étiquette Garde-Bœufs, Côte Roannaise, Domaine du Tafret"></div>
+      <div class="label l2 float" style="animation-delay:-4s"><img src="https://static.wixstatic.com/media/37da09_75ec2ba5c61e41c486f81579a7293749~mv2.jpg/v1/fit/w_500,h_800,q_85/melanocephale.jpg" alt="Étiquette Mélanocéphale, Côte Roannaise, Domaine du Tafret"></div>
+    </div>
+  </div>
+  <div class="scroll">Défiler</div>
+</section>
+
+<div class="facts" aria-hidden="true">
+  <div class="marquee">
+    <span>Créé en 2023</span><span>Sélection massale</span><span>Levures indigènes</span><span>Vendanges manuelles</span><span>350 – 410 m d'altitude</span><span>Terroirs granitiques</span><span>Préparations biodynamiques</span>
+    <span>Créé en 2023</span><span>Sélection massale</span><span>Levures indigènes</span><span>Vendanges manuelles</span><span>350 – 410 m d'altitude</span><span>Terroirs granitiques</span><span>Préparations biodynamiques</span>
+  </div>
+</div>
+
+<!-- À PROPOS -->
+<section id="domaine">
+  <div class="wrap domaine">
+    <figure class="pic reveal">
+      <img id="parallax" src="https://static.wixstatic.com/media/37da09_7dc8ce07a1ed4569bc8987a5d316d314~mv2.jpg/v1/fit/w_1400,h_1400,q_85/tafret.jpg" alt="Orage au-dessus des herbes hautes, paysage du Tafret">
+      <figcaption>La colline du Tafret</figcaption>
+    </figure>
+    <div>
+      <span class="caps kicker reveal">À propos</span>
+      <h2 class="reveal d1">Le Domaine du Tafret a été créé en 2023.</h2>
+      <p class="reveal d2">Situé à Le Crozet, Victor Lehuger exploite actuellement 1,5 hectare de « vignes relais » à quelques kilomètres, à Saint-Haon-le-Vieux, grâce à une location de courte durée accordée par Roannais Agglomération pour initier son projet viticole.</p>
+      <p class="reveal d2">Le domaine se trouve sur la colline du « Tafret », à cheval entre Le Crozet et La Pacaudière. Sur ces terroirs granitiques oubliés, Victor souhaite revitaliser le patrimoine viticole de ces villages en plantant l'intégralité de son vignoble en sélection massale, dans le respect des principes de l'agriculture biologique et biodynamique.</p>
+      <p class="reveal d3">Cet artisan vigneron a pour objectif de travailler un vignoble à taille humaine, en réalisant toutes les étapes viticoles de manière autonome et consciencieuse. Les vendanges, effectuées manuellement, sont un moment de partage et de célébration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ALTITUDE -->
+<section class="alti grain">
+  <div class="wrap alti-grid">
+    <div>
+      <span class="caps kicker reveal">Le terroir</span>
+      <h2 class="reveal d1">Entre <span class="compteur" data-to="350">0</span> et <span class="compteur" data-to="410">0</span>&nbsp;m</h2>
+      <p class="reveal d2">Le vignoble est planté en sélection massale entre 350 et 410 mètres d'altitude, au nord de la Côte Roannaise, sur la colline qui relie Le Crozet à La Pacaudière.</p>
+    </div>
+    <div class="colline reveal" id="colline" aria-hidden="true">
+      <svg viewBox="0 0 600 300" preserveAspectRatio="none">
+        <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#c87a4e" stop-opacity=".35"/><stop offset="1" stop-color="#c87a4e" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 260 C 90 240, 140 170, 230 120 S 380 60, 430 80 S 540 170, 600 190 L600 300 L0 300Z" fill="url(#g)"/>
+        <path class="ligne" d="M0 260 C 90 240, 140 170, 230 120 S 380 60, 430 80 S 540 170, 600 190" fill="none" stroke="#e2dacd" stroke-width="2"/>
+        <line x1="0" x2="600" y1="118" y2="118" stroke="#e2dacd" stroke-opacity=".25" stroke-dasharray="4 6"/>
+        <line x1="0" x2="600" y1="68" y2="68" stroke="#e2dacd" stroke-opacity=".25" stroke-dasharray="4 6"/>
+        <text class="repere" x="6" y="112">350 m</text>
+        <text class="repere" x="6" y="62">410 m</text>
+        <text class="repere" x="40" y="292">LE CROZET</text>
+        <text class="repere" x="470" y="292">LA PACAUDIÈRE</text>
+        <circle cx="430" cy="80" r="5" fill="#c87a4e"><animate attributeName="r" values="5;9;5" dur="2.4s" repeatCount="indefinite"/></circle>
+        <text class="repere" x="380" y="48" style="fill:#c87a4e">LE TAFRET</text>
+      </svg>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="alti-list">
+      <div class="reveal"><b>Au chai</b>Levures indigènes, minimum d'intrants : un travail plus contraignant, pour un vin atypique.</div>
+      <div class="reveal d1"><b>À la vigne</b>Pratiques biologiques en cours de labellisation et préparations biodynamiques.</div>
+      <div class="reveal d2"><b>À taille humaine</b>À terme, 2 hectares travaillés seul, de la taille aux vendanges.</div>
+    </div>
+  </div>
+</section>
+
+<!-- LES VINS -->
+<section id="vins">
+  <div class="wrap">
+    <div class="vins-head">
+      <div>
+        <span class="caps kicker reveal">Les Vins</span>
+        <h2 class="reveal d1">Trois cuvées, vinifiées en douceur</h2>
+      </div>
+      <div class="filtres reveal d2" role="group" aria-label="Filtrer les cuvées">
+        <button class="chip on" data-f="tous">Toutes</button>
+        <button class="chip" data-f="rouge">Rouges</button>
+        <button class="chip" data-f="blanc">Blanc</button>
+      </div>
+    </div>
+    <div class="cuvees">
+      <article class="cuvee blanc reveal" data-c="blanc" data-id="bihoreau">
+        <div class="etq"><img src="https://static.wixstatic.com/media/37da09_35e402f35f9446ebba692fc5af592d2c~mv2.jpg/v1/fit/w_500,h_800,q_85/bihoreau.jpg" alt="Étiquette Bihoreau"></div>
+        <div class="txt">
+          <h3>Bihoreau</h3><span class="caps type">Vin blanc · IGP Urfé</span>
+          <p>Issu de Chardonnay, élevé partiellement en fût. Fruité et floral.</p>
+          <dl><dt>Accords</dt><dd>Apéritif, poissons et viandes blanches</dd></dl>
+          <div class="tirage"><span>Tirage</span><span class="barre"><i data-w="25"></i></span><b>1 000 btl.</b></div>
+        </div>
+      </article>
+      <article class="cuvee reveal d1" data-c="rouge" data-id="garde">
+        <div class="etq"><img src="https://static.wixstatic.com/media/37da09_09fb9ee559be4c0a867a909a965d6b4e~mv2.jpg/v1/fit/w_500,h_800,q_85/garde-boeufs.jpg" alt="Étiquette Garde-Bœufs"></div>
+        <div class="txt">
+          <h3>Garde-Bœufs</h3><span class="caps type">Vin rouge · AOC Côte Roannaise</span>
+          <p>Gamay &amp; Gamay-Saint-Romain, 100 % égrappé, 100 % cuves inox. Arômes poivrés, de fruits rouges et de pivoine.</p>
+          <dl><dt>Accords</dt><dd>Apéritif, plateau de charcuterie et barbecue</dd></dl>
+          <div class="tirage"><span>Tirage</span><span class="barre"><i data-w="22.5"></i></span><b>900 btl.</b></div>
+        </div>
+      </article>
+      <article class="cuvee reveal d2" data-c="rouge" data-id="melano">
+        <div class="etq"><img src="https://static.wixstatic.com/media/37da09_75ec2ba5c61e41c486f81579a7293749~mv2.jpg/v1/fit/w_500,h_800,q_85/melanocephale.jpg" alt="Étiquette Mélanocéphale"></div>
+        <div class="txt">
+          <h3>Mélanocéphale</h3><span class="caps type">Vin rouge · AOC Côte Roannaise</span>
+          <p>Gamay &amp; Gamay-Saint-Romain, 20 % grappes entières, 80 % égrappé. Élevage partiel en demi-muid de 500 litres. Toucher de bouche soyeux, arômes de fruits rouges, épicés et de sous-bois.</p>
+          <dl><dt>Accords</dt><dd>Viande blanche en sauce, carpaccio de veau, salade estivale</dd></dl>
+          <div class="tirage"><span>Tirage</span><span class="barre"><i data-w="100"></i></span><b>4 000 btl.</b></div>
+        </div>
+      </article>
+    </div>
+    <p class="cave-note reveal">Côté cave, Victor a recours à des levures indigènes, c'est-à-dire provenant des pellicules des baies de raisin. Il vinifie ses vins en douceur pour aller chercher une matière élégante dans ses jus et limite au maximum l'usage des intrants vinicoles.</p>
+  </div>
+</section>
+
+<!-- ACCORDS -->
+<section class="accords grain" id="accords">
+  <div class="wrap acc-box">
+    <div>
+      <span class="caps kicker reveal">Quel vin pour votre table ?</span>
+      <h2 class="reveal d1">Choisissez votre plat, le domaine vous répond.</h2>
+      <p class="reveal d2" style="margin-top:16px;color:#333">Les accords proposés sont ceux indiqués par Victor pour chacune de ses cuvées.</p>
+      <div class="plats reveal d3" role="group" aria-label="Plats">
+        <button class="plat" data-p="apero">Apéritif</button>
+        <button class="plat" data-p="poisson">Poissons</button>
+        <button class="plat" data-p="vb">Viandes blanches</button>
+        <button class="plat" data-p="charcut">Plateau de charcuterie</button>
+        <button class="plat" data-p="bbq">Barbecue</button>
+        <button class="plat" data-p="sauce">Viande blanche en sauce</button>
+        <button class="plat" data-p="carpaccio">Carpaccio de veau</button>
+        <button class="plat" data-p="salade">Salade estivale</button>
+      </div>
+    </div>
+    <div class="verdict reveal d2" id="verdict" aria-live="polite">
+      <p class="vide">Sélectionnez un plat pour découvrir la cuvée qui l'accompagne.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSERVATION -->
+<section class="resa grain" id="reserver">
+  <div class="wrap resa-grid">
+    <div>
+      <span class="caps kicker reveal">Dégustation au chai</span>
+      <h2 class="reveal d1">Victor vous accueille au domaine, sur rendez-vous.</h2>
+      <p class="reveal d2">Choisissez un jour et un créneau, indiquez combien vous serez, et mettez éventuellement des bouteilles de côté à retirer sur place. La demande part directement chez Victor, qui la confirme.</p>
+      <figure class="resa-photo reveal d3"><img src="https://static.wixstatic.com/media/37da09_576ba312b4b64a0cbf8d0307b8690cc4~mv2.jpg/v1/fit/w_1200,h_1200,q_85/chai.jpg" alt="Victor Lehuger dans son chai, une barrique au sol"></figure>
+    </div>
+
+    <form class="form reveal d1" id="resaForm" novalidate>
+      <div class="steps" aria-hidden="true"><span class="on"></span><span></span><span></span><span></span></div>
+
+      <div class="etape on" data-e="1">
+        <h3>Quel jour ?</h3>
+        <p class="aide">Du lundi au samedi, 9 h – 18 h. Le dimanche, sur demande.</p>
+        <div class="jours" id="jours"></div>
+        <div class="creneaux" id="creneaux" role="group" aria-label="Créneaux"></div>
+      </div>
+
+      <div class="etape" data-e="2">
+        <h3>Vous serez…</h3>
+        <p class="aide">Victor parle français, anglais et espagnol.</p>
+        <div class="duo">
+          <label class="champ">Nombre de personnes
+            <select id="pers"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8 et plus</option></select>
+          </label>
+          <label class="champ">Langue de la visite
+            <select id="langue"><option>Français</option><option>English</option><option>Español</option></select>
+          </label>
+        </div>
+        <label class="champ">Une précision (cave à remplir, cadeau, accessibilité…)
+          <textarea id="note" rows="3" placeholder="Facultatif"></textarea>
+        </label>
+      </div>
+
+      <div class="etape" data-e="3">
+        <h3>Mettre des bouteilles de côté ?</h3>
+        <p class="aide">Facultatif. Retrait et règlement au domaine (CB, espèces, sans contact). Le tarif est communiqué par Victor à la confirmation.</p>
+        <div class="qte"><span class="nom">Bihoreau<small>Blanc · IGP Urfé</small></span><span class="pm"><button type="button" data-q="Bihoreau" data-d="-1" aria-label="Retirer une bouteille de Bihoreau">−</button><output id="q-Bihoreau">0</output><button type="button" data-q="Bihoreau" data-d="1" aria-label="Ajouter une bouteille de Bihoreau">+</button></span></div>
+        <div class="qte"><span class="nom">Garde-Bœufs<small>Rouge · Côte Roannaise</small></span><span class="pm"><button type="button" data-q="Garde-Bœufs" data-d="-1" aria-label="Retirer une bouteille de Garde-Bœufs">−</button><output id="q-Garde-Bœufs">0</output><button type="button" data-q="Garde-Bœufs" data-d="1" aria-label="Ajouter une bouteille de Garde-Bœufs">+</button></span></div>
+        <div class="qte"><span class="nom">Mélanocéphale<small>Rouge · Côte Roannaise</small></span><span class="pm"><button type="button" data-q="Mélanocéphale" data-d="-1" aria-label="Retirer une bouteille de Mélanocéphale">−</button><output id="q-Mélanocéphale">0</output><button type="button" data-q="Mélanocéphale" data-d="1" aria-label="Ajouter une bouteille de Mélanocéphale">+</button></span></div>
+      </div>
+
+      <div class="etape" data-e="4">
+        <h3>Vos coordonnées</h3>
+        <div class="duo">
+          <label class="champ">Nom<input id="nom" autocomplete="name" required></label>
+          <label class="champ">Téléphone<input id="tel" type="tel" autocomplete="tel"></label>
+        </div>
+        <label class="champ">E-mail<input id="mail" type="email" autocomplete="email"></label>
+        <div class="ticket" id="ticket"></div>
+        <div class="ok-actions">
+          <a class="btn btn-cuivre" id="envoyer" href="#">Envoyer la demande à Victor</a>
+          <button type="button" class="btn btn-petrole" id="ics">Ajouter à mon agenda (.ics)</button>
+        </div>
+        <p class="mention">Maquette : la demande s'ouvre dans votre messagerie, adressée au domaine. Le rendez-vous n'est confirmé qu'après réponse de Victor.</p>
+      </div>
+
+      <div class="nav-etapes">
+        <button type="button" class="btn btn-ghost" id="prev" style="visibility:hidden;color:var(--petrole)">Retour</button>
+        <button type="button" class="btn btn-petrole" id="next">Continuer</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- VENIR -->
+<section id="venir">
+  <div class="wrap venir-grid">
+    <div>
+      <span class="caps kicker reveal">Nous rendre visite</span>
+      <h2 class="reveal d1">Au Tafret, au nord de la Côte Roannaise</h2>
+      <div class="infos">
+        <div class="reveal d1"><h4>Adresse</h4>296 impasse du Bas Bourg<br>42310 Le Crozet</div>
+        <div class="reveal d2"><h4>Contact</h4><a href="tel:+33665427027">06 65 42 70 27</a><br><a href="mailto:victor@domainedutafret.fr">victor@domainedutafret.fr</a><br><a href="https://www.instagram.com/domaine_du_tafret/" target="_blank" rel="noopener">@domaine_du_tafret</a></div>
+        <div class="reveal d2"><h4>Dégustations</h4>
+          <div class="horaires" id="horaires"></div>
+          <p style="font-size:.85rem;color:var(--ardoise);margin-top:8px">Sur rendez-vous selon les disponibilités. Dimanche sur rendez-vous.</p>
+        </div>
+        <div class="reveal d3"><h4>Sur place</h4>Vente à la propriété · Parking · Accessible en fauteuil roulant avec aide · CB, espèces, sans contact</div>
+      </div>
+    </div>
+    <div class="carte reveal d1">
+      <iframe title="Carte : Domaine du Tafret, Le Crozet" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.8368%2C46.1650%2C3.8768%2C46.1815&amp;layer=mapnik&amp;marker=46.173282%2C3.856837"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="btn btn-cuivre fab" href="#reserver">Réserver une dégustation</a>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <a class="brand" href="#accueil"><small>Domaine du</small><strong>TAFRET</strong></a>
+      <p style="margin-top:14px">Victor Lehuger · Vigneron en AOC Côte Roannaise &amp; IGP Urfé</p>
+    </div>
+    <div>296 impasse du Bas Bourg<br>42310 Le Crozet<br><a href="tel:+33665427027">06 65 42 70 27</a><br><a href="mailto:victor@domainedutafret.fr">victor@domainedutafret.fr</a></div>
+    <div>Dossier financé en partie grâce à l'intervention d'Initiative Loire.<br><br><a href="https://www.instagram.com/domaine_du_tafret/" target="_blank" rel="noopener">Instagram</a></div>
+  </div>
+  <div class="wrap legal">
+    Maquette de démonstration non officielle, proposée au Domaine du Tafret. Textes, fiches des cuvées, coordonnées et horaires repris de domainedutafret.fr et de la fiche Roannais Tourisme du domaine. Toutes les photos (étiquettes, paysage, chai) proviennent du site actuel du domaine ; aucune photo d'illustration n'a été ajoutée. Couleurs relevées sur les étiquettes, approchées et ajustables. Aucun prix n'est affiché : les tarifs restent à fournir par le domaine. Les vins de l'interface de réservation sont présentés à titre indicatif ; disponibilités à confirmer. L'abus d'alcool est dangereux pour la santé, à consommer avec modération.
+  </div>
+</footer>
+
+<script>
+(()=>{
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* menu */
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+/* header sur fond pétrole */
+const header=document.querySelector('header'),hero=document.querySelector('.hero');
+const darkSecs=[...document.querySelectorAll('.hero,.alti,.resa')];
+function headerTone(){const y=72;header.classList.toggle('dark',darkSecs.some(s=>{const r=s.getBoundingClientRect();return r.top<y&&r.bottom>y}))}
+/* lien actif */
+const links=[...menu.querySelectorAll('a')];
+function activeLink(){let cur='';document.querySelectorAll('main section[id]').forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+cur))}
+/* parallax photo + étiquette */
+const px=document.getElementById('parallax');
+function onScroll(){headerTone();activeLink();if(!RM&&px){const r=px.parentElement.getBoundingClientRect();px.style.transform=`translateY(${(r.top-innerHeight/2)*-.08 - 30}px)`}}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const stage=document.getElementById('stage'),main=document.getElementById('mainLabel');
+if(!RM&&matchMedia('(pointer:fine)').matches){stage.addEventListener('mousemove',e=>{const r=stage.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;main.style.transform=`rotateY(${x*16}deg) rotateX(${-y*12}deg)`});stage.addEventListener('mouseleave',()=>main.style.transform='')}
+/* révélations */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('vu');
+  t.querySelectorAll&&t.querySelectorAll('.barre i').forEach(i=>i.style.width=i.dataset.w+'%');
+  io.unobserve(t)}),{threshold:.18});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const col=document.getElementById('colline');new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){col.classList.add('vu');o.disconnect()}}),{threshold:.3}).observe(col);
+/* compteurs altitude */
+const cio=new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,to=+el.dataset.to;if(RM){el.textContent=to;return}const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1600);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0);o.unobserve(el)}),{threshold:.6});
+document.querySelectorAll('.compteur').forEach(c=>cio.observe(c));
+/* filtres */
+const cuvees=[...document.querySelectorAll('.cuvee')];
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');const f=c.dataset.f;cuvees.forEach(k=>k.classList.toggle('off',f!=='tous'&&k.dataset.c!==f))}));
+/* accords */
+const CUV={bihoreau:{n:'Bihoreau',t:'Vin blanc · IGP Urfé',img:'https://static.wixstatic.com/media/37da09_35e402f35f9446ebba692fc5af592d2c~mv2.jpg/v1/fit/w_300,h_500,q_85/b.jpg',w:'Chardonnay élevé partiellement en fût, fruité et floral.'},
+garde:{n:'Garde-Bœufs',t:'Vin rouge · AOC Côte Roannaise',img:'https://static.wixstatic.com/media/37da09_09fb9ee559be4c0a867a909a965d6b4e~mv2.jpg/v1/fit/w_300,h_500,q_85/g.jpg',w:'Gamay en cuves inox, poivré, fruits rouges et pivoine.'},
+melano:{n:'Mélanocéphale',t:'Vin rouge · AOC Côte Roannaise',img:'https://static.wixstatic.com/media/37da09_75ec2ba5c61e41c486f81579a7293749~mv2.jpg/v1/fit/w_300,h_500,q_85/m.jpg',w:'Élevage partiel en demi-muid, soyeux, épices et sous-bois.'}};
+const ACC={apero:['bihoreau','garde'],poisson:['bihoreau'],vb:['bihoreau'],charcut:['garde'],bbq:['garde'],sauce:['melano'],carpaccio:['melano'],salade:['melano']};
+const verdict=document.getElementById('verdict');
+document.querySelectorAll('.plat').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.plat').forEach(x=>x.classList.toggle('on',x===b));
+  const ids=ACC[b.dataset.p],c=CUV[ids[0]];
+  verdict.innerHTML=`<span class="caps" style="color:var(--cuivre)">${b.textContent} · notre conseil</span><h3>${c.n}</h3><p class="caps" style="opacity:.7;margin-bottom:12px">${c.t}</p><p class="pourquoi">${c.w}</p>${ids[1]?`<p class="alt">Fonctionne aussi avec <b>${CUV[ids[1]].n}</b>.</p>`:''}<p style="margin-top:22px"><a class="btn btn-cuivre" href="#reserver">La goûter au chai</a></p><img src="${c.img}" alt="">`;
+  verdict.classList.remove('pop');void verdict.offsetWidth;verdict.classList.add('pop');
+  cuvees.forEach(k=>k.classList.toggle('match',ids.includes(k.dataset.id)));
+}));
+/* horaires du jour */
+const J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],today=new Date().getDay();
+document.getElementById('horaires').innerHTML=[1,2,3,4,5,6,0].map(d=>`<span class="${d===today?'auj':''}">${J[d]}</span><span class="${d===today?'auj':''}">${d===0?'Sur rendez-vous':'9 h – 18 h, sur rendez-vous'}</span>`).join('');
+/* réservation */
+const st={jour:null,creneau:null,q:{'Bihoreau':0,'Garde-Bœufs':0,'Mélanocéphale':0}};
+const jours=document.getElementById('jours'),cren=document.getElementById('creneaux');
+const MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+for(let i=1;i<=14;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);const b=document.createElement('button');b.type='button';b.className='jour'+(d.getDay()===0?' dim':'');b.innerHTML=`${J[d.getDay()].slice(0,3)}.<b>${d.getDate()}</b>${MOIS[d.getMonth()]}`;b.setAttribute('aria-label',`${J[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`);b.onclick=()=>{st.jour=d;st.creneau=null;jours.querySelectorAll('.jour').forEach(x=>x.classList.toggle('on',x===b));drawCren()};jours.appendChild(b)}
+function drawCren(){const dim=st.jour.getDay()===0;const slots=dim?['Sur demande (Victor vous propose une heure)']:['9 h 30','11 h','14 h','15 h 30','17 h'];cren.innerHTML='';slots.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='creneau';b.textContent=s;b.onclick=()=>{st.creneau=s;cren.querySelectorAll('.creneau').forEach(x=>x.classList.toggle('on',x===b))};cren.appendChild(b)})}
+document.querySelectorAll('.pm button').forEach(b=>b.onclick=()=>{const k=b.dataset.q;st.q[k]=Math.max(0,Math.min(60,st.q[k]+ +b.dataset.d));document.getElementById('q-'+k).textContent=st.q[k]});
+let step=1;const etapes=[...document.querySelectorAll('.etape')],bars=[...document.querySelectorAll('.steps span')],next=document.getElementById('next'),prev=document.getElementById('prev');
+function show(){etapes.forEach(e=>e.classList.toggle('on',+e.dataset.e===step));bars.forEach((b,i)=>b.classList.toggle('on',i<step));prev.style.visibility=step>1?'visible':'hidden';next.style.display=step<4?'':'none';if(step===4)ticket()}
+function shake(el){el.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300})}
+next.onclick=()=>{if(step===1&&(!st.jour||!st.creneau)){shake(document.querySelector('.etape.on'));return}step++;show()};
+prev.onclick=()=>{step--;show()};
+const dateTxt=d=>`${J[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]} ${d.getFullYear()}`;
+function btl(){const l=Object.entries(st.q).filter(([,v])=>v>0).map(([k,v])=>`${v} × ${k}`);return l.length?l.join(', '):'Aucune'}
+function ticket(){document.getElementById('ticket').innerHTML=`<div><span>Date</span><b>${dateTxt(st.jour)}</b></div><div><span>Créneau</span><b>${st.creneau}</b></div><div><span>Personnes</span><b>${pers.value}</b></div><div><span>Langue</span><b>${langue.value}</b></div><div><span>Bouteilles à retirer</span><b>${btl()}</b></div>`;majMail()}
+function corps(){return `Bonjour Victor,\n\nJe souhaiterais venir déguster au domaine :\n- Date : ${dateTxt(st.jour)}\n- Créneau : ${st.creneau}\n- Nombre de personnes : ${pers.value}\n- Langue : ${langue.value}\n- Bouteilles à mettre de côté : ${btl()}\n${note.value?'- Précision : '+note.value+'\n':''}\n${nom.value||''}\n${tel.value||''}\n${mail.value||''}`}
+function majMail(){document.getElementById('envoyer').href='mailto:victor@domainedutafret.fr?subject='+encodeURIComponent('Demande de dégustation – '+dateTxt(st.jour))+'&body='+encodeURIComponent(corps())}
+['nom','tel','mail','note'].forEach(id=>document.getElementById(id).addEventListener('input',()=>step===4&&majMail()));
+document.getElementById('ics').onclick=()=>{const d=new Date(st.jour);const m=/(\d+) h ?(\d*)/.exec(st.creneau);d.setHours(m?+m[1]:10,m&&m[2]?+m[2]:0);const e=new Date(d.getTime()+60*60*1000);const f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,'0')+String(x.getDate()).padStart(2,'0')+'T'+String(x.getHours()).padStart(2,'0')+String(x.getMinutes()).padStart(2,'0')+'00';
+const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Domaine du Tafret//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@domainedutafret','DTSTAMP:'+f(new Date()),'DTSTART:'+f(d),'DTEND:'+f(e),'SUMMARY:Dégustation au Domaine du Tafret (à confirmer)','LOCATION:296 impasse du Bas Bourg\\, 42310 Le Crozet','DESCRIPTION:Demande envoyée à Victor Lehuger – 06 65 42 70 27. Bouteilles : '+btl(),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='degustation-domaine-du-tafret.ics';a.click()};
+show();
+})();
+</script>
+</body>
+</html>
