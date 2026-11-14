@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCR Centre de Conduite Roannais — Auto-école à Roanne et Renaison | Code, permis B, moto</title>
+<meta name="description" content="Auto-école CCR à Roanne (Saint-Louis, Jean Puy) et Renaison depuis 1985 : code, permis B, conduite accompagnée, boîte auto, moto A2, 125 et AM. Simulez votre budget.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE CCR — reprise du site actuel (centre-de-conduite-roannais.com)
+   Bleu logo / boutons : #319DD4 (logo : #3199D0)
+   Gris anthracite logo / textes : #3C3C3B
+   Jaune des visuels (pastille "Auto-école", combinaison Renaison) : #F5DB11
+   Polices du site : Montserrat 900 (titres) + Roboto (texte)
+   ========================================================= */
+:root{
+  --bleu:#319DD4;
+  --bleu-fonce:#1f7fb3;
+  --bleu-pale:#e8f4fb;
+  --anthracite:#3C3C3B;
+  --gris:#787D85;
+  --gris-clair:#f3f5f7;
+  --jaune:#F5DB11;
+  --blanc:#ffffff;
+  --ok:#2fa866;
+  --ko:#d9534f;
+  --titre:'Montserrat',system-ui,sans-serif;
+  --texte:'Roboto',system-ui,sans-serif;
+  --rayon:14px;
+  --ombre:0 10px 30px rgba(31,60,90,.12);
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--texte);color:var(--anthracite);background:var(--blanc);line-height:1.6}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--titre);line-height:1.15}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--anthracite);color:#fff;font-size:.8rem;text-align:center;padding:6px 16px}
+.demo b{color:var(--jaune)}
+
+/* Barre route = progression de lecture */
+.road{position:fixed;top:0;left:0;right:0;height:5px;background:var(--anthracite);z-index:60}
+.road::before{content:"";position:absolute;inset:2px 0 auto;height:1px;background:repeating-linear-gradient(90deg,#fff 0 14px,transparent 14px 26px);opacity:.7}
+.road span{position:absolute;top:0;left:0;height:100%;width:0;background:var(--bleu)}
+
+/* Barre agences */
+.topbar{background:var(--bleu);color:#fff;font-size:.85rem}
+.topbar .wrap{display:flex;gap:22px;justify-content:flex-end;flex-wrap:wrap;padding:7px 0}
+.topbar a{text-decoration:none;display:flex;gap:6px;align-items:center}
+.topbar strong{font-family:var(--titre);font-weight:800}
+.dot{width:8px;height:8px;border-radius:50%;background:#bbb;display:inline-block}
+.dot.on{background:#7CFC9A;box-shadow:0 0 0 0 rgba(124,252,154,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(124,252,154,0)}100%{box-shadow:0 0 0 0 rgba(124,252,154,0)}}
+
+/* Header */
+header.main{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.main.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+header.main .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0}
+.logo img{height:46px;width:auto}
+nav ul{display:flex;gap:4px;list-style:none;align-items:center}
+nav a{font-family:var(--titre);font-weight:700;font-size:.88rem;text-decoration:none;padding:9px 12px;border-radius:30px;transition:background .2s,color .2s}
+nav a:hover{background:var(--bleu-pale);color:var(--bleu-fonce)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--titre);font-weight:800;text-decoration:none;border:0;cursor:pointer;border-radius:40px;padding:14px 24px;font-size:.95rem;transition:transform .2s var(--ease),box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-bleu{background:var(--bleu);color:#fff;box-shadow:0 8px 20px rgba(49,157,212,.35)}
+.btn-bleu:hover{background:var(--bleu-fonce)}
+.btn-jaune{background:var(--jaune);color:var(--anthracite);box-shadow:0 8px 20px rgba(245,219,17,.35)}
+.btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.7)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:3px;background:var(--anthracite);margin:5px auto;border-radius:2px;transition:.3s}
+
+/* Hero vidéo */
+.hero{position:relative;min-height:min(88vh,760px);display:flex;align-items:center;color:#fff;overflow:hidden;background:var(--bleu-fonce)}
+.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(20,50,75,.88) 0%,rgba(31,127,179,.55) 55%,rgba(0,0,0,.15) 100%)}
+.hero .wrap{position:relative;z-index:2;padding:80px 0}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--jaune);color:var(--anthracite);font-family:var(--titre);font-weight:900;font-size:.8rem;padding:6px 14px;border-radius:30px;transform:rotate(-2deg)}
+.hero h1{font-weight:900;font-size:clamp(2.3rem,1.4rem + 4vw,4.6rem);margin:18px 0 14px;max-width:14ch;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:52ch;opacity:.95}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero .split span{display:inline-block;opacity:0;transform:translateY(40px);animation:up .8s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.chip{background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);border-radius:12px;padding:10px 14px;font-size:.85rem;text-decoration:none;display:flex;flex-direction:column}
+.chip b{font-family:var(--titre);font-size:.95rem}
+.scroll-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid rgba(255,255,255,.7);border-radius:14px}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;background:#fff;border-radius:2px;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(14px);opacity:0}}
+
+/* Ligne de route (élément signature, repris de la bande blanche/bleue du site) */
+.lane{height:14px;background:var(--anthracite);position:relative;overflow:hidden}
+.lane::before{content:"";position:absolute;left:-60px;right:-60px;top:6px;height:2px;background:repeating-linear-gradient(90deg,#fff 0 40px,transparent 40px 70px);animation:drive 2.2s linear infinite}
+@keyframes drive{to{transform:translateX(70px)}}
+
+section{padding:clamp(64px,8vw,110px) 0;scroll-margin-top:70px}
+.kicker{font-family:var(--titre);font-weight:800;color:var(--bleu);text-transform:uppercase;letter-spacing:.12em;font-size:.8rem}
+.h2{font-weight:900;font-size:clamp(1.9rem,1.3rem + 2.4vw,3rem);margin:8px 0 16px}
+.sub{color:var(--gris);max-width:62ch}
+
+/* Nos permis */
+.permis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.pcard{position:relative;border-radius:var(--rayon);overflow:hidden;background:#fff;box-shadow:var(--ombre);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(31,60,90,.18)}
+.pcard .ph{aspect-ratio:3/2;overflow:hidden}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.pcard:hover .ph img{transform:scale(1.07)}
+.pcard .ico{position:absolute;top:14px;left:14px;width:52px;height:52px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.pcard .ico img{width:30px}
+.pcard .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pcard h3{font-weight:900;font-size:1.2rem}
+.pcard p{color:var(--gris);font-size:.95rem;flex:1}
+.pcard .price{font-family:var(--titre);font-weight:800;color:var(--bleu)}
+.pcard button{align-self:flex-start;background:none;border:0;font-family:var(--titre);font-weight:800;color:var(--anthracite);cursor:pointer;padding:6px 0;border-bottom:2px solid var(--jaune)}
+
+/* Simulateur */
+.sim{background:linear-gradient(180deg,var(--bleu-pale),#fff)}
+.sim-box{display:grid;grid-template-columns:1.25fr .9fr;gap:28px;margin-top:40px;align-items:start}
+.panel{background:#fff;border-radius:20px;box-shadow:var(--ombre);padding:28px}
+.step{margin-bottom:26px}
+.step h4{font-weight:800;font-size:1rem;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.step h4 i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--bleu);color:#fff;display:grid;place-items:center;font-size:.85rem}
+.choices{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0}
+.choice label{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;border:2px solid #e2e8ee;border-radius:14px;cursor:pointer;text-align:center;font-family:var(--titre);font-weight:700;font-size:.82rem;transition:.2s;height:100%}
+.choice label img{width:36px;height:36px}
+.choice input:checked+label{border-color:var(--bleu);background:var(--bleu-pale);box-shadow:0 0 0 3px rgba(49,157,212,.18)}
+.choice input:focus-visible+label{outline:3px solid var(--jaune)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg label{cursor:pointer}
+.seg input{position:absolute;opacity:0}
+.seg span{display:inline-block;padding:9px 16px;border-radius:30px;border:2px solid #e2e8ee;font-weight:500;font-size:.9rem;transition:.2s}
+.seg input:checked+span{background:var(--anthracite);border-color:var(--anthracite);color:#fff}
+.seg input:focus-visible+span{outline:3px solid var(--jaune)}
+.range-row{display:flex;align-items:center;gap:16px}
+input[type=range]{flex:1;accent-color:var(--bleu);height:28px}
+.range-val{font-family:var(--titre);font-weight:900;font-size:1.3rem;min-width:70px;text-align:right}
+.hint{font-size:.82rem;color:var(--gris);margin-top:6px}
+.toggle{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--gris-clair);cursor:pointer;margin-top:10px}
+.toggle input{accent-color:var(--bleu);width:20px;height:20px;margin-top:2px;flex:none}
+.result{position:sticky;top:100px;background:var(--anthracite);color:#fff;border-radius:20px;padding:28px;overflow:hidden}
+.result::before{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:var(--bleu);opacity:.35}
+.result h3{font-weight:800;font-size:1rem;opacity:.85;position:relative}
+.total{font-family:var(--titre);font-weight:900;font-size:clamp(2.6rem,2rem + 2vw,3.6rem);line-height:1;margin:10px 0 4px;position:relative}
+.total small{font-size:1rem;font-weight:700;opacity:.7}
+.lines{list-style:none;margin:18px 0;border-top:1px solid rgba(255,255,255,.15);position:relative}
+.lines li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.15);font-size:.9rem}
+.lines li span:last-child{font-weight:700;white-space:nowrap}
+.lines li.minus span:last-child{color:var(--jaune)}
+.fin{background:rgba(245,219,17,.12);border:1px solid rgba(245,219,17,.5);border-radius:14px;padding:14px;font-size:.9rem;margin-bottom:18px;position:relative}
+.fin b{color:var(--jaune);font-family:var(--titre)}
+.result .btn{width:100%;justify-content:center;position:relative}
+.result .note{font-size:.75rem;opacity:.65;margin-top:12px;position:relative}
+.bump{animation:bump .4s var(--ease)}
+@keyframes bump{40%{transform:scale(1.06)}}
+
+/* Avantages */
+.adv{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.adv div{padding:24px;border-radius:var(--rayon);background:var(--gris-clair);border-top:4px solid var(--bleu);transition:transform .3s var(--ease)}
+.adv div:hover{transform:translateY(-4px)}
+.adv h3{font-size:1.02rem;font-weight:800;margin-bottom:8px}
+.adv p{font-size:.92rem;color:var(--gris)}
+.stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:44px}
+.stat b{display:block;font-family:var(--titre);font-weight:900;font-size:clamp(2.4rem,2rem + 2vw,3.4rem);color:var(--bleu);line-height:1}
+.stat span{font-size:.9rem;color:var(--gris)}
+
+/* Équipe */
+.team{background:var(--anthracite);color:#fff}
+.team .sub{color:#c9ced6}
+.team-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px}
+.tcard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--rayon);padding:24px}
+.tcard h3{color:var(--jaune);font-weight:800;font-size:1rem;margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.tcard p{font-size:.95rem;color:#e3e6ea}
+.names{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.names span{background:var(--bleu);border-radius:30px;padding:4px 12px;font-family:var(--titre);font-weight:700;font-size:.82rem}
+
+/* Aides */
+.aides{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.aide{border:2px solid #e2e8ee;border-radius:var(--rayon);padding:24px;position:relative;transition:border-color .3s}
+.aide:hover{border-color:var(--bleu)}
+.aide img{height:56px;width:auto;margin-bottom:14px}
+.aide h3{font-weight:800;font-size:1.05rem;margin-bottom:8px}
+.aide p{font-size:.93rem;color:var(--gris)}
+
+/* Agences */
+.agences{background:var(--gris-clair)}
+.ag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.ag{background:#fff;border-radius:var(--rayon);overflow:hidden;box-shadow:var(--ombre);display:flex;flex-direction:column}
+.ag .ph{aspect-ratio:3/2;background:#dde3e8;position:relative}
+.ag .ph img{width:100%;height:100%;object-fit:cover}
+.ag .ph .vide{position:absolute;inset:0;display:grid;place-items:center;text-align:center;color:var(--gris);font-size:.9rem;padding:20px;border:2px dashed #b9c2cb;margin:14px;border-radius:10px}
+.status{position:absolute;top:12px;right:12px;background:#fff;border-radius:30px;padding:5px 12px;font-size:.78rem;font-weight:700;display:flex;gap:6px;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.status .dot.on{background:var(--ok)}
+.status .dot.off{background:var(--ko)}
+.ag .body{padding:22px;flex:1;display:flex;flex-direction:column;gap:10px}
+.ag h3{font-weight:900;font-size:1.3rem}
+.ag table{font-size:.88rem;border-collapse:collapse;width:100%}
+.ag td{padding:4px 0;vertical-align:top}
+.ag td:first-child{color:var(--gris);padding-right:10px;white-space:nowrap}
+.ag tr.today td{font-weight:700;color:var(--bleu-fonce)}
+.ag .agr{font-size:.75rem;color:var(--gris)}
+.ag .acts{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.ag .acts .btn{padding:10px 16px;font-size:.85rem}
+.btn-line{background:#fff;color:var(--anthracite);border:2px solid #e2e8ee}
+
+/* Avis */
+.avis-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+blockquote{background:var(--bleu-pale);border-radius:var(--rayon);padding:26px 26px 22px;position:relative;font-size:1rem}
+blockquote::before{content:"“";font-family:var(--titre);font-weight:900;font-size:4rem;color:var(--bleu);position:absolute;top:-10px;left:16px;line-height:1}
+blockquote p{margin-top:18px}
+blockquote footer{margin-top:12px;font-family:var(--titre);font-weight:700;font-size:.85rem;color:var(--gris)}
+.opinion{margin-top:24px;font-size:.92rem;color:var(--gris);max-width:70ch}
+
+/* Contact */
+.contact-box{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:36px;align-items:start}
+form{display:grid;gap:14px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form label{font-size:.85rem;font-weight:500;display:grid;gap:6px}
+form input,form select,form textarea{font:inherit;padding:12px 14px;border:2px solid #e2e8ee;border-radius:10px;background:#fff;transition:border-color .2s}
+form input:focus,form select:focus,form textarea:focus{border-color:var(--bleu);outline:none}
+.ok-msg{display:none;background:#e9f7ef;color:#1d6b41;border-radius:10px;padding:12px 14px;font-size:.9rem}
+
+footer.site{background:var(--anthracite);color:#cfd3d9;padding:50px 0 26px;font-size:.9rem}
+footer.site .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px}
+footer.site h4{color:#fff;font-size:.95rem;margin-bottom:10px}
+footer.site a{text-decoration:none}
+footer.site a:hover{color:#fff}
+footer.site ul{list-style:none;display:grid;gap:6px}
+.legal{border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-top:18px;font-size:.78rem;color:#9aa1aa}
+
+/* Bouton flottant mobile */
+.fab{position:fixed;right:16px;bottom:16px;z-index:40;display:none}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media (max-width:980px){
+  nav ul{position:fixed;inset:0 0 0 30%;background:#fff;flex-direction:column;align-items:stretch;padding:90px 24px;gap:6px;clip-path:inset(0 0 0 100%);visibility:hidden;transition:clip-path .35s var(--ease),visibility .35s;box-shadow:-10px 0 30px rgba(0,0,0,.15)}
+  nav ul.open{clip-path:inset(0 0 0 0);visibility:visible}
+  .burger{display:block;position:relative;z-index:60}
+  .permis-grid,.ag-grid,.aides,.team-grid{grid-template-columns:1fr 1fr}
+  .adv{grid-template-columns:1fr 1fr}
+  .sim-box,.contact-box{grid-template-columns:1fr}
+  .result{position:relative;top:0}
+  .fab{display:inline-flex}
+}
+@media (max-width:640px){
+  .permis-grid,.ag-grid,.aides,.team-grid,.adv,.avis-grid,.frow{grid-template-columns:1fr}
+  .choices{grid-template-columns:repeat(2,1fr)}
+  .topbar .wrap{justify-content:center;gap:12px;font-size:.78rem}
+  footer.site .cols{grid-template-columns:1fr}
+  .header-cta{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"DrivingSchool",
+ "name":"CCR – Centre de Conduite Roannais",
+ "url":"https://www.centre-de-conduite-roannais.com/",
+ "email":"ccrsaintlouis.autoecole@gmail.com",
+ "foundingDate":"1985",
+ "areaServed":["Roanne","Renaison","Roannais"],
+ "sameAs":["https://www.facebook.com/Autoecoleccr/","https://www.instagram.com/ccrroannerenaison/"],
+ "department":[
+  {"@type":"DrivingSchool","name":"CCR Saint-Louis","telephone":"+33477716173","address":{"@type":"PostalAddress","streetAddress":"50 rue Brison","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+   "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"14:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"12:00"}]},
+  {"@type":"DrivingSchool","name":"CCR Jean Puy","telephone":"+33477780447","address":{"@type":"PostalAddress","streetAddress":"8 rue Jean Puy","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"}},
+  {"@type":"DrivingSchool","name":"CCR Renaison","telephone":"+33477642297","address":{"@type":"PostalAddress","streetAddress":"554 rue du Collège","postalCode":"42370","addressLocality":"Renaison","addressCountry":"FR"}}
+ ]
+}
+</script>
+</head>
+<body>
+
+<div class="road" aria-hidden="true"><span id="progress"></span></div>
+<div class="demo">Maquette de démonstration — <b>proposition de refonte</b> du site du Centre de Conduite Roannais. Tarifs repris du site actuel, indicatifs et non contractuels.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="tel:0477716173"><span class="dot" data-ag="stlouis"></span><strong>Saint Louis</strong> 04 77 71 61 73</a>
+    <a href="tel:0477780447"><span class="dot" data-ag="jeanpuy"></span><strong>Jean Puy</strong> 04 77 78 04 47</a>
+    <a href="tel:0477642297"><span class="dot" data-ag="renaison"></span><strong>Renaison</strong> 04 77 64 22 97</a>
+  </div>
+</div>
+
+<header class="main" id="hdr">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Centre de Conduite Roannais — accueil"><img src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2019/11/logo-ccr.svg" alt="CCR Centre de Conduite Roannais"></a>
+    <nav aria-label="Navigation principale">
+      <ul id="menu">
+        <li><a href="#permis">Code &amp; permis</a></li>
+        <li><a href="#simulateur">Combien ça coûte ?</a></li>
+        <li><a href="#aides">Aides au permis</a></li>
+        <li><a href="#ccr">CCR</a></li>
+        <li><a href="#agences">Nos agences</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="#simulateur" class="btn btn-bleu header-cta">Simuler mon permis</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="Présentation">
+  <img class="poster" src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2023/11/ccr-poster-video-1.jpg" alt="">
+  <video autoplay muted loop playsinline preload="none" poster="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2023/11/ccr-poster-video-1.jpg" aria-hidden="true">
+    <source src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2023/11/Centre-de-Conduite-Roannais-2023_BD_Web.mp4" type="video/mp4">
+  </video>
+  <div class="wrap">
+    <span class="badge">Auto-école depuis 1985</span>
+    <h1 class="split"><span>Auto-école</span> <span style="animation-delay:.1s">à</span> <span style="animation-delay:.2s"><em>Roanne</em></span> <span style="animation-delay:.3s">et</span> <span style="animation-delay:.4s"><em>Renaison</em></span></h1>
+    <p class="lead rv in">Code, permis B, conduite accompagnée, boîte auto, moto et scooter : l’auto-école CCR vous accompagne depuis 1985 avec une formation de qualité, adaptée au niveau de chacun.</p>
+    <div class="ctas">
+      <a href="#simulateur" class="btn btn-jaune">Calculer le coût de mon permis →</a>
+      <a href="#agences" class="btn btn-ghost">Trouver mon agence</a>
+    </div>
+    <div class="chips" id="heroChips"></div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- NOS PERMIS -->
+<section id="permis">
+  <div class="wrap">
+    <p class="kicker rv">Nos permis</p>
+    <h2 class="h2 rv d1">Code, voiture, moto, scooter : tout se passe chez CCR</h2>
+    <p class="sub rv d2">Avant chaque formation, une évaluation de départ permet d’estimer le nombre d’heures dont vous aurez besoin. Ce n’est qu’une estimation : si vous êtes prêt plus tôt, vous passez le permis.</p>
+    <div class="permis-grid" id="permisGrid"></div>
+  </div>
+</section>
+
+<!-- SIMULATEUR -->
+<section class="sim" id="simulateur">
+  <div class="wrap">
+    <p class="kicker rv">Simulateur</p>
+    <h2 class="h2 rv d1">Mon permis, combien ça coûte vraiment ?</h2>
+    <p class="sub rv d2">Choisissez votre permis et votre formule de code : le total se calcule avec les tarifs affichés par CCR, heures supplémentaires et financement « permis à un euro par jour » compris.</p>
+
+    <div class="sim-box">
+      <div class="panel rv">
+        <div class="step">
+          <h4><i>1</i>Quel permis ?</h4>
+          <div class="choices" id="choices"></div>
+        </div>
+        <div class="step" id="stepCode">
+          <h4><i>2</i>Votre forfait code illimité</h4>
+          <div class="seg" id="codeSeg">
+            <label><input type="radio" name="code" value="0"><span>Déjà obtenu</span></label>
+            <label><input type="radio" name="code" value="89" checked><span>2 mois · 89 €</span></label>
+            <label><input type="radio" name="code" value="109"><span>4 mois · 109 €</span></label>
+            <label><input type="radio" name="code" value="129"><span>1 an · 129 €</span></label>
+          </div>
+          <p class="hint" id="codeHint"></p>
+        </div>
+        <div class="step" id="stepHours">
+          <h4><i id="hNum">3</i>Heures en plus de la formule</h4>
+          <div class="range-row">
+            <input type="range" id="hours" min="0" max="20" value="0" aria-label="Heures de conduite supplémentaires">
+            <span class="range-val" id="hoursVal">0 h</span>
+          </div>
+          <p class="hint" id="hoursHint">À ajuster après l’évaluation de départ. Leçon d’une heure : 48 € TTC.</p>
+        </div>
+        <div class="step">
+          <h4><i id="optNum">4</i>Options</h4>
+          <label class="toggle" id="optBook"><input type="checkbox" id="book"><span><b>Livre de code</b> (facultatif) — 15 €</span></label>
+          <label class="toggle"><input type="checkbox" id="famille"><span><b>Carte famille</b> — 30 € offerts pour chaque inscription <small style="color:var(--gris)">(conditions en agence)</small></span></label>
+          <label class="toggle"><input type="checkbox" id="unEuro"><span><b>J’ai entre 15 et 25 ans</b> — je veux étaler avec le permis à un euro par jour</span></label>
+        </div>
+      </div>
+
+      <aside class="result" aria-live="polite">
+        <h3 id="resTitle">Permis B – Formule Confort</h3>
+        <div class="total" id="total">0 €<small> TTC</small></div>
+        <ul class="lines" id="lines"></ul>
+        <div class="fin" id="fin" hidden></div>
+        <a class="btn btn-jaune" id="sendBtn" href="#contact">Recevoir ce devis par l’agence →</a>
+        <p class="note">Estimation calculée à partir des tarifs publiés sur le site du CCR. Le devis définitif est établi en agence après l’évaluation de départ.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+<div class="lane" aria-hidden="true"></div>
+
+<!-- AVANTAGES -->
+<section id="ccr">
+  <div class="wrap">
+    <p class="kicker rv">Les avantages CCR</p>
+    <h2 class="h2 rv d1">Une auto-école connectée, des moniteurs d’expérience</h2>
+    <p class="sub rv d2">Nos moniteurs sont tous diplômés et enseignent la conduite depuis plus de 20 ans en moyenne.</p>
+    <div class="adv">
+      <div class="rv"><h3>Permis blancs</h3><p>Pour que l’élève connaisse son niveau avant l’examen.</p></div>
+      <div class="rv d1"><h3>On vient vous chercher</h3><p>Si vous ne pouvez pas vous déplacer : chez vous, au lycée… ou au boulot !</p></div>
+      <div class="rv d2"><h3>Simulateur de conduite</h3><p>Les premières heures de conduite sont dispensées sur simulateur.</p></div>
+      <div class="rv d3"><h3>Code sur smartphone</h3><p>En salle, votre smartphone devient le boîtier. Entraînement aussi sur tablette et PC.</p></div>
+      <div class="rv"><h3>Leçons réservées en ligne</h3><p>Possibilité de réserver vos leçons de conduite par internet.</p></div>
+      <div class="rv d1"><h3>Moniteur référent</h3><p>Possibilité d’un moniteur référent tout au long de la formation.</p></div>
+      <div class="rv d2"><h3>Éco-conduite</h3><p>Des notions d’éco-conduite pour moins polluer et moins consommer.</p></div>
+      <div class="rv d3"><h3>Garantie financière</h3><p>L’auto-école dispose d’une garantie financière. Locaux refaits à neuf.</p></div>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><b data-count="1985" data-plain>1985</b><span>année de création</span></div>
+      <div class="stat rv d1"><b data-count="3">3</b><span>agences : Saint-Louis, Jean Puy, Renaison</span></div>
+      <div class="stat rv d2"><b data-count="20" data-suffix=" ans">20 ans</b><span>d’enseignement en moyenne par moniteur</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ÉQUIPE -->
+<section class="team">
+  <div class="wrap">
+    <p class="kicker rv" style="color:var(--jaune)">Qui sommes-nous</p>
+    <h2 class="h2 rv d1">Une équipe qui vous suit du code au permis</h2>
+    <p class="sub rv d2">L’auto-école CCR a été créée en 1985. Nos bureaux se situent à proximité de l’église Saint-Louis, du lycée Jean Puy, et à Renaison.</p>
+    <div class="team-grid">
+      <div class="tcard rv"><h3>Nos secrétaires</h3><p>Fortes de leurs 25 années d’expérience, elles vous conseillent et vous suivent durant tout votre parcours, de l’inscription au code jusqu’au passage du permis.</p><div class="names"><span>Isabelle</span><span>Laurence</span><span>Cyrielle</span></div></div>
+      <div class="tcard rv d1"><h3>Nos moniteurs auto</h3><p>Tous diplômés et expérimentés. Patrice et ses formations en sécurité routière, Gérald et son calme légendaire, Karyne, Cyrielle et Sandra pour aborder l’examen sereinement.</p><div class="names"><span>Patrice</span><span>Gérald</span><span>Karyne</span><span>Cyrielle</span><span>Sandra</span></div></div>
+      <div class="tcard rv d2"><h3>Notre moniteur moto</h3><p>Ancien gérant de l’auto-école, plus de 10 années d’expérience dans l’apprentissage des permis moto (AM, A1, A2, formation A). Il vous amènera à prendre du plaisir au guidon.</p><div class="names"><span>Raphaël</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AIDES -->
+<section id="aides">
+  <div class="wrap">
+    <p class="kicker rv">Aides au permis</p>
+    <h2 class="h2 rv d1">Un peu juste financièrement ? Il existe des solutions</h2>
+    <div class="aides">
+      <div class="aide rv"><img src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2019/11/logo-permis-1-euro-jour.png" alt="Permis à un euro par jour"><h3>Permis à un euro par jour</h3><p>Entre 15 et 25 ans : avec le contrat fait par l’auto-école, la banque verse jusqu’à 1 200 € directement à l’auto-école. Vous remboursez 30 € par mois, les intérêts sont pris en charge par l’État.</p></div>
+      <div class="aide rv d1"><img src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2020/11/moncompteformation-logo.jpg" alt="Mon compte formation"><h3>Compte CPF</h3><p>Financez tout ou partie de votre permis avec vos droits CPF si votre projet professionnel nécessite son obtention.</p></div>
+      <div class="aide rv d2"><span style="display:inline-grid;place-items:center;height:56px;padding:0 16px;margin-bottom:14px;border-radius:10px;background:var(--bleu-pale);font-family:var(--titre);font-weight:900;color:var(--bleu-fonce)">Aides locales</span><h3>France Travail &amp; Mission locale</h3><p>Nous collaborons avec France Travail (ex-Pôle emploi), la mission locale et les organismes de formation des entreprises, qui aident au financement du permis.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENCES -->
+<section class="agences" id="agences">
+  <div class="wrap">
+    <p class="kicker rv">Nos agences</p>
+    <h2 class="h2 rv d1">Trois agences, ouvertes en ce moment ?</h2>
+    <p class="sub rv d2">Les leçons peuvent être réservées dans nos trois agences. Le statut ci-dessous se met à jour selon l’heure actuelle.</p>
+    <div class="ag-grid" id="agGrid"></div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section id="avis">
+  <div class="wrap">
+    <p class="kicker rv">Livre d’or</p>
+    <h2 class="h2 rv d1">Ils sont passés par CCR</h2>
+    <div class="avis-grid">
+      <blockquote class="rv"><p>Ayant passé absolument tout chez CCR, du BSR au permis moto (en cours), je ne peux que recommander cette auto-école. Les moniteurs sont très pédagogues et l’apprentissage se fait dans la bonne humeur.</p><footer>Mendes — livre d’or, mars 2020</footer></blockquote>
+      <blockquote class="rv d1"><p>Très contente d’avoir choisi cette auto-école pour passer mon permis moto. Une équipe à l’écoute, performante, qui tient compte du bien-être de ses élèves. Un professeur au top, une équipe disponible et joviale.</p><footer>Aurélie V., Roanne — livre d’or, mars 2020</footer></blockquote>
+    </div>
+    <p class="opinion rv">Notre entreprise est adhérente à Opinion System, certifié ISO 20252, pour des avis clients contrôlés. <em>(Emplacement prévu pour le widget Opinion System officiel du CCR.)</em></p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--bleu-pale)">
+  <div class="wrap">
+    <p class="kicker rv">Contact</p>
+    <h2 class="h2 rv d1">Une question, une inscription ?</h2>
+    <div class="contact-box">
+      <form id="form" class="rv" novalidate>
+        <div class="frow">
+          <label>Nom*<input required name="nom" autocomplete="family-name"></label>
+          <label>Prénom<input name="prenom" autocomplete="given-name"></label>
+        </div>
+        <div class="frow">
+          <label>Email*<input required type="email" name="email" autocomplete="email"></label>
+          <label>Téléphone<input type="tel" name="tel" autocomplete="tel"></label>
+        </div>
+        <label>Agence souhaitée<select name="agence"><option>Saint Louis — Roanne</option><option>Jean Puy — Roanne</option><option>Renaison</option></select></label>
+        <label>Message<textarea name="message" id="msg" rows="6"></textarea></label>
+        <button class="btn btn-bleu" type="submit">Envoyer</button>
+        <p class="ok-msg" id="okMsg">Démonstration : dans la version finale, ce message part directement à l’agence choisie.</p>
+      </form>
+      <div class="rv d1">
+        <p style="margin-bottom:14px">Vous pouvez aussi nous écrire à <a href="mailto:ccrsaintlouis.autoecole@gmail.com"><b>ccrsaintlouis.autoecole@gmail.com</b></a> ou appeler directement l’agence la plus proche.</p>
+        <img src="https://www.centre-de-conduite-roannais.com/wp-content/uploads/2020/02/CCRrenaison-visuel_site-02.png" alt="Carte des agences CCR : Renaison, Jean Puy et Saint Louis à Roanne" style="border-radius:var(--rayon);box-shadow:var(--ombre)">
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>CCR – Centre de Conduite Roannais</h4>
+        <p>Auto-école à Roanne et Renaison depuis 1985. Code, permis B, conduite accompagnée et supervisée, boîte automatique, moto A2, A1, A, permis AM, récupération de points.</p>
+        <p style="margin-top:10px"><a href="https://www.facebook.com/Autoecoleccr/">Facebook</a> · <a href="https://www.instagram.com/ccrroannerenaison/">Instagram</a></p>
+      </div>
+      <div>
+        <h4>Nos agences</h4>
+        <ul>
+          <li>Saint Louis — 50 rue Brison, 42300 Roanne · <a href="tel:0477716173">04 77 71 61 73</a></li>
+          <li>Jean Puy — 8 rue Jean Puy, 42300 Roanne · <a href="tel:0477780447">04 77 78 04 47</a></li>
+          <li>Renaison — 554 rue du Collège, 42370 Renaison · <a href="tel:0477642297">04 77 64 22 97</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Infos</h4>
+        <ul>
+          <li><a href="#permis">Nos permis</a></li>
+          <li><a href="#simulateur">Simulateur de budget</a></li>
+          <li><a href="#aides">Aides au permis</a></li>
+          <li>Label « Qualité des formations au sein des écoles de conduite »</li>
+          <li>Récup’ de points : partenaire « permis à points »</li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">Maquette de démonstration non contractuelle réalisée à partir des contenus publics du site centre-de-conduite-roannais.com. Tarifs repris des pages du site actuel, indicatifs. Photos et vidéo : visuels déjà publiés par le CCR sur son site (aucune photo d’illustration ajoutée) ; photo de l’agence de Renaison à fournir par le client. Couleurs et polices reprises du logo et du site actuel, ajustables. Avis : messages publiés dans le livre d’or du site actuel.</p>
+  </div>
+</footer>
+
+<a href="tel:0477716173" class="btn btn-bleu fab" aria-label="Appeler l’agence Saint Louis">📞 Appeler</a>
+
+<script>
+const IMG='https://www.centre-de-conduite-roannais.com/wp-content/uploads/';
+/* ---------- Données réelles (site actuel) ---------- */
+const PERMIS=[
+ {id:'b',nom:'Permis B',court:'Automobile',ico:'2019/11/icone-automobile.svg',img:'2019/11/ccr-automobile-permis-b.jpg',txt:'Inscription possible à partir de 17 ans. 20 h minimum obligatoires, réservables dans nos 3 agences.',prix:'Formule Confort 1 399 € TTC'},
+ {id:'aac',nom:'Conduite accompagnée',court:'Accompagnée',ico:'2019/11/conduite-accompagnee.svg',img:'2019/11/ccr-conduite-accompagnee.jpg',txt:'Inscription possible à partir de 15 ans. Rendez-vous préalable de 2 h avec les futurs accompagnateurs.',prix:'Formule Confort 1 519 € TTC'},
+ {id:'ba',nom:'Boîte automatique',court:'Boîte auto',ico:'2019/11/icone-boite-auto.svg',img:'2019/11/ccr-boite-automatique.jpg',txt:'13 heures obligatoires au lieu de 20. Après 3 mois, une formation de 7 h permet de conduire une boîte manuelle.',prix:'Leçon 48 € TTC'},
+ {id:'a2',nom:'Permis moto A2',court:'Moto A2',ico:'2019/11/icone-moto.svg',img:'2019/11/ccr-permis-a2.jpg',txt:'Dès 18 ans. Cours par un moniteur diplômé de plus de 10 ans d’expérience comme formateur moto.',prix:'719 € TTC (20 h, plateau, circulation)'},
+ {id:'a1',nom:'Permis 125 cm³ (A1)',court:'125 cm³',ico:'2019/11/icone-125-cm3.svg',img:'2019/11/ccr-permis-125-cm3.jpg',txt:'Il vous suffit d’avoir 16 ans pour passer le permis moto A1.',prix:'719 € TTC + 30 € de taxe'},
+ {id:'am',nom:'Permis AM (scooter)',court:'Scooter AM',ico:'2019/11/icone-scooter.svg',img:'2019/11/ccr-permis-am.jpg',txt:'Dès 14 ans. 8 heures de formation, et après la formation, vous aurez un vrai permis !',prix:'Formule de 8 h · 260 € TTC'},
+ {id:'a',nom:'Formation permis A',court:'Moto A',ico:'2019/11/icone-moto.svg',img:'2019/11/ccr-permis-a.jpg',txt:'Après 2 ans de permis A2 et 20 ans minimum : 7 heures de formation, pas de permis à passer.',prix:'325 € TTC',hideCard:true}
+];
+/* Lignes de devis pour chaque permis, d’après les pages tarifs du site */
+function devis(id,s){
+  const L=[];const add=(t,v)=>L.push([t,v]);
+  const code=+s.code;
+  switch(id){
+   case 'b':
+    add('Formule Confort (frais, code + révision, code en ligne, livre, 18 h de conduite, 2 h simulateur, permis blanc, accompagnement examen, création ANTS)',1399);
+    if(s.hours) add(s.hours+' h de conduite supplémentaires × 48 €',s.hours*48);
+    break;
+   case 'aac':
+    add('Formule Confort conduite accompagnée (18 h de conduite, 2 h simulateur, 2 h de rendez-vous préalable, code, livre…)',1519);
+    if(s.hours) add(s.hours+' h de conduite supplémentaires × 48 €',s.hours*48);
+    break;
+   case 'ba':
+    add('Fournitures pédagogiques',60);add('Frais de dossier',60);
+    if(code){add('Forfait code illimité',code);add('Redevance SGS (examen du code)',30);}
+    add('Évaluation de départ',29);
+    add('13 h de conduite obligatoires × 48 €',13*48);
+    if(s.hours) add(s.hours+' h supplémentaires × 48 €',s.hours*48);
+    add('Accompagnement à l’examen pratique',48);
+    add('Création du permis sur ANTS',30);
+    if(s.book) add('Livre de code',15);
+    break;
+   case 'a2':
+    add('Évaluation de départ',29);
+    add('Formation A2 (frais de dossier, livret, 20 h, plateau, circulation)',719);
+    if(code) add('Forfait code moto (ETM)',code);
+    break;
+   case 'a1':
+    add('Évaluation de départ',29);
+    add('Formation A1 (frais de dossier, livret, 20 h, plateau, circulation)',719);
+    add('Taxe',30);
+    if(code) add('Forfait code (ETM)',code);
+    break;
+   case 'am':
+    add('Formule de 8 h (sensibilisation, théorie, pratique, code, livret, création ANTS)',260);
+    break;
+   case 'a':
+    add('Formation de 7 h (théorie, plateau, circulation, création ANTS)',325);
+    if(s.hours) add(s.hours+' leçon(s) supplémentaire(s) × 30 €',s.hours*30);
+    break;
+  }
+  if(s.famille) add('Carte famille',-30);
+  return L;
+}
+const CFG={ // quelles étapes afficher
+ b:{code:false,hours:true,book:false,rate:48},
+ aac:{code:false,hours:true,book:false,rate:48},
+ ba:{code:true,hours:true,book:true,rate:48},
+ a2:{code:true,hours:false,book:false},
+ a1:{code:true,hours:false,book:false},
+ am:{code:false,hours:false,book:false},
+ a:{code:false,hours:true,book:false,rate:30}
+};
+
+/* ---------- Cartes permis ---------- */
+document.getElementById('permisGrid').innerHTML=PERMIS.filter(p=>!p.hideCard).map((p,i)=>`
+ <article class="pcard rv d${i%3}">
+  <div class="ph"><img src="${IMG+p.img}" alt="${p.nom} — CCR" loading="lazy"></div>
+  <span class="ico"><img src="${IMG+p.ico}" alt=""></span>
+  <div class="body"><h3>${p.nom}</h3><p>${p.txt}</p><span class="price">${p.prix}</span>
+  <button type="button" data-sim="${p.id}">Simuler ce permis →</button></div>
+ </article>`).join('');
+
+/* ---------- Simulateur ---------- */
+const choices=document.getElementById('choices');
+choices.innerHTML=PERMIS.map((p,i)=>`<div class="choice"><input type="radio" name="permis" id="c-${p.id}" value="${p.id}" ${i===0?'checked':''}><label for="c-${p.id}"><img src="${IMG+p.ico}" alt="">${p.court}</label></div>`).join('');
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('fr-FR')+' €';
+let lastTotal=0;
+function calc(){
+  const id=document.querySelector('input[name=permis]:checked').value;
+  const c=CFG[id];const p=PERMIS.find(x=>x.id===id);
+  $('stepCode').style.display=c.code?'':'none';
+  $('stepHours').style.display=c.hours?'':'none';
+  $('optBook').style.display=c.book?'':'none';
+  $('hNum').textContent=2+(c.code?1:0);$('optNum').textContent=2+(c.code?1:0)+(c.hours?1:0);
+  $('codeHint').textContent=id==='ba'?'Code en salle corrigé par nos moniteurs, ou sur votre smartphone avec le code mobile.':'Code moto (ETM) : si vous avez déjà le permis B depuis moins de 5 ans, choisissez « Déjà obtenu ».';
+  $('hoursHint').textContent=id==='a'?'Leçon de conduite supplémentaire si besoin : 30 € TTC.':'À ajuster après l’évaluation de départ. Leçon d’une heure : 48 € TTC.';
+  const s={code:c.code?document.querySelector('input[name=code]:checked').value:0,hours:c.hours?+$('hours').value:0,book:c.book&&$('book').checked,famille:$('famille').checked};
+  $('hoursVal').textContent=s.hours+' h';
+  const L=devis(id,s);const total=L.reduce((a,b)=>a+b[1],0);
+  $('resTitle').textContent=p.nom+(id==='b'||id==='aac'?' – Formule Confort':'');
+  $('lines').innerHTML=L.map(([t,v])=>`<li class="${v<0?'minus':''}"><span>${t}</span><span>${v<0?'− '+fmt(-v):fmt(v)}</span></li>`).join('');
+  animateTotal(total);
+  const fin=$('fin');
+  if($('unEuro').checked){
+    const f=Math.min(total,1200);const mois=Math.ceil(f/30);const reste=total-f;
+    fin.hidden=false;
+    fin.innerHTML=`<b>Permis à un euro par jour</b><br>La banque verse jusqu’à <b>${fmt(f)}</b> à l’auto-école, vous remboursez <b>30 € par mois</b> pendant ${mois} mois, sans intérêts.${reste>0?`<br>Reste à régler : <b>${fmt(reste)}</b>.`:''}<br><small style="opacity:.7">Sous réserve d’accord de votre banque.</small>`;
+  } else fin.hidden=true;
+  const body=`Bonjour,%0D%0AJe souhaite un devis pour : ${encodeURIComponent($('resTitle').textContent)} (estimation simulateur : ${encodeURIComponent(fmt(total))}).%0D%0A`;
+  $('sendBtn').dataset.msg=decodeURIComponent(body.replace(/%0D%0A/g,'\n'));
+}
+function animateTotal(t){
+  const el=$('total');const from=lastTotal;lastTotal=t;const t0=performance.now();
+  el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');
+  (function step(now){const k=Math.min(1,(now-t0)/450);const v=Math.round(from+(t-from)*(1-Math.pow(1-k,3)));el.innerHTML=fmt(v)+'<small> TTC</small>';if(k<1)requestAnimationFrame(step);})(t0);
+}
+document.querySelectorAll('#simulateur input').forEach(i=>i.addEventListener('input',calc));
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-sim]');if(!b)return;
+  $('c-'+b.dataset.sim).checked=true;calc();$('simulateur').scrollIntoView({behavior:'smooth'});
+});
+$('sendBtn').addEventListener('click',()=>{ $('msg').value=$('sendBtn').dataset.msg||''; });
+calc();
+
+/* ---------- Agences + statut ouvert/fermé (heure de Paris) ---------- */
+// Horaires repris de la page d’accueil du site actuel. 0=dimanche … 6=samedi
+const AG=[
+ {id:'stlouis',nom:'Saint Louis',adr:'50 rue Brison, 42300 Roanne',tel:'04 77 71 61 73',agr:'E1904200090',img:'2019/11/IMG_0705-scaled-600x400.jpg',
+  h:{1:[[14,18]],2:[[10,12],[14,18]],3:[[10,12],[14,18]],4:[[10,12],[14,18]],5:[[10,12],[14,18]],6:[[10,12]]}},
+ {id:'jeanpuy',nom:'Jean Puy',adr:'8 rue Jean Puy, 42300 Roanne',tel:'04 77 78 04 47',agr:'E1904200100',img:'2019/11/IMG_0697copier-scaled-600x400.jpg',
+  h:{1:[[10,12],[14,18]],2:[[10,12],[14,18]],3:[[10,12],[14,18]],4:[[10,12],[14,18]],5:[[10,12],[14,18]],6:[[10,12]]}},
+ {id:'renaison',nom:'Renaison',adr:'554 rue du Collège, 42370 Renaison',tel:'04 77 64 22 97',agr:'E2504200060',img:null,
+  h:{1:[[17,19]],2:[[17,19]],3:[[16,19]],4:[[17,19]],5:[[17,19]],6:[[10,12]]}}
+];
+const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+function parisNow(){
+  const p=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  const g=t=>p.find(x=>x.type===t).value;const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(g('weekday'));
+  return {d:wd,m:(+g('hour')%24)*60+(+g('minute'))};
+}
+function etat(a){
+  const n=parisNow();const today=a.h[n.d]||[];
+  for(const [o,c] of today){ if(n.m>=o*60&&n.m<c*60) return {open:true,txt:'Ouvert · ferme à '+c+'h'}; }
+  for(const [o] of today){ if(n.m<o*60) return {open:false,txt:'Fermé · ouvre à '+o+'h'}; }
+  for(let k=1;k<=7;k++){const d=(n.d+k)%7;if(a.h[d]){return {open:false,txt:'Fermé · ouvre '+(k===1?'demain':JOURS[d])+' à '+a.h[d][0][0]+'h'};}}
+  return {open:false,txt:'Fermé'};
+}
+const hTxt=r=>r.map(([o,c])=>o+'h – '+c+'h').join(' · ');
+function renderAg(){
+  const n=parisNow();
+  $('agGrid').innerHTML=AG.map((a,i)=>{const e=etat(a);
+   const rows=[1,2,3,4,5,6].map(d=>`<tr class="${d===n.d?'today':''}"><td>${JOURS[d]}</td><td>${a.h[d]?hTxt(a.h[d]):'fermé'}</td></tr>`).join('');
+   return `<article class="ag rv in">
+    <div class="ph">${a.img?`<img src="${IMG+a.img}" alt="Agence CCR ${a.nom}" loading="lazy">`:`<div class="vide">Photo de l’agence de Renaison<br><b>à fournir par le client</b></div>`}
+     <span class="status"><span class="dot ${e.open?'on':'off'}"></span>${e.txt}</span></div>
+    <div class="body"><h3>${a.nom}</h3><p>${a.adr}</p><table>${rows}</table><p class="agr">N° agrément ${a.agr}</p>
+     <div class="acts"><a class="btn btn-bleu" href="tel:${a.tel.replace(/ /g,'')}">${a.tel}</a><a class="btn btn-line" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Centre de Conduite Roannais '+a.adr)}">Itinéraire</a></div></div>
+   </article>`}).join('');
+  $('heroChips').innerHTML=AG.map(a=>{const e=etat(a);return `<a class="chip" href="tel:${a.tel.replace(/ /g,'')}"><b><span class="dot ${e.open?'on':''}"></span> ${a.nom}</b>${e.txt}</a>`}).join('');
+  document.querySelectorAll('.topbar .dot').forEach(d=>{const a=AG.find(x=>x.id===d.dataset.ag);d.classList.toggle('on',etat(a).open);});
+}
+renderAg();setInterval(renderAg,60000);
+
+/* ---------- Header, progression, menu ---------- */
+const hdr=$('hdr'),prog=$('progress');
+addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',scrollY>20);const h=document.documentElement;prog.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%';},{passive:true});
+const burger=$('burger'),menu=$('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);});
+menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded',false);}});
+addEventListener('keydown',e=>{if(e.key==='Escape'){menu.classList.remove('open');burger.setAttribute('aria-expanded',false);}});
+
+/* ---------- Apparitions + compteurs ---------- */
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if('IntersectionObserver' in window&&!reduce){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);
+    en.target.querySelectorAll?.('[data-count]').forEach(countUp); if(en.target.matches('[data-count]'))countUp(en.target);}}),{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+}else document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+function countUp(el){
+  if(el.dataset.done)return;el.dataset.done=1;const end=+el.dataset.count,suf=el.dataset.suffix||'';const start=el.dataset.plain!==undefined?end-40:0;const t0=performance.now();
+  (function s(n){const k=Math.min(1,(n-t0)/1400);el.textContent=Math.round(start+(end-start)*(1-Math.pow(1-k,3)))+suf;if(k<1)requestAnimationFrame(s);})(t0);
+}
+document.querySelectorAll('.stat').forEach(st=>{const b=st.querySelector('[data-count]');if(b&&!reduce)new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){countUp(b);o.disconnect();}},{threshold:.5}).observe(st);});
+
+/* ---------- Formulaire (démo) ---------- */
+$('form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.checkValidity()){f.reportValidity();return;}$('okMsg').style.display='block';});
+
+/* Vidéo : pas d’autoplay si mouvement réduit */
+if(reduce){const v=document.querySelector('.hero video');v.removeAttribute('autoplay');v.pause();}
+</script>
+</body>
+</html>
