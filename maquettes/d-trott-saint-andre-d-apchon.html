@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D'TROTT — Balades en trottinette électrique dans le Roannais</title>
+<meta name="description" content="D'TROTT : balades et location de trottinettes électriques tout-terrain dans le Roannais, Côte roannaise, Loire et lac de Cublize. Familles, groupes, EVJF, séminaires.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Raleway:ital,wght@0,400;0,500;0,700;0,800;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE D'TROTT — reprise du site actuel dtrott.fr
+   Logo : noir + vert anis (traits de vitesse, guidon)
+   Polices déjà utilisées sur le site : Anton (menu),
+   Caveat (titres manuscrits), Raleway (texte), Playfair italique
+   Valeurs de couleur approchées depuis le logo : ajustables ici.
+   ========================================================== */
+:root{
+  --vert:#8cc63f;          /* vert anis du logo */
+  --vert-fonce:#5f9a1c;    /* survols, textes sur fond clair */
+  --menthe:#20ce88;        /* vert de l'onglet actif du site actuel */
+  --noir:#141414;          /* noir du logo */
+  --gris:#5f6360;
+  --fond:#ffffff;
+  --fond-doux:#f4f7ef;
+  --ligne:#e3e8dc;
+  --f-titre:'Caveat',cursive;
+  --f-label:'Anton',Impact,sans-serif;
+  --f-texte:'Raleway',system-ui,sans-serif;
+  --f-cite:'Playfair Display',Georgia,serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--noir);background:var(--fond);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:#fff;font-size:.78rem;text-align:center;padding:7px 12px;letter-spacing:.02em}
+.demo b{color:var(--vert)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s, box-shadow .3s}
+header.scrolled{border-color:var(--ligne);box-shadow:0 6px 24px rgba(0,0,0,.05)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:78px}
+.nav__logo img{height:54px;width:auto}
+.nav__links{display:flex;gap:26px;list-style:none}
+.nav__links a{font-family:var(--f-label);text-transform:uppercase;font-size:.92rem;letter-spacing:.03em;text-decoration:none;position:relative;padding:4px 0}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-2px;height:3px;width:100%;background:var(--vert);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav__links a:hover::after,.nav__links a.on::after{transform:scaleX(1)}
+.nav__links a.on{color:var(--menthe)}
+.nav__cta{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-label);text-transform:uppercase;letter-spacing:.04em;font-size:1rem;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:14px 24px;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:active{transform:scale(.96)}
+.btn--vert{background:var(--vert);color:var(--noir);box-shadow:0 8px 22px rgba(140,198,63,.35)}
+.btn--vert:hover{background:var(--noir);color:var(--vert);transform:translateY(-2px)}
+.btn--ligne{background:transparent;color:var(--noir);box-shadow:inset 0 0 0 2px var(--noir)}
+.btn--ligne:hover{background:var(--noir);color:#fff}
+.btn--blanc{background:#fff;color:var(--noir)}
+.btn--blanc:hover{background:var(--vert)}
+.tel{font-family:var(--f-label);font-size:1.05rem;text-decoration:none;white-space:nowrap}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:3px;background:var(--noir);margin:6px 8px;border-radius:3px;transition:.3s}
+@media (max-width:980px){
+  .nav__links{position:fixed;inset:78px 0 auto 0;flex-direction:column;background:#fff;padding:24px 16px;gap:18px;border-bottom:1px solid var(--ligne);transform:translateY(-110%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;z-index:-1}
+  .nav__links.open{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+  .burger{display:block}
+  .nav__cta .btn{display:none}
+}
+@media (max-width:520px){.tel{display:none}.nav__logo img{height:44px}}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 110px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:0;z-index:-2}
+.hero__img img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:zoom 14s var(--ease) forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.05) 20%,rgba(0,0,0,.72) 100%)}
+.hero__inner{padding:120px 0 72px}
+.speed{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.speed i{display:block;height:9px;border-radius:9px;background:var(--vert);transform-origin:right;animation:dash 1.1s var(--ease) both}
+.speed i:nth-child(1){width:74px}
+.speed i:nth-child(2){width:52px;margin-left:22px;animation-delay:.12s}
+.speed i:nth-child(3){width:38px;margin-left:36px;animation-delay:.24s}
+@keyframes dash{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+.hero h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(2.8rem,1.6rem + 5.5vw,6.2rem);line-height:.95;max-width:15ch;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.hero h1 em{font-style:normal;color:var(--vert)}
+.hero__base{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.08em;font-size:clamp(.95rem,.8rem + .5vw,1.2rem);margin:18px 0 6px;color:var(--vert)}
+.hero p.lead{max-width:56ch;font-size:clamp(1rem,.95rem + .3vw,1.18rem);opacity:.95}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero .btn--ligne{color:#fff;box-shadow:inset 0 0 0 2px #fff}
+.hero .btn--ligne:hover{background:#fff;color:var(--noir)}
+.label-vd{position:absolute;right:max(16px,calc((100% - 1180px)/2));top:28px;width:84px;border-radius:8px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:rotate(4deg);transition:transform .4s var(--ease)}
+.label-vd:hover{transform:rotate(0) scale(1.05)}
+.reveal-line{display:inline-block;overflow:hidden;vertical-align:top}
+.reveal-line>span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+@keyframes up{to{transform:none}}
+
+/* Bandeau occasions */
+.occasions{background:var(--noir);color:#fff;overflow:hidden;padding:18px 0}
+.occasions__track{display:flex;gap:44px;width:max-content;animation:defile 38s linear infinite}
+.occasions span{font-family:var(--f-label);text-transform:uppercase;font-size:1.25rem;letter-spacing:.04em;white-space:nowrap;display:flex;align-items:center;gap:44px}
+.occasions span::after{content:"";width:26px;height:6px;border-radius:6px;background:var(--vert)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,8vw,120px) 0}
+.eyebrow{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.1em;color:var(--vert-fonce);font-size:.9rem;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:4px;border-radius:4px;background:var(--vert)}
+h2{font-family:var(--f-titre);font-weight:700;font-size:clamp(2.3rem,1.6rem + 3vw,4rem);line-height:1;margin:10px 0 18px}
+.intro{max-width:62ch;color:var(--gris);font-size:1.06rem}
+.r{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.in{opacity:1;transform:none}
+
+/* Accueil texte + lieux */
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:center}
+@media (max-width:880px){.split{grid-template-columns:1fr}}
+.photo-stack{position:relative;aspect-ratio:4/4.2}
+.photo-stack img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 24px 60px rgba(0,0,0,.18)}
+.photo-stack img:nth-child(1){inset:0 18% 22% 0;width:82%;height:78%}
+.photo-stack img:nth-child(2){right:0;bottom:0;width:56%;height:52%;border:6px solid #fff}
+.lieux{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:46px}
+@media (max-width:980px){.lieux{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.lieux{grid-template-columns:1fr}}
+.lieu{background:var(--fond-doux);border-radius:var(--r);padding:26px 22px;position:relative;overflow:hidden;transition:transform .35s var(--ease),background .35s}
+.lieu:hover{transform:translateY(-6px);background:#eaf3dc}
+.lieu svg{width:40px;height:40px;stroke:var(--noir);fill:none;stroke-width:1.8;margin-bottom:14px}
+.lieu h3{font-family:var(--f-label);text-transform:uppercase;font-weight:400;font-size:1.2rem;letter-spacing:.02em}
+.lieu p{color:var(--gris);font-size:.95rem;margin-top:6px}
+.lieu::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:var(--vert);opacity:.18;transition:transform .5s var(--ease)}
+.lieu:hover::after{transform:scale(1.6)}
+
+/* Outil */
+.outil{background:var(--fond-doux)}
+.outil__grid{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;margin-top:40px;align-items:start}
+@media (max-width:980px){.outil__grid{grid-template-columns:1fr}}
+.etape{background:#fff;border-radius:var(--r);padding:26px;border:1px solid var(--ligne);margin-bottom:16px}
+.etape h3{font-family:var(--f-label);font-weight:400;text-transform:uppercase;font-size:1.05rem;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.etape h3 b{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--noir);color:var(--vert);font-weight:400;font-size:.95rem}
+.choix{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.choix input{position:absolute;opacity:0;pointer-events:none}
+.choix label{display:block;cursor:pointer;border:2px solid var(--ligne);border-radius:14px;padding:14px 16px;transition:border-color .25s,background .25s,transform .2s;height:100%}
+.choix label:hover{border-color:var(--vert)}
+.choix input:checked+label{border-color:var(--noir);background:var(--noir);color:#fff}
+.choix input:checked+label small{color:#cfd8c4}
+.choix input:focus-visible+label{outline:3px solid var(--vert);outline-offset:2px}
+.choix strong{display:block;font-family:var(--f-label);font-weight:400;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em}
+.choix small{color:var(--gris);font-size:.85rem;display:block;line-height:1.35;margin-top:3px}
+.choix .prix{font-family:var(--f-label);color:var(--vert-fonce);font-size:1.1rem;margin-top:6px;display:block}
+.choix input:checked+label .prix{color:var(--vert)}
+.compteur{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.compteur button{width:48px;height:48px;border-radius:50%;border:2px solid var(--noir);background:#fff;font-size:1.5rem;cursor:pointer;transition:background .2s,transform .15s}
+.compteur button:hover{background:var(--vert)}
+.compteur button:active{transform:scale(.9)}
+.compteur output{font-family:var(--f-label);font-size:2.4rem;min-width:2ch;text-align:center}
+.flotte{display:flex;gap:4px;flex-wrap:wrap;flex:1;min-width:140px}
+.flotte i{width:22px;height:22px;border-radius:50%;background:var(--vert);display:block;animation:pop .35s var(--ease)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.option{display:flex;gap:14px;align-items:flex-start;cursor:pointer;padding:14px;border-radius:14px;border:2px solid var(--ligne);transition:border-color .25s}
+.option:hover{border-color:var(--vert)}
+.option input{width:22px;height:22px;accent-color:var(--vert);margin-top:3px;flex:none}
+.option small{color:var(--gris);display:block}
+.note{font-size:.85rem;color:var(--gris);margin-top:10px}
+.champ{display:grid;gap:6px;margin-bottom:12px}
+.champ label{font-weight:700;font-size:.9rem}
+.champ input,.champ select,.champ textarea{font:inherit;padding:12px 14px;border:2px solid var(--ligne);border-radius:12px;background:#fff}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--vert);outline:none}
+.recap{position:sticky;top:100px;background:var(--noir);color:#fff;border-radius:22px;padding:28px;overflow:hidden}
+.recap::before{content:"";position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;border-radius:50%;background:var(--vert);opacity:.15}
+.recap h3{font-family:var(--f-titre);font-size:2.2rem;font-weight:700;line-height:1}
+.recap dl{margin:20px 0;display:grid;gap:10px}
+.recap dl div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.18);padding-bottom:8px;font-size:.95rem}
+.recap dt{color:#bfc7b6}
+.recap dd{text-align:right;font-weight:700}
+.total{font-family:var(--f-label);font-size:3rem;color:var(--vert);line-height:1;transition:transform .3s var(--ease)}
+.total.bump{transform:scale(1.08)}
+.total small{font-size:1rem;color:#fff;font-family:var(--f-texte);display:block;margin-top:6px;font-weight:400}
+.alerte{background:rgba(140,198,63,.14);border-left:4px solid var(--vert);padding:10px 12px;border-radius:8px;font-size:.88rem;margin-top:14px}
+.recap .btn{width:100%;justify-content:center;margin-top:16px}
+.recap .petit{font-size:.78rem;color:#aab2a2;margin-top:14px;line-height:1.45}
+
+/* Déroulé */
+.deroule{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:44px;counter-reset:s}
+@media (max-width:900px){.deroule{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.deroule{grid-template-columns:1fr}}
+.pas{border-top:4px solid var(--noir);padding-top:18px;position:relative}
+.pas::before{counter-increment:s;content:"0" counter(s);font-family:var(--f-label);font-size:2.6rem;color:var(--vert);line-height:1}
+.pas h3{font-family:var(--f-label);font-weight:400;text-transform:uppercase;margin:10px 0 6px;font-size:1.1rem}
+.pas p{color:var(--gris);font-size:.95rem}
+.pas::after{content:"";position:absolute;left:0;top:-4px;height:4px;width:0;background:var(--vert);transition:width 1.2s var(--ease)}
+.pas.in::after{width:100%}
+
+/* Apéro Trott */
+.apero{background:var(--noir);color:#fff;position:relative;overflow:hidden}
+.apero .intro{color:#c9d1c0}
+.apero__img{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
+.apero__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.apero__img:hover img{transform:scale(1.05)}
+.badge{display:flex;gap:14px;align-items:center;margin-top:24px;background:rgba(255,255,255,.06);border-radius:14px;padding:14px}
+.badge img{width:56px;border-radius:6px}
+.badge p{font-size:.92rem;color:#d8dfd0}
+
+/* Guide */
+.guide{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,70px);align-items:center}
+@media (max-width:880px){.guide{grid-template-columns:1fr}}
+.guide__img{border-radius:50% 50% var(--r) var(--r);overflow:hidden;aspect-ratio:4/5;max-width:420px}
+.guide__img img{width:100%;height:100%;object-fit:cover}
+blockquote{font-family:var(--f-cite);font-style:italic;font-size:clamp(1.25rem,1rem + 1vw,1.8rem);line-height:1.35;margin:16px 0}
+.faits{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.faits span{background:var(--fond-doux);border-radius:999px;padding:8px 16px;font-size:.9rem;font-weight:700}
+
+/* Galerie */
+.galerie{overflow:hidden;padding-bottom:40px}
+.galerie__track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:30px 16px 20px;scrollbar-width:thin}
+.galerie__track figure{flex:0 0 clamp(240px,34vw,420px);aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;scroll-snap-align:center}
+.galerie__track img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.galerie__track figure:hover img{transform:scale(1.06)}
+
+/* FAQ */
+.faq{max-width:860px}
+details{border-bottom:1px solid var(--ligne);padding:18px 0}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-weight:800;font-size:1.05rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:var(--f-label);font-size:1.6rem;line-height:1;color:var(--vert-fonce);transition:transform .3s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--gris);margin-top:10px;max-width:70ch}
+
+/* Contact */
+.contact{background:var(--vert);position:relative;overflow:hidden}
+.contact .eyebrow{color:var(--noir)}
+.contact .eyebrow::before{background:var(--noir)}
+.contact__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+@media (max-width:880px){.contact__grid{grid-template-columns:1fr}}
+.carte{background:#fff;border-radius:22px;padding:28px}
+.coord{display:grid;gap:16px;margin-top:10px}
+.coord a,.coord div{display:flex;gap:14px;align-items:center;text-decoration:none;font-weight:700}
+.coord svg{width:42px;height:42px;padding:10px;border-radius:50%;background:var(--noir);stroke:var(--vert);fill:none;stroke-width:2;flex:none}
+.contact h2{color:var(--noir)}
+
+footer{background:var(--noir);color:#bfc7b6;padding:48px 0 30px;font-size:.88rem}
+footer .wrap{display:grid;gap:20px}
+footer img{height:46px;width:auto;background:#fff;border-radius:8px;padding:4px 8px}
+footer .mention{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;font-size:.8rem;line-height:1.55}
+footer a{color:var(--vert)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .r{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"SportsActivityLocation",
+  "name":"D'TROTT",
+  "alternateName":"D'COM TROT",
+  "description":"Balades et location de trottinettes électriques tout-terrain dans le Roannais : Côte roannaise, bords de Loire, lac de Cublize.",
+  "url":"https://www.dtrott.fr",
+  "telephone":"+33608121976",
+  "email":"contactdenis@ereplay.net",
+  "image":"https://static.wixstatic.com/media/aa6dd1_f0d6e9d4c6924f3888e92c784c071d3e~mv2.jpg",
+  "logo":"https://static.wixstatic.com/media/aa6dd1_c9d0a77622c44589bacb1aad103b314a~mv2.jpg",
+  "address":{"@type":"PostalAddress","addressLocality":"Saint-André-d'Apchon","postalCode":"42370","addressCountry":"FR"},
+  "areaServed":["Roanne","Côte roannaise","Saint-André-d'Apchon","Cublize","Roannais"],
+  "priceRange":"30 € – 80 €",
+  "parentOrganization":{"@type":"Organization","name":"ERE PLAY","legalName":"SASU ERE PLAY"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour <b>D'TROTT</b>, non officielle. Tarifs repris du site actuel, indicatifs.</div>
+
+<header id="top">
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a class="nav__logo" href="#top" aria-label="D'TROTT, accueil"><img src="https://static.wixstatic.com/media/aa6dd1_c9d0a77622c44589bacb1aad103b314a~mv2.jpg/v1/fill/w_400,h_212,al_c,q_85/logo.jpg" alt="D'TROTT, l'aventure en trottinette"></a>
+    <ul class="nav__links" id="menu">
+      <li><a href="#top" class="on">Accueil</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#galerie">Vidéo &amp; photos</a></li>
+      <li><a href="#cgl">CGL Trott</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav__cta">
+      <a class="tel" href="tel:+33608121976">06.08.12.19.76</a>
+      <a class="btn btn--vert" href="#tarifs">Réserver ma Trot'</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="hero__img"><img src="https://static.wixstatic.com/media/aa6dd1_f0d6e9d4c6924f3888e92c784c071d3e~mv2.jpg/v1/fill/w_1920,h_1100,al_c,q_85/trottinettes.jpg" alt="Trottinettes électriques tout-terrain D'TROTT alignées au coucher du soleil"></div>
+  <a class="label-vd" href="#apero-trott" title="Label Vignobles & Découvertes"><img src="https://static.wixstatic.com/media/aa6dd1_609c6aaa729f475ab08c80d53be9820a~mv2.jpg/v1/fill/w_216,h_274,al_c,q_85/label.jpg" alt="Label Vignobles & Découvertes"></a>
+  <div class="wrap hero__inner">
+    <div class="speed" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h1><span class="reveal-line"><span>Trottinettes électriques</span></span> <span class="reveal-line"><span style="animation-delay:.15s"><em>roannaises</em></span></span></h1>
+    <p class="hero__base">L'aventure en trottinette</p>
+    <p class="lead">À quelques minutes de Roanne, en Côte roannaise ou près de chez vous ! Venez vous amuser et vous défouler en pleine nature, en famille ou entre amis.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--vert" href="#tarifs">Composer ma balade</a>
+      <a class="btn btn--ligne" href="tel:+33608121976">Appeler Denis</a>
+    </div>
+  </div>
+</section>
+
+<div class="occasions" aria-label="Occasions">
+  <div class="occasions__track">
+    <span>Séminaires</span><span>Balades en famille</span><span>Cousinades</span><span>Anniversaires</span><span>EVJF</span><span>EVG</span><span>Dégustations</span><span>Découvertes</span><span>Team-building</span>
+    <span aria-hidden="true">Séminaires</span><span aria-hidden="true">Balades en famille</span><span aria-hidden="true">Cousinades</span><span aria-hidden="true">Anniversaires</span><span aria-hidden="true">EVJF</span><span aria-hidden="true">EVG</span><span aria-hidden="true">Dégustations</span><span aria-hidden="true">Découvertes</span><span aria-hidden="true">Team-building</span>
+  </div>
+</div>
+
+<section id="accueil">
+  <div class="wrap split">
+    <div class="r">
+      <p class="eyebrow">D'TROTT de SAS ERE PLAY</p>
+      <h2>Vous accueille et organise des moments de détente et de loisirs</h2>
+      <p class="intro">Sur des sites autour de la région roannaise qui regorgent de trésors, de gourmandises et de lieux de découvertes. Joueurs, sportifs, amateurs, peu importe ! Les trottinettes tout-terrain, de la marque française Zosh, se prennent en main en quelques minutes, même sans connaître les engins à deux roues.</p>
+      <div class="hero__ctas"><a class="btn btn--ligne" href="#deroule">Comment ça se passe</a></div>
+    </div>
+    <div class="photo-stack r">
+      <img src="https://static.wixstatic.com/media/aa6dd1_37938d6929fd4fffb6001f139bc4cd58~mv2.jpg/v1/fill/w_900,h_900,al_c,q_80/groupe.jpg" alt="Groupe en trottinettes électriques au milieu des vignes" loading="lazy">
+      <img src="https://static.wixstatic.com/media/aa6dd1_029935cbae6d45a3b16c0365021776ff~mv2.jpg/v1/fill/w_700,h_640,al_c,q_80/balade.jpg" alt="Deux personnes avec leurs trottinettes tout-terrain" loading="lazy">
+    </div>
+  </div>
+  <div class="wrap lieux">
+    <article class="lieu r"><svg viewBox="0 0 24 24"><path d="M2 17c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 12c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></svg><h3>Roanne</h3><p>Le long de la Loire, à quelques minutes du centre.</p></article>
+    <article class="lieu r"><svg viewBox="0 0 24 24"><circle cx="9" cy="14" r="3"/><circle cx="15" cy="14" r="3"/><circle cx="12" cy="9" r="3"/><path d="M12 6V2"/></svg><h3>Côte roannaise</h3><p>Entre les vignes, sur les coteaux, au départ de Saint-André-d'Apchon.</p></article>
+    <article class="lieu r"><svg viewBox="0 0 24 24"><path d="M3 18h18"/><path d="M5 18l5-9 3 5 2-3 4 7"/></svg><h3>Lac de Cublize</h3><p>Une sortie nature côté Rhône, autour du lac.</p></article>
+    <article class="lieu r"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><h3>Près de chez vous</h3><p>Denis amène les trottinettes au point de départ choisi, dans un rayon de 40 km autour de Roanne.</p></article>
+  </div>
+</section>
+
+<section class="outil" id="tarifs">
+  <div class="wrap">
+    <p class="eyebrow">Louez D'Trott, tout simplement</p>
+    <h2>Composez votre balade</h2>
+    <p class="intro">Choisissez la formule, le nombre de trottinettes et le lieu : le montant se calcule tout seul, et votre demande part directement chez Denis avec tous les détails.</p>
+
+    <div class="outil__grid">
+      <form id="resa" onsubmit="return false">
+        <div class="etape">
+          <h3><b>1</b> La formule</h3>
+          <div class="choix" role="radiogroup" aria-label="Formule">
+            <div><input type="radio" name="f" id="f1" value="1h" data-prix="30" checked><label for="f1"><strong>Trott'in plus 1h</strong><small>Partez en vadrouille pour un parcours d'au moins 1 h</small><span class="prix">30 €</span></label></div>
+            <div><input type="radio" name="f" id="f2" value="2h" data-prix="50"><label for="f2"><strong>Trott'in plus 2h</strong><small>Un parcours d'au moins 2 h</small><span class="prix">50 €</span></label></div>
+            <div><input type="radio" name="f" id="f3" value="demi" data-prix="80"><label for="f3"><strong>Demi-journée</strong><small>Location d'au moins 4 heures</small><span class="prix">80 €</span></label></div>
+          </div>
+        </div>
+
+        <div class="etape">
+          <h3><b>2</b> Combien de trottinettes ?</h3>
+          <div class="compteur">
+            <button type="button" id="moins" aria-label="Retirer une trottinette">−</button>
+            <output id="nb" aria-live="polite">2</output>
+            <button type="button" id="plus" aria-label="Ajouter une trottinette">+</button>
+            <div class="flotte" id="flotte" aria-hidden="true"></div>
+          </div>
+          <p class="note">Dès 14 ans, une personne majeure responsable obligatoire dans le groupe. Tarif de groupe à partir de 10 participants.</p>
+        </div>
+
+        <div class="etape">
+          <h3><b>3</b> Le lieu et l'occasion</h3>
+          <div class="choix" role="radiogroup" aria-label="Lieu">
+            <div><input type="radio" name="l" id="l1" value="Côte roannaise" checked><label for="l1"><strong>Côte roannaise</strong></label></div>
+            <div><input type="radio" name="l" id="l2" value="Roanne, bords de Loire"><label for="l2"><strong>Roanne</strong></label></div>
+            <div><input type="radio" name="l" id="l3" value="Lac de Cublize"><label for="l3"><strong>Cublize</strong></label></div>
+            <div><input type="radio" name="l" id="l4" value="Près de chez nous (livraison)"><label for="l4"><strong>Chez vous</strong><small>40 km autour de Roanne</small></label></div>
+          </div>
+          <div class="champ" style="margin-top:16px">
+            <label for="occ">Occasion</label>
+            <select id="occ"><option>Balade en famille</option><option>Entre amis</option><option>Anniversaire</option><option>Cousinade</option><option>EVJF</option><option>EVG</option><option>Séminaire / team-building</option><option>Découverte du vignoble</option></select>
+          </div>
+        </div>
+
+        <div class="etape">
+          <h3><b>4</b> En plus</h3>
+          <label class="option"><input type="checkbox" id="apero"><span><strong>Apéro Trott — 18 € / pers.</strong><small>En complément d'une balade, découvrez et dégustez les produits locaux. Minimum 5 participants.</small></span></label>
+          <label class="option" style="margin-top:10px"><input type="checkbox" id="cadeau"><span><strong>C'est pour offrir</strong><small>Possibilité d'offrir un bon cadeau.</small></span></label>
+        </div>
+
+        <div class="etape">
+          <h3><b>5</b> Vos coordonnées</h3>
+          <div class="champ"><label for="date">Date souhaitée</label><input type="date" id="date"></div>
+          <div class="champ"><label for="nom">Nom</label><input id="nom" autocomplete="name"></div>
+          <div class="champ"><label for="telc">Téléphone</label><input id="telc" type="tel" autocomplete="tel"></div>
+        </div>
+      </form>
+
+      <aside class="recap" aria-live="polite">
+        <h3>Votre sortie</h3>
+        <dl>
+          <div><dt>Formule</dt><dd id="rF">Trott'in plus 1h</dd></div>
+          <div><dt>Trottinettes</dt><dd id="rN">2</dd></div>
+          <div><dt>Lieu</dt><dd id="rL">Côte roannaise</dd></div>
+          <div><dt>Apéro Trott</dt><dd id="rA">non</dd></div>
+        </dl>
+        <div class="total" id="total">60 €<small>montant indicatif</small></div>
+        <div class="alerte" id="msg" hidden></div>
+        <a class="btn btn--vert" id="envoyer" href="#">Envoyer ma demande</a>
+        <a class="btn btn--blanc" href="tel:+33608121976">06.08.12.19.76</a>
+        <p class="petit">La réservation est validée à réception du paiement total. Caution de 500 € (non débitée) par trottinette + pièce d'identité avant le départ. Annulation remboursée en totalité si elle intervient plus de 7 jours avant.</p>
+      </aside>
+    </div>
+    <p class="note" style="margin-top:24px">Aussi sur devis : promotions événementielles pour pros et associations (la trottinette devient un support média pour vos évènements), et « Idées qui trott…ent » — une journée clé en main avec d'autres activités.</p>
+  </div>
+</section>
+
+<section id="deroule">
+  <div class="wrap">
+    <p class="eyebrow">Le jour J</p>
+    <h2>Comment ça se passe</h2>
+    <div class="deroule">
+      <div class="pas r"><h3>On vous attend</h3><p>Arrivée 15 minutes avant l'heure prévue, au point de départ convenu.</p></div>
+      <div class="pas r"><h3>Prise en main</h3><p>Présentation des trottinettes, mise en route et essai du matériel. Une formation est dispensée avant le départ.</p></div>
+      <div class="pas r"><h3>Équipés</h3><p>Casque et vêtement réfléchissant fournis. Chaussures fermées conseillées, coupe-vent et lunettes de soleil bienvenus.</p></div>
+      <div class="pas r"><h3>En route</h3><p>Chaque parcours laisse le temps de profiter du paysage et de s'arrêter prendre des photos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="apero" id="apero-trott">
+  <div class="wrap split">
+    <div class="apero__img r"><img src="https://static.wixstatic.com/media/aa6dd1_23df0fb490454a6797f8de3413e64426~mv2.jpg/v1/fill/w_1000,h_750,al_c,q_80/cote.jpg" alt="Balade en trottinettes sur un chemin de la Côte roannaise" loading="lazy"></div>
+    <div class="r">
+      <p class="eyebrow">Route des vins</p>
+      <h2>L'Apéro Trott</h2>
+      <p class="intro">Sillonner la Côte roannaise entre les ceps, puis découvrir et déguster les produits qui font sa réputation. Une sortie festive, sportive et gourmande — idéale pour un anniversaire, un EVJF ou un séminaire.</p>
+      <div class="badge"><img src="https://static.wixstatic.com/media/aa6dd1_609c6aaa729f475ab08c80d53be9820a~mv2.jpg/v1/fill/w_120,h_152,al_c,q_85/label.jpg" alt="" loading="lazy"><p>D'TROTT dispose du label <strong>Vignobles &amp; Découvertes</strong>, attribué par Atout France aux offres œnotouristiques qualifiées.</p></div>
+      <div class="hero__ctas"><a class="btn btn--vert" href="#tarifs" id="goApero">Ajouter l'Apéro Trott</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap guide">
+    <div class="guide__img r"><img src="https://static.wixstatic.com/media/aa6dd1_b7ea0ab2b3874a308059d21fb8004738~mv2.jpg/v1/fill/w_700,h_875,al_c,q_80/denis.jpg" alt="Denis Michelland devant les trottinettes D'TROTT" loading="lazy"></div>
+    <div class="r">
+      <p class="eyebrow">Votre instructeur</p>
+      <h2>Denis Michelland</h2>
+      <blockquote>Location libre ou accompagnée, à la carte : une heure, deux heures, la demi-journée… Une seule limite : l'imagination.</blockquote>
+      <p class="intro">Denis amène les trottinettes sur le lieu de départ, forme le groupe avant de partir et reste joignable au téléphone en cas de souci.</p>
+      <div class="faits"><span>Trottinettes Zosh, conception française</span><span>Autonomie jusqu'à 50 km</span><span>Dès 14 ans</span><span>Casque et chasuble fournis</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" id="galerie" style="padding-bottom:20px">
+  <div class="wrap"><p class="eyebrow">En images</p><h2>Sur les chemins du Roannais</h2></div>
+  <div class="galerie__track" tabindex="0" aria-label="Galerie photos, défilement horizontal">
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_febead413afe413290e5b07754071161~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g1.jpg" alt="Groupe en trottinettes dans les vignes" loading="lazy"></figure>
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_9bf614e7ae754a15863c5e26c8c4cd5b~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g2.jpg" alt="Trottinettes au coucher du soleil" loading="lazy"></figure>
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_295f0350a9b9432fa09fe8a258519196~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g3.jpg" alt="Balade en file sur les hauteurs" loading="lazy"></figure>
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_c5f5bc1fcddf43698f36e58ebef40aaa~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g4.jpg" alt="Stand D'COM TROT sur un marché" loading="lazy"></figure>
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_37938d6929fd4fffb6001f139bc4cd58~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g5.jpg" alt="Trottinettes garées près d'un belvédère" loading="lazy"></figure>
+    <figure><img src="https://static.wixstatic.com/media/aa6dd1_029935cbae6d45a3b16c0365021776ff~mv2.jpg/v1/fill/w_840,h_630,al_c,q_80/g6.jpg" alt="Couple en balade" loading="lazy"></figure>
+  </div>
+</section>
+
+<section id="cgl">
+  <div class="wrap">
+    <p class="eyebrow">CGL Trott</p>
+    <h2>Bon à savoir avant de partir</h2>
+    <div class="faq">
+      <details><summary>À partir de quel âge ?</summary><p>L'âge minimal est de 14 ans. Les 14-18 ans doivent être accompagnés d'une personne majeure, et la présence d'un adulte responsable est obligatoire dans le groupe.</p></details>
+      <details><summary>Où peut-on rouler ?</summary><p>Sur les voies à 50 km/h, les pistes cyclables, les voies vertes et les sentiers — jamais sur les trottoirs. Les trottinettes sont limitées à 25 km/h. En croisant piétons, cavaliers ou véhicules, on coupe l'assistance et on cède le passage.</p></details>
+      <details><summary>Quelle autonomie ?</summary><p>Environ 50 km selon le poids de la personne transportée (120 kg maximum). Des chargeurs peuvent être mis à disposition pour la demi-journée ou la journée.</p></details>
+      <details><summary>Que faut-il prévoir ?</summary><p>Une pièce d'identité et une caution de 500 € par trottinette (non débitée : espèces, empreinte CB ou chèque). Casque et vêtement réfléchissant sont fournis. Chaussures fermées conseillées, tongs et claquettes interdites.</p></details>
+      <details><summary>Et si on doit annuler ?</summary><p>Toute annulation anticipée est remboursée en totalité ; aucun remboursement n'est possible si l'annulation se fait à moins de 7 jours.</p></details>
+      <details><summary>Est-ce assuré ?</summary><p>Les véhicules sont assurés en responsabilité civile. En cas d'incident, appelez directement Denis au 06.08.12.19.76 en indiquant votre position.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact__grid">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2>Alors, D'com Trott ou D'Trott ?</h2>
+      <p style="max-width:48ch">Une question, un groupe à organiser, une idée un peu folle ? Appelez Denis ou écrivez-lui : il vous répond pour composer la sortie qui vous ressemble.</p>
+    </div>
+    <div class="carte">
+      <div class="coord">
+        <a href="tel:+33608121976"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>06.08.12.19.76</a>
+        <a href="mailto:contactdenis@ereplay.net"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg>contactdenis@ereplay.net</a>
+        <div><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>42370 Saint-André-d'Apchon</div>
+      </div>
+      <div class="hero__ctas"><a class="btn btn--vert" href="#tarifs">Réserver ma Trot'</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://static.wixstatic.com/media/aa6dd1_c9d0a77622c44589bacb1aad103b314a~mv2.jpg/v1/fill/w_300,h_159,al_c,q_85/logo.jpg" alt="D'TROTT">
+    <p>D'TROTT est une activité de la SASU ERE PLAY — siège social 42370 Saint-André-d'Apchon — SIREN 949 951 784 — RCS Roanne.</p>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non mise en ligne par D'TROTT. Textes, tarifs et conditions repris du site actuel dtrott.fr ; prix indicatifs non contractuels. Toutes les photos et logos proviennent du site actuel de D'TROTT (aucune image d'illustration). Couleurs reprises du logo, approchées et ajustables. Le formulaire prépare un e-mail : aucune donnée n'est enregistrée ni paiement effectué.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+  const $=s=>document.querySelector(s);
+  // En-tête
+  const h=$('header');addEventListener('scroll',()=>h.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('.burger'),menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Révélations au scroll
+  const els=document.querySelectorAll('.r,.pas');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*90);io.unobserve(e.target)}}),{threshold:.15});
+    els.forEach(el=>io.observe(el));
+  } else els.forEach(el=>el.classList.add('in'));
+
+  // Outil de réservation
+  const noms={'1h':"Trott'in plus 1h",'2h':"Trott'in plus 2h",'demi':'Demi-journée'};
+  let n=2;
+  const flotte=$('#flotte'),total=$('#total'),msg=$('#msg');
+  function maj(){
+    const f=document.querySelector('input[name=f]:checked');
+    const l=document.querySelector('input[name=l]:checked').value;
+    const apero=$('#apero').checked;
+    $('#nb').textContent=n;
+    flotte.innerHTML='<i></i>'.repeat(Math.min(n,30));
+    $('#rF').textContent=noms[f.value];$('#rN').textContent=n;$('#rL').textContent=l;
+    $('#rA').textContent=apero?n+' × 18 €':'non';
+    const notes=[];
+    let t=+f.dataset.prix*n+(apero?18*n:0);
+    if(apero&&n<5)notes.push("L'Apéro Trott se réserve à partir de 5 participants.");
+    if(n>=10)notes.push('À partir de 10 participants, un tarif de groupe s\'applique : Denis vous fait un devis.');
+    if(l.startsWith('Près'))notes.push('Livraison dans un rayon de 40 km autour de Roanne : point de départ à convenir avec Denis.');
+    total.innerHTML=(n>=10?'dès ':'')+t+' €<small>'+(n>=10?'avant remise de groupe':'montant indicatif')+'</small>';
+    total.classList.add('bump');setTimeout(()=>total.classList.remove('bump'),250);
+    msg.hidden=!notes.length;msg.innerHTML=notes.join('<br>');
+    const occ=$('#occ').value,date=$('#date').value,nom=$('#nom').value,tel=$('#telc').value;
+    const corps=`Bonjour Denis,\n\nJe souhaite réserver une balade D'TROTT :\n- Formule : ${noms[f.value]}\n- Trottinettes : ${n}\n- Lieu : ${l}\n- Occasion : ${occ}\n- Apéro Trott : ${apero?'oui':'non'}\n- Bon cadeau : ${$('#cadeau').checked?'oui':'non'}\n- Date souhaitée : ${date||'à définir'}\n- Montant indicatif : ${t} €\n\n${nom}\n${tel}`;
+    $('#envoyer').href='mailto:contactdenis@ereplay.net?subject='+encodeURIComponent("Réservation D'TROTT – "+occ)+'&body='+encodeURIComponent(corps);
+  }
+  $('#plus').addEventListener('click',()=>{if(n<80){n++;maj()}});
+  $('#moins').addEventListener('click',()=>{if(n>1){n--;maj()}});
+  $('#resa').addEventListener('input',maj);$('#resa').addEventListener('change',maj);
+  $('#goApero').addEventListener('click',()=>{$('#apero').checked=true;if(n<5)n=5;maj()});
+  const d=$('#date');d.min=new Date().toISOString().slice(0,10);
+  maj();
+})();
+</script>
+</body>
+</html>
