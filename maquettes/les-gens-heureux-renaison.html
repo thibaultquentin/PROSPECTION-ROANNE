@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Gens Heureux — Restaurant, bar et épicerie fine à Renaison</title>
+<meta name="description" content="Restaurant, bar, salon de thé et épicerie fine dans l'ancienne gare du tacot à Renaison, sur la Côte Roannaise. La playlist de la semaine, sur place ou à emporter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Signika:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel et du logo Les Gens Heureux
+   Vert du logo : #214740  · Ocre du logo / boutons : #D7A658
+   Gris anthracite des textes : #2F2E2E
+   Typo : Signika (titres, proche du lettrage arrondi du logo)
+          ABeeZee (texte, proche de l'ardoise de la devanture)
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --vert:#214740;
+  --vert-2:#2c5a50;
+  --ocre:#D7A658;
+  --ocre-clair:#f3e3c3;
+  --encre:#2F2E2E;
+  --papier:#fbf8f2;
+  --blanc:#ffffff;
+  --ardoise:#151c1d;
+  --gris:#6b6a66;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.25,1);
+  --f-titre:'Signika',system-ui,sans-serif;
+  --f-texte:'ABeeZee',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--papier);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-titre);color:var(--vert);line-height:1.1;font-weight:700}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--ardoise);color:#e9e4d8;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--ocre)}
+
+/* En-tête (reprend l'info horaires + téléphone du haut du site actuel) */
+.topinfo{background:var(--vert);color:#e8efe9;font-size:.82rem}
+.topinfo .wrap{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;flex-wrap:wrap}
+.topinfo a{text-decoration:none;color:var(--ocre);font-weight:600}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(251,248,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(33,71,64,.08);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 30px rgba(33,71,64,.10)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+.logo img{height:52px;width:auto}
+.menu{display:flex;gap:1.3rem;list-style:none;font-family:var(--f-titre);font-weight:600;font-size:.98rem}
+.menu a{text-decoration:none;color:var(--vert);position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--ocre);transition:width .3s var(--ease)}
+.menu a:hover::after,.menu a.on::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--f-titre);font-weight:600;font-size:1rem;border:0;cursor:pointer;text-decoration:none;border-radius:999px;padding:.8rem 1.4rem;min-height:44px;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-ocre{background:var(--ocre);color:var(--ardoise);box-shadow:0 6px 18px rgba(215,166,88,.35)}
+.btn-vert{background:var(--vert);color:#fff}
+.btn-ligne{border:2px solid currentColor;background:transparent;color:var(--vert)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--vert);margin:6px 10px;transition:.3s}
+@media (max-width:980px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--papier);padding:5rem 1.5rem 2rem;gap:1rem;font-size:1.3rem;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  header.nav{backdrop-filter:none;background:var(--papier)}
+  .menu{visibility:hidden}
+  .menu.open{transform:none;visibility:visible}
+  .burger{display:block;z-index:60}
+  .nav .btn-ocre{display:none}
+}
+
+/* HERO */
+.hero{position:relative;min-height:calc(100vh - 120px);display:grid;grid-template-columns:1.05fr .95fr;align-items:stretch;overflow:hidden}
+.hero-txt{padding:clamp(2rem,6vw,5rem) clamp(1rem,4vw,3.5rem) clamp(2rem,5vw,4rem) max(16px,calc((100vw - 1180px)/2));display:flex;flex-direction:column;justify-content:center;gap:1.3rem}
+.kicker{font-family:var(--f-titre);font-weight:600;color:var(--ocre);letter-spacing:.14em;text-transform:uppercase;font-size:.85rem;display:flex;align-items:center;gap:.6rem}
+.kicker::before{content:"";width:28px;height:2px;background:var(--ocre)}
+.hero h1{font-size:clamp(2.4rem,5.4vw,4.6rem);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--ocre);display:inline-block}
+.hero p.lead{font-size:clamp(1.02rem,1.3vw,1.18rem);max-width:34rem;color:#454440}
+.hero .ctas{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero-img{position:relative;min-height:420px}
+.hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:zoom 14s var(--ease) forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--papier) 0,rgba(251,248,242,0) 22%)}
+/* Ardoise animée — reprise mot pour mot de l'ardoise de la devanture */
+.ardoise{position:absolute;right:clamp(1rem,3vw,2.5rem);bottom:clamp(1rem,3vw,2.5rem);z-index:2;background:var(--ardoise);color:#ece8de;border-radius:14px;padding:1.2rem 1.4rem 1.1rem;width:min(300px,80%);box-shadow:0 20px 50px rgba(0,0,0,.35);font-size:.92rem;line-height:1.45;text-align:center;transform:rotate(-1.5deg)}
+.ardoise .t{font-family:var(--f-titre);letter-spacing:.12em;font-size:.78rem;color:var(--ocre);margin-bottom:.5rem}
+.ardoise .l{min-height:2.9em;transition:opacity .5s}
+.ardoise .dots{display:flex;gap:5px;justify-content:center;margin-top:.6rem}
+.ardoise .dots i{width:6px;height:6px;border-radius:50%;background:#555;transition:background .3s}
+.ardoise .dots i.on{background:var(--ocre)}
+.hero .chips{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
+.chip{font-size:.85rem;background:#fff;border:1px solid rgba(33,71,64,.14);padding:.35rem .8rem;border-radius:999px;color:var(--vert)}
+@media (max-width:880px){.hero{grid-template-columns:1fr}.hero-img{min-height:380px;order:-1}.hero-img::after{background:linear-gradient(0deg,var(--papier) 0,rgba(251,248,242,0) 25%)}.hero-txt{padding:1.5rem 16px 2.5rem}}
+
+/* Bandeau défilant (marques réelles de la boutique) */
+.ruban{background:var(--vert);color:#dfe9e3;overflow:hidden;padding:.9rem 0;font-family:var(--f-titre);font-weight:600;letter-spacing:.06em}
+.ruban .piste{display:flex;gap:2.5rem;white-space:nowrap;width:max-content;animation:defile 40s linear infinite}
+.ruban span::after{content:"✦";color:var(--ocre);margin-left:2.5rem}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+.titre-sec{display:flex;flex-direction:column;gap:.7rem;margin-bottom:2.4rem;max-width:44rem}
+.titre-sec h2{font-size:clamp(1.9rem,3.6vw,3rem)}
+.titre-sec p{color:#55544f}
+
+/* Reveal au scroll */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+/* Concept — 4 univers */
+.univers{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.u{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;color:#fff;text-decoration:none;isolation:isolate}
+.u img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);z-index:-2}
+.u::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(21,28,29,.85));z-index:-1}
+.u:hover img{transform:scale(1.07)}
+.u .in{position:absolute;left:1.1rem;right:1.1rem;bottom:1.1rem}
+.u h3{color:#fff;font-size:1.45rem}
+.u p{font-size:.88rem;opacity:.9}
+.u .n{position:absolute;top:1rem;left:1.1rem;font-family:var(--f-titre);color:var(--ocre);font-weight:700}
+@media (max-width:900px){.univers{grid-template-columns:repeat(2,1fr)}}
+.devise{margin-top:2.2rem;font-family:var(--f-titre);font-size:clamp(1.2rem,2.2vw,1.7rem);color:var(--vert);text-align:center}
+.devise b{color:var(--ocre)}
+
+/* PLAYLIST — la carte de la semaine présentée comme un lecteur */
+#playlist{background:var(--ardoise);color:#ece8de;position:relative;overflow:hidden}
+#playlist h2{color:#fff}
+#playlist .titre-sec p{color:#bdb8ad}
+.player{display:grid;grid-template-columns:320px 1fr;gap:2rem;align-items:start}
+.pochette{position:sticky;top:110px;background:linear-gradient(160deg,var(--vert),#163330);border-radius:var(--r);padding:1.4rem;box-shadow:0 30px 60px rgba(0,0,0,.4)}
+.pochette .img{border-radius:12px;overflow:hidden;aspect-ratio:1;position:relative}
+.pochette .img img{width:100%;height:100%;object-fit:cover}
+.disque{position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:repeating-radial-gradient(#111 0 2px,#1d1d1d 2px 4px);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.disque::after{content:"";width:38px;height:38px;border-radius:50%;background:var(--ocre)}
+.playing .disque{animation:tourne 3s linear infinite}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.pochette h3{color:#fff;margin-top:1rem;font-size:1.3rem}
+.pochette .sem{color:var(--ocre);font-size:.9rem}
+.eq{display:flex;gap:3px;align-items:flex-end;height:18px;margin-top:.8rem}
+.eq i{width:4px;background:var(--ocre);height:4px;border-radius:2px}
+.playing .eq i{animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}.eq i:nth-child(3){animation-delay:.4s}.eq i:nth-child(4){animation-delay:.1s}.eq i:nth-child(5){animation-delay:.3s}
+@keyframes eq{0%,100%{height:4px}50%{height:18px}}
+.pistes{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.face{font-family:var(--f-titre);color:var(--ocre);letter-spacing:.15em;text-transform:uppercase;font-size:.8rem;margin:1.4rem 0 .4rem}
+.face:first-child{margin-top:0}
+.piste-it{display:grid;grid-template-columns:36px 1fr auto;gap:.9rem;align-items:center;padding:.85rem 1rem;border-radius:12px;cursor:pointer;transition:background .25s}
+.piste-it:hover,.piste-it.actif{background:rgba(255,255,255,.07)}
+.piste-it .no{font-family:var(--f-titre);color:#8d887d;text-align:center}
+.piste-it.actif .no{color:var(--ocre)}
+.piste-it .nom{color:#f2efe7}
+.piste-it .nom small{display:block;color:#9d988c;font-size:.8rem}
+.piste-it .px{font-family:var(--f-titre);color:var(--ocre);white-space:nowrap}
+.ajout{background:none;border:1px solid rgba(215,166,88,.5);color:var(--ocre);border-radius:999px;padding:.35rem .8rem;font:600 .82rem var(--f-titre);cursor:pointer;margin-left:.6rem;transition:.25s}
+.ajout:hover,.ajout.ok{background:var(--ocre);color:var(--ardoise)}
+.note-pl{margin-top:1.4rem;font-size:.88rem;color:#a9a497;border-left:3px solid var(--ocre);padding-left:1rem}
+@media (max-width:880px){.player{grid-template-columns:1fr}.pochette{position:relative;top:0}}
+
+/* OUTIL CENTRAL — réserver / à emporter */
+#reserver{background:linear-gradient(180deg,var(--papier),#f3ecdf)}
+.outil>*{min-width:0}
+.outil{background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(33,71,64,.12);overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr}
+.onglets{display:flex;gap:.4rem;background:#f4efe5;padding:.4rem;border-radius:999px;width:max-content;max-width:100%;margin-bottom:1.6rem}
+.onglets button{border:0;background:none;padding:.65rem 1.2rem;border-radius:999px;font:600 .98rem var(--f-titre);color:var(--vert);cursor:pointer;transition:.3s;min-height:44px}
+.onglets button.on{background:var(--vert);color:#fff}
+.form{padding:clamp(1.3rem,3vw,2.4rem)}
+.panneau{display:none}.panneau.on{display:block;animation:fade .45s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.lbl{font-family:var(--f-titre);font-weight:600;color:var(--vert);margin:1.1rem 0 .5rem;display:block}
+.jours{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:thin}
+.jour{flex:0 0 auto;border:1.5px solid rgba(33,71,64,.18);background:#fff;border-radius:14px;padding:.55rem .8rem;text-align:center;cursor:pointer;min-width:68px;transition:.25s;font-family:var(--f-titre)}
+.jour b{display:block;font-size:1.3rem;color:var(--vert)}
+.jour small{color:var(--gris);text-transform:capitalize}
+.jour:hover{border-color:var(--ocre)}
+.jour.on{background:var(--vert);border-color:var(--vert)}
+.jour.on b,.jour.on small{color:#fff}
+.jour[disabled]{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.choix{display:flex;gap:.5rem;flex-wrap:wrap}
+.pill{border:1.5px solid rgba(33,71,64,.18);background:#fff;border-radius:999px;padding:.5rem 1rem;cursor:pointer;font:600 .95rem var(--f-titre);color:var(--vert);transition:.25s;min-height:42px}
+.pill:hover{border-color:var(--ocre)}
+.pill.on{background:var(--ocre);border-color:var(--ocre);color:var(--ardoise)}
+.pill[disabled]{opacity:.35;cursor:not-allowed}
+.compteur{display:inline-flex;align-items:center;border:1.5px solid rgba(33,71,64,.18);border-radius:999px;overflow:hidden}
+.compteur button{width:44px;height:44px;border:0;background:#fff;font-size:1.3rem;color:var(--vert);cursor:pointer}
+.compteur button:hover{background:var(--ocre-clair)}
+.compteur output{min-width:48px;text-align:center;font:700 1.2rem var(--f-titre);color:var(--vert)}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.5rem}
+.champs input,.champs textarea{width:100%;border:1.5px solid rgba(33,71,64,.18);border-radius:12px;padding:.75rem .9rem;font:inherit;background:#fff}
+.champs textarea{grid-column:1/-1;min-height:70px;resize:vertical}
+.champs input:focus,.champs textarea:focus{border-color:var(--vert);outline:none}
+.plats{display:grid;gap:.5rem}
+.plat{display:flex;justify-content:space-between;align-items:center;gap:.8rem;border:1.5px solid rgba(33,71,64,.12);border-radius:12px;padding:.6rem .8rem;cursor:pointer;transition:.25s}
+.plat:hover{border-color:var(--ocre)}
+.plat.on{border-color:var(--vert);background:#f1f6f3}
+.plat .cat{font:600 .72rem var(--f-titre);letter-spacing:.12em;text-transform:uppercase;color:var(--ocre)}
+.plat .t{font-size:.92rem}
+.plat .q{display:flex;align-items:center;gap:.3rem}
+.plat .q button{width:32px;height:32px;border-radius:50%;border:1px solid rgba(33,71,64,.25);background:#fff;color:var(--vert);cursor:pointer;font-size:1.1rem}
+.plat .q b{min-width:18px;text-align:center;font-family:var(--f-titre)}
+.recap{background:var(--vert);color:#e6eee9;padding:clamp(1.3rem,3vw,2.2rem);display:flex;flex-direction:column;gap:1rem;position:relative}
+.recap h3{color:#fff;font-size:1.4rem}
+.ticket{background:#fffdf8;color:var(--encre);border-radius:14px;padding:1.1rem 1.2rem;font-size:.92rem;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:16px;background:radial-gradient(circle at 8px 0,transparent 7px,#fffdf8 8px) repeat-x;background-size:16px 16px}
+.ticket .ligne{display:flex;justify-content:space-between;gap:1rem;padding:.25rem 0;border-bottom:1px dashed #e4ddcf}
+.ticket .ligne:last-child{border-bottom:0}
+.ticket .total{font:700 1.35rem var(--f-titre);color:var(--vert);display:flex;justify-content:space-between;margin-top:.6rem}
+.ticket .vide{color:var(--gris);font-style:italic}
+.formule{font-size:.82rem;color:var(--ocre);font-family:var(--f-titre);font-weight:600}
+.recap .actions{display:flex;flex-direction:column;gap:.6rem;margin-top:auto}
+.recap .actions .btn{justify-content:center}
+.recap .actions .btn-ligne{color:#fff}
+.recap .mini{font-size:.8rem;color:#b9cbc3}
+.alerte{font-size:.85rem;background:rgba(215,166,88,.15);color:var(--ocre-clair);border-radius:10px;padding:.6rem .8rem;display:none}
+.alerte.on{display:block}
+@media (max-width:900px){.outil{grid-template-columns:1fr}.champs{grid-template-columns:1fr}}
+
+/* Fêtes */
+.fetes{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;background:var(--ocre-clair);border-radius:24px;padding:clamp(1.5rem,4vw,3rem);position:relative;overflow:hidden}
+.fetes h2{font-size:clamp(1.7rem,3vw,2.5rem)}
+.fetes .badge{display:inline-block;background:var(--vert);color:#fff;border-radius:999px;padding:.3rem .9rem;font:600 .8rem var(--f-titre);letter-spacing:.08em;margin-bottom:.8rem}
+.fetes .img{border-radius:18px;overflow:hidden;aspect-ratio:4/3}
+.fetes .img img{width:100%;height:100%;object-fit:cover}
+.flocon{position:absolute;color:var(--ocre);opacity:.5;animation:tombe linear infinite;pointer-events:none;top:-20px}
+@keyframes tombe{to{transform:translateY(520px) rotate(220deg)}}
+@media (max-width:820px){.fetes{grid-template-columns:1fr}}
+
+/* Bar & salon de thé */
+.bar{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.5rem;align-items:center}
+.bar .photos{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.bar .photos img{border-radius:16px;aspect-ratio:3/4;object-fit:cover;width:100%}
+.bar .photos img:nth-child(2){margin-top:2.5rem}
+.cartes{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.carte{background:#fff;border-radius:16px;padding:1.1rem 1.2rem;border:1px solid rgba(33,71,64,.08);transition:transform .3s var(--ease),box-shadow .3s}
+.carte:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(33,71,64,.10)}
+.carte h4{font-size:1.1rem;margin-bottom:.3rem}
+.carte p{font-size:.9rem;color:#55544f}
+@media (max-width:880px){.bar{grid-template-columns:1fr}.cartes{grid-template-columns:1fr}}
+
+/* Boutique — galerie */
+.galerie{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:160px;gap:.8rem}
+.galerie figure{border-radius:14px;overflow:hidden;position:relative;cursor:zoom-in}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.galerie figure:hover img{transform:scale(1.06)}
+.g1{grid-column:span 2;grid-row:span 2}.g2{grid-column:span 2}.g3{grid-column:span 2}.g4{grid-column:span 2;grid-row:span 2}.g5{grid-column:span 2}.g6{grid-column:span 2}
+@media (max-width:760px){.galerie{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}.galerie figure{grid-column:span 1!important;grid-row:span 1!important}}
+.marques{margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.45rem}
+.lightbox{position:fixed;inset:0;background:rgba(10,14,14,.92);display:none;place-items:center;z-index:100;padding:16px}
+.lightbox.on{display:grid}
+.lightbox img{max-height:86vh;border-radius:12px}
+.lightbox button{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:0;background:#fff;font-size:1.4rem;cursor:pointer}
+
+/* Histoire */
+.histoire{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.histoire .duo{position:relative}
+.histoire .duo img{border-radius:20px}
+.histoire .duo .chef{position:absolute;width:42%;right:-6%;bottom:-8%;border:6px solid var(--papier);border-radius:18px;box-shadow:0 20px 40px rgba(0,0,0,.18)}
+.frise{display:flex;flex-direction:column;gap:1rem;margin-top:1.4rem;border-left:2px solid var(--ocre-clair);padding-left:1.2rem}
+.frise div{position:relative}
+.frise div::before{content:"";position:absolute;left:-1.6rem;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--ocre)}
+.frise b{font-family:var(--f-titre);color:var(--vert)}
+.avis{margin-top:2rem;background:#fff;border-radius:18px;padding:1.4rem;border-left:4px solid var(--ocre);font-style:italic;color:#44433f}
+.avis cite{display:block;margin-top:.6rem;font-style:normal;font-size:.85rem;color:var(--gris)}
+@media (max-width:880px){.histoire{grid-template-columns:1fr}.histoire .duo .chef{right:4%}}
+
+/* Infos */
+#infos{background:var(--vert);color:#e3ece7}
+#infos h2,#infos h3{color:#fff}
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.horaires{list-style:none;margin-top:1rem}
+.horaires li{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.horaires li.auj{color:var(--ocre);font-weight:600}
+.statut{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);border-radius:999px;padding:.35rem .9rem;font-size:.9rem;margin-top:.8rem}
+.statut i{width:9px;height:9px;border-radius:50%;background:#e06c5b}
+.statut.ouvert i{background:#7fd18b;box-shadow:0 0 0 0 rgba(127,209,139,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(127,209,139,0)}100%{box-shadow:0 0 0 0 rgba(127,209,139,0)}}
+.carte-map{border-radius:18px;overflow:hidden;min-height:320px;background:#183a34}
+.carte-map iframe{width:100%;height:100%;min-height:320px;border:0;filter:saturate(.8)}
+.coord a{color:var(--ocre);text-decoration:none;font-weight:600}
+.coord p{margin:.35rem 0}
+@media (max-width:880px){.infos{grid-template-columns:1fr}}
+
+footer{background:var(--ardoise);color:#a8a397;font-size:.85rem;padding:2.2rem 0}
+footer .wrap{display:flex;flex-direction:column;gap:.8rem}
+footer strong{color:#ece8de}
+
+/* Barre mobile d'action */
+.barre-mob{display:none}
+@media (max-width:700px){
+  .barre-mob{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:.5rem}
+  .barre-mob a{flex:1;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  footer{padding-bottom:5.5rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Les Gens Heureux",
+  "description":"Restaurant, bar, salon de thé, épicerie fine et boutique d'art de la table dans l'ancienne gare du tacot de Renaison.",
+  "url":"https://www.gens-heureux.com/",
+  "telephone":"+33988019564",
+  "email":"s.gensheureux@gmail.com",
+  "servesCuisine":"Cuisine de saison, fait maison",
+  "acceptsReservations":true,
+  "address":{"@type":"PostalAddress","streetAddress":"15 rue du Tacot","postalCode":"42370","addressLocality":"Renaison","addressRegion":"Auvergne-Rhône-Alpes","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.053793,"longitude":3.930047},
+  "areaServed":["Renaison","Côte Roannaise"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Saturday"],"opens":"09:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"09:00","closes":"22:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Les Gens Heureux</b> — non officielle, aucune réservation n'est réellement transmise.</div>
+
+<div class="topinfo"><div class="wrap">
+  <span>Ouvert du mardi au samedi · 9h–19h · le vendredi jusqu'à 22h</span>
+  <a href="tel:+33988019564">09 88 01 95 64</a>
+</div></div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Les Gens Heureux, accueil"><img src="https://static.wixstatic.com/media/02c168_cd49d95fcb414296adb95e2c4151f88e~mv2.png/v1/fill/w_420,h_122,al_c,q_90/logo.png" alt="Les Gens Heureux"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#concept">Le concept</a></li>
+      <li><a href="#playlist">Restaurant-Menus</a></li>
+      <li><a href="#reserver">À emporter</a></li>
+      <li><a href="#bar">Bar et Salon de Thé</a></li>
+      <li><a href="#boutique">Boutique</a></li>
+      <li><a href="#infos">Infos</a></li>
+    </ul>
+    <a class="btn btn-ocre" href="#reserver">Réserver le midi</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="hero-txt">
+    <div class="kicker">Renaison · Côte Roannaise</div>
+    <h1>Un joli lieu où règne le <em>goût des autres</em>, l'esprit libre et la bonne musique.</h1>
+    <p class="lead">Un bar, un restaurant, une épicerie fine et une boutique de vaisselle et de cadeaux, dans l'ancienne gare du tacot entièrement rénovée, à l'entrée du village.</p>
+    <div class="ctas">
+      <a class="btn btn-ocre" href="#reserver">Réserver une table le midi</a>
+      <a class="btn btn-ligne" href="#playlist">Écouter la playlist de la semaine</a>
+    </div>
+    <div class="chips">
+      <span class="chip">Cuisine maison du chef Stéphane</span>
+      <span class="chip">Vins de la Côte Roannaise</span>
+      <span class="chip">À emporter en bocaux</span>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://static.wixstatic.com/media/02c168_fe85d23482fb4482839cbcb5c2f988c2~mv2.jpg/v1/fill/w_1400,h_1100,al_c,q_80/salle.jpg" alt="La salle lumineuse des Gens Heureux, fauteuils jaunes et grandes baies vitrées">
+    <div class="ardoise" aria-live="polite">
+      <div class="t">— LES GENS HEUREUX —</div>
+      <div class="l" id="ardoiseL">De la gastronomie<br>dans les assiettes</div>
+      <div class="dots" id="ardoiseD"></div>
+    </div>
+  </div>
+</section>
+
+<div class="ruban" aria-hidden="true"><div class="piste" id="ruban"></div></div>
+
+<section id="concept">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="kicker">Le concept</span>
+      <h2>Les Gens Heureux c'est… à la fois</h2>
+      <p>Un lieu original et atypique dans l'ancienne gare du tacot qui naviguait naguère entre Roanne et la Côte Roannaise.</p>
+    </div>
+    <div class="univers">
+      <a class="u rv" href="#bar"><img src="https://static.wixstatic.com/media/02c168_cdbe379ac10e4987886c9cac10936823~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/bar.jpg" alt="Coin bar et fauteuils" loading="lazy"><span class="n">01</span><div class="in"><h3>Un bar</h3><p>Café, bières pression, verres de vin, cocktails.</p></div></a>
+      <a class="u rv d1" href="#playlist"><img src="https://static.wixstatic.com/media/02c168_04ced2125f9043ff8d6b5965b1947f5d~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/plat.jpg" alt="Assiette du chef" loading="lazy"><span class="n">02</span><div class="in"><h3>Un restaurant</h3><p>Une cuisine signature, fraîche et travaillée.</p></div></a>
+      <a class="u rv d2" href="#boutique"><img src="https://static.wixstatic.com/media/02c168_9a219123786b4835b38466dcfc43bc4b~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/epicerie.jpg" alt="Rillettes de la mer en rayon" loading="lazy"><span class="n">03</span><div class="in"><h3>Une épicerie fine</h3><p>Terrines, tartinables, biscuits, thés, confitures…</p></div></a>
+      <a class="u rv d3" href="#boutique"><img src="https://static.wixstatic.com/media/02c168_96b44e79d370405c87249608351b6bc8~mv2.jpg/v1/fill/w_600,h_800,al_c,q_80/vaisselle.jpg" alt="Bols décorés" loading="lazy"><span class="n">04</span><div class="in"><h3>Une boutique</h3><p>Vaisselle, art de la table et idées cadeaux.</p></div></a>
+    </div>
+    <p class="devise rv">« <b>Goût des autres</b>, esprit libre et bonne musique ! »</p>
+  </div>
+</section>
+
+<section id="playlist">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="kicker">Restaurant-Menus</span>
+      <h2>La playlist de la semaine</h2>
+      <p>Deux entrées, deux plats et deux desserts, proposés chaque semaine — et qui peuvent varier plus encore en fonction du marché et des produits trouvés.</p>
+    </div>
+    <div class="player" id="player">
+      <div class="pochette rv">
+        <div class="img"><img src="https://static.wixstatic.com/media/02c168_1dd3741f1a874e5eaf6c21a6680634e1~mv2.jpg/v1/fill/w_600,h_600,al_c,q_80/chef.jpg" alt="Stéphane, le chef" loading="lazy"><div class="disque"></div></div>
+        <h3>Playlist de Stéphane</h3>
+        <div class="sem">Du mardi 10 au samedi 14 novembre</div>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <p style="font-size:.85rem;color:#b9cbc3;margin-top:.8rem">Entrée-Plat ou Plat-Dessert <b style="color:var(--ocre)">18 €</b> · Entrée-Plat-Dessert <b style="color:var(--ocre)">22 €</b></p>
+      </div>
+      <div>
+        <ul class="pistes" id="pistes"></ul>
+        <p class="note-pl">Ici, la playlist reprend celle publiée sur votre site pour la semaine du 10 au 14 novembre. Dans la version finale, elle se met à jour en deux minutes chaque lundi, depuis un téléphone, et alimente automatiquement le formulaire « à emporter » ci-dessous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reserver">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="kicker">Réserver · À emporter</span>
+      <h2>Le midi, la salle est vite prise d'assaut.</h2>
+      <p>Réservez votre table, ou commandez la playlist à emporter — dans de jolis bocaux en verre (à rapporter). À réserver au plus tard le matin pour le midi ou le soir.</p>
+    </div>
+    <div class="outil rv">
+      <div class="form">
+        <div class="onglets" role="tablist">
+          <button class="on" data-p="table" role="tab" aria-selected="true">Réserver une table</button>
+          <button data-p="emporter" role="tab" aria-selected="false">À emporter</button>
+        </div>
+
+        <span class="lbl">Quel jour ?</span>
+        <div class="jours" id="jours"></div>
+
+        <span class="lbl">Quand ?</span>
+        <div class="choix" id="services"></div>
+
+        <div class="panneau on" id="p-table">
+          <span class="lbl">Combien de gens heureux ?</span>
+          <div class="compteur"><button type="button" id="moins" aria-label="Moins">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Plus">+</button></div>
+        </div>
+
+        <div class="panneau" id="p-emporter">
+          <span class="lbl">Composez votre commande</span>
+          <div class="plats" id="plats"></div>
+        </div>
+
+        <span class="lbl">Vos coordonnées</span>
+        <div class="champs">
+          <input id="nom" placeholder="Nom et prénom" autocomplete="name">
+          <input id="tel" placeholder="Téléphone" autocomplete="tel" inputmode="tel">
+          <textarea id="msg" placeholder="Une précision ? (allergie, chaise bébé, terrasse…)"></textarea>
+        </div>
+      </div>
+
+      <aside class="recap" aria-live="polite">
+        <h3 id="recapTitre">Votre réservation</h3>
+        <div class="ticket" id="ticket"></div>
+        <div class="alerte" id="alerte"></div>
+        <div class="actions">
+          <a class="btn btn-ocre" id="envoyer" href="#">Envoyer la demande</a>
+          <a class="btn btn-ligne" id="ics" href="#" download="les-gens-heureux.ics">Ajouter à mon agenda</a>
+          <a class="btn btn-ligne" href="tel:+33988019564">Appeler le 09 88 01 95 64</a>
+          <span class="mini">Démonstration : la demande s'ouvre dans votre messagerie, rien n'est réellement envoyé. Dans la version finale, Sandrine et Stéphane la reçoivent et la confirment en un clic.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="fetes rv" id="fetes">
+      <div>
+        <span class="badge">BIENTÔT EN LIGNE</span>
+        <h2>Le menu des fêtes à emporter</h2>
+        <p style="margin:.8rem 0 1.4rem">Comme annoncé sur votre site, le menu des fêtes à emporter arrive bientôt. Sur cette version, il prendrait la place de la playlist dans le formulaire ci-dessus : choix des plats, date de retrait le 24 ou le 31, et récapitulatif envoyé directement.</p>
+        <a class="btn btn-vert" href="#reserver">Être prévenu par téléphone ou par mail</a>
+      </div>
+      <div class="img"><img src="https://static.wixstatic.com/media/02c168_bd40784725b6489aa6404b4aeef8ccc9~mv2.jpg/v1/fill/w_800,h_600,al_c,q_80/equipe.jpg" alt="Stéphane et Sandrine devant Les Gens Heureux" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section id="bar">
+  <div class="wrap bar">
+    <div class="photos rv">
+      <img src="https://static.wixstatic.com/media/02c168_586a50e5e1ee456a84744090e9b7db9b~mv2.jpg/v1/fill/w_500,h_670,al_c,q_80/latte.jpg" alt="Latte gourmand" loading="lazy">
+      <img src="https://static.wixstatic.com/media/02c168_6a12893736ba43598d4e8e57db8a7473~mv2.jpg/v1/fill/w_500,h_670,al_c,q_80/cookies.jpg" alt="Cookies maison" loading="lazy">
+    </div>
+    <div>
+      <div class="titre-sec rv" style="margin-bottom:1.6rem">
+        <span class="kicker">Bar et Salon de Thé</span>
+        <h2>Toute la sainte journée, venez déguster…</h2>
+        <p>Pour être heureux… Au frais… Chez Les Gens Heureux ! Petit déjeuner, goûter, planche apéritive à partager.</p>
+      </div>
+      <div class="cartes">
+        <div class="carte rv"><h4>Boissons chaudes</h4><p>Café, latte, cappuccino, viennois, chocolat Weiss, thés et infusions Terre d'Oc.</p></div>
+        <div class="carte rv d1"><h4>Soft</h4><p>Jus de fruit Alain Milliat, ice tea maison, sodas, limonade.</p></div>
+        <div class="carte rv d2"><h4>Bières</h4><p>Pression Ninkasi ; en bouteille Cuvée des Trolls, Délirium, Orval, Paix Dieu, Germanoises.</p></div>
+        <div class="carte rv d3"><h4>Vins &amp; cocktails</h4><p>Une sélection de vins de producteurs, un vigneron de la Côte Roannaise régulièrement à l'honneur. Mojito, Spritz, Americano, Margarita…</p></div>
+      </div>
+      <p style="margin-top:1.2rem;font-size:.92rem;color:#55544f">Le vendredi soir : <b style="color:var(--vert)">le Burger des Gens Heureux, frites 100 % maison — 13 €</b>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="boutique" style="background:#fff">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="kicker">Boutique</span>
+      <h2>Épicerie fine · Cadeaux · Art de la table</h2>
+      <p>Dans notre petite boutique, vous trouverez de quoi faire et vous faire plaisir ! Des produits gourmands, originaux, artisanaux, à déguster ou à offrir.</p>
+    </div>
+    <div class="galerie rv">
+      <figure class="g1"><img src="https://static.wixstatic.com/media/02c168_f34d659c9a7643698b46ea46bbfd1358~mv2.jpg/v1/fill/w_800,h_800,al_c,q_80/boutique.jpg" alt="La boutique et ses étagères" loading="lazy"></figure>
+      <figure class="g2"><img src="https://static.wixstatic.com/media/02c168_6759e664b9904d5bb8ad033a000c209f~mv2.jpg/v1/fill/w_700,h_400,al_c,q_80/confitures.jpg" alt="Confitures" loading="lazy"></figure>
+      <figure class="g3"><img src="https://static.wixstatic.com/media/02c168_3ac4418c255046eaa90d139f8dd3dac2~mv2.jpg/v1/fill/w_700,h_400,al_c,q_80/assiettes.jpg" alt="Assiettes graphiques" loading="lazy"></figure>
+      <figure class="g4"><img src="https://static.wixstatic.com/media/02c168_85a72b6debdb4efab3644c3b58f45dce~mv2.jpg/v1/fill/w_800,h_800,al_c,q_80/allee.jpg" alt="Allée de la boutique" loading="lazy"></figure>
+      <figure class="g5"><img src="https://static.wixstatic.com/media/02c168_da244295cf774932b15ecbc1683b30a7~mv2.jpg/v1/fill/w_700,h_400,al_c,q_80/vins.jpg" alt="Sélection de vins" loading="lazy"></figure>
+      <figure class="g6"><img src="https://static.wixstatic.com/media/02c168_03bda3b3aa2141449d2c5ddc68f13b47~mv2.jpg/v1/fill/w_700,h_400,al_c,q_80/thes.jpg" alt="Thés et rooibos" loading="lazy"></figure>
+    </div>
+    <div class="marques rv" id="marques"></div>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap histoire">
+    <div class="duo rv">
+      <img src="https://static.wixstatic.com/media/02c168_bd40784725b6489aa6404b4aeef8ccc9~mv2.jpg/v1/fill/w_800,h_620,al_c,q_80/duo.jpg" alt="Stéphane et Sandrine" loading="lazy">
+      <img class="chef" src="https://static.wixstatic.com/media/02c168_1dd3741f1a874e5eaf6c21a6680634e1~mv2.jpg/v1/fill/w_400,h_400,al_c,q_80/chef.jpg" alt="Stéphane en cuisine" loading="lazy">
+    </div>
+    <div>
+      <div class="titre-sec rv" style="margin-bottom:1rem">
+        <span class="kicker">Notre histoire</span>
+        <h2>Une nouvelle aventure, au cœur de la Côte Roannaise</h2>
+      </div>
+      <p class="rv">Stéphane propose une cuisine avec une identité propre, qui aime sublimer des produits simples mais de qualité. Amatrice de bonne chère comme de bons vins, Sandrine cherche avec Martin de belles quilles à vous proposer, et met tour à tour les vignerons de la Côte Roannaise à l'honneur.</p>
+      <div class="frise rv">
+        <div><b>13 ans</b> — à la tête du restaurant Côte et Vignes, à Saint-Haon-le-Vieux.</div>
+        <div><b>Novembre 2021</b> — ouverture dans l'ancienne gare du tacot de Renaison, entièrement rénovée. Martin, emballé par le projet, rejoint l'aventure.</div>
+        <div><b>Aujourd'hui</b> — un lieu détendu et gourmand, du café du matin au verre du vendredi soir.</div>
+      </div>
+      <blockquote class="avis rv">« Réservation indispensable le midi car le restaurant est pris d'assaut et c'est bien légitime, vu la cuisine qui est proposée. Tout est joliment présenté et décoré. Ambiance chaleureuse et service au top. »<cite>Avis Google — février 2022, cité sur votre site actuel</cite></blockquote>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap infos">
+    <div>
+      <span class="kicker">À votre service</span>
+      <h2 style="margin:.6rem 0">Infos pratiques</h2>
+      <div class="statut" id="statut"><i></i><span>…</span></div>
+      <ul class="horaires" id="horaires"></ul>
+      <div class="coord" style="margin-top:1.4rem">
+        <p><b style="color:#fff">Les Gens Heureux</b><br>15 rue du Tacot — 42370 Renaison</p>
+        <p><a href="tel:+33988019564">09 88 01 95 64</a></p>
+        <p><a href="mailto:s.gensheureux@gmail.com">s.gensheureux@gmail.com</a></p>
+        <p style="margin-top:1rem"><a class="btn btn-ocre" href="https://www.google.com/maps/dir/?api=1&destination=46.053793,3.930047" target="_blank" rel="noopener">Itinéraire</a></p>
+      </div>
+    </div>
+    <div class="carte-map"><iframe title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.9230%2C46.0500%2C3.9370%2C46.0576&amp;layer=mapnik&amp;marker=46.053793%2C3.930047"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Les Gens Heureux — SARL · 15 rue du Tacot, 42370 Renaison</strong>
+    <span>Maquette de démonstration non officielle, réalisée à partir des informations publiées sur gens-heureux.com. Les textes, la playlist (semaine du 10 au 14 novembre), les tarifs et l'avis cité sont repris de votre site actuel ; prix indicatifs, à confirmer.</span>
+    <span>Photos : toutes issues de votre site actuel (aucune photo d'illustration). Couleurs relevées sur votre logo (vert et ocre) ; typographies approchantes, ajustables. Le formulaire de réservation et de commande est une démonstration : aucune donnée n'est transmise.</span>
+  </div>
+</footer>
+
+<div class="barre-mob"><a class="btn btn-vert" href="tel:+33988019564">Appeler</a><a class="btn btn-ocre" href="#reserver">Réserver</a></div>
+<div class="lightbox" id="lb"><button aria-label="Fermer">×</button><img alt=""></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Nav */
+addEventListener('scroll',()=>$('#nav').classList.toggle('scrolled',scrollY>10),{passive:true});
+const bg=$('#burger'),mn=$('#menu');
+bg.onclick=()=>{const o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.onclick=()=>{mn.classList.remove('open');bg.setAttribute('aria-expanded',false)});
+const secs=['concept','playlist','reserver','bar','boutique','infos'].map(id=>document.getElementById(id));
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('#menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>spy.observe(s));
+
+/* Reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+$$('.rv').forEach(el=>io.observe(el));
+
+/* Ardoise : le texte réel de la devanture, ligne à ligne */
+const ard=[["De la gastronomie","dans les assiettes"],["Qui se sent, qui se goûte","qui se regarde…"],["De belles quilles","à déboucher, à partager,"],["À emporter…","Un joli lieu"],["Où se poser, où boire un verre","où grignoter…"],["Une boutique","pour flâner, pour emporter"],["De quoi manger, boire, décorer.","En bref… un lieu sympa."],["Alors n'hésitez pas","Entrez !"]];
+const L=$('#ardoiseL'),D=$('#ardoiseD');D.innerHTML=ard.map(()=>'<i></i>').join('');let ai=0;
+const showA=()=>{L.style.opacity=0;setTimeout(()=>{L.innerHTML=ard[ai].join('<br>');L.style.opacity=1;$$('#ardoiseD i').forEach((d,k)=>d.classList.toggle('on',k===ai));ai=(ai+1)%ard.length},reduit?0:400)};
+showA();if(!reduit)setInterval(showA,3200);
+
+/* Ruban marques (liste réelle de la boutique) */
+const marques=["O'Délice de Lucas","Groix et Nature","Muzirys","Very Thé","Les p'tites Vénètes","Saltis","L'Arrangé Français","ABK6","Bellevoye","Alain Milliat","Cristille","Ninkasi","La Reine des Vertes","Perles de Fruits","Le Bol Français","Pip Studio","Les Petits Citrons","Yvonne Ellen","La Rochère","OGO","Yoko Design"];
+$('#ruban').innerHTML=[...marques,...marques].map(m=>`<span>${m}</span>`).join('');
+$('#marques').innerHTML=marques.map(m=>`<span class="chip">${m}</span>`).join('');
+
+/* Playlist réelle (semaine du 10 au 14 novembre, site actuel) */
+const PL=[
+ {c:'entree',f:'Face A — Entrées',n:'Œuf pané',d:'Poireau · lard · sauce tartare',p:6.5},
+ {c:'entree',n:'Toast champignons',d:'Champignons de Paris · pleurotes · crème · ail · persil · fromage italien',p:6.5},
+ {c:'plat',f:'Face B — Plats',n:'Brosme en croûte de céréales',d:'Pois cassé · vinaigrette butternut · potimarron',p:14},
+ {c:'plat',n:'Mignon de cochon',d:'Purée · PDT · oignon · brunoise croquante · sauce au poivre long de Java',p:14},
+ {c:'dessert',f:'Face C — Douceurs',n:'Faisselle',d:'ou assortiment de secs Maison Mons (+3 €)',p:5},
+ {c:'dessert',n:'Charlotte',d:'Chocolat · crème anglaise · passion',p:5},
+ {c:'dessert',n:'Tatin',d:'Pomme · caramel · crème vanille',p:5}
+];
+const panier={};
+let numP=0;
+$('#pistes').innerHTML=PL.map((x,i)=>`${x.f?`<li class="face">${x.f}</li>`:''}<li class="piste-it" data-i="${i}"><span class="no">${String(++numP).padStart(2,'0')}</span><span class="nom">${x.n}<small>${x.d}</small></span><span class="px">${x.p.toFixed(2).replace('.',',')} €<button class="ajout" data-a="${i}" aria-label="Ajouter ${x.n} à emporter">+ à emporter</button></span></li>`).join('');
+$$('.piste-it').forEach(li=>li.addEventListener('click',e=>{if(e.target.closest('.ajout'))return;$$('.piste-it').forEach(x=>x.classList.remove('actif'));li.classList.add('actif');$('#player').classList.add('playing')}));
+$$('.ajout').forEach(b=>b.onclick=()=>{const i=+b.dataset.a;panier[i]=(panier[i]||0)+1;b.classList.add('ok');b.textContent='✓ ajouté';setOnglet('emporter');majPlats();maj();setTimeout(()=>document.getElementById('reserver').scrollIntoView({behavior:reduit?'auto':'smooth'}),250)});
+new IntersectionObserver(es=>es.forEach(e=>$('#player').classList.toggle('playing',e.isIntersecting)),{threshold:.3}).observe($('#player'));
+
+/* Outil réservation / à emporter */
+let mode='table',jour=null,service=null,nb=2;
+const J=['dim','lun','mar','mer','jeu','ven','sam'];
+const fmt=d=>d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+const jours=[];const now=new Date();
+for(let k=0;k<14;k++){const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()+k);jours.push(d)}
+function servicesDe(d){const w=d.getDay();if(w===0||w===1)return[];const s=[{k:'midi',t:'Midi'}];if(w===5)s.push({k:'soir',t:'Vendredi soir (burger)'});return s}
+function rendJours(){$('#jours').innerHTML=jours.map((d,i)=>{const ferme=!servicesDe(d).length;return `<button type="button" class="jour${jour===i?' on':''}" data-j="${i}" ${ferme?'disabled title="Fermé le dimanche et le lundi"':''}><small>${J[d.getDay()]}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('fr-FR',{month:'short'})}</small></button>`}).join('');
+ $$('.jour').forEach(b=>b.onclick=()=>{jour=+b.dataset.j;service=null;rendJours();rendServices();maj()})}
+function rendServices(){const s=jour==null?[]:servicesDe(jours[jour]);
+ $('#services').innerHTML=s.length?s.map(x=>`<button type="button" class="pill${service===x.k?' on':''}" data-s="${x.k}">${x.t}</button>`).join(''):'<span style="color:var(--gris);font-size:.9rem">Choisissez d\'abord un jour.</span>';
+ $$('#services .pill').forEach(b=>b.onclick=()=>{service=b.dataset.s;rendServices();majPlats();maj()})}
+function setOnglet(m){mode=m;$$('.onglets button').forEach(b=>{const on=b.dataset.p===m;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});$('#p-table').classList.toggle('on',m==='table');$('#p-emporter').classList.toggle('on',m==='emporter');$('#recapTitre').textContent=m==='table'?'Votre réservation':'Votre commande à emporter';maj()}
+$$('.onglets button').forEach(b=>b.onclick=()=>setOnglet(b.dataset.p));
+$('#plus').onclick=()=>{nb=Math.min(20,nb+1);$('#nb').value=nb;maj()};
+$('#moins').onclick=()=>{nb=Math.max(1,nb-1);$('#nb').value=nb;maj()};
+const BURGER={c:'burger',n:'Burger des Gens Heureux',d:'Frites 100 % maison — le vendredi soir',p:13};
+function catalogue(){return service==='soir'?[...PL.map((x,i)=>({...x,i})),{...BURGER,i:'b'}]:PL.map((x,i)=>({...x,i}))}
+function majPlats(){const cat=catalogue();$('#plats').innerHTML=cat.map(x=>{const q=panier[x.i]||0;return `<div class="plat${q?' on':''}"><div><div class="cat">${{entree:'Entrée',plat:'Plat',dessert:'Dessert',burger:'Vendredi soir'}[x.c]}</div><div class="t">${x.n}</div></div><div class="q"><button type="button" data-m="${x.i}" aria-label="Retirer">−</button><b>${q}</b><button type="button" data-p="${x.i}" aria-label="Ajouter">+</button></div></div>`}).join('');
+ $$('#plats [data-p]').forEach(b=>b.onclick=()=>{const i=b.dataset.p;panier[i]=(panier[i]||0)+1;majPlats();maj()});
+ $$('#plats [data-m]').forEach(b=>b.onclick=()=>{const i=b.dataset.m;panier[i]=Math.max(0,(panier[i]||0)-1);majPlats();maj()})}
+/* Formules réelles : E+P ou P+D 18 €, E+P+D 22 €, sinon à la carte 6,50 / 14 / 5 € */
+function calcul(){
+ let e=0,p=0,d=0,sup=0,burger=panier.b||0;
+ PL.forEach((x,i)=>{const q=panier[i]||0;if(x.c==='entree')e+=q;if(x.c==='plat')p+=q;if(x.c==='dessert'){d+=q;if(i===4)sup+=0}});
+ const lignes=[];let total=0;
+ let f3=Math.min(e,p,d);if(f3){lignes.push([`${f3} × formule Entrée-Plat-Dessert`,f3*22]);total+=f3*22;e-=f3;p-=f3;d-=f3}
+ let fep=Math.min(e,p);if(fep){lignes.push([`${fep} × formule Entrée-Plat`,fep*18]);total+=fep*18;e-=fep;p-=fep}
+ let fpd=Math.min(p,d);if(fpd){lignes.push([`${fpd} × formule Plat-Dessert`,fpd*18]);total+=fpd*18;p-=fpd;d-=fpd}
+ if(e){lignes.push([`${e} × entrée à la carte`,e*6.5]);total+=e*6.5}
+ if(p){lignes.push([`${p} × plat à la carte`,p*14]);total+=p*14}
+ if(d){lignes.push([`${d} × dessert à la carte`,d*5]);total+=d*5}
+ if(burger){lignes.push([`${burger} × Burger des Gens Heureux`,burger*13]);total+=burger*13}
+ return {lignes,total};
+}
+const eur=v=>v.toFixed(2).replace('.',',')+' €';
+function detailPlats(){return catalogue().filter(x=>panier[x.i]).map(x=>`${panier[x.i]} × ${x.n}`)}
+function maj(){
+ const t=$('#ticket');let h='';const d=jour!=null?jours[jour]:null;
+ h+=`<div class="ligne"><span>Jour</span><b>${d?fmt(d):'—'}</b></div>`;
+ h+=`<div class="ligne"><span>Service</span><b>${service==='midi'?'Midi':service==='soir'?'Vendredi soir':'—'}</b></div>`;
+ const al=$('#alerte');al.classList.remove('on');
+ if(mode==='table'){h+=`<div class="ligne"><span>Couverts</span><b>${nb}</b></div>`;if(nb>=10){al.textContent='Pour un groupe de 10 personnes et plus, un petit appel permet de vous installer au mieux.';al.classList.add('on')}}
+ else{
+  const c=calcul(),dp=detailPlats();
+  if(!dp.length)h+=`<div class="ligne vide">Ajoutez des plats de la playlist.</div>`;
+  else{dp.forEach(x=>h+=`<div class="ligne"><span>${x}</span></div>`);c.lignes.forEach(l=>h+=`<div class="ligne"><span class="formule">${l[0]}</span><span>${eur(l[1])}</span></div>`);h+=`<div class="total"><span>Total indicatif</span><span>${eur(c.total)}</span></div>`}
+  if(d&&service){const auj=new Date();if(d.toDateString()===auj.toDateString()&&auj.getHours()>=11){al.textContent='Pour aujourd\'hui, la commande se réserve au plus tard le matin : appelez-nous pour vérifier.';al.classList.add('on')}}
+ }
+ t.innerHTML=h;
+ const pret=d&&service&&(mode==='table'||detailPlats().length);
+ $('#envoyer').style.opacity=pret?1:.5;$('#ics').style.display=pret?'inline-flex':'none';
+}
+function texte(){const d=jours[jour];const nom=$('#nom').value||'(nom)',tel=$('#tel').value||'(téléphone)',m=$('#msg').value;
+ let s=mode==='table'?`Bonjour, je souhaite réserver une table pour ${nb} personne(s) le ${fmt(d)} (${service==='midi'?'midi':'vendredi soir'}).`:`Bonjour, je souhaite commander à emporter pour le ${fmt(d)} (${service==='midi'?'midi':'soir'}) :\n- ${detailPlats().join('\n- ')}\nTotal indicatif : ${eur(calcul().total)}`;
+ return s+`\n\n${nom} — ${tel}${m?'\n'+m:''}`}
+$('#envoyer').onclick=e=>{e.preventDefault();if(jour==null||!service){$('#alerte').textContent='Choisissez un jour et un service.';$('#alerte').classList.add('on');return}
+ if(mode==='emporter'&&!detailPlats().length){$('#alerte').textContent='Ajoutez au moins un plat.';$('#alerte').classList.add('on');return}
+ location.href=`mailto:s.gensheureux@gmail.com?subject=${encodeURIComponent(mode==='table'?'Réservation':'Commande à emporter')}&body=${encodeURIComponent(texte())}`};
+$('#ics').onclick=e=>{const d=jours[jour];if(!d||!service){e.preventDefault();return}
+ const p=n=>String(n).padStart(2,'0');const h=service==='midi'?[12,0,14,0]:[19,30,21,30];
+ const dt=(H,M)=>`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(H)}${p(M)}00`;
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Les Gens Heureux//Maquette//FR','BEGIN:VEVENT',`UID:${Date.now()}@gens-heureux`,`DTSTART;TZID=Europe/Paris:${dt(h[0],h[1])}`,`DTEND;TZID=Europe/Paris:${dt(h[2],h[3])}`,`SUMMARY:${mode==='table'?'Déjeuner':'Retrait à emporter'} — Les Gens Heureux`,'LOCATION:15 rue du Tacot\\, 42370 Renaison','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ e.currentTarget.href='data:text/calendar;charset=utf-8,'+encodeURIComponent(ics)};
+['#nom','#tel','#msg'].forEach(s=>$(s).oninput=maj);
+rendJours();rendServices();majPlats();maj();
+
+/* Horaires + statut en direct */
+const H={2:[9,19],3:[9,19],4:[9,19],5:[9,22],6:[9,19]};
+const noms=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const today=new Date().getDay();
+$('#horaires').innerHTML=[2,3,4,5,6,0,1].map(w=>`<li class="${w===today?'auj':''}"><span>${noms[w]}</span><span>${H[w]?H[w][0]+'h00 – '+H[w][1]+'h00':'Fermé'}</span></li>`).join('');
+const n=new Date(),h=n.getHours()+n.getMinutes()/60,o=H[n.getDay()]&&h>=H[n.getDay()][0]&&h<H[n.getDay()][1];
+$('#statut').classList.toggle('ouvert',!!o);$('#statut span').textContent=o?`Ouvert en ce moment · jusqu'à ${H[n.getDay()][1]}h`:'Fermé en ce moment';
+
+/* Flocons discrets sur le bloc fêtes */
+if(!reduit){const f=$('#fetes');for(let k=0;k<10;k++){const s=document.createElement('span');s.className='flocon';s.textContent='✦';s.style.left=Math.random()*100+'%';s.style.fontSize=(8+Math.random()*10)+'px';s.style.animationDuration=(7+Math.random()*7)+'s';s.style.animationDelay=(-Math.random()*10)+'s';f.appendChild(s)}}
+
+/* Lightbox galerie */
+const lb=$('#lb');$$('.galerie figure').forEach(fg=>fg.onclick=()=>{lb.querySelector('img').src=fg.querySelector('img').src.replace(/w_\d+,h_\d+/,'w_1400,h_1400');lb.querySelector('img').alt=fg.querySelector('img').alt;lb.classList.add('on')});
+lb.onclick=e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+})();
+</script>
+</body>
+</html>
