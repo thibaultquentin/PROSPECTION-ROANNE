@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Serres des Cordeliers — Horticulteur & pépiniériste à Charlieu et Paray-le-Monial</title>
+<meta name="description" content="Horticulteur et pépiniériste à Charlieu et Paray-le-Monial : plantes fleuries, arbustes, plants de légumes, chrysanthèmes et sapins de Noël, vente sur l'exploitation.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel (Elementor, variables globales)
+   Ajustable ici en quelques lignes.
+   ========================================================= */
+:root{
+  --vert-fonce:#0B3D2C;   /* fond des bandeaux / pied de page du site actuel */
+  --vert-lime:#A8D107;    /* couleur primaire / accent du site actuel (bandeau du logo) */
+  --vert-feuille:#729F28; /* liens et boutons du site actuel */
+  --vert-pale:#E9F2EA;    /* fonds clairs du site actuel */
+  --sable:#F1D2A9;        /* couleur secondaire du site actuel */
+  --texte:#414141;        /* texte courant */
+  --gris:#787878;
+  --blanc:#FFFFFF;
+  /* fleurs du logo, utilisées en touches */
+  --fleur-rouge:#E8361E; --fleur-orange:#F59A0B; --fleur-rose:#E5168A;
+  --titre:"Montserrat",system-ui,sans-serif;
+  --corps:"Inter",system-ui,sans-serif;
+  --rayon:18px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--corps);color:var(--texte);background:var(--blanc);line-height:1.6;overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--titre);color:var(--vert-fonce);line-height:1.15}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--vert-lime);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--vert-fonce);color:#cfe3d4;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--vert-lime)}
+
+/* Barre de contact (comme le site actuel) */
+.topbar{background:var(--vert-pale);font-size:.8rem;font-weight:500}
+.topbar .wrap{display:flex;gap:1.4rem;justify-content:flex-end;align-items:center;padding:.4rem 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+.topbar span{color:var(--vert-feuille);font-weight:700;font-family:var(--titre);font-size:.72rem;letter-spacing:.06em}
+.topbar .visite{background:var(--vert-feuille);color:#fff;padding:.3rem .8rem;border-radius:99px;font-family:var(--titre);font-weight:700;font-size:.72rem;letter-spacing:.05em}
+
+/* En-tête */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);transition:box-shadow .3s,padding .3s}
+header.nav.scrolled{box-shadow:0 6px 24px rgba(11,61,44,.10)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;gap:1rem}
+.logo img{height:64px;width:auto;transition:height .3s}
+header.nav.scrolled .logo img{height:48px}
+nav ul{display:flex;gap:.3rem;list-style:none;align-items:center}
+nav a{text-decoration:none;font-family:var(--titre);font-weight:600;font-size:.88rem;color:var(--vert-fonce);padding:.55rem .8rem;border-radius:99px;transition:background .25s,color .25s;position:relative}
+nav a:hover{background:var(--vert-pale)}
+nav a.cta{background:var(--vert-lime);color:var(--vert-fonce)}
+nav a.cta:hover{background:var(--vert-fonce);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger i{display:block;width:24px;height:2px;background:var(--vert-fonce);margin:5px auto;transition:.3s}
+@media(max-width:940px){
+  .burger{display:block;position:relative;z-index:2}
+  nav ul{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);flex-direction:column;align-items:stretch;background:#fff;padding:5rem 1.2rem 1.2rem;transform:translateX(100%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;box-shadow:-10px 0 40px rgba(0,0,0,.12)}
+  nav.open ul{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+  nav a{display:block;font-size:1rem}
+  .topbar .wrap{justify-content:center;gap:.8rem}
+  .topbar a:first-child,.topbar .visite{display:none}
+  .logo img{height:52px}
+}
+
+/* Héros */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--vert-fonce)}
+.hero__img{position:absolute;inset:-6% 0 0 0;background:url("https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/les-serres-des-cordeliers-charlieu.jpg") center 40%/cover;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,61,44,.35) 0%,rgba(11,61,44,.55) 45%,rgba(11,61,44,.95) 100%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:end;padding:4rem 0 3.5rem}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--titre);font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-lime)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.hero h1{color:#fff;font-size:clamp(2.4rem,1.6rem + 4vw,4.6rem);font-weight:800;letter-spacing:-.02em;margin:.6rem 0 1rem}
+.hero h1 em{font-style:normal;color:var(--vert-lime)}
+.hero p.lead{font-size:clamp(1rem,.95rem + .3vw,1.2rem);max-width:36ch;color:#e7f1e9}
+.btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--titre);font-weight:700;font-size:.92rem;text-decoration:none;padding:.95rem 1.5rem;border-radius:99px;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn--lime{background:var(--vert-lime);color:var(--vert-fonce);box-shadow:0 10px 30px rgba(168,209,7,.35)}
+.btn--lime:hover{background:#fff}
+.btn--ghost{border-color:rgba(255,255,255,.6);color:#fff}
+.btn--ghost:hover{background:#fff;color:var(--vert-fonce)}
+.btn--dark{background:var(--vert-fonce);color:#fff}
+.btn--dark:hover{background:var(--vert-feuille)}
+.btn svg{width:18px;height:18px}
+.glass{background:rgba(255,255,255,.12);backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.25);border-radius:22px;padding:1.3rem;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.now-card{display:grid;grid-template-columns:110px 1fr;gap:1rem;align-items:center;text-decoration:none;color:#fff}
+.now-card img{width:110px;height:110px;object-fit:cover;border-radius:14px}
+.now-card small{font-family:var(--titre);font-weight:700;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-lime)}
+.now-card strong{display:block;font-family:var(--titre);font-size:1.15rem;margin:.2rem 0}
+.now-card span{font-size:.85rem;color:#dbe8de}
+.stat{display:flex;gap:1rem;margin-top:1rem}
+.stat div{flex:1;border-radius:16px;padding:1rem;background:rgba(11,61,44,.45);border:1px solid rgba(255,255,255,.18)}
+.stat b{font-family:var(--titre);font-size:2rem;color:var(--vert-lime);display:block;line-height:1}
+.stat span{font-size:.8rem;color:#dbe8de}
+.scroll-hint{position:absolute;left:50%;bottom:14px;z-index:3;transform:translateX(-50%);width:26px;height:42px;border:2px solid rgba(255,255,255,.6);border-radius:14px}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:sh 1.8s infinite}
+@keyframes sh{0%{opacity:0;transform:translateY(0)}40%{opacity:1}100%{opacity:0;transform:translateY(14px)}}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{min-height:auto}.hero .wrap{padding-top:9rem}.scroll-hint{display:none}}
+
+/* Sections */
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.sec-head{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:end;margin-bottom:2.6rem}
+.sec-head h2{font-size:clamp(1.9rem,1.4rem + 2vw,3rem);font-weight:800;letter-spacing:-.015em;margin-top:.5rem}
+.sec-head p{color:var(--gris)}
+.eyebrow.dark{color:var(--vert-feuille)}
+@media(max-width:760px){.sec-head{grid-template-columns:1fr}}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}.rv.d4{transition-delay:.32s}.rv.d5{transition-delay:.4s}
+
+/* Calendrier des saisons */
+.saisons{background:var(--vert-pale);position:relative;overflow:hidden}
+.months{display:flex;gap:.4rem;overflow-x:auto;padding-bottom:.6rem;scrollbar-width:thin;margin-bottom:1.8rem}
+.months button{flex:0 0 auto;font-family:var(--titre);font-weight:700;font-size:.82rem;border:2px solid transparent;background:#fff;color:var(--vert-fonce);padding:.6rem 1rem;border-radius:99px;cursor:pointer;transition:.25s;min-height:44px}
+.months button:hover{border-color:var(--vert-lime)}
+.months button[aria-pressed="true"]{background:var(--vert-fonce);color:#fff}
+.months button.today::after{content:"•";color:var(--vert-lime);margin-left:.35rem}
+.season-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:1.6rem;align-items:stretch}
+.season-photo{position:relative;border-radius:var(--rayon);overflow:hidden;min-height:360px;background:var(--vert-fonce)}
+.season-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .6s,transform 1.2s var(--ease)}
+.season-photo img.out{opacity:0;transform:scale(1.06)}
+.season-photo .tag{position:absolute;left:1rem;bottom:1rem;background:rgba(11,61,44,.85);color:#fff;font-family:var(--titre);font-weight:700;padding:.5rem .9rem;border-radius:99px;font-size:.85rem}
+.season-list{background:#fff;border-radius:var(--rayon);padding:1.8rem;display:flex;flex-direction:column;gap:1rem}
+.season-list h3{font-size:1.5rem}
+.season-list ul{list-style:none;display:grid;gap:.7rem}
+.season-list li{display:flex;gap:.8rem;align-items:flex-start;padding:.8rem 1rem;border-radius:14px;background:var(--vert-pale);animation:pop .5s var(--ease) both}
+.season-list li b{font-family:var(--titre);color:var(--vert-fonce);display:block}
+.season-list li span{font-size:.88rem;color:var(--gris)}
+.season-list li i{flex:0 0 12px;height:12px;border-radius:50%;margin-top:.4rem}
+@keyframes pop{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.note{font-size:.78rem;color:var(--gris);font-style:italic}
+@media(max-width:860px){.season-grid{grid-template-columns:1fr}.season-photo{min-height:260px}}
+
+/* Outil sapin */
+.sapin{background:var(--vert-fonce);color:#e7f1e9;position:relative;overflow:hidden}
+.sapin h2,.sapin h3{color:#fff}
+.sapin .sec-head p{color:#b9d0c0}
+.tool{display:grid;grid-template-columns:1fr 1.05fr;gap:1.6rem}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:1.6rem}
+.step{padding:1.1rem 0;border-bottom:1px dashed rgba(255,255,255,.15)}
+.step:last-child{border-bottom:0}
+.step h4{color:#fff;font-size:1rem;display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}
+.step h4 em{font-style:normal;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--vert-lime);color:var(--vert-fonce);font-size:.8rem}
+.range{display:flex;align-items:center;gap:1rem}
+input[type=range]{flex:1;accent-color:var(--vert-lime);height:28px}
+.range output{font-family:var(--titre);font-weight:800;font-size:1.4rem;color:var(--vert-lime);min-width:4.5ch;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-flex;align-items:center;gap:.4rem;padding:.6rem 1rem;min-height:44px;border-radius:99px;border:1.5px solid rgba(255,255,255,.25);font-family:var(--titre);font-weight:600;font-size:.86rem;transition:.25s}
+.chips span:hover{border-color:var(--vert-lime)}
+.chips input:checked+span{background:var(--vert-lime);color:var(--vert-fonce);border-color:var(--vert-lime)}
+.chips input:focus-visible+span{outline:3px solid #fff;outline-offset:2px}
+.essences{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.essences label{cursor:pointer;position:relative}
+.essences input{position:absolute;opacity:0}
+.essences .card{display:block;height:100%;padding:.9rem 1rem;border-radius:14px;border:1.5px solid rgba(255,255,255,.18);transition:.25s}
+.essences .card b{font-family:var(--titre);color:#fff;display:block}
+.essences .card small{font-size:.8rem;color:#b9d0c0;display:block;margin-top:.2rem;line-height:1.4}
+.essences input:checked+.card{border-color:var(--vert-lime);background:rgba(168,209,7,.12)}
+.essences input:focus-visible+.card{outline:3px solid #fff}
+.essences .card:hover{transform:translateY(-2px)}
+.check{display:flex;gap:.7rem;align-items:flex-start;cursor:pointer;font-size:.9rem}
+.check input{width:20px;height:20px;accent-color:var(--vert-lime);margin-top:.15rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.fields input,.fields select{width:100%;padding:.8rem .9rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font:inherit;min-height:46px}
+.fields input::placeholder{color:#9cb8a5}
+.fields select option{color:#000}
+@media(max-width:520px){.fields,.essences{grid-template-columns:1fr}}
+
+.viz{display:flex;flex-direction:column;gap:1rem}
+.room{position:relative;border-radius:22px;background:linear-gradient(180deg,#123f30 0%,#0e3326 100%);border:1px solid rgba(255,255,255,.12);overflow:hidden;aspect-ratio:1/1.02}
+.room svg{width:100%;height:100%;display:block}
+.room .lbl{font-family:Montserrat,sans-serif;font-weight:700}
+.result{background:#fff;color:var(--texte);border-radius:22px;padding:1.4rem 1.5rem}
+.result h3{color:var(--vert-fonce);font-size:1.25rem;margin-bottom:.4rem}
+.result .big{font-family:var(--titre);font-weight:800;font-size:2.2rem;color:var(--vert-feuille);line-height:1}
+.result dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.9rem;margin:1rem 0}
+.result dt{color:var(--gris)}
+.result dd{font-weight:600;color:var(--vert-fonce)}
+.result .warn{font-size:.82rem;background:#fff7e8;border-left:3px solid var(--fleur-orange);padding:.6rem .8rem;border-radius:8px;margin-bottom:1rem}
+.flash{animation:flash .6s var(--ease)}
+@keyframes flash{0%{transform:scale(.98);opacity:.6}100%{transform:none;opacity:1}}
+@media(max-width:940px){.tool{grid-template-columns:1fr}.room{aspect-ratio:4/3.4}}
+.snow{position:absolute;inset:0;pointer-events:none;z-index:0}
+.sapin .wrap{position:relative;z-index:1}
+
+/* Plantes & prestations */
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.cat{position:relative;border-radius:var(--rayon);overflow:hidden;aspect-ratio:4/4.6;color:#fff;text-decoration:none;isolation:isolate;background:var(--vert-fonce)}
+.cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease);z-index:-2}
+.cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,61,44,.92));z-index:-1;transition:opacity .4s}
+.cat:hover img{transform:scale(1.07)}
+.cat .in{position:absolute;inset:auto 0 0 0;padding:1.3rem}
+.cat h3{color:#fff;font-size:1.3rem}
+.cat p{font-size:.86rem;color:#dbe8de;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s,margin .4s}
+.cat:hover p,.cat:focus-visible p{max-height:120px;opacity:1;margin-top:.4rem}
+.cat .pill{position:absolute;top:1rem;left:1rem;background:var(--vert-lime);color:var(--vert-fonce);font-family:var(--titre);font-weight:700;font-size:.7rem;padding:.3rem .7rem;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
+@media(max-width:900px){.cats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cats{grid-template-columns:1fr}.cat{aspect-ratio:4/3.4}.cat p{max-height:none;opacity:1;margin-top:.4rem}}
+
+/* Nos serres */
+.serres{background:var(--vert-pale)}
+.sites{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.site{background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s}
+.site:hover{transform:translateY(-4px);box-shadow:0 24px 50px rgba(11,61,44,.12)}
+.site figure{aspect-ratio:16/9;overflow:hidden}
+.site figure img{width:100%;height:100%;object-fit:cover}
+.site .body{padding:1.5rem;display:flex;flex-direction:column;gap:.8rem;flex:1}
+.site h3{font-size:1.4rem}
+.site .line{display:flex;gap:.7rem;align-items:center;font-size:.95rem}
+.site .line svg{width:20px;height:20px;flex:0 0 20px;color:var(--vert-feuille)}
+.site .line a{text-decoration:none;font-weight:600;color:var(--vert-fonce)}
+.site .actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:auto;padding-top:.6rem}
+.site .btn{padding:.7rem 1.1rem;font-size:.85rem}
+.btn--line{border-color:var(--vert-fonce);color:var(--vert-fonce)}
+.btn--line:hover{background:var(--vert-fonce);color:#fff}
+@media(max-width:760px){.sites{grid-template-columns:1fr}}
+
+/* Livraison */
+.livraison{padding:0}
+.liv{display:grid;grid-template-columns:1fr 1fr;border-radius:26px;overflow:hidden;background:var(--vert-lime);color:var(--vert-fonce);margin-top:-1px}
+.liv img{width:100%;height:100%;object-fit:cover;min-height:280px}
+.liv .txt{padding:clamp(1.6rem,1rem + 3vw,3.2rem);display:flex;flex-direction:column;justify-content:center;gap:.8rem}
+.liv h2{font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem)}
+.liv .seuil{font-family:var(--titre);font-weight:800;font-size:3.4rem;line-height:1}
+@media(max-width:760px){.liv{grid-template-columns:1fr}}
+
+/* Contact */
+.contact .grid{display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start}
+.cform{background:var(--vert-pale);border-radius:22px;padding:1.8rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.cform label{font-size:.8rem;font-weight:600;color:var(--vert-fonce);display:flex;flex-direction:column;gap:.3rem}
+.cform input,.cform select,.cform textarea{font:inherit;padding:.8rem .9rem;border-radius:12px;border:1.5px solid #cfe0d2;background:#fff;min-height:46px}
+.cform input:focus,.cform select:focus,.cform textarea:focus{border-color:var(--vert-feuille);outline:none}
+.cform .full{grid-column:1/-1}
+.cform textarea{min-height:120px;resize:vertical}
+@media(max-width:860px){.contact .grid{grid-template-columns:1fr}.cform{grid-template-columns:1fr}}
+.vente{display:inline-block;margin-top:1.4rem;padding:1.2rem 1.4rem;border-radius:18px;border:2px dashed var(--vert-lime);font-family:var(--titre);font-weight:800;color:var(--vert-fonce);font-size:1.25rem;line-height:1.2}
+.vente small{display:block;font-weight:600;font-size:.8rem;color:var(--vert-feuille);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+
+/* Pied */
+footer{background:var(--vert-fonce);color:#b9d0c0;padding:3.5rem 0 1.5rem;font-size:.9rem}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-size:.95rem;margin-bottom:.8rem}
+footer ul{list-style:none;display:grid;gap:.35rem}
+footer a{text-decoration:none}
+footer a:hover{color:var(--vert-lime)}
+footer .logo-f{background:#fff;border-radius:18px;padding:.8rem;width:150px}
+footer .mention{border-top:1px solid rgba(255,255,255,.12);margin-top:2.4rem;padding-top:1.2rem;font-size:.78rem;line-height:1.6;color:#8fae99}
+@media(max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){footer .cols{grid-template-columns:1fr}}
+
+/* Bouton flottant mobile */
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;display:none;background:var(--vert-lime);color:var(--vert-fonce);border-radius:99px;padding:.85rem 1.2rem;font-family:var(--titre);font-weight:800;text-decoration:none;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+@media(max-width:760px){.fab{display:inline-flex;gap:.5rem;align-items:center}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Organization",
+ "name":"Les Serres des Cordeliers",
+ "url":"https://www.horticulteur-pepinieriste-charlieu.fr/",
+ "email":"contact@serres-cordeliers.fr",
+ "logo":"https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/Les-serres-des-cordeliers-charlieu2.png",
+ "sameAs":["https://www.facebook.com/horticordeliers","https://www.instagram.com/serresdescordeliers"],
+ "department":[
+  {"@type":"GardenStore","name":"Les Serres des Cordeliers — Charlieu","telephone":"+33477600200",
+   "address":{"@type":"PostalAddress","streetAddress":"Route de Saint-Nizier","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+   "areaServed":["Charlieu","Saint-Nizier-sous-Charlieu","Pouilly-sous-Charlieu","Le Brionnais","Le Roannais"]},
+  {"@type":"GardenStore","name":"Les Serres des Cordeliers — Paray-le-Monial","telephone":"+33385282015",
+   "address":{"@type":"PostalAddress","streetAddress":"Route de Saint-Yan","postalCode":"71600","addressLocality":"Paray-le-Monial","addressCountry":"FR"},
+   "areaServed":["Paray-le-Monial","Le Charolais-Brionnais"]}
+ ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour Les Serres des Cordeliers · non officielle</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="mailto:contact@serres-cordeliers.fr"><span>EMAIL :</span> contact@serres-cordeliers.fr</a>
+    <a href="tel:+33477600200"><span>CHARLIEU</span> 04 77 60 02 00</a>
+    <a href="tel:+33385282015"><span>PARAY-LE-MONIAL</span> 03 85 28 20 15</a>
+    <a class="visite" href="#serres">NOUS RENDRE VISITE</a>
+  </div>
+</div>
+
+<header class="nav" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Les Serres des Cordeliers — accueil"><img src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/Les-serres-des-cordeliers-charlieu2.png" alt="Les Serres des Cordeliers, horticulteur et pépiniériste, Charlieu et Paray-le-Monial"></a>
+    <nav id="menu" aria-label="Menu principal">
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu-list"><i></i><i></i><i></i></button>
+      <ul id="menu-list">
+        <li><a href="#top">Accueil</a></li>
+        <li><a href="#serres">Nos Serres</a></li>
+        <li><a href="#plantes">Nos plantes &amp; prestations</a></li>
+        <li><a href="#saisons">Actualités</a></li>
+        <li><a href="https://serres-cordeliers.fr/" target="_blank" rel="noopener">Boutique en ligne</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="cta" href="#sapin">Réserver mon sapin</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Présentation">
+  <div class="hero__img" id="heroImg" role="img" aria-label="Allée des serres de Charlieu, plantes fleuries et arbustes"></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow rv">Horticulteur &amp; Pépiniériste à Charlieu et Paray-le-Monial</span>
+      <h1 class="rv d1">Cultiver <em>l'excellence</em> horticole</h1>
+      <p class="lead rv d2">Un vaste choix de plantes fleuries et de plants de légumes produits sous nos serres à Charlieu et Paray-le-Monial. Vente au détail sur l'exploitation&nbsp;!</p>
+      <div class="btns rv d3">
+        <a class="btn btn--lime" href="#sapin">Trouver mon sapin de Noël
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn--ghost" href="#plantes">Nos plantes &amp; prestations</a>
+      </div>
+    </div>
+    <div class="rv d4">
+      <a class="glass now-card" href="#sapin">
+        <img src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2024/10/sapins.jpg" alt="Sapins de Noël aux Serres des Cordeliers">
+        <div><small>En ce moment dans nos serres</small><strong>Arrivage des sapins de Noël</strong><span>Nordmann, Épicéa, Nobilis et Grandis, de 80&nbsp;cm à 6&nbsp;m.</span></div>
+      </a>
+      <div class="stat">
+        <div class="glass" style="padding:1rem"><b><span data-count="25">0</span>+</b><span>ans d'expérience</span></div>
+        <div class="glass" style="padding:1rem"><b>2</b><span>serres : Charlieu &amp; Paray-le-Monial</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</section>
+
+<!-- ===== SAISONS ===== -->
+<section class="saisons" id="saisons">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow dark rv">Suivez notre actualité au gré des saisons</span>
+      <h2 class="rv d1">En ce moment dans nos serres</h2></div>
+      <p class="rv d2">Choisissez un mois : la page montre ce qui est en vente aux serres à ce moment-là. Le mois en cours s'affiche automatiquement.</p>
+    </div>
+    <div class="months rv" role="group" aria-label="Choisir un mois" id="months"></div>
+    <div class="season-grid">
+      <div class="season-photo rv"><img id="sImg" src="" alt=""><span class="tag" id="sTag"></span></div>
+      <div class="season-list rv d1" aria-live="polite">
+        <h3 id="sTitle"></h3>
+        <ul id="sList"></ul>
+        <p class="note">Calendrier indicatif construit à partir des rubriques du site actuel — à ajuster par les serres selon les arrivages réels.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== OUTIL SAPIN ===== -->
+<section class="sapin" id="sapin">
+  <canvas class="snow" id="snow" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow rv">Noël aux Serres des Cordeliers</span>
+      <h2 class="rv d1">Trouver le bon sapin, puis le réserver</h2></div>
+      <p class="rv d2">Indiquez la hauteur de votre plafond : la taille idéale se calcule seule, le sapin se dessine dans la pièce. Choisissez l'essence et le lieu de retrait, votre demande part directement aux serres.</p>
+    </div>
+
+    <div class="tool">
+      <form class="panel rv" id="sapinForm" novalidate>
+        <div class="step">
+          <h4><em>1</em> Hauteur sous plafond de la pièce</h4>
+          <div class="range"><input type="range" id="plafond" min="2.2" max="6.5" step="0.05" value="2.5" aria-label="Hauteur sous plafond en mètres"><output id="plafondOut">2,50 m</output></div>
+          <p class="note" style="color:#9cb8a5;margin-top:.4rem">On garde environ 40 cm pour le pied et l'étoile.</p>
+        </div>
+        <div class="step">
+          <h4><em>2</em> Pour quel endroit ?</h4>
+          <div class="chips" id="lieu">
+            <label><input type="radio" name="lieu" value="Salon" checked><span>Salon</span></label>
+            <label><input type="radio" name="lieu" value="Petit espace / appartement"><span>Petit espace</span></label>
+            <label><input type="radio" name="lieu" value="Extérieur / terrasse"><span>Extérieur</span></label>
+            <label><input type="radio" name="lieu" value="Salle de réception / commerce"><span>Grande salle</span></label>
+          </div>
+        </div>
+        <div class="step">
+          <h4><em>3</em> L'essence</h4>
+          <div class="essences">
+            <label><input type="radio" name="ess" value="Nordmann" checked><span class="card"><b>Nordmann</b><small>Résistant, il conserve ses aiguilles tout au long de la saison.</small></span></label>
+            <label><input type="radio" name="ess" value="Épicéa"><span class="card"><b>Épicéa</b><small>Apprécié pour son parfum qui embaume la maison.</small></span></label>
+            <label><input type="radio" name="ess" value="Nobilis"><span class="card"><b>Nobilis</b><small>Aiguilles bleutées, branches étagées et solides.*</small></span></label>
+            <label><input type="radio" name="ess" value="Grandis"><span class="card"><b>Grandis</b><small>Feuillage souple et parfumé, note d'agrume.*</small></span></label>
+          </div>
+          <p class="note" style="color:#9cb8a5;margin-top:.5rem">* caractéristiques générales de l'essence, à confirmer par les serres.</p>
+        </div>
+        <div class="step">
+          <h4><em>4</em> Retrait ou livraison</h4>
+          <div class="chips">
+            <label><input type="radio" name="retrait" value="Retrait aux serres de Charlieu" checked><span>Serres de Charlieu</span></label>
+            <label><input type="radio" name="retrait" value="Retrait aux serres de Paray-le-Monial"><span>Serres de Paray-le-Monial</span></label>
+            <label><input type="radio" name="retrait" value="Livraison à domicile"><span>Livraison à domicile</span></label>
+          </div>
+          <label class="check" style="margin-top:.9rem"><input type="checkbox" id="poinsettia"> Ajouter un poinsettia produit dans nos serres</label>
+        </div>
+        <div class="step">
+          <h4><em>5</em> Vos coordonnées</h4>
+          <div class="fields">
+            <input id="nom" placeholder="Nom" autocomplete="name" aria-label="Nom">
+            <input id="tel" placeholder="Téléphone" autocomplete="tel" inputmode="tel" aria-label="Téléphone">
+            <input id="cp" placeholder="Code postal" inputmode="numeric" aria-label="Code postal">
+            <input id="date" type="date" aria-label="Date de retrait souhaitée">
+          </div>
+        </div>
+      </form>
+
+      <div class="viz">
+        <div class="room rv d1">
+          <svg id="roomSvg" viewBox="0 0 400 400" role="img" aria-label="Schéma : le sapin conseillé dans la pièce">
+            <defs>
+              <linearGradient id="tg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#3f8a3a"/><stop offset="1" stop-color="#1d5a2e"/></linearGradient>
+            </defs>
+            <line id="ceil" x1="30" x2="370" y1="40" y2="40" stroke="#A8D107" stroke-width="2" stroke-dasharray="6 6"/>
+            <text id="ceilTxt" class="lbl" x="370" y="32" text-anchor="end" fill="#A8D107" font-size="13">Plafond</text>
+            <line x1="20" x2="380" y1="360" y2="360" stroke="#5f8a70" stroke-width="2"/>
+            <!-- silhouette 1,70 m -->
+            <g id="person" fill="#5f8a70" opacity=".8"></g>
+            <g id="tree"></g>
+            <text id="treeTxt" class="lbl" x="250" y="380" text-anchor="middle" fill="#fff" font-size="13"></text>
+            <text class="lbl" x="95" y="380" text-anchor="middle" fill="#9cb8a5" font-size="11">repère 1,70 m</text>
+          </svg>
+        </div>
+        <div class="result rv d2" id="result" aria-live="polite">
+          <h3>Votre sapin conseillé</h3>
+          <div class="big" id="rTaille">—</div>
+          <dl>
+            <dt>Essence</dt><dd id="rEss">—</dd>
+            <dt>Endroit</dt><dd id="rLieu">—</dd>
+            <dt>Retrait</dt><dd id="rRet">—</dd>
+            <dt>Poinsettia</dt><dd id="rPoin">Non</dd>
+          </dl>
+          <div class="warn" id="rWarn" hidden></div>
+          <a class="btn btn--dark" id="send" href="#">Envoyer ma demande de réservation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <p class="note" style="margin-top:.7rem">Demande sans engagement : les serres confirment la disponibilité et le prix par téléphone ou par mail.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANTES ===== -->
+<section id="plantes">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow dark rv">Cultiver la beauté, épanouir la nature</span>
+      <h2 class="rv d1">Nos plantes &amp; prestations</h2></div>
+      <p class="rv d2">Notre équipe d'horticulteurs passionnés est à votre disposition pour fournir des conseils personnalisés sur le choix des plantes adaptées à votre projet.</p>
+    </div>
+    <div class="cats">
+      <a class="cat rv" href="#contact" data-svc="Horticultures"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/serre-des-cordelier-decourvir.jpg" alt=""><span class="pill">Produit sous nos serres</span><div class="in"><h3>Plantes à fleur intérieure &amp; extérieure</h3><p>Plantes fleuries à massif et en pot, cultivées sur place à Charlieu et Paray-le-Monial.</p></div></a>
+      <a class="cat rv d1" href="#contact" data-svc="Autre"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2024/02/plantes-interieure-jardinerie-charlieu.jpg" alt=""><div class="in"><h3>Plantes d'intérieur</h3><p>Des conseils personnalisés pour choisir les espèces adaptées à votre intérieur.</p></div></a>
+      <a class="cat rv d2" href="#contact" data-svc="Arbustes"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/vente-arbuste-briennon.jpg" alt=""><div class="in"><h3>Arbres, arbustes &amp; vivaces</h3><p>Une sélection choisie pour sa beauté, son adaptabilité et sa contribution à la diversité de votre espace vert.</p></div></a>
+      <a class="cat rv" href="#contact" data-svc="Plants de légumes"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2024/02/plants-legumes-paray-le-monial.jpg" alt=""><span class="pill">Produit sous nos serres</span><div class="in"><h3>Plants de légumes</h3><p>De nombreuses variétés et des conseils de culture personnalisés pour votre potager.</p></div></a>
+      <a class="cat rv d1" href="#contact" data-svc="Décorations"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/decoration-de-jardin-charlieu2.jpg" alt=""><div class="in"><h3>Décorations</h3><p>Des pièces choisies pour sublimer chaque coin du jardin, et toute la décoration de Noël en saison.</p></div></a>
+      <a class="cat rv d2" href="#contact" data-svc="Poteries"><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/poterie-serres-des-cordeliers-Paray-le-Monial.jpg" alt=""><div class="in"><h3>Poteries</h3><p>Un large choix de pots, de designs variés et résistants aux intempéries.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LIVRAISON ===== -->
+<section class="livraison" aria-label="Livraison à domicile">
+  <div class="wrap">
+    <div class="liv rv">
+      <img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2024/10/livraison.jpg" alt="Livraison de plantes des Serres des Cordeliers">
+      <div class="txt">
+        <h2>Livraison à domicile !</h2>
+        <div><span style="font-weight:600">dès</span> <span class="seuil">75&nbsp;€</span> <span style="font-weight:600">d'achat</span></div>
+        <p>Uniquement pour les zones desservies. N'hésitez pas à nous contacter pour savoir quelles sont les zones.</p>
+        <div><a class="btn btn--dark" href="#contact">Vérifier ma commune</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NOS SERRES ===== -->
+<section class="serres" id="serres" style="margin-top:clamp(4rem,3rem + 4vw,7rem)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="eyebrow dark rv">Nos serres</span>
+      <h2 class="rv d1">Deux localités pour mieux vous servir&nbsp;!</h2></div>
+      <p class="rv d2">Nous vous proposons un vaste choix de plantes fleuries et de plants de légumes produits sous nos serres à Charlieu et Paray-le-Monial.</p>
+    </div>
+    <div class="sites">
+      <article class="site rv">
+        <figure><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/les-serres-des-cordeliers-charlieu3.jpg" alt="Serres de Charlieu"></figure>
+        <div class="body">
+          <h3>Serres de Charlieu</h3>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Route de Saint-Nizier, 42190 Charlieu</div>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+33477600200">04 77 60 02 00</a></div>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horaires : à afficher ici (aujourd'hui renvoyés vers Google)</div>
+          <div class="actions">
+            <a class="btn btn--dark" href="https://www.google.com/maps/search/?api=1&query=Serres+des+Cordeliers+Route+de+Saint-Nizier+42190+Charlieu" target="_blank" rel="noopener">Itinéraire</a>
+            <a class="btn btn--line" href="tel:+33477600200">Appeler</a>
+          </div>
+        </div>
+      </article>
+      <article class="site rv d1">
+        <figure><img loading="lazy" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/les-serres-des-cordeliers-paray-le-monial.jpg" alt="Serres de Paray-le-Monial"></figure>
+        <div class="body">
+          <h3>Serres de Paray-le-Monial</h3>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>Route de Saint-Yan, 71600 Paray-le-Monial</div>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+33385282015">03 85 28 20 15</a></div>
+          <div class="line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Horaires : à afficher ici (aujourd'hui renvoyés vers Google)</div>
+          <div class="actions">
+            <a class="btn btn--dark" href="https://www.google.com/maps/search/?api=1&query=Serres+des+Cordeliers+Route+de+Saint-Yan+71600+Paray-le-Monial" target="_blank" rel="noopener">Itinéraire</a>
+            <a class="btn btn--line" href="tel:+33385282015">Appeler</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div>
+      <span class="eyebrow dark rv">Venez nous rendre visite</span>
+      <h2 class="rv d1" style="font-size:clamp(1.9rem,1.4rem + 2vw,3rem);margin:.5rem 0 1rem">Découvrez nos plantes</h2>
+      <p class="rv d2">Explorez notre univers horticole et laissez-nous vous accompagner dans la création d'un espace extérieur.</p>
+      <div class="vente rv d3"><small>Horticulteur - Pépiniériste</small>Vente au détail<br>sur l'exploitation&nbsp;!</div>
+      <p class="rv d3" style="margin-top:1.4rem"><a href="mailto:contact@serres-cordeliers.fr" style="font-weight:700;color:var(--vert-fonce)">contact@serres-cordeliers.fr</a></p>
+    </div>
+    <form class="cform rv d1" id="cform" novalidate>
+      <label>Nom<input name="nom" autocomplete="name"></label>
+      <label>E-mail<input name="email" type="email" autocomplete="email"></label>
+      <label>Code Postal<input name="cp" inputmode="numeric"></label>
+      <label>Ville<input name="ville"></label>
+      <label class="full">Services
+        <select name="svc" id="svc">
+          <option>Horticultures</option><option>Pépinières</option><option>Arbustes</option><option>Plants de légumes</option><option>Décorations</option><option>Poteries</option><option>Autre</option>
+        </select></label>
+      <label class="full">Message<textarea name="msg"></textarea></label>
+      <div class="full"><button class="btn btn--dark" type="submit">Envoyer</button></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <img class="logo-f" src="https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/2023/11/Les-serres-des-cordeliers-charlieu2.png" alt="Les Serres des Cordeliers">
+        <p style="margin-top:1rem">Suivez-nous : <a href="https://www.facebook.com/horticordeliers" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.instagram.com/serresdescordeliers" target="_blank" rel="noopener">Instagram</a></p>
+      </div>
+      <div><h4>Nos prestations</h4><ul>
+        <li><a href="#plantes">Plantes à fleur intérieur extérieure</a></li><li><a href="#plantes">Plantes d'intérieur</a></li><li><a href="#plantes">Arbres arbustes vivaces</a></li><li><a href="#plantes">Plants de légumes</a></li><li><a href="#plantes">Décorations</a></li><li><a href="#plantes">Poteries</a></li></ul></div>
+      <div><h4>Serres de Charlieu</h4><ul><li>Route de Saint-Nizier<br>42190 Charlieu</li><li><a href="tel:+33477600200">04 77 60 02 00</a></li></ul></div>
+      <div><h4>Serres de Paray-le-Monial</h4><ul><li>Route de Saint-Yan<br>71600 Paray-le-Monial</li><li><a href="tel:+33385282015">03 85 28 20 15</a></li></ul></div>
+    </div>
+    <p class="mention">Maquette de démonstration non officielle, réalisée à titre de proposition pour Les Serres des Cordeliers. Textes, coordonnées, logo et photos repris du site actuel (horticulteur-pepinieriste-charlieu.fr) ; couleurs et typographies (Montserrat, Inter) reprises de sa charte. Aucun prix n'est affiché : les tarifs restent à confirmer par les serres. Le calendrier des saisons est indicatif. Horaires d'ouverture à fournir par les serres. Les demandes envoyées depuis cette maquette ouvrent simplement votre messagerie, rien n'est transmis automatiquement.</p>
+  </div>
+</footer>
+
+<a class="fab" href="#sapin">🎄 Mon sapin</a>
+
+<script>
+(function(){
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+
+/* En-tête + menu */
+const head = $('header.nav');
+addEventListener('scroll', () => head.classList.toggle('scrolled', scrollY > 30), {passive:true});
+const nav = $('#menu'), burger = $('.burger');
+burger.addEventListener('click', () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { nav.classList.remove('open'); burger.setAttribute('aria-expanded', false); }));
+addEventListener('keydown', e => { if (e.key === 'Escape') nav.classList.remove('open'); });
+
+/* Reveal */
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.12}) : null;
+document.querySelectorAll('.rv').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+/* Parallax héros */
+const hi = $('#heroImg');
+if (!reduce) addEventListener('scroll', () => { if (scrollY < innerHeight) hi.style.transform = `translateY(${scrollY * .25}px) scale(1.05)`; }, {passive:true});
+
+/* Compteur */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const end = +el.dataset.count; let n = 0;
+  const run = () => { const t = setInterval(() => { n++; el.textContent = n; if (n >= end) clearInterval(t); }, 40); };
+  reduce ? el.textContent = end : setTimeout(run, 700);
+});
+
+/* ===== Calendrier des saisons ===== */
+const U = 'https://www.horticulteur-pepinieriste-charlieu.fr/wp-content/uploads/';
+const P = {
+  interieur:[U+'2024/02/plantes-interieure-jardinerie-charlieu.jpg','Plantes d\'intérieur'],
+  legumes:[U+'2024/02/plants-legumes-paray-le-monial.jpg','Plants de légumes'],
+  fleurs:[U+'2023/11/vente-fleurs-digoin.jpg','Plantes fleuries'],
+  arbustes:[U+'2023/11/vente-arbuste-briennon.jpg','Arbustes & vivaces'],
+  chrys:[U+'2024/10/chrysanthemes-accueil.jpg','Chrysanthèmes'],
+  sapins:[U+'2024/10/sapins.jpg','Sapins de Noël'],
+  poteries:[U+'2023/11/poterie-serres-des-cordeliers-Paray-le-Monial.jpg','Poteries']
+};
+const C = {r:'var(--fleur-rouge)',o:'var(--fleur-orange)',p:'var(--fleur-rose)',g:'var(--vert-lime)',d:'var(--vert-feuille)'};
+const it = (t,s,c) => ({t,s,c});
+const M = [
+ ['Janvier','interieur',[it('Plantes d\'intérieur','Pour garder du vert dans la maison en plein hiver.',C.d),it('Poteries','Un large choix de pots pour rempoter.',C.o)]],
+ ['Février','interieur',[it('Plantes d\'intérieur','Conseils personnalisés sur le choix des espèces.',C.d),it('Poteries','Designs variés, résistants aux intempéries.',C.o)]],
+ ['Mars','legumes',[it('Plants de légumes','Les premiers plants pour préparer le potager.',C.g),it('Arbustes & vivaces','Encore le temps de planter avant les beaux jours.',C.d)]],
+ ['Avril','legumes',[it('Plants de légumes','Nombreuses variétés produites sous nos serres.',C.g),it('Plantes fleuries','Les premières plantes à massif.',C.p)]],
+ ['Mai','fleurs',[it('Plantes fleuries à massif','Pleine saison sous les serres de Charlieu et Paray.',C.p),it('Plants de légumes','Conseils de culture personnalisés.',C.g),it('Décorations de jardin','Pour habiller balcons et terrasses.',C.o)]],
+ ['Juin','fleurs',[it('Plantes fleuries','Jardinières, suspensions et pots fleuris.',C.p),it('Poteries','Pour sublimer votre espace vert.',C.o)]],
+ ['Juillet','fleurs',[it('Dahlias, gerberas, coleus','Les vedettes de l\'été dans nos serres.',C.r),it('Décorations','Élégance et originalité au jardin.',C.o)]],
+ ['Août','fleurs',[it('Dahlias, gerberas, coleus','Couleurs d\'été pour terrasses et balcons.',C.r),it('Plantes d\'intérieur','Diversité exceptionnelle de plantes.',C.d)]],
+ ['Septembre','arbustes',[it('Arbustes & vivaces d\'automne','C\'est le moment de planter.',C.d),it('Plantes fleuries d\'automne','Pour prolonger la saison.',C.o)]],
+ ['Octobre','chrys',[it('Chrysanthèmes','Variétés colorées pour la Toussaint.',C.p),it('Arbustes & vivaces','Plantations d\'automne.',C.d)]],
+ ['Novembre','sapins',[it('Arrivage des sapins de Noël','Nordmann, Épicéa, Nobilis et Grandis, de 80 cm à 6 m.',C.g),it('Poinsettias','Produits localement par les serres.',C.r),it('Arbustes','Les plantations continuent même en hiver.',C.d)]],
+ ['Décembre','sapins',[it('Sapins de Noël','Toutes les tailles, du petit intérieur à la grande salle.',C.g),it('Poinsettias','La touche rouge des fêtes, cultivée sur place.',C.r),it('Décorations de Noël','Guirlandes, ornements et lumières.',C.o)]]
+];
+const mBox = $('#months'), now = new Date().getMonth();
+const sImg = $('#sImg');
+function showMonth(i){
+  mBox.querySelectorAll('button').forEach((b,j)=>b.setAttribute('aria-pressed', i===j));
+  const [name, ph, items] = M[i];
+  sImg.classList.add('out');
+  setTimeout(()=>{ sImg.src = P[ph][0]; sImg.alt = P[ph][1]; $('#sTag').textContent = P[ph][1]; sImg.onload = () => sImg.classList.remove('out'); if (sImg.complete) sImg.classList.remove('out'); }, reduce?0:250);
+  $('#sTitle').textContent = (i===now ? 'Ce mois-ci' : 'En ' + name.toLowerCase()) + ' aux serres';
+  $('#sList').innerHTML = items.map((x,k)=>`<li style="animation-delay:${k*.08}s"><i style="background:${x.c}"></i><div><b>${x.t}</b><span>${x.s}</span></div></li>`).join('');
+}
+M.forEach((m,i)=>{ const b = document.createElement('button'); b.type='button'; b.textContent = m[0]; if(i===now) b.classList.add('today'); b.onclick = ()=>showMonth(i); mBox.appendChild(b); });
+showMonth(now);
+setTimeout(()=>{ const b = mBox.children[now]; if (b) mBox.scrollLeft = b.offsetLeft - 20; }, 300);
+
+/* ===== Outil sapin ===== */
+const f = $('#sapinForm'), plafond = $('#plafond');
+const fmt = v => v.toFixed(2).replace('.', ',') + ' m';
+const Y0 = 360, TOP = 40; // sol / plafond dans le SVG
+function drawPerson(scale){
+  const h = 1.7*scale, x = 95, w = h*.26;
+  $('#person').innerHTML = `<circle cx="${x}" cy="${Y0-h+w*.45}" r="${w*.45}"/><rect x="${x-w/2}" y="${Y0-h+w*.95}" width="${w}" height="${h-w*.95}" rx="${w*.35}"/>`;
+}
+function drawTree(hTree, scale, ess){
+  const h = hTree*scale, x = 250, base = Y0 - .06*scale*3;
+  const col = {Nordmann:'#2f7d3a',Épicéa:'#3c8b45',Nobilis:'#4f8a7f',Grandis:'#46923f'}[ess] || '#2f7d3a';
+  const trunk = Math.max(6, h*.07), body = h - trunk, w = Math.min(body*.62, 170);
+  let g = `<rect x="${x-6}" y="${Y0-trunk}" width="12" height="${trunk}" fill="#7a4b2a"/>`;
+  const tiers = 4;
+  for (let i=0;i<tiers;i++){
+    const tTop = Y0 - trunk - body + body*(i/tiers)*.82, tBot = Y0 - trunk - body*(1-(i+1)/tiers)*.95 ;
+    const ww = w*(.45 + .55*(i+1)/tiers);
+    g += `<polygon points="${x},${tTop} ${x-ww/2},${tBot} ${x+ww/2},${tBot}" fill="${col}" opacity="${.85+.05*i}"/>`;
+  }
+  const starY = Y0 - h - 6;
+  g += `<path d="M${x} ${starY-9} l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#F59A0B"/>`;
+  [.3,.5,.7].forEach((p,k)=>{ const yy = Y0 - trunk - body*(1-p); g+=`<circle cx="${x-(w*p*.3)+k*14}" cy="${yy}" r="4" fill="${['#E8361E','#E5168A','#F1D2A9'][k]}"/>`; });
+  const t = $('#tree'); t.innerHTML = g;
+  if (!reduce){ t.style.transformOrigin = `${x}px ${Y0}px`; t.animate([{transform:'scaleY(.92)'},{transform:'scaleY(1)'}],{duration:450,easing:'cubic-bezier(.34,1.56,.64,1)'}); }
+  $('#treeTxt').textContent = 'Sapin ' + fmt(hTree);
+}
+function val(n){ const el = f.querySelector(`input[name="${n}"]:checked`); return el ? el.value : ''; }
+function update(){
+  const p = +plafond.value;
+  $('#plafondOut').textContent = fmt(p);
+  const lieu = val('lieu'), ess = val('ess'), ret = val('retrait');
+  let ideal = p - 0.4;
+  if (lieu === 'Petit espace / appartement') ideal = Math.min(ideal, 1.5);
+  ideal = Math.max(0.8, Math.min(6, ideal));
+  const min = Math.max(0.8, ideal - 0.25);
+  const scale = (Y0 - TOP) / p;
+  drawPerson(scale); drawTree(ideal, scale, ess);
+  const r = $('#result'); r.classList.remove('flash'); void r.offsetWidth; r.classList.add('flash');
+  $('#rTaille').textContent = min.toFixed(2).replace('.',',') + ' à ' + fmt(ideal);
+  $('#rEss').textContent = ess; $('#rLieu').textContent = lieu; $('#rRet').textContent = ret;
+  $('#rPoin').textContent = $('#poinsettia').checked ? 'Oui' : 'Non';
+  const w = $('#rWarn');
+  if (ret === 'Livraison à domicile'){ w.hidden = false; w.textContent = 'Livraison dès 75 € d\'achat, uniquement pour les zones desservies : les serres vous confirment si votre commune est livrée.'; }
+  else if (ideal >= 3){ w.hidden = false; w.textContent = 'Grand sapin : prévoyez un véhicule adapté ou demandez la livraison.'; }
+  else w.hidden = true;
+}
+f.addEventListener('input', update); f.addEventListener('change', update); update();
+$('#send').addEventListener('click', e => {
+  e.preventDefault();
+  const body = [
+    'Bonjour,','', 'Je souhaite réserver un sapin de Noël :',
+    '- Taille : ' + $('#rTaille').textContent + ' (plafond ' + $('#plafondOut').textContent + ')',
+    '- Essence : ' + val('ess'), '- Endroit : ' + val('lieu'), '- ' + val('retrait'),
+    '- Poinsettia : ' + $('#rPoin').textContent,
+    '- Date souhaitée : ' + ($('#date').value || 'à convenir'),'',
+    'Nom : ' + $('#nom').value, 'Téléphone : ' + $('#tel').value, 'Code postal : ' + $('#cp').value
+  ].join('\n');
+  location.href = 'mailto:contact@serres-cordeliers.fr?subject=' + encodeURIComponent('Réservation sapin de Noël') + '&body=' + encodeURIComponent(body);
+});
+
+/* Cartes plantes -> pré-remplit le formulaire */
+document.querySelectorAll('.cat').forEach(c => c.addEventListener('click', () => { $('#svc').value = c.dataset.svc; }));
+$('#cform').addEventListener('submit', e => {
+  e.preventDefault(); const d = new FormData(e.target);
+  const body = `Nom : ${d.get('nom')}\nE-mail : ${d.get('email')}\nCode postal : ${d.get('cp')}\nVille : ${d.get('ville')}\nService : ${d.get('svc')}\n\n${d.get('msg')}`;
+  location.href = 'mailto:contact@serres-cordeliers.fr?subject=' + encodeURIComponent('Demande — ' + d.get('svc')) + '&body=' + encodeURIComponent(body);
+});
+
+/* Neige légère sur la section sapin */
+const cv = $('#snow');
+if (!reduce && cv.getContext){
+  const ctx = cv.getContext('2d'); let W, H, flakes = [], on = false;
+  const size = () => { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; flakes = Array.from({length: Math.min(70, W/14|0)}, () => ({x:Math.random()*W, y:Math.random()*H, r:Math.random()*2+.6, s:Math.random()*.5+.2, d:Math.random()*Math.PI*2})); };
+  size(); addEventListener('resize', size);
+  new IntersectionObserver(es => { on = es[0].isIntersecting; if (on) loop(); }).observe(cv);
+  function loop(){ if (!on) return; ctx.clearRect(0,0,W,H); ctx.fillStyle = 'rgba(255,255,255,.55)';
+    flakes.forEach(p => { p.y += p.s; p.d += .01; p.x += Math.sin(p.d)*.3; if (p.y > H) { p.y = -4; p.x = Math.random()*W; } ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); ctx.fill(); });
+    requestAnimationFrame(loop); }
+}
+})();
+</script>
+</body>
+</html>
