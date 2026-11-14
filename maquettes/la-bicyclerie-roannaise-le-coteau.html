@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Bicyclerie Roannaise — Location et réparation de vélos au Coteau (Roanne)</title>
+<meta name="description" content="Au Coteau, face à Roanne : location de vélos classiques et électriques toute l'année, réparation de cycles, vente de vélos reconditionnés et trottinettes électriques.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du logo actuel de La Bicyclerie Roannaise
+   (fond vert olive texturé, lettrage blanc arrondi, vélo ancien).
+   Couleurs relevées sur le logo publié par Roannais Tourisme :
+   approchées, à ajuster avec les codes exacts du client.
+   ========================================================== */
+:root{
+  --olive:#798535;        /* vert dominant du logo */
+  --olive-clair:#899545;  /* reflet clair de la texture */
+  --olive-fonce:#5C6624;  /* ombre de la texture */
+  --olive-nuit:#2f3512;   /* texte foncé dérivé */
+  --sauge:#BCC19D;        /* vert pâle du logo */
+  --creme:#F9FAF2;        /* blanc cassé du lettrage */
+  --blanc:#ffffff;
+  --encre:#22260f;
+  --gris:#5d6150;
+  --accent:#e9c46a;       /* touche lumineuse discrète (statut ouvert, focus) */
+  --rayon:18px;
+  --ombre:0 18px 40px -18px rgba(47,53,18,.45);
+  --titre:'Righteous', 'Trebuchet MS', sans-serif; /* proche du lettrage arrondi du logo */
+  --texte:'Outfit', system-ui, sans-serif;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Texture "feuillage" du logo, recréée en CSS */
+.texture{background-color:var(--olive);
+  background-image:
+   radial-gradient(circle at 20% 30%, rgba(255,255,255,.07) 0 2px, transparent 3px),
+   radial-gradient(circle at 70% 60%, rgba(0,0,0,.08) 0 3px, transparent 4px),
+   radial-gradient(circle at 40% 80%, rgba(255,255,255,.05) 0 2px, transparent 3px),
+   radial-gradient(ellipse at 10% 10%, var(--olive-clair), transparent 60%),
+   radial-gradient(ellipse at 90% 100%, var(--olive-fonce), transparent 55%);
+  background-size:22px 22px, 31px 31px, 17px 17px, 100% 100%, 100% 100%;}
+
+/* Bandeau démo */
+.demo{background:var(--olive-nuit);color:var(--sauge);font-size:.82rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--creme)}
+
+/* Navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(249,250,242,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid rgba(92,102,36,.15);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 24px -16px rgba(47,53,18,.5)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:var(--titre);font-size:1.25rem;color:var(--olive-fonce)}
+.brand svg{width:42px;height:42px}
+.nav ul{display:flex;gap:1.4rem;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;color:var(--olive-nuit);position:relative;padding:.3rem 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--olive);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after,.nav ul a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer;font:600 1rem var(--texte);text-decoration:none;padding:.8rem 1.35rem;border-radius:999px;min-height:46px;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-plein{background:var(--olive);color:var(--creme);box-shadow:0 10px 22px -12px var(--olive-fonce)}
+.btn-plein:hover{background:var(--olive-fonce)}
+.btn-clair{background:var(--creme);color:var(--olive-fonce)}
+.btn-contour{background:transparent;color:var(--creme);box-shadow:inset 0 0 0 2px rgba(249,250,242,.7)}
+.btn-contour:hover{background:rgba(249,250,242,.12)}
+.burger{display:none;background:none;border:none;width:46px;height:46px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--olive-nuit);margin:6px 10px;transition:.3s}
+@media (max-width:860px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--creme);padding:1.2rem 16px 1.6rem;gap:1rem;transform:translateY(-130%);transition:transform .4s var(--ease);box-shadow:var(--ombre)}
+  .nav ul.ouvert{transform:none}
+  .burger{display:block}
+  .nav .btn-tel{display:none}
+}
+
+/* Hero */
+.hero{position:relative;color:var(--creme);overflow:hidden;padding:clamp(3rem,7vw,6rem) 0 clamp(4rem,8vw,7rem)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.statut{display:inline-flex;align-items:center;gap:.55rem;background:rgba(47,53,18,.35);border:1px solid rgba(249,250,242,.25);padding:.4rem .9rem;border-radius:999px;font-size:.9rem;margin-bottom:1.3rem}
+.statut i{width:10px;height:10px;border-radius:50%;background:var(--sauge);box-shadow:0 0 0 0 rgba(233,196,106,.7)}
+.statut.ouvert i{background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(233,196,106,0)}100%{box-shadow:0 0 0 0 rgba(233,196,106,0)}}
+.hero h1{font-family:var(--titre);font-weight:400;font-size:clamp(2.6rem,1.6rem + 4.6vw,5.2rem);line-height:1;letter-spacing:.01em;text-transform:uppercase}
+.hero h1 .ligne{display:block;overflow:hidden}
+.hero h1 .ligne span{display:inline-block;transform:translateY(105%);animation:monte .9s var(--ease) forwards}
+.hero h1 .ligne:nth-child(2) span{animation-delay:.12s}
+@keyframes monte{to{transform:none}}
+.trio{display:flex;flex-wrap:wrap;gap:.4rem .9rem;margin:1.2rem 0 1.4rem;font-family:var(--titre);font-size:clamp(1rem,.9rem + .6vw,1.35rem);letter-spacing:.06em;text-transform:uppercase}
+.trio span{opacity:0;animation:apparait .6s ease forwards}
+.trio span:nth-child(1){animation-delay:.5s}.trio span:nth-child(2){animation-delay:.65s}.trio span:nth-child(3){animation-delay:.8s}
+.trio span:not(:last-child)::after{content:"•";margin-left:.9rem;color:var(--sauge)}
+@keyframes apparait{to{opacity:1}}
+.hero p.lead{max-width:34rem;font-size:1.1rem;color:#eef0dd}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.carte-logo{position:relative;background:var(--olive-fonce);border-radius:26px;padding:1rem;box-shadow:0 30px 60px -25px rgba(0,0,0,.55);transform:rotate(-2.5deg);transition:transform .6s var(--ease)}
+.carte-logo:hover{transform:rotate(0) scale(1.02)}
+.carte-logo img{border-radius:16px;width:100%}
+.carte-logo small{display:block;font-size:.72rem;color:var(--sauge);margin-top:.5rem;text-align:right}
+.velo-route{position:absolute;left:0;right:0;bottom:0;height:70px;pointer-events:none}
+.velo-route .sol{position:absolute;left:0;right:0;bottom:18px;border-top:2px dashed rgba(249,250,242,.35)}
+.velo-route svg{position:absolute;bottom:18px;width:90px;height:56px;left:-100px;animation:roule 16s linear infinite}
+.velo-route .roue{transform-box:fill-box;transform-origin:center;animation:tourne 1s linear infinite}
+@keyframes roule{to{left:calc(100% + 100px)}}
+@keyframes tourne{to{transform:rotate(360deg)}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.carte-logo{max-width:380px}}
+
+/* Sections */
+section{padding:clamp(3.5rem,7vw,6rem) 0}
+.surtitre{font-family:var(--titre);color:var(--olive);letter-spacing:.12em;text-transform:uppercase;font-size:.9rem}
+h2{font-family:var(--titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1.08;color:var(--olive-nuit);margin:.3rem 0 1rem}
+.intro{max-width:44rem;color:var(--gris);font-size:1.08rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Bande défilante */
+.bande{background:var(--olive-nuit);color:var(--sauge);overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:var(--titre);text-transform:uppercase;letter-spacing:.1em}
+.bande div{display:inline-block;animation:defile 30s linear infinite}
+.bande span{margin:0 1.4rem}
+.bande span:nth-child(even){color:var(--accent)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Trois métiers */
+.metiers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem}
+.metier{background:var(--blanc);border-radius:var(--rayon);padding:1.8rem;box-shadow:var(--ombre);position:relative;overflow:hidden;transition:transform .4s var(--ease)}
+.metier:hover{transform:translateY(-6px)}
+.metier .ico{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;margin-bottom:1rem;color:var(--creme)}
+.metier .ico svg{width:30px;height:30px}
+.metier:hover .ico svg{animation:tourne 1.2s linear}
+.metier h3{font-family:var(--titre);font-weight:400;font-size:1.5rem;color:var(--olive-nuit);margin-bottom:.4rem}
+.metier ul{list-style:none;margin-top:.8rem}
+.metier li{padding:.3rem 0 .3rem 1.4rem;position:relative;color:var(--gris)}
+.metier li::before{content:"";position:absolute;left:0;top:.75rem;width:8px;height:8px;border-radius:50%;background:var(--olive)}
+@media (max-width:860px){.metiers{grid-template-columns:1fr}}
+
+/* Outil de réservation */
+#louer{background:linear-gradient(180deg,var(--creme),#eef0de)}
+.outil{display:grid;grid-template-columns:1.25fr .75fr;gap:1.6rem;margin-top:2.4rem;align-items:start}
+.panneau{background:var(--blanc);border-radius:24px;box-shadow:var(--ombre);padding:clamp(1.2rem,3vw,2rem)}
+.onglets{display:flex;gap:.4rem;background:#eef0de;border-radius:999px;padding:.3rem;margin-bottom:1.5rem;width:max-content;max-width:100%}
+.onglets button{border:none;background:none;font:600 .95rem var(--texte);padding:.6rem 1.1rem;border-radius:999px;cursor:pointer;color:var(--olive-nuit);min-height:44px;transition:background .3s,color .3s}
+.onglets button[aria-selected="true"]{background:var(--olive);color:var(--creme)}
+.etape{margin-bottom:1.6rem}
+.etape > p.lbl{font-weight:600;color:var(--olive-nuit);margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.etape > p.lbl b{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--olive);color:var(--creme);font-size:.85rem}
+.engins{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.7rem}
+.engin{border:2px solid #e3e6cf;border-radius:16px;padding:.9rem;display:flex;flex-direction:column;gap:.5rem;transition:border-color .3s,background .3s,transform .3s var(--ease)}
+.engin.actif{border-color:var(--olive);background:#f6f8e8}
+.engin .nom{font-weight:600;font-size:.95rem;line-height:1.25}
+.engin svg{width:44px;height:30px;color:var(--olive)}
+.qte{display:flex;align-items:center;gap:.5rem;margin-top:auto}
+.qte button{width:36px;height:36px;border-radius:50%;border:none;background:#eef0de;color:var(--olive-nuit);font-size:1.2rem;cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.qte button:hover{background:var(--sauge)}
+.qte button:active{transform:scale(.85)}
+.qte output{min-width:1.4rem;text-align:center;font-weight:700}
+.bump{animation:bump .35s var(--ease)}
+@keyframes bump{50%{transform:scale(1.06)}}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+label.ch{display:flex;flex-direction:column;gap:.3rem;font-size:.88rem;color:var(--gris)}
+label.ch input,label.ch select,label.ch textarea{font:1rem var(--texte);padding:.7rem .8rem;border-radius:12px;border:1.5px solid #dfe3c8;background:#fcfdf7;color:var(--encre);min-height:46px}
+label.ch input:focus,label.ch select:focus,label.ch textarea:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 4px rgba(121,133,53,.15)}
+.puces{display:flex;flex-wrap:wrap;gap:.5rem}
+.puce{border:1.5px solid #dfe3c8;background:#fcfdf7;border-radius:999px;padding:.5rem .95rem;cursor:pointer;font:500 .92rem var(--texte);min-height:42px;transition:all .25s var(--ease)}
+.puce[aria-pressed="true"]{background:var(--olive);border-color:var(--olive);color:var(--creme);transform:translateY(-1px)}
+.note{font-size:.85rem;color:var(--gris);margin-top:.5rem}
+.recap{position:sticky;top:90px;color:var(--creme);border-radius:24px;padding:1.6rem;box-shadow:var(--ombre)}
+.recap h3{font-family:var(--titre);font-weight:400;font-size:1.5rem;margin-bottom:.8rem}
+.recap ul{list-style:none;margin-bottom:1rem;min-height:3rem}
+.recap li{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px dashed rgba(249,250,242,.25);animation:apparait .4s ease}
+.recap .vide{opacity:.75;font-size:.95rem}
+.recap .duree{font-size:2.6rem;font-family:var(--titre);line-height:1}
+.recap .duree small{font-size:1rem;font-family:var(--texte)}
+.recap .actions{display:grid;gap:.6rem;margin-top:1.2rem}
+.recap .mention{font-size:.78rem;opacity:.8;margin-top:.9rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,calc(100% + 40px));visibility:hidden;background:var(--olive-nuit);color:var(--creme);padding:.8rem 1.3rem;border-radius:999px;box-shadow:var(--ombre);transition:transform .45s var(--ease);z-index:90}
+.toast.vu{transform:translate(-50%,0);visibility:visible}
+.cache{display:none}
+@media (max-width:420px){.engins{grid-template-columns:1fr 1fr}.engin{padding:.7rem}}
+@media (max-width:960px){.outil{grid-template-columns:1fr}.recap{position:static}.champs{grid-template-columns:1fr}}
+
+/* Occasions */
+.occas{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.placeholder{aspect-ratio:4/3;border-radius:24px;border:2px dashed var(--sauge);display:grid;place-items:center;text-align:center;color:var(--gris);background:repeating-linear-gradient(45deg,#f2f4e4 0 14px,#f8f9ee 14px 28px);padding:1.5rem}
+.placeholder b{display:block;font-family:var(--titre);font-weight:400;color:var(--olive-fonce);font-size:1.2rem}
+.etapes-reco{counter-reset:e;list-style:none;margin-top:1.4rem}
+.etapes-reco li{counter-increment:e;display:flex;gap:1rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid #e3e6cf}
+.etapes-reco li::before{content:counter(e,decimal-leading-zero);font-family:var(--titre);color:var(--olive);font-size:1.4rem;line-height:1}
+@media (max-width:860px){.occas{grid-template-columns:1fr}}
+
+/* Balade */
+.balade{color:var(--creme);position:relative;overflow:hidden}
+.balade .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.balade h2{color:var(--creme)}
+.balade p{color:#eef0dd}
+.photo{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.55)}
+.photo img{width:100%;aspect-ratio:8/5.2;object-fit:cover;transform:scale(1.08);transition:transform 1.2s ease}
+.photo.vu img{transform:scale(1)}
+.photo figcaption{position:absolute;left:.8rem;bottom:.8rem;background:rgba(34,38,15,.75);color:var(--creme);font-size:.72rem;padding:.25rem .6rem;border-radius:999px}
+@media (max-width:860px){.balade .wrap{grid-template-columns:1fr}}
+
+/* Infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:2.4rem}
+.bloc{background:var(--blanc);border-radius:var(--rayon);padding:1.6rem;box-shadow:var(--ombre)}
+.bloc h3{font-family:var(--titre);font-weight:400;font-size:1.35rem;color:var(--olive-nuit);margin-bottom:.8rem}
+.horaires{list-style:none}
+.horaires li{display:flex;justify-content:space-between;padding:.55rem .7rem;border-radius:10px}
+.horaires li.auj{background:#eef0de;font-weight:700}
+.horaires .rdv{color:var(--gris);font-style:italic}
+.coord a{text-decoration:none;font-weight:600;color:var(--olive-fonce)}
+.coord p{margin-bottom:.6rem}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.6rem}
+.tags span{background:#eef0de;color:var(--olive-nuit);padding:.3rem .7rem;border-radius:999px;font-size:.85rem}
+.carte{grid-column:1/-1;border-radius:var(--rayon);overflow:hidden;box-shadow:var(--ombre);height:320px}
+.carte iframe{width:100%;height:100%;border:0;filter:saturate(.8) sepia(.15)}
+@media (max-width:860px){.infos{grid-template-columns:1fr}}
+
+/* CTA final + footer */
+.final{text-align:center;color:var(--creme)}
+.final h2{color:var(--creme)}
+.final .ctas{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+footer{background:var(--olive-nuit);color:var(--sauge);padding:2.5rem 0;font-size:.88rem}
+footer .wrap{display:grid;gap:1rem}
+footer strong{color:var(--creme)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--olive);color:var(--creme);display:grid;place-items:center;box-shadow:var(--ombre);transform:scale(0);transition:transform .4s var(--ease)}
+.fab.vu{transform:scale(1)}
+.fab svg{width:26px;height:26px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .ligne span{transform:none}
+  .trio span{opacity:1}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BicycleStore",
+  "name":"La Bicyclerie Roannaise",
+  "description":"Vente de vélos reconditionnés, location de vélos musculaires ou électriques, réparation de cycles. Rénovation, récupération et revente de vélos, trottinettes et skateboards électriques.",
+  "address":{"@type":"PostalAddress","streetAddress":"42 quai Général Leclerc","postalCode":"42120","addressLocality":"Le Coteau","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.037438,"longitude":4.0872},
+  "telephone":"+33650751782",
+  "email":"sul.cycles@hotmail.com",
+  "areaServed":["Le Coteau","Roanne"],
+  "sameAs":["https://www.facebook.com/bicyclerieroanne/"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Friday","Saturday"],"opens":"09:00","closes":"19:00"}],
+  "paymentAccepted":"Carte bancaire, carte JCB, chèque, espèces, PayPal, Wero"
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour La Bicyclerie Roannaise, non officielle.</div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="La Bicyclerie Roannaise, accueil">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#798535"/><g fill="none" stroke="#F9FAF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="38" r="9"/><circle cx="45" cy="38" r="9"/><path d="M19 38l8-14h12l6 14M27 24l6 14h-14M37 20h5"/></g></svg>
+      La Bicyclerie
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul id="menu">
+        <li><a href="#metiers">L'atelier</a></li>
+        <li><a href="#louer">Location</a></li>
+        <li><a href="#occasions">Reconditionnés</a></li>
+        <li><a href="#balade">Balades</a></li>
+        <li><a href="#infos">Infos pratiques</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-plein btn-tel" href="tel:+33650751782">06 50 75 17 82</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero texture" id="accueil">
+  <div class="wrap">
+    <div>
+      <div class="statut" id="statut" role="status"><i></i><span>Horaires du jour…</span></div>
+      <h1><span class="ligne"><span>La Bicyclerie</span></span><span class="ligne"><span>Roannaise</span></span></h1>
+      <div class="trio"><span>Réparation</span><span>Vente</span><span>Location</span></div>
+      <p class="lead">Vélos reconditionnés, location de vélos musculaires ou électriques toute l'année, et un atelier qui remet en route vélos, trottinettes et skateboards électriques — quai Général Leclerc, au Coteau.</p>
+      <div class="ctas">
+        <a class="btn btn-clair" href="#louer">Préparer une location</a>
+        <a class="btn btn-contour" href="#louer" data-onglet="atelier">Demander une réparation</a>
+      </div>
+    </div>
+    <figure class="carte-logo">
+      <img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5536153/e3e7c31e39472391-380x250.webp" alt="Logo de La Bicyclerie Roannaise : vélo ancien sur fond vert, mentions Réparation, Vente, Location" width="380" height="250">
+      <small>Visuel actuel de la boutique</small>
+    </figure>
+  </div>
+  <div class="velo-route" aria-hidden="true">
+    <div class="sol"></div>
+    <svg viewBox="0 0 90 56"><g fill="none" stroke="#F9FAF2" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><g class="roue"><circle cx="18" cy="38" r="15"/><path d="M18 23v30M3 38h30"/></g><g class="roue"><circle cx="72" cy="38" r="15"/><path d="M72 23v30M57 38h30"/></g><path d="M18 38l14-22h24l16 22M32 16l12 22H18M52 10h9M30 12h8"/></g></svg>
+  </div>
+</section>
+
+<div class="bande" aria-hidden="true"><div>
+  <span>Vélos électriques</span><span>Vélos enfants</span><span>Réparation de cycles</span><span>Trottinettes électriques</span><span>Sacoches pour l'itinérance</span><span>Vélos reconditionnés</span><span>Skateboards électriques</span><span>Toute l'année</span>
+  <span>Vélos électriques</span><span>Vélos enfants</span><span>Réparation de cycles</span><span>Trottinettes électriques</span><span>Sacoches pour l'itinérance</span><span>Vélos reconditionnés</span><span>Skateboards électriques</span><span>Toute l'année</span>
+</div></div>
+
+<section id="metiers">
+  <div class="wrap">
+    <p class="surtitre reveal">Réparation · Vente · Location</p>
+    <h2 class="reveal">Trois métiers, un seul atelier au bord de la Loire</h2>
+    <p class="intro reveal">Rénovation, récupération, revente : ici, les vélos et les engins électriques reprennent la route au lieu de finir à la benne.</p>
+    <div class="metiers">
+      <article class="metier reveal">
+        <div class="ico texture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></div>
+        <h3>Réparation</h3>
+        <p>L'atelier répare les cycles et propose un kit de réparation pour les petites pannes en chemin.</p>
+        <ul><li>Vélos classiques et électriques</li><li>Trottinettes électriques</li><li>Skateboards électriques</li></ul>
+      </article>
+      <article class="metier reveal">
+        <div class="ico texture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/></svg></div>
+        <h3>Vente</h3>
+        <p>Des vélos reconditionnés, remis en état à l'atelier, et la revente de trottinettes et skateboards électriques.</p>
+        <ul><li>Vélos reconditionnés</li><li>Rénovation et récupération</li><li>Revente d'engins électriques</li></ul>
+      </article>
+      <article class="metier reveal">
+        <div class="ico texture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+        <h3>Location</h3>
+        <p>Toute l'année, à la journée ou sur plusieurs jours, avec des sacoches pour partir en itinérance.</p>
+        <ul><li>Vélos électriques ou non</li><li>Vélos pour enfants</li><li>Système pour tracter un vélo enfant</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="louer">
+  <div class="wrap">
+    <p class="surtitre reveal">Préparez votre passage</p>
+    <h2 class="reveal">Votre demande en une minute, avant même d'appeler</h2>
+    <p class="intro reveal">Choisissez ce qu'il vous faut, vos dates et vos options : la demande est prête à partir par mail, ou à lire au téléphone. La boutique confirme la disponibilité et le tarif.</p>
+
+    <div class="outil">
+      <div class="panneau reveal">
+        <div class="onglets" role="tablist" aria-label="Type de demande">
+          <button role="tab" id="t-loc" aria-selected="true" aria-controls="p-loc">Location</button>
+          <button role="tab" id="t-ate" aria-selected="false" aria-controls="p-ate">Atelier</button>
+        </div>
+
+        <div id="p-loc" role="tabpanel" aria-labelledby="t-loc">
+          <div class="etape">
+            <p class="lbl"><b>1</b> Ce que vous souhaitez louer</p>
+            <div class="engins" id="engins"></div>
+          </div>
+          <div class="etape">
+            <p class="lbl"><b>2</b> Vos dates</p>
+            <div class="champs">
+              <label class="ch">Retrait<input type="date" id="d1"></label>
+              <label class="ch">Retour<input type="date" id="d2"></label>
+            </div>
+            <p class="note">Ouvert lundi, mercredi, vendredi et samedi de 9 h à 19 h ; mardi, jeudi et dimanche sur rendez-vous.</p>
+          </div>
+          <div class="etape">
+            <p class="lbl"><b>3</b> Options</p>
+            <div class="puces">
+              <button class="puce" aria-pressed="false" data-opt="Sacoches (voyage itinérant)">Sacoches pour l'itinérance</button>
+              <button class="puce" aria-pressed="false" data-opt="Kit de réparation">Kit de réparation</button>
+              <button class="puce" aria-pressed="false" data-opt="Documentation touristique">Documentation touristique</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="p-ate" role="tabpanel" aria-labelledby="t-ate" class="cache">
+          <div class="etape">
+            <p class="lbl"><b>1</b> Votre engin</p>
+            <div class="puces" id="ate-engin">
+              <button class="puce" aria-pressed="true" data-v="Vélo">Vélo</button>
+              <button class="puce" aria-pressed="false" data-v="Vélo à assistance électrique">Vélo électrique</button>
+              <button class="puce" aria-pressed="false" data-v="Trottinette électrique">Trottinette électrique</button>
+              <button class="puce" aria-pressed="false" data-v="Skateboard électrique">Skateboard électrique</button>
+            </div>
+          </div>
+          <div class="etape">
+            <p class="lbl"><b>2</b> Ce qui ne va pas</p>
+            <div class="puces" id="ate-pb">
+              <button class="puce" aria-pressed="false">Crevaison</button>
+              <button class="puce" aria-pressed="false">Freins</button>
+              <button class="puce" aria-pressed="false">Vitesses</button>
+              <button class="puce" aria-pressed="false">Chaîne</button>
+              <button class="puce" aria-pressed="false">Batterie / électrique</button>
+              <button class="puce" aria-pressed="false">Remise en route complète</button>
+            </div>
+            <label class="ch" style="margin-top:.8rem">Précisions (facultatif)<textarea id="ate-txt" rows="3" placeholder="Ex. : bruit à l'arrière depuis une semaine"></textarea></label>
+          </div>
+          <div class="etape">
+            <p class="lbl"><b>3</b> Quand passer ?</p>
+            <div class="champs"><label class="ch">Date souhaitée<input type="date" id="ate-d"></label></div>
+          </div>
+        </div>
+
+        <div class="etape" style="margin-bottom:0">
+          <p class="lbl"><b>4</b> Vos coordonnées</p>
+          <div class="champs">
+            <label class="ch">Nom<input id="nom" autocomplete="name" placeholder="Votre nom"></label>
+            <label class="ch">Téléphone<input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></label>
+          </div>
+        </div>
+      </div>
+
+      <aside class="recap texture" aria-live="polite">
+        <h3 id="recap-titre">Votre location</h3>
+        <ul id="recap-liste"><li class="vide">Ajoutez un vélo ou un engin pour commencer.</li></ul>
+        <div id="recap-duree" class="duree">—</div>
+        <div class="actions">
+          <a class="btn btn-clair" id="envoi" href="#">Envoyer la demande par mail</a>
+          <button class="btn btn-contour" id="copier" type="button">Copier le texte</button>
+          <a class="btn btn-contour" href="tel:+33650751782">Appeler le 06 50 75 17 82</a>
+        </div>
+        <p class="mention">Aucune réservation n'est enregistrée par ce formulaire : il prépare un message que vous envoyez vous-même. Disponibilités et tarifs confirmés par la boutique.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="occasions">
+  <div class="wrap occas">
+    <div class="placeholder reveal"><div><b>Photos des vélos reconditionnés</b>à fournir par le client — idéalement une photo par vélo disponible, avec taille et prix.</div></div>
+    <div class="reveal">
+      <p class="surtitre">Vélos reconditionnés</p>
+      <h2>Une deuxième vie, réglée à l'atelier</h2>
+      <p class="intro">Plutôt que de racheter neuf, la Bicyclerie récupère, rénove et revend des vélos — et aussi des trottinettes et skateboards électriques.</p>
+      <ol class="etapes-reco">
+        <li><div><strong>Récupération</strong><br><span class="intro" style="font-size:.95rem">Des vélos et engins qui méritent mieux que la déchetterie.</span></div></li>
+        <li><div><strong>Rénovation</strong><br><span class="intro" style="font-size:.95rem">Remise en état à l'atelier du quai Général Leclerc.</span></div></li>
+        <li><div><strong>Revente</strong><br><span class="intro" style="font-size:.95rem">À essayer sur place, en boutique.</span></div></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="balade texture" id="balade">
+  <div class="wrap">
+    <figure class="photo reveal">
+      <img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5536153/e565c348a286de69-800x520.webp" alt="Cycliste sur la voie verte le long du canal" loading="lazy" width="800" height="520">
+      <figcaption>Photo : Graines de Baroudeurs (fiche Roannais Tourisme)</figcaption>
+    </figure>
+    <div class="reveal">
+      <p class="surtitre" style="color:var(--sauge)">Au départ du Roannais</p>
+      <h2>Louez le matin, longez le canal l'après-midi</h2>
+      <p>La Véloire (V71) démarre au port de plaisance de Roanne et suit l'ancien chemin de halage du canal de Roanne à Digoin. Avec un vélo électrique, des sacoches et le système pour tracter le vélo d'un enfant, la sortie en famille devient simple.</p>
+      <div class="ctas" style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem">
+        <a class="btn btn-clair" href="#louer">Préparer ma location</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <p class="surtitre reveal">Infos pratiques</p>
+    <h2 class="reveal">Passer à la boutique</h2>
+    <div class="infos">
+      <div class="bloc reveal">
+        <h3>Horaires</h3>
+        <ul class="horaires" id="horaires"></ul>
+        <p class="note">Ouvert toute l'année (horaires communiqués par Roannais Tourisme, mise à jour février 2026).</p>
+      </div>
+      <div class="bloc coord reveal">
+        <h3>Coordonnées</h3>
+        <p>42 quai Général Leclerc<br>42120 Le Coteau</p>
+        <p><a href="tel:+33650751782">06 50 75 17 82</a></p>
+        <p><a href="mailto:sul.cycles@hotmail.com">sul.cycles@hotmail.com</a></p>
+        <p><a href="https://www.facebook.com/bicyclerieroanne/" target="_blank" rel="noopener">Page Facebook</a></p>
+        <h3 style="margin-top:1.2rem">Paiement et services</h3>
+        <div class="tags"><span>Carte bancaire</span><span>Carte JCB</span><span>Chèque</span><span>Espèces</span><span>PayPal</span><span>Wero</span><span>Carte cadeau 100 % Roanne</span><span>Animaux acceptés</span><span>Parking</span></div>
+      </div>
+      <div class="carte reveal">
+        <iframe title="Plan d'accès à La Bicyclerie Roannaise" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0792%2C46.0334%2C4.0952%2C46.0414&amp;layer=mapnik&amp;marker=46.037438%2C4.0872"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final texture">
+  <div class="wrap">
+    <h2 class="reveal">Un vélo à réparer, une balade à prévoir ?</h2>
+    <p class="reveal" style="color:#eef0dd">Un appel suffit, ou préparez votre demande en ligne.</p>
+    <div class="ctas reveal">
+      <a class="btn btn-clair" href="tel:+33650751782">Appeler la boutique</a>
+      <a class="btn btn-contour" href="#louer">Préparer ma demande</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>La Bicyclerie Roannaise</strong> — 42 quai Général Leclerc, 42120 Le Coteau — 06 50 75 17 82</p>
+    <p>Maquette de démonstration réalisée sans engagement, non officielle. Informations reprises de la fiche Roannais Tourisme (mise à jour du 19/02/2026). Couleurs approchées à partir du logo actuel, ajustables. Logo et photo de la voie verte : visuels publiés sur la fiche de l'établissement (photo créditée Graines de Baroudeurs). Photos des vélos reconditionnés et de la boutique : à fournir par le client. Aucun tarif n'est affiché : ils restent à confirmer par la boutique.</p>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="tel:+33650751782" aria-label="Appeler La Bicyclerie Roannaise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const EMAIL='sul.cycles@hotmail.com';
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+  /* Navigation */
+  const nav=$('header.nav'), burger=$('.burger'), menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+  menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}});
+  addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>10);$('#fab').classList.toggle('vu',scrollY>600)},{passive:true});
+  const liens=$$('#menu a');
+  const obsNav=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){liens.forEach(a=>a.classList.toggle('actif',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  $$('main section[id]').forEach(s=>obsNav.observe(s));
+
+  /* Apparitions au défilement */
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+    $$('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+  } else $$('.reveal').forEach(el=>el.classList.add('vu'));
+
+  /* Horaires réels + statut du moment */
+  const H=[ ['Lundi',[9,19]],['Mardi',null],['Mercredi',[9,19]],['Jeudi',null],['Vendredi',[9,19]],['Samedi',[9,19]],['Dimanche',null] ];
+  const now=new Date(), j=(now.getDay()+6)%7, h=now.getHours()+now.getMinutes()/60;
+  $('#horaires').innerHTML=H.map((d,i)=>`<li class="${i===j?'auj':''}"><span>${d[0]}</span>${d[1]?`<span>9 h – 19 h</span>`:`<span class="rdv">sur rendez-vous</span>`}</li>`).join('');
+  const st=$('#statut'), aujourd=H[j][1];
+  if(aujourd && h>=aujourd[0] && h<aujourd[1]){st.classList.add('ouvert');st.querySelector('span').textContent='Ouvert maintenant · jusqu\'à 19 h'}
+  else if(aujourd && h<aujourd[0]){st.querySelector('span').textContent='Ouvre aujourd\'hui à 9 h'}
+  else if(!aujourd){st.querySelector('span').textContent='Aujourd\'hui : sur rendez-vous · 06 50 75 17 82'}
+  else{let k=1;while(!H[(j+k)%7][1])k++;st.querySelector('span').textContent='Fermé · réouverture '+(k===1?'demain':H[(j+k)%7][0].toLowerCase())+' à 9 h'}
+
+  /* Outil de demande */
+  const ico={
+    velo:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="7"/><circle cx="35" cy="20" r="7"/><path d="M9 20l7-11h12l7 11M16 9l6 11H9M26 5h5"/></svg>',
+    vae:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="7"/><circle cx="35" cy="20" r="7"/><path d="M9 20l7-11h12l7 11M16 9l6 11H9"/><path d="M21 2l-3 5h4l-3 5" stroke-width="1.8"/></svg>',
+    enfant:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="22" r="5"/><circle cx="32" cy="22" r="5"/><path d="M12 22l5-8h9l6 8M17 14l4 8h-9M24 10h4"/></svg>',
+    tract:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="22" r="5"/><circle cx="37" cy="22" r="5"/><path d="M7 22l6-9h8M21 13l9 2 7 7"/></svg>',
+    trot:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="24" r="4"/><circle cx="35" cy="24" r="4"/><path d="M9 24h22l4-20h-5"/></svg>',
+    skate:'<svg viewBox="0 0 44 30" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16c0 2 2 3 4 3h28c2 0 4-1 4-3"/><circle cx="12" cy="24" r="3"/><circle cx="32" cy="24" r="3"/></svg>'
+  };
+  const ENG=[
+    ['velo','Vélo musculaire'],['vae','Vélo à assistance électrique'],['enfant','Vélo enfant'],
+    ['tract','Système pour tracter un vélo enfant'],['trot','Trottinette électrique'],['skate','Skateboard électrique']];
+  const qte={};
+  $('#engins').innerHTML=ENG.map(([k,n])=>`<div class="engin" data-k="${k}">${ico[k]}<span class="nom">${n}</span><div class="qte"><button type="button" data-d="-1" aria-label="Retirer : ${n}">−</button><output aria-live="polite">0</output><button type="button" data-d="1" aria-label="Ajouter : ${n}">+</button></div></div>`).join('');
+  $('#engins').addEventListener('click',e=>{
+    const b=e.target.closest('button[data-d]'); if(!b)return;
+    const c=b.closest('.engin'), k=c.dataset.k;
+    qte[k]=Math.max(0,Math.min(12,(qte[k]||0)+ +b.dataset.d));
+    c.querySelector('output').textContent=qte[k];
+    c.classList.toggle('actif',qte[k]>0);
+    c.classList.remove('bump');void c.offsetWidth;c.classList.add('bump');
+    maj();
+  });
+
+  const iso=d=>d.toISOString().slice(0,10);
+  const demain=new Date();demain.setDate(demain.getDate()+1);
+  $('#d1').value=iso(demain);$('#d1').min=iso(new Date());
+  const d2=new Date(demain);d2.setDate(d2.getDate()+1);$('#d2').value=iso(d2);$('#ate-d').value=iso(demain);
+  ['#d1','#d2','#nom','#tel','#ate-txt','#ate-d'].forEach(s=>$(s).addEventListener('input',maj));
+
+  $$('.puce').forEach(p=>p.addEventListener('click',()=>{
+    const groupe=p.parentElement;
+    if(groupe.id==='ate-engin'){groupe.querySelectorAll('.puce').forEach(x=>x.setAttribute('aria-pressed','false'));p.setAttribute('aria-pressed','true')}
+    else p.setAttribute('aria-pressed',p.getAttribute('aria-pressed')==='true'?'false':'true');
+    maj();
+  }));
+
+  let mode='loc';
+  function onglet(m){
+    mode=m;
+    $('#t-loc').setAttribute('aria-selected',m==='loc');$('#t-ate').setAttribute('aria-selected',m==='ate');
+    $('#p-loc').classList.toggle('cache',m!=='loc');$('#p-ate').classList.toggle('cache',m!=='ate');
+    maj();
+  }
+  $('#t-loc').onclick=()=>onglet('loc');$('#t-ate').onclick=()=>onglet('ate');
+  $$('[data-onglet="atelier"]').forEach(a=>a.addEventListener('click',()=>onglet('ate')));
+
+  const fr=s=>s?new Date(s+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'';
+  let texte='';
+  function maj(){
+    const nom=$('#nom').value.trim(), tel=$('#tel').value.trim();
+    const L=$('#recap-liste'), D=$('#recap-duree');
+    if(mode==='loc'){
+      $('#recap-titre').textContent='Votre location';
+      const items=ENG.filter(([k])=>qte[k]>0);
+      L.innerHTML=items.length?items.map(([k,n])=>`<li><span>${n}</span><b>× ${qte[k]}</b></li>`).join(''):'<li class="vide">Ajoutez un vélo ou un engin pour commencer.</li>';
+      const a=$('#d1').value,b=$('#d2').value;
+      let jours=0;
+      if(a&&b){jours=Math.round((new Date(b)-new Date(a))/864e5)+1}
+      D.innerHTML=jours>0?`${jours} <small>jour${jours>1?'s':''} de location</small>`:'<small>Vérifiez les dates</small>';
+      const opts=$$('#p-loc .puce[aria-pressed="true"]').map(p=>p.dataset.opt);
+      texte=`Bonjour,\n\nJe souhaiterais louer :\n${items.map(([k,n])=>'- '+qte[k]+' × '+n).join('\n')||'- (à préciser)'}\n\nDu ${fr(a)} au ${fr(b)}${jours>0?' ('+jours+' jour'+(jours>1?'s':'')+')':''}.\n${opts.length?'Options : '+opts.join(', ')+'.\n':''}\nPouvez-vous me confirmer la disponibilité et le tarif ?\n\n${nom||'[Nom]'}\n${tel||'[Téléphone]'}`;
+    }else{
+      $('#recap-titre').textContent='Votre passage à l\'atelier';
+      const eng=$('#ate-engin .puce[aria-pressed="true"]').dataset.v;
+      const pbs=$$('#ate-pb .puce[aria-pressed="true"]').map(p=>p.textContent);
+      L.innerHTML=`<li><span>${eng}</span><b>1</b></li>`+(pbs.length?pbs.map(p=>`<li><span>${p}</span><b>✓</b></li>`).join(''):'<li class="vide">Indiquez ce qui ne va pas.</li>');
+      D.innerHTML=`<small>Passage souhaité :</small><br>${fr($('#ate-d').value)||'—'}`;D.style.fontSize='1.4rem';
+      texte=`Bonjour,\n\nJe souhaiterais faire réparer mon engin : ${eng}.\n${pbs.length?'Problème : '+pbs.join(', ')+'.\n':''}${$('#ate-txt').value.trim()?'Précisions : '+$('#ate-txt').value.trim()+'\n':''}Passage souhaité : ${fr($('#ate-d').value)}.\n\nPouvez-vous me dire quand je peux le déposer ?\n\n${nom||'[Nom]'}\n${tel||'[Téléphone]'}`;
+    }
+    if(mode==='loc')D.style.fontSize='';
+    const sujet=mode==='loc'?'Demande de location':'Demande de réparation';
+    $('#envoi').href=`mailto:${EMAIL}?subject=${encodeURIComponent(sujet+' - site')}&body=${encodeURIComponent(texte)}`;
+  }
+  maj();
+
+  const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('vu');setTimeout(()=>t.classList.remove('vu'),2400)};
+  $('#copier').addEventListener('click',()=>{
+    (navigator.clipboard?navigator.clipboard.writeText(texte):Promise.reject()).then(()=>toast('Texte copié — prêt à coller dans un SMS ou un mail')).catch(()=>toast('Copie impossible ici, utilisez le bouton mail'));
+  });
+})();
+</script>
+</body>
+</html>
