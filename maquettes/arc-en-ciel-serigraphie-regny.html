@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arc en Ciel Sérigraphie — Interfaces Hommes Machines, claviers et capteurs imprimés</title>
+<meta name="description" content="Conception et fabrication d'interfaces hommes machines : claviers à membrane, IHM capacitives, faces avant, étiquettes techniques et capteurs imprimés. Certifié ISO 9001:2015.">
+<link rel="icon" href="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2021/03/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel arcenciel-serigraphie.fr
+   Bleu principal et rouge relevés dans la feuille de style
+   du site ; police Montserrat (déjà utilisée sur le site).
+   Les couleurs « passes » reprennent les bandes du logo.
+   ========================================================= */
+:root{
+  --aec-bleu:#234795;        /* bleu dominant du site */
+  --aec-bleu-fonce:#16305f;
+  --aec-rouge:#e32422;       /* rouge des boutons / pictos */
+  --aec-gris:#5d5c5d;        /* gris texte du site */
+  --aec-turquoise:#00a99d;   /* accent présent dans le CSS du site */
+  --pass-1:#e32422; --pass-2:#f39200; --pass-3:#ffd200; --pass-4:#3aaa35; --pass-5:#00a99d; --pass-6:#234795; --pass-7:#6c3a8e;
+  --fond:#ffffff; --fond-2:#f3f5fa; --encre:#1d2433; --ligne:#dfe4ee;
+  --font:'Montserrat',system-ui,sans-serif;
+  --t-sm:clamp(.82rem,.78rem + .2vw,.92rem);
+  --t-base:clamp(.98rem,.93rem + .25vw,1.08rem);
+  --t-lg:clamp(1.2rem,1.05rem + .7vw,1.6rem);
+  --t-xl:clamp(1.8rem,1.4rem + 1.8vw,2.9rem);
+  --t-2xl:clamp(2.4rem,1.6rem + 3.6vw,4.6rem);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--font);color:var(--encre);background:var(--fond);font-size:var(--t-base);line-height:1.65;font-weight:400;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--aec-rouge);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.eyebrow{font-size:var(--t-sm);text-transform:uppercase;letter-spacing:.14em;font-weight:600;color:var(--aec-rouge);display:inline-flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:"";width:28px;height:3px;background:linear-gradient(90deg,var(--pass-1),var(--pass-3),var(--pass-5),var(--pass-6))}
+h1,h2,h3{font-weight:600;line-height:1.15;color:var(--aec-bleu)}
+h2{font-size:var(--t-xl);margin:.5rem 0 1rem}
+h3{font-size:var(--t-lg)}
+.lead{color:var(--aec-gris);max-width:62ch}
+section{padding:clamp(64px,9vw,120px) 0}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.5rem;border-radius:999px;font-weight:600;font-size:var(--t-sm);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s,box-shadow .25s;font-family:inherit;min-height:44px}
+.btn--rouge{background:var(--aec-rouge);color:#fff}
+.btn--rouge:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--aec-rouge)}
+.btn--ligne{border-color:currentColor;color:var(--aec-bleu);background:transparent}
+.btn--ligne:hover{background:var(--aec-bleu);color:#fff;border-color:var(--aec-bleu)}
+.btn:active{transform:scale(.97)}
+
+/* ---------- bandeau démonstration ---------- */
+.demo{background:var(--aec-bleu-fonce);color:#dfe6f5;font-size:.78rem;text-align:center;padding:.45rem 16px}
+.demo b{color:#fff}
+
+/* ---------- barre haute + en-tête (structure du site actuel) ---------- */
+.topbar{background:var(--aec-bleu);color:#fff;font-size:.8rem}
+.topbar .wrap{display:flex;gap:1.5rem;justify-content:flex-end;padding:.45rem 0;flex-wrap:wrap}
+.topbar a{text-decoration:none;opacity:.9}.topbar a:hover{opacity:1;text-decoration:underline}
+header.site{position:sticky;top:0;z-index:50;border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.site::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(255,255,255,.92);backdrop-filter:blur(10px) saturate(160%)}
+header.site.scrolled{border-color:var(--ligne);box-shadow:0 8px 30px -20px rgba(35,71,149,.5)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.nav img{height:44px;width:auto}
+.nav ul{list-style:none;display:flex;gap:1.1rem;align-items:center}
+.nav ul a{white-space:nowrap}
+.nav ul a{text-decoration:none;font-size:.86rem;font-weight:500;color:var(--aec-gris);position:relative;padding:.3rem 0}
+.nav ul a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;background:var(--aec-rouge);transition:right .3s var(--ease)}
+.nav ul a:hover{color:var(--aec-bleu)}.nav ul a:hover::after,.nav ul a.actif::after{right:0}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--aec-bleu);margin:6px 10px;transition:.3s}
+@media (max-width:1280px){.nav>.btn{display:none}}
+@media (max-width:1100px){
+  .nav ul{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);background:#fff;flex-direction:column;align-items:flex-start;padding:90px 28px;gap:1.2rem;transform:translateX(100%);transition:transform .4s var(--ease);box-shadow:-20px 0 40px -20px rgba(0,0,0,.3)}
+  .nav ul{visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s}
+  .nav ul.ouvert{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+  .topbar span{display:none}
+  .nav ul a{font-size:1.05rem}
+  .burger{display:block;z-index:60}
+  .nav .btn{display:none}
+}
+
+/* ---------- héros : passes de sérigraphie ---------- */
+.hero{padding:clamp(40px,6vw,80px) 0 clamp(60px,8vw,100px);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:center}
+.hero h1{font-size:var(--t-2xl);font-weight:700;letter-spacing:-.02em;margin:1rem 0 1.2rem}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:inline-block;transform:translateY(105%);animation:monte .9s var(--ease) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s;color:var(--aec-rouge)}
+.hero h1 .l:nth-child(3) span{animation-delay:.24s}
+@keyframes monte{to{transform:none}}
+.hero p.lead{font-size:var(--t-lg);font-weight:300;color:var(--aec-gris)}
+.hero .ctas{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.hero .faits{display:flex;gap:1.6rem;flex-wrap:wrap;margin-top:2.2rem;font-size:var(--t-sm);color:var(--aec-gris)}
+.hero .faits b{display:block;color:var(--aec-bleu);font-size:1.05rem}
+.visuel{position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(22,48,95,.6)}
+.visuel img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:dezoom 2.2s var(--ease) .2s forwards}
+@keyframes dezoom{to{transform:scale(1.02)}}
+.passes{position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:none}
+.passes i{flex:1;transform-origin:right;animation:passe 1.1s var(--ease) forwards}
+.passes i:nth-child(1){background:var(--pass-1);animation-delay:.15s}
+.passes i:nth-child(2){background:var(--pass-2);animation-delay:.25s}
+.passes i:nth-child(3){background:var(--pass-3);animation-delay:.35s}
+.passes i:nth-child(4){background:var(--pass-4);animation-delay:.45s}
+.passes i:nth-child(5){background:var(--pass-5);animation-delay:.55s}
+.passes i:nth-child(6){background:var(--pass-6);animation-delay:.65s}
+.passes i:nth-child(7){background:var(--pass-7);animation-delay:.75s}
+@keyframes passe{to{transform:scaleX(0)}}
+.visuel .etiq{position:absolute;left:16px;bottom:16px;right:16px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);padding:.8rem 1rem;border-radius:12px;font-size:.8rem;color:var(--aec-gris);display:flex;align-items:center;gap:.7rem;opacity:0;animation:apparait .6s var(--ease) 1.5s forwards}
+.visuel .etiq b{color:var(--aec-bleu)}
+.pulse{width:10px;height:10px;border-radius:50%;background:var(--aec-turquoise);box-shadow:0 0 0 0 rgba(0,169,157,.6);animation:pulse 2s infinite;flex:none}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(0,169,157,0)}100%{box-shadow:0 0 0 0 rgba(0,169,157,0)}}
+@keyframes apparait{to{opacity:1}}
+.raclette{position:absolute;left:-10%;right:-10%;bottom:0;height:6px;background:linear-gradient(90deg,var(--pass-1),var(--pass-2),var(--pass-3),var(--pass-4),var(--pass-5),var(--pass-6),var(--pass-7));transform-origin:left;transform:scaleX(0);animation:trace 1.6s var(--ease) .9s forwards}
+@keyframes trace{to{transform:scaleX(1)}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.visuel{aspect-ratio:4/3}}
+
+/* ---------- révélations au défilement ---------- */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+
+/* ---------- fabrications ---------- */
+.fab{background:var(--fond-2)}
+.fab__tete{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+.filtres{display:flex;gap:.5rem;flex-wrap:wrap}
+.filtres button{font-family:inherit;font-size:.82rem;font-weight:500;padding:.55rem 1rem;border-radius:999px;border:1px solid var(--ligne);background:#fff;color:var(--aec-gris);cursor:pointer;transition:.25s;min-height:40px}
+.filtres button[aria-pressed="true"]{background:var(--aec-bleu);color:#fff;border-color:var(--aec-bleu)}
+.grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
+.carte{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--ligne);display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s,opacity .4s;cursor:pointer}
+.carte:hover{transform:translateY(-6px);box-shadow:0 24px 40px -24px rgba(35,71,149,.45)}
+.carte.cache{display:none}
+.carte figure{aspect-ratio:16/10;overflow:hidden;position:relative}
+.carte figure img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.carte:hover figure img{transform:scale(1.07)}
+.carte .famille{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);color:var(--aec-bleu);font-size:.7rem;font-weight:600;padding:.25rem .6rem;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+.carte .corps{padding:1.1rem 1.2rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.carte h3{font-size:1.08rem}
+.carte p{font-size:.88rem;color:var(--aec-gris)}
+.carte .plus{margin-top:auto;font-size:.8rem;font-weight:600;color:var(--aec-rouge);display:flex;align-items:center;gap:.4rem}
+.carte .plus::after{content:"→";transition:transform .3s}
+.carte:hover .plus::after{transform:translateX(4px)}
+
+/* tiroir détail */
+.tiroir{position:fixed;inset:0;z-index:90;display:none}
+.tiroir.ouvert{display:block}
+.tiroir__fond{position:absolute;inset:0;background:rgba(16,28,56,.55);opacity:0;transition:opacity .3s}
+.tiroir.ouvert .tiroir__fond{opacity:1}
+.tiroir__panneau{position:absolute;top:0;right:0;bottom:0;width:min(560px,100%);background:#fff;overflow-y:auto;transform:translateX(100%);transition:transform .45s var(--ease)}
+.tiroir.ouvert .tiroir__panneau{transform:none}
+.tiroir__panneau img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.tiroir__panneau .in{padding:1.6rem}
+.tiroir__panneau ul{margin:1rem 0 1.4rem 1.1rem;color:var(--aec-gris);font-size:.92rem}
+.tiroir__panneau li{margin:.3rem 0}
+.fermer{position:absolute;top:12px;right:12px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+
+/* ---------- OUTIL CENTRAL : préparer une demande ---------- */
+.outil{background:linear-gradient(180deg,#fff 0,#fff 40%,var(--fond-2) 100%)}
+.outil__cadre{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;margin-top:2.4rem;align-items:start}
+@media (max-width:960px){.outil__cadre{grid-template-columns:1fr}}
+.etapes{display:flex;gap:.4rem;margin-bottom:1.4rem}
+.etapes span{flex:1;height:5px;border-radius:5px;background:var(--ligne);position:relative;overflow:hidden}
+.etapes span::after{content:"";position:absolute;inset:0;background:var(--c,var(--aec-bleu));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.etapes span.ok::after{transform:none}
+.formulaire{background:#fff;border:1px solid var(--ligne);border-radius:20px;padding:clamp(1.2rem,3vw,2rem);box-shadow:0 30px 60px -45px rgba(35,71,149,.6)}
+.q{display:none}
+.q.actif{display:block;animation:entre .5s var(--ease)}
+@keyframes entre{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.q h3{margin-bottom:.3rem}
+.q .aide{font-size:.85rem;color:var(--aec-gris);margin-bottom:1.1rem}
+.choix{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem}
+.choix label{position:relative;border:1.5px solid var(--ligne);border-radius:12px;padding:.8rem .9rem;cursor:pointer;font-size:.86rem;font-weight:500;transition:.2s;display:flex;gap:.6rem;align-items:flex-start;min-height:48px;background:#fff}
+.choix label:hover{border-color:var(--aec-bleu)}
+.choix input{position:absolute;opacity:0;pointer-events:none}
+.choix .coche{width:18px;height:18px;border-radius:5px;border:2px solid var(--ligne);flex:none;margin-top:1px;transition:.2s;display:grid;place-items:center}
+.choix input[type=radio]+.coche{border-radius:50%}
+.choix input:checked+.coche{background:var(--aec-rouge);border-color:var(--aec-rouge)}
+.choix input:checked+.coche::after{content:"";width:6px;height:6px;background:#fff;border-radius:50%}
+.choix label:has(input:checked){border-color:var(--aec-bleu);background:#f1f4fb}
+.choix small{display:block;font-weight:400;color:var(--aec-gris);font-size:.74rem;line-height:1.35;margin-top:.15rem}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.champs label{font-size:.8rem;font-weight:600;color:var(--aec-gris);display:flex;flex-direction:column;gap:.3rem}
+.champs input,.champs select,.champs textarea{font:inherit;font-size:.92rem;padding:.7rem .8rem;border:1.5px solid var(--ligne);border-radius:10px;background:#fff;color:var(--encre);min-height:44px}
+.champs .large{grid-column:1/-1}
+@media (max-width:560px){.champs{grid-template-columns:1fr}}
+.nav-q{display:flex;justify-content:space-between;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap}
+.apercu{position:sticky;top:96px;background:var(--aec-bleu-fonce);color:#dfe6f5;border-radius:20px;padding:1.4rem;overflow:hidden}
+.apercu h4{color:#fff;font-weight:600;font-size:.95rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.apercu h4 small{font-weight:400;font-size:.7rem;opacity:.7}
+.empilement{height:260px;position:relative;margin:1rem 0 1.2rem;perspective:900px}
+.couche{position:absolute;left:50%;width:76%;height:46px;margin-left:-38%;border-radius:8px;transform-style:preserve-3d;transition:transform .7s var(--ease),opacity .5s,top .7s var(--ease);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:.66rem;font-weight:600;color:#fff;letter-spacing:.02em;box-shadow:0 10px 20px -10px rgba(0,0,0,.6)}
+.couche span{display:none}
+.legende-pile{list-style:none;display:flex;flex-wrap:wrap;gap:.3rem .8rem;font-size:.72rem;margin-bottom:.6rem;counter-reset:c}
+.legende-pile li{display:flex;align-items:center;gap:.35rem;counter-increment:c}
+.legende-pile li::before{content:counter(c);font-weight:700;color:#fff;opacity:.6}
+.legende-pile i{width:10px;height:10px;border-radius:3px;display:inline-block;border:1px solid rgba(255,255,255,.4)}
+.couche.off{opacity:0;pointer-events:none}
+.legende-apercu{font-size:.72rem;opacity:.7}
+.resume{margin-top:1rem;background:rgba(255,255,255,.06);border-radius:12px;padding:1rem;font-size:.82rem;line-height:1.55;max-height:260px;overflow:auto}
+.resume dt{color:#fff;font-weight:600;margin-top:.5rem}
+.resume dt:first-child{margin-top:0}
+.resume dd{opacity:.85}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.8rem}
+.tags span{font-size:.7rem;padding:.2rem .55rem;border-radius:999px;background:rgba(0,169,157,.2);color:#9ff0e8;border:1px solid rgba(0,169,157,.5)}
+.fin{display:none;text-align:center;padding:1rem 0}
+.fin.actif{display:block;animation:entre .5s var(--ease)}
+.fin .ok{width:64px;height:64px;border-radius:50%;background:var(--aec-turquoise);color:#fff;display:grid;place-items:center;font-size:1.8rem;margin:0 auto 1rem}
+.note{font-size:.78rem;color:var(--aec-gris);margin-top:1rem}
+
+/* ---------- solutions techniques ---------- */
+.sol{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem}
+@media (max-width:900px){.sol{grid-template-columns:1fr}}
+.sol article{border-radius:var(--r);overflow:hidden;position:relative;min-height:420px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
+.sol article img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.sol article:hover img{transform:scale(1.06)}
+.sol article::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,48,95,.1) 0%,rgba(22,48,95,.92) 62%);z-index:1}
+.sol .in{position:relative;z-index:2;padding:1.4rem}
+.sol h3{color:#fff;margin-bottom:.4rem}
+.sol p{font-size:.88rem;opacity:.9}
+.sol details{margin-top:.8rem;font-size:.84rem}
+.sol summary{cursor:pointer;font-weight:600;list-style:none;display:flex;align-items:center;gap:.4rem;min-height:36px}
+.sol summary::before{content:"+";display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--aec-rouge);transition:transform .3s}
+.sol details[open] summary::before{transform:rotate(45deg)}
+.sol details ul{margin:.6rem 0 0 1rem;opacity:.92}
+
+/* ---------- matériaux ---------- */
+.mat{background:var(--aec-bleu);color:#fff}
+.mat h2{color:#fff}.mat .lead{color:#cfd9ef}
+.mat .eyebrow{color:#ffd9d8}
+.mat__zone{display:grid;grid-template-columns:260px 1fr;gap:2rem;margin-top:2rem}
+@media (max-width:820px){.mat__zone{grid-template-columns:1fr}}
+.mat__onglets{display:flex;flex-direction:column;gap:.4rem}
+@media (max-width:820px){.mat__onglets{flex-direction:row;flex-wrap:wrap}}
+.mat__onglets button{font-family:inherit;text-align:left;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;padding:.8rem 1rem;border-radius:12px;cursor:pointer;font-size:.9rem;font-weight:500;transition:.25s;min-height:44px}
+.mat__onglets button[aria-selected="true"]{background:#fff;color:var(--aec-bleu)}
+.mat__liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.8rem}
+.mat__liste div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:1rem;animation:entre .45s var(--ease) both}
+.mat__liste b{display:block;margin-bottom:.3rem}
+.mat__liste p{font-size:.84rem;opacity:.85}
+
+/* ---------- techniques : fil de production ---------- */
+.fil{position:relative;margin-top:2.4rem}
+.fil__piste{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:1.2rem;scrollbar-width:thin}
+.fil__piste article{flex:0 0 min(300px,80%);scroll-snap-align:start;border:1px solid var(--ligne);border-radius:var(--r);padding:1.3rem;background:#fff;position:relative}
+.fil__piste article .n{font-size:2.4rem;font-weight:700;color:transparent;-webkit-text-stroke:1.5px var(--aec-bleu);line-height:1}
+.fil__piste article h3{font-size:1.02rem;margin:.6rem 0 .4rem}
+.fil__piste article p{font-size:.86rem;color:var(--aec-gris)}
+.fil__barre{height:4px;background:var(--ligne);border-radius:4px;overflow:hidden}
+.fil__barre i{display:block;height:100%;width:10%;background:linear-gradient(90deg,var(--pass-1),var(--pass-3),var(--pass-5),var(--pass-6));transition:width .2s}
+.fil__fleches{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.8rem}
+.fil__fleches button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--aec-bleu);background:#fff;color:var(--aec-bleu);font-size:1.1rem;cursor:pointer;transition:.2s}
+.fil__fleches button:hover{background:var(--aec-bleu);color:#fff}
+
+/* ---------- moyens de production ---------- */
+.moyens{background:var(--fond-2)}
+.moyens__grille{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
+@media (max-width:860px){.moyens__grille{grid-template-columns:1fr}}
+.chiffres{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.6rem 0}
+.chiffres div{background:#fff;border-radius:var(--r);padding:1.2rem;border-left:4px solid var(--aec-rouge)}
+.chiffres b{font-size:2.3rem;font-weight:700;color:var(--aec-bleu);line-height:1;display:block}
+.chiffres span{font-size:.82rem;color:var(--aec-gris)}
+.moyens ul{list-style:none;display:grid;gap:.55rem}
+.moyens li{display:flex;gap:.7rem;font-size:.92rem;color:var(--aec-gris)}
+.moyens li::before{content:"";width:8px;height:8px;margin-top:.55rem;border-radius:2px;background:var(--aec-bleu);flex:none}
+.mosaique{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:200px 200px;gap:.8rem}
+.mosaique img{width:100%;height:100%;object-fit:cover;border-radius:var(--r)}
+.mosaique img:first-child{grid-row:span 2}
+
+/* ---------- entreprise / R&D ---------- */
+.ent__grille{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+@media (max-width:860px){.ent__grille{grid-template-columns:1fr}}
+.frise{position:relative;padding-left:28px;margin-top:1rem}
+.frise::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--ligne)}
+.frise .trace{position:absolute;left:8px;top:6px;width:2px;height:0;background:var(--aec-rouge);transition:height 1.6s var(--ease)}
+.frise.vu .trace{height:calc(100% - 12px)}
+.frise article{position:relative;padding:0 0 1.6rem}
+.frise article::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--aec-bleu)}
+.frise .date{font-size:.78rem;font-weight:600;color:var(--aec-rouge);letter-spacing:.05em}
+.frise h3{font-size:1.05rem;margin:.15rem 0 .25rem}
+.frise p{font-size:.88rem;color:var(--aec-gris)}
+.secteurs{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.secteurs span{padding:.45rem .9rem;border-radius:999px;background:var(--fond-2);color:var(--aec-bleu);font-size:.84rem;font-weight:500}
+.certifs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:3rem}
+.certifs div{border:1px solid var(--ligne);border-radius:var(--r);padding:1.2rem;display:flex;gap:.9rem;align-items:center}
+.certifs img{width:56px;height:56px;object-fit:contain;flex:none}
+.certifs b{display:block;color:var(--aec-bleu);font-size:.92rem}
+.certifs span{font-size:.78rem;color:var(--aec-gris)}
+
+/* ---------- contact ---------- */
+.contact{background:var(--aec-bleu-fonce);color:#dfe6f5}
+.contact h2{color:#fff}
+.contact__grille{display:grid;grid-template-columns:.9fr 1.1fr;gap:3rem}
+@media (max-width:860px){.contact__grille{grid-template-columns:1fr}}
+.coord{display:grid;gap:1rem;margin-top:1.5rem}
+.coord a,.coord div{display:flex;gap:.9rem;align-items:flex-start;text-decoration:none;padding:1rem;border-radius:12px;background:rgba(255,255,255,.06);transition:background .25s}
+.coord a:hover{background:rgba(255,255,255,.12)}
+.coord svg{flex:none;width:22px;height:22px;stroke:var(--pass-3)}
+.coord b{color:#fff;display:block}
+.contact form{background:#fff;color:var(--encre);border-radius:20px;padding:clamp(1.2rem,3vw,2rem)}
+.contact form h3{margin-bottom:1rem}
+.retour{margin-top:1rem;font-size:.85rem;color:var(--aec-turquoise);font-weight:600;min-height:1.2em}
+
+footer{background:#0f1f40;color:#9fb0d3;font-size:.8rem;padding:2.5rem 0}
+footer .wrap{display:grid;gap:1rem}
+footer img{height:38px;width:auto;background:#fff;border-radius:6px;padding:4px 8px}
+footer .mention{border-top:1px solid rgba(255,255,255,.1);padding-top:1rem;line-height:1.6}
+footer a{color:#fff}
+
+.flottant{position:fixed;right:16px;bottom:16px;z-index:40;opacity:0;transform:translateY(20px);transition:.4s var(--ease);pointer-events:none}
+.flottant.visible{opacity:1;transform:none;pointer-events:auto}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Arc en Ciel Sérigraphie",
+  "description":"Conception et réalisation d'interfaces hommes machines (IHM) : claviers à membrane, IHM capacitives, faces avant, étiquettes techniques, capteurs imprimés, ensemblier système.",
+  "url":"https://www.arcenciel-serigraphie.fr/",
+  "logo":"https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/cropped-logo-arc-en-ciel-serigraphie.png",
+  "image":"https://www.arcenciel-serigraphie.fr/wp-content/uploads/2021/04/3.jpg",
+  "telephone":"+33477630443",
+  "email":"contact@arcenciel-serigraphie.fr",
+  "foundingDate":"1984",
+  "address":{"@type":"PostalAddress","streetAddress":"191 impasse des Crayons, ZI Le Forestier","postalCode":"42630","addressLocality":"Régny","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":{"@type":"Country","name":"France"},
+  "hasCredential":{"@type":"EducationalOccupationalCredential","name":"ISO 9001:2015"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Arc en Ciel Sérigraphie</b> — ne remplace pas le site en ligne</div>
+
+<div class="topbar"><div class="wrap">
+  <span>191 impasse des Crayons – ZI le Forestier – 42630 Régny</span>
+  <a href="tel:+33477630443">04 77 63 04 43</a>
+  <a href="mailto:contact@arcenciel-serigraphie.fr">contact@arcenciel-serigraphie.fr</a>
+</div></div>
+
+<header class="site" id="haut">
+  <div class="wrap nav">
+    <a href="#haut" aria-label="Arc en Ciel Sérigraphie — accueil"><img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/cropped-logo-arc-en-ciel-serigraphie.png" alt="Arc en Ciel Sérigraphie" width="260" height="44"></a>
+    <ul id="menu">
+      <li><a href="#entreprise">Entreprise</a></li>
+      <li><a href="#fabrications">Fabrications</a></li>
+      <li><a href="#techniques">Techniques</a></li>
+      <li><a href="#materiaux">Expertise</a></li>
+      <li><a href="#solutions">Solutions techniques</a></li>
+      <li><a href="#moyens">Moyens de production</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn--rouge" href="#demande">Préparer une demande</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- ================= HÉROS ================= -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Sérigraphie industrielle · Régny, Loire</span>
+      <h1><span class="l"><span>Interfaces</span></span><span class="l"><span>Hommes</span></span><span class="l"><span>Machines</span></span></h1>
+      <p class="lead">La qualité de notre expertise, de nos solutions, de nos essais, de nos fabrications font la qualité de vos produits et la satisfaction de vos clients.</p>
+      <div class="ctas">
+        <a class="btn btn--rouge" href="#demande">Préparer votre cahier des charges</a>
+        <a class="btn btn--ligne" href="#fabrications">Nos fabrications</a>
+      </div>
+      <div class="faits">
+        <div><b>Depuis 1984</b>sérigraphie multi-supports</div>
+        <div><b>ISO 9001 : 2015</b>AIO Certification</div>
+        <div><b>Agréé CIR</b>depuis août 2020</div>
+      </div>
+    </div>
+    <div class="visuel">
+      <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2021/04/3.jpg" alt="Planche de circuits imprimés par sérigraphie dans l'atelier Arc en Ciel Sérigraphie" fetchpriority="high">
+      <div class="passes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="etiq"><span class="pulse"></span><span><b>Électronique imprimée</b> — capteurs de force, température, humidité, niveau</span></div>
+      <div class="raclette" aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FABRICATIONS ================= -->
+<section class="fab" id="fabrications">
+  <div class="wrap">
+    <div class="fab__tete">
+      <div>
+        <span class="eyebrow rv">Nos fabrications</span>
+        <h2 class="rv rv-d1">Du simple marquage à la fonction complète</h2>
+        <p class="lead rv rv-d2">IHM informatives, IHM de commande, capteurs et ensemblier système : cliquez sur une fabrication pour voir les options proposées.</p>
+      </div>
+      <div class="filtres rv" role="group" aria-label="Filtrer les fabrications">
+        <button aria-pressed="true" data-f="tout">Tout</button>
+        <button aria-pressed="false" data-f="info">IHM informative</button>
+        <button aria-pressed="false" data-f="cmd">IHM de commande</button>
+        <button aria-pressed="false" data-f="capt">Capteurs</button>
+        <button aria-pressed="false" data-f="ens">Ensemblier</button>
+      </div>
+    </div>
+    <div class="grille" id="grille"></div>
+  </div>
+</section>
+
+<div class="tiroir" id="tiroir" aria-hidden="true">
+  <div class="tiroir__fond" data-fermer></div>
+  <div class="tiroir__panneau" role="dialog" aria-modal="true" aria-labelledby="t-titre">
+    <button class="fermer" data-fermer aria-label="Fermer">×</button>
+    <img id="t-img" src="" alt="">
+    <div class="in">
+      <span class="eyebrow" id="t-fam"></span>
+      <h3 id="t-titre" style="font-size:1.5rem;margin:.4rem 0 .6rem"></h3>
+      <p id="t-txt" style="color:var(--aec-gris)"></p>
+      <ul id="t-liste"></ul>
+      <a class="btn btn--rouge" href="#demande" id="t-cta">Préparer une demande pour ce produit</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= OUTIL : PRÉPARER UNE DEMANDE ================= -->
+<section class="outil" id="demande">
+  <div class="wrap">
+    <span class="eyebrow rv">Préparer une demande</span>
+    <h2 class="rv rv-d1">Votre cahier des charges IHM, en quatre étapes</h2>
+    <p class="lead rv rv-d2">Nous participons à l'élaboration de vos cahiers des charges. Ce parcours aide votre bureau d'études à poser les bonnes bases avant le premier échange : type de produit, contraintes d'environnement, options, volumes. Le récapitulatif part directement vers notre équipe.</p>
+
+    <div class="outil__cadre">
+      <form class="formulaire" id="cdc" novalidate>
+        <div class="etapes" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+        <div class="q actif" data-q="1">
+          <h3>1. Quel produit ?</h3>
+          <p class="aide">Une seule réponse — vous pourrez préciser ensuite.</p>
+          <div class="choix" id="c-produit"></div>
+        </div>
+
+        <div class="q" data-q="2">
+          <h3>2. Dans quel environnement ?</h3>
+          <p class="aide">Cochez les contraintes auxquelles l'appareil sera exposé.</p>
+          <div class="choix" id="c-env"></div>
+        </div>
+
+        <div class="q" data-q="3">
+          <h3>3. Quelles options ?</h3>
+          <p class="aide">Les options proposées dépendent du produit choisi à l'étape 1.</p>
+          <div class="choix" id="c-opt"></div>
+        </div>
+
+        <div class="q" data-q="4">
+          <h3>4. Votre projet</h3>
+          <p class="aide">Ces éléments permettent de préparer un premier retour pertinent.</p>
+          <div class="champs">
+            <label>Stade du projet
+              <select id="f-stade"><option>Étude / faisabilité</option><option>Prototype</option><option>Présérie</option><option>Série</option><option>Remplacement d'une pièce existante</option></select>
+            </label>
+            <label>Quantités envisagées
+              <input id="f-qte" placeholder="ex. 50 prototypes puis 2 000 / an">
+            </label>
+            <label>Dimensions approximatives
+              <input id="f-dim" placeholder="ex. 180 × 120 mm">
+            </label>
+            <label>Secteur de l'appareil
+              <select id="f-secteur"><option>Médical</option><option>Transport (aéronautique, ferroviaire)</option><option>Instruments de mesure</option><option>Agro-alimentaire</option><option>Autre industrie</option></select>
+            </label>
+            <label>Société
+              <input id="f-soc" autocomplete="organization">
+            </label>
+            <label>Votre e-mail
+              <input id="f-mail" type="email" autocomplete="email">
+            </label>
+            <label class="large">Précisions (plans, normes à respecter, délais…)
+              <textarea id="f-txt" rows="3"></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="fin" id="fin">
+          <div class="ok">✓</div>
+          <h3>Récapitulatif prêt</h3>
+          <p class="aide" style="max-width:44ch;margin:.4rem auto 1.2rem">Sur le site réel, cette demande arriverait directement à contact@arcenciel-serigraphie.fr avec le récapitulatif ci-contre.</p>
+          <button type="button" class="btn btn--ligne" id="copier">Copier le récapitulatif</button>
+        </div>
+
+        <div class="nav-q">
+          <button type="button" class="btn btn--ligne" id="prec" hidden>← Retour</button>
+          <button type="button" class="btn btn--rouge" id="suiv" style="margin-left:auto">Continuer →</button>
+        </div>
+        <p class="note">Aucun prix n'est affiché : chaque IHM est conçue sur mesure et chiffrée sur étude.</p>
+      </form>
+
+      <aside class="apercu" aria-live="polite">
+        <h4>Vue éclatée de votre IHM <small>schéma de principe</small></h4>
+        <div class="empilement" id="pile"></div>
+        <ul class="legende-pile" id="pile-liste"></ul>
+        <p class="legende-apercu" id="pile-leg">Choisissez un produit pour voir les couches se composer.</p>
+        <dl class="resume" id="resume"><dt>En attente</dt><dd>Le récapitulatif se construit au fil de vos réponses.</dd></dl>
+        <div class="tags" id="tags"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOLUTIONS TECHNIQUES ================= -->
+<section id="solutions">
+  <div class="wrap">
+    <span class="eyebrow rv">Solutions techniques</span>
+    <h2 class="rv rv-d1">Lire, toucher, résister</h2>
+    <div class="sol">
+      <article class="rv">
+        <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/confort-lecture2.jpg" alt="Afficheur avec collage optique" loading="lazy">
+        <div class="in"><h3>Confort de lecture</h3><p>Notre savoir-faire au service d'une lecture facile sans fatigue !</p>
+          <details><summary>Produits proposés</summary><ul><li>Protecteurs d'écran amovibles : pose facile et sans bulle</li><li>Revêtements anti reflet, anti rayure, anti buée</li><li>Collages de qualité optique</li><li>Renfort d'écrans (PC ou verre)</li><li>Traitement anti-newton</li><li>Rétroéclairage (led, guide lumière, réflecteurs…)</li></ul></details></div>
+      </article>
+      <article class="rv rv-d1">
+        <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/confort-tactile3.jpg" alt="Clavier avec effet tactile thermoformé" loading="lazy">
+        <div class="in"><h3>Confort tactile</h3><p>Guide doigts, gaufrage, Braille par nos moyens internes de thermoformage.</p>
+          <details><summary>En détail</summary><ul><li>Matières au contact doux et chaud (polyuréthane)</li><li>Claviers capacitifs à déclenchement sans contact</li><li>Grandes touches, avec afficheur EPD pour un retour visuel</li></ul></details></div>
+      </article>
+      <article class="rv rv-d2">
+        <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/environnement-industriel3.jpg" alt="IHM pour environnement industriel" loading="lazy">
+        <div class="in"><h3>Environnements industriels</h3><p>Étanchéité, agressions chimiques, pression, chocs — jusqu'aux applications en milieu explosible (norme Atex).</p>
+          <details><summary>Options mécaniques et CEM</summary><ul><li>Vernis de scellement, adhésifs haute performance</li><li>Liaisons par thermosoudure (ACF)</li><li>Membranes PTFE / compensation de pression</li><li>Blindage imprimé argent, cuivre / aluminium, film ITO transparent</li><li>Joints et adhésifs conducteurs, reprise de masse</li></ul></details></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MATÉRIAUX ================= -->
+<section class="mat" id="materiaux">
+  <div class="wrap">
+    <span class="eyebrow rv">Expertise des matériaux</span>
+    <h2 class="rv rv-d1">Des plus classiques aux plus techniques</h2>
+    <p class="lead rv rv-d2">Encres, substrats, élastomères : la gamme mise en œuvre dans le développement de vos IHM. Notre expertise et nos relations avec les principaux fabricants d'adhésif (Nitto, 3M) complètent ces choix.</p>
+    <div class="mat__zone">
+      <div class="mat__onglets" role="tablist" id="mat-onglets"></div>
+      <div class="mat__liste" id="mat-liste" role="tabpanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECHNIQUES ================= -->
+<section id="techniques">
+  <div class="wrap">
+    <span class="eyebrow rv">Techniques</span>
+    <h2 class="rv rv-d1">De la photogravure à l'assemblage</h2>
+    <p class="lead rv rv-d2">Un seul interlocuteur pour la fourniture complète d'un ensemble ou d'un sous-ensemble électronique ou électromécanique.</p>
+    <div class="fil">
+      <div class="fil__piste" id="piste"></div>
+      <div class="fil__barre"><i id="fil-i"></i></div>
+      <div class="fil__fleches"><button type="button" id="f-g" aria-label="Technique précédente">←</button><button type="button" id="f-d" aria-label="Technique suivante">→</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MOYENS DE PRODUCTION ================= -->
+<section class="moyens" id="moyens">
+  <div class="wrap moyens__grille">
+    <div>
+      <span class="eyebrow rv">Moyens de production</span>
+      <h2 class="rv rv-d1">Un site, tous les métiers</h2>
+      <div class="chiffres">
+        <div class="rv"><b data-cpt="7">0</b><span>zones d'impression</span></div>
+        <div class="rv rv-d1"><b data-cpt="4">0</b><span>lasers de découpe numérique</span></div>
+        <div class="rv rv-d2"><b data-cpt="4">0</b><span>postes de contrôle numérique</span></div>
+        <div class="rv rv-d3"><b data-cpt="3">0</b><span>zones ESD pour l'assemblage</span></div>
+      </div>
+      <ul class="rv">
+        <li>Un bureau d'étude composé de stations de travail et d'un laboratoire photographique intégré</li>
+        <li>Un atelier d'impression et une salle de clichage intégrée</li>
+        <li>Un atelier de découpe : presse mécanique et découpe numérique</li>
+        <li>Un atelier d'intégration de composants (Pick and Place)</li>
+        <li>Un atelier de montage (zone ESD, salle blanche)</li>
+        <li>Un système qualité et un logiciel de planification</li>
+      </ul>
+    </div>
+    <div class="mosaique rv rv-d1">
+      <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/serigraphie.jpg" alt="Atelier de sérigraphie" loading="lazy">
+      <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/decoupe.jpg" alt="Découpe laser" loading="lazy">
+      <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/Insertion-de-composants.jpg" alt="Insertion de composants" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENTREPRISE ================= -->
+<section id="entreprise">
+  <div class="wrap">
+    <div class="ent__grille">
+      <div>
+        <span class="eyebrow rv">Entreprise</span>
+        <h2 class="rv rv-d1">Arc en Ciel Sérigraphie</h2>
+        <p class="rv rv-d2" style="color:var(--aec-gris)">Forte de nombreuses années d'expérience dans la sérigraphie sur de multiples matériaux, Arc en Ciel Sérigraphie s'est spécialisée depuis le début des années 1990 dans la conception et la réalisation d'Interfaces Hommes Machine. Nous mettons notre expertise technique au service de vos bureaux d'études pour tous les aspects de vos IHM.</p>
+        <p class="rv" style="color:var(--aec-gris);margin-top:1rem">Membre du pôle de compétitivité <b>Minalogic</b>, en relation avec l'<b>AFELIM</b> (association française d'électronique imprimée), l'entreprise collabore avec les chercheurs du secteur.</p>
+        <div class="secteurs rv"><span>Médical</span><span>Aéronautique</span><span>Ferroviaire</span><span>Instruments de mesure</span><span>Jauges et capteurs imprimés</span></div>
+      </div>
+      <div>
+        <h3 class="rv">Projets collaboratifs</h3>
+        <div class="frise" id="frise">
+          <i class="trace"></i>
+          <article><span class="date">2015 → 2019</span><h3>ARMATURE</h3><p>Antenne imprimée et surmoulée pour un « pager » de sécurité civile. Financé par le Département de la Loire et Bpifrance.</p></article>
+          <article><span class="date">2016 → 2021</span><h3>ELIPPSE</h3><p>Projet de plastronique financé par Bpifrance.</p></article>
+          <article><span class="date">2020 → 2022</span><h3>PRISM</h3><p>Capteur sans fil pour la maintenance prédictive de pièces en rotation. Projet R&amp;D Booster financé par la Région Auvergne-Rhône-Alpes.</p></article>
+          <article><span class="date">Depuis août 2020</span><h3>Agrément CIR</h3><p>Organisme exécutant des travaux de recherche et développement pour le compte d'entreprises industrielles.</p></article>
+        </div>
+      </div>
+    </div>
+    <div class="certifs">
+      <div class="rv"><img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/elementor/thumbs/AIO-certification-bleu-small-p4e76nf0rcdc4ah78v927h5qv8jk51rnbq60pgynp4.png" alt="" loading="lazy"><div><b>ISO 9001 : 2015</b><span>AIO Certification — IHM, claviers et dalles capacitives, capteurs, électronique imprimée</span></div></div>
+      <div class="rv rv-d1"><img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2021/03/Le_Credit_Impot_Rech_400x400_947884.png" alt="" loading="lazy"><div><b>Crédit d'impôt recherche</b><span>Ministère de l'enseignement supérieur, de la recherche et de l'innovation</span></div></div>
+      <div class="rv rv-d2"><img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2021/03/BPI-France.png" alt="" loading="lazy"><div><b>Partenaires</b><span>Département de la Loire, Région Auvergne-Rhône-Alpes, Bpifrance</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="wrap contact__grille">
+    <div>
+      <span class="eyebrow" style="color:#ffd9d8">Contact</span>
+      <h2>Contactez-nous</h2>
+      <p style="opacity:.85">Un plan, une pièce à remplacer, une idée de capteur : décrivez-nous votre besoin.</p>
+      <div class="coord">
+        <a href="tel:+33477630443"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><b>04 77 63 04 43</b>Standard</span></a>
+        <a href="mailto:contact@arcenciel-serigraphie.fr"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span><b>contact@arcenciel-serigraphie.fr</b>Réponse par notre équipe</span></a>
+        <a href="https://www.openstreetmap.org/search?query=ZI%20Le%20Forestier%2042630%20R%C3%A9gny" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span><b>191 impasse des Crayons</b>ZI le Forestier – 42630 Régny (Loire)</span></a>
+      </div>
+    </div>
+    <form id="form-contact" novalidate>
+      <h3>Envoyez votre message</h3>
+      <div class="champs">
+        <label>Nom<input required autocomplete="name"></label>
+        <label>Société<input autocomplete="organization"></label>
+        <label>E-mail<input type="email" required autocomplete="email"></label>
+        <label>Téléphone<input type="tel" autocomplete="tel"></label>
+        <label class="large">Message<textarea rows="4" required></textarea></label>
+      </div>
+      <button class="btn btn--rouge" style="margin-top:1rem">Envoyer</button>
+      <p class="retour" id="retour" role="status"></p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://www.arcenciel-serigraphie.fr/wp-content/uploads/2019/04/cropped-logo-arc-en-ciel-serigraphie.png" alt="Arc en Ciel Sérigraphie">
+    <div>ARC EN CIEL SÉRIGRAPHIE · ZI Le Forestier, 191 impasse des Crayons, 42630 Régny · 04 77 63 04 43</div>
+    <p class="mention"><b>Maquette de démonstration.</b> Proposition indépendante, sans lien contractuel avec Arc en Ciel Sérigraphie. Textes, certifications et projets repris du site actuel arcenciel-serigraphie.fr ; toutes les photos proviennent de ce site. Couleurs (bleu #234795, rouge #e32422) et police Montserrat relevées sur le site actuel ; bandes de couleur inspirées du logo. Les formulaires n'envoient rien. Le schéma en vue éclatée est un schéma de principe, à valider par le bureau d'études. Aucun prix n'est affiché.</p>
+  </div>
+</footer>
+
+<a class="btn btn--rouge flottant" id="flottant" href="#demande">Préparer une demande</a>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const U='https://www.arcenciel-serigraphie.fr/wp-content/uploads/';
+
+/* ---------- en-tête ---------- */
+const head=$('header.site'), flot=$('#flottant');
+addEventListener('scroll',()=>{head.classList.toggle('scrolled',scrollY>10);const d=document.getElementById('demande').getBoundingClientRect();flot.classList.toggle('visible',scrollY>900&&scrollY<document.body.scrollHeight-1900&&!(d.top<innerHeight&&d.bottom>0))},{passive:true});
+const burger=$('.burger'), menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}});
+
+/* ---------- fabrications (contenu du site actuel) ---------- */
+const FAB=[
+ {id:'etiq',f:'info',fam:'IHM informative',t:'Étiquettes techniques',img:'2019/04/etiquette.jpg',d:"Conseil dans le choix des adhésifs, des techniques de pose et de la résistance aux agressions extérieures.",l:["Large choix de supports d'impression (métaux, plastiques, verre, caoutchouc…)","Aspect doming polyuréthane","Gamme très étendue d'adhésifs (gamme 3M, Nitto)","Livraison en planche ou à la pièce","Mode opératoire fourni pour la pose des étiquettes de grande dimension"]},
+ {id:'face',f:'info',fam:'IHM informative',t:'Faces avant',img:'2019/04/face-avant.jpg',d:"Matériaux, textures, colorimétrie et tolérances maîtrisés pour vos faces avant.",l:["Choix des matériaux (environnement chimique…)","Choix des textures (touché soft, caractère Braille…)","Impression et colorimétrie contrôlées","Effet tactile par thermoformage","Adhésifs adaptés : transparence, arrachements","Tolérances de découpe maîtrisées (rapport de contrôle)","Onglet et semi-découpe du protecteur pour faciliter la pose"]},
+ {id:'clav',f:'cmd',fam:'IHM de commande',t:'Claviers à membrane',img:'2019/04/clavier3.jpg',d:"Des claviers réalisés depuis plus de 25 ans, pour répondre à tous vos cahiers des charges.",l:["Claviers plats ou sur surface courbe (développable)","Effet tactile : avec ou sans coupelles","Insertion de leds, avec ou sans rétroéclairage","Filtre de contraste","Étanchéité jusqu'à IP69, résistance aux chocs jusqu'à IK09","Environnement explosible, tropicalisation","Blindage CEM, comportement chimique amélioré"]},
+ {id:'capa',f:'cmd',fam:'IHM de commande',t:'IHM capacitives',img:'2019/04/technologies-capacitives1.jpg',d:"Technologie du « capacitif projeté » depuis 2007 : claviers et dalles tactiles multi-touch.",l:["Fonctionne avec des gants, résiste aux salissures, liquides et produits chimiques","Très longue durée de vie (pas de pièces en mouvement)","Étanchéité IP69","Faces avant en verre trempé, rétroéclairage possible","Roue codeuse ou glisseur","Association résistif + capacitif sur un même clavier"]},
+ {id:'capt',f:'capt',fam:'Capteurs',t:'Capteurs imprimés',img:'2019/04/capteur-de-pression.jpg',d:"Encres fonctionnelles et partenariats de recherche (CEA-LITEN, Université de Bordeaux, pôle Minalogic).",l:["Capacitifs : débitmètre, mesure de niveaux, présence, mouvement","Piézoélectriques : déformation","Piézorésistifs : force, pression","Thermorésistifs : CTN, température, éléments chauffants","Thermochromiques : suivi de température","Nanoparticules fonctionnelles"]},
+ {id:'epd',f:'ens',fam:'Ensemblier',t:'EPD et afficheurs intégrés',img:'2019/04/epd-custom.jpg',d:"Afficheurs électrophorétiques à très faible consommation et assemblage décor + afficheur en salle blanche.",l:["EPD bistable, grand angle de lecture, alimentation sur batterie","Collage optique pour améliorer les propriétés environnementales","Produits « prêts à monter »"]},
+ {id:'assy',f:'ens',fam:'Ensemblier',t:'Customisation – assemblage',img:'2019/04/montage-assemblage.jpg',d:"Montage complet de sous-ensembles électroniques, sur trois zones ESD.",l:["Équipement de dalles, écrans et afficheurs (mousses amortissantes, adhésifs de fixation)","Intégration automatique de composants (dômes, leds)","Un seul interlocuteur pour un ensemble complet"]},
+ {id:'mat',f:'ens',fam:'Ensemblier',t:'Matériaux découpés',img:'2019/04/materiaux_decoupes1.jpg',d:"Joints et isolants découpés pour faciliter l'assemblage mécanique d'afficheurs et d'écrans.",l:["Élastomères compacts adhésivés : EPDM, nitrile, Viton, silicone, PTFE","Cellulaires conducteurs ou isolants : EPDM, néoprène, Poron","Isolants découpés : PET, Kapton, PVDF, polyuréthane","Protections pour afficheurs et dalles"]}
+];
+const g=$('#grille');
+g.innerHTML=FAB.map((p,i)=>`<article class="carte rv ${i%3?'rv-d'+(i%3):''}" data-f="${p.f}" data-id="${p.id}" tabindex="0" role="button" aria-label="${p.t} — voir le détail">
+ <figure><img src="${U+p.img}" alt="${p.t}" loading="lazy"><span class="famille">${p.fam}</span></figure>
+ <div class="corps"><h3>${p.t}</h3><p>${p.d}</p><span class="plus">Voir les options</span></div></article>`).join('');
+$$('.filtres button').forEach(b=>b.addEventListener('click',()=>{
+  $$('.filtres button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $$('.carte').forEach(c=>c.classList.toggle('cache',b.dataset.f!=='tout'&&c.dataset.f!==b.dataset.f));
+}));
+const tir=$('#tiroir');let dernierFocus;
+function ouvrir(id){const p=FAB.find(x=>x.id===id);dernierFocus=document.activeElement;
+  $('#t-img').src=U+p.img;$('#t-img').alt=p.t;$('#t-fam').textContent=p.fam;$('#t-titre').textContent=p.t;$('#t-txt').textContent=p.d;
+  $('#t-liste').innerHTML=p.l.map(x=>`<li>${x}</li>`).join('');$('#t-cta').dataset.id=id;
+  tir.style.display='block';requestAnimationFrame(()=>tir.classList.add('ouvert'));tir.setAttribute('aria-hidden','false');$('.fermer').focus();document.body.style.overflow='hidden'}
+function fermer(){tir.classList.remove('ouvert');tir.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>tir.style.display='',450);dernierFocus&&dernierFocus.focus()}
+g.addEventListener('click',e=>{const c=e.target.closest('.carte');c&&ouvrir(c.dataset.id)});
+g.addEventListener('keydown',e=>{const c=e.target.closest('.carte');if(c&&(e.key==='Enter'||e.key===' ')){e.preventDefault();ouvrir(c.dataset.id)}});
+$$('[data-fermer]').forEach(x=>x.addEventListener('click',fermer));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&tir.classList.contains('ouvert'))fermer()});
+$('#t-cta').addEventListener('click',e=>{const id=e.currentTarget.dataset.id;fermer();const r=document.querySelector(`#c-produit input[value="${id}"]`);if(r){r.checked=true;r.dispatchEvent(new Event('change',{bubbles:true}))}});
+
+/* ---------- OUTIL : cahier des charges ---------- */
+const ENV=[
+ ['ip','Projections, lavage','Étanchéité jusqu\'à IP69'],['chim','Produits chimiques','Désinfectants, huiles, brouillard salin'],
+ ['chocs','Chocs, vibrations','Jusqu\'à IK09 sur clavier membrane'],['temp','Températures étendues','Froid, chaleur, cycles'],
+ ['uv','Extérieur / UV','Tenue aux UV'],['atex','Milieu explosible','Norme Atex'],['cem','Perturbations CEM','Blindage nécessaire'],
+ ['gants','Utilisation avec gants','Médical, industrie, froid'],['pression','Variations de pression','Membrane de compensation']
+];
+const OPT={
+ clav:[['retro','Rétroéclairage'],['leds','Insertion de leds'],['coupelles','Effet tactile à coupelles'],['courbe','Surface courbe'],['contraste','Filtre de contraste'],['tropic','Tropicalisation']],
+ capa:[['verre','Face avant en verre trempé'],['retro','Rétroéclairage'],['roue','Roue codeuse ou glisseur'],['multi','Dalle multi-touch'],['mixte','Résistif + capacitif'],['optique','Collage optique']],
+ face:[['soft','Touché soft'],['braille','Braille / guide doigts'],['thermo','Effet tactile thermoformé'],['fenetre','Fenêtre transparente'],['semi','Semi-découpe du protecteur']],
+ etiq:[['doming','Aspect doming polyuréthane'],['metal','Support métal'],['grande','Grande dimension (mode de pose fourni)'],['planche','Livraison en planche']],
+ capt:[['force','Force / pression'],['tempc','Température / chauffage'],['niveau','Niveau / présence'],['deform','Déformation'],['sansfil','Communication sans fil']],
+ epd:[['epdo','Afficheur EPD basse consommation'],['optique','Collage optique'],['mousse','Mousses et adhésifs de fixation'],['pret','Livré prêt à monter']],
+ assy:[['cms','Composants montés en surface'],['dome','Dômes et leds'],['esd','Montage en zone ESD'],['blanche','Salle blanche']],
+ mat:[['joint','Joints élastomères'],['cell','Cellulaire conducteur'],['isol','Isolants découpés'],['prot','Protection d\'afficheur']]
+};
+/* couches du schéma de principe, par produit */
+const C={face:['#e32422','Face avant imprimée'],adh:['#9aa3b5','Adhésif'],circ:['#c9a227','Circuit imprimé argent'],entr:['#5d5c5d','Entretoise'],circ2:['#c9a227','Circuit inférieur'],base:['#16305f','Adhésif de pose'],
+  verre:['#7fb3d5','Verre trempé'],ito:['#00a99d','Film ITO gravé'],oca:['#b9c6dd','Collage optique'],led:['#ffd200','Leds / guide lumière'],blind:['#8a6d3b','Blindage CEM'],dome:['#3aaa35','Coupelles'],
+  sub:['#e8ecf4','Substrat'],encre:['#00a99d','Encre fonctionnelle'],vern:['#6c3a8e','Vernis de scellement'],epdc:['#2b2b2b','Afficheur EPD'],joint:['#5d5c5d','Élastomère'],dom:['#b9e4ff','Doming PU']};
+function couches(p,o,e){
+  const S=new Set(o), E=new Set(e); let L=[];
+  if(p==='clav'){L=['face','adh','circ'];if(S.has('coupelles'))L.push('dome');L.push('entr','circ2');if(S.has('retro')||S.has('leds'))L.push('led');if(E.has('cem'))L.push('blind');L.push('base')}
+  else if(p==='capa'){L=[S.has('verre')?'verre':'face',S.has('optique')?'oca':'adh','ito'];if(S.has('retro'))L.push('led');if(E.has('cem'))L.push('blind');L.push('base')}
+  else if(p==='face'){L=['face','adh'];if(E.has('cem'))L.push('blind');L.push('base')}
+  else if(p==='etiq'){L=S.has('doming')?['dom','face','adh']:['face','adh']}
+  else if(p==='capt'){L=['vern','encre','sub','base']}
+  else if(p==='epd'){L=['face',S.has('optique')?'oca':'adh','epdc','base']}
+  else if(p==='assy'){L=['face','adh','circ','led','base']}
+  else if(p==='mat'){L=['joint','base']}
+  if(E.has('ip')&&!L.includes('vern')&&p!=='mat'&&p!=='capt')L.splice(1,0,'vern');
+  return L;
+}
+const pile=$('#pile');
+pile.innerHTML=Object.entries(C).map(([k,[c,n]])=>`<div class="couche off" data-k="${k}" style="background:${c};${['sub','dom','oca'].includes(k)?'color:#16305f':''}"><span>${n}</span></div>`).join('');
+function dessinePile(){
+  const p=val('produit'), L=p?couches(p,vals('opt'),vals('env')):[];
+  const n=L.length, h=260, pas=n>1?Math.min(34,(h-50)/(n-1)):0;
+  $$('.couche').forEach(d=>{const i=L.indexOf(d.dataset.k);
+    if(i<0){d.classList.add('off');d.style.transform='rotateX(55deg) translateZ(-40px)';return}
+    d.classList.remove('off');d.style.top=(i*pas+ (h-50-(n-1)*pas)/2)+'px';d.style.zIndex=50-i;
+    d.style.transform=`rotateX(55deg) rotateZ(-8deg) translateX(${(i%2?6:-6)}px)`;
+  });
+  $('#pile-liste').innerHTML=L.map(k=>`<li><i style="background:${C[k][0]}"></i>${C[k][1]}</li>`).join('');
+  $('#pile-leg').textContent=p?`${n} couches — schéma de principe, la composition réelle est définie avec notre bureau d'études.`:'Choisissez un produit pour voir les couches se composer.';
+}
+const TECH={clav:['Sérigraphie','Photogravure','Découpe','Adhésivation'],capa:['Gravure chimique ITO','Collage optique','Sérigraphie'],face:['Sérigraphie','Thermoformage','Découpe'],etiq:['Sérigraphie','Traitement de surfaces','Adhésivation'],capt:['Encres fonctionnelles','Sérigraphie'],epd:['Collage optique','Assemblage'],assy:['CMS','Assemblage / montage'],mat:['Découpe','Adhésivation']};
+function choix(el,arr,type,name){el.innerHTML=arr.map(a=>`<label><input type="${type}" name="${name}" value="${a[0]}"><span class="coche"></span><span>${a[1]}${a[2]?`<small>${a[2]}</small>`:''}</span></label>`).join('')}
+choix($('#c-produit'),FAB.map(p=>[p.id,p.t,p.fam]),'radio','produit');
+choix($('#c-env'),ENV,'checkbox','env');
+const val=n=>{const x=document.querySelector(`input[name=${n}]:checked`);return x?x.value:null};
+const vals=n=>[...document.querySelectorAll(`input[name=${n}]:checked`)].map(x=>x.value);
+const lbl=(n,v)=>{const x=document.querySelector(`input[name=${n}][value="${v}"]`);return x?x.closest('label').querySelector('span:last-child').childNodes[0].textContent:v};
+function majOpt(){const p=val('produit');const prev=vals('opt');choix($('#c-opt'),p?OPT[p]:[],'checkbox','opt');prev.forEach(v=>{const x=document.querySelector(`input[name=opt][value="${v}"]`);if(x)x.checked=true})}
+function resume(){
+  const p=val('produit'), e=vals('env'), o=vals('opt');
+  const pr=FAB.find(x=>x.id===p);
+  let h='';
+  h+=`<dt>Produit</dt><dd>${pr?pr.t+' ('+pr.fam+')':'—'}</dd>`;
+  h+=`<dt>Environnement</dt><dd>${e.length?e.map(v=>lbl('env',v)).join(', '):'—'}</dd>`;
+  h+=`<dt>Options</dt><dd>${o.length?o.map(v=>lbl('opt',v)).join(', '):'—'}</dd>`;
+  const st=$('#f-stade').value,q=$('#f-qte').value,d=$('#f-dim').value,s=$('#f-secteur').value;
+  if(etape>=4)h+=`<dt>Projet</dt><dd>${st}${q?' · '+q:''}${d?' · '+d:''} · ${s}</dd>`;
+  $('#resume').innerHTML=h;
+  const t=new Set(p?TECH[p]:[]);if(e.includes('cem'))t.add('Blindage CEM');if(e.includes('atex'))t.add('Mousses conductrices / isolantes (Atex)');if(e.includes('ip'))t.add('Vernis de scellement');if(e.includes('chim'))t.add('Tests de résistance chimique');if(e.includes('temp')||e.includes('uv'))t.add('Tests environnementaux');
+  $('#tags').innerHTML=[...t].map(x=>`<span>${x}</span>`).join('');
+  dessinePile();
+}
+function texte(){
+  const p=FAB.find(x=>x.id===val('produit'));
+  return `Demande IHM — Arc en Ciel Sérigraphie\n\nProduit : ${p?p.t:'—'}\nEnvironnement : ${vals('env').map(v=>lbl('env',v)).join(', ')||'—'}\nOptions : ${vals('opt').map(v=>lbl('opt',v)).join(', ')||'—'}\nStade : ${$('#f-stade').value}\nQuantités : ${$('#f-qte').value||'—'}\nDimensions : ${$('#f-dim').value||'—'}\nSecteur : ${$('#f-secteur').value}\nSociété : ${$('#f-soc').value||'—'}\nE-mail : ${$('#f-mail').value||'—'}\nPrécisions : ${$('#f-txt').value||'—'}`;
+}
+let etape=1;
+function va(n){etape=n;
+  $$('.q').forEach(q=>q.classList.toggle('actif',+q.dataset.q===n));
+  $('#fin').classList.toggle('actif',n===5);
+  $$('.etapes span').forEach((s,i)=>s.classList.toggle('ok',i<Math.min(n,4)));
+  $('#prec').hidden=n===1;$('#suiv').hidden=n===5;
+  $('#suiv').textContent=n===4?'Générer le récapitulatif ✓':'Continuer →';
+  resume();
+}
+$('#suiv').addEventListener('click',()=>{
+  if(etape===1&&!val('produit')){$('#c-produit').animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300});return}
+  if(etape===1)majOpt();
+  va(etape+1);
+  if(innerWidth<960)$('#cdc').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('#prec').addEventListener('click',()=>va(etape-1));
+$('#cdc').addEventListener('change',e=>{if(e.target.name==='produit')majOpt();resume()});
+$('#cdc').addEventListener('input',resume);
+$('#copier').addEventListener('click',async e=>{try{await navigator.clipboard.writeText(texte());e.target.textContent='Copié ✓'}catch(_){e.target.textContent='Copie impossible ici'}});
+va(1);
+
+/* ---------- matériaux ---------- */
+const MAT={
+ 'Encres fonctionnelles':[['Argent, cuivre, carbone','Encres conductrices pour la réalisation des circuits.'],['Nanowire, PedotPs, Pan','Encres organiques et nano-technologiques, transparentes et/ou conductrices.'],['Thermochromiques, piézochromiques','Couleur variable selon l\'apport d\'énergie : témoins de température.']],
+ 'Substrats':[['PVC, PMMA, PC, PP, PETG','Étiquettes et faces avant.'],['PET, PEN','Étiquettes et claviers.'],['Polyuréthane','Chimiquement neutre, très résistant à l\'usure, touché soft.'],['Kapton, PEEK, PEI, PVDF','Très résistants et stables thermiquement : limandes et circuits.'],['ITO','Film transparent métallisé, gravé pour des circuits transparents.'],['Cuivre, aluminium','Film conducteur : circuit ou blindage.'],['Verre mince, verre souple','Usiné, trempé, borosilicate : faces avant et dalles tactiles.'],['Tôle peinte, métaux, céramiques','Encres adaptées à ces supports.']],
+ 'Élastomères et cellulaires':[['EPDM, nitrile, silicone','Joints compacts adhésivés et découpés.'],['Viton, PTFE','Élastomères pour contraintes chimiques.'],['Néoprène, Poron','Cellulaires conducteurs ou isolants, cellule ouverte ou fermée.']],
+ 'Adhésifs':[['Gamme 3M, Nitto','Conseil et réalisation pour le choix des adhésifs les plus appropriés à vos contraintes.'],['Optical clear PSA et liquide','Collage optique selon l\'indice de réfraction, suppression des lames d\'air.'],['Adhésifs conducteurs','Reprise de masse et blindage.']]
+};
+const on=$('#mat-onglets'), li=$('#mat-liste');
+on.innerHTML=Object.keys(MAT).map((k,i)=>`<button role="tab" aria-selected="${i===0}" data-k="${k}">${k}</button>`).join('');
+function mat(k){li.innerHTML=MAT[k].map((m,i)=>`<div style="animation-delay:${i*60}ms"><b>${m[0]}</b><p>${m[1]}</p></div>`).join('');$$('#mat-onglets button').forEach(b=>b.setAttribute('aria-selected',b.dataset.k===k))}
+on.addEventListener('click',e=>{const b=e.target.closest('button');b&&mat(b.dataset.k)});mat(Object.keys(MAT)[0]);
+
+/* ---------- techniques ---------- */
+const TQ=[['Photogravure','Fabrication de typons haute définition à partir de fichiers par photogravure laser.'],['Sérigraphie','Savoir-faire traditionnel étendu aux encres polymères fonctionnelles (PeDOT-ps, PAN, nanoparticules…).'],['Traitement de surfaces','Sublimation, transfert à chaud, transfert à sec et impression directe.'],['Gravure chimique','Gravure de film ITO pour les claviers et dalles capacitifs.'],['Collage optique','En salle blanche : dalles tactiles, renfort d\'écrans et systèmes optiques.'],['Thermoformage','Création d\'effets tactiles dans les claviers.'],['Adhésivation','Conseil et réalisation avec les principaux fabricants d\'adhésif.'],['Découpe','Lasers, tables de découpe et usinage ; presses rotative et à plat.'],['Usinage','Outillages de thermoformage et petites pièces plastiques, dont guides lumière.'],['Composants montés en surface','Intégration automatique de dômes, leds et composants.'],['Assemblage / montage','Un seul interlocuteur pour un ensemble ou sous-ensemble complet, en zone ESD.'],['Impressions numériques','De nouveaux marchés, avec une qualité d\'impression égale.']];
+const pi=$('#piste');pi.innerHTML=TQ.map((t,i)=>`<article><span class="n">${String(i+1).padStart(2,'0')}</span><h3>${t[0]}</h3><p>${t[1]}</p></article>`).join('');
+const barre=$('#fil-i');const majB=()=>{const m=pi.scrollWidth-pi.clientWidth;barre.style.width=(10+90*(m?pi.scrollLeft/m:1))+'%'};
+pi.addEventListener('scroll',majB,{passive:true});majB();
+$('#f-g').onclick=()=>pi.scrollBy({left:-320,behavior:'smooth'});$('#f-d').onclick=()=>pi.scrollBy({left:320,behavior:'smooth'});
+
+/* ---------- révélations + compteurs ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const t=e.target;t.classList.add('vu');
+  t.querySelectorAll?.('[data-cpt]').forEach(c=>cpt(c));if(t.dataset.cpt)cpt(t);io.unobserve(t)}),{threshold:.18});
+function cpt(c){const n=+c.dataset.cpt;let i=0;const s=setInterval(()=>{c.textContent=++i;if(i>=n)clearInterval(s)},110)}
+$$('.rv,#frise').forEach(x=>io.observe(x));
+
+/* ---------- navigation active ---------- */
+const liens=$$('#menu a');const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)liens.forEach(a=>a.classList.toggle('actif',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+$$('main section[id]').forEach(s=>so.observe(s));
+
+/* ---------- formulaire contact (démo) ---------- */
+$('#form-contact').addEventListener('submit',e=>{e.preventDefault();$('#retour').textContent="Maquette de démonstration : le formulaire n'envoie rien. Sur le site réel, ce message arriverait à contact@arcenciel-serigraphie.fr."});
+})();
+</script>
+</body>
+</html>
