@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comme une flèche — Archery Quest en forêt | Monts de la Madeleine</title>
+<meta name="description" content="Archery Quest en pleine nature à Saint-Just-en-Chevalet : combats d'archers en forêt privatisée pour 6 à 20 joueurs, dès 8 ans, entre amis, en famille ou entre collègues.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel comme-une-fleche.com
+   (thème Enfold : variables relevées dans la feuille de style)
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================== */
+:root{
+  --orange:#e24c1a;      /* couleur principale (liens, boutons, titres d'accent) */
+  --orange-dk:#c02a08;   /* bordure des boutons */
+  --vert:#108f56;        /* fond du pied de page */
+  --vert-clair:#18a769;  /* titres d'en-tête / pictogramme du logo */
+  --jaune:#f5b324;       /* « COMME » du logo */
+  --or:#fad58c;          /* titres sur fond sombre */
+  --brun:#39342d;        /* fond alterné */
+  --brun-dk:#2b2822;
+  --creme:#f8f6f2;       /* fond secondaire */
+  --bord:#ebe8e2;
+  --texte:#313131;
+  --font:'Josefin Sans',Helvetica,Arial,sans-serif;  /* police du site actuel */
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--texte);background:#fff;line-height:1.55;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--orange)}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.demo{background:var(--brun-dk);color:var(--or);font-size:13px;text-align:center;padding:7px 12px;letter-spacing:.02em}
+.demo b{color:#fff}
+
+/* barre de progression en forme de flèche */
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--vert-clair),var(--jaune),var(--orange));z-index:60}
+#prog::after{content:"";position:absolute;right:-9px;top:-5px;border-left:10px solid var(--orange);border-top:7px solid transparent;border-bottom:7px solid transparent}
+
+/* EN-TÊTE */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--bord);transition:box-shadow .3s}
+header.sc{box-shadow:0 6px 24px rgba(57,52,45,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:8px 0}
+.nav img{height:62px;width:auto;transition:height .3s}
+header.sc .nav img{height:48px}
+.menu{display:flex;gap:4px;list-style:none;flex-wrap:wrap}
+.menu a{display:block;padding:8px 11px;text-decoration:none;color:#9c9288;font-weight:600;font-size:14px;letter-spacing:.06em;text-transform:uppercase;border-radius:8px;transition:.2s}
+.menu a:hover,.menu a.on{color:var(--orange);background:#fdf0ea}
+.burger{display:none;background:none;border:0;font:700 14px var(--font);color:var(--orange);letter-spacing:.1em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:#fff;border:2px solid var(--orange-dk);padding:14px 24px;border-radius:999px;text-decoration:none;font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:15px;cursor:pointer;font-family:var(--font);transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(226,76,26,.35);background:#ea5a28}
+.btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
+.btn.vert{background:var(--vert-clair);border-color:var(--vert)}
+.btn .ar{transition:transform .25s}
+.btn:hover .ar{transform:translateX(5px)}
+
+/* HERO */
+.hero{position:relative;min-height:88vh;display:grid;align-items:center;color:#fff;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:-6% 0 0;background:url('https://comme-une-fleche.com/wp-content/uploads/2024/05/comme-une-fleche-archerie-2-1500x638.png') center/cover;z-index:-2;transform:scale(1.08);animation:zoom 18s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(43,40,34,.88) 0%,rgba(43,40,34,.55) 55%,rgba(16,143,86,.25) 100%);z-index:-1}
+.hero-in{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center;padding:80px 0}
+.kicker{display:inline-block;background:var(--vert-clair);color:#fff;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.hero h1{font-size:clamp(44px,7vw,92px);line-height:.95;font-weight:700;margin:22px 0 18px;letter-spacing:-.01em}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:inline-block;transform:translateY(105%);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s;color:var(--jaune)}
+.hero h1 .l:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.hero p.lead{font-size:20px;max-width:540px;color:#f3efe8;opacity:0;animation:fade 1s .6s forwards}
+@keyframes fade{to{opacity:1}}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;opacity:0;animation:fade 1s .8s forwards}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.chip{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:12px;font-size:15px}
+.chip b{color:var(--or)}
+
+/* cible animée (élément signature) */
+.target-box{position:relative;aspect-ratio:1;max-width:400px;justify-self:center;width:100%}
+.target{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,var(--orange) 0 13%,#fff 13% 26%,var(--jaune) 26% 39%,#fff 39% 52%,var(--vert-clair) 52% 65%,#fff 65% 78%,var(--brun) 78% 100%);box-shadow:0 30px 60px rgba(0,0,0,.35);animation:wob 6s ease-in-out infinite}
+@keyframes wob{50%{transform:rotate(3deg) scale(1.02)}}
+.arrow{position:absolute;left:50%;top:50%;width:62%;height:8px;transform-origin:0 50%;transform:translate(-2%,-50%) rotate(-28deg) translateX(160%);opacity:0;animation:shoot .7s 1.1s cubic-bezier(.3,1.4,.5,1) forwards}
+.arrow i{position:absolute;inset:0;background:#e8dcc4;border-radius:4px}
+.arrow::before{content:"";position:absolute;left:-14px;top:50%;transform:translateY(-50%);border-right:22px solid var(--brun);border-top:12px solid transparent;border-bottom:12px solid transparent}
+.arrow::after{content:"";position:absolute;right:-4px;top:50%;width:34px;height:26px;transform:translateY(-50%);background:linear-gradient(135deg,var(--orange) 50%,transparent 50%) top/100% 50% no-repeat,linear-gradient(45deg,var(--orange) 50%,transparent 50%) bottom/100% 50% no-repeat}
+@keyframes shoot{0%{opacity:1}100%{opacity:1;transform:translate(-2%,-50%) rotate(-28deg) translateX(0)}}
+.hit{position:absolute;left:50%;top:50%;width:20px;height:20px;margin:-10px;border-radius:50%;border:3px solid #fff;opacity:0;animation:ring 1s 1.75s ease-out forwards}
+@keyframes ring{0%{opacity:1;transform:scale(.3)}100%{opacity:0;transform:scale(9)}}
+.score{position:absolute;right:0;bottom:6%;background:#fff;color:var(--brun);padding:10px 16px;border-radius:14px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.25);transform:scale(0) rotate(-8deg);animation:pop .5s 1.9s cubic-bezier(.3,1.6,.5,1) forwards}
+.score small{display:block;font-size:12px;color:#9c9288;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+@keyframes pop{to{transform:scale(1) rotate(-4deg)}}
+
+/* sections */
+section{padding:100px 0}
+.alt{background:var(--creme)}
+.dark{background:var(--brun);color:#f3efe8}
+.eyebrow{color:var(--vert-clair);font-weight:700;letter-spacing:.16em;text-transform:uppercase;font-size:14px}
+h2{font-size:clamp(34px,4.6vw,56px);line-height:1.02;margin:10px 0 18px;color:var(--brun);font-weight:700}
+.dark h2{color:var(--or)}
+h2 em{font-style:normal;color:var(--orange)}
+h3{font-size:24px;color:var(--brun);line-height:1.15}
+.sub{max-width:680px;font-size:19px;color:#5b544b}
+.dark .sub{color:#d9d2c6}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* concept */
+.concept{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.stack{position:relative;height:540px}
+.stack img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 24px 50px rgba(57,52,45,.22)}
+.stack .a{width:62%;height:78%;left:0;top:0}
+.stack .b{width:52%;height:58%;right:0;bottom:0;border:8px solid #fff}
+.stack .tag{position:absolute;left:48%;top:44%;background:var(--jaune);color:var(--brun);font-weight:700;padding:12px 16px;border-radius:14px;transform:rotate(-6deg);box-shadow:0 10px 24px rgba(0,0,0,.18);z-index:2}
+.steps{list-style:none;margin-top:26px;display:grid;gap:14px}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.steps li b{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fdf0ea;color:var(--orange);font-size:18px}
+
+/* bande panoramique */
+.pano{height:300px;background:url('https://comme-une-fleche.com/wp-content/uploads/2024/06/panoramique-comme-une-fleche-1.png') center/cover fixed;position:relative;display:grid;place-items:center;text-align:center;color:#fff}
+.pano::before{content:"";position:absolute;inset:0;background:rgba(43,40,34,.42)}
+.pano p{position:relative;font-size:clamp(26px,3.6vw,44px);font-weight:700;line-height:1.1;max-width:900px;padding:0 20px}
+.pano p span{color:var(--or)}
+
+/* jeux */
+.tabs{display:flex;gap:10px;margin:30px 0 26px;flex-wrap:wrap}
+.tab{border:2px solid var(--bord);background:#fff;padding:12px 20px;border-radius:999px;font:700 15px var(--font);color:var(--brun);cursor:pointer;transition:.2s}
+.tab.on{background:var(--brun);border-color:var(--brun);color:var(--or)}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.game{background:#fff;border:1px solid var(--bord);border-radius:var(--r);padding:26px;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.game:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 22px 40px rgba(57,52,45,.12)}
+.game .type{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-clair)}
+.game h3{margin:8px 0 10px}
+.game p{font-size:16px;color:#5b544b}
+.game::after{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--orange) 0 18%,#fff 18% 36%,var(--jaune) 36% 54%,#fff 54% 72%,var(--vert-clair) 72%);opacity:.18;transition:opacity .3s,transform .5s}
+.game:hover::after{opacity:.5;transform:rotate(90deg)}
+.board{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.board img{border-radius:var(--r);box-shadow:0 24px 50px rgba(57,52,45,.18)}
+.pions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+.pions span{background:var(--creme);border:1px dashed #cfc6b8;padding:8px 14px;border-radius:10px;font-weight:600}
+.hide{display:none!important}
+
+/* OUTIL CENTRAL */
+.tool{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;margin-top:40px;align-items:start}
+.panel{background:#fff;border-radius:24px;padding:34px;box-shadow:0 30px 60px rgba(0,0,0,.18);color:var(--texte)}
+.st{padding:22px 0;border-bottom:1px dashed var(--bord)}
+.st:first-child{padding-top:0}
+.st:last-child{border:0;padding-bottom:0}
+.st h4{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-clair);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.st h4 b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--orange);color:#fff;font-size:14px;letter-spacing:0}
+.players{display:flex;align-items:center;gap:20px}
+.players output{font-size:46px;font-weight:700;color:var(--brun);min-width:70px;text-align:center;line-height:1}
+.players output small{display:block;font-size:13px;color:#9c9288;font-weight:600}
+input[type=range]{flex:1;accent-color:var(--orange);height:6px}
+.quiver{display:flex;gap:3px;margin-top:12px;flex-wrap:wrap}
+.quiver i{width:12px;height:30px;border-radius:3px 3px 0 0;background:var(--bord);transition:background .25s,transform .25s}
+.quiver i.on{background:var(--orange);transform:translateY(-4px)}
+.quiver i.on:nth-child(3n){background:var(--jaune)}
+.quiver i.on:nth-child(3n+1){background:var(--vert-clair)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{border:2px solid var(--bord);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.2s;background:#fff;text-align:left;font:inherit;color:inherit}
+.opt b{display:block;color:var(--brun);font-size:18px}
+.opt span{font-size:14px;color:#7a736b}
+.opt.on{border-color:var(--orange);background:#fdf0ea}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.slot{border:2px dashed #d8cfc2;border-radius:14px;min-height:76px;padding:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;font-size:14px;color:#9c9288;cursor:pointer;transition:.25s}
+.slot.full{border-style:solid;border-color:var(--vert-clair);background:#eaf7f0;color:var(--brun);font-weight:700;animation:pop2 .35s}
+.slot small{font-weight:600;color:#9c9288;font-size:12px}
+@keyframes pop2{50%{transform:scale(1.06)}}
+.pick{display:flex;flex-wrap:wrap;gap:8px}
+.pick button{border:1px solid var(--bord);background:var(--creme);border-radius:999px;padding:8px 14px;font:600 14px var(--font);color:var(--brun);cursor:pointer;transition:.2s}
+.pick button:hover{background:var(--brun);color:var(--or)}
+.pick button.sp{background:#fff;border-style:dashed}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label.f{display:block;font-size:14px;font-weight:600;color:#7a736b}
+label.f input,label.f select,label.f textarea{display:block;width:100%;margin-top:6px;padding:12px 14px;border:2px solid var(--bord);border-radius:12px;font:16px var(--font);color:var(--brun);background:#fff}
+label.f input:focus,label.f select:focus,label.f textarea:focus{outline:none;border-color:var(--orange)}
+.hint{font-size:13px;color:#9c9288;margin-top:8px}
+
+.ticket{position:sticky;top:110px;background:var(--creme);color:var(--brun);border-radius:24px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.ticket .top{background:var(--vert);color:#fff;padding:24px 26px;position:relative}
+.ticket .top small{letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--or);font-weight:700}
+.ticket .top .big{font-size:52px;font-weight:700;line-height:1;margin-top:6px}
+.ticket .top .big span{font-size:18px;font-weight:600}
+.ticket .top::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:20px;background:radial-gradient(circle at 10px 0,transparent 10px,var(--creme) 10px) -10px 0/20px 20px repeat-x}
+.ticket .body{padding:30px 26px 26px}
+.line{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--bord);font-size:16px}
+.line span:first-child{color:#7a736b}
+.line span:last-child{font-weight:700;text-align:right}
+.ticket .btn{width:100%;justify-content:center;margin-top:18px}
+.ticket .tel{display:block;text-align:center;margin-top:12px;font-weight:700;color:var(--brun);text-decoration:none}
+.ticket .nb{font-size:12px;color:#9c9288;margin-top:14px;line-height:1.4}
+
+/* déroulé */
+.timeline{margin-top:70px}
+.bar{display:flex;height:64px;border-radius:16px;overflow:hidden;margin-top:20px;background:rgba(255,255,255,.06)}
+.bar div{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--brun);text-align:center;padding:0 6px;transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.timeline.in .bar div{transform:none}
+.bar div:nth-child(2){transition-delay:.12s}.bar div:nth-child(3){transition-delay:.24s}.bar div:nth-child(4){transition-delay:.36s}.bar div:nth-child(5){transition-delay:.48s}
+.legend{display:flex;justify-content:space-between;margin-top:10px;color:#d9d2c6;font-size:14px}
+
+/* tarifs */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.price{background:#fff;border-radius:var(--r);padding:32px;border:1px solid var(--bord);position:relative;transition:transform .3s}
+.price:hover{transform:translateY(-6px)}
+.price.feat{background:var(--orange);color:#fff;border-color:var(--orange)}
+.price.feat h3,.price.feat .amt{color:#fff}
+.price .amt{font-size:58px;font-weight:700;color:var(--orange);line-height:1;margin:14px 0 6px}
+.price .amt small{font-size:18px}
+.price ul{list-style:none;margin-top:16px;display:grid;gap:8px;font-size:16px}
+.price li::before{content:"➝ ";color:var(--vert-clair);font-weight:700}
+.price.feat li::before{color:var(--or)}
+.pay{margin-top:24px;font-size:15px;color:#7a736b}
+
+/* fêtes */
+.fetes{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.fetes img{border-radius:var(--r);box-shadow:0 24px 50px rgba(0,0,0,.3)}
+
+/* FAQ */
+.faq{max-width:860px;margin-top:30px}
+details{border-bottom:1px solid var(--bord);padding:20px 0}
+summary{cursor:pointer;list-style:none;font-weight:700;font-size:20px;color:var(--brun);display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--orange);font-size:28px;line-height:.8;transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p,details ul{margin-top:12px;color:#5b544b;font-size:17px}
+details ul{padding-left:20px;display:grid;gap:4px}
+
+/* accès */
+.acces{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
+.card{background:#fff;border-radius:var(--r);padding:34px;border:1px solid var(--bord)}
+.card dl{display:grid;gap:16px;margin-top:10px}
+.card dt{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-clair);font-weight:700}
+.card dd{font-size:19px;color:var(--brun);font-weight:600}
+.photo-acces{border-radius:var(--r);overflow:hidden;position:relative;min-height:340px}
+.photo-acces img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+
+footer{background:var(--vert);color:#fff;padding:60px 0 30px}
+.foot{display:grid;grid-template-columns:auto 1fr 1fr;gap:50px;align-items:start}
+.foot img{width:130px;background:#fff;border-radius:50%}
+footer h4{color:var(--or);letter-spacing:.1em;text-transform:uppercase;font-size:15px;margin-bottom:12px}
+footer a{color:#fff}
+.mention{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.25);font-size:13px;color:#d6efe2;line-height:1.5}
+
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;box-shadow:0 12px 30px rgba(226,76,26,.4);transform:translateY(120px);transition:transform .4s}
+.fab.show{transform:none}
+
+@media (max-width:960px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:10px 20px 20px;border-bottom:1px solid var(--bord)}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .hero-in,.concept,.board,.tool,.fetes,.acces,.foot{grid-template-columns:1fr}
+  .target-box{max-width:260px}
+  .stack{height:420px}
+  .prices{grid-template-columns:1fr}
+  .ticket{position:static}
+  .pano{background-attachment:scroll}
+  section{padding:70px 0}
+}
+@media (max-width:560px){
+  .opts,.row2{grid-template-columns:1fr}
+  .slots{grid-template-columns:1fr}
+  .panel{padding:22px}
+  .bar div{font-size:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.hero h1 .l span{transform:none}.hero p.lead,.hero .ctas{opacity:1}.arrow{opacity:1;transform:translate(-2%,-50%) rotate(-28deg)}.score{transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"SportsActivityLocation",
+ "name":"Comme une flèche",
+ "description":"Archery Quest en pleine nature : combats d'archers avec flèches en mousse, en forêt privatisée dans les monts de la Madeleine, pour 6 à 20 joueurs dès 8 ans.",
+ "url":"https://comme-une-fleche.com/",
+ "telephone":"+33743102518",
+ "email":"contact@comme-une-fleche.com",
+ "address":{"@type":"PostalAddress","streetAddress":"1375 route Napoléon","postalCode":"42430","addressLocality":"Saint-Just-en-Chevalet","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":45.92565,"longitude":3.85735},
+ "areaServed":["Saint-Just-en-Chevalet","Roannais","Monts de la Madeleine"],
+ "priceRange":"20 € – 23 € par personne"
+}
+</script>
+</head>
+<body>
+<div id="prog"></div>
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour Comme une flèche, non publiée</div>
+
+<header id="hd">
+ <div class="wrap nav">
+  <a href="#accueil" aria-label="Comme une flèche — accueil"><img src="https://comme-une-fleche.com/wp-content/uploads/2024/05/Comme-une-fleche-logo-LONG-300x179.png" alt="Comme une flèche"></a>
+  <button class="burger" id="burger" aria-expanded="false">MENU</button>
+  <ul class="menu" id="menu">
+   <li><a href="#accueil">Accueil</a></li>
+   <li><a href="#concept">Le concept</a></li>
+   <li><a href="#jeux">Les jeux proposés</a></li>
+   <li><a href="#tarifs">Tarifs</a></li>
+   <li><a href="#reservation">Réservation</a></li>
+   <li><a href="#faq">FAQ</a></li>
+   <li><a href="#acces">Accès</a></li>
+   <li><a href="#contact">Contact</a></li>
+  </ul>
+ </div>
+</header>
+
+<section class="hero" id="accueil" style="padding:0">
+ <div class="bg" role="img" aria-label="Joueurs d'Archery Quest en forêt"></div>
+ <div class="wrap hero-in">
+  <div>
+   <span class="kicker">Entre amis, en famille ou entre collègues</span>
+   <h1><span class="l"><span>Archery Quest</span></span><span class="l"><span>en pleine</span></span><span class="l"><span>nature</span></span></h1>
+   <p class="lead">Venez vous défier et vous amuser en tant qu'archers dans des combats épiques, par équipe ou en individuel. Pour tous les âges, à partir de 8 ans…</p>
+   <div class="ctas">
+    <a class="btn" href="#reservation">Composer ma partie <span class="ar">➝</span></a>
+    <a class="btn ghost" href="#concept">Découvrez le concept</a>
+   </div>
+   <div class="chips">
+    <span class="chip"><b>6 à 20</b> joueurs</span>
+    <span class="chip"><b>1h30</b> d'aventure</span>
+    <span class="chip">Forêt à <b>870 m</b></span>
+    <span class="chip">Dès <b>20 €</b> / pers.</span>
+   </div>
+  </div>
+  <div class="target-box" aria-hidden="true">
+   <div class="target"></div>
+   <div class="arrow"><i></i></div>
+   <div class="hit"></div>
+   <div class="score"><small>Prêt à toucher</small>la cible ?</div>
+  </div>
+ </div>
+</section>
+
+<section id="concept">
+ <div class="wrap concept">
+  <div class="stack rv">
+   <img class="a" src="https://comme-une-fleche.com/wp-content/uploads/2024/06/archery-quest-jeu-equipe-2-1030x1030.png" alt="Deux archers masqués en forêt" loading="lazy">
+   <img class="b" src="https://comme-une-fleche.com/wp-content/uploads/2024/06/IMG_20240606_110335-1030x1030.jpg" alt="Cibles fixes accrochées aux arbres" loading="lazy">
+   <span class="tag">Flèches en mousse + masque</span>
+  </div>
+  <div>
+   <span class="eyebrow rv">Le concept</span>
+   <h2 class="rv d1">Qu'est-ce que <em>l'Archery Quest</em> ?</h2>
+   <p class="sub rv d2">C'est plus que de l'archery tag ou de l'archery battle : c'est une aventure avant tout, un amusement, certainement !</p>
+   <ul class="steps">
+    <li class="rv d1"><b>1</b><div><h3>On apprend les bases</h3><p>Initiation au tir à l'arc sur cible avant de rejoindre le terrain, pas loin d'un hectare de forêt.</p></div></li>
+    <li class="rv d2"><b>2</b><div><h3>On se répartit</h3><p>Généralement par équipes. Des zones s'ouvrent selon vos actions en jeu : recharge de munitions, nouveaux éléments de protection, bonus pour les jeux de plateau.</p></div></li>
+    <li class="rv d3"><b>3</b><div><h3>On joue, encadrés</h3><p>Votre réservation vaut privatisation du terrain, avec un arbitre accompagnateur. Il n'y aura personne d'autre que votre groupe.</p></div></li>
+   </ul>
+  </div>
+ </div>
+</section>
+
+<div class="pano"><p>Située à 870 m dans les monts de la Madeleine, la forêt privée qui voit vos aventures est <span>avant tout une découverte.</span></p></div>
+
+<section class="alt" id="jeux">
+ <div class="wrap">
+  <span class="eyebrow rv">Les jeux proposés</span>
+  <h2 class="rv d1">Différents <em>modes de jeu</em></h2>
+  <p class="sub rv d2">L'Archery Quest peut se pratiquer dans différents modes de jeu, répartis en 2 catégories.</p>
+  <div class="tabs rv" role="tablist">
+   <button class="tab on" data-t="simple">Les jeux d'archery simple</button>
+   <button class="tab" data-t="societe">Avec jeu de société</button>
+  </div>
+  <div class="games" id="t-simple">
+   <article class="game rv"><span class="type">Jeu par équipe</span><h3>Battle</h3><p>2 équipes, des archers et 1 à 2 porteurs de bouclier. Flèches limitées, ramassées seulement par les porteurs. Chaque archer a 2 vies. Des avantages en tirant dans les cibles près du camp adverse.</p></article>
+   <article class="game rv d1"><span class="type">Jeu individuel</span><h3>Le Chasseur</h3><p>Un joueur est désigné chasseur. Les joueurs touchés deviennent chasseurs à leur tour. Le vainqueur est le dernier joueur restant.</p></article>
+   <article class="game rv d2"><span class="type">Jeu par équipe</span><h3>Loup gelé</h3><p>Touché, un joueur est « gelé, immobilisé » jusqu'à ce qu'un coéquipier vienne le libérer. Fin de partie quand tous les adversaires sont gelés.</p></article>
+   <article class="game rv"><span class="type">Jeu par équipe</span><h3>Capture de totem</h3><p>S'emparer du totem dans le camp adverse et le rapporter dans son camp, sans se faire toucher.</p></article>
+   <article class="game rv d1"><span class="type">Jeu par équipe</span><h3>La dernière flèche</h3><p>Munitions limitées par équipe, boucliers : le porteur récupère les flèches adverses et les rapporte au camp jusqu'à leur suppression.</p></article>
+  </div>
+  <div class="board hide" id="t-societe">
+   <img src="https://comme-une-fleche.com/wp-content/uploads/2024/06/archery-quest-jeu-societe.png" alt="Table de jeux de plateau grand format en extérieur" loading="lazy">
+   <div>
+    <h3 style="font-size:32px">Un concept de jeu unique !</h3>
+    <p class="sub" style="margin-top:12px">Une invention « Comme une flèche » qui mêle interactions entre le joueur du jeu de plateau et les participants archers. Conseillé si un participant ne souhaite pas courir dans la forêt après les autres joueurs.</p>
+    <div class="pions"><span>Échecs</span><span>Morpion</span><span>Jeu du moulin ou Marelle</span><span>Alquerque de Doce</span></div>
+    <p>Les archers donnent des bonus au joueur (récupération de pions, modifications de déplacement…), ou le joueur gagnant permet l'accès aux zones restreintes aux archers. Tout ceci est encadré par un arbitre.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ OUTIL CENTRAL : composer sa partie ============ -->
+<section class="dark" id="reservation">
+ <div class="wrap">
+  <span class="eyebrow rv" style="color:var(--or)">Réservation</span>
+  <h2 class="rv d1">Composez votre partie, <em>voyez le prix tout de suite</em></h2>
+  <p class="sub rv d2">Nombre de joueurs, ambiance, modes de jeu qui vous tentent, créneau : la demande arrive complète, avec les âges des participants pour préparer le matériel adapté.</p>
+
+  <div class="tool">
+   <div class="panel rv">
+    <div class="st">
+     <h4><b>1</b>Combien d'archers ?</h4>
+     <div class="players">
+      <output id="nbOut">8<small>joueurs</small></output>
+      <input type="range" id="nb" min="6" max="20" value="8" aria-label="Nombre de participants">
+     </div>
+     <div class="quiver" id="quiver" aria-hidden="true"></div>
+     <p class="hint">6 joueurs minimum. Tarif dégressif à partir de 10 joueurs.</p>
+    </div>
+    <div class="st">
+     <h4><b>2</b>Quelle ambiance ?</h4>
+     <div class="opts" id="ambiance">
+      <button type="button" class="opt on" data-v="Option ultra ludique"><b>Ultra ludique</b><span>Tout est possible et adaptable</span></button>
+      <button type="button" class="opt" data-v="Option sportive"><b>Sportive</b><span>Tout est possible et adaptable</span></button>
+     </div>
+    </div>
+    <div class="st">
+     <h4><b>3</b>Vos 3 manches de 20 minutes</h4>
+     <div class="slots" id="slots">
+      <div class="slot" data-i="0">Manche 1<small>choisir un jeu</small></div>
+      <div class="slot" data-i="1">Manche 2<small>choisir un jeu</small></div>
+      <div class="slot" data-i="2">Manche 3<small>choisir un jeu</small></div>
+     </div>
+     <div class="pick" id="pick">
+      <button type="button">Battle</button><button type="button">Le Chasseur</button><button type="button">Loup gelé</button><button type="button">Capture de totem</button><button type="button">La dernière flèche</button>
+      <button type="button" class="sp">+ Échecs</button><button type="button" class="sp">+ Morpion</button><button type="button" class="sp">+ Marelle</button><button type="button" class="sp">+ Alquerque</button>
+     </div>
+     <p class="hint">Cliquez une manche pour la vider. Le choix définitif se fait sur place avec l'arbitre : c'est une envie, pas un engagement.</p>
+    </div>
+    <div class="st">
+     <h4><b>4</b>Quand et qui ?</h4>
+     <div class="row2">
+      <label class="f">Date souhaitée<input type="date" id="date"></label>
+      <label class="f">Tranche horaire<select id="cren"><option>10:00 - 12:00</option><option>14:00 - 16:00</option></select></label>
+     </div>
+     <div class="row2" style="margin-top:12px">
+      <label class="f">Nom et prénom<input type="text" id="nom" placeholder="Votre nom"></label>
+      <label class="f">Téléphone<input type="tel" id="tel" placeholder="06 …"></label>
+     </div>
+     <label class="f" style="margin-top:12px">Âges des participants<input type="text" id="ages" placeholder="ex. 9, 11, 38, 40, 42…"></label>
+     <p class="hint">Demande à envoyer au minimum 48 h avant. À partir de 8 ans.</p>
+    </div>
+   </div>
+
+   <aside class="ticket rv d2" aria-live="polite">
+    <div class="top">
+     <small>Votre Archery Quest</small>
+     <div class="big" id="total">184 €<span> au total</span></div>
+     <div id="pp" style="margin-top:6px;color:#d6efe2">23 € par personne × 8</div>
+    </div>
+    <div class="body">
+     <div class="line"><span>Joueurs</span><span id="rNb">8</span></div>
+     <div class="line"><span>Ambiance</span><span id="rAmb">Ultra ludique</span></div>
+     <div class="line"><span>Manches</span><span id="rMan">à choisir</span></div>
+     <div class="line"><span>Créneau</span><span id="rCren">—</span></div>
+     <div class="line"><span>Terrain</span><span>Privatisé + arbitre</span></div>
+     <a class="btn" id="send" href="#">Envoyer ma demande <span class="ar">➝</span></a>
+     <a class="tel" href="tel:+33743102518">ou appelez le 07 43 10 25 18</a>
+     <p class="nb">Paiement en espèces, par lien de paiement ou en carte bancaire sur site de jeu. Pas de chèques. Prix indicatifs repris du site actuel, non contractuels dans cette maquette.</p>
+    </div>
+   </aside>
+  </div>
+
+  <div class="timeline rv" id="tl">
+   <h3 style="color:var(--or);font-size:28px">Combien de temps dure l'activité ? <span style="color:#fff;font-weight:400">1h30.</span></h3>
+   <div class="bar">
+    <div style="flex:5;background:#d9d2c6">Accueil</div>
+    <div style="flex:5;background:var(--or)">Équipes</div>
+    <div style="flex:5;background:var(--jaune)">Sécurité</div>
+    <div style="flex:10;background:var(--vert-clair);color:#fff">Tir sur cibles</div>
+    <div style="flex:65;background:var(--orange);color:#fff">3 jeux d'Archery de 20 min</div>
+   </div>
+   <div class="legend"><span>0 min</span><span>Accueil, déplacement, paiement · modes de jeu et équipes · règles de sécurité · entraînement · jeux</span><span>90 min</span></div>
+  </div>
+ </div>
+</section>
+
+<section id="tarifs">
+ <div class="wrap">
+  <span class="eyebrow rv">Tarifs</span>
+  <h2 class="rv d1">Simples, <em>par personne</em></h2>
+  <div class="prices">
+   <div class="price rv"><h3>De 6 à 9 joueurs</h3><div class="amt">23 €<small>*</small></div><p>par personne</p><ul><li>Terrain privatisé</li><li>Arbitre accompagnateur</li><li>Matériel adapté à chaque âge</li></ul></div>
+   <div class="price feat rv d1"><h3>À partir de 10 joueurs</h3><div class="amt">20 €<small>*</small></div><p>par personne</p><ul><li>Terrain privatisé</li><li>Arbitre accompagnateur</li><li>Jeux de plateau grand format</li></ul></div>
+   <div class="price rv d2"><h3>Abonnements</h3><div class="amt">60 €<small>*</small></div><p>pour 3 séances</p><ul><li>Valable 4 mois</li><li>Séances espacées de 3 semaines minimum</li></ul></div>
+  </div>
+  <div class="card rv" style="margin-top:24px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+   <div><h3>Une flèche pour vous</h3><p style="color:#5b544b;margin-top:6px">Devis de personnalisation : centres de loisirs / écoles, EVJF, EVG, anniversaire, à domicile…</p></div>
+   <a class="btn vert" href="#contact">Nous contacter <span class="ar">➝</span></a>
+  </div>
+  <p class="pay">* Paiement en espèces, par lien de paiement ou en carte bancaire sur site de jeu. Pas de chèques.</p>
+ </div>
+</section>
+
+<section class="dark">
+ <div class="wrap fetes">
+  <div>
+   <span class="eyebrow rv" style="color:var(--or)">Actualités</span>
+   <h2 class="rv d1">Des jeux d'archers <em>pour les fêtes</em></h2>
+   <p class="sub rv d2">Pâques et la chasse aux œufs, Halloween et la chasse aux monstres… Les futurs événements proposés par Comme une flèche ont leur place dédiée, mise à jour en un clic.</p>
+   <a class="btn rv d3" style="margin-top:24px" href="#contact">Être prévenu des prochains événements <span class="ar">➝</span></a>
+  </div>
+  <img class="rv d1" src="https://comme-une-fleche.com/wp-content/uploads/2026/10/Banniere-Halloween-1210x423.png" alt="Halloween : Jeux d'enfer" loading="lazy">
+ </div>
+</section>
+
+<section class="alt" id="faq">
+ <div class="wrap">
+  <span class="eyebrow rv">FAQ</span>
+  <h2 class="rv d1">Foire aux <em>questions</em></h2>
+  <div class="faq">
+   <details class="rv"><summary>Quelle tenue faut-il prévoir pour les activités ?</summary><p>Obligation de porter une paire de chaussures fermées, pas de nu-pieds. Il est fortement conseillé de privilégier des vêtements couvrant les jambes et des vêtements de sport. Pensez à prévoir des bouteilles d'eau pour vous réhydrater après les jeux.</p></details>
+   <details class="rv"><summary>Est-ce qu'il y a des consignes et des règles de sécurité ?</summary><p>La forêt est aménagée mais reste une forêt naturelle, avec des branches, des cailloux, des ronces, des plantes… Votre priorité avant même de viser doit toujours être de vérifier où vous mettez les pieds.</p><ul><li>Interdiction d'ôter le masque dans la zone de jeu</li><li>Interdiction de viser la tête</li><li>Interdiction de tirer en dessous de 5 m de distance</li><li>Interdiction de tirer vers la zone de jeu de société, les zones protégées (corde rouge) ou hors de la zone de jeu</li><li>On ne sort pas de la zone de jeu (ou en posant son arc et exclusivement pour ramasser lentement une flèche)</li></ul></details>
+   <details class="rv"><summary>Y aura-t-il d'autres personnes que mon groupe ?</summary><p>Non, votre réservation d'activité vaut privatisation du terrain avec un arbitre accompagnateur. Il n'y aura personne d'autre que votre groupe.</p></details>
+   <details class="rv"><summary>Ma réservation peut-elle être annulée par « Comme une flèche » ?</summary><p>Oui, mais dans des conditions très précises : en cas de non-paiement d'au moins une place en amont, ou selon les risques météo définis par l'organisateur (vent violent, recommandations préfectorales…).</p></details>
+   <details class="rv"><summary>À partir de quel âge peut-on jouer ?</summary><p>À partir de 8 ans. Indiquez les âges de chacun des participants lors de la réservation, afin que le matériel adapté soit préparé.</p></details>
+  </div>
+ </div>
+</section>
+
+<section id="acces">
+ <div class="wrap acces">
+  <div class="card rv" id="contact">
+   <span class="eyebrow">Accès & contact</span>
+   <h2 style="font-size:40px">Comment nous rejoindre</h2>
+   <dl>
+    <div><dt>Adresse du parking</dt><dd>1375 route Napoléon<br>42430 Saint-Just-en-Chevalet</dd></div>
+    <div><dt>Coordonnées GPS</dt><dd>45.92565 , 3.85735</dd></div>
+    <div><dt>Par téléphone, de 9h00 à 18h00</dt><dd><a href="tel:+33743102518" style="color:var(--brun)">07 43 10 25 18</a></dd></div>
+    <div><dt>Par mail</dt><dd><a href="mailto:contact@comme-une-fleche.com">contact@comme-une-fleche.com</a></dd></div>
+   </dl>
+   <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px">
+    <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=45.92565,3.85735" target="_blank" rel="noopener">Itinéraire <span class="ar">➝</span></a>
+    <a class="btn vert" href="#reservation">Réservez votre Archery Quest</a>
+   </div>
+  </div>
+  <div class="photo-acces rv d1"><img src="https://comme-une-fleche.com/wp-content/uploads/2024/06/IMG_20240605_141820-scaled.jpg" alt="L'abri d'accueil de Comme une flèche" loading="lazy"></div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <div class="foot">
+   <img src="https://comme-une-fleche.com/wp-content/uploads/2024/05/Comme-une-fleche-logo-TXT-SEUL-800-rond-300x300.png" alt="Comme une flèche">
+   <div><h4>Découvrez l'Archery Quest</h4><p>Un pur plaisir, en pleine nature, en toute sécurité !</p><a class="btn" style="margin-top:16px;background:#fff;color:var(--orange);border-color:#fff" href="#reservation">Réservez votre Archery Quest</a></div>
+   <div><h4>Coordonnées</h4><p>Adresse parking :<br>1375 route Napoléon<br>42430 St Just en Chevalet<br>Téléphone : <a href="tel:+33743102518">07 43 10 25 18</a><br>G.P.S : 45.92565 , 3.85735</p></div>
+  </div>
+  <p class="mention">Maquette de démonstration réalisée à titre de proposition, non publiée et sans engagement. Textes, tarifs, règles et coordonnées repris du site actuel comme-une-fleche.com et de la fiche Roannais Tourisme ; prix indicatifs non contractuels. Toutes les photos et le logo sont ceux du site actuel de Comme une flèche (aucune photo d'illustration). Couleurs et police (Josefin Sans) relevées sur le site actuel, ajustables. Le formulaire prépare un mail de demande : il ne remplace pas encore le calendrier de réservation en ligne.</p>
+ </div>
+</footer>
+
+<a class="btn fab" id="fab" href="#reservation">Réserver <span class="ar">➝</span></a>
+
+<script>
+(function(){
+ // progression + en-tête
+ var prog=document.getElementById('prog'),hd=document.getElementById('hd'),fab=document.getElementById('fab');
+ function onScroll(){var h=document.documentElement;var p=h.scrollTop/(h.scrollHeight-h.clientHeight);prog.style.width=(p*100)+'%';hd.classList.toggle('sc',h.scrollTop>40);var r=document.getElementById('reservation').getBoundingClientRect();fab.classList.toggle('show',h.scrollTop>600&&!(r.top<innerHeight&&r.bottom>0));}
+ addEventListener('scroll',onScroll,{passive:true});onScroll();
+ // menu mobile
+ var b=document.getElementById('burger'),m=document.getElementById('menu');
+ b.onclick=function(){m.classList.toggle('open');b.setAttribute('aria-expanded',m.classList.contains('open'))};
+ m.querySelectorAll('a').forEach(function(a){a.onclick=function(){m.classList.remove('open')}});
+ // apparitions
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+ document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+ // lien actif
+ var secs=['accueil','concept','jeux','tarifs','reservation','faq','acces'].map(function(id){return document.getElementById(id)});
+ var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){m.querySelectorAll('a').forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-45% 0px -50% 0px'});
+ secs.forEach(function(s){io2.observe(s)});
+ // onglets jeux
+ document.querySelectorAll('.tab').forEach(function(t){t.onclick=function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('on')});t.classList.add('on');var s=t.dataset.t==='simple';document.getElementById('t-simple').classList.toggle('hide',!s);document.getElementById('t-societe').classList.toggle('hide',s);document.querySelectorAll('#t-simple .rv,#t-societe .rv').forEach(function(el){el.classList.add('in')})}});
+
+ // ===== Outil : composer sa partie =====
+ var nb=document.getElementById('nb'),q=document.getElementById('quiver'),slots=[null,null,null],amb='Ultra ludique';
+ for(var i=0;i<20;i++){q.appendChild(document.createElement('i'))}
+ var dt=document.getElementById('date');var d=new Date();d.setDate(d.getDate()+2);dt.min=d.toISOString().slice(0,10);
+ function upd(){
+  var n=+nb.value,pp=n>=10?20:23;
+  document.getElementById('nbOut').innerHTML=n+'<small>joueurs</small>';
+  q.querySelectorAll('i').forEach(function(x,k){x.classList.toggle('on',k<n)});
+  document.getElementById('total').innerHTML=(n*pp)+' €<span> au total</span>';
+  document.getElementById('pp').textContent=pp+' € par personne × '+n+(n>=10?' — tarif groupe':(n>=7?' — plus que '+(10-n)+' joueur'+(10-n>1?'s':'')+' pour passer à 20 €':''));
+  document.getElementById('rNb').textContent=n;
+  document.getElementById('rAmb').textContent=amb;
+  var f=slots.filter(Boolean);document.getElementById('rMan').textContent=f.length?f.join(' · '):'à choisir';
+  document.getElementById('rCren').textContent=(dt.value?new Date(dt.value+'T12:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+', ':'')+document.getElementById('cren').value;
+  document.querySelectorAll('.slot').forEach(function(s,k){if(slots[k]){s.classList.add('full');s.innerHTML=slots[k]+'<small>manche '+(k+1)+'</small>'}else{s.classList.remove('full');s.innerHTML='Manche '+(k+1)+'<small>choisir un jeu</small>'}});
+  var body='Bonjour,\n\nJe souhaite réserver une Archery Quest :\n- Participants : '+n+'\n- Âges : '+(document.getElementById('ages').value||'à préciser')+'\n- Ambiance : '+amb+'\n- Envies de jeux : '+(f.length?f.join(', '):'à voir avec l\'arbitre')+'\n- Date souhaitée : '+(dt.value||'à préciser')+' ('+document.getElementById('cren').value+')\n- Estimation : '+(n*pp)+' € ('+pp+' € / pers.)\n\n'+(document.getElementById('nom').value||'')+'\n'+(document.getElementById('tel').value||'');
+  document.getElementById('send').href='mailto:contact@comme-une-fleche.com?subject='+encodeURIComponent('Demande de réservation Archery Quest – '+n+' joueurs')+'&body='+encodeURIComponent(body);
+ }
+ nb.oninput=upd;['date','cren','nom','tel','ages'].forEach(function(id){document.getElementById(id).addEventListener('input',upd)});
+ document.querySelectorAll('#ambiance .opt').forEach(function(o){o.onclick=function(){document.querySelectorAll('#ambiance .opt').forEach(function(x){x.classList.remove('on')});o.classList.add('on');amb=o.querySelector('b').textContent;upd()}});
+ document.querySelectorAll('#pick button').forEach(function(bt){bt.onclick=function(){var k=slots.indexOf(null);if(k<0)k=2;var name=bt.textContent.replace('+ ','');slots[k]=bt.classList.contains('sp')?'Archers + '+name:name;upd()}});
+ document.querySelectorAll('.slot').forEach(function(s){s.onclick=function(){slots[+s.dataset.i]=null;upd()}});
+ upd();
+})();
+</script>
+</body>
+</html>
