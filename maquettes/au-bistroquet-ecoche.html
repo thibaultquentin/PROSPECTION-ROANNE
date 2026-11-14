@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Au Bistroquet — Café, restaurant et épicerie à Écoche | Pays de Charlieu-Belmont</title>
+<meta name="description" content="Café, comptoir et épicerie à Écoche : cuisine de bistrot maison le midi, planches de fromages et charcuterie locales le vendredi et le samedi soir.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE AU BISTROQUET — reprise du logo et de l'enseigne
+   (couleurs relevées directement sur le logo du site actuel)
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --sauge:#788476;        /* fond du logo / enseigne */
+  --sauge-fonce:#4f5a4d;  /* ombre portée des lettres du logo */
+  --sauge-clair:#a9b3a5;
+  --creme:#e3e1cc;        /* lettrage du logo */
+  --creme-clair:#f4f2e7;
+  --bordeaux:#8e233d;     /* tire-bouchon du logo */
+  --bordeaux-fonce:#6b1a2e;
+  --pierre:#c9a25a;       /* encadrements de pierre dorée de la façade */
+  --encre:#2b302a;
+  --font-titre:'Bebas Neue', 'Arial Narrow', sans-serif; /* lettrage haut et étroit, proche du logo */
+  --font-texte:'Open Sans', system-ui, sans-serif;       /* sous-titre « café comptoir épicerie » du logo */
+  --rayon:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--encre);background:var(--creme-clair);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.demo-banner{background:var(--encre);color:var(--creme);font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* ---------- Navigation ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(120,132,118,.96);backdrop-filter:blur(8px);transition:padding .3s, box-shadow .3s}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0;transition:padding .3s}
+header.nav.small .wrap{padding:.4rem 0}
+header.nav.small{box-shadow:0 6px 20px rgba(0,0,0,.15)}
+.brand{display:flex;align-items:baseline;gap:.35rem;text-decoration:none;color:var(--creme);font-family:var(--font-titre);letter-spacing:.04em;text-shadow:3px 3px 0 var(--sauge-fonce)}
+.brand .au{font-size:1.3rem}
+.brand .nom{font-size:2.1rem;line-height:1}
+.brand .nom b{color:var(--bordeaux);text-shadow:none;font-weight:400}
+nav ul{display:flex;gap:1.4rem;list-style:none}
+nav a{color:var(--creme);text-decoration:none;font-weight:600;font-size:.92rem;position:relative}
+nav a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--bordeaux);transition:width .25s}
+nav a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.3rem;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:var(--font-texte);font-size:.95rem;transition:transform .2s, background .2s, color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-bdx{background:var(--bordeaux);color:var(--creme-clair)}
+.btn-bdx:hover{background:var(--bordeaux-fonce)}
+.btn-creme{background:var(--creme);color:var(--encre)}
+.btn-ghost{border-color:var(--creme);color:var(--creme)}
+.btn-ghost:hover{background:var(--creme);color:var(--encre)}
+.burger{display:none;background:none;border:0;color:var(--creme);font-size:1.6rem;cursor:pointer}
+@media (max-width:860px){
+  nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--sauge);padding:1rem 16px 1.4rem;gap:.9rem}
+  nav ul.open{display:flex}
+  .burger{display:block}
+  .nav .btn-call{display:none}
+}
+
+/* ---------- Statut d'ouverture (temps réel) ---------- */
+.status{display:inline-flex;align-items:center;gap:.55rem;background:rgba(43,48,42,.55);color:var(--creme-clair);padding:.45rem .9rem;border-radius:999px;font-size:.85rem;font-weight:600}
+.status .dot{width:10px;height:10px;border-radius:50%;background:#c8c8c8;position:relative}
+.status.open .dot{background:#9fd28c}
+.status.open .dot::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #9fd28c;animation:pulse 1.8s infinite}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.5);opacity:0}}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;padding:3rem 0 4rem;background:var(--sauge);color:var(--creme);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:14px;border:2px solid var(--creme);border-radius:6px;opacity:.55;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center;position:relative}
+.hero h1{font-family:var(--font-titre);font-weight:400;line-height:.9;letter-spacing:.02em;text-shadow:5px 5px 0 var(--sauge-fonce)}
+.hero h1 .l1{display:block;font-size:clamp(2rem,5vw,3.4rem)}
+.hero h1 .l2{display:block;font-size:clamp(4.2rem,12vw,8.6rem)}
+.hero h1 .l2 b{color:var(--bordeaux);font-weight:400;text-shadow:none;display:inline-block;transform-origin:50% 20%}
+.hero .tag{font-size:clamp(1rem,2.2vw,1.35rem);letter-spacing:.35em;text-transform:lowercase;margin:.6rem 0 1.4rem;opacity:.95}
+.hero p.lead{max-width:34rem;font-size:1.05rem;margin-bottom:1.6rem;color:var(--creme-clair)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-bottom:1.4rem}
+.hero-photo{position:relative;border-radius:var(--rayon);overflow:hidden;box-shadow:12px 12px 0 var(--sauge-fonce);aspect-ratio:4/3;transform:rotate(1.2deg)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.2s ease}
+.hero-photo.in img{transform:scale(1)}
+.hero-photo .sticker{position:absolute;left:14px;bottom:14px;background:var(--creme);color:var(--encre);border-radius:14px;padding:.6rem .9rem;font-size:.85rem;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+.corkscrew{position:absolute;right:-40px;top:-30px;width:180px;opacity:.16;pointer-events:none}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-photo{transform:none}}
+
+/* ---------- Bandeau défilant ---------- */
+.marquee{background:var(--bordeaux);color:var(--creme);overflow:hidden;white-space:nowrap;padding:.7rem 0;font-family:var(--font-titre);font-size:1.5rem;letter-spacing:.12em}
+.marquee .track{display:inline-block;animation:defile 28s linear infinite}
+.marquee span{margin:0 1.4rem}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section{padding:5rem 0}
+.kicker{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:var(--bordeaux);font-weight:700;margin-bottom:.5rem}
+h2{font-family:var(--font-titre);font-weight:400;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1;letter-spacing:.02em;color:var(--encre);margin-bottom:1rem}
+.sub{max-width:40rem;color:#4a5248}
+
+/* trois univers */
+.univers{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.4rem}
+.carte{background:#fff;border-radius:var(--rayon);overflow:hidden;box-shadow:0 10px 30px rgba(43,48,42,.08);transition:transform .35s, box-shadow .35s;display:flex;flex-direction:column}
+.carte:hover{transform:translateY(-6px) rotate(-.4deg);box-shadow:0 18px 40px rgba(43,48,42,.16)}
+.carte .ph{aspect-ratio:4/3;overflow:hidden}
+.carte .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.carte:hover .ph img{transform:scale(1.06)}
+.carte .ph.vide{background:repeating-linear-gradient(45deg,var(--creme),var(--creme) 12px,var(--creme-clair) 12px,var(--creme-clair) 24px);display:grid;place-items:center;color:#6b7369;font-size:.85rem;font-weight:600;text-align:center;padding:1rem}
+.carte .tx{padding:1.3rem 1.4rem 1.6rem}
+.carte h3{font-family:var(--font-titre);font-weight:400;font-size:1.9rem;letter-spacing:.03em;color:var(--sauge-fonce)}
+.carte .h{display:inline-block;margin-top:.7rem;font-size:.82rem;font-weight:700;color:var(--bordeaux)}
+@media (max-width:860px){.univers{grid-template-columns:1fr}}
+
+/* Ardoise */
+.ardoise-sec{background:var(--creme)}
+.ardoise-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+.ardoise{background:#262a26;color:#f1efe4;border-radius:12px;padding:2.2rem 2rem;border:12px solid #8a6a43;box-shadow:inset 0 0 60px rgba(0,0,0,.6), 0 18px 40px rgba(0,0,0,.25);font-family:var(--font-texte);transform:rotate(-1deg)}
+.ardoise h3{font-family:var(--font-titre);font-weight:400;font-size:2.4rem;letter-spacing:.06em;text-align:center;margin-bottom:1rem;color:#fff}
+.ardoise .ligne{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed rgba(241,239,228,.25);padding:.75rem 0}
+.ardoise .ligne strong{font-weight:600}
+.ardoise .prix{font-family:var(--font-titre);font-size:1.6rem;color:#f3c7d1;white-space:nowrap}
+.ardoise small{display:block;opacity:.75;font-size:.82rem}
+.ardoise .note{margin-top:1rem;text-align:center;font-size:.85rem;opacity:.8}
+@media (max-width:860px){.ardoise-grid{grid-template-columns:1fr}.ardoise{transform:none}}
+
+/* Semaine (horaires visuels) */
+.semaine{margin-top:2.4rem;background:#fff;border-radius:var(--rayon);padding:1.6rem;box-shadow:0 10px 30px rgba(43,48,42,.08)}
+.legend{display:flex;flex-wrap:wrap;gap:1.2rem;font-size:.85rem;margin-bottom:1rem}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:.35rem}
+.jours{display:grid;gap:.45rem}
+.jour{display:grid;grid-template-columns:90px 1fr;align-items:center;gap:.8rem;font-size:.9rem}
+.jour.today .lbl{color:var(--bordeaux);font-weight:700}
+.barre{position:relative;height:30px;background:var(--creme-clair);border-radius:8px;overflow:hidden}
+.seg{position:absolute;top:0;bottom:0;border-radius:6px;transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.semaine.in .seg{transform:scaleX(1)}
+.seg.cafe{background:var(--sauge-clair)}
+.seg.repas{background:var(--sauge);top:6px;bottom:6px}
+.seg.planche{background:var(--bordeaux);top:6px;bottom:6px}
+.now{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--encre)}
+.now::before{content:"maintenant";position:absolute;top:-18px;left:-28px;font-size:.62rem;font-weight:700;color:var(--encre);white-space:nowrap}
+.heures{display:grid;grid-template-columns:90px 1fr;gap:.8rem;font-size:.72rem;color:#6b7369;margin-top:.3rem}
+.heures div:last-child{display:flex;justify-content:space-between}
+.jour .ferme{position:absolute;inset:0;display:grid;place-items:center;font-size:.78rem;color:#8a918a}
+@media (max-width:560px){.jour,.heures{grid-template-columns:62px 1fr}}
+
+/* Outil réservation */
+.resa{background:var(--sauge);color:var(--creme-clair);position:relative;overflow:hidden}
+.resa h2{color:var(--creme);text-shadow:4px 4px 0 var(--sauge-fonce)}
+.resa .kicker{color:var(--creme)}
+.resa .sub{color:var(--creme-clair)}
+.outil{display:grid;grid-template-columns:1.2fr .8fr;gap:1.6rem;margin-top:2.2rem}
+.panneau{background:var(--creme-clair);color:var(--encre);border-radius:var(--rayon);padding:1.6rem}
+.etape{margin-bottom:1.5rem}
+.etape h4{font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sauge-fonce);margin-bottom:.7rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:2px solid var(--sauge-clair);background:#fff;border-radius:12px;padding:.55rem .8rem;cursor:pointer;font-family:var(--font-texte);font-size:.88rem;text-align:left;transition:all .2s;color:var(--encre)}
+.chip small{display:block;font-size:.7rem;color:#6b7369}
+.chip:hover{border-color:var(--sauge)}
+.chip.on{background:var(--sauge);border-color:var(--sauge);color:var(--creme-clair)}
+.chip.on small{color:var(--creme)}
+.chip:disabled{opacity:.35;cursor:not-allowed}
+.compteur{display:flex;align-items:center;gap:.9rem}
+.compteur button{width:40px;height:40px;border-radius:50%;border:2px solid var(--sauge);background:#fff;font-size:1.3rem;cursor:pointer;color:var(--sauge-fonce)}
+.compteur output{font-family:var(--font-titre);font-size:2.2rem;min-width:2ch;text-align:center}
+.recap{background:var(--encre);color:var(--creme-clair);border-radius:var(--rayon);padding:1.6rem;display:flex;flex-direction:column;gap:1rem;position:sticky;top:90px;align-self:start}
+.recap h3{font-family:var(--font-titre);font-weight:400;font-size:2rem;letter-spacing:.04em;color:var(--creme)}
+.recap .l{display:flex;justify-content:space-between;border-bottom:1px solid rgba(227,225,204,.15);padding-bottom:.5rem;font-size:.92rem}
+.recap .l span:first-child{opacity:.7}
+.recap .total{font-family:var(--font-titre);font-size:2.6rem;color:#f3c7d1;line-height:1}
+.recap .msg{font-size:.82rem;opacity:.8}
+.recap .btn{justify-content:center}
+.recap .alerte{background:rgba(142,35,61,.35);border-left:3px solid #f3c7d1;padding:.6rem .8rem;border-radius:6px;font-size:.85rem}
+@media (max-width:860px){.outil{grid-template-columns:1fr}.recap{position:static}}
+
+/* Équipe */
+.equipe{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.5rem;align-items:center}
+.equipe .ph{border-radius:var(--rayon);overflow:hidden;box-shadow:-12px 12px 0 var(--pierre)}
+.equipe .ph img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.equipe blockquote{font-family:var(--font-titre);font-size:clamp(2rem,4vw,2.8rem);line-height:1.05;color:var(--sauge-fonce);margin:1rem 0}
+.puces{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+.puces span{background:var(--creme);border-radius:999px;padding:.4rem .9rem;font-size:.85rem;font-weight:600}
+@media (max-width:860px){.equipe{grid-template-columns:1fr}}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:220px 220px;gap:1rem;margin-top:2rem}
+.galerie figure{border-radius:16px;overflow:hidden;position:relative}
+.galerie figure:first-child{grid-row:span 2}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
+.galerie figure:hover img{transform:scale(1.05)}
+@media (max-width:760px){.galerie{grid-template-columns:1fr 1fr;grid-template-rows:auto}.galerie figure:first-child{grid-column:span 2;grid-row:auto}.galerie figure{aspect-ratio:1/1}}
+
+/* Contact */
+.contact{background:var(--encre);color:var(--creme-clair)}
+.contact h2{color:var(--creme)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.6rem}
+.bloc{background:rgba(227,225,204,.06);border:1px solid rgba(227,225,204,.15);border-radius:var(--rayon);padding:1.6rem}
+.bloc h3{font-family:var(--font-titre);font-weight:400;font-size:1.7rem;letter-spacing:.04em;color:var(--creme);margin-bottom:.6rem}
+.bloc table{width:100%;border-collapse:collapse;font-size:.92rem}
+.bloc td{padding:.35rem 0;border-bottom:1px solid rgba(227,225,204,.1)}
+.bloc td:last-child{text-align:right}
+.bloc tr.today td{color:#f3c7d1;font-weight:700}
+.bloc a{color:var(--creme)}
+.map{margin-top:1rem;border-radius:16px;overflow:hidden;border:0;width:100%;height:220px;filter:grayscale(.3)}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr}}
+footer{background:#1d201c;color:#a9b0a6;font-size:.8rem;padding:2rem 0 5rem}
+footer p{margin-bottom:.5rem}
+
+/* barre d'action mobile */
+.mbar{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:.5rem}
+.mbar a{flex:1;justify-content:center}
+@media (max-width:760px){.mbar{display:flex}}
+
+/* révélations au scroll */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease, transform .8s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}.seg{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Au Bistroquet",
+  "description":"Café, comptoir et épicerie. Cuisine de bistrot, produits du terroir.",
+  "url":"https://www.aubistroquet.fr",
+  "telephone":"+33982723240",
+  "email":"contact@aubistroquet.fr",
+  "servesCuisine":"Cuisine de bistrot",
+  "priceRange":"15 € - 18 €",
+  "address":{"@type":"PostalAddress","streetAddress":"8 route du Pontbrenon","postalCode":"42670","addressLocality":"Écoche","addressCountry":"FR"},
+  "areaServed":["Écoche","Belmont-de-la-Loire","Pays de Charlieu-Belmont"],
+  "acceptsReservations":true,
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday"],"opens":"08:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"08:00","closes":"23:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"09:00","closes":"13:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo-banner">Maquette de démonstration — proposition de nouveau site pour Au Bistroquet, non officielle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Au Bistroquet, accueil"><span class="au">AU</span><span class="nom">BIS<b>T</b>ROQUET</span></a>
+    <nav>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+      <ul id="menu">
+        <li><a href="#univers">Café · comptoir · épicerie</a></li>
+        <li><a href="#ardoise">À table</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+        <li><a href="#nous">Le lieu</a></li>
+        <li><a href="#contact">Horaires &amp; accès</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-bdx btn-call" href="tel:+33982723240">09 82 72 32 40</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="corkscrew" id="cork" viewBox="0 0 100 220" aria-hidden="true"><rect x="5" y="0" width="90" height="22" rx="10" fill="#e3e1cc"/><rect x="45" y="20" width="10" height="40" fill="#e3e1cc"/><path d="M50 60 C80 70 80 85 50 92 C20 99 20 114 50 121 C80 128 80 143 50 150 C20 157 20 172 50 179 C70 184 60 200 50 215" stroke="#e3e1cc" stroke-width="9" fill="none" stroke-linecap="round"/></svg>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status" id="status"><span class="dot"></span><span id="statusTxt">Horaires</span></span>
+      <h1 style="margin-top:1.2rem"><span class="l1">AU</span><span class="l2">BIS<b id="tb">T</b>ROQUET</span></h1>
+      <div class="tag">café · comptoir · épicerie</div>
+      <p class="lead">À Écoche, une cuisine de bistrot préparée maison, des produits du terroir et un comptoir où l'on prend le temps. Le midi on mange, le vendredi et le samedi soir on partage une planche.</p>
+      <div class="ctas">
+        <a href="#reserver" class="btn btn-bdx">Réserver une table</a>
+        <a href="#ardoise" class="btn btn-ghost">Voir les formules</a>
+      </div>
+    </div>
+    <div class="hero-photo rv" id="heroPhoto">
+      <img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-batiment-2-1024x768.jpg" alt="Façade en pierre dorée du Bistroquet à Écoche, avec sa terrasse et son enseigne">
+      <div class="sticker">8 route du Pontbrenon · Écoche</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>café</span>·<span>comptoir</span>·<span>épicerie</span>·<span>cuisine de bistrot</span>·<span>produits du terroir</span>·<span>planches du vendredi et samedi soir</span>·
+  <span>café</span>·<span>comptoir</span>·<span>épicerie</span>·<span>cuisine de bistrot</span>·<span>produits du terroir</span>·<span>planches du vendredi et samedi soir</span>·
+</div></div>
+
+<!-- UNIVERS -->
+<section id="univers">
+  <div class="wrap">
+    <div class="kicker rv">Un seul lieu, trois façons d'y passer</div>
+    <h2 class="rv d1">Café, comptoir, épicerie</h2>
+    <p class="sub rv d2">Le Bistroquet est un « haut lieu de convivialité » au cœur du village : on y vient pour le café du matin, pour le repas du midi, pour un verre en fin de semaine ou pour quelques produits du terroir.</p>
+    <div class="univers">
+      <article class="carte rv">
+        <div class="ph"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-tirebouchon-819x1024.jpg" alt="Tire-bouchon gravé au nom du Bistroquet" loading="lazy"></div>
+        <div class="tx"><h3>Le café &amp; le comptoir</h3><p>Ouvert dès 8 h du mardi au samedi, et le dimanche matin. Le vendredi et le samedi, le comptoir reste ouvert jusqu'à 23 h.</p><span class="h">Mar → sam dès 8 h · dim 9 h–13 h</span></div>
+      </article>
+      <article class="carte rv d1">
+        <div class="ph"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-table-819x1024.jpg" alt="Table dressée dans la salle du Bistroquet" loading="lazy"></div>
+        <div class="tx"><h3>À table le midi</h3><p>Cuisine de bistrot maison du mardi au samedi, de 12 h à 14 h. Formules à 15 € ou 18 €, omelettes et tartines gourmandes.</p><span class="h">Réservation conseillée</span></div>
+      </article>
+      <article class="carte rv d2">
+        <div class="ph vide">Photo de l'épicerie<br>à fournir par le client</div>
+        <div class="tx"><h3>L'épicerie</h3><p>Des produits du terroir à emporter, à deux pas du comptoir. Le détail des produits pourra être présenté ici, rayon par rayon.</p><span class="h">Aux horaires du café</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ARDOISE -->
+<section class="ardoise-sec" id="ardoise">
+  <div class="wrap">
+    <div class="ardoise-grid">
+      <div>
+        <div class="kicker rv">À table</div>
+        <h2 class="rv d1">L'ardoise du Bistroquet</h2>
+        <p class="sub rv d2">Les formules affichées sur le site actuel, mises en ardoise. Dans la version finale, le plat du jour se change en deux minutes depuis un téléphone, sans passer par personne.</p>
+        <div style="margin-top:1.5rem" class="rv d3"><a class="btn btn-bdx" href="#reserver">Réserver le midi</a></div>
+      </div>
+      <div class="ardoise rv d1" aria-label="Formules">
+        <h3>Le midi · mar → sam</h3>
+        <div class="ligne"><div><strong>Formule</strong><small>entrée + plat ou plat + dessert</small></div><div class="prix">15 €</div></div>
+        <div class="ligne"><div><strong>Formule complète</strong><small>entrée + plat + dessert</small></div><div class="prix">18 €</div></div>
+        <div class="ligne"><div><strong>Omelettes &amp; tartines gourmandes</strong><small>à découvrir sur place</small></div><div class="prix">—</div></div>
+        <h3 style="margin-top:1.4rem">Ven &amp; sam soir</h3>
+        <div class="ligne"><div><strong>Planches de fromages et charcuterie locales</strong><small>à partager au comptoir ou en terrasse</small></div><div class="prix">—</div></div>
+        <p class="note">Plat du jour : à renseigner chaque jour par l'équipe</p>
+      </div>
+    </div>
+
+    <div class="semaine rv" id="semaine">
+      <div class="kicker">La semaine au Bistroquet</div>
+      <div class="legend"><span><i style="background:var(--sauge-clair)"></i>Café ouvert</span><span><i style="background:var(--sauge)"></i>Repas</span><span><i style="background:var(--bordeaux)"></i>Planches du soir</span></div>
+      <div class="jours" id="jours"></div>
+      <div class="heures"><div></div><div><span>7 h</span><span>11 h</span><span>15 h</span><span>19 h</span><span>23 h</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL RÉSERVATION -->
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <div class="kicker rv">Réserver en 30 secondes</div>
+    <h2 class="rv d1">Votre table au Bistroquet</h2>
+    <p class="sub rv d2">Choisissez un jour : seuls les services réellement assurés ce jour-là sont proposés. La demande part ensuite par mail ou par téléphone, déjà rédigée.</p>
+    <div class="outil">
+      <div class="panneau rv">
+        <div class="etape"><h4>1 · Le jour</h4><div class="chips" id="jourChips"></div></div>
+        <div class="etape"><h4>2 · Le moment</h4><div class="chips" id="serviceChips"></div></div>
+        <div class="etape"><h4>3 · L'heure</h4><div class="chips" id="heureChips"></div></div>
+        <div class="etape"><h4>4 · Combien êtes-vous ?</h4>
+          <div class="compteur"><button type="button" id="moins" aria-label="Moins">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Plus">+</button><span style="font-size:.85rem;color:#6b7369">personne(s)</span></div>
+        </div>
+        <div class="etape" id="formuleEtape"><h4>5 · Formule envisagée (facultatif)</h4><div class="chips" id="formuleChips"></div></div>
+      </div>
+      <aside class="recap rv d1" aria-live="polite">
+        <h3>Votre demande</h3>
+        <div class="l"><span>Jour</span><span id="rJour">—</span></div>
+        <div class="l"><span>Moment</span><span id="rService">—</span></div>
+        <div class="l"><span>Heure</span><span id="rHeure">—</span></div>
+        <div class="l"><span>Couverts</span><span id="rNb">2</span></div>
+        <div id="rTotalWrap" style="display:none"><div style="font-size:.8rem;opacity:.7">Budget indicatif repas</div><div class="total" id="rTotal">—</div></div>
+        <div class="alerte" id="rAlerte" style="display:none"></div>
+        <a class="btn btn-bdx" id="btnMail" href="#">Envoyer la demande par mail</a>
+        <a class="btn btn-creme" href="tel:+33982723240">Appeler le 09 82 72 32 40</a>
+        <p class="msg">La table n'est confirmée qu'après réponse du Bistroquet. Prix indicatifs, non contractuels.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- LE LIEU -->
+<section id="nous">
+  <div class="wrap">
+    <div class="equipe">
+      <div class="ph rv"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-david-anne-1024x1024.jpg" alt="Les deux gérants du Bistroquet devant la façade" loading="lazy"></div>
+      <div>
+        <div class="kicker rv">Le lieu</div>
+        <h2 class="rv d1">Un bistrot de village, ouvert à tous</h2>
+        <blockquote class="rv d2">« Haut lieu de convivialité. »</blockquote>
+        <p class="rv d2">Dans une belle bâtisse de pierre dorée au cœur d'Écoche, le Bistroquet réunit sous le même toit le café du matin, la cuisine de bistrot du midi et une épicerie de produits du terroir. Terrasse en surplomb de la route du Pontbrenon, salle chaleureuse, et une équipe qui connaît ses habitués.</p>
+        <div class="puces rv d3"><span>Cuisine maison</span><span>Produits du terroir</span><span>Terrasse</span><span>Animaux acceptés</span><span>Menu enfant</span></div>
+      </div>
+    </div>
+    <div class="galerie">
+      <figure class="rv"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-planche-768x1024.jpg" alt="Planche de fromages et charcuterie avec pain" loading="lazy"></figure>
+      <figure class="rv d1"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-batiment-2-1024x768.jpg" alt="La bâtisse du Bistroquet" loading="lazy"></figure>
+      <figure class="rv d2"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-table-819x1024.jpg" alt="Salle du restaurant" loading="lazy"></figure>
+      <figure class="rv d1"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/06/aubistroquet-tirebouchon-819x1024.jpg" alt="Tire-bouchon du Bistroquet" loading="lazy"></figure>
+      <figure class="rv d2"><img src="https://www.aubistroquet.fr/wp-content/uploads/2025/10/aubistroquet-david-anne_bg.jpg" alt="L'équipe du Bistroquet" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="kicker rv" style="color:var(--creme)">Horaires &amp; accès</div>
+    <h2 class="rv d1">Passez au Bistroquet</h2>
+    <div class="contact-grid">
+      <div class="bloc rv">
+        <h3>Horaires</h3>
+        <table id="tabH">
+          <tr data-d="1"><td>Lundi</td><td>Fermé</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>8 h – 19 h</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>8 h – 19 h</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>8 h – 19 h</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>8 h – 23 h</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>8 h – 23 h</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>9 h – 13 h</td></tr>
+        </table>
+        <p style="margin-top:.8rem;font-size:.88rem;opacity:.85">Repas du mardi au samedi, de 12 h à 14 h. Planches le vendredi et le samedi soir.</p>
+      </div>
+      <div class="bloc rv d1">
+        <h3>Nous trouver</h3>
+        <p>8 route du Pontbrenon<br>42670 Écoche</p>
+        <p style="margin-top:.6rem"><a href="tel:+33982723240">09 82 72 32 40</a><br><a href="mailto:contact@aubistroquet.fr">contact@aubistroquet.fr</a></p>
+        <iframe class="map" loading="lazy" title="Carte d'accès au Bistroquet" src="https://www.google.com/maps?q=8+route+du+Pontbrenon+42670+%C3%89coche&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Au Bistroquet</strong> — café · comptoir · épicerie — 8 route du Pontbrenon, 42670 Écoche — 09 82 72 32 40</p>
+    <p>Maquette de démonstration réalisée à titre de proposition, sans lien officiel avec l'établissement. Prix et formules repris du site actuel et de la fiche de l'Office de Tourisme du Pays de Charlieu-Belmont, indicatifs et non contractuels. Toutes les photos sont celles publiées sur aubistroquet.fr ; la photo de l'épicerie reste à fournir. Couleurs relevées sur le logo, ajustables.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-creme" href="tel:+33982723240">Appeler</a><a class="btn btn-bdx" href="#reserver">Réserver</a></div>
+
+<script>
+(function(){
+  // ---- Données réelles (site actuel + Office de Tourisme) ----
+  // Plages en heures décimales. 0 = dimanche.
+  const CAFE = {0:[9,13],1:null,2:[8,19],3:[8,19],4:[8,19],5:[8,23],6:[8,23]};
+  const REPAS = {2:[12,14],3:[12,14],4:[12,14],5:[12,14],6:[12,14]};
+  const PLANCHE = {5:[18,23],6:[18,23]}; // « vendredi et samedi soirs »
+  const NOMS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+
+  const now = new Date();
+  const h = now.getHours() + now.getMinutes()/60;
+  const d = now.getDay();
+
+  // ---- Statut d'ouverture ----
+  const st = document.getElementById('status'), stx = document.getElementById('statusTxt');
+  const c = CAFE[d];
+  if (c && h >= c[0] && h < c[1]) {
+    st.classList.add('open');
+    const fin = c[1]; stx.textContent = 'Ouvert maintenant · jusqu\'à ' + fin + ' h';
+  } else {
+    let k = 0, nd = d, msg = '';
+    for (k = 0; k < 8; k++) {
+      nd = (d + k) % 7; const p = CAFE[nd];
+      if (p && (k > 0 || h < p[0])) { msg = (k===0?'aujourd\'hui':k===1?'demain':NOMS[nd].toLowerCase()) + ' à ' + p[0] + ' h'; break; }
+    }
+    stx.textContent = 'Fermé · réouverture ' + msg;
+  }
+  document.querySelectorAll('#tabH tr').forEach(r => { if (+r.dataset.d === d) r.classList.add('today'); });
+
+  // ---- Semaine visuelle ----
+  const MIN=7, MAX=23, span=MAX-MIN;
+  const pct = v => ((v-MIN)/span*100);
+  const jours = document.getElementById('jours');
+  [2,3,4,5,6,0,1].forEach(j => {
+    const row = document.createElement('div'); row.className='jour'+(j===d?' today':'');
+    const lbl = document.createElement('div'); lbl.className='lbl'; lbl.textContent = NOMS[j];
+    const bar = document.createElement('div'); bar.className='barre';
+    const add = (r,cls,delay) => { if(!r) return; const s=document.createElement('div'); s.className='seg '+cls; s.style.left=pct(r[0])+'%'; s.style.width=(pct(r[1])-pct(r[0]))+'%'; s.style.transitionDelay=delay+'s'; bar.appendChild(s); };
+    if (!CAFE[j]) { const f=document.createElement('div'); f.className='ferme'; f.textContent='Fermé'; bar.appendChild(f); }
+    add(CAFE[j],'cafe',0); add(REPAS[j],'repas',.3); add(PLANCHE[j],'planche',.5);
+    if (j===d && h>=MIN && h<=MAX) { const n=document.createElement('div'); n.className='now'; n.style.left=pct(h)+'%'; bar.appendChild(n); }
+    row.append(lbl,bar); jours.appendChild(row);
+  });
+
+  // ---- Outil de réservation ----
+  const state = {date:null, service:null, heure:null, nb:2, formule:null};
+  const jc = document.getElementById('jourChips'), sc = document.getElementById('serviceChips'),
+        hc = document.getElementById('heureChips'), fc = document.getElementById('formuleChips');
+  const fmt = dt => NOMS[dt.getDay()] + ' ' + dt.getDate() + '/' + String(dt.getMonth()+1).padStart(2,'0');
+  function chip(el, label, small, on, disabled, cb){
+    const b=document.createElement('button'); b.type='button'; b.className='chip'+(on?' on':''); b.disabled=!!disabled;
+    b.innerHTML = label + (small?'<small>'+small+'</small>':''); b.onclick=cb; el.appendChild(b);
+  }
+  function servicesFor(dt){
+    const j=dt.getDay(), out=[];
+    if (REPAS[j]) out.push({id:'midi', label:'Le midi', small:'repas 12 h – 14 h', slots:['12:00','12:15','12:30','12:45','13:00','13:30']});
+    if (PLANCHE[j]) out.push({id:'soir', label:'Le soir', small:'planches & comptoir', slots:['18:30','19:00','19:30','20:00','20:30','21:00']});
+    return out;
+  }
+  function render(){
+    jc.innerHTML='';
+    for (let i=0;i<10;i++){
+      const dt=new Date(); dt.setHours(0,0,0,0); dt.setDate(dt.getDate()+i);
+      const sv=servicesFor(dt);
+      const on = state.date && dt.getTime()===state.date.getTime();
+      chip(jc, i===0?'Aujourd\'hui':i===1?'Demain':fmt(dt), sv.length? sv.map(s=>s.id==='midi'?'midi':'soir').join(' + ') : 'pas de service', on, !sv.length, ()=>{state.date=dt; state.service=null; state.heure=null; render();});
+    }
+    sc.innerHTML=''; hc.innerHTML=''; fc.innerHTML='';
+    if (!state.date){ sc.innerHTML='<span style="font-size:.85rem;color:#6b7369">Choisissez d\'abord un jour.</span>'; }
+    else {
+      const sv=servicesFor(state.date);
+      if (sv.length===1 && !state.service) state.service=sv[0];
+      sv.forEach(s=>chip(sc, s.label, s.small, state.service&&state.service.id===s.id, false, ()=>{state.service=s; state.heure=null; render();}));
+      if (state.service) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        state.service.slots.forEach(t=>{
+          const [hh,mm]=t.split(':').map(Number); const past = state.date.getTime()===today.getTime() && (hh+mm/60) <= h + .5;
+          chip(hc, t.replace(':',' h '), '', state.heure===t, past, ()=>{state.heure=t; render();});
+        });
+      }
+    }
+    const fe=document.getElementById('formuleEtape');
+    if (state.service && state.service.id==='midi'){
+      fe.style.display='';
+      [{id:15,l:'Formule 15 €',s:'entrée + plat ou plat + dessert'},{id:18,l:'Formule 18 €',s:'entrée + plat + dessert'},{id:0,l:'On verra sur place',s:'omelettes, tartines…'}]
+        .forEach(f=>chip(fc,f.l,f.s,state.formule===f.id,false,()=>{state.formule=f.id; render();}));
+    } else fe.style.display='none';
+    recap();
+  }
+  function recap(){
+    document.getElementById('rJour').textContent = state.date? fmt(state.date):'—';
+    document.getElementById('rService').textContent = state.service? state.service.label:'—';
+    document.getElementById('rHeure').textContent = state.heure? state.heure.replace(':',' h '):'—';
+    document.getElementById('rNb').textContent = state.nb;
+    document.getElementById('nb').textContent = state.nb;
+    const tw=document.getElementById('rTotalWrap');
+    if (state.service && state.service.id==='midi' && state.formule){ tw.style.display=''; document.getElementById('rTotal').textContent = (state.formule*state.nb) + ' €'; }
+    else tw.style.display='none';
+    const al=document.getElementById('rAlerte');
+    if (state.nb>=10){ al.style.display=''; al.textContent='Pour un groupe de '+state.nb+' personnes, un petit appel permet de s\'organiser au mieux.'; }
+    else al.style.display='none';
+    const btn=document.getElementById('btnMail');
+    const ok = state.date && state.service && state.heure;
+    btn.style.opacity = ok? 1 : .5;
+    const corps = 'Bonjour,\n\nJe souhaiterais réserver une table au Bistroquet :\n- ' + (state.date?fmt(state.date):'') + ', ' + (state.service?state.service.label.toLowerCase():'') + ' vers ' + (state.heure||'') + '\n- ' + state.nb + ' personne(s)' + (state.formule? '\n- formule envisagée : ' + state.formule + ' €' : '') + '\n\nMerci de me confirmer la réservation.\n\nNom :\nTéléphone :';
+    btn.href = ok ? 'mailto:contact@aubistroquet.fr?subject=' + encodeURIComponent('Réservation – ' + fmt(state.date) + ' ' + state.heure) + '&body=' + encodeURIComponent(corps) : '#reserver';
+  }
+  document.getElementById('plus').onclick=()=>{ if(state.nb<30){state.nb++; recap();} };
+  document.getElementById('moins').onclick=()=>{ if(state.nb>1){state.nb--; recap();} };
+  render();
+
+  // ---- Navigation ----
+  const nav=document.getElementById('nav'), burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.onclick=()=>{ const o=menu.classList.toggle('open'); burger.setAttribute('aria-expanded',o); };
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cork=document.getElementById('cork'), tb=document.getElementById('tb');
+  addEventListener('scroll',()=>{
+    nav.classList.toggle('small', scrollY>40);
+    if(!reduce){ cork.style.transform='rotate('+(scrollY*.25)+'deg)'; tb.style.transform='rotate('+Math.sin(scrollY/120)*8+'deg)'; }
+  },{passive:true});
+
+  // ---- Révélations ----
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.15});
+  document.querySelectorAll('.rv, .semaine').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
