@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SARL Peurière — Menuiserie et agencement dans le Roannais | Perreux</title>
+<meta name="description" content="SARL Peurière, menuiserie agencement à Perreux depuis 1991 : cuisines, salles de bain, claustras, escaliers, portes et fenêtres pour particuliers et professionnels du Roannais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Corben:wght@400;700&family=Nunito+Sans:wght@300;400;600;700&family=Zilla+Slab:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel (menuiseriepeuriere.wixsite.com)
+   Couleurs relevées sur le site en ligne ; ajustables ici.
+   ========================================================== */
+:root{
+  --vert-fonce:#063F0D;   /* textes et titres du site actuel */
+  --vert:#38653D;         /* grands aplats verts */
+  --saumon:#F3A78F;       /* barre de menu, pied de page */
+  --saumon-clair:#F8DACF; /* bandeau "Devis gratuit !" */
+  --creme:#FCF8F0;        /* fond clair */
+  --menthe:#F5FFF7;       /* texte clair sur vert */
+  --bleu-logo:#0D5594;    /* triangle du logo */
+  --ardoise:#3F4B53;      /* second triangle du logo */
+  --rouge-logo:#C9542F;   /* "PEURIÈRE" du logo */
+  --font-titre:'Corben', Georgia, serif;          /* = Corben sur le site actuel */
+  --font-slab:'Zilla Slab', 'Rockwell', serif;    /* proche de Museo Slab */
+  --font-texte:'Nunito Sans', 'Avenir', system-ui, sans-serif; /* proche d'Avenir Light */
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--vert-fonce);background:var(--creme);line-height:1.6;font-weight:400;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--bleu-logo);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.demo{background:var(--vert-fonce);color:var(--menthe);font-size:.78rem;text-align:center;padding:6px 16px;letter-spacing:.02em}
+.demo b{color:var(--saumon)}
+
+/* ---------- NAV ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(243,167,143,.94);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 6px 24px rgba(6,63,13,.15)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo{width:54px;height:44px;flex:none}
+.brand-t{font-family:var(--font-titre);line-height:1.05}
+.brand-t strong{display:block;font-size:1.1rem;letter-spacing:.12em;color:var(--vert-fonce)}
+.brand-t span{font-size:.78rem;letter-spacing:.14em;color:var(--vert)}
+.menu{display:flex;gap:4px;list-style:none}
+.menu a{display:block;padding:10px 14px;text-decoration:none;font-weight:700;font-size:.92rem;border-radius:999px;transition:background .25s}
+.menu a:hover,.menu a.on{background:rgba(255,255,255,.45)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:14px 24px;font-family:var(--font-texte);font-size:.98rem;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-vert{background:var(--vert);color:var(--menthe);box-shadow:0 8px 20px rgba(6,63,13,.25)}
+.btn-vert:hover{background:var(--vert-fonce)}
+.btn-saumon{background:var(--saumon);color:var(--vert-fonce)}
+.btn-ghost{background:transparent;color:var(--menthe);border:1.5px solid rgba(245,255,247,.6)}
+.btn-ghost:hover{background:rgba(245,255,247,.12)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--vert-fonce);margin:5px auto;transition:.3s}
+@media(max-width:900px){
+  .menu{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--saumon);padding:12px 16px 20px;transform:translateY(-120%);transition:transform .4s var(--ease);box-shadow:0 20px 30px rgba(0,0,0,.12)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .btn-vert{display:none}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:var(--menthe);overflow:hidden;background:var(--vert-fonce)}
+.hero-bg{position:absolute;inset:0;background:url('https://static.wixstatic.com/media/b213a6_58df3e7f2c9d48779b3c610627d96c3d~mv2.jpg/v1/fill/w_1800,h_900,al_c,q_85/facade.jpg') center 40%/cover;transform:scale(1.08);animation:kb 18s var(--ease) forwards}
+@keyframes kb{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,63,13,.15) 0%,rgba(6,63,13,.55) 45%,rgba(6,63,13,.92) 100%)}
+.hero-in{position:relative;z-index:2;padding:120px 0 64px}
+.eyebrow{font-family:var(--font-slab);text-transform:uppercase;letter-spacing:.22em;font-size:.82rem;color:var(--saumon);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:34px;height:2px;background:currentColor}
+.hero h1{font-family:var(--font-titre);font-weight:400;font-size:clamp(2.3rem,1.4rem + 4.4vw,5rem);line-height:1.04;letter-spacing:.06em;margin:14px 0 8px}
+.hero h1 .l{display:inline-block;opacity:0;transform:translateY(40px);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .sub{font-family:var(--font-titre);font-size:clamp(1.1rem,.9rem + 1vw,1.7rem);letter-spacing:.2em;color:var(--saumon)}
+.hero p.lead{max-width:560px;margin:22px 0 30px;font-size:1.08rem;color:#e7f3e9}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.atouts{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);background:var(--vert);border-radius:var(--r) var(--r) 0 0;overflow:hidden;margin-top:56px}
+.atout{padding:22px 24px;border-right:1px solid rgba(245,255,247,.15);display:flex;gap:14px;align-items:center}
+.atout:last-child{border:0}
+.atout svg{flex:none;width:34px;height:34px;stroke:var(--saumon)}
+.atout b{font-family:var(--font-titre);font-weight:400;font-size:1.15rem;color:var(--saumon);display:block;line-height:1.2}
+.atout small{color:#d5e8d8;font-size:.86rem}
+@media(max-width:760px){.atouts{grid-template-columns:1fr}.atout{border-right:0;border-bottom:1px solid rgba(245,255,247,.15)}}
+
+/* ---------- SECTIONS ---------- */
+section{position:relative}
+.sec{padding:clamp(64px,8vw,112px) 0}
+.h2{font-family:var(--font-titre);font-weight:400;font-size:clamp(1.9rem,1.3rem + 2.4vw,3.1rem);line-height:1.1;margin:10px 0 16px}
+.intro{max-width:640px;font-size:1.05rem;color:#2f4f33}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* RGE band */
+.rge{background:var(--creme)}
+.rge-card{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;background:#fff;border:1px solid #e9e1d2;border-radius:var(--r);padding:28px 32px;box-shadow:0 18px 40px rgba(6,63,13,.07);margin-top:-1px}
+.badge{width:92px;height:92px;border-radius:50%;background:var(--vert);color:var(--menthe);display:grid;place-items:center;text-align:center;font-family:var(--font-slab);font-weight:700;line-height:1;position:relative}
+.badge::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px dashed var(--saumon);animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.badge span{font-size:1.6rem}.badge small{font-size:.62rem;letter-spacing:.1em;display:block;margin-top:4px}
+.rge-card h3{font-family:var(--font-titre);font-weight:400;font-size:1.35rem}
+.rge-card p{font-size:.95rem;color:#3b5a3f}
+@media(max-width:760px){.rge-card{grid-template-columns:1fr;text-align:left}}
+
+/* Particuliers / Pros split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.split + .split{margin-top:clamp(64px,8vw,110px)}
+.split.rev .media{order:2}
+.media{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:5/4;background:var(--saumon-clair)}
+.media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.media:hover img{transform:scale(1.05)}
+.media .tag{position:absolute;left:16px;bottom:16px;background:var(--creme);color:var(--vert-fonce);font-family:var(--font-slab);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:7px 12px;border-radius:999px}
+.media .stack{position:absolute;right:-1px;bottom:-1px;width:42%;aspect-ratio:1;border:6px solid var(--creme);border-radius:var(--r) 0 0 0;overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 26px}
+.chip{background:var(--saumon-clair);border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:600}
+.quote{font-family:var(--font-titre);font-size:1.12rem;border-left:3px solid var(--saumon);padding-left:16px;margin:18px 0;color:var(--vert)}
+@media(max-width:860px){.split{grid-template-columns:1fr}.split.rev .media{order:0}}
+
+/* ---------- CONFIGURATEUR CLAUSTRA ---------- */
+.config{background:var(--vert);color:var(--menthe);overflow:hidden}
+.config::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(245,255,247,.035) 46px 58px);pointer-events:none}
+.config .eyebrow{color:var(--saumon)}
+.config .intro{color:#d8eadb}
+.cfg{display:grid;grid-template-columns:380px 1fr;gap:28px;margin-top:40px;position:relative}
+.panel{background:rgba(6,63,13,.45);border:1px solid rgba(245,255,247,.14);border-radius:var(--r);padding:24px}
+.field{margin-bottom:20px}
+.field label,.field .lab{display:flex;justify-content:space-between;font-weight:700;font-size:.9rem;margin-bottom:8px}
+.field output{font-family:var(--font-slab);color:var(--saumon)}
+input[type=range]{width:100%;accent-color:var(--saumon);height:28px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg button,.ess button{background:rgba(245,255,247,.08);color:var(--menthe);border:1px solid rgba(245,255,247,.2);border-radius:10px;padding:10px 6px;font:600 .85rem var(--font-texte);cursor:pointer;transition:.2s}
+.seg button[aria-pressed=true],.ess button[aria-pressed=true]{background:var(--saumon);color:var(--vert-fonce);border-color:var(--saumon)}
+.ess{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ess button{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.76rem}
+.ess i{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+.stage{background:var(--creme);border-radius:var(--r);position:relative;min-height:440px;display:flex;flex-direction:column;overflow:hidden}
+.stage-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;color:var(--vert-fonce);font-size:.85rem;border-bottom:1px solid #ece4d6}
+.stage svg{flex:1;width:100%;height:100%;min-height:340px}
+.lame{transition:x .5s var(--ease),width .5s var(--ease),fill .4s}
+.recap{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ece4d6;color:var(--vert-fonce)}
+.recap div{padding:14px 18px;border-right:1px solid #ece4d6}
+.recap div:last-child{border:0}
+.recap b{display:block;font-family:var(--font-slab);font-size:1.5rem;line-height:1.1}
+.recap small{font-size:.78rem;color:#5b6f5d}
+.cfg-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}
+.note{font-size:.78rem;color:#bcd5c0;margin-top:12px}
+@media(max-width:960px){.cfg{grid-template-columns:1fr}}
+
+/* ---------- GALERIE ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0}
+.filters button{background:#fff;border:1px solid #e3d9c8;color:var(--vert-fonce);border-radius:999px;padding:10px 18px;font:700 .9rem var(--font-texte);cursor:pointer;transition:.25s}
+.filters button[aria-pressed=true]{background:var(--vert);color:var(--menthe);border-color:var(--vert)}
+.filters button span{opacity:.6;font-weight:400;margin-left:4px}
+.grid{columns:4 240px;column-gap:12px}
+@media(max-width:600px){.grid{columns:2;column-gap:8px}.grid figure{margin-bottom:8px}}
+.grid figure{break-inside:avoid;margin-bottom:12px;border-radius:12px;overflow:hidden;position:relative;cursor:zoom-in;background:var(--saumon-clair);transition:opacity .4s,transform .4s var(--ease)}
+.grid figure.hide{display:none}
+.grid img{width:100%;height:auto;transition:transform .8s var(--ease)}
+.grid figure:hover img{transform:scale(1.06)}
+.grid figcaption{position:absolute;left:10px;bottom:10px;background:rgba(252,248,240,.92);font-size:.74rem;font-weight:700;padding:4px 10px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.3s}
+.grid figure:hover figcaption,.grid figure:focus-visible figcaption{opacity:1;transform:none}
+.lb{position:fixed;inset:0;background:rgba(6,30,10,.94);z-index:100;display:none;place-items:center;padding:20px}
+.lb.open{display:grid}
+.lb img{max-height:82vh;border-radius:10px;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.lb button{position:absolute;background:var(--saumon);border:0;width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer;color:var(--vert-fonce)}
+.lb .x{top:18px;right:18px}.lb .pv{left:18px;top:50%}.lb .nx{right:18px;top:50%}
+.lb p{position:absolute;bottom:20px;color:var(--menthe);font-size:.9rem}
+
+/* ---------- ATELIER ---------- */
+.atelier{background:var(--saumon-clair)}
+.at-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;grid-template-rows:220px 220px;gap:12px;margin-top:34px}
+.at-grid div{border-radius:12px;overflow:hidden}
+.at-grid div:first-child{grid-row:span 2}
+.at-grid img{width:100%;height:100%;object-fit:cover}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+.fact{background:var(--creme);border-radius:12px;padding:20px}
+.fact b{font-family:var(--font-titre);font-weight:400;font-size:1.6rem;display:block;color:var(--vert)}
+.fact small{font-size:.86rem}
+@media(max-width:860px){.at-grid{grid-template-columns:1fr 1fr;grid-template-rows:180px 180px 180px}.at-grid div:first-child{grid-column:span 2;grid-row:auto}.facts{grid-template-columns:1fr 1fr}}
+
+/* ---------- DEVIS ---------- */
+.devis-box{display:grid;grid-template-columns:1fr 1.2fr;gap:0;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(6,63,13,.12)}
+.devis-side{background:var(--vert-fonce);color:var(--menthe);padding:40px}
+.devis-side .h2{color:var(--saumon)}
+.coord{list-style:none;margin-top:24px;display:grid;gap:16px}
+.coord li{display:flex;gap:14px;align-items:flex-start}
+.coord svg{width:22px;height:22px;stroke:var(--saumon);flex:none;margin-top:3px}
+.coord a{text-decoration:none;font-weight:700}
+.coord a:hover{color:var(--saumon)}
+.map{margin-top:26px;border-radius:12px;overflow:hidden;height:190px;border:0;width:100%;filter:saturate(.8)}
+form.devis{padding:40px;display:grid;gap:16px}
+.steps{display:flex;gap:6px;margin-bottom:6px}
+.steps i{flex:1;height:4px;border-radius:4px;background:#ece4d6;transition:background .4s}
+.steps i.on{background:var(--saumon)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form.devis label{font-weight:700;font-size:.86rem;display:block;margin-bottom:6px}
+form.devis input,form.devis select,form.devis textarea{width:100%;border:1.5px solid #e3d9c8;border-radius:10px;padding:12px 14px;font:400 1rem var(--font-texte);color:var(--vert-fonce);background:var(--creme);transition:border .2s}
+form.devis input:focus,form.devis select:focus,form.devis textarea:focus{border-color:var(--vert);outline:none}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.types label{margin:0;border:1.5px solid #e3d9c8;border-radius:10px;padding:12px;cursor:pointer;font-weight:600;font-size:.88rem;text-align:center;transition:.2s;background:var(--creme)}
+.types input{position:absolute;opacity:0;width:1px;height:1px}
+.types input:checked + span{color:var(--vert-fonce)}
+.types label:has(input:checked){background:var(--saumon);border-color:var(--saumon)}
+.ok{display:none;background:var(--saumon-clair);border-radius:10px;padding:14px;font-size:.92rem}
+@media(max-width:860px){.devis-box{grid-template-columns:1fr}.f2,.types{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.f2{grid-template-columns:1fr}}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--saumon);padding:44px 0 26px;font-size:.9rem}
+.f-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;align-items:flex-start}
+footer .legal{margin-top:28px;padding-top:18px;border-top:1px solid rgba(6,63,13,.2);font-size:.78rem;color:#2c4a30}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--vert);color:var(--menthe);border-radius:999px;padding:14px 20px;font-weight:700;text-decoration:none;box-shadow:0 12px 30px rgba(6,63,13,.35);display:flex;gap:8px;align-items:center;transform:translateY(120px);transition:transform .5s var(--ease)}
+.fab.show{transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero h1 .l{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"SARL Peurière — Menuiserie Agencement",
+"address":{"@type":"PostalAddress","streetAddress":"477 route de Roanne, Les Franchises","postalCode":"42120","addressLocality":"Perreux","addressCountry":"FR"},
+"telephone":"+33477684735","email":"menuiserie.peuriere@wanadoo.fr","foundingDate":"1991",
+"areaServed":["Perreux","Roanne","Le Roannais"],
+"hasCredential":{"@type":"EducationalOccupationalCredential","credentialCategory":"Qualibat RGE — Fourniture et pose de menuiseries extérieures (3511)"},
+"knowsAbout":["Cuisines sur mesure","Salles de bain","Claustras","Escaliers","Portes et fenêtres","Agencement de magasins et bureaux"]}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — <b>non officielle</b>, réalisée pour SARL Peurière. Aucune donnée n'est envoyée.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="SARL Peurière, accueil">
+      <svg class="logo" viewBox="0 0 54 44" aria-hidden="true"><polygon points="20,2 2,42 38,42" fill="var(--ardoise)"/><polygon points="32,2 12,42 52,42" fill="var(--bleu-logo)"/><text x="32" y="38" text-anchor="middle" font-family="Corben,serif" font-size="8.5" fill="var(--rouge-logo)">PEURIÈRE</text></svg>
+      <span class="brand-t"><strong>SARL PEURIÈRE</strong><span>Menuiserie · Agencement</span></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#top" class="on">Accueil</a></li>
+      <li><a href="#particuliers">Particuliers</a></li>
+      <li><a href="#professionnels">Professionnels</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#devis">Contact</a></li>
+    </ul>
+    <a class="btn btn-vert" href="#devis">Devis gratuit</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="hero-bg" role="img" aria-label="Façade de l'atelier SARL Peurière à Perreux"></div>
+  <div class="wrap hero-in">
+    <p class="eyebrow">Perreux · Roannais · depuis 1991</p>
+    <h1><span class="l">SARL</span> <span class="l" style="animation-delay:.12s">PEURIÈRE</span></h1>
+    <p class="sub">Menuiserie · Agencement</p>
+    <p class="lead">Cuisines, salles de bain, claustras, escaliers, portes et fenêtres : fabriqués dans notre atelier de Perreux, parfaitement sur mesure, pour les particuliers comme pour les professionnels.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-saumon" href="#configurateur">Imaginer mon claustra →</a>
+      <a class="btn btn-ghost" href="tel:+33477684735">04 77 68 47 35</a>
+    </div>
+    <div class="atouts">
+      <div class="atout"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M3 7h18M3 12h18M3 17h18"/><path d="M7 4v16M17 4v16"/></svg><div><b>Matériaux de Qualité</b><small>Bois choisis et travaillés à l'atelier</small></div></div>
+      <div class="atout"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/></svg><div><b>Ouvriers Qualifiés</b><small>Le savoir-faire de notre équipe</small></div></div>
+      <div class="atout"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Délais Garantis</b><small>Un planning tenu, du devis à la pose</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="rge">
+  <div class="wrap">
+    <div class="rge-card reveal">
+      <div class="badge"><div><span>RGE</span><small>QUALIBAT</small></div></div>
+      <div>
+        <h3>Entreprise qualifiée RGE pour vos menuiseries extérieures</h3>
+        <p>Qualification Qualibat « Fourniture et pose de menuiseries extérieures » (3511), valable jusqu'au 13/02/2027. C'est cette mention que vos clients cherchent avant un projet de fenêtres ou de portes, notamment pour vérifier leur accès aux aides à la rénovation selon les conditions en vigueur.</p>
+      </div>
+      <a class="btn btn-vert" href="#devis">Parler de mon projet</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="particuliers">
+  <div class="wrap">
+    <div class="split">
+      <div class="media reveal">
+        <img src="https://static.wixstatic.com/media/b213a6_112fafe9f1a043e0a832ed0826239fbc~mv2.jpg/v1/fill/w_1000,h_800,al_c,q_80/cuisine.jpg" alt="Cuisine sur mesure réalisée par SARL Peurière" loading="lazy">
+        <span class="tag">Particuliers</span>
+        <div class="stack"><img src="https://static.wixstatic.com/media/b213a6_5abb1f9e51b947f1b263ead463d22651~mv2.jpg/v1/fill/w_500,h_500,al_c,q_80/c21.jpg" alt="Détail d'agencement intérieur" loading="lazy"></div>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow" style="color:var(--vert)">Particuliers</p>
+        <h2 class="h2">Votre cuisine sera unique</h2>
+        <p class="intro">Parfaitement sur mesure, votre cuisine sera unique. Étudiée pour s'adapter parfaitement à votre espace. Laissez libre cours à votre imagination, nous vous promettons un travail personnalisé.</p>
+        <p class="quote">Du rustique au plus moderne, notre outil de production et le savoir-faire de notre équipe réaliseront pour vous tous vos meubles et aménagements.</p>
+        <div class="chips"><span class="chip">Cuisines</span><span class="chip">Salles de bain</span><span class="chip">Claustras</span><span class="chip">Escaliers</span><span class="chip">Portes et fenêtres</span><span class="chip">Meubles sur mesure</span></div>
+        <a class="btn btn-vert" href="#galerie" data-filter-link="sdb">Voir nos réalisations</a>
+      </div>
+    </div>
+
+    <div class="split rev" id="professionnels">
+      <div class="media reveal">
+        <img src="https://static.wixstatic.com/media/b213a6_6afbbd5e17794cb6bef6ad742b5418dc~mv2.jpg/v1/fill/w_1000,h_800,al_c,q_80/pro30.jpg" alt="Agencement professionnel réalisé par SARL Peurière" loading="lazy">
+        <span class="tag">Professionnels</span>
+        <div class="stack"><img src="https://static.wixstatic.com/media/b213a6_4bfdc408a8204dcb95420208a934d524~mv2.jpg/v1/fill/w_500,h_500,al_c,q_80/pro35.jpg" alt="Détail d'agencement de bureaux" loading="lazy"></div>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow" style="color:var(--vert)">Professionnels</p>
+        <h2 class="h2">Magasins, bureaux, marchés publics</h2>
+        <p class="intro">Que ce soit pour le marché public ou bien des bureaux professionnels, l'entreprise est capable de répondre à des marchés de grande envergure.</p>
+        <p class="quote">Habitués à travailler avec les architectes, nous disposons aujourd'hui d'une solide expérience sur les agencements de magasins ou les bureaux.</p>
+        <div class="chips"><span class="chip">Agencement de magasins</span><span class="chip">Bureaux</span><span class="chip">Marchés publics</span><span class="chip">Travail avec architectes</span></div>
+        <a class="btn btn-vert" href="#devis">Consulter l'entreprise</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec config" id="configurateur">
+  <div class="wrap">
+    <p class="eyebrow">Outil en ligne</p>
+    <h2 class="h2">Imaginez votre claustra, en direct</h2>
+    <p class="intro">Réglez les dimensions, l'écartement et la teinte du bois : l'aperçu se redessine et calcule le nombre de lames. Votre configuration part ensuite directement dans la demande de devis.</p>
+    <div class="cfg">
+      <div class="panel reveal">
+        <div class="field"><label for="w">Largeur <output id="ow">180 cm</output></label><input type="range" id="w" min="60" max="400" step="5" value="180"></div>
+        <div class="field"><label for="h">Hauteur <output id="oh">250 cm</output></label><input type="range" id="h" min="100" max="300" step="5" value="250"></div>
+        <div class="field"><span class="lab">Largeur des lames</span>
+          <div class="seg" id="lw"><button data-v="4" aria-pressed="false">4 cm</button><button data-v="6" aria-pressed="true">6 cm</button><button data-v="9" aria-pressed="false">9 cm</button></div></div>
+        <div class="field"><label for="g">Espace entre les lames <output id="og">5 cm</output></label><input type="range" id="g" min="2" max="15" step="1" value="5"></div>
+        <div class="field"><span class="lab">Teinte</span>
+          <div class="ess" id="ess">
+            <button data-c="#E7CFA4" data-n="Chêne clair" aria-pressed="true"><i style="background:#E7CFA4"></i>Chêne clair</button>
+            <button data-c="#C08A52" data-n="Chêne doré" aria-pressed="false"><i style="background:#C08A52"></i>Chêne doré</button>
+            <button data-c="#6E4528" data-n="Noyer" aria-pressed="false"><i style="background:#6E4528"></i>Noyer</button>
+            <button data-c="#2E2E2B" data-n="Laqué noir" aria-pressed="false"><i style="background:#2E2E2B"></i>Noir</button>
+          </div></div>
+        <div class="field"><span class="lab">Pose</span>
+          <div class="seg" id="pose"><button data-v="Sol-plafond" aria-pressed="true">Sol-plafond</button><button data-v="Sur lisse" aria-pressed="false">Sur lisse</button><button data-v="Garde-corps" aria-pressed="false">Garde-corps</button></div></div>
+      </div>
+      <div class="reveal">
+        <div class="stage">
+          <div class="stage-top"><span id="stageTitle">Claustra · Chêne clair · Sol-plafond</span><span>Aperçu indicatif</span></div>
+          <svg id="svg" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Aperçu du claustra configuré"></svg>
+          <div class="recap">
+            <div><b id="nb">—</b><small>lames</small></div>
+            <div><b id="ml">—</b><small>mètres linéaires de lames</small></div>
+            <div><b id="occ">—</b><small>d'occultation visuelle</small></div>
+          </div>
+        </div>
+        <div class="cfg-cta"><a class="btn btn-saumon" href="#devis" id="toDevis">Envoyer cette configuration →</a><span style="font-size:.88rem;color:#d8eadb">Nos claustras en photo : <a href="#galerie" data-filter-link="claustra" style="color:var(--saumon)">voir la galerie</a></span></div>
+        <p class="note">Aperçu de principe, sans valeur de devis : essences, finitions et fixations sont définies avec l'atelier selon votre pièce.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="galerie">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--vert)">Galerie</p>
+    <h2 class="h2">Nos réalisations</h2>
+    <p class="intro">Toutes les photos sont celles de nos chantiers. Filtrez par type d'ouvrage, cliquez pour agrandir.</p>
+    <div class="filters" id="filters" role="group" aria-label="Filtrer la galerie">
+      <button data-f="all" aria-pressed="true">Tout <span></span></button>
+      <button data-f="sdb" aria-pressed="false">Salle de bain <span></span></button>
+      <button data-f="claustra" aria-pressed="false">Claustra <span></span></button>
+      <button data-f="escalier" aria-pressed="false">Escalier <span></span></button>
+      <button data-f="porte" aria-pressed="false">Porte et fenêtre <span></span></button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="sec atelier">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--vert)">L'atelier</p>
+    <h2 class="h2">Tout est fabriqué à Perreux</h2>
+    <p class="intro">Notre outil de production, installé route de Roanne aux Franchises, permet de concevoir et fabriquer chaque pièce sur place, du rustique au plus moderne.</p>
+    <div class="at-grid reveal">
+      <div><img src="https://static.wixstatic.com/media/b213a6_68db5874be9f46dca36ed0365a703e6e~mv2.jpg/v1/fill/w_900,h_900,al_c,q_80/at1.jpg" alt="Atelier de menuiserie SARL Peurière" loading="lazy" onerror="this.parentNode.style.display='none'"></div>
+      <div><img src="https://static.wixstatic.com/media/b213a6_bcd5c0e68c1a4c66a8a21ae4c0bf1fc6~mv2.jpg/v1/fill/w_600,h_440,al_c,q_80/at2.jpg" alt="Machines de l'atelier" loading="lazy"></div>
+      <div><img src="https://static.wixstatic.com/media/b213a6_33c74d3200684a3189d0901006ee5095~mv2.jpg/v1/fill/w_600,h_440,al_c,q_80/at3.jpg" alt="Atelier de fabrication" loading="lazy"></div>
+      <div><img src="https://static.wixstatic.com/media/b213a6_6e01e4dd3b1e41a484847124529fca9b~mv2.jpg/v1/fill/w_600,h_440,al_c,q_80/at4.jpg" alt="Porte d'entrée en bois réalisée par SARL Peurière" loading="lazy"></div>
+      <div><img src="https://static.wixstatic.com/media/b213a6_e2b476944f9f4fd6884ad61d953c2bb1~mv2.jpg/v1/fill/w_600,h_440,al_c,q_80/at5.jpg" alt="Réalisation SARL Peurière" loading="lazy"></div>
+    </div>
+    <div class="facts">
+      <div class="fact reveal"><b>1991</b><small>Création de l'entreprise</small></div>
+      <div class="fact reveal"><b>RGE</b><small>Qualibat menuiseries extérieures</small></div>
+      <div class="fact reveal"><b>2 publics</b><small>Particuliers et professionnels</small></div>
+      <div class="fact reveal"><b>Perreux</b><small>Atelier aux Franchises, près de Roanne</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="devis">
+  <div class="wrap">
+    <div class="devis-box reveal">
+      <div class="devis-side">
+        <p class="eyebrow">Contactez-nous !</p>
+        <h2 class="h2">Devis gratuit !</h2>
+        <p>Décrivez votre projet en trois étapes, nous revenons vers vous avec une proposition sur mesure.</p>
+        <ul class="coord">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div>Par tél<br><a href="tel:+33477684735">04 77 68 47 35</a></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><div>Par mail<br><a href="mailto:menuiserie.peuriere@wanadoo.fr">menuiserie.peuriere@wanadoo.fr</a></div></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div>Menuiserie Peurière<br>477 route de Roanne – Les Franchises<br>42120 Perreux</div></li>
+        </ul>
+        <iframe class="map" title="Plan d'accès SARL Peurière" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.10%2C46.02%2C4.16%2C46.05&amp;layer=mapnik"></iframe>
+      </div>
+      <form class="devis" id="form" novalidate>
+        <div class="steps"><i class="on"></i><i></i><i></i></div>
+        <div>
+          <label>Votre projet</label>
+          <div class="types">
+            <label><input type="radio" name="type" value="Cuisine" checked><span>Cuisine</span></label>
+            <label><input type="radio" name="type" value="Salle de bain"><span>Salle de bain</span></label>
+            <label><input type="radio" name="type" value="Claustra"><span>Claustra</span></label>
+            <label><input type="radio" name="type" value="Escalier"><span>Escalier</span></label>
+            <label><input type="radio" name="type" value="Portes et fenêtres"><span>Portes et fenêtres</span></label>
+            <label><input type="radio" name="type" value="Agencement professionnel"><span>Agencement pro</span></label>
+          </div>
+        </div>
+        <div class="f2">
+          <div><label for="delai">Échéance souhaitée</label><select id="delai"><option>Dès que possible</option><option>Dans 1 à 3 mois</option><option>Dans 3 à 6 mois</option><option>Projet à l'étude</option></select></div>
+          <div><label for="lieu">Commune du chantier</label><input id="lieu" placeholder="ex. Roanne"></div>
+        </div>
+        <div><label for="msg">Votre message</label><textarea id="msg" rows="4" placeholder="Dimensions, essence de bois, style souhaité…"></textarea></div>
+        <div class="f2">
+          <div><label for="nom">Nom</label><input id="nom" autocomplete="name"></div>
+          <div><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+        </div>
+        <button class="btn btn-vert" type="submit">Préparer ma demande de devis</button>
+        <p class="ok" id="ok" role="status">Maquette : sur le vrai site, votre demande serait transmise à l'atelier. Ici, un mail pré-rempli s'ouvre vers menuiserie.peuriere@wanadoo.fr.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-in">
+      <div><strong style="font-family:var(--font-titre);font-size:1.2rem;letter-spacing:.1em">SARL PEURIÈRE</strong><br>Menuiserie agencement<br>477 route de Roanne – Les Franchises, 42120 Perreux</div>
+      <div><a href="tel:+33477684735" style="font-weight:700;text-decoration:none">04 77 68 47 35</a><br><a href="mailto:menuiserie.peuriere@wanadoo.fr">menuiserie.peuriere@wanadoo.fr</a></div>
+    </div>
+    <p class="legal">Maquette de démonstration non contractuelle. Textes, photos (toutes issues du site actuel de l'entreprise) et couleurs repris du site existant ; polices approchées (Corben identique, Zilla Slab et Nunito Sans en remplacement de Museo et Avenir). Qualification RGE d'après l'annuaire officiel France Rénov' / Qualibat. L'aperçu du claustra est indicatif et ne constitue pas un devis.</p>
+  </div>
+</footer>
+
+<a class="fab" id="fab" href="tel:+33477684735" aria-label="Appeler l'atelier">✆ Vous souhaitez discuter ?</a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button>
+  <img id="lbImg" alt=""><p id="lbCap"></p>
+</div>
+
+<script>
+// ---- Galerie : vraies photos du site actuel ----
+const B='https://static.wixstatic.com/media/b213a6_';
+const P={sdb:['973cc535c79b4b6eb6e91a07e02591d2','8bc004125c25449ba0c4754e2445246f','e1a95137388c4de1b663b59d576f5c9f','15ff6db200114c448a1eb304a36bfe48','4b0333e600ba409e9026b458863525f6','d077989a7a934337a84217dda3947226','51a6bad32fd74d0286bc9346bfea6321','4140b2f61c474dee8e8037ecbd96ab6d','28fb306304f644c8b317e55c4c8d119e','0b09a8101bd543e7a30e0cf3ae2664fc','eaf23b00785f4d43ab4e9d71c460afbe'],
+claustra:['ced8d4efba8045bfa68d3c0120cd4913','1487f55f6a9a409d8d8a71cb74b70e10','55c5724710bc4c7585f65034bfbb124d','41bb52c39e084d8f8967a4b42db42396','39b7cad3238f4de4b4081206153fa6ed','8fc7e4b82414463c915dcbfbe97bd74c','1ca91b39d246460b9924ec4f0d1e2045','c54abc5c6ba24d639644fff0796aa121'],
+escalier:['84d6c1c614a441598c3c7306fd85f6e0','abc65fac83984c40b264433e611df8e1','9a13e099635340beb7d1dc2049d30579','f68dc4c3ba3b4fcda8478126bce29cc0','6d7229c99ebf4b538fe3457ea103a815'],
+porte:['3df7de1c1f0c4d8b88685a1360380bf5','4edc79f5769244ac853def8bb685ea06','6b40a5df246d4cc291b908b3ade13644','77635d3a98e94b368cc873000d734517','979ebfce6f4f4b48a8181f3c6d334408','ea873245113946d5926a81ed77409d32','d2e0f8a08274498ebc9970471004ca19','6e01e4dd3b1e41a484847124529fca9b','e2b476944f9f4fd6884ad61d953c2bb1','aee9c214d1bf42b8990a0632b67b5e12','46ff3d6c645e4058836ad23dde9530da','be1d99064f7f4aefae7a2e3bfacb0e6d','1e17ee6ca12242919d1a1e8cca82b6fb','b7deec2cb9a047dc8243e378bbe8a119']};
+const L={sdb:'Salle de bain',claustra:'Claustra',escalier:'Escalier',porte:'Porte et fenêtre'};
+const grid=document.getElementById('grid');const items=[];
+Object.entries(P).forEach(([k,a])=>a.forEach(id=>items.push({k,id})));
+// mélange déterministe pour une galerie "vivante"
+items.sort((a,b)=>(a.id.charCodeAt(3)%7)-(b.id.charCodeAt(3)%7));
+items.forEach((it,i)=>{const f=document.createElement('figure');f.dataset.k=it.k;f.tabIndex=0;f.dataset.i=i;
+f.innerHTML=`<img loading="lazy" src="${B}${it.id}~mv2.jpg/v1/fit/w_600,h_800,q_80/p.jpg" alt="${L[it.k]} — réalisation SARL Peurière"><figcaption>${L[it.k]}</figcaption>`;grid.appendChild(f)});
+document.querySelectorAll('#filters button').forEach(b=>{const f=b.dataset.f;b.querySelector('span').textContent=f==='all'?items.length:P[f].length});
+function filt(f){document.querySelectorAll('#filters button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+grid.querySelectorAll('figure').forEach(el=>el.classList.toggle('hide',f!=='all'&&el.dataset.k!==f))}
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('button');if(b)filt(b.dataset.f)});
+document.querySelectorAll('[data-filter-link]').forEach(a=>a.addEventListener('click',()=>filt(a.dataset.filterLink)));
+// lightbox
+const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');let cur=0;
+const vis=()=>[...grid.querySelectorAll('figure:not(.hide)')];
+function show(el){const v=vis();cur=v.indexOf(el);const it=items[+el.dataset.i];lbImg.src=`${B}${it.id}~mv2.jpg/v1/fit/w_1600,h_1200,q_85/p.jpg`;lbImg.alt=L[it.k];lbCap.textContent=`${L[it.k]} · ${cur+1} / ${v.length}`;lb.classList.add('open');lb.querySelector('.x').focus()}
+grid.addEventListener('click',e=>{const f=e.target.closest('figure');if(f)show(f)});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches('figure'))show(e.target)});
+const step=d=>{const v=vis();show(v[(cur+d+v.length)%v.length])};
+lb.querySelector('.x').onclick=()=>lb.classList.remove('open');lb.querySelector('.pv').onclick=()=>step(-1);lb.querySelector('.nx').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+
+// ---- Configurateur claustra ----
+const S={w:180,h:250,lw:6,g:5,c:'#E7CFA4',n:'Chêne clair',pose:'Sol-plafond'};
+const svg=document.getElementById('svg');const $=id=>document.getElementById(id);
+function shade(hex,p){const n=parseInt(hex.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const f=v=>Math.max(0,Math.min(255,Math.round(v*(1+p))));return`rgb(${f(r)},${f(g)},${f(b)})`}
+function draw(){
+  const count=Math.max(2,Math.floor((S.w+S.g)/(S.lw+S.g)));
+  const sc=Math.min(520/S.w,300/S.h);const W=S.w*sc,H=S.h*sc,x0=(600-W)/2,y0=330-H;
+  let s=`<defs><linearGradient id="wd" x1="0" x2="1"><stop offset="0" stop-color="${shade(S.c,.12)}"/><stop offset=".55" stop-color="${S.c}"/><stop offset="1" stop-color="${shade(S.c,-.22)}"/></linearGradient></defs>`;
+  s+=`<rect x="0" y="330" width="600" height="30" fill="#E9DFCC"/><line x1="0" y1="330" x2="600" y2="330" stroke="#cdbfa6"/>`;
+  if(S.pose==='Sol-plafond')s+=`<rect x="0" y="0" width="600" height="${Math.max(0,y0)}" fill="#F3ECDF"/>`;
+  if(S.pose!=='Sol-plafond')s+=`<rect x="${x0-6}" y="${y0-8}" width="${W+12}" height="8" rx="2" fill="${shade(S.c,-.15)}"/>`;
+  if(S.pose==='Sur lisse')s+=`<rect x="${x0-6}" y="324" width="${W+12}" height="6" fill="${shade(S.c,-.15)}"/>`;
+  const real=count*S.lw+(count-1)*S.g,off=(S.w-real)/2;
+  for(let i=0;i<count;i++){const x=x0+(off+i*(S.lw+S.g))*sc;s+=`<rect class="lame" x="${x.toFixed(1)}" y="${y0}" width="${(S.lw*sc).toFixed(1)}" height="${H}" fill="url(#wd)" style="transition-delay:${i*8}ms"/>`}
+  s+=`<text x="${x0+W/2}" y="${y0-16}" text-anchor="middle" font-family="Zilla Slab" font-size="13" fill="#38653D">${S.w} cm</text>`;
+  s+=`<text x="${x0+W+14}" y="${y0+H/2}" font-family="Zilla Slab" font-size="13" fill="#38653D" transform="rotate(90 ${x0+W+14} ${y0+H/2})" text-anchor="middle">${S.h} cm</text>`;
+  // silhouette d'échelle (1,75 m)
+  const ph=175*sc,px=Math.max(8,x0-46);s+=`<g opacity=".22" fill="#063F0D"><circle cx="${px+10}" cy="${330-ph+ph*.07}" r="${ph*.07}"/><rect x="${px+3}" y="${330-ph+ph*.15}" width="14" height="${ph*.85}" rx="6"/></g>`;
+  svg.innerHTML=s;
+  $('nb').textContent=count;$('ml').textContent=(count*S.h/100).toFixed(1).replace('.',',')+' m';
+  $('occ').textContent=Math.round(count*S.lw/S.w*100)+' %';
+  $('stageTitle').textContent=`Claustra · ${S.n} · ${S.pose}`;
+  $('ow').textContent=S.w+' cm';$('oh').textContent=S.h+' cm';$('og').textContent=S.g+' cm';
+}
+$('w').oninput=e=>{S.w=+e.target.value;draw()};$('h').oninput=e=>{S.h=+e.target.value;draw()};$('g').oninput=e=>{S.g=+e.target.value;draw()};
+function seg(id,cb){$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$(id).querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));cb(b);draw()})}
+seg('lw',b=>S.lw=+b.dataset.v);seg('ess',b=>{S.c=b.dataset.c;S.n=b.dataset.n});seg('pose',b=>S.pose=b.dataset.v);
+draw();
+$('toDevis').addEventListener('click',()=>{document.querySelector('input[value="Claustra"]').checked=true;
+$('msg').value=`Claustra ${S.pose.toLowerCase()} — ${S.w} × ${S.h} cm, lames de ${S.lw} cm espacées de ${S.g} cm (${$('nb').textContent} lames), teinte ${S.n}.`;steps()});
+
+// ---- Formulaire ----
+const form=$('form');function steps(){const i=form.querySelectorAll('.steps i');i[1].classList.toggle('on',$('msg').value.trim().length>3);i[2].classList.toggle('on',$('nom').value.trim()&&$('tel').value.trim())}
+form.addEventListener('input',steps);
+form.addEventListener('submit',e=>{e.preventDefault();const t=form.querySelector('input[name=type]:checked').value;
+const body=`Projet : ${t}\nÉchéance : ${$('delai').value}\nCommune : ${$('lieu').value}\n\n${$('msg').value}\n\n${$('nom').value} — ${$('tel').value}`;
+$('ok').style.display='block';location.href=`mailto:menuiserie.peuriere@wanadoo.fr?subject=${encodeURIComponent('Demande de devis — '+t)}&body=${encodeURIComponent(body)}`});
+
+// ---- Nav, reveals, bouton flottant ----
+const nav=$('nav'),fab=$('fab');
+addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>20);fab.classList.toggle('show',scrollY>window.innerHeight*.8)},{passive:true});
+$('burger').onclick=()=>{const o=$('menu').classList.toggle('open');$('burger').setAttribute('aria-expanded',o)};
+$('menu').addEventListener('click',e=>{if(e.target.tagName==='A')$('menu').classList.remove('open')});
+const secs=['particuliers','professionnels','galerie','devis'];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(id=>so.observe($(id)));
+</script>
+</body>
+</html>
