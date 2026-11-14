@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Coq et la Mule — Restaurant espagnol à Roanne | Tapas, épicerie, bar</title>
+<meta name="description" content="Restaurant, épicerie et bar rue Albert Thomas à Roanne : cuisine de mama espagnole et catalane, tapas, poulpe, pata negra et produits en circuit court.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel lecoqetlamule.fr
+   Jaune du bandeau (image d'en-tête) : #D8C930
+   Vert des liens : #1E5600 · Brun olive des titres : #4A452A
+   Sable du pied de page : #C2B76F
+   Police du site : Source Sans Pro (ici Source Sans 3, sa version actuelle)
+   Police « machine à écrire » des affiches du restaurant : Courier Prime
+   ========================================================= */
+:root{
+  --jaune:#D8C930;
+  --jaune-clair:#EFE59A;
+  --vert:#1E5600;
+  --olive:#4A452A;
+  --sable:#C2B76F;
+  --creme:#FBF9EE;
+  --texte:#4d4a3a;
+  --blanc:#fff;
+  --sans:"Source Sans 3","Source Sans Pro","Helvetica Neue",Arial,sans-serif;
+  --machine:"Courier Prime","Courier New",monospace;
+  --ease:cubic-bezier(.22,.8,.3,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--texte);background:var(--creme);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--vert)}
+h1,h2,h3{color:var(--olive);font-weight:300;line-height:1.15}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.machine{font-family:var(--machine)}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--olive);color:var(--jaune-clair);font-size:13px;text-align:center;padding:7px 12px;font-family:var(--machine)}
+
+/* En-tête */
+header.top{position:sticky;top:0;z-index:50;background:var(--jaune);transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 6px 24px rgba(74,69,42,.18)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:74px}
+.brand{display:flex;flex-direction:column;text-decoration:none;color:var(--blanc)}
+.brand b{font-weight:700;font-size:26px;letter-spacing:-.5px;line-height:1;text-shadow:0 1px 0 rgba(74,69,42,.25)}
+.brand span{font-size:13px;max-width:320px;color:var(--olive);opacity:.85}
+nav.main{display:flex;gap:2px;flex-wrap:nowrap}
+nav.main a{color:var(--blanc);text-decoration:none;font-size:16px;padding:8px 11px;border-radius:30px;position:relative;font-weight:600;text-shadow:0 1px 0 rgba(74,69,42,.25);transition:background .25s}
+nav.main a:hover,nav.main a.on{background:rgba(255,255,255,.22)}
+.etat{display:inline-flex;margin-bottom:18px;align-items:center;gap:8px;background:var(--blanc);color:var(--olive);border-radius:30px;padding:6px 14px;font-size:14px;font-weight:600;white-space:nowrap}
+.etat i{width:9px;height:9px;border-radius:50%;background:#b9b29a}
+.etat.ouvert i{background:#2f8a0b;box-shadow:0 0 0 0 rgba(47,138,11,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(47,138,11,0)}100%{box-shadow:0 0 0 0 rgba(47,138,11,0)}}
+.burger{display:none;background:none;border:0;color:var(--blanc);font-size:28px;cursor:pointer}
+
+/* Hero */
+.hero{background:var(--jaune);position:relative;overflow:hidden;padding:40px 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:end}
+.hero h1{color:var(--blanc);font-weight:700;font-size:clamp(2.3rem,1.4rem + 4vw,4.6rem);letter-spacing:-1.5px;text-shadow:0 2px 0 rgba(74,69,42,.18)}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(30px) rotate(-3deg);animation:up .8s var(--ease) forwards}
+.hero h1 .w:nth-child(2){animation-delay:.15s}.hero h1 .w:nth-child(3){animation-delay:.3s}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .sous{font-family:var(--machine);color:var(--olive);font-size:clamp(1.05rem,.95rem + .5vw,1.35rem);margin:18px 0 26px;max-width:34ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:46px}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 16px var(--sans);padding:14px 24px;border-radius:40px;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:transform .2s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn.vert{background:var(--vert);color:var(--blanc)}
+.btn.vert:hover{background:#163f00}
+.btn.blanc{background:var(--blanc);color:var(--olive)}
+.btn.contour{border-color:var(--olive);color:var(--olive);background:transparent}
+.btn.contour:hover{background:var(--olive);color:var(--jaune)}
+.illus{position:relative;height:100%;min-height:360px;display:flex;align-items:flex-end;justify-content:center}
+.illus .bandeau{position:absolute;left:50%;bottom:24px;width:300px;height:345px;margin-left:-150px;z-index:2;background:url("https://lecoqetlamule.fr/wp-content/uploads/2020/11/cropped-Header-7.png") -1794px -256px/3313px 850px no-repeat;animation:balance 6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes balance{0%,100%{transform:rotate(0)}50%{transform:rotate(-1.2deg) translateY(-3px)}}
+.polaroid{position:absolute;z-index:1;background:var(--blanc);padding:8px 8px 26px;box-shadow:0 14px 30px rgba(74,69,42,.25);border-radius:4px;width:155px;transition:transform .5s var(--ease)}
+.polaroid img{aspect-ratio:1;object-fit:cover;width:100%}
+.polaroid small{position:absolute;bottom:5px;left:10px;font:13px var(--machine);color:var(--olive)}
+.p1{left:0;top:0;transform:rotate(-7deg)}
+.p2{right:0;top:30px;transform:rotate(6deg)}
+.polaroid:hover{transform:rotate(0) scale(1.06);z-index:3}
+@media (max-width:1200px){.brand span{display:none}}
+.defile{background:var(--olive);color:var(--jaune);font-family:var(--machine);white-space:nowrap;overflow:hidden;padding:12px 0;font-size:18px}
+.defile div{display:inline-block;animation:defile 32s linear infinite}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(60px,8vw,110px) 0}
+.kicker{font-family:var(--machine);color:var(--vert);font-size:15px;letter-spacing:.5px;margin-bottom:10px;display:block}
+h2{font-size:clamp(2rem,1.5rem + 2.2vw,3.2rem);margin-bottom:18px}
+.lead{max-width:62ch;font-size:1.1rem}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Restaurant + composeur */
+.resto{background:var(--blanc)}
+.resto-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:50px;margin-top:40px;align-items:start}
+.photos-resto{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.photos-resto img{border-radius:var(--r);aspect-ratio:4/5;object-fit:cover;width:100%;transition:transform .6s var(--ease)}
+.photos-resto img:nth-child(2){margin-top:40px}
+.photos-resto img:hover{transform:scale(1.03)}
+.ardoise{background:#2f2d1f;color:#f3efd6;border-radius:18px;padding:30px;box-shadow:inset 0 0 0 10px #4A452A,0 20px 50px rgba(74,69,42,.25);position:relative}
+.ardoise h3{color:var(--jaune);font-family:var(--machine);font-size:26px;margin-bottom:6px}
+.ardoise .note{font-size:14px;opacity:.75;margin-bottom:20px}
+.etapes{display:grid;gap:16px}
+.etape{border:1px dashed rgba(243,239,214,.3);border-radius:12px;padding:14px}
+.etape-t{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:var(--machine);font-size:17px;color:var(--jaune-clair)}
+.switch{position:relative;width:46px;height:26px;background:#6b674d;border-radius:20px;border:0;cursor:pointer;transition:background .25s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.switch[aria-checked="true"]{background:var(--jaune)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+.switch:disabled{opacity:.5;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:15px var(--sans);background:transparent;border:1px solid rgba(243,239,214,.35);color:#f3efd6;padding:6px 12px;border-radius:30px;cursor:pointer;transition:all .2s}
+.chip:hover{border-color:var(--jaune)}
+.chip.on{background:var(--jaune);color:#2f2d1f;border-color:var(--jaune)}
+.etape.off .chips{opacity:.45}
+.total{display:flex;justify-content:space-between;align-items:flex-end;margin-top:22px;padding-top:18px;border-top:1px solid rgba(243,239,214,.25);gap:16px;flex-wrap:wrap}
+.total .lib{font-family:var(--machine);font-size:15px;color:var(--jaune-clair)}
+.total .prix{font-size:44px;font-weight:700;color:var(--jaune);line-height:1}
+.total .prix.pop{animation:pop .4s var(--ease)}
+@keyframes pop{50%{transform:scale(1.15)}}
+.recap{font-size:14px;opacity:.85;margin-top:8px;min-height:22px}
+
+/* Réservation */
+.resa{background:var(--jaune-clair)}
+.resa-box{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;margin-top:36px;background:var(--blanc);border-radius:22px;padding:30px;box-shadow:0 20px 60px rgba(74,69,42,.12)}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.jour{border:1px solid #e7e2c4;background:var(--creme);border-radius:12px;padding:10px 4px;text-align:center;font:14px var(--sans);color:var(--olive);cursor:pointer;transition:all .2s}
+.jour b{display:block;font-size:20px}
+.jour small{display:block;font-size:11px;color:var(--vert);min-height:15px}
+.jour:hover:not(:disabled){border-color:var(--vert);transform:translateY(-2px)}
+.jour.on{background:var(--vert);color:#fff;border-color:var(--vert)}
+.jour.on small{color:var(--jaune-clair)}
+.jour:disabled{opacity:.35;cursor:not-allowed;background:#f1efe4}
+.services{display:flex;gap:10px;margin:20px 0}
+.service{flex:1;border:2px solid #e7e2c4;background:#fff;border-radius:12px;padding:12px;font:600 15px var(--sans);color:var(--olive);cursor:pointer;transition:all .2s}
+.service.on{border-color:var(--vert);background:#eef4e8}
+.service:disabled{opacity:.35;cursor:not-allowed}
+.form label{display:block;font-size:14px;font-weight:600;color:var(--olive);margin:12px 0 5px}
+.form input,.form select,.form textarea{width:100%;font:16px var(--sans);padding:11px 13px;border:1px solid #ddd6b3;border-radius:10px;background:var(--creme);color:var(--texte)}
+.compteur{display:flex;align-items:center;gap:14px}
+.compteur button{width:42px;height:42px;border-radius:50%;border:2px solid var(--olive);background:#fff;font-size:22px;color:var(--olive);cursor:pointer}
+.compteur output{font-size:26px;font-weight:700;color:var(--olive);min-width:40px;text-align:center}
+.ticket{background:var(--creme);border:1px dashed var(--sable);border-radius:14px;padding:18px;font-family:var(--machine);font-size:15px;color:var(--olive);margin-top:16px;white-space:pre-line;min-height:110px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.petit{font-size:13px;color:#7a7660;margin-top:10px}
+
+/* Bar */
+.bar{background:var(--olive);color:#efe9c9}
+.bar h2{color:var(--jaune)}
+.bar .kicker{color:var(--jaune-clair)}
+.onglets{display:flex;flex-wrap:wrap;gap:8px;margin:30px 0 24px}
+.onglet{font:600 15px var(--sans);background:transparent;color:#efe9c9;border:1px solid rgba(239,233,201,.35);border-radius:30px;padding:8px 18px;cursor:pointer;transition:all .2s}
+.onglet.on{background:var(--jaune);color:var(--olive);border-color:var(--jaune)}
+.panneau{display:none;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.panneau.on{display:grid;animation:fade .5s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.carte-b{border:1px solid rgba(239,233,201,.2);border-radius:var(--r);padding:20px;background:rgba(255,255,255,.04);transition:transform .3s var(--ease),background .3s}
+.carte-b:hover{transform:translateY(-4px);background:rgba(255,255,255,.08)}
+.carte-b h3{color:var(--jaune);font-size:20px;font-weight:600;margin-bottom:6px}
+.carte-b p{font-size:15px}
+
+/* Épicerie */
+.epi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:34px}
+.produit{background:var(--blanc);border-radius:var(--r);padding:22px 18px;border:1px solid #eee7c8;text-align:left;transition:transform .3s var(--ease),box-shadow .3s}
+.produit:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:0 14px 30px rgba(74,69,42,.12)}
+.produit .ico{font-family:var(--machine);font-size:13px;color:var(--vert);border:1px solid var(--vert);border-radius:20px;padding:2px 9px;display:inline-block;margin-bottom:12px}
+.produit h3{font-size:19px;font-weight:600}
+.produit p{font-size:14px;color:#7a7660}
+.a-fournir{margin-top:18px;font-size:14px;font-family:var(--machine);color:var(--olive);background:var(--jaune-clair);display:inline-block;padding:6px 12px;border-radius:8px}
+
+/* Histoire */
+.histoire{background:var(--blanc)}
+.hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hist-grid blockquote{font-family:var(--machine);font-size:clamp(1.2rem,1rem + 1vw,1.7rem);color:var(--olive);border-left:4px solid var(--jaune);padding-left:20px;margin:24px 0}
+.engagements{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.engagements span{background:var(--creme);border:1px solid var(--sable);border-radius:30px;padding:6px 14px;font-size:15px;color:var(--olive)}
+.hist-photos{position:relative;min-height:440px}
+.hist-photos img{position:absolute;border-radius:var(--r);object-fit:cover;box-shadow:0 18px 40px rgba(74,69,42,.2)}
+.hist-photos img:first-child{width:72%;aspect-ratio:3/4;left:0;top:0}
+.hist-photos img:last-child{width:52%;aspect-ratio:1;right:0;bottom:0;border:8px solid #fff}
+
+/* Presse */
+.frise{position:relative;margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.frise::before{content:"";position:absolute;top:13px;left:0;right:0;height:2px;background:var(--sable)}
+.evt{position:relative;padding-top:38px}
+.evt::before{content:"";position:absolute;top:5px;left:0;width:18px;height:18px;border-radius:50%;background:var(--jaune);border:3px solid var(--olive)}
+.evt b{font-family:var(--machine);color:var(--vert);display:block}
+.evt p{color:var(--olive)}
+
+/* Galerie */
+.galerie{padding-top:0}
+.rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 20px 20px;scrollbar-width:thin}
+.rail figure{flex:0 0 clamp(220px,26vw,300px);scroll-snap-align:start;position:relative;border-radius:var(--r);overflow:hidden}
+.rail img{aspect-ratio:4/5;object-fit:cover;width:100%;transition:transform .6s var(--ease)}
+.rail figure:hover img{transform:scale(1.06)}
+.rail figcaption{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.92);color:var(--olive);font:13px var(--machine);padding:3px 9px;border-radius:6px}
+
+/* Coordonnées */
+.coord{background:var(--jaune)}
+.coord h2,.coord .kicker{color:var(--olive)}
+.coord-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;margin-top:30px}
+.fiche{background:var(--blanc);border-radius:20px;padding:28px}
+.fiche h3{font-size:22px;font-weight:600;margin:16px 0 4px}
+.fiche h3:first-child{margin-top:0}
+.horaires{width:100%;border-collapse:collapse;margin-top:6px;font-size:15px}
+.horaires td{padding:7px 0;border-bottom:1px dashed #e4dcb3}
+.horaires tr.auj td{color:var(--vert);font-weight:700}
+.carte-map{border-radius:20px;overflow:hidden;min-height:360px;background:#eee}
+.carte-map iframe{width:100%;height:100%;min-height:360px;border:0}
+.lyon{font-size:14px;margin-top:16px;color:#6d6a55}
+
+footer{background:var(--sable);color:var(--olive);padding:34px 0;font-size:14px}
+footer .wrap{display:grid;gap:10px}
+footer strong{font-family:var(--machine)}
+
+/* Bouton flottant */
+.flottant{position:fixed;right:18px;bottom:18px;z-index:60;box-shadow:0 10px 30px rgba(30,86,0,.35);transform:translateY(120px);transition:transform .4s var(--ease)}
+.flottant.vis{transform:none}
+
+@media (max-width:960px){
+  nav.main{display:none;position:absolute;top:74px;left:0;right:0;background:var(--jaune);flex-direction:column;padding:10px 20px 20px}
+  nav.main.ouvert{display:flex}
+  .burger{display:block}
+  .hero .wrap,.resto-grid,.resa-box,.hist-grid,.coord-grid{grid-template-columns:1fr}
+  .illus{min-height:400px}
+  .frise{grid-template-columns:1fr 1fr}
+  .frise::before{display:none}
+  .hist-photos{min-height:360px}
+}
+@media (max-width:520px){
+  .jours{grid-template-columns:repeat(4,1fr)}
+  .polaroid{width:120px}
+  .brand b{font-size:22px}
+  .ardoise,.resa-box{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .w{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Coq et la Mule",
+  "description":"Restaurant, épicerie, bar – local convivial et cuisine de Mama : cuisine espagnole et catalane, produits de petits producteurs.",
+  "servesCuisine":["Espagnole","Catalane","Tapas"],
+  "url":"https://lecoqetlamule.fr",
+  "telephone":"+33951721793",
+  "email":"roanne@lecoqetlamule.fr",
+  "priceRange":"14,90 € – 21,90 €",
+  "address":{"@type":"PostalAddress","streetAddress":"63 rue Albert Thomas","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.045784,"longitude":4.074433},
+  "areaServed":"Roanne",
+  "sameAs":["https://www.instagram.com/lecoqetlamule.roanne/","https://www.facebook.com/lecoqetlamule.roanne"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte, non officielle</div>
+
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil"><b>Le Coq et la Mule</b><span>Restaurant, épicerie, bar – local convivial et cuisine de Mama</span></a>
+    <nav class="main" id="nav" aria-label="Navigation principale">
+      <a href="#coordonnees">Les coordonnées</a>
+      <a href="#restaurant">Le restaurant</a>
+      <a href="#bar">Le bar</a>
+      <a href="#epicerie">L’épicerie</a>
+      <a href="#histoire">L’histoire</a>
+      <a href="#presse">On parle de nous</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" aria-label="Accueil">
+  <div class="wrap">
+    <div>
+      <div class="etat" id="etat" aria-live="polite"><i></i><span>…</span></div>
+      <h1><span class="w">Bienvenue&nbsp;!</span> <span class="w">Benvinguts&nbsp;!</span> <span class="w">Bienvenido&nbsp;!</span></h1>
+      <p class="sous">Cuisine de « mama » espagnole, tapas à partager et produits de petits producteurs — au 63 rue Albert Thomas, à Roanne.</p>
+      <div class="cta">
+        <a class="btn vert" href="#reserver">Je réserve une table →</a>
+        <a class="btn blanc" href="#restaurant">Composer ma formule</a>
+      </div>
+    </div>
+    <div class="illus">
+      <div class="bandeau" role="img" aria-label="Illustration du coq perché sur la mule, emblème du restaurant"></div>
+      <figure class="polaroid p1"><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/360043091_818038646540927_4876335018064838623_nfull.jpg" alt="Poulpe grillé, spécialité de la maison" loading="eager"><small>el pulpo</small></figure>
+      <figure class="polaroid p2"><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/277854681_492058602409500_1659265871302586793_n.webpfull.jpg" alt="Paëlla maison" loading="eager"><small>la paëlla</small></figure>
+    </div>
+  </div>
+  <div class="defile" aria-hidden="true"><div>Restaurant · Épicerie · Bar · Bienvenue · Benvinguts · Bienvenido · Fait maison · Circuits courts · Pata negra · Poulpe · Tortilla de patatas · Crema catalana · Restaurant · Épicerie · Bar · Bienvenue · Benvinguts · Bienvenido · Fait maison · Circuits courts · Pata negra · Poulpe · Tortilla de patatas · Crema catalana ·&nbsp;</div></div>
+</section>
+
+<section class="resto" id="restaurant">
+  <div class="wrap">
+    <span class="kicker reveal">// Le restaurant</span>
+    <h2 class="reveal">Comme chez vous, avec la cuisine de mama</h2>
+    <p class="lead reveal">Recettes de grand-mère, essais culinaires, saveurs espagnoles et catalanes. Chaque jour, un nouveau plat selon les arrivages et les envies des chefs — et des produits sélectionnés, en circuit court, travaillés sur place.</p>
+
+    <div class="resto-grid">
+      <div class="photos-resto reveal">
+        <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/307447004_764656504624623_7042136177368149711_n.webpfull.jpg" alt="Arroz negro au poulpe" loading="lazy">
+        <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/293090677_407632544663460_2562628921906523691_n.webpfull.jpg" alt="Tarte d'escalivada" loading="lazy">
+        <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/273656427_483904029775438_8724960872019748925_n.webpfull.jpg" alt="Assiette du jour" loading="lazy">
+        <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/343987288_777733770390826_2243497716447627318_nfull.jpg" alt="Plat mijoté aux pois chiches" loading="lazy">
+      </div>
+
+      <div class="ardoise reveal" id="composeur">
+        <h3>Composer ma formule</h3>
+        <p class="note">Cochez ce qui vous fait envie : le prix de la formule s’affiche tout seul. Les plats changent chaque jour selon l’arrivage — les noms ci-dessous sont des exemples tirés de la carte.</p>
+        <div class="etapes">
+          <div class="etape" data-etape="entree">
+            <div class="etape-t"><span>Entrée / tapas</span><button class="switch" role="switch" aria-checked="false" aria-label="Ajouter une entrée"></button></div>
+            <div class="chips">
+              <button class="chip">Tortilla de patatas</button><button class="chip">Croquetas de pollo</button><button class="chip">Bunyols de baccalà</button><button class="chip">Carpaccio d’artichauts</button><button class="chip">Salade de poulpe</button>
+            </div>
+          </div>
+          <div class="etape" data-etape="plat">
+            <div class="etape-t"><span>Plat</span><button class="switch" role="switch" aria-checked="true" aria-label="Plat inclus" disabled></button></div>
+            <div class="chips">
+              <button class="chip on">Plat du jour</button><button class="chip">Poulpe grillé</button><button class="chip">Burger ibérique</button><button class="chip">Paëlla</button><button class="chip">Fideua</button><button class="chip">Solomillo iberico</button>
+            </div>
+          </div>
+          <div class="etape" data-etape="dessert">
+            <div class="etape-t"><span>Dessert</span><button class="switch" role="switch" aria-checked="false" aria-label="Ajouter un dessert"></button></div>
+            <div class="chips">
+              <button class="chip">Crema catalana</button><button class="chip">Carrot cake</button><button class="chip">Coca au chocolat</button><button class="chip">Tarta de queso manchego</button>
+            </div>
+          </div>
+        </div>
+        <div class="total">
+          <div><div class="lib" id="lib">Plat du jour</div><div class="recap" id="recap"></div></div>
+          <div class="prix" id="prix">14,90 €</div>
+        </div>
+        <a class="btn vert" href="#reserver" style="margin-top:18px">Réserver avec cette formule →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <span class="kicker reveal">// Je réserve une table</span>
+    <h2 class="reveal">Un déjeuner, un dîner, une privatisation ?</h2>
+    <p class="lead reveal">Seuls les services réellement ouverts sont proposés. Votre demande part par mail au restaurant, prête à envoyer — et vous pouvez l’ajouter à votre agenda.</p>
+
+    <div class="resa-box reveal">
+      <div>
+        <div class="jours" id="jours" role="group" aria-label="Choisir un jour"></div>
+        <div class="services">
+          <button class="service" data-s="midi">Midi</button>
+          <button class="service" data-s="soir">Soir</button>
+        </div>
+        <div class="form">
+          <label>Nombre de couverts</label>
+          <div class="compteur"><button type="button" id="moins" aria-label="Un couvert de moins">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Un couvert de plus">+</button></div>
+          <label for="type">Type de demande</label>
+          <select id="type">
+            <option>Réserver une table</option>
+            <option>Privatiser le restaurant (soirée, anniversaire, collègues)</option>
+            <option>Commande à emporter</option>
+          </select>
+          <label for="nom">Votre nom</label>
+          <input id="nom" autocomplete="name" placeholder="Prénom Nom">
+          <label for="tel">Téléphone</label>
+          <input id="tel" autocomplete="tel" placeholder="06 …">
+        </div>
+      </div>
+      <div>
+        <span class="kicker">Votre demande</span>
+        <div class="ticket" id="ticket">Choisissez un jour et un service.</div>
+        <div class="actions">
+          <a class="btn vert" id="envoyer" aria-disabled="true" href="#">Envoyer la demande</a>
+          <a class="btn contour" id="ics" aria-disabled="true" href="#">Ajouter à mon agenda</a>
+        </div>
+        <p class="petit">Ou directement : <a href="tel:+33951721793">09 51 72 17 93</a> · message Instagram <a href="https://www.instagram.com/lecoqetlamule.roanne/" target="_blank" rel="noopener">@lecoqetlamule.roanne</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bar" id="bar">
+  <div class="wrap">
+    <span class="kicker reveal">// Le bar · licence IV</span>
+    <h2 class="reveal">Un verre au comptoir, tranquille</h2>
+    <p class="lead reveal">En journée, ou le soir les jours d’ouverture : une sélection aux oignons de boissons — alcoolisées ou non — de grande qualité et de petits producteurs.</p>
+    <div class="onglets" role="tablist">
+      <button class="onglet on" data-p="bieres" role="tab">Bières</button>
+      <button class="onglet" data-p="vins" role="tab">Vins</button>
+      <button class="onglet" data-p="soft" role="tab">Soft</button>
+    </div>
+    <div class="panneau on" id="bieres">
+      <div class="carte-b"><h3>La Sale Affaire</h3><p>La brasserie de Châteauneuf, en Saône-et-Loire, dont les bières reviennent régulièrement au comptoir.</p></div>
+      <div class="carte-b"><h3>Bières de passage</h3><p>De nouvelles bières régulièrement, au gré des découvertes.</p></div>
+    </div>
+    <div class="panneau" id="vins">
+      <div class="carte-b"><h3>Côte roannaise</h3><p>Les Ardaillons, Reniteo… les vignerons d’à côté.</p></div>
+      <div class="carte-b"><h3>Terra Alta</h3><p>Des vins de Catalogne, pour rester dans l’esprit de la maison.</p></div>
+    </div>
+    <div class="panneau" id="soft">
+      <div class="carte-b"><h3>L’Arbre à Jus</h3><p>Des jus artisanaux et locaux, du fruit en bouteille.</p></div>
+      <div class="carte-b"><h3>Et aussi</h3><p>Gimber, thés glacés, café…</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="epicerie">
+  <div class="wrap">
+    <span class="kicker reveal">// L’épicerie</span>
+    <h2 class="reveal">Repartir avec un bout d’Espagne</h2>
+    <p class="lead reveal">Les produits de nos petits producteurs, à emporter : de la charcuterie de pata negra de Felipe Hernandez aux fromages du coin.</p>
+    <div class="epi-grid">
+      <div class="produit reveal"><span class="ico">ES</span><h3>Charcuterie pata negra</h3><p>Jambon bellota, chorizo, lomo, saucisson…</p></div>
+      <div class="produit reveal"><span class="ico">ES</span><h3>Huiles d’olive</h3><p>Sélection de producteurs espagnols.</p></div>
+      <div class="produit reveal"><span class="ico">ES · FR</span><h3>Vins</h3><p>Terra Alta et côte roannaise.</p></div>
+      <div class="produit reveal"><span class="ico">FR</span><h3>Bières</h3><p>Brasseries artisanales.</p></div>
+      <div class="produit reveal"><span class="ico">ES</span><h3>Conserves & sauces</h3><p>Pour prolonger le repas à la maison.</p></div>
+      <div class="produit reveal"><span class="ico">FR</span><h3>Fromages du coin</h3><p>De petits producteurs locaux.</p></div>
+    </div>
+    <span class="a-fournir">Photos, origines et prix des produits : à fournir par le restaurant</span>
+  </div>
+</section>
+
+<section class="histoire" id="histoire">
+  <div class="wrap hist-grid">
+    <div>
+      <span class="kicker reveal">// L’histoire</span>
+      <h2 class="reveal">De la finance de marché à la cuisine de proximité</h2>
+      <p class="reveal">Marta Mulet Molins, barcelonaise arrivée en France à 25 ans, a mis ses diplômes de mathématicienne de côté pour ouvrir un lieu où l’on peut boire un verre, discuter, manger, travailler… vivre, en somme.</p>
+      <blockquote class="reveal">De véritables recettes de mamas espagnoles, beaucoup inspirées de la grand-mère de Marta, qui tenait elle-même un restaurant à Caseres, en Catalogne.</blockquote>
+      <p class="reveal">À Roanne, Marta est en cuisine. Les produits mêlent la Méditerranée — pata negra, seiche, poulpe, huile d’olive — et les petits producteurs d’ici.</p>
+      <div class="engagements reveal"><span>Fait maison</span><span>Circuits courts</span><span>Zéro (virgule cinq) déchet</span></div>
+    </div>
+    <div class="hist-photos reveal">
+      <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/371373197_2254992288223538_4457810500827211522_n.heicfull.jpg" alt="La cour intérieure du restaurant à Roanne, guirlande lumineuse" loading="lazy">
+      <img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/360083655_735273271619930_8387625513751142029_nfull.jpg" alt="Affiche du Coq et la Mule : élu en 2023 à Lyon meilleur restaurant Cuisine du monde" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<section id="presse">
+  <div class="wrap">
+    <span class="kicker reveal">// On parle de nous</span>
+    <h2 class="reveal">Quelques dates</h2>
+    <div class="frise">
+      <div class="evt reveal"><b>Juin 2019</b><p>Ouverture du premier Coq et la Mule, à Lyon.</p></div>
+      <div class="evt reveal"><b>Juillet 2023</b><p>Élu meilleur restaurant « Cuisine du Monde » de Lyon.</p></div>
+      <div class="evt reveal"><b>Octobre 2023</b><p>Ouverture à Roanne, rue Albert Thomas.</p></div>
+      <div class="evt reveal"><b>Et ensuite</b><p>Les articles et passages radio, à relier ici.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" aria-label="Galerie">
+  <div class="rail">
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/382932814_1537352383740372_2683437230791761750_nfull.jpg" alt="Assiette du jour" loading="lazy"><figcaption>plat du jour</figcaption></figure>
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/349556347_6173597472689333_2087487975363829360_nfull.jpg" alt="Plat de viande et ail rôti" loading="lazy"><figcaption>del día</figcaption></figure>
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/293839143_156088957005719_8095975277035345130_n.webpfull.jpg" alt="Poulpe sur lit de céréales" loading="lazy"><figcaption>pulpo</figcaption></figure>
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/277400237_554522065763638_5767403714704555465_n.webpfull.jpg" alt="Assiette du chef" loading="lazy"><figcaption>de saison</figcaption></figure>
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/275100149_651367129413495_8301686273683573625_n.webpfull.jpg" alt="Cabillaud poché et légumes" loading="lazy"><figcaption>bacalao</figcaption></figure>
+    <figure><img src="https://lecoqetlamule.fr/wp-content/uploads/sb-instagram-feed-images/273152247_359249016023865_7909647842406815390_nfull.jpg" alt="Assiette à emporter" loading="lazy"><figcaption>à emporter</figcaption></figure>
+  </div>
+</section>
+
+<section class="coord" id="coordonnees">
+  <div class="wrap">
+    <span class="kicker reveal">// Les coordonnées</span>
+    <h2 class="reveal">63 rue Albert Thomas, Roanne</h2>
+    <div class="coord-grid">
+      <div class="fiche reveal">
+        <h3>Téléphone / e-mail</h3>
+        <p><a href="tel:+33951721793">09 51 72 17 93</a><br><a href="mailto:roanne@lecoqetlamule.fr">roanne@lecoqetlamule.fr</a><br>Instagram <a href="https://www.instagram.com/lecoqetlamule.roanne/" target="_blank" rel="noopener">@lecoqetlamule.roanne</a> · <a href="https://www.facebook.com/lecoqetlamule.roanne" target="_blank" rel="noopener">Facebook</a></p>
+        <h3>Nous sommes ouverts</h3>
+        <table class="horaires" id="horaires"></table>
+        <p class="lyon">Le Coq et la Mule, c’est aussi Lyon : 251 rue Paul Bert, Lyon 3.</p>
+      </div>
+      <div class="carte-map reveal">
+        <iframe title="Plan d'accès au Coq et la Mule, Roanne" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0694%2C46.0435%2C4.0794%2C46.0481&amp;layer=mapnik&amp;marker=46.045784%2C4.074433"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="btn vert flottant" id="flottant" href="#reserver">Je réserve une table</a>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Le Coq et la Mule</strong> — Restaurant, épicerie, bar · 63 rue Albert Thomas, 42300 Roanne · 09 51 72 17 93</p>
+    <p>Maquette de démonstration réalisée à partir du site actuel lecoqetlamule.fr : textes, prix des formules, couleurs (jaune du bandeau, vert, brun olive), illustration du coq et de la mule et photos proviennent du site et du fil Instagram du restaurant. Les noms de plats du composeur sont des exemples tirés de la carte publiée ; la carte réelle change chaque jour. Prix indicatifs, non contractuels. Horaires à confirmer par le restaurant. Photos et détails de l’épicerie : à fournir.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+  /* Horaires Roanne (site actuel : midis du lundi au vendredi, soirs jeudi et vendredi ;
+     heures indicatives reprises de la fiche Roannais Tourisme, à confirmer) */
+  const H={1:{midi:[10,16]},2:{midi:[10,16]},3:{midi:[10,16]},4:{midi:[10,16],soir:[19,23]},5:{midi:[10,16],soir:[19,23]}};
+  const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+
+  // État ouvert / fermé
+  const etat=document.getElementById('etat');
+  function majEtat(){
+    const d=new Date(),h=d.getHours()+d.getMinutes()/60,j=H[d.getDay()]||{};
+    const ouvert=Object.values(j).some(([a,b])=>h>=a&&h<b);
+    etat.classList.toggle('ouvert',ouvert);
+    etat.querySelector('span').textContent=ouvert?'Ouvert en ce moment':'Fermé en ce moment';
+  }
+  majEtat();setInterval(majEtat,60000);
+
+  // Tableau d'horaires
+  const tb=document.getElementById('horaires');const auj=new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(k=>{const j=H[k];const tr=document.createElement('tr');if(k===auj)tr.className='auj';
+    tr.innerHTML=`<td>${JOURS[k]}</td><td style="text-align:right">${j?(j.soir?'Midi & soir':'Midi'):'Fermé'}</td>`;tb.appendChild(tr);});
+
+  // Menu mobile + header
+  const nav=document.getElementById('nav'),bg=document.getElementById('burger');
+  bg.onclick=()=>{const o=nav.classList.toggle('ouvert');bg.setAttribute('aria-expanded',o)};
+  nav.querySelectorAll('a').forEach(a=>a.onclick=()=>nav.classList.remove('ouvert'));
+  const top=document.getElementById('top'),fl=document.getElementById('flottant');
+  addEventListener('scroll',()=>{top.classList.toggle('scrolled',scrollY>10);fl.classList.toggle('vis',scrollY>700)},{passive:true});
+
+  // Lien actif
+  const secs=[...document.querySelectorAll('main section[id]')];
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){nav.querySelectorAll('a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s=>io2.observe(s));
+
+  // Apparitions au défilement
+  const io=new IntersectionObserver(es=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+
+  // Composeur de formule
+  const PRIX={1:'14,90 €',2:'18,90 €',3:'21,90 €'};
+  const LIB={1:'Plat du jour',2:'Formule deux temps',3:'Menu entrée / plat / dessert'};
+  const prix=document.getElementById('prix'),lib=document.getElementById('lib'),recap=document.getElementById('recap');
+  let formule='Plat du jour';
+  document.querySelectorAll('.etape').forEach(et=>{
+    const sw=et.querySelector('.switch');
+    if(sw.getAttribute('aria-checked')==='false')et.classList.add('off');
+    sw.addEventListener('click',()=>{const v=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',v);et.classList.toggle('off',!v);
+      if(v&&!et.querySelector('.chip.on'))et.querySelector('.chip').classList.add('on');calc()});
+    et.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{et.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+      const s=et.querySelector('.switch');if(s.getAttribute('aria-checked')!=='true'){s.setAttribute('aria-checked','true');et.classList.remove('off')}calc()}));
+  });
+  function calc(){
+    const choix=[...document.querySelectorAll('.etape')].filter(e=>e.querySelector('.switch').getAttribute('aria-checked')==='true').map(e=>e.querySelector('.chip.on').textContent);
+    const n=choix.length;prix.textContent=PRIX[n];lib.textContent=LIB[n];recap.textContent=choix.join(' · ');
+    formule=LIB[n]+' ('+PRIX[n]+') — '+choix.join(', ');
+    prix.classList.remove('pop');void prix.offsetWidth;prix.classList.add('pop');majTicket();
+  }
+
+  // Réservation
+  const jours=document.getElementById('jours');let jourSel=null,serv=null,nb=2;
+  const MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  const auj0=new Date();auj0.setHours(0,0,0,0);
+  for(let i=0;i<14;i++){const d=new Date(auj0);d.setDate(d.getDate()+i);const j=H[d.getDay()];
+    const b=document.createElement('button');b.className='jour';b.type='button';
+    b.innerHTML=`${JOURS[d.getDay()].slice(0,3)}<b>${d.getDate()}</b><small>${j?(j.soir?'midi · soir':'midi'):'fermé'}</small>`;
+    if(!j)b.disabled=true;
+    b.onclick=()=>{jours.querySelectorAll('.jour').forEach(x=>x.classList.remove('on'));b.classList.add('on');jourSel=d;
+      document.querySelectorAll('.service').forEach(s=>{s.disabled=!j[s.dataset.s];if(s.disabled&&s.classList.contains('on')){s.classList.remove('on');serv=null}});
+      if(!serv){const m=document.querySelector('.service[data-s=midi]');m.classList.add('on');serv='midi'}majTicket()};
+    jours.appendChild(b);}
+  document.querySelectorAll('.service').forEach(s=>s.onclick=()=>{document.querySelectorAll('.service').forEach(x=>x.classList.remove('on'));s.classList.add('on');serv=s.dataset.s;majTicket()});
+  const nbO=document.getElementById('nb');
+  document.getElementById('plus').onclick=()=>{nb=Math.min(50,nb+1);nbO.textContent=nb;majTicket()};
+  document.getElementById('moins').onclick=()=>{nb=Math.max(1,nb-1);nbO.textContent=nb;majTicket()};
+  ['type','nom','tel'].forEach(id=>document.getElementById(id).addEventListener('input',majTicket));
+  const ticket=document.getElementById('ticket'),env=document.getElementById('envoyer'),ics=document.getElementById('ics');
+  function txtDate(d){return JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]}
+  function majTicket(){
+    if(!jourSel||!serv){ticket.textContent='Choisissez un jour et un service.';return}
+    const type=document.getElementById('type').value,nom=document.getElementById('nom').value||'—',tel=document.getElementById('tel').value||'—';
+    const t=`${type}\n${txtDate(jourSel)} · ${serv}\n${nb} couvert${nb>1?'s':''}\nNom : ${nom}\nTél. : ${tel}\nFormule envisagée : ${formule}`;
+    ticket.textContent=t;
+    env.href='mailto:roanne@lecoqetlamule.fr?subject='+encodeURIComponent(type+' – '+txtDate(jourSel)+' ('+serv+')')+'&body='+encodeURIComponent('Bonjour,\n\n'+t+'\n\nMerci !');
+    env.setAttribute('aria-disabled','false');ics.setAttribute('aria-disabled','false');
+  }
+  ics.addEventListener('click',e=>{e.preventDefault();if(!jourSel||!serv)return;
+    const p=n=>String(n).padStart(2,'0');const [a,b]=serv==='midi'?[12,14]:[20,22];
+    const d=jourSel,f=h=>`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T${p(h)}0000`;
+    const c=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Le Coq et la Mule//FR','BEGIN:VEVENT','UID:'+Date.now()+'@lecoqetlamule','DTSTAMP:'+f(0),'DTSTART:'+f(a),'DTEND:'+f(b),
+      'SUMMARY:Le Coq et la Mule ('+nb+' couverts)','LOCATION:63 rue Albert Thomas\\, 42300 Roanne','DESCRIPTION:Demande envoyée – en attente de confirmation du restaurant.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const u=URL.createObjectURL(new Blob([c],{type:'text/calendar'}));const l=document.createElement('a');l.href=u;l.download='le-coq-et-la-mule.ics';l.click();URL.revokeObjectURL(u)});
+
+  // Onglets du bar
+  document.querySelectorAll('.onglet').forEach(o=>o.onclick=()=>{document.querySelectorAll('.onglet').forEach(x=>x.classList.remove('on'));o.classList.add('on');
+    document.querySelectorAll('.panneau').forEach(p=>p.classList.toggle('on',p.id===o.dataset.p))});
+
+  calc();
+})();
+</script>
+</body>
+</html>
