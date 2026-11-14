@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Atelier de Couverture — Couvreur-zingueur dans la Loire | Balbigny</title>
+<meta name="description" content="Couverture, zinguerie, charpente et restauration de bâtiments classés dans la Loire, de Feurs à Roanne et Montbrison. Entreprise RGE Qualibat basée à Balbigny.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   MAQUETTE — L'Atelier de Couverture (Balbigny)
+   Charte reprise du site actuel latelierdecouverture-loire.fr :
+   bleu nuit (bandeau haut) + orange du logo, Montserrat / Open Sans.
+   Pour ajuster : ne modifier que ces variables.
+------------------------------------------------------------------- */
+:root{
+  --nuit:#000F22;        /* bleu nuit du bandeau du site actuel */
+  --nuit-2:#0b2340;
+  --orange:#E85114;      /* orange des boutons et du logo */
+  --orange-fonce:#D33C00;
+  --gris-bleu:#e6ebf1;   /* bande claire du menu */
+  --texte:#333333;
+  --gris:#787878;
+  --clair:#f7f7f7;
+  --blanc:#ffffff;
+  --titre:'Montserrat',system-ui,sans-serif;
+  --corps:'Open Sans',system-ui,sans-serif;
+  --r:10px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--corps);color:var(--texte);background:var(--blanc);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--titre);line-height:1.15;color:var(--nuit)}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+
+/* bandeau démo */
+.demo{background:#fff4ec;color:#7a2d08;font-size:13px;text-align:center;padding:6px 16px;border-bottom:1px solid #f6d3bf}
+
+/* barre haute (comme le site actuel) */
+.topbar{background:var(--nuit);color:#dfe6ee;font-size:14px}
+.topbar .wrap{display:flex;justify-content:flex-end;gap:28px;padding:9px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.topbar svg{width:16px;height:16px;fill:var(--orange)}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid #e7ebf0;transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 24px rgba(0,15,34,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:8px 0}
+.logo img{height:64px;width:auto;transition:height .3s var(--ease)}
+header.nav.scrolled .logo img{height:50px}
+.menu{display:flex;gap:22px;list-style:none;font-family:var(--titre);font-weight:600;font-size:14px}
+.menu a{text-decoration:none;position:relative;padding:6px 0;color:var(--nuit)}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--titre);font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:13px 24px;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn-o{background:var(--orange);color:#fff;box-shadow:0 8px 20px rgba(232,81,20,.28)}
+.btn-o:hover{background:var(--orange-fonce);transform:translateY(-2px)}
+.btn-l{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.btn-l:hover{background:rgba(255,255,255,.12)}
+.btn:active{transform:scale(.97)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--nuit);margin:5px auto;transition:.3s}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,760px);display:flex;align-items:center;color:#fff;overflow:hidden;background:var(--nuit)}
+.hero .slides{position:absolute;inset:0}
+.hero .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s linear}
+.hero .slides img.on{opacity:1;transform:scale(1)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(0,15,34,.92) 0%,rgba(0,15,34,.72) 45%,rgba(0,15,34,.25) 100%);z-index:1}
+.hero .wrap{position:relative;z-index:2;padding:80px 0 150px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--titre);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#ffd2bd}
+.kicker::before{content:"";width:28px;height:2px;background:var(--orange)}
+.hero h1{color:#fff;font-size:clamp(2.1rem,1.4rem + 3.4vw,4rem);font-weight:800;max-width:15ch;margin:18px 0}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p.lead{font-size:clamp(1rem,.95rem + .3vw,1.2rem);max-width:54ch;color:#d9e1ea}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.hero .badges{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
+.badge{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px);border-radius:12px;padding:9px 14px;font-size:14px;font-weight:600}
+.badge b{font-family:var(--titre);color:#fff}
+.badge img{height:30px;width:auto;border-radius:4px;background:#fff}
+.skyline{position:absolute;left:0;right:0;bottom:-1px;z-index:3;width:100%;height:auto;fill:var(--blanc)}
+.reveal-word{display:inline-block;opacity:0;transform:translateY(30px);animation:mot .9s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+.dots{position:absolute;z-index:4;right:24px;bottom:120px;display:flex;gap:8px}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s}
+.dots button.on{background:var(--orange);width:28px;border-radius:6px}
+
+/* atouts */
+.atouts{padding:30px 0 10px}
+.atouts ul{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.atouts li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:18px 12px;border-radius:var(--r);transition:background .3s,transform .3s var(--ease)}
+.atouts li:hover{background:var(--clair);transform:translateY(-4px)}
+.atouts svg{width:46px;height:46px;stroke:var(--orange);fill:none;stroke-width:1.6}
+.atouts span{font-family:var(--titre);font-weight:600;font-size:14px;color:var(--nuit)}
+
+section{padding:90px 0}
+.sec-head{max-width:760px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(1.7rem,1.3rem + 1.8vw,2.7rem);font-weight:800}
+.sec-head h2 span{color:var(--orange)}
+.sec-head p{margin-top:14px;color:#555;font-size:1.05rem}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.intro .photos{position:relative;aspect-ratio:1/1}
+.intro .photos img{position:absolute;border-radius:14px;object-fit:cover;box-shadow:0 20px 50px rgba(0,15,34,.18)}
+.intro .photos .p1{inset:0 22% 22% 0;width:78%;height:78%}
+.intro .photos .p2{right:0;bottom:0;width:56%;height:52%;border:6px solid #fff}
+.intro .photos .tag{position:absolute;left:-6px;bottom:34px;background:var(--orange);color:#fff;font-family:var(--titre);font-weight:700;padding:12px 18px;border-radius:10px;font-size:14px;box-shadow:0 10px 24px rgba(232,81,20,.35)}
+.intro p{margin-bottom:14px}
+.villes a{color:var(--orange);font-weight:600;text-decoration:none;border-bottom:1px dotted}
+
+/* services */
+.services{background:var(--clair)}
+.grid-serv{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.serv{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,15,34,.05);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
+.serv:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,15,34,.12)}
+.serv .im{aspect-ratio:16/10;overflow:hidden;position:relative}
+.serv .im img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.serv:hover .im img{transform:scale(1.07)}
+.serv .im .n{position:absolute;top:12px;left:12px;background:var(--nuit);color:#fff;font-family:var(--titre);font-weight:700;font-size:12px;padding:4px 10px;border-radius:999px}
+.serv .tx{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.serv h3{font-size:1.15rem}
+.serv p{font-size:.95rem;color:#555;flex:1}
+.serv .lien{font-family:var(--titre);font-weight:700;font-size:14px;color:var(--orange);text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.serv .lien:hover{gap:10px}
+.mini-serv{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.mini-serv span{background:#fff;border:1px solid #e3e7ec;border-radius:999px;padding:8px 16px;font-size:14px;font-weight:600;color:var(--nuit)}
+
+/* outil */
+.outil{background:var(--nuit);color:#fff;position:relative;overflow:hidden}
+.outil .sec-head h2{color:#fff}
+.outil .sec-head p{color:#c4cfdb}
+.outil-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:start}
+.carte{background:#fff;color:var(--texte);border-radius:18px;padding:28px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.steps{display:flex;gap:6px;margin-bottom:22px}
+.steps i{flex:1;height:5px;border-radius:4px;background:#e4e8ee;transition:background .4s}
+.steps i.on{background:var(--orange)}
+.etape{display:none;animation:in .5s var(--ease)}
+.etape.on{display:block}
+@keyframes in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.etape h3{font-size:1.25rem;margin-bottom:4px}
+.etape .aide{color:var(--gris);font-size:14px;margin-bottom:18px}
+.choix{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choix button{display:flex;align-items:center;gap:12px;text-align:left;background:var(--clair);border:2px solid transparent;border-radius:12px;padding:14px;cursor:pointer;font:600 15px var(--corps);color:var(--nuit);transition:border-color .2s,background .2s,transform .2s}
+.choix button:hover{border-color:#f3b398;transform:translateY(-2px)}
+.choix button.sel{border-color:var(--orange);background:#fff4ee}
+.choix button .ic{font-size:22px;width:30px;text-align:center}
+.choix button small{display:block;font-weight:400;color:var(--gris);font-size:12.5px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row label,.full label{display:block;font-size:13px;font-weight:600;color:var(--nuit);margin-bottom:5px}
+input,textarea,select{width:100%;padding:12px 14px;border:1.5px solid #dde2e8;border-radius:10px;font:15px var(--corps);background:#fff;transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--orange);outline:none}
+.full{margin-bottom:12px}
+.nav-et{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px}
+.retour{background:none;border:0;color:var(--gris);font:600 14px var(--titre);cursor:pointer}
+.recap{background:#0b2340;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:24px;position:sticky;top:100px}
+.recap h4{color:#fff;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.recap h4 small{font:600 12px var(--corps);color:#ffb38f;text-transform:none;letter-spacing:0}
+.toit{background:linear-gradient(#123259,#0b2340);border-radius:12px;margin-bottom:18px;overflow:hidden}
+.toit svg{width:100%;height:auto;display:block}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px}
+.recap dt{color:#8fa3ba}
+.recap dd{color:#fff;font-weight:600}
+.recap dd.vide{color:#56708e;font-weight:400;font-style:italic}
+.prio{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.goutte{animation:goutte 1.4s ease-in infinite}
+@keyframes goutte{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(46px);opacity:0}}
+.ok-box{display:none;text-align:center;padding:10px 0}
+.ok-box.on{display:block;animation:in .5s var(--ease)}
+.ok-box .rond{width:64px;height:64px;border-radius:50%;background:#e9f8ef;color:#1f8a4c;display:grid;place-items:center;margin:0 auto 14px;font-size:30px}
+.ok-box p{color:#555;margin:8px auto 18px;max-width:46ch}
+.ok-box .ctas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-n{background:var(--nuit);color:#fff}
+.btn-n:hover{background:#13355e}
+
+/* réalisations */
+.filtres{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.filtres button{border:1.5px solid #dfe4ea;background:#fff;border-radius:999px;padding:9px 18px;font:600 14px var(--titre);color:var(--nuit);cursor:pointer;transition:.25s}
+.filtres button.on,.filtres button:hover{background:var(--nuit);color:#fff;border-color:var(--nuit)}
+.galerie{columns:3 280px;column-gap:16px}
+.galerie figure{break-inside:avoid;margin-bottom:16px;border-radius:12px;overflow:hidden;position:relative;cursor:zoom-in;transition:opacity .4s,transform .4s var(--ease)}
+.galerie figure.cache{display:none}
+.galerie img{width:100%;height:auto;transition:transform .8s var(--ease)}
+.galerie figure:hover img{transform:scale(1.05)}
+.galerie figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 16px 14px;background:linear-gradient(transparent,rgba(0,15,34,.85));color:#fff;font:600 14px var(--titre);transform:translateY(8px);opacity:.92;transition:.35s}
+.galerie figure:hover figcaption{transform:none;opacity:1}
+.galerie figcaption small{display:block;font:400 12px var(--corps);color:#ffc7ae}
+.lb{position:fixed;inset:0;background:rgba(0,10,22,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.lb.on{display:flex}
+.lb img{max-height:82vh;border-radius:10px;width:auto}
+.lb p{color:#fff;text-align:center;margin-top:12px;font-family:var(--titre);font-weight:600}
+.lb button{position:absolute;background:rgba(255,255,255,.1);color:#fff;border:0;width:48px;height:48px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb .x{top:18px;right:18px}.lb .g{left:18px;top:50%}.lb .d{right:18px;top:50%}
+
+/* patrimoine */
+.patri{position:relative;color:#fff;background:var(--nuit);overflow:hidden}
+.patri .bg{position:absolute;inset:0;background:url("https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/couverture_ardoises_N_ronde-781be31d-1920w.jpg") center/cover;opacity:.28;transform:scale(1.15)}
+.patri .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.patri h2{color:#fff}
+.patri p{color:#d4dde7;margin-bottom:14px}
+.chiffre-reel{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+.chiffre-reel div{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:18px}
+.chiffre-reel b{display:block;font:800 1.8rem var(--titre);color:var(--orange)}
+.chiffre-reel span{font-size:14px;color:#c6d2de}
+.patri .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.patri .duo img{border-radius:12px;aspect-ratio:3/4;object-fit:cover}
+.patri .duo img:last-child{margin-top:40px}
+
+/* zone */
+.zone-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+.carte-zone{position:relative;aspect-ratio:1/1;max-width:440px;margin:auto;width:100%}
+.carte-zone svg{width:100%;height:100%}
+.pt{cursor:pointer}
+.pt circle{fill:var(--nuit);transition:r .2s,fill .2s}
+.pt text{font:600 11px var(--corps);fill:var(--nuit)}
+.pt:hover circle,.pt.on circle{fill:var(--orange);r:7}
+.siege circle{fill:var(--orange)}
+.pulse{fill:none;stroke:var(--orange);stroke-width:2;animation:pulse 2.4s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{from{transform:scale(.3);opacity:1}to{transform:scale(3);opacity:0}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chips a{text-decoration:none;border:1.5px solid #e1e6ec;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;color:var(--nuit);transition:.2s}
+.chips a:hover,.chips a.on{border-color:var(--orange);color:var(--orange);background:#fff6f1}
+
+/* partenaires */
+.marques{padding:40px 0;border-top:1px solid #eef1f4;border-bottom:1px solid #eef1f4;overflow:hidden}
+.marques p{text-align:center;font-size:13px;color:var(--gris);text-transform:uppercase;letter-spacing:.14em;margin-bottom:18px}
+.defile{display:flex;gap:70px;width:max-content;animation:defile 30s linear infinite}
+.defile span{font:800 22px var(--titre);color:#b6c0cc;white-space:nowrap}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* contact */
+.contact{background:var(--clair)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.bloc{background:#fff;border-radius:16px;padding:30px;box-shadow:0 2px 10px rgba(0,15,34,.05)}
+.bloc h3{margin-bottom:16px}
+.ligne{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #eef1f4}
+.ligne:last-child{border:0}
+.ligne .i{width:40px;height:40px;border-radius:10px;background:#fff1ea;display:grid;place-items:center;flex-shrink:0}
+.ligne .i svg{width:18px;height:18px;fill:var(--orange)}
+.ligne a{text-decoration:none;font-weight:600;color:var(--nuit)}
+.ligne small{display:block;color:var(--gris);font-size:13px}
+.statut{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px;background:#eef1f4;margin-bottom:14px}
+.statut i{width:9px;height:9px;border-radius:50%;background:#999}
+.statut.ouvert{background:#e9f8ef;color:#1f7a45}.statut.ouvert i{background:#22a35a;box-shadow:0 0 0 4px rgba(34,163,90,.2)}
+.statut.ferme{background:#fdeeee;color:#a33}.statut.ferme i{background:#d44}
+table.h{width:100%;border-collapse:collapse;font-size:15px}
+table.h td{padding:9px 0;border-bottom:1px dashed #e3e7ec}
+table.h td:last-child{text-align:right;font-weight:600;color:var(--nuit)}
+table.h tr.auj td{color:var(--orange)}
+
+footer{background:var(--nuit);color:#b9c6d3;font-size:14px;padding:50px 0 90px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;font-size:15px;margin-bottom:12px}
+footer a{text-decoration:none}
+footer .mention{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:12.5px;color:#8b9cb0}
+footer .logo-f{background:#fff;border-radius:10px;padding:8px;display:inline-block;margin-bottom:12px}
+footer .logo-f img{height:56px;width:auto}
+
+.callbar{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:10px}
+.callbar a{flex:1;justify-content:center}
+
+/* apparitions */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+@media (max-width:980px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:16px 24px;gap:12px;box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nav .btn-o{display:none}
+  .atouts ul{grid-template-columns:repeat(2,1fr)}
+  .intro,.outil-grid,.patri .wrap,.zone-grid,.contact-grid{grid-template-columns:1fr}
+  .grid-serv{grid-template-columns:repeat(2,1fr)}
+  .recap{position:static}
+  footer .wrap{grid-template-columns:1fr}
+  .callbar{display:flex}
+}
+@media (max-width:620px){
+  .grid-serv,.choix,.form-row{grid-template-columns:1fr}
+  .topbar .wrap{justify-content:center;gap:16px}
+  .topbar .fb{display:none}
+  section{padding:64px 0}
+  .hero .wrap{padding:56px 0 120px}
+  .dots{display:none}
+  .chiffre-reel{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"RoofingContractor",
+  "name":"L'Atelier de Couverture",
+  "url":"https://www.latelierdecouverture-loire.fr/",
+  "logo":"https://de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/Logo-simple-266w.webp",
+  "telephone":"+33477263238",
+  "email":"j.dumas@latelierdecouverture.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"1 chemin de la Pelle","postalCode":"42510","addressLocality":"Balbigny","addressRegion":"Loire","addressCountry":"FR"},
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:30","closes":"19:30"}],
+  "areaServed":["Balbigny","Feurs","Montbrison","Panissières","Montrond-les-Bains","Saint-Galmier","Boën-sur-Lignon","Veauche","Andrézieux-Bouthéon","Saint-Just-Saint-Rambert","Charlieu","Tarare","Saint-Étienne","Roanne","Saint-Chamond","Firminy"],
+  "knowsAbout":["Couverture","Zinguerie","Charpente","Restauration de bâtiments classés","Recherche de fuites","Fenêtres de toit","Isolation de toiture"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour L'Atelier de Couverture — non contractuelle</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="fb" href="#contact"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3c-2.8 0-4 1.8-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg>Suivez-nous</a>
+    <a href="mailto:j.dumas@latelierdecouverture.fr"><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7l-8 5z"/></svg>j.dumas@latelierdecouverture.fr</a>
+    <a href="tel:+33689520189"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>06 89 52 01 89</a>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#accueil" aria-label="L'Atelier de Couverture — accueil"><img src="https://de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/Logo-simple-266w.webp" alt="L'Atelier de Couverture"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil" class="actif">Accueil</a></li>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#services">Couverture</a></li>
+      <li><a href="#patrimoine">Restauration</a></li>
+      <li><a href="#realisations">Nos réalisations</a></li>
+      <li><a href="#zone">Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-o" href="#chantier">Je contacte mon couvreur</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="slides" id="slides">
+    <img class="on" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%2811%29-1920w.jpg" alt="">
+    <img src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/toiture_cuivre_Montbrison-5289d3a6-410597e1-958ad3b3-1920w.jpg" alt="">
+    <img src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%2834%29-1920w.jpg" alt="">
+    <img src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/R_paration_toiture_Nervieux-1920w.jpg" alt="">
+  </div>
+  <div class="wrap">
+    <span class="kicker">Couvreurs-zingueurs · Loire</span>
+    <h1 id="titre">Le savoir-faire de couvreurs et zingueurs <em>expérimentés</em></h1>
+    <p class="lead">Travaux de toiture, de zinguerie et de charpente pour les particuliers comme pour les bâtiments classés — depuis Balbigny, de Feurs à Roanne et Montbrison.</p>
+    <div class="ctas">
+      <a class="btn btn-o" href="#chantier">Décrire mon chantier →</a>
+      <a class="btn btn-l" href="tel:+33689520189">06 89 52 01 89</a>
+    </div>
+    <div class="badges">
+      <div class="badge"><img src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Logo-Qualibat-RGE-360w-1920w.webp" alt="RGE Qualibat"><span><b>RGE Qualibat</b></span></div>
+      <div class="badge"><span><b>Garantie décennale</b> sur le neuf et la rénovation</span></div>
+      <div class="badge"><span><b>Échafaudage 1 500 m²</b> en propre</span></div>
+    </div>
+  </div>
+  <div class="dots" id="dots"></div>
+  <!-- silhouette de toits, reprise du motif du site actuel -->
+  <svg class="skyline" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 110V78h60V62l40-30 40 30v16h40V70h18V56h14v14h40v8l60-40 60 40v-6h30V52l26-50 26 50v20h40v6h70V58l55-36 55 36v20h40V66h16V50h14v16h50v12l70-44 70 44V70h40v8h50V62l40-26 40 26v16h30V58h16V44h14v14h44v20l60-38 60 38v4h46V60l34-24 34 24v18h66V68l40-30 40 30v10h52v32z"/></svg>
+</section>
+
+<div class="atouts">
+  <div class="wrap">
+    <ul>
+      <li class="rv"><svg viewBox="0 0 48 48"><path d="M24 4l16 6v12c0 10-7 18-16 22C15 40 8 32 8 22V10z"/><path d="M17 24l5 5 9-10"/></svg><span>Certification RGE Qualibat</span></li>
+      <li class="rv d1"><svg viewBox="0 0 48 48"><path d="M8 40V18h10l6-10h6v32"/><path d="M30 14h10v26M4 40h40M14 24h4M14 30h4"/></svg><span>Formations CACES</span></li>
+      <li class="rv d2"><svg viewBox="0 0 48 48"><path d="M14 20a10 10 0 0120 0v4H14z"/><path d="M10 24h28M24 10V6M18 36l-4 6M30 36l4 6M24 28v14"/></svg><span>Formations EPI et sécurité au travail</span></li>
+      <li class="rv d3"><svg viewBox="0 0 48 48"><path d="M4 32V16h22v16M26 22h10l6 6v4H26"/><circle cx="12" cy="34" r="4"/><circle cx="34" cy="34" r="4"/></svg><span>Autonomie totale dans la mise en place du chantier</span></li>
+      <li class="rv"><svg viewBox="0 0 48 48"><path d="M24 4v8M20 8h8M14 44V24l10-10 10 10v20M8 44h32M20 44v-8a4 4 0 018 0v8"/></svg><span>Spécialiste de la rénovation du patrimoine ancien</span></li>
+    </ul>
+  </div>
+</div>
+
+<section id="apropos">
+  <div class="wrap intro">
+    <div class="photos rv">
+      <img class="p1" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture-toiture--%2814%29-664a08ed-1920w.jpg" alt="Couvreur de l'Atelier de Couverture montant des tuiles sur l'échafaudage">
+      <img class="p2" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/image00016-1920w.jpeg" alt="Pose de zinc sur une toiture">
+      <span class="tag">Siège à Balbigny</span>
+    </div>
+    <div class="rv d1">
+      <span class="kicker" style="color:var(--orange)">À propos</span>
+      <h2 style="font-size:clamp(1.7rem,1.3rem + 1.6vw,2.5rem);margin:14px 0 18px">Pourquoi faire appel à nous peut simplifier vos travaux&nbsp;?</h2>
+      <p>En choisissant L'Atelier de Couverture, vous faites appel à une seule entreprise pour tous vos travaux de couverture. Pas besoin de multiplier les intervenants&nbsp;: nous nous occupons de tout de A à Z et laissons le chantier immaculé après notre départ.</p>
+      <p>Nous intervenons sur le neuf, l'ancien, les maisons, les granges, les toitures de collectivités, les maisons bourgeoises, les châteaux et les églises, avec tous les matériaux de couverture&nbsp;: tuiles en terre cuite, creuses, romanes, plates, écaillées, mécaniques à emboîtement, ardoise, zinc et cuivre.</p>
+      <p class="villes">Notre siège est à Balbigny, et nous intervenons entre autres comme <a href="#zone">couvreur à Montbrison</a>, <a href="#zone">couvreur à Panissières</a> ou <a href="#zone">couvreur à Roanne</a>.</p>
+      <a class="btn btn-o" href="#chantier" style="margin-top:10px">Vous avez un projet pour votre toiture ? Confiez-le-nous</a>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" style="color:var(--orange)">Nos prestations</span>
+      <h2 style="margin-top:12px">Travaux de couverture&nbsp;: <span>des spécialistes</span> en travaux de rénovation</h2>
+      <p>Du remplacement des tuiles au traitement de la charpente ou à l'isolation des combles, comptez sur l'ensemble de l'équipe.</p>
+    </div>
+    <div class="grid-serv">
+      <article class="serv rv"><div class="im"><span class="n">01</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%281%29-1920w.jpg" alt="Rénovation de toiture"></div><div class="tx"><h3>Couverture &amp; rénovation de toiture</h3><p>Tous les travaux de rénovation de couverture, en neuf comme en rénovation. Les particuliers sont nos principaux clients&nbsp;: préservez votre toiture grâce à notre intervention.</p><a class="lien" href="#chantier" data-besoin="renovation">Décrire mon projet →</a></div></article>
+      <article class="serv rv d1"><div class="im"><span class="n">02</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/zinguerie_Montrond_les_Bains-1920w.jpg" alt="Zinguerie à Montrond-les-Bains"></div><div class="tx"><h3>Zinguerie, gouttières &amp; chéneaux</h3><p>Le zinc, matériau léger et robuste, mêle modernité et tradition. Pose et entretien de gouttières, chéneaux, toitures en zinc et écailles façonnées.</p><a class="lien" href="#chantier" data-besoin="zinguerie">Décrire mon projet →</a></div></article>
+      <article class="serv rv d2"><div class="im"><span class="n">03</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture-toiture--2822-29-375f5ddf-d341b2dc-1920w.jpg" alt="Recherche de fuite sur toiture"></div><div class="tx"><h3>Recherche de fuites</h3><p>Une toiture qui fuit&nbsp;? C'est la tuile&nbsp;! Pente trop faible, tuiles cassées après intempéries, joints de fenêtre de toit défaillants&nbsp;: penser à tout est notre métier.</p><a class="lien" href="#chantier" data-besoin="fuite">Signaler une fuite →</a></div></article>
+      <article class="serv rv"><div class="im"><span class="n">04</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/charpente-tonnelle-1920w-50835cf3-1920w.webp" alt="Charpente"></div><div class="tx"><h3>Charpente</h3><p>Création, réparation et traitement de charpente, en complément de vos travaux de couverture.</p><a class="lien" href="#chantier" data-besoin="charpente">Décrire mon projet →</a></div></article>
+      <article class="serv rv d1"><div class="im"><span class="n">05</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%2821%29-4ca1978c-1920w.jpg" alt="Pose de fenêtre de toit"></div><div class="tx"><h3>Fenêtre de toit</h3><p>Envie de plus de lumière&nbsp;? Nos couvreurs posent des fenêtres de toit avec différents types d'ouverture, adaptées à votre architecture.</p><a class="lien" href="#chantier" data-besoin="fenetre">Décrire mon projet →</a></div></article>
+      <article class="serv rv d2"><div class="im"><span class="n">06</span><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/isolation-de-toiture-procede-sarking-320w-4f1c8ec2-1920w.webp" alt="Isolation de toiture par sarking"></div><div class="tx"><h3>Isolation thermique</h3><p>Isolation du toit lors de la réfection de couverture, dont l'isolation par l'extérieur (sarking).</p><a class="lien" href="#chantier" data-besoin="isolation">Décrire mon projet →</a></div></article>
+    </div>
+    <div class="mini-serv rv">
+      <span>Entretien et maintenance</span><span>Gouttières</span><span>Chéneaux</span><span>Toiture en zinc</span><span>Photovoltaïque</span><span>Restauration de bâtiments classés</span>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL -->
+<section class="outil" id="chantier">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Demande de devis</span>
+      <h2 style="margin-top:12px">Décrivez votre chantier en une minute</h2>
+      <p>Quatre questions, et votre demande arrive chez nous déjà qualifiée&nbsp;: type de travaux, bâtiment, matériau, urgence. Nous savons tout de suite quoi préparer avant de passer évaluer votre toiture.</p>
+    </div>
+    <div class="outil-grid">
+      <div class="carte rv">
+        <div class="steps" id="steps"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+
+        <div class="etape on" data-e="0">
+          <h3>Quels travaux&nbsp;?</h3>
+          <p class="aide">Choisissez ce qui se rapproche le plus de votre besoin.</p>
+          <div class="choix" data-champ="besoin">
+            <button data-v="fuite" data-l="Fuite / tuiles cassées"><span class="ic">💧</span><span>Fuite, tuiles cassées<small>après un orage, une tempête</small></span></button>
+            <button data-v="renovation" data-l="Rénovation de toiture"><span class="ic">🏠</span><span>Rénovation de toiture<small>réfection partielle ou complète</small></span></button>
+            <button data-v="zinguerie" data-l="Zinguerie, gouttières"><span class="ic">🔧</span><span>Zinguerie<small>gouttières, chéneaux, zinc</small></span></button>
+            <button data-v="fenetre" data-l="Fenêtre de toit"><span class="ic">🪟</span><span>Fenêtre de toit<small>création ou remplacement</small></span></button>
+            <button data-v="isolation" data-l="Isolation de toiture"><span class="ic">🧱</span><span>Isolation<small>combles, sarking</small></span></button>
+            <button data-v="charpente" data-l="Charpente"><span class="ic">🪵</span><span>Charpente<small>réparation, traitement</small></span></button>
+            <button data-v="patrimoine" data-l="Bâtiment ancien / classé"><span class="ic">⛪</span><span>Bâtiment ancien ou classé<small>église, château, maison bourgeoise</small></span></button>
+            <button data-v="entretien" data-l="Entretien / contrôle"><span class="ic">🔍</span><span>Entretien, contrôle<small>visite annuelle ou biennale</small></span></button>
+          </div>
+        </div>
+
+        <div class="etape" data-e="1">
+          <h3>Quel bâtiment&nbsp;?</h3>
+          <p class="aide">Notre équipe travaille sur les maisons de plain-pied comme à étages.</p>
+          <div class="choix" data-champ="batiment">
+            <button data-v="plainpied" data-l="Maison de plain-pied"><span class="ic">🏡</span><span>Maison de plain-pied</span></button>
+            <button data-v="etage" data-l="Maison à étage(s)"><span class="ic">🏘️</span><span>Maison à étage(s)</span></button>
+            <button data-v="grange" data-l="Grange / dépendance"><span class="ic">🛖</span><span>Grange, dépendance</span></button>
+            <button data-v="bourgeoise" data-l="Maison bourgeoise / ancienne"><span class="ic">🏛️</span><span>Maison bourgeoise, ancienne</span></button>
+            <button data-v="collectivite" data-l="Collectivité / édifice"><span class="ic">⛪</span><span>Collectivité, église, château</span></button>
+            <button data-v="pro" data-l="Local professionnel"><span class="ic">🏭</span><span>Local professionnel</span></button>
+          </div>
+        </div>
+
+        <div class="etape" data-e="2">
+          <h3>Quelle couverture aujourd'hui&nbsp;?</h3>
+          <p class="aide">Pas sûr&nbsp;? Choisissez «&nbsp;Je ne sais pas&nbsp;», nous verrons sur place.</p>
+          <div class="choix" data-champ="materiau">
+            <button data-v="canal" data-l="Tuiles creuses (canal)"><span class="ic">〰️</span><span>Tuiles creuses / canal</span></button>
+            <button data-v="meca" data-l="Tuiles mécaniques"><span class="ic">▦</span><span>Tuiles mécaniques à emboîtement</span></button>
+            <button data-v="plate" data-l="Tuiles plates / écaillées"><span class="ic">▤</span><span>Tuiles plates, écaillées</span></button>
+            <button data-v="ardoise" data-l="Ardoise"><span class="ic">◆</span><span>Ardoise</span></button>
+            <button data-v="zinc" data-l="Zinc / cuivre"><span class="ic">▭</span><span>Zinc, cuivre</span></button>
+            <button data-v="nsp" data-l="À déterminer sur place"><span class="ic">?</span><span>Je ne sais pas</span></button>
+          </div>
+        </div>
+
+        <div class="etape" data-e="3">
+          <h3>C'est urgent&nbsp;?</h3>
+          <p class="aide">Pour que nous puissions organiser le planning.</p>
+          <div class="choix" data-champ="urgence">
+            <button data-v="1" data-l="Infiltration en cours"><span class="ic">🚨</span><span>Infiltration en cours<small>il pleut à l'intérieur</small></span></button>
+            <button data-v="2" data-l="Dans les semaines à venir"><span class="ic">📅</span><span>Dans les semaines à venir<small>avant l'hiver par exemple</small></span></button>
+            <button data-v="3" data-l="Projet à planifier"><span class="ic">🗂️</span><span>Projet à planifier<small>je prépare mon budget</small></span></button>
+            <button data-v="4" data-l="Simple question"><span class="ic">💬</span><span>Question de faisabilité<small>avant de me lancer</small></span></button>
+          </div>
+        </div>
+
+        <div class="etape" data-e="4">
+          <h3>Où et comment vous joindre&nbsp;?</h3>
+          <p class="aide">Nous vous rappelons pour fixer un passage et évaluer votre toiture.</p>
+          <div class="form-row">
+            <div><label for="nom">Nom *</label><input id="nom" autocomplete="name"></div>
+            <div><label for="tel">Téléphone *</label><input id="tel" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="form-row">
+            <div><label for="ville">Commune du chantier *</label><input id="ville" list="communes" placeholder="ex. Feurs"></div>
+            <div><label for="mail">E-mail</label><input id="mail" type="email" autocomplete="email"></div>
+          </div>
+          <datalist id="communes"></datalist>
+          <div class="full"><label for="msg">Quelques mots sur le chantier</label><textarea id="msg" rows="3" placeholder="Surface approximative, accès, ce que vous avez constaté…"></textarea></div>
+          <p class="aide" style="margin:0">Astuce&nbsp;: 2 ou 3 photos de la toiture nous font gagner un déplacement — vous pourrez les joindre en réponse à notre e-mail.</p>
+        </div>
+
+        <div class="ok-box" id="ok">
+          <div class="rond">✓</div>
+          <h3>Votre fiche chantier est prête</h3>
+          <p>Dans le site final, elle nous parvient directement. Ici, elle s'ouvre dans votre messagerie, déjà remplie.</p>
+          <div class="ctas">
+            <a class="btn btn-o" id="envoyer" href="#">Envoyer par e-mail</a>
+            <a class="btn btn-n" href="tel:+33689520189">Appeler le 06 89 52 01 89</a>
+          </div>
+        </div>
+
+        <div class="nav-et" id="navEt">
+          <button class="retour" id="retour" style="visibility:hidden">← Retour</button>
+          <button class="btn btn-o" id="suivant" disabled style="opacity:.5">Continuer →</button>
+        </div>
+      </div>
+
+      <aside class="recap rv d1" aria-live="polite">
+        <h4>Fiche chantier <small id="avance">0 / 5</small></h4>
+        <div class="toit">
+          <svg viewBox="0 0 320 170" id="toitSvg">
+            <defs>
+              <pattern id="pCanal" width="16" height="10" patternUnits="userSpaceOnUse"><path d="M0 10Q8 0 16 10" fill="none" stroke="#f3a07a" stroke-width="3"/></pattern>
+              <pattern id="pMeca" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#c84a1d"/><path d="M0 9h14M7 0v9" stroke="#8f300f" stroke-width="1.4"/></pattern>
+              <pattern id="pPlate" width="10" height="8" patternUnits="userSpaceOnUse"><rect width="10" height="8" fill="#a8461f"/><path d="M0 7.5h10M5 0v4" stroke="#6f2a10" stroke-width="1"/></pattern>
+              <pattern id="pArd" width="12" height="9" patternUnits="userSpaceOnUse"><rect width="12" height="9" fill="#3c4b5e"/><path d="M0 8.5h12M6 0v4.5" stroke="#26313f" stroke-width="1"/></pattern>
+              <pattern id="pZinc" width="14" height="10" patternUnits="userSpaceOnUse"><rect width="14" height="10" fill="#9aa8b6"/><path d="M13 0v10" stroke="#e3e9ef" stroke-width="2"/></pattern>
+              <pattern id="pNsp" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#2a4a70"/><path d="M0 10L10 0" stroke="#4b6c92" stroke-width="1.5"/></pattern>
+            </defs>
+            <g id="etoiles" fill="#ffffff" opacity=".5"><circle cx="30" cy="20" r="1.2"/><circle cx="90" cy="34" r="1"/><circle cx="270" cy="22" r="1.3"/><circle cx="220" cy="44" r="1"/></g>
+            <g id="maison">
+              <rect x="82" y="92" width="156" height="66" fill="#e9edf2"/>
+              <rect x="110" y="112" width="26" height="22" fill="#8fa3ba"/><rect x="184" y="112" width="26" height="22" fill="#8fa3ba"/>
+              <rect x="148" y="122" width="24" height="36" fill="#5c708a"/>
+            </g>
+            <polygon id="pan" points="62,96 160,34 258,96" fill="url(#pNsp)" stroke="#000F22" stroke-width="3" stroke-linejoin="round" style="transition:fill .4s"/>
+            <rect id="chem" x="206" y="44" width="16" height="28" fill="#5c708a"/>
+            <rect id="velux" x="176" y="62" width="22" height="16" fill="#9fd3ff" stroke="#fff" stroke-width="2" opacity="0" style="transition:opacity .4s"/>
+            <path id="gout" d="M58 98h204v6H58z" fill="#E85114" opacity="0" style="transition:opacity .4s"/>
+            <g id="pluie" opacity="0" style="transition:opacity .4s"><path class="goutte" d="M140 70q3 6 0 9q-3-3 0-9z" fill="#7cc4ff"/><path class="goutte" style="animation-delay:.5s" d="M170 66q3 6 0 9q-3-3 0-9z" fill="#7cc4ff"/><path class="goutte" style="animation-delay:.9s" d="M120 80q3 6 0 9q-3-3 0-9z" fill="#7cc4ff"/></g>
+            <g id="clocher" opacity="0" style="transition:opacity .4s"><path d="M272 158V96l14-40 14 40v62z" fill="#3c4b5e"/><path d="M286 46v-12M281 40h10" stroke="#E85114" stroke-width="2.5"/></g>
+            <rect x="0" y="158" width="320" height="12" fill="#06182e"/>
+          </svg>
+        </div>
+        <dl id="dl">
+          <dt>Travaux</dt><dd class="vide" data-k="besoin">à choisir</dd>
+          <dt>Bâtiment</dt><dd class="vide" data-k="batiment">à choisir</dd>
+          <dt>Couverture</dt><dd class="vide" data-k="materiau">à choisir</dd>
+          <dt>Priorité</dt><dd class="vide" data-k="urgence">à choisir</dd>
+          <dt>Commune</dt><dd class="vide" data-k="ville">à préciser</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" style="color:var(--orange)">Nos réalisations</span>
+      <h2 style="margin-top:12px">Découvrez en photos <span>les réalisations</span> de nos couvreurs-zingueurs</h2>
+      <p>Églises, demeures, maisons de particuliers&nbsp;: un panel de nos chantiers, classé par type de travaux. Cliquez sur une photo pour l'agrandir.</p>
+    </div>
+    <div class="filtres" id="filtres">
+      <button class="on" data-f="tout">Tout</button>
+      <button data-f="patrimoine">Patrimoine</button>
+      <button data-f="tuiles">Couverture tuiles</button>
+      <button data-f="metal">Zinc &amp; cuivre</button>
+      <button data-f="charpente">Charpente &amp; isolation</button>
+    </div>
+    <div class="galerie" id="galerie">
+      <figure data-c="patrimoine metal"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/toiture_cuivre_Montbrison-5289d3a6-410597e1-958ad3b3-1920w.jpg" alt=""><figcaption>Toiture en cuivre<small>Montbrison</small></figcaption></figure>
+      <figure data-c="patrimoine tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Tuiles_canal_Pouilly_les_Feurs-df036eea-1920w.jpg" alt=""><figcaption>Tuiles canal<small>Pouilly-lès-Feurs</small></figcaption></figure>
+      <figure data-c="tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%2811%29-1920w.jpg" alt=""><figcaption>Réfection de couverture<small>Chantier de l'équipe</small></figcaption></figure>
+      <figure data-c="metal patrimoine"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/ECAILLES+EN+ZINC-1920w.jpg" alt=""><figcaption>Écailles en zinc<small>Façonnées à la main</small></figcaption></figure>
+      <figure data-c="patrimoine"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/couverture_ardoises_N_ronde-781be31d-1920w.jpg" alt=""><figcaption>Couverture en ardoises<small>Néronde</small></figcaption></figure>
+      <figure data-c="tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture_monts_du_lyonnais-79c9b9b0-1920w.jpg" alt=""><figcaption>Couverture et noue zinc<small>Monts du Lyonnais</small></figcaption></figure>
+      <figure data-c="patrimoine tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/R_paration_toiture_Nervieux-1920w.jpg" alt=""><figcaption>Réparation de toiture<small>Nervieux</small></figcaption></figure>
+      <figure data-c="charpente"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/charpente-tonnelle-1920w-50835cf3-1920w.webp" alt=""><figcaption>Charpente de tonnelle<small>Chantier de l'équipe</small></figcaption></figure>
+      <figure data-c="metal"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/zinguerie_Montrond_les_Bains-1920w.jpg" alt=""><figcaption>Zinguerie<small>Montrond-les-Bains</small></figcaption></figure>
+      <figure data-c="patrimoine"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/couverture-chateau-1920w-1920w.jpg" alt=""><figcaption>Couverture d'une demeure ancienne<small>Restauration</small></figcaption></figure>
+      <figure data-c="tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%2834%29-1920w.jpg" alt=""><figcaption>Rénovation de toiture<small>Chantier de l'équipe</small></figcaption></figure>
+      <figure data-c="metal patrimoine"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/r%C3%83-fection+de+toiture+en+%C3%83-cailles+de+zinc+fa%C3%83-onn%C3%83-es+%C3%83-+la+main-1920w.jpg" alt=""><figcaption>Réfection en écailles de zinc<small>Façonnées à la main</small></figcaption></figure>
+      <figure data-c="charpente"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/isolation-de-toiture-procede-sarking-320w-4f1c8ec2-1920w.webp" alt=""><figcaption>Isolation par sarking<small>Chantier de l'équipe</small></figcaption></figure>
+      <figure data-c="tuiles"><img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Couverture+toiture+%285%29-1920w.jpg" alt=""><figcaption>Couverture neuve<small>Chantier de l'équipe</small></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="x" id="lbX" aria-label="Fermer">✕</button>
+  <button class="g" id="lbG" aria-label="Précédente">‹</button>
+  <div><img id="lbImg" alt=""><p id="lbTx"></p></div>
+  <button class="d" id="lbD" aria-label="Suivante">›</button>
+</div>
+
+<section class="patri" id="patrimoine">
+  <div class="bg" id="patriBg"></div>
+  <div class="wrap">
+    <div class="rv">
+      <span class="kicker">Restauration de bâtiments classés</span>
+      <h2 style="font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem);margin:14px 0 18px">Rénover un bâtiment historique, c'est préserver une partie de l'histoire</h2>
+      <p>Nous travaillons depuis plusieurs années à la restauration des plus beaux bâtiments classés de la région&nbsp;: églises, châteaux, abbayes, pigeonniers, maisons bourgeoises.</p>
+      <p>Toutes nos équipes sont formées au montage d'échafaudages Layher (multidirectionnels, aluminium et acier galvanisé). Nous ne dépendons d'aucun prestataire extérieur pour leur mise en place, et pouvons intervenir dans les meilleurs délais sur les bâtiments les plus hauts.</p>
+      <div class="chiffre-reel">
+        <div><b data-compte="1500">0</b><span>m² d'échafaudage en propre</span></div>
+        <div><b>0</b><span>prestataire extérieur pour le montage</span></div>
+      </div>
+      <a class="btn btn-o" href="#chantier" data-besoin="patrimoine" style="margin-top:24px">Je restaure mon bâtiment</a>
+    </div>
+    <div class="duo rv d1">
+      <img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/couverture-chateau-1920w-1920w.jpg" alt="Restauration de la couverture d'une demeure ancienne">
+      <img loading="lazy" src="https://le-de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/opt/Tuiles_canal_Pouilly_les_Feurs-df036eea-1920w.jpg" alt="Tuiles canal sur une église à Pouilly-lès-Feurs">
+    </div>
+  </div>
+</section>
+
+<section id="zone">
+  <div class="wrap zone-grid">
+    <div class="carte-zone rv">
+      <svg viewBox="0 0 400 400" id="zoneSvg" aria-label="Communes d'intervention autour de Balbigny">
+        <path d="M120 20C200 10 270 30 300 80s30 110 20 170-20 120-70 140-160 0-190-50S50 210 60 150 60 30 120 20z" fill="#f2f5f8" stroke="#dfe5ec" stroke-width="2"/>
+        <path d="M200 30C210 120 180 200 190 260s40 100 30 130" fill="none" stroke="#bcd3ea" stroke-width="5" stroke-linecap="round"/>
+        <g id="zonePts"></g>
+      </svg>
+    </div>
+    <div class="rv d1">
+      <span class="kicker" style="color:var(--orange)">Notre zone d'intervention</span>
+      <h2 style="font-size:clamp(1.7rem,1.3rem + 1.6vw,2.5rem);margin:14px 0 14px">Implantés à Balbigny, au cœur de la Loire</h2>
+      <p>Nous répondons aux demandes des professionnels et des particuliers dans tout le département, de Roanne et Charlieu au nord jusqu'à Saint-Étienne et Firminy au sud. Survolez une commune pour la situer.</p>
+      <div class="chips" id="chips"></div>
+    </div>
+  </div>
+</section>
+
+<div class="marques">
+  <p>Matériaux et partenaires présentés sur notre site</p>
+  <div class="defile"><span>VMZINC</span><span>VELUX</span><span>ISOVER</span><span>EDILIANS</span><span>DÖRKEN</span><span>UNILIN INSULATION</span><span>POINT.P</span><span>VMZINC</span><span>VELUX</span><span>ISOVER</span><span>EDILIANS</span><span>DÖRKEN</span><span>UNILIN INSULATION</span><span>POINT.P</span></div>
+</div>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker" style="color:var(--orange)">Contact</span>
+      <h2 style="margin-top:12px">Une question&nbsp;? Une demande&nbsp;? <span>L'Atelier de Couverture</span> vous répond</h2>
+      <p>Avant de débuter le plus petit chantier, il faut connaître sa faisabilité. Nos couvreurs se rendent chez vous pour évaluer votre bien et vous informer sur les travaux à prévoir.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="bloc rv">
+        <h3>Nous joindre</h3>
+        <div class="ligne"><span class="i"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7zm0 4a3 3 0 100 6 3 3 0 000-6z"/></svg></span><div><a href="https://www.google.com/maps/search/?api=1&query=1+chemin+de+la+Pelle+42510+Balbigny" target="_blank" rel="noopener">1 chemin de la Pelle, 42510 Balbigny</a><small>Itinéraire dans Google Maps</small></div></div>
+        <div class="ligne"><span class="i"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><div><a href="tel:+33689520189">06 89 52 01 89</a><small>Portable</small></div></div>
+        <div class="ligne"><span class="i"><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 013 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg></span><div><a href="tel:+33477263238">04 77 26 32 38</a><small>Fixe</small></div></div>
+        <div class="ligne"><span class="i"><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.5l8 5 8-5V7l-8 5z"/></svg></span><div><a href="mailto:j.dumas@latelierdecouverture.fr">j.dumas@latelierdecouverture.fr</a><small>Réponse par e-mail</small></div></div>
+        <a class="btn btn-o" href="#chantier" style="margin-top:18px">Demander un devis personnalisé</a>
+      </div>
+      <div class="bloc rv d1">
+        <h3>Horaires</h3>
+        <div class="statut" id="statut"><i></i><span>…</span></div>
+        <table class="h" id="horaires">
+          <tr data-j="1"><td>Lundi</td><td>07:30 – 19:30</td></tr>
+          <tr data-j="2"><td>Mardi</td><td>07:30 – 19:30</td></tr>
+          <tr data-j="3"><td>Mercredi</td><td>07:30 – 19:30</td></tr>
+          <tr data-j="4"><td>Jeudi</td><td>07:30 – 19:30</td></tr>
+          <tr data-j="5"><td>Vendredi</td><td>07:30 – 19:30</td></tr>
+          <tr data-j="6"><td>Samedi</td><td>Fermé</td></tr>
+          <tr data-j="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <span class="logo-f"><img src="https://de.cdn-website.com/7ae7c46696324fb0a1b3f5ed4091eed3/dms3rep/multi/Logo-simple-266w.webp" alt="L'Atelier de Couverture"></span>
+      <p>Couverture, zinguerie, charpente et restauration de bâtiments classés dans la Loire.</p>
+    </div>
+    <div>
+      <h4>L'Atelier de Couverture</h4>
+      <p>1 chemin de la Pelle<br>42510 Balbigny<br><a href="tel:+33477263238">04 77 26 32 38</a> · <a href="tel:+33689520189">06 89 52 01 89</a><br><a href="mailto:j.dumas@latelierdecouverture.fr">j.dumas@latelierdecouverture.fr</a></p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <p><a href="#apropos">À propos</a><br><a href="#services">Couverture</a><br><a href="#patrimoine">Restauration de bâtiments classés</a><br><a href="#realisations">Nos réalisations</a><br><a href="#contact">Contact</a></p>
+    </div>
+    <p class="mention">Maquette de démonstration, non contractuelle. Textes, logo, coordonnées, horaires et photos repris du site actuel latelierdecouverture-loire.fr : toutes les photos de chantier sont celles déjà publiées par l'entreprise (légendes tirées des noms de fichiers, à confirmer). Couleurs et polices relevées sur le site actuel, ajustables. Aucun avis client ni note n'est reproduit ici. SASU L'Atelier de Couverture — RCS Saint-Étienne 795 253 780.</p>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-n" href="tel:+33689520189">Appeler</a><a class="btn btn-o" href="#chantier">Mon chantier</a></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* nav */
+  const nav=$('#nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+  $('#burger').onclick=()=>{const o=$('#menu').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)};
+  $$('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+
+  /* titre mot à mot */
+  const h=$('#titre'); if(!reduit){let i=0;h.innerHTML=h.innerHTML.split(/(<em>.*?<\/em>|\s+)/).filter(Boolean).map(w=>/^\s+$/.test(w)?w:`<span class="reveal-word" style="animation-delay:${(i++)*0.08}s">${w}</span>`).join('');}
+
+  /* diaporama */
+  const sl=$$('#slides img'), dots=$('#dots'); let cur=0,t;
+  sl.forEach((_,k)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(k+1));b.onclick=()=>{go(k);clearInterval(t);t=setInterval(nx,6000)};dots.appendChild(b)});
+  function go(k){sl[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=k;sl[cur].classList.add('on');dots.children[cur].classList.add('on')}
+  function nx(){go((cur+1)%sl.length)}
+  dots.children[0].classList.add('on'); if(!reduit) t=setInterval(nx,6000);
+
+  /* apparitions */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+  $$('.rv').forEach(el=>io.observe(el));
+
+  /* compteur réel (1 500 m², donnée du site) */
+  const cpt=$('[data-compte]');
+  new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){o.disconnect();const fin=+cpt.dataset.compte,d=1400,t0=performance.now();(function f(n){const p=Math.min((n-t0)/d,1);cpt.textContent=Math.round(fin*(1-Math.pow(1-p,3))).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(f)})(t0)}}).observe(cpt);
+
+  /* parallaxe patrimoine */
+  const pb=$('#patriBg');
+  if(!reduit) addEventListener('scroll',()=>{const r=pb.parentElement.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)pb.style.transform=`scale(1.15) translateY(${(r.top)*-.08}px)`},{passive:true});
+
+  /* ---------- OUTIL : fiche chantier ---------- */
+  const etat={}, champs=['besoin','batiment','materiau','urgence'];
+  let et=0; const N=5;
+  const steps=$$('#steps i'), etapes=$$('.etape'), suiv=$('#suivant'), ret=$('#retour');
+  const motifs={canal:'url(#pCanal)',meca:'url(#pMeca)',plate:'url(#pPlate)',ardoise:'url(#pArd)',zinc:'url(#pZinc)',nsp:'url(#pNsp)'};
+  const prioCoul={1:['#ffe1d6','#b0360a','Urgent'],2:['#fff1d6','#8a5a00','Rapide'],3:['#e3eef9','#1d4f87','Planifié'],4:['#eef1f4','#44546a','Conseil']};
+
+  function maj(){
+    champs.forEach(c=>{const dd=$(`#dl dd[data-k="${c}"]`);if(etat[c]){dd.classList.remove('vide');
+      if(c==='urgence'){const p=prioCoul[etat[c].v];dd.innerHTML=`<span class="prio" style="background:${p[0]};color:${p[1]}">${p[2]}</span> ${etat[c].l}`}else dd.textContent=etat[c].l}});
+    const v=$('#ville').value.trim(), dv=$('#dl dd[data-k="ville"]'); if(v){dv.classList.remove('vide');dv.textContent=v}else{dv.classList.add('vide');dv.textContent='à préciser'}
+    const n=champs.filter(c=>etat[c]).length+(v&&$('#nom').value.trim()&&$('#tel').value.trim()?1:0);
+    $('#avance').textContent=n+' / 5';
+    /* illustration */
+    const b=etat.besoin&&etat.besoin.v, m=etat.materiau&&etat.materiau.v;
+    $('#pan').setAttribute('fill',motifs[m]||motifs.nsp);
+    $('#pluie').style.opacity=(b==='fuite'||(etat.urgence&&etat.urgence.v==1))?1:0;
+    $('#velux').style.opacity=b==='fenetre'?1:0;
+    $('#gout').style.opacity=b==='zinguerie'?1:0;
+    $('#clocher').style.opacity=(b==='patrimoine'||(etat.batiment&&etat.batiment.v==='collectivite'))?1:0;
+  }
+  function valide(){
+    if(et<4) return !!etat[champs[et]];
+    return $('#nom').value.trim()&&$('#tel').value.trim()&&$('#ville').value.trim();
+  }
+  function rafraichir(){
+    etapes.forEach((e,k)=>e.classList.toggle('on',k===et));
+    steps.forEach((s,k)=>s.classList.toggle('on',k<=et));
+    ret.style.visibility=et>0?'visible':'hidden';
+    suiv.textContent=et===4?'Préparer ma demande ✓':'Continuer →';
+    const ok=valide(); suiv.disabled=!ok; suiv.style.opacity=ok?1:.5;
+  }
+  $$('.choix').forEach(g=>g.addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    g.querySelectorAll('button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel');
+    etat[g.dataset.champ]={v:b.dataset.v,l:b.dataset.l}; maj(); rafraichir();
+    setTimeout(()=>{if(et<4){et++;rafraichir()}},380);
+  }));
+  ['nom','tel','ville','mail','msg'].forEach(id=>$('#'+id).addEventListener('input',()=>{maj();rafraichir()}));
+  ret.onclick=()=>{if(et>0){et--;rafraichir()}};
+  suiv.onclick=()=>{
+    if(!valide()) return;
+    if(et<4){et++;rafraichir();return}
+    etapes.forEach(e=>e.classList.remove('on')); $('#navEt').style.display='none'; $('#ok').classList.add('on');
+    const corps=`Bonjour,\n\nVoici ma demande pour un chantier de toiture :\n\n- Travaux : ${etat.besoin.l}\n- Bâtiment : ${etat.batiment.l}\n- Couverture actuelle : ${etat.materiau.l}\n- Priorité : ${etat.urgence.l}\n- Commune : ${$('#ville').value}\n\n${$('#msg').value}\n\n${$('#nom').value}\n${$('#tel').value}\n${$('#mail').value}`;
+    $('#envoyer').href='mailto:j.dumas@latelierdecouverture.fr?subject='+encodeURIComponent('Demande de devis toiture – '+$('#ville').value)+'&body='+encodeURIComponent(corps);
+  };
+  $$('[data-besoin]').forEach(a=>a.addEventListener('click',()=>{
+    const b=document.querySelector(`.choix[data-champ="besoin"] button[data-v="${a.dataset.besoin}"]`);
+    if(b){setTimeout(()=>b.click(),500)}
+  }));
+  maj(); rafraichir();
+
+  /* ---------- galerie ---------- */
+  const figs=$$('#galerie figure');
+  $$('#filtres button').forEach(b=>b.onclick=()=>{
+    $$('#filtres button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    figs.forEach(f=>f.classList.toggle('cache',b.dataset.f!=='tout'&&!f.dataset.c.split(' ').includes(b.dataset.f)));
+  });
+  let li=0; const lb=$('#lb');
+  function vis(){return figs.filter(f=>!f.classList.contains('cache'))}
+  function ouvre(f){const v=vis();li=v.indexOf(f);montre()}
+  function montre(){const f=vis()[li];$('#lbImg').src=f.querySelector('img').src;$('#lbTx').textContent=f.querySelector('figcaption').innerText.replace('\n',' — ');lb.classList.add('on')}
+  figs.forEach(f=>f.onclick=()=>ouvre(f));
+  $('#lbX').onclick=()=>lb.classList.remove('on');
+  $('#lbG').onclick=()=>{const v=vis();li=(li-1+v.length)%v.length;montre()};
+  $('#lbD').onclick=()=>{const v=vis();li=(li+1)%v.length;montre()};
+  lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+  addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')$('#lbG').click();if(e.key==='ArrowRight')$('#lbD').click()});
+
+  /* ---------- zone (positions schématiques) ---------- */
+  const villes=[['Balbigny',195,160,1,'r'],['Roanne',170,52,0,'r'],['Charlieu',225,24,0,'r'],['Tarare',305,112,0,'l'],['Panissières',262,190,0,'r'],['Boën-sur-Lignon',110,182,0,'l'],['Feurs',200,208,0,'r'],['Montrond-les-Bains',205,246,0,'r'],['Montbrison',130,256,0,'l'],['Saint-Galmier',240,268,0,'r'],['Veauche',222,290,0,'r'],['Andrézieux-Bouthéon',205,314,0,'r'],['Saint-Just-Saint-Rambert',165,334,0,'l'],['Saint-Étienne',220,354,0,'r'],['Saint-Chamond',288,330,0,'r'],['Firminy',170,374,0,'l']];
+  const g=$('#zonePts'), ch=$('#chips'), dl=$('#communes'); const NS='http://www.w3.org/2000/svg';
+  villes.forEach(([n,x,y,s,cote])=>{
+    const gg=document.createElementNS(NS,'g'); gg.setAttribute('class','pt'+(s?' siege':'')); gg.dataset.v=n;
+    if(s){const p=document.createElementNS(NS,'circle');p.setAttribute('cx',x);p.setAttribute('cy',y);p.setAttribute('r',8);p.setAttribute('class','pulse');gg.appendChild(p)}
+    const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',s?7:5);gg.appendChild(c);
+    const t=document.createElementNS(NS,'text');t.setAttribute('x',x+(cote==='l'?-10:10));t.setAttribute('y',y+4);if(cote==='l')t.setAttribute('text-anchor','end');t.textContent=n;if(s)t.style.fontWeight='800';gg.appendChild(t);
+    g.appendChild(gg);
+    const a=document.createElement('a');a.href='#chantier';a.textContent=s?n+' (siège)':n;a.dataset.v=n;ch.appendChild(a);
+    const o=document.createElement('option');o.value=n;dl.appendChild(o);
+    const on=v=>{gg.classList.toggle('on',v);a.classList.toggle('on',v)};
+    [gg,a].forEach(el=>{el.addEventListener('mouseenter',()=>on(true));el.addEventListener('mouseleave',()=>on(false))});
+    a.addEventListener('click',()=>{$('#ville').value=n;maj();rafraichir()});
+  });
+
+  /* ---------- horaires ---------- */
+  const d=new Date(), j=d.getDay(), mn=d.getHours()*60+d.getMinutes();
+  const tr=document.querySelector(`#horaires tr[data-j="${j}"]`); if(tr) tr.classList.add('auj');
+  const ouvert=j>=1&&j<=5&&mn>=450&&mn<1170, st=$('#statut');
+  st.classList.add(ouvert?'ouvert':'ferme'); st.querySelector('span').textContent=ouvert?'Ouvert en ce moment':'Fermé — rappel dès la réouverture';
+})();
+</script>
+</body>
+</html>
