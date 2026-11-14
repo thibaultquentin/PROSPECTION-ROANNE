@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Contoir — Librairie BD, comics et mangas à Roanne | Rue de Cadore</title>
+<meta name="description" content="Le Contoir, librairie spécialisée en bande dessinée, comics, mangas et jeunesse au centre-ville de Roanne, 7 rue de Cadore. Réservez vos albums en Clic & Collect.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE LE CONTOIR — relevée sur le logo (Instagram / Linktree)
+   Bleu nuit texturé, jaune moutarde, rouge souligné, lettrage arrondi.
+   Codes approchés à partir du logo : à ajuster avec les codes exacts.
+   ========================================================= */
+:root{
+  --nuit:#0f1c2e;        /* fond du logo */
+  --nuit-2:#16273d;
+  --nuit-3:#1f3450;
+  --moutarde:#f1c33f;    /* le grand C + "CONTOIR" */
+  --moutarde-2:#e4b02a;
+  --rouge:#e1473d;       /* "Le" + soulignement */
+  --papier:#f6efe0;      /* papier des pages */
+  --encre:#0f1c2e;
+  --blanc:#ffffff;
+  --f-titre:"Fredoka", "Nunito", system-ui, sans-serif;
+  --f-texte:"Nunito", system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--f-texte);background:var(--nuit);color:var(--papier);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--moutarde);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* grain papier, comme le fond du logo */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+main,header,footer,.demo{position:relative;z-index:1}
+
+/* bandeau démo */
+.demo{background:var(--moutarde);color:var(--encre);font-size:.82rem;font-weight:700;text-align:center;padding:7px 16px}
+
+/* ---------- navigation ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(15,28,46,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(241,195,63,.15);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:48px;height:48px;border-radius:12px}
+.brand b{font-family:var(--f-titre);font-size:1.35rem;letter-spacing:.02em;color:var(--moutarde)}
+.brand b span{color:var(--rouge);font-size:.9em;margin-right:2px}
+.nav ul{display:flex;gap:4px;list-style:none}
+.nav ul a{display:block;padding:9px 14px;border-radius:999px;text-decoration:none;font-weight:700;font-size:.95rem;transition:background .2s,color .2s}
+.nav ul a:hover{background:rgba(241,195,63,.14);color:var(--moutarde)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-titre);font-weight:600;font-size:1rem;padding:12px 22px;border-radius:999px;border:2px solid var(--moutarde);text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),background .2s,color .2s;min-height:44px}
+.btn:hover{transform:translateY(-3px) rotate(-1deg)}
+.btn:active{transform:scale(.96)}
+.btn-y{background:var(--moutarde);color:var(--encre)}
+.btn-o{background:transparent;color:var(--moutarde)}
+.btn-r{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.burger{display:none;background:none;border:2px solid var(--moutarde);color:var(--moutarde);border-radius:12px;width:46px;height:46px;font-size:1.3rem;cursor:pointer}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:64px 16px auto;flex-direction:column;background:var(--nuit-2);border:2px solid var(--moutarde);border-radius:var(--r);padding:12px;transform:translateY(-20px);opacity:0;pointer-events:none;transition:.3s}
+  .nav ul.open{transform:none;opacity:1;pointer-events:auto}
+  .burger{display:block}
+  .nav .btn-y{display:none}
+}
+
+/* ---------- héros en planche de BD ---------- */
+.hero{padding:clamp(28px,5vw,64px) 0 40px;overflow-x:clip}
+.planche{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:14px}
+.case{background:var(--nuit-2);border:3px solid var(--papier);border-radius:8px;position:relative;overflow:hidden;box-shadow:6px 6px 0 rgba(0,0,0,.45)}
+.case-main{grid-row:span 2;padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:center;
+  background:radial-gradient(circle at 85% 15%,rgba(241,195,63,.14),transparent 45%),var(--nuit-2)}
+.case-main h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(2.1rem,1.3rem + 3vw,3.9rem);line-height:1.02;color:var(--papier)}
+.case-main h1 .y{color:var(--moutarde)}
+.case-main h1 .souligne{position:relative;white-space:nowrap}
+.case-main h1 .souligne::after{content:"";position:absolute;left:-4px;right:-4px;bottom:.06em;height:.28em;background:var(--rouge);border-radius:999px;z-index:-1;transform:scaleX(0);transform-origin:left;animation:trait 1s .6s var(--ease) forwards}
+@keyframes trait{to{transform:scaleX(1)}}
+.case-main p.lead{margin:18px 0 26px;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:34ch;color:#e8e1d2}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.bulle{position:relative;align-self:flex-start;margin-bottom:20px;background:var(--papier);color:var(--encre);font-family:var(--f-titre);font-weight:600;padding:10px 18px;border-radius:24px;font-size:1rem;box-shadow:3px 3px 0 var(--rouge);animation:flotte 4s ease-in-out infinite}
+.bulle::after{content:"";position:absolute;left:24px;bottom:-12px;border:8px solid transparent;border-top:12px solid var(--papier);border-left:4px solid var(--papier)}
+.bulle .mot{color:var(--rouge);display:inline-block;min-width:5.2ch}
+@keyframes flotte{50%{transform:translateY(-6px) rotate(-2deg)}}
+.case-logo{display:grid;place-items:center;background:var(--nuit);min-height:250px}
+.case-logo img{width:min(78%,300px);transition:transform .6s var(--ease)}
+.case-logo:hover img{transform:rotate(-4deg) scale(1.05)}
+.case-onoma{background:var(--moutarde);color:var(--encre);display:grid;place-items:center;min-height:150px;
+  background-image:radial-gradient(rgba(15,28,46,.22) 1.4px,transparent 1.6px);background-size:12px 12px}
+.case-onoma span{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.6rem,1rem + 2.4vw,2.6rem);transform:rotate(-6deg);text-align:center;line-height:1.05}
+.case-onoma small{display:block;font-size:.45em;font-weight:600;letter-spacing:.02em;margin-top:6px}
+.statut{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:700;font-size:.95rem}
+.statut i{width:11px;height:11px;border-radius:50%;background:#7a8696;box-shadow:0 0 0 0 rgba(120,220,140,.6)}
+.statut.ouvert i{background:#5fd07a;animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(95,208,122,0)}100%{box-shadow:0 0 0 0 rgba(95,208,122,0)}}
+@media (max-width:820px){.planche{grid-template-columns:1fr}.case-main{grid-row:auto}.bulle{position:static;align-self:flex-start;margin-bottom:18px}}
+
+/* bandeau défilant */
+.defile{background:var(--rouge);color:#fff;border-block:3px solid var(--papier);overflow:hidden;transform:rotate(-1.2deg);margin:26px -10px 0}
+.defile div{display:flex;gap:42px;padding:12px 0;width:max-content;animation:defile 26s linear infinite;font-family:var(--f-titre);font-weight:600;font-size:1.25rem;white-space:nowrap}
+.defile span::after{content:"✦";margin-left:42px;color:var(--moutarde)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:clamp(56px,8vw,100px) 0}
+.kicker{display:inline-block;font-family:var(--f-titre);font-weight:600;color:var(--encre);background:var(--moutarde);padding:4px 14px;border-radius:999px;font-size:.9rem;transform:rotate(-2deg)}
+h2{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.9rem,1.3rem + 2.4vw,3.1rem);line-height:1.1;margin:14px 0 14px;color:var(--papier)}
+h2 em{font-style:normal;color:var(--moutarde)}
+.intro{max-width:60ch;color:#d9d2c3;font-size:1.08rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* rayons */
+.rayons{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:38px}
+.rayon{--c:var(--moutarde);background:var(--papier);color:var(--encre);border-radius:var(--r);padding:26px 22px 24px;position:relative;overflow:hidden;border:3px solid var(--encre);box-shadow:6px 6px 0 var(--c);transition:transform .35s var(--ease),box-shadow .35s}
+.rayon:hover{transform:translate(-4px,-6px) rotate(-1deg);box-shadow:10px 12px 0 var(--c)}
+.rayon:nth-child(2){--c:var(--rouge)}
+.rayon:nth-child(4){--c:#7fb4e6}
+.rayon .ico{width:64px;height:64px;margin-bottom:16px}
+.rayon h3{font-family:var(--f-titre);font-weight:700;font-size:1.5rem;line-height:1.1}
+.rayon p{margin-top:8px;font-size:.98rem;color:#3a4352}
+.rayon::after{content:"";position:absolute;right:-30px;bottom:-30px;width:110px;height:110px;border-radius:50%;
+  background-image:radial-gradient(var(--c) 2px,transparent 2.4px);background-size:10px 10px;opacity:.5}
+@media (max-width:980px){.rayons{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.rayons{grid-template-columns:1fr}}
+
+/* ---------- outil : réservation ---------- */
+.outil{background:var(--papier);color:var(--encre);position:relative}
+.outil h2{color:var(--encre)}
+.outil h2 em{color:var(--rouge)}
+.outil .intro{color:#3a4352}
+.outil::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(15,28,46,.07) 1.5px,transparent 1.8px);background-size:14px 14px}
+.resa{display:grid;grid-template-columns:1.15fr .85fr;gap:26px;margin-top:36px;position:relative}
+@media (max-width:900px){.resa{grid-template-columns:1fr}}
+.carte{background:#fff;border:3px solid var(--encre);border-radius:var(--r);padding:clamp(20px,3vw,32px);box-shadow:8px 8px 0 var(--encre)}
+.onglets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.onglet{font-family:var(--f-titre);font-weight:600;border:2px solid var(--encre);background:#fff;color:var(--encre);padding:9px 16px;border-radius:999px;cursor:pointer;transition:.2s;min-height:44px}
+.onglet[aria-pressed="true"]{background:var(--encre);color:var(--moutarde);transform:rotate(-2deg)}
+.champ{margin-bottom:16px}
+.champ label{display:block;font-weight:800;font-size:.92rem;margin-bottom:6px}
+.champ input,.champ select,.champ textarea{width:100%;font:inherit;padding:12px 14px;border:2px solid #c9c1b0;border-radius:12px;background:#fffdf8;color:var(--encre);transition:border-color .2s,box-shadow .2s}
+.champ input:focus,.champ select:focus,.champ textarea:focus{outline:none;border-color:var(--encre);box-shadow:4px 4px 0 var(--moutarde)}
+.ligne{display:grid;grid-template-columns:1fr 120px;gap:12px}
+@media (max-width:480px){.ligne{grid-template-columns:1fr}}
+.types{display:flex;flex-wrap:wrap;gap:8px}
+.types label{cursor:pointer}
+.types input{position:absolute;opacity:0}
+.types span{display:inline-block;padding:8px 14px;border-radius:10px;border:2px solid var(--encre);font-weight:700;font-size:.92rem;transition:.2s}
+.types input:checked+span{background:var(--moutarde);box-shadow:3px 3px 0 var(--encre);transform:translateY(-2px)}
+.types input:focus-visible+span{outline:3px solid var(--rouge);outline-offset:2px}
+.opts{display:grid;gap:10px;margin:6px 0 18px}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px;border:2px dashed #c9c1b0;border-radius:12px;cursor:pointer;transition:.2s}
+.opt:hover{border-color:var(--encre)}
+.opt input{width:20px;height:20px;accent-color:var(--rouge);margin-top:3px;flex:none}
+.opt b{display:block}
+.opt small{color:#5b6475}
+.err{color:var(--rouge);font-weight:700;font-size:.9rem;min-height:1.3em;margin-bottom:8px}
+
+.pile{position:sticky;top:90px;align-self:start}
+.pile h3{font-family:var(--f-titre);font-size:1.5rem;display:flex;align-items:center;gap:10px}
+.compteur{display:inline-grid;place-items:center;min-width:34px;height:34px;padding:0 8px;border-radius:999px;background:var(--rouge);color:#fff;font-size:1rem;transition:transform .3s var(--ease)}
+.compteur.pop{transform:scale(1.35) rotate(-8deg)}
+.tomes{list-style:none;margin:16px 0;display:grid;gap:10px;max-height:340px;overflow:auto;padding-right:4px}
+.tome{display:flex;gap:12px;align-items:center;background:var(--papier);border:2px solid var(--encre);border-left:12px solid var(--c,var(--moutarde));border-radius:8px;padding:10px 12px;animation:tombe .5s var(--ease)}
+@keyframes tombe{from{opacity:0;transform:translateY(-24px) rotate(-4deg)}}
+.tome div{flex:1;min-width:0}
+.tome b{display:block;line-height:1.2;overflow-wrap:anywhere}
+.tome small{color:#5b6475}
+.tome button{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--encre);width:40px;height:40px;border-radius:50%}
+.tome button:hover{background:#eadfc9}
+.vide{border:2px dashed #c9c1b0;border-radius:12px;padding:22px;text-align:center;color:#5b6475}
+.recap{font-size:.92rem;color:#3a4352;margin-bottom:14px}
+.envoi{width:100%;justify-content:center}
+.envoi[disabled]{opacity:.45;pointer-events:none}
+.note{font-size:.82rem;color:#5b6475;margin-top:12px}
+
+/* ---------- services ---------- */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+.service{border:2px solid rgba(241,195,63,.35);border-radius:var(--r);padding:22px;background:var(--nuit-2);transition:border-color .3s,transform .3s var(--ease)}
+.service:hover{border-color:var(--moutarde);transform:translateY(-4px)}
+.service .pic{font-size:1.7rem;width:52px;height:52px;display:grid;place-items:center;border-radius:14px;background:var(--moutarde);color:var(--encre);margin-bottom:12px;transform:rotate(-4deg)}
+.service h3{font-family:var(--f-titre);font-size:1.25rem;color:var(--papier)}
+.service p{color:#cfc8b8;font-size:.97rem;margin-top:4px}
+@media (max-width:900px){.services{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.services{grid-template-columns:1fr}}
+
+/* ---------- la librairie ---------- */
+.histoire{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,60px);align-items:center}
+@media (max-width:860px){.histoire{grid-template-columns:1fr}}
+.photo-a-fournir{aspect-ratio:4/3;border:3px dashed rgba(241,195,63,.6);border-radius:var(--r);display:grid;place-items:center;text-align:center;padding:24px;color:#cfc8b8;background:repeating-linear-gradient(45deg,rgba(241,195,63,.05) 0 14px,transparent 14px 28px)}
+.photo-a-fournir b{display:block;font-family:var(--f-titre);font-size:1.3rem;color:var(--moutarde)}
+.faits{display:grid;gap:14px;margin-top:22px}
+.fait{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-left:4px solid var(--rouge);background:rgba(255,255,255,.03);border-radius:0 12px 12px 0}
+.fait strong{font-family:var(--f-titre);color:var(--moutarde);font-size:1.15rem;min-width:62px}
+
+/* brèves */
+.breves{background:var(--moutarde);color:var(--encre);border-radius:28px;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:center;border:3px solid var(--encre);box-shadow:10px 10px 0 var(--rouge);position:relative;overflow:hidden}
+.breves h2{color:var(--encre);margin-top:0}
+.breves p{font-weight:600}
+.breves::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background-image:radial-gradient(rgba(15,28,46,.25) 2px,transparent 2.4px);background-size:12px 12px}
+.breves .btn{position:relative;z-index:1;justify-self:start;background:var(--encre);color:var(--moutarde);border-color:var(--encre)}
+@media (max-width:760px){.breves{grid-template-columns:1fr}}
+
+/* infos */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+@media (max-width:860px){.infos{grid-template-columns:1fr}}
+.horaires{background:var(--nuit-2);border-radius:var(--r);padding:26px;border:2px solid rgba(241,195,63,.3)}
+.horaires table{width:100%;border-collapse:collapse}
+.horaires td{padding:10px 4px;border-bottom:1px dashed rgba(246,239,224,.18)}
+.horaires td:last-child{text-align:right;font-weight:700}
+.horaires tr.auj td{color:var(--moutarde)}
+.horaires tr.auj td:first-child::before{content:"▶ ";color:var(--rouge)}
+.contact{display:grid;gap:14px}
+.ctc{display:flex;gap:14px;align-items:center;padding:18px;border-radius:var(--r);background:var(--papier);color:var(--encre);text-decoration:none;border:3px solid var(--encre);transition:transform .3s var(--ease),box-shadow .3s}
+a.ctc:hover{transform:translateY(-3px);box-shadow:6px 6px 0 var(--moutarde)}
+.ctc .pic{font-size:1.4rem;width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--encre);color:var(--moutarde);flex:none}
+.ctc b{display:block;font-family:var(--f-titre);font-size:1.1rem}
+.ctc small{color:#4b5465}
+.carte-map{border-radius:var(--r);overflow:hidden;border:3px solid var(--papier);margin-top:22px;height:300px;background:var(--nuit-2)}
+.carte-map iframe{width:100%;height:100%;border:0;filter:grayscale(.3) contrast(1.05)}
+
+footer{border-top:1px solid rgba(241,195,63,.2);padding:36px 0 46px;font-size:.88rem;color:#b8b1a2}
+footer .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:flex-start}
+footer .reseaux{display:flex;gap:10px}
+footer .reseaux a{padding:8px 14px;border:2px solid var(--moutarde);border-radius:999px;text-decoration:none;color:var(--moutarde);font-weight:700}
+.mention{margin-top:22px;padding:14px 16px;border:1px dashed rgba(246,239,224,.25);border-radius:12px;font-size:.82rem}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--encre);color:var(--moutarde);border:2px solid var(--moutarde);padding:12px 20px;border-radius:999px;font-weight:800;z-index:100;transition:transform .4s var(--ease);max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BookStore",
+  "name":"Le Contoir",
+  "description":"Librairie spécialisée en bande dessinée, comics, mangas et jeunesse, dans le centre-ville de Roanne.",
+  "image":"https://ugc.production.linktr.ee/PhPDJuTxQqNzScxkddxQ_wgIiePfWNjYfX164",
+  "telephone":"+33 4 77 69 71 24",
+  "email":"librairie.lecontoir@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"7 rue de Cadore","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"10:00","closes":"19:00"}],
+  "sameAs":["https://www.instagram.com/librairie.lecontoir/","https://facebook.com/librairie.lecontoir"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour Le Contoir, non officielle</div>
+
+<header id="haut">
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a class="brand" href="#accueil" aria-label="Le Contoir, accueil">
+      <img src="https://ugc.production.linktr.ee/PhPDJuTxQqNzScxkddxQ_wgIiePfWNjYfX164" alt="Logo Le Contoir">
+      <b><span>Le</span>Contoir</b>
+    </a>
+    <ul id="menu">
+      <li><a href="#rayons">Les rayons</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#librairie">La librairie</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-y" href="#reserver">Réserver un album</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </nav>
+</header>
+
+<main id="accueil">
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap planche">
+      <div class="case case-main">
+        <div class="bulle" aria-hidden="true">Ici, on parle <span class="mot" id="mot">BD</span> !</div>
+        <h1>Votre librairie <span class="y">BD</span>,<br>en plein <span class="souligne">centre de Roanne</span>.</h1>
+        <p class="lead">Librairie spécialisée en bande dessinée, comics, mangas et jeunesse, au 7 rue de Cadore.</p>
+        <div class="cta">
+          <a class="btn btn-y" href="#reserver">Réserver en Clic &amp; Collect</a>
+          <a class="btn btn-o" href="#infos">Horaires &amp; accès</a>
+        </div>
+        <div class="statut" id="statut"><i></i><span>Horaires du mardi au samedi, 10h – 19h</span></div>
+      </div>
+      <div class="case case-logo">
+        <img src="https://ugc.production.linktr.ee/PhPDJuTxQqNzScxkddxQ_wgIiePfWNjYfX164" alt="Le Contoir, librairie BD à Roanne">
+      </div>
+      <div class="case case-onoma"><span>Clic &amp; Collect<small>Réservez, passez récupérer en boutique</small></span></div>
+    </div>
+    <div class="defile" aria-hidden="true"><div>
+      <span>Bande dessinée</span><span>Comics</span><span>Mangas</span><span>Jeunesse</span><span>Conseils personnalisés</span><span>Emballage cadeau</span><span>7 rue de Cadore</span>
+      <span>Bande dessinée</span><span>Comics</span><span>Mangas</span><span>Jeunesse</span><span>Conseils personnalisés</span><span>Emballage cadeau</span><span>7 rue de Cadore</span>
+    </div></div>
+  </section>
+
+  <!-- RAYONS -->
+  <section id="rayons">
+    <div class="wrap">
+      <span class="kicker reveal">Les rayons</span>
+      <h2 class="reveal">Quatre univers, <em>une seule adresse</em>.</h2>
+      <p class="intro reveal">De l'album franco-belge au shōnen, des super-héros aux premières lectures : tout le neuvième art, avec des conseils en boutique.</p>
+      <div class="rayons">
+        <article class="rayon reveal">
+          <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="10" width="52" height="44" rx="4" fill="#fff" stroke="#0f1c2e" stroke-width="3"/><path d="M6 30h52M30 10v44" stroke="#0f1c2e" stroke-width="3"/><path d="M38 16h14a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-8l-5 4v-4h-1a3 3 0 0 1-3-3v-4a3 3 0 0 1 3-3z" fill="#f1c33f" stroke="#0f1c2e" stroke-width="2"/></svg>
+          <h3>Bande dessinée</h3>
+          <p>Albums, séries au long cours, romans graphiques : les classiques et les nouveautés.</p>
+        </article>
+        <article class="rayon reveal">
+          <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4l7 17 18 1-14 11 5 18-16-10-16 10 5-18L7 22l18-1z" fill="#e1473d" stroke="#0f1c2e" stroke-width="3" stroke-linejoin="round"/><text x="32" y="40" text-anchor="middle" font-family="Fredoka,sans-serif" font-weight="700" font-size="13" fill="#fff">POW</text></svg>
+          <h3>Comics</h3>
+          <p>Super-héros, indés et intégrales : l'univers américain en VF.</p>
+        </article>
+        <article class="rayon reveal">
+          <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="6" width="36" height="52" rx="3" fill="#fff" stroke="#0f1c2e" stroke-width="3"/><path d="M20 14h24M20 22h24" stroke="#0f1c2e" stroke-width="3"/><path d="M22 34l10 14 10-14" fill="none" stroke="#f1c33f" stroke-width="5" stroke-linecap="round"/></svg>
+          <h3>Mangas</h3>
+          <p>Shōnen, shōjo, seinen : suivez vos séries tome après tome.</p>
+        </article>
+        <article class="rayon reveal">
+          <svg class="ico" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="30" r="20" fill="#7fb4e6" stroke="#0f1c2e" stroke-width="3"/><circle cx="25" cy="27" r="3" fill="#0f1c2e"/><circle cx="39" cy="27" r="3" fill="#0f1c2e"/><path d="M24 36q8 7 16 0" fill="none" stroke="#0f1c2e" stroke-width="3" stroke-linecap="round"/><path d="M14 56h36" stroke="#0f1c2e" stroke-width="3"/></svg>
+          <h3>Jeunesse</h3>
+          <p>Premières BD, albums illustrés et lectures pour les plus jeunes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTIL : RÉSERVATION -->
+  <section class="outil" id="reserver">
+    <div class="wrap">
+      <span class="kicker reveal">Clic &amp; Collect</span>
+      <h2 class="reveal">Faites votre <em>pile à réserver</em>.</h2>
+      <p class="intro reveal">Un album précis, la suite d'une série, une idée cadeau ? Ajoutez-les à votre pile, envoyez la demande à la librairie, et passez les récupérer rue de Cadore.</p>
+
+      <div class="resa">
+        <form class="carte reveal" id="form" novalidate>
+          <div class="onglets" role="group" aria-label="Type de demande">
+            <button type="button" class="onglet" data-mode="album" aria-pressed="true">Un album précis</button>
+            <button type="button" class="onglet" data-mode="serie" aria-pressed="false">La suite d'une série</button>
+            <button type="button" class="onglet" data-mode="cadeau" aria-pressed="false">Une idée cadeau</button>
+          </div>
+
+          <div class="champ">
+            <span style="display:block;font-weight:800;font-size:.92rem;margin-bottom:6px">Rayon</span>
+            <div class="types">
+              <label><input type="radio" name="rayon" value="BD" checked><span>BD</span></label>
+              <label><input type="radio" name="rayon" value="Comics"><span>Comics</span></label>
+              <label><input type="radio" name="rayon" value="Manga"><span>Manga</span></label>
+              <label><input type="radio" name="rayon" value="Jeunesse"><span>Jeunesse</span></label>
+            </div>
+          </div>
+
+          <div id="bloc-titre">
+            <div class="ligne">
+              <div class="champ"><label for="titre" id="lbl-titre">Titre ou série</label><input id="titre" autocomplete="off" placeholder="Ex. le titre de l'album"></div>
+              <div class="champ" id="bloc-tome"><label for="tome">Tome n°</label><input id="tome" inputmode="numeric" placeholder="—"></div>
+            </div>
+            <div class="champ"><label for="auteur">Auteur·rice ou éditeur (si connu)</label><input id="auteur" autocomplete="off"></div>
+          </div>
+
+          <div id="bloc-cadeau" hidden>
+            <div class="ligne">
+              <div class="champ"><label for="pour">Pour qui ?</label><input id="pour" placeholder="Ex. ma nièce, un collègue…"></div>
+              <div class="champ"><label for="age">Âge</label><input id="age" inputmode="numeric" placeholder="—"></div>
+            </div>
+            <div class="champ"><label for="gouts">Ce qu'il ou elle aime déjà</label><textarea id="gouts" rows="2" placeholder="Séries lues, genres préférés… le libraire vous conseillera."></textarea></div>
+            <div class="champ"><label for="budget">Budget indicatif</label>
+              <select id="budget"><option>Peu importe</option><option>Moins de 15 €</option><option>15 à 30 €</option><option>30 à 50 €</option><option>Plus de 50 €</option></select></div>
+          </div>
+
+          <div class="opts">
+            <label class="opt"><input type="checkbox" id="emballage"><span><b>Emballage cadeau</b><small>Prêt à offrir au retrait.</small></span></label>
+            <label class="opt" id="opt-suivi"><input type="checkbox" id="suivi"><span><b>Me prévenir des prochains tomes</b><small>Pour ne pas rater la suite de la série.</small></span></label>
+          </div>
+          <p class="err" id="err" role="alert"></p>
+          <button class="btn btn-r" type="submit">+ Ajouter à ma pile</button>
+        </form>
+
+        <aside class="carte pile reveal" aria-live="polite">
+          <h3>Ma pile <span class="compteur" id="compteur">0</span></h3>
+          <ul class="tomes" id="tomes"></ul>
+          <div class="vide" id="vide">Votre pile est vide.<br>Ajoutez un premier album à gauche.</div>
+          <div class="champ" style="margin-top:14px"><label for="nom">Votre prénom et nom</label><input id="nom" autocomplete="name"></div>
+          <div class="champ"><label for="tel">Téléphone (pour vous prévenir à l'arrivée)</label><input id="tel" type="tel" autocomplete="tel"></div>
+          <p class="recap" id="recap"></p>
+          <button class="btn btn-y envoi" id="envoi" disabled>Envoyer ma demande à la librairie</button>
+          <p class="note">La demande part par e-mail vers la librairie, qui confirme la disponibilité avant tout retrait. Paiement en boutique.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <span class="kicker reveal">Les services</span>
+      <h2 class="reveal">Plus qu'un rayon, <em>un comptoir</em>.</h2>
+      <div class="services">
+        <div class="service reveal"><div class="pic" aria-hidden="true">💬</div><h3>Conseils personnalisés</h3><p>Dites ce que vous avez aimé, on vous oriente vers la prochaine lecture.</p></div>
+        <div class="service reveal"><div class="pic" aria-hidden="true">🛍️</div><h3>Clic &amp; Collect</h3><p>Réservez à distance, récupérez en boutique aux heures d'ouverture.</p></div>
+        <div class="service reveal"><div class="pic" aria-hidden="true">🎁</div><h3>Emballage cadeau</h3><p>Vos albums repartent prêts à offrir.</p></div>
+        <div class="service reveal"><div class="pic" aria-hidden="true">🎟️</div><h3>Cartes &amp; chèques cad'Oh!</h3><p>Titres cadeaux des Vitrines de Roanne acceptés, selon les conditions du partenaire.</p></div>
+        <div class="service reveal"><div class="pic" aria-hidden="true">🇬🇧</div><h3>English spoken</h3><p>Visiteurs anglophones bienvenus.</p></div>
+        <div class="service reveal"><div class="pic" aria-hidden="true">📚</div><h3>Vente sur place</h3><p>Du mardi au samedi, de 10h à 19h, sans interruption.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LA LIBRAIRIE -->
+  <section id="librairie" style="padding-top:0">
+    <div class="wrap histoire">
+      <div class="photo-a-fournir reveal"><div><b>Photo de la boutique</b>à fournir par le client<br><small>(vitrine, rayonnages ou comptoir)</small></div></div>
+      <div>
+        <span class="kicker reveal">La librairie</span>
+        <h2 class="reveal">Une librairie <em>de BD indépendante</em>, rue de Cadore.</h2>
+        <p class="intro reveal">Le Contoir est installé au cœur du centre-ville, rue de Cadore. Une adresse pensée pour les lecteurs de bandes dessinées, de comics, de mangas et de jeunesse.</p>
+        <div class="faits">
+          <div class="fait reveal"><strong>2022</strong><span>Ouverture de la librairie au 7 rue de Cadore, à Roanne.</span></div>
+          <div class="fait reveal"><strong>Festival</strong><span>Librairie partenaire du festival BD d'Ambierle « Bulles de Caractère », où elle assure la vente des albums des auteurs invités.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRÈVES -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="breves reveal">
+        <div>
+          <h2>Les Brèves du Contoir</h2>
+          <p>La lettre d'infos de la librairie, pour ne rien louper de l'actualité de votre librairie de BD préférée.</p>
+        </div>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf5hOpXDlqkHoBCXIGAE3IfAX0sqgkE6iW4l4miGOX0PmcpDQ/viewform" target="_blank" rel="noopener">Je m'inscris</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS -->
+  <section id="infos" style="padding-top:0">
+    <div class="wrap">
+      <span class="kicker reveal">Infos pratiques</span>
+      <h2 class="reveal">Passez nous voir <em>au 7 rue de Cadore</em>.</h2>
+      <div class="infos">
+        <div class="horaires reveal">
+          <table id="table-horaires" aria-label="Horaires d'ouverture">
+            <tr data-j="1"><td>Lundi</td><td>Fermé</td></tr>
+            <tr data-j="2"><td>Mardi</td><td>10h – 19h</td></tr>
+            <tr data-j="3"><td>Mercredi</td><td>10h – 19h</td></tr>
+            <tr data-j="4"><td>Jeudi</td><td>10h – 19h</td></tr>
+            <tr data-j="5"><td>Vendredi</td><td>10h – 19h</td></tr>
+            <tr data-j="6"><td>Samedi</td><td>10h – 19h</td></tr>
+            <tr data-j="0"><td>Dimanche</td><td>Fermé</td></tr>
+          </table>
+        </div>
+        <div class="contact">
+          <a class="ctc reveal" href="tel:+33477697124"><span class="pic" aria-hidden="true">☎</span><span><b>04 77 69 71 24</b><small>Appeler la librairie</small></span></a>
+          <a class="ctc reveal" href="mailto:librairie.lecontoir@gmail.com"><span class="pic" aria-hidden="true">✉</span><span><b>librairie.lecontoir@gmail.com</b><small>Écrire à la librairie</small></span></a>
+          <a class="ctc reveal" href="https://www.google.com/maps/search/?api=1&query=Le+Contoir+7+rue+de+Cadore+42300+Roanne" target="_blank" rel="noopener"><span class="pic" aria-hidden="true">⌖</span><span><b>7 rue de Cadore, 42300 Roanne</b><small>Itinéraire</small></span></a>
+        </div>
+      </div>
+      <div class="carte-map reveal">
+        <iframe title="Plan d'accès Le Contoir" loading="lazy" src="https://www.google.com/maps?q=7+rue+de+Cadore+42300+Roanne&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><b style="font-family:var(--f-titre);color:var(--moutarde);font-size:1.2rem">Le Contoir</b><br>Librairie BD, comics, mangas et jeunesse<br>7 rue de Cadore — 42300 Roanne</div>
+      <div class="reseaux">
+        <a href="https://www.instagram.com/librairie.lecontoir/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com/librairie.lecontoir" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non officielle. Le logo est celui publié par la librairie sur ses réseaux ; les couleurs sont relevées sur ce logo et restent ajustables. Aucune photo de la boutique n'a été reprise : l'emplacement prévu est à fournir par le client. Les pictogrammes sont des illustrations. Le formulaire de réservation est une démonstration : il prépare un e-mail, sans paiement en ligne.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // en-tête
+  const header=$('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('.burger'), menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // apparitions au défilement, en cascade
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){
+      const sibs=[...e.target.parentElement.children].filter(c=>c.classList.contains('reveal'));
+      e.target.style.transitionDelay=(Math.max(0,sibs.indexOf(e.target))*80)+'ms';
+      e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+    $$('.reveal').forEach(el=>io.observe(el));
+  } else $$('.reveal').forEach(el=>el.classList.add('vu'));
+
+  // bulle qui change de mot
+  const mots=['BD','comics','mangas','jeunesse'];let i=0;
+  if(!reduit) setInterval(()=>{i=(i+1)%mots.length;const m=$('#mot');m.style.opacity=0;setTimeout(()=>{m.textContent=mots[i];m.style.opacity=1},200)},2200);
+  $('#mot').style.transition='opacity .2s';
+
+  // ouvert / fermé + jour courant
+  const now=new Date(), j=now.getDay(), h=now.getHours()+now.getMinutes()/60;
+  const ouvert=j>=2&&j<=6&&h>=10&&h<19;
+  const st=$('#statut');
+  if(ouvert){st.classList.add('ouvert');st.lastElementChild.textContent='Ouvert en ce moment — jusqu’à 19h'}
+  else{let txt='Fermé en ce moment';
+    if(j>=2&&j<=6&&h<10) txt+=' — ouverture à 10h';
+    else if(j===6||j===0||j===1) txt+=' — réouverture mardi à 10h';
+    else txt+=' — réouverture demain à 10h';
+    st.lastElementChild.textContent=txt}
+  const tr=$(`#table-horaires tr[data-j="${j}"]`); if(tr) tr.classList.add('auj');
+
+  // ---------- outil pile à réserver ----------
+  let mode='album', pile=[];
+  try{pile=JSON.parse(localStorage.getItem('contoir-pile')||'[]')}catch(e){}
+  const couleurs={BD:'#f1c33f',Comics:'#e1473d',Manga:'#0f1c2e',Jeunesse:'#7fb4e6'};
+  const save=()=>{try{localStorage.setItem('contoir-pile',JSON.stringify(pile))}catch(e){}};
+
+  $$('.onglet').forEach(b=>b.addEventListener('click',()=>{
+    mode=b.dataset.mode;
+    $$('.onglet').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    $('#bloc-titre').hidden=mode==='cadeau';
+    $('#bloc-cadeau').hidden=mode!=='cadeau';
+    $('#bloc-tome').style.display=mode==='serie'?'':'none';
+    $('#lbl-titre').textContent=mode==='serie'?'Nom de la série':'Titre de l’album';
+    $('#titre').placeholder=mode==='serie'?'Ex. la série que vous suivez':'Ex. le titre de l’album';
+    $('#opt-suivi').style.display=mode==='cadeau'?'none':'';
+    $('#err').textContent='';
+  }));
+  $('#bloc-tome').style.display='none';
+  $('#lbl-titre').textContent='Titre de l’album';
+
+  function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2200)}
+
+  function rendu(){
+    const ul=$('#tomes');ul.innerHTML='';
+    pile.forEach((p,k)=>{
+      const li=document.createElement('li');li.className='tome';li.style.setProperty('--c',couleurs[p.rayon]||'#f1c33f');
+      const d=document.createElement('div');
+      const b=document.createElement('b');b.textContent=p.titre;
+      const s=document.createElement('small');s.textContent=p.detail;
+      d.append(b,s);
+      const x=document.createElement('button');x.type='button';x.setAttribute('aria-label','Retirer '+p.titre);x.textContent='×';
+      x.onclick=()=>{pile.splice(k,1);save();rendu()};
+      li.append(d,x);ul.append(li);
+    });
+    $('#vide').style.display=pile.length?'none':'';
+    const c=$('#compteur');c.textContent=pile.length;c.classList.add('pop');setTimeout(()=>c.classList.remove('pop'),300);
+    $('#envoi').disabled=!pile.length;
+    const cad=pile.some(p=>p.emballage);
+    $('#recap').textContent=pile.length?`${pile.length} demande${pile.length>1?'s':''} dans la pile${cad?', dont emballage cadeau':''}. Retrait au 7 rue de Cadore, du mardi au samedi.`:'';
+  }
+
+  $('#form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const rayon=document.querySelector('input[name=rayon]:checked').value;
+    const emb=$('#emballage').checked, suivi=$('#suivi').checked&&mode!=='cadeau';
+    let item;
+    if(mode==='cadeau'){
+      const pour=$('#pour').value.trim();
+      if(!pour){$('#err').textContent='Indiquez pour qui est le cadeau.';$('#pour').focus();return}
+      const age=$('#age').value.trim(), g=$('#gouts').value.trim(), bud=$('#budget').value;
+      item={rayon,titre:'Idée cadeau — '+pour,detail:[rayon,age&&age+' ans',bud!=='Peu importe'&&bud,g].filter(Boolean).join(' · '),emballage:emb};
+    } else {
+      const t=$('#titre').value.trim();
+      if(!t){$('#err').textContent=mode==='serie'?'Indiquez le nom de la série.':'Indiquez le titre de l’album.';$('#titre').focus();return}
+      const tome=$('#tome').value.trim(), aut=$('#auteur').value.trim();
+      item={rayon,titre:t+(mode==='serie'&&tome?' — tome '+tome:''),detail:[rayon,aut,mode==='serie'?'suite de série':'',suivi&&'prévenir des prochains tomes',emb&&'emballage cadeau'].filter(Boolean).join(' · '),emballage:emb};
+    }
+    $('#err').textContent='';
+    pile.push(item);save();rendu();
+    e.target.reset();
+    toast('Ajouté à votre pile !');
+  });
+
+  $('#envoi').addEventListener('click',()=>{
+    const nom=$('#nom').value.trim(), tel=$('#tel').value.trim();
+    if(!nom){$('#nom').focus();toast('Indiquez votre nom pour le retrait');return}
+    const lignes=pile.map((p,k)=>`${k+1}. ${p.titre}${p.detail?' ('+p.detail+')':''}`).join('\n');
+    const corps=`Bonjour,\n\nJe souhaite réserver en Clic & Collect :\n\n${lignes}\n\nNom : ${nom}${tel?'\nTéléphone : '+tel:''}\n\nMerci de me confirmer la disponibilité.\n`;
+    location.href='mailto:librairie.lecontoir@gmail.com?subject='+encodeURIComponent('Réservation Clic & Collect — '+nom)+'&body='+encodeURIComponent(corps);
+  });
+
+  rendu();
+})();
+</script>
+</body>
+</html>
