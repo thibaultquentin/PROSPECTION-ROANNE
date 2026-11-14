@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Établi – La Fabrique à Objets — Objets en bois et aménagements sur mesure | Loire</title>
+<meta name="description" content="Atelier de création à Cherier (Loire) : objets en bois uniques ou en petites séries, matériaux locaux ou de récupération, aménagements sur mesure dans un rayon d'environ 100 km.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400&family=Arya:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel letabli-lfao.fr
+   (variables CMS relevées dans le code du site)
+   --dark-color #5E3421 · --light-color #F3ECDE
+   --primary-color #506546 · --secondary-color #CEEAF3
+   Polices du site : Arya (principale) + Arvo (secondaire)
+   ========================================================= */
+:root{
+  --brun:#5E3421;
+  --brun-fonce:#3f2316;
+  --creme:#F3ECDE;
+  --creme-2:#eadfca;
+  --vert:#506546;
+  --vert-clair:#6d8562;
+  --ciel:#CEEAF3;
+  --encre:#2b1a11;
+  --f-titre:"Arya", Arial, sans-serif;
+  --f-texte:"Arvo", Georgia, serif;
+  --ease:cubic-bezier(.22,.9,.28,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--creme);color:var(--encre);font-family:var(--f-texte);font-size:clamp(.95rem,.9rem + .25vw,1.06rem);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-titre);font-weight:700;line-height:1.05;letter-spacing:.01em;color:var(--brun)}
+h2{font-size:clamp(2.1rem,1.6rem + 2.4vw,3.6rem)}
+.eyebrow{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.22em;font-size:.82rem;color:var(--vert);display:inline-flex;align-items:center;gap:.7em}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+
+/* Bandeau démo */
+.demo{background:var(--brun-fonce);color:var(--creme);font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+
+/* Barre de progression bois */
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--vert);width:0;z-index:60}
+
+/* Nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(243,236,222,.86);backdrop-filter:blur(10px) saturate(140%);border-bottom:1px solid rgba(94,52,33,.12);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 24px rgba(63,35,22,.08)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+.nav-logo img{height:46px;width:auto}
+.nav ul{display:flex;gap:1.6rem;list-style:none;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;font-size:.9rem}
+.nav ul a{text-decoration:none;position:relative;padding:.3rem 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--vert);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.active::after{transform:scaleX(1);transform-origin:left}
+.nav-cta{display:flex;gap:.6rem;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:.55em;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;padding:.85em 1.4em;border-radius:999px;border:2px solid var(--brun);background:var(--brun);color:var(--creme);text-decoration:none;cursor:pointer;transition:transform .25s var(--spring),background .25s,color .25s,box-shadow .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(94,52,33,.25)}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:var(--brun)}
+.btn.ghost:hover{background:var(--brun);color:var(--creme)}
+.btn.vert{background:var(--vert);border-color:var(--vert)}
+.sel-btn{position:relative}
+.sel-count{position:absolute;top:-6px;right:-6px;background:var(--vert);color:#fff;border-radius:999px;font-size:.72rem;min-width:22px;height:22px;display:grid;place-items:center;font-family:var(--f-texte);transform:scale(0);transition:transform .3s var(--spring)}
+.sel-count.on{transform:scale(1)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--brun);margin:5px auto;transition:.3s}
+
+/* Hero */
+.hero{position:relative;padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,7vw,6rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.hero-logo{width:min(440px,90%);opacity:0;transform:translateY(18px);animation:up .9s .15s var(--ease) forwards}
+.hero h1{font-size:clamp(1.15rem,1rem + .6vw,1.5rem);font-family:var(--f-texte);font-weight:400;color:var(--vert);margin:1.4rem 0 .6rem;letter-spacing:.02em}
+.hero .lead{font-family:var(--f-titre);font-size:clamp(2.2rem,1.5rem + 3.2vw,4.4rem);color:var(--brun);line-height:1}
+.hero .lead span{display:inline-block;opacity:0;transform:translateY(40%) rotate(2deg);animation:up .8s var(--ease) forwards}
+.hero p.txt{max-width:52ch;margin:1.3rem 0 1.8rem;opacity:0;animation:up .8s .9s var(--ease) forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;opacity:0;animation:up .8s 1.05s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero-photo{position:relative;border-radius:28px 28px 140px 28px;overflow:hidden;aspect-ratio:4/4.3;box-shadow:0 30px 60px -20px rgba(63,35,22,.45);clip-path:inset(0 0 100% 0 round 28px);animation:reveal 1.3s .3s var(--ease) forwards}
+@keyframes reveal{to{clip-path:inset(0 0 0 0 round 28px 28px 140px 28px)}}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:zoom 2.4s .3s var(--ease) forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.stamp{position:absolute;left:-28px;bottom:36px;width:126px;height:126px;border-radius:50%;background:var(--vert);color:var(--creme);display:grid;place-items:center;text-align:center;font-family:var(--f-titre);text-transform:uppercase;font-size:.78rem;letter-spacing:.12em;line-height:1.25;box-shadow:0 12px 26px rgba(0,0,0,.2);animation:spin 18s linear infinite}
+.stamp b{display:block;font-size:1.5rem;letter-spacing:.02em}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-wrap-photo{position:relative}
+/* veinage du bois animé */
+.grain{position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.55}
+.grain path{fill:none;stroke:var(--creme-2);stroke-width:2;stroke-dasharray:1600;stroke-dashoffset:1600;animation:draw 4s var(--ease) forwards}
+.grain path:nth-child(2){animation-delay:.3s}.grain path:nth-child(3){animation-delay:.6s}.grain path:nth-child(4){animation-delay:.9s}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* Ruban défilant */
+.ribbon{background:var(--brun);color:var(--creme);overflow:hidden;padding:.9rem 0;font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.2em;font-size:1.05rem}
+.ribbon-track{display:flex;gap:3rem;width:max-content;animation:slide 32s linear infinite}
+.ribbon-track span::after{content:"✦";margin-left:3rem;color:var(--ciel)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* Atouts */
+section{padding:clamp(3.5rem,8vw,7rem) 0}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.6rem}
+.pillar{background:#fbf7ef;border:1px solid rgba(94,52,33,.12);border-radius:22px;padding:1.6rem 1.4rem;transition:transform .4s var(--spring),box-shadow .4s}
+.pillar:hover{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 18px 34px -16px rgba(63,35,22,.35)}
+.pillar .ico{width:52px;height:52px;border-radius:14px;background:var(--ciel);display:grid;place-items:center;margin-bottom:1rem}
+.pillar .ico svg{width:28px;height:28px;stroke:var(--brun);fill:none;stroke-width:1.6}
+.pillar h3{font-size:1.45rem;margin-bottom:.4rem}
+.pillar p{font-size:.93rem}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end}
+.intro p{font-size:1.05rem}
+
+/* Catalogue */
+#objets{background:#fbf7ef;border-block:1px solid rgba(94,52,33,.1)}
+.cat-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap}
+.filters{display:flex;flex-direction:column;gap:.8rem;margin:2rem 0 2.2rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.chips small{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.14em;color:var(--vert);margin-right:.4rem;min-width:84px}
+.chip{border:1.5px solid rgba(94,52,33,.35);background:transparent;color:var(--brun);border-radius:999px;padding:.45em 1em;font-family:var(--f-texte);font-size:.88rem;cursor:pointer;transition:all .25s var(--ease);min-height:38px}
+.chip:hover{border-color:var(--brun)}
+.chip.on{background:var(--brun);color:var(--creme);border-color:var(--brun)}
+.chip.ess.on{background:var(--vert);border-color:var(--vert)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.3rem}
+.card{background:var(--creme);border-radius:20px;overflow:hidden;border:1px solid rgba(94,52,33,.12);display:flex;flex-direction:column;transition:transform .45s var(--spring),box-shadow .45s,opacity .35s;will-change:transform}
+.card.hide{display:none}
+.card:hover{box-shadow:0 22px 40px -20px rgba(63,35,22,.45)}
+.card .ph{aspect-ratio:1/1;overflow:hidden;background:var(--creme-2);position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .ph img{transform:scale(1.07)}
+.card .tag{position:absolute;top:12px;left:12px;background:rgba(243,236,222,.92);color:var(--brun);font-size:.72rem;padding:.25em .7em;border-radius:999px;font-family:var(--f-titre);letter-spacing:.1em;text-transform:uppercase}
+.card .bd{padding:1rem 1.1rem 1.15rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.card h3{font-size:1.35rem}
+.card .ess{font-size:.84rem;color:var(--vert)}
+.card .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
+.price{font-family:var(--f-titre);font-size:1.5rem;color:var(--brun)}
+.add{width:44px;height:44px;border-radius:50%;border:2px solid var(--brun);background:transparent;color:var(--brun);font-size:1.4rem;cursor:pointer;display:grid;place-items:center;transition:all .3s var(--spring)}
+.add:hover{background:var(--brun);color:var(--creme);transform:rotate(90deg)}
+.add.done{background:var(--vert);border-color:var(--vert);color:#fff}
+.empty{display:none;padding:2rem;text-align:center;color:var(--vert)}
+
+/* Sélection (tiroir) */
+.drawer-bg{position:fixed;inset:0;background:rgba(43,26,17,.45);opacity:0;pointer-events:none;transition:opacity .35s;z-index:80}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(430px,100%);background:var(--creme);z-index:90;transform:translateX(105%);transition:transform .5s var(--ease);display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.2)}
+.drawer.open{transform:none}.drawer-bg.open{opacity:1;pointer-events:auto}
+.drawer header{padding:1.3rem 1.4rem;border-bottom:1px solid rgba(94,52,33,.15);display:flex;justify-content:space-between;align-items:center}
+.drawer h3{font-size:1.8rem}
+.x{background:none;border:0;font-size:1.8rem;color:var(--brun);cursor:pointer;width:44px;height:44px}
+.lines{flex:1;overflow:auto;padding:1rem 1.4rem;display:flex;flex-direction:column;gap:.8rem}
+.line{display:grid;grid-template-columns:58px 1fr auto;gap:.8rem;align-items:center;background:#fbf7ef;border-radius:14px;padding:.55rem;animation:up .4s var(--ease)}
+.line img{width:58px;height:58px;object-fit:cover;border-radius:10px}
+.line b{font-family:var(--f-titre);font-size:1.15rem;color:var(--brun);display:block;line-height:1.1}
+.line small{color:var(--vert)}
+.qty{display:flex;align-items:center;gap:.3rem}
+.qty button{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--brun);background:none;color:var(--brun);cursor:pointer}
+.drawer footer{padding:1.2rem 1.4rem;border-top:1px solid rgba(94,52,33,.15);display:flex;flex-direction:column;gap:.8rem}
+.tot{display:flex;justify-content:space-between;font-family:var(--f-titre);font-size:1.6rem;color:var(--brun)}
+.drawer .note{font-size:.8rem;color:#6b5546}
+
+/* Sur mesure : bon d'atelier */
+#sur-mesure{background:var(--vert);color:var(--creme);position:relative;overflow:hidden}
+#sur-mesure h2{color:var(--creme)}
+#sur-mesure .eyebrow{color:var(--ciel)}
+.sm-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,4vw,3.5rem);margin-top:2.5rem;align-items:start}
+.step{margin-bottom:1.7rem}
+.step h4{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.14em;font-size:.95rem;margin-bottom:.7rem;display:flex;gap:.7rem;align-items:center}
+.step h4 i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--creme);color:var(--vert);display:grid;place-items:center;font-size:.85rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{border:1.5px solid rgba(243,236,222,.5);background:transparent;color:var(--creme);border-radius:12px;padding:.6em 1em;cursor:pointer;font-family:var(--f-texte);font-size:.9rem;transition:all .25s var(--ease);min-height:44px}
+.opt:hover{border-color:var(--creme)}
+.opt.on{background:var(--creme);color:var(--vert);border-color:var(--creme);transform:translateY(-2px)}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.8rem}
+.field label{font-size:.85rem;opacity:.85}
+.field input,.field textarea{background:rgba(243,236,222,.1);border:1.5px solid rgba(243,236,222,.4);border-radius:12px;padding:.75em .9em;color:var(--creme);font-family:var(--f-texte);font-size:.95rem;min-height:44px}
+.field input::placeholder,.field textarea::placeholder{color:rgba(243,236,222,.55)}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--ciel);background:rgba(243,236,222,.16)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.ticket{position:sticky;top:96px;background:var(--creme);color:var(--encre);border-radius:6px;padding:1.6rem 1.5rem 1.4rem;box-shadow:0 30px 60px -25px rgba(0,0,0,.5);transform:rotate(1.2deg);transition:transform .5s var(--spring)}
+.ticket:hover{transform:rotate(0)}
+.ticket::before,.ticket::after{content:"";position:absolute;left:0;right:0;height:12px;background:radial-gradient(circle at 8px -2px,transparent 8px,var(--creme) 8.5px) repeat-x;background-size:16px 12px}
+.ticket::before{top:-11px;transform:rotate(180deg)}
+.ticket::after{bottom:-11px}
+.ticket .t-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed rgba(94,52,33,.35);padding-bottom:.8rem;margin-bottom:.9rem}
+.ticket .t-head img{height:38px}
+.ticket .t-head span{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--vert);text-align:right}
+.t-row{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;border-bottom:1px dotted rgba(94,52,33,.25);font-size:.92rem}
+.t-row span:first-child{color:#7a6152}
+.t-row span:last-child{text-align:right;font-weight:700;color:var(--brun)}
+.t-row.flash span:last-child{animation:flash .6s var(--ease)}
+@keyframes flash{0%{color:var(--vert);transform:translateX(6px)}100%{transform:none}}
+.ticket .t-msg{font-size:.88rem;margin:.8rem 0 1rem;min-height:2.6em;color:#5a4334;font-style:italic}
+.ticket .t-stamp{position:absolute;right:18px;bottom:128px;border:3px solid var(--vert);color:var(--vert);font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.12em;padding:.3em .7em;border-radius:6px;transform:rotate(-12deg) scale(1.8);opacity:0;transition:all .45s var(--spring)}
+.ticket .t-stamp.on{opacity:.85;transform:rotate(-12deg) scale(1)}
+.ticket .btn{width:100%;justify-content:center}
+.t-hint{font-size:.78rem;color:#7a6152;margin-top:.6rem;text-align:center}
+
+/* Zone */
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.zone-map{border-radius:26px;overflow:hidden;box-shadow:0 26px 50px -24px rgba(63,35,22,.45);position:relative}
+.zone-map img{width:100%}
+.cities{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.4rem 0}
+.city{background:var(--ciel);color:var(--brun);border-radius:999px;padding:.4em 1em;font-size:.9rem}
+
+/* Contact */
+#contact{background:var(--brun);color:var(--creme)}
+#contact h2{color:var(--creme)}
+#contact .eyebrow{color:var(--ciel)}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.4rem}
+.ct-card{background:rgba(243,236,222,.07);border:1px solid rgba(243,236,222,.18);border-radius:22px;padding:1.6rem}
+.ct-card h3{color:var(--creme);font-size:1.6rem;margin-bottom:.8rem}
+.ct-card a{color:var(--ciel)}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px dashed rgba(243,236,222,.2)}
+.hours li.today{color:var(--ciel);font-weight:700}
+.hours li.closed span:last-child{opacity:.6}
+.open-now{display:inline-flex;align-items:center;gap:.5em;font-size:.88rem;margin-bottom:.9rem}
+.open-now i{width:10px;height:10px;border-radius:50%;background:#9aa;display:inline-block}
+.open-now.on i{background:#8fd18a;box-shadow:0 0 0 0 rgba(143,209,138,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(143,209,138,0)}100%{box-shadow:0 0 0 0 rgba(143,209,138,0)}}
+.socials{display:flex;gap:.7rem;margin-top:1rem}
+.socials a{display:inline-flex;padding:.55em 1em;border:1.5px solid rgba(243,236,222,.4);border-radius:999px;text-decoration:none;color:var(--creme);font-size:.88rem;transition:all .25s}
+.socials a:hover{background:var(--creme);color:var(--brun)}
+footer.foot{background:var(--brun-fonce);color:rgba(243,236,222,.8);font-size:.8rem;padding:2rem 0}
+footer.foot p{margin-bottom:.5rem;max-width:90ch}
+
+/* Révélations au scroll */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);background:var(--brun);color:var(--creme);padding:.8rem 1.3rem;border-radius:999px;z-index:95;transition:transform .45s var(--spring);font-size:.9rem;box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:960px){
+  .hero-grid,.intro,.sm-grid,.zone-grid,.ct-grid{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr 1fr}
+  .ticket{position:relative;top:0}
+  .stamp{left:auto;right:12px;bottom:12px;width:104px;height:104px}
+}
+@media (max-width:760px){
+  .nav ul{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--creme);padding:6rem 2rem 2rem;gap:1.4rem;font-size:1.3rem;transform:translateY(-100%);visibility:hidden;transition:transform .5s var(--ease),visibility .5s;z-index:-1}
+  .nav ul.open{transform:none;visibility:visible}
+  .burger{display:block}
+  .nav-cta .btn.ghost{display:none}
+  .pillars{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .nav-logo img{height:38px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"L'Établi – La Fabrique à Objets",
+  "description":"Atelier de conception et de fabrication d'objets en bois uniques ou en petites séries, et d'aménagements sur mesure.",
+  "url":"https://letabli-lfao.fr/",
+  "telephone":"+33763628500",
+  "email":"letabli.lfao@gmail.com",
+  "image":"https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/f4524e96-383f-4eb9-871a-a2acaa43735e.jpeg",
+  "address":{"@type":"PostalAddress","streetAddress":"5 Le Bancillon","postalCode":"42430","addressLocality":"Cherier","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[{"@type":"GeoCircle","geoMidpoint":{"@type":"Place","name":"Cherier"},"geoRadius":"100000"},"Roanne","Lyon","Clermont-Ferrand","Saint-Étienne","Vichy"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"}],
+  "sameAs":["https://www.facebook.com/p/L%C3%89tabli-La-Fabrique-%C3%A0-Objets-61582047621754/","https://www.instagram.com/letablilafabriqueaobjets/"]
+}
+</script>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="demo">Maquette de démonstration — proposition de refonte du site de L'Établi, non officielle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#accueil" class="nav-logo" aria-label="L'Établi – accueil"><img src="https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/5196b77b-532a-459e-869a-41599b9b9f04.png?width=300" alt="L'Établi – La Fabrique à Objets"></a>
+    <ul id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#objets">Objets</a></li>
+      <li><a href="#sur-mesure">Sur mesure</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn ghost" href="tel:+33763628500">07 63 62 85 00</a>
+      <button class="btn sel-btn" id="openSel" aria-label="Voir ma sélection">Ma sélection<span class="sel-count" id="selCount">0</span></button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <svg class="grain" viewBox="0 0 1400 700" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 120 C 300 60, 520 200, 820 130 S 1250 60, 1440 140"/>
+    <path d="M-20 260 C 260 210, 560 330, 860 260 S 1240 200, 1440 280"/>
+    <path d="M-20 420 C 320 370, 600 500, 900 420 S 1260 360, 1440 440"/>
+    <path d="M-20 580 C 280 540, 620 650, 920 580 S 1240 520, 1440 600"/>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <img class="hero-logo" src="https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/5196b77b-532a-459e-869a-41599b9b9f04.png?width=500" alt="L'Établi – La Fabrique à Objets">
+      <h1>Objets en bois uniques et aménagements sur mesure, à Chérier dans la Loire</h1>
+      <p class="lead" aria-label="Ici, le bois prend vie entre nos mains."><span>Ici,</span> <span>le</span> <span>bois</span> <span>prend</span> <span>vie</span><br><span>entre</span> <span>nos</span> <span>mains.</span></p>
+      <p class="txt">Nous imaginons et fabriquons des objets uniques, en privilégiant des matériaux locaux ou issus de la récupération. Chaque création est pensée avec soin, pour allier utilité, simplicité et authenticité.</p>
+      <div class="ctas">
+        <a class="btn" href="#objets">Voir les objets</a>
+        <a class="btn ghost" href="#sur-mesure">Imaginer un projet sur mesure</a>
+      </div>
+    </div>
+    <div class="hero-wrap-photo">
+      <div class="hero-photo"><img src="https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/f4524e96-383f-4eb9-871a-a2acaa43735e.jpeg?width=900" alt="Pièces de chêne en cours de fabrication sur l'établi de l'atelier"></div>
+      <div class="stamp"><div>Fait<b>main</b>à Chérier</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon" aria-hidden="true"><div class="ribbon-track">
+  <span>Chêne</span><span>Frêne</span><span>Poirier</span><span>Noyer</span><span>Douglas</span><span>Bois de récupération</span><span>Pièces uniques</span><span>Petites séries</span>
+  <span>Chêne</span><span>Frêne</span><span>Poirier</span><span>Noyer</span><span>Douglas</span><span>Bois de récupération</span><span>Pièces uniques</span><span>Petites séries</span>
+</div></div>
+
+<section id="atelier">
+  <div class="wrap">
+    <div class="intro rv">
+      <div><span class="eyebrow">L'atelier</span><h2>Plus qu'un atelier,<br>un lieu de création</h2></div>
+      <p>L'Établi – La Fabrique à Objets est un atelier de conception et de fabrication dédié à la création d'objets en bois uniques ou en petites séries. Savoir-faire artisanal, sens pratique et sensibilité humaine : nous vous accompagnons de l'idée à l'objet fini.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 22V9M12 9c-3 0-6-2-6-6 4 0 6 3 6 6zm0 0c3 0 6-2 6-6-4 0-6 3-6 6z"/></svg></div><h3>Matériaux locaux</h3><p>Des essences d'ici ou du bois de récupération, valorisés plutôt que jetés.</p></div>
+      <div class="pillar rv"><div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 12h6M12 9v6"/></svg></div><h3>Uniques ou en séries</h3><p>Une pièce unique ou une petite série, pour vous ou pour vos clients.</p></div>
+      <div class="pillar rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div><h3>De l'idée à l'objet</h3><p>Conception et fabrication à l'atelier, avec vous à chaque étape.</p></div>
+      <div class="pillar rv"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="11" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0114 0c0 4.5-7 11-7 11z"/></svg></div><h3>~100 km autour</h3><p>Aménagements sur mesure jusqu'à Lyon, Clermont-Ferrand, Saint-Étienne et Vichy.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="objets">
+  <div class="wrap">
+    <div class="cat-head rv">
+      <div><span class="eyebrow">Nos objets</span><h2>Les objets de l'atelier</h2></div>
+      <p style="max-width:44ch">Ajoutez les pièces qui vous plaisent à votre sélection : elle part en un clic à l'atelier, qui vous recontacte pour la disponibilité et le retrait.</p>
+    </div>
+    <div class="filters rv">
+      <div class="chips" id="fCat"><small>Usage</small>
+        <button class="chip on" data-v="tout">Tout</button>
+        <button class="chip" data-v="table">Table &amp; apéritif</button>
+        <button class="chip" data-v="bijou">Bijoux</button>
+        <button class="chip" data-v="nature">Jardin &amp; nature</button>
+        <button class="chip" data-v="maison">Maison &amp; jeux</button>
+      </div>
+      <div class="chips" id="fEss"><small>Essence</small>
+        <button class="chip ess on" data-v="tout">Toutes</button>
+        <button class="chip ess" data-v="Chêne">Chêne</button>
+        <button class="chip ess" data-v="Frêne">Frêne</button>
+        <button class="chip ess" data-v="Poirier">Poirier</button>
+        <button class="chip ess" data-v="Noyer">Noyer</button>
+        <button class="chip ess" data-v="Douglas">Douglas</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty">Aucun objet pour cette combinaison — mais l'atelier peut le fabriquer sur mesure.</p>
+  </div>
+</section>
+
+<section id="sur-mesure">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">Sur mesure</span><h2>Votre projet, sur l'établi</h2>
+    <p style="max-width:60ch;margin-top:1rem">Décrivez votre idée en quelques clics : le bon d'atelier se remplit en direct et part tel quel à L'Établi. Pas de prix affiché ici, chaque projet est chiffré à la main.</p></div>
+    <div class="sm-grid">
+      <div class="rv">
+        <div class="step"><h4><i>1</i>Votre projet</h4>
+          <div class="opts" data-k="type">
+            <button class="opt" data-v="Objet unique">Objet unique</button>
+            <button class="opt" data-v="Petite série">Petite série</button>
+            <button class="opt" data-v="Aménagement intérieur">Aménagement intérieur</button>
+            <button class="opt" data-v="Aménagement extérieur">Aménagement extérieur</button>
+            <button class="opt" data-v="Cadeau / objet personnalisé">Cadeau personnalisé</button>
+          </div></div>
+        <div class="step"><h4><i>2</i>Le bois</h4>
+          <div class="opts" data-k="bois">
+            <button class="opt" data-v="Chêne">Chêne</button>
+            <button class="opt" data-v="Frêne">Frêne</button>
+            <button class="opt" data-v="Poirier">Poirier</button>
+            <button class="opt" data-v="Noyer">Noyer</button>
+            <button class="opt" data-v="Douglas">Douglas</button>
+            <button class="opt" data-v="Bois de récupération">Récupération</button>
+            <button class="opt" data-v="À conseiller par l'atelier">Je ne sais pas encore</button>
+          </div></div>
+        <div class="step"><h4><i>3</i>Les détails</h4>
+          <div class="two">
+            <div class="field"><label for="qte">Quantité</label><input id="qte" type="number" min="1" value="1"></div>
+            <div class="field"><label for="ville">Ville (pour un aménagement)</label><input id="ville" placeholder="ex. Roanne"></div>
+          </div>
+          <div class="field"><label for="desc">Votre idée en quelques mots</label><textarea id="desc" rows="3" placeholder="ex. une étagère en chêne pour l'entrée, 120 cm de large"></textarea></div>
+          <div class="two">
+            <div class="field"><label for="nom">Nom</label><input id="nom" placeholder="Votre nom"></div>
+            <div class="field"><label for="tel">Téléphone</label><input id="tel" placeholder="06 …"></div>
+          </div>
+        </div>
+      </div>
+      <div class="ticket rv" id="ticket">
+        <div class="t-head"><img src="https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/5196b77b-532a-459e-869a-41599b9b9f04.png?width=200" alt=""><span>Bon d'atelier<br><b id="tNum"></b></span></div>
+        <div class="t-row" data-r="type"><span>Projet</span><span>—</span></div>
+        <div class="t-row" data-r="bois"><span>Essence</span><span>—</span></div>
+        <div class="t-row" data-r="qte"><span>Quantité</span><span>1</span></div>
+        <div class="t-row" data-r="ville"><span>Lieu</span><span>—</span></div>
+        <div class="t-row" data-r="nom"><span>Pour</span><span>—</span></div>
+        <p class="t-msg" id="tMsg">Votre idée apparaîtra ici…</p>
+        <div class="t-stamp" id="tStamp">Prêt</div>
+        <a class="btn" id="sendSM" href="#">Envoyer à l'atelier</a>
+        <p class="t-hint">Ouvre votre messagerie avec le bon pré-rempli · ou appelez le 07 63 62 85 00</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="zone">
+  <div class="wrap zone-grid">
+    <div class="zone-map rv"><img src="https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/06de486f-96fc-4bab-b651-4164b77edd8f.jpeg?width=900" alt="Carte de la Loire situant Chérier, Roanne, Lyon, Clermont-Ferrand et Saint-Étienne" loading="lazy"></div>
+    <div class="rv">
+      <span class="eyebrow">Localisation</span>
+      <h2>Basés à Chérier, dans la Loire (42)</h2>
+      <p style="margin-top:1rem">Nous créons des objets et réalisons des aménagements sur mesure dans un rayon d'environ 100 km, incluant notamment les régions de :</p>
+      <div class="cities"><span class="city">Lyon</span><span class="city">Clermont-Ferrand</span><span class="city">Saint-Étienne</span><span class="city">Vichy</span><span class="city">Roanne</span></div>
+      <a class="btn vert" href="#sur-mesure">Parler de votre aménagement</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="rv"><span class="eyebrow">Contact</span><h2>Nous avons hâte de discuter de vos projets !</h2></div>
+    <div class="ct-grid">
+      <div class="ct-card rv">
+        <h3>Coordonnées</h3>
+        <p>L'Établi – La Fabrique à Objets<br>5 Le Bancillon<br>42430 Chérier</p>
+        <p style="margin-top:.8rem">Téléphone : <a href="tel:+33763628500">07 63 62 85 00</a><br>Email : <a href="mailto:letabli.lfao@gmail.com">letabli.lfao@gmail.com</a></p>
+        <div class="socials">
+          <a href="https://www.facebook.com/p/L%C3%89tabli-La-Fabrique-%C3%A0-Objets-61582047621754/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/letablilafabriqueaobjets/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+      <div class="ct-card rv">
+        <h3>Horaires d'ouverture</h3>
+        <div class="open-now" id="openNow"><i></i><span>…</span></div>
+        <ul class="hours" id="hours"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p><b>Maquette de démonstration</b> réalisée pour présenter une proposition de site à L'Établi – La Fabrique à Objets. Elle n'est pas le site officiel de l'entreprise.</p>
+    <p>Textes, objets, prix, coordonnées et horaires repris du site actuel letabli-lfao.fr (novembre 2026). Toutes les photos, le logo et la carte sont ceux publiés par l'atelier sur son site ; aucune photo d'illustration. Photos de l'atelier et des aménagements réalisés : à fournir par le client. Prix indicatifs non contractuels. Couleurs et polices reprises de la charte du site actuel (ajustables).</p>
+    <p>© 2026 L'Établi – La Fabrique à Objets · SARL L'Établi, RCS Roanne 994 996 775</p>
+  </div>
+</footer>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Ma sélection">
+  <header><h3>Ma sélection</h3><button class="x" id="closeSel" aria-label="Fermer">×</button></header>
+  <div class="lines" id="lines"></div>
+  <footer>
+    <div class="tot"><span>Total indicatif</span><span id="total">0,00 €</span></div>
+    <a class="btn" id="sendSel" href="#">Envoyer ma sélection à l'atelier</a>
+    <p class="note">Pas de paiement en ligne : l'atelier vous recontacte pour confirmer la disponibilité et le retrait.</p>
+  </footer>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const IMG='https://cdn-cms.ugo.co/accounts/9d99e490-38a2-4037-9bc4-0510297b8bd6/medias/';
+// Catalogue réel (page « Objets » du site actuel)
+const P=[
+ {id:1,n:'Planches apéritives',d:'Planches en chêne',p:28,c:'table',e:['Chêne'],i:'2f4771c2-f9a6-48a4-ac9a-2fee355eec92'},
+ {id:2,n:'Jeux des bâtonnets',d:'Jeu en chêne',p:42,c:'maison',e:['Chêne'],i:'a4b6026d-e860-492e-ae08-15381c52d3d1'},
+ {id:3,n:'Planche apéritive',d:'Planche en chêne',p:45,c:'table',e:['Chêne'],i:'b149c1a0-3539-426c-a088-d23be522a313'},
+ {id:4,n:'Nichoir à mésanges',d:'Nichoir en douglas',p:55,c:'nature',e:['Douglas'],i:'533ec3f8-d703-45ac-86b2-cf00dad491a0'},
+ {id:5,n:'Planche saucisson',d:'Planche en chêne',p:25,c:'table',e:['Chêne'],i:'6f4419de-1ac2-41f3-8b78-b067ffb26865'},
+ {id:6,n:"Boucles d'oreille",d:'Frêne, poirier, chêne',p:24,c:'bijou',e:['Frêne','Poirier','Chêne'],i:'dffc6b7d-da27-448d-960e-56b5e74012a0'},
+ {id:7,n:'Compagnon de lecture',d:'Marque-page en bois',p:12,c:'maison',e:[],i:'b9d47274-2374-4e9b-92ea-660dde010823'},
+ {id:8,n:'Ustensile pour le four',d:'Ustensile en bois',p:12,c:'table',e:[],i:'a18a3a18-ae5b-49be-b599-3ca13d22875f'},
+ {id:9,n:'Planches apéritives',d:'Planches en chêne',p:38,c:'table',e:['Chêne'],i:'abfe8f5e-75ae-4987-8852-0a1787450c44'},
+ {id:10,n:"Boucles d'oreille",d:'Frêne et chêne',p:18,c:'bijou',e:['Frêne','Chêne'],i:'f1ccc8b4-285a-4b18-af89-855b36360634'},
+ {id:11,n:"Boucle d'oreille",d:'Chêne, frêne',p:15,c:'bijou',e:['Chêne','Frêne'],i:'bc4d44ee-e415-4188-8f47-140aa1f0ed54'},
+ {id:12,n:'Support porte-clé',d:'Support en frêne',p:28,c:'maison',e:['Frêne'],i:'7fc5243c-2b23-408f-b394-a05c5409b8be'},
+ {id:13,n:"Boucles d'oreille",d:'Chêne',p:20,c:'bijou',e:['Chêne'],i:'25d98ad7-094c-48c2-a04b-9aad8fb53415'},
+ {id:14,n:'Porte-clé',d:'Frêne, chêne, poirier, noyer',p:4,c:'maison',e:['Frêne','Chêne','Poirier','Noyer'],i:'65139d46-2315-43d9-b89f-4e954643046b'},
+ {id:15,n:'Nichoir à chauve-souris',d:'Nichoir en douglas',p:90,c:'nature',e:['Douglas'],i:'a5e57d2b-699d-4e83-b032-0cef809296f2'},
+ {id:16,n:'Planche à pain',d:'Planche en chêne « La Tradition »',p:28,c:'table',e:['Chêne'],i:'64d64dc9-abc2-4522-acd4-8615877ff1c8'}
+];
+const CATN={table:'Table',bijou:'Bijou',nature:'Nature',maison:'Maison'};
+const eur=v=>v.toFixed(2).replace('.',',')+' €';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const grid=$('#grid');
+grid.innerHTML=P.map(o=>`<article class="card" data-c="${o.c}" data-e="${o.e.join(',')}">
+  <div class="ph"><span class="tag">${CATN[o.c]}</span><img loading="lazy" src="${IMG+o.i}.jpeg?width=600" alt="${o.n} – ${o.d}"></div>
+  <div class="bd"><h3>${o.n}</h3><span class="ess">${o.d}</span>
+  <div class="row"><span class="price">${eur(o.p)}</span><button class="add" data-id="${o.id}" aria-label="Ajouter ${o.n} à ma sélection">+</button></div></div></article>`).join('');
+
+// Filtres
+let fc='tout',fe='tout';
+function filt(){let n=0;$$('.card').forEach(c=>{const ok=(fc==='tout'||c.dataset.c===fc)&&(fe==='tout'||c.dataset.e.split(',').includes(fe));c.classList.toggle('hide',!ok);if(ok){n++;c.animate([{opacity:0,transform:'translateY(14px) scale(.98)'},{opacity:1,transform:'none'}],{duration:450,delay:n*35,easing:'cubic-bezier(.22,.9,.28,1)',fill:'backwards'})}});$('#empty').style.display=n?'none':'block'}
+function chips(sel,cb){$$(sel+' .chip').forEach(b=>b.onclick=()=>{$$(sel+' .chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');cb(b.dataset.v);filt()})}
+chips('#fCat',v=>fc=v);chips('#fEss',v=>fe=v);
+
+// Tilt léger des cartes
+if(matchMedia('(hover:hover)').matches)$$('.card').forEach(c=>{c.onmousemove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(700px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-4px)`};c.onmouseleave=()=>c.style.transform=''});
+
+// Sélection
+const sel={};
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2200)}
+function render(){const ids=Object.keys(sel);let tot=0,q=0;
+ $('#lines').innerHTML=ids.length?ids.map(id=>{const o=P.find(x=>x.id==id);tot+=o.p*sel[id];q+=sel[id];return `<div class="line"><img src="${IMG+o.i}.jpeg?width=150" alt=""><div><b>${o.n}</b><small>${o.d} · ${eur(o.p)}</small></div><div class="qty"><button data-m="${id}" aria-label="moins">−</button><span>${sel[id]}</span><button data-p="${id}" aria-label="plus">+</button></div></div>`}).join(''):'<p style="color:#7a6152">Votre sélection est vide. Ajoutez des objets avec le bouton +.</p>';
+ $('#total').textContent=eur(tot);const c=$('#selCount');c.textContent=q;c.classList.toggle('on',q>0);
+ $$('.add').forEach(b=>{b.classList.toggle('done',!!sel[b.dataset.id]);b.textContent=sel[b.dataset.id]?'✓':'+'});
+ const body='Bonjour,\n\nJe serais intéressé(e) par les objets suivants :\n'+ids.map(id=>{const o=P.find(x=>x.id==id);return `- ${sel[id]} × ${o.n} (${o.d}) — ${eur(o.p)}`}).join('\n')+`\n\nTotal indicatif : ${eur(tot)}\n\nMerci de me recontacter pour la disponibilité et le retrait.\n`;
+ $('#sendSel').href='mailto:letabli.lfao@gmail.com?subject='+encodeURIComponent('Demande d\'objets – via le site')+'&body='+encodeURIComponent(body);}
+grid.addEventListener('click',e=>{const b=e.target.closest('.add');if(!b)return;const id=b.dataset.id;sel[id]=(sel[id]||0)+1;render();const o=P.find(x=>x.id==id);toast(o.n+' ajouté à votre sélection');const c=$('#selCount');c.animate([{transform:'scale(1.6)'},{transform:'scale(1)'}],{duration:400,easing:'cubic-bezier(.34,1.56,.64,1)'})});
+$('#lines').addEventListener('click',e=>{const p=e.target.dataset.p,m=e.target.dataset.m;if(p)sel[p]++;if(m){sel[m]--;if(sel[m]<=0)delete sel[m]}render()});
+const openD=()=>{$('#drawer').classList.add('open');$('#drawerBg').classList.add('open')},closeD=()=>{$('#drawer').classList.remove('open');$('#drawerBg').classList.remove('open')};
+$('#openSel').onclick=openD;$('#closeSel').onclick=closeD;$('#drawerBg').onclick=closeD;addEventListener('keydown',e=>{if(e.key==='Escape')closeD()});
+render();
+
+// Bon d'atelier sur mesure
+const st={type:'',bois:''};
+$('#tNum').textContent='N° '+String(new Date().getDate()).padStart(2,'0')+String(new Date().getMonth()+1).padStart(2,'0')+'-'+Math.floor(100+Math.random()*900);
+function setRow(k,v){const r=document.querySelector(`.t-row[data-r="${k}"]`);const s=r.lastElementChild;if(s.textContent===(v||'—'))return;s.textContent=v||'—';r.classList.remove('flash');void r.offsetWidth;r.classList.add('flash')}
+function upd(){setRow('type',st.type);setRow('bois',st.bois);setRow('qte',$('#qte').value);setRow('ville',$('#ville').value.trim());setRow('nom',$('#nom').value.trim());
+ const d=$('#desc').value.trim();$('#tMsg').textContent=d?'« '+d+' »':'Votre idée apparaîtra ici…';
+ const ready=st.type&&d;$('#tStamp').classList.toggle('on',!!ready);
+ const body=`Bonjour,\n\nVoici mon projet sur mesure :\n- Projet : ${st.type||'à préciser'}\n- Essence : ${st.bois||'à conseiller'}\n- Quantité : ${$('#qte').value}\n- Lieu : ${$('#ville').value||'—'}\n\n${d}\n\n${$('#nom').value}\n${$('#tel').value}`;
+ $('#sendSM').href='mailto:letabli.lfao@gmail.com?subject='+encodeURIComponent('Projet sur mesure – '+(st.type||'demande'))+'&body='+encodeURIComponent(body)}
+$$('.opts').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.opt');if(!b)return;g.querySelectorAll('.opt').forEach(x=>x.classList.remove('on'));b.classList.add('on');st[g.dataset.k]=b.dataset.v;upd()}));
+['qte','ville','desc','nom','tel'].forEach(id=>$('#'+id).addEventListener('input',upd));upd();
+
+// Horaires + ouvert maintenant
+const H=[['Lundi','09:00 – 18:00'],['Mardi','09:00 – 18:00'],['Mercredi','09:00 – 18:00'],['Jeudi','09:00 – 18:00'],['Vendredi','09:00 – 18:00'],['Samedi',null],['Dimanche',null]];
+const now=new Date(),di=(now.getDay()+6)%7;
+$('#hours').innerHTML=H.map((h,i)=>`<li class="${i===di?'today':''} ${h[1]?'':'closed'}"><span>${h[0]}</span><span>${h[1]||'Fermé'}</span></li>`).join('');
+const mins=now.getHours()*60+now.getMinutes(),open=di<5&&mins>=540&&mins<1080;
+$('#openNow').classList.toggle('on',open);$('#openNow span').textContent=open?"L'atelier est ouvert en ce moment":"L'atelier est fermé en ce moment";
+
+// Scroll : progression, nav, révélations
+addEventListener('scroll',()=>{const h=document.documentElement;$('#progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';$('#nav').classList.toggle('scrolled',h.scrollTop>20)},{passive:true});
+$$('.hero .lead span').forEach((s,i)=>s.style.animationDelay=(.35+i*.07)+'s');
+if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});$$('.rv').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('pillar')?(i%4)*.1:0)+'s';io.observe(el)});
+ const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('.nav ul a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});$$('main section[id]').forEach(s=>so.observe(s))}
+else $$('.rv').forEach(el=>el.classList.add('in'));
+// Menu mobile
+$('#burger').onclick=()=>$('#menu').classList.toggle('open');$$('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+</script>
+</body>
+</html>
