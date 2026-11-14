@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Librairie aux histoires partagées — Librairie à Roanne | Commande et retrait</title>
+<meta name="description" content="Librairie généraliste à Roanne, rue Alsace-Lorraine : romans, voyages, transition écologique, jeunesse. Commandez un livre et retirez-le à la librairie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700&family=Rubik:wght@400;500;600&family=Bodoni+Moda:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel auxhistoirespartagees.com
+   et de la devanture (bleu nuit, lettrage blanc).
+   Ajuster ici si la librairie fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --jaune:#FCB900;          /* titres et boutons du site actuel */
+  --jaune-fonce:#B98700;    /* version lisible pour petits textes */
+  --encre:#242321;          /* texte courant du site */
+  --creme:#FCFBF8;          /* fond principal du site */
+  --sable:#F9F5ED;          /* fond secondaire du site */
+  --beige:#DCC3B0;          /* tuile "Carnets" du site */
+  --rouge:#B32D2E;          /* accent présent sur le site */
+  --nuit:#1D2740;           /* bleu de la devanture */
+  --blanc:#FFFFFF;
+  --titre:'Rubik',system-ui,sans-serif;      /* titres du site */
+  --texte:'Chivo',system-ui,sans-serif;      /* texte du site */
+  --citation:'Bodoni Moda',Georgia,serif;    /* citation Dickinson (approchée) */
+  --r:22px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--creme);font-size:17px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:var(--titre);font-weight:400;line-height:1.2}
+h2{color:var(--jaune);font-size:clamp(1.7rem,1.2rem + 1.8vw,2.5rem)}
+.surligne{background:linear-gradient(transparent 55%,rgba(252,185,0,.45) 55%);padding:0 .15em}
+.eyebrow{font-family:var(--titre);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--jaune-fonce);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:.5em;font-family:var(--titre);font-weight:500;padding:.85em 1.4em;border-radius:999px;border:2px solid var(--jaune);text-decoration:none;cursor:pointer;font-size:1rem;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s;min-height:46px}
+.btn--plein{background:var(--jaune);color:var(--encre)}
+.btn--plein:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(185,135,0,.7)}
+.btn--ligne{background:transparent;color:var(--encre)}
+.btn--ligne:hover{background:var(--jaune)}
+.btn:active{transform:scale(.97)}
+
+/* bandeau démo */
+.demo{background:var(--nuit);color:#fff;font-size:.8rem;text-align:center;padding:.45em 1em}
+.demo b{color:var(--jaune)}
+
+/* en-tête — même organisation que le site : nom centré + menu */
+header.top{position:sticky;top:0;z-index:50;background:rgba(252,251,248,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eee7d8;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 8px 30px -18px rgba(0,0,0,.35)}
+.top__in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 20px;max-width:1180px;margin:0 auto}
+.logo{font-family:var(--titre);color:var(--jaune);text-transform:uppercase;font-size:clamp(1rem,.8rem + 1vw,1.45rem);text-decoration:none;letter-spacing:.02em;line-height:1.1}
+.logo small{display:block;font-size:.55em;color:var(--encre);letter-spacing:.18em;margin-top:3px}
+nav.menu{display:flex;gap:20px;font-family:var(--titre);font-size:.95rem;white-space:nowrap}
+section,main [id]{scroll-margin-top:90px}
+nav.menu a{text-decoration:none;position:relative;padding:4px 0}
+nav.menu a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--jaune);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav.menu a:hover::after,nav.menu a.actif::after{transform:scaleX(1)}
+.statut{display:inline-flex;align-items:center;gap:.5em;font-size:.82rem;background:var(--sable);border-radius:999px;padding:.35em .9em;white-space:nowrap}
+.statut i{width:9px;height:9px;border-radius:50%;background:#999;display:inline-block}
+.statut.ouvert i{background:#3a9b54;box-shadow:0 0 0 0 rgba(58,155,84,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(58,155,84,0)}100%{box-shadow:0 0 0 0 rgba(58,155,84,0)}}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--encre);margin:6px 8px;transition:.3s}
+
+/* bandeau jungle — image réelle du site */
+.jungle{margin:22px auto 0;max-width:1180px;padding:0 20px}
+.jungle__img{height:clamp(70px,9vw,110px);border-radius:999px;overflow:hidden;position:relative}
+.jungle__img img{width:100%;height:340%;object-fit:cover;object-position:center 40%;transform:translateY(-30%);will-change:transform}
+
+/* accueil */
+.hero{padding:34px 0 30px}
+.hero__grid{display:grid;grid-template-columns:1.05fr 1fr;border:1px solid #f1d98a;border-radius:var(--r);overflow:hidden;background:#fff}
+.hero__txt{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;justify-content:center;gap:18px}
+.hero h1{color:var(--jaune);font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem)}
+.hero h1 .mot{display:inline-block;opacity:0;transform:translateY(18px);animation:monte .7s var(--ease) forwards}
+@keyframes monte{to{opacity:1;transform:none}}
+.hero p.lead{font-size:1.08rem;max-width:34em}
+.signature{font-family:var(--titre);color:var(--jaune-fonce);font-weight:600}
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.hero__photos{position:relative;min-height:420px;background:var(--nuit)}
+.hero__photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease,transform 6s linear;transform:scale(1.06)}
+.hero__photos img.vu{opacity:1;transform:scale(1)}
+.hero__dots{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2}
+.hero__dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.55);cursor:pointer;padding:0}
+.hero__dots button.on{background:var(--jaune);width:26px;border-radius:6px;transition:width .3s}
+.atouts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.atout{background:var(--sable);border-radius:16px;padding:16px 18px;font-size:.93rem;display:flex;gap:12px;align-items:flex-start}
+.atout svg{flex:none;color:var(--jaune-fonce)}
+.atout b{font-family:var(--titre);font-weight:500;display:block}
+
+section{padding:clamp(56px,7vw,96px) 0}
+.sec-tete{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.sec-tete p{max-width:36em}
+
+/* rayons — reprise du nuage de mots du site, rendu cliquable */
+.rayons{background:var(--sable)}
+.nuage{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 12px;max-width:900px;margin:0 auto}
+.nuage button{font-family:var(--titre);border:1.5px solid transparent;background:#fff;border-radius:999px;padding:.45em 1em;cursor:pointer;color:var(--encre);transition:transform .3s var(--ease),border-color .3s,background .3s;font-size:var(--fs,1rem)}
+.nuage button:nth-child(3n){color:#2c4a6b}.nuage button:nth-child(4n){color:var(--rouge)}.nuage button:nth-child(5n){color:var(--jaune-fonce)}
+.nuage button:hover{transform:translateY(-3px) rotate(-1.5deg);border-color:var(--jaune)}
+.nuage button.on{background:var(--jaune);color:var(--encre);border-color:var(--jaune)}
+.rayon-info{text-align:center;margin-top:22px;min-height:1.6em;font-size:.98rem}
+
+/* étagère coups de cœur */
+.filtres{display:flex;gap:8px;flex-wrap:wrap}
+.filtres button{font-family:var(--titre);border:1.5px solid var(--jaune);background:transparent;border-radius:999px;padding:.45em 1em;cursor:pointer;min-height:40px}
+.filtres button.on{background:var(--jaune)}
+.etagere{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(170px,1fr);gap:22px;overflow-x:auto;padding:10px 4px 30px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.etagere::after{content:""}
+.livre{scroll-snap-align:start;perspective:900px}
+.livre__couv{position:relative;border-radius:4px 10px 10px 4px;overflow:hidden;aspect-ratio:2/3;background:#eee;box-shadow:0 18px 30px -18px rgba(0,0,0,.55),inset 6px 0 8px -4px rgba(0,0,0,.25);transition:transform .5s var(--ease);transform-origin:left center}
+.livre:hover .livre__couv{transform:rotateY(-14deg) translateX(4px)}
+.livre__couv img{width:100%;height:100%;object-fit:cover}
+.livre__coeur{position:absolute;top:8px;left:8px;background:var(--rouge);color:#fff;font-family:var(--titre);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;padding:.3em .6em;border-radius:999px}
+.livre h3{font-size:1rem;margin-top:12px;font-weight:500}
+.livre p{font-size:.86rem;color:#5b5750}
+.livre button{margin-top:8px;font-family:var(--titre);font-size:.85rem;background:none;border:0;border-bottom:2px solid var(--jaune);cursor:pointer;padding:2px 0}
+.livre button.ajoute{border-color:#3a9b54;color:#2d7a42}
+.livre.cache{display:none}
+.etagere-planche{height:12px;background:linear-gradient(#cfa77c,#a97f55);border-radius:3px;margin-top:-26px;box-shadow:0 8px 14px -8px rgba(0,0,0,.4)}
+.note-source{font-size:.82rem;color:#6b665d;margin-top:14px}
+
+/* outil de commande */
+.commande{background:var(--nuit);color:#f3efe6;position:relative;overflow:hidden}
+.commande h2{color:var(--jaune)}
+.commande::before{content:"";position:absolute;inset:-40% -10% auto auto;width:520px;height:520px;background:radial-gradient(circle,rgba(252,185,0,.18),transparent 65%);pointer-events:none}
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:8px 0 34px}
+.etape{border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px 18px;display:flex;gap:14px;align-items:center;transition:background .4s,border-color .4s}
+.etape.on{background:rgba(252,185,0,.12);border-color:var(--jaune)}
+.etape b{font-family:var(--titre);font-size:1.6rem;color:var(--jaune);line-height:1}
+.etape span{font-size:.93rem}
+.cmd-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+.form{background:var(--creme);color:var(--encre);border-radius:var(--r);padding:clamp(20px,3vw,34px)}
+.onglets{display:flex;background:var(--sable);border-radius:999px;padding:4px;margin-bottom:20px}
+.onglets button{flex:1;border:0;background:none;font-family:var(--titre);padding:.7em;border-radius:999px;cursor:pointer;font-size:.95rem;min-height:44px}
+.onglets button.on{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.champ{margin-bottom:14px}
+.champ label{display:block;font-family:var(--titre);font-size:.88rem;margin-bottom:5px}
+.champ input,.champ textarea,.champ select{width:100%;font:inherit;font-size:1rem;padding:.7em .9em;border:1.5px solid #e3dccd;border-radius:12px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.champ input:focus,.champ textarea:focus,.champ select:focus{outline:none;border-color:var(--jaune);box-shadow:0 0 0 4px rgba(252,185,0,.18)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choix{display:flex;gap:8px;flex-wrap:wrap}
+.choix label{display:inline-flex;align-items:center;gap:.4em;border:1.5px solid #e3dccd;border-radius:999px;padding:.4em .9em;cursor:pointer;font-size:.92rem;font-family:var(--texte);margin:0}
+.choix input{accent-color:var(--jaune-fonce);width:auto}
+.choix label:has(input:checked){border-color:var(--jaune);background:#fff6d6}
+.panneau.cache{display:none}
+.liste{background:rgba(255,255,255,.06);border:1px dashed rgba(255,255,255,.3);border-radius:var(--r);padding:22px}
+.liste h3{font-size:1.15rem;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.liste h3 em{font-style:normal;background:var(--jaune);color:var(--encre);border-radius:999px;font-size:.85rem;padding:.1em .7em}
+.liste ul{list-style:none;margin:14px 0}
+.liste li{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:.93rem;animation:entre .4s var(--ease)}
+@keyframes entre{from{opacity:0;transform:translateX(12px)}}
+.liste li button{background:none;border:0;color:#f3efe6;opacity:.6;cursor:pointer;font-size:1.1rem;min-width:30px}
+.liste .vide{opacity:.7;font-size:.92rem}
+.liste .rassure{font-size:.86rem;opacity:.85;margin-top:12px;line-height:1.5}
+.ticket{margin-top:18px;background:#fff;color:var(--encre);border-radius:14px;padding:18px;font-size:.9rem;position:relative;display:none;transform-origin:top;animation:ticket .6s var(--ease)}
+.ticket.vu{display:block}
+@keyframes ticket{from{opacity:0;transform:translateY(-14px) scaleY(.85)}}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:8px;background:radial-gradient(circle at 8px 0,transparent 7px,#fff 7.5px) 0 0/16px 8px repeat-x}
+.ticket pre{white-space:pre-wrap;font-family:var(--texte);font-size:.88rem;margin:10px 0}
+.ticket .actions{display:flex;flex-wrap:wrap;gap:8px}
+.ticket .btn{font-size:.88rem;padding:.6em 1.1em;min-height:40px}
+
+/* agenda */
+.agenda-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:start}
+.affiche{border-radius:var(--r);overflow:hidden;box-shadow:0 30px 50px -30px rgba(0,0,0,.5);transform:rotate(-1.5deg);transition:transform .5s var(--ease)}
+.affiche:hover{transform:rotate(0) scale(1.01)}
+.prochain{background:var(--jaune);border-radius:var(--r);padding:20px 22px;margin-bottom:16px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.prochain .compte{font-family:var(--titre);font-size:1.9rem;line-height:1}
+.prochain small{display:block;font-size:.85rem}
+.dates{list-style:none;display:grid;gap:10px}
+.date{display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;background:#fff;border:1px solid #efe7d6;border-radius:16px;padding:12px 14px;transition:transform .3s var(--ease),box-shadow .3s}
+.date:hover{transform:translateX(4px);box-shadow:0 10px 24px -16px rgba(0,0,0,.4)}
+.date .cal{text-align:center;font-family:var(--titre);background:var(--sable);border-radius:12px;padding:6px 0;line-height:1.1}
+.date .cal b{display:block;font-size:1.5rem;font-weight:500}
+.date .cal span{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em}
+.date h3{font-size:1rem;font-weight:500}
+.date p{font-size:.85rem;color:#5b5750}
+.date button{font-family:var(--titre);font-size:.8rem;border:1.5px solid var(--jaune);background:none;border-radius:999px;padding:.4em .8em;cursor:pointer;white-space:nowrap;min-height:38px}
+.date button:hover{background:var(--jaune)}
+.date.passe{opacity:.55}
+.date.passe button{display:none}
+.tarifs{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px;font-size:.9rem}
+.tarifs span{background:var(--sable);border-radius:999px;padding:.35em .9em}
+
+/* créations artisanales — mêmes tuiles que le site */
+.tuiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tuile{position:relative;border-radius:var(--r);overflow:hidden;min-height:230px;display:flex;align-items:flex-end;padding:20px;color:#fff;text-decoration:none;isolation:isolate}
+.tuile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .8s var(--ease)}
+.tuile::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(20,20,20,.7));z-index:-1}
+.tuile:hover img{transform:scale(1.07)}
+.tuile h3{font-size:1.15rem;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.tuile p{font-size:.85rem;opacity:.9}
+.tuile--jaune{background:var(--jaune);color:var(--encre)}
+.tuile--jaune::before,.tuile--beige::before{display:none}
+.tuile--beige{background:var(--beige)}
+.tuile .avenir{display:inline-block;font-size:.72rem;letter-spacing:.12em;border-bottom:1px solid currentColor;margin-top:4px}
+
+/* histoire */
+.histoire{background:var(--sable)}
+.hist-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.polaroids{position:relative;height:440px}
+.polaroids figure{position:absolute;background:#fff;padding:10px 10px 34px;box-shadow:0 20px 40px -24px rgba(0,0,0,.55);width:58%;transition:transform .6s var(--ease)}
+.polaroids figure img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.polaroids figcaption{position:absolute;bottom:8px;left:12px;font-family:var(--titre);font-size:.82rem;color:#6b665d}
+.polaroids figure:nth-child(1){top:0;left:0;transform:rotate(-5deg)}
+.polaroids figure:nth-child(2){top:90px;right:0;transform:rotate(4deg)}
+.polaroids figure:nth-child(3){bottom:0;left:14%;transform:rotate(-1deg)}
+.polaroids:hover figure:nth-child(1){transform:rotate(-8deg) translate(-8px,-6px)}
+.polaroids:hover figure:nth-child(2){transform:rotate(7deg) translate(8px,-4px)}
+.frise{list-style:none;border-left:2px solid var(--jaune);margin-top:22px;padding-left:22px;display:grid;gap:18px}
+.frise li{position:relative}
+.frise li::before{content:"";position:absolute;left:-30px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--creme);border:3px solid var(--jaune)}
+.frise b{font-family:var(--titre);font-weight:500;display:block}
+
+/* citation */
+.citation{text-align:center;padding:clamp(60px,8vw,110px) 20px}
+.citation blockquote{font-family:var(--citation);font-size:clamp(1.6rem,1.1rem + 2.2vw,2.8rem);line-height:1.25;max-width:18em;margin:0 auto}
+.citation blockquote span{display:inline-block;opacity:.15;transition:opacity .5s}
+.citation blockquote span.lu{opacity:1}
+.citation cite{display:block;font-style:normal;font-size:.9rem;margin-top:14px}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px}
+.fiche{background:#fff;border:1px solid #efe7d6;border-radius:var(--r);padding:clamp(22px,3vw,34px)}
+.fiche h3{font-size:1.2rem;color:var(--encre);margin-bottom:12px}
+.fiche dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:.96rem}
+.fiche dt{font-family:var(--titre);color:#6b665d}
+.horaires{list-style:none;margin-top:6px}
+.horaires li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed #e8dfcc;font-size:.95rem}
+.horaires li.auj{font-weight:700}
+.horaires li.auj::before{content:"Aujourd'hui · ";font-weight:400;color:var(--jaune-fonce);margin-right:auto;padding-right:6px}
+.carte{border-radius:var(--r);overflow:hidden;min-height:360px;background:var(--sable)}
+.carte iframe{width:100%;height:100%;min-height:360px;border:0}
+.reseaux{display:flex;gap:10px;margin-top:16px}
+.reseaux a{width:44px;height:44px;border-radius:50%;background:var(--jaune);display:grid;place-items:center;transition:transform .3s var(--ease)}
+.reseaux a:hover{transform:translateY(-3px) rotate(-6deg)}
+
+footer{background:var(--nuit);color:#d9d4c8;padding:44px 0 90px;font-size:.88rem}
+footer .nom{font-family:var(--titre);color:var(--jaune);font-size:1.2rem;text-decoration:underline;text-underline-offset:5px}
+.mentions{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;line-height:1.6;opacity:.85}
+
+/* bouton flottant mobile */
+.flottant{position:fixed;right:16px;bottom:16px;z-index:60;display:none}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8em 1.2em;border-radius:999px;font-size:.92rem;z-index:80;transition:transform .45s var(--ease);max-width:calc(100% - 32px);text-align:center}
+.toast.vu{transform:translate(-50%,0)}
+
+/* apparition au défilement */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+@media (max-width:1120px){
+  nav.menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--creme);padding:90px 24px 30px;gap:14px;font-size:1.2rem;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px -20px rgba(0,0,0,.3)}
+  nav.menu.ouvert{transform:none}
+  .burger{display:block;z-index:70}
+  .statut{display:none}
+}
+@media (max-width:960px){
+  .hero__grid,.cmd-grid,.agenda-grid,.hist-grid,.contact-grid{grid-template-columns:1fr}
+  .hero__photos{min-height:300px;order:-1}
+  .atouts,.etapes{grid-template-columns:1fr}
+  .tuiles{grid-template-columns:1fr 1fr}
+  .polaroids{height:380px}
+  .flottant{display:inline-flex}
+  .affiche{max-width:440px;margin:0 auto}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .wrap,.top__in,.jungle{padding-left:16px;padding-right:16px}
+  .tuiles{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
+  .date{grid-template-columns:60px 1fr}
+  .date button{grid-column:2;justify-self:start}
+  .polaroids{height:320px}
+  .polaroids figure{width:66%}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .citation blockquote span{opacity:1}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BookStore",
+  "name":"Librairie aux histoires partagées",
+  "description":"Librairie généraliste à Roanne, tournée vers la découverte du monde, les voyages et les enjeux de transition écologique et sociétale.",
+  "url":"https://auxhistoirespartagees.com/",
+  "telephone":"+33469340477",
+  "email":"auxhistoirespartagees@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"28 rue Alsace-Lorraine","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"14:15","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:30","closes":"19:00"}
+  ],
+  "sameAs":["https://www.instagram.com/aux.histoires.partagees/","https://www.facebook.com/profile.php?id=61557796691424"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de nouveau site</b> pour la Librairie aux histoires partagées</div>
+
+<header class="top" id="haut">
+  <div class="top__in">
+    <a href="#accueil" class="logo">Librairie aux histoires partagées<small>Roanne · rue Alsace-Lorraine</small></a>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#accueil">Accueil</a>
+      <a href="#selections">Nos sélections</a>
+      <a href="#commander">Commander un livre</a>
+      <a href="#agenda">Agenda</a>
+      <a href="#creations">Créations</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="statut" id="statut"><i></i><span>…</span></span>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <div class="jungle" aria-hidden="true">
+    <div class="jungle__img"><img id="jungleImg" src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/c68fd-sans-titre-1-edited-2.png?w=1600" alt=""></div>
+  </div>
+
+  <!-- ACCUEIL -->
+  <section class="hero" id="accueil" style="padding-top:28px">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="hero__txt">
+          <span class="eyebrow">Librairie indépendante à Roanne</span>
+          <h1 id="titre">Bienvenue à la librairie aux histoires partagées 🌱</h1>
+          <p class="lead">Une librairie généraliste sur Roanne, tournée vers la découverte du monde, les voyages et les enjeux de transition écologique et sociétale 🌳⛵️</p>
+          <span class="signature">Sarah et William</span>
+          <div class="hero__cta">
+            <a href="#commander" class="btn btn--plein">Commander un livre
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#agenda" class="btn btn--ligne">Voir l'agenda</a>
+          </div>
+        </div>
+        <div class="hero__photos" id="diapo">
+          <img class="vu" src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/55001-img_4810.jpg?w=1100" alt="La devanture bleu nuit de la librairie, rue Alsace-Lorraine">
+          <img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/800f6-a447547d-9772-4dcc-adb2-096e8c1523ba-7459-00000a9af8c6459f.jpg?w=1100" alt="L'intérieur de la librairie, rayonnages en bois clair et fauteuils rouges" loading="lazy">
+          <img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/28855-img_3958.jpg?w=1100" alt="Table de nouveautés et papier peint jungle dans la librairie" loading="lazy">
+          <div class="hero__dots" id="dots"></div>
+        </div>
+      </div>
+      <div class="atouts">
+        <div class="atout rv"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM8 7h7"/></svg><div><b>Commande de tout livre disponible</b>Demandez un titre, nous le commandons pour vous.</div></div>
+        <div class="atout rv rv-d1"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg><div><b>Retrait à la librairie</b>Vous venez simplement récupérer vos livres au 28 rue Alsace-Lorraine.</div></div>
+        <div class="atout rv rv-d2"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><div><b>Voyages, monde, transition</b>Et aussi des idées cadeaux made in France entre les rayons.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAYONS -->
+  <section class="rayons" id="rayons">
+    <div class="wrap">
+      <div class="sec-tete" style="justify-content:center;text-align:center">
+        <div>
+          <span class="eyebrow">Nos rayons</span>
+          <h2>Venez découvrir nos sélections littéraires 📚</h2>
+          <p style="margin:10px auto 0">Touchez un rayon : il est ajouté à votre demande de commande ou de conseil.</p>
+        </div>
+      </div>
+      <div class="nuage" id="nuage"></div>
+      <p class="rayon-info" id="rayonInfo" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- SÉLECTIONS -->
+  <section id="selections">
+    <div class="wrap">
+      <div class="sec-tete">
+        <div>
+          <span class="eyebrow">Rentrée littéraire 2026</span>
+          <h2>Nos coups de cœur</h2>
+          <p>La sélection de Sarah et William, publiée sur le blog de la librairie. Un titre vous tente&nbsp;? Ajoutez-le à votre liste, il vous attendra à la librairie.</p>
+        </div>
+        <div class="filtres" id="filtres" role="group" aria-label="Filtrer la sélection">
+          <button class="on" data-f="coeur">Coups de cœur</button>
+          <button data-f="roman">Romans de la rentrée</button>
+          <button data-f="polar">Polars &amp; thrillers</button>
+        </div>
+      </div>
+      <div class="etagere" id="etagere"></div>
+      <div class="etagere-planche" aria-hidden="true"></div>
+      <p class="note-source">Couvertures et titres repris de l'article « Rentrée littéraire 2026 » du blog de la librairie.</p>
+    </div>
+  </section>
+
+  <!-- OUTIL CENTRAL : COMMANDER -->
+  <section class="commande" id="commander">
+    <div class="wrap" style="position:relative">
+      <span class="eyebrow" style="color:var(--jaune)">Pour passer une commande ✉️</span>
+      <h2 style="margin-bottom:10px">Commandez votre livre, venez le chercher</h2>
+      <p style="max-width:40em;opacity:.9;margin-bottom:22px">Aujourd'hui, une commande passe par téléphone ou par mail. Ici, le lecteur remplit sa demande en une minute, à n'importe quelle heure, et la librairie reçoit un message complet et clair.</p>
+      <div class="etapes">
+        <div class="etape on" id="e1"><b>1</b><span>Je décris le livre (ou ce que je cherche)</span></div>
+        <div class="etape" id="e2"><b>2</b><span>La librairie le commande et me prévient</span></div>
+        <div class="etape" id="e3"><b>3</b><span>Je viens le récupérer, rue Alsace-Lorraine</span></div>
+      </div>
+      <div class="cmd-grid">
+        <form class="form" id="form" novalidate>
+          <div class="onglets" role="tablist">
+            <button type="button" class="on" data-p="precis" role="tab" aria-selected="true">Je connais le titre</button>
+            <button type="button" data-p="conseil" role="tab" aria-selected="false">J'ai besoin d'un conseil</button>
+          </div>
+          <div class="panneau" id="p-precis">
+            <div class="champ"><label for="titreLivre">Titre du livre</label><input id="titreLivre" placeholder="Ex. : Eskera au bord du monde"></div>
+            <div class="duo">
+              <div class="champ"><label for="auteur">Auteur ou autrice</label><input id="auteur" placeholder="Ex. : Bérengère Cournut"></div>
+              <div class="champ"><label for="isbn">Éditeur ou ISBN <small>(facultatif)</small></label><input id="isbn" placeholder="978-…"></div>
+            </div>
+            <div class="champ"><label>Format souhaité</label>
+              <div class="choix">
+                <label><input type="radio" name="format" value="Peu importe" checked> Peu importe</label>
+                <label><input type="radio" name="format" value="Grand format"> Grand format</label>
+                <label><input type="radio" name="format" value="Poche"> Poche</label>
+              </div>
+            </div>
+            <button type="button" class="btn btn--ligne" id="ajouter" style="margin-bottom:10px">+ Ajouter à ma liste</button>
+          </div>
+          <div class="panneau cache" id="p-conseil">
+            <div class="champ"><label for="pourqui">C'est pour qui&nbsp;?</label>
+              <select id="pourqui"><option>Pour moi</option><option>Pour offrir à un adulte</option><option>Pour un enfant (0-6 ans)</option><option>Pour un enfant (7-12 ans)</option><option>Pour un ado</option></select></div>
+            <div class="champ"><label for="envie">Envies, livres aimés, budget…</label><textarea id="envie" rows="3" placeholder="Ex. : un récit de voyage, j'ai adoré…"></textarea></div>
+            <button type="button" class="btn btn--ligne" id="ajouterConseil" style="margin-bottom:10px">+ Ajouter cette demande</button>
+          </div>
+          <hr style="border:0;border-top:1px solid #ece4d4;margin:14px 0 18px">
+          <div class="duo">
+            <div class="champ"><label for="nom">Nom et prénom</label><input id="nom" autocomplete="name"></div>
+            <div class="champ"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="champ"><label for="mail">E-mail</label><input id="mail" type="email" autocomplete="email"></div>
+          <div class="champ"><label>Être prévenu·e de l'arrivée par</label>
+            <div class="choix">
+              <label><input type="radio" name="prev" value="SMS" checked> SMS</label>
+              <label><input type="radio" name="prev" value="Appel"> Appel</label>
+              <label><input type="radio" name="prev" value="E-mail"> E-mail</label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--plein" style="width:100%;justify-content:center;margin-top:6px">Préparer ma demande</button>
+        </form>
+
+        <aside class="liste" aria-live="polite">
+          <h3>Ma liste <em id="compte">0</em></h3>
+          <ul id="maListe"><li class="vide">Ajoutez un titre ici, ou depuis les coups de cœur.</li></ul>
+          <p class="rassure">📚 Le prix d'un livre neuf est le même partout en France (prix unique du livre)&nbsp;: le commander ici ne coûte pas plus cher, et le retrait à la librairie est sans frais de port.</p>
+          <div class="ticket" id="ticket">
+            <strong>Votre demande est prête</strong>
+            <pre id="ticketTxt"></pre>
+            <div class="actions">
+              <a class="btn btn--plein" id="envoyer" href="#">Envoyer par mail</a>
+              <button class="btn btn--ligne" type="button" id="copier">Copier</button>
+              <a class="btn btn--ligne" href="tel:+33469340477">Appeler</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section id="agenda">
+    <div class="wrap">
+      <div class="sec-tete">
+        <div>
+          <span class="eyebrow">Évènements à venir 🌱📚</span>
+          <h2>L'agenda de la librairie</h2>
+          <p>Rencontres, dédicaces et les Mercredis contés aux barrages de Renaison, co-organisés avec Filéo Loisirs. Ajoutez une date à votre agenda en un geste.</p>
+        </div>
+      </div>
+      <div class="agenda-grid">
+        <div class="affiche rv"><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/09/e89f98f5-251c-408b-bb4f-95afbc4b9b2c.jpg?w=900" alt="Affiche des Mercredis contés aux barrages de Renaison" loading="lazy"></div>
+        <div>
+          <div class="prochain rv" id="prochain"></div>
+          <ul class="dates" id="dates"></ul>
+          <div class="tarifs"><span>4,50 € conte + goûter</span><span>10,50 € accro filets + conte + goûter</span><span>Enfants de 2 à 6 ans</span></div>
+          <p style="font-size:.86rem;color:#6b665d">Lieu des Mercredis contés : Filéo Loisirs, 705 route des barrages, 42370 Renaison. Réservations auprès de Filéo Loisirs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRÉATIONS ARTISANALES -->
+  <section id="creations" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-tete">
+        <div>
+          <span class="eyebrow">Idées cadeaux made in France</span>
+          <h2>Découvrez des créations artisanales</h2>
+        </div>
+      </div>
+      <div class="tuiles">
+        <div class="tuile tuile--jaune rv"><div><h3 style="text-transform:none;font-size:1.35rem">Entre les rayons, des objets choisis avec le même soin que les livres</h3></div></div>
+        <a class="tuile rv rv-d1" href="https://auxhistoirespartagees.com/cartes-immersives-3d/"><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/a3389-awp_9818.dvp_.jpg?w=700" alt="Carte en relief 3D MAP" loading="lazy"><div><h3>Cartes 3D</h3><p>Cartes en relief conçues et fabriquées à Montpellier</p></div></a>
+        <a class="tuile rv rv-d2" href="https://auxhistoirespartagees.com/de-savons-en-senteurs/"><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/0f131-img_5949.jpg?w=700" alt="Gommage au sucre L'Art du bain" loading="lazy"><div><h3>Savons artisanaux</h3><p>L'Art du bain, fabriqués à la main à Nantes</p></div></a>
+        <div class="tuile tuile--beige rv"><div><h3>Carnets</h3><span class="avenir">À VENIR</span></div></div>
+        <div class="tuile rv rv-d1"><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/02297-carte.png?w=700" alt="Carte en relief aux tons bleus" loading="lazy"><div><h3>Cartes illustrées</h3><span class="avenir">À VENIR</span></div></div>
+        <div class="tuile rv rv-d2"><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/20d55-columbus_erdglobus_globo_terrestre_1950_05-e1717419447809.jpeg?w=700" alt="Globe terrestre ancien" loading="lazy"><div><h3>Globes et papeterie</h3><span class="avenir">À VENIR</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTOIRE -->
+  <section class="histoire" id="histoire">
+    <div class="wrap hist-grid">
+      <div class="polaroids rv">
+        <figure><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/a4e46-fc0ec761-e0e6-47e9-aad0-0a67efcd3fc0.jpg?w=600" alt="Montage des rayonnages pendant les travaux" loading="lazy"><figcaption>Les travaux</figcaption></figure>
+        <figure><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/ffa9e-img_2923-2.jpg?w=600" alt="Arrivée des premiers cartons de livres" loading="lazy"><figcaption>Les premiers cartons</figcaption></figure>
+        <figure><img src="https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/05/2c99e-img_1060.jpg?w=600" alt="La librairie aménagée" loading="lazy"><figcaption>La librairie</figcaption></figure>
+      </div>
+      <div>
+        <span class="eyebrow">De projet à création</span>
+        <h2>Une aventure littéraire et familiale</h2>
+        <p style="margin-top:12px">« Un lieu de vie, de partage, autour des livres et des voyages, mais aussi des histoires humaines. Un lieu qui puisse vivre et grandir en fonction de vous, chers lecteurs passionnés. »</p>
+        <ol class="frise">
+          <li class="rv"><b>Été 2023</b>L'idée de la librairie apparaît comme une évidence, autour d'une passion partagée depuis l'enfance pour la littérature, le voyage et les mots.</li>
+          <li class="rv rv-d1"><b>Août 2024</b>« Bienvenue à la librairie aux histoires partagées, Roanne ! »</li>
+          <li class="rv rv-d2"><b>Aujourd'hui</b>Rentrées littéraires, rencontres avec des auteurs roannais, Mercredis contés, Festival des nouveaux horizons…</li>
+        </ol>
+        <p class="signature" style="margin-top:18px">Sarah, Marie-Line et William</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITATION -->
+  <div class="citation">
+    <blockquote id="citation">« Pour voyager loin, il n'y a pas meilleur navire qu'un livre »</blockquote>
+    <cite>E. Dickinson</cite>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-tete"><div><span class="eyebrow">👋 Restons en contact</span><h2>Venez nous voir à Roanne</h2></div></div>
+      <div class="contact-grid">
+        <div class="fiche rv">
+          <h3>Librairie aux histoires partagées</h3>
+          <dl>
+            <dt>Adresse</dt><dd>28 rue Alsace-Lorraine<br>42300 Roanne</dd>
+            <dt>Téléphone</dt><dd><a href="tel:+33469340477">04 69 34 04 77</a></dd>
+            <dt>E-mail</dt><dd><a href="mailto:auxhistoirespartagees@gmail.com">auxhistoirespartagees@gmail.com</a></dd>
+          </dl>
+          <h3 style="margin-top:22px">Horaires d'ouverture</h3>
+          <ul class="horaires" id="horaires">
+            <li data-j="1"><span>Lundi</span><span>14h15 – 19h</span></li>
+            <li data-j="2"><span>Mardi</span><span>9h30 – 19h</span></li>
+            <li data-j="3"><span>Mercredi</span><span>9h30 – 19h</span></li>
+            <li data-j="4"><span>Jeudi</span><span>9h30 – 19h</span></li>
+            <li data-j="5"><span>Vendredi</span><span>9h30 – 19h</span></li>
+            <li data-j="6"><span>Samedi</span><span>9h30 – 19h</span></li>
+            <li data-j="0"><span>Dimanche</span><span>Fermé</span></li>
+          </ul>
+          <div class="reseaux">
+            <a href="https://www.facebook.com/profile.php?id=61557796691424" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+            <a href="https://www.instagram.com/aux.histoires.partagees/" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          </div>
+        </div>
+        <div class="carte rv rv-d1">
+          <iframe title="Plan d'accès à la librairie" loading="lazy" src="https://maps.google.com/maps?q=28%20rue%20Alsace%20Lorraine%2042300%20Roanne&z=16&output=embed"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="nom" href="#haut">Librairie aux histoires partagées</a>
+    <p style="margin-top:10px">28 rue Alsace-Lorraine 42300 Roanne · 04 69 34 04 77</p>
+    <p class="mentions">Maquette de démonstration non officielle, réalisée pour présenter une proposition de site à la Librairie aux histoires partagées. Textes, horaires, coordonnées, sélections et évènements repris du site actuel auxhistoirespartagees.com. Toutes les photos et couvertures proviennent du site actuel de la librairie ; aucune photo d'illustration extérieure n'est utilisée. Couleurs et polices reprises du site actuel (Rubik, Chivo) ; le bleu nuit vient de la devanture et la police de la citation est approchée. Le formulaire de commande est une démonstration : il prépare un message à envoyer par mail, aucune donnée n'est enregistrée.</p>
+  </div>
+</footer>
+
+<a href="#commander" class="btn btn--plein flottant">Commander un livre</a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('vu');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('vu'),2600)};
+
+/* Titre : mots qui montent un à un */
+const h=$('#titre');h.innerHTML=h.textContent.split(' ').map((m,i)=>`<span class="mot" style="animation-delay:${.08*i}s">${m}</span>`).join(' ');
+
+/* Menu mobile */
+const burger=$('#burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.onclick=()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)});
+
+/* Ombre d'en-tête + parallaxe du bandeau jungle */
+const jungle=$('#jungleImg');
+addEventListener('scroll',()=>{
+  $('header.top').classList.toggle('scrolled',scrollY>10);
+  if(!reduit&&scrollY<700) jungle.style.transform=`translateY(${-30+scrollY*.035}%)`;
+},{passive:true});
+
+/* Ouvert / fermé en direct (heure de Paris) */
+const H={1:[[14.25,19]],2:[[9.5,19]],3:[[9.5,19]],4:[[9.5,19]],5:[[9.5,19]],6:[[9.5,19]],0:[]};
+function statut(){
+  const p=new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Paris'}));
+  const j=p.getDay(),hh=p.getHours()+p.getMinutes()/60;
+  const ouvert=(H[j]||[]).some(([a,b])=>hh>=a&&hh<b);
+  const el=$('#statut');el.classList.toggle('ouvert',ouvert);
+  let txt=ouvert?'Ouvert jusqu\'à 19h':'Fermé';
+  if(!ouvert){for(let k=0;k<8;k++){const jj=(j+k)%7,pl=H[jj];if(pl.length&&(k>0||hh<pl[0][0])){const d=pl[0][0],hs=Math.floor(d)+'h'+(d%1?String(Math.round(d%1*60)).padStart(2,'0'):'');txt='Fermé · ouvre '+(k===0?'à ':k===1?'demain à ':['dim.','lundi','mardi','mercredi','jeudi','vendredi','samedi'][jj]+' à ')+hs;break}}}
+  el.querySelector('span').textContent=txt;
+  $$('#horaires li').forEach(li=>li.classList.toggle('auj',+li.dataset.j===j));
+}
+statut();setInterval(statut,60000);
+
+/* Diaporama de l'accueil */
+const imgs=$$('#diapo img'),dots=$('#dots');let cur=0;
+imgs.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){imgs[cur].classList.remove('vu');dots.children[cur].classList.remove('on');cur=i;imgs[cur].classList.add('vu');dots.children[cur].classList.add('on')}
+go(0);if(!reduit)setInterval(()=>go((cur+1)%imgs.length),5200);
+
+/* Rayons (repris du nuage de mots du site et de l'article de bienvenue) */
+const rayons=[['littérature française',1.35],['romans',1.25],['polar',1.1],['thriller',1.05],['fantastique',1],['romance',.95],['nouvelles',.9],['récits d\'aventures',1.05],['livres de voyages',1.15],['nature',.95],['écologie',1.1],['transition écologique et sociétale',1],['philosophie',.95],['anthropologie',.9],['féminisme',.95],['beaux ouvrages d\'art',.95],['arts créatifs',.9],['spiritualité',.9],['développement personnel',.9],['parentalité',.95],['bébés',.9],['albums illustrés 0-99 ans',1],['cuisine des 4 coins du globe',.95],['littérature étrangère',1.05]];
+const nuage=$('#nuage');let rayonChoisi=new Set();
+rayons.forEach(([r,s])=>{const b=document.createElement('button');b.type='button';b.textContent=r;b.style.setProperty('--fs',s+'rem');
+  b.onclick=()=>{b.classList.toggle('on');b.classList.contains('on')?rayonChoisi.add(r):rayonChoisi.delete(r);
+    $('#rayonInfo').innerHTML=rayonChoisi.size?`Rayons choisis : <b>${[...rayonChoisi].join(', ')}</b> — <a href="#commander" onclick="document.querySelector('[data-p=conseil]').click()">demander un conseil</a>`:'';
+    $('#envie').value=rayonChoisi.size?'Rayons : '+[...rayonChoisi].join(', ')+'. ':'';};
+  nuage.appendChild(b)});
+
+/* Étagère : sélection réelle publiée par la librairie */
+const U='https://i0.wp.com/auxhistoirespartagees.com/wp-content/uploads/2026/09/';
+const livres=[
+ ['Eskera au bord du monde','Bérengère Cournut','eskera-au-bord-du-monde.jpeg','coeur roman'],
+ ['Je','Lilia Hassaine','16359610.webp','coeur roman'],
+ ['La première phrase du premier livre','Philippe Besson','16188466.webp','coeur roman'],
+ ['L\'Enfant grise','Grégoire Courtois','16189189.webp','coeur roman'],
+ ['L\'adolescence du perroquet','Amélie Nothomb','16473503.webp','coeur roman'],
+ ['Le Fabuleux piano','Sonia Devillers','16224291.webp','coeur roman'],
+ ['Le dernier présage de Victoria Woodhull','Maxim Schwartz','16562384.webp','coeur roman'],
+ ['Le palais','F.-H. Désérable','16428243.webp','roman'],
+ ['Cipango','Jean-Marie Blas de Roblès','16484996.webp','roman'],
+ ['Rouge Truites','Pierric Bailly','16439983.webp','roman'],
+ ['Une histoire d\'amours','Serge Joncour','16401511.webp','roman'],
+ ['Ce qui nous frôle sous la surface','Colum McCann','16188911.webp','roman'],
+ ['Chronique d\'un royaume perdu','Amanda Devi','16428168.webp','roman'],
+ ['La dernière des Wilberforce','Julia Kerninon','16211439.webp','roman'],
+ ['Lakota','Caryl Férey','16359044.webp','polar'],
+ ['Un sombre été','Vera Buck','16160773-1.webp','polar'],
+ ['Base Toundra','Olivier Truc','16198453.webp','polar'],
+ ['Code Yesterday','Michel Bussi','16490442.webp','polar'],
+ ['La Route du diable','Franck Thilliez','16436164.webp','polar'],
+ ['Le cercle de Kern','Alexis Laipsker','16696924.webp','polar'],
+ ['Les Amateurs','Yan Lespoux','16208992.webp','polar'],
+ ['White River','Ian McGuire','16261957.webp','polar']];
+const et=$('#etagere');
+livres.forEach(([t,a,img,c])=>{const d=document.createElement('article');d.className='livre';d.dataset.c=c;
+  d.innerHTML=`<div class="livre__couv">${c.includes('coeur')?'<span class="livre__coeur">Coup de cœur</span>':''}<img src="${U+img}?resize=273%2C400&ssl=1" alt="Couverture : ${t}" loading="lazy"></div><h3>${t}</h3><p>${a}</p><button type="button">+ Réserver ce livre</button>`;
+  d.querySelector('button').onclick=e=>{ajouter({t,a,f:'Peu importe'});e.target.textContent='✓ Dans ma liste';e.target.classList.add('ajoute')};
+  et.appendChild(d)});
+function filtre(f){$$('.livre').forEach(l=>l.classList.toggle('cache',!l.dataset.c.includes(f)));et.scrollTo({left:0,behavior:reduit?'auto':'smooth'})}
+$$('#filtres button').forEach(b=>b.onclick=()=>{$$('#filtres button').forEach(x=>x.classList.remove('on'));b.classList.add('on');filtre(b.dataset.f)});
+filtre('coeur');
+
+/* Outil de commande */
+let liste=[];
+function rendre(){
+  const ul=$('#maListe');$('#compte').textContent=liste.length;
+  ul.innerHTML=liste.length?'':'<li class="vide">Ajoutez un titre ici, ou depuis les coups de cœur.</li>';
+  liste.forEach((l,i)=>{const li=document.createElement('li');li.innerHTML=`<span>${l.conseil?'💬 '+l.conseil:'<b>'+l.t+'</b>'+(l.a?' — '+l.a:'')+(l.f&&l.f!=='Peu importe'?' · '+l.f:'')}</span><button type="button" aria-label="Retirer">×</button>`;
+    li.querySelector('button').onclick=()=>{liste.splice(i,1);rendre()};ul.appendChild(li)});
+  $('#e1').classList.toggle('on',true);$('#e2').classList.toggle('on',liste.length>0);
+}
+function ajouter(l){liste.push(l);rendre();toast('Ajouté à votre liste : '+(l.t||'demande de conseil'))}
+$('#ajouter').onclick=()=>{const t=$('#titreLivre').value.trim();if(!t){$('#titreLivre').focus();toast('Indiquez au moins le titre');return}
+  ajouter({t,a:$('#auteur').value.trim(),i:$('#isbn').value.trim(),f:document.querySelector('[name=format]:checked').value});
+  ['#titreLivre','#auteur','#isbn'].forEach(s=>$(s).value='')};
+$('#ajouterConseil').onclick=()=>{const e=$('#envie').value.trim();if(!e){$('#envie').focus();toast('Dites-nous ce que vous aimez');return}
+  ajouter({conseil:$('#pourqui').value+' : '+e});$('#envie').value=''};
+$$('.onglets button').forEach(b=>b.onclick=()=>{$$('.onglets button').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected',false)});b.classList.add('on');b.setAttribute('aria-selected',true);
+  $('#p-precis').classList.toggle('cache',b.dataset.p!=='precis');$('#p-conseil').classList.toggle('cache',b.dataset.p!=='conseil')});
+$('#form').onsubmit=e=>{e.preventDefault();
+  if($('#titreLivre').value.trim()) $('#ajouter').click();
+  if(!liste.length){toast('Votre liste est vide');return}
+  const nom=$('#nom').value.trim(),tel=$('#tel').value.trim(),mail=$('#mail').value.trim();
+  if(!nom||(!tel&&!mail)){toast('Nom et téléphone ou e-mail, pour vous prévenir');(!nom?$('#nom'):$('#tel')).focus();return}
+  const lignes=liste.map((l,i)=>`${i+1}. `+(l.conseil?'Conseil — '+l.conseil:`${l.t}${l.a?' — '+l.a:''}${l.i?' ('+l.i+')':''}${l.f&&l.f!=='Peu importe'?' — '+l.f:''}`));
+  const txt=`Bonjour Sarah et William,\n\nJe souhaite commander / réserver :\n${lignes.join('\n')}\n\nNom : ${nom}\nTéléphone : ${tel||'—'}\nE-mail : ${mail||'—'}\nMe prévenir par : ${document.querySelector('[name=prev]:checked').value}\n\nJe viendrai récupérer ma commande à la librairie. Merci !`;
+  $('#ticketTxt').textContent=txt;$('#ticket').classList.remove('vu');void $('#ticket').offsetWidth;$('#ticket').classList.add('vu');
+  $('#envoyer').href='mailto:auxhistoirespartagees@gmail.com?subject='+encodeURIComponent('Commande de livre — '+nom)+'&body='+encodeURIComponent(txt);
+  $('#e3').classList.add('on');$('#ticket').scrollIntoView({behavior:reduit?'auto':'smooth',block:'nearest'});
+};
+$('#copier').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText($('#ticketTxt').textContent).then(()=>toast('Demande copiée'))};
+
+/* Agenda (dates publiées par la librairie) */
+const ev=[
+ {d:'2026-10-03T10:00',t:'Rencontre dédicace : Chantal Bonnepart',l:'À la librairie',dur:0},
+ {d:'2026-10-14T16:00',t:'Mercredi conté',l:'Filéo Loisirs, barrages de Renaison',dur:90},
+ {d:'2026-11-07T10:00',t:'Rencontre dédicace : Philippe Granchamp',l:'À la librairie · « Je suis celui qu\'on ne voit pas »',dur:0},
+ {d:'2026-11-18T16:00',t:'Mercredi conté',l:'Filéo Loisirs, barrages de Renaison · histoires du Père Castor',dur:90},
+ {d:'2026-12-16T16:00',t:'Mercredi conté',l:'Filéo Loisirs, barrages de Renaison · histoires du Père Castor',dur:90},
+ {d:'2027-01-13T16:00',t:'Mercredi conté',l:'Filéo Loisirs, barrages de Renaison · histoires du Père Castor',dur:90},
+ {d:'2027-02-10T16:00',t:'Mercredi conté',l:'Filéo Loisirs, barrages de Renaison · histoires du Père Castor',dur:90}];
+const mois=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+const now=new Date(),ul=$('#dates');let prochain=null;
+ev.forEach(e=>{const d=new Date(e.d),passe=d<new Date(now.toDateString());if(!passe&&!prochain)prochain=e;
+  const li=document.createElement('li');li.className='date rv'+(passe?' passe':'');
+  li.innerHTML=`<div class="cal"><b>${d.getDate()}</b><span>${mois[d.getMonth()]}</span></div><div><h3>${e.t}</h3><p>${e.l}${e.dur?' · 16h':''}${passe?' · passé':''}</p></div><button type="button">+ Mon agenda</button>`;
+  li.querySelector('button').onclick=()=>ics(e);ul.appendChild(li)});
+if(prochain){const d=new Date(prochain.d),j=Math.ceil((d-now)/864e5);
+  $('#prochain').innerHTML=`<div><small>Prochain rendez-vous</small><strong style="font-family:var(--titre);font-size:1.15rem">${prochain.t} · ${d.getDate()} ${mois[d.getMonth()]}</strong></div><div class="compte">${j<=0?'Aujourd\'hui':'J-'+j}</div>`;}
+function ics(e){const d=new Date(e.d),f=x=>x.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',fin=new Date(d.getTime()+(e.dur||120)*6e4);
+  const c=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Librairie aux histoires partagees//FR','BEGIN:VEVENT','UID:'+d.getTime()+'@auxhistoirespartagees','DTSTAMP:'+f(new Date()),'DTSTART:'+f(d),'DTEND:'+f(fin),'SUMMARY:'+e.t,'LOCATION:'+e.l.split(' · ')[0],'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:'text/calendar'}));a.download='evenement-librairie.ics';a.click();toast('Date ajoutée à télécharger dans votre agenda')}
+
+/* Citation : les mots s'allument au défilement */
+const q=$('#citation');q.innerHTML=q.textContent.split(' ').map(m=>`<span>${m}</span>`).join(' ');
+const mots=[...q.querySelectorAll('span')];
+addEventListener('scroll',()=>{const r=q.getBoundingClientRect(),p=Math.min(1,Math.max(0,(innerHeight*.85-r.top)/(innerHeight*.5)));mots.forEach((m,i)=>m.classList.toggle('lu',i/mots.length<p))},{passive:true});
+
+/* Apparitions au défilement */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+/* Menu actif */
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#menu a').forEach(a=>a.classList.toggle('actif',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+['accueil','selections','commander','agenda','creations','contact'].forEach(id=>so.observe(document.getElementById(id)));
+})();
+</script>
+</body>
+</html>
