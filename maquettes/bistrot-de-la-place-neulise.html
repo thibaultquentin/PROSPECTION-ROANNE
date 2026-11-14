@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bistrot de la Place — Restaurant et bar à Neulise | Grenouilles, plat du jour</title>
+<meta name="description" content="Bistrot de la Place, restaurant et bar place de Flandre à Neulise : formule du jour le midi, menu grenouilles, menu du Bistrot et terrasse. Réservez votre table.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Josefin+Sans:wght@300;400;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise de la devanture du Bistrot de la Place (photo publiée
+   sur le site actuel) : store et enseigne anthracite, lettrage manuscrit
+   orangé « Bistrot de la Place », capitales blanches « RESTAURANT BAR ».
+   Codes exacts non communiqués : valeurs approchées, ajustables ici.
+   ===================================================================== */
+:root{
+  --anthracite:#2f3335;      /* store / enseigne */
+  --anthracite-2:#3d4245;
+  --anthracite-3:#4b5154;
+  --orange:#e8894f;          /* lettrage de l'enseigne */
+  --orange-clair:#f3b27f;
+  --creme:#f6f1ea;           /* fond clair, rappel des murs crépis */
+  --papier:#fffdf9;
+  --texte:#2a2d2f;
+  --texte-doux:#62686b;
+  --blanc:#ffffff;
+  --script:"Parisienne", cursive;          /* lettrage manuscrit de l'enseigne */
+  --caps:"Josefin Sans", system-ui, sans-serif; /* « RESTAURANT BAR » */
+  --carte:"Cormorant Garamond", Georgia, serif;  /* ton des cartes papier */
+  --r:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--caps);color:var(--texte);background:var(--creme);line-height:1.6;font-weight:400;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.script{font-family:var(--script);font-weight:400;color:var(--orange);line-height:1}
+.eyebrow{font-family:var(--caps);text-transform:uppercase;letter-spacing:.22em;font-size:.78rem;font-weight:600;color:var(--orange)}
+h2{font-family:var(--caps);text-transform:uppercase;letter-spacing:.06em;font-weight:700;font-size:clamp(1.6rem,1.2rem + 1.8vw,2.6rem);line-height:1.15}
+.btn{display:inline-flex;align-items:center;gap:.6rem;min-height:48px;padding:.85rem 1.5rem;border-radius:999px;font-family:var(--caps);font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.82rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-orange{background:var(--orange);color:var(--anthracite);box-shadow:0 10px 24px -12px rgba(232,137,79,.9)}
+.btn-orange:hover{background:var(--orange-clair)}
+.btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn-ghost:hover{background:#fff;color:var(--anthracite)}
+.btn-dark{background:var(--anthracite);color:#fff}
+.btn-dark:hover{background:var(--anthracite-3)}
+
+/* bandeau démo */
+.demo-bar{background:#16191a;color:#c9cdcf;font-size:.78rem;text-align:center;padding:.5rem 16px;letter-spacing:.02em}
+.demo-bar b{color:var(--orange-clair);font-weight:600}
+
+/* en-tête façon enseigne */
+header{position:sticky;top:0;z-index:50;background:rgba(47,51,53,.96);backdrop-filter:blur(8px);color:#fff;border-bottom:3px solid var(--anthracite-3);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 10px 30px -15px rgba(0,0,0,.6)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:74px}
+.logo{display:flex;align-items:center;gap:.8rem;text-decoration:none;white-space:nowrap;flex:0 0 auto}
+.logo .script{font-size:clamp(1.8rem,1.4rem + 1vw,2.3rem);padding:.2rem .1rem;background:linear-gradient(180deg,#f6a56c,#e07a3e);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo small{font-weight:600;font-size:.72rem;letter-spacing:.2em;line-height:1.2;color:#fff}
+.menu{display:flex;gap:1.3rem;list-style:none}
+.menu a{white-space:nowrap;text-decoration:none;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;font-weight:600;position:relative;padding:.4rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.statut{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:.4rem .8rem;border-radius:999px;background:rgba(255,255,255,.08);white-space:nowrap}
+.statut i{width:9px;height:9px;border-radius:50%;background:#8a8f92}
+.statut.ouvert i{background:#7fd08a;box-shadow:0 0 0 0 rgba(127,208,138,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(127,208,138,0)}100%{box-shadow:0 0 0 0 rgba(127,208,138,0)}}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;min-width:44px;min-height:44px;cursor:pointer}
+@media (max-width:1240px){.nav .statut{display:none}}
+@media (max-width:480px){.logo small{display:none}}
+@media (max-width:1020px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--anthracite);padding:.5rem 16px 1rem}
+  .menu.open{display:flex}
+  .menu a{display:block;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .burger{display:block}
+  .nav .statut{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--anthracite)}
+.hero-img{position:absolute;inset:0;background:url("https://cdn.website.dish.co/media/04/9c/3737506/Bistrot-de-la-Place-11119863-1427262637589173-3758121052002116447-o-jpg.jpg") center 35%/cover;transform:scale(1.08);animation:zoom 14s var(--ease) forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,25,26,.15) 0%,rgba(22,25,26,.35) 40%,rgba(22,25,26,.92) 100%)}
+.hero-in{position:relative;z-index:2;padding:clamp(2rem,6vw,5rem) 0}
+.hero .script{font-size:clamp(3.4rem,2rem + 7vw,7.5rem);color:var(--orange-clair);text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.hero h1{font-weight:600;text-transform:uppercase;letter-spacing:.3em;font-size:clamp(.9rem,.8rem + .5vw,1.2rem);margin:.6rem 0 1.2rem}
+.hero p.lead{max-width:560px;font-size:clamp(1rem,.95rem + .3vw,1.2rem);font-weight:300;color:#e7e9ea}
+.hero .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero .reveal-line{display:block;overflow:hidden}
+.hero .reveal-line>span{display:block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero .reveal-line:nth-child(2)>span{animation-delay:.15s}
+@keyframes up{to{transform:none}}
+.photo-tag{position:absolute;right:16px;bottom:12px;z-index:3;font-size:.68rem;color:rgba(255,255,255,.7);letter-spacing:.05em}
+
+/* défilé */
+.ruban{background:var(--orange);color:var(--anthracite);overflow:hidden;white-space:nowrap;border-block:3px solid var(--anthracite)}
+.ruban-track{display:inline-flex;gap:2.5rem;padding:.85rem 0;animation:defile 32s linear infinite;font-weight:700;text-transform:uppercase;letter-spacing:.18em;font-size:.85rem}
+.ruban-track span::after{content:"✦";margin-left:2.5rem;opacity:.6}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,8vw,7rem) 0}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1.5rem;margin-bottom:2.6rem}
+.head p{max-width:460px;color:var(--texte-doux)}
+
+/* menus */
+.menus{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+@media (max-width:900px){.menus{grid-template-columns:1fr}}
+.mcard{background:var(--papier);border-radius:var(--r);padding:2.2rem 1.8rem;position:relative;border:1px solid #e8dfd3;transition:transform .4s var(--ease),box-shadow .4s;text-align:center}
+.mcard:hover{transform:translateY(-6px);box-shadow:0 26px 50px -30px rgba(47,51,53,.55)}
+.mcard .tag{position:absolute;top:1rem;left:1rem;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--anthracite);color:#fff;padding:.3rem .6rem;border-radius:6px}
+.mcard h3{font-family:var(--script);font-weight:400;font-size:2.4rem;color:var(--anthracite);margin:.8rem 0 .2rem}
+.prix{font-family:var(--carte);font-size:2rem;color:var(--orange);font-weight:500}
+.mcard ul{list-style:none;font-family:var(--carte);font-size:1.18rem;margin-top:1.1rem;color:#3c4144}
+.mcard li+li::before{content:"***";display:block;color:#b9b0a4;font-size:.9rem;letter-spacing:.2em;margin:.25rem 0}
+.mcard .note{font-size:.8rem;color:var(--texte-doux);margin-top:1.1rem;font-style:normal}
+.mcard .lignes{display:grid;gap:.5rem;margin-top:1.1rem;text-align:left;font-family:var(--carte);font-size:1.15rem}
+.mcard .lignes div{display:flex;justify-content:space-between;gap:.5rem;border-bottom:1px dashed #ddd2c4;padding-bottom:.35rem}
+.mcard .lignes b{color:var(--orange);font-weight:500}
+
+/* réservation (outil central) */
+.resa{background:var(--anthracite);color:#fff;position:relative;overflow:hidden}
+.resa::before{content:"Réserver";position:absolute;right:-2rem;top:1rem;font-family:var(--script);font-size:clamp(6rem,16vw,14rem);color:rgba(255,255,255,.04);pointer-events:none}
+.resa .head p{color:#b7bdc0}
+.planner{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr);gap:1.6rem;position:relative}
+@media (max-width:960px){.planner{grid-template-columns:1fr}}
+.panel{min-width:0;background:var(--anthracite-2);border-radius:var(--r);padding:1.6rem;border:1px solid rgba(255,255,255,.07)}
+.step{margin-bottom:1.6rem}
+.step h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.18em;font-weight:700;color:var(--orange-clair);margin-bottom:.8rem;display:flex;gap:.6rem;align-items:center}
+.step h3 b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--orange);color:var(--anthracite);font-size:.75rem}
+.jours{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:thin}
+.jour{flex:0 0 auto;width:66px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:transparent;color:#fff;padding:.55rem 0;cursor:pointer;font-family:var(--caps);text-align:center;transition:background .2s,border-color .2s,transform .2s}
+.jour small{display:block;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:#aeb4b7}
+.jour strong{display:block;font-size:1.35rem;font-weight:600}
+.jour:hover:not(:disabled){border-color:var(--orange);transform:translateY(-2px)}
+.jour[aria-pressed=true]{background:var(--orange);border-color:var(--orange);color:var(--anthracite)}
+.jour[aria-pressed=true] small{color:var(--anthracite)}
+.jour:disabled{opacity:.32;cursor:not-allowed;text-decoration:line-through}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;border-radius:999px;padding:.55rem 1rem;min-height:44px;font-family:var(--caps);font-weight:600;font-size:.85rem;cursor:pointer;transition:.2s}
+.chip:hover:not(:disabled){border-color:var(--orange)}
+.chip[aria-pressed=true]{background:#fff;color:var(--anthracite);border-color:#fff}
+.chip:disabled{opacity:.3;cursor:not-allowed}
+.compteur{display:flex;align-items:center;gap:1rem}
+.compteur button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;font-size:1.3rem;cursor:pointer}
+.compteur button:hover{background:rgba(255,255,255,.08)}
+.compteur output{font-size:2rem;font-weight:600;min-width:2ch;text-align:center}
+.hint{font-size:.8rem;color:#aeb4b7;margin-top:.6rem}
+.recap{position:sticky;top:96px;align-self:start;background:var(--papier);color:var(--texte);border-radius:var(--r);padding:1.8rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.recap .script{font-size:2.3rem;color:var(--anthracite)}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:.55rem 1rem;margin:1.2rem 0;font-size:.95rem}
+.recap dt{color:var(--texte-doux);text-transform:uppercase;font-size:.72rem;letter-spacing:.14em;padding-top:.2rem}
+.recap dd{font-weight:600}
+.budget{border-top:1px dashed #d8cdbf;padding-top:1rem;margin-top:.4rem;display:flex;justify-content:space-between;align-items:baseline}
+.budget span{font-size:.78rem;text-transform:uppercase;letter-spacing:.14em;color:var(--texte-doux)}
+.budget strong{font-family:var(--carte);font-size:2rem;color:var(--orange)}
+.alerte{font-size:.82rem;background:#fff3e8;border-left:3px solid var(--orange);padding:.6rem .8rem;border-radius:6px;margin-top:1rem;display:none}
+.alerte.show{display:block}
+.recap .actions{display:grid;gap:.6rem;margin-top:1.2rem}
+.recap .actions .btn{justify-content:center}
+.recap .petit{font-size:.75rem;color:var(--texte-doux);margin-top:.9rem}
+
+/* vins */
+.vins{background:var(--papier)}
+.filtres{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.filtres .chip{color:var(--anthracite);border-color:#d4cabd}
+.filtres .chip[aria-pressed=true]{background:var(--anthracite);color:#fff;border-color:var(--anthracite)}
+.tri{margin-left:auto;display:flex;align-items:center;gap:.5rem;font-size:.85rem}
+.tri select{font-family:var(--caps);padding:.55rem .8rem;border-radius:10px;border:1px solid #d4cabd;background:#fff;min-height:44px}
+.liste-vins{display:grid;grid-template-columns:repeat(2,1fr);gap:.2rem 3rem}
+@media (max-width:760px){.liste-vins{grid-template-columns:1fr}.tri{margin-left:0}}
+.vin{display:flex;align-items:baseline;gap:.6rem;padding:.75rem 0;border-bottom:1px solid #eee5d9;font-family:var(--carte);font-size:1.15rem;animation:fade .45s var(--ease) both}
+.vin .pastille{width:10px;height:10px;border-radius:50%;flex:0 0 auto;transform:translateY(-1px)}
+.vin .nom{flex:1}
+.vin .nom em{color:var(--texte-doux)}
+.vin .dots{flex:1;border-bottom:1px dotted #c9bfb2;transform:translateY(-4px);min-width:20px}
+.vin .p{color:var(--orange);font-weight:500;white-space:nowrap}
+.vin .local{font-family:var(--caps);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--orange);color:var(--anthracite);padding:.15rem .45rem;border-radius:5px;margin-left:.4rem;vertical-align:middle}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem}
+.serv{background:var(--papier);border-radius:var(--r);padding:1.3rem;border:1px solid #e8dfd3;display:flex;gap:.8rem;align-items:center;font-weight:600;font-size:.92rem;transition:transform .3s var(--ease),border-color .3s}
+.serv:hover{transform:translateY(-3px);border-color:var(--orange)}
+.serv svg{flex:0 0 auto;width:28px;height:28px;stroke:var(--orange);fill:none;stroke-width:1.6}
+
+/* bar */
+.bar{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+@media (max-width:860px){.bar{grid-template-columns:1fr}}
+.bar figure{border-radius:var(--r);overflow:hidden;position:relative}
+.bar figure img{transition:transform 1.2s var(--ease)}
+.bar figure:hover img{transform:scale(1.04)}
+.bar .script{font-size:3rem}
+.bar p{color:var(--texte-doux);margin-top:1rem}
+.horaires-bar{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.4rem}
+.horaires-bar div{background:var(--papier);border:1px solid #e8dfd3;border-radius:12px;padding:.8rem 1rem;font-size:.85rem}
+.horaires-bar b{display:block;color:var(--anthracite);font-size:1.05rem}
+
+/* avis */
+.avis{background:var(--anthracite);color:#fff}
+.avis-grid{display:grid;grid-template-columns:auto 1fr 1fr;gap:1.4rem;align-items:stretch}
+@media (max-width:900px){.avis-grid{grid-template-columns:1fr}}
+.note-moy{display:grid;place-items:center;text-align:center;padding:1.6rem;border-radius:var(--r);background:var(--anthracite-2)}
+.note-moy strong{font-size:3.2rem;font-weight:600;color:var(--orange-clair);line-height:1}
+.note-moy small{color:#aeb4b7;font-size:.75rem;letter-spacing:.08em}
+blockquote{background:var(--anthracite-2);border-radius:var(--r);padding:1.6rem;font-family:var(--carte);font-size:1.35rem;font-style:italic;position:relative}
+blockquote::before{content:"“";position:absolute;top:-.6rem;left:1rem;font-size:4rem;color:var(--orange);font-family:var(--carte)}
+blockquote cite{display:block;margin-top:1rem;font-family:var(--caps);font-style:normal;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#aeb4b7}
+.source{font-size:.75rem;color:#8f979a;margin-top:1rem}
+
+/* infos */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
+@media (max-width:860px){.infos{grid-template-columns:1fr}}
+.carte-info{background:var(--papier);border-radius:var(--r);padding:1.8rem;border:1px solid #e8dfd3}
+.carte-info h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.18em;color:var(--orange);margin-bottom:1rem}
+table.h{width:100%;border-collapse:collapse;font-size:.92rem}
+table.h td{padding:.55rem 0;border-bottom:1px solid #efe7dc;vertical-align:top}
+table.h td:last-child{text-align:right;color:var(--texte-doux)}
+table.h tr.today td{color:var(--anthracite);font-weight:700}
+table.h tr.today td:first-child::before{content:"● ";color:var(--orange)}
+.coord{display:grid;gap:.9rem;font-size:1rem}
+.coord a{text-decoration:none;font-weight:600}
+.coord a:hover{color:var(--orange)}
+.paiements{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
+.paiements span{font-size:.75rem;background:var(--creme);border-radius:999px;padding:.3rem .7rem}
+.photo-vide{margin-top:1.2rem;border:2px dashed #d4cabd;border-radius:12px;padding:1.4rem;text-align:center;color:var(--texte-doux);font-size:.85rem}
+
+footer{background:#1b1e1f;color:#aeb4b7;padding:3rem 0 2rem;font-size:.85rem}
+footer .script{font-size:2.4rem}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+.mention{margin-top:2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.08);font-size:.78rem;line-height:1.7}
+.mention b{color:var(--orange-clair)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.stag>*{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.stag.in>*{opacity:1;transform:none}
+.stag.in>*:nth-child(2){transition-delay:.1s}.stag.in>*:nth-child(3){transition-delay:.2s}.stag.in>*:nth-child(4){transition-delay:.3s}.stag.in>*:nth-child(5){transition-delay:.4s}.stag.in>*:nth-child(6){transition-delay:.5s}.stag.in>*:nth-child(7){transition-delay:.6s}.stag.in>*:nth-child(8){transition-delay:.7s}.stag.in>*:nth-child(9){transition-delay:.8s}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,200px);visibility:hidden;background:var(--anthracite);color:#fff;padding:.9rem 1.3rem;border-radius:12px;font-size:.9rem;z-index:99;transition:transform .45s var(--ease);box-shadow:0 20px 40px -20px #000;max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv,.stag>*{opacity:1;transform:none}
+  .hero .reveal-line>span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Bistrot de la Place",
+  "description":"Restaurant et bar à Neulise : formule du jour le midi en semaine, menu grenouilles, menu du Bistrot, terrasse.",
+  "servesCuisine":"Cuisine française",
+  "address":{"@type":"PostalAddress","streetAddress":"64 place de Flandre","postalCode":"42590","addressLocality":"Neulise","addressCountry":"FR"},
+  "telephone":"+33477624158",
+  "email":"bistrotdelaplaceneulise@sfr.fr",
+  "areaServed":"Neulise",
+  "priceRange":"10 € – 29,50 €",
+  "image":"https://cdn.website.dish.co/media/04/9c/3737506/Bistrot-de-la-Place-11119863-1427262637589173-3758121052002116447-o-jpg.jpg",
+  "acceptsReservations":"True",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday"],"opens":"08:30","closes":"15:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday","Saturday","Sunday"],"opens":"08:30","closes":"23:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo-bar"><b>Maquette de démonstration</b> — proposition de site pour le Bistrot de la Place (Neulise), construite à partir des informations publiées sur son site actuel. Aucune réservation n'est réellement enregistrée.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Bistrot de la Place, accueil">
+      <span class="script">Bistrot de la Place</span>
+      <small>RESTAURANT<br>BAR</small>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#menus">Nos menus</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#vins">Carte des vins</a></li>
+      <li><a href="#bar">Le bar</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <span class="statut" id="statut"><i></i><span>…</span></span>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="hero-img" role="img" aria-label="La devanture du Bistrot de la Place et sa terrasse, place de Flandre à Neulise"></div>
+  <div class="wrap hero-in">
+    <p class="script"><span class="reveal-line"><span>Bistrot de la Place</span></span></p>
+    <h1><span class="reveal-line"><span>Restaurant · Bar · Neulise</span></span></h1>
+    <p class="lead rv">Place de Flandre, au cœur du village : la formule du jour le midi, les cuisses de grenouilles en persillade, le menu du Bistrot et la terrasse aux beaux jours.</p>
+    <div class="cta rv">
+      <a class="btn btn-orange" href="#reserver">Réserver une table</a>
+      <a class="btn btn-ghost" href="#menus">Voir les menus</a>
+      <a class="btn btn-ghost" href="tel:+33477624158">04 77 62 41 58</a>
+    </div>
+  </div>
+  <span class="photo-tag">Photo : site actuel du Bistrot de la Place</span>
+</section>
+
+<div class="ruban" aria-hidden="true"><div class="ruban-track" id="ruban">
+  <span>Formule du jour le midi</span><span>Menu Grenouilles</span><span>Menu du Bistrot</span><span>Bar dès 8 h 30</span><span>Terrasse</span><span>Réceptions et évènements privés</span><span>Plats à emporter</span>
+</div></div>
+
+<section id="menus">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eyebrow">Nos menus</p>
+        <h2>À la table du Bistrot</h2>
+      </div>
+      <p>Les trois formules affichées aujourd'hui sur le site, lisibles d'un coup d'œil sur téléphone, sans ouvrir de PDF.</p>
+    </div>
+    <div class="menus stag">
+      <article class="mcard">
+        <span class="tag">Midis en semaine</span>
+        <h3>Formule du jour</h3>
+        <div class="lignes">
+          <div><span>Formule du jour</span><b>16,50 €</b></div>
+          <div><span>Entrée et plat ou plat et dessert</span><b>13,50 €</b></div>
+          <div><span>Plat du jour</span><b>10,00 €</b></div>
+        </div>
+        <p class="note">Uniquement les midis en semaine, hors jours fériés. Le plat du jour change chaque jour : il pourrait s'afficher ici le matin même.</p>
+      </article>
+      <article class="mcard">
+        <span class="tag">Spécialité</span>
+        <h3>Menu Grenouilles</h3>
+        <p class="prix">25,00 €</p>
+        <ul>
+          <li>Salade verte</li>
+          <li>Cuisses de grenouilles en persillade</li>
+          <li>Fromage blanc à la crème ou avec du coulis</li>
+          <li>Dessert du moment ou glace 2 boules</li>
+        </ul>
+      </article>
+      <article class="mcard">
+        <span class="tag">À choisir sur la carte</span>
+        <h3>Menu du Bistrot</h3>
+        <p class="prix">29,50 €</p>
+        <ul>
+          <li>Entrée</li>
+          <li>Plat</li>
+          <li>Fromage</li>
+          <li>Dessert</li>
+        </ul>
+        <p class="note">La carte détaillée n'est pas encore en ligne : elle trouverait sa place ici (contenu à fournir).</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eyebrow">Réservation</p>
+        <h2>Votre table en quatre gestes</h2>
+      </div>
+      <p>Le calendrier connaît les vrais horaires du Bistrot : fermé le mercredi, cuisine le soir du jeudi au dimanche, formule du jour seulement les midis de semaine.</p>
+    </div>
+
+    <div class="planner">
+      <div class="panel rv">
+        <div class="step">
+          <h3><b>1</b> Le jour</h3>
+          <div class="jours" id="jours" role="group" aria-label="Choix du jour"></div>
+        </div>
+        <div class="step">
+          <h3><b>2</b> Le service et l'heure</h3>
+          <div class="chips" id="services" role="group" aria-label="Choix du service">
+            <button class="chip" data-s="midi" aria-pressed="true">Midi</button>
+            <button class="chip" data-s="soir" aria-pressed="false">Soir</button>
+          </div>
+          <div class="chips" id="heures" style="margin-top:.7rem" role="group" aria-label="Choix de l'heure"></div>
+          <p class="hint" id="hint-service"></p>
+        </div>
+        <div class="step">
+          <h3><b>3</b> Le nombre de couverts</h3>
+          <div class="compteur">
+            <button type="button" id="moins" aria-label="Retirer un couvert">−</button>
+            <output id="couverts" aria-live="polite">2</output>
+            <button type="button" id="plus" aria-label="Ajouter un couvert">+</button>
+            <span class="hint" style="margin:0">au-delà de 12, le Bistrot propose aussi la privatisation</span>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <h3><b>4</b> Une envie particulière ? <span style="text-transform:none;letter-spacing:0;color:#aeb4b7;font-weight:400">(facultatif)</span></h3>
+          <div class="chips" id="formules" role="group" aria-label="Choix d'une formule">
+            <button class="chip" data-f="libre" data-p="0" aria-pressed="true">Je verrai sur place</button>
+            <button class="chip" data-f="jour" data-p="16.5" aria-pressed="false">Formule du jour</button>
+            <button class="chip" data-f="grenouilles" data-p="25" aria-pressed="false">Menu Grenouilles</button>
+            <button class="chip" data-f="bistrot" data-p="29.5" aria-pressed="false">Menu du Bistrot</button>
+          </div>
+          <p class="hint">Grenouilles et menu du Bistrot : le signaler à l'avance aide la cuisine à s'organiser.</p>
+        </div>
+      </div>
+
+      <aside class="recap rv" aria-live="polite">
+        <p class="script">Votre table</p>
+        <dl>
+          <dt>Jour</dt><dd id="r-jour">—</dd>
+          <dt>Heure</dt><dd id="r-heure">—</dd>
+          <dt>Couverts</dt><dd id="r-couv">2</dd>
+          <dt>Envie</dt><dd id="r-form">Je verrai sur place</dd>
+        </dl>
+        <div class="budget"><span>Budget indicatif</span><strong id="r-budget">—</strong></div>
+        <p class="alerte" id="alerte"></p>
+        <div class="actions">
+          <a class="btn btn-orange" id="btn-tel" href="tel:+33477624158">Appeler pour confirmer</a>
+          <a class="btn btn-dark" id="btn-mail" href="#">Envoyer la demande par mail</a>
+          <button class="btn btn-dark" id="btn-ics" type="button">Ajouter à mon agenda</button>
+        </div>
+        <p class="petit">Démonstration : la demande part par mail ou téléphone, le Bistrot garde la main sur la confirmation. Budget calculé sur les prix affichés, hors boissons.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="vins" id="vins">
+  <div class="wrap">
+    <div class="head rv">
+      <div>
+        <p class="eyebrow">À boire</p>
+        <h2>La carte des vins</h2>
+      </div>
+      <p>Aujourd'hui, une photo de la carte. Ici, une liste qu'on filtre et qu'on trie, avec la Côte Roannaise mise en avant.</p>
+    </div>
+    <div class="filtres rv">
+      <button class="chip" data-c="tous" aria-pressed="true">Tous</button>
+      <button class="chip" data-c="rouge" aria-pressed="false">Rouges</button>
+      <button class="chip" data-c="blanc" aria-pressed="false">Blancs</button>
+      <button class="chip" data-c="rose" aria-pressed="false">Rosés</button>
+      <button class="chip" data-c="pichet" aria-pressed="false">Pichets</button>
+      <button class="chip" data-c="local" aria-pressed="false">Du Roannais</button>
+      <label class="tri">Trier
+        <select id="tri"><option value="carte">Ordre de la carte</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option></select>
+      </label>
+    </div>
+    <div class="liste-vins" id="liste-vins" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="bar">
+  <div class="wrap bar">
+    <figure class="rv">
+      <img src="https://cdn.website.dish.co/media/11/5b/3821589/Bistrot-de-la-Place-872B4DB3-66BE-4FAB-B1D4-DFB377BC0145-jpeg.jpg" alt="Bouteilles de liqueurs et apéritifs Maison Génestine au bar du Bistrot" loading="lazy" width="1280" height="960">
+    </figure>
+    <div class="rv">
+      <p class="eyebrow">Le bar</p>
+      <p class="script">De 8 h 30 jusqu'au soir</p>
+      <p>Le Bistrot de la Place, c'est aussi le bar du village : ouvert dès le matin, avec une sélection d'apéritifs et de liqueurs, et des soirées comme le concert rock de la Fête de la musique déjà organisé sur la place.</p>
+      <div class="horaires-bar">
+        <div>Lundi, mardi<b>8 h 30 – 15 h</b></div>
+        <div>Jeudi → dimanche<b>8 h 30 – 23 h</b></div>
+        <div>Mercredi<b>Fermé</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head rv"><div><p class="eyebrow">Sur place</p><h2>Ce que le Bistrot propose</h2></div></div>
+    <div class="services stag">
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M3 10h18M5 10l2-5h10l2 5M6 10v9M18 10v9M9 14h6"/></svg>Terrasse</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg>Climatisation</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M12 7v6h5l2 6M12 10H7M9 21a5 5 0 1 1 3-9"/></svg>Accessible</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>Parking</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M6 8h12l-1 13H7L6 8zM9 8a3 3 0 0 1 6 0"/></svg>À emporter</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>Réceptions de mariage</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M4 21V9l8-6 8 6v12M9 21v-6h6v6"/></svg>Évènements privés</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1"/></svg>Wifi gratuit</div>
+      <div class="serv"><svg viewBox="0 0 24 24"><circle cx="5" cy="10" r="2"/><circle cx="9" cy="5" r="2"/><circle cx="15" cy="5" r="2"/><circle cx="19" cy="10" r="2"/><path d="M12 11c-3 0-6 5-5 7s3 1 5 1 4 1 5-1-2-7-5-7z"/></svg>Animaux acceptés</div>
+    </div>
+  </div>
+</section>
+
+<section class="avis">
+  <div class="wrap">
+    <div class="head rv"><div><p class="eyebrow">Ils sont venus</p><h2>Ce qu'en disent les clients</h2></div></div>
+    <div class="avis-grid stag">
+      <div class="note-moy"><div><strong>4,8</strong><br><small>NOTE MOYENNE / 5<br>affichée sur le site actuel</small></div></div>
+      <blockquote>Restaurant au top, j'ai jamais mangé une tarte au pomme aussi bonne.<cite>Stessie B. — 26/02/2023</cite></blockquote>
+      <blockquote>Un bon moment. Des assiettes généreuses et très bien assaisonnées.<cite>Avis anonyme — 09/08/2021</cite></blockquote>
+    </div>
+    <p class="source">Avis repris tels qu'ils sont publiés sur le site actuel du Bistrot de la Place.</p>
+  </div>
+</section>
+
+<section id="infos">
+  <div class="wrap">
+    <div class="head rv"><div><p class="eyebrow">Infos pratiques</p><h2>Nous trouver</h2></div></div>
+    <div class="infos stag">
+      <div class="carte-info">
+        <h3>Horaires</h3>
+        <table class="h" id="table-h"></table>
+        <p class="hint" style="color:var(--texte-doux)">Cuisine : 12 h – 13 h 30 tous les jours d'ouverture, et 19 h – 21 h du jeudi au dimanche.</p>
+      </div>
+      <div class="carte-info">
+        <h3>Coordonnées</h3>
+        <div class="coord">
+          <span>64 place de Flandre<br>42590 Neulise</span>
+          <a href="tel:+33477624158">04 77 62 41 58</a>
+          <a href="mailto:bistrotdelaplaceneulise@sfr.fr">bistrotdelaplaceneulise@sfr.fr</a>
+          <a href="https://www.facebook.com/bistrotdelaplaceneulise" target="_blank" rel="noopener">Facebook : bistrotdelaplaceneulise</a>
+          <a class="btn btn-dark" style="justify-self:start" href="https://www.google.com/maps/search/?api=1&query=64+place+de+Flandre+42590+Neulise" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+        <div class="paiements" aria-label="Moyens de paiement">
+          <span>Carte bancaire</span><span>Sans contact</span><span>Espèces</span><span>Chèque</span><span>Ticket Restaurant®</span><span>Chèque vacances</span><span>Virement</span>
+        </div>
+        <div class="photo-vide">Photo de la salle — à fournir par le Bistrot</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><p class="script">Bistrot de la Place</p><p>Restaurant · Bar — 64 place de Flandre, 42590 Neulise</p></div>
+      <div><p>04 77 62 41 58<br>bistrotdelaplaceneulise@sfr.fr</p></div>
+    </div>
+    <p class="mention">
+      <b>Maquette de démonstration</b> — proposition de refonte réalisée pour le Bistrot de la Place (SAS HBCD, RCS Roanne 808 528 129). Ce n'est pas le site officiel et aucune réservation n'y est enregistrée. Menus, prix, horaires, services, avis et carte des vins sont repris du site actuel (bistrot-de-la-place-neulise.eatbu.com) ; prix indicatifs, non contractuels. Photos réelles du Bistrot (devanture, bar) issues du site actuel ; photo de la salle et carte détaillée à fournir. Couleurs et polices approchées d'après la devanture, ajustables en quelques lignes.
+    </p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  /* ---------- horaires réels (source : site actuel) ---------- */
+  // 0 = dimanche … 6 = samedi
+  const H = {
+    0:{o:"08:30",f:"23:00",midi:true,soir:true},
+    1:{o:"08:30",f:"15:00",midi:true,soir:false},
+    2:{o:"08:30",f:"15:00",midi:true,soir:false},
+    3:null,
+    4:{o:"08:30",f:"23:00",midi:true,soir:true},
+    5:{o:"08:30",f:"23:00",midi:true,soir:true},
+    6:{o:"08:30",f:"23:00",midi:true,soir:true}
+  };
+  const NOMS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  const COURT=["dim","lun","mar","mer","jeu","ven","sam"];
+  const MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  const SLOTS={midi:["12:00","12:15","12:30","12:45","13:00","13:30"],soir:["19:00","19:30","20:00","20:30","21:00"]};
+  const toMin=s=>{const[a,b]=s.split(":").map(Number);return a*60+b};
+
+  /* jours fériés (calcul de Pâques inclus) */
+  function paques(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da)}
+  function feries(y){const p=paques(y),add=n=>{const d=new Date(p);d.setDate(d.getDate()+n);return d};
+    return [new Date(y,0,1),add(1),new Date(y,4,1),new Date(y,4,8),add(39),add(50),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25)].map(d=>d.toDateString())}
+  const estFerie=d=>feries(d.getFullYear()).includes(d.toDateString());
+
+  /* ---------- statut ouvert / fermé ---------- */
+  function statut(){
+    const n=new Date(),h=H[n.getDay()],el=document.getElementById("statut"),m=n.getHours()*60+n.getMinutes();
+    let txt="Fermé aujourd'hui",ok=false;
+    if(h){ if(m<toMin(h.o)) txt="Ouvre à "+h.o.replace(":"," h ");
+      else if(m<toMin(h.f)){ok=true;txt="Ouvert · jusqu'à "+h.f.replace(":"," h ");}
+      else txt="Fermé · à demain"; }
+    el.classList.toggle("ouvert",ok); el.querySelector("span").textContent=txt;
+  }
+  statut(); setInterval(statut,60000);
+
+  /* ---------- tableau des horaires ---------- */
+  const tbody=document.getElementById("table-h"),auj=new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(j=>{const h=H[j],tr=document.createElement("tr");if(j===auj)tr.className="today";
+    tr.innerHTML="<td>"+NOMS[j]+"</td><td>"+(h?h.o.replace(":"," h ")+" – "+h.f.replace(":"," h "):"Fermé")+"</td>";tbody.appendChild(tr)});
+
+  /* ---------- planificateur de réservation ---------- */
+  const st={date:null,service:"midi",heure:null,couv:2,f:"libre",prix:0,label:"Je verrai sur place"};
+  const $=id=>document.getElementById(id);
+  const joursEl=$("jours");
+  const d0=new Date();d0.setHours(0,0,0,0);
+  for(let i=0;i<21;i++){
+    const d=new Date(d0);d.setDate(d0.getDate()+i);
+    const b=document.createElement("button");b.type="button";b.className="jour";
+    b.innerHTML="<small>"+(i===0?"auj.":COURT[d.getDay()])+"</small><strong>"+d.getDate()+"</strong><small>"+["janv","févr","mars","avr","mai","juin","juil","août","sept","oct","nov","déc"][d.getMonth()]+"</small>";
+    b.dataset.t=d.getTime();
+    if(!H[d.getDay()]){b.disabled=true;b.title="Fermé le mercredi";}
+    b.setAttribute("aria-pressed","false");
+    b.setAttribute("aria-label",NOMS[d.getDay()]+" "+d.getDate()+" "+MOIS[d.getMonth()]+(b.disabled?" — fermé":""));
+    b.addEventListener("click",()=>{choisirJour(d,b)});
+    joursEl.appendChild(b);
+  }
+  function choisirJour(d,b){
+    st.date=d;joursEl.querySelectorAll(".jour").forEach(x=>x.setAttribute("aria-pressed",x===b));
+    const h=H[d.getDay()];
+    document.querySelector('[data-s="soir"]').disabled=!h.soir;
+    if(!h.soir&&st.service==="soir")st.service="midi";
+    majServices();majHeures();maj();
+  }
+  function majServices(){document.querySelectorAll("#services .chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.s===st.service));
+    const h=st.date?H[st.date.getDay()]:null;
+    $("hint-service").textContent=h&&!h.soir?"Le "+NOMS[st.date.getDay()].toLowerCase()+", le Bistrot ferme à 15 h : service du midi uniquement.":"Cuisine de 12 h à 13 h 30 et de 19 h à 21 h.";}
+  document.querySelectorAll("#services .chip").forEach(c=>c.addEventListener("click",()=>{if(c.disabled)return;st.service=c.dataset.s;st.heure=null;majServices();majHeures();maj()}));
+  function majHeures(){
+    const box=$("heures");box.innerHTML="";
+    const now=new Date(),mNow=now.getHours()*60+now.getMinutes(),isToday=st.date&&st.date.toDateString()===now.toDateString();
+    SLOTS[st.service].forEach(s=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=s.replace(":"," h ");
+      b.disabled=!st.date||(isToday&&toMin(s)<=mNow+30);
+      if(st.heure===s&&b.disabled)st.heure=null;
+      b.setAttribute("aria-pressed",st.heure===s);
+      b.addEventListener("click",()=>{st.heure=s;majHeures();maj()});box.appendChild(b)});
+  }
+  $("moins").onclick=()=>{st.couv=Math.max(1,st.couv-1);maj()};
+  $("plus").onclick=()=>{st.couv=Math.min(40,st.couv+1);maj()};
+  document.querySelectorAll("#formules .chip").forEach(c=>c.addEventListener("click",()=>{
+    st.f=c.dataset.f;st.prix=parseFloat(c.dataset.p);st.label=c.textContent;
+    document.querySelectorAll("#formules .chip").forEach(x=>x.setAttribute("aria-pressed",x===c));maj()}));
+
+  const euro=n=>n.toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})+" €";
+  function maj(){
+    $("couverts").textContent=st.couv;$("r-couv").textContent=st.couv+(st.couv>1?" personnes":" personne");
+    $("r-jour").textContent=st.date?NOMS[st.date.getDay()]+" "+st.date.getDate()+" "+MOIS[st.date.getMonth()]:"—";
+    $("r-heure").textContent=st.heure?(st.service==="midi"?"Midi · ":"Soir · ")+st.heure.replace(":"," h "):"—";
+    $("r-form").textContent=st.label;
+    const al=$("alerte");let msg="";
+    if(st.f==="jour"&&st.date){const j=st.date.getDay();
+      if(st.service==="soir"||j===0||j===6||estFerie(st.date))msg="La formule du jour n'est servie que les midis en semaine, hors jours fériés : le Bistrot vous proposera la carte ou un autre menu.";}
+    if(st.date&&estFerie(st.date)&&!msg)msg="Jour férié : mieux vaut confirmer l'ouverture par téléphone.";
+    if(st.couv>12)msg=(msg?msg+" ":"")+"Pour un groupe de plus de 12 personnes, le Bistrot propose aussi la privatisation : précisez-le dans votre demande.";
+    al.textContent=msg;al.classList.toggle("show",!!msg);
+    $("r-budget").textContent=st.prix?"≈ "+euro(st.prix*st.couv):"—";
+    const ok=st.date&&st.heure;
+    const corps="Bonjour,%0D%0A%0D%0AJe souhaiterais réserver une table au Bistrot de la Place :%0D%0A- "+encodeURIComponent($("r-jour").textContent+", "+$("r-heure").textContent)+"%0D%0A- "+st.couv+" couvert(s)%0D%0A- "+encodeURIComponent(st.label)+"%0D%0A%0D%0ANom :%0D%0ATéléphone :%0D%0A%0D%0AMerci !";
+    $("btn-mail").href=ok?"mailto:bistrotdelaplaceneulise@sfr.fr?subject="+encodeURIComponent("Réservation — "+$("r-jour").textContent)+"&body="+corps:"#reserver";
+  }
+  $("btn-mail").addEventListener("click",e=>{if(!(st.date&&st.heure)){e.preventDefault();toast("Choisissez d'abord un jour et une heure.");}});
+  $("btn-ics").addEventListener("click",()=>{
+    if(!(st.date&&st.heure)){toast("Choisissez d'abord un jour et une heure.");return;}
+    const[h,m]=st.heure.split(":").map(Number),d=new Date(st.date);d.setHours(h,m,0,0);const f=new Date(d.getTime()+90*60000);
+    const p=n=>String(n).padStart(2,"0"),fmt=x=>x.getFullYear()+p(x.getMonth()+1)+p(x.getDate())+"T"+p(x.getHours())+p(x.getMinutes())+"00";
+    const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Bistrot de la Place//Maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@bistrot-de-la-place","DTSTAMP:"+fmt(new Date()),"DTSTART:"+fmt(d),"DTEND:"+fmt(f),"SUMMARY:Table au Bistrot de la Place ("+st.couv+" pers.)","LOCATION:64 place de Flandre\\, 42590 Neulise","DESCRIPTION:À confirmer au 04 77 62 41 58","END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="bistrot-de-la-place.ics";a.click();
+    toast("Rendez-vous ajouté : pensez à confirmer par téléphone.");
+  });
+  function toast(t){const el=$("toast");el.textContent=t;el.classList.add("show");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("show"),3200)}
+  // présélection : prochain jour ouvert
+  const nowM=new Date().getHours()*60+new Date().getMinutes();
+  const premier=[...joursEl.querySelectorAll(".jour")].find(b=>{
+    if(b.disabled)return false;
+    const d=new Date(+b.dataset.t);
+    if(d.toDateString()!==new Date().toDateString())return true;
+    const h=H[d.getDay()],last=h.soir?"21:00":"13:30";
+    return toMin(last)>nowM+30;
+  });
+  if(premier)premier.click(); else {majServices();majHeures();maj();}
+
+  /* ---------- carte des vins (source : carte publiée) ---------- */
+  const V=[
+    ["rouge","AOC Côte Roannaise","D. Lapandéry",19,1],["rouge","AOP Cairanne","Les 2 arbres",22],["rouge","AOP Saint-Joseph","Dom. Richard",26],["rouge","AOP Crozes-Hermitage","Dom. des 7 chemins",25],["rouge","AOP Aloxe-Corton","Latour",65],["rouge","AOP Saint-Nicolas-de-Bourgueil","Guy Saget",21],["rouge","AOP Rasteau","La Chevalière",20],["rouge","AOP Auxey-Duresses","C. et C. Maréchal",49],["rouge","AOP Ventoux","Silica",39],["rouge","AOP Ventoux","Artemia",39],["rouge","IGP Syrah","Dom. du Petit Pérou",26],
+    ["blanc","IGP Côtes de Gascogne","Été Gascon",21],["blanc","AOP Châteauneuf-du-Pape","Ch. de La Gardine",65],["blanc","AOP Côte Roannaise","D. Lapandéry",19,1],["blanc","IGP Côtes de Thongue","N°7 — Dom. La Croix Belle",32],["blanc","AOP Pouilly-Fumé","La Cuvée des Sandres",26],["blanc","AOP Rully","Les Plantenays",25],["blanc","AOP Petit Chablis","Dom. des Anges",23],["blanc","AOP Mâcon-Péronne","Dom. du Mont Épin",22],["blanc","AOP Côtes du Rhône","La Gardine",20],
+    ["rose","AOP Côtes de Provence","Rosalie",22],["rose","AOP Côte Roannaise","D. Lapandéry",19,1],["rose","AOP Côtes de Provence","Grain de Glace",21],
+    ["pichet","Alsace Edelzwicker (blanc)","25 cl 4,20 € · 46 cl",8],["pichet","Vin de pays du Gard (rosé)","25 cl 4,20 € · 46 cl",8],["pichet","AOC Côtes du Rhône (rouge)","25 cl 4,20 € · 46 cl",8]
+  ];
+  const COUL={rouge:"#7b2331",blanc:"#e3cf7a",rose:"#eaa2a6",pichet:"#9aa1a4"};
+  let filtre="tous",tri="carte";
+  function rendVins(){
+    let l=V.map((v,i)=>({c:v[0],n:v[1],d:v[2],p:v[3],loc:!!v[4],i}));
+    if(filtre==="local")l=l.filter(v=>v.loc);else if(filtre!=="tous")l=l.filter(v=>v.c===filtre);
+    if(tri==="asc")l.sort((a,b)=>a.p-b.p);if(tri==="desc")l.sort((a,b)=>b.p-a.p);
+    $("liste-vins").innerHTML=l.map((v,k)=>'<div class="vin" style="animation-delay:'+(k*30)+'ms"><span class="pastille" style="background:'+COUL[v.c]+'"></span><span class="nom">'+v.n+' <em>« '+v.d+' »</em>'+(v.loc?'<span class="local">Roannais</span>':'')+'</span><span class="p">'+euro(v.p)+'</span></div>').join("");
+  }
+  document.querySelectorAll(".filtres .chip").forEach(c=>c.addEventListener("click",()=>{filtre=c.dataset.c;document.querySelectorAll(".filtres .chip").forEach(x=>x.setAttribute("aria-pressed",x===c));rendVins()}));
+  $("tri").addEventListener("change",e=>{tri=e.target.value;rendVins()});
+  rendVins();
+
+  /* ---------- divers ---------- */
+  const tr=$("ruban");tr.innerHTML+=tr.innerHTML; // défilé continu
+  const burger=$("burger"),menu=$("menu");
+  burger.onclick=()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)};
+  menu.querySelectorAll("a").forEach(a=>a.onclick=()=>{menu.classList.remove("open");burger.setAttribute("aria-expanded","false")});
+  const header=document.querySelector("header");
+  addEventListener("scroll",()=>header.classList.toggle("scrolled",scrollY>10),{passive:true});
+  if("IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
+    document.querySelectorAll(".rv,.stag").forEach(el=>io.observe(el));
+  } else document.querySelectorAll(".rv,.stag").forEach(el=>el.classList.add("in"));
+})();
+</script>
+</body>
+</html>
