@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shiva Knife — Coutelier forgeron à Marcigny | Couteaux forgés, rénovation, remoulage</title>
+<meta name="description" content="Shiva Knife, atelier de coutellerie de Fabien Bigouret à Marcigny (Brionnais) : couteaux de style rustique forgés à la main, rénovation et remoulage, sur rendez-vous.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — Shiva Knife n'a pas encore de site internet.
+   Couleurs approchées à partir des photos de l'atelier
+   (pierre, braise, acier, sweat bordeaux). Ajustables ici.
+   ========================================================== */
+:root{
+  --charbon:#16120f;      /* fond principal, suie de forge */
+  --suie:#211b17;         /* fond secondaire */
+  --pierre:#a8957c;       /* mur de pierre de l'atelier */
+  --pierre-clair:#e9e0d2; /* texte clair */
+  --braise:#ff7a1a;       /* foyer de la forge */
+  --braise-fonce:#c84b0c;
+  --bordeaux:#7d1f24;     /* tenue de l'artisan, accent secondaire */
+  --acier:#b9c0c4;        /* lame polie */
+  --display:"Big Shoulders Display",Impact,sans-serif;
+  --texte:"Source Serif 4",Georgia,serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--charbon);color:var(--pierre-clair);font-family:var(--texte);font-size:clamp(1rem,.95rem + .3vw,1.15rem);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--braise);outline-offset:3px;border-radius:4px}
+
+/* bandeau démo */
+.demo{background:#000;color:#bfb3a3;font-size:.8rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--braise);font-weight:600}
+
+/* barre de chauffe (signature) : la couleur de l'acier suit le défilement */
+.chauffe{position:fixed;left:0;top:0;height:4px;width:100%;z-index:60;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#3a3a3a,#7a1d10 25%,#c2271b 45%,#ff6a13 65%,#ffb341 82%,#fff1c2)}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem clamp(1rem,4vw,3rem);background:rgba(22,18,15,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(168,149,124,.15);transition:padding .3s var(--ease)}
+header.nav.compact{padding:.55rem clamp(1rem,4vw,3rem)}
+.logo{font-family:var(--display);font-weight:900;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:flex;align-items:center;gap:.55rem}
+.logo svg{width:30px;height:30px}
+.logo span{color:var(--braise)}
+nav ul{display:flex;gap:1.6rem;list-style:none}
+nav a{text-decoration:none;font-family:var(--display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.95rem;position:relative;padding:.3rem 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--braise);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;padding:.85rem 1.4rem;border-radius:3px;font-size:1rem;transition:transform .2s var(--ease),box-shadow .3s,background .3s;min-height:44px}
+.btn-braise{background:var(--braise);color:#1a0d04;box-shadow:0 0 0 rgba(255,122,26,0)}
+.btn-braise:hover{transform:translateY(-2px);box-shadow:0 10px 30px -8px rgba(255,122,26,.7)}
+.btn-ghost{background:transparent;color:var(--pierre-clair);border:1px solid rgba(233,224,210,.35)}
+.btn-ghost:hover{border-color:var(--braise);color:var(--braise)}
+.btn:active{transform:scale(.97)}
+.burger{display:none;background:none;border:0;color:var(--pierre-clair);font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:grid;align-items:end;overflow:hidden;isolation:isolate}
+.hero-img{position:absolute;inset:0;z-index:-2}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(1.08);animation:respire 14s ease-in-out infinite alternate}
+@keyframes respire{to{transform:scale(1.16) translateY(-1.5%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(22,18,15,.25) 0%,rgba(22,18,15,.55) 45%,var(--charbon) 96%),radial-gradient(60% 50% at 70% 60%,rgba(255,122,26,.22),transparent 70%)}
+#braises{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-txt{padding:0 clamp(1rem,5vw,4rem) clamp(3rem,8vh,6rem);max-width:1100px}
+.surtitre{font-family:var(--display);letter-spacing:.3em;text-transform:uppercase;color:var(--braise);font-weight:600;font-size:.95rem;margin-bottom:.8rem}
+h1{font-family:var(--display);font-weight:900;text-transform:uppercase;line-height:.88;font-size:clamp(3.2rem,2rem + 7vw,8.5rem);letter-spacing:.01em}
+h1 .lame{display:block;background:linear-gradient(100deg,var(--acier) 0%,#fff 40%,var(--acier) 55%,#7f878c 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:reflet 6s var(--ease) infinite}
+@keyframes reflet{0%,60%{background-position:120% 0}100%{background-position:-100% 0}}
+.hero-txt p.lead{max-width:38rem;margin:1.4rem 0 2rem;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);color:#e2d6c5}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero-info{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;font-size:.95rem;color:var(--pierre)}
+.hero-info b{color:var(--pierre-clair);font-weight:600}
+
+/* sections */
+section{padding:clamp(4rem,9vw,8rem) clamp(1rem,5vw,4rem)}
+.wrap{max-width:1180px;margin:0 auto}
+.kicker{font-family:var(--display);letter-spacing:.28em;text-transform:uppercase;color:var(--braise);font-weight:600;font-size:.9rem}
+h2{font-family:var(--display);font-weight:800;text-transform:uppercase;line-height:.95;font-size:clamp(2.2rem,1.6rem + 3vw,4.2rem);margin:.6rem 0 1.2rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* atelier */
+.atelier{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.atelier .photo{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;max-height:640px}
+.atelier .photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.atelier .photo:hover img{transform:scale(1.05)}
+.atelier .photo figcaption{position:absolute;left:0;bottom:0;right:0;padding:1rem 1.2rem;font-size:.85rem;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#ddd}
+.atelier p+p{margin-top:1rem}
+.faits{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:2rem;background:rgba(168,149,124,.2);border:1px solid rgba(168,149,124,.2)}
+.faits div{background:var(--charbon);padding:1.1rem}
+.faits strong{display:block;font-family:var(--display);font-size:1.6rem;color:var(--braise);font-weight:800;letter-spacing:.03em}
+.faits span{font-size:.88rem;color:var(--pierre)}
+
+/* savoir-faire : étapes horizontales */
+.savoir{background:var(--suie);position:relative;overflow:hidden}
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem;counter-reset:e}
+.etape{position:relative;border-top:2px solid rgba(168,149,124,.25);padding-top:1.4rem;counter-increment:e}
+.etape::before{content:"0" counter(e);font-family:var(--display);font-weight:900;font-size:3.2rem;color:transparent;-webkit-text-stroke:1px rgba(255,122,26,.6);line-height:1;display:block;margin-bottom:.6rem}
+.etape::after{content:"";position:absolute;top:-2px;left:0;height:2px;width:0;background:var(--braise);transition:width 1.2s var(--ease)}
+.etape.vu::after{width:100%}
+.etape h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:1.35rem;margin-bottom:.4rem}
+.etape p{font-size:.95rem;color:#d4c7b5}
+.galerie{display:grid;grid-template-columns:2fr 1fr;gap:1rem;margin-top:3rem}
+.galerie figure{position:relative;overflow:hidden;border-radius:4px}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter 1s}
+.galerie figure:hover img{transform:scale(1.04);filter:saturate(1.15)}
+.galerie .g1{aspect-ratio:16/9}
+.galerie .g2{aspect-ratio:auto}
+.a-fournir{display:grid;place-items:center;text-align:center;border:1px dashed rgba(168,149,124,.45);border-radius:4px;color:var(--pierre);font-size:.9rem;padding:1.5rem;min-height:220px;background:repeating-linear-gradient(-45deg,transparent 0 12px,rgba(168,149,124,.05) 12px 24px)}
+
+/* prestations */
+.presta{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.carte{background:linear-gradient(160deg,#241d18,#1a1512);border:1px solid rgba(168,149,124,.18);border-radius:4px;padding:2rem 1.6rem;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s}
+.carte::before{content:"";position:absolute;inset:auto -30% -60% -30%;height:120%;background:radial-gradient(closest-side,rgba(255,122,26,.25),transparent);opacity:0;transition:opacity .5s}
+.carte:hover{transform:translateY(-6px);border-color:rgba(255,122,26,.5)}
+.carte:hover::before{opacity:1}
+.carte svg{width:42px;height:42px;color:var(--braise);margin-bottom:1rem}
+.carte h3{font-family:var(--display);text-transform:uppercase;font-size:1.6rem;letter-spacing:.04em;margin-bottom:.5rem;position:relative}
+.carte p{position:relative;color:#d4c7b5;font-size:.98rem}
+.carte a{position:relative;display:inline-block;margin-top:1.2rem;color:var(--braise);font-family:var(--display);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;font-weight:600}
+
+/* outil */
+.outil{background:radial-gradient(80% 60% at 50% 0%,rgba(255,122,26,.10),transparent 70%),var(--charbon)}
+.panneau{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(1.2rem,3vw,2.5rem);margin-top:2.5rem}
+.form{background:var(--suie);border:1px solid rgba(168,149,124,.2);border-radius:6px;padding:clamp(1.2rem,3vw,2rem)}
+.onglets{display:flex;gap:.4rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.onglet{flex:1 1 140px;background:transparent;color:var(--pierre-clair);border:1px solid rgba(168,149,124,.3);padding:.8rem .6rem;border-radius:4px;font-family:var(--display);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:1rem;cursor:pointer;transition:all .25s;min-height:44px}
+.onglet[aria-selected="true"]{background:var(--braise);color:#1a0d04;border-color:var(--braise)}
+.champ{margin-bottom:1.3rem}
+.champ>label,.champ>.lbl{display:block;font-family:var(--display);letter-spacing:.1em;text-transform:uppercase;font-size:.9rem;color:var(--pierre);margin-bottom:.5rem}
+.puces{display:flex;flex-wrap:wrap;gap:.45rem}
+.puce input{position:absolute;opacity:0;pointer-events:none}
+.puce span{display:inline-block;padding:.55rem .9rem;border:1px solid rgba(168,149,124,.35);border-radius:99px;font-size:.92rem;cursor:pointer;transition:all .2s;user-select:none}
+.puce input:checked+span{background:rgba(255,122,26,.16);border-color:var(--braise);color:#ffd2ad}
+.puce input:focus-visible+span{outline:3px solid var(--braise);outline-offset:2px}
+input[type=text],input[type=date],textarea,select{width:100%;background:#120e0c;border:1px solid rgba(168,149,124,.3);color:var(--pierre-clair);border-radius:4px;padding:.75rem .9rem;font:inherit;font-size:1rem}
+textarea{min-height:90px;resize:vertical}
+.compteur{display:flex;align-items:center;gap:.8rem}
+.compteur button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(168,149,124,.4);background:transparent;color:var(--pierre-clair);font-size:1.3rem;cursor:pointer;transition:all .2s}
+.compteur button:hover{border-color:var(--braise);color:var(--braise)}
+.compteur output{font-family:var(--display);font-size:2rem;font-weight:800;min-width:2ch;text-align:center}
+.cache{display:none}
+.recap{position:sticky;top:90px;align-self:start;background:#0f0c0a;border:1px solid rgba(255,122,26,.35);border-radius:6px;padding:clamp(1.2rem,3vw,2rem);overflow:hidden}
+.recap::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#7a1d10,var(--braise),#ffb341)}
+.recap h3{font-family:var(--display);text-transform:uppercase;font-size:1.5rem;letter-spacing:.05em;margin-bottom:1rem}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.95rem;margin-bottom:1.4rem}
+.recap dt{color:var(--pierre);font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;font-size:.82rem;padding-top:.2rem}
+.recap dd{color:var(--pierre-clair);word-break:break-word}
+.recap dd.flash{animation:flash .6s}
+@keyframes flash{from{color:var(--braise)}}
+.actions{display:grid;gap:.6rem}
+.actions .btn{justify-content:center}
+.note{font-size:.82rem;color:var(--pierre);margin-top:1rem}
+
+/* contact */
+.contact{background:var(--suie)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1.5rem,4vw,3rem);margin-top:2rem}
+.coord p{margin-bottom:1rem}
+.coord b{font-family:var(--display);letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;color:var(--pierre);display:block;font-weight:600}
+.coord a{text-decoration:none;border-bottom:1px solid rgba(255,122,26,.4)}
+.coord a:hover{color:var(--braise)}
+.carte-map{border-radius:4px;overflow:hidden;min-height:340px;border:1px solid rgba(168,149,124,.2);filter:grayscale(.6) contrast(1.05) brightness(.9)}
+.carte-map iframe{width:100%;height:100%;min-height:340px;border:0}
+.reseaux{display:flex;gap:.6rem;margin-top:1.2rem;flex-wrap:wrap}
+
+footer{padding:2.5rem clamp(1rem,5vw,4rem);font-size:.82rem;color:#958675;border-top:1px solid rgba(168,149,124,.15)}
+footer .wrap{display:grid;gap:.8rem}
+
+/* responsive */
+@media (max-width:900px){
+  nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--charbon);border-bottom:1px solid rgba(168,149,124,.2)}
+  nav ul.ouvert{display:flex}
+  nav li a{display:block;padding:1rem clamp(1rem,4vw,3rem)}
+  .burger{display:block}
+  header .btn-braise.nav-cta{display:none}
+  .atelier,.panneau,.contact-grid,.galerie{grid-template-columns:1fr}
+  .etapes{grid-template-columns:1fr 1fr}
+  .presta{grid-template-columns:1fr}
+  .recap{position:relative;top:0}
+}
+@media (max-width:520px){.etapes{grid-template-columns:1fr}.faits{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Shiva Knife",
+  "description":"Couteaux de style rustique forgés à la main, rénovation et remoulage. Sur rendez-vous.",
+  "founder":{"@type":"Person","name":"Fabien Bigouret"},
+  "telephone":"+33771834830",
+  "email":"bigouret.fabien@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"63 rue de Borchamp","postalCode":"71110","addressLocality":"Marcigny","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.26992,"longitude":4.04088},
+  "areaServed":["Marcigny","Brionnais","Roannais"],
+  "sameAs":["https://www.facebook.com/fabien.bigouret/","https://www.instagram.com/shiva.knife/"]
+}
+</script>
+</head>
+<body>
+<div class="chauffe" id="chauffe" aria-hidden="true"></div>
+<div class="demo">Maquette de démonstration — <b>proposition de site</b> pour Shiva Knife · informations reprises des fiches publiques de l'atelier</div>
+
+<header class="nav" id="nav">
+  <a href="#haut" class="logo" aria-label="Shiva Knife, accueil">
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 26 L22 8 Q26 4 28 4 Q28 6 24 10 L8 28 Z" fill="#b9c0c4"/><path d="M4 26 L8 28 L5 31 L1 29 Z" fill="#ff7a1a"/></svg>
+    Shiva <span>Knife</span>
+  </a>
+  <nav aria-label="Navigation principale">
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">☰</button>
+    <ul id="menu">
+      <li><a href="#atelier">L'atelier</a></li>
+      <li><a href="#savoir-faire">Savoir-faire</a></li>
+      <li><a href="#prestations">Prestations</a></li>
+      <li><a href="#visite">Préparer ma visite</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a href="#visite" class="btn btn-braise nav-cta">Prendre rendez-vous</a>
+</header>
+
+<main id="haut">
+  <section class="hero" aria-label="Présentation">
+    <div class="hero-img"><img src="assets/shiva-knife-marcigny/enclume.jpg" alt="Fabien Bigouret frappant une pièce chauffée sur l'enclume, dans son atelier de Marcigny" fetchpriority="high"></div>
+    <canvas id="braises" aria-hidden="true"></canvas>
+    <div class="hero-txt">
+      <p class="surtitre reveal">Coutelier forgeron · Marcigny</p>
+      <h1 class="reveal d1">Forgés<span class="lame">à la main</span></h1>
+      <p class="lead reveal d2">Shiva Knife crée des couteaux de style rustique forgés à la main. L'atelier propose également la rénovation et le remoulage de vos couteaux.</p>
+      <div class="cta-row reveal d3">
+        <a href="#visite" class="btn btn-braise">Préparer ma demande</a>
+        <a href="tel:+33771834830" class="btn btn-ghost">07 71 83 48 30</a>
+      </div>
+      <div class="hero-info reveal d3">
+        <span><b>Atelier</b> 63 rue de Borchamp, Marcigny</span>
+        <span><b>Accueil</b> sur rendez-vous, toute l'année</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="atelier">
+    <div class="wrap atelier">
+      <figure class="photo reveal">
+        <img src="assets/shiva-knife-marcigny/forge.jpg" alt="Fabien Bigouret sortant une pièce de la forge à gaz" loading="lazy">
+        <figcaption>La forge, entre les murs de pierre de l'atelier.</figcaption>
+      </figure>
+      <div>
+        <p class="kicker reveal">L'atelier</p>
+        <h2 class="reveal d1">Une forge,<br>une enclume,<br>un artisan</h2>
+        <p class="reveal d2">Derrière Shiva Knife, il y a Fabien Bigouret, artisan coutelier installé à Marcigny, au cœur du Brionnais. Chaque couteau sort de son atelier : chauffé à la forge, mis en forme au marteau sur l'enclume, puis repris à la meule jusqu'au fil.</p>
+        <p class="reveal d2">Le style est rustique, assumé : des lames qui portent la trace du feu et du marteau. L'atelier se visite sur rendez-vous, le temps de parler de votre projet ou de déposer vos couteaux à remettre en état.</p>
+        <div class="faits reveal d3">
+          <div><strong>Forgé</strong><span>à la main</span></div>
+          <div><strong>2023</strong><span>création de l'atelier</span></div>
+          <div><strong>Sur RDV</strong><span>toute l'année</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="savoir-faire" class="savoir">
+    <div class="wrap">
+      <p class="kicker reveal">Savoir-faire</p>
+      <h2 class="reveal d1">De la braise à la lame</h2>
+      <div class="etapes">
+        <div class="etape reveal"><h3>Chauffer</h3><p>L'acier monte en température dans la forge, jusqu'à la bonne couleur.</p></div>
+        <div class="etape reveal d1"><h3>Frapper</h3><p>Sur l'enclume, au marteau, la lame prend sa forme et son caractère.</p></div>
+        <div class="etape reveal d2"><h3>Émoudre</h3><p>Le passage à la meule dessine le tranchant, au geste près.</p></div>
+        <div class="etape reveal d3"><h3>Finir</h3><p>Ajustage et finitions à l'établi, jusqu'au couteau prêt à servir.</p></div>
+      </div>
+      <div class="galerie">
+        <figure class="g1 reveal"><img src="assets/shiva-knife-marcigny/emouture.jpg" alt="Émouture d'une lame sur la meule à bande, gerbe d'étincelles" loading="lazy"></figure>
+        <figure class="g2 reveal d1"><img src="assets/shiva-knife-marcigny/etabli.jpg" alt="Fabien Bigouret travaillant une pièce à l'établi" loading="lazy"></figure>
+      </div>
+      <div class="a-fournir reveal" style="margin-top:1rem">Emplacement réservé aux photos de couteaux terminés — à fournir par l'artisan</div>
+    </div>
+  </section>
+
+  <section id="prestations">
+    <div class="wrap">
+      <p class="kicker reveal">Prestations</p>
+      <h2 class="reveal d1">Ce que fait l'atelier</h2>
+      <div class="presta">
+        <article class="carte reveal">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 40 L32 16 Q38 10 42 8 Q40 14 34 20 L12 42 Z"/><path d="M8 40 L4 44 M12 42 L6 46"/></svg>
+          <h3>Couteaux forgés</h3>
+          <p>Des couteaux de style rustique, forgés à la main dans l'atelier de Marcigny. Chaque pièce se discute directement avec l'artisan.</p>
+          <a href="#visite" data-onglet="forge">Parler de mon projet →</a>
+        </article>
+        <article class="carte reveal d1">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 38 L30 18"/><circle cx="34" cy="14" r="6"/><path d="M6 42 L10 38 M24 30 L30 36 L38 28"/></svg>
+          <h3>Rénovation</h3>
+          <p>Un vieux couteau de famille, une lame fatiguée, un manche abîmé : l'atelier lui redonne une seconde vie.</p>
+          <a href="#visite" data-onglet="renovation">Faire rénover un couteau →</a>
+        </article>
+        <article class="carte reveal d2">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="24" cy="24" r="14"/><circle cx="24" cy="24" r="4"/><path d="M6 6 L18 18" /><path d="M40 8 l-2 5 M44 14 l-5 2 M42 4 l-1 3"/></svg>
+          <h3>Remoulage</h3>
+          <p>Vos couteaux ne coupent plus ? Le remoulage leur rend un tranchant net, pour la cuisine comme pour le reste.</p>
+          <a href="#visite" data-onglet="remoulage">Faire remoudre mes couteaux →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="visite" class="outil">
+    <div class="wrap">
+      <p class="kicker reveal">Préparer ma visite</p>
+      <h2 class="reveal d1">Votre demande, prête en une minute</h2>
+      <p class="reveal d2" style="max-width:44rem">L'atelier reçoit sur rendez-vous. Indiquez ce que vous souhaitez, choisissez un créneau qui vous arrange : votre demande part toute prête par mail ou par SMS, et Fabien vous confirme le rendez-vous.</p>
+
+      <div class="panneau">
+        <form class="form reveal" id="form" onsubmit="return false">
+          <div class="onglets" role="tablist" aria-label="Type de demande">
+            <button type="button" class="onglet" role="tab" aria-selected="true" data-type="forge">Couteau forgé</button>
+            <button type="button" class="onglet" role="tab" aria-selected="false" data-type="renovation">Rénovation</button>
+            <button type="button" class="onglet" role="tab" aria-selected="false" data-type="remoulage">Remoulage</button>
+          </div>
+
+          <div data-bloc="forge">
+            <div class="champ">
+              <span class="lbl">Pour quel usage ?</span>
+              <div class="puces" data-groupe="usage">
+                <label class="puce"><input type="radio" name="usage" value="Cuisine" checked><span>Cuisine</span></label>
+                <label class="puce"><input type="radio" name="usage" value="Table"><span>Table</span></label>
+                <label class="puce"><input type="radio" name="usage" value="Extérieur / nature"><span>Extérieur / nature</span></label>
+                <label class="puce"><input type="radio" name="usage" value="Cadeau"><span>Cadeau</span></label>
+                <label class="puce"><input type="radio" name="usage" value="Autre, à discuter"><span>Autre, à discuter</span></label>
+              </div>
+            </div>
+            <div class="champ">
+              <label for="idee">Votre idée en quelques mots</label>
+              <textarea id="idee" placeholder="Forme de lame, longueur, envie de manche… ou simplement « je voudrais en parler »"></textarea>
+            </div>
+          </div>
+
+          <div data-bloc="renovation" class="cache">
+            <div class="champ">
+              <span class="lbl">Ce qu'il faut reprendre</span>
+              <div class="puces">
+                <label class="puce"><input type="checkbox" name="etat" value="Lame rouillée ou tachée"><span>Lame rouillée ou tachée</span></label>
+                <label class="puce"><input type="checkbox" name="etat" value="Pointe cassée"><span>Pointe cassée</span></label>
+                <label class="puce"><input type="checkbox" name="etat" value="Lame ébréchée"><span>Lame ébréchée</span></label>
+                <label class="puce"><input type="checkbox" name="etat" value="Manche abîmé"><span>Manche abîmé</span></label>
+                <label class="puce"><input type="checkbox" name="etat" value="Je ne sais pas, à voir"><span>Je ne sais pas, à voir</span></label>
+              </div>
+            </div>
+            <div class="champ">
+              <label for="histoire">Le couteau en deux mots</label>
+              <textarea id="histoire" placeholder="Couteau de grand-père, pliant, de cuisine…"></textarea>
+            </div>
+          </div>
+
+          <div data-bloc="remoulage" class="cache">
+            <div class="champ">
+              <span class="lbl">Combien de couteaux ?</span>
+              <div class="compteur">
+                <button type="button" id="moins" aria-label="Un couteau de moins">−</button>
+                <output id="nb" aria-live="polite">3</output>
+                <button type="button" id="plus" aria-label="Un couteau de plus">+</button>
+              </div>
+            </div>
+            <div class="champ">
+              <span class="lbl">Quels types ?</span>
+              <div class="puces">
+                <label class="puce"><input type="checkbox" name="types" value="Cuisine" checked><span>Cuisine</span></label>
+                <label class="puce"><input type="checkbox" name="types" value="Pliants / de poche"><span>Pliants / de poche</span></label>
+                <label class="puce"><input type="checkbox" name="types" value="Chasse / nature"><span>Chasse / nature</span></label>
+                <label class="puce"><input type="checkbox" name="types" value="Autres"><span>Autres</span></label>
+              </div>
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="date">Jour souhaité pour passer à l'atelier</label>
+            <input type="date" id="date">
+          </div>
+          <div class="champ">
+            <span class="lbl">Moment de la journée</span>
+            <div class="puces">
+              <label class="puce"><input type="radio" name="moment" value="Matin" checked><span>Matin</span></label>
+              <label class="puce"><input type="radio" name="moment" value="Après-midi"><span>Après-midi</span></label>
+              <label class="puce"><input type="radio" name="moment" value="Fin de journée"><span>Fin de journée</span></label>
+            </div>
+          </div>
+          <div class="champ">
+            <label for="nom">Votre nom</label>
+            <input type="text" id="nom" autocomplete="name" placeholder="Prénom Nom">
+          </div>
+        </form>
+
+        <aside class="recap reveal d1" aria-live="polite">
+          <h3>Votre demande</h3>
+          <dl id="recap"></dl>
+          <div class="actions">
+            <a class="btn btn-braise" id="envoi-mail" href="#">Envoyer par mail</a>
+            <a class="btn btn-ghost" id="envoi-sms" href="#">Envoyer par SMS</a>
+            <button type="button" class="btn btn-ghost" id="ics">Ajouter à mon agenda</button>
+          </div>
+          <p class="note">Le créneau reste à confirmer par l'atelier. Aucun tarif n'est affiché : chaque demande est vue directement avec l'artisan.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="kicker reveal">Contact</p>
+      <h2 class="reveal d1">Passer à l'atelier</h2>
+      <div class="contact-grid">
+        <div class="coord reveal">
+          <p><b>Adresse</b>Shiva Knife<br>63 rue de Borchamp<br>71110 Marcigny</p>
+          <p><b>Téléphone</b><a href="tel:+33771834830">07 71 83 48 30</a></p>
+          <p><b>Mail</b><a href="mailto:bigouret.fabien@gmail.com">bigouret.fabien@gmail.com</a></p>
+          <p><b>Ouverture</b>Toute l'année, sur rendez-vous</p>
+          <div class="reseaux">
+            <a class="btn btn-ghost" href="https://www.instagram.com/shiva.knife/" target="_blank" rel="noopener">Instagram</a>
+            <a class="btn btn-ghost" href="https://www.facebook.com/fabien.bigouret/" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+        <div class="carte-map reveal d1">
+          <iframe title="Plan d'accès à l'atelier Shiva Knife, Marcigny" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0309%2C46.2649%2C4.0509%2C46.2749&amp;layer=mapnik&amp;marker=46.26992%2C4.04088"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Shiva Knife</b> — Fabien Bigouret, coutelier · 63 rue de Borchamp, 71110 Marcigny · 07 71 83 48 30</p>
+    <p>Maquette de démonstration, non contractuelle. Informations reprises des fiches publiques de l'atelier (offices de tourisme du Brionnais et de Bourgogne-Franche-Comté, registre des entreprises). Les quatre photos sont celles de l'atelier publiées sur ces fiches ; les photos de couteaux terminés restent à fournir. Shiva Knife n'ayant pas encore de site, les couleurs et polices sont proposées d'après l'ambiance de l'atelier et entièrement ajustables. Aucun tarif n'est affiché.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* apparitions au défilement */
+  const obs = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');obs.unobserve(e.target)}}),{threshold:.15}) : null;
+  document.querySelectorAll('.reveal,.etape').forEach(el=>obs?obs.observe(el):el.classList.add('vu'));
+
+  /* barre de chauffe + nav compacte */
+  const chauffe=document.getElementById('chauffe'), nav=document.getElementById('nav');
+  function surDefilement(){
+    const h=document.documentElement, p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+    chauffe.style.transform='scaleX('+p.toFixed(3)+')';
+    nav.classList.toggle('compact',h.scrollTop>40);
+  }
+  addEventListener('scroll',surDefilement,{passive:true});surDefilement();
+
+  /* menu mobile */
+  const burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}));
+
+  /* braises du hero */
+  const cv=document.getElementById('braises'), ctx=cv.getContext('2d');
+  let W,H,parts=[];
+  function taille(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio}
+  taille();addEventListener('resize',taille);
+  function nouvelle(){return{x:W*(.45+Math.random()*.5),y:H+Math.random()*H*.2,v:(.4+Math.random()*1.2)*devicePixelRatio,r:(.6+Math.random()*1.8)*devicePixelRatio,o:Math.random()*Math.PI*2,vie:1}}
+  for(let i=0;i<55;i++){const p=nouvelle();p.y=Math.random()*H;parts.push(p)}
+  function anim(){
+    ctx.clearRect(0,0,W,H);
+    for(const p of parts){
+      p.y-=p.v;p.o+=.03;p.x+=Math.sin(p.o)*.6;p.vie-=.0025;
+      if(p.y<-10||p.vie<=0)Object.assign(p,nouvelle());
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);
+      ctx.fillStyle='rgba(255,'+(120+Math.floor(80*p.vie))+',40,'+Math.max(p.vie,0)*.9+')';
+      ctx.shadowColor='#ff7a1a';ctx.shadowBlur=8*devicePixelRatio;ctx.fill();
+    }
+    requestAnimationFrame(anim);
+  }
+  if(!reduit)anim();
+
+  /* outil de demande */
+  const TEL='0771834830', MAIL='bigouret.fabien@gmail.com';
+  let type='forge', nb=3;
+  const libelles={forge:'Couteau forgé',renovation:'Rénovation',remoulage:'Remoulage'};
+  const onglets=document.querySelectorAll('.onglet');
+  function choisir(t){
+    type=t;
+    onglets.forEach(o=>o.setAttribute('aria-selected',o.dataset.type===t));
+    document.querySelectorAll('[data-bloc]').forEach(b=>b.classList.toggle('cache',b.dataset.bloc!==t));
+    maj();
+  }
+  onglets.forEach(o=>o.addEventListener('click',()=>choisir(o.dataset.type)));
+  document.querySelectorAll('[data-onglet]').forEach(a=>a.addEventListener('click',()=>choisir(a.dataset.onglet)));
+  document.getElementById('plus').onclick=()=>{nb=Math.min(30,nb+1);maj()};
+  document.getElementById('moins').onclick=()=>{nb=Math.max(1,nb-1);maj()};
+  const dateIn=document.getElementById('date');
+  const demain=new Date();demain.setDate(demain.getDate()+2);
+  dateIn.min=new Date().toISOString().slice(0,10);dateIn.value=demain.toISOString().slice(0,10);
+  document.getElementById('form').addEventListener('input',maj);
+  document.getElementById('form').addEventListener('change',maj);
+
+  const coches=n=>[...document.querySelectorAll('input[name="'+n+'"]:checked')].map(i=>i.value);
+  function dateFr(v){if(!v)return'à convenir';const d=new Date(v+'T12:00');return d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}
+  function lignes(){
+    const l=[['Demande',libelles[type]]];
+    if(type==='forge'){l.push(['Usage',coches('usage').join(', ')]);const i=document.getElementById('idee').value.trim();if(i)l.push(['Idée',i])}
+    if(type==='renovation'){l.push(['À reprendre',coches('etat').join(', ')||'à voir ensemble']);const h=document.getElementById('histoire').value.trim();if(h)l.push(['Couteau',h])}
+    if(type==='remoulage'){l.push(['Couteaux',nb+(nb>1?' couteaux':' couteau')]);l.push(['Types',coches('types').join(', ')||'divers'])}
+    l.push(['Créneau',dateFr(dateIn.value)+' · '+coches('moment')[0].toLowerCase()]);
+    const n=document.getElementById('nom').value.trim();if(n)l.push(['Nom',n]);
+    return l;
+  }
+  let avant='';
+  function maj(){
+    const l=lignes(), dl=document.getElementById('recap');
+    dl.innerHTML='';
+    l.forEach(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;dl.append(dt,dd)});
+    const txt='Bonjour Fabien,\n\nJe souhaiterais passer à l\'atelier.\n\n'+l.map(([k,v])=>k+' : '+v).join('\n')+'\n\nMerci de me confirmer si ce créneau vous convient.';
+    if(avant&&avant!==txt){const dds=dl.querySelectorAll('dd');dds[dds.length-1].classList.add('flash')}
+    avant=txt;
+    document.getElementById('envoi-mail').href='mailto:'+MAIL+'?subject='+encodeURIComponent('Demande de rendez-vous — '+libelles[type])+'&body='+encodeURIComponent(txt);
+    document.getElementById('envoi-sms').href='sms:'+TEL+'?&body='+encodeURIComponent(txt);
+  }
+  document.getElementById('ics').addEventListener('click',()=>{
+    const v=(dateIn.value||new Date().toISOString().slice(0,10)).replace(/-/g,'');
+    const m=coches('moment')[0], h=m==='Matin'?'090000':m==='Après-midi'?'140000':'170000', hf=m==='Matin'?'100000':m==='Après-midi'?'150000':'180000';
+    const desc=lignes().map(([k,vv])=>k+' : '+vv).join('\\n')+'\\nCréneau à confirmer avec l\'atelier : 07 71 83 48 30';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Shiva Knife//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@shiva-knife','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+v+'T'+h,'DTEND:'+v+'T'+hf,'SUMMARY:Shiva Knife — '+libelles[type]+' (à confirmer)','LOCATION:63 rue de Borchamp\\, 71110 Marcigny','DESCRIPTION:'+desc,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='rdv-shiva-knife.ics';a.click();
+  });
+  maj();
+})();
+</script>
+</body>
+</html>
