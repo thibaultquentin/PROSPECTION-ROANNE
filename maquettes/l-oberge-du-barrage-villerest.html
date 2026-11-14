@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Oberge du Barrage — Restaurant au bord du lac de Villerest</title>
+<meta name="description" content="Cuisine traditionnelle roannaise face au lac de Villerest : grenouilles au beurre persillé, menu du marché, terrasse couverte, groupes jusqu'à 150 personnes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Georama:wght@300;400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel lobergedubarrage.fr
+   (variables du thème Astra relevées sur le site en ligne)
+   Ajuster ici si le restaurant fournit ses codes exacts.
+   ========================================================== */
+:root{
+  --brun:#9b7a5b;        /* couleur principale du site (boutons, titres) */
+  --brun-fonce:#5c4330;  /* déclinaison foncée pour les contrastes */
+  --creme:#fbf5ee;       /* fond du site */
+  --vert:#88bd8d;        /* vert secondaire du thème */
+  --jaune:#ffcd57;       /* jaune secondaire du thème */
+  --texte:#4a4a4c;       /* texte (le site utilise #666668) */
+  --cabaret:#e535ab;     /* rose du bouton « Découvrir le Cabaret » */
+  --blanc:#fff;
+  --police:'Georama',system-ui,sans-serif;   /* police du site actuel */
+  --manuscrit:'Caveat',cursive;              /* rappel de l'écriture manuscrite des affiches */
+  --rayon:14px;
+  --ombre:0 18px 40px -18px rgba(92,67,48,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--police);color:var(--texte);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,92vw);margin:auto}
+.demo{background:var(--brun-fonce);color:#f3e6d8;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--jaune)}
+
+/* Navigation */
+header.nav{position:sticky;top:0;z-index:50;transition:background .35s,box-shadow .35s}
+header.nav.solid{background:rgba(251,245,238,.94);backdrop-filter:blur(10px);box-shadow:0 6px 20px -14px rgba(0,0,0,.4)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.nav .logo img{height:58px;width:auto;transition:height .3s}
+.nav.solid .logo img{height:46px}
+.nav ul{display:flex;gap:1.4rem;list-style:none;align-items:center}
+.nav ul a{text-decoration:none;font-size:.95rem;color:var(--brun-fonce);position:relative}
+.nav ul a:not(.btn)::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--brun);transform:scaleX(0);transform-origin:right;transition:transform .3s}
+.nav ul a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.3rem;border-radius:999px;background:var(--brun);color:#fff!important;text-decoration:none;font-weight:600;border:0;cursor:pointer;font:inherit;font-weight:600;transition:transform .2s,background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);background:var(--brun-fonce);box-shadow:var(--ombre)}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;border:2px solid currentColor;color:var(--brun-fonce)!important}
+.btn.cab{background:var(--cabaret)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;color:var(--brun-fonce);cursor:pointer}
+
+/* Hero */
+.hero{position:relative;min-height:88vh;display:grid;align-items:end;color:#fff;overflow:hidden;margin-top:-82px}
+.hero .bg{position:absolute;inset:0;background:url("https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/oberge-du-barrage-Villerest-10.jpg") center/cover;transform:scale(1.08);animation:zoom 18s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,28,18,.15) 30%,rgba(40,28,18,.78))}
+.hero .wrap{position:relative;z-index:2;padding:0 0 9vh}
+.hero .kicker{font-family:var(--manuscrit);font-size:clamp(1.6rem,3vw,2.3rem);color:var(--jaune)}
+.hero h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1.02;font-weight:600;max-width:15ch;letter-spacing:-.02em}
+.hero p{max-width:52ch;margin:1rem 0 1.6rem;font-size:1.1rem;opacity:.95}
+.hero .ctas{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero .btn.ghost{color:#fff!important}
+.word{display:inline-block;opacity:0;transform:translateY(40px);animation:up .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.today{position:absolute;right:4vw;bottom:9vh;z-index:3;background:rgba(251,245,238,.92);color:var(--brun-fonce);padding:1rem 1.2rem;border-radius:var(--rayon);max-width:270px;box-shadow:var(--ombre);backdrop-filter:blur(6px)}
+.today .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--vert);margin-right:.4rem;animation:pulse 1.8s infinite}
+.today .dot.off{background:#c9675b;animation:none}
+@keyframes pulse{50%{box-shadow:0 0 0 7px rgba(136,189,141,.25)}}
+.today small{display:block;font-size:.82rem;color:var(--texte);margin-top:.3rem}
+
+/* Bandeau défilant */
+.ticker{background:var(--brun);color:#fff;overflow:hidden;white-space:nowrap;padding:.9rem 0;font-size:1.05rem}
+.ticker div{display:inline-block;animation:tick 32s linear infinite}
+.ticker span{margin:0 2rem}
+.ticker span::before{content:"✦";color:var(--jaune);margin-right:2rem}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,9vw,7rem) 0}
+.eyebrow{font-family:var(--manuscrit);font-size:1.7rem;color:var(--brun)}
+h2{font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--brun-fonce);font-weight:600;letter-spacing:-.015em;margin-bottom:1rem}
+.lead{max-width:60ch;font-size:1.08rem}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Intro */
+.intro .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;align-items:center}
+.stack{position:relative;height:520px}
+.stack figure{position:absolute;border-radius:var(--rayon);overflow:hidden;box-shadow:var(--ombre)}
+.stack figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s}
+.stack figure:hover img{transform:scale(1.06)}
+.stack .a{inset:0 22% 18% 0}
+.stack .b{inset:46% 0 0 38%;border:8px solid var(--creme)}
+.stamp{position:absolute;right:4%;top:6%;width:120px;height:120px;border-radius:50%;background:var(--jaune);color:var(--brun-fonce);display:grid;place-items:center;text-align:center;font-family:var(--manuscrit);font-size:1.35rem;line-height:1;transform:rotate(-10deg);animation:spin 14s linear infinite;box-shadow:var(--ombre)}
+@keyframes spin{50%{transform:rotate(8deg)}}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.facts div{background:#fff;border-radius:var(--rayon);padding:1rem;border:1px solid #eadccd}
+.facts b{display:block;color:var(--brun-fonce);font-size:1.05rem}
+.facts span{font-size:.88rem}
+
+/* Spécialités */
+.spe{background:#fff}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.card{border-radius:var(--rayon);overflow:hidden;background:var(--creme);position:relative;transition:transform .4s,box-shadow .4s}
+.card:hover{transform:translateY(-8px) rotate(-.4deg);box-shadow:var(--ombre)}
+.card .ph{aspect-ratio:4/3;overflow:hidden;position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .9s}
+.card:hover .ph img{transform:scale(1.08)}
+.card .body{padding:1.3rem}
+.card h3{color:var(--brun-fonce);font-size:1.25rem;margin-bottom:.3rem}
+.tag{display:inline-block;background:var(--vert);color:#173b1b;font-size:.75rem;padding:.2rem .6rem;border-radius:99px;margin-bottom:.6rem;font-weight:600}
+.ph .illu{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;font-size:.7rem;padding:.15rem .5rem;border-radius:4px}
+
+/* Menu */
+.menu .tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.8rem 0}
+.tabs button{border:2px solid var(--brun);background:transparent;color:var(--brun-fonce);border-radius:99px;padding:.55rem 1.1rem;font:inherit;font-weight:600;cursor:pointer;transition:all .25s}
+.tabs button[aria-selected=true]{background:var(--brun);color:#fff}
+.carte{background:#fff;border-radius:22px;padding:clamp(1.5rem,4vw,3rem);box-shadow:var(--ombre);position:relative;overflow:hidden}
+.carte::before{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(var(--jaune),transparent 70%);opacity:.35}
+.pane{display:none;animation:fade .5s}
+.pane.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}}
+.pane h3{display:flex;justify-content:space-between;align-items:baseline;color:var(--brun-fonce);font-size:1.6rem;border-bottom:2px dashed #e4d4c2;padding-bottom:.6rem;margin-bottom:1rem}
+.pane h3 em{font-style:normal;font-family:var(--manuscrit);font-size:2.2rem;color:var(--brun)}
+.course{margin:1.3rem 0}
+.course h4{text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;color:var(--brun);margin-bottom:.5rem}
+.dish{display:flex;gap:1rem;align-items:baseline;padding:.45rem 0}
+.dish .n{font-weight:600;color:var(--brun-fonce)}
+.dish .d{font-size:.9rem}
+.dish .l{flex:1;border-bottom:1px dotted #cbb7a3;transform:translateY(-4px);min-width:20px}
+.dish .p{font-weight:600;white-space:nowrap}
+.note{font-size:.85rem;font-style:italic;margin-top:1rem}
+
+/* Outil réservation */
+.resa{background:linear-gradient(160deg,var(--brun-fonce),#3d2c1f);color:#f6ece1;position:relative;overflow:hidden}
+.resa h2{color:#fff}
+.resa .eyebrow{color:var(--jaune)}
+.resa .grid{display:grid;grid-template-columns:1.25fr .75fr;gap:2.5rem;margin-top:2rem;align-items:start}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:1.6rem}
+.step{margin-bottom:1.6rem}
+.step>label,.step>p{display:block;font-weight:600;margin-bottom:.7rem;color:#fff}
+.step>p small{font-weight:400;opacity:.75}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:.45rem}
+.day{border:1px solid rgba(255,255,255,.2);background:transparent;color:#f6ece1;border-radius:12px;padding:.55rem .2rem;cursor:pointer;font:inherit;text-align:center;line-height:1.15;transition:all .2s}
+.day b{display:block;font-size:1.2rem}
+.day small{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em}
+.day:hover:not(:disabled){border-color:var(--jaune)}
+.day[aria-pressed=true]{background:var(--jaune);color:var(--brun-fonce);border-color:var(--jaune)}
+.day:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.seg{display:flex;gap:.5rem;flex-wrap:wrap}
+.seg button{flex:1;min-width:120px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#f6ece1;border-radius:12px;padding:.7rem;cursor:pointer;font:inherit;transition:all .2s}
+.seg button[aria-pressed=true]{background:#fff;color:var(--brun-fonce);font-weight:600}
+.seg button:disabled{opacity:.3;cursor:not-allowed}
+.counter{display:flex;align-items:center;gap:1rem}
+.counter button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;font-size:1.4rem;cursor:pointer}
+.counter output{font-size:2rem;font-weight:600;min-width:3ch;text-align:center;color:#fff}
+.hint{font-size:.85rem;margin-top:.6rem;color:var(--jaune);min-height:1.2em}
+.formules{display:none;gap:.6rem;flex-direction:column}
+.formules.on{display:flex}
+.formules label{display:flex;gap:.7rem;align-items:center;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.7rem .9rem;cursor:pointer}
+.formules input{accent-color:var(--jaune)}
+.recap{position:sticky;top:110px;background:var(--creme);color:var(--texte);border-radius:20px;padding:1.6rem;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.recap h3{color:var(--brun-fonce);font-size:1.3rem;margin-bottom:.8rem}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.95rem}
+.recap dt{color:var(--brun)}
+.recap dd{font-weight:600;color:var(--brun-fonce);text-align:right}
+.total{margin:1rem 0;padding:1rem;background:#fff;border-radius:12px;text-align:center}
+.total b{display:block;font-size:2rem;color:var(--brun-fonce)}
+.recap .actions{display:grid;gap:.6rem}
+.recap .btn{justify-content:center}
+.recap .fine{font-size:.75rem;margin-top:.8rem;opacity:.8}
+
+/* Emporter */
+.emp .grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.emp figure{border-radius:var(--rayon);overflow:hidden;box-shadow:var(--ombre);position:relative}
+.emp .item{display:flex;justify-content:space-between;background:#fff;border-radius:12px;padding:1rem 1.2rem;margin-top:.8rem;border-left:5px solid var(--vert)}
+
+/* Cabaret */
+.cab-band{position:relative;color:#fff;overflow:hidden}
+.cab-band .bg{position:absolute;inset:0;background:url("https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/CABARET.jpg") center/cover;background-attachment:fixed}
+.cab-band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(60,10,45,.9),rgba(60,10,45,.35))}
+.cab-band .wrap{position:relative;z-index:2;max-width:1180px}
+.cab-band h2{color:#fff;max-width:18ch}
+.cab-band p{max-width:50ch;margin-bottom:1.5rem}
+
+/* Infos */
+.infos .grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+.hours{background:#fff;border-radius:20px;padding:1.6rem;box-shadow:var(--ombre)}
+.hours h3{color:var(--brun-fonce);margin-bottom:.4rem}
+.hours table{width:100%;border-collapse:collapse;margin-top:.6rem}
+.hours td{padding:.55rem 0;border-bottom:1px solid #f0e4d7}
+.hours td:last-child{text-align:right;font-weight:600;color:var(--brun-fonce)}
+.hours tr.now td{color:var(--brun);background:linear-gradient(90deg,rgba(255,205,87,.25),transparent)}
+.hours .closed{color:#b35a4e!important}
+.map{border-radius:20px;overflow:hidden;min-height:340px;box-shadow:var(--ombre);background:#e9dfd3}
+.map iframe{width:100%;height:100%;min-height:340px;border:0}
+.contact-list{list-style:none;margin-top:1.2rem;display:grid;gap:.6rem}
+.contact-list a{text-decoration:none;font-weight:600;color:var(--brun-fonce)}
+
+footer{background:#2f2218;color:#d9c8b6;padding:3rem 0 2rem;font-size:.9rem}
+footer .wrap{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start}
+footer img{height:80px;width:auto}
+footer .mention{margin-top:1.5rem;font-size:.78rem;opacity:.75;grid-column:1/-1;border-top:1px solid rgba(255,255,255,.12);padding-top:1.2rem}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--brun-fonce);color:#fff;padding:.8rem 1.3rem;border-radius:99px;z-index:99;transition:transform .4s;box-shadow:var(--ombre)}
+.toast.on{transform:translate(-50%,0)}
+.mobile-cta{display:none}
+
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:0 0 0 30%;background:var(--creme);flex-direction:column;justify-content:center;transform:translateX(100%);visibility:hidden;transition:transform .4s,visibility .4s;box-shadow:-20px 0 40px rgba(0,0,0,.2)}
+  .nav ul.open{transform:none;visibility:visible}
+  .burger{display:block;z-index:60}
+  .intro .grid,.resa .grid,.emp .grid,.infos .grid,.cards{grid-template-columns:1fr}
+  .stack{height:380px}
+  .today{position:relative;right:auto;bottom:auto;margin:0 4vw 6vh;max-width:none}
+  .hero .wrap{padding-bottom:3vh}
+  .days{grid-template-columns:repeat(4,1fr)}
+  .recap{position:static}
+  .cab-band .bg{background-attachment:scroll}
+  .mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:70;background:var(--brun);padding:.6rem;gap:.6rem}
+  .mobile-cta a{flex:1;justify-content:center;background:rgba(255,255,255,.15)}
+  footer{padding-bottom:5rem}
+  .facts{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.word{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"L'Oberge du Barrage","url":"https://www.lobergedubarrage.fr/","telephone":"+33477652182","email":"lobergedubarrage@gmail.com","servesCuisine":"Cuisine traditionnelle roannaise","priceRange":"20 € – 38 €","image":"https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/oberge-du-barrage-Villerest-10.jpg","address":{"@type":"PostalAddress","streetAddress":"978, Aire de loisirs du Barrage – La Seigne","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"},"areaServed":["Villerest","Roanne","Roannais"],"acceptsReservations":true,"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Thursday","Sunday"],"opens":"12:00","closes":"16:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"12:00","closes":"16:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"18:00","closes":"22:00"}]}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — <b>non officielle</b>, réalisée pour L'Oberge du Barrage. Prix et horaires repris du site et de l'affiche d'automne.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="L'Oberge du Barrage, accueil"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/LOberge-BLANC-1.png" alt="Restaurant L'Oberge du Barrage" id="logo"></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <ul id="menu">
+      <li><a href="#oberge">L'Oberge</a></li>
+      <li><a href="#menus">Nos menus</a></li>
+      <li><a href="#specialites">Nos spécialités</a></li>
+      <li><a href="#groupes">Spécial Groupes</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+      <li><a href="#reserver" class="btn">Réserver</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="Accueil">
+  <div class="bg" role="img" aria-label="Terrasse couverte de l'Oberge avec vue sur le lac de Villerest"></div>
+  <div class="wrap">
+    <p class="kicker">Une table au bord de l'eau… au fil des saisons !</p>
+    <h1 id="h1">L'Oberge du Barrage, au bord du lac de Villerest</h1>
+    <p>Cuisine traditionnelle roannaise dans un cadre chaleureux et raffiné, grande terrasse couverte avec vue panoramique sur le lac.</p>
+    <div class="ctas">
+      <a class="btn" href="#reserver">Réserver une table</a>
+      <a class="btn ghost" href="#menus">Voir nos menus</a>
+    </div>
+  </div>
+  <aside class="today" id="today" aria-live="polite"></aside>
+</section>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>Grenouilles cuites au beurre, persillade fraîche</span><span>Menu du Marché le midi en semaine</span><span>Terrasse couverte vue lac</span><span>Plats à emporter sur commande</span><span>Groupes jusqu'à 150 personnes</span>
+  <span>Grenouilles cuites au beurre, persillade fraîche</span><span>Menu du Marché le midi en semaine</span><span>Terrasse couverte vue lac</span><span>Plats à emporter sur commande</span><span>Groupes jusqu'à 150 personnes</span>
+</div></div>
+
+<section class="intro" id="oberge">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="eyebrow">Pour un moment suspendu…</p>
+      <h2>Découvrir L'Oberge du Barrage</h2>
+      <p class="lead">Savourer un repas en terrasse au bord du lac de Villerest, c'est l'occasion rêvée de découvrir la cuisine traditionnelle roannaise dans un cadre idyllique. Grenouilles persillées ou généreuse friture de poissons : une vraie tradition des bords de Loire.</p>
+      <p style="margin-top:1rem">Et comme nos fidèles clients apprécient moins la pluie que nos fameuses grenouilles, le restaurant dispose d'une terrasse couverte en plus d'une terrasse à l'air libre.</p>
+      <div class="facts">
+        <div><b>Vue sur le lac</b><span>Terrasse couverte et terrasse à l'air libre</span></div>
+        <div><b>Salle climatisée</b><span>Équipée d'un purificateur d'air</span></div>
+        <div><b>Jusqu'à 150 pers.</b><span>Avec la terrasse, pour vos événements</span></div>
+      </div>
+    </div>
+    <div class="stack reveal">
+      <figure class="a"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/oberge-du-barrage-Villerest-7.jpg" alt="Façade de l'Oberge du Barrage entourée de coquelicots" loading="lazy"></figure>
+      <figure class="b"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/06/loberge-2.jpg" alt="Buffet en terrasse à l'Oberge" loading="lazy"></figure>
+      <div class="stamp">Cuisine<br>de terroir</div>
+    </div>
+  </div>
+</section>
+
+<section class="spe" id="specialites">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">À savourer toute l'année !</p>
+      <h2>Nos spécialités</h2>
+      <p class="lead">Des plats faits maison, des produits de qualité, et surtout… du plaisir à chaque bouchée.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="ph"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/grenouille-2.jpg" alt="Grenouilles au beurre persillé" loading="lazy"></div>
+        <div class="body"><span class="tag">Toute l'année</span><h3>Les grenouilles</h3><p>Dorées à la perfection, cuisinées au beurre persillade frais, accompagnées de féculents et de légumes de saison. Sur place ou à emporter.</p></div>
+      </article>
+      <article class="card reveal">
+        <div class="ph" style="display:grid;place-items:center;background:repeating-linear-gradient(45deg,#f3e7da,#f3e7da 12px,#efe0cf 12px,#efe0cf 24px);color:var(--brun);font-family:var(--manuscrit);font-size:1.6rem;text-align:center">Photo des fritures<br>à fournir par le restaurant</div>
+        <div class="body"><span class="tag" style="background:var(--jaune)">Printemps &amp; été</span><h3>Les fritures de Joël</h3><p>Croustillantes et savoureuses, accompagnées de féculents et de légumes de saison, à partager dans une ambiance conviviale.</p></div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/paella.jpg" alt="Paëlla royale" loading="lazy"></div>
+        <div class="body"><span class="tag">À emporter</span><h3>La paëlla royale</h3><p>Pour les repas de six personnes ou plus, sur commande : de quoi étonner vos convives sans passer le tablier.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="menu" id="menus">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="eyebrow">« Quand l'art de bien manger rime avec l'art de recevoir. »</p>
+      <h2>Nos menus de saison et plats à la carte</h2>
+    </div>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-p="p1">Menu d'automne</button>
+      <button role="tab" aria-selected="false" data-p="p2">Déjeuner en semaine</button>
+      <button role="tab" aria-selected="false" data-p="p3">Pour les petits gourmands</button>
+    </div>
+    <div class="carte reveal">
+      <div class="pane on" id="p1">
+        <h3>Menu Barrage <em>38 €</em></h3>
+        <p>Entrée · Plat · Fromage · Dessert — les prix en bout de ligne sont les prix à la carte.</p>
+        <div class="course"><h4>Entrées</h4>
+          <div class="dish"><span class="n">Ravioles d'écrevisses</span><span class="d">sauce Homardine</span><span class="l"></span><span class="p">27 €</span></div>
+          <div class="dish"><span class="n">Salade Vigneronne</span><span class="d">andouille de Charlieu poêlée</span><span class="l"></span><span class="p">25 €</span></div>
+          <div class="dish"><span class="n">Marbré de foie gras et de volaille</span><span class="d">chutney de myrtilles au serpolet</span><span class="l"></span><span class="p">28 €</span></div>
+          <div class="dish"><span class="n">Truite fumée</span><span class="d">marinade citronnée, brioche boulangère</span><span class="l"></span><span class="p">28 €</span></div>
+        </div>
+        <div class="course"><h4>Plats</h4>
+          <div class="dish"><span class="n">Grenouilles cuites au beurre</span><span class="d">persillade fraîche</span><span class="l"></span><span class="p">26 €</span></div>
+          <div class="dish"><span class="n">Filet de daurade royale</span><span class="d">jus crémé « à l'Asiatique »</span><span class="l"></span><span class="p">28 €</span></div>
+          <div class="dish"><span class="n">Paleron de bœuf confit 7 heures</span><span class="d">jus réduit à la truffe</span><span class="l"></span><span class="p">28 €</span></div>
+        </div>
+        <div class="course"><h4>Fromages &amp; dessert</h4>
+          <div class="dish"><span class="n">La ronde des fromages</span><span class="l"></span><span class="p">8 €</span></div>
+          <div class="dish"><span class="n">Fromage blanc à la crème de la ferme de Jourcy</span><span class="l"></span><span class="p">7 €</span></div>
+          <div class="dish"><span class="n">Choix de desserts du moment</span><span class="l"></span><span class="p">10 €</span></div>
+        </div>
+        <p class="note">Pas de service à la carte le week-end.</p>
+      </div>
+      <div class="pane" id="p2">
+        <h3>Menu du Marché <em>20 €</em></h3>
+        <p>Tous les midis en semaine, suivant le marché du Chef — hors jours fériés.</p>
+        <div class="course"><h4>Au choix du marché</h4>
+          <div class="dish"><span class="n">Entrée du marché</span><span class="l"></span></div>
+          <div class="dish"><span class="n">Plat du marché</span><span class="l"></span></div>
+          <div class="dish"><span class="n">Fromage blanc ou dessert du marché</span><span class="l"></span></div>
+        </div>
+      </div>
+      <div class="pane" id="p3">
+        <h3>Menu Enfant <em>18 €</em></h3>
+        <p>Jusqu'à 10 ans uniquement.</p>
+        <div class="course"><h4>Au choix</h4>
+          <div class="dish"><span class="n">Aiguillettes de cabillaud en fish'n chips</span><span class="l"></span></div>
+          <div class="dish"><span class="n">Filet de poulet croustillant, frites</span><span class="l"></span></div>
+          <div class="dish"><span class="n">Glace</span><span class="l"></span></div>
+        </div>
+      </div>
+      <p class="note">Tous nos plats sont accompagnés de légumes · Prix TTC, service compris · Allergènes : merci de nous signaler toute allergie, la liste est disponible au restaurant.</p>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <p class="eyebrow">Réservations</p>
+    <h2 id="groupes">Préparez votre venue en trente secondes</h2>
+    <p class="lead">Choisissez le jour : seuls les services réellement ouverts sont proposés. À partir de 15 personnes, les formules groupes s'affichent avec leur prix, forfait boissons compris.</p>
+    <div class="grid">
+      <div class="panel">
+        <div class="step"><p>1. Le jour <small id="weekLbl"></small></p><div class="days" id="days"></div></div>
+        <div class="step"><p>2. Le service</p>
+          <div class="seg" id="svc">
+            <button type="button" data-s="midi" aria-pressed="false">Midi · 12h</button>
+            <button type="button" data-s="soir" aria-pressed="false">Soir · 19h</button>
+          </div>
+          <div class="hint" id="svcHint"></div>
+        </div>
+        <div class="step"><p>3. Nombre de convives</p>
+          <div class="counter"><button type="button" id="minus" aria-label="Moins">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Plus">+</button></div>
+          <div class="hint" id="nbHint"></div>
+        </div>
+        <div class="step"><p>4. Formule <small>(groupes à partir de 15 personnes)</small></p>
+          <div class="formules" id="formules">
+            <label><input type="radio" name="f" value="marche" checked> <span><b>Menu du Marché</b> — entrée, plat, fromage blanc ou dessert du marché · 20 € + forfait boissons 10 € = <b>30 € / pers.</b></span></label>
+            <label><input type="radio" name="f" value="barrage"> <span><b>Menu Barrage</b> — entrée, plat, fromage et dessert au choix · 38 € + forfait boissons 10 € = <b>48 € / pers.</b></span></label>
+            <small>Le Menu du Marché est servi le midi en semaine, hors jours fériés. Forfait boissons : 1 kir maison, ¼ de vin par personne, café, thé ou tisane.</small>
+          </div>
+          <p id="fNo" style="font-size:.9rem;opacity:.8">Moins de 15 convives : vous choisissez sur place parmi nos menus et la carte.</p>
+        </div>
+      </div>
+      <aside class="recap" aria-live="polite">
+        <h3>Votre demande</h3>
+        <dl>
+          <dt>Jour</dt><dd id="rDay">—</dd>
+          <dt>Service</dt><dd id="rSvc">—</dd>
+          <dt>Convives</dt><dd id="rNb">2</dd>
+          <dt>Formule</dt><dd id="rF">À la carte / menus</dd>
+        </dl>
+        <div class="total" id="tot" hidden><span>Budget indicatif</span><b id="rTot"></b><small>forfait boissons compris</small></div>
+        <div class="actions">
+          <a class="btn" id="mail" href="#">Envoyer la demande par mail</a>
+          <a class="btn ghost" href="tel:0477652182">Appeler le 04 77 65 21 82</a>
+          <button class="btn ghost" type="button" id="ics">Ajouter à mon agenda</button>
+        </div>
+        <p class="fine">La réservation n'est confirmée qu'après réponse du restaurant. Restaurant fermé entre 16h et 18h.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="emp" id="emporter">
+  <div class="wrap grid">
+    <figure class="reveal"><img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/grenouilles2.webp" alt="Grenouilles à emporter" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover"></figure>
+    <div class="reveal">
+      <p class="eyebrow">Sur commande</p>
+      <h2>Nos plats à emporter</h2>
+      <p>Idéal pour un déjeuner traditionnel à la maison sans passer le tablier. Les menus du jour à emporter sont annoncés la veille sur notre page Facebook.</p>
+      <div class="item"><span>Grenouilles cuites au beurre et persillade fraîche, et son accompagnement</span><b>15 €</b></div>
+      <div class="item"><span>Paëlla royale (6 personnes minimum)</span><b>12,50 € la part</b></div>
+      <p style="margin-top:1.2rem"><a class="btn" href="tel:0477652182">Commander par téléphone</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="cab-band">
+  <div class="bg" role="img" aria-label="Cabaret L'Écrin à Bijou"></div>
+  <div class="wrap reveal">
+    <p class="eyebrow" style="color:#ffd1ee">Notre deuxième établissement</p>
+    <h2>Le Cabaret L'Écrin à Bijou, qui vous rend fou !</h2>
+    <p>Une fois par mois, une soirée cabaret parisien pour prolonger le repas en spectacle.</p>
+    <a class="btn cab" href="https://www.cabaret-lecrinabijou.com/" target="_blank" rel="noopener">Découvrir le Cabaret</a>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="eyebrow">Infos pratiques</p>
+      <h2>Horaires d'ouverture d'automne</h2>
+      <div class="hours">
+        <table id="hours">
+          <tr data-d="1"><td>Lundi</td><td class="closed">Fermé</td></tr>
+          <tr data-d="2"><td>Mardi</td><td class="closed">Fermé</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>Midi · soir sur réservation*</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>Midi · soir sur réservation*</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>Midi et soir</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>Midi et soir</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Midi · soir fermé</td></tr>
+        </table>
+        <p style="font-size:.85rem;margin-top:.8rem">* Soir suivant les réservations ou pour les groupes à partir de 15 personnes. Restaurant fermé entre 16h et 18h. Paiement : carte bancaire, espèces, chèque.</p>
+      </div>
+      <ul class="contact-list">
+        <li>📍 978, Aire de loisirs du Barrage – La Seigne – 42300 Villerest</li>
+        <li>📞 <a href="tel:0477652182">04 77 65 21 82</a></li>
+        <li>✉️ <a href="mailto:lobergedubarrage@gmail.com">lobergedubarrage@gmail.com</a></li>
+      </ul>
+    </div>
+    <div class="map reveal">
+      <iframe title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.020%2C45.975%2C4.060%2C45.995&amp;layer=mapnik"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/LOberge-BLANC-1.png" alt="L'Oberge du Barrage">
+    <div>
+      <p><b>L'Oberge du Barrage</b> — Aire de loisirs du Barrage, La Seigne, 42300 Villerest · 04 77 65 21 82 · lobergedubarrage@gmail.com</p>
+      <p>Authentique · Convivial · Gourmand · En toute saison</p>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non affiliée au restaurant. Textes, prix, menus et horaires repris du site lobergedubarrage.fr et de l'affiche d'horaires d'automne ; prix indicatifs non contractuels. Toutes les photos proviennent du site actuel du restaurant (aucune photo d'illustration) ; la photo des fritures reste à fournir. Couleurs et police reprises du thème du site actuel. Le formulaire prépare un mail : aucune donnée n'est envoyée ni enregistrée. Plan d'accès approximatif.</p>
+  </div>
+</footer>
+
+<div class="mobile-cta"><a class="btn" href="tel:0477652182">Appeler</a><a class="btn" href="#reserver">Réserver</a></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  // Horaires d'automne (affiche 2026) : 0=dim ... 6=sam
+  var H={0:{midi:1,soir:0},1:{midi:0,soir:0},2:{midi:0,soir:0},3:{midi:1,soir:'resa'},4:{midi:1,soir:'resa'},5:{midi:1,soir:1},6:{midi:1,soir:1}};
+  var J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var M=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  var $=function(s){return document.querySelector(s)};
+
+  // Titre animé mot par mot
+  var h1=$('#h1');h1.innerHTML=h1.textContent.split(' ').map(function(w,i){return '<span class="word" style="animation-delay:'+(0.15+i*0.08)+'s">'+w+'</span>'}).join(' ');
+
+  // Nav : fond au défilement + logo adapté
+  var nav=$('#nav'),logo=$('#logo');
+  function onScroll(){var s=window.scrollY>60;nav.classList.toggle('solid',s);logo.src=s?'https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/cropped-LOberge.png':'https://www.lobergedubarrage.fr/wp-content/uploads/2025/03/LOberge-BLANC-1.png';
+    var bg=document.querySelector('.hero .bg');if(bg&&window.scrollY<900)bg.style.translate='0 '+(window.scrollY*0.25)+'px';}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var bur=$('#burger'),menu=$('#menu');
+  bur.onclick=function(){var o=menu.classList.toggle('open');bur.setAttribute('aria-expanded',o)};
+  menu.querySelectorAll('a').forEach(function(a){a.onclick=function(){menu.classList.remove('open')}});
+
+  // Apparitions
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el,i){el.style.transitionDelay=(i%3)*0.08+'s';io.observe(el)});
+
+  // Ouvert aujourd'hui ?
+  var now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60,t=H[d],txt,on=false;
+  if(t.midi&&h>=12&&h<16){on=true;txt='Service du midi en cours'}
+  else if(t.soir===1&&h>=18&&h<22){on=true;txt='Service du soir en cours'}
+  else if(!t.midi&&!t.soir){txt='Fermé aujourd\'hui'}
+  else if(h<12&&t.midi){txt='Ouvert ce midi'}
+  else if(t.soir&&h<18){txt=t.soir==='resa'?'Ce soir : sur réservation':'Ouvert ce soir'}
+  else txt='Service terminé pour aujourd\'hui';
+  $('#today').innerHTML='<span class="dot'+(on||/Ouvert/.test(txt)?'':' off')+'"></span><b>'+txt+'</b><small>'+J[d]+' · 04 77 65 21 82</small>';
+  var row=document.querySelector('#hours tr[data-d="'+d+'"]');if(row)row.classList.add('now');
+
+  // Onglets menus
+  document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){
+    document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-selected',x===b)});
+    document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('on',p.id===b.dataset.p)});}});
+
+  // Outil réservation
+  var st={date:null,svc:null,nb:2},days=$('#days');
+  for(var i=0;i<14;i++){var dt=new Date();dt.setDate(dt.getDate()+i);var o=H[dt.getDay()];
+    var b=document.createElement('button');b.type='button';b.className='day';b.dataset.i=i;
+    b.innerHTML='<small>'+J[dt.getDay()].slice(0,3)+'</small><b>'+dt.getDate()+'</b><small>'+M[dt.getMonth()]+'</small>';
+    if(!o.midi&&!o.soir){b.disabled=true;b.title='Fermé'}
+    b.setAttribute('aria-pressed','false');b._d=dt;days.appendChild(b);}
+  $('#weekLbl').textContent='(14 prochains jours, jours de fermeture grisés)';
+  days.onclick=function(e){var b=e.target.closest('.day');if(!b||b.disabled)return;
+    days.querySelectorAll('.day').forEach(function(x){x.setAttribute('aria-pressed',x===b)});st.date=b._d;st.svc=null;upd();};
+  $('#svc').onclick=function(e){var b=e.target.closest('button');if(!b||b.disabled)return;st.svc=b.dataset.s;upd();};
+  $('#plus').onclick=function(){if(st.nb<150)st.nb++;upd()};
+  $('#minus').onclick=function(){if(st.nb>1)st.nb--;upd()};
+  $('#nb').onwheel=null;
+  document.querySelectorAll('input[name=f]').forEach(function(r){r.onchange=upd});
+  function fmt(dt){return J[dt.getDay()]+' '+dt.getDate()+' '+M[dt.getMonth()]}
+  function upd(){
+    var o=st.date?H[st.date.getDay()]:null,hint='';
+    document.querySelectorAll('#svc button').forEach(function(b){
+      var s=b.dataset.s,ok=o&&o[s];
+      if(s==='soir'&&o&&o.soir==='resa'&&st.nb<15)ok=true;
+      b.disabled=!o||!ok;b.setAttribute('aria-pressed',st.svc===s)});
+    if(o&&o.soir==='resa')hint='Le soir, ouverture suivant les réservations ou pour les groupes à partir de 15 personnes.';
+    if(o&&!o.soir)hint='Pas de service le soir ce jour-là.';
+    if(st.svc&&o&&!o[st.svc])st.svc=null;
+    $('#svcHint').textContent=hint;
+    $('#nb').textContent=st.nb;
+    var g=st.nb>=15;$('#formules').classList.toggle('on',g);$('#fNo').style.display=g?'none':'block';
+    $('#nbHint').textContent=g?'Formule groupe : l\'équipe vous recontacte pour finaliser.':(st.nb>=10?'Encore '+(15-st.nb)+' convive(s) pour accéder aux formules groupes.':'');
+    var we=st.date&&(st.date.getDay()===0||st.date.getDay()===6),mk=document.querySelector('input[value=marche]');
+    mk.disabled=!!(we||st.svc==='soir');if(mk.disabled&&mk.checked)document.querySelector('input[value=barrage]').checked=true;
+    mk.parentNode.style.opacity=mk.disabled?.4:1;
+    var f=document.querySelector('input[name=f]:checked').value,pp=f==='barrage'?48:30;
+    $('#rDay').textContent=st.date?fmt(st.date):'—';
+    $('#rSvc').textContent=st.svc?(st.svc==='midi'?'Midi':'Soir'):'—';
+    $('#rNb').textContent=st.nb+(st.nb>1?' personnes':' personne');
+    $('#rF').textContent=g?(f==='barrage'?'Menu Barrage + boissons':'Menu du Marché + boissons'):'À la carte / menus';
+    $('#tot').hidden=!g;$('#rTot').textContent=(pp*st.nb).toLocaleString('fr-FR')+' €';
+    var body='Bonjour,%0D%0A%0D%0AJe souhaite réserver une table :%0D%0A- Jour : '+(st.date?fmt(st.date):'à préciser')+'%0D%0A- Service : '+(st.svc||'à préciser')+'%0D%0A- Convives : '+st.nb+(g?'%0D%0A- Formule : '+$('#rF').textContent:'')+'%0D%0A%0D%0AMerci !';
+    $('#mail').href='mailto:lobergedubarrage@gmail.com?subject=Demande de réservation&body='+body;
+  }
+  upd();
+  function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},2600)}
+  $('#ics').onclick=function(){
+    if(!st.date||!st.svc){toast('Choisissez d\'abord un jour et un service');return}
+    var d=new Date(st.date);d.setHours(st.svc==='midi'?12:19,0,0,0);var e=new Date(d.getTime()+2*3600e3);
+    function z(x){return x.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z'}
+    var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Oberge du Barrage//FR','BEGIN:VEVENT','UID:'+Date.now()+'@oberge','DTSTAMP:'+z(new Date()),'DTSTART:'+z(d),'DTEND:'+z(e),'SUMMARY:Repas à L\'Oberge du Barrage ('+st.nb+' pers.)','LOCATION:Aire de loisirs du Barrage\\, La Seigne\\, 42300 Villerest','DESCRIPTION:À confirmer auprès du restaurant : 04 77 65 21 82','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='oberge-du-barrage.ics';a.click();toast('Rendez-vous ajouté à votre agenda');
+  };
+})();
+</script>
+</body>
+</html>
