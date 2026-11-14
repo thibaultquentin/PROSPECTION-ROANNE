@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rêve Éphémère — Artificier Loire, Haute-Loire, Puy-de-Dôme | Feux sur mesure</title>
+<meta name="description" content="Artificier basé à Chausseterre (Loire), Rêve Éphémère crée des feux d'artifice sur mesure pour communes, mariages et stations, dans la Loire, la Haute-Loire et le Puy-de-Dôme.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Montserrat+Alternates:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   CHARTE — reprise du site actuel reveephemere.fr
+   Fond noir, or du logo (#cbaa62), blanc ; Montserrat / Montserrat Alternates.
+   Pour ajuster : modifier uniquement ces variables.
+   ================================================================ */
+:root{
+  --noir:#000000;          /* fond principal du site actuel */
+  --nuit:#101010;          /* fond secondaire (sections) */
+  --nuit-2:#181715;        /* cartes */
+  --or:#cbaa62;            /* or du logo et des liens */
+  --or-clair:#e3cf9c;
+  --blanc:#ffffff;
+  --gris:#a7a39a;          /* texte secondaire */
+  --trait:rgba(203,170,98,.22);
+  --f-titre:"Montserrat Alternates","Montserrat",system-ui,sans-serif;
+  --f-texte:"Montserrat",system-ui,sans-serif;
+  --r:6px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--blanc);font-family:var(--f-texte);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px;border-radius:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--or);color:#1a1408;font-size:.78rem;text-align:center;padding:.45rem 1rem;font-weight:500}
+
+/* Navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-bottom-color:var(--trait)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;height:72px;gap:1rem}
+.nav__logo img{height:34px;width:auto}
+.nav__links{display:flex;gap:2rem;list-style:none;font-size:.9rem}
+.nav__links a{text-decoration:none;color:#ddd;position:relative;padding:.3rem 0}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav__links a:hover::after,.nav__links a.active::after{transform:scaleX(1)}
+.nav__links a.active{color:var(--or)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--f-texte);font-weight:600;font-size:.92rem;text-decoration:none;border-radius:40px;padding:.85rem 1.6rem;border:1px solid var(--or);cursor:pointer;transition:background .25s,color .25s,transform .2s}
+.btn--or{background:var(--or);color:#16110a}
+.btn--or:hover{background:var(--or-clair)}
+.btn--ligne{background:transparent;color:var(--or)}
+.btn--ligne:hover{background:rgba(203,170,98,.12)}
+.btn:active{transform:scale(.97)}
+.nav__tel{display:flex;align-items:center;gap:1rem}
+.nav__tel a.tel{color:var(--or);text-decoration:none;font-weight:600;font-size:.95rem;white-space:nowrap}
+.burger{display:none;background:none;border:0;color:#fff;width:44px;height:44px;cursor:pointer}
+@media (max-width:900px){
+  .nav__links{position:fixed;inset:72px 0 auto 0;flex-direction:column;gap:0;background:#000;padding:1rem 16px 1.5rem;border-bottom:1px solid var(--trait);transform:translateY(-130%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s}
+  .nav__links.open{transform:none;visibility:visible}
+  .nav__links li a{display:block;padding:.9rem 0;font-size:1.05rem}
+  .burger{display:block}
+  .nav__tel .btn{display:none}
+}
+
+/* HERO : photo réelle + ciel animé */
+.hero{position:relative;min-height:calc(100svh - 106px);display:grid;align-items:end;overflow:hidden;isolation:isolate}
+.hero__photo{position:absolute;inset:0;z-index:-3;background:#000}
+.hero__photo img{width:100%;height:100%;object-fit:cover;opacity:.55;transform:scale(1.08);animation:lent 18s ease-out forwards}
+@keyframes lent{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.15) 40%,#000 96%)}
+#ciel-hero{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.hero__txt{padding:0 0 clamp(3rem,8vh,6rem)}
+.hero h1{font-family:var(--f-titre);font-weight:500;font-size:clamp(2.4rem,1.4rem + 4.4vw,5.2rem);line-height:1.04;letter-spacing:-.01em;max-width:13ch}
+.hero__accroche{font-size:clamp(1.05rem,.95rem + .5vw,1.35rem);color:var(--or-clair);margin:1.2rem 0 .6rem;font-weight:300;font-style:italic}
+.hero__sous{max-width:56ch;color:#d8d4cc}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+.mot{display:inline-block;opacity:0;transform:translateY(.5em);animation:mot .9s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:clamp(4.5rem,9vw,8rem) 0}
+.titre{font-family:var(--f-titre);font-weight:500;font-size:clamp(1.8rem,1.2rem + 2.2vw,3rem);line-height:1.12;max-width:22ch}
+.intro{color:var(--gris);max-width:60ch;margin-top:1rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Prestations */
+.presta{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--trait);border:1px solid var(--trait);margin-top:3rem;border-radius:var(--r);overflow:hidden}
+.presta__item{background:var(--noir);padding:2rem 1.4rem 2.2rem;position:relative;min-height:220px;display:flex;flex-direction:column;justify-content:flex-end;transition:background .4s}
+.presta__item:hover{background:var(--nuit-2)}
+.presta__item svg{position:absolute;top:1.6rem;left:1.4rem;width:38px;height:38px;stroke:var(--or);fill:none;stroke-width:1.3}
+.presta__item h3{font-family:var(--f-titre);font-weight:500;font-size:1.25rem;color:var(--or)}
+.presta__item p{color:#cfcac0;font-size:.92rem;margin-top:.3rem}
+@media (max-width:1000px){.presta{grid-template-columns:repeat(2,1fr)}.presta__item:last-child{grid-column:span 2}}
+@media (max-width:560px){.presta{grid-template-columns:1fr}.presta__item:last-child{grid-column:auto}.presta__item{min-height:170px}}
+
+/* Citation */
+.citation{background:var(--nuit);border-block:1px solid var(--trait)}
+.citation blockquote{font-family:var(--f-titre);font-weight:400;font-size:clamp(1.35rem,1rem + 1.6vw,2.2rem);line-height:1.35;max-width:34ch;margin-inline:auto;text-align:center}
+.citation blockquote::before{content:"«\00a0";color:var(--or)}
+.citation blockquote::after{content:"\00a0»";color:var(--or)}
+.citation cite{display:block;text-align:center;font-style:normal;color:var(--or);margin-top:1.4rem;font-size:.95rem}
+
+/* Histoire */
+.histoire{display:grid;grid-template-columns:5fr 7fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.histoire__photo{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:1/1;max-width:460px}
+.histoire__photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.histoire__photo::after{content:"";position:absolute;inset:0;border:1px solid var(--trait);border-radius:var(--r)}
+.histoire__texte p{color:#d6d1c7;margin-top:1.1rem;max-width:62ch}
+.histoire__texte strong{color:var(--or);font-weight:600}
+.annees{display:flex;align-items:baseline;gap:.8rem;margin-top:2rem;border-top:1px solid var(--trait);padding-top:1.5rem}
+.annees b{font-family:var(--f-titre);font-weight:500;font-size:clamp(3rem,2rem + 3vw,4.5rem);color:var(--or);line-height:1}
+.annees span{color:var(--gris);max-width:22ch;font-size:.95rem}
+.refs{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem;list-style:none}
+.refs li{border:1px solid var(--trait);border-radius:30px;padding:.35rem .9rem;font-size:.82rem;color:#e9e4da}
+@media (max-width:860px){.histoire{grid-template-columns:1fr}.histoire__photo{max-width:340px}}
+
+/* Déroulé */
+.deroule{background:var(--nuit)}
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;counter-reset:e}
+.etape{position:relative}
+.etape__img{aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;background:#222}
+.etape__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.etape:hover .etape__img img{transform:scale(1.05)}
+.etape h3{font-family:var(--f-titre);font-weight:500;font-size:1.3rem;margin-top:1.2rem;display:flex;gap:.8rem;align-items:baseline}
+.etape h3::before{counter-increment:e;content:counter(e);color:var(--or);font-size:.95rem;border:1px solid var(--or);border-radius:50%;width:1.9rem;height:1.9rem;display:inline-grid;place-items:center;flex:none}
+.etape p{color:#cfcac0;font-size:.93rem;margin-top:.5rem}
+.etapes__fil{height:1px;background:var(--trait);margin-top:2.5rem;position:relative;overflow:hidden}
+.etapes__fil i{position:absolute;inset:0;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform 2.4s var(--ease)}
+.vu .etapes__fil i{transform:scaleX(1)}
+@media (max-width:860px){.etapes{grid-template-columns:1fr}}
+
+/* OUTIL CENTRAL : Composer son feu */
+.compo{position:relative}
+.compo__grille{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:2rem;margin-top:3rem;align-items:start}
+.panneau{background:var(--nuit-2);border:1px solid var(--trait);border-radius:var(--r);padding:clamp(1.3rem,3vw,2rem)}
+.q{margin-bottom:1.6rem}
+.q:last-child{margin-bottom:0}
+.q>label,.q>.lbl{display:block;font-weight:600;font-size:.95rem;margin-bottom:.7rem}
+.q small{display:block;color:var(--gris);font-weight:400;font-size:.8rem;margin-top:.15rem}
+.choix{display:flex;flex-wrap:wrap;gap:.5rem}
+.choix input{position:absolute;opacity:0;pointer-events:none}
+.choix label{border:1px solid #3a3730;border-radius:30px;padding:.5rem .95rem;font-size:.86rem;cursor:pointer;transition:all .2s;user-select:none;color:#e6e1d6}
+.choix label:hover{border-color:var(--or)}
+.choix input:checked+label{background:var(--or);border-color:var(--or);color:#16110a;font-weight:600}
+.choix input:focus-visible+label{outline:2px solid var(--or);outline-offset:2px}
+.teintes label{display:flex;align-items:center;gap:.5rem}
+.teintes label i{display:flex;gap:2px}
+.teintes label i b{width:9px;height:9px;border-radius:50%;display:block}
+input[type=range]{width:100%;accent-color:var(--or)}
+.duree{display:flex;justify-content:space-between;font-size:.82rem;color:var(--gris);margin-top:.3rem}
+.champ{width:100%;background:#0c0c0b;border:1px solid #3a3730;border-radius:var(--r);color:#fff;padding:.75rem .9rem;font:inherit;font-size:.92rem}
+.champ:focus{border-color:var(--or);outline:none}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media (max-width:480px){.deux{grid-template-columns:1fr}}
+
+.apercu{position:sticky;top:96px}
+.ecran{position:relative;aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;background:radial-gradient(120% 80% at 50% 110%,#1a1610 0%,#050505 55%,#000 100%);border:1px solid var(--trait)}
+#ciel-compo{position:absolute;inset:0;width:100%;height:100%}
+.ecran__sol{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(180deg,transparent,#000 70%)}
+.ecran__sol svg{position:absolute;bottom:0;width:100%;height:100%}
+.ecran__info{position:absolute;left:1rem;top:.9rem;font-size:.78rem;color:#cfc8b8;background:rgba(0,0,0,.5);padding:.3rem .65rem;border-radius:20px}
+.ecran__rejouer{position:absolute;right:.8rem;top:.7rem;background:rgba(0,0,0,.55);color:var(--or);border:1px solid var(--trait);border-radius:20px;padding:.35rem .8rem;font:600 .78rem var(--f-texte);cursor:pointer}
+.chrono{height:3px;background:#222;border-radius:2px;margin-top:.8rem;overflow:hidden}
+.chrono i{display:block;height:100%;width:0;background:var(--or)}
+.legende{font-size:.78rem;color:var(--gris);margin-top:.7rem}
+.recap{margin-top:1.4rem;background:#0b0b0a;border:1px solid var(--trait);border-radius:var(--r);padding:1.3rem 1.4rem}
+.recap h3{font-family:var(--f-titre);font-weight:500;font-size:1.15rem;color:var(--or);margin-bottom:.8rem}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.88rem}
+.recap dt{color:var(--gris)}
+.recap dd{color:#eee}
+.recap__cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.2rem}
+.recap__note{font-size:.78rem;color:var(--gris);margin-top:.9rem}
+@media (max-width:980px){.compo__grille{grid-template-columns:1fr}.apercu{position:static;order:-1}}
+
+/* Galerie */
+.galerie{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(150px,18vw,230px);gap:.8rem;margin-top:3rem}
+.galerie figure{position:relative;overflow:hidden;border-radius:var(--r);background:#111}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease),filter .6s}
+.galerie figure:hover img{transform:scale(1.06)}
+.galerie figcaption{position:absolute;left:.8rem;bottom:.7rem;font-size:.78rem;background:rgba(0,0,0,.6);padding:.25rem .6rem;border-radius:20px;color:#e9e4da}
+.g1{grid-column:span 7;grid-row:span 2}.g2{grid-column:span 5}.g3{grid-column:span 5}.g4{grid-column:span 4}.g5{grid-column:span 4}.g6{grid-column:span 4}
+@media (max-width:760px){.galerie{grid-template-columns:1fr 1fr}.galerie figure{grid-column:span 1!important;grid-row:span 1!important}.g1{grid-column:span 2!important}}
+
+/* Zones */
+.zones{background:var(--nuit)}
+.zones__grille{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--trait);border:1px solid var(--trait);border-radius:var(--r);overflow:hidden;margin-top:3rem}
+.zone{background:var(--nuit);padding:1.8rem 1.5rem}
+.zone h3{font-family:var(--f-titre);font-weight:500;font-size:1.25rem}
+.zone h3 span{color:var(--or)}
+.zone p{color:#cfcac0;font-size:.92rem;margin-top:.5rem}
+.zones__base{margin-top:1.4rem;color:var(--gris);font-size:.92rem}
+@media (max-width:760px){.zones__grille{grid-template-columns:1fr}}
+
+/* Contact */
+.contact__grille{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem);margin-top:2.5rem}
+.coord{list-style:none;display:grid;gap:1.2rem}
+.coord li{display:flex;gap:1rem;align-items:flex-start}
+.coord svg{width:22px;height:22px;stroke:var(--or);fill:none;stroke-width:1.5;flex:none;margin-top:.2rem}
+.coord a{color:#fff;text-decoration:none;border-bottom:1px solid var(--trait)}
+.coord a:hover{border-color:var(--or)}
+.coord span{display:block;color:var(--gris);font-size:.85rem}
+.horaires{border:1px solid var(--trait);border-radius:var(--r);padding:1.4rem 1.5rem}
+.horaires h3{font-family:var(--f-titre);font-weight:500;color:var(--or);font-size:1.15rem;margin-bottom:.8rem}
+.horaires table{width:100%;border-collapse:collapse;font-size:.9rem}
+.horaires td{padding:.45rem 0;border-bottom:1px solid #222}
+.horaires td:last-child{text-align:right;color:#e9e4da}
+.horaires tr.auj td{color:var(--or);font-weight:600}
+.reseaux{display:flex;gap:.7rem;margin-top:1.4rem}
+.reseaux a{width:44px;height:44px;border:1px solid var(--trait);border-radius:50%;display:grid;place-items:center;transition:border-color .2s,background .2s}
+.reseaux a:hover{border-color:var(--or);background:rgba(203,170,98,.1)}
+.reseaux svg{width:18px;height:18px;fill:var(--or)}
+@media (max-width:760px){.contact__grille{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--trait);padding:3rem 0 2.5rem;font-size:.85rem;color:var(--gris)}
+footer .logo img{height:30px;width:auto;margin-bottom:1rem}
+footer p{max-width:80ch;margin-top:.6rem}
+.mention{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid #1d1d1d;font-size:.78rem}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,200px);visibility:hidden;background:var(--or);color:#16110a;padding:.8rem 1.3rem;border-radius:30px;font-weight:600;font-size:.9rem;transition:transform .45s var(--ease);z-index:80;max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .mot{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Rêve Éphémère",
+  "description":"Création et réalisation de feux d'artifice sur mesure pour collectivités, particuliers, stations et événements.",
+  "url":"https://reveephemere.fr/",
+  "telephone":"+33617630397",
+  "email":"contact@reveephemere.fr",
+  "founder":{"@type":"Person","name":"Éric Fontanay"},
+  "address":{"@type":"PostalAddress","streetAddress":"383 Le Taillis","postalCode":"42430","addressLocality":"Chausseterre","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[{"@type":"AdministrativeArea","name":"Loire (42)"},{"@type":"AdministrativeArea","name":"Haute-Loire (43)"},{"@type":"AdministrativeArea","name":"Puy-de-Dôme (63)"}],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"18:00"}],
+  "sameAs":["https://www.instagram.com/reveephemeres/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour Rêve Éphémère — non officielle, contenus repris du site actuel.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="nav__logo" href="#accueil" aria-label="Rêve Éphémère, accueil">
+      <img src="https://reveephemere.fr/wp-content/uploads/2026/02/cropped-LOGO_RE_ALLONGE@3x-8-scaled-1.png" alt="Rêve Éphémère">
+    </a>
+    <ul class="nav__links" id="menu">
+      <li><a href="#accueil" class="active">Accueil</a></li>
+      <li><a href="#prestations">Nos prestations</a></li>
+      <li><a href="#histoire">Mon histoire</a></li>
+      <li><a href="#composer">Composer mon feu</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav__tel">
+      <a class="tel" href="tel:+33617630397">06 17 63 03 97</a>
+      <a class="btn btn--or" href="#composer">Demander un devis</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="1.6" fill="none"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero__photo"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/AISelect_20250802_075237_Facebook-700x500.jpg" alt="Feu d'artifice rouge et or réalisé par Rêve Éphémère"></div>
+  <canvas id="ciel-hero" aria-hidden="true"></canvas>
+  <div class="wrap hero__txt">
+    <h1 id="h1">Créateur de feux d'artifice sur mesure</h1>
+    <p class="hero__accroche">L'émotion ne s'improvise pas, elle se crée…</p>
+    <p class="hero__sous">Que ce soit pour un mariage, une fête ou un événement exceptionnel, nous créons des spectacles uniques, alliant magie, sécurité et émotion. Faites briller vos rêves.</p>
+    <div class="hero__cta">
+      <a class="btn btn--or" href="#composer">Composer mon feu d'artifice</a>
+      <a class="btn btn--ligne" href="tel:+33617630397">Appeler Éric</a>
+    </div>
+  </div>
+</section>
+
+<section id="prestations">
+  <div class="wrap">
+    <h2 class="titre reveal">Des prestations pyrotechniques pour chaque public</h2>
+    <p class="intro reveal">Chaque spectacle est pensé selon le site, le public et les contraintes de sécurité, de l'étude du site jusqu'au tir final.</p>
+    <div class="presta reveal">
+      <article class="presta__item">
+        <svg viewBox="0 0 40 40"><path d="M6 34h28M9 34V18l11-8 11 8v16M16 34v-9h8v9"/><path d="M20 4v3M14 6l1.5 2.5M26 6l-1.5 2.5"/></svg>
+        <h3>Collectivités</h3><p>Feux officiels et événements publics</p>
+      </article>
+      <article class="presta__item">
+        <svg viewBox="0 0 40 40"><circle cx="15" cy="22" r="8"/><circle cx="25" cy="22" r="8"/><path d="M20 6l1.6 3.4L25 10l-2.5 2.4.6 3.6-3.1-1.7-3.1 1.7.6-3.6L15 10l3.4-.6z"/></svg>
+        <h3>Privé</h3><p>Mariages, anniversaires, inaugurations</p>
+      </article>
+      <article class="presta__item">
+        <svg viewBox="0 0 40 40"><path d="M3 34l11-17 6 8 5-6 12 15z"/><path d="M14 17l3 4M30 8v4M28 10h4"/></svg>
+        <h3>Tourisme</h3><p>Stations de montagne, événements</p>
+      </article>
+      <article class="presta__item">
+        <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="6"/><path d="M20 4v5M20 31v5M4 20h5M31 20h5M8.7 8.7l3.5 3.5M27.8 27.8l3.5 3.5M8.7 31.3l3.5-3.5M27.8 12.2l3.5-3.5"/></svg>
+        <h3>Effets de jour &amp; scénographie</h3><p>Spectacles en journée et mises en scène</p>
+      </article>
+      <article class="presta__item">
+        <svg viewBox="0 0 40 40"><path d="M15 30V9l17-4v21"/><circle cx="11" cy="30" r="4"/><circle cx="28" cy="26" r="4"/></svg>
+        <h3>Artistique</h3><p>Musique, effets spéciaux, lumières</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="citation">
+  <div class="wrap reveal">
+    <blockquote>L'artifice est une passion, pas un produit standard. Aujourd'hui, je mets mon expérience et mon exigence au service de vos évènements</blockquote>
+    <cite>Éric Fontanay, artificier, fondateur de Rêve Éphémère</cite>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap histoire">
+    <div class="histoire__photo reveal">
+      <img src="https://reveephemere.fr/wp-content/uploads/2026/02/9060088308499480326-2-1024x1018.jpg" alt="Portrait d'Éric Fontanay, artificier" loading="lazy">
+    </div>
+    <div class="histoire__texte reveal">
+      <h2 class="titre">Mon histoire</h2>
+      <p>Diplômé depuis plus de 30 ans, formé aux côtés de grandes maisons françaises comme <strong>Ruggieri</strong>, j'ai participé à des événements d'envergure internationale, dont le <strong>Grand Prix de F1 à Monaco</strong>.</p>
+      <p>Après des collaborations avec <strong>Scénos France</strong> et des prestations pour Avoriaz, l'Alpe d'Huez, le lac de Montriond ou la maison André Jacquart, j'ai créé Rêve Éphémère. Aujourd'hui, je mets mon expérience au service des communes, comités des fêtes et organisateurs d'événements pour créer des spectacles puissants, structurés et mémorables.</p>
+      <div class="annees"><b data-compte="30">0</b><span>ans d'expertise en pyrotechnie, du plan de tir au déclenchement</span></div>
+      <ul class="refs" aria-label="Références citées">
+        <li>Grand Prix de F1 Monaco</li><li>Avoriaz</li><li>Alpe d'Huez</li><li>Lac de Montriond</li><li>Maison André Jacquart</li><li>Scénos France</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="deroule">
+  <div class="wrap">
+    <h2 class="titre reveal">Du terrain encore calme au ciel qui s'illumine</h2>
+    <div class="etapes reveal">
+      <article class="etape">
+        <div class="etape__img"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/4318352f-85b6-421f-969a-8493d17a7372-edited.jpeg" alt="Préparation des mortiers sur le site de tir" loading="lazy"></div>
+        <h3>Préparation</h3>
+        <p>Dans l'ombre encore calme du terrain, les mortiers sont alignés avec précision. Chaque tube est positionné, vérifié, sécurisé.</p>
+      </article>
+      <article class="etape">
+        <div class="etape__img"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/72556248-2aa2-4ad2-8e97-9dcaac2c3ecb-edited.jpeg" alt="Installation des batteries selon le plan de tir" loading="lazy"></div>
+        <h3>Installation</h3>
+        <p>Les mortiers sont fixés selon le plan de tir établi, dans le respect de normes strictes, pour un déclenchement maîtrisé et synchronisé.</p>
+      </article>
+      <article class="etape">
+        <div class="etape__img"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/1d9120fa-f9ca-43dd-af30-ae147dbc7863-edited-1.jpeg" alt="Feu d'artifice tiré au-dessus d'une station de montagne" loading="lazy"></div>
+        <h3>Spectacle</h3>
+        <p>Le ciel s'illumine de mille couleurs. Chaque explosion transforme la nuit en un spectacle éblouissant.</p>
+      </article>
+    </div>
+    <div class="etapes__fil reveal"><i></i></div>
+  </div>
+</section>
+
+<!-- ======================= OUTIL CENTRAL ======================= -->
+<section class="compo" id="composer">
+  <div class="wrap">
+    <h2 class="titre reveal">Composez votre feu, voyez l'ambiance</h2>
+    <p class="intro reveal">Choisissez l'occasion, les teintes et le rythme : le ciel ci-dessous s'adapte en direct. Votre demande part ensuite déjà détaillée, ce qui permet un devis personnalisé plus rapide.</p>
+
+    <div class="compo__grille">
+      <form class="panneau" id="form" onsubmit="return false">
+        <div class="q">
+          <span class="lbl">L'occasion</span>
+          <div class="choix" role="radiogroup">
+            <input type="radio" name="occ" id="o1" value="Fête communale / feu officiel" checked><label for="o1">Fête communale</label>
+            <input type="radio" name="occ" id="o2" value="Mariage"><label for="o2">Mariage</label>
+            <input type="radio" name="occ" id="o3" value="Anniversaire / fête privée"><label for="o3">Anniversaire</label>
+            <input type="radio" name="occ" id="o4" value="Inauguration / événement d'entreprise"><label for="o4">Inauguration</label>
+            <input type="radio" name="occ" id="o5" value="Station / événement touristique"><label for="o5">Station, tourisme</label>
+            <input type="radio" name="occ" id="o6" value="Effets de jour / scénographie"><label for="o6">Effets de jour</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="lbl">Les teintes dominantes</span>
+          <div class="choix teintes">
+            <input type="radio" name="teinte" id="t1" value="Or et blanc" checked><label for="t1"><i><b style="background:#e8c46a"></b><b style="background:#fff"></b></i>Or et blanc</label>
+            <input type="radio" name="teinte" id="t2" value="Multicolore"><label for="t2"><i><b style="background:#ff4d6d"></b><b style="background:#4dd2ff"></b><b style="background:#9dff6b"></b></i>Multicolore</label>
+            <input type="radio" name="teinte" id="t3" value="Rouge et or"><label for="t3"><i><b style="background:#ff3b30"></b><b style="background:#e8c46a"></b></i>Rouge et or</label>
+            <input type="radio" name="teinte" id="t4" value="Bleu, blanc, rouge"><label for="t4"><i><b style="background:#3d7bff"></b><b style="background:#fff"></b><b style="background:#ff3b30"></b></i>Tricolore</label>
+            <input type="radio" name="teinte" id="t5" value="Rose et argent"><label for="t5"><i><b style="background:#ff8ac2"></b><b style="background:#d9e2ff"></b></i>Rose et argent</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="lbl">Le rythme</span>
+          <div class="choix">
+            <input type="radio" name="rythme" id="r1" value="Montée progressive, final intense" checked><label for="r1">Crescendo et final</label>
+            <input type="radio" name="rythme" id="r2" value="Élégant et régulier"><label for="r2">Élégant, régulier</label>
+            <input type="radio" name="rythme" id="r3" value="Intense du début à la fin"><label for="r3">Intense</label>
+          </div>
+        </div>
+
+        <div class="q">
+          <label for="duree">Durée souhaitée <small>Indication pour le devis, ajustée ensuite avec Éric selon le site.</small></label>
+          <input type="range" id="duree" min="3" max="25" value="10" step="1">
+          <div class="duree"><span>3 min</span><span id="dureeVal">10 minutes</span><span>25 min</span></div>
+        </div>
+
+        <div class="q">
+          <span class="lbl">Musique synchronisée</span>
+          <div class="choix">
+            <input type="radio" name="musique" id="m1" value="Oui" ><label for="m1">Oui</label>
+            <input type="radio" name="musique" id="m2" value="Non" checked><label for="m2">Non</label>
+            <input type="radio" name="musique" id="m3" value="À discuter"><label for="m3">À discuter</label>
+          </div>
+        </div>
+
+        <div class="q deux">
+          <div><label for="date" class="lbl" style="font-weight:600;font-size:.95rem;margin-bottom:.5rem;display:block">Date envisagée</label><input class="champ" type="date" id="date"></div>
+          <div><label for="lieu" style="font-weight:600;font-size:.95rem;margin-bottom:.5rem;display:block">Commune du tir</label><input class="champ" type="text" id="lieu" placeholder="Ex. Roanne, Feurs, Thiers…"></div>
+        </div>
+        <div class="q">
+          <label for="public">Public attendu <small>Utile pour l'étude du site et le périmètre de sécurité.</small></label>
+          <select class="champ" id="public">
+            <option>Moins de 100 personnes</option>
+            <option selected>100 à 500 personnes</option>
+            <option>500 à 2 000 personnes</option>
+            <option>Plus de 2 000 personnes</option>
+          </select>
+        </div>
+      </form>
+
+      <div class="apercu">
+        <div class="ecran">
+          <canvas id="ciel-compo" aria-label="Aperçu animé de l'ambiance choisie" role="img"></canvas>
+          <div class="ecran__sol"><svg viewBox="0 0 600 80" preserveAspectRatio="none"><path d="M0 80V52l40-10 50 14 60-24 70 18 50-12 60 20 70-26 60 16 60-8 80 18v22z" fill="#000"/></svg></div>
+          <span class="ecran__info" id="info">Or et blanc · crescendo</span>
+          <button class="ecran__rejouer" id="rejouer" type="button">Rejouer</button>
+        </div>
+        <div class="chrono"><i id="chrono"></i></div>
+        <p class="legende">Aperçu d'ambiance indicatif. La vraie visualisation de votre feu avant le tir est proposée par Rêve Éphémère lors de la préparation du devis.</p>
+
+        <div class="recap" aria-live="polite">
+          <h3>Votre demande</h3>
+          <dl id="recap"></dl>
+          <div class="recap__cta">
+            <a class="btn btn--or" id="envoyer" href="#">Envoyer ma demande de devis</a>
+            <button class="btn btn--ligne" id="copier" type="button">Copier le récapitulatif</button>
+          </div>
+          <p class="recap__note">Le bouton ouvre votre messagerie avec la demande déjà rédigée pour contact@reveephemere.fr. Aucun tarif n'est affiché ici : chaque feu est chiffré sur mesure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2 class="titre reveal">Quelques tirs</h2>
+    <div class="galerie reveal">
+      <figure class="g1"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/1000078311-700x500.jpg" alt="Bouquet rouge et or au-dessus des sapins" loading="lazy"></figure>
+      <figure class="g2"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/AISelect_20250912_212641_Gallery-700x500.jpg" alt="Gerbes dorées en pleine nuit" loading="lazy"></figure>
+      <figure class="g3"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/Capture-decran-2025-09-12-210923-1-700x500.png" alt="Feu bleu et blanc devant le public" loading="lazy"></figure>
+      <figure class="g4"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/078f0391-57e6-4afb-8ef3-638924cac2b3.jpeg" alt="Batteries prêtes au tir en station" loading="lazy"><figcaption>En coulisses</figcaption></figure>
+      <figure class="g5"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/a48b9e24-881e-4201-86c5-263a35c63f72.jpeg" alt="Mortiers alignés sur un terrain d'altitude" loading="lazy"><figcaption>Implantation</figcaption></figure>
+      <figure class="g6"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/e16e6f62-f986-43f6-871c-00b9c5e2e135.jpeg" alt="Préparation du matériel au pied des bâtiments" loading="lazy"><figcaption>Préparation</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="zones">
+  <div class="wrap">
+    <h2 class="titre reveal">Où intervenons-nous ?</h2>
+    <div class="zones__grille reveal">
+      <div class="zone"><h3>Loire <span>(42)</span></h3><p>Tout le département, notamment Saint-Étienne, Roanne, Montbrison, Feurs et les communes alentours.</p></div>
+      <div class="zone"><h3>Haute-Loire <span>(43)</span></h3><p>Feux d'artifice sur mesure pour particuliers, communes et événements privés.</p></div>
+      <div class="zone"><h3>Puy-de-Dôme <span>(63)</span></h3><p>Clermont-Ferrand, Riom, Issoire, Thiers, Ambert et tout le département.</p></div>
+    </div>
+    <p class="zones__base reveal">Tirs sécurisés, matériel professionnel et visualisation du feu avant le tir possible. Basé à Chausseterre, dans les Monts de la Madeleine.</p>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <h2 class="titre reveal">Nous sommes à votre écoute</h2>
+    <p class="intro reveal">Pour toute demande ou information, n'hésitez pas à nous contacter.</p>
+    <div class="contact__grille reveal">
+      <ul class="coord">
+        <li><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><a href="tel:+33617630397">06 17 63 03 97</a><span>Éric Fontanay</span></div></li>
+        <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><div><a href="mailto:contact@reveephemere.fr">contact@reveephemere.fr</a><span>Réponse avec un devis personnalisé</span></div></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div>383 Le Taillis<br>42430 Chausseterre<span>Loire</span></div></li>
+      </ul>
+      <div>
+        <div class="horaires">
+          <h3>Horaires</h3>
+          <table id="horaires">
+            <tr data-j="1"><td>Lundi</td><td>9 h – 18 h</td></tr>
+            <tr data-j="2"><td>Mardi</td><td>9 h – 18 h</td></tr>
+            <tr data-j="3"><td>Mercredi</td><td>9 h – 18 h</td></tr>
+            <tr data-j="4"><td>Jeudi</td><td>9 h – 18 h</td></tr>
+            <tr data-j="5"><td>Vendredi</td><td>9 h – 18 h</td></tr>
+            <tr data-j="6"><td>Samedi</td><td>Fermé</td></tr>
+            <tr data-j="0"><td>Dimanche</td><td>Fermé</td></tr>
+          </table>
+        </div>
+        <div class="reseaux">
+          <a href="https://www.instagram.com/reveephemeres/" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.3A4.7 4.7 0 1 0 16.7 12 4.7 4.7 0 0 0 12 7.3zm0 7.7a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm4.9-9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1zM12 3.6c2.7 0 3 0 4.1.1 2.7.1 4 1.4 4.1 4.1.1 1.1.1 1.4.1 4.1s0 3-.1 4.1c-.1 2.7-1.4 4-4.1 4.1-1.1.1-1.4.1-4.1.1s-3 0-4.1-.1c-2.7-.1-4-1.4-4.1-4.1C3.7 15 3.6 14.7 3.6 12s0-3 .1-4.1C3.8 5.2 5.1 3.9 7.9 3.8c1.1-.1 1.4-.2 4.1-.2zM12 2C9.3 2 8.9 2 7.9 2.1 4.2 2.2 2.2 4.2 2.1 7.9 2 8.9 2 9.3 2 12s0 3.1.1 4.1c.1 3.7 2.1 5.7 5.8 5.8 1 .1 1.4.1 4.1.1s3.1 0 4.1-.1c3.7-.1 5.7-2.1 5.8-5.8.1-1 .1-1.4.1-4.1s0-3.1-.1-4.1c-.1-3.7-2.1-5.7-5.8-5.8C15.1 2 14.7 2 12 2z"/></svg></a>
+          <a href="mailto:contact@reveephemere.fr" aria-label="Écrire un mail"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3zm2 2v.5l7 4.5 7-4.5V7H5z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo"><img src="https://reveephemere.fr/wp-content/uploads/2026/02/cropped-LOGO_RE_ALLONGE@3x-8-scaled-1.png" alt="Rêve Éphémère"></div>
+    <p>Artificier dans la Loire (42), Rêve Éphémère crée des feux d'artifice sur mesure pour mariages, événements privés et publics, en alliant sécurité et magie.</p>
+    <p class="mention">Maquette de démonstration non contractuelle, réalisée à titre de proposition. Textes, références, coordonnées et horaires repris du site actuel reveephemere.fr et de la fiche Urféco. Toutes les photos sont celles déjà publiées sur le site de Rêve Éphémère. L'aperçu animé de l'outil « Composer mon feu » est une illustration d'ambiance, pas une simulation du tir réel. Aucun prix n'est affiché : les devis restent établis sur mesure. Couleurs et typographies reprises du site actuel, ajustables.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- Titre mot à mot ---------- */
+const h1=document.getElementById('h1');
+if(!reduit){
+  h1.innerHTML=h1.textContent.split(' ').map((m,i)=>`<span class="mot" style="animation-delay:${200+i*110}ms">${m}</span>`).join(' ');
+}
+
+/* ---------- Navigation ---------- */
+const nav=document.getElementById('nav'), burger=document.getElementById('burger'), menu=document.getElementById('menu');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+const liens=[...menu.querySelectorAll('a')];
+const secObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){liens.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+['accueil','prestations','histoire','composer','contact'].forEach(id=>secObs.observe(document.getElementById(id)));
+
+/* ---------- Apparitions + compteur ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);
+  const c=e.target.querySelector('[data-compte]');
+  if(c){const fin=+c.dataset.compte;if(reduit){c.textContent=fin+'+';return}let t0=null;const step=t=>{t0??=t;const p=Math.min((t-t0)/1600,1);c.textContent=Math.round(fin*(1-Math.pow(1-p,3)))+(p===1?'+':'');if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- Horaires : jour courant ---------- */
+const j=new Date().getDay();const tr=document.querySelector(`#horaires tr[data-j="${j}"]`);if(tr)tr.classList.add('auj');
+
+/* ---------- Moteur de feu d'artifice (canvas) ---------- */
+function Ciel(canvas,opts){
+  const ctx=canvas.getContext('2d');let W=0,H=0,dpr=Math.min(devicePixelRatio||1,2);
+  let fusees=[],etincelles=[];this.palette=opts.palette;this.cadence=opts.cadence||1;
+  const resize=()=>{const r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};
+  resize();addEventListener('resize',resize);
+  const self=this;
+  this.lancer=(x,force)=>{
+    x=x??W*(.15+Math.random()*.7);
+    const cible=H*(opts.haut||.18)+Math.random()*H*.3;
+    fusees.push({x,y:H,vx:(Math.random()-.5)*.6,vy:-Math.sqrt(2*0.06*(H-cible)),c:self.palette[Math.floor(Math.random()*self.palette.length)],force:force||1});
+  };
+  const eclater=f=>{
+    const n=Math.round((opts.densite||70)*f.force*(.8+Math.random()*.4));
+    const type=Math.random();const c2=self.palette[Math.floor(Math.random()*self.palette.length)];
+    for(let i=0;i<n;i++){
+      const a=(i/n)*Math.PI*2+Math.random()*.2;const v=(type<.35?2.6:1.2+Math.random()*2.2)*f.force*(opts.vitesse||1);
+      etincelles.push({x:f.x,y:f.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,v:1,c:i%3===0?c2:f.c,d:.010+Math.random()*.012,traine:type>.7});
+    }
+  };
+  this.vider=()=>{fusees=[];etincelles=[]};
+  const boucle=()=>{
+    ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,.22)';ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    for(let i=fusees.length-1;i>=0;i--){const f=fusees[i];f.x+=f.vx;f.y+=f.vy;f.vy+=.06;
+      ctx.fillStyle='rgba(255,230,180,.9)';ctx.fillRect(f.x-1,f.y-1,2,3);
+      if(f.vy>=-.4){eclater(f);fusees.splice(i,1)}}
+    for(let i=etincelles.length-1;i>=0;i--){const e=etincelles[i];e.x+=e.vx;e.y+=e.vy;e.vx*=.975;e.vy=e.vy*.975+.035;e.v-=e.d;
+      if(e.v<=0){etincelles.splice(i,1);continue}
+      ctx.globalAlpha=Math.max(e.v,0)*(e.traine&&Math.random()<.3?.4:1);ctx.fillStyle=e.c;
+      ctx.beginPath();ctx.arc(e.x,e.y,e.traine?1.1:1.6,0,7);ctx.fill()}
+    ctx.globalAlpha=1;
+    if(opts.auto&&!reduit&&Math.random()<.012*self.cadence&&document.visibilityState==='visible')self.lancer();
+    requestAnimationFrame(boucle);
+  };
+  requestAnimationFrame(boucle);
+}
+
+/* Hero : quelques bouquets dorés discrets */
+const hero=new Ciel(document.getElementById('ciel-hero'),{palette:['#e8c46a','#fff3d6','#cbaa62'],auto:true,cadence:.9,densite:55,haut:.08});
+if(!reduit){setTimeout(()=>hero.lancer(null,1.1),900);}
+
+/* ---------- Outil : composer son feu ---------- */
+const PALETTES={
+  'Or et blanc':['#ffd77a','#ffffff','#e8c46a','#fff1c9'],
+  'Multicolore':['#ff4d6d','#4dd2ff','#9dff6b','#ffd166','#c77dff'],
+  'Rouge et or':['#ff3b30','#ff6b4a','#ffd77a','#e8c46a'],
+  'Bleu, blanc, rouge':['#3d7bff','#ffffff','#ff3b30'],
+  'Rose et argent':['#ff8ac2','#ffc2e0','#dfe6ff','#ffffff']
+};
+const RYTHMES={'Montée progressive, final intense':'crescendo','Élégant et régulier':'régulier','Intense du début à la fin':'intense'};
+const form=document.getElementById('form');
+const ciel=new Ciel(document.getElementById('ciel-compo'),{palette:PALETTES['Or et blanc'],densite:80,haut:.12});
+const chrono=document.getElementById('chrono');
+let seqId=0;
+
+const val=n=>(form.querySelector(`input[name="${n}"]:checked`)||{}).value;
+function jouer(){
+  const id=++seqId;ciel.vider();
+  const teinte=val('teinte'),ryt=RYTHMES[val('rythme')];
+  ciel.palette=PALETTES[teinte];
+  document.getElementById('info').textContent=teinte+' · '+ryt;
+  const total=9000; // aperçu condensé en 9 s
+  const t0=performance.now();
+  let prochain=0;
+  const tick=t=>{
+    if(id!==seqId)return;
+    const p=(t-t0)/total;chrono.style.width=Math.min(p*100,100)+'%';
+    if(p>=1)return;
+    if(t-t0>=prochain){
+      let intervalle,salve=1,force=1;
+      if(ryt==='crescendo'){intervalle=p<.75?1100-p*900:140;salve=p>.82?3:1;force=p>.82?1.25:.9}
+      else if(ryt==='régulier'){intervalle=900;force=1}
+      else {intervalle=260;salve=2;force=1.1}
+      for(let s=0;s<salve;s++)ciel.lancer(null,force);
+      prochain=t-t0+intervalle;
+    }
+    requestAnimationFrame(tick);
+  };
+  if(reduit){for(let i=0;i<5;i++)ciel.lancer(null,1);chrono.style.width='100%';return}
+  requestAnimationFrame(tick);
+}
+const dureeIn=document.getElementById('duree'),dureeVal=document.getElementById('dureeVal');
+function recap(){
+  dureeVal.textContent=dureeIn.value+' minutes';
+  const d=document.getElementById('date').value;
+  const lieu=document.getElementById('lieu').value.trim();
+  const champs=[
+    ['Occasion',val('occ')],['Teintes',val('teinte')],['Rythme',val('rythme')],
+    ['Durée souhaitée',dureeIn.value+' min'],['Musique',val('musique')],
+    ['Date',d?new Date(d+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'à préciser'],
+    ['Commune',lieu||'à préciser'],['Public',document.getElementById('public').value]
+  ];
+  document.getElementById('recap').innerHTML=champs.map(([k,v])=>`<dt>${k}</dt><dd>${v.replace(/</g,'&lt;')}</dd>`).join('');
+  const corps='Bonjour,\n\nJe souhaite un devis pour un feu d\'artifice :\n\n'+champs.map(([k,v])=>'- '+k+' : '+v).join('\n')+'\n\nMes coordonnées :\nNom :\nTéléphone :\n\nMerci.';
+  document.getElementById('envoyer').href='mailto:contact@reveephemere.fr?subject='+encodeURIComponent('Demande de devis feu d\'artifice – '+val('occ'))+'&body='+encodeURIComponent(corps);
+  return corps;
+}
+form.addEventListener('change',e=>{recap();if(['teinte','rythme'].includes(e.target.name))jouer()});
+form.addEventListener('input',recap);
+document.getElementById('rejouer').addEventListener('click',jouer);
+const toast=document.getElementById('toast');
+document.getElementById('copier').addEventListener('click',()=>{
+  const t=recap();
+  const ok=()=>{toast.textContent='Récapitulatif copié';toast.classList.add('on');setTimeout(()=>toast.classList.remove('on'),2200)};
+  if(navigator.clipboard)navigator.clipboard.writeText(t).then(ok,()=>{toast.textContent='Copie impossible : utilisez le bouton d\'envoi';toast.classList.add('on');setTimeout(()=>toast.classList.remove('on'),2600)});
+});
+recap();
+const ecranObs=new IntersectionObserver(es=>{if(es[0].isIntersecting){jouer();ecranObs.disconnect()}},{threshold:.4});
+ecranObs.observe(document.querySelector('.ecran'));
+})();
+</script>
+</body>
+</html>
