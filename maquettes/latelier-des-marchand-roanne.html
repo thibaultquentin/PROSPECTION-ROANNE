@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Atelier des Marchand — Bar brasserie à Roanne | Plat du jour, terrasse, FDJ</title>
+<meta name="description" content="Bar, brasserie, FDJ, PMU, presse et tabac au 8 avenue Centrale à Roanne. Plat du jour chaque midi, terrasse couverte, groupes et repas d'entreprise sur demande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du logo de L'Atelier des Marchand
+   (coq-girouette rouge, arche bleu marine, lettrage géométrique)
+   Couleurs relevées sur le logo publié sur la fiche Roannais Tourisme.
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --rouge:#CE3138;        /* rouge du coq et du nom */
+  --rouge-fonce:#A8242A;
+  --marine:#24276C;       /* bleu marine de l'arche et de la baseline */
+  --marine-fonce:#171A4D;
+  --blanc:#FFFFFF;
+  --creme:#F6F5F9;        /* fond très légèrement bleuté, pour rester dans la charte */
+  --gris:#5D6080;
+  --titre:'Josefin Sans', system-ui, sans-serif;   /* proche du lettrage « MARCHAND » */
+  --texte:'Ubuntu', system-ui, sans-serif;          /* proche de « Bar. Brasserie. FDJ. » */
+  --arche:999px 999px 0 0;
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--marine-fonce);background:var(--blanc);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--marine-fonce);color:#fff;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:#ffb3b6}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);border-bottom:1px solid #e7e7f0;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 6px 24px rgba(23,26,77,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:74px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand img{width:52px;height:52px;object-fit:cover;object-position:50% 8%;border-radius:12px}
+.brand span{font-family:var(--titre);font-weight:700;line-height:1;color:var(--rouge);font-size:1.05rem;letter-spacing:.04em;text-transform:uppercase}
+.brand small{display:block;color:var(--marine);font-size:.7rem;letter-spacing:.08em;margin-top:.25rem}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--titre);font-weight:700;letter-spacing:.05em;text-transform:uppercase;font-size:.9rem;padding:.85rem 1.4rem;border-radius:999px;border:2px solid var(--rouge);background:var(--rouge);color:#fff;text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);background:var(--rouge-fonce);box-shadow:0 10px 22px rgba(206,49,56,.28)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--marine);border-color:var(--marine)}
+.btn.ghost:hover{background:var(--marine);color:#fff;box-shadow:none}
+.burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px}
+.burger span{display:block;height:2px;background:var(--marine);margin:6px 8px;transition:.3s}
+
+/* Hero */
+.hero{position:relative;padding:4.5rem 0 5rem;background:linear-gradient(180deg,var(--creme),#fff)}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:3.5rem;align-items:center}
+.status{display:inline-flex;align-items:center;gap:.55rem;background:#fff;border:1px solid #e3e3ee;padding:.45rem .9rem;border-radius:999px;font-size:.85rem;font-weight:500;box-shadow:0 4px 14px rgba(23,26,77,.06)}
+.dot{width:10px;height:10px;border-radius:50%;background:#9a9bb0;position:relative}
+.dot.on{background:#1f9d55}
+.dot.on::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #1f9d55;animation:ping 1.8s infinite}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+.baseline{font-family:var(--texte);font-weight:700;color:var(--marine);font-size:clamp(1rem,.9rem + .5vw,1.25rem);margin:1.4rem 0 .6rem;letter-spacing:.01em}
+.baseline span{display:inline-block;opacity:0;transform:translateY(12px);animation:up .6s var(--ease) forwards}
+h1{font-family:var(--titre);font-weight:700;text-transform:uppercase;line-height:1.02;font-size:clamp(2.4rem,1.6rem + 3.6vw,4.6rem);color:var(--rouge);letter-spacing:.01em}
+h1 em{font-style:normal;display:block;color:var(--marine);font-size:.42em;letter-spacing:.14em;margin-bottom:.6rem}
+.lead{font-size:1.1rem;color:var(--gris);max-width:34rem;margin:1.2rem 0 2rem}
+.ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+@keyframes up{to{opacity:1;transform:none}}
+.arch{position:relative;border-radius:var(--arche);overflow:hidden;border:6px solid var(--marine);aspect-ratio:4/4.6;background:var(--marine)}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:62% 50%;transform:scale(1.08);transition:transform 1.2s var(--ease)}
+.arch.in img{transform:scale(1)}
+.vane{position:absolute;top:-38px;left:50%;width:170px;margin-left:-85px;z-index:3;filter:drop-shadow(0 4px 6px rgba(0,0,0,.08))}
+.vane g{transform-origin:85px 40px;transition:transform .6s var(--ease)}
+.hero-figure{position:relative;padding-top:30px}
+.tag{position:absolute;left:-18px;bottom:28px;background:#fff;border-radius:16px;padding:.9rem 1.1rem;box-shadow:0 14px 30px rgba(23,26,77,.15);display:flex;gap:.8rem;align-items:center;max-width:250px}
+.tag strong{font-family:var(--titre);font-size:1.8rem;color:var(--rouge);line-height:1}
+.tag small{font-size:.8rem;color:var(--gris);line-height:1.3}
+
+/* Bandeau défilant */
+.ticker{background:var(--marine);color:#fff;overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:var(--titre);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.95rem}
+.ticker div{display:inline-block;animation:defile 38s linear infinite}
+.ticker span{margin:0 1.4rem}
+.ticker i{color:var(--rouge);font-style:normal}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:5.5rem 0}
+.kicker{font-family:var(--titre);font-weight:700;color:var(--rouge);letter-spacing:.18em;text-transform:uppercase;font-size:.85rem}
+h2{font-family:var(--titre);font-weight:700;text-transform:uppercase;color:var(--marine);font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem);line-height:1.08;margin:.6rem 0 1rem}
+.sub{color:var(--gris);max-width:40rem;font-size:1.05rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Le midi : ardoise */
+.midi .grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+.ardoise{background:#1d2030;color:#f3f1ea;border-radius:var(--arche);padding:4.2rem 2.4rem 2.4rem;border:10px solid #6b4a2f;box-shadow:inset 0 0 60px rgba(0,0,0,.45),0 20px 40px rgba(23,26,77,.18);position:relative;text-align:center;min-height:420px}
+.ardoise .jour{font-family:var(--titre);letter-spacing:.2em;text-transform:uppercase;font-size:.85rem;color:#ffb3b6}
+.ardoise h3{font-family:'Josefin Sans';font-weight:600;font-size:1.9rem;margin:.6rem 0 1.4rem;line-height:1.2}
+.ardoise .plats{list-style:none;display:grid;gap:.75rem;font-size:1.1rem}
+.ardoise .plats li{opacity:0;transform:translateY(8px);transition:.5s var(--ease)}
+.ardoise .plats li.show{opacity:1;transform:none}
+.ardoise .note{margin-top:1.6rem;font-size:.78rem;opacity:.65}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.4rem 0}
+.chip{border:1.5px solid var(--marine);color:var(--marine);border-radius:999px;padding:.45rem .95rem;font-size:.9rem;font-weight:500;background:#fff;cursor:pointer;transition:.2s}
+.chip:hover,.chip.on{background:var(--marine);color:#fff}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.8rem}
+.fact{background:var(--creme);border-radius:16px;padding:1.1rem}
+.fact b{display:block;font-family:var(--titre);font-size:1.6rem;color:var(--rouge)}
+.fact span{font-size:.85rem;color:var(--gris)}
+
+/* Bar & services */
+.services{background:var(--creme)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem}
+.card{background:#fff;border-radius:200px 200px 22px 22px;padding:2.6rem 1.6rem 1.8rem;text-align:center;border:1.5px solid #e3e3ee;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(23,26,77,.12);border-color:var(--rouge)}
+.card svg{width:54px;height:54px;margin:0 auto 1rem;color:var(--rouge);transition:transform .5s var(--ease)}
+.card:hover svg{transform:rotate(-8deg) scale(1.08)}
+.card h3{font-family:var(--titre);text-transform:uppercase;color:var(--marine);letter-spacing:.06em;font-size:1.15rem;margin-bottom:.4rem}
+.card p{font-size:.95rem;color:var(--gris)}
+
+/* Avis */
+.avis .grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center}
+.score{border-radius:var(--arche);background:var(--marine);color:#fff;text-align:center;padding:3.6rem 1.5rem 2.4rem}
+.score b{font-family:var(--titre);font-size:4.4rem;line-height:1;display:block}
+.stars{color:#ffd166;letter-spacing:.2em;font-size:1.3rem;margin:.4rem 0}
+.quotes{display:grid;gap:1rem}
+.quote{background:#fff;border-left:5px solid var(--rouge);padding:1.1rem 1.4rem;border-radius:0 14px 14px 0;box-shadow:0 8px 22px rgba(23,26,77,.07)}
+.quote p{font-size:1.1rem;font-style:italic}
+.quote small{color:var(--gris)}
+
+/* Outil réservation */
+.outil{background:var(--marine);color:#fff;position:relative;overflow:hidden}
+.outil h2{color:#fff}
+.outil .sub{color:#c9cae6}
+.outil .kicker{color:#ff9ba0}
+.tool{display:grid;grid-template-columns:1.15fr .85fr;gap:2.4rem;margin-top:2.6rem;align-items:start}
+.steps{background:#fff;color:var(--marine-fonce);border-radius:24px;padding:2rem}
+.step{margin-bottom:1.6rem}
+.step>label,.step>p{display:flex;align-items:center;gap:.6rem;font-family:var(--titre);font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--marine);margin-bottom:.7rem;font-size:.95rem}
+.num{width:28px;height:28px;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;font-size:.85rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opts button{border:1.5px solid #d6d7e6;background:#fff;border-radius:12px;padding:.65rem .9rem;font:500 .92rem var(--texte);color:var(--marine-fonce);cursor:pointer;transition:.2s;min-height:44px}
+.opts button:hover{border-color:var(--marine)}
+.opts button.on{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.range{display:flex;align-items:center;gap:1rem}
+.range input{flex:1;accent-color:var(--rouge)}
+.range output{font-family:var(--titre);font-weight:700;font-size:1.6rem;color:var(--rouge);min-width:3.2ch;text-align:right}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid #d6d7e6;border-radius:12px;padding:.75rem .9rem;font:400 1rem var(--texte);color:var(--marine-fonce);min-height:46px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--marine);outline:none}
+.hint{font-size:.83rem;color:var(--gris);margin-top:.45rem;min-height:1.2em}
+.hint.warn{color:var(--rouge-fonce);font-weight:500}
+/* Ticket récapitulatif */
+.ticket{background:#fffdf7;color:#22243a;border-radius:6px;padding:1.8rem 1.6rem 2.2rem;font-family:'Courier New',monospace;position:sticky;top:96px;box-shadow:0 24px 50px rgba(0,0,0,.25);transform:rotate(1.2deg);transition:transform .4s var(--ease)}
+.ticket:hover{transform:rotate(0)}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:12px;background:radial-gradient(circle at 8px -2px,transparent 8px,#fffdf7 8.5px) 0 0/16px 12px repeat-x}
+.ticket h4{font-family:var(--titre);text-align:center;color:var(--rouge);letter-spacing:.1em;font-size:1.15rem;text-transform:uppercase}
+.ticket .c{text-align:center;font-size:.78rem;color:#555;margin-bottom:.8rem}
+.ticket hr{border:0;border-top:2px dashed #bbb;margin:.8rem 0}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem .8rem;font-size:.92rem}
+.ticket dt{color:#666}
+.ticket dd{text-align:right;font-weight:700}
+.ticket .actions{display:grid;gap:.55rem;margin-top:1.2rem;font-family:var(--texte)}
+.ticket .actions .btn{justify-content:center;font-size:.82rem;padding:.75rem 1rem}
+.ticket .actions .btn.ghost{color:var(--marine)}
+.ticket .legal{font-size:.72rem;color:#777;margin-top:1rem;text-align:center;font-family:var(--texte)}
+.flash{animation:flash .5s}
+@keyframes flash{0%{background:#ffe3e4}100%{background:transparent}}
+
+/* Événements */
+.events .grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.ev-list{list-style:none;display:grid;gap:1rem;margin-top:1.6rem}
+.ev-list li{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.2rem;border-radius:16px;border:1.5px solid #e3e3ee;transition:.3s}
+.ev-list li:hover{border-color:var(--rouge);background:#fff7f7}
+.ev-list b{font-family:var(--titre);text-transform:uppercase;color:var(--marine);letter-spacing:.04em}
+.ev-list .ico{flex:none;width:44px;height:44px;border-radius:12px;background:var(--rouge);color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--titre)}
+.new{display:inline-block;background:var(--rouge);color:#fff;font-family:var(--titre);font-weight:700;font-size:.75rem;letter-spacing:.12em;padding:.25rem .6rem;border-radius:6px;margin-left:.5rem;vertical-align:middle}
+.placeholder{border-radius:var(--arche);border:3px dashed #c9cae0;aspect-ratio:4/4.3;display:grid;place-items:center;text-align:center;color:var(--gris);padding:2rem;background:repeating-linear-gradient(45deg,#fafaff,#fafaff 12px,#f2f2f9 12px,#f2f2f9 24px)}
+.placeholder b{display:block;font-family:var(--titre);color:var(--marine);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+
+/* Infos */
+.infos{background:var(--creme)}
+.infos .grid{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;margin-top:2.4rem}
+.box{background:#fff;border-radius:22px;padding:1.8rem}
+.box h3{font-family:var(--titre);text-transform:uppercase;color:var(--marine);letter-spacing:.06em;margin-bottom:1rem}
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+td{padding:.55rem .3rem;border-bottom:1px solid #eee}
+td:last-child{text-align:right}
+tr.today td{color:var(--rouge);font-weight:700}
+.pay{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.pay span{background:var(--creme);border-radius:8px;padding:.35rem .7rem;font-size:.85rem}
+.map{border-radius:22px;overflow:hidden;border:0;width:100%;height:100%;min-height:320px}
+.contact-line{display:flex;flex-direction:column;gap:.6rem;margin-top:1rem}
+.contact-line a{font-weight:500;text-decoration:none;color:var(--marine)}
+.contact-line a:hover{color:var(--rouge)}
+
+footer{background:var(--marine-fonce);color:#c9cae6;padding:3rem 0 2rem;font-size:.85rem}
+footer .grid{display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start}
+footer img{width:110px;border-radius:14px}
+footer strong{color:#fff}
+footer p{margin-bottom:.6rem}
+.mobile-call{display:none}
+
+@media (max-width:920px){
+  .menu{position:fixed;inset:74px 0 auto 0;background:#fff;flex-direction:column;padding:1.5rem 1.25rem;gap:1rem;transform:translateY(-110%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s;box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .menu.open{transform:none;visibility:visible}
+  .burger{display:block}
+  .nav .btn{display:none}
+  .hero .grid,.midi .grid,.avis .grid,.tool,.events .grid,.infos .grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .ticket{position:static;transform:none}
+  .tag{left:8px}
+  .mobile-call{display:flex;position:fixed;bottom:14px;left:14px;right:14px;z-index:60;justify-content:center;box-shadow:0 10px 26px rgba(206,49,56,.4)}
+  footer .grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .cards,.facts,.row{grid-template-columns:1fr}
+  section{padding:4rem 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal,.baseline span,.ardoise .plats li{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BarOrPub",
+  "additionalType":"https://schema.org/Restaurant",
+  "name":"L'Atelier des Marchand",
+  "description":"Bar, brasserie, FDJ, PMU, presse et tabac à Roanne. Plat du jour chaque midi, terrasse couverte, groupes sur demande.",
+  "image":"https://static.apidae-tourisme.com/filestore/objets-touristiques/images/216/62/36257496.jpg",
+  "telephone":"+33682186625",
+  "email":"adm42300@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"8 avenue Centrale","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.067126,"longitude":4.077660},
+  "areaServed":"Roanne",
+  "servesCuisine":"Cuisine traditionnelle française",
+  "acceptsReservations":"True",
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"06:00","closes":"21:00"}],
+  "paymentAccepted":"Carte bancaire, espèces, chèques-vacances, titres-restaurant",
+  "sameAs":["https://www.facebook.com/latelierdesmarchand/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>L'Atelier des Marchand</b> — non officielle, à valider avec l'équipe.</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a href="#accueil" class="brand" aria-label="L'Atelier des Marchand, accueil">
+      <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/216/62/36257496.jpg" alt="Logo de L'Atelier des Marchand">
+      <span>L'Atelier des<br>Marchand<small>Roanne</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#midi">Le midi</a></li>
+      <li><a href="#services">Bar &amp; services</a></li>
+      <li><a href="#evenements">Événements</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a href="#reserver" class="btn">Réserver une table</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero">
+  <div class="wrap grid">
+    <div>
+      <div class="status" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="statusTxt">Chargement des horaires…</span></div>
+      <p class="baseline" aria-label="Bar. Brasserie. FDJ. PMU. Presse. Tabac.">
+        <span style="animation-delay:.05s">Bar.</span> <span style="animation-delay:.15s">Brasserie.</span> <span style="animation-delay:.25s">FDJ.</span> <span style="animation-delay:.35s">PMU.</span> <span style="animation-delay:.45s">Presse.</span> <span style="animation-delay:.55s">Tabac.</span>
+      </p>
+      <h1><em>Bar brasserie à Roanne</em>L'Atelier des Marchand</h1>
+      <p class="lead">Le café du matin, le plat du jour du midi, le journal et la FDJ au même comptoir. Avenue Centrale, avec une terrasse couverte et une salle climatisée.</p>
+      <div class="ctas">
+        <a href="#reserver" class="btn">Préparer ma réservation</a>
+        <a href="tel:+33682186625" class="btn ghost">06 82 18 66 25</a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <svg class="vane" viewBox="0 0 170 80" aria-hidden="true">
+        <line x1="85" y1="40" x2="85" y2="80" stroke="#24276C" stroke-width="3"/>
+        <g id="vaneArrow">
+          <line x1="22" y1="40" x2="148" y2="40" stroke="#CE3138" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="16" cy="40" rx="10" ry="6" fill="#CE3138"/>
+          <path d="M146 33v14M152 33v14M158 33v14M146 40h12" stroke="#CE3138" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="85" cy="40" r="5" fill="#24276C"/>
+        </g>
+      </svg>
+      <div class="arch reveal" id="archHero">
+        <img src="https://api.cloudly.space/resize/cropratio/1920/1080/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvMjE1LzYyLzM2MjU3NDk1LmpwZw==/image.webp" alt="La façade et la terrasse couverte de L'Atelier des Marchand, avenue Centrale à Roanne">
+      </div>
+      <div class="tag"><strong>4,7</strong><small>sur 5 — 233 avis Google<br>« Il faut penser à réserver ! »</small></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div>
+  <span>Plat du jour chaque midi</span><i>✦</i><span>Terrasse couverte · 80 places</span><i>✦</i><span>Salle climatisée</span><i>✦</i><span>Parking</span><i>✦</i><span>Plats à emporter</span><i>✦</i><span>Titres-restaurant acceptés</span><i>✦</i><span>Carte cadeau 100 % Roannaise</span><i>✦</i>
+  <span>Plat du jour chaque midi</span><i>✦</i><span>Terrasse couverte · 80 places</span><i>✦</i><span>Salle climatisée</span><i>✦</i><span>Parking</span><i>✦</i><span>Plats à emporter</span><i>✦</i><span>Titres-restaurant acceptés</span><i>✦</i><span>Carte cadeau 100 % Roannaise</span><i>✦</i>
+</div></div>
+
+<section class="midi" id="midi">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="kicker">Le midi</p>
+      <h2>Un plat du jour,<br>tous les midis</h2>
+      <p class="sub">Service de 11h30 à 14h, du lundi au samedi. Cuisine maison et généreuse, sur place ou à emporter. L'ardoise ci-contre se met à jour depuis un téléphone, chaque matin, en deux minutes.</p>
+      <p style="margin-top:1.4rem;font-weight:500;color:var(--marine)">Ce que vos clients citent le plus dans leurs avis :</p>
+      <div class="chips" id="chips">
+        <button class="chip">Camembert rôti</button>
+        <button class="chip">Gratin d'andouillette</button>
+        <button class="chip">Saucisse lentilles</button>
+        <button class="chip">Salade de gésiers</button>
+        <button class="chip">Porc sauce curry</button>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>120</b><span>couverts</span></div>
+        <div class="fact"><b>80</b><span>places en terrasse couverte</span></div>
+        <div class="fact"><b>6/7</b><span>jours, fermé le dimanche</span></div>
+      </div>
+    </div>
+    <div class="ardoise reveal" aria-live="polite">
+      <p class="jour" id="ardoiseJour">Aujourd'hui</p>
+      <h3 id="ardoiseTitre">Plat du jour</h3>
+      <ul class="plats" id="ardoisePlats">
+        <li>Exemple d'affichage —</li>
+        <li>cliquez un plat à gauche</li>
+        <li>pour le voir à l'ardoise</li>
+      </ul>
+      <p class="note">Exemple d'affichage : le vrai plat du jour serait saisi par l'équipe.</p>
+    </div>
+  </div>
+</section>
+
+<section class="avis" id="avis">
+  <div class="wrap grid">
+    <div class="score reveal">
+      <b>4,7</b>
+      <div class="stars" aria-label="4,7 étoiles sur 5">★★★★★</div>
+      <p>233 avis Google</p>
+    </div>
+    <div class="reveal">
+      <p class="kicker">Ils en parlent</p>
+      <h2>Familial, généreux,<br>et souvent complet</h2>
+      <div class="quotes">
+        <div class="quote"><p>« Cuisine généreuse et qualitative. »</p><small>Joce — avis Google</small></div>
+        <div class="quote"><p>« Le rapport qualité/quantité/prix est imbattable. »</p><small>Laurent L. — avis Google</small></div>
+        <div class="quote"><p>« Vraiment sympa. Familial. »</p><small>Aurélie D. — avis Google</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <p class="kicker">Au comptoir</p>
+      <h2>Bar. Brasserie. FDJ.<br>PMU. Presse. Tabac.</h2>
+      <p class="sub">Tout ce qu'on vient chercher dans un vrai bar de quartier, réuni avenue Centrale.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10 18h22v12a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9V18z"/><path d="M32 22h3a5 5 0 0 1 0 10h-3"/><path d="M16 6c0 3 3 3 3 6M23 6c0 3 3 3 3 6"/></svg>
+        <h3>Bar</h3><p>Le café du matin dès l'ouverture, l'apéritif en terrasse, et une cave pour accompagner le repas.</p>
+      </article>
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 28h32"/><path d="M10 28a14 14 0 0 1 28 0"/><path d="M24 14v-4M6 34h36"/></svg>
+        <h3>Brasserie</h3><p>Plat du jour chaque midi, cuisine traditionnelle maison, sur place ou à emporter.</p>
+      </article>
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><rect x="8" y="10" width="32" height="28" rx="4"/><path d="M8 18h32M16 26h4M24 26h4M16 32h4M24 32h4M32 26h0"/></svg>
+        <h3>FDJ &amp; PMU</h3><p>Jeux de la Française des Jeux et paris hippiques au comptoir.</p>
+      </article>
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M10 10h24v28H14a4 4 0 0 1-4-4V10z"/><path d="M34 18h4v16a4 4 0 0 1-4 4"/><path d="M16 17h12M16 23h12M16 29h8"/></svg>
+        <h3>Presse</h3><p>Les journaux et magazines du jour, à lire sur place avec son café.</p>
+      </article>
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"><path d="M24 6l12 18-12 18-12-18z"/></svg>
+        <h3>Tabac</h3><p>Le losange rouge de l'avenue Centrale, ouvert du lundi au samedi.</p>
+      </article>
+      <article class="card reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="18" y="6" width="12" height="22" rx="6"/><path d="M12 22a12 12 0 0 0 24 0M24 34v8M17 42h14"/></svg>
+        <h3>Soirées karaoké</h3><p>Des soirées animées certains soirs : le programme serait annoncé ici et sur Facebook.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="evenements">
+  <div class="wrap grid">
+    <div class="reveal">
+      <p class="kicker">Groupes &amp; événements <span class="new">Nouveau 2026</span></p>
+      <h2>Votre table pour<br>toutes les occasions</h2>
+      <p class="sub">Groupes accueillis sur demande, jusqu'à 120 couverts entre la salle climatisée et la terrasse couverte.</p>
+      <ul class="ev-list">
+        <li><span class="ico">01</span><div><b>Anniversaires privés</b><p>Une soirée réservée pour fêter ça entre proches.</p></div></li>
+        <li><span class="ico">02</span><div><b>Repas d'entreprise</b><p>Le déjeuner d'équipe ou le repas de fin d'année, à deux pas du centre.</p></div></li>
+        <li><span class="ico">03</span><div><b>Jambon à la broche</b><p>En traiteur pour vos événements, sur demande.</p></div></li>
+      </ul>
+      <div class="ctas" style="margin-top:1.6rem"><a href="#reserver" class="btn" data-occasion="Repas d'entreprise">Demander un devis</a></div>
+    </div>
+    <div class="placeholder reveal">
+      <div><b>Photo à fournir par le client</b>Salle, terrasse en service ou jambon à la broche : une vraie photo de l'équipe viendrait ici.</div>
+    </div>
+  </div>
+</section>
+
+<section class="outil" id="reserver">
+  <div class="wrap">
+    <p class="kicker">Réserver</p>
+    <h2>Préparez votre demande<br>en 30 secondes</h2>
+    <p class="sub">Choisissez l'occasion, le nombre de personnes et le jour : la demande part directement par SMS ou par mail à l'équipe, qui confirme la table.</p>
+    <div class="tool">
+      <form class="steps" id="form" onsubmit="return false">
+        <div class="step">
+          <p><span class="num">1</span>L'occasion</p>
+          <div class="opts" id="occasions">
+            <button type="button" class="on">Déjeuner (plat du jour)</button>
+            <button type="button">Groupe</button>
+            <button type="button">Anniversaire privé</button>
+            <button type="button">Repas d'entreprise</button>
+            <button type="button">Jambon à la broche (traiteur)</button>
+          </div>
+        </div>
+        <div class="step">
+          <label for="nb"><span class="num">2</span>Nombre de personnes</label>
+          <div class="range"><input type="range" id="nb" min="1" max="130" value="4"><output id="nbOut">4</output></div>
+          <p class="hint" id="nbHint"></p>
+        </div>
+        <div class="step">
+          <p><span class="num">3</span>Le jour et l'heure</p>
+          <div class="row">
+            <div class="field"><input type="date" id="date" aria-label="Date"></div>
+            <div class="field"><select id="heure" aria-label="Heure"></select></div>
+          </div>
+          <p class="hint" id="dateHint"></p>
+        </div>
+        <div class="step" id="placeStep">
+          <p><span class="num">4</span>Où préférez-vous ?</p>
+          <div class="opts" id="places">
+            <button type="button" class="on">Pas de préférence</button>
+            <button type="button">Salle climatisée</button>
+            <button type="button">Terrasse couverte</button>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <p><span class="num">5</span>Vos coordonnées</p>
+          <div class="row">
+            <div class="field"><input id="nom" placeholder="Votre nom" autocomplete="name"></div>
+            <div class="field"><input id="tel" placeholder="Votre téléphone" inputmode="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field" style="margin-top:.8rem"><textarea id="msg" rows="2" placeholder="Une précision ? (allergie, poussette, gâteau…)"></textarea></div>
+        </div>
+      </form>
+      <aside class="ticket" id="ticket" aria-live="polite">
+        <h4>L'Atelier des Marchand</h4>
+        <p class="c">8 avenue Centrale — 42300 Roanne</p>
+        <hr>
+        <dl>
+          <dt>Occasion</dt><dd id="tOcc">—</dd>
+          <dt>Couverts</dt><dd id="tNb">—</dd>
+          <dt>Date</dt><dd id="tDate">—</dd>
+          <dt>Heure</dt><dd id="tHeure">—</dd>
+          <dt>Place</dt><dd id="tPlace">—</dd>
+          <dt>Nom</dt><dd id="tNom">—</dd>
+        </dl>
+        <hr>
+        <div class="actions">
+          <a class="btn" id="sms" href="#">Envoyer par SMS</a>
+          <a class="btn ghost" id="mail" href="#">Envoyer par mail</a>
+          <button class="btn ghost" id="ics" type="button">Ajouter à mon agenda</button>
+        </div>
+        <p class="legal">Demande de réservation : la table est confirmée par l'équipe.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <p class="kicker">Infos pratiques</p>
+    <h2>Avenue Centrale,<br>à Roanne</h2>
+    <div class="grid">
+      <div class="box reveal">
+        <h3>Horaires</h3>
+        <table id="horaires">
+          <tr data-d="1"><td>Lundi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>6h – 21h · midi 11h30–14h</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+        <div class="pay"><span>Carte bancaire</span><span>Espèces</span><span>Titres-restaurant</span><span>Chèques-vacances</span><span>Carte cadeau 100 % Roannaise</span></div>
+        <div class="pay"><span>Parking</span><span>Accès fauteuil roulant</span><span>Salle climatisée</span><span>Terrasse couverte et ombragée</span></div>
+        <div class="contact-line">
+          <a href="tel:+33682186625">📞 06 82 18 66 25</a>
+          <a href="mailto:adm42300@gmail.com">✉️ adm42300@gmail.com</a>
+          <a href="https://www.facebook.com/latelierdesmarchand/" target="_blank" rel="noopener">Facebook — L'Atelier des Marchand</a>
+          <a href="https://www.google.com/maps/dir/?api=1&amp;destination=46.067126,4.077660" target="_blank" rel="noopener">📍 8 avenue Centrale, 42300 Roanne — itinéraire</a>
+        </div>
+      </div>
+      <iframe class="map reveal" title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0716%2C46.0646%2C4.0838%2C46.0696&amp;layer=mapnik&amp;marker=46.067126%2C4.077660"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<a href="tel:+33682186625" class="btn mobile-call">Appeler — 06 82 18 66 25</a>
+
+<footer>
+  <div class="wrap grid">
+    <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/216/62/36257496.jpg" alt="Logo L'Atelier des Marchand">
+    <div>
+      <p><strong>L'Atelier des Marchand</strong> — Bar, brasserie, FDJ, PMU, presse, tabac · 8 avenue Centrale, 42300 Roanne · 06 82 18 66 25</p>
+      <p>Maquette de démonstration, non officielle. Logo et photo de façade : visuels publiés sur la fiche Roannais Tourisme de l'établissement. Couleurs relevées sur le logo, polices approchées (ajustables). Aucune photo de plat ou de salle n'a été ajoutée : emplacements « à fournir par le client ». Horaires repris de la fiche Roannais Tourisme, à confirmer. Note et extraits d'avis : avis Google publics. Le plat du jour affiché est un exemple.</p>
+      <p>© 2026 — Maquette proposée par Thibault Quentin.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header + menu mobile
+  addEventListener('scroll',()=>$('#top').classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('#burger'),menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Apparitions
+  if('IntersectionObserver' in window && !reduce){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+    $$('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+  } else $$('.reveal').forEach(el=>el.classList.add('in'));
+
+  // Girouette : tourne avec le défilement
+  const vane=$('#vaneArrow');
+  if(!reduce) addEventListener('scroll',()=>{const a=Math.sin(scrollY/260)*28;vane.style.transform='rotate('+a+'deg)'},{passive:true});
+
+  // Statut ouvert / fermé
+  function statut(){
+    const n=new Date(), d=n.getDay(), m=n.getHours()*60+n.getMinutes();
+    let txt, on=false;
+    if(d===0) txt='Fermé le dimanche — ouvert demain dès 6h';
+    else if(m>=690 && m<840){on=true;txt='Ouvert — la cuisine sert le midi jusqu\'à 14h'}
+    else if(m>=360 && m<1260){on=true;txt='Ouvert — jusqu\'à 21h'}
+    else txt=(m<360?'Fermé — ouverture à 6h':'Fermé — réouverture demain'+(d===6?' lundi':'')+' à 6h');
+    $('#dot').classList.toggle('on',on); $('#statusTxt').textContent=txt;
+    $$('#horaires tr').forEach(tr=>tr.classList.toggle('today',+tr.dataset.d===d));
+  }
+  statut(); setInterval(statut,60000);
+
+  // Ardoise
+  const jours=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  $('#ardoiseJour').textContent=jours[new Date().getDay()]+' — exemple';
+  $$('#chips .chip').forEach(c=>c.addEventListener('click',()=>{
+    $$('#chips .chip').forEach(x=>x.classList.remove('on')); c.classList.add('on');
+    $('#ardoiseTitre').textContent=c.textContent;
+    const ul=$('#ardoisePlats'); ul.innerHTML='';
+    ['Service de 11h30 à 14h','Sur place ou à emporter','Pensez à réserver'].forEach((t,i)=>{
+      const li=document.createElement('li'); li.textContent=t; ul.appendChild(li);
+      setTimeout(()=>li.classList.add('show'),120*i+40);
+    });
+  }));
+  setTimeout(()=>$$('#ardoisePlats li').forEach((li,i)=>setTimeout(()=>li.classList.add('show'),150*i)),400);
+
+  // Outil de réservation
+  const st={occ:'Déjeuner (plat du jour)',place:'Pas de préférence'};
+  function group(id,key){$$('#'+id+' button').forEach(b=>b.addEventListener('click',()=>{$$('#'+id+' button').forEach(x=>x.classList.remove('on'));b.classList.add('on');st[key]=b.textContent;heures();maj()}))}
+  group('occasions','occ'); group('places','place');
+  $$('[data-occasion]').forEach(a=>a.addEventListener('click',()=>{const t=a.dataset.occasion;$$('#occasions button').forEach(b=>{b.classList.toggle('on',b.textContent===t)});st.occ=t;heures();maj()}));
+
+  const date=$('#date'), heure=$('#heure'), nb=$('#nb');
+  const pad=n=>String(n).padStart(2,'0');
+  const iso=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+  let d0=new Date(); if(d0.getDay()===0) d0.setDate(d0.getDate()+1);
+  date.min=iso(new Date()); date.value=iso(d0);
+
+  function heures(){
+    const midi=st.occ.startsWith('Déjeuner');
+    const list=midi?['11:30','11:45','12:00','12:15','12:30','12:45','13:00','13:15','13:30']:['11:30','12:00','12:30','13:00','18:00','18:30','19:00','19:30','20:00'];
+    const keep=heure.value; heure.innerHTML=list.map(h=>'<option>'+h.replace(':','h')+'</option>').join('');
+    if(list.map(h=>h.replace(':','h')).includes(keep)) heure.value=keep; else heure.value=midi?'12h00':'12h00';
+    $('#placeStep').style.display=st.occ.startsWith('Jambon')?'none':'';
+  }
+  heures();
+
+  function maj(){
+    const n=+nb.value; $('#nbOut').textContent=n;
+    const h=$('#nbHint'); h.classList.remove('warn');
+    if(n>120){h.textContent='Au-delà de 120 couverts, l\'équipe vous rappelle pour en parler.';h.classList.add('warn')}
+    else if(n>80 && st.place==='Terrasse couverte'){h.textContent='La terrasse couverte compte 80 places : une partie du groupe serait en salle.';h.classList.add('warn')}
+    else if(n>=10) h.textContent='Groupe : l\'équipe vous recontacte pour organiser le repas.';
+    else h.textContent='';
+    const dv=date.value? new Date(date.value+'T12:00'):null, dh=$('#dateHint'); dh.classList.remove('warn');
+    if(dv && dv.getDay()===0){dh.textContent='L\'établissement est fermé le dimanche : choisissez un autre jour.';dh.classList.add('warn')}
+    else if(dv && heure.value>='18h00' && !st.occ.startsWith('Déjeuner')){dh.textContent='En soirée, sur demande uniquement (privatisation ou groupe).'}
+    else dh.textContent='';
+    const fmt=dv?dv.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'—';
+    const set=(id,v)=>{const el=$(id); if(el.textContent!==v){el.textContent=v;el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}};
+    set('#tOcc',st.occ); set('#tNb',n+(n>1?' personnes':' personne')); set('#tDate',fmt); set('#tHeure',heure.value||'—');
+    set('#tPlace',st.occ.startsWith('Jambon')?'Traiteur':st.place); set('#tNom',$('#nom').value.trim()||'—');
+    const corps='Bonjour, je souhaiterais réserver à L\'Atelier des Marchand.\n'+
+      'Occasion : '+st.occ+'\nNombre de personnes : '+n+'\nDate : '+fmt+' à '+heure.value+
+      (st.occ.startsWith('Jambon')?'':'\nPréférence : '+st.place)+
+      '\nNom : '+($('#nom').value.trim()||'')+'\nTéléphone : '+($('#tel').value.trim()||'')+
+      ($('#msg').value.trim()?'\nPrécision : '+$('#msg').value.trim():'')+'\nMerci !';
+    $('#sms').href='sms:+33682186625?&body='+encodeURIComponent(corps);
+    $('#mail').href='mailto:adm42300@gmail.com?subject='+encodeURIComponent('Demande de réservation — '+st.occ)+'&body='+encodeURIComponent(corps);
+  }
+  [nb,date,heure,$('#nom'),$('#tel'),$('#msg')].forEach(el=>el.addEventListener('input',maj));
+  maj();
+
+  $('#ics').addEventListener('click',()=>{
+    if(!date.value) return;
+    const [hh,mm]=heure.value.split('h'); const s=date.value.replace(/-/g,'')+'T'+hh+mm+'00';
+    const e=new Date(date.value+'T'+hh+':'+mm); e.setMinutes(e.getMinutes()+90);
+    const en=iso(e).replace(/-/g,'')+'T'+pad(e.getHours())+pad(e.getMinutes())+'00';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Atelier des Marchand//Maquette//FR','BEGIN:VEVENT',
+      'UID:'+Date.now()+'@atelierdesmarchand','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
+      'DTSTART:'+s,'DTEND:'+en,'SUMMARY:L\'Atelier des Marchand — '+st.occ+' ('+nb.value+' pers.)',
+      'LOCATION:8 avenue Centrale\\, 42300 Roanne','DESCRIPTION:Demande envoyée — à confirmer par l\'équipe (06 82 18 66 25)','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='atelier-des-marchand.ics'; a.click();
+  });
+})();
+</script>
+</body>
+</html>
