@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Burnichon Stéphane — Plombier chauffagiste dans le Roannais | Commelle-Vernay</title>
+<meta name="description" content="Burnichon Stéphane, plomberie, chauffage, salle de bains et énergies renouvelables depuis 2001. Commelle-Vernay et Le Coteau, interventions à 50 km autour de Roanne.">
+<meta name="robots" content="noindex">
+<!--
+   BURNICHON STÉPHANE — maquette de démonstration
+   Charte reprise du site actuel (burnichon-stephane.fr) :
+   bleu marine #1D3D71, or #D29F3B, orangé #F9AA2A, gris texte #595959 / #7E7E7E,
+   titres en Bebas Neue, texte courant en Montserrat. Logo officiel repris tel quel.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Charte (variables à ajuster en quelques lignes) ---------- */
+:root{
+  --navy:#1D3D71;        /* couleur principale du site actuel */
+  --navy-deep:#0F2647;   /* fond foncé (barre haute du site actuel) */
+  --gold:#D29F3B;        /* boutons / accents du site actuel */
+  --amber:#F9AA2A;       /* accent secondaire du site actuel */
+  --ink:#595959;         /* gris foncé */
+  --muted:#7E7E7E;       /* texte courant */
+  --light:#F8F8FE;       /* fonds clairs */
+  --light2:#F2F2F2;
+  --white:#FFFFFF;
+  --f-title:"Bebas Neue", Impact, sans-serif;
+  --f-body:"Montserrat", system-ui, sans-serif;
+  --radius:18px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --shadow:0 18px 40px -18px rgba(15,38,71,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--f-body);color:var(--muted);background:var(--white);font-size:15px;line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-title);font-weight:400;letter-spacing:.02em;color:var(--navy);line-height:1}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.btn{display:inline-flex;align-items:center;gap:.6em;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:.06em;text-decoration:none;border:0;cursor:pointer;padding:15px 26px;border-radius:40px;background:var(--gold);color:#fff;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px -10px rgba(210,159,59,.8)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;border:2px solid rgba(255,255,255,.6)}
+.btn.ghost:hover{background:rgba(255,255,255,.12);box-shadow:none}
+.btn.navy{background:var(--navy)}
+.eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--gold);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+
+/* ---------- Bandeau démo ---------- */
+.demo{background:#111;color:#ddd;font-size:12px;text-align:center;padding:7px 16px}
+.demo b{color:var(--amber)}
+
+/* ---------- Barre haute + en-tête ---------- */
+.topbar{background:var(--navy-deep);color:#cfd8e6;font-size:13px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding:9px 0;flex-wrap:wrap}
+.topbar b{color:var(--gold)}
+.topbar a{text-decoration:none;color:#fff}
+header.site{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);transition:box-shadow .3s}
+header.site.scrolled{box-shadow:0 8px 30px -14px rgba(15,38,71,.35)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;transition:padding .3s}
+header.site.scrolled .wrap{padding:8px 0}
+.logo img{height:64px;width:auto;transition:height .3s}
+header.site.scrolled .logo img{height:48px}
+nav.main{display:flex;gap:26px;align-items:center}
+nav.main a{text-decoration:none;font-weight:700;font-size:13px;text-transform:uppercase;color:var(--ink);position:relative;padding:6px 0}
+nav.main a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav.main a:hover::after,nav.main a.on::after{transform:scaleX(1)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--navy);margin:6px 8px;transition:.3s}
+@media (max-width:960px){
+  nav.main{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);flex-direction:column;align-items:flex-start;background:#fff;padding:90px 30px;transform:translateX(100%);visibility:hidden;transition:transform .35s var(--ease),visibility .35s;box-shadow:-20px 0 40px -20px rgba(0,0,0,.3)}
+  nav.main.open{transform:none;visibility:visible}
+  .burger{display:block;z-index:60}
+  header .cta-head{display:none}
+  .logo img{height:50px}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:min(88vh,780px);display:flex;align-items:center;color:#fff;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:-6% 0 0;background:url('https://www.burnichon-stephane.fr/smarty/wireframe20/media/images/img1.webp') center/cover;z-index:-2;transform:scale(1.08);animation:kb 18s ease-out forwards}
+@keyframes kb{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(15,38,71,.94) 0%,rgba(29,61,113,.82) 45%,rgba(29,61,113,.25) 100%)}
+.hero .wrap{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center;padding:70px 0}
+.hero h1{color:#fff;font-size:clamp(3rem,2rem + 4.6vw,6.2rem)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+.hero h1 .line:nth-child(3) span{animation-delay:.24s;color:var(--gold)}
+@keyframes up{to{transform:none}}
+.hero p.lead{max-width:540px;margin:22px 0 30px;font-size:16px;color:#dfe6f1}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap}
+.labels{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.labels span{font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.35);padding:7px 14px;border-radius:30px;background:rgba(255,255,255,.07)}
+.quick{display:grid;gap:14px}
+.quick a{display:flex;gap:16px;align-items:center;text-decoration:none;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);border-radius:var(--radius);padding:18px 20px;transition:transform .3s var(--ease),background .3s;opacity:0;animation:fadeL .8s var(--ease) forwards}
+.quick a:nth-child(1){animation-delay:.5s}.quick a:nth-child(2){animation-delay:.62s}.quick a:nth-child(3){animation-delay:.74s}
+@keyframes fadeL{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.quick a:hover{transform:translateX(-6px);background:rgba(255,255,255,.18)}
+.quick .ic{flex:none;width:48px;height:48px;border-radius:14px;background:var(--gold);display:grid;place-items:center}
+.quick .ic svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2}
+.quick strong{display:block;font-family:var(--f-title);font-size:24px;letter-spacing:.03em;color:#fff;font-weight:400}
+.quick small{color:#d4dceb;font-size:13px}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}}
+
+/* ---------- Bande défilante ---------- */
+.marquee{background:var(--gold);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0}
+.marquee .track{display:inline-flex;gap:40px;animation:mq 32s linear infinite;font-family:var(--f-title);font-size:26px;letter-spacing:.05em}
+.marquee .track span::after{content:"✦";margin-left:40px;color:var(--navy)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(70px,8vw,120px) 0}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:46px;flex-wrap:wrap}
+.head h2{font-size:clamp(2.4rem,1.6rem + 3vw,4.2rem);margin-top:10px}
+.head p{max-width:460px}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Prestations */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{position:relative;border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.svc .ph{aspect-ratio:4/3;overflow:hidden}
+.svc .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.svc:hover .ph img{transform:scale(1.07)}
+.svc .num{position:absolute;top:14px;left:14px;background:var(--navy);color:#fff;font-family:var(--f-title);font-size:20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center}
+.svc .bd{padding:22px 22px 26px;flex:1;display:flex;flex-direction:column}
+.svc h3{font-size:30px;margin-bottom:8px}
+.svc p{font-size:14px;flex:1}
+.svc .more{margin-top:14px;font-weight:700;font-size:12px;text-transform:uppercase;color:var(--gold);text-decoration:none;letter-spacing:.08em}
+.svc .more::after{content:" →";transition:margin .3s}
+.svc:hover .more::after{margin-left:6px}
+@media (max-width:900px){.services{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.services{grid-template-columns:1fr}}
+
+/* ---------- Outil central ---------- */
+.tool-sec{background:var(--light);position:relative;overflow:hidden}
+.tool-sec::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(210,159,59,.18),transparent 70%);right:-160px;top:-160px}
+.tool{display:grid;grid-template-columns:1.3fr .9fr;gap:26px;position:relative}
+@media (max-width:960px){.tool{grid-template-columns:1fr}}
+.panel{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:clamp(20px,3vw,34px)}
+.steps{display:flex;gap:8px;margin-bottom:26px}
+.steps i{flex:1;height:5px;border-radius:5px;background:var(--light2);position:relative;overflow:hidden}
+.steps i::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.steps i.on::after{transform:scaleX(1)}
+.step{display:none;animation:stepIn .5s var(--ease)}
+.step.on{display:block}
+@keyframes stepIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.step h3{font-size:32px;margin-bottom:4px}
+.step .sub{font-size:14px;margin-bottom:18px}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.choice{position:relative}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice label{display:flex;flex-direction:column;gap:6px;border:2px solid var(--light2);border-radius:14px;padding:14px;cursor:pointer;font-weight:600;color:var(--ink);font-size:14px;transition:border-color .2s,background .2s,transform .2s;height:100%}
+.choice label small{font-weight:400;color:var(--muted);font-size:12px;line-height:1.4}
+.choice label:hover{border-color:rgba(210,159,59,.6);transform:translateY(-2px)}
+.choice input:checked + label{border-color:var(--gold);background:rgba(210,159,59,.08)}
+.choice input:focus-visible + label{outline:3px solid var(--amber);outline-offset:2px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-weight:600;font-size:13px;color:var(--ink)}
+.field input,.field textarea,.field select{font:inherit;border:2px solid var(--light2);border-radius:12px;padding:12px 14px;color:var(--ink);background:#fff}
+.field input:focus,.field textarea:focus{border-color:var(--gold);outline:none}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+.zone-msg{font-size:13px;font-weight:600;margin-top:-6px;margin-bottom:12px;min-height:20px}
+.zone-msg.ok{color:#2f7d4f}.zone-msg.mid{color:#b07714}.zone-msg.far{color:#a33}
+.navbtns{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.navbtns .back{background:none;border:0;font-weight:700;color:var(--muted);cursor:pointer;font-size:13px;text-transform:uppercase}
+.navbtns .btn[disabled]{opacity:.4;pointer-events:none}
+.recap{background:var(--navy);color:#dfe6f1;position:sticky;top:110px;align-self:start}
+.recap h3{color:#fff;font-size:30px;margin-bottom:12px}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:14px;margin-bottom:18px}
+.recap dt{color:var(--gold);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.recap dd{color:#fff}
+.recap .note{font-size:13px;background:rgba(255,255,255,.08);border-left:3px solid var(--gold);padding:12px 14px;border-radius:8px;margin-bottom:18px}
+.recap .acts{display:grid;gap:10px}
+.recap .btn{justify-content:center}
+.due{margin-top:14px;padding:16px;border-radius:14px;background:var(--light);display:none}
+.due.on{display:block;animation:stepIn .5s var(--ease)}
+.due strong{font-family:var(--f-title);font-size:28px;color:var(--navy);font-weight:400;display:block}
+.due .link{font-weight:700;font-size:13px;color:var(--gold);background:none;border:0;cursor:pointer;text-decoration:underline;margin-top:6px}
+
+/* ---------- Histoire ---------- */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:start}
+@media (max-width:900px){.story{grid-template-columns:1fr}}
+.story .intro p{margin-top:16px}
+.story .intro .refs{margin-top:22px;padding:18px 20px;border-radius:14px;background:var(--light);font-size:14px}
+.story .intro .refs b{color:var(--navy)}
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:"";position:absolute;left:12px;top:6px;bottom:6px;width:2px;background:var(--light2)}
+.timeline .fill{position:absolute;left:12px;top:6px;width:2px;background:var(--gold);height:0;transition:height .2s linear}
+.tl{position:relative;margin-bottom:30px}
+.tl::before{content:"";position:absolute;left:-34px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--light2);transition:border-color .4s,transform .4s}
+.tl.in::before{border-color:var(--gold);transform:scale(1.2)}
+.tl .y{font-family:var(--f-title);font-size:40px;color:var(--gold);line-height:1}
+.tl p{font-size:14.5px;color:var(--ink)}
+
+/* ---------- Chantiers ---------- */
+.works{background:var(--navy-deep);color:#cfd8e6}
+.works h2{color:#fff}
+.gal{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:180px;gap:12px}
+.gal button{border:0;padding:0;cursor:zoom-in;border-radius:14px;overflow:hidden;position:relative;background:#1b2f52}
+.gal button img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .4s;filter:saturate(.9)}
+.gal button:hover img{transform:scale(1.06);filter:saturate(1.1)}
+.gal button:nth-child(1){grid-column:span 3;grid-row:span 2}
+.gal button:nth-child(2),.gal button:nth-child(3){grid-column:span 3}
+.gal button:nth-child(4),.gal button:nth-child(5),.gal button:nth-child(6){grid-column:span 2}
+@media (max-width:700px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.gal button:nth-child(n){grid-column:span 1;grid-row:span 1}.gal button:nth-child(1){grid-column:span 2;grid-row:span 2}}
+.gal-note{margin-top:16px;font-size:13px;color:#9fb0cb}
+.lb{position:fixed;inset:0;background:rgba(8,18,36,.92);z-index:100;display:none;place-items:center;padding:20px}
+.lb.on{display:grid}
+.lb img{max-height:86vh;border-radius:12px;animation:stepIn .4s var(--ease)}
+.lb button{position:absolute;top:18px;right:18px;background:var(--gold);border:0;color:#fff;width:46px;height:46px;border-radius:50%;font-size:22px;cursor:pointer}
+
+/* ---------- Zone ---------- */
+.zone{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media (max-width:900px){.zone{grid-template-columns:1fr}}
+.radar{position:relative;aspect-ratio:1;max-width:460px;margin-inline:auto;width:100%}
+.radar svg{width:100%;height:100%}
+.radar .pulse{transform-origin:200px 200px;animation:pulse 3.6s ease-out infinite}
+@keyframes pulse{from{transform:scale(.2);opacity:.6}to{transform:scale(1);opacity:0}}
+.radar text{font-family:var(--f-body);font-size:10.5px;fill:var(--ink);font-weight:600}
+.zone ul{list-style:none;margin-top:20px;display:grid;gap:12px}
+.zone li{display:flex;gap:14px;align-items:flex-start;font-size:14.5px}
+.zone li b{color:var(--navy)}
+.zone li::before{content:"";flex:none;width:10px;height:10px;margin-top:7px;border-radius:50%;background:var(--gold)}
+
+/* ---------- Contact ---------- */
+.contact{background:linear-gradient(120deg,var(--navy) 0%,var(--navy-deep) 100%);color:#dfe6f1;border-radius:28px;padding:clamp(28px,5vw,60px);display:grid;grid-template-columns:1.1fr 1fr;gap:40px;position:relative;overflow:hidden}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.contact h2{color:#fff;font-size:clamp(2.6rem,1.8rem + 3vw,4.4rem)}
+.contact .big{font-family:var(--f-title);font-size:clamp(2.4rem,1.6rem + 2.4vw,3.6rem);color:var(--gold);text-decoration:none;display:inline-block;margin:18px 0 6px;letter-spacing:.03em}
+.cards{display:grid;gap:14px}
+.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:18px 20px;font-size:14.5px}
+.card b{display:block;color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
+.card a{color:#fff}
+
+footer{padding:50px 0 40px;font-size:13px}
+footer .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:30px}
+@media (max-width:800px){footer .wrap{grid-template-columns:1fr}}
+footer img{height:56px;width:auto;margin-bottom:12px}
+footer .disc{background:var(--light);border-radius:14px;padding:16px 18px;line-height:1.6}
+footer .disc b{color:var(--navy)}
+
+.fab{position:fixed;right:16px;bottom:16px;z-index:40;display:none;background:var(--gold);color:#fff;width:58px;height:58px;border-radius:50%;place-items:center;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);text-decoration:none}
+.fab svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2}
+@media (max-width:700px){.fab{display:grid}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span{transform:none}
+  .quick a{opacity:1}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Plumber",
+  "name":"Burnichon Stéphane",
+  "foundingDate":"2001-01-08",
+  "telephone":"+33477718259",
+  "email":"contact@burnichon-stephane.fr",
+  "url":"https://www.burnichon-stephane.fr/",
+  "logo":"https://www.burnichon-stephane.fr/media/images/logo.svg",
+  "address":{"@type":"PostalAddress","streetAddress":"987 rue Jules Ferry","postalCode":"42120","addressLocality":"Commelle-Vernay","addressCountry":"FR"},
+  "department":{"@type":"Plumber","name":"Burnichon Stéphane — dépôt et bureaux","address":{"@type":"PostalAddress","streetAddress":"11 rue Carnot","postalCode":"42120","addressLocality":"Le Coteau","addressCountry":"FR"}},
+  "areaServed":[{"@type":"City","name":"Roanne"},{"@type":"City","name":"Le Coteau"},{"@type":"City","name":"Commelle-Vernay"},{"@type":"City","name":"Riorges"},{"@type":"City","name":"Mably"},{"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.036,"longitude":4.068},"geoRadius":"50000"}],
+  "knowsAbout":["Plomberie","Chauffage","Salle de bains","Climatisation","Pompe à chaleur","Panneaux solaires","Entretien et dépannage"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition réalisée par Thibault Quentin, non commandée par l'entreprise. Aucun tarif affiché.</div>
+
+<div class="topbar"><div class="wrap">
+  <span><b>Dépôt et bureau :</b> 11 rue Carnot – 42120 Le Coteau</span>
+  <a href="tel:+33477718259">04 77 71 82 59</a>
+</div></div>
+
+<header class="site" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Burnichon Stéphane — accueil"><img src="assets/burnichon-stephane-commelle-vernay/logo.svg" alt="Stéphane Burnichon — Chauffage, sanitaire, énergies renouvelables"></a>
+    <nav class="main" id="nav" aria-label="Navigation principale">
+      <a href="#prestations">Nos prestations</a>
+      <a href="#demande">Votre demande</a>
+      <a href="#entreprise">L'entreprise</a>
+      <a href="#chantiers">Nos chantiers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn cta-head" href="#demande">Devis &amp; dépannage</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Présentation">
+  <div class="bg" role="img" aria-label="Intérieur chauffé et climatisé"></div>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Plombier chauffagiste près de Roanne · depuis 2001</p>
+      <h1><span class="line"><span>Plomberie,</span></span><span class="line"><span>chauffage &amp;</span></span><span class="line"><span>énergies renouvelables</span></span></h1>
+      <p class="lead">Installation, entretien, dépannage, salle de bains : une équipe de dépanneurs et d'installateurs basée à Commelle-Vernay et au Coteau, qui intervient dans un rayon d'environ 50 km autour de Roanne.</p>
+      <div class="ctas">
+        <a class="btn" href="#demande">On discute de votre projet ?</a>
+        <a class="btn ghost" href="tel:+33477718259">04 77 71 82 59</a>
+      </div>
+      <div class="labels" aria-label="Qualifications affichées sur le site actuel">
+        <span>RGE Qualibat</span><span>RGE QualiPAC</span><span>PG – Professionnel du Gaz</span>
+      </div>
+    </div>
+    <div class="quick">
+      <a href="#demande" data-pick="depannage"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></span><span><strong>Une panne, une fuite ?</strong><small>Décrivez-la en trois clics</small></span></a>
+      <a href="#demande" data-pick="entretien"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"/></svg></span><span><strong>Mon entretien</strong><small>Prochaine échéance et rappel agenda</small></span></a>
+      <a href="#demande" data-pick="projet"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></span><span><strong>Un projet</strong><small>PAC, chaudière, salle de bains, solaire…</small></span></a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Plomberie &amp; sanitaire</span><span>Chauffage</span><span>Salle de bains</span><span>Climatisation</span><span>Pompe à chaleur</span><span>Panneaux solaires</span><span>Entretien &amp; dépannage</span>
+  <span>Plomberie &amp; sanitaire</span><span>Chauffage</span><span>Salle de bains</span><span>Climatisation</span><span>Pompe à chaleur</span><span>Panneaux solaires</span><span>Entretien &amp; dépannage</span>
+</div></div>
+
+<section id="prestations">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Nos activités de plombier-chauffagiste</p><h2>Nos prestations</h2></div>
+      <p>Pour les particuliers comme pour les régies, les entreprises et les cabinets d'architectes : de la création à l'entretien, un seul interlocuteur.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box1.webp" alt="Plombier intervenant sous un lavabo"></div><span class="num">01</span><div class="bd"><h3>Plomberie &amp; sanitaire</h3><p>Création, modification et remise en état des installations, des canalisations jusqu'à la production d'eau chaude : ballons électriques, thermodynamiques ou solaires.</p><a class="more" href="#demande" data-pick="projet">Demander un devis</a></div></article>
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box2.webp" alt="Chauffagiste réglant un radiateur"></div><span class="num">02</span><div class="bd"><h3>Chauffage</h3><p>Gaz, bois, électricité, solaire ou pompe à chaleur : étude thermique et financière, radiateurs ou plancher chauffant, chaudières gaz à condensation, régulation.</p><a class="more" href="#demande" data-pick="projet">Demander un devis</a></div></article>
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box3.webp" alt="Salle de bains avec douche à l'italienne"></div><span class="num">03</span><div class="bd"><h3>Salle de bains</h3><p>Douche à l'italienne sur mesure, remplacement de baignoire, salles de bains PMR, avec coordination du carrelage, de la peinture et de l'électricité.</p><a class="more" href="#chantiers">Voir nos réalisations</a></div></article>
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box4.webp" alt="Entretien d'un climatiseur mural"></div><span class="num">04</span><div class="bd"><h3>Climatisation</h3><p>Une installation dimensionnée selon les pièces, l'isolation et l'exposition, mise en service puis entretenue pour garder ses performances.</p><a class="more" href="#demande" data-pick="projet">Demander un devis</a></div></article>
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box5.webp" alt="Technicien sur une pompe à chaleur"></div><span class="num">05</span><div class="bd"><h3>Pompe à chaleur</h3><p>Pompe à chaleur air-eau choisie et dimensionnée selon la surface, l'isolation et les émetteurs existants, pour le chauffage et l'eau chaude sanitaire.</p><a class="more" href="#demande" data-pick="projet">Demander un devis</a></div></article>
+      <article class="svc reveal"><div class="ph"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/upload/box6.webp" alt="Pose de panneaux solaires"></div><span class="num">06</span><div class="bd"><h3>Panneaux solaires</h3><p>Pose au sol, intégrée à la toiture, en surimposition ou sur toiture-terrasse, selon l'orientation et la configuration de votre habitation.</p><a class="more" href="#demande" data-pick="projet">Demander un devis</a></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="tool-sec" id="demande">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Entretien &amp; dépannage · projets</p><h2>Votre demande, prête en 3 étapes</h2></div>
+      <p>Dites-nous ce qui se passe et où vous êtes : la demande arrive déjà complète au secrétariat, qui peut planifier l'intervention sans vous rappeler pour les détails.</p>
+    </div>
+    <div class="tool">
+      <div class="panel">
+        <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+
+        <div class="step on" data-step="1">
+          <h3>1. De quoi avez-vous besoin ?</h3>
+          <p class="sub">Choisissez la situation qui vous ressemble.</p>
+          <div class="choices" role="radiogroup" aria-label="Type de demande">
+            <div class="choice"><input type="radio" name="type" id="t1" value="depannage"><label for="t1">Dépannage<small>Panne, fuite, plus d'eau chaude</small></label></div>
+            <div class="choice"><input type="radio" name="type" id="t2" value="entretien"><label for="t2">Entretien<small>Visite annuelle ou contrat d'entretien</small></label></div>
+            <div class="choice"><input type="radio" name="type" id="t3" value="projet"><label for="t3">Projet / devis<small>Installation, remplacement, rénovation</small></label></div>
+          </div>
+        </div>
+
+        <div class="step" data-step="2">
+          <h3>2. Quel équipement ?</h3>
+          <p class="sub" id="sub2">Sélectionnez l'équipement concerné.</p>
+          <div class="choices" id="equipChoices" role="radiogroup" aria-label="Équipement"></div>
+          <div class="field" id="lastWrap" style="margin-top:16px;display:none">
+            <label for="last">Date du dernier entretien (approximative)</label>
+            <input type="month" id="last">
+          </div>
+          <div class="due" id="due" aria-live="polite"></div>
+        </div>
+
+        <div class="step" data-step="3">
+          <h3>3. Où et comment vous joindre ?</h3>
+          <p class="sub">Nous intervenons dans un rayon d'environ 50 km autour de Roanne.</p>
+          <div class="field"><label for="commune">Votre commune</label><input id="commune" list="communes" placeholder="Ex. Riorges, Charlieu, Renaison…" autocomplete="off"></div>
+          <datalist id="communes"></datalist>
+          <p class="zone-msg" id="zoneMsg" aria-live="polite"></p>
+          <div class="grid2">
+            <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name"></div>
+            <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="field"><label for="msg">En quelques mots (facultatif)</label><textarea id="msg" rows="3" placeholder="Marque de l'appareil, code erreur affiché, accès…"></textarea></div>
+        </div>
+
+        <div class="navbtns">
+          <button class="back" id="prev" type="button" hidden>← Retour</button>
+          <button class="btn navy" id="next" type="button" disabled>Continuer</button>
+        </div>
+      </div>
+
+      <aside class="panel recap" aria-live="polite">
+        <h3>Récapitulatif</h3>
+        <dl>
+          <dt>Demande</dt><dd id="rType">—</dd>
+          <dt>Équipement</dt><dd id="rEquip">—</dd>
+          <dt>Commune</dt><dd id="rCom">—</dd>
+          <dt>Contact</dt><dd id="rContact">—</dd>
+        </dl>
+        <div class="note" id="rNote">Le dépannage concerne les équipements installés par nos soins ; les urgences sont traitées au plus vite.</div>
+        <div class="acts">
+          <a class="btn" id="mailBtn" href="mailto:contact@burnichon-stephane.fr">Envoyer ma demande</a>
+          <a class="btn ghost" href="tel:+33477718259">Appeler le 04 77 71 82 59</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="entreprise">
+  <div class="wrap story">
+    <div class="intro reveal">
+      <p class="eyebrow">Burnichon Stéphane</p>
+      <h2 style="font-size:clamp(2.4rem,1.6rem + 3vw,4.2rem);margin-top:10px">L'évolution de notre entreprise de plomberie</h2>
+      <p>Une entreprise de plomberie, chauffage et sanitaire née sur sa commune d'origine, Commelle-Vernay, et en perpétuelle évolution. Vos travaux sont menés par une équipe de dépanneurs, d'installateurs et d'apprentis, avec deux secrétaires pour organiser et planifier les interventions.</p>
+      <div class="refs">Elle intervient auprès des particuliers, des régies immobilières, des cabinets d'architectes, mais aussi de grandes entreprises et collectivités telles que <b>Michelin</b>, <b>Nexter</b> et <b>Roannais Agglomération</b>.</div>
+    </div>
+    <div class="timeline" id="timeline"><span class="fill" id="tlFill"></span>
+      <div class="tl"><div class="y">2001</div><p>Création de l'entreprise le 8 janvier, à Commelle-Vernay : plomberie, chauffage et sanitaire.</p></div>
+      <div class="tl"><div class="y">2003</div><p>Rachat de l'entreprise Millot de Coutouvre, et un nouveau secteur géographique.</p></div>
+      <div class="tl"><div class="y">2005</div><p>Acquisition de l'entreprise Benotti de Roanne, qui développe l'activité de dépannage.</p></div>
+      <div class="tl"><div class="y">2018</div><p>Reprise de la branche plomberie sanitaire des établissements Serraille : l'équipe s'agrandit et accède à des marchés de plus grande ampleur.</p></div>
+      <div class="tl"><div class="y">2020</div><p>En juin, l'entreprise se transforme en SAS. De nouveaux collaborateurs rejoignent l'équipe.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="works" id="chantiers">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Nos réalisations</p><h2>Les derniers chantiers</h2></div>
+      <p>Salle de bains adaptée, douche de plain-pied, barres d'appui : un aperçu des travaux réalisés autour de Roanne.</p>
+    </div>
+    <div class="gal reveal" id="gal">
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/35.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/35.jpg" alt="Salle de bains PMR réalisée — vue d'ensemble"></button>
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/38.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/38.jpg" alt="Douche de plain-pied avec barre d'appui"></button>
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/36.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/36.jpg" alt="Meuble vasque et barre d'appui"></button>
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/37.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/21/big/37.jpg" alt="Espace douche et WC suspendu"></button>
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/39.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/39.jpg" alt="Salle de bains rénovée — vue depuis l'entrée"></button>
+      <button type="button" data-src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/40.jpg"><img loading="lazy" src="https://www.burnichon-stephane.fr/media/images/gallery/28/big/40.jpg" alt="Salle de bains rénovée — autre angle"></button>
+    </div>
+    <p class="gal-note">Photos issues du site actuel de l'entreprise. Les chantiers de chauffage, de pompes à chaleur et de panneaux solaires restent à ajouter.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap zone">
+    <div class="radar reveal" aria-hidden="true">
+      <svg viewBox="0 0 400 400" id="radar">
+        <circle cx="200" cy="200" r="190" fill="var(--light)"/>
+        <circle cx="200" cy="200" r="190" fill="none" stroke="var(--gold)" stroke-dasharray="4 6"/>
+        <circle cx="200" cy="200" r="95" fill="none" stroke="#dde3ee"/>
+        <circle class="pulse" cx="200" cy="200" r="190" fill="rgba(210,159,59,.18)"/>
+        <g id="dots"></g>
+      </svg>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Zone d'intervention</p>
+      <h2 style="font-size:clamp(2.4rem,1.6rem + 3vw,4.2rem);margin-top:10px">Environ 50 km autour de Roanne</h2>
+      <ul>
+        <li><span><b>Siège social</b> — 987 rue Jules Ferry, 42120 Commelle-Vernay</span></li>
+        <li><span><b>Dépôt et bureaux</b> — 11 rue Carnot, 42120 Le Coteau</span></li>
+        <li><span>Roanne, Le Coteau, Riorges, Mably, Villerest, Perreux, Coutouvre et tout le Roannais : vérifiez votre commune dans le formulaire de demande.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact reveal">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2>On discute de votre projet ?</h2>
+        <a class="big" href="tel:+33477718259">04 77 71 82 59</a>
+        <p>Devis, contrat d'entretien, dépannage : appelez-nous ou préparez votre demande en ligne.</p>
+        <p style="margin-top:22px"><a class="btn" href="#demande">Préparer ma demande</a></p>
+      </div>
+      <div class="cards">
+        <div class="card"><b>Siège social</b>987 rue Jules Ferry<br>42120 Commelle-Vernay</div>
+        <div class="card"><b>Dépôt et bureaux</b>11 rue Carnot<br>42120 Le Coteau</div>
+        <div class="card"><b>E-mail</b><a href="mailto:contact@burnichon-stephane.fr">contact@burnichon-stephane.fr</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <img src="assets/burnichon-stephane-commelle-vernay/logo.svg" alt="Stéphane Burnichon">
+      <p>SAS Burnichon Stéphane — plomberie, chauffage, sanitaire et énergies renouvelables depuis 2001.</p>
+    </div>
+    <div class="disc">
+      <b>Maquette de démonstration.</b> Cette page a été réalisée par Thibault Quentin à titre de proposition, sans commande de l'entreprise. Textes, coordonnées, historique et références clients sont repris du site actuel ; le logo, les couleurs (bleu #1D3D71, or #D29F3B) et les polices (Bebas Neue, Montserrat) sont ceux du site actuel. Toutes les photos proviennent du site actuel de l'entreprise. Aucun tarif, aucun avis client ni aucune note n'est affiché. Les échéances d'entretien indiquées dans l'outil sont des repères réglementaires généraux, à confirmer par l'entreprise. Le bouton d'envoi prépare un e-mail : rien n'est transmis sans action du visiteur.
+    </div>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+33477718259" aria-label="Appeler Burnichon Stéphane"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button type="button" id="lbClose" aria-label="Fermer">×</button><img id="lbImg" alt=""></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* En-tête compact au défilement + menu mobile */
+const head=$('header.site');
+addEventListener('scroll',()=>head.classList.toggle('scrolled',scrollY>40),{passive:true});
+const burger=$('#burger'),nav=$('#nav');
+burger.onclick=()=>{const o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+$$('#nav a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* Apparitions au défilement */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.reveal,.tl').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('svc')?(i%3)*90:0)+'ms';io.observe(el)});
+
+/* Frise : ligne qui se remplit */
+const tl=$('#timeline'),fill=$('#tlFill');
+const tlUpd=()=>{const r=tl.getBoundingClientRect();const p=Math.min(1,Math.max(0,(innerHeight*.7-r.top)/r.height));fill.style.height=(p*(r.height-12))+'px'};
+addEventListener('scroll',tlUpd,{passive:true});tlUpd();
+
+/* ---------- Outil de demande ---------- */
+const EQUIP={
+  depannage:[["chaudiere-gaz","Chaudière gaz"],["chaudiere-fioul","Chaudière fioul"],["bois","Chauffage bois"],["pac","Pompe à chaleur"],["clim","Climatisation"],["ballon","Ballon d'eau chaude"],["fuite","Fuite / canalisation"],["sanitaire","WC, robinetterie, évacuation"]],
+  entretien:[["chaudiere-gaz","Chaudière gaz"],["chaudiere-fioul","Chaudière fioul"],["bois","Chaudière bois"],["pac","Pompe à chaleur"],["clim","Climatisation"]],
+  projet:[["pac","Pompe à chaleur"],["chaudiere-gaz","Chaudière gaz à condensation"],["chauffage","Radiateurs, plancher chauffant, régulation"],["sdb","Salle de bains / douche à l'italienne"],["pmr","Salle de bains PMR"],["clim","Climatisation"],["solaire","Panneaux solaires"],["ballon","Ballon d'eau chaude"],["plomberie","Plomberie neuve ou rénovation"]]
+};
+/* Repères réglementaires généraux (à valider par l'entreprise) */
+const PERIOD={"chaudiere-gaz":[12,"Entretien annuel obligatoire pour les chaudières de 4 à 400 kW (décret du 9 juin 2009)."],"chaudiere-fioul":[12,"Entretien annuel obligatoire pour les chaudières de 4 à 400 kW (décret du 9 juin 2009)."],"bois":[12,"Entretien annuel obligatoire pour les chaudières de 4 à 400 kW (décret du 9 juin 2009)."],"pac":[24,"Entretien au moins tous les 2 ans pour les pompes à chaleur de 4 à 70 kW (décret du 28 juillet 2020)."],"clim":[24,"Entretien au moins tous les 2 ans pour les climatisations réversibles de 4 à 70 kW ; sinon recommandé régulièrement."]};
+const LBL={depannage:"Dépannage",entretien:"Entretien",projet:"Projet / devis"};
+const st={step:1,type:null,equip:null,equipL:null,commune:"",dist:null,last:null};
+const steps=$$('.step'),bars=$$('.steps i'),next=$('#next'),prev=$('#prev');
+
+function go(n){st.step=n;steps.forEach(s=>s.classList.toggle('on',+s.dataset.step===n));bars.forEach((b,i)=>b.classList.toggle('on',i<n));prev.hidden=n===1;next.textContent=n===3?'Voir ma demande':'Continuer';valid()}
+function valid(){next.disabled=!(st.step===1?st.type:st.step===2?st.equip:true);if(st.step===3)next.style.display='none';else next.style.display=''}
+function buildEquip(){const box=$('#equipChoices');box.innerHTML='';EQUIP[st.type].forEach(([v,l],i)=>{box.insertAdjacentHTML('beforeend',`<div class="choice"><input type="radio" name="equip" id="e${i}" value="${v}"><label for="e${i}">${l}</label></div>`)});
+  $('#sub2').textContent=st.type==='entretien'?"Nous calculons votre prochaine échéance.":"Sélectionnez l'équipement concerné.";
+  $('#lastWrap').style.display=st.type==='entretien'?'flex':'none';$('#due').classList.remove('on');st.equip=null;
+  $$('input[name=equip]').forEach(r=>r.onchange=()=>{st.equip=r.value;st.equipL=r.nextElementSibling.textContent;calcDue();valid();recap()})}
+$$('input[name=type]').forEach(r=>r.onchange=()=>{st.type=r.value;buildEquip();valid();recap()});
+next.onclick=()=>{if(st.step<3)go(st.step+1)};
+prev.onclick=()=>{if(st.step>1){next.style.display='';go(st.step-1)}};
+
+/* Échéance d'entretien + rappel .ics */
+$('#last').onchange=e=>{st.last=e.target.value;calcDue()};
+function calcDue(){const d=$('#due');if(st.type!=='entretien'||!st.equip){d.classList.remove('on');return}
+  const p=PERIOD[st.equip];let html=`<span style="font-size:13px">${p[1]}</span>`;
+  if(st.last){const [y,m]=st.last.split('-').map(Number);const due=new Date(y,m-1+p[0],1);const now=new Date();const late=due<now;
+    st.due=due;html=`<span style="font-size:12px;text-transform:uppercase;font-weight:700;letter-spacing:.08em;color:${late?'#a33':'#2f7d4f'}">${late?'Entretien à prévoir dès maintenant':'Prochain entretien conseillé'}</span><strong>${due.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}</strong>${html}<br><button class="link" type="button" id="ics">Ajouter un rappel à mon agenda (.ics)</button>`}
+  d.innerHTML=html;d.classList.add('on');const b=$('#ics');if(b)b.onclick=ics;recap()}
+function ics(){const d=st.due;const pad=n=>String(n).padStart(2,'0');const ds=`${d.getFullYear()}${pad(d.getMonth()+1)}01`;
+  const body=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Burnichon Stephane//Maquette//FR","BEGIN:VEVENT",`UID:${Date.now()}@burnichon-demo`,`DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').split('.')[0]}Z`,`DTSTART;VALUE=DATE:${ds}`,`SUMMARY:Entretien ${st.equipL} — Burnichon Stéphane`,"DESCRIPTION:Prendre rendez-vous : 04 77 71 82 59 — contact@burnichon-stephane.fr","BEGIN:VALARM","TRIGGER:-P14D","ACTION:DISPLAY","DESCRIPTION:Entretien à planifier","END:VALARM","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/calendar'}));a.download='rappel-entretien-burnichon.ics';a.click()}
+
+/* Communes et distance à vol d'oiseau depuis Roanne */
+const C={"Roanne":[46.036,4.068],"Le Coteau":[46.019,4.093],"Commelle-Vernay":[45.997,4.063],"Riorges":[46.043,4.041],"Mably":[46.083,4.061],"Villerest":[45.996,4.035],"Perreux":[46.039,4.124],"Coutouvre":[46.073,4.207],"Charlieu":[46.160,4.172],"Pouilly-sous-Charlieu":[46.145,4.111],"Briennon":[46.150,4.080],"Noailly":[46.135,4.005],"Renaison":[46.051,3.925],"Saint-Haon-le-Châtel":[46.063,3.917],"Pouilly-les-Nonains":[46.045,3.982],"Lentigny":[46.000,3.970],"Saint-Romain-la-Motte":[46.080,3.993],"Ambierle":[46.106,3.894],"La Pacaudière":[46.176,3.868],"Saint-Just-en-Chevalet":[45.914,3.844],"Saint-Germain-Laval":[45.833,4.012],"Neulise":[45.897,4.181],"Saint-Symphorien-de-Lay":[45.950,4.212],"Régny":[45.991,4.218],"Balbigny":[45.819,4.189],"Thizy-les-Bourgs":[46.030,4.312],"Amplepuis":[45.973,4.331],"Cours":[46.100,4.320],"Belmont-de-la-Loire":[46.165,4.347],"Chauffailles":[46.207,4.339],"Marcigny":[46.276,4.040],"Feurs":[45.742,4.226],"Boën-sur-Lignon":[45.744,4.006],"Tarare":[45.896,4.433],"Lapalisse":[46.248,3.637],"Paray-le-Monial":[46.451,4.120],"Montbrison":[45.607,4.065],"Vichy":[46.128,3.426]};
+const R=[46.036,4.068];
+const km=([a,b],[c,d])=>{const r=Math.PI/180,x=Math.sin((c-a)*r/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin((d-b)*r/2)**2;return 6371*2*Math.asin(Math.sqrt(x))};
+$('#communes').innerHTML=Object.keys(C).map(n=>`<option value="${n}">`).join('');
+const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z]/g,'');
+$('#commune').oninput=e=>{const v=e.target.value.trim();st.commune=v;const k=Object.keys(C).find(n=>norm(n)===norm(v));const m=$('#zoneMsg');
+  if(!v){m.textContent='';m.className='zone-msg'}
+  else if(k){const d=Math.round(km(R,C[k]));st.dist=d;m.className='zone-msg '+(d<=50?'ok':d<=60?'mid':'far');m.textContent=d<=50?`✓ ${k} : environ ${d} km de Roanne, dans notre zone d'intervention.`:d<=60?`${k} : environ ${d} km, en limite de zone. Appelez-nous pour en parler.`:`${k} : environ ${d} km, au-delà de notre rayon habituel. Appelez-nous pour en parler.`}
+  else{st.dist=null;m.className='zone-msg';m.textContent='Commune non listée : précisez-la, nous vous confirmerons.'}
+  recap()};
+['nom','tel','msg'].forEach(id=>$('#'+id).oninput=recap);
+
+function recap(){
+  $('#rType').textContent=st.type?LBL[st.type]:'—';
+  $('#rEquip').textContent=st.equipL||'—';
+  $('#rCom').textContent=st.commune?(st.commune+(st.dist!=null?` (≈ ${st.dist} km)`:'')):'—';
+  const n=$('#nom').value.trim(),t=$('#tel').value.trim();$('#rContact').textContent=[n,t].filter(Boolean).join(' · ')||'—';
+  const note=$('#rNote');
+  note.textContent=st.type==='entretien'?"Contrat d'entretien possible pour le fioul, le gaz, le bois et les pompes à chaleur.":st.type==='projet'?"Chaque projet commence par une analyse de vos besoins, avec des conseils personnalisés et un devis.":"Le dépannage concerne les équipements installés par nos soins ; les urgences sont traitées au plus vite.";
+  const lines=[`Type de demande : ${st.type?LBL[st.type]:''}`,`Équipement : ${st.equipL||''}`];
+  if(st.type==='entretien'&&st.last)lines.push(`Dernier entretien : ${st.last}`);
+  lines.push(`Commune : ${st.commune}`,`Nom : ${n}`,`Téléphone : ${t}`,'',$('#msg').value.trim());
+  $('#mailBtn').href=`mailto:contact@burnichon-stephane.fr?subject=${encodeURIComponent((st.type?LBL[st.type]:'Demande')+(st.equipL?' — '+st.equipL:''))}&body=${encodeURIComponent(lines.join('\n'))}`;
+}
+/* Raccourcis depuis l'accueil et les cartes */
+$$('[data-pick]').forEach(a=>a.addEventListener('click',()=>{const r=$(`input[name=type][value=${a.dataset.pick}]`);r.checked=true;r.onchange();next.style.display='';go(2)}));
+
+/* Radar de zone */
+const g=$('#dots');const scale=190/55;
+Object.entries(C).forEach(([n,p])=>{const d=km(R,p);if(d>55)return;const dx=(p[1]-R[1])*111*Math.cos(R[0]*Math.PI/180),dy=(p[0]-R[0])*111;const x=200+dx*scale,y=200-dy*scale;
+  const big=["Roanne","Le Coteau","Commelle-Vernay","Charlieu","Renaison","Balbigny","Thizy-les-Bourgs","Saint-Just-en-Chevalet","Feurs","Marcigny"].includes(n);
+  g.insertAdjacentHTML('beforeend',`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${n==='Commelle-Vernay'||n==='Le Coteau'?6:big?4:2.5}" fill="${n==='Commelle-Vernay'||n==='Le Coteau'?'var(--gold)':'var(--navy)'}"/>`+(big?`<text x="${(x+7).toFixed(1)}" y="${(y+3.5).toFixed(1)}">${n}</text>`:''))});
+
+/* Visionneuse */
+const lb=$('#lb'),lbImg=$('#lbImg');
+$$('#gal button').forEach(b=>b.onclick=()=>{lbImg.src=b.dataset.src;lbImg.alt=b.querySelector('img').alt;lb.classList.add('on');$('#lbClose').focus()});
+const close=()=>lb.classList.remove('on');$('#lbClose').onclick=close;lb.onclick=e=>{if(e.target===lb)close()};addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+recap();
+})();
+</script>
+</body>
+</html>
