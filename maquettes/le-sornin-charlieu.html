@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurant Le Sornin — Restaurant traditionnel à Charlieu | Cuisine maison</title>
+<meta name="description" content="Le Sornin, restaurant traditionnel place de la Bouverie à Charlieu : cuisine française faite maison, viande rouge à l'honneur, deux salles, cour intérieure et terrasse.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300;400;600;700&family=La+Belle+Aurore&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel restaurant-lesornin-charlieu.fr
+   Bleu des boutons et de la barre latérale : rgb(28,127,175)
+   Or des boutons secondaires : rgb(181,166,66)
+   Titres manuscrits : La Belle Aurore — texte : Josefin Slab
+   ========================================================== */
+:root{
+  --bleu:#1C7FAF;
+  --bleu-fonce:#135F85;
+  --or:#B5A642;
+  --or-clair:#D4C76A;
+  --nuit:#141210;      /* fonds sombres photo, comme le site actuel */
+  --nuit-2:#1E1B18;
+  --creme:#F7F7F7;     /* gris clair repris du CSS actuel */
+  --texte:#212121;
+  --blanc:#FFFFFF;
+  --f-titre:'La Belle Aurore',cursive;
+  --f-texte:'Josefin Slab',Georgia,serif;
+  --rail:54px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);font-size:18px;line-height:1.6;color:var(--texte);background:var(--creme);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.demo{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--or);color:#1a1a1a;font-size:13px;text-align:center;padding:5px 12px;letter-spacing:.03em;font-weight:600}
+
+/* --- Rail latéral bleu (élément d'identité du site actuel) --- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);background:var(--bleu);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;border-right:2px solid rgba(255,255,255,.85)}
+.rail a{width:34px;height:34px;display:grid;place-items:center;color:#fff;border-radius:50%;transition:background .3s,transform .3s}
+.rail a:hover{background:rgba(255,255,255,.18);transform:scale(1.1)}
+.rail svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.6}
+.rail .progress{width:2px;height:190px;background:rgba(255,255,255,.3);position:relative;border-radius:2px}
+.rail .progress i{position:absolute;left:0;top:0;width:100%;background:#fff;height:0;border-radius:2px}
+.rail .progress::before,.rail .progress::after{content:"";position:absolute;left:50%;transform:translateX(-50%);border:6px solid transparent}
+.rail .progress::before{top:-14px;border-bottom-color:#fff}
+.rail .progress::after{bottom:-14px;border-top-color:#fff}
+
+/* --- Navigation --- */
+header{position:fixed;top:34px;left:calc(var(--rail) + 4vw);right:4vw;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:12px 40px;border:1px solid rgba(255,255,255,.55);border-radius:18px;background:rgba(10,8,6,.35);backdrop-filter:blur(6px);transition:all .45s cubic-bezier(.2,.7,.2,1)}
+header.compact{top:30px;padding:6px 30px;background:rgba(14,12,10,.88)}
+.logo{display:flex;flex-direction:column;align-items:center;color:#fff;text-decoration:none;line-height:1}
+.logo b{font-family:var(--f-texte);font-weight:400;font-size:34px;letter-spacing:.06em}
+.logo small{font-size:11px;letter-spacing:.3em;margin-top:6px}
+nav ul{display:flex;gap:38px;list-style:none}
+nav a{font-family:var(--f-titre);color:#fff;text-decoration:none;font-size:22px;position:relative}
+nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:var(--or-clair);transition:right .35s}
+nav a:hover::after,nav a.on::after{right:0}
+.burger{display:none;background:none;border:0;color:#fff;font-size:28px;cursor:pointer}
+
+/* --- Hero --- */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:150px 6vw 120px calc(var(--rail) + 8vw);color:#fff;overflow:hidden;background:var(--nuit)}
+.hero .bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.12);transition:opacity 1.6s ease}
+.hero .bg.on{opacity:1;animation:zoom 14s ease-out forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,6,4,.82) 0%,rgba(8,6,4,.55) 50%,rgba(8,6,4,.2) 100%)}
+.hero .in{position:relative;z-index:2;max-width:620px}
+.hero h1{font-family:var(--f-titre);font-weight:400;font-size:clamp(46px,7vw,92px);line-height:1.12;margin-bottom:26px}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(30px) rotate(-2deg);animation:up .9s forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p{font-size:19px;opacity:.92;margin-bottom:32px}
+.hero p strong{font-weight:700}
+.btns{display:flex;gap:16px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border-radius:9px;font-family:var(--f-texte);font-size:19px;text-decoration:none;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.btn-bleu{background:var(--bleu);color:#fff}
+.btn-bleu:hover{background:var(--bleu-fonce)}
+.btn-or{background:var(--or);color:#1a1a1a}
+.btn-or:hover{background:var(--or-clair)}
+.btn-ghost{background:transparent;color:inherit;border:1px solid currentColor}
+.hero .live{display:inline-flex;align-items:center;gap:10px;font-size:15px;letter-spacing:.06em;margin-bottom:22px;padding:6px 14px;border:1px solid rgba(255,255,255,.4);border-radius:30px}
+.live i{width:9px;height:9px;border-radius:50%;background:#8a8a8a}
+.live.open i{background:#5fd07a;box-shadow:0 0 0 0 rgba(95,208,122,.6);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(95,208,122,0)}100%{box-shadow:0 0 0 0 rgba(95,208,122,0)}}
+.atouts{position:absolute;z-index:3;bottom:-1px;right:4vw;display:flex;gap:16px}
+.atout{display:flex;flex-direction:column;align-items:center;width:220px;background:rgba(20,16,12,.86);border-radius:16px 16px 0 0;padding:22px 18px;text-align:center;color:#fff;font-size:16px;transform:translateY(100%);animation:rise .9s forwards}
+.atout svg{width:42px;height:42px;stroke:#fff;fill:none;stroke-width:1.3;margin:0 auto 10px}
+@keyframes rise{to{transform:none}}
+
+/* --- Sections génériques --- */
+section{padding:110px 6vw 110px calc(var(--rail) + 6vw)}
+.kicker{font-size:14px;letter-spacing:.28em;text-transform:uppercase;color:var(--bleu);font-weight:600}
+h2{font-family:var(--f-titre);font-weight:400;font-size:clamp(38px,5vw,62px);line-height:1.15;margin:8px 0 22px}
+.lead{max-width:680px;font-size:19px}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* --- Bloc cuisine (alternance photo/texte) --- */
+.duo{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center;margin-top:60px}
+.duo.inv{grid-template-columns:1fr 1.05fr}
+.duo.inv .ph{order:2}
+.ph{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 30px 60px -25px rgba(0,0,0,.45)}
+.ph img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.reveal.vu .ph img,.ph.vu img{transform:scale(1)}
+.ph:hover img{transform:scale(1.04)}
+.ph .tag{position:absolute;left:16px;bottom:16px;background:rgba(0,0,0,.6);color:#fff;font-size:13px;padding:4px 10px;border-radius:20px}
+.duo h3{font-family:var(--f-titre);font-weight:400;font-size:40px;line-height:1.2;margin-bottom:14px;color:var(--bleu)}
+
+/* --- Ardoise du jour --- */
+.ardoise-wrap{background:var(--nuit);color:#fff;position:relative;overflow:hidden}
+.ardoise-wrap .kicker{color:var(--or-clair)}
+.ardoise-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:60px;align-items:start;margin-top:30px}
+.ardoise{background:#1f2622;background-image:radial-gradient(ellipse at 30% 20%,rgba(255,255,255,.06),transparent 60%),radial-gradient(ellipse at 80% 90%,rgba(255,255,255,.04),transparent 55%);border:12px solid #6b4b2e;border-radius:10px;padding:38px 40px;box-shadow:inset 0 0 40px rgba(0,0,0,.6),0 30px 60px -20px rgba(0,0,0,.8);font-family:var(--f-titre);color:#f3f1ea;position:relative}
+.ardoise h4{font-size:38px;font-weight:400;text-align:center;line-height:1.15}
+.ardoise .date{text-align:center;font-family:var(--f-texte);font-size:15px;letter-spacing:.2em;text-transform:uppercase;opacity:.75;margin:6px 0 22px}
+.ardoise .cat{font-size:28px;color:var(--or-clair);margin-top:18px}
+.ardoise .plat{font-size:24px;line-height:1.35;opacity:0;transform:translateX(-14px);transition:all .6s}
+.ardoise .ou{font-family:var(--f-texte);font-size:14px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin:2px 0 2px 20px}
+.ardoise.ecrit .plat{opacity:1;transform:none}
+.craie{position:absolute;right:26px;bottom:20px;width:46px;height:9px;background:#f4f1e6;border-radius:3px;transform:rotate(-14deg);box-shadow:0 2px 3px rgba(0,0,0,.5)}
+.note-demo{font-size:15px;opacity:.75;margin-top:14px}
+.points{list-style:none;margin-top:26px;display:grid;gap:14px}
+.points li{display:flex;gap:14px;align-items:flex-start}
+.points b{flex:0 0 34px;height:34px;border-radius:50%;background:var(--bleu);display:grid;place-items:center;font-size:16px}
+
+/* --- Outil de réservation --- */
+.resa{background:var(--creme)}
+.resa-box{margin-top:46px;display:grid;grid-template-columns:1.25fr .95fr;gap:0;background:#fff;border-radius:26px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.35)}
+.resa-form{padding:44px 46px}
+.step{margin-bottom:30px}
+.step label.t{display:flex;align-items:center;gap:12px;font-weight:700;font-size:17px;margin-bottom:12px}
+.step label.t span{width:28px;height:28px;border-radius:50%;background:var(--bleu);color:#fff;display:grid;place-items:center;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1.5px solid #d6d6d6;background:#fff;border-radius:12px;padding:9px 14px;font-family:var(--f-texte);font-size:16px;cursor:pointer;transition:all .2s;text-align:center;line-height:1.2}
+.chip small{display:block;font-size:12px;opacity:.6}
+.chip:hover{border-color:var(--bleu)}
+.chip.on{background:var(--bleu);border-color:var(--bleu);color:#fff;transform:translateY(-2px);box-shadow:0 8px 16px -8px var(--bleu)}
+.chip.on small{opacity:.85}
+.counter{display:flex;align-items:center;gap:16px}
+.counter button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--bleu);background:#fff;color:var(--bleu);font-size:24px;cursor:pointer;transition:all .2s}
+.counter button:hover{background:var(--bleu);color:#fff}
+.counter output{font-size:34px;font-weight:700;min-width:60px;text-align:center}
+.switch{display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none}
+.switch input{display:none}
+.switch i{width:52px;height:28px;border-radius:30px;background:#cfcfcf;position:relative;transition:background .25s;flex:0 0 52px}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .25s}
+.switch input:checked+i{background:var(--or)}
+.switch input:checked+i::after{left:27px}
+.ticket{background:var(--nuit);color:#fff;padding:44px 40px;position:relative;display:flex;flex-direction:column}
+.ticket::before{content:"";position:absolute;left:-12px;top:0;bottom:0;width:24px;background:radial-gradient(circle at 12px 18px,#fff 8px,transparent 9px) 0 0/24px 36px}
+.ticket h3{font-family:var(--f-titre);font-weight:400;font-size:40px;color:var(--or-clair);line-height:1.1}
+.ticket dl{margin:24px 0;display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:17px}
+.ticket dt{opacity:.6}
+.ticket dd{font-weight:600}
+.ticket dd.flash{animation:flash .6s}
+@keyframes flash{from{color:var(--or-clair)}}
+.ticket .msg{font-size:15px;opacity:.8;border-left:2px solid var(--or);padding-left:12px;margin-bottom:24px;min-height:44px}
+.ticket .btns{flex-direction:column;margin-top:auto}
+.ticket .btn{justify-content:center}
+.ticket .fine{font-size:13px;opacity:.55;margin-top:14px}
+
+/* --- Le restaurant : galerie espaces --- */
+.espaces{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:46px}
+.esp{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.esp img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.esp:hover img{transform:scale(1.08)}
+.esp figcaption{position:absolute;inset:auto 0 0 0;padding:60px 18px 18px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff}
+.esp figcaption b{font-family:var(--f-titre);font-weight:400;font-size:28px;display:block;line-height:1.1}
+.esp figcaption span{font-size:14px;opacity:0;max-height:0;display:block;transition:all .4s}
+.esp:hover figcaption span{opacity:.9;max-height:80px;margin-top:6px}
+
+/* --- Vins --- */
+.vins{background:#fff}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:30px 0 26px}
+.tab{padding:9px 22px;border-radius:30px;border:1.5px solid var(--bleu);background:#fff;color:var(--bleu);font-family:var(--f-texte);font-size:17px;cursor:pointer;transition:all .25s}
+.tab.on{background:var(--bleu);color:#fff}
+.liste{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 60px;max-width:960px}
+.vin{display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px dashed #d9d9d9;animation:fade .45s both}
+.vin span{white-space:nowrap}
+.vin .dots{flex:1;border-bottom:1px dotted #bbb;transform:translateY(-4px)}
+.vin b{color:var(--bleu);white-space:nowrap}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+
+/* --- Contact --- */
+.contact{background:var(--bleu);color:#fff}
+.contact .kicker{color:#fff;opacity:.75}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:30px;align-items:stretch}
+.c-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:34px}
+.c-card p{margin-bottom:14px}
+.c-card a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.4)}
+.hours{list-style:none;margin-top:10px}
+.hours li{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.15)}
+.hours li.today{color:var(--or-clair);font-weight:700}
+.map{border-radius:20px;overflow:hidden;min-height:320px;background:#0f5d82}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.3)}
+footer{background:var(--nuit);color:#bbb;padding:40px 6vw 40px calc(var(--rail) + 6vw);font-size:14px}
+footer p{margin-bottom:8px;max-width:900px}
+
+/* --- Mobile --- */
+@media (max-width:900px){
+  :root{--rail:0px}
+  .rail{display:none}
+  .demo{font-size:11px;padding:4px 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  header{left:16px;right:16px;padding:10px 18px;top:34px}
+  header.compact{top:28px}
+  nav ul{display:none;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:14px;background:rgba(14,12,10,.95);padding:22px;border-radius:16px}
+  nav ul.open{display:flex}
+  .burger{display:block}
+  .logo b{font-size:26px}
+  .hero{padding:140px 16px 210px}
+  .atouts{left:16px;right:16px;gap:8px}
+  .atout{width:auto;flex:1;font-size:13px;padding:14px 8px}
+  .atout svg{width:30px;height:30px}
+  section,footer{padding-left:16px;padding-right:16px}
+  section{padding-top:80px;padding-bottom:80px}
+  .duo,.duo.inv,.ardoise-grid,.resa-box,.c-grid{grid-template-columns:1fr;gap:34px}
+  .duo.inv .ph{order:0}
+  .espaces{grid-template-columns:1fr 1fr}
+  .liste{grid-template-columns:1fr}
+  .resa-form,.ticket{padding:30px 22px}
+  .ticket::before{display:none}
+  .ardoise{padding:28px 22px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.ardoise .plat,.hero h1 span,.atout{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Restaurant",
+ "name":"Restaurant Le Sornin",
+ "servesCuisine":"Cuisine traditionnelle française faite maison",
+ "telephone":"+33477711671",
+ "url":"https://www.restaurant-lesornin-charlieu.fr/",
+ "address":{"@type":"PostalAddress","streetAddress":"6 place de la Bouverie","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":46.1578813,"longitude":4.1734766},
+ "areaServed":"Charlieu",
+ "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:30","closes":"16:00"}]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de nouveau site pour le Restaurant Le Sornin</div>
+
+<aside class="rail" aria-label="Raccourcis">
+  <a href="tel:+33477711671" title="Appeler"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2"/></svg></a>
+  <a href="#reserver" title="Réserver"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M9 15l2 2 4-4"/></svg></a>
+  <div class="progress"><i id="prog"></i></div>
+  <a href="#ardoise" title="Menu du jour"><svg viewBox="0 0 24 24"><path d="M4 4h16v13H4zM8 21h8M12 17v4M7 8h6M7 11h10"/></svg></a>
+</aside>
+
+<header id="hd">
+  <a class="logo" href="#top"><b>LE SORNIN</b><small>RESTAURANT</small></a>
+  <nav><ul id="menu">
+    <li><a href="#top" class="on">Accueil</a></li>
+    <li><a href="#carte">La carte</a></li>
+    <li><a href="#restaurant">Le restaurant</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul></nav>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</header>
+
+<!-- ===================== ACCUEIL ===================== -->
+<div class="hero" id="top">
+  <div class="bg" style="background-image:url('https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Salle%20de%20Restaurant%20%C3%A0%20Charlieu.webp')"></div>
+  <div class="bg" style="background-image:url('https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Terrasse%20cour%20int%C3%A9rieure%20et%20brasero%20Restaurant%20le%20Sornin%20%C3%A0%20Charlieu.webp')"></div>
+  <div class="bg" style="background-image:url('https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Terrasse%20ext%C3%A9rieur%20Restaurant%20%C3%A0%20Charlieu.webp')"></div>
+  <div class="in">
+    <div class="live" id="live"><i></i><span>Du lundi au vendredi : 8h30 – 16h00</span></div>
+    <h1><span style="animation-delay:.2s">Restaurant</span> <span style="animation-delay:.45s">traditionnel</span> <span style="animation-delay:.7s">à Charlieu</span></h1>
+    <p>Bienvenue dans notre restaurant traditionnel Le Sornin, où nous vous proposons une <strong>cuisine française faite maison</strong>. Chaque jour, nous travaillons des ingrédients frais et locaux, servis dans une atmosphère conviviale. Et pour les plus pressés, profitez d'un service rapide en moins de 30 minutes.</p>
+    <div class="btns">
+      <a class="btn btn-bleu" href="#reserver">Réservez votre table</a>
+      <a class="btn btn-or" href="tel:+33477711671">Appelez-nous</a>
+    </div>
+  </div>
+  <div class="atouts">
+    <div class="atout" style="animation-delay:1s"><svg viewBox="0 0 48 48"><path d="M14 6l8 3 6-2 6 5 4 8-2 6 4 6-4 8-10 3-8-2-6 1-4-7 2-8-4-6 4-9z"/></svg>Cuisine traditionnelle française</div>
+    <div class="atout" style="animation-delay:1.15s"><svg viewBox="0 0 48 48"><path d="M24 8c9 0 16 6 16 15s-6 17-16 17S8 33 8 24 15 8 24 8z"/><path d="M20 18c4-2 9 0 9 5s-4 7-8 6-4-9-1-11z"/></svg>Viandes d'origines françaises et locales</div>
+    <div class="atout" style="animation-delay:1.3s"><svg viewBox="0 0 48 48"><circle cx="24" cy="20" r="11"/><path d="M19 20l4 4 7-7M17 30l-4 12 11-5 11 5-4-12"/></svg>Ingrédients locaux de qualité</div>
+  </div>
+</div>
+
+<!-- ===================== LA CARTE ===================== -->
+<section id="carte">
+  <div class="reveal">
+    <div class="kicker">Notre carte</div>
+    <h2>Cuisine maison généreuse à Charlieu</h2>
+    <p class="lead">Nous accueillons aussi bien les touristes de passage que les travailleurs et entreprises locales. Notre carte, régulièrement renouvelée, met à l'honneur les produits frais et locaux.</p>
+  </div>
+  <div class="duo reveal">
+    <div class="ph"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/Plat%20de%20viande%20rouge%20%C3%A0%20Charlieu.webp" alt="Plat de viande rouge au restaurant Le Sornin" loading="lazy"></div>
+    <div>
+      <h3>La viande rouge mise à l'honneur</h3>
+      <p>Amateurs de viande, vous serez séduits par la qualité de nos pièces, grillées ou mijotées, toujours servies avec soin pour sublimer leur goût.</p>
+    </div>
+  </div>
+  <div class="duo inv reveal">
+    <div class="ph"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/Plats%20faits%20maison%20%C3%A0%20Charlieu.webp" alt="Plats faits maison au Sornin" loading="lazy"></div>
+    <div>
+      <h3>Plats faits maison aux ingrédients locaux</h3>
+      <p>Chaque assiette reflète notre exigence : une cuisine faite maison qui privilégie les producteurs locaux et met en avant la fraîcheur des produits de saison.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ARDOISE ===================== -->
+<section class="ardoise-wrap" id="ardoise">
+  <div class="kicker reveal">Menu du jour</div>
+  <h2 class="reveal">L'ardoise du Sornin</h2>
+  <div class="ardoise-grid">
+    <div class="reveal">
+      <p>Pour varier les plaisirs et surprendre nos convives, nous proposons un menu du jour, pensé en fonction des arrivages et de l'inspiration du moment.</p>
+      <ul class="points">
+        <li><b>1</b><span>L'ardoise se met à jour simplement depuis un téléphone, le matin avant le service.</span></li>
+        <li><b>2</b><span>Les habitués la consultent avant de venir, et peuvent réserver directement depuis la même page.</span></li>
+        <li><b>3</b><span>Les évènements (comme la Foire à l'andouille) ont leur propre menu, mis en avant ici.</span></li>
+      </ul>
+      <p class="note-demo">Exemple ci-contre : le menu de la Foire à l'andouille, tel qu'il figure aujourd'hui sur votre site.</p>
+    </div>
+    <div class="ardoise reveal d1" id="slate">
+      <h4>Foire à l'andouille de Charlieu</h4>
+      <div class="date">Samedi 14 novembre 2026 · le midi</div>
+      <div class="cat">Entrées</div>
+      <div class="plat">Foie gras avec sa confiture de figue et sa salade</div>
+      <div class="ou">ou</div>
+      <div class="plat">Une douzaine d'escargots</div>
+      <div class="cat">Plats</div>
+      <div class="plat">Souris d'agneau avec ses petits légumes</div>
+      <div class="ou">ou</div>
+      <div class="plat">Poulpe entier sauce au curry, riz à l'encre de seiche</div>
+      <div class="ou">ou</div>
+      <div class="plat">Pavé sauce fromagère et son accompagnement</div>
+      <div class="cat">Dessert</div>
+      <div class="plat">Assiette gourmande</div>
+      <div class="craie"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OUTIL DE RÉSERVATION ===================== -->
+<section class="resa" id="reserver">
+  <div class="reveal">
+    <div class="kicker">Réservez votre table</div>
+    <h2>Votre déjeuner, préparé en trente secondes</h2>
+    <p class="lead">Un déjeuner rapide entre collègues, un repas en famille ou la privatisation du restaurant : choisissez le jour, le nombre de couverts et l'espace, la demande part toute prête.</p>
+  </div>
+  <div class="resa-box reveal d1">
+    <div class="resa-form">
+      <div class="step"><label class="t"><span>1</span>Quel jour ?</label><div class="chips" id="jours"></div></div>
+      <div class="step"><label class="t"><span>2</span>À quelle heure ?</label><div class="chips" id="heures"></div></div>
+      <div class="step"><label class="t"><span>3</span>Combien de couverts ?</label>
+        <div class="counter"><button type="button" id="moins" aria-label="Moins">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Plus">+</button></div></div>
+      <div class="step"><label class="t"><span>4</span>Pour quelle occasion ?</label><div class="chips" id="occas"></div></div>
+      <div class="step"><label class="t"><span>5</span>Où préférez-vous être installés ?</label><div class="chips" id="espaces"></div></div>
+      <div class="step"><label class="switch"><input type="checkbox" id="presse"><i></i><span>Je suis pressé·e : service en moins de 30 minutes</span></label></div>
+    </div>
+    <div class="ticket" aria-live="polite">
+      <h3>Votre demande</h3>
+      <dl>
+        <dt>Jour</dt><dd id="tJour">—</dd>
+        <dt>Heure</dt><dd id="tHeure">—</dd>
+        <dt>Couverts</dt><dd id="tNb">2</dd>
+        <dt>Occasion</dt><dd id="tOcc">—</dd>
+        <dt>Espace</dt><dd id="tEsp">—</dd>
+        <dt>Service</dt><dd id="tSrv">Classique</dd>
+      </dl>
+      <p class="msg" id="tMsg">Choisissez un jour pour commencer.</p>
+      <div class="btns">
+        <a class="btn btn-or" id="bMail" href="#">Envoyer la demande</a>
+        <a class="btn btn-bleu" href="tel:+33477711671">Appeler le 04 77 71 16 71</a>
+        <button class="btn btn-ghost" id="bIcs" type="button">Ajouter à mon agenda</button>
+      </div>
+      <p class="fine">La réservation n'est confirmée qu'après réponse du restaurant.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LE RESTAURANT ===================== -->
+<section id="restaurant">
+  <div class="reveal">
+    <div class="kicker">Le restaurant</div>
+    <h2>Deux salles, deux terrasses et un bar</h2>
+    <p class="lead">Au cœur de Charlieu, Le Sornin vous accueille dans une ambiance chaleureuse et simple, idéale pour un déjeuner rapide ou un repas convivial. Deux salles, un bar accueillant, une cour intérieure et une terrasse : installez-vous, été comme hiver.</p>
+  </div>
+  <div class="espaces">
+    <figure class="esp reveal"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Salle%20de%20Restaurant%20%C3%A0%20Charlieu.webp" alt="Salle du restaurant" loading="lazy"><figcaption><b>Les salles</b><span>Pour un déjeuner entre collègues ou un repas en famille.</span></figcaption></figure>
+    <figure class="esp reveal d1"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Terrasse%20cour%20int%C3%A9rieure%20et%20brasero%20Restaurant%20le%20Sornin%20%C3%A0%20Charlieu.webp" alt="Cour intérieure et brasero" loading="lazy"><figcaption><b>La cour intérieure</b><span>Au calme, avec son brasero.</span></figcaption></figure>
+    <figure class="esp reveal d2"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Terrasse%20ext%C3%A9rieur%20Restaurant%20%C3%A0%20Charlieu.webp" alt="Terrasse sur la place" loading="lazy"><figcaption><b>La terrasse</b><span>Sur la place, en plein centre historique.</span></figcaption></figure>
+    <figure class="esp reveal d3"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Une%20terrasse%20couverte%20au%20c%C5%93ur%20de%20la%20ville%20%C3%A0%20Charlieu.webp" alt="Terrasse couverte" loading="lazy"><figcaption><b>La terrasse couverte</b><span>Un repas dehors, même quand le temps hésite.</span></figcaption></figure>
+  </div>
+  <div class="duo reveal">
+    <div class="ph"><img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/145795/modif21012026/Un%20cadre%20convivial%20pour%20tous%20vos%20repas%20%C3%A0%20Charlieu.webp" alt="Un cadre convivial" loading="lazy"></div>
+    <div>
+      <h3>Repas d'entreprise et privatisation</h3>
+      <p>Pour les professionnels, nous proposons des formules adaptées aux repas d'entreprise et aux séminaires, dans un cadre qui favorise l'échange et la convivialité. Le restaurant peut aussi être privatisé pour vos évènements privés.</p>
+      <div class="btns" style="margin-top:22px"><a class="btn btn-bleu" href="#reserver" data-occ="Repas d'entreprise">Préparer un repas d'entreprise</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VINS ===================== -->
+<section class="vins" id="vins">
+  <div class="reveal">
+    <div class="kicker">Notre carte des boissons</div>
+    <h2>Carte des vins</h2>
+    <p class="lead">Retrouvez notre carte des vins disponibles au bar ou en service à table, pour partager un bon moment au restaurant Le Sornin.</p>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="liste" id="liste"></div>
+</section>
+
+<!-- ===================== CONTACT ===================== -->
+<section class="contact" id="contact">
+  <div class="kicker reveal">Contact</div>
+  <h2 class="reveal">Venez savourer notre cuisine maison</h2>
+  <div class="c-grid">
+    <div class="c-card reveal">
+      <p><strong>Restaurant Le Sornin</strong><br>6 place de la Bouverie<br>42190 Charlieu</p>
+      <p>Téléphone : <a href="tel:+33477711671">04 77 71 16 71</a></p>
+      <ul class="hours" id="hours">
+        <li data-d="1"><span>Lundi</span><span>8h30 – 16h00</span></li>
+        <li data-d="2"><span>Mardi</span><span>8h30 – 16h00</span></li>
+        <li data-d="3"><span>Mercredi</span><span>8h30 – 16h00</span></li>
+        <li data-d="4"><span>Jeudi</span><span>8h30 – 16h00</span></li>
+        <li data-d="5"><span>Vendredi</span><span>8h30 – 16h00</span></li>
+        <li data-d="6"><span>Samedi</span><span>Fermé</span></li>
+        <li data-d="0"><span>Dimanche</span><span>Fermé</span></li>
+      </ul>
+      <div class="btns" style="margin-top:24px"><a class="btn btn-or" href="https://www.google.com/maps/place/Restaurant+Le+Sornin/@46.1578527,4.1736554,17z" target="_blank" rel="noopener">Nous trouver</a><a class="btn btn-ghost" href="tel:+33477711671">Nous appeler</a></div>
+    </div>
+    <div class="map reveal d1"><iframe title="Plan d'accès" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.1695%2C46.1560%2C4.1775%2C46.1598&amp;layer=mapnik&amp;marker=46.1578813%2C4.1734766"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Maquette de démonstration</strong> réalisée pour le Restaurant Le Sornin — non contractuelle. Textes, menu de la Foire à l'andouille, carte des vins, prix, horaires et photos repris du site actuel du restaurant (toutes les photos sont celles du restaurant). Couleurs et polices reprises de la charte du site actuel, ajustables.</p>
+  <p>L'outil de réservation est une démonstration : dans cette maquette, il prépare un mail et un rappel d'agenda, sans système de réservation en ligne derrière.</p>
+  <p>© 2026 Restaurant Le Sornin · 6 place de la Bouverie, 42190 Charlieu</p>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  /* Navigation compacte + barre de progression du rail */
+  const hd=$('#hd'),prog=$('#prog');
+  addEventListener('scroll',()=>{
+    hd.classList.toggle('compact',scrollY>60);
+    const h=document.documentElement.scrollHeight-innerHeight;
+    prog.style.height=(h>0?scrollY/h*100:0)+'%';
+  },{passive:true});
+  $('#burger').onclick=()=>$('#menu').classList.toggle('open');
+  document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+
+  /* Diaporama du premier écran (vraies photos) */
+  const bgs=[...document.querySelectorAll('.hero .bg')];let k=0;bgs[0].classList.add('on');
+  setInterval(()=>{bgs[k].classList.remove('on');k=(k+1)%bgs.length;void bgs[k].offsetWidth;bgs[k].classList.add('on')},7000);
+
+  /* Ouvert / fermé en direct */
+  const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+  const open=d>=1&&d<=5&&m>=510&&m<960;
+  const live=$('#live');live.classList.toggle('open',open);
+  live.querySelector('span').textContent=open?(m>=720&&m<840?'Ouvert · service du midi en cours':'Ouvert maintenant · jusqu\'à 16h00'):'Fermé · ouvert du lundi au vendredi, 8h30 – 16h00';
+  document.querySelectorAll('#hours li').forEach(li=>{if(+li.dataset.d===d)li.classList.add('today')});
+
+  /* Apparitions au défilement */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  /* L'ardoise s'écrit à la craie */
+  const slate=$('#slate');
+  new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){[...slate.querySelectorAll('.plat')].forEach((p,i)=>p.style.transitionDelay=(.3+i*.28)+'s');slate.classList.add('ecrit');o.disconnect()}}),{threshold:.35}).observe(slate);
+
+  /* ===== Outil de réservation ===== */
+  const st={jour:null,heure:null,nb:2,occ:null,esp:null,presse:false};
+  const J=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'],M=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  const jours=[];let t=new Date();t.setHours(0,0,0,0);
+  while(jours.length<8){t=new Date(t.getTime()+864e5);if(t.getDay()>=1&&t.getDay()<=5)jours.push(new Date(t))}
+  function chips(id,items,key,label){
+    const box=$(id);box.innerHTML='';
+    items.forEach(it=>{const b=document.createElement('button');b.type='button';b.className='chip';b.innerHTML=label(it);
+      b.onclick=()=>{box.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));b.classList.add('on');st[key]=it;maj(key)};box.appendChild(b)});
+  }
+  chips('#jours',jours,'jour',x=>J[x.getDay()]+'<small>'+x.getDate()+' '+M[x.getMonth()]+'</small>');
+  chips('#heures',['12h00','12h15','12h30','12h45','13h00','13h30'],'heure',x=>x);
+  chips('#occas',['Entre collègues','En famille','Entre amis',"Repas d'entreprise",'Privatisation'],'occ',x=>x);
+  chips('#espaces',['En salle','Cour intérieure','Terrasse sur la place','Terrasse couverte','Peu importe'],'esp',x=>x);
+  $('#plus').onclick=()=>{st.nb=Math.min(st.nb+1,80);maj('nb')};
+  $('#moins').onclick=()=>{st.nb=Math.max(st.nb-1,1);maj('nb')};
+  $('#presse').onchange=e=>{st.presse=e.target.checked;maj('presse')};
+  document.querySelectorAll('[data-occ]').forEach(a=>a.addEventListener('click',()=>{
+    const c=[...document.querySelectorAll('#occas .chip')].find(c=>c.textContent===a.dataset.occ);if(c)c.click()}));
+  const fmtJour=x=>x?x.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'—';
+  function flash(id,v){const el=$(id);if(el.textContent!==String(v)){el.textContent=v;el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}}
+  function maj(){
+    $('#nb').textContent=st.nb;
+    flash('#tJour',fmtJour(st.jour));flash('#tHeure',st.heure||'—');flash('#tNb',st.nb);
+    flash('#tOcc',st.occ||'—');flash('#tEsp',st.esp||'—');flash('#tSrv',st.presse?'Rapide (moins de 30 min)':'Classique');
+    let msg;
+    if(!st.jour)msg='Choisissez un jour pour commencer.';
+    else if(st.occ==='Privatisation')msg='Pour une privatisation, le restaurant vous rappelle pour en parler ensemble.';
+    else if(st.occ==="Repas d'entreprise"||st.nb>=10)msg='Groupe de '+st.nb+' : le restaurant vous propose une formule adaptée aux repas d\'entreprise.';
+    else if(st.presse)msg='Noté : vous serez servi·e rapidement, en moins de 30 minutes.';
+    else msg='Tout est prêt : il ne reste qu\'à envoyer la demande.';
+    $('#tMsg').textContent=msg;
+    const corps='Bonjour,\n\nJe souhaite réserver une table au Sornin :\n- Jour : '+fmtJour(st.jour)+'\n- Heure : '+(st.heure||'à préciser')+'\n- Couverts : '+st.nb+'\n- Occasion : '+(st.occ||'—')+'\n- Espace : '+(st.esp||'peu importe')+'\n- Service : '+(st.presse?'rapide (moins de 30 min)':'classique')+'\n\nNom :\nTéléphone :\n\nMerci !';
+    $('#bMail').href='mailto:labrosse.myriam@orange.fr?subject='+encodeURIComponent('Réservation — '+fmtJour(st.jour)+' — '+st.nb+' couvert(s)')+'&body='+encodeURIComponent(corps);
+  }
+  maj();
+  $('#bIcs').onclick=()=>{
+    if(!st.jour){alert('Choisissez d\'abord un jour.');return}
+    const h=(st.heure||'12h00').split('h'),dt=new Date(st.jour);dt.setHours(+h[0],+h[1]);
+    const end=new Date(dt.getTime()+(st.presse?30:75)*6e4),f=x=>x.toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Le Sornin//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@lesornin','DTSTAMP:'+f(new Date()),'DTSTART:'+f(dt),'DTEND:'+f(end),
+      'SUMMARY:Déjeuner au Sornin ('+st.nb+' couverts)','LOCATION:Restaurant Le Sornin\\, 6 place de la Bouverie\\, 42190 Charlieu','DESCRIPTION:Demande à confirmer par le restaurant — 04 77 71 16 71','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='dejeuner-le-sornin.ics';a.click();
+  };
+
+  /* ===== Carte des vins (prix du site actuel) ===== */
+  const vins={
+    'Rosé':[["Verre Pays d'Oc 12 cl","2,00 €"],['Pichet 25 cl','5,00 €'],['Pichet 50 cl','9,00 €'],['Côtes de Provence 75 cl','19,00 €']],
+    'Blanc':[["Verre Pays d'Oc 12 cl","2,00 €"],['Pichet 25 cl','5,00 €'],['Pichet 50 cl','9,00 €'],['Verre Mâcon 12 cl','2,50 €'],['Verre Viognier 12 cl','2,50 €'],['Mâcon Village 75 cl','25,00 €'],['Viré-Clessé 75 cl','35,00 €'],['Horgelus Côtes de Gascogne 75 cl','18,00 €']],
+    'Rouge':[['Verre Côtes du Rhône 12 cl','2,00 €'],['Pichet 25 cl','5,00 €'],['Pichet 50 cl','9,00 €'],['Minervois 75 cl','25,00 €'],['Morgon 75 cl','29,00 €'],['Bourgogne Pinot Noir 75 cl','22,00 €'],['Rasteau 75 cl','29,50 €'],['Ventoux 75 cl','26,00 €'],['Brouilly 75 cl','27,00 €'],['Côtes du Rhône Vignon 75 cl','25,00 €']],
+    'Champagne':[['Louis Trollet Brut 70 cl','40,00 €']]
+  };
+  const tabs=$('#tabs'),liste=$('#liste');
+  function show(c){tabs.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.textContent===c));
+    liste.innerHTML=vins[c].map((v,i)=>'<div class="vin" style="animation-delay:'+(i*.05)+'s"><span>'+v[0]+'</span><i class="dots"></i><b>'+v[1]+'</b></div>').join('')}
+  Object.keys(vins).forEach(c=>{const b=document.createElement('button');b.className='tab';b.textContent=c;b.onclick=()=>show(c);tabs.appendChild(b)});
+  show('Rouge');
+})();
+</script>
+</body>
+</html>
