@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RELEV — Architecte du patrimoine dans la Loire | Le Crozet, Roannais</title>
+<meta name="description" content="RELEV Architecture and Heritage, agence d'architecture du patrimoine au Crozet : restauration et réhabilitation du bâti ancien, diagnostics, suivi de chantier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE RELEV — à ajuster quand l'agence fournira ses codes
+   Aucun site existant (relevarchi.com = page « en construction ») :
+   la palette est tirée des planches dessinées par l'agence elle-même
+   (encre noire, papier, aquarelles : tuiles, pierre, ardoise).
+   ========================================================= */
+:root{
+  --papier:#f7f4ee;       /* fond papier des planches */
+  --papier-2:#efe9de;
+  --encre:#161514;        /* trait d'encre / logo noir */
+  --encre-2:#4a4642;
+  --tuile:#b5523b;        /* aquarelle des toitures (Porte de Ville) */
+  --pierre:#c9a874;       /* aquarelle des maçonneries */
+  --ardoise:#5f6f80;      /* aquarelle des toitures en ardoise */
+  --filet:rgba(22,21,20,.16);
+  --f-texte:"Archivo", "Helvetica Neue", Arial, sans-serif; /* cartouches en sans-serif */
+  --f-main:"Caveat", "Segoe Print", cursive;               /* annotations manuscrites des planches */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);background:var(--papier);color:var(--encre);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.demo{background:var(--encre);color:var(--papier);font-size:13px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+.demo b{color:var(--pierre)}
+
+/* ---------- navigation ---------- */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(247,244,238,.86);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-color:var(--filet)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:34px;height:40px}
+.logo b{font-weight:800;letter-spacing:.32em;font-size:20px}
+.logo small{display:block;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--encre-2);margin-top:-3px}
+.nav ul{display:flex;gap:28px;list-style:none;font-size:14.5px}
+.nav ul a{text-decoration:none;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:100%;background:var(--tuile);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--encre);color:var(--papier);text-decoration:none;padding:13px 22px;border-radius:999px;font-weight:500;font-size:15px;border:1.5px solid var(--encre);transition:background .3s,color .3s,transform .3s;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--tuile);border-color:var(--tuile);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--encre)}
+.btn.ghost:hover{background:var(--encre);color:var(--papier);border-color:var(--encre)}
+.burger{display:none;background:none;border:0;font-size:26px;cursor:pointer}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:70px 0 90px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+.kicker{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--encre-2);display:flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:34px;height:1.5px;background:var(--tuile)}
+h1{font-size:clamp(40px,5.6vw,76px);line-height:1.02;font-weight:800;letter-spacing:-.02em;margin:22px 0 26px}
+h1 em{font-style:normal;color:var(--tuile)}
+.hand{font-family:var(--f-main);font-weight:700;color:var(--tuile);font-size:1.25em;line-height:1}
+.hero p.lead{font-size:19px;max-width:540px;color:var(--encre-2)}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.hero-visual{position:relative;aspect-ratio:4/5}
+.hero-visual .photo{position:absolute;inset:0 0 0 12%;border-radius:4px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+.hero-visual .photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.8s cubic-bezier(.2,.7,.2,1)}
+.loaded .hero-visual .photo img{transform:scale(1)}
+.hero-visual .sketch{position:absolute;left:-4%;bottom:-6%;width:56%;background:var(--papier);padding:14px;border-radius:3px;box-shadow:0 18px 40px -20px rgba(0,0,0,.4);transform:rotate(-3deg)}
+.hero-visual .sketch svg{width:100%;height:auto}
+.sketch .draw path,.sketch .draw line,.sketch .draw rect{fill:none;stroke:var(--encre);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.sketch figcaption{font-family:var(--f-main);font-size:21px;color:var(--encre-2);text-align:center;margin-top:4px}
+.tag-photo{position:absolute;right:12px;top:12px;background:rgba(22,21,20,.72);color:#fff;font-size:12px;padding:5px 10px;border-radius:99px}
+
+/* ---------- sections ---------- */
+section{padding:110px 0}
+.sec-head{display:grid;grid-template-columns:1fr 1.3fr;gap:50px;align-items:end;margin-bottom:60px}
+h2{font-size:clamp(32px,3.8vw,52px);line-height:1.05;font-weight:800;letter-spacing:-.015em}
+.sec-head p{color:var(--encre-2);font-size:18px}
+.num{font-family:var(--f-main);font-size:26px;color:var(--tuile);display:block;margin-bottom:8px}
+
+/* manifesto */
+.manifeste{background:var(--encre);color:var(--papier)}
+.manifeste .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.manifeste blockquote{font-size:clamp(24px,2.6vw,34px);line-height:1.35;font-weight:300}
+.manifeste blockquote strong{font-weight:600;color:var(--pierre)}
+.manifeste .portrait{display:flex;gap:18px;align-items:center;margin-top:36px}
+.manifeste .portrait img{width:74px;height:110px;object-fit:cover;border-radius:3px;filter:grayscale(.2)}
+.manifeste .portrait b{display:block}
+.manifeste .portrait span{font-size:14px;opacity:.75}
+.manifeste ul{list-style:none;border-top:1px solid rgba(247,244,238,.2)}
+.manifeste li{padding:18px 0;border-bottom:1px solid rgba(247,244,238,.2);display:flex;gap:18px;font-size:16px}
+.manifeste li span{font-family:var(--f-main);font-size:24px;color:var(--pierre);min-width:34px;line-height:1.1}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--filet);border-left:1px solid var(--filet)}
+.svc{padding:34px 30px 38px;border-right:1px solid var(--filet);border-bottom:1px solid var(--filet);position:relative;overflow:hidden;transition:background .4s}
+.svc::before{content:"";position:absolute;inset:auto 0 0 0;height:0;background:var(--papier-2);transition:height .45s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.svc:hover::before{height:100%}
+.svc{z-index:0}
+.svc .ico{width:44px;height:44px;margin-bottom:22px}
+.svc .ico *{fill:none;stroke:var(--encre);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.svc h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.svc p{font-size:15.5px;color:var(--encre-2)}
+
+/* calque compare */
+.calque{background:var(--papier-2)}
+.compare{position:relative;aspect-ratio:1000/720;background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 30px 70px -40px rgba(0,0,0,.5);user-select:none;touch-action:pan-y;cursor:ew-resize}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}
+.compare .top{clip-path:inset(0 0 0 var(--pos,50%))}
+.compare .bar{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--tuile);transform:translateX(-1px)}
+.compare .knob{position:absolute;top:50%;left:50%;width:52px;height:52px;border-radius:50%;background:var(--tuile);transform:translate(-50%,-50%);display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.compare .lbl{position:absolute;bottom:14px;font-family:var(--f-main);font-size:24px;background:rgba(247,244,238,.92);padding:2px 12px;border-radius:3px}
+.compare .lbl.l{left:14px}.compare .lbl.r{right:14px}
+.calque .note{margin-top:18px;font-size:14px;color:var(--encre-2)}
+
+/* projects */
+.projets{display:grid;grid-template-columns:repeat(12,1fr);gap:22px}
+.pj{position:relative;overflow:hidden;border-radius:3px;background:#fff;cursor:pointer}
+.pj img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.pj:hover img{transform:scale(1.05)}
+.pj figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 16px;background:linear-gradient(transparent,rgba(22,21,20,.82));color:#fff}
+.pj figcaption b{display:block;font-size:17px;font-weight:600}
+.pj figcaption span{font-size:13px;opacity:.85}
+.pj.contain img{object-fit:contain;padding:18px;background:#fff}
+.p1{grid-column:span 7;aspect-ratio:7/5}.p2{grid-column:span 5;aspect-ratio:5/5}
+.p3{grid-column:span 4;aspect-ratio:4/5}.p4{grid-column:span 4;aspect-ratio:4/5}.p5{grid-column:span 4;aspect-ratio:4/5}
+.p6{grid-column:span 6;aspect-ratio:6/4}.p7{grid-column:span 6;aspect-ratio:6/4}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{font:inherit;font-size:14px;border:1.5px solid var(--encre);background:transparent;padding:8px 16px;border-radius:99px;cursor:pointer;transition:.25s}
+.filters button.on,.filters button:hover{background:var(--encre);color:var(--papier)}
+.pj.hide{display:none}
+
+/* process */
+.process{counter-reset:s;display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
+.process::before{content:"";position:absolute;top:27px;left:4%;right:4%;height:1.5px;background:var(--filet)}
+.process .line{position:absolute;top:27px;left:4%;height:1.5px;background:var(--tuile);width:0;transition:width 2.2s cubic-bezier(.3,.6,.2,1)}
+.process.in .line{width:92%}
+.step{padding:0 14px;text-align:left;position:relative}
+.step .dot{width:56px;height:56px;border-radius:50%;background:var(--papier);border:1.5px solid var(--encre);display:grid;place-items:center;font-family:var(--f-main);font-size:26px;margin-bottom:20px;position:relative;z-index:1;transition:background .4s,color .4s}
+.process.in .step .dot{background:var(--encre);color:var(--papier)}
+.step h3{font-size:16.5px;font-weight:600;margin-bottom:6px}
+.step p{font-size:14.5px;color:var(--encre-2)}
+
+/* ---------- OUTIL : par où commencer ---------- */
+.outil{background:var(--encre);color:var(--papier)}
+.outil h2 em{font-style:normal;color:var(--pierre)}
+.outil .sec-head p{color:rgba(247,244,238,.75)}
+.tool{display:grid;grid-template-columns:1.1fr .9fr;gap:30px}
+.card{background:var(--papier);color:var(--encre);border-radius:6px;padding:34px}
+.prog{display:flex;gap:6px;margin-bottom:26px}
+.prog i{flex:1;height:4px;border-radius:4px;background:var(--papier-2);transition:background .4s}
+.prog i.on{background:var(--tuile)}
+.q{display:none;animation:fade .5s ease}
+.q.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.q h3{font-size:22px;font-weight:600;margin-bottom:6px}
+.q .hint{font-size:14.5px;color:var(--encre-2);margin-bottom:20px}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opt{border:1.5px solid var(--filet);background:#fff;border-radius:6px;padding:14px 14px;text-align:left;font:inherit;font-size:15px;cursor:pointer;display:flex;gap:12px;align-items:center;transition:border-color .25s,transform .25s,background .25s}
+.opt:hover{border-color:var(--encre);transform:translateY(-2px)}
+.opt.sel{border-color:var(--tuile);background:#fff7f3}
+.opt svg{width:34px;height:34px;flex:none}
+.opt svg *{fill:none;stroke:var(--encre);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.opt.multi::after{content:"";margin-left:auto;width:18px;height:18px;border:1.5px solid var(--encre-2);border-radius:4px;flex:none}
+.opt.multi.sel::after{background:var(--tuile);border-color:var(--tuile);box-shadow:inset 0 0 0 3px #fff7f3}
+.nav-q{display:flex;justify-content:space-between;margin-top:24px;gap:10px}
+.nav-q .btn[disabled]{opacity:.35;pointer-events:none}
+.feuille{background:#fbf9f4;color:var(--encre);border-radius:6px;padding:30px;position:relative;background-image:linear-gradient(var(--filet) 1px,transparent 1px),linear-gradient(90deg,var(--filet) 1px,transparent 1px);background-size:26px 26px;background-position:-1px -1px}
+.feuille::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(251,249,244,.86),rgba(251,249,244,.86));border-radius:6px}
+.feuille>*{position:relative}
+.feuille .titre{font-family:var(--f-main);font-size:30px;line-height:1.1;margin-bottom:4px}
+.feuille .sub{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--encre-2);margin-bottom:20px}
+.feuille ol{list-style:none;counter-reset:m}
+.feuille li{counter-increment:m;display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--filet);font-size:15px;animation:fade .45s ease both}
+.feuille li::before{content:counter(m,decimal-leading-zero);font-family:var(--f-main);font-size:22px;color:var(--tuile);min-width:28px;line-height:1.1}
+.feuille li b{display:block;font-weight:600}
+.feuille li span{color:var(--encre-2);font-size:14px}
+.feuille .vide{color:var(--encre-2);font-size:15px}
+.feuille .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.feuille .actions .btn{font-size:14px;padding:11px 18px}
+.cartouche{margin-top:22px;border:1.5px solid var(--encre);font-size:12px;display:grid;grid-template-columns:1fr 1fr}
+.cartouche div{padding:6px 10px;border-right:1px solid var(--encre);border-bottom:1px solid var(--encre)}
+.cartouche div:nth-child(2n){border-right:0}
+.cartouche div:nth-last-child(-n+2){border-bottom:0}
+.cartouche u{display:block;font-size:10.5px;color:var(--encre-2)}
+
+/* conseil gratuit */
+.conseil .wrap{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.conseil .img{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:1000/736;background:#fff;box-shadow:0 30px 60px -35px rgba(0,0,0,.45)}
+.conseil .img img{width:100%;height:100%;object-fit:contain}
+.conseil p{color:var(--encre-2);font-size:18px;margin:18px 0}
+.conseil .hand{font-size:30px}
+
+/* contact */
+.contact{background:var(--papier-2)}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.coords{list-style:none;margin-top:28px}
+.coords li{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--filet)}
+.coords li u{text-decoration:none;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--encre-2);min-width:110px;padding-top:3px}
+.coords a{text-decoration:none;border-bottom:1px solid var(--tuile)}
+form{background:var(--papier);border-radius:6px;padding:30px;display:grid;gap:14px}
+label{font-size:13px;letter-spacing:.06em;color:var(--encre-2)}
+input,textarea,select{width:100%;font:inherit;font-size:15.5px;padding:12px 14px;border:1.5px solid var(--filet);border-radius:5px;background:#fff;margin-top:5px;transition:border-color .25s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--encre)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ok{display:none;font-family:var(--f-main);font-size:24px;color:var(--tuile)}
+
+footer{background:var(--encre);color:rgba(247,244,238,.78);padding:60px 0 40px;font-size:14px}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:40px}
+footer b{color:var(--papier)}
+footer .mention{grid-column:1/-1;border-top:1px solid rgba(247,244,238,.18);padding-top:22px;font-size:12.5px;line-height:1.7;opacity:.85}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* responsive */
+@media (max-width:960px){
+  .nav ul,.nav .btn.top{display:none}
+  .burger{display:block}
+  .nav ul.open{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:var(--papier);padding:20px;gap:14px;border-bottom:1px solid var(--filet)}
+  .hero .wrap,.manifeste .wrap,.sec-head,.tool,.conseil .wrap,.contact .wrap,footer .wrap{grid-template-columns:1fr}
+  .hero-visual{max-width:480px;margin:20px auto 0;width:100%}
+  .services{grid-template-columns:1fr 1fr}
+  .process{grid-template-columns:1fr 1fr;row-gap:34px}
+  .process::before,.process .line{display:none}
+  .projets>*{grid-column:span 12!important;aspect-ratio:4/3!important}
+  section{padding:80px 0}
+}
+@media (max-width:560px){
+  .services,.opts,.row2{grid-template-columns:1fr}
+  .process{grid-template-columns:1fr}
+  .card,.feuille{padding:22px}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"ProfessionalService",
+ "name":"RELEV Architecture and Heritage",
+ "description":"Agence d'architecture du patrimoine : restauration, réhabilitation et diagnostics du bâti ancien.",
+ "founder":{"@type":"Person","name":"Elise Garcia","jobTitle":"Architecte HMONP"},
+ "foundingDate":"2025",
+ "address":{"@type":"PostalAddress","streetAddress":"11 Place du Puits","postalCode":"42310","addressLocality":"Le Crozet","addressRegion":"Auvergne-Rhône-Alpes","addressCountry":"FR"},
+ "telephone":"+33615636724",
+ "email":"elise.garcia@relevarchi.com",
+ "url":"https://relevarchi.com",
+ "areaServed":[{"@type":"AdministrativeArea","name":"Loire"},{"@type":"Place","name":"Roannais"},{"@type":"Place","name":"Le Crozet et 50 km alentour"}],
+ "knowsLanguage":["fr","en"]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — <b>proposition de site</b> pour RELEV Architecture and Heritage, non officielle.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="RELEV, accueil">
+      <!-- croquis simplifié de la Porte de Ville (le vrai logo dessiné est à fournir) -->
+      <svg viewBox="0 0 34 40" aria-hidden="true"><path d="M4 38V16L17 5l13 11v22" fill="none" stroke="#161514" stroke-width="1.8" stroke-linejoin="round"/><path d="M11 38V26a6 6 0 0 1 12 0v12" fill="none" stroke="#161514" stroke-width="1.8"/><path d="M4 16h26M17 5v11" stroke="#161514" stroke-width="1.2"/><path d="M1 38h32" stroke="#b5523b" stroke-width="2"/></svg>
+      <span><b>RELEV</b><small>Architecture &amp; Heritage</small></span>
+    </a>
+    <ul id="menu">
+      <li><a href="#agence">L'agence</a></li>
+      <li><a href="#missions">Missions</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#demarche">Démarche</a></li>
+      <li><a href="#commencer">Votre projet</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn top" href="#commencer">Parler de votre bâtiment</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="kicker rv">Architecte du patrimoine · Le Crozet, Loire</span>
+      <h1 class="rv d1">Donner une nouvelle vie à votre bâtiment, <em>sans le trahir.</em></h1>
+      <p class="lead rv d2">RELEV restaure et réhabilite le bâti ancien — petite maison médiévale, ferme à rénover, grenier à transformer ou four à pain à faire revivre — au cas par cas, avec des matériaux écologiques et des artisans locaux.</p>
+      <div class="ctas rv d3">
+        <a class="btn" href="#commencer">Par où commencer ? →</a>
+        <a class="btn ghost" href="tel:+33615636724">06 15 63 67 24</a>
+      </div>
+    </div>
+    <div class="hero-visual rv d2">
+      <div class="photo"><img src="assets/relev-architecture-le-crozet/porte-de-ville-le-crozet.webp" alt="La Porte de Ville du Crozet, future agence RELEV"></div>
+      <figure class="sketch" aria-hidden="true">
+        <svg viewBox="0 0 260 170" class="draw" id="sketch">
+          <path d="M20 160V70l40-38 40 38v90"/>
+          <path d="M44 160v-44a16 16 0 0 1 32 0v44"/>
+          <path d="M100 160V92h70v68"/>
+          <path d="M96 94l39-30 39 30"/>
+          <path d="M170 160V104h70v56"/>
+          <path d="M166 106l39-26 39 26"/>
+          <rect x="116" y="108" width="14" height="18"/><rect x="142" y="108" width="14" height="18"/>
+          <rect x="186" y="118" width="14" height="16"/><rect x="212" y="118" width="14" height="16"/>
+          <path d="M28 82h64M60 32v18"/>
+          <line x1="6" y1="160" x2="254" y2="160"/>
+        </svg>
+        <figcaption>Porte de Ville — Le Crozet</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTE -->
+<section class="manifeste" id="agence">
+  <div class="wrap">
+    <div class="rv">
+      <span class="num">l'agence</span>
+      <h2>Fondée en 2025, née d'une passion pour les vieilles pierres.</h2>
+      <div class="portrait">
+        <img src="assets/relev-architecture-le-crozet/elise-garcia.webp" alt="Elise Garcia, architecte">
+        <div><b>Elise Garcia</b><span>Architecte HMONP, fondatrice · inscrite à l'Ordre n° 090086</span></div>
+      </div>
+    </div>
+    <div class="rv d1">
+      <blockquote>« Chez RELEV, on travaille <strong>à la main, au cas par cas</strong>, avec attention et avec cœur. Ce n'est pas la taille du projet qui compte. »</blockquote>
+      <ul style="margin-top:36px">
+        <li><span>01</span><div>Une architecture contemporaine, nourrie de techniques traditionnelles, alliant respect du bâti existant, confort moderne et approche écologique.</div></li>
+        <li><span>02</span><div>Des projets en France et à l'international, des grands ensembles patrimoniaux aux maisons vernaculaires, avec la même exigence.</div></li>
+        <li><span>03</span><div>Particuliers, communes et associations : on fait ensemble, pas à pas, avec une vraie écoute de vos envies, de vos contraintes et de votre budget.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- MISSIONS -->
+<section id="missions">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv"><span class="num">nos missions</span><h2>De l'étude historique à la réception du chantier.</h2></div>
+      <p class="rv d1">Restauration, conservation, diagnostics patrimoniaux et interventions d'urgence — mise en sécurité, bâti en péril — notamment dans les centres anciens.</p>
+    </div>
+    <div class="services">
+      <article class="svc rv"><svg class="ico" viewBox="0 0 44 44"><path d="M8 38V12l14-6 14 6v26"/><path d="M14 18h16M14 24h16M14 30h10"/></svg><h3>Études historiques &amp; diagnostics</h3><p>Comprendre le bâtiment avant d'y toucher : son histoire, ses matériaux, ses pathologies.</p></article>
+      <article class="svc rv d1"><svg class="ico" viewBox="0 0 44 44"><path d="M6 36l10-10 6 6 16-18"/><circle cx="34" cy="10" r="4"/></svg><h3>Conception du projet de restauration</h3><p>Un projet complet, conçu sur mesure, qui adapte le lieu aux besoins d'aujourd'hui sans le dénaturer.</p></article>
+      <article class="svc rv d2"><svg class="ico" viewBox="0 0 44 44"><rect x="6" y="8" width="32" height="28"/><path d="M6 16h32M14 8v28"/><path d="M20 24l4 4 8-8"/></svg><h3>Plans, croquis &amp; dessins d'exécution</h3><p>Relevés à la main, plans détaillés, aquarelles d'état projeté : le projet se lit avant d'exister.</p></article>
+      <article class="svc rv"><svg class="ico" viewBox="0 0 44 44"><path d="M10 6h18l6 6v26H10z"/><path d="M16 18h12M16 24h12M16 30h8"/></svg><h3>Descriptifs de travaux par lot</h3><p>Des descriptifs clairs pour consulter les entreprises et comparer les devis sereinement.</p></article>
+      <article class="svc rv d1"><svg class="ico" viewBox="0 0 44 44"><path d="M6 38h32M10 38V20h24v18"/><path d="M14 20V10h16v10"/><path d="M18 28h8v10h-8z"/></svg><h3>Suivi de chantier</h3><p>Présence sur le chantier jusqu'à la réception des travaux.</p></article>
+      <article class="svc rv d2"><svg class="ico" viewBox="0 0 44 44"><path d="M12 34c0-8 4-12 10-12s10 4 10 12"/><circle cx="22" cy="14" r="6"/><path d="M6 40h32"/></svg><h3>Artisans, matériaux &amp; autoconstruction</h3><p>Aide au choix des artisans et des matériaux, voire accompagnement en autoconstruction si vous le souhaitez.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- CALQUE AVANT / APRES -->
+<section class="calque" id="calque">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv"><span class="num">du relevé au projet</span><h2>Tout commence par un relevé, à la main.</h2></div>
+      <p class="rv d1">Glissez le curseur : à gauche, la planche de relevé de l'état actuel ; à droite, l'aquarelle de l'état projeté. Deux planches de l'agence, superposées comme deux feuilles de calque.</p>
+    </div>
+    <div class="compare rv" id="compare" style="--pos:50%">
+      <img src="assets/relev-architecture-le-crozet/porte-de-ville-releve-main.jpg" alt="Planche de relevé de l'état actuel, dessinée à la main">
+      <img class="top" src="assets/relev-architecture-le-crozet/porte-de-ville-etat-projete.jpg" alt="Aquarelle de l'état projeté, Porte de Ville du Crozet">
+      <div class="bar"><div class="knob">⇆</div></div>
+      <span class="lbl l">Relevé · état actuel</span><span class="lbl r">État projeté</span>
+    </div>
+    <p class="note">Planches publiées par l'agence (relevé main daté du 04/04/2025 et état projeté de la Porte de Ville du Crozet).</p>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv"><span class="num">projets &amp; études</span><h2>Des grands ensembles aux maisons vernaculaires.</h2></div>
+      <p class="rv d1">Une sélection des études et projets publiés par l'agence. Cliquez sur un projet pour l'agrandir.</p>
+    </div>
+    <div class="filters rv" id="filters">
+      <button class="on" data-f="all">Tout</button>
+      <button data-f="loire">Loire</button>
+      <button data-f="france">France</button>
+      <button data-f="inter">International</button>
+    </div>
+    <div class="projets" id="grid">
+      <figure class="pj p1 contain rv" data-c="loire"><img src="assets/relev-architecture-le-crozet/porte-de-ville-plans.webp" alt="Porte de Ville du Crozet, élévations et plans"><figcaption><b>Agence RELEV — Porte de Ville</b><span>Le Crozet · monument historique · relevés et projet</span></figcaption></figure>
+      <figure class="pj p2 rv d1" data-c="france"><img src="assets/relev-architecture-le-crozet/grange-du-lot.webp" alt="Grange du Lot"><figcaption><b>Grange du Lot</b><span>Rénovation · maison de campagne</span></figcaption></figure>
+      <figure class="pj p3 contain rv" data-c="inter"><img src="assets/relev-architecture-le-crozet/farasan-aquarelle.jpg" alt="Aquarelle, patrimoine vernaculaire des îles Farasan"><figcaption><b>Îles Farasan</b><span>Étude du patrimoine vernaculaire</span></figcaption></figure>
+      <figure class="pj p4 contain rv d1" data-c="inter"><img src="assets/relev-architecture-le-crozet/maconnerie-bloc-de-gypse.jpg" alt="Consolidation de maçonnerie au bloc de gypse"><figcaption><b>Maçonnerie au bloc de gypse</b><span>Conservation · consolidation</span></figcaption></figure>
+      <figure class="pj p5 contain rv d2" data-c="france"><img src="assets/relev-architecture-le-crozet/grange-du-lot-charpente.webp" alt="Planche de charpente, Grange du Lot"><figcaption><b>Grange du Lot — charpente</b><span>Planche technique</span></figcaption></figure>
+      <figure class="pj p6 rv" data-c="france"><img src="assets/relev-architecture-le-crozet/maison-renovation-sejour.webp" alt="Maison individuelle, rénovation contemporaine"><figcaption><b>Maison individuelle</b><span>Rénovation · contemporain</span></figcaption></figure>
+      <figure class="pj p7 contain rv d1" data-c="france"><img src="assets/relev-architecture-le-crozet/maison-facade-aquarelle.webp" alt="Aquarelle de façade, maison individuelle"><figcaption><b>Façade à l'aquarelle</b><span>Maison individuelle · rénovation</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- DEMARCHE -->
+<section id="demarche" style="background:var(--papier-2)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv"><span class="num">la démarche</span><h2>On fait ensemble, pas à pas.</h2></div>
+      <p class="rv d1">On ne cherche pas à figer un bâtiment dans le passé, mais à le faire évoluer avec justesse, intelligence et simplicité.</p>
+    </div>
+    <div class="process" id="process">
+      <div class="line"></div>
+      <div class="step"><div class="dot">1</div><h3>Écouter</h3><p>Vos envies, vos contraintes, votre budget.</p></div>
+      <div class="step"><div class="dot">2</div><h3>Relever</h3><p>Étude historique, relevé et diagnostic du bâti.</p></div>
+      <div class="step"><div class="dot">3</div><h3>Concevoir</h3><p>Projet de restauration sur mesure, croquis et aquarelles.</p></div>
+      <div class="step"><div class="dot">4</div><h3>Détailler</h3><p>Plans d'exécution et descriptifs par lot.</p></div>
+      <div class="step"><div class="dot">5</div><h3>Choisir</h3><p>Artisans locaux et matériaux écologiques.</p></div>
+      <div class="step"><div class="dot">6</div><h3>Suivre</h3><p>Le chantier, jusqu'à la réception.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL -->
+<section class="outil" id="commencer">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="rv"><span class="num" style="color:var(--pierre)">votre projet</span><h2>Votre bâtiment ancien : <em>par où commencer ?</em></h2></div>
+      <p class="rv d1">Quatre questions, et votre feuille de route s'esquisse : les missions utiles à votre projet, dans l'ordre. Vous l'envoyez ensuite à l'agence en un clic, pour un premier échange.</p>
+    </div>
+    <div class="tool rv">
+      <div class="card">
+        <div class="prog" id="prog"><i class="on"></i><i></i><i></i><i></i></div>
+
+        <div class="q on" data-q="0">
+          <h3>Quel type de bâtiment ?</h3><p class="hint">Un seul choix.</p>
+          <div class="opts" data-name="bat">
+            <button class="opt" data-v="Maison de village / médiévale"><svg viewBox="0 0 34 34"><path d="M5 30V14L17 5l12 9v16"/><path d="M13 30v-8h8v8"/></svg>Maison de village ou médiévale</button>
+            <button class="opt" data-v="Ferme / corps de ferme"><svg viewBox="0 0 34 34"><path d="M3 30V16l9-7 9 7v14"/><path d="M21 30V18h10v12"/></svg>Ferme ou corps de ferme</button>
+            <button class="opt" data-v="Grange / grenier à transformer"><svg viewBox="0 0 34 34"><path d="M4 30V14L17 4l13 10v16z"/><path d="M12 30V20h10v10"/></svg>Grange ou grenier</button>
+            <button class="opt" data-v="Petit patrimoine (four à pain, lavoir…)"><svg viewBox="0 0 34 34"><path d="M6 28h22M9 28V18a8 8 0 0 1 16 0v10"/><path d="M14 28v-6h6v6"/></svg>Petit patrimoine (four à pain…)</button>
+            <button class="opt" data-v="Monument / bâtiment communal"><svg viewBox="0 0 34 34"><path d="M4 30h26M6 30V14h22v16M4 14L17 5l13 9"/><path d="M11 30V19M17 30V19M23 30V19"/></svg>Bâtiment communal / monument</button>
+            <button class="opt" data-v="Maison de ville / appartement"><svg viewBox="0 0 34 34"><rect x="8" y="5" width="18" height="25"/><path d="M12 10h3M19 10h3M12 16h3M19 16h3M15 30v-6h4v6"/></svg>Maison de ville, appartement</button>
+          </div>
+        </div>
+
+        <div class="q" data-q="1">
+          <h3>Dans quel état est-il ?</h3><p class="hint">Un seul choix.</p>
+          <div class="opts" data-name="etat">
+            <button class="opt" data-v="Habité, à adapter"><svg viewBox="0 0 34 34"><path d="M5 30V14L17 5l12 9v16"/><circle cx="17" cy="20" r="3"/></svg>Habité, à adapter</button>
+            <button class="opt" data-v="Inoccupé depuis longtemps"><svg viewBox="0 0 34 34"><path d="M5 30V14L17 5l12 9v16"/><path d="M12 18l10 8M22 18l-10 8"/></svg>Inoccupé depuis longtemps</button>
+            <button class="opt" data-v="Fissures, humidité, charpente à vérifier"><svg viewBox="0 0 34 34"><path d="M5 30V14L17 5l12 9v16"/><path d="M15 12l3 5-3 4 3 5"/></svg>Fissures, humidité, charpente…</button>
+            <button class="opt" data-v="En péril, mise en sécurité urgente"><svg viewBox="0 0 34 34"><path d="M17 4l14 26H3z"/><path d="M17 13v8M17 25v1"/></svg>En péril, urgent</button>
+          </div>
+        </div>
+
+        <div class="q" data-q="2">
+          <h3>Que voulez-vous en faire ?</h3><p class="hint">Plusieurs choix possibles.</p>
+          <div class="opts" data-name="projet" data-multi="1">
+            <button class="opt multi" data-v="Restaurer à l'identique">Restaurer à l'identique</button>
+            <button class="opt multi" data-v="Rénover pour y habiter">Rénover pour y habiter</button>
+            <button class="opt multi" data-v="Transformer / changer d'usage">Transformer, changer d'usage</button>
+            <button class="opt multi" data-v="Agrandir / surélever">Agrandir ou surélever</button>
+            <button class="opt multi" data-v="Améliorer le confort thermique">Améliorer le confort thermique</button>
+            <button class="opt multi" data-v="Faire une partie des travaux moi-même">Faire une partie moi-même</button>
+          </div>
+        </div>
+
+        <div class="q" data-q="3">
+          <h3>Où en êtes-vous ?</h3><p class="hint">Un seul choix.</p>
+          <div class="opts" data-name="stade">
+            <button class="opt" data-v="Je réfléchis à un achat">Je réfléchis à un achat</button>
+            <button class="opt" data-v="Je viens d'acheter">Je viens d'acheter</button>
+            <button class="opt" data-v="J'ai déjà des devis d'artisans">J'ai déjà des devis</button>
+            <button class="opt" data-v="Je représente une commune ou une association">Commune ou association</button>
+          </div>
+        </div>
+
+        <div class="nav-q">
+          <button class="btn ghost" id="prev" disabled>← Retour</button>
+          <button class="btn" id="next" disabled>Suivant →</button>
+        </div>
+      </div>
+
+      <div class="feuille" id="feuille">
+        <div class="titre">Votre feuille de route</div>
+        <div class="sub">esquisse indicative</div>
+        <ol id="route"><li style="animation:none"><div><b>Répondez aux questions</b><span>Les missions utiles à votre bâtiment s'afficheront ici, dans l'ordre.</span></div></li></ol>
+        <div class="cartouche" id="cart">
+          <div><u>Bâtiment</u><span data-k="bat">—</span></div><div><u>État</u><span data-k="etat">—</span></div>
+          <div><u>Projet</u><span data-k="projet">—</span></div><div><u>Stade</u><span data-k="stade">—</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn" id="send" href="#contact">Envoyer à l'agence</a>
+          <a class="btn ghost" href="tel:+33615636724">Appeler</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSEIL GRATUIT -->
+<section class="conseil">
+  <div class="wrap">
+    <div class="img rv"><img src="assets/relev-architecture-le-crozet/etat-actuel-etat-projete.webp" alt="Coupe état actuel et état projeté, Porte de Ville du Crozet"></div>
+    <div class="rv d1">
+      <span class="num">la porte de ville</span>
+      <h2>Une agence dans un monument historique.</h2>
+      <p>L'agence s'installe dans un petit monument historique : la Porte de Ville du Crozet, au cœur d'une petite cité de caractère. Un lieu manifeste, où RELEV met en œuvre ses propres convictions.</p>
+      <p><span class="hand">Une fois par mois,</span> l'agence ouvre ses portes pour une journée gratuite de conseil, dédiée à ceux qui veulent se lancer, poser des questions ou simplement en discuter.</p>
+      <a class="btn" href="#contact">Connaître la prochaine date</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="rv">
+      <span class="num">contact</span>
+      <h2>Parlons de votre bâtiment.</h2>
+      <ul class="coords">
+        <li><u>Agence</u><span>RELEV Architecture and Heritage<br>11 Place du Puits, 42310 Le Crozet</span></li>
+        <li><u>Téléphone</u><a href="tel:+33615636724">06 15 63 67 24</a></li>
+        <li><u>Email</u><a href="mailto:elise.garcia@relevarchi.com">elise.garcia@relevarchi.com</a></li>
+        <li><u>Interventions</u><span>Loire et Roannais (jusqu'à 50 km), France et international pour les études patrimoniales</span></li>
+        <li><u>Langues</u><span>Français, anglais</span></li>
+      </ul>
+    </div>
+    <form class="rv d1" id="form" onsubmit="return envoyer(event)">
+      <div class="row2"><div><label>Nom<input required name="nom"></label></div><div><label>Téléphone<input name="tel"></label></div></div>
+      <label>Email<input type="email" required name="email"></label>
+      <label>Commune du bâtiment<input name="commune" placeholder="ex. Le Crozet, Saint-Haon-le-Châtel…"></label>
+      <label>Votre projet<textarea rows="5" name="msg" id="msg" placeholder="Décrivez votre bâtiment et ce que vous souhaitez en faire."></textarea></label>
+      <button class="btn" type="submit">Envoyer ma demande</button>
+      <p class="ok" id="ok">Merci ! (démonstration : aucun envoi réel)</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>RELEV Architecture and Heritage</b><br>Agence d'architecture du patrimoine fondée en 2025 par Elise Garcia.<br>Architecte inscrite à l'Ordre · n° 090086 · SIRET 941 563 355 00010</div>
+    <div><b>Agence</b><br>11 Place du Puits<br>42310 Le Crozet</div>
+    <div><b>Contact</b><br>06 15 63 67 24<br>elise.garcia@relevarchi.com</div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non affiliée officiellement à l'agence. Textes repris des présentations publiées par RELEV (annuaire des Architectes du patrimoine, Trouver mon architecte). Toutes les images sont des planches et photos publiées par l'agence elle-même ; le logo dessiné réel est à fournir (pictogramme simplifié provisoire). Aucun site existant : couleurs tirées des aquarelles de l'agence, ajustables. La date des journées de conseil gratuit n'est pas affichée faute d'information publique. La feuille de route de l'outil est indicative et ne remplace pas l'avis de l'architecte.</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('loaded'));
+const nav=document.getElementById('nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+document.getElementById('burger').onclick=()=>document.getElementById('menu').classList.toggle('open');
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv,#process').forEach(el=>io.observe(el));
+
+// sketch drawing
+document.querySelectorAll('#sketch *').forEach((p,i)=>{const L=p.getTotalLength?p.getTotalLength():300;p.style.strokeDasharray=L;p.style.strokeDashoffset=L;p.style.transition=`stroke-dashoffset 1.6s ${0.4+i*0.12}s cubic-bezier(.4,.2,.2,1)`;requestAnimationFrame(()=>requestAnimationFrame(()=>p.style.strokeDashoffset=0))});
+
+// compare slider
+const cmp=document.getElementById('compare');let drag=false;
+const setPos=x=>{const r=cmp.getBoundingClientRect();const p=Math.max(2,Math.min(98,(x-r.left)/r.width*100));cmp.style.setProperty('--pos',p+'%')};
+cmp.addEventListener('pointerdown',e=>{drag=true;cmp.setPointerCapture(e.pointerId);setPos(e.clientX)});
+cmp.addEventListener('pointermove',e=>{if(drag)setPos(e.clientX)});
+cmp.addEventListener('pointerup',()=>drag=false);
+let hinted=false;new IntersectionObserver(es=>{if(es[0].isIntersecting&&!hinted){hinted=true;let t=0;const a=()=>{t+=.02;cmp.style.setProperty('--pos',(50+Math.sin(t*3)*18*Math.max(0,1-t/2))+'%');if(t<2)requestAnimationFrame(a)};a()}},{threshold:.5}).observe(cmp);
+
+// filters
+document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('#filters button').forEach(x=>x.classList.remove('on'));b.classList.add('on');const f=b.dataset.f;document.querySelectorAll('#grid .pj').forEach(p=>p.classList.toggle('hide',f!=='all'&&p.dataset.c!==f))});
+
+// lightbox
+const lb=document.createElement('div');lb.style.cssText='position:fixed;inset:0;background:rgba(22,21,20,.92);display:none;place-items:center;z-index:99;padding:24px;cursor:zoom-out';lb.innerHTML='<img style="max-width:100%;max-height:90vh;background:#fff;border-radius:3px">';document.body.appendChild(lb);lb.onclick=()=>lb.style.display='none';
+document.querySelectorAll('.pj').forEach(p=>p.onclick=()=>{lb.firstChild.src=p.querySelector('img').src;lb.style.display='grid'});
+
+// ---------- OUTIL feuille de route ----------
+const st={bat:null,etat:null,projet:[],stade:null};const keys=['bat','etat','projet','stade'];let cur=0;
+const qs=[...document.querySelectorAll('.q')],prev=document.getElementById('prev'),next=document.getElementById('next');
+document.querySelectorAll('.opts').forEach(g=>{const k=g.dataset.name,multi=g.dataset.multi;g.querySelectorAll('.opt').forEach(o=>o.onclick=()=>{
+  if(multi){o.classList.toggle('sel');st[k]=[...g.querySelectorAll('.sel')].map(x=>x.dataset.v)}
+  else{g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));o.classList.add('sel');st[k]=o.dataset.v;setTimeout(()=>{if(cur<3)go(1)},260)}
+  render()})});
+function ok(i){const v=st[keys[i]];return Array.isArray(v)?v.length>0:!!v}
+function go(d){cur=Math.max(0,Math.min(3,cur+d));qs.forEach((q,i)=>q.classList.toggle('on',i===cur));document.querySelectorAll('#prog i').forEach((b,i)=>b.classList.toggle('on',i<=cur));render()}
+prev.onclick=()=>go(-1);next.onclick=()=>{if(cur<3)go(1);else document.getElementById('feuille').scrollIntoView({behavior:'smooth',block:'center'})};
+function render(){
+  prev.disabled=cur===0;next.disabled=!ok(cur);next.textContent=cur<3?'Suivant →':'Voir ma feuille de route';
+  document.querySelectorAll('#cart span').forEach(s=>{const v=st[s.dataset.k];s.textContent=Array.isArray(v)?(v.join(', ')||'—'):(v||'—')});
+  const m=[];const P=st.projet||[];
+  if(st.stade==="Je réfléchis à un achat")m.push(['Visite conseil avant achat','Un regard d’architecte sur le bâtiment avant de vous engager.']);
+  if(st.etat==="En péril, mise en sécurité urgente")m.push(['Intervention d’urgence','Mise en sécurité du bâti en péril, avant toute autre étape.']);
+  if(st.bat)m.push(['Étude historique & diagnostic patrimonial','Comprendre l’histoire, les matériaux et l’état de votre '+st.bat.toLowerCase()+'.']);
+  if(st.etat==="Fissures, humidité, charpente à vérifier")m.push(['Diagnostic des désordres','Fissures, humidité, charpente : identifier les causes avant de réparer.']);
+  if(P.length)m.push(['Conception du projet sur mesure',P.includes("Restaurer à l'identique")?'Restauration fidèle, avec les techniques traditionnelles.':'Adapter le lieu aux usages d’aujourd’hui, sans le dénaturer.']);
+  if(P.includes("Améliorer le confort thermique"))m.push(['Rénovation énergétique adaptée au bâti ancien','Matériaux écologiques compatibles avec les murs anciens.']);
+  if(P.includes("Agrandir / surélever")||P.includes("Transformer / changer d'usage"))m.push(['Plans & permis de construire','Dossier d’autorisation et plans détaillés.']);
+  if(P.length)m.push(['Plans d’exécution & descriptifs par lot','Pour consulter les artisans et comparer les devis.']);
+  if(st.stade==="J'ai déjà des devis d'artisans")m.push(['Relecture de vos devis','Vérifier qu’ils répondent bien aux besoins du bâtiment.']);
+  if(P.length)m.push(['Choix des artisans locaux & des matériaux','Valoriser les savoir-faire vernaculaires.']);
+  if(P.includes("Faire une partie des travaux moi-même"))m.push(['Accompagnement en autoconstruction','Vous guider sur les travaux que vous faites vous-même.']);
+  if(P.length)m.push(['Suivi de chantier jusqu’à la réception','Présence sur le chantier, du premier jour à la réception.']);
+  const r=document.getElementById('route');
+  r.innerHTML=m.length?m.map((x,i)=>`<li style="animation-delay:${i*.06}s"><div><b>${x[0]}</b><span>${x[1]}</span></div></li>`).join(''):'<li style="animation:none"><div><b>Répondez aux questions</b><span>Les missions utiles à votre bâtiment s’afficheront ici, dans l’ordre.</span></div></li>';
+  const txt=`Bonjour,\n\nMon bâtiment : ${st.bat||'-'}\nÉtat : ${st.etat||'-'}\nProjet : ${(P.join(', '))||'-'}\nOù j'en suis : ${st.stade||'-'}\n\nFeuille de route esquissée :\n${m.map((x,i)=>(i+1)+'. '+x[0]).join('\n')}\n\nJe souhaiterais en discuter avec vous.`;
+  document.getElementById('msg').value=m.length?txt:'';
+  document.getElementById('send').href='mailto:elise.garcia@relevarchi.com?subject='+encodeURIComponent('Mon bâtiment ancien — premier échange')+'&body='+encodeURIComponent(txt);
+}
+render();
+function envoyer(e){e.preventDefault();document.getElementById('ok').style.display='block';return false}
+</script>
+</body>
+</html>
