@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fil de forge — Artisan coutelier dans le Roannais | Couteaux sur mesure</title>
+<meta name="description" content="Fil de forge, artisan coutelier dans le Roannais : couteaux pliants, de cuisine et fixes forgés à la main, pièces uniques et sur mesure, restauration et affûtage.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE FIL DE FORGE — reprise du site actuel (fildeforge.com)
+   Fond sombre #1e1e1e, texte #e8e3e4, accent vieux rose #b76579,
+   titres Playfair Display, texte Source Sans (Pro / 3).
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --bg:#1e1e1e;          /* fond principal du site actuel */
+  --bg-deep:#141414;     /* variante plus profonde pour alterner les sections */
+  --bg-raise:#262626;    /* cartes */
+  --text:#e8e3e4;        /* texte du site actuel */
+  --muted:#a0a0a0;       /* gris secondaire du site actuel */
+  --accent:#b76579;      /* couleur des boutons du site actuel */
+  --accent-soft:rgba(183,101,121,.16);
+  --line:rgba(232,227,228,.12);
+  --ember:#e96f05;       /* lueur de forge (uniquement pour les étincelles) */
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:"Source Sans 3","Source Sans Pro",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.15}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.eyebrow{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.9em 1.6em;background:var(--accent);color:#fff;text-decoration:none;border:1px solid var(--accent);font-weight:600;letter-spacing:.04em;cursor:pointer;font-family:var(--sans);font-size:.95rem;transition:transform .25s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px);background:transparent;color:var(--text)}
+.btn--ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+/* bandeau démo */
+.demo{background:var(--accent);color:#fff;text-align:center;font-size:.8rem;padding:.45em 1em;letter-spacing:.03em}
+
+/* fil : le tranchant qui se dessine au défilement */
+.edge{position:fixed;left:0;top:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,transparent,var(--accent) 30%,#fff 50%,var(--accent) 70%);z-index:60}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(30,30,30,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:background .3s}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.8em;text-decoration:none}
+.brand img{width:54px;height:auto;background:#000;border-radius:50%}
+.brand span{font-family:var(--serif);font-size:1.35rem}
+.menu{display:flex;gap:2rem;list-style:none}
+.menu a{text-decoration:none;font-size:.95rem;color:var(--muted);position:relative;padding:.3em 0;transition:color .2s}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover,.menu a.on{color:var(--text)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;color:var(--text);width:44px;height:44px;cursor:pointer}
+@media(max-width:860px){
+  .menu{position:fixed;inset:74px 0 auto 0;flex-direction:column;gap:0;background:var(--bg-deep);border-bottom:1px solid var(--line);transform:translateY(-160%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s}
+  .menu.open{transform:none;visibility:visible}
+  .menu a{display:block;padding:1em 20px;border-top:1px solid var(--line)}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 100px);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:3rem;padding:4rem 0;overflow:hidden}
+#sparks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.8}
+.hero__txt{position:relative;z-index:2}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.2vw,5.4rem);margin:.4em 0 .35em}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero__lines{list-style:none;margin:0 0 2.2rem;border-left:1px solid var(--accent);padding-left:1.2rem}
+.hero__lines li{font-size:1.1rem;color:var(--muted);opacity:0;transform:translateX(-12px);animation:in .8s var(--ease) forwards}
+.hero__lines li:nth-child(1){animation-delay:.5s}.hero__lines li:nth-child(2){animation-delay:.65s}.hero__lines li:nth-child(3){animation-delay:.8s}
+@keyframes in{to{opacity:1;transform:none}}
+.hero__cta{display:flex;gap:1rem;flex-wrap:wrap}
+.hero__img{position:relative;z-index:2;justify-self:center;height:min(76vh,680px);aspect-ratio:857/2000;max-width:100%}
+.hero__img img{width:100%;height:100%;object-fit:cover;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+.hero__img::before{content:"";position:absolute;inset:10% -60%;background:radial-gradient(closest-side,rgba(183,101,121,.25),transparent);z-index:-1}
+@keyframes float{50%{transform:translateY(-12px) rotate(.6deg)}}
+.hero__tag{position:absolute;right:-1rem;bottom:12%;background:var(--bg-raise);border:1px solid var(--line);padding:.6em .9em;font-size:.8rem;color:var(--muted);max-width:200px}
+.hero__tag b{display:block;color:var(--text);font-weight:600}
+@media(max-width:860px){.hero{grid-template-columns:1fr;text-align:left;padding-top:2.5rem}.hero__img{height:56vh}.hero__tag{right:0}}
+
+/* sections */
+section{padding:clamp(4rem,8vw,7.5rem) 0}
+.alt{background:var(--bg-deep)}
+.head{max-width:720px;margin-bottom:3rem}
+.head h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.4rem);margin:.35em 0 .4em}
+.head p{color:var(--muted)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vis{opacity:1;transform:none}
+
+/* philosophie */
+.philo{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.philo blockquote{font-family:var(--serif);font-size:clamp(1.4rem,1rem + 1.4vw,2.1rem);font-style:italic;line-height:1.35}
+.philo blockquote strong{color:var(--accent);font-weight:400}
+.philo__imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.philo__imgs img{aspect-ratio:1;object-fit:cover;width:100%;filter:grayscale(.25);transition:filter .5s,transform .6s var(--ease)}
+.philo__imgs img:hover{filter:none;transform:scale(1.02)}
+.philo__imgs img:nth-child(2){margin-top:3rem}
+@media(max-width:860px){.philo{grid-template-columns:1fr;gap:2.5rem}}
+
+/* étapes de fabrication */
+.steps{display:flex;flex-wrap:wrap;gap:.6rem 0;margin-top:3rem;border-top:1px solid var(--line);padding-top:2rem}
+.steps span{font-family:var(--serif);font-size:clamp(1.2rem,.9rem + 1.2vw,1.9rem);color:var(--muted);transition:color .4s}
+.steps span:not(:last-child)::after{content:"·";margin:0 .7em;color:var(--accent)}
+.steps span.hot{color:var(--text)}
+.steps-note{margin-top:1.2rem;color:var(--muted);font-size:.95rem}
+
+/* prestations */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{background:var(--bg-raise);border:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;transition:border-color .3s,transform .4s var(--ease)}
+.card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.card figure{aspect-ratio:3/2;overflow:hidden}
+.card figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover figure img{transform:scale(1.06)}
+.card div{padding:1.4rem 1.4rem 1.6rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.card h3{font-size:1.45rem}
+.card p{color:var(--muted);font-size:.95rem}
+.card .pill{align-self:flex-start;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);padding:.25em .7em}
+.card a.more{margin-top:auto;color:var(--accent);text-decoration:none;font-weight:600;font-size:.9rem}
+@media(max-width:1000px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+
+/* galerie */
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.filters button{background:none;border:1px solid var(--line);color:var(--muted);padding:.55em 1.1em;font-family:var(--sans);font-size:.9rem;cursor:pointer;transition:all .25s}
+.filters button.on,.filters button:hover{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}
+.grid{columns:3 280px;column-gap:16px}
+.item{break-inside:avoid;margin-bottom:16px;position:relative;cursor:zoom-in;overflow:hidden;background:#000;transition:opacity .4s,transform .4s var(--ease)}
+.item img{width:100%;transition:transform .8s var(--ease),opacity .4s}
+.item:hover img{transform:scale(1.04);opacity:.85}
+.item figcaption{position:absolute;inset:auto 0 0 0;padding:2.2rem 1rem .9rem;background:linear-gradient(transparent,rgba(0,0,0,.85));font-size:.85rem;transform:translateY(100%);transition:transform .45s var(--ease)}
+.item:hover figcaption,.item:focus-visible figcaption{transform:none}
+.item figcaption b{display:block;font-family:var(--serif);font-weight:400;font-size:1.05rem;color:#fff}
+.item.hide{display:none}
+.gal-note{margin-top:1.5rem;color:var(--muted);font-size:.95rem;max-width:760px}
+.lb{position:fixed;inset:0;background:rgba(10,10,10,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:4vh 4vw;flex-direction:column;gap:1rem}
+.lb.open{display:flex}
+.lb img{max-height:80vh;max-width:100%;object-fit:contain}
+.lb p{color:var(--muted);text-align:center;max-width:640px}
+.lb p b{display:block;color:var(--text);font-family:var(--serif);font-weight:400;font-size:1.2rem}
+.lb button{position:absolute;background:none;border:1px solid var(--line);color:var(--text);width:48px;height:48px;font-size:1.4rem;cursor:pointer}
+.lb .x{top:20px;right:20px}.lb .pv{left:20px;top:50%}.lb .nx{right:20px;top:50%}
+
+/* configurateur */
+.conf{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:start}
+.preview{position:sticky;top:100px;background:radial-gradient(ellipse at 50% 40%,#2e2a2b,#161616 70%);border:1px solid var(--line);padding:2rem 1.5rem 1.5rem}
+.preview svg{width:100%;height:auto;display:block}
+.preview .lbl{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.recap{margin-top:1.2rem;border-top:1px solid var(--line);padding-top:1rem;display:grid;grid-template-columns:auto 1fr;gap:.35rem 1rem;font-size:.92rem}
+.recap dt{color:var(--muted)}
+.recap dd{color:var(--text)}
+.blade-path,.handle-path{transition:d .6s var(--ease),fill .5s}
+.knife{transition:transform .6s var(--ease)}
+.knife.swap{transform:translateX(-14px) rotate(-1.5deg)}
+.stepbox{border-top:1px solid var(--line);padding:1.5rem 0}
+.stepbox h3{font-size:1.3rem;display:flex;gap:.8rem;align-items:baseline;margin-bottom:.4rem}
+.stepbox h3 small{font-family:var(--sans);color:var(--accent);font-size:.8rem;letter-spacing:.15em}
+.stepbox .hint{color:var(--muted);font-size:.9rem;margin-bottom:1rem}
+.opts{display:flex;flex-wrap:wrap;gap:.5rem}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:inline-flex;align-items:center;gap:.5em;border:1px solid var(--line);padding:.55em 1em;cursor:pointer;font-size:.92rem;color:var(--muted);transition:all .25s;user-select:none}
+.opt label i{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(255,255,255,.25)}
+.opt input:checked+label{border-color:var(--accent);color:var(--text);background:var(--accent-soft)}
+.opt input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+.opt label:hover{color:var(--text)}
+.range{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;margin:.4rem 0}
+.range input{accent-color:var(--accent);width:100%}
+.range output{min-width:4.5em;text-align:right;font-variant-numeric:tabular-nums}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fields input,.fields textarea,.fields select{width:100%;background:var(--bg-raise);border:1px solid var(--line);color:var(--text);padding:.8em .9em;font-family:var(--sans);font-size:.95rem}
+.fields textarea{grid-column:1/-1;min-height:90px;resize:vertical}
+.fields input:focus,.fields textarea:focus{border-color:var(--accent);outline:none}
+.send{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-top:1.4rem}
+.send small{color:var(--muted);font-size:.82rem}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,150%);background:var(--accent);color:#fff;padding:.8em 1.4em;z-index:120;transition:transform .4s var(--ease)}
+.toast.show{transform:translate(-50%,0)}
+@media(max-width:960px){.conf{grid-template-columns:1fr}.preview{position:relative;top:0}.fields{grid-template-columns:1fr}}
+
+/* engagement */
+.promise{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+.promise div{padding:2rem;border-right:1px solid var(--line)}
+.promise div:last-child{border-right:0}
+.promise b{font-family:var(--serif);font-weight:400;font-size:1.35rem;display:block;margin-bottom:.4rem}
+.promise p{color:var(--muted);font-size:.95rem}
+.promise svg{width:34px;height:34px;stroke:var(--accent);fill:none;stroke-width:1.3;margin-bottom:1rem}
+@media(max-width:760px){.promise{grid-template-columns:1fr}.promise div{border-right:0;border-bottom:1px solid var(--line)}}
+
+/* affûtage pros */
+.pro{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.pro img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.pro ol{list-style:none;counter-reset:s;margin:1.4rem 0 2rem}
+.pro li{counter-increment:s;display:flex;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line);color:var(--muted)}
+.pro li::before{content:"0" counter(s);font-family:var(--serif);color:var(--accent);font-size:1.2rem;min-width:2em}
+@media(max-width:860px){.pro{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem}
+.contact h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.4rem);margin:.3em 0 .6em}
+.coords{display:grid;gap:1rem}
+.coords a,.coords div{display:flex;gap:1rem;align-items:flex-start;text-decoration:none;padding:1.1rem 1.2rem;border:1px solid var(--line);transition:border-color .25s,background .25s}
+.coords a:hover{border-color:var(--accent);background:var(--accent-soft)}
+.coords svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.5;flex:none;margin-top:3px}
+.coords small{display:block;color:var(--muted);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+.map{border:1px solid var(--line);min-height:320px;filter:grayscale(1) invert(.9) contrast(.9)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding:2.5rem 0;color:var(--muted);font-size:.85rem}
+footer .row{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer .disc{margin-top:1.5rem;font-size:.8rem;line-height:1.6;max-width:900px}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}#sparks{display:none}.hero__lines li{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Fil de forge",
+  "description":"Artisan coutelier sur la région Roannaise : créations artisanales contemporaines, pièces uniques et sur-mesure, 100 % fait main. Coutellerie, restauration, affûtage.",
+  "url":"https://www.fildeforge.com/",
+  "telephone":"+33628846489",
+  "email":"fildeforge@gmail.com",
+  "founder":{"@type":"Person","name":"Loïc Massardier"},
+  "address":{"@type":"PostalAddress","streetAddress":"1031 rue Jules Ferry","postalCode":"42120","addressLocality":"Commelle-Vernay","addressCountry":"FR"},
+  "areaServed":["Roannais","Roanne","Commelle-Vernay"],
+  "image":"https://www.fildeforge.com/wp-content/uploads/go-x/u/283fa341-6433-4be5-bdc2-fbc7afacbc0a/image-384x324.png",
+  "sameAs":["https://www.instagram.com/fil_de_forge","https://www.facebook.com/profile.php?id=100088043790543"]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de refonte du site Fil de forge</div>
+<div class="edge" id="edge"></div>
+
+<header>
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a href="#accueil" class="brand"><img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/283fa341-6433-4be5-bdc2-fbc7afacbc0a/image-256x216.png" alt="Logo Fil de forge"><span>Fil de forge</span></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#atelier">L'atelier</a></li>
+      <li><a href="#prestations">Prestations &amp; services</a></li>
+      <li><a href="#couteaux">Couteaux</a></li>
+      <li><a href="#sur-mesure">Sur mesure</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#sur-mesure" class="btn">Composer mon couteau</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" fill="none" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+  </nav>
+</header>
+
+<main>
+<section class="wrap hero" id="accueil" style="padding-top:3rem">
+  <canvas id="sparks" aria-hidden="true"></canvas>
+  <div class="hero__txt">
+    <p class="eyebrow">Artisan coutelier sur la région Roannaise</p>
+    <h1>Fil de forge,<br>des couteaux <em>forgés</em> à la main</h1>
+    <ul class="hero__lines">
+      <li>Créations artisanales contemporaines</li>
+      <li>Pièces uniques et sur-mesure</li>
+      <li>100% fait main</li>
+    </ul>
+    <div class="hero__cta">
+      <a href="#sur-mesure" class="btn">Composer mon couteau sur mesure</a>
+      <a href="#couteaux" class="btn btn--ghost">Voir les créations</a>
+    </div>
+  </div>
+  <div class="hero__img">
+    <img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/98ef219e-f938-4584-b8c2-20447abe7324/l237,t0,w857,h2000/image-384x896.jpg" alt="Couteau pliant Fil de forge, lame damas et manche en loupe de bois">
+    <div class="hero__tag"><b>Pièces uniques</b>Chaque couteau est numéroté et livré avec son certificat d'authenticité</div>
+  </div>
+</section>
+
+<section class="alt" id="atelier">
+  <div class="wrap">
+    <div class="philo">
+      <div class="reveal">
+        <p class="eyebrow">L'atelier — Notre philosophie</p>
+        <blockquote style="margin-top:1.2rem">« Tout comme la nature peut être à la fois brute et poétique, nous souhaitons amener de la <strong>délicatesse</strong> et une <strong>âme</strong> dans chaque couteau que nous créons. »</blockquote>
+        <p style="color:var(--muted);margin-top:1.4rem">La fabrication d'un couteau est tout un paradoxe : températures extrêmes, force brute pour le façonnage, précision des découpes et des assemblages, noblesse des matières, pragmatisme de la fonction. Ces paradoxes sont, pour nous, l'âme d'un couteau FIL DE FORGE.</p>
+      </div>
+      <div class="philo__imgs reveal">
+        <img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/1cf213d5-bb95-4bc2-a61b-417cafe7e0d3/l0,t0,w1500,h1500/image-768x768.jpg" alt="Marteau de forge posé sur l'enclume" loading="lazy">
+        <img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/ec3bc501-629b-4a35-b5e4-2930bb0b1de2/l196,t0,w808,h808/image-768x768.jpg" alt="Bois et résine bleue, matière de manche" loading="lazy">
+      </div>
+    </div>
+    <div class="steps reveal" id="steps" aria-label="Étapes de fabrication">
+      <span>Forgées</span><span>trempées</span><span>assemblées</span><span>affûtées</span><span>taillées</span><span>poncées</span>
+    </div>
+    <p class="steps-note reveal">Nos couteaux (lames et manches) sont des pièces uniques, entièrement réalisées dans notre atelier.</p>
+  </div>
+</section>
+
+<section id="prestations">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Prestations &amp; services</p>
+      <h2>Du couteau neuf à la pièce ancienne</h2>
+      <p>Pour toute demande particulière, non répertoriée dans notre liste, n'hésitez pas à nous contacter.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal">
+        <figure><img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/0db4ccbd-584f-4046-a3e9-73d8a6349c05/l0,t0,w500,h333/image.jpg" alt="Lame chauffée au rouge sous le marteau" loading="lazy"></figure>
+        <div><h3>Coutellerie</h3><p>Forge et fabrication sur mesure. Créations contemporaines, pièces uniques, haut de gamme. Que vous soyez professionnel de l'hôtellerie, particulier, ou passionné, nous créons ensemble un design qui vous correspond.</p><a class="more" href="#sur-mesure">Composer mon couteau →</a></div>
+      </article>
+      <article class="card reveal">
+        <figure><img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/dc43fc1d-e302-4285-ad95-ac8c758432f4/l0,t0,w360,h240/image.jpg" alt="Bois brut" loading="lazy"></figure>
+        <div><h3>Restauration / Réparations</h3><p>Restauration lames et manches de pièces anciennes. Vous disposez de pièces d'art, d'anciens couteaux n'ayant pas été entretenus de nombreuses années ? Après diagnostic, nous leur redonnons leur lustre d'antan.</p><a class="more" href="#contact">Demander un diagnostic →</a></div>
+      </article>
+      <article class="card reveal">
+        <figure><img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/f0345223-80d1-4255-9086-aa0764b135fe/l0,t0,w2000,h1332/image-768x511.jpg" alt="Affûtage d'une lame sur la meule" loading="lazy"></figure>
+        <div><h3>Affûtage / Aiguisage</h3><p>Couteaux et outils, pour particuliers et professionnels. Possibilité d'abonnement pour les professionnels de l'hôtellerie : nous venons chercher les couteaux et vous les ramenons.</p><a class="more" href="#pros">Formule professionnels →</a></div>
+      </article>
+      <article class="card reveal">
+        <figure><img src="https://www.fildeforge.com/wp-content/uploads/go-x/u/6fb3f613-c45d-422e-a15b-94ec35bb66d6/l0,t0,w1000,h666/image-768x511.jpg" alt="Enclume dans l'atelier" loading="lazy"></figure>
+        <div><span class="pill">En cours d'élaboration</span><h3>Stages</h3><p>Initiation aux techniques et savoir-faire de la forge et de la coutellerie. Objectif du stage : repartir avec votre propre couteau.</p><a class="more" href="#contact">Être prévenu de l'ouverture →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="couteaux">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Couteaux</p>
+      <h2>Des modèles dessinés à l'atelier</h2>
+      <p>Le design des modèles présentés a été dessiné par nos soins et porte l'identité « FIL DE FORGE ». Tous nos couteaux sont réalisés intégralement à la main dans notre atelier et sont disponibles à la vente.</p>
+    </div>
+    <div class="filters" role="toolbar" aria-label="Filtrer les couteaux">
+      <button class="on" data-f="all">Tous</button>
+      <button data-f="bateleur">Pliant le Bateleur</button>
+      <button data-f="promethee">Pliant Prométhée</button>
+      <button data-f="liner">Pliant liner-lock</button>
+      <button data-f="cuisine">Cuisine &amp; table</button>
+      <button data-f="fixe">Fixes &amp; EDC</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="gal-note reveal">Dans notre gamme, nous pouvons personnaliser nos modèles : dimensions, type d'acier, type de manche (bois nobles, bois stabilisés, résines, inclusions, cordage, guillochage…).</p>
+  </div>
+</section>
+
+<section id="sur-mesure">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Création sur mesure</p>
+      <h2>Composez votre couteau, on établit le devis</h2>
+      <p>Design, type d'acier, taille lame/manche et équilibre selon votre main, profil et finition : choisissez vos pistes, le récapitulatif part directement à l'atelier pour établir votre projet et un devis.</p>
+    </div>
+    <div class="conf">
+      <div class="preview reveal" aria-live="polite">
+        <div class="lbl"><span id="pvType">Chef</span><span id="pvLen">20 cm</span></div>
+        <svg viewBox="50 85 590 105" role="img" aria-label="Aperçu schématique du couteau">
+          <defs>
+            <linearGradient id="gSteel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1f1f1"/><stop offset=".5" stop-color="#bfc3c7"/><stop offset="1" stop-color="#8d9196"/></linearGradient>
+            <linearGradient id="gCarbon" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9a9a9a"/><stop offset=".55" stop-color="#5d5d5d"/><stop offset="1" stop-color="#3b3b3b"/></linearGradient>
+            <pattern id="pDamas" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#c9ccd0"/><path d="M0 8 Q15 0 30 8 T60 8 M0 16 Q15 8 30 16 T60 16 M0 24 Q15 16 30 24 T60 24" stroke="#7d8287" stroke-width="2" fill="none"/></pattern>
+            <pattern id="pSumi" width="80" height="40" patternUnits="userSpaceOnUse"><rect width="80" height="40" fill="#d3d6d9"/><path d="M0 12 C20 2 40 22 80 10 M0 26 C25 16 50 34 80 24 M0 36 C30 28 50 40 80 34" stroke="#6f747a" stroke-width="1.6" fill="none"/></pattern>
+            <pattern id="pCuMai" width="60" height="30" patternUnits="userSpaceOnUse"><rect width="60" height="30" fill="#c8c5c0"/><path d="M0 10 Q15 2 30 10 T60 10 M0 22 Q15 14 30 22 T60 22" stroke="#b07a52" stroke-width="2.2" fill="none"/></pattern>
+            <linearGradient id="gShine" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+            <clipPath id="clipBlade"><path id="clipPath" d=""/></clipPath>
+          </defs>
+          <g class="knife" id="knife">
+            <path class="handle-path" id="handle" d="" fill="#7a5a3a" stroke="rgba(0,0,0,.4)"/>
+            <g id="pins"></g>
+            <path class="blade-path" id="blade" d="" fill="url(#gSteel)" stroke="rgba(0,0,0,.35)"/>
+            <rect id="shine" x="-120" y="0" width="90" height="220" fill="url(#gShine)" clip-path="url(#clipBlade)"/>
+            <circle cx="0" cy="0" r="0" id="mark"/>
+          </g>
+          <line x1="60" y1="182" x2="630" y2="182" stroke="rgba(232,227,228,.15)"/>
+        </svg>
+        <dl class="recap" id="recap"></dl>
+      </div>
+
+      <form id="form" onsubmit="return false">
+        <div class="stepbox">
+          <h3><small>01</small> Design</h3>
+          <p class="hint">Les familles de couteaux que l'atelier réalise sur mesure.</p>
+          <div class="opts" id="o-type"></div>
+        </div>
+        <div class="stepbox">
+          <h3><small>02</small> Acier de la lame</h3>
+          <p class="hint">Aciers déjà travaillés à l'atelier ; d'autres sont possibles sur demande.</p>
+          <div class="opts" id="o-steel"></div>
+        </div>
+        <div class="stepbox">
+          <h3><small>03</small> Manche</h3>
+          <p class="hint">Bois nobles, bois stabilisés, résines, matériaux composites…</p>
+          <div class="opts" id="o-handle"></div>
+        </div>
+        <div class="stepbox">
+          <h3><small>04</small> Dimensions &amp; prise en main</h3>
+          <div class="range"><label for="len">Longueur de lame</label><input type="range" id="len" min="6" max="26" value="20"><output id="lenOut">20 cm</output></div>
+          <div class="opts" id="o-hand" style="margin-top:.8rem"></div>
+        </div>
+        <div class="stepbox">
+          <h3><small>05</small> Finitions &amp; détails</h3>
+          <div class="opts" id="o-extra"></div>
+        </div>
+        <div class="stepbox">
+          <h3><small>06</small> Vos coordonnées</h3>
+          <div class="fields">
+            <input id="fName" placeholder="Nom" autocomplete="name">
+            <input id="fPhone" placeholder="Téléphone" autocomplete="tel">
+            <select id="fWho"><option>Particulier</option><option>Passionné / collectionneur</option><option>Professionnel de l'hôtellerie</option><option>Idée cadeau</option></select>
+            <input id="fWhen" placeholder="Échéance souhaitée (facultatif)">
+            <textarea id="fMsg" placeholder="Votre projet en quelques mots : usage, gravure, inspiration…"></textarea>
+          </div>
+          <div class="send">
+            <button class="btn" id="sendBtn" type="button">Envoyer ma demande de devis</button>
+            <button class="btn btn--ghost" id="copyBtn" type="button">Copier le récapitulatif</button>
+            <small>Aucun paiement en ligne : l'atelier revient vers vous pour affiner le projet et établir le devis.</small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="promise reveal">
+      <div><svg viewBox="0 0 24 24"><path d="M4 20h16M6 16l8-12 4 3-8 12H6z"/></svg><b>Numéroté</b><p>Chaque couteau est numéroté : une pièce unique, forgée, trempée, assemblée, affûtée, taillée et poncée à l'atelier.</p></div>
+      <div><svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z M9 9h6 M9 13h6 M9 17h4"/></svg><b>Guide d'entretien</b><p>Livré avec un guide d'entretien pour garder le tranchant et la beauté des matières.</p></div>
+      <div><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg><b>Certificat d'authenticité</b><p>Un certificat accompagne chaque création FIL DE FORGE.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pros">
+  <div class="wrap pro">
+    <div class="reveal">
+      <p class="eyebrow">Professionnels de l'hôtellerie</p>
+      <h2 style="font-size:clamp(1.9rem,1.3rem + 2vw,3rem);margin:.35em 0 .5em">Affûtage sur abonnement, sans quitter votre cuisine</h2>
+      <p style="color:var(--muted)">Affûtage et aiguisage de couteaux et outils pour les professionnels, avec possibilité d'abonnement.</p>
+      <ol>
+        <li>Vous indiquez le nombre de couteaux et le rythme souhaité.</li>
+        <li>Nous venons chercher les couteaux.</li>
+        <li>Nous vous les ramenons affûtés.</li>
+      </ol>
+      <div class="fields" style="margin-bottom:1rem">
+        <input id="pEtab" placeholder="Établissement">
+        <select id="pFreq"><option>Rythme à définir ensemble</option><option>Toutes les 2 semaines</option><option>Tous les mois</option><option>Tous les 2 mois</option></select>
+        <input id="pNb" type="number" min="1" placeholder="Nombre de couteaux (environ)">
+        <input id="pTel" placeholder="Téléphone">
+      </div>
+      <button class="btn" id="proBtn" type="button">Demander l'abonnement affûtage</button>
+    </div>
+    <img class="reveal" src="https://www.fildeforge.com/wp-content/uploads/go-x/u/f0345223-80d1-4255-9086-aa0764b135fe/l0,t0,w2000,h1332/image-768x511.jpg" alt="Affûtage à la meule" loading="lazy">
+  </div>
+</section>
+
+<section class="alt" id="contact">
+  <div class="wrap contact">
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
+      <h2>Parlons de votre couteau</h2>
+      <div class="coords">
+        <a href="tel:+33628846489"><svg viewBox="0 0 24 24"><path d="M5 3h4l2 5-3 2a11 11 0 0 0 6 6l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2"/></svg><span><small>Téléphone</small>06 28 84 64 89</span></a>
+        <a href="mailto:fildeforge@gmail.com"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3z M3 6l9 7 9-7"/></svg><span><small>E-mail</small>fildeforge@gmail.com</span></a>
+        <div><svg viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span><small>Siège</small>Fil de forge — Loïc Massardier<br>1031 rue Jules Ferry, 42120 Commelle-Vernay</span></div>
+        <a href="https://www.instagram.com/fil_de_forge" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg><span><small>Instagram</small>@fil_de_forge</span></a>
+        <a href="https://www.facebook.com/profile.php?id=100088043790543" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z"/></svg><span><small>Facebook</small>Fil de forge</span></a>
+      </div>
+    </div>
+    <div class="map reveal">
+      <iframe title="Carte — Commelle-Vernay" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.02%2C45.98%2C4.12%2C46.03&amp;layer=mapnik"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span>© Fil de forge — Artisan coutelier, région Roannaise · SIRET 480 250 901 00026</span>
+      <span>Mentions légales</span>
+    </div>
+    <p class="disc">Maquette de démonstration non contractuelle, réalisée à partir du site actuel fildeforge.com. Toutes les photos sont celles publiées par Fil de forge sur son site ; textes, modèles, aciers et matériaux repris du site actuel. Couleurs et typographies reprises du site actuel (fond sombre, vieux rose, Playfair Display / Source Sans), ajustables. Aucun prix n'est affiché : le configurateur sert à préparer une demande de devis. L'aperçu du couteau est schématique.</p>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button>
+  <img id="lbImg" alt=""><p id="lbCap"></p>
+</div>
+<div class="toast" id="toast">Récapitulatif copié</div>
+
+<script>
+const U='https://www.fildeforge.com/wp-content/uploads/go-x/u/';
+/* ---------- Galerie : photos et légendes réelles du site actuel ---------- */
+const G=[
+ ['bateleur','245c7f22-fe59-46b2-a35d-a3b7ebff6b63/image-577x384.jpg','Pliant liner-lock le Bateleur','Lame en Damas inox Damasteel, manche en loupe de noyer stabilisée et mitres en ivoire de Mammouth'],
+ ['bateleur','96c48f3d-c51d-40ed-810c-f4eb6cf58d14/image-577x384.jpg','Pliant liner-lock le Bateleur','Lame en Cu-Mai Takefu Token V2, manche en loupe de Buckeye stabilisée'],
+ ['bateleur','7b628790-9079-4b4a-8fb1-c3127992304e/image-384x512.jpg','Pliant liner-lock le Bateleur','Lame en Cu-Mai Takefu Token V2, manche en olivier'],
+ ['bateleur','85e56cac-500f-41e6-9cfb-eace99aa77f2/image-384x512.jpg','Pliant liner-lock le Bateleur','Lame en inox RWL34, manche hybride morta, résine et texallium'],
+ ['bateleur','525dd0bf-ed01-4342-a1ab-17205fe75d5d/image-384x512.jpg','Pliant liner-lock le Bateleur','Lame en inox 14C28N, manche en olivier'],
+ ['bateleur','9ee27698-6f5a-41a6-93f4-5e61d4d88558/image-512x384.jpg','Pliant liner-lock le Bateleur','Lame en Suminagashi VG10, manche en érable ondé stabilisé'],
+ ['bateleur','273a51bf-ee01-4eac-84ac-4e46a99fb046/image-384x512.jpg','Pliant liner-lock le Bateleur','Lame en inox Suminagashi VG10, manche hybride olivier et résine'],
+ ['bateleur','6306a8dd-0b25-4d44-88a2-4d2fe3c6bee8/image-577x384.jpg','Pliant liner-lock le Bateleur','Lames en inox 14C28N, Suminagashi VG10 ou RWL34'],
+ ['promethee','8180001f-e0fe-4715-9ee9-a92f9b7fecea/image-577x384.jpg','Pliant liner-lock Prométhée','Lame en damas inox Damasteel et manche en ivoire de Mammouth'],
+ ['promethee','0335bd04-3453-4646-b9bd-4f368e4e8828/image-577x384.jpg','Pliant liner-lock Prométhée','Lame en damas inox Damasteel et manche en os de girafe'],
+ ['promethee','7e4179de-b431-4cdf-ad92-8cf143f9486e/image-384x512.jpg','Pliant liner-lock Prométhée','Lame en inox RWL34, manche hybride texallium, résine et manguier ondé'],
+ ['promethee','1dd22ab2-3c27-4e19-af16-0700558f5fd9/image-384x512.jpg','Pliant liner-lock Prométhée','Lame en inox Suminagashi VG10, manche en loupe de Bois de Fer'],
+ ['promethee','993d822b-0d2c-44e7-8007-b514112afb27/image-512x384.jpg','Pliant liner-lock Prométhée','Lame en Suminagashi VG10 et manche en corne de Buffle'],
+ ['liner','26ac2ba4-c52a-434c-b184-d47b23a7f999/image-512x384.jpg','Pliant liner-lock','Lame en inox RWL34, manche micarta'],
+ ['liner','473e8122-6ce6-404a-86e0-95d8a915196a/image-384x512.jpg','Pliant liner-lock','Lame en inox Suminagashi VG10, manche en olivier'],
+ ['liner','1e676bdc-34ef-45fc-b99a-61add67429f5/image-512x384.jpg','Pliant liner-lock','Lame en inox RWL34, manche Elforyn ivory grained'],
+ ['liner','013311f3-dc60-4925-b0a5-0fdda302e48b/image-384x512.jpg','Pliant liner-lock','Lame en inox 14C28N, manche en Raffir Noble Lune bleue'],
+ ['cuisine','9c686f54-530b-4ed8-9dff-a4276b65c181/l0,t0,w1500,h2000/image-768x1024.jpg','Couteaux de cuisine','Chef, mini-chef, santoku, office : acier inoxydable 14C28N, manches en bois stabilisés'],
+ ['cuisine','8eab0721-8250-4960-b86c-33b64f4ec90e/l0,t0,w2000,h1500/image-768x576.jpg','Couteaux de table','Lame en acier inoxydable 14C28N, manches en bouleau madré teinté stabilisé, rivets inox'],
+ ['cuisine','5d3a361f-8be3-47d7-ba5c-23ca3f270686/l0,t0,w1500,h2000/image-256x341.jpg','Couteaux de cuisine','Manches en morta, loupe de peuplier, loupe d\'orme, ébène… stabilisés'],
+ ['fixe','97446540-4e6f-49e5-a34a-cec3be05fb7f/l0,t0,w1500,h2000/image-768x1024.jpg','Utilitaire EDC minimaliste','Acier 80CRV2 de 5 ou 8 mm, finition slashwash (perchlorure de fer + huile)'],
+ ['fixe','7433b09f-32c3-4614-87d2-28ce80a29641/l0,t0,w2000,h1500/image-768x576.jpg','Couteau fixe','80CRV2 ou inox 14C28N, manche hybride, résine ou bois divers'],
+ ['fixe','2a7aa07c-ed08-40e0-bee9-457372e07eb8/l0,t0,w1500,h2000/image-768x1024.jpg','Couteau fixe multi-usages vitaminé','Lame 80CRV2 de 4,2 mm, manche micarta bicolore, rivet mosaïque, passe-dragonne laiton, paracorde blanc'],
+];
+const grid=document.getElementById('grid');
+G.forEach((g,i)=>{const f=document.createElement('figure');f.className='item reveal';f.dataset.cat=g[0];f.tabIndex=0;f.dataset.i=i;
+ f.innerHTML=`<img src="${U+g[1]}" alt="${g[2]} — ${g[3]}" loading="lazy"><figcaption><b>${g[2]}</b>${g[3]}</figcaption>`;grid.appendChild(f);});
+document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.toggle('on',x===b));
+ grid.querySelectorAll('.item').forEach(it=>{it.classList.toggle('hide',!(b.dataset.f==='all'||it.dataset.cat===b.dataset.f));it.classList.add('vis');});});
+/* lightbox */
+const lb=document.getElementById('lb');let cur=0;
+const vis=()=>[...grid.querySelectorAll('.item:not(.hide)')].map(e=>+e.dataset.i);
+function show(i){cur=i;const g=G[i];lbImg.src=U+g[1];lbImg.alt=g[2];lbCap.innerHTML=`<b>${g[2]}</b>${g[3]}`;lb.classList.add('open');}
+grid.addEventListener('click',e=>{const it=e.target.closest('.item');if(it)show(+it.dataset.i)});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter'){const it=e.target.closest('.item');if(it)show(+it.dataset.i)}});
+function step(d){const v=vis();const k=v.indexOf(cur);show(v[(k+d+v.length)%v.length]);}
+lb.querySelector('.x').onclick=()=>lb.classList.remove('open');lb.querySelector('.pv').onclick=()=>step(-1);lb.querySelector('.nx').onclick=()=>step(1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+
+/* ---------- Configurateur ---------- */
+/* Formes schématiques : lame [chemin], manche [chemin], longueur par défaut */
+const TYPES={
+ chef:{n:'Chef',len:20,blade:'M250 112 L250 150 L560 150 Q600 148 618 118 Q560 104 250 112 Z',handle:'M70 116 Q60 132 70 148 L250 152 L250 112 Z'},
+ japonais:{n:'Japonais',len:21,blade:'M250 108 L250 150 L580 150 L620 104 Z',handle:'M90 114 L90 146 L250 150 L250 110 Z'},
+ office:{n:'Office',len:10,blade:'M250 120 L250 146 L460 146 Q490 140 500 124 Q430 116 250 120 Z',handle:'M110 120 Q100 133 110 146 L250 148 L250 118 Z'},
+ table:{n:'Table',len:11,blade:'M250 122 L250 144 L470 144 Q500 140 508 128 Q440 120 250 122 Z',handle:'M100 118 Q88 133 100 148 L250 146 L250 120 Z'},
+ chasse:{n:'Chasse',len:12,blade:'M250 112 L250 150 Q420 160 520 128 Q470 112 430 116 L430 104 Q340 110 250 112 Z',handle:'M110 108 Q90 130 104 156 L250 152 L250 110 Z'},
+ tactique:{n:'Tactique',len:11,blade:'M250 110 L250 150 L470 150 L530 116 L470 104 L420 110 Z',handle:'M110 112 L104 150 L250 152 L250 108 Z'},
+ pliant:{n:'Pliant',len:8,blade:'M300 118 L300 146 Q420 152 500 128 Q440 112 300 118 Z',handle:'M110 112 Q96 132 112 152 L300 148 Q312 132 300 116 Z'},
+ utilitaire:{n:'Utilitaire',len:9,blade:'M250 112 L250 150 L450 150 L490 112 Z',handle:'M120 112 L120 150 L250 150 L250 112 Z'}
+};
+const STEELS={
+ '14C28N':{n:'Inox 14C28N',fill:'url(#gSteel)'},
+ 'RWL34':{n:'Inox RWL34',fill:'url(#gSteel)'},
+ 'VG10':{n:'Suminagashi VG10',fill:'url(#pSumi)'},
+ 'Damasteel':{n:'Damas inox Damasteel',fill:'url(#pDamas)'},
+ 'CuMai':{n:'Cu-Mai Takefu Token V2',fill:'url(#pCuMai)'},
+ '80CRV2':{n:'Carbone 80CRV2',fill:'url(#gCarbon)'}
+};
+const HANDLES={
+ olivier:{n:'Olivier',c:'#a88a55'},noyer:{n:'Loupe de noyer stabilisée',c:'#5e3b24'},erable:{n:'Érable ondé stabilisé',c:'#d2b48a'},
+ morta:{n:'Morta',c:'#2b2421'},bouleau:{n:'Bouleau madré stabilisé',c:'#7a4e3a'},buffle:{n:'Corne de buffle',c:'#1c1a1a'},
+ micarta:{n:'Micarta',c:'#3d4a3a'},resine:{n:'Hybride bois & résine',c:'#2e5d8a'},raffir:{n:'Raffir / composite',c:'#2a4a7a'},
+ elforyn:{n:'Elforyn ivory',c:'#e9e1cf'},mammouth:{n:'Ivoire de Mammouth',c:'#d9cbb0'}
+};
+const HAND={droitier:'Droitier',gaucher:'Gaucher'};
+const EXTRAS={guillo:'Guillochage',cordage:'Cordage / paracorde',inclusion:'Inclusions',mitres:'Mitres',gravure:'Gravure / personnalisation'};
+const st={type:'chef',steel:'14C28N',handle:'olivier',hand:'droitier',extra:new Set(),len:20};
+function opts(id,obj,key,multi,swatch){const box=document.getElementById(id);
+ Object.entries(obj).forEach(([k,v])=>{const lab=typeof v==='string'?v:v.n;const d=document.createElement('div');d.className='opt';
+  const inp=`<input type="${multi?'checkbox':'radio'}" name="${key}" id="${key}-${k}" value="${k}" ${!multi&&st[key]===k?'checked':''}>`;
+  d.innerHTML=inp+`<label for="${key}-${k}">${swatch&&v.c?`<i style="background:${v.c}"></i>`:''}${lab}</label>`;box.appendChild(d);
+  d.querySelector('input').onchange=e=>{if(multi){e.target.checked?st.extra.add(k):st.extra.delete(k)}else{st[key]=k;if(key==='type'){st.len=TYPES[k].len;len.value=st.len}}render(key==='type')};});}
+opts('o-type',TYPES,'type');opts('o-steel',STEELS,'steel');opts('o-handle',HANDLES,'handle',false,true);opts('o-hand',HAND,'hand');opts('o-extra',EXTRAS,'extra',true);
+const len=document.getElementById('len');len.oninput=()=>{st.len=+len.value;render()};
+function render(anim){
+ const t=TYPES[st.type],k=document.getElementById('knife');
+ if(anim){k.classList.add('swap');setTimeout(()=>k.classList.remove('swap'),350);}
+ blade.setAttribute('d',t.blade);clipPath.setAttribute('d',t.blade);handle.setAttribute('d',t.handle);
+ blade.setAttribute('fill',STEELS[st.steel].fill);handle.setAttribute('fill',HANDLES[st.handle].c);
+ /* longueur : légère mise à l'échelle de la lame */
+ const s=.8+(st.len-6)/20*.35;blade.style.transform=clipPath.style.transform=`translateX(${250*(1-s)}px) scaleX(${s})`;
+ const pins=document.getElementById('pins');pins.innerHTML='';
+ if(st.type!=='pliant'&&st.type!=='japonais')[150,205].forEach(x=>pins.innerHTML+=`<circle cx="${x}" cy="131" r="4.5" fill="#c9c9c9" stroke="#555"/>`);
+ if(st.extra.has('cordage'))pins.innerHTML+=`<path d="M105 132 q-30 10 -40 40 q20 -6 34 -26" stroke="#eee" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+ if(st.extra.has('mitres'))pins.innerHTML+=`<rect x="236" y="${st.type==='pliant'?116:110}" width="14" height="42" fill="#d9cbb0"/>`;
+ pvType.textContent=t.n+' · '+HAND[st.hand];pvLen.textContent=st.len+' cm de lame';lenOut.textContent=st.len+' cm';
+ recap.innerHTML=[['Design',t.n],['Acier',STEELS[st.steel].n],['Manche',HANDLES[st.handle].n],['Lame',st.len+' cm (indicatif)'],['Prise en main',HAND[st.hand]],['Finitions',[...st.extra].map(e=>EXTRAS[e]).join(', ')||'—']].map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('');
+}
+render();
+/* reflet qui passe sur la lame */
+(function shineLoop(){const r=document.getElementById('shine');let x=-120;function f(){x+=4;if(x>720)x=-400;r.setAttribute('x',x);requestAnimationFrame(f)}if(!matchMedia('(prefers-reduced-motion:reduce)').matches)f();})();
+function recapText(){const t=TYPES[st.type];return `Projet de couteau sur mesure
+Design : ${t.n}
+Acier : ${STEELS[st.steel].n}
+Manche : ${HANDLES[st.handle].n}
+Longueur de lame souhaitée : ${st.len} cm (indicatif)
+Prise en main : ${HAND[st.hand]}
+Finitions : ${[...st.extra].map(e=>EXTRAS[e]).join(', ')||'aucune précisée'}
+
+Profil : ${fWho.value}
+Échéance : ${fWhen.value||'non précisée'}
+Projet : ${fMsg.value||'—'}
+
+${fName.value||''} ${fPhone.value?'— '+fPhone.value:''}`;}
+sendBtn.onclick=()=>{location.href='mailto:fildeforge@gmail.com?subject='+encodeURIComponent('Demande de devis — couteau sur mesure ('+TYPES[st.type].n+')')+'&body='+encodeURIComponent(recapText());};
+const toast=document.getElementById('toast');
+copyBtn.onclick=async()=>{try{await navigator.clipboard.writeText(recapText());}catch(e){}toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2000);};
+proBtn.onclick=()=>{const b=`Demande d'abonnement affûtage
+Établissement : ${pEtab.value||'—'}
+Nombre de couteaux (environ) : ${pNb.value||'—'}
+Rythme : ${pFreq.value}
+Téléphone : ${pTel.value||'—'}`;location.href='mailto:fildeforge@gmail.com?subject='+encodeURIComponent('Abonnement affûtage — professionnel')+'&body='+encodeURIComponent(b);};
+
+/* ---------- Menu mobile, reveal, fil de progression, étapes ---------- */
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const edge=document.getElementById('edge');
+const secs=[...document.querySelectorAll('main section[id]')];const links=[...menu.querySelectorAll('a')];
+addEventListener('scroll',()=>{const h=document.documentElement;edge.style.transform=`scaleX(${h.scrollTop/(h.scrollHeight-h.clientHeight)})`;
+ let id='accueil';secs.forEach(s=>{if(s.getBoundingClientRect().top<140)id=s.id});links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+id));},{passive:true});
+/* les étapes s'allument comme une lame qui chauffe */
+const stp=[...document.querySelectorAll('#steps span')];
+new IntersectionObserver((es,o)=>{if(es[0].isIntersecting){stp.forEach((s,i)=>setTimeout(()=>s.classList.add('hot'),250*i));o.disconnect()}},{threshold:.5}).observe(document.getElementById('steps'));
+
+/* ---------- Étincelles de forge dans le premier écran ---------- */
+(function(){const c=document.getElementById('sparks');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;const x=c.getContext('2d');let W,H,P=[];
+ function rs(){W=c.width=c.offsetWidth*devicePixelRatio;H=c.height=c.offsetHeight*devicePixelRatio}rs();addEventListener('resize',rs);
+ function spawn(){P.push({x:W*(.62+Math.random()*.2),y:H*.98,vx:(Math.random()-.5)*2.2*devicePixelRatio,vy:-(2+Math.random()*4)*devicePixelRatio,l:1})}
+ (function loop(){if(P.length<70&&Math.random()<.5)spawn();x.clearRect(0,0,W,H);
+  P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.025*devicePixelRatio;p.l-=.008;x.globalAlpha=Math.max(p.l,0);x.fillStyle=p.l>.6?'#ffd27a':'#e96f05';x.fillRect(p.x,p.y,2*devicePixelRatio,2*devicePixelRatio)});
+  P=P.filter(p=>p.l>0&&p.y>0);requestAnimationFrame(loop)})();})();
+</script>
+</body>
+</html>
