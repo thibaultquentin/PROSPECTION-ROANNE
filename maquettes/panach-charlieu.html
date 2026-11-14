@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panach — Magasin de producteurs à Charlieu | Paysans &amp; artisans locaux</title>
+<meta name="description" content="Panach, Paysans &amp; Artisans Autour de Charlieu : un magasin de producteurs rue Charles de Gaulle à Charlieu, avec des produits de fermes situées à moins de 80 km.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — Panach n'a pas de site : aucune charte graphique
+   n'a pu être récupérée (page Facebook non lisible sans compte).
+   Couleurs et polices ci-dessous = proposition provisoire,
+   à remplacer en quelques lignes par le logo / les couleurs réels.
+   ========================================================== */
+:root{
+  --vert:#2f4a2c;        /* vert profond (couleur principale provisoire) */
+  --vert-2:#4d6b3c;
+  --moutarde:#d9a520;    /* accent : blé / moutarde */
+  --sauge:#eef1e7;       /* fond clair */
+  --papier:#fbfbf6;
+  --encre:#1d2619;
+  --gris:#5d6658;
+  --ligne:#d6dccb;
+  --font-titre:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-texte:"Inter",system-ui,sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--encre);background:var(--sauge);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--moutarde);outline-offset:3px;border-radius:6px}
+
+/* bandeau démo */
+.demo{background:var(--encre);color:#e8eadf;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--moutarde)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(238,241,231,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--ligne);box-shadow:0 6px 24px rgba(29,38,25,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo-mark{width:42px;height:42px;border-radius:50%;background:var(--vert);display:grid;place-items:center;color:var(--moutarde);font-family:var(--font-titre);font-weight:800;font-size:1.15rem}
+.logo-txt{font-family:var(--font-titre);font-weight:800;font-size:1.35rem;letter-spacing:.02em;line-height:1}
+.logo-txt small{display:block;font-family:var(--font-texte);font-weight:500;font-size:.68rem;letter-spacing:.04em;color:var(--gris);margin-top:3px}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative}
+.menu a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--moutarde);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.statut{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;padding:.45rem .8rem;border-radius:99px;background:#fff;border:1px solid var(--ligne);white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#b9412f;box-shadow:0 0 0 0 rgba(185,65,47,.5)}
+.statut.ouvert .dot{background:#3d9a46;animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(61,154,70,.55)}70%{box-shadow:0 0 0 9px rgba(61,154,70,0)}100%{box-shadow:0 0 0 0 rgba(61,154,70,0)}}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.9rem 1.4rem;border-radius:99px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-size:1rem;transition:transform .25s var(--ease),box-shadow .25s,background .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--vert);color:#fff;box-shadow:0 10px 24px rgba(47,74,44,.25)}
+.btn-main:hover{background:var(--vert-2)}
+.btn-alt{background:#fff;color:var(--vert);border:1.5px solid var(--vert)}
+.btn-jaune{background:var(--moutarde);color:var(--encre)}
+
+/* hero */
+.hero{padding:clamp(2.5rem,6vw,5rem) 0 3rem;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--vert-2)}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--moutarde)}
+h1{font-family:var(--font-titre);font-weight:800;font-size:clamp(2.5rem,1.6rem + 4.2vw,5.2rem);line-height:.98;letter-spacing:-.025em;margin:1rem 0 1.2rem}
+h1 em{font-style:normal;color:var(--vert-2);position:relative;white-space:nowrap}
+h1 em svg{position:absolute;left:0;bottom:-.12em;width:100%;height:.3em}
+h1 em svg path{stroke:var(--moutarde);stroke-width:6;fill:none;stroke-linecap:round;stroke-dasharray:400;stroke-dashoffset:400;animation:trait 1.2s .6s var(--ease) forwards}
+@keyframes trait{to{stroke-dashoffset:0}}
+.lead{font-size:clamp(1.05rem,1rem + .3vw,1.2rem);color:var(--gris);max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-facts{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid var(--ligne)}
+.hero-facts div{font-size:.88rem;color:var(--gris)}
+.hero-facts strong{display:block;font-family:var(--font-titre);font-size:1.35rem;color:var(--encre)}
+.hero-visual{position:relative;aspect-ratio:4/4.4}
+.hv{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:0 24px 50px rgba(29,38,25,.18)}
+.hv img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.hv:hover img{transform:scale(1.06)}
+.hv1{inset:0 18% 22% 0}
+.hv2{width:46%;height:42%;right:0;bottom:0;border:6px solid var(--sauge)}
+.tag-illu{position:absolute;left:10px;bottom:10px;background:rgba(29,38,25,.72);color:#fff;font-size:.68rem;padding:.2rem .5rem;border-radius:6px;letter-spacing:.02em}
+.badge-km{position:absolute;top:8%;right:4%;width:120px;height:120px;border-radius:50%;background:var(--moutarde);display:grid;place-items:center;text-align:center;font-family:var(--font-titre);font-weight:800;line-height:1;box-shadow:0 14px 30px rgba(217,165,32,.35);animation:flotte 6s ease-in-out infinite}
+.badge-km span{font-size:2.1rem;display:block}
+.badge-km small{font-family:var(--font-texte);font-size:.7rem;font-weight:600}
+.badge-km svg{position:absolute;inset:-14px;animation:tourne 18s linear infinite}
+@keyframes tourne{to{transform:rotate(360deg)}}
+@keyframes flotte{50%{transform:translateY(-10px)}}
+
+/* bandeau défilant */
+.ticker{background:var(--vert);color:#fff;overflow:hidden;padding:1rem 0;transform:rotate(-1.2deg);margin:1rem -2vw 0}
+.ticker-track{display:flex;gap:2.4rem;width:max-content;animation:defile 38s linear infinite;font-family:var(--font-titre);font-weight:700;font-size:1.4rem}
+.ticker-track span{display:flex;align-items:center;gap:2.4rem}
+.ticker-track span::after{content:"✳";color:var(--moutarde)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+.s-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
+h2{font-family:var(--font-titre);font-weight:800;font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);line-height:1.02;letter-spacing:-.02em;max-width:14em}
+.s-head p{max-width:30em;color:var(--gris)}
+
+/* concept */
+.concept{background:var(--papier)}
+.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.c-card{background:var(--sauge);border-radius:var(--r);padding:2rem 1.6rem;position:relative;overflow:hidden;transition:transform .4s var(--ease)}
+.c-card:hover{transform:translateY(-6px)}
+.c-num{font-family:var(--font-titre);font-weight:800;font-size:3.4rem;color:var(--moutarde);line-height:1}
+.c-card h3{font-family:var(--font-titre);font-size:1.35rem;margin:.8rem 0 .5rem}
+.c-card p{color:var(--gris);font-size:.96rem}
+
+/* rayons */
+.rayons-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.rayon{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;background:var(--vert);color:#fff;isolation:isolate}
+.rayon img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--ease)}
+.rayon::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,38,25,0) 35%,rgba(29,38,25,.85));z-index:-1}
+.rayon:hover img{transform:scale(1.08)}
+.rayon-txt{position:absolute;left:1.2rem;right:1.2rem;bottom:1.1rem}
+.rayon h3{font-family:var(--font-titre);font-size:1.3rem}
+.rayon p{font-size:.84rem;opacity:.9;max-height:0;overflow:hidden;transition:max-height .5s var(--ease)}
+.rayon:hover p,.rayon:focus-within p{max-height:6em}
+.rayon .tag-illu{left:auto;right:10px;top:10px;bottom:auto}
+.rayon-vide{background:repeating-linear-gradient(45deg,#e3e8d8 0 12px,#eef1e7 12px 24px);color:var(--vert);display:grid;place-items:center;text-align:center;padding:1rem}
+.rayon-vide::before{display:none}
+.note{font-size:.82rem;color:var(--gris);margin-top:1rem}
+
+/* OUTIL : panier */
+.outil{background:var(--vert);color:#fff;border-radius:32px;margin-inline:16px;position:relative;overflow:hidden}
+.outil h2{color:#fff}
+.outil .s-head p{color:#cfd8c6}
+.outil-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:1.6rem;align-items:start}
+.chips-groupe{margin-bottom:1.4rem}
+.chips-groupe h3{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--moutarde);margin-bottom:.6rem;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:1.5px solid rgba(255,255,255,.28);background:transparent;color:#fff;padding:.55rem .95rem;border-radius:99px;font:500 .9rem var(--font-texte);cursor:pointer;transition:all .25s var(--ease);min-height:40px}
+.chip:hover{border-color:var(--moutarde);transform:translateY(-2px)}
+.chip[aria-pressed="true"]{background:var(--moutarde);color:var(--encre);border-color:var(--moutarde)}
+.chip[aria-pressed="true"]::before{content:"✓ "}
+.panier{background:var(--papier);color:var(--encre);border-radius:24px;padding:1.6rem;position:sticky;top:96px}
+.panier-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.panier h3{font-family:var(--font-titre);font-size:1.4rem}
+.compteur{min-width:40px;height:40px;border-radius:50%;background:var(--vert);color:#fff;display:grid;place-items:center;font-weight:700;transition:transform .3s var(--ease)}
+.compteur.bump{transform:scale(1.25)}
+.liste{list-style:none;min-height:110px;max-height:240px;overflow:auto;border-top:1px dashed var(--ligne);border-bottom:1px dashed var(--ligne);padding:.6rem 0;margin-bottom:1rem}
+.liste li{display:flex;justify-content:space-between;align-items:center;padding:.3rem 0;font-size:.95rem;animation:entre .35s var(--ease)}
+.liste li small{color:var(--gris);font-size:.75rem}
+.liste li button{background:none;border:0;color:var(--gris);cursor:pointer;font-size:1.1rem;width:32px;height:32px}
+.liste .vide{color:var(--gris);font-style:italic;justify-content:center;padding-top:2rem}
+@keyframes entre{from{opacity:0;transform:translateX(-8px)}}
+.prochain{background:var(--sauge);border-radius:14px;padding:.9rem 1rem;margin-bottom:1rem;font-size:.9rem}
+.prochain strong{display:block;font-family:var(--font-titre);font-size:1.15rem;color:var(--vert)}
+.panier-actions{display:grid;gap:.6rem}
+.panier-actions .btn{justify-content:center;width:100%;font-size:.95rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8rem 1.2rem;border-radius:12px;font-size:.9rem;transition:transform .4s var(--ease);z-index:99}
+.toast.show{transform:translate(-50%,0)}
+
+/* carte 80 km */
+.carte-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.radar{position:relative;aspect-ratio:1;max-width:520px;width:100%;margin-inline:auto}
+.radar svg{width:100%;height:100%}
+.radar .onde{fill:none;stroke:var(--vert-2);stroke-opacity:.35;transform-origin:center;animation:onde 4s var(--ease) infinite}
+.radar .onde:nth-of-type(2){animation-delay:1.3s}
+.radar .onde:nth-of-type(3){animation-delay:2.6s}
+@keyframes onde{from{transform:scale(.05);opacity:1}to{transform:scale(1);opacity:0}}
+.ville circle{fill:var(--vert)}
+.ville text{font:600 13px var(--font-texte);fill:var(--encre)}
+.ville.prod circle{fill:var(--moutarde);stroke:var(--vert);stroke-width:2}
+.legende{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.85rem;color:var(--gris);margin-top:1rem}
+.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:.4rem;vertical-align:-1px}
+
+/* horaires & contact */
+.infos{background:var(--papier)}
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.carte-info{background:var(--sauge);border-radius:24px;padding:2rem}
+.carte-info h3{font-family:var(--font-titre);font-size:1.5rem;margin-bottom:1rem}
+.jours{list-style:none}
+.jours li{display:flex;justify-content:space-between;padding:.65rem 0;border-bottom:1px solid var(--ligne)}
+.jours li.auj{font-weight:700;color:var(--vert)}
+.jours li.auj::before{content:"Aujourd'hui";font-size:.7rem;background:var(--moutarde);color:var(--encre);padding:.1rem .45rem;border-radius:6px;margin-right:auto;margin-left:.6rem;order:2;align-self:center}
+.jours li span:first-child{order:1}
+.jours li span:last-child{order:3}
+.ferme{color:var(--gris)}
+.contact-lignes{display:grid;gap:1rem;margin-bottom:1.4rem}
+.contact-lignes a,.contact-lignes div{display:flex;gap:.8rem;align-items:flex-start;text-decoration:none}
+.ico{width:42px;height:42px;flex:none;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:1.1rem}
+.contact-lignes small{display:block;color:var(--gris);font-size:.8rem}
+.photo-vide{margin-top:1.2rem;border:2px dashed var(--ligne);border-radius:16px;padding:1.4rem;text-align:center;color:var(--gris);font-size:.88rem}
+
+/* cta final */
+.cta-final{text-align:center}
+.cta-final h2{margin-inline:auto}
+.cta-final p{color:var(--gris);margin:1rem auto 1.8rem;max-width:34em}
+
+footer{background:var(--encre);color:#c9cfbf;padding:3rem 0 2rem;font-size:.88rem}
+.foot-grid{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+footer .logo-txt{color:#fff}
+footer a{color:#fff}
+.mention{border-top:1px solid #3a4535;padding-top:1.4rem;font-size:.78rem;line-height:1.7;color:#a3ab99}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+
+@media (max-width:960px){
+  .hero-grid,.outil-grid,.carte-grid,.infos-grid{grid-template-columns:1fr}
+  .rayons-grid{grid-template-columns:repeat(2,1fr)}
+  .concept-grid{grid-template-columns:1fr}
+  .panier{position:static}
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--sauge);padding:5rem 1.5rem 2rem;transform:translateY(-110%);transition:transform .45s var(--ease);z-index:-1;gap:1.2rem;font-size:1.3rem}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .statut{display:none}
+  .hero-visual{max-width:460px}
+}
+@media (max-width:520px){
+  .rayon p{max-height:6em}
+  .badge-km{width:96px;height:96px}
+  .badge-km span{font-size:1.6rem}
+  .outil{margin-inline:8px;border-radius:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"GroceryStore",
+  "name":"Panach — Paysans & Artisans Autour de Charlieu",
+  "description":"Magasin de producteurs : produits de fermes et d'artisans situés à moins de 80 km de Charlieu.",
+  "address":{"@type":"PostalAddress","streetAddress":"26 rue Charles de Gaulle","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+  "telephone":"+33427766422",
+  "areaServed":["Charlieu","Pays de Charlieu"],
+  "sameAs":["https://www.facebook.com/panach42/"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Friday"],"opens":"09:00","closes":"12:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Wednesday","Friday"],"opens":"15:00","closes":"18:30"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour Panach, non officielle. Horaires et produits à confirmer par le magasin.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Panach, accueil">
+      <span class="logo-mark" aria-hidden="true">P</span>
+      <span class="logo-txt">PANACH<small>Paysans &amp; Artisans Autour de Charlieu</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#concept">Le magasin</a></li>
+      <li><a href="#rayons">Nos produits</a></li>
+      <li><a href="#panier">Ma liste</a></li>
+      <li><a href="#producteurs">80 km</a></li>
+      <li><a href="#infos">Horaires &amp; accès</a></li>
+    </ul>
+    <span class="statut" id="statutNav"><span class="dot"></span><span>…</span></span>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rv">Magasin de producteurs · Charlieu</span>
+      <h1 class="rv rv-d1">Les produits de la ferme, <em>en direct<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 80 4, 200 4, 297 12"/></svg></em> au cœur de Charlieu.</h1>
+      <p class="lead rv rv-d2">Panach réunit des paysans et des artisans installés à moins de 80&nbsp;km. Fruits, légumes, viande, fromages, œufs, pain, épicerie, boissons : tout vient de chez eux, sans intermédiaire.</p>
+      <div class="hero-cta rv rv-d3">
+        <a href="#panier" class="btn btn-main">Préparer ma liste de courses →</a>
+        <a href="#infos" class="btn btn-alt">Horaires &amp; adresse</a>
+      </div>
+      <div class="hero-facts rv rv-d3">
+        <div><strong>&lt; 80 km</strong>pour chaque producteur</div>
+        <div><strong>Mer. &amp; ven.</strong>jours d'ouverture</div>
+        <div><strong>26 rue Ch. de Gaulle</strong>Charlieu</div>
+      </div>
+    </div>
+    <div class="hero-visual rv rv-d2">
+      <div class="hv hv1"><img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=1000&q=75" alt="Étal de légumes et de fruits frais"><span class="tag-illu">Photo d'illustration</span></div>
+      <div class="hv hv2"><img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=600&q=75" alt="Œufs frais"><span class="tag-illu">Photo d'illustration</span></div>
+      <div class="badge-km" aria-label="Producteurs à moins de 80 kilomètres">
+        <svg viewBox="0 0 148 148" aria-hidden="true"><defs><path id="cercle" d="M74,74 m-62,0 a62,62 0 1,1 124,0 a62,62 0 1,1 -124,0"/></defs><text font-size="11" font-weight="600" letter-spacing="3" fill="#2f4a2c"><textPath href="#cercle">PAYSANS · ARTISANS · CIRCUIT COURT · </textPath></text></svg>
+        <div><span>80</span><small>km max.</small></div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+</section>
+
+<section class="concept" id="concept">
+  <div class="wrap">
+    <div class="s-head">
+      <h2 class="rv">Un magasin tenu par ceux qui produisent.</h2>
+      <p class="rv rv-d1">Panach, c'est une association : des fermes et des ateliers du Pays de Charlieu et des alentours qui vendent ensemble, au même comptoir, ce qu'ils font chez eux.</p>
+    </div>
+    <div class="concept-grid">
+      <div class="c-card rv"><div class="c-num">01</div><h3>Vente directe</h3><p>Les produits viennent d'exploitations agricoles et d'artisans locaux. Pas de centrale d'achat entre la ferme et votre panier.</p></div>
+      <div class="c-card rv rv-d1"><div class="c-num">02</div><h3>Moins de 80 km</h3><p>Chaque producteur est installé à moins de 80 kilomètres de Charlieu. Le circuit court, au sens propre.</p></div>
+      <div class="c-card rv rv-d2"><div class="c-num">03</div><h3>Au fil des saisons</h3><p>Les étals suivent les récoltes : les pommes reviennent à l'automne, avec les jus et la compote bio.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="rayons">
+  <div class="wrap">
+    <div class="s-head">
+      <h2 class="rv">Ce que vous trouvez au magasin</h2>
+      <p class="rv rv-d1">Une gamme complète de produits fermiers, selon les saisons et les arrivages. Survolez un rayon pour le détail.</p>
+    </div>
+    <div class="rayons-grid">
+      <article class="rayon rv" tabindex="0"><img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=70" alt="Légumes de saison" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Légumes</h3><p>Légumes frais et secs, au rythme des récoltes des maraîchers.</p></div></article>
+      <article class="rayon rv rv-d1" tabindex="0"><img src="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=700&q=70" alt="Pommes" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Fruits</h3><p>Fruits de saison — et à l'automne, pommes, jus de pommes, jus de poires et compote en bio.</p></div></article>
+      <article class="rayon rv rv-d2" tabindex="0"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=700&q=70" alt="Viandes" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Viande</h3><p>Viande d'éleveurs locaux. Des colis de veau ont déjà été proposés sur réservation.</p></div></article>
+      <article class="rayon rv rv-d3" tabindex="0"><img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=700&q=70" alt="Fromages" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Fromages &amp; laitages</h3><p>Produits laitiers de la ferme.</p></div></article>
+      <article class="rayon rv" tabindex="0"><img src="https://images.unsplash.com/photo-1506976785307-8732e854ad03?w=700&q=70" alt="Œufs" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Œufs</h3><p>Œufs frais des fermes voisines.</p></div></article>
+      <article class="rayon rv rv-d1" tabindex="0"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=700&q=70" alt="Pains" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Pain</h3><p>Pain d'artisans du secteur.</p></div></article>
+      <article class="rayon rv rv-d2" tabindex="0"><img src="https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=700&q=70" alt="Pâtes sèches" loading="lazy"><span class="tag-illu">Photo d'illustration</span><div class="rayon-txt"><h3>Épicerie</h3><p>Pâtes de ferme (blé, seigle, petit épeautre, lentilles), chanvre en graines, huile et farine, plats préparés…</p></div></article>
+      <article class="rayon rayon-vide rv rv-d3"><div><strong style="font-family:var(--font-titre);font-size:1.2rem">Vos producteurs</strong><br><small>Photos des fermes et du magasin<br>à fournir par Panach</small></div></article>
+    </div>
+    <p class="note">Boissons sans alcool et avec alcool également au rayon. La disponibilité varie selon la saison.</p>
+  </div>
+</section>
+
+<section class="outil" id="panier">
+  <div class="wrap">
+    <div class="s-head">
+      <h2 class="rv">Préparez votre liste avant de passer.</h2>
+      <p class="rv rv-d1">Le magasin n'ouvre que deux jours par semaine : cochez ce qu'il vous faut, l'outil vous indique la prochaine ouverture, et vous gardez la liste sur votre téléphone ou dans votre agenda.</p>
+    </div>
+    <div class="outil-grid">
+      <div id="chipsZone"></div>
+      <aside class="panier" aria-live="polite">
+        <div class="panier-top"><h3>Ma liste Panach</h3><span class="compteur" id="compteur">0</span></div>
+        <ul class="liste" id="liste"><li class="vide">Cochez des produits à gauche</li></ul>
+        <div class="prochain"><span id="prochainLabel">Prochaine ouverture</span><strong id="prochainDate">…</strong><span id="prochainCompte"></span></div>
+        <div class="panier-actions">
+          <button class="btn btn-jaune" id="btnCopier">Copier ma liste</button>
+          <button class="btn btn-main" id="btnIcs">Ajouter le passage à mon agenda</button>
+          <a class="btn btn-alt" href="tel:+33427766422">Une question ? 04 27 76 64 22</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="producteurs">
+  <div class="wrap carte-grid">
+    <div>
+      <span class="eyebrow rv">Le rayon de 80 km</span>
+      <h2 class="rv rv-d1" style="margin:1rem 0">D'où viennent les produits ?</h2>
+      <p class="rv rv-d2" style="color:var(--gris);margin-bottom:1rem">Une vingtaine de fermes et d'ateliers, tous dans un cercle de 80 kilomètres autour de Charlieu. Sur le vrai site, chaque point deviendrait une fiche producteur : qui il est, ce qu'il apporte, à quelle saison.</p>
+      <p class="rv rv-d2" style="color:var(--gris)">Exemple déjà connu : la <strong>Ferme des Herbes Folles</strong>, à Nandax, qui apporte légumes, épicerie et plats préparés.</p>
+      <div class="legende rv rv-d3"><span><i style="background:var(--moutarde);border:2px solid var(--vert)"></i>Producteur (exemple)</span><span><i style="background:var(--vert)"></i>Repère géographique</span></div>
+      <p class="note">Distances à vol d'oiseau, approximatives. Liste des producteurs à fournir par l'association.</p>
+    </div>
+    <div class="radar rv rv-d1">
+      <svg viewBox="0 0 520 520" role="img" aria-label="Carte schématique du rayon de 80 km autour de Charlieu">
+        <circle cx="260" cy="260" r="240" fill="#fff" stroke="#d6dccb"/>
+        <circle class="onde" cx="260" cy="260" r="240"/>
+        <circle class="onde" cx="260" cy="260" r="240"/>
+        <circle class="onde" cx="260" cy="260" r="240"/>
+        <circle cx="260" cy="260" r="160" fill="none" stroke="#d6dccb" stroke-dasharray="4 6"/>
+        <circle cx="260" cy="260" r="80" fill="none" stroke="#d6dccb" stroke-dasharray="4 6"/>
+        <text x="266" y="98" font-size="11" fill="#5d6658">~55 km</text>
+        <text x="266" y="18" font-size="11" fill="#5d6658">80 km</text>
+        <g id="villes"></g>
+        <g class="ville" transform="translate(260 260)"><circle r="11" fill="#d9a520"/><circle r="5" fill="#2f4a2c"/><text x="15" y="5" style="font-weight:800">Charlieu · Panach</text></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <div class="s-head"><h2 class="rv">Horaires &amp; accès</h2><p class="rv rv-d1">En plein centre de Charlieu, rue Charles de Gaulle.</p></div>
+    <div class="infos-grid">
+      <div class="carte-info rv">
+        <h3>Horaires d'ouverture</h3>
+        <ul class="jours" id="jours"></ul>
+        <p class="note">Horaires relevés sur les annuaires en 2026, à confirmer par le magasin.</p>
+      </div>
+      <div class="carte-info rv rv-d1">
+        <h3>Nous trouver</h3>
+        <div class="contact-lignes">
+          <a href="https://www.google.com/maps/search/?api=1&query=26+rue+Charles+de+Gaulle+42190+Charlieu" target="_blank" rel="noopener"><span class="ico">📍</span><span><strong>26 rue Charles de Gaulle</strong><small>42190 Charlieu — ouvrir l'itinéraire</small></span></a>
+          <a href="tel:+33427766422"><span class="ico">☎</span><span><strong>04 27 76 64 22</strong><small>Pendant les heures d'ouverture</small></span></a>
+          <a href="mailto:assopanach@laposte.net"><span class="ico">✉</span><span><strong>assopanach@laposte.net</strong><small>Écrire à l'association</small></span></a>
+          <a href="https://www.facebook.com/panach42/" target="_blank" rel="noopener"><span class="ico">f</span><span><strong>facebook.com/panach42</strong><small>Arrivages et actualités</small></span></a>
+        </div>
+        <div class="photo-vide">Photo de la devanture — à fournir par le client</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2 class="rv">Mercredi ou vendredi, on vous attend.</h2>
+    <p class="rv rv-d1">Préparez votre liste, passez au magasin, et repartez avec les produits des fermes d'à côté.</p>
+    <div class="hero-cta rv rv-d2" style="justify-content:center"><a href="#panier" class="btn btn-main">Préparer ma liste</a><a href="tel:+33427766422" class="btn btn-alt">Appeler le magasin</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div><span class="logo-txt">PANACH</span><p style="margin-top:.4rem">Paysans &amp; Artisans Autour de Charlieu<br>26 rue Charles de Gaulle, 42190 Charlieu</p></div>
+      <div><p>04 27 76 64 22<br><a href="mailto:assopanach@laposte.net">assopanach@laposte.net</a><br><a href="https://www.facebook.com/panach42/" target="_blank" rel="noopener">Facebook</a></p></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non affiliée officiellement à Panach. Panach ne disposant pas de site internet, aucune charte graphique n'a pu être reprise : le logo, les couleurs et les polices sont des propositions provisoires, ajustables en quelques lignes. Toutes les photos sont des photos d'illustration libres de droits (Unsplash) ; les photos du magasin, de la devanture et des producteurs restent à fournir. Horaires, produits et adresse mail relevés dans des sources publiques (annuaires, page Facebook) et à confirmer. Les distances de la carte sont approximatives.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+// ===== Données (uniquement des catégories et produits relevés publiquement) =====
+const RAYONS={
+  "Fruits & légumes":["Légumes frais","Légumes secs","Fruits de saison","Pommes"],
+  "Viande, laitages & œufs":["Viande","Fromages & laitages","Œufs"],
+  "Boulangerie & épicerie":["Pain","Pâtes de ferme","Chanvre (graines, huile, farine)","Plats préparés","Compote bio"],
+  "Boissons":["Jus de pommes bio","Jus de poires bio","Autres boissons"]
+};
+// Horaires : 0=dim … 6=sam
+const HORAIRES={3:[[9*60,12*60+30],[15*60,18*60+30]],5:[[9*60,12*60+30],[15*60,18*60+30]]};
+const JOURS=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+const fmt=m=>`${Math.floor(m/60)}h${String(m%60).padStart(2,"0")}`;
+
+// ticker
+const mots=["Légumes","Fruits","Viande","Fromages","Œufs","Pain","Épicerie","Jus de pommes bio","Compote","Pâtes de ferme","Chanvre"];
+const t=document.getElementById("ticker");
+t.innerHTML=[...mots,...mots].map(m=>`<span>${m}</span>`).join("");
+
+// ===== Statut ouvert / fermé =====
+function etat(d=new Date()){
+  const j=d.getDay(),m=d.getHours()*60+d.getMinutes();
+  const plages=HORAIRES[j]||[];
+  for(const [a,b] of plages){ if(m>=a&&m<b) return {ouvert:true,fin:b}; }
+  // prochaine ouverture
+  for(let k=0;k<8;k++){
+    const jj=(j+k)%7, pl=HORAIRES[jj]||[];
+    for(const [a,b] of pl){
+      if(k>0||a>m){const nd=new Date(d);nd.setDate(d.getDate()+k);nd.setHours(Math.floor(a/60),a%60,0,0);return {ouvert:false,prochain:nd,fin:b};}
+    }
+  }
+}
+function majStatut(){
+  const e=etat(),s=document.getElementById("statutNav");
+  s.classList.toggle("ouvert",e.ouvert);
+  s.lastElementChild.textContent=e.ouvert?`Ouvert jusqu'à ${fmt(e.fin)}`:`Fermé · réouvre ${JOURS[e.prochain.getDay()].toLowerCase()} ${fmt(e.prochain.getHours()*60+e.prochain.getMinutes())}`;
+  const lab=document.getElementById("prochainLabel"),dt=document.getElementById("prochainDate"),cp=document.getElementById("prochainCompte");
+  if(e.ouvert){lab.textContent="Le magasin est ouvert";dt.textContent=`Aujourd'hui jusqu'à ${fmt(e.fin)}`;cp.textContent="";}
+  else{
+    lab.textContent="Prochaine ouverture";
+    dt.textContent=`${JOURS[e.prochain.getDay()]} ${e.prochain.getDate()}/${String(e.prochain.getMonth()+1).padStart(2,"0")} à ${fmt(e.prochain.getHours()*60+e.prochain.getMinutes())}`;
+    const diff=e.prochain-new Date(),h=Math.floor(diff/36e5),mi=Math.floor(diff%36e5/6e4);
+    cp.textContent=h>=24?`dans ${Math.floor(h/24)} j ${h%24} h`:`dans ${h} h ${mi} min`;
+  }
+}
+majStatut();setInterval(majStatut,30000);
+
+// jours
+const today=new Date().getDay();
+document.getElementById("jours").innerHTML=[1,2,3,4,5,6,0].map(j=>{
+  const p=HORAIRES[j];
+  return `<li class="${j===today?"auj":""}"><span>${JOURS[j]}</span><span class="${p?"":"ferme"}">${p?p.map(([a,b])=>fmt(a)+" – "+fmt(b)).join(" · "):"Fermé"}</span></li>`;
+}).join("");
+
+// ===== Liste de courses =====
+const zone=document.getElementById("chipsZone");
+let choix=[];
+try{choix=JSON.parse(localStorage.getItem("panach-liste")||"[]")}catch(e){}
+zone.innerHTML=Object.entries(RAYONS).map(([r,ps])=>`<div class="chips-groupe rv"><h3>${r}</h3><div class="chips">${ps.map(p=>`<button class="chip" data-p="${p}" data-r="${r}" aria-pressed="${choix.some(c=>c.p===p)}">${p}</button>`).join("")}</div></div>`).join("");
+const liste=document.getElementById("liste"),cpt=document.getElementById("compteur");
+function rendre(){
+  liste.innerHTML=choix.length?choix.map(c=>`<li><span>${c.p}<br><small>${c.r}</small></span><button aria-label="Retirer ${c.p}" data-x="${c.p}">×</button></li>`).join(""):`<li class="vide">Cochez des produits à gauche</li>`;
+  cpt.textContent=choix.length;cpt.classList.add("bump");setTimeout(()=>cpt.classList.remove("bump"),250);
+  document.querySelectorAll(".chip").forEach(b=>b.setAttribute("aria-pressed",choix.some(c=>c.p===b.dataset.p)));
+  try{localStorage.setItem("panach-liste",JSON.stringify(choix))}catch(e){}
+}
+zone.addEventListener("click",e=>{
+  const b=e.target.closest(".chip");if(!b)return;
+  const i=choix.findIndex(c=>c.p===b.dataset.p);
+  i>=0?choix.splice(i,1):choix.push({p:b.dataset.p,r:b.dataset.r});rendre();
+});
+liste.addEventListener("click",e=>{const x=e.target.dataset.x;if(!x)return;choix=choix.filter(c=>c.p!==x);rendre();});
+rendre();
+const toast=m=>{const el=document.getElementById("toast");el.textContent=m;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400);};
+const texte=()=>"Ma liste Panach (26 rue Charles de Gaulle, Charlieu)\n"+(choix.length?choix.map(c=>"- "+c.p).join("\n"):"(liste vide)");
+document.getElementById("btnCopier").onclick=async()=>{
+  try{await navigator.clipboard.writeText(texte());toast("Liste copiée — collez-la dans vos notes")}catch(e){toast("Copie impossible sur ce navigateur")}
+};
+document.getElementById("btnIcs").onclick=()=>{
+  const e=etat();const deb=e.ouvert?new Date():e.prochain;const fin=new Date(deb);fin.setHours(Math.floor(e.fin/60),e.fin%60,0,0);
+  const f=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")+String(d.getDate()).padStart(2,"0")+"T"+String(d.getHours()).padStart(2,"0")+String(d.getMinutes()).padStart(2,"0")+"00";
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Panach maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@panach","DTSTAMP:"+f(new Date()),"DTSTART:"+f(deb),"DTEND:"+f(fin),"SUMMARY:Courses chez Panach","LOCATION:26 rue Charles de Gaulle\\, 42190 Charlieu","DESCRIPTION:"+texte().replace(/\n/g,"\\n").replace(/,/g,"\\,"),"END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="courses-panach.ics";a.click();toast("Rendez-vous ajouté — avec votre liste dedans");
+};
+
+// ===== Carte 80 km =====
+// échelle : 240 px = 80 km. Angles approximatifs (0° = nord, sens horaire)
+const villes=[
+  {n:"Ferme des Herbes Folles · Nandax",km:7,a:175,prod:true},
+  {n:"Roanne",km:16,a:210,l:"end"},
+  {n:"Mâcon",km:53,a:70},
+  {n:"Vichy",km:57,a:265},
+  {n:"Lyon",km:70,a:135},
+];
+document.getElementById("villes").innerHTML=villes.map((v,i)=>{
+  const r=v.km*3,rad=(v.a-90)*Math.PI/180,x=260+r*Math.cos(rad),y=260+r*Math.sin(rad);
+  const anchor=v.l||(x>380?"end":"start"),dx=anchor==="end"?-12:12;
+  return `<g class="ville ${v.prod?"prod":""}" style="opacity:0;transition:opacity .6s ${0.3+i*0.2}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="${v.prod?8:5}"/><text x="${dx}" y="${v.prod?18:4}" text-anchor="${anchor}">${v.n}</text></g>`;
+}).join("");
+
+// ===== Reveal, header, menu =====
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");if(e.target.classList.contains("radar"))document.querySelectorAll("#villes g").forEach(g=>g.style.opacity=1);io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+const h=document.querySelector("header");
+addEventListener("scroll",()=>h.classList.toggle("scrolled",scrollY>10),{passive:true});
+const bg=document.getElementById("burger"),mn=document.getElementById("menu");
+bg.onclick=()=>{const o=mn.classList.toggle("open");bg.setAttribute("aria-expanded",o)};
+mn.addEventListener("click",e=>{if(e.target.tagName==="A"){mn.classList.remove("open");bg.setAttribute("aria-expanded",false)}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){mn.classList.remove("open");bg.setAttribute("aria-expanded",false)}});
+})();
+</script>
+</body>
+</html>
