@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADX Bike — Magasin de vélos électriques à Roanne | Vente, atelier, reprise</title>
+<meta name="description" content="ADX Bike, ex-Cycles Scoot'Tuning : vente et réparation de vélos à assistance électrique et musculaires à Roanne depuis 2008. Moustache, Sunn, atelier Bosch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BicycleStore",
+  "name": "ADX Bike",
+  "alternateName": "Cycles Scoot'Tuning",
+  "description": "Vente et réparation de cycles à assistance électrique et musculaires, dépôt-vente, diagnostic et reconditionnement de batteries.",
+  "url": "https://www.adx-bike.fr/",
+  "telephone": "+33477780562",
+  "email": "adx-bike@outlook.fr",
+  "foundingDate": "2008",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "90 rue de Charlieu",
+    "postalCode": "42300",
+    "addressLocality": "Roanne",
+    "addressCountry": "FR"
+  },
+  "areaServed": ["Roanne", "Le Roannais"],
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:30", "closes": "11:45"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "13:30", "closes": "18:00"}
+  ],
+  "sameAs": ["https://www.facebook.com/profile.php?id=100087004025514", "https://www.instagram.com/cycles.scoottuning/"]
+}
+</script>
+<style>
+/* ==========================================================
+   CHARTE ADX BIKE — reprise du site actuel (adx-bike.fr)
+   Couleurs relevées dans /site/templates/css/style.css
+   Polices relevées dans l'appel Google Fonts du site
+   ========================================================== */
+:root{
+  --primary:#348E38;      /* vert principal ADX Bike (boutons, chiffres) */
+  --primary-dark:#2a7330; /* survol des boutons */
+  --dark:#0F4229;         /* vert très foncé (bandeaux, pied de page) */
+  --darker:#072A19;       /* vert nuit (pied de page bas) */
+  --light:#E8F5E9;        /* vert très clair (fonds de sections) */
+  --secondary:#525368;    /* gris-bleu (textes secondaires) */
+  --ink:#1c2420;
+  --paper:#ffffff;
+  --line:#dfe9e0;
+  --font-title:'Jost', system-ui, sans-serif;
+  --font-body:'Open Sans', system-ui, sans-serif;
+  --radius:14px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-title);line-height:1.1;font-weight:600}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--primary);outline-offset:3px;border-radius:4px}
+
+/* bandeau maquette */
+.demo{background:var(--darker);color:#cfe6d1;font-size:.8rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+
+/* barre haute */
+.topbar{background:var(--dark);color:#d7ebd9;font-size:.85rem}
+.topbar .wrap{display:flex;gap:18px;justify-content:space-between;align-items:center;padding:8px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+.topbar .left{display:flex;gap:18px;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:600}
+.status i{width:9px;height:9px;border-radius:50%;background:#9aa;box-shadow:0 0 0 0 rgba(120,220,130,.6)}
+.status.open i{background:#6fdc78;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(111,220,120,.6)}70%{box-shadow:0 0 0 10px rgba(111,220,120,0)}100%{box-shadow:0 0 0 0 rgba(111,220,120,0)}}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 30px rgba(15,66,41,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:var(--font-title);font-weight:700;font-size:1.6rem;letter-spacing:.04em;text-decoration:none;color:var(--ink)}
+.logo span{color:var(--primary)}
+.menu{display:flex;gap:4px;list-style:none}
+.menu a{text-decoration:none;font-family:var(--font-title);font-weight:500;font-size:.95rem;padding:8px 11px;border-radius:8px;position:relative}
+.menu a::after{content:"";position:absolute;left:11px;right:11px;bottom:4px;height:2px;background:var(--primary);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+.menu .cta{background:var(--primary);color:#fff}
+.menu .cta::after{display:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--ink);margin:6px 10px;transition:.3s}
+@media (max-width:1020px){
+  .burger{display:block}
+  .menu{position:fixed;inset:70px 0 auto 0;background:#fff;flex-direction:column;padding:12px 16px 20px;border-bottom:1px solid var(--line);transform:translateY(-120%);transition:transform .35s var(--ease);z-index:-1}
+  .menu.open{transform:none}
+  .menu a{display:block;padding:12px}
+}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-title);font-weight:600;font-size:1rem;padding:14px 24px;border-radius:999px;text-decoration:none;border:2px solid var(--primary);background:var(--primary);color:#fff;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 10px 24px rgba(52,142,56,.3)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--primary)}
+.btn.ghost:hover{background:var(--primary);color:#fff}
+.btn.white{background:#fff;color:var(--dark);border-color:#fff}
+.btn svg{width:18px;height:18px}
+
+/* hero */
+.hero{position:relative;background:var(--light);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;padding:64px 0 80px}
+.eyebrow{font-family:var(--font-title);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--primary);font-weight:600;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--primary)}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 3.6vw,4.4rem);margin:16px 0 18px;color:var(--dark)}
+.hero h1 em{font-style:normal;color:var(--primary);position:relative}
+.hero p.lead{font-size:1.1rem;color:var(--secondary);max-width:520px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-visual{position:relative}
+.hero-visual .photo{border-radius:22px;overflow:hidden;box-shadow:0 30px 60px rgba(15,66,41,.18);transform:rotate(1.2deg)}
+.hero-visual .photo img{width:100%;aspect-ratio:898/589;object-fit:cover}
+.hero-visual .badge{position:absolute;left:-18px;bottom:-22px;background:#fff;border-radius:16px;padding:14px 18px;box-shadow:0 18px 40px rgba(15,66,41,.15);display:flex;gap:12px;align-items:center;animation:float 5s ease-in-out infinite}
+.hero-visual .badge b{font-family:var(--font-title);font-size:1.8rem;color:var(--primary)}
+.hero-visual .badge small{display:block;color:var(--secondary);line-height:1.3}
+@keyframes float{50%{transform:translateY(-8px)}}
+.hero .road{position:absolute;left:0;right:0;bottom:0;height:46px;overflow:hidden;pointer-events:none}
+.hero .road svg{position:absolute;bottom:8px;height:30px;animation:ride 14s linear infinite}
+@keyframes ride{from{transform:translateX(-80px)}to{transform:translateX(110vw)}}
+.hero .road::after{content:"";position:absolute;left:0;right:0;bottom:6px;border-bottom:2px dashed rgba(52,142,56,.35)}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;padding:40px 0 70px}.hero-visual .badge{left:10px}}
+
+/* stats */
+.stats{background:var(--dark);color:#fff}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:34px 0}
+.stat b{font-family:var(--font-title);font-size:clamp(2rem,1.5rem + 2vw,3rem);display:block;color:#8fd894}
+.stat span{color:#cfe2d2;font-size:.95rem}
+@media (max-width:760px){.stats .wrap{grid-template-columns:repeat(2,1fr)}}
+
+/* sections */
+section{padding:clamp(60px,8vw,110px) 0}
+.head{max-width:720px;margin-bottom:40px}
+.head h2{font-size:clamp(2rem,1.4rem + 2.2vw,3rem);color:var(--dark);margin:12px 0}
+.head p{color:var(--secondary)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.svc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .3s var(--ease),box-shadow .3s;position:relative;overflow:hidden}
+.svc::before{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--primary);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(15,66,41,.1)}
+.svc:hover::before{transform:scaleX(1)}
+.svc .ico{width:52px;height:52px;border-radius:14px;background:var(--light);display:grid;place-items:center;color:var(--primary);margin-bottom:18px}
+.svc .ico svg{width:26px;height:26px}
+.svc h3{font-size:1.3rem;margin-bottom:8px;color:var(--dark)}
+.svc p{color:var(--secondary);font-size:.95rem}
+@media (max-width:900px){.services{grid-template-columns:1fr}}
+
+/* outil de reprise */
+.tool-sec{background:var(--light)}
+.tool{display:grid;grid-template-columns:280px 1fr;background:#fff;border-radius:22px;box-shadow:0 30px 70px rgba(15,66,41,.12);overflow:hidden}
+.steps{background:var(--dark);color:#d8ebda;padding:30px 24px;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:12px;align-items:center;padding:12px 0;opacity:.55;transition:opacity .3s;font-family:var(--font-title);font-weight:500}
+.steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;border:2px solid currentColor;display:grid;place-items:center;font-size:.9rem;flex:none;transition:.3s}
+.steps li.on{opacity:1}
+.steps li.on::before{background:var(--primary);border-color:var(--primary);color:#fff}
+.steps li.done{opacity:.9}
+.steps li.done::before{content:"✓";background:#fff;color:var(--dark);border-color:#fff}
+.steps .note{margin-top:22px;font-size:.85rem;opacity:.8;font-family:var(--font-body);line-height:1.5}
+.panel{padding:34px clamp(20px,4vw,44px);min-height:460px;display:flex;flex-direction:column}
+.pane{display:none;animation:in .45s var(--ease)}
+.pane.on{display:block}
+@keyframes in{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.pane h3{font-size:1.6rem;color:var(--dark);margin-bottom:6px}
+.pane .sub{color:var(--secondary);margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+.chip{border:2px solid var(--line);background:#fff;border-radius:12px;padding:12px 16px;font-family:var(--font-title);font-weight:500;font-size:1rem;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:8px;min-height:48px}
+.chip:hover{border-color:var(--primary)}
+.chip[aria-pressed="true"]{border-color:var(--primary);background:var(--light);color:var(--dark)}
+.chip[aria-pressed="true"]::before{content:"✓";color:var(--primary);font-weight:700}
+.lbl{font-family:var(--font-title);font-weight:600;margin:6px 0 10px;display:block;color:var(--dark)}
+.field{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.field label{display:flex;flex-direction:column;gap:6px;font-size:.9rem;color:var(--secondary)}
+input,select,textarea{font:inherit;padding:12px 14px;border:2px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);outline:none}
+.range-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.range-row input{flex:1;accent-color:var(--primary);padding:0;border:0}
+.range-row output{font-family:var(--font-title);font-weight:600;font-size:1.3rem;color:var(--primary);min-width:110px;text-align:right}
+.nav-btns{margin-top:auto;display:flex;justify-content:space-between;gap:12px;padding-top:20px}
+.hint{background:var(--light);border-left:4px solid var(--primary);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--dark);margin-bottom:18px}
+.recap{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;background:var(--light);border-radius:14px;padding:20px;margin-bottom:22px}
+.recap div{font-size:.92rem}
+.recap dt{color:var(--secondary);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}
+.recap dd{font-family:var(--font-title);font-weight:600;color:var(--dark)}
+.match{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:10px 0 22px}
+.match a{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;transition:transform .25s var(--ease)}
+.match a:hover{transform:translateY(-4px)}
+.match img{aspect-ratio:4/3;object-fit:cover;background:#f4f7f4;width:100%}
+.match span{display:block;padding:8px 10px;font-size:.85rem}
+.match b{font-family:var(--font-title)}
+@media (max-width:820px){.tool{grid-template-columns:1fr}.steps{display:flex;gap:6px;overflow-x:auto;padding:16px}.steps li{padding:0 8px 0 0;font-size:.8rem}.steps li span{display:none}.steps .note{display:none}.field,.recap{grid-template-columns:1fr}}
+
+/* stock */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.filters button{border:2px solid var(--line);background:#fff;border-radius:999px;padding:9px 18px;font-family:var(--font-title);font-weight:500;cursor:pointer;transition:.2s;min-height:44px}
+.filters button.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s,opacity .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 44px rgba(15,66,41,.12)}
+.card.hide{display:none}
+.card .img{position:relative;background:#f4f7f4;overflow:hidden}
+.card .img img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .img img{transform:scale(1.05)}
+.tag{position:absolute;top:12px;left:12px;background:var(--dark);color:#fff;font-size:.75rem;font-weight:600;padding:5px 10px;border-radius:999px;font-family:var(--font-title);letter-spacing:.04em}
+.tag.promo{background:#c23b2a}
+.card .body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card .brand{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);font-weight:600}
+.card h3{font-size:1.25rem;color:var(--dark)}
+.card .spec{font-size:.88rem;color:var(--secondary)}
+.card .price{margin-top:auto;padding-top:10px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.card .price b{font-family:var(--font-title);font-size:1.5rem;color:var(--dark)}
+.card .price s{color:var(--secondary)}
+.card .last{font-size:.82rem;color:#c23b2a;font-weight:600}
+.small{font-size:.82rem;color:var(--secondary);margin-top:18px}
+@media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+
+/* occasion */
+.occ-sec{background:var(--dark);color:#fff}
+.occ-sec .head h2{color:#fff}
+.occ-sec .head p{color:#c9dccc}
+.occ{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.occ article{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);overflow:hidden}
+.occ img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.occ .b{padding:20px}
+.occ h3{font-size:1.2rem;margin-bottom:6px}
+.occ p{font-size:.9rem;color:#c9dccc}
+.occ .p{margin-top:12px;display:flex;gap:10px;align-items:baseline}
+.occ .p b{font-family:var(--font-title);font-size:1.5rem;color:#8fd894}
+.occ .p s{color:#9fb8a3}
+@media (max-width:900px){.occ{grid-template-columns:1fr}}
+
+/* atelier */
+.atelier{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.atelier>*,.story>*,.contact>*,.hero .wrap>*,.tool>*{min-width:0}
+.list{list-style:none;display:grid;gap:10px;margin:18px 0 26px}
+.list li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--light)}
+.list li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--primary);margin-top:8px;flex:none}
+.rdv{background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:0 24px 50px rgba(15,66,41,.08)}
+.rdv h3{font-size:1.5rem;color:var(--dark);margin-bottom:4px}
+.days{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;margin-bottom:10px;scroll-snap-type:x mandatory}
+.day{flex:none;scroll-snap-align:start;border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;text-align:center;cursor:pointer;min-width:70px;font-family:var(--font-title);transition:.2s}
+.day small{display:block;color:var(--secondary);font-size:.75rem;text-transform:uppercase}
+.day b{font-size:1.3rem}
+.day[aria-pressed="true"]{border-color:var(--primary);background:var(--primary);color:#fff}
+.day[aria-pressed="true"] small{color:#dff2e0}
+.slots{display:flex;gap:10px;margin-bottom:18px}
+.done-box{display:none;background:var(--light);border-radius:12px;padding:16px;margin-top:16px}
+.done-box.on{display:block;animation:in .4s var(--ease)}
+@media (max-width:900px){.atelier{grid-template-columns:1fr}}
+
+/* histoire : avant / après */
+.story{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+.ba{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:898/589;box-shadow:0 30px 60px rgba(15,66,41,.15);user-select:none;touch-action:pan-y}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .before{clip-path:inset(0 calc(100% - var(--x,50%)) 0 0)}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--x,50%);width:3px;background:#fff;transform:translateX(-50%)}
+.ba .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:#fff;color:var(--dark);display:grid;place-items:center;font-size:1.2rem;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.ba .lab{position:absolute;bottom:14px;background:rgba(7,42,25,.8);color:#fff;font-family:var(--font-title);font-size:.8rem;padding:5px 12px;border-radius:999px}
+.ba .lab.l{left:14px}.ba .lab.r{right:14px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+.timeline{list-style:none;border-left:2px solid var(--line);padding-left:24px;display:grid;gap:18px;margin-top:22px}
+.timeline li{position:relative}
+.timeline li::before{content:"";position:absolute;left:-31px;top:6px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--primary)}
+.timeline b{font-family:var(--font-title);color:var(--primary);font-size:1.1rem;display:block}
+.timeline span{color:var(--secondary);font-size:.95rem}
+.quote{font-family:var(--font-title);font-size:1.4rem;color:var(--dark);margin-top:22px}
+@media (max-width:900px){.story{grid-template-columns:1fr}}
+
+/* marques */
+.brands{background:var(--light);padding:44px 0;overflow:hidden}
+.marquee{display:flex;gap:56px;width:max-content;animation:scroll 32s linear infinite}
+.marquee span{font-family:var(--font-title);font-weight:600;font-size:clamp(1.4rem,1rem + 1.6vw,2.4rem);color:var(--dark);white-space:nowrap;opacity:.85}
+.marquee span:nth-child(odd){color:var(--primary)}
+.brands:hover .marquee{animation-play-state:paused}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.brand-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+.brand-cards article{background:#fff;border-radius:var(--radius);padding:22px;border:1px solid var(--line)}
+.brand-cards h3{font-size:1.15rem;color:var(--dark);margin-bottom:6px}
+.brand-cards p{font-size:.9rem;color:var(--secondary)}
+@media (max-width:900px){.brand-cards{grid-template-columns:1fr}}
+
+/* actualité */
+.news{display:grid;grid-template-columns:1.3fr 1fr;gap:22px}
+.news article{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#fff}
+.news img{width:100%;object-fit:cover}
+.news .b{padding:20px}
+.news h3{color:var(--dark);font-size:1.2rem;margin-bottom:6px}
+.news .side{display:grid;gap:22px}
+@media (max-width:900px){.news{grid-template-columns:1fr}}
+
+/* galerie */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:12px}
+.gallery button{border:0;padding:0;border-radius:12px;overflow:hidden;cursor:zoom-in;background:#eee}
+.gallery button:nth-child(1){grid-row:span 2}
+.gallery button:nth-child(4){grid-column:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.gallery button:hover img{transform:scale(1.06)}
+.lightbox{position:fixed;inset:0;background:rgba(7,42,25,.92);display:none;place-items:center;z-index:100;padding:20px}
+.lightbox.on{display:grid}
+.lightbox img{max-height:86vh;border-radius:12px}
+.lightbox button{position:absolute;top:16px;right:16px;background:#fff;border:0;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer}
+@media (max-width:760px){.gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}.gallery button:nth-child(4){grid-column:auto}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:30px}
+.cbox{background:var(--dark);color:#fff;border-radius:22px;padding:32px}
+.cbox h3{font-size:1.6rem;margin-bottom:16px}
+.cbox a{color:#fff}
+.cbox p{margin-bottom:12px;color:#d6e8d8}
+.hours{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:.95rem}
+.hours td{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:#8fd894;font-weight:600}
+.map{border-radius:22px;overflow:hidden;min-height:380px;border:1px solid var(--line)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0}
+@media (max-width:900px){.contact{grid-template-columns:1fr}}
+
+/* pied de page */
+footer{background:var(--darker);color:#bcd2bf;padding:50px 0 30px;font-size:.9rem}
+footer .cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;margin-bottom:30px}
+footer h4{color:#fff;margin-bottom:12px;font-size:1.05rem}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+footer ul{list-style:none;display:grid;gap:6px}
+footer .legal{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.8rem;color:#90a894}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+/* barre d'action mobile */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid var(--line)}
+  .mbar a{text-align:center;padding:14px;font-family:var(--font-title);font-weight:600;text-decoration:none}
+  .mbar a:last-child{background:var(--primary);color:#fff}
+  body{padding-bottom:52px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour ADX Bike, non officielle</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="left">
+      <a href="tel:+33477780562">04 77 78 05 62</a>
+      <a href="mailto:adx-bike@outlook.fr">adx-bike@outlook.fr</a>
+      <span>90 rue de Charlieu, Roanne</span>
+    </div>
+    <span class="status" id="status"><i></i><span>Horaires</span></span>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#accueil" class="logo">ADX <span>BIKE</span></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
+      <li><a href="#marques">Découvrir nos marques</a></li>
+      <li><a href="#actualite">Actualité</a></li>
+      <li><a href="#occasion">Vélo d'occasion</a></li>
+      <li><a href="#stock">Notre stock</a></li>
+      <li><a href="#rachat">Rachat de vélo</a></li>
+      <li><a href="#contact" class="cta">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="accueil" style="padding:0">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Roanne · depuis 2008</span>
+      <h1>Le spécialiste du <em>2 roue électrique</em> dans le Roannais.</h1>
+      <p class="lead">Vente - Réparation cycle à assistance électrique et musculaire. Un véritable atelier sur place, qualifié Bosch / Shimano / Yamaha, et une équipe qui vous conseille du mardi au samedi.</p>
+      <div class="actions">
+        <a href="#stock" class="btn">Voir les vélos en magasin
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#rachat" class="btn ghost">Faire estimer mon vélo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="photo"><img src="https://adx-bike.fr/site/assets/files/1026/1764841729552-1.jpg" alt="Façade du magasin ADX Bike, 90 rue de Charlieu à Roanne"></div>
+      <div class="badge"><b>4.6</b><small>note Google<br>affichée par le magasin</small></div>
+    </div>
+  </div>
+  <div class="road" aria-hidden="true">
+    <svg viewBox="0 0 64 34" fill="none" stroke="#348E38" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="24" r="9"/><circle cx="52" cy="24" r="9"/><path d="M12 24l10-13h18l12 13M22 11l9 13h9M40 11l-3-6h-6M20 8h6"/><rect x="25" y="13" width="9" height="4" rx="1" fill="#348E38"/></svg>
+  </div>
+</section>
+
+<!-- CHIFFRES (repris du site actuel) -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b data-count="18">0</b><span>Années d'expérience</span></div>
+    <div class="stat"><b data-count="2546">0</b><span>Clients</span></div>
+    <div class="stat"><b data-count="4.6" data-dec="1">0</b><span>Note Google</span></div>
+    <div class="stat"><b>50 m²</b><span>d'espace vente + atelier sur place</span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">A votre service</span>
+      <h2>Un service personnalisé pour vos attentes.</h2>
+      <p>Nous vous proposons un grand choix de produits de qualité et un véritable service après-vente sur place.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="17" r="4"/><circle cx="18" cy="17" r="4"/><path d="M6 17l4-8h6l2 8M10 9l3 8"/></svg></div>
+        <h3>Vente de vélos neufs</h3>
+        <p>Vélos électriques neufs Moustache, Sunn, O2feel, SAVA… et vélos musculaires : ville, VTC, VTT, route, gravel et utilitaire.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
+        <h3>Atelier toutes marques</h3>
+        <p>Simple révision, remise en état, transmission, dévoilage de roue, pneumatiques, vélos accidentés — électriques et musculaires.</p>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2M7 10v4M11 10v4"/></svg></div>
+        <h3>Batteries</h3>
+        <p>Diagnostic de capacité de batterie sur place, et service de reconditionnement de batterie à neuf.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL : RACHAT / REPRISE -->
+<section class="tool-sec" id="rachat">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Rachat de vélo</span>
+      <h2>Estimer, vendre, et changer de vélo !</h2>
+      <p>Décrivez votre vélo en quatre étapes. Vous repartez avec une fiche complète à envoyer au magasin — et les vélos du stock qui pourraient le remplacer.</p>
+    </div>
+
+    <div class="tool reveal" id="tool">
+      <ol class="steps" id="steps">
+        <li class="on"><span>Votre vélo</span></li>
+        <li><span>Modèle</span></li>
+        <li><span>État</span></li>
+        <li><span>Votre projet</span></li>
+        <li><span>Votre fiche</span></li>
+        <p class="note">L'estimation définitive se fait en magasin, vélo sous les yeux — batterie testée sur place.</p>
+      </ol>
+
+      <div class="panel">
+        <!-- 1 -->
+        <div class="pane on" data-step="0">
+          <h3>Quel vélo souhaitez-vous faire estimer ?</h3>
+          <p class="sub">Électrique ou musculaire, toutes marques.</p>
+          <span class="lbl">Motorisation</span>
+          <div class="chips" data-key="moteur" data-single>
+            <button class="chip" aria-pressed="false">Assistance électrique</button>
+            <button class="chip" aria-pressed="false">Musculaire</button>
+          </div>
+          <span class="lbl">Type de vélo</span>
+          <div class="chips" data-key="type" data-single>
+            <button class="chip" aria-pressed="false" data-cat="vtt">VTT</button>
+            <button class="chip" aria-pressed="false" data-cat="ville">VTC</button>
+            <button class="chip" aria-pressed="false" data-cat="ville">Ville</button>
+            <button class="chip" aria-pressed="false" data-cat="route">Route</button>
+            <button class="chip" aria-pressed="false" data-cat="route">Gravel</button>
+            <button class="chip" aria-pressed="false" data-cat="ville">Utilitaire</button>
+          </div>
+        </div>
+        <!-- 2 -->
+        <div class="pane" data-step="1">
+          <h3>Marque et modèle</h3>
+          <p class="sub">Si vous ne savez pas, une photo du cadre suffira au magasin.</p>
+          <div class="field">
+            <label>Marque<input id="marque" list="marques" placeholder="ex. Moustache"></label>
+            <label>Modèle<input id="modele" placeholder="ex. Samedi 27 Xroad"></label>
+          </div>
+          <datalist id="marques"><option>Moustache</option><option>Sunn</option><option>O2feel</option><option>SAVA</option><option>Lapierre</option><option>Haibike</option><option>Winora</option><option>Gitane</option><option>Peugeot</option><option>Solex</option><option>Stevens</option></datalist>
+          <span class="lbl">Année d'achat</span>
+          <div class="range-row"><input type="range" id="annee" min="2012" max="2026" value="2022"><output id="anneeOut">2022</output></div>
+          <span class="lbl moteur-only">Moteur</span>
+          <div class="chips moteur-only" data-key="motor" data-single>
+            <button class="chip" aria-pressed="false">Bosch</button>
+            <button class="chip" aria-pressed="false">Shimano</button>
+            <button class="chip" aria-pressed="false">Yamaha</button>
+            <button class="chip" aria-pressed="false">Autre / je ne sais pas</button>
+          </div>
+        </div>
+        <!-- 3 -->
+        <div class="pane" data-step="2">
+          <h3>Dans quel état est-il ?</h3>
+          <p class="sub">Soyez honnête, c'est ce qui rend l'estimation juste.</p>
+          <span class="lbl">Kilométrage approximatif</span>
+          <div class="range-row"><input type="range" id="km" min="0" max="20000" step="250" value="2500"><output id="kmOut">2 500 km</output></div>
+          <span class="lbl">État général</span>
+          <div class="chips" data-key="etat" data-single>
+            <button class="chip" aria-pressed="false">Comme neuf</button>
+            <button class="chip" aria-pressed="false">Quelques traces d'usage</button>
+            <button class="chip" aria-pressed="false">À réviser</button>
+            <button class="chip" aria-pressed="false">Accidenté</button>
+          </div>
+          <div class="moteur-only">
+            <span class="lbl">Autonomie de la batterie</span>
+            <div class="chips" data-key="batterie" data-single>
+              <button class="chip" aria-pressed="false">Comme à l'achat</button>
+              <button class="chip" aria-pressed="false">En baisse</button>
+              <button class="chip" aria-pressed="false">Je ne sais pas</button>
+            </div>
+            <p class="hint" id="battHint" hidden>Le magasin réalise sur place un <b>diagnostic de capacité de batterie</b> — et peut la reconditionner à neuf.</p>
+          </div>
+        </div>
+        <!-- 4 -->
+        <div class="pane" data-step="3">
+          <h3>Que souhaitez-vous faire ?</h3>
+          <p class="sub">Plusieurs solutions existent en magasin.</p>
+          <div class="chips" data-key="projet" data-single>
+            <button class="chip" aria-pressed="false">Le faire reprendre pour un vélo neuf</button>
+            <button class="chip" aria-pressed="false">Le vendre</button>
+            <button class="chip" aria-pressed="false">Le confier en dépôt-vente</button>
+          </div>
+          <div class="field">
+            <label>Votre prénom<input id="nom" placeholder="Prénom"></label>
+            <label>Téléphone<input id="tel" type="tel" placeholder="06 …"></label>
+          </div>
+        </div>
+        <!-- 5 -->
+        <div class="pane" data-step="4">
+          <h3>Votre fiche de reprise</h3>
+          <p class="sub">Envoyez-la au magasin, Anthony vous recontacte pour fixer un passage.</p>
+          <dl class="recap" id="recap"></dl>
+          <div id="matchWrap">
+            <span class="lbl">Dans le stock, ces vélos pourraient le remplacer :</span>
+            <div class="match" id="match"></div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" id="send" href="#">Envoyer ma fiche au magasin</a>
+            <a class="btn ghost" href="tel:+33477780562">Appeler le 04 77 78 05 62</a>
+          </div>
+        </div>
+
+        <div class="nav-btns">
+          <button class="btn ghost" id="prev" style="visibility:hidden">← Retour</button>
+          <button class="btn" id="next">Continuer →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STOCK -->
+<section id="stock">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Notre stock</span>
+      <h2>Retrouvez les vélos disponibles en magasin.</h2>
+      <p>Vélos neufs prêts à rouler, à essayer au 90 rue de Charlieu.</p>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">Tous</button>
+      <button data-f="vtt">VTT</button>
+      <button data-f="ville">Ville &amp; VTC</button>
+      <button data-f="promo">Prix réduits</button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <p class="small">Prix et disponibilités repris de la page « Notre stock » du site actuel, à confirmer en magasin.</p>
+  </div>
+</section>
+
+<!-- OCCASION -->
+<section class="occ-sec" id="occasion">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow" style="color:#8fd894">Vélo d'occasion</span>
+      <h2>Vélos occasion — dépôt-vente</h2>
+      <p>Vélos de démonstration et dépôts-ventes, révisés par l'atelier. Visibles en magasin sur demande.</p>
+    </div>
+    <div class="occ">
+      <article class="reveal">
+        <img src="https://adx-bike.fr/site/assets/files/1139/moustache_road_28_6.760x0.jpg" alt="Moustache Dimanche 28.6" loading="lazy">
+        <div class="b"><h3>Moustache Dimanche 28.6 — M</h3><p>Bosch SX 60Nm / 400Wh (+250Wh possible), dérailleur électrique SRAM, roues MAVIC carbone, Kiox 300. Vélo démo, 280 km.</p>
+        <div class="p"><b>4.999€</b><s>5.999€</s></div></div>
+      </article>
+      <article class="reveal">
+        <img src="https://adx-bike.fr/site/assets/files/1148/1789053290325.760x0.jpg" alt="Gravel WELT G100" loading="lazy">
+        <div class="b"><h3>Gravel WELT G100 — M / 50 cm</h3><p>Shimano GRX 2x10, freins à disque hydrauliques, cadre aluminium. Vélo démonstration, proche du neuf. Marquage FNUCI inclus.</p>
+        <div class="p"><b>1000€</b><s>1449€</s></div></div>
+      </article>
+      <article class="reveal">
+        <img src="https://adx-bike.fr/site/assets/files/1149/1789134351837.760x0.jpg" alt="VTTAE Stevens E-Inception AM 6.6.1" loading="lazy">
+        <div class="b"><h3>VTTAE Stevens E-Inception AM 6.6.1</h3><p>Bosch CX 85Nm / 625Wh / Kiox 300, Shimano 12V, Rockshox. 1250 km, 2023. Dépôt-vente.</p>
+        <div class="p"><b>3.000€</b><s>4.799€</s></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ATELIER + RDV -->
+<section id="atelier">
+  <div class="wrap atelier">
+    <div class="reveal">
+      <span class="eyebrow">L'atelier</span>
+      <h2 style="font-size:clamp(2rem,1.4rem + 2.2vw,3rem);color:var(--dark);margin:12px 0">Un véritable atelier sur place.</h2>
+      <p style="color:var(--secondary)">L'équipe s'engage à vous satisfaire, fort de notre expérience, avec qualification Bosch / Shimano / Yamaha.</p>
+      <ul class="list">
+        <li>Simple révision et remise en état</li>
+        <li>Remplacement de transmission</li>
+        <li>Dévoilage de roue, changement de pneumatiques</li>
+        <li>Travaux sur vélos accidentés</li>
+        <li>Diagnostic de capacité et reconditionnement de batterie</li>
+        <li>Vélos électriques et musculaires, toutes marques</li>
+      </ul>
+    </div>
+    <div class="rdv reveal">
+      <h3>Demander un passage à l'atelier</h3>
+      <p style="color:var(--secondary);margin-bottom:16px">Choisissez une intervention et un jour d'ouverture, le magasin confirme le créneau.</p>
+      <label class="lbl" for="presta">Intervention</label>
+      <select id="presta" style="width:100%;margin-bottom:16px">
+        <option>Révision</option><option>Remise en état</option><option>Transmission</option><option>Roue / pneumatique</option><option>Vélo accidenté</option><option>Diagnostic batterie</option><option>Reconditionnement batterie</option>
+      </select>
+      <span class="lbl">Jour de dépôt</span>
+      <div class="days" id="days"></div>
+      <span class="lbl">Moment</span>
+      <div class="slots chips" data-key="slot" data-single>
+        <button class="chip" aria-pressed="true">Matin · 8h30-11h45</button>
+        <button class="chip" aria-pressed="false">Après-midi · 13h30-18h00</button>
+      </div>
+      <button class="btn" id="book" style="width:100%;justify-content:center">Envoyer la demande</button>
+      <div class="done-box" id="doneBox">
+        <b>Demande prête.</b> Votre messagerie s'ouvre avec le récapitulatif. <a href="#" id="ics" style="color:var(--primary);font-weight:600">Ajouter à mon agenda (.ics)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTOIRE -->
+<section id="qui-sommes-nous" style="background:var(--light)">
+  <div class="wrap story">
+    <div class="reveal">
+      <div class="ba" id="ba">
+        <img src="https://adx-bike.fr/site/assets/files/1026/1764841729552-1.jpg" alt="Le magasin aujourd'hui : ADX Bike">
+        <img class="before" src="https://adx-bike.fr/site/assets/files/1026/thumbnail_magasin.824x0-is.jpg" alt="Le magasin à ses débuts : A Scoot'Tuning">
+        <div class="handle"></div>
+        <span class="lab l">Scoot'Tuning</span><span class="lab r">ADX Bike</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Comparer le magasin avant et aujourd'hui">
+      </div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Qui sommes-nous ?</span>
+      <h2 style="font-size:clamp(2rem,1.4rem + 2.2vw,3rem);color:var(--dark);margin:12px 0">L'évolution du magasin au fil des années..</h2>
+      <ul class="timeline">
+        <li><b>2008</b><span>Magasin créé par M. Joannet Alain, précurseur du vélo à assistance électrique dans le Roannais.</span></li>
+        <li><b>2009</b><span>Anthony arrive chez Cycles Scoot'Tuning en apprentissage mécanicien motocycles.</span></li>
+        <li><b>2018</b><span>Les chemins se recroisent : Alain et Anthony poursuivent l'aventure ensemble.</span></li>
+        <li><b>Octobre 2022</b><span>Alain prend sa retraite, Anthony reprend le magasin.</span></li>
+        <li><b>Octobre 2025</b><span>Le magasin devient ADX BIKE.</span></li>
+      </ul>
+      <p class="quote">« Rien ne change, si ce n'est le nom =) »</p>
+      <p style="color:var(--secondary)">— Anthony, le gérant</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUES -->
+<div class="brands" id="marques" aria-label="Nos marques">
+  <div class="marquee">
+    <span>Moustache Bikes</span><span>Sunn</span><span>O2feel</span><span>SAVA</span><span>Lapierre</span><span>Haibike</span><span>Winora</span><span>Gitane</span><span>Peugeot</span><span>Solex</span>
+    <span>Moustache Bikes</span><span>Sunn</span><span>O2feel</span><span>SAVA</span><span>Lapierre</span><span>Haibike</span><span>Winora</span><span>Gitane</span><span>Peugeot</span><span>Solex</span>
+  </div>
+  <div class="wrap brand-cards">
+    <article class="reveal"><h3>Moustache Bikes</h3><p>L'ADN d'une marque 100% électrique.</p></article>
+    <article class="reveal"><h3>Sunn &amp; EXS</h3><p>L'expertise made in France, à Machecoul, depuis plus de 40 ans.</p></article>
+    <article class="reveal"><h3>O2feel</h3><p>Concepteur de vélos à assistance électrique depuis 2009, assemblés en France.</p></article>
+  </div>
+</div>
+
+<!-- ACTUALITÉ -->
+<section id="actualite">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Actualité</span>
+      <h2>Du nouveau au magasin.</h2>
+    </div>
+    <div class="news">
+      <article class="reveal">
+        <img src="https://adx-bike.fr/site/assets/files/1044/adx_bike_90_rue_de_charlieu_42300_roanne.1181x0-is.png" alt="Roulez sans passer à la pompe" loading="lazy" style="aspect-ratio:1181/618">
+        <div class="b"><h3>Roulez sans passer à la pompe !</h3><p style="color:var(--secondary)">Économisez sur vos trajets avec un vélo à assistance électrique.</p></div>
+      </article>
+      <div class="side">
+        <article class="reveal"><div class="b"><h3>Assurance vol &amp; casse</h3><p style="color:var(--secondary)">Vous pouvez désormais souscrire à l'assurance vol &amp; casse en magasin.</p></div></article>
+        <article class="reveal"><div class="b"><h3>Moustache Road &amp; Gravel</h3><p style="color:var(--secondary)">La toute nouvelle gamme Moustache Bikes Road &amp; Gravel est en magasin, venez l'essayer !</p></div></article>
+        <article class="reveal"><div class="b"><h3>Nouveauté Moustache Lundi 27</h3><p style="color:var(--secondary)">Nouveau moteur Bosch Hub Line 45 Nm et batterie 360 Wh : 3,5 kg de moins, même ADN.</p></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Galerie photo</span><h2>Nos vélos, en quelques photos..</h2></div>
+    <div class="gallery" id="gallery">
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20241012_173701.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20231121_130651.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20231019_115112.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20241031_110601_1.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20230915_154713.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20241108_142521_1.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+      <button><img src="https://adx-bike.fr/site/assets/files/1090/img_20231121_131124.1600x0.jpg" alt="Vélo en magasin" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--light)">
+  <div class="wrap">
+    <div class="head reveal"><span class="eyebrow">Contact</span><h2>Comment nous joindre</h2></div>
+    <div class="contact">
+      <div class="cbox reveal">
+        <h3>ADX BIKE</h3>
+        <p>90 rue de Charlieu<br>42300 Roanne</p>
+        <p>Téléphone : <a href="tel:+33477780562">04 77 78 05 62</a><br>Email : <a href="mailto:adx-bike@outlook.fr">adx-bike@outlook.fr</a></p>
+        <table class="hours" id="hours"></table>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn white" href="tel:+33477780562">Appeler</a>
+          <a class="btn ghost" style="color:#fff;border-color:#fff" href="https://g.page/r/CeoI_ud70UsuEB0/review" target="_blank" rel="noopener">Laisser un avis Google</a>
+        </div>
+      </div>
+      <div class="map reveal">
+        <iframe title="Plan d'accès ADX Bike" loading="lazy" src="https://maps.google.com/maps?q=90%20rue%20de%20Charlieu%2042300%20Roanne&z=16&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a href="#accueil" class="logo" style="color:#fff">ADX <span>BIKE</span></a>
+        <p style="margin-top:10px">Le spécialiste du 2 roue électrique. Vente - Réparation cycle à assistance électrique et musculaire, à Roanne depuis 2008.</p>
+      </div>
+      <div>
+        <h4>Liens utiles</h4>
+        <ul><li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li><li><a href="#marques">Découvrir nos marques</a></li><li><a href="#occasion">Vélo d'occasion</a></li><li><a href="#stock">Notre stock</a></li><li><a href="#rachat">Rachat de vélo</a></li><li><a href="#galerie">Galerie photo</a></li></ul>
+      </div>
+      <div>
+        <h4>Suivez-nous</h4>
+        <ul><li><a href="https://www.facebook.com/profile.php?id=100087004025514" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/cycles.scoottuning/" target="_blank" rel="noopener">Instagram</a></li></ul>
+      </div>
+    </div>
+    <p class="legal">Maquette de démonstration réalisée à titre de proposition, non contractuelle — ce n'est pas le site officiel d'ADX Bike. Textes, prix et horaires repris du site actuel adx-bike.fr (novembre 2026), prix indicatifs à confirmer en magasin. Toutes les photos sont celles publiées par le magasin sur son site actuel ; aucune photo d'illustration n'a été ajoutée. Couleurs et polices reprises de la charte du site actuel, ajustables. Le formulaire de reprise et la demande d'atelier préparent un e-mail : rien n'est envoyé automatiquement.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a href="tel:+33477780562">Appeler</a><a href="#rachat">Estimer mon vélo</a></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button aria-label="Fermer">✕</button><img alt=""></div>
+
+<script>
+(function(){
+const IMG='https://adx-bike.fr/site/assets/files/1109/';
+/* Stock réel (page « Notre stock » d'adx-bike.fr) */
+const STOCK=[
+ {b:'Moustache Bikes',m:'Trail 2',spec:'Bosch CX 85Nm - 625Wh',p:'4.599€',d:'3.899€',last:'Dernière pièce en taille S',cat:'vtt',img:'img_20251213_134516_1.464x0-is.jpg'},
+ {b:'Moustache Bikes',m:'Urban 28 2026',spec:'Bosch SX 60Nm - 400Wh',p:'3.799€',cat:'ville',img:'img_20251213_132804.464x0-is.jpg'},
+ {b:'Sunn',m:'Charger S2',spec:'Bosch CX 85Nm - 625Wh',p:'4.199€',cat:'ville',img:'img_20251213_133633.464x0-is.jpg'},
+ {b:'Moustache Bikes',m:'OFF 2',spec:'Bosch Perf 75Nm - 500Wh',p:'3.499€',d:'2.799€',cat:'ville',img:'img_20251213_142923-1.464x0-is.jpg'},
+ {b:'Sunn',m:'Start S1',spec:'Bosch Active+ 50Nm - 400Wh',p:'2.399€',d:'2.099€',last:'Dernière pièce : 1 M, 1 L',cat:'ville',img:'1766148331827.464x0-is.jpg'},
+ {b:'Moustache Bikes',m:'Game 150.7',spec:'Bosch CX 85Nm - 750Wh',p:'6.299€',cat:'vtt',img:'1766148331864.464x0-is.jpg'},
+ {b:'Moustache Bikes',m:'XRoad 4 2026',spec:'Bosch CX 90Nm - 600Wh',p:'3.699€',cat:'ville',tag:'Venez l\'essayer',img:'xroad_4_2026.1000x0-is.jpg'},
+ {b:'Moustache Bikes',m:'Game 160.7',spec:'Bosch CX 85Nm - 750Wh · autres versions dès 5.399€',p:'6.799€',cat:'vtt',img:'160_7.jpg'},
+ {b:'Moustache Bikes',m:'Mardi 27.4',spec:'Bosch Perf 75Nm - 500Wh',p:'3.699€',d:'3.099€',last:'Dernière pièce en taille L',cat:'ville',img:'mardi_27_4.jpg'}
+];
+const grid=document.getElementById('grid');
+grid.innerHTML=STOCK.map(s=>`<article class="card reveal" data-cat="${s.cat}${s.d?' promo':''}">
+ <div class="img"><img src="${IMG+s.img}" alt="${s.b} ${s.m}" loading="lazy">${s.d?'<span class="tag promo">Prix réduit</span>':(s.tag?`<span class="tag">${s.tag}</span>`:'')}</div>
+ <div class="body"><span class="brand">${s.b}</span><h3>${s.m}</h3><span class="spec">${s.spec}</span>
+ <div class="price">${s.d?`<b>${s.d}</b><s>${s.p}</s>`:`<b>${s.p}</b>`}</div>${s.last?`<span class="last">${s.last}</span>`:''}</div></article>`).join('');
+document.getElementById('filters').addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+ const f=b.dataset.f;
+ grid.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f!=='all'&&!c.dataset.cat.split(' ').includes(f)));
+});
+
+/* Reveal au scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+
+/* Compteurs */
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,end=parseFloat(el.dataset.count),dec=+el.dataset.dec||0,t0=performance.now();
+ (function f(t){const k=Math.min(1,(t-t0)/1600),v=end*(1-Math.pow(1-k,3));el.textContent=dec?v.toFixed(dec):Math.round(v).toLocaleString('fr-FR');if(k<1)requestAnimationFrame(f)})(t0);co.unobserve(el)}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+/* Navigation */
+const nav=document.getElementById('nav'),menu=document.getElementById('menu'),burger=document.getElementById('burger');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+/* Horaires réels : mardi au samedi 8h30-11h45 / 13h30-18h00 */
+const DAYS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const isOpenDay=d=>d>=2&&d<=6;
+function status(){const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes();
+ const open=isOpenDay(d)&&((m>=510&&m<705)||(m>=810&&m<1080));
+ const st=document.getElementById('status');st.classList.toggle('open',open);
+ st.querySelector('span').textContent=open?'Ouvert en ce moment':'Fermé · ouvert du mardi au samedi';}
+status();setInterval(status,60000);
+const today=new Date().getDay();
+document.getElementById('hours').innerHTML=[2,3,4,5,6,0,1].map(d=>`<tr class="${d===today?'today':''}"><td>${DAYS[d]}</td><td>${isOpenDay(d)?'8h30-11h45 / 13h30-18h00':'Fermé'}</td></tr>`).join('');
+
+/* Chips (choix unique) */
+const state={};
+document.querySelectorAll('.chips[data-single]').forEach(g=>{
+ g.querySelectorAll('.chip').forEach(c=>{if(c.getAttribute('aria-pressed')==='true')state[g.dataset.key]=c.textContent.trim()});
+ g.addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;
+  g.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));
+  state[g.dataset.key]=c.textContent.trim();if(c.dataset.cat)state.cat=c.dataset.cat;
+  if(g.dataset.key==='moteur')document.querySelectorAll('.moteur-only').forEach(x=>x.hidden=state.moteur==='Musculaire');
+  if(g.dataset.key==='batterie')document.getElementById('battHint').hidden=state.batterie==='Comme à l\'achat';
+ });
+});
+
+/* Outil de reprise */
+const panes=[...document.querySelectorAll('.pane')],steps=[...document.querySelectorAll('#steps li')];
+const prev=document.getElementById('prev'),next=document.getElementById('next');let cur=0;
+const annee=document.getElementById('annee'),km=document.getElementById('km');
+annee.oninput=()=>document.getElementById('anneeOut').textContent=annee.value;
+km.oninput=()=>document.getElementById('kmOut').textContent=(+km.value).toLocaleString('fr-FR')+(+km.value>=20000?'+ km':' km');
+const need=[['moteur','type'],[],['etat'],['projet']];
+function go(i){
+ if(i>cur&&need[cur]&&need[cur].some(k=>!state[k])){next.animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300});
+  next.textContent='Faites un choix ↑';setTimeout(()=>next.textContent='Continuer →',1200);return}
+ cur=i;panes.forEach((p,k)=>p.classList.toggle('on',k===i));
+ steps.forEach((s,k)=>{s.classList.toggle('on',k===i);s.classList.toggle('done',k<i)});
+ prev.style.visibility=i?'visible':'hidden';next.style.display=i===4?'none':'';
+ if(i===4)fiche();
+ document.getElementById('tool').scrollIntoView({behavior:'smooth',block:'start'});
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+function fiche(){
+ const v=id=>document.getElementById(id).value.trim();
+ const rows=[['Motorisation',state.moteur],['Type',state.type],['Marque',v('marque')||'—'],['Modèle',v('modele')||'—'],['Année',annee.value],
+  ['Kilométrage',document.getElementById('kmOut').textContent],['État',state.etat],state.moteur!=='Musculaire'?['Moteur',state.motor||'—']:null,
+  state.moteur!=='Musculaire'?['Batterie',state.batterie||'—']:null,['Projet',state.projet]].filter(Boolean);
+ document.getElementById('recap').innerHTML=rows.map(r=>`<div><dt>${r[0]}</dt><dd>${r[1]}</dd></div>`).join('');
+ const wantsNew=/neuf/.test(state.projet||'');
+ const m=STOCK.filter(s=>s.cat===(state.cat==='route'?'ville':state.cat)).slice(0,3);
+ document.getElementById('matchWrap').hidden=!wantsNew||!m.length;
+ document.getElementById('match').innerHTML=m.map(s=>`<a href="#stock"><img src="${IMG+s.img}" alt="${s.m}"><span>${s.b}<br><b>${s.m}</b> · ${s.d||s.p}</span></a>`).join('');
+ const body='Bonjour,\n\nJe souhaite faire estimer mon vélo :\n'+rows.map(r=>'- '+r[0]+' : '+r[1]).join('\n')+'\n\n'+(v('nom')?'Prénom : '+v('nom')+'\n':'')+(v('tel')?'Téléphone : '+v('tel')+'\n':'')+'\nMerci !';
+ document.getElementById('send').href='mailto:adx-bike@outlook.fr?subject='+encodeURIComponent('Demande de reprise - '+(v('marque')||'vélo')+' '+(v('modele')||''))+'&body='+encodeURIComponent(body);
+}
+
+/* Demande d'atelier : jours d'ouverture réels sur 3 semaines */
+const daysEl=document.getElementById('days');let pick=null;
+const list=[];for(let k=1;list.length<12&&k<30;k++){const d=new Date();d.setDate(d.getDate()+k);if(isOpenDay(d.getDay()))list.push(d)}
+daysEl.innerHTML=list.map((d,k)=>`<button class="day" aria-pressed="${k===0}" data-k="${k}"><small>${DAYS[d.getDay()].slice(0,3)}</small><b>${d.getDate()}</b><small>${d.toLocaleDateString('fr-FR',{month:'short'})}</small></button>`).join('');
+pick=list[0];
+daysEl.onclick=e=>{const b=e.target.closest('.day');if(!b)return;daysEl.querySelectorAll('.day').forEach(x=>x.setAttribute('aria-pressed',x===b));pick=list[+b.dataset.k]};
+document.getElementById('book').onclick=()=>{
+ const presta=document.getElementById('presta').value,slot=state.slot||'Matin · 8h30-11h45',morning=/Matin/.test(slot);
+ const ds=pick.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+ location.href='mailto:adx-bike@outlook.fr?subject='+encodeURIComponent('Atelier - '+presta)+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais déposer mon vélo pour : '+presta+'.\nJour souhaité : '+ds+' ('+slot+').\n\nMerci de me confirmer le créneau.');
+ const p=n=>String(n).padStart(2,'0'),dt=pick.getFullYear()+p(pick.getMonth()+1)+p(pick.getDate());
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ADX Bike//Atelier//FR','BEGIN:VEVENT','UID:'+Date.now()+'@adx-bike','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z',
+  'DTSTART:'+dt+(morning?'T083000':'T133000'),'DTEND:'+dt+(morning?'T090000':'T140000'),'SUMMARY:Dépôt vélo ADX Bike - '+presta,'LOCATION:ADX Bike\\, 90 rue de Charlieu\\, 42300 Roanne','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ const a=document.getElementById('ics');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='atelier-adx-bike.ics';
+ document.getElementById('doneBox').classList.add('on');
+};
+
+/* Avant / après */
+const ba=document.getElementById('ba');ba.querySelector('input').oninput=e=>ba.style.setProperty('--x',e.target.value+'%');
+
+/* Galerie */
+const lb=document.getElementById('lb');
+document.getElementById('gallery').onclick=e=>{const b=e.target.closest('button');if(!b)return;lb.querySelector('img').src=b.querySelector('img').src;lb.classList.add('on')};
+lb.onclick=e=>{if(e.target.tagName!=='IMG')lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+})();
+</script>
+</body>
+</html>
