@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auberge du Bosquet Fleuri — Restaurant à Bully, grenouilles face à la Loire</title>
+<meta name="description" content="Auberge à Bully, entre Roanne et les gorges de la Loire : cuisses de grenouilles à la persillade, menus de 16 à 36 €, grande terrasse avec vue directe sur la Loire.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du logo de l'auberge (badge bleu marine,
+   grenouilles, écriture manuscrite) et des cartes de menus
+   (titres manuscrits, plats en italique à empattements).
+   Ajuster ici si l'auberge fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --navy:#233249;        /* bleu marine du badge logo */
+  --navy-2:#2f4363;
+  --loire:#5f8dbb;       /* bleu de la Loire / ciel des photos */
+  --loire-soft:#dfe9f3;
+  --pre:#5b8a3a;         /* vert de la pelouse de la terrasse */
+  --cream:#fbfaf6;
+  --paper:#ffffff;
+  --ink:#1d2738;
+  --muted:#5d6878;
+  --line:#e3e7ee;
+  --f-script:'Courgette',cursive;            /* titres manuscrits des cartes */
+  --f-serif:'Libre Baskerville',Georgia,serif;/* plats en italique */
+  --f-sans:'Nunito Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-sans);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--loire);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--navy);color:#cfd9e8;font-size:.78rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+.demo b{color:#fff}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(35,50,73,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:74px;transition:height .3s var(--ease)}
+header.scrolled .nav{height:62px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#fff;box-shadow:0 2px 10px rgba(35,50,73,.18);transition:transform .5s var(--ease)}
+.brand:hover img{transform:rotate(-12deg) scale(1.06)}
+.brand span{font-family:var(--f-script);font-size:1.35rem;color:var(--navy);line-height:1}
+.brand small{display:block;font-family:var(--f-sans);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.menu{display:flex;gap:22px;list-style:none}
+.menu a{text-decoration:none;font-weight:700;font-size:.9rem;color:var(--navy);position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--loire);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:800 .92rem var(--f-sans);text-decoration:none;padding:13px 22px;border-radius:999px;background:var(--navy);color:#fff;transition:transform .25s var(--ease),box-shadow .25s,background .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(35,50,73,.25);background:var(--navy-2)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.btn.ghost:hover{background:var(--navy);color:#fff}
+.btn.light{background:#fff;color:var(--navy)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger i{display:block;width:24px;height:2px;background:var(--navy);margin:5px auto;transition:.3s}
+@media(max-width:960px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--cream);padding:100px 24px 30px;gap:8px;transform:translateY(-105%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.12);z-index:-1}
+  .menu.open{transform:none}
+  .menu a{font-size:1.2rem;display:block;padding:10px 0}
+  .burger{display:block}
+  .nav .btn.call{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:min(92vh,820px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:0;z-index:-2}
+.hero .bg img{width:100%;height:100%;object-fit:cover;animation:drift 26s ease-in-out infinite alternate}
+@keyframes drift{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(35,50,73,.05) 30%,rgba(23,33,50,.78) 100%)}
+.hero .inner{padding:0 0 72px}
+.status{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);padding:8px 16px;border-radius:999px;font-weight:700;font-size:.88rem;margin-bottom:22px}
+.dot{width:10px;height:10px;border-radius:50%;background:#7bd389;box-shadow:0 0 0 0 rgba(123,211,137,.7);animation:ping 2s infinite}
+.dot.off{background:#f0a35e;box-shadow:none;animation:none}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(123,211,137,0)}100%{box-shadow:0 0 0 0 rgba(123,211,137,0)}}
+.hero h1{font-family:var(--f-script);font-weight:400;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:1.05;max-width:14ch;text-shadow:0 4px 30px rgba(0,0,0,.25)}
+.hero p.lead{font-family:var(--f-serif);font-style:italic;font-size:clamp(1.05rem,.95rem + .5vw,1.35rem);max-width:46ch;margin:18px 0 30px;opacity:.95}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.split span{display:inline-block;opacity:0;transform:translateY(40%) rotate(4deg);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.wave{position:absolute;left:0;right:0;bottom:-1px;height:60px;z-index:1;color:var(--cream)}
+.wave svg{width:200%;height:100%;animation:flow 14s linear infinite}
+@keyframes flow{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,8vw,120px) 0;position:relative}
+.eyebrow{font-weight:800;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--loire)}
+h2{font-family:var(--f-script);font-weight:400;color:var(--navy);font-size:clamp(2.1rem,1.6rem + 2.4vw,3.5rem);line-height:1.1;margin:8px 0 16px}
+.sub{color:var(--muted);max-width:60ch}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* Spécialité */
+.spec{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.spec .pic{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/4.4;box-shadow:0 30px 60px rgba(35,50,73,.18)}
+.spec .pic img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.spec .pic:hover img{transform:scale(1.06)}
+.price-tag{position:absolute;right:18px;bottom:18px;background:#fff;color:var(--navy);border-radius:16px;padding:12px 16px;box-shadow:0 10px 30px rgba(0,0,0,.18);font-weight:800}
+.price-tag em{display:block;font-family:var(--f-serif);font-weight:400;font-size:.8rem;color:var(--muted)}
+.frogs{display:flex;gap:10px;margin:22px 0 8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--loire-soft);color:var(--navy);font-weight:700;font-size:.86rem}
+.spec blockquote{font-family:var(--f-serif);font-style:italic;font-size:1.15rem;color:var(--navy);border-left:3px solid var(--loire);padding-left:18px;margin:22px 0}
+@media(max-width:860px){.spec{grid-template-columns:1fr}}
+
+/* Carte */
+.carte{background:var(--paper)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:28px 0 30px;position:relative}
+.tab{border:0;background:var(--cream);color:var(--navy);font:700 .9rem var(--f-sans);padding:11px 18px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s,transform .2s;min-height:44px}
+.tab:hover{transform:translateY(-1px)}
+.tab[aria-selected=true]{background:var(--navy);color:#fff}
+.panel{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 48px}
+.panel[hidden]{display:none}
+.dish{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:16px 0;border-bottom:1px dashed var(--line);animation:fadein .5s var(--ease) both}
+.dish h4{font-family:var(--f-serif);font-style:italic;font-weight:400;font-size:1.05rem;color:var(--navy)}
+.dish p{grid-column:1/2;color:var(--muted);font-size:.88rem}
+.dish .pr{font-weight:800;color:var(--navy);white-space:nowrap;align-self:start}
+.dish .pr small{font-weight:600;color:var(--muted);font-size:.75rem;margin-right:6px}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}}
+.note{margin-top:22px;font-size:.86rem;color:var(--muted);background:var(--cream);padding:14px 18px;border-radius:12px}
+@media(max-width:760px){.panel{grid-template-columns:1fr}}
+
+/* Composeur */
+.composer{background:linear-gradient(180deg,var(--cream),var(--loire-soft))}
+.comp{display:grid;grid-template-columns:300px 1fr 330px;gap:22px;margin-top:34px;align-items:start}
+.card{background:#fff;border-radius:var(--r);box-shadow:0 14px 40px rgba(35,50,73,.08);padding:22px}
+.comp>*{min-width:0}
+.mlist{display:flex;flex-direction:column;gap:8px}
+.mbtn{display:flex;justify-content:space-between;align-items:center;width:100%;border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 14px;cursor:pointer;font:700 .95rem var(--f-sans);color:var(--navy);transition:border-color .25s,transform .25s var(--ease),background .25s;text-align:left;min-height:48px}
+.mbtn span{font-family:var(--f-script);font-weight:400;font-size:1.15rem}
+.mbtn:hover{transform:translateX(4px);border-color:var(--loire)}
+.mbtn[aria-pressed=true]{border-color:var(--navy);background:var(--navy);color:#fff}
+.steps h3{font-family:var(--f-script);font-weight:400;color:var(--navy);font-size:1.8rem}
+.step{margin-top:18px}
+.step h5{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--loire);margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:inline-block;padding:9px 14px;border-radius:12px;border:1.5px solid var(--line);cursor:pointer;font-family:var(--f-serif);font-style:italic;font-size:.92rem;color:var(--ink);transition:.2s;background:#fff}
+.opt input:checked+label{background:var(--loire-soft);border-color:var(--navy);color:var(--navy);box-shadow:0 0 0 2px rgba(35,50,73,.08)}
+.opt input:focus-visible+label{outline:3px solid var(--loire);outline-offset:2px}
+.opt label:hover{border-color:var(--loire)}
+.extra{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px dashed var(--line);font-size:.92rem}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-weight:800;color:var(--navy)}
+.qty output{min-width:18px;text-align:center;font-weight:800}
+.table h3{font-family:var(--f-script);font-weight:400;color:var(--navy);font-size:1.6rem}
+.tline{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.9rem;animation:fadein .4s var(--ease)}
+.tline em{font-family:var(--f-serif);color:var(--muted);font-size:.8rem;display:block}
+.tline button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1rem}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0;font-weight:800;color:var(--navy)}
+.total b{font-size:2rem;font-family:var(--f-serif)}
+.empty{color:var(--muted);font-style:italic;font-family:var(--f-serif);font-size:.92rem;padding:10px 0}
+.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.12)}}
+@media(max-width:1060px){.comp{grid-template-columns:1fr}.mlist{flex-direction:row;overflow-x:auto;padding-bottom:6px}.mbtn{min-width:180px}}
+
+/* Horaires */
+.hours{display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(24px,5vw,64px);align-items:center}
+.today{background:var(--navy);color:#fff;border-radius:28px;padding:34px;position:relative;overflow:hidden}
+.today::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(95,141,187,.5),transparent 70%)}
+.today .big{font-family:var(--f-script);font-size:clamp(2rem,1.6rem + 1.6vw,2.8rem);line-height:1.1;margin:10px 0}
+.today p{opacity:.85}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:22px}
+.week div{text-align:center;padding:10px 0;border-radius:10px;background:rgba(255,255,255,.08);font-size:.78rem;font-weight:700}
+.week div.open{background:rgba(123,211,137,.25)}
+.week div.now{outline:2px solid #fff}
+.seasons{display:flex;flex-direction:column;gap:10px}
+.season{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:16px 18px;border-radius:14px;background:#fff;border:1.5px solid var(--line);transition:.3s}
+.season.cur{border-color:var(--navy);box-shadow:0 10px 30px rgba(35,50,73,.1)}
+.season b{color:var(--navy)}
+.season span{color:var(--muted);font-size:.92rem}
+.season .tag{display:inline-block;font-size:.7rem;background:var(--navy);color:#fff;border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:middle}
+@media(max-width:860px){.hours{grid-template-columns:1fr}.season{grid-template-columns:1fr}}
+
+/* Terrasse / galerie */
+.gal{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:120px;gap:12px;margin-top:34px}
+.gal figure{position:relative;border-radius:16px;overflow:hidden;cursor:zoom-in}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .5s}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figcaption{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.9);color:var(--navy);font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.35s}
+.gal figure:hover figcaption{opacity:1;transform:none}
+.g1{grid-column:span 4;grid-row:span 4}.g2{grid-column:span 2;grid-row:span 2}.g3{grid-column:span 2;grid-row:span 2}
+.g4{grid-column:span 2;grid-row:span 2}.g5{grid-column:span 2;grid-row:span 3}.g6{grid-column:span 2;grid-row:span 3}.g7{grid-column:span 2;grid-row:span 3}
+@media(max-width:760px){.gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}.gal figure{grid-column:span 1!important;grid-row:span 1!important}.gal .g1{grid-column:span 2!important;grid-row:span 2!important}}
+.lb{position:fixed;inset:0;background:rgba(15,22,34,.9);display:none;place-items:center;z-index:100;padding:20px}
+.lb.on{display:grid}
+.lb img{max-height:86vh;border-radius:14px;animation:fadein .4s var(--ease)}
+.lb button{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:50%;border:0;background:#fff;font-size:1.4rem;cursor:pointer}
+
+/* Infos */
+.infos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.info{background:#fff;border-radius:var(--r);padding:22px;border:1.5px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s}
+.info:hover{transform:translateY(-4px);box-shadow:0 16px 34px rgba(35,50,73,.1)}
+.info .ic{font-size:1.6rem}
+.info h4{color:var(--navy);margin:8px 0 4px}
+.info p{color:var(--muted);font-size:.9rem}
+@media(max-width:900px){.infos{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.infos{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--navy);color:#fff}
+.contact h2{color:#fff}
+.cgrid{display:grid;grid-template-columns:1fr 1.2fr;gap:30px;margin-top:20px;align-items:stretch}
+.cbox p{margin:6px 0;color:#d5deeb}
+.cbox a{color:#fff;font-weight:700}
+.cbox .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.map{border-radius:22px;overflow:hidden;min-height:320px;background:#1a2638}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;filter:saturate(.8)}
+@media(max-width:860px){.cgrid{grid-template-columns:1fr}}
+
+footer{background:#18233a;color:#9fb0c8;font-size:.8rem;padding:28px 0 90px}
+footer p{max-width:90ch;margin:6px 0}
+
+/* Barre mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:8px}
+.mbar a{flex:1;justify-content:center}
+@media(max-width:760px){.mbar{display:flex}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.split span{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Auberge du Bosquet Fleuri",
+  "image":"assets/auberge-du-bosquet-fleuri-bully/vue-loire-terrasse.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"1447 route de chez Dorier","postalCode":"42260","addressLocality":"Bully","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.92431,"longitude":4.038545},
+  "telephone":"+33477652079",
+  "email":"contact@bosquet-fleuri.fr",
+  "url":"http://www.bosquet-fleuri.fr",
+  "servesCuisine":["Cuisine traditionnelle française","Grenouilles"],
+  "priceRange":"Menus de 16 à 36 €",
+  "acceptsReservations":"True",
+  "paymentAccepted":"Espèces, Carte bancaire, American Express, Chèques-Vacances",
+  "areaServed":["Bully","Roanne","Roannais","Gorges de la Loire"],
+  "sameAs":["https://fr-fr.facebook.com/bosquet.fleuri"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte du site de l'Auberge du Bosquet Fleuri, non officielle.</div>
+
+<header id="top">
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a class="brand" href="#top" aria-label="Auberge du Bosquet Fleuri, accueil">
+      <img src="assets/auberge-du-bosquet-fleuri-bully/logo.png" alt="Logo de l'Auberge du Bosquet Fleuri">
+      <div><span>Bosquet Fleuri</span><small>Auberge · Bully</small></div>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#specialite">Les grenouilles</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#composer">Nos menus</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+      <li><a href="#terrasse">La terrasse</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn call" href="tel:+33477652079">☎ Réserver une table</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="bg"><img src="assets/auberge-du-bosquet-fleuri-bully/vue-loire-terrasse.jpg" alt="Vue sur la Loire depuis la terrasse de l'auberge au coucher du soleil"></div>
+  <div class="wrap inner">
+    <div class="status" id="heroStatus"><i class="dot" id="heroDot"></i><span id="heroText">Horaires du jour…</span></div>
+    <h1 class="split" id="heroTitle">Grenouilles et vue sur la Loire</h1>
+    <p class="lead">Allier un repas de qualité avec une vue imprenable sur la Loire, c'est possible au Bosquet Fleuri.</p>
+    <div class="ctas">
+      <a class="btn light" href="tel:+33477652079">☎ 04 77 65 20 79</a>
+      <a class="btn ghost" style="box-shadow:inset 0 0 0 2px #fff;color:#fff" href="#composer">Composer mon menu</a>
+    </div>
+  </div>
+  <div class="wave" aria-hidden="true"><svg viewBox="0 0 2400 60" preserveAspectRatio="none"><path fill="currentColor" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 T1500 30 T1800 30 T2100 30 T2400 30 V60 H0Z"/></svg></div>
+</section>
+
+<section id="specialite">
+  <div class="wrap spec">
+    <div class="pic reveal">
+      <img src="assets/auberge-du-bosquet-fleuri-bully/grenouilles.jpg" alt="Cuisses de grenouilles à la persillade et frites, Loire en arrière-plan" loading="lazy">
+      <div class="price-tag">22,00 €<em>la portion de grenouilles</em></div>
+    </div>
+    <div>
+      <p class="eyebrow reveal">La spécialité de la maison</p>
+      <h2 class="reveal d1">Cuisses de grenouilles à la persillade</h2>
+      <p class="sub reveal d2">Persillade fraîche, pur beurre, et l'accompagnement au choix : frites, légumes, riz ou gratin dauphinois. À la carte, ou au cœur des menus Pâquerette, Coquelicot et Marguerite.</p>
+      <div class="frogs reveal d2">
+        <span class="chip">🐸 Pur beurre</span><span class="chip">🌿 Persillade fraîche</span><span class="chip">🥔 Accompagnement au choix</span>
+      </div>
+      <blockquote class="reveal d3">Escargots, grenouilles, fritures, salades… une carte variée qui plaira aux petits comme aux grands.</blockquote>
+      <div class="reveal d3" style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn" href="#carte">Voir toute la carte</a>
+        <a class="btn ghost" href="#composer">Les menus de 16 à 36 €</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="carte" id="carte">
+  <div class="wrap">
+    <p class="eyebrow reveal">À la carte</p>
+    <h2 class="reveal d1">La carte, lisible sur tous les écrans</h2>
+    <p class="sub reveal d2">Fini les menus scannés : chaque plat est écrit en clair, se lit sur téléphone et se met à jour en quelques secondes.</p>
+    <div class="tabs reveal d2" role="tablist" id="tabs"></div>
+    <div id="panels"></div>
+    <p class="note">* Viandes, poissons, grenouilles et omelettes : un accompagnement au choix (frites, légumes, riz ou gratin dauphinois), accompagnement supplémentaire 3,00 €. Sauces fourme, poivre ou moutarde à l'ancienne : 2,00 €.</p>
+  </div>
+</section>
+
+<section class="composer" id="composer">
+  <div class="wrap">
+    <p class="eyebrow reveal">Nos menus</p>
+    <h2 class="reveal d1">Composez votre menu, voyez l'addition</h2>
+    <p class="sub reveal d2">Choisissez une formule, sélectionnez vos plats, ajoutez chaque convive à la table : le total s'affiche tout de suite. Il ne reste qu'à appeler pour réserver.</p>
+    <div class="comp">
+      <div class="card reveal"><div class="mlist" id="mlist" role="group" aria-label="Choisir un menu"></div></div>
+      <div class="card steps reveal d1" id="steps" aria-live="polite"></div>
+      <div class="card table reveal d2">
+        <h3>Votre table</h3>
+        <div id="tlines"><p class="empty">Aucun convive pour l'instant.</p></div>
+        <div class="total"><span>Total estimé</span><b id="ttotal">0,00 €</b></div>
+        <a class="btn" style="width:100%;justify-content:center" href="tel:+33477652079">☎ Appeler pour réserver</a>
+        <p style="font-size:.76rem;color:var(--muted);margin-top:10px">Prix relevés sur les cartes en ligne de l'auberge, indicatifs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="horaires">
+  <div class="wrap">
+    <p class="eyebrow reveal">Horaires</p>
+    <h2 class="reveal d1">Ouvert aujourd'hui&nbsp;?</h2>
+    <p class="sub reveal d2">Les horaires changent avec les saisons. Le site répond tout seul, selon la date du jour.</p>
+    <div class="hours" style="margin-top:30px">
+      <div class="today reveal">
+        <p class="eyebrow" style="color:#a9c3e0" id="todayDate"></p>
+        <div class="big" id="todayBig"></div>
+        <p id="todaySmall"></p>
+        <div class="week" id="week" aria-label="Jours d'ouverture de la semaine"></div>
+      </div>
+      <div class="seasons reveal d1" id="seasons"></div>
+    </div>
+  </div>
+</section>
+
+<section id="terrasse" style="background:var(--paper)">
+  <div class="wrap">
+    <p class="eyebrow reveal">La terrasse</p>
+    <h2 class="reveal d1">Une grande terrasse, la Loire en face</h2>
+    <p class="sub reveal d2">En été, profitez de la grande terrasse et de sa vue directe sur la Loire. Terrasse non fumeur, accueil chaleureux et familial.</p>
+    <div class="gal" id="gal">
+      <figure class="g1 reveal"><img src="assets/auberge-du-bosquet-fleuri-bully/coucher-soleil.jpg" alt="Terrasse au coucher du soleil face à la Loire" loading="lazy"><figcaption>Fin de journée</figcaption></figure>
+      <figure class="g2 reveal d1"><img src="assets/auberge-du-bosquet-fleuri-bully/restaurant.jpg" alt="L'auberge et sa terrasse ombragée" loading="lazy"><figcaption>L'auberge</figcaption></figure>
+      <figure class="g3 reveal d2"><img src="assets/auberge-du-bosquet-fleuri-bully/table-vue.jpg" alt="Table dressée face à la Loire" loading="lazy"><figcaption>Table dressée</figcaption></figure>
+      <figure class="g5 reveal"><img src="assets/auberge-du-bosquet-fleuri-bully/table-loire.jpg" alt="Table en terrasse, Loire en contrebas" loading="lazy"><figcaption>En bord de pelouse</figcaption></figure>
+      <figure class="g6 reveal d1"><img src="assets/auberge-du-bosquet-fleuri-bully/terrasse-parasol.jpg" alt="Terrasse sous parasol" loading="lazy"><figcaption>À l'ombre</figcaption></figure>
+      <figure class="g7 reveal d2"><img src="assets/auberge-du-bosquet-fleuri-bully/facade-terrasse.jpg" alt="Façade et terrasse au crépuscule" loading="lazy"><figcaption>Au crépuscule</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow reveal">Infos pratiques</p>
+    <h2 class="reveal d1">Bon à savoir</h2>
+    <div class="infos">
+      <div class="info reveal"><div class="ic">🥡</div><h4>Plats à emporter</h4><p>L'auberge propose des plats à emporter : renseignez-vous par téléphone.</p></div>
+      <div class="info reveal d1"><div class="ic">🐕</div><h4>Animaux acceptés</h4><p>Votre chien est le bienvenu avec vous.</p></div>
+      <div class="info reveal d2"><div class="ic">👧</div><h4>Le coin des enfants</h4><p>Jusqu'à 10 ans : steak haché frites ou nuggets frites à 5,50 €.</p></div>
+      <div class="info reveal d3"><div class="ic">💳</div><h4>Paiements</h4><p>Espèces, carte bancaire, American Express, Chèques-Vacances.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#a9c3e0">Contact & accès</p>
+    <h2>Venir au Bosquet Fleuri</h2>
+    <div class="cgrid">
+      <div class="cbox">
+        <p style="font-family:var(--f-script);font-size:1.6rem;color:#fff">Auberge du Bosquet Fleuri</p>
+        <p>1447 route de chez Dorier<br>42260 Bully</p>
+        <p>Téléphone : <a href="tel:+33477652079">04 77 65 20 79</a></p>
+        <p>E-mail : <a href="mailto:contact@bosquet-fleuri.fr">contact@bosquet-fleuri.fr</a></p>
+        <p>Actualité : <a href="https://fr-fr.facebook.com/bosquet.fleuri" target="_blank" rel="noopener">page Facebook</a></p>
+        <div class="ctas">
+          <a class="btn light" href="tel:+33477652079">☎ Réserver</a>
+          <a class="btn ghost" style="box-shadow:inset 0 0 0 2px #fff;color:#fff" href="https://www.openstreetmap.org/?mlat=45.92431&mlon=4.038545#map=15/45.92431/4.038545" target="_blank" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <div class="map"><iframe title="Plan d'accès à l'Auberge du Bosquet Fleuri" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0185%2C45.9143%2C4.0585%2C45.9343&amp;layer=mapnik&amp;marker=45.92431%2C4.038545"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b style="color:#fff">Maquette de démonstration</b> réalisée pour présenter une proposition de site à l'Auberge du Bosquet Fleuri. Elle n'est pas le site officiel de l'établissement.</p>
+    <p>Plats et prix repris des cartes publiées sur bosquet-fleuri.fr (cartes 2025 ; la page « Gratins de ravioles » porte la mention 2022), indicatifs et non contractuels. Horaires et services issus de la fiche Roannais Tourisme (mise à jour du 21/02/2025), à confirmer.</p>
+    <p>Photos : photos réelles de l'auberge, issues de son site et de sa fiche office de tourisme. Logo repris du site actuel en basse définition, à remplacer par le fichier d'origine. Couleurs approchées à partir du logo, ajustables.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn" href="tel:+33477652079">☎ Appeler</a><a class="btn light" style="box-shadow:0 6px 20px rgba(0,0,0,.15)" href="#composer">Nos menus</a></div>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button aria-label="Fermer">×</button><img alt=""></div>
+
+<script>
+/* ---------- Données réelles relevées sur les cartes ---------- */
+const CARTE = [
+  {id:'entrees',label:'Entrées & salades',items:[
+    ['Gros escargots de Bourgogne','',10.5],
+    ['Assiette de charcuterie','Jambon blanc, jambon cru, saucisson, terrine de campagne, cornichons',12],
+    ["Friture d'éperlan",'',10],
+    ['Salade verte','',[3.5,5]],
+    ['Salade du Chef','Salade verte, pomme de terre, œuf, jambon cru, fourme de Montbrison',[9.5,13]],
+    ['Salade du Sud-Ouest','Magret de canard fumé, gésier de poulet confit, noix',[9.5,13]],
+    ['Salade chèvre chaud','Lardons, chèvre sur toast, croûtons',[9.5,13]],
+    ['Salade du Royan','Ravioles, lardons, tomates séchées, olives',[9.5,13]],
+    ['Salade grecque','Concombre, feta, tomates séchées, oignons rouges, olives',[9.5,13]],
+    ['Salade César','Lamelles de poulet, copeaux de parmesan, croûtons, sauce César maison',[9.5,13]]]},
+  {id:'grenouilles',label:'Grenouilles & escargots',items:[
+    ['Cuisses de grenouilles à la persillade fraîche pur beurre','Accompagnement au choix *',22],
+    ['Gros escargots de Bourgogne ×12','',20]]},
+  {id:'viandes',label:'Viandes',items:[
+    ['Entrecôte charolaise 280 g','Accompagnement au choix *',26],
+    ['Andouillette 5A 100 % fraise de veau tirée à la ficelle 200 g','Accompagnement au choix *',20],
+    ['Cuisse de canard confite sauce échalote 170 g','Accompagnement au choix *',20],
+    ['Steak haché façon boucher 150 g','Accompagnement au choix *',11],
+    ['Sauce fourme, poivre ou moutarde à l\'ancienne','',2]]},
+  {id:'poissons',label:'Poissons',items:[
+    ['Filet de saint-pierre sauce citronnée','Accompagnement au choix *',22],
+    ['Truite aux amandes effilées','Accompagnement au choix *',17],
+    ["Friture d'éperlan",'Accompagnement au choix *',16]]},
+  {id:'omelettes',label:'Omelettes',items:[
+    ['Omelette nature','Accompagnement au choix *',9],
+    ['Omelette fromage','Accompagnement au choix *',10],
+    ['Omelette lardons champignons','Accompagnement au choix *',11],
+    ['Omelette ravioles chèvre','Accompagnement au choix *',12]]},
+  {id:'ravioles',label:'Gratins de ravioles',items:[
+    ['Gratin de ravioles du Royan nature','Ravioles, crème, emmental gratiné au four',10.5],
+    ['Gratin de ravioles à la fourme','Ravioles, crème, fourme de Montbrison, emmental',12],
+    ['Gratin de ravioles forestière','Ravioles, crème, mélange forestier, emmental',12],
+    ['Gratin de ravioles au saumon','Ravioles, crème, saumon, emmental',12],
+    ['Supplément salade','',3],
+    ['Frites','Petite / grande',[3,4.5]]]},
+  {id:'enfants',label:'Coin des enfants',items:[
+    ['Steak haché frites','Jusqu\'à 10 ans',5.5],
+    ['Nuggets de poulet frites','Jusqu\'à 10 ans',5.5],
+    ['½ portion, ½ tarif','Sur les plats signalés sur la carte de l\'auberge','—']]}
+];
+const SALADES=['Salade verte','Salade du Chef','Salade du Sud-Ouest','Salade chèvre chaud','Salade du Royan','Salade grecque','Salade César'];
+const GRATINS=['Nature','Fourme','Forestière','Saumon'];
+const ACC=['Frites','Riz','Légumes','Gratin dauphinois'];
+const FIN=['Fromage blanc','Fromage sec','Dessert au choix'];
+const MENUS=[
+  {n:'Lavande',p:16,steps:[['Apéritif',['Coupe de Clairette de Die','Verre de vin']],['Plat',GRATINS.map(g=>'Gratin de ravioles '+g.toLowerCase()+' et salade verte')],['Pour finir',FIN]]},
+  {n:'Ancolie',p:20,steps:[['Entrée',SALADES.map(s=>'Petite '+s.toLowerCase())],['Plat',GRATINS.map(g=>'Gratin de ravioles '+g.toLowerCase())],['Pour finir',FIN]]},
+  {n:'Primevère',p:28,steps:[['Entrée',SALADES.map(s=>'Petite '+s.toLowerCase())],['Plat',['Cuisse de canard confite sauce échalote']],['Accompagnement',ACC],['Pour finir',FIN]]},
+  {n:'Pâquerette',p:30,steps:[['Entrée',SALADES.map(s=>'Petite '+s.toLowerCase())],['Plat',['Cuisses de grenouilles',"Friture d'éperlan"]],['Accompagnement',ACC],['Pour finir',FIN]]},
+  {n:'Coquelicot',p:32,steps:[['Entrée',["Friture d'éperlan",'Gros escargots de Bourgogne ×6']],['Plat',['Cuisses de grenouilles',"Friture d'éperlan",'Truite aux amandes']],['Accompagnement',ACC],['Pour finir',FIN]]},
+  {n:'Marguerite',p:34,steps:[['Entrée',['Petite salade au choix','Assiette de charcuterie','Gros escargots de Bourgogne ×6']],['Plat',['Cuisses de grenouilles','Andouillette 5A tirée à la ficelle','Truite aux amandes','Gros escargots de Bourgogne ×12']],['Accompagnement',ACC],['Fromage',['Fromage blanc','Fromage sec']],['Dessert',['Dessert au choix']]]},
+  {n:'Jonquille',p:36,steps:[['Entrée',['Petite salade au choix',"Friture d'éperlan",'Gros escargots de Bourgogne ×6','Assiette de charcuterie']],['Plat',['Entrecôte charolaise','Filet de saint-pierre sauce citronnée']],['Accompagnement',ACC],['Fromage',['Fromage blanc','Fromage sec']],['Dessert',['Dessert au choix']]]}
+];
+const eur=v=>v.toFixed(2).replace('.',',')+' €';
+
+/* ---------- Carte à onglets ---------- */
+const tabs=document.getElementById('tabs'),panels=document.getElementById('panels');
+CARTE.forEach((c,i)=>{
+  const b=document.createElement('button');b.className='tab';b.role='tab';b.id='t-'+c.id;b.textContent=c.label;
+  b.setAttribute('aria-selected',i===0);b.setAttribute('aria-controls','p-'+c.id);
+  b.onclick=()=>show(c.id);tabs.appendChild(b);
+  const p=document.createElement('div');p.className='panel';p.id='p-'+c.id;p.role='tabpanel';p.hidden=i!==0;
+  p.innerHTML=c.items.map(([n,d,pr],k)=>`<div class="dish" style="animation-delay:${k*40}ms"><h4>${n}</h4><span class="pr">${Array.isArray(pr)?'<small>petite / grande</small>'+eur(pr[0])+' / '+eur(pr[1]):typeof pr==='number'?eur(pr):pr}</span>${d?`<p>${d}</p>`:''}</div>`).join('');
+  panels.appendChild(p);
+});
+function show(id){CARTE.forEach(c=>{const on=c.id===id;document.getElementById('t-'+c.id).setAttribute('aria-selected',on);const p=document.getElementById('p-'+c.id);p.hidden=!on;if(on){p.querySelectorAll('.dish').forEach(d=>{d.style.animation='none';d.offsetHeight;d.style.animation=''})}})}
+
+/* ---------- Composeur de menu ---------- */
+let cur=MENUS[3],extraAcc=0,glace=false;const table=[];
+const mlist=document.getElementById('mlist'),steps=document.getElementById('steps');
+MENUS.forEach(m=>{const b=document.createElement('button');b.className='mbtn';b.innerHTML=`<span>Menu ${m.n}</span>${eur(m.p)}`;b.setAttribute('aria-pressed',m===cur);b.onclick=()=>{cur=m;extraAcc=0;glace=false;mlist.querySelectorAll('.mbtn').forEach(x=>x.setAttribute('aria-pressed',x===b));renderSteps()};mlist.appendChild(b)});
+function renderSteps(){
+  const hasAcc=cur.steps.some(s=>s[0]==='Accompagnement');
+  steps.innerHTML=`<h3>Menu ${cur.n} <span style="font-family:var(--f-serif);font-size:1.1rem;color:var(--muted)">${eur(cur.p)}</span></h3>`+
+  cur.steps.map((s,i)=>`<div class="step"><h5>${s[0]}</h5><div class="opts">${s[1].map((o,j)=>`<span class="opt"><input type="radio" name="s${i}" id="s${i}o${j}" value="${o}" ${j===0?'checked':''}><label for="s${i}o${j}">${o}</label></span>`).join('')}</div></div>`).join('')+
+  `<div style="margin-top:18px">${hasAcc?`<div class="extra"><span>Accompagnement supplémentaire <b>+3,00 €</b></span><span class="qty"><button type="button" data-d="-1" aria-label="Retirer">−</button><output id="acc">0</output><button type="button" data-d="1" aria-label="Ajouter">+</button></span></div>`:''}
+  <div class="extra"><label for="gl">Coupe de glace en dessert <b>+2,50 €</b></label><input type="checkbox" id="gl" style="width:20px;height:20px"></div></div>
+  <button class="btn" id="add" style="margin-top:14px;width:100%;justify-content:center">＋ Ajouter ce convive à la table</button>`;
+  steps.querySelectorAll('.qty button').forEach(b=>b.onclick=()=>{extraAcc=Math.max(0,Math.min(3,extraAcc+ +b.dataset.d));document.getElementById('acc').value=extraAcc});
+  document.getElementById('gl').onchange=e=>glace=e.target.checked;
+  document.getElementById('add').onclick=()=>{
+    const ch=cur.steps.map((s,i)=>steps.querySelector(`input[name=s${i}]:checked`).value);
+    const price=cur.p+extraAcc*3+(glace?2.5:0);
+    table.push({n:cur.n,ch,price,extra:(extraAcc?` · +${extraAcc} accomp.`:'')+(glace?' · coupe de glace':'')});renderTable();
+  };
+}
+function renderTable(){
+  const t=document.getElementById('tlines');
+  t.innerHTML=table.length?table.map((x,i)=>`<div class="tline"><div><b>Convive ${i+1} · ${x.n}</b><em>${x.ch.join(' · ')}${x.extra}</em></div><div style="text-align:right;white-space:nowrap"><b>${eur(x.price)}</b><br><button aria-label="Retirer ce convive" data-i="${i}">✕</button></div></div>`).join(''):'<p class="empty">Aucun convive pour l\'instant.</p>';
+  t.querySelectorAll('button').forEach(b=>b.onclick=()=>{table.splice(+b.dataset.i,1);renderTable()});
+  const tt=document.getElementById('ttotal');tt.textContent=eur(table.reduce((a,x)=>a+x.price,0));tt.classList.remove('bump');void tt.offsetWidth;tt.classList.add('bump');
+}
+renderSteps();
+
+/* ---------- Horaires saisonniers (fiche Roannais Tourisme) ---------- */
+const J=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],JL=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+const SPLIT=[[690,870],[1110,1320]],FULL=[[690,1380]];
+const SEASONS=[
+  {from:[2,1],to:[4,30],label:'1er février – 30 avril',days:[5,6,0],sl:SPLIT,txt:'Vendredi, samedi et dimanche · 11h30–14h30 et 18h30–22h'},
+  {from:[5,1],to:[5,31],label:'Mai',days:[1,2,4,5,6,0],sl:SPLIT,txt:'Tous les jours sauf le mercredi · 11h30–14h30 et 18h30–22h'},
+  {from:[6,1],to:[8,31],label:'Juin – août',days:[0,1,2,3,4,5,6],sl:FULL,txt:'Tous les jours · 11h30–23h'},
+  {from:[9,1],to:[9,30],label:'Septembre',days:[1,2,4,5,6,0],sl:SPLIT,txt:'Tous les jours sauf le mercredi · 11h30–14h30 et 18h30–22h'},
+  {from:[10,1],to:[12,31],label:'1er octobre – 31 décembre',days:[5,6,0],sl:SPLIT,txt:'Vendredi, samedi et dimanche · 11h30–14h30 et 18h30–22h'}
+];
+const fmt=m=>Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):'');
+function seasonOf(d){const k=(d.getMonth()+1)*100+d.getDate();return SEASONS.find(s=>k>=s.from[0]*100+s.from[1]&&k<=s.to[0]*100+s.to[1])}
+function openDay(d){const s=seasonOf(d);return s&&s.days.includes(d.getDay())?s:null}
+function nextOpening(now){
+  for(let i=0;i<60;i++){const d=new Date(now);d.setDate(now.getDate()+i);const s=openDay(d);if(!s)continue;
+    const m=i===0?now.getHours()*60+now.getMinutes():-1;const sl=s.sl.find(x=>x[0]>m);if(sl)return{d,i,start:sl[0]}}
+  return null}
+function renderHours(){
+  const now=new Date(),m=now.getHours()*60+now.getMinutes(),s=openDay(now),season=seasonOf(now);
+  const openNow=s&&s.sl.some(x=>m>=x[0]&&m<x[1]);
+  const dot=document.getElementById('heroDot'),ht=document.getElementById('heroText');
+  document.getElementById('todayDate').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  let big,small;
+  if(openNow){const sl=s.sl.find(x=>m>=x[0]&&m<x[1]);big='Ouvert en ce moment';small='Service jusqu\'à '+fmt(sl[1])+'. Un coup de fil pour réserver : 04 77 65 20 79.';ht.textContent='Ouvert maintenant · jusqu\'à '+fmt(sl[1]);dot.className='dot'}
+  else{const n=nextOpening(now);const when=n?(n.i===0?'aujourd\'hui':n.i===1?'demain':JL[n.d.getDay()])+' à '+fmt(n.start):'bientôt';
+    big=s?'Fermé pour le moment':'Fermé aujourd\'hui';small='Prochain service : '+when+'.';ht.textContent='Fermé · réouverture '+when;dot.className='dot off'}
+  document.getElementById('todayBig').textContent=big;document.getElementById('todaySmall').textContent=small;
+  const w=document.getElementById('week');w.innerHTML='';
+  for(let i=0;i<7;i++){const d=new Date(now);d.setDate(now.getDate()+i);const o=openDay(d);const el=document.createElement('div');el.textContent=J[d.getDay()];if(o)el.className='open';if(i===0)el.classList.add('now');el.title=o?'Ouvert':'Fermé';w.appendChild(el)}
+  document.getElementById('seasons').innerHTML=SEASONS.map(x=>`<div class="season ${x===season?'cur':''}"><b>${x.label}${x===season?'<span class="tag">en ce moment</span>':''}</b><span>${x.txt}</span></div>`).join('');
+}
+renderHours();setInterval(renderHours,60000);
+
+/* ---------- Animations et navigation ---------- */
+const h1=document.getElementById('heroTitle');h1.innerHTML=h1.textContent.split(' ').map((w,i)=>`<span style="animation-delay:${.15+i*.09}s">${w}</span>`).join(' ');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const hd=document.querySelector('header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>20),{passive:true});
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+const links=[...menu.querySelectorAll('a')],secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>s&&so.observe(s));
+const lb=document.getElementById('lb');
+document.querySelectorAll('#gal figure').forEach(f=>f.onclick=()=>{lb.querySelector('img').src=f.querySelector('img').src;lb.querySelector('img').alt=f.querySelector('img').alt;lb.classList.add('on')});
+lb.onclick=e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+</script>
+</body>
+</html>
