@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auberge des Délices — Restaurant traditionnel à Roanne</title>
+<meta name="description" content="Restaurant traditionnel à Roanne, rue de l'Église : grenouilles, foie gras maison et brochettes. Menu du jour à 16,50 €, plats à emporter. Réservez en ligne.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Nunito+Sans:wght@400;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — relevée sur les photos de la salle (fiche Roannais Tourisme)
+   Pas de site existant : couleurs approchées, ajustables ici.
+   - Mur crème / beige chaud de la salle
+   - Lettrage gris taupe "AUBERGE DES DÉLICES" peint au mur
+   - Abat-jours noirs, intérieur doré -> anthracite + or
+   - Chaises en rotin -> miel
+   - Fauteuils patchwork du coin salon -> moutarde, rouge, bleu
+   ========================================================= */
+:root{
+  --mur:#efe8dc;          /* murs de la salle */
+  --mur-2:#e5dccd;
+  --lettrage:#6f6962;     /* lettres murales */
+  --anthracite:#26262a;   /* abat-jours, nappes */
+  --anthracite-2:#34343a;
+  --or:#d6a548;           /* lumière des suspensions */
+  --rotin:#a9794a;        /* chaises */
+  --moutarde:#c9a23a;     /* patchwork */
+  --rouge:#d4553f;
+  --bleu:#3f5f8c;
+  --ardoise:#2f3430;      /* ardoises au mur */
+  --texte:#2b2a28;
+  --font-lettrage:'Josefin Sans',system-ui,sans-serif;
+  --font-texte:'Nunito Sans',system-ui,sans-serif;
+  --font-craie:'Caveat',cursive;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--mur);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--anthracite);color:#e9dfcd;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--or)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(239,232,220,.86);backdrop-filter:blur(10px) saturate(150%);border-bottom:1px solid rgba(38,38,42,.08);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(38,38,42,.1)}
+.nav{display:flex;align-items:center;gap:1.2rem;padding:.75rem 0}
+.logo{font-family:var(--font-lettrage);font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;font-size:1.02rem;color:var(--lettrage);line-height:1.05}
+.logo small{display:block;font-size:.62rem;letter-spacing:.3em;color:var(--rotin)}
+.nav ul{display:flex;gap:1.4rem;list-style:none;margin-left:auto}
+.nav ul a{text-decoration:none;font-weight:600;font-size:.92rem;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.status{display:inline-flex;align-items:center;gap:.45rem;font-size:.8rem;font-weight:700;padding:.35rem .75rem;border-radius:99px;background:#fff;border:1px solid rgba(38,38,42,.1);white-space:nowrap}
+.status i{width:9px;height:9px;border-radius:50%;background:#9a948c}
+.status.open i{background:#3c9a5f;box-shadow:0 0 0 0 rgba(60,154,95,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(60,154,95,0)}100%{box-shadow:0 0 0 0 rgba(60,154,95,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--font-texte);font-weight:700;font-size:.95rem;border:0;cursor:pointer;text-decoration:none;padding:.85rem 1.4rem;border-radius:99px;min-height:44px;transition:transform .25s var(--spring),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-or{background:var(--or);color:var(--anthracite);box-shadow:0 8px 22px rgba(214,165,72,.35)}
+.btn-dark{background:var(--anthracite);color:#f3ead9}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
+
+/* Héro */
+.hero{position:relative;min-height:88vh;display:grid;align-items:end;color:#f6efe2;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:-6% 0 0;z-index:-2;background:url("https://static.apidae-tourisme.com/filestore/objets-touristiques/images/250/129/19235322.jpeg") center 40%/cover;transform:scale(1.08);animation:breathe 18s ease-in-out infinite alternate}
+@keyframes breathe{to{transform:scale(1.15) translateY(-1.5%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,20,22,.25) 0%,rgba(20,20,22,.35) 40%,rgba(20,20,22,.88) 100%)}
+.halo{position:absolute;z-index:-1;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(214,165,72,.35),rgba(214,165,72,0) 65%);pointer-events:none;left:var(--hx,60%);top:var(--hy,30%);transform:translate(-50%,-50%);transition:left .9s var(--ease),top .9s var(--ease);mix-blend-mode:screen}
+.hero__content{padding:0 0 4.5rem}
+.kicker{font-family:var(--font-lettrage);letter-spacing:.32em;text-transform:uppercase;font-size:.8rem;color:var(--or)}
+.wall{font-family:var(--font-lettrage);font-weight:400;text-transform:uppercase;font-size:clamp(2.6rem,7.5vw,6.4rem);line-height:.95;letter-spacing:.04em;margin:.8rem 0 1.2rem;display:flex;flex-wrap:wrap;gap:0 .35em}
+.wall .w{display:inline-flex}
+.wall .l{display:inline-block;opacity:0;transform:translateY(30px) rotate(var(--r,0deg));animation:drop .9s var(--spring) forwards;animation-delay:calc(var(--i)*55ms + .2s)}
+@keyframes drop{to{opacity:1;transform:translateY(var(--y,0)) rotate(var(--r,0deg))}}
+.hero p.lead{max-width:560px;font-size:1.12rem;color:#eadfca}
+.hero__cta{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.8rem}
+.hero .btn-ghost{color:#f6efe2}
+.scroll-hint{position:absolute;right:24px;bottom:28px;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;writing-mode:vertical-rl;color:#d8ccb6}
+.scroll-hint::after{content:"";display:block;width:1px;height:48px;background:#d8ccb6;margin:10px auto 0;animation:line 2s infinite}
+@keyframes line{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Bandeau défilant */
+.ticker{background:var(--anthracite);color:#efe4cf;overflow:hidden;border-block:1px solid #000}
+.ticker__track{display:flex;gap:2.5rem;padding:.9rem 0;width:max-content;animation:tick 32s linear infinite;font-family:var(--font-lettrage);text-transform:uppercase;letter-spacing:.2em;font-size:.88rem}
+.ticker__track span::before{content:"✦";color:var(--or);margin-right:2.5rem}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,9vw,7rem) 0}
+.sec-title{font-family:var(--font-lettrage);font-weight:300;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(1.9rem,4vw,3rem);line-height:1.05;color:var(--anthracite)}
+.sec-title b{font-weight:700;color:var(--lettrage)}
+.dash{display:block;width:56px;height:3px;background:var(--or);margin:1rem 0 1.4rem;border-radius:2px}
+.sec-intro{max-width:620px;color:#56524c}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* La table */
+.table-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.6rem}
+.dish{background:#fff;border-radius:22px;padding:2rem 1.6rem 1.8rem;position:relative;overflow:hidden;box-shadow:0 1px 0 rgba(38,38,42,.06);transition:transform .45s var(--ease),box-shadow .45s}
+.dish:hover{transform:translateY(-8px);box-shadow:0 22px 44px rgba(38,38,42,.13)}
+.dish::after{content:"";position:absolute;width:220px;height:220px;right:-80px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(214,165,72,.28),transparent 65%);transition:transform .6s var(--ease)}
+.dish:hover::after{transform:scale(1.4)}
+.dish svg{width:58px;height:58px;stroke:var(--rotin);fill:none;stroke-width:1.6;margin-bottom:1rem}
+.dish h3{font-family:var(--font-lettrage);text-transform:uppercase;letter-spacing:.1em;font-size:1.25rem;margin-bottom:.4rem}
+.dish p{color:#615c55;font-size:.95rem}
+.tag{display:inline-block;margin-top:1rem;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rotin)}
+
+/* Tarifs + ardoise */
+.duo{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;margin-top:3rem;align-items:stretch}
+.prices{background:var(--anthracite);color:#efe4cf;border-radius:22px;padding:2.2rem;position:relative;overflow:hidden}
+.prices::before{content:"";position:absolute;inset:auto -40px -120px auto;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(214,165,72,.32),transparent 65%)}
+.prices h3{font-family:var(--font-lettrage);text-transform:uppercase;letter-spacing:.2em;font-size:.9rem;color:var(--or);margin-bottom:1.2rem}
+.row{display:flex;align-items:baseline;gap:.8rem;padding:.85rem 0;border-bottom:1px dashed rgba(239,228,207,.2)}
+.row span:first-child{font-weight:700}
+.row .dots{flex:1;border-bottom:1px dotted rgba(239,228,207,.35);transform:translateY(-4px)}
+.row .p{font-family:var(--font-lettrage);font-size:1.5rem;color:#fff}
+.prices small{display:block;margin-top:1.1rem;color:#bdb2a0;font-size:.8rem}
+.slate{background:var(--ardoise);border:12px solid #6d4f33;border-radius:10px;box-shadow:inset 0 0 40px rgba(0,0,0,.5),0 18px 40px rgba(38,38,42,.2);color:#ecebe4;padding:1.8rem 1.6rem;font-family:var(--font-craie);position:relative}
+.slate h3{font-size:2.2rem;line-height:1;margin-bottom:.4rem}
+.slate .date{font-size:1.3rem;color:#d9cfa8}
+.slate ul{list-style:none;margin:1rem 0;font-size:1.55rem;line-height:1.35}
+.slate li{opacity:0;transform:translateX(-8px);transition:.6s var(--ease)}
+.slate.in li{opacity:1;transform:none}
+.slate li:nth-child(2){transition-delay:.25s}.slate li:nth-child(3){transition-delay:.5s}
+.slate .note{font-family:var(--font-texte);font-size:.78rem;color:#aaa99f;border-top:1px dashed #555;padding-top:.7rem}
+.chalk-tag{position:absolute;top:-14px;right:18px;background:var(--or);color:var(--anthracite);font-family:var(--font-texte);font-weight:700;font-size:.72rem;padding:.25rem .6rem;border-radius:6px;letter-spacing:.06em;text-transform:uppercase}
+
+/* Outil réservation */
+.tool{background:var(--anthracite);color:#efe4cf;position:relative;overflow:hidden}
+.tool .sec-title{color:#f6efe2}
+.tool .sec-title b{color:var(--or)}
+.tool .sec-intro{color:#c9bfae}
+.patch{position:absolute;right:-60px;top:40px;width:260px;height:260px;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;transform:rotate(12deg);opacity:.16;pointer-events:none}
+.patch i{border-radius:6px}
+.tool-box{display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;margin-top:2.4rem}
+.panel{background:var(--anthracite-2);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:1.6rem}
+.tabs{display:inline-flex;background:#1d1d20;border-radius:99px;padding:5px;margin-bottom:1.4rem;position:relative}
+.tabs button{position:relative;z-index:1;background:none;border:0;color:#cfc5b3;font:700 .9rem var(--font-texte);padding:.6rem 1.2rem;border-radius:99px;cursor:pointer;min-height:40px;transition:color .3s}
+.tabs button[aria-selected=true]{color:var(--anthracite)}
+.tabs .pill{position:absolute;top:5px;bottom:5px;left:5px;border-radius:99px;background:var(--or);transition:all .4s var(--spring)}
+.lbl{display:block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin:1.2rem 0 .6rem}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:#1f1f23;border:1px solid transparent;border-radius:12px;color:#efe4cf;padding:.5rem 0;text-align:center;cursor:pointer;font-family:var(--font-texte);transition:transform .2s var(--spring),border-color .2s,background .2s;min-height:52px}
+.day small{display:block;font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:#9f9686}
+.day b{font-size:1.05rem}
+.day:hover:not(:disabled){transform:translateY(-2px);border-color:rgba(214,165,72,.5)}
+.day[aria-pressed=true]{background:var(--or);color:var(--anthracite)}
+.day[aria-pressed=true] small{color:var(--anthracite)}
+.day:disabled{opacity:.28;cursor:not-allowed;text-decoration:line-through}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#1f1f23;color:#efe4cf;border:1px solid rgba(255,255,255,.08);border-radius:99px;padding:.5rem .95rem;font:600 .88rem var(--font-texte);cursor:pointer;min-height:40px;transition:all .2s}
+.chip:hover{border-color:var(--or)}
+.chip[aria-pressed=true]{background:#efe4cf;color:var(--anthracite);border-color:#efe4cf}
+.counter{display:flex;align-items:center;gap:1rem}
+.counter button{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:#1f1f23;color:#fff;font-size:1.3rem;cursor:pointer;transition:transform .2s var(--spring)}
+.counter button:active{transform:scale(.88)}
+.counter output{font-family:var(--font-lettrage);font-size:2rem;min-width:2ch;text-align:center}
+.chairs{display:flex;gap:4px;flex-wrap:wrap;margin-top:.6rem;min-height:18px}
+.chairs i{width:14px;height:16px;border-radius:4px 4px 2px 2px;background:var(--rotin);background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);animation:pop .35s var(--spring)}
+@keyframes pop{from{transform:scale(0)}}
+.items{display:grid;gap:8px}
+.item{display:flex;align-items:center;justify-content:space-between;background:#1f1f23;border-radius:14px;padding:.6rem .6rem .6rem 1rem}
+.item .counter button{width:36px;height:36px;font-size:1.1rem}
+.item .counter output{font-size:1.3rem}
+input[type=text],input[type=tel],textarea{width:100%;background:#1f1f23;border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:12px;padding:.75rem .9rem;font:1rem var(--font-texte)}
+textarea{min-height:70px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+[hidden]{display:none!important}
+
+.ticket{background:var(--mur);color:var(--texte);border-radius:18px;padding:1.6rem 1.4rem;position:relative;align-self:start;position:sticky;top:90px}
+.ticket::before,.ticket::after{content:"";position:absolute;left:-10px;right:-10px;height:20px;background:radial-gradient(circle at 10px 10px,var(--anthracite) 9px,transparent 10px) repeat-x;background-size:20px 20px}
+.ticket::before{top:-10px}.ticket::after{bottom:-10px}
+.ticket h3{font-family:var(--font-lettrage);text-transform:uppercase;letter-spacing:.16em;font-size:.95rem;color:var(--lettrage);text-align:center}
+.ticket .big{font-family:var(--font-lettrage);font-size:1.6rem;text-align:center;margin:.6rem 0;line-height:1.15}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem .9rem;font-size:.92rem;border-top:1px dashed #b9ae9c;border-bottom:1px dashed #b9ae9c;padding:.9rem 0;margin:.8rem 0}
+.ticket dt{color:#857c70}
+.ticket dd{font-weight:700;text-align:right}
+.ticket .actions{display:grid;gap:8px;margin-top:1rem}
+.ticket .hint{font-size:.76rem;color:#7a7268;text-align:center;margin-top:.8rem}
+.flash{animation:flash .5s var(--ease)}
+@keyframes flash{50%{transform:scale(1.04)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--anthracite);color:#fff;padding:.8rem 1.2rem;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .45s var(--spring);z-index:90;font-size:.9rem;max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0)}
+
+/* L'auberge */
+.house{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+.photos{position:relative;min-height:460px}
+.ph{position:absolute;border-radius:20px;overflow:hidden;box-shadow:0 24px 50px rgba(38,38,42,.22)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ph:hover img{transform:scale(1.06)}
+.ph1{inset:0 22% 18% 0}
+.ph2{inset:42% 0 0 38%;border:8px solid var(--mur)}
+.ph figcaption{position:absolute;left:10px;bottom:10px;background:rgba(38,38,42,.75);color:#fff;font-size:.72rem;padding:.25rem .55rem;border-radius:6px}
+.quote{font-family:var(--font-lettrage);font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.3;color:var(--anthracite);font-weight:300}
+.quote b{font-weight:600;color:var(--rotin)}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
+.fact{background:#fff;border-radius:16px;padding:1.1rem 1.2rem}
+.fact strong{display:block;font-family:var(--font-lettrage);font-size:1.6rem;color:var(--anthracite)}
+.fact span{font-size:.86rem;color:#6b655d}
+.services{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.4rem}
+.services span{background:var(--mur-2);border-radius:99px;padding:.4rem .9rem;font-size:.85rem;font-weight:600}
+
+/* Infos */
+.infos{background:var(--mur-2)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.4rem}
+.card{background:#fff;border-radius:22px;padding:1.8rem}
+.hours{width:100%;border-collapse:collapse;margin-top:.6rem}
+.hours td{padding:.6rem .4rem;border-bottom:1px solid #eee5d7;font-size:.95rem}
+.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{background:rgba(214,165,72,.16);font-weight:700}
+.hours tr.today td:first-child{border-radius:8px 0 0 8px}.hours tr.today td:last-child{border-radius:0 8px 8px 0}
+.closed{color:#a49b8f}
+.map{border-radius:22px;overflow:hidden;min-height:320px;background:#ddd}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;filter:sepia(.25) saturate(.9)}
+.contact-line{display:flex;gap:.8rem;align-items:flex-start;margin:.9rem 0}
+.contact-line svg{flex:none;width:22px;height:22px;stroke:var(--rotin);fill:none;stroke-width:1.8;margin-top:2px}
+.pay{font-size:.86rem;color:#6b655d;margin-top:1rem}
+
+/* CTA final */
+.final{background:var(--anthracite);color:#f3ead9;text-align:center;position:relative;overflow:hidden}
+.final .wall{justify-content:center;font-size:clamp(2rem,5vw,3.8rem);color:#d9cfbe}
+.final .wall .l{opacity:1;animation:none;transform:translateY(var(--y,0)) rotate(var(--r,0deg))}
+.final p{color:#c9bfae;max-width:520px;margin:0 auto 1.8rem}
+
+footer{background:#1b1b1e;color:#a59c8e;font-size:.84rem;padding:2.4rem 0}
+footer .wrap{display:grid;gap:1rem}
+footer strong{color:#efe4cf}
+
+.mob-cta{display:none}
+@media (max-width:900px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--mur);padding:1rem 16px;gap:.9rem;border-bottom:1px solid rgba(0,0,0,.08)}
+  .nav ul.open{display:flex}
+  .burger{display:block;margin-left:auto}
+  .nav .btn-or{display:none}
+  .table-grid,.duo,.tool-box,.house,.info-grid{grid-template-columns:1fr}
+  .ticket{position:relative;top:0}
+  .photos{min-height:360px}
+  .patch{display:none}
+  .mob-cta{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:8px}
+  .mob-cta .btn{flex:1}
+  footer{padding-bottom:6rem}
+  .scroll-hint{display:none}
+}
+@media (max-width:520px){
+  .status{display:none}
+  .days{gap:4px}
+  .day small{font-size:.58rem}
+  .two{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Auberge des Délices",
+  "description":"Restaurant traditionnel à Roanne : cuisine généreuse, spécialités de grenouilles, foie gras maison et brochettes. Menu du jour, plats à emporter.",
+  "address":{"@type":"PostalAddress","streetAddress":"2 rue de l'Église","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.039857,"longitude":4.059404},
+  "telephone":"+33477716834",
+  "email":"aubergedesdelices@me.com",
+  "servesCuisine":"Cuisine traditionnelle française",
+  "areaServed":"Roanne",
+  "acceptsReservations":true,
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"12:00","closes":"15:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"19:00","closes":"22:45"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>l'Auberge des Délices</b> — non officielle, à valider avec l'établissement.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo">Auberge des Délices<small>Roanne · rue de l'Église</small></a>
+    <ul id="menu">
+      <li><a href="#table">La table</a></li>
+      <li><a href="#reserver">Réserver</a></li>
+      <li><a href="#auberge">L'auberge</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <span class="status" id="status"><i></i><span>…</span></span>
+    <a href="#reserver" class="btn btn-or">Réserver une table</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="hero" aria-label="Accueil">
+  <div class="hero__img" role="img" aria-label="La salle de l'Auberge des Délices, lettrage mural et suspensions noires"></div>
+  <div class="halo" id="halo"></div>
+  <div class="wrap hero__content">
+    <span class="kicker">Restaurant traditionnel · Roanne</span>
+    <h1 class="wall" data-wall>Auberge des Délices</h1>
+    <p class="lead">À 5 minutes du centre-ville de Roanne, dans un décor sobre, élégant et raffiné : un accueil chaleureux, un service attentif et discret, et une cuisine généreuse et traditionnelle.</p>
+    <div class="hero__cta">
+      <a href="#reserver" class="btn btn-or">Réserver une table</a>
+      <a href="tel:+33477716834" class="btn btn-ghost">04 77 71 68 34</a>
+    </div>
+  </div>
+  <span class="scroll-hint">Découvrir</span>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track" id="ticker">
+    <span>Grenouilles</span><span>Foie gras maison</span><span>Brochettes</span><span>Menu du jour 16,50 €</span><span>Plats à emporter</span><span>Click &amp; Collect</span><span>Du lundi au vendredi</span>
+  </div>
+</div>
+
+<section id="table">
+  <div class="wrap">
+    <h2 class="sec-title rv">La table de <b>l'Auberge</b></h2>
+    <span class="dash rv"></span>
+    <p class="sec-intro rv">Une cuisine généreuse et traditionnelle, servie midi et soir en semaine. Trois spécialités font la réputation de la maison.</p>
+
+    <div class="table-grid">
+      <article class="dish rv d1">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 40c4-10 14-14 18-14s14 4 18 14"/><circle cx="24" cy="24" r="5"/><circle cx="40" cy="24" r="5"/><path d="M18 40l-8 10M46 40l8 10M22 44l-2 10M42 44l2 10"/><path d="M26 34c4 3 8 3 12 0"/></svg>
+        <h3>Grenouilles</h3>
+        <p>La spécialité qu'on vient chercher rue de l'Église. Le détail de la préparation sera présenté par le chef.</p>
+        <span class="tag">Spécialité maison</span>
+      </article>
+      <article class="dish rv d2">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 40h44l-4 8H14z"/><path d="M16 40c2-12 10-18 16-18s14 6 16 18"/><path d="M26 30c2-2 4-3 6-3"/></svg>
+        <h3>Foie gras maison</h3>
+        <p>Préparé sur place, comme son nom l'indique. Une des deux spécialités mises en avant par l'auberge.</p>
+        <span class="tag">Fait maison</span>
+      </article>
+      <article class="dish rv d3">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 56L56 8"/><rect x="18" y="30" width="10" height="10" rx="2" transform="rotate(-45 23 35)"/><rect x="28" y="20" width="10" height="10" rx="2" transform="rotate(-45 33 25)"/><rect x="38" y="10" width="10" height="10" rx="2" transform="rotate(-45 43 15)"/></svg>
+        <h3>Brochettes</h3>
+        <p>Au menu de la carte, aux côtés des grenouilles et du foie gras. Composition à préciser avec l'établissement.</p>
+        <span class="tag">À la carte</span>
+      </article>
+    </div>
+
+    <div class="duo">
+      <div class="prices rv">
+        <h3>Les formules</h3>
+        <div class="row"><span>Menu du jour</span><span class="dots"></span><span class="p">16,50 €</span></div>
+        <div class="row"><span>À la carte</span><span class="dots"></span><span class="p">10 à 27 €</span></div>
+        <div class="row"><span>Menu enfant</span><span class="dots"></span><span class="p">12 €</span></div>
+        <small>Tarifs repris de la fiche Roannais Tourisme (mise à jour juillet 2026), à confirmer par l'établissement.</small>
+      </div>
+      <div class="slate rv" id="slate">
+        <span class="chalk-tag">Exemple</span>
+        <h3>L'ardoise du jour</h3>
+        <span class="date" id="slateDate"></span>
+        <ul>
+          <li>Entrée du jour…</li>
+          <li>Plat du jour…</li>
+          <li>Dessert du jour…</li>
+        </ul>
+        <p class="note">Emplacement prévu pour l'ardoise : le restaurant la met à jour chaque matin depuis son téléphone. Contenu à fournir par le client.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tool" id="reserver">
+  <div class="patch" aria-hidden="true" id="patch"></div>
+  <div class="wrap">
+    <h2 class="sec-title rv">Réserver ou <b>commander</b></h2>
+    <span class="dash rv"></span>
+    <p class="sec-intro rv">Choisissez un jour d'ouverture, un service et le nombre de couverts : la demande part directement chez l'auberge, et vous l'ajoutez à votre agenda en un clic. Même chose pour les plats à emporter.</p>
+
+    <div class="tool-box">
+      <div class="panel rv">
+        <div class="tabs" role="tablist">
+          <span class="pill" id="pill"></span>
+          <button role="tab" aria-selected="true" data-mode="table" id="tabTable">Une table</button>
+          <button role="tab" aria-selected="false" data-mode="emporter" id="tabTake">À emporter</button>
+        </div>
+
+        <span class="lbl">Jour</span>
+        <div class="days" id="days"></div>
+
+        <span class="lbl">Service</span>
+        <div class="seg" id="services">
+          <button class="chip" data-service="midi" aria-pressed="true">Midi</button>
+          <button class="chip" data-service="soir" aria-pressed="false">Soir</button>
+        </div>
+
+        <span class="lbl" id="slotLbl">Heure d'arrivée</span>
+        <div class="seg" id="slots"></div>
+
+        <div id="tableFields">
+          <span class="lbl">Couverts</span>
+          <div class="counter">
+            <button type="button" data-step="-1" aria-label="Un couvert de moins">−</button>
+            <output id="covers">2</output>
+            <button type="button" data-step="1" aria-label="Un couvert de plus">+</button>
+          </div>
+          <div class="chairs" id="chairs" aria-hidden="true"></div>
+        </div>
+
+        <div id="takeFields" hidden>
+          <span class="lbl">Votre commande</span>
+          <div class="items" id="items"></div>
+        </div>
+
+        <span class="lbl">Vos coordonnées</span>
+        <div class="two">
+          <input type="text" id="name" placeholder="Nom" autocomplete="name">
+          <input type="tel" id="phone" placeholder="Téléphone" autocomplete="tel">
+        </div>
+        <textarea id="note" placeholder="Une précision ? (allergie, anniversaire, chaise bébé…)" style="margin-top:10px"></textarea>
+      </div>
+
+      <aside class="ticket rv d2" aria-live="polite">
+        <h3 id="tTitle">Votre table</h3>
+        <div class="big" id="tBig">—</div>
+        <dl>
+          <dt>Jour</dt><dd id="tDay">—</dd>
+          <dt>Service</dt><dd id="tService">—</dd>
+          <dt>Heure</dt><dd id="tTime">—</dd>
+          <dt id="tQtyL">Couverts</dt><dd id="tQty">—</dd>
+        </dl>
+        <div class="actions">
+          <button class="btn btn-dark" id="send">Envoyer la demande</button>
+          <button class="btn btn-ghost" id="ics">Ajouter à mon agenda</button>
+          <a class="btn btn-ghost" href="tel:+33477716834">Appeler l'auberge</a>
+        </div>
+        <p class="hint">Demande soumise à confirmation par le restaurant. Créneaux indicatifs, ajustables.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="auberge">
+  <div class="wrap house">
+    <div class="photos rv">
+      <figure class="ph ph1"><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/250/129/19235322.jpeg" alt="La salle principale de l'Auberge des Délices" loading="lazy"></figure>
+      <figure class="ph ph2"><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/251/129/19235323.jpeg" alt="Le coin salon aux fauteuils patchwork" loading="lazy"></figure>
+    </div>
+    <div>
+      <h2 class="sec-title rv">L'<b>auberge</b></h2>
+      <span class="dash rv"></span>
+      <p class="quote rv">Un décor <b>sobre, élégant et raffiné</b>, un accueil chaleureux, un service <b>attentif et discret</b>.</p>
+      <div class="facts">
+        <div class="fact rv d1"><strong>30</strong><span>couverts en salle</span></div>
+        <div class="fact rv d2"><strong>5 min</strong><span>du centre-ville de Roanne</span></div>
+        <div class="fact rv d1"><strong>Midi &amp; soir</strong><span>du lundi au vendredi</span></div>
+        <div class="fact rv d2"><strong>2</strong><span>salles climatisées</span></div>
+      </div>
+      <div class="services rv">
+        <span>Plats à emporter</span><span>Click &amp; Collect</span><span>Wi-Fi</span><span>Animaux acceptés</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <h2 class="sec-title rv">Infos <b>pratiques</b></h2>
+    <span class="dash rv"></span>
+    <div class="info-grid">
+      <div class="card rv">
+        <div class="contact-line"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><strong>2 rue de l'Église</strong><br>42300 Roanne</div></div>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><div><a href="tel:+33477716834"><strong>04 77 71 68 34</strong></a></div></div>
+        <div class="contact-line"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><div><a href="mailto:aubergedesdelices@me.com">aubergedesdelices@me.com</a></div></div>
+        <table class="hours" id="hours" aria-label="Horaires d'ouverture"></table>
+        <p class="pay">Fermeture estivale indiquée du 19 juillet au 22 août. Paiement : carte bancaire, sans contact, espèces, titres-restaurant, chèques-vacances.</p>
+      </div>
+      <div class="map rv d2">
+        <iframe title="Plan d'accès — Auberge des Délices, Roanne" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0534%2C46.0368%2C4.0654%2C46.0429&amp;layer=mapnik&amp;marker=46.039857%2C4.059404"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <p class="kicker rv">À très vite</p>
+    <h2 class="wall rv" data-wall data-static>Bon appétit</h2>
+    <p class="rv">Une table pour ce midi, un plat à emporter ce soir : tout part d'ici.</p>
+    <div class="hero__cta rv" style="justify-content:center">
+      <a href="#reserver" class="btn btn-or">Réserver une table</a>
+      <a href="tel:+33477716834" class="btn btn-ghost">Appeler</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>Auberge des Délices</strong> — 2 rue de l'Église, 42300 Roanne — 04 77 71 68 34 — Rémy Fargeas, entrepreneur individuel.</div>
+    <p>Maquette de démonstration, non officielle. Les deux photos (salle et coin salon) sont celles publiées sur la fiche Roannais Tourisme de l'établissement. Aucune photo de plat n'a été ajoutée : à fournir par le client. Couleurs relevées sur le décor de la salle (lettrage mural, suspensions, rotin) faute de site existant, approchées et ajustables. Horaires, tarifs et services repris de la fiche Roannais Tourisme (juillet 2026), à confirmer. L'ardoise du jour est un emplacement d'exemple. Prix indicatifs non contractuels. Le module de réservation prépare un e-mail : rien n'est enregistré en ligne.</p>
+  </div>
+</footer>
+
+<div class="mob-cta">
+  <a href="#reserver" class="btn btn-or">Réserver</a>
+  <a href="tel:+33477716834" class="btn btn-dark">Appeler</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s=>document.querySelector(s), $$ = s=>[...document.querySelectorAll(s)];
+const EMAIL='aubergedesdelices@me.com';
+const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+// Horaires (fiche Roannais Tourisme) : lun-ven 12h-15h et 19h-22h45, fermeture 19/07 -> 22/08
+const SERVICES={midi:[12*60,15*60],soir:[19*60,22*60+45]};
+const isSummerClosed=d=>{const m=d.getMonth(),j=d.getDate();return (m===6&&j>=19)||(m===7&&j<=22)};
+const isOpenDay=d=>d.getDay()>=1&&d.getDay()<=5&&!isSummerClosed(d);
+
+/* Lettrage mural : lettres légèrement décalées comme au mur de la salle */
+$$('[data-wall]').forEach(h=>{
+  const words=h.textContent.trim().split(/\s+/);let i=0;h.textContent='';
+  words.forEach(w=>{const sp=document.createElement('span');sp.className='w';
+    [...w].forEach(c=>{const l=document.createElement('span');l.className='l';l.textContent=c;
+      l.style.setProperty('--i',i++);l.style.setProperty('--r',((Math.random()*10-5)).toFixed(1)+'deg');
+      l.style.setProperty('--y',((Math.random()*14-7)).toFixed(0)+'px');sp.appendChild(l)});
+    h.appendChild(sp)});
+});
+
+/* En-tête */
+const header=$('header');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20),{passive:true});
+const burger=$('#burger'),menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}});
+
+/* Halo lumineux qui suit le pointeur, comme les appliques murales */
+const hero=$('#hero'),halo=$('#halo');
+if(!RM&&matchMedia('(pointer:fine)').matches){hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();halo.style.setProperty('--hx',(e.clientX-r.left)+'px');halo.style.setProperty('--hy',(e.clientY-r.top)+'px')})}
+
+/* Bandeau défilant : contenu dupliqué pour une boucle continue */
+const tk=$('#ticker');tk.innerHTML+=tk.innerHTML;
+
+/* Apparitions au défilement */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv,.slate').forEach(el=>io.observe(el));
+
+/* Statut ouvert / fermé en direct */
+function status(){
+  const n=new Date(),m=n.getHours()*60+n.getMinutes(),el=$('#status'),t=el.querySelector('span');
+  let open=false,msg='';
+  if(isOpenDay(n)){for(const k in SERVICES){const[a,b]=SERVICES[k];if(m>=a&&m<b){open=true;msg='Ouvert · ferme à '+fmt(b)}}
+    if(!open){if(m<SERVICES.midi[0])msg='Fermé · ouvre à 12h00';else if(m<SERVICES.soir[0])msg='Fermé · ouvre à 19h00'}}
+  if(!open&&!msg){const d=new Date(n);for(let i=1;i<60;i++){d.setDate(d.getDate()+1);if(isOpenDay(d)){msg='Fermé · réouvre '+(i===1?'demain':JOURS[d.getDay()].toLowerCase())+' 12h00';break}}}
+  el.classList.toggle('open',open);t.textContent=msg;
+}
+const fmt=x=>String(Math.floor(x/60)).padStart(2,'0')+'h'+String(x%60).padStart(2,'0');
+status();setInterval(status,60000);
+
+/* Ardoise datée du jour */
+const now=new Date();$('#slateDate').textContent=JOURS[now.getDay()]+' '+now.getDate()+' '+MOIS[now.getMonth()];
+
+/* Tableau des horaires avec le jour courant surligné */
+const ht=$('#hours');[1,2,3,4,5,6,0].forEach(d=>{const tr=document.createElement('tr');if(d===now.getDay())tr.className='today';
+  tr.innerHTML='<td>'+JOURS[d]+'</td><td'+(d===0||d===6?' class="closed">Fermé':'>12h00–15h00 · 19h00–22h45')+'</td>';ht.appendChild(tr)});
+
+/* Patchwork décoratif (fauteuils du coin salon) */
+const pc=['var(--moutarde)','var(--rouge)','var(--bleu)','#e9e2d2','repeating-conic-gradient(#222 0 25%,#eee 0 50%) 0 0/10px 10px'];
+const patch=$('#patch');for(let i=0;i<9;i++){const x=document.createElement('i');x.style.background=pc[i%pc.length];patch.appendChild(x)}
+
+/* ===== Outil réservation / à emporter ===== */
+const state={mode:'table',date:null,service:'midi',time:null,covers:2,items:{}};
+const ITEMS=['Grenouilles','Foie gras maison','Brochettes','Menu du jour'];
+ITEMS.forEach(n=>state.items[n]=0);
+
+// 14 prochains jours
+const days=$('#days');
+for(let i=0;i<14;i++){const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);
+  const b=document.createElement('button');b.type='button';b.className='day';b.dataset.ts=d.getTime();
+  b.innerHTML='<small>'+(i===0?'Auj.':JOURS[d.getDay()].slice(0,3)+'.')+'</small><b>'+d.getDate()+'</b>';
+  b.setAttribute('aria-label',JOURS[d.getDay()]+' '+d.getDate()+' '+MOIS[d.getMonth()]+(isOpenDay(d)?'':' — fermé'));
+  if(!isOpenDay(d))b.disabled=true;b.setAttribute('aria-pressed','false');days.appendChild(b)}
+days.addEventListener('click',e=>{const b=e.target.closest('.day');if(!b||b.disabled)return;
+  $$('.day').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.date=new Date(+b.dataset.ts);state.time=null;renderSlots();render()});
+
+$('#services').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  $$('#services .chip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.service=b.dataset.service;state.time=null;renderSlots();render()});
+
+function renderSlots(){
+  const box=$('#slots');box.innerHTML='';
+  const[a,b]=SERVICES[state.service];const last=state.mode==='table'?b-75:b-30;
+  const n=new Date();const today=state.date&&state.date.toDateString()===n.toDateString();const nm=n.getHours()*60+n.getMinutes()+30;
+  let any=false;
+  for(let t=a;t<=last;t+=15){if(today&&t<nm)continue;any=true;
+    const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=fmt(t);c.dataset.t=t;c.setAttribute('aria-pressed',String(state.time===t));box.appendChild(c)}
+  if(!any){box.innerHTML='<span style="color:#9f9686;font-size:.9rem">'+(state.date?'Plus de créneau sur ce service, essayez un autre.':'Choisissez d\'abord un jour.')+'</span>'}
+}
+$('#slots').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  $$('#slots .chip').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');state.time=+b.dataset.t;render()});
+
+$('#tableFields .counter').addEventListener('click',e=>{const s=+e.target.dataset.step;if(!s)return;
+  state.covers=Math.min(30,Math.max(1,state.covers+s));$('#covers').textContent=state.covers;drawChairs();render()});
+function drawChairs(){const c=$('#chairs');c.innerHTML='';for(let i=0;i<state.covers;i++)c.appendChild(document.createElement('i'))}
+
+const items=$('#items');
+ITEMS.forEach(n=>{const r=document.createElement('div');r.className='item';
+  r.innerHTML='<span>'+n+'</span><div class="counter"><button type="button" data-k="'+n+'" data-s="-1" aria-label="Retirer '+n+'">−</button><output>0</output><button type="button" data-k="'+n+'" data-s="1" aria-label="Ajouter '+n+'">+</button></div>';items.appendChild(r)});
+items.addEventListener('click',e=>{const k=e.target.dataset.k;if(!k)return;state.items[k]=Math.max(0,Math.min(20,state.items[k]+ +e.target.dataset.s));
+  e.target.parentNode.querySelector('output').textContent=state.items[k];render()});
+
+// Onglets
+const pill=$('#pill');
+function movePill(btn){pill.style.left=btn.offsetLeft+'px';pill.style.width=btn.offsetWidth+'px'}
+$$('.tabs button').forEach(b=>b.addEventListener('click',()=>{
+  $$('.tabs button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');movePill(b);
+  state.mode=b.dataset.mode;$('#tableFields').hidden=state.mode!=='table';$('#takeFields').hidden=state.mode==='table';
+  $('#slotLbl').textContent=state.mode==='table'?'Heure d\'arrivée':'Heure de retrait';state.time=null;renderSlots();render()}));
+addEventListener('load',()=>movePill($('#tabTable')));addEventListener('resize',()=>movePill($('.tabs [aria-selected=true]')));
+
+function orderText(){return Object.entries(state.items).filter(([,v])=>v).map(([k,v])=>v+' × '+k).join(', ')}
+function render(){
+  const tk=$('.ticket');tk.classList.remove('flash');void tk.offsetWidth;tk.classList.add('flash');
+  const isT=state.mode==='table';
+  $('#tTitle').textContent=isT?'Votre table':'Votre commande';
+  $('#tDay').textContent=state.date?JOURS[state.date.getDay()]+' '+state.date.getDate()+' '+MOIS[state.date.getMonth()]:'—';
+  $('#tService').textContent=state.service==='midi'?'Midi':'Soir';
+  $('#tTime').textContent=state.time!=null?fmt(state.time):'—';
+  $('#tQtyL').textContent=isT?'Couverts':'Plats';
+  const n=Object.values(state.items).reduce((a,b)=>a+b,0);
+  $('#tQty').textContent=isT?state.covers:(n||'—');
+  $('#tBig').textContent=isT?(state.covers+(state.covers>1?' couverts':' couvert')):(n?n+' plat'+(n>1?'s':'')+' à emporter':'Composez votre commande');
+}
+function ready(){
+  if(!state.date){toast('Choisissez un jour d\'ouverture.');return false}
+  if(state.time==null){toast('Choisissez une heure.');return false}
+  if(state.mode==='emporter'&&!orderText()){toast('Ajoutez au moins un plat.');return false}
+  return true}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2600)}
+
+$('#send').addEventListener('click',()=>{if(!ready())return;
+  const d=$('#tDay').textContent,h=fmt(state.time),nm=$('#name').value.trim(),ph=$('#phone').value.trim(),no=$('#note').value.trim();
+  const subj=state.mode==='table'?'Demande de réservation — '+d+' '+h+' — '+state.covers+' couvert(s)':'Commande à emporter — '+d+' '+h;
+  const body=['Bonjour,','',
+    state.mode==='table'?'Je souhaite réserver une table pour '+state.covers+' personne(s), le '+d+' à '+h+' ('+(state.service==='midi'?'midi':'soir')+').':'Je souhaite commander à emporter : '+orderText()+'. Retrait le '+d+' à '+h+'.',
+    no?'Précision : '+no:'','', 'Nom : '+(nm||'…'),'Téléphone : '+(ph||'…'),'','Merci !'].filter((x,i,a)=>!(x===''&&a[i-1]==='')).join('\n');
+  location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+  toast('Votre messagerie s\'ouvre avec la demande prête à envoyer.')});
+
+$('#ics').addEventListener('click',()=>{if(!ready())return;
+  const s=new Date(state.date);s.setHours(Math.floor(state.time/60),state.time%60,0,0);
+  const e=new Date(s.getTime()+(state.mode==='table'?90:15)*60000);
+  const p=x=>String(x).padStart(2,'0'),f=d=>d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(d.getHours())+p(d.getMinutes())+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Auberge des Delices//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@auberge-des-delices',
+    'DTSTAMP:'+f(new Date()),'DTSTART:'+f(s),'DTEND:'+f(e),
+    'SUMMARY:'+(state.mode==='table'?'Auberge des Délices — table pour '+state.covers:'Auberge des Délices — retrait commande'),
+    'LOCATION:2 rue de l\'Église\\, 42300 Roanne','DESCRIPTION:Tél. 04 77 71 68 34 — demande à confirmer par le restaurant.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='auberge-des-delices.ics';a.click();
+  toast('Rendez-vous ajouté : ouvrez le fichier pour l\'enregistrer.')});
+
+// Pré-sélection du prochain jour ouvert
+const first=$$('.day').find(b=>!b.disabled);if(first)first.click();
+drawChairs();renderSlots();render();
+})();
+</script>
+</body>
+</html>
