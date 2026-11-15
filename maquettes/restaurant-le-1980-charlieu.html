@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restaurant le 1980 — Restaurant à Charlieu | Cuisine maison et produits locaux</title>
+<meta name="description" content="Restaurant le 1980 à Charlieu : la cuisine faite maison du chef Mickaël Perret, un menu qui change chaque mois et les produits des producteurs du coin.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;600&family=Questrial&family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel (restaurantle1980.odoo.com)
+   Logo : cercle doré sur fond noir (#000 / #D8A653 relevés sur le fichier du logo)
+   Cartes & menus : papier blanc cassé, filets vert de gris, feuillages
+   Texte « histoire » : écriture manuscrite dorée sur noir
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --noir:#000000;
+  --noir-doux:#0d0c0a;
+  --or:#D8A653;          /* doré du logo */
+  --or-clair:#ecc98a;
+  --papier:#f7f6f2;      /* fond des cartes */
+  --sauge:#9aa894;       /* filets et feuillages des cartes */
+  --sauge-fonce:#5f6d5a;
+  --encre:#2e3036;       /* titres des cartes (« MENU ») */
+  --gris:#6b6b6b;
+  --f-logo:'Questrial',system-ui,sans-serif;
+  --f-titre:'Josefin Sans',system-ui,sans-serif;
+  --f-main:'Kalam',cursive;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-logo);color:var(--encre);background:var(--papier);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--or);color:var(--noir);text-align:center;font-size:.8rem;padding:.4rem 1rem;letter-spacing:.02em}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);border-bottom:1px solid rgba(216,166,83,.25);transition:padding .3s}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--or)}
+.brand img{width:52px;height:52px;border-radius:50%}
+.brand span{font-family:var(--f-logo);font-size:1.05rem;letter-spacing:.08em}
+nav.menu{display:flex;gap:1.6rem;align-items:center}
+nav.menu a{color:#e9e2d4;text-decoration:none;font-size:.92rem;letter-spacing:.04em;position:relative;padding:.3rem 0}
+nav.menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+nav.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--f-logo);font-size:.95rem;letter-spacing:.04em;border-radius:999px;padding:.75rem 1.4rem;text-decoration:none;cursor:pointer;border:1px solid var(--or);transition:transform .2s,background .25s,color .25s}
+.btn:active{transform:scale(.96)}
+.btn-or{background:var(--or);color:var(--noir)}
+.btn-or:hover{background:var(--or-clair)}
+.btn-ghost{background:transparent;color:var(--or)}
+.btn-ghost:hover{background:var(--or);color:var(--noir)}
+.burger{display:none;background:none;border:0;color:var(--or);font-size:1.6rem;cursor:pointer}
+@media (max-width:900px){
+  nav.menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:#000;padding:5rem 2rem 2rem;transform:translateY(-110%);transition:transform .4s var(--ease)}
+  nav.menu.open{transform:none}
+  .burger{display:block;z-index:60}
+  .top .btn-or{display:none}
+}
+
+/* Hero */
+.hero{background:var(--noir);color:#f2ead9;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding:5rem 0 4.5rem;min-height:82vh}
+.hero-logo{width:120px;opacity:0;animation:fade 1s .1s forwards}
+.eyebrow{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.3em;font-size:.78rem;color:var(--or);margin:1.6rem 0 .8rem}
+.hero h1{font-family:var(--f-titre);font-weight:200;font-size:clamp(2.6rem,6vw,5.2rem);line-height:1.02;letter-spacing:.02em}
+.hero h1 .year{display:block;color:var(--or);font-weight:300;font-variant-numeric:tabular-nums}
+.hero p.lead{font-family:var(--f-main);font-weight:300;color:var(--or-clair);font-size:clamp(1.15rem,1.8vw,1.4rem);margin:1.4rem 0 2rem;max-width:30ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.status{display:inline-flex;align-items:center;gap:.55rem;margin-top:1.8rem;font-size:.88rem;color:#cfc6b4}
+.status i{width:9px;height:9px;border-radius:50%;background:#7a7a7a;box-shadow:0 0 0 0 rgba(216,166,83,.6)}
+.status.on i{background:var(--or);animation:pulse 2s infinite}
+.hero-visual{position:relative;aspect-ratio:4/5;max-height:620px}
+.hero-visual .ring{position:absolute;inset:-6%;border:1px solid rgba(216,166,83,.55);border-radius:50%;animation:spin 60s linear infinite}
+.hero-visual .ring::before{content:"";position:absolute;top:8%;left:50%;width:10px;height:10px;border-radius:50%;background:var(--or)}
+.hero-visual figure{position:absolute;inset:0;border-radius:50% 50% 12px 12px;overflow:hidden;clip-path:inset(100% 0 0 0);animation:reveal 1.4s .3s var(--ease) forwards}
+.hero-visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);animation:zoom 2.4s .3s var(--ease) forwards}
+.scroll-hint{position:absolute;left:50%;bottom:1.2rem;transform:translateX(-50%);font-size:.72rem;letter-spacing:.3em;color:var(--or);text-transform:uppercase}
+.scroll-hint::after{content:"";display:block;width:1px;height:34px;margin:.5rem auto 0;background:linear-gradient(var(--or),transparent);animation:drip 2s infinite}
+@media (max-width:900px){.scroll-hint{display:none}.hero .wrap{grid-template-columns:1fr;padding-top:3rem}.hero-visual{max-width:380px;margin:1rem auto 0;width:85%}}
+
+@keyframes fade{to{opacity:1}}
+@keyframes reveal{to{clip-path:inset(0 0 0 0)}}
+@keyframes zoom{to{transform:scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(216,166,83,.6)}70%{box-shadow:0 0 0 10px rgba(216,166,83,0)}100%{box-shadow:0 0 0 0 rgba(216,166,83,0)}}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Sections */
+section{padding:clamp(4rem,9vw,7rem) 0}
+.sec-title{text-align:center;margin-bottom:3rem}
+.sec-title .leaf{display:block;margin:0 auto .6rem;width:46px;color:var(--sauge)}
+.sec-title h2{font-family:var(--f-titre);font-weight:300;font-size:clamp(2rem,4.4vw,3.3rem);letter-spacing:.12em;text-transform:uppercase;color:var(--encre)}
+.sec-title p{color:var(--gris);margin-top:.6rem;font-size:1rem}
+.rule{display:flex;align-items:center;justify-content:center;gap:.6rem;margin:1rem auto 0;width:200px;color:var(--sauge)}
+.rule::before,.rule::after{content:"";flex:1;height:1px;background:var(--sauge)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Histoire */
+.story{background:var(--noir);color:var(--or)}
+.story .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:4rem;align-items:center}
+.story-photos{position:relative;min-height:440px}
+.story-photos figure{position:absolute;background:#fff;padding:.6rem .6rem 2.2rem;box-shadow:0 20px 40px rgba(0,0,0,.5);transition:transform .5s var(--ease)}
+.story-photos figure figcaption{font-family:var(--f-main);color:#333;font-size:.9rem;text-align:center;margin-top:.4rem}
+.story-photos .p1{width:62%;left:0;top:0;transform:rotate(-4deg)}
+.story-photos .p2{width:58%;right:0;bottom:0;transform:rotate(3deg)}
+.story-photos figure:hover{transform:rotate(0) scale(1.03);z-index:3}
+.story-text p{font-family:var(--f-main);font-weight:300;font-size:clamp(1.1rem,1.6vw,1.35rem);line-height:1.75;margin-bottom:1rem}
+.story-text .big{font-family:var(--f-titre);font-weight:200;font-size:clamp(4rem,10vw,8rem);line-height:1;color:var(--or);letter-spacing:.04em;margin-bottom:.4rem}
+.story-text .sub{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.3em;font-size:.8rem;color:#cfc6b4;margin-bottom:2rem}
+@media (max-width:900px){.story .wrap{grid-template-columns:1fr}.story-photos{min-height:360px;order:2}}
+
+/* Locaux */
+.locaux{background:var(--papier)}
+.loc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.loc{border:1px solid var(--sauge);border-radius:14px;padding:2rem 1.6rem;text-align:center;background:#fff;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.loc:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(95,109,90,.15)}
+.loc svg{width:42px;height:42px;color:var(--sauge-fonce);margin:0 auto 1rem}
+.loc h3{font-family:var(--f-titre);font-weight:400;letter-spacing:.08em;text-transform:uppercase;font-size:1.05rem;margin-bottom:.5rem}
+.loc p{color:var(--gris);font-size:.95rem}
+.quote{font-family:var(--f-main);font-weight:300;text-align:center;max-width:52ch;margin:3rem auto 0;font-size:1.2rem;color:var(--sauge-fonce)}
+@media (max-width:800px){.loc-grid{grid-template-columns:1fr}}
+
+/* Composer (outil central) */
+.carte{background:linear-gradient(#efeee8,#f7f6f2)}
+.composer{display:grid;grid-template-columns:1.25fr .75fr;gap:2rem;align-items:start}
+.paper{background:#fbfaf7;border:1px solid var(--sauge);border-radius:6px;padding:clamp(1.4rem,3vw,2.6rem);position:relative;box-shadow:0 30px 60px rgba(46,48,54,.08)}
+.paper::before{content:"";position:absolute;inset:8px;border:1px solid rgba(154,168,148,.55);border-radius:3px;pointer-events:none}
+.paper h3{font-family:var(--f-titre);font-weight:200;font-size:clamp(2.4rem,5vw,3.6rem);letter-spacing:.2em;text-align:center;color:var(--encre)}
+.paper .hint{text-align:center;color:var(--gris);font-size:.9rem;margin:.3rem 0 1.6rem}
+.course{margin:1.4rem 0}
+.course h4{font-family:var(--f-titre);text-transform:uppercase;letter-spacing:.25em;font-weight:400;font-size:.78rem;color:var(--sauge-fonce);text-align:center;margin-bottom:.7rem;display:flex;align-items:center;gap:.8rem}
+.course h4::before,.course h4::after{content:"";flex:1;height:1px;background:rgba(154,168,148,.6)}
+.opts{display:grid;gap:.5rem}
+.opt{display:flex;align-items:center;justify-content:center;text-align:center;gap:.6rem;border:1px solid transparent;border-radius:999px;padding:.55rem 1rem;cursor:pointer;transition:background .25s,border-color .25s,transform .2s;font-size:1rem;color:var(--encre);background:none;font-family:inherit}
+.opt:hover{background:rgba(154,168,148,.13)}
+.opt[aria-pressed="true"]{border-color:var(--or);background:rgba(216,166,83,.12)}
+.opt .sup{font-size:.78rem;color:var(--or);white-space:nowrap}
+.toggle{display:flex;align-items:center;justify-content:center;gap:.7rem;margin-top:1rem;font-size:.95rem;color:var(--encre);cursor:pointer}
+.toggle input{appearance:none;width:42px;height:24px;border-radius:999px;background:#d9d8d1;position:relative;cursor:pointer;transition:background .25s}
+.toggle input::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.toggle input:checked{background:var(--or)}
+.toggle input:checked::after{transform:translateX(18px)}
+.ticket{position:sticky;top:96px;background:var(--noir);color:#efe6d3;border-radius:16px;padding:1.8rem;border:1px solid rgba(216,166,83,.4)}
+.ticket h3{font-family:var(--f-titre);font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--or);font-size:1rem;margin-bottom:1rem}
+.ticket ol{list-style:none;display:grid;gap:.6rem;margin-bottom:1.2rem}
+.ticket li{display:flex;gap:.7rem;font-size:.95rem;line-height:1.35}
+.ticket li b{font-weight:400;color:var(--or);min-width:4.2rem;font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;padding-top:.15rem}
+.ticket li span.empty{color:#7d776b;font-style:italic}
+.price{display:flex;align-items:baseline;justify-content:space-between;border-top:1px dashed rgba(216,166,83,.4);padding-top:1rem;margin-bottom:1.2rem}
+.price span{font-size:.85rem;color:#bdb4a2}
+.price strong{font-family:var(--f-titre);font-weight:300;font-size:2.4rem;color:var(--or);font-variant-numeric:tabular-nums}
+.guests{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;font-size:.9rem}
+.stepper{display:flex;align-items:center;gap:.6rem}
+.stepper button{width:34px;height:34px;border-radius:50%;border:1px solid var(--or);background:none;color:var(--or);font-size:1.1rem;cursor:pointer}
+.stepper output{min-width:1.6rem;text-align:center;font-size:1.1rem}
+.ticket .btn{width:100%;justify-content:center;margin-top:.5rem}
+.ticket small{display:block;color:#8f887a;font-size:.75rem;margin-top:1rem;line-height:1.45}
+@media (max-width:900px){.composer{grid-template-columns:1fr}.ticket{position:relative;top:0}}
+
+/* Tout en 1 */
+.formules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.2rem;margin-top:3.5rem}
+.formule{background:#fff;border:1px solid rgba(154,168,148,.6);border-radius:12px;padding:1.4rem 1.4rem 1.2rem;display:flex;flex-direction:column;gap:.4rem;transition:transform .3s var(--ease),border-color .3s}
+.formule:hover{transform:translateY(-4px);border-color:var(--or)}
+.formule h4{font-family:var(--f-titre);font-weight:400;font-size:1.15rem;letter-spacing:.05em}
+.formule p{color:var(--gris);font-size:.92rem;flex:1}
+.formule .p{font-family:var(--f-titre);color:var(--encre);font-size:1.3rem}
+.formule .p em{font-style:normal;font-size:.8rem;color:var(--gris)}
+.subhead{font-family:var(--f-titre);font-weight:200;font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:.15em;text-transform:uppercase;text-align:center;margin-top:4.5rem}
+.subhead + p{text-align:center;color:var(--gris);font-size:.95rem;margin-top:.4rem}
+.finir{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem}
+.mini{background:#fff;border:1px solid rgba(154,168,148,.6);border-radius:12px;padding:1.4rem}
+.mini h4{font-family:var(--f-titre);font-weight:400;letter-spacing:.12em;text-transform:uppercase;font-size:.95rem;margin-bottom:.8rem;color:var(--sauge-fonce)}
+.line{display:flex;justify-content:space-between;gap:1rem;padding:.35rem 0;border-bottom:1px dotted rgba(154,168,148,.6);font-size:.95rem}
+.line:last-child{border:0}
+@media (max-width:700px){.finir{grid-template-columns:1fr}}
+
+/* Vins */
+.vins{background:var(--noir);color:#ece3d0}
+.vins .sec-title h2{color:var(--or)}
+.vins .sec-title p{color:#b9b09e}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;margin-bottom:2rem}
+.tab{background:none;border:1px solid rgba(216,166,83,.5);color:#e6dcc6;border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;font-family:inherit;font-size:.9rem;transition:background .25s,color .25s}
+.tab[aria-selected="true"],.tab:hover{background:var(--or);color:#000}
+.wine-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;min-height:180px}
+.wine{border:1px solid rgba(216,166,83,.25);border-radius:12px;padding:1.2rem 1.3rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem 1rem;animation:fade .5s both;opacity:0}
+.wine h4{font-family:var(--f-titre);font-weight:400;font-size:1.05rem;color:#f4ecdb}
+.wine p{font-size:.85rem;color:#a99f8b}
+.wine .pr{font-family:var(--f-titre);color:var(--or);text-align:right;font-size:1rem;margin-left:auto}.wine h4{white-space:normal}
+.vins .quote{color:var(--or-clair)}
+
+/* Galerie */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:1rem}
+.gal figure{overflow:hidden;border-radius:10px;position:relative}
+.gal figure:nth-child(1){grid-row:span 2}
+.gal figure:nth-child(4){grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.gal figure:hover img{transform:scale(1.07)}
+@media (max-width:800px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:170px}.gal figure:nth-child(4){grid-column:span 2}}
+
+/* Chèques cadeaux */
+.cadeau .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.gift{aspect-ratio:1.6/1;border-radius:14px;background:radial-gradient(120% 140% at 0% 0%,#2a2214 0%,#000 55%),#000;color:var(--or);position:relative;overflow:hidden;padding:1.6rem;box-shadow:0 30px 60px rgba(0,0,0,.25);transform-style:preserve-3d;transition:transform .2s}
+.gift::before{content:"";position:absolute;inset:-40% -10%;background:linear-gradient(115deg,transparent 40%,rgba(216,166,83,.35) 50%,transparent 60%);animation:shine 5s infinite}
+.gift .lg{position:absolute;top:1.2rem;right:1.2rem;width:58px;border-radius:50%}
+.gift h3{font-family:var(--f-titre);font-weight:300;letter-spacing:.12em;font-size:1.5rem}
+.gift dl{margin-top:1.2rem;display:grid;gap:.35rem;font-size:.85rem}
+.gift dt{color:#a99a7c;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
+.gift dd{font-family:var(--f-main);font-size:1.15rem;color:#f2e4c5;min-height:1.4em}
+.gift .amount{position:absolute;right:1.6rem;bottom:1.2rem;font-family:var(--f-titre);font-weight:200;font-size:2.8rem}
+@keyframes shine{0%{transform:translateX(-60%)}60%,100%{transform:translateX(60%)}}
+.gift-form{display:grid;gap:1rem}
+.gift-form label{display:grid;gap:.3rem;font-size:.85rem;color:var(--gris)}
+.gift-form input{font:inherit;padding:.75rem 1rem;border:1px solid var(--sauge);border-radius:10px;background:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:1px solid var(--sauge);background:#fff;border-radius:999px;padding:.45rem 1rem;cursor:pointer;font:inherit}
+.chip[aria-pressed="true"]{background:var(--noir);color:var(--or);border-color:var(--noir)}
+@media (max-width:900px){.cadeau .wrap{grid-template-columns:1fr}}
+
+/* Infos */
+.infos{background:var(--noir);color:#e9e0cc}
+.infos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.infos h2{font-family:var(--f-titre);font-weight:300;color:var(--or);letter-spacing:.15em;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,2.6rem);margin-bottom:1.6rem}
+.hours{width:100%;border-collapse:collapse;margin-bottom:1rem}
+.hours td{padding:.55rem 0;border-bottom:1px solid rgba(216,166,83,.15);font-size:.95rem}
+.hours td:last-child{text-align:right;color:#cfc4ac}
+.hours tr.today td{color:var(--or)}
+.note{font-size:.78rem;color:#8f887a}
+.coords{display:grid;gap:.9rem;margin:1.6rem 0}
+.coords a,.coords div{display:flex;gap:.8rem;align-items:flex-start;text-decoration:none;color:#efe6d3}
+.coords svg{width:20px;height:20px;color:var(--or);flex:none;margin-top:.15rem}
+.map{border-radius:14px;overflow:hidden;border:1px solid rgba(216,166,83,.3);min-height:340px;height:100%}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.6) contrast(1.05)}
+.avis{margin-top:1.6rem;padding:1.3rem;border:1px dashed rgba(216,166,83,.4);border-radius:12px}
+.avis p{font-size:.92rem;margin-bottom:.8rem}
+@media (max-width:900px){.infos .wrap{grid-template-columns:1fr}}
+
+footer{background:#000;color:#8f887a;font-size:.8rem;padding:2.2rem 0;border-top:1px solid rgba(216,166,83,.2)}
+footer .wrap{display:grid;gap:.8rem}
+footer strong{color:var(--or);font-weight:400}
+
+/* Barre mobile */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;position:fixed;left:.6rem;right:.6rem;bottom:.6rem;z-index:40;background:rgba(0,0,0,.92);padding:.5rem;border-radius:999px;border:1px solid rgba(216,166,83,.35)}
+  .mbar .btn{justify-content:center;padding:.65rem .8rem;font-size:.85rem}
+  footer{padding-bottom:5.5rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Restaurant le 1980",
+  "description":"Restaurant de cuisine faite maison à Charlieu, menu renouvelé chaque mois avec des produits de producteurs locaux.",
+  "address":{"@type":"PostalAddress","streetAddress":"19 boulevard Général Leclerc","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+  "telephone":"+33477785762",
+  "email":"restaurantle1980@gmx.fr",
+  "url":"https://restaurantle1980.odoo.com",
+  "servesCuisine":"Cuisine française traditionnelle, faite maison",
+  "areaServed":["Charlieu","Pays de Charlieu-Belmont","Roannais"],
+  "founder":{"@type":"Person","name":"Mickaël Perret"},
+  "sameAs":["https://www.instagram.com/restaurant_le_1980/"],
+  "acceptsReservations":true
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de nouveau site pour le Restaurant le 1980 · non officielle</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil" aria-label="Restaurant le 1980, accueil">
+      <img src="https://restaurantle1980.odoo.com/web/image/website/1/logo/restaurantle1980" alt="Logo Restaurant le 1980">
+      <span>Restaurant le 1980</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Navigation principale">
+      <a href="#accueil">Accueil</a>
+      <a href="#histoire">Notre histoire</a>
+      <a href="#carte">Notre carte</a>
+      <a href="#cadeaux">Chèques cadeaux</a>
+      <a href="#infos">Laissez-nous un avis</a>
+    </nav>
+    <a class="btn btn-or" href="#carte">Réserver une table</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="accueil" style="padding:0">
+  <div class="wrap">
+    <div>
+      <img class="hero-logo" src="https://restaurantle1980.odoo.com/web/image/website/1/logo/restaurantle1980" alt="">
+      <p class="eyebrow">Restaurant à Charlieu · Cuisine faite maison</p>
+      <h1>Restaurant<span class="year" id="year" aria-label="le 1980">le 1980</span></h1>
+      <p class="lead">« Venez pour déguster, savourer et prendre du plaisir avec ma cuisine faite maison. »</p>
+      <div class="ctas">
+        <a class="btn btn-or" href="#carte">Composer mon menu</a>
+        <a class="btn btn-ghost" href="tel:+33477785762">04 77 78 57 62</a>
+      </div>
+      <div class="status" id="status" aria-live="polite"><i></i><span>Horaires</span></div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="ring"></div>
+      <figure><img src="https://restaurantle1980.odoo.com/web/image/668-021e3c49/IMG_7892.jpeg" alt=""></figure>
+    </div>
+  </div>
+  <div class="scroll-hint">Découvrir</div>
+</section>
+
+<!-- HISTOIRE -->
+<section class="story" id="histoire">
+  <div class="wrap">
+    <div class="story-photos reveal">
+      <figure class="p1"><img src="https://restaurantle1980.odoo.com/web/image/1344-9db0a839/Capture%20d%E2%80%99e%CC%81cran%202025-10-27%20a%CC%80%2014.18.50.png" alt="Mickaël Perret, chef du Restaurant le 1980"><figcaption>Mickaël, chef de cuisine</figcaption></figure>
+      <figure class="p2"><img src="https://restaurantle1980.odoo.com/web/image/370-b2674589/Capture%20d%E2%80%99%C3%A9cran%202024-01-25%20%C3%A0%2022.26.01.png" alt="Carte postale ancienne de Charlieu, place de l'Abbaye"><figcaption>Charlieu, place de l'Abbaye</figcaption></figure>
+    </div>
+    <div class="story-text reveal">
+      <div class="big" data-count="1980">1980</div>
+      <div class="sub">Pourquoi ce nom</div>
+      <p>Mickaël, chef de cuisine, passionné et bon vivant. J'ai fait mes armes dans différents restaurants depuis mes 16 ans.</p>
+      <p>Ma femme, Stéphanie, qui m'accompagne dans mes projets même les plus fous ! Mes trois merveilleuses filles qui me soutiennent.</p>
+      <p>Et une année donnée à ce projet, une année chère à notre cœur ! Celle du mariage de ma grand-mère Clarisse et de mon grand-père Jean, épicuriens et qui malgré leur absence, veillent sur nous.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LOCAUX -->
+<section class="locaux">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <svg class="leaf" viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h56"/><path d="M30 12c-6-8-14-9-18-8 2 6 9 9 18 8zM30 12c6-8 14-9 18-8-2 6-9 9-18 8z"/></svg>
+      <h2>Le 1980 c'est</h2>
+      <p>Une cuisine traditionnelle locale, faite avec les producteurs des environs.</p>
+    </div>
+    <div class="loc-grid">
+      <article class="loc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M24 12v12l8 5"/></svg>
+        <h3>Un menu chaque mois</h3>
+        <p>« Un nouveau menu sera proposé chaque mois », pour diversifier les produits et les saveurs.</p>
+      </article>
+      <article class="loc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 30c0-9 7-16 16-16s16 7 16 16H8z"/><path d="M6 34h36M14 30c0-5 4-9 10-9"/></svg>
+        <h3>Les producteurs d'ici</h3>
+        <p>Les fromages de la ferme Raveaud, le pain de la boulangerie Martin, la viande et le fromage blanc « ferme de la Roharie ».</p>
+      </article>
+      <article class="loc reveal">
+        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6h12v8c0 4 4 6 4 12v16H14V26c0-6 4-8 4-12V6z"/><path d="M14 30h20"/></svg>
+        <h3>Des vins choisis</h3>
+        <p>« Chaque vin est testé et validé par le chef avant la création de la carte. »</p>
+      </article>
+    </div>
+    <p class="quote reveal">Les plats proposés sont susceptibles de varier suivant les achats : c'est ce qui fait une cuisine de saison.</p>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL : COMPOSER SON MENU -->
+<section class="carte" id="carte">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <svg class="leaf" viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h56"/><path d="M30 12c-6-8-14-9-18-8 2 6 9 9 18 8zM30 12c6-8 14-9 18-8-2 6-9 9-18 8z"/></svg>
+      <h2>Notre carte</h2>
+      <p>Le menu du moment, à composer en un clic — puis à réserver directement.</p>
+    </div>
+
+    <div class="composer">
+      <div class="paper reveal">
+        <h3>MENU</h3>
+        <p class="hint">Choisissez un plat par ligne</p>
+
+        <div class="course"><h4>Entrée</h4>
+          <div class="opts" data-course="entree">
+            <button class="opt" data-sup="0">Salade de lingots et lard fumé, croustillant paprika fumé</button>
+            <button class="opt" data-sup="0">Brunoise de volaille, poireaux et fourme de Montbrison</button>
+            <button class="opt" data-sup="3">Foie gras frais maison <span class="sup">sup 3€</span></button>
+          </div>
+        </div>
+        <div class="course"><h4>Plat</h4>
+          <div class="opts" data-course="plat">
+            <button class="opt" data-sup="0">Cuisses de grenouilles persillées</button>
+            <button class="opt" data-sup="0">Pavé de daurade coryphène, bouillon à l'ail noir</button>
+            <button class="opt" data-sup="0">Faux filet, sauce du moment</button>
+          </div>
+        </div>
+        <div class="course"><h4>Fromage ou dessert</h4>
+          <div class="opts" data-course="dessert">
+            <button class="opt" data-sup="0">Fromage blanc « ferme de la Roharie »</button>
+            <button class="opt" data-sup="0">Assiette de fromages affinés</button>
+            <button class="opt" data-sup="0">Crème brûlée vanille</button>
+            <button class="opt" data-sup="0">Fondant chocolat</button>
+            <button class="opt" data-sup="0">Glace italienne du moment</button>
+            <button class="opt" data-sup="0">Baba verveine</button>
+          </div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="fromage"> Menu en 3 plats + fromage</label>
+      </div>
+
+      <aside class="ticket reveal" aria-live="polite">
+        <h3>Votre menu</h3>
+        <ol>
+          <li><b>Entrée</b><span id="t-entree" class="empty">à choisir</span></li>
+          <li><b>Plat</b><span id="t-plat" class="empty">à choisir</span></li>
+          <li id="li-fromage" hidden><b>Fromage</b><span>Fromage en plus</span></li>
+          <li><b>Fin</b><span id="t-dessert" class="empty">à choisir</span></li>
+        </ol>
+        <div class="price"><span id="formule">Menu en 3 plats</span><strong id="prix">32,50 €</strong></div>
+        <div class="guests"><span>Nombre de couverts</span>
+          <div class="stepper"><button type="button" id="minus" aria-label="Retirer un couvert">−</button><output id="nb">2</output><button type="button" id="plus" aria-label="Ajouter un couvert">+</button></div>
+        </div>
+        <div class="guests"><label for="jour">Jour</label><select id="jour" style="font:inherit;background:#111;color:#efe6d3;border:1px solid rgba(216,166,83,.5);border-radius:8px;padding:.4rem .6rem;max-width:60%"></select></div>
+        <div class="guests"><label for="service">Service</label><select id="service" style="font:inherit;background:#111;color:#efe6d3;border:1px solid rgba(216,166,83,.5);border-radius:8px;padding:.4rem .6rem"></select></div>
+        <a class="btn btn-or" id="mail" href="#">Envoyer ma demande par mail</a>
+        <a class="btn btn-ghost" href="tel:+33477785762">Appeler le 04 77 78 57 62</a>
+        <small>Le mail part pré-rempli vers restaurantle1980@gmx.fr ; la réservation est confirmée par le restaurant. Le choix du menu reste indicatif. Prix nets, service compris.</small>
+      </aside>
+    </div>
+
+    <h3 class="subhead reveal">Le tout en 1</h3>
+    <p>Toutes les formules sont servies avec salade et frites maison</p>
+    <div class="formules">
+      <article class="formule reveal"><h4>Le Burger</h4><p>Steak haché Charolais 150 g, bacon, cheddar, oignons confits</p><div class="p">22,00 € <em>· double steak 27,00 €</em></div></article>
+      <article class="formule reveal"><h4>La Grenouille</h4><p>Grenouilles (350 g)</p><div class="p">25,00 €</div></article>
+      <article class="formule reveal"><h4>La Potence volaille</h4><p>Filet de poulet (300 g)</p><div class="p">25,00 €</div></article>
+      <article class="formule reveal"><h4>La Potence bœuf</h4><p>Cœur de rumsteak Charolais (300 g)</p><div class="p">30,00 €</div></article>
+    </div>
+
+    <div class="finir">
+      <div class="mini reveal"><h4>Pour finir…</h4>
+        <div class="line"><span>Fromage blanc « ferme de la Roharie »</span><span>4,50 €</span></div>
+        <div class="line"><span>Assiette de fromages affinés</span><span>6,50 €</span></div>
+        <div class="line"><span>Desserts au choix</span><span>7,50 €</span></div>
+      </div>
+      <div class="mini reveal"><h4>Menu enfant · 11 € <small style="text-transform:none;letter-spacing:0;color:var(--gris)">(−10 ans)</small></h4>
+        <div class="line"><span>Baby grenouilles ou Baby bœuf</span><span></span></div>
+        <div class="line"><span>Fromage blanc ou dessert</span><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VINS -->
+<section class="vins" id="vins">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <h2>Carte des vins</h2>
+      <p>Bouteilles 75 cl, pichets et vins au verre</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-f="all">Tout</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="blanc">Blancs</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="rose">Rosés</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="rouge">Rouges</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="pichet">Pichets</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="verre">Au verre</button>
+    </div>
+    <div class="wine-list" id="wines"></div>
+    <p class="quote reveal">« Un arôme qui viendra se marier avec votre plat. »</p>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="wrap">
+    <div class="sec-title reveal">
+      <svg class="leaf" viewBox="0 0 60 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 12h56"/><path d="M30 12c-6-8-14-9-18-8 2 6 9 9 18 8zM30 12c6-8 14-9 18-8-2 6-9 9-18 8z"/></svg>
+      <h2>En cuisine</h2><p>Les assiettes du chef, la salle, et Charlieu juste devant la porte.</p>
+    </div>
+    <div class="gal">
+      <figure class="reveal"><img loading="lazy" src="https://restaurantle1980.odoo.com/web/image/1095-2964c5c7/IMG_1640.jpeg" alt="Assiettes de poisson mariné et légumes"></figure>
+      <figure class="reveal"><img loading="lazy" src="https://restaurantle1980.odoo.com/web/image/1094-ed7f76b2/IMG_1670.jpeg" alt="Planches de fromages affinés"></figure>
+      <figure class="reveal"><img loading="lazy" src="https://restaurantle1980.odoo.com/web/image/860-4b1264b7/tempImageQf0z3k.jpg" alt="Assiette dressée par le chef"></figure>
+      <figure class="reveal"><img loading="lazy" src="https://restaurantle1980.odoo.com/web/image/375-dd077e81/tempImagebPOpxo.jpg" alt="Bouteilles de vin en salle"></figure>
+      <figure class="reveal"><img loading="lazy" src="https://restaurantle1980.odoo.com/web/image/368-d80b8512/Capture%20d%E2%80%99%C3%A9cran%202024-01-25%20%C3%A0%2022.24.44.png" alt="Charlieu, boulevard Général Leclerc"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- CHEQUES CADEAUX -->
+<section class="cadeau" id="cadeaux" style="background:#efeee8">
+  <div class="wrap">
+    <div class="gift reveal" id="gift" aria-label="Aperçu du chèque cadeau">
+      <img class="lg" src="https://restaurantle1980.odoo.com/web/image/website/1/logo/restaurantle1980" alt="">
+      <h3>Chèque cadeau</h3>
+      <dl>
+        <dt>De la part de</dt><dd id="g-de">…</dd>
+        <dt>Offert à</dt><dd id="g-pour">…</dd>
+      </dl>
+      <div class="amount" id="g-mt">50 €</div>
+    </div>
+    <div class="reveal">
+      <div class="sec-title" style="text-align:left;margin-bottom:1.4rem">
+        <h2>Chèques cadeaux</h2>
+        <p>Nous pouvons créer toutes sortes de chèques cadeaux du montant de votre choix.</p>
+      </div>
+      <form class="gift-form" id="gform" onsubmit="return false">
+        <div class="chips" role="group" aria-label="Montant">
+          <button type="button" class="chip" data-v="32,50">1 menu · 32,50 €</button>
+          <button type="button" class="chip" aria-pressed="true" data-v="50">50 €</button>
+          <button type="button" class="chip" data-v="65">2 menus · 65 €</button>
+          <button type="button" class="chip" data-v="100">100 €</button>
+        </div>
+        <label>De la part de<input id="i-de" maxlength="30" placeholder="Votre prénom"></label>
+        <label>Offert à<input id="i-pour" maxlength="30" placeholder="Son prénom"></label>
+        <a class="btn btn-or" id="gmail" href="#" style="justify-self:start">Demander ce chèque cadeau</a>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- INFOS -->
+<section class="infos" id="infos">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Infos pratiques</h2>
+      <table class="hours" id="hours"></table>
+      <p class="note">Horaires indicatifs relevés sur les annuaires en ligne — à confirmer par le restaurant.</p>
+      <div class="coords">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span>19 boulevard Général Leclerc<br>42190 Charlieu</span></div>
+        <a href="tel:+33477785762"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 5a2 2 0 012-2z"/></svg>04 77 78 57 62</a>
+        <a href="mailto:restaurantle1980@gmx.fr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>restaurantle1980@gmx.fr</a>
+        <a href="https://www.instagram.com/restaurant_le_1980/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg>@restaurant_le_1980</a>
+      </div>
+      <div class="avis">
+        <p><strong style="color:var(--or);font-weight:400">Laissez-nous un avis</strong> — vous avez aimé votre repas ? Un mot sur Google aide beaucoup un restaurant indépendant.</p>
+        <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Restaurant+le+1980+19+boulevard+G%C3%A9n%C3%A9ral+Leclerc+Charlieu">Donner mon avis</a>
+      </div>
+    </div>
+    <div class="map reveal">
+      <iframe title="Plan d'accès au Restaurant le 1980, Charlieu" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.1620%2C46.1560%2C4.1790%2C46.1650&layer=mapnik&marker=46.1604%2C4.1706"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>Restaurant le 1980</strong> · 19 boulevard Général Leclerc, 42190 Charlieu · 04 77 78 57 62</div>
+    <div>Maquette de démonstration réalisée à partir des informations publiques du restaurant (site actuel, cartes et menus publiés, annuaires). Elle ne constitue pas le site officiel. Les menus, prix et vins reprennent la carte actuellement publiée et sont indicatifs ; les horaires sont à confirmer. Toutes les photos et le logo sont ceux déjà publiés par le restaurant ; les couleurs sont reprises du logo (noir et doré) et des cartes (blanc cassé, vert de gris) et restent ajustables. La position exacte sur le plan est approchée.</div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-ghost" href="tel:+33477785762">Appeler</a>
+  <a class="btn btn-or" href="#carte">Réserver</a>
+</div>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+
+  // Menu mobile
+  const burger=$('#burger'), menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.textContent=o?'✕':'☰'});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.textContent='☰';burger.setAttribute('aria-expanded',false)}));
+
+  // Reveal au scroll
+  if('IntersectionObserver' in window && !reduce){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+    $$('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
+  } else $$('.reveal').forEach(el=>el.classList.add('in'));
+
+  // Compteur 1980
+  const big=document.querySelector('[data-count]');
+  if(big && !reduce && 'IntersectionObserver' in window){
+    const io2=new IntersectionObserver(es=>{if(es[0].isIntersecting){io2.disconnect();let t0=null;const from=1900,to=1980;
+      const step=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/1600,1);big.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}},{threshold:.5});
+    io2.observe(big);
+  }
+
+  // Horaires indicatifs (annuaires) — 0=dimanche
+  const H={1:[['12:00','15:00']],2:[['12:00','15:00']],3:[],4:[],5:[['12:00','15:00'],['19:00','23:00']],6:[['12:00','15:00'],['19:00','23:00']],0:[['12:00','15:00'],['19:00','23:00']]};
+  const jours=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const now=new Date(), today=now.getDay();
+  const fmt=s=>s.replace(':00','h').replace(':','h');
+  const tbl=$('#hours');
+  [1,2,3,4,5,6,0].forEach(d=>{const tr=document.createElement('tr');if(d===today)tr.className='today';
+    tr.innerHTML='<td>'+jours[d]+'</td><td>'+(H[d].length?H[d].map(p=>fmt(p[0])+' – '+fmt(p[1])).join(' · '):'Fermé')+'</td>';tbl.appendChild(tr)});
+  const mins=now.getHours()*60+now.getMinutes(), toM=s=>{const[a,b]=s.split(':');return a*60+ +b};
+  const open=H[today].some(p=>mins>=toM(p[0])&&mins<toM(p[1]));
+  const st=$('#status');
+  if(open){st.classList.add('on');st.querySelector('span').textContent="Ouvert en ce moment · horaires indicatifs"}
+  else{let txt='Fermé en ce moment';for(let i=0;i<8;i++){const d=(today+i)%7;const n=H[d].find(p=>i>0||toM(p[0])>mins);if(n){txt+=' · réouverture '+(i===0?"aujourd'hui":i===1?'demain':jours[d].toLowerCase())+' à '+fmt(n[0]);break}}st.querySelector('span').textContent=txt}
+
+  // Composer
+  const state={entree:null,plat:null,dessert:null,sup:0};
+  $$('.opts').forEach(g=>{g.querySelectorAll('.opt').forEach(b=>{b.setAttribute('aria-pressed','false');b.addEventListener('click',()=>{
+    g.querySelectorAll('.opt').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+    const c=g.dataset.course;state[c]=b.childNodes[0].textContent.trim();if(c==='entree')state.sup=+b.dataset.sup;
+    const t=$('#t-'+c);t.textContent=state[c];t.classList.remove('empty');t.animate&&!reduce&&t.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:350});update()})})});
+  const fromage=$('#fromage'), nb=$('#nb');let n=2;
+  fromage.addEventListener('change',update);
+  $('#minus').onclick=()=>{n=Math.max(1,n-1);nb.textContent=n;update()};
+  $('#plus').onclick=()=>{n=Math.min(32,n+1);nb.textContent=n;update()};
+  const eur=v=>v.toFixed(2).replace('.',',')+' €';
+  let shown=32.5;
+  function animPrice(to){const el=$('#prix');if(reduce){el.textContent=eur(to);shown=to;return}const from=shown;let t0=null;const st=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/450,1);el.textContent=eur(from+(to-from)*p);if(p<1)requestAnimationFrame(st);else shown=to};requestAnimationFrame(st)}
+
+  // Jours ouverts sur 3 semaines
+  const jSel=$('#jour'), sSel=$('#service');
+  for(let i=0;i<21;i++){const d=new Date();d.setDate(d.getDate()+i);if(!H[d.getDay()].length)continue;const o=document.createElement('option');o.value=d.toISOString().slice(0,10);o.dataset.dow=d.getDay();
+    o.textContent=(i===0?"Aujourd'hui":i===1?'Demain':jours[d.getDay()]+' '+d.getDate()+'/'+(d.getMonth()+1));jSel.appendChild(o)}
+  function fillService(){const dow=+jSel.selectedOptions[0].dataset.dow;sSel.innerHTML='';H[dow].forEach((p,i)=>{const o=document.createElement('option');o.textContent=(i===0?'Midi':'Soir')+' ('+fmt(p[0])+')';sSel.appendChild(o)});update()}
+  jSel.addEventListener('change',fillService);sSel.addEventListener('change',update);
+
+  function update(){
+    const base=fromage.checked?36:32.5;$('#formule').textContent=(fromage.checked?'Menu 3 plats + fromage':'Menu en 3 plats')+(state.sup?' + supplément':'');
+    $('#li-fromage').hidden=!fromage.checked;
+    animPrice((base+state.sup)*1);
+    const body=['Bonjour,','','Je souhaiterais réserver une table pour '+n+' personne'+(n>1?'s':'')+' : '+(jSel.selectedOptions[0]?jSel.selectedOptions[0].textContent:'')+', '+(sSel.value||'')+'.','',
+      'Menu repéré sur le site'+(fromage.checked?' (3 plats + fromage)':'')+' :','- '+(state.entree||'entrée à choisir'),'- '+(state.plat||'plat à choisir'),'- '+(state.dessert||'fromage ou dessert à choisir'),'','Merci de me confirmer la réservation.','',''].join('\n');
+    $('#mail').href='mailto:restaurantle1980@gmx.fr?subject='+encodeURIComponent('Demande de réservation — '+n+' couvert'+(n>1?'s':''))+'&body='+encodeURIComponent(body);
+  }
+  fillService();
+
+  // Vins
+  const W=[
+    ['blanc',"L'Inédit","Mas Neuf · 2023","19,00 €"],
+    ['blanc',"Saint-Véran AOP","Cuvée Prestige · 2022","27,00 €"],
+    ['rose',"Flore & Sens","Coteaux de Béziers · 2023","17,00 €"],
+    ['rose',"Cap Esperelles","Côtes de Provence · 2023","19,50 €"],
+    ['rouge',"Olivier de Chamard","Côtes du Rhône AOP · 2020","18,00 €"],
+    ['rouge',"Syrah — Beaujolais","Maison Thevenet AOP · 2018","24,00 €"],
+    ['rouge',"Avec L","IGP Coteaux de Béziers · Domaine de Pierre Belle · 2021","25,00 €"],
+    ['rouge',"La Réserve","IGP Coteaux de Béziers · Domaine de Pierre Belle · 2022","27,00 €"],
+    ['pichet',"Blanc « Sauvignon »","IGP Pays d'Oc","25 cl 5,00 € · 50 cl 8,50 €"],
+    ['pichet',"Rosé « Grenache »","IGP Pays d'Oc","25 cl 5,00 € · 50 cl 8,50 €"],
+    ['pichet',"Rouge « Syrah »","IGP Pays d'Oc","25 cl 5,00 € · 50 cl 8,50 €"],
+    ['verre',"Blanc · L'Inédit","10 cl","6,50 €"],
+    ['verre',"Blanc · St Véran","10 cl","7,50 €"],
+    ['verre',"Rosé · Flore et Sens","10 cl","5,50 €"],
+    ['verre',"Rouge · Olivier de Chamard","10 cl","5,50 €"],
+    ['verre',"Rouge · Rasteau","10 cl","8,50 €"]
+  ];
+  const wl=$('#wines');
+  function showW(f){wl.innerHTML='';W.filter(w=>f==='all'||w[0]===f).forEach((w,i)=>{const d=document.createElement('article');d.className='wine';d.style.animationDelay=(reduce?0:i*45)+'ms';
+    d.innerHTML='<div><h4>'+w[1]+'</h4><p>'+w[2]+'</p></div><div class="pr">'+w[3]+'</div>';wl.appendChild(d)})}
+  $$('.tab').forEach(t=>t.addEventListener('click',()=>{$$('.tab').forEach(x=>x.setAttribute('aria-selected','false'));t.setAttribute('aria-selected','true');showW(t.dataset.f)}));
+  showW('all');
+
+  // Chèque cadeau
+  let mt='50';
+  const gUpd=()=>{$('#g-de').textContent=$('#i-de').value||'…';$('#g-pour').textContent=$('#i-pour').value||'…';$('#g-mt').textContent=mt+' €';
+    $('#gmail').href='mailto:restaurantle1980@gmx.fr?subject='+encodeURIComponent('Chèque cadeau de '+mt+' €')+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais un chèque cadeau de '+mt+' €\nDe la part de : '+($('#i-de').value||'')+'\nOffert à : '+($('#i-pour').value||'')+'\n\nMerci de m\'indiquer comment le récupérer.\n')};
+  $$('.chip').forEach(c=>c.addEventListener('click',()=>{$$('.chip').forEach(x=>x.setAttribute('aria-pressed','false'));c.setAttribute('aria-pressed','true');mt=c.dataset.v;gUpd()}));
+  ['#i-de','#i-pour'].forEach(s=>$(s).addEventListener('input',gUpd));gUpd();
+  const gift=$('#gift');
+  if(!reduce&&matchMedia('(hover:hover)').matches){gift.addEventListener('mousemove',e=>{const r=gift.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;gift.style.transform='perspective(900px) rotateY('+x*10+'deg) rotateX('+(-y*10)+'deg)'});gift.addEventListener('mouseleave',()=>gift.style.transform='')}
+})();
+</script>
+</body>
+</html>
