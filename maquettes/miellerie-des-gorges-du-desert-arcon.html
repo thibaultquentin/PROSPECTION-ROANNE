@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miellerie des Gorges du Désert — Apiculteur dans le Roannais | Arcon</title>
+<meta name="description" content="Miels du terroir roannais récoltés par Geoffrey Gras, apiculteur à Arcon : printemps, acacia, montagne, sapin. Sur les marchés de Riorges et Mably.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel (mielleriedesgorgesdudesert.fr)
+   Couleurs relevées dans le code du site et sur la grille tarifaire :
+   - or / survol des liens : rgb(191,116,11)  -> --or
+   - or clair des boutons : rgb(211,136,31)   -> --or-clair
+   - jaune miel des bandeaux de la grille     -> --miel
+   - texte quasi noir rgb(23,24,24)           -> --encre
+   - crème du logo                            -> --creme
+   Polices du site : Caudex (titres) + Roboto (texte)
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================== */
+:root{
+  --or:#bf740b;
+  --or-clair:#d3881f;
+  --miel:#fdbc5c;
+  --miel-pale:#fff3dc;
+  --encre:#171818;
+  --encre-2:#3a3a3a;
+  --creme:#fdfaf3;
+  --blanc:#ffffff;
+  --vert-banderole:#2f3a2c;
+  --font-titre:'Caudex', Georgia, serif;
+  --font-texte:'Roboto', system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-titre);font-weight:700;line-height:1.15}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:#f3e6cf;font-size:.8rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--miel)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(253,250,243,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(191,116,11,.15);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(23,24,24,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand img{width:58px;height:44px;object-fit:contain;mix-blend-mode:multiply}
+.brand span{font-family:var(--font-titre);font-size:1.05rem;line-height:1.1}
+.brand small{display:block;font-family:var(--font-texte);font-size:.72rem;color:var(--or);letter-spacing:.08em;text-transform:uppercase}
+.nav ul{display:flex;gap:1.6rem;list-style:none}
+.nav ul a{text-decoration:none;color:#000;font-size:.95rem;position:relative;transition:color .25s}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover{color:var(--or)}
+.nav ul a:hover::after,.nav ul a.active::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--or-clair);color:#fff;border:0;border-radius:999px;padding:.8rem 1.4rem;font:500 .95rem var(--font-texte);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .25s,box-shadow .25s;min-height:44px}
+.btn:hover{background:var(--or);transform:translateY(-2px);box-shadow:0 10px 24px rgba(191,116,11,.3)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--encre);border:1.5px solid var(--encre)}
+.btn.ghost:hover{background:var(--encre);color:#fff;box-shadow:none}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+.cart-pill{position:relative}
+.cart-pill .count{position:absolute;top:-6px;right:-6px;background:var(--encre);color:#fff;font-size:.7rem;border-radius:999px;min-width:20px;height:20px;display:grid;place-items:center;transform:scale(0);transition:transform .3s var(--ease)}
+.cart-pill .count.on{transform:scale(1)}
+
+/* Hero */
+.hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(4rem,8vw,7rem);overflow:hidden}
+.hex-bg{position:absolute;inset:0;opacity:.35;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98' viewBox='0 0 56 98'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zm0 32L0 82V66l28 16 28-16v16L28 98z' fill='none' stroke='%23d3881f' stroke-opacity='.35' stroke-width='1'/%3E%3C/svg%3E");mask-image:radial-gradient(ellipse at 80% 40%,#000 0%,transparent 65%);-webkit-mask-image:radial-gradient(ellipse at 80% 40%,#000 0%,transparent 65%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);font-weight:500}
+.eyebrow::before{content:"";width:28px;height:1.5px;background:var(--or)}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 4vw,4.6rem);margin:.8rem 0 1rem;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--or)}
+.hero p.lead{font-size:clamp(1.02rem,.95rem + .3vw,1.18rem);color:var(--encre-2);max-width:34rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid rgba(23,24,24,.1)}
+.hero-meta div{font-size:.85rem;color:var(--encre-2)}
+.hero-meta strong{display:block;font-family:var(--font-titre);font-size:1.6rem;color:var(--encre)}
+.hero-visual{position:relative}
+.hero-photo{border-radius:28px 28px 28px 120px;overflow:hidden;aspect-ratio:4/4.3;box-shadow:0 30px 60px rgba(23,24,24,.18);transform:rotate(1.5deg)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.6s var(--ease)}
+.loaded .hero-photo img{transform:scale(1)}
+.badge-float{position:absolute;left:-28px;bottom:36px;background:var(--blanc);border-radius:16px;padding:.9rem 1.1rem;box-shadow:0 18px 40px rgba(23,24,24,.15);display:flex;gap:.8rem;align-items:center;animation:floaty 6s ease-in-out infinite}
+.badge-float .dot{width:12px;height:12px;border-radius:50%;background:#2e9e5b;box-shadow:0 0 0 0 rgba(46,158,91,.5);animation:pulse 2s infinite}
+.badge-float.closed .dot{background:var(--or-clair);box-shadow:none;animation:none}
+.badge-float small{display:block;font-size:.72rem;color:#777;text-transform:uppercase;letter-spacing:.08em}
+.badge-float b{font-size:.95rem}
+@keyframes floaty{50%{transform:translateY(-10px)}}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(46,158,91,0)}100%{box-shadow:0 0 0 0 rgba(46,158,91,0)}}
+
+/* Abeilles volantes */
+.bee{position:absolute;width:30px;height:24px;pointer-events:none;z-index:3;offset-rotate:auto}
+.bee svg{width:100%;height:100%}
+.bee .wing{transform-origin:50% 100%;animation:flap .09s linear infinite alternate}
+@keyframes flap{to{transform:scaleY(.4)}}
+.bee.b1{offset-path:path("M 0 120 C 140 -20, 320 260, 520 60 S 760 120, 900 20");animation:fly 16s linear infinite;top:10%;left:-40px}
+.bee.b2{offset-path:path("M 900 260 C 700 80, 520 360, 300 200 S 60 300, -40 120");animation:fly 21s linear infinite 3s;top:20%;left:0}
+@keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
+
+/* Sections */
+section{padding:clamp(4rem,8vw,6.5rem) 0}
+.sec-head{max-width:46rem;margin-bottom:2.6rem}
+.sec-head h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin:.6rem 0 .8rem}
+.sec-head p{color:var(--encre-2)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* Apiculteur */
+.about{background:var(--blanc)}
+.about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.about-photos{position:relative;height:520px}
+.about-photos figure{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(23,24,24,.15)}
+.about-photos figure img{width:100%;height:100%;object-fit:cover}
+.about-photos .p1{width:62%;height:70%;left:0;top:0}
+.about-photos .p2{width:56%;height:56%;right:0;bottom:0;border:6px solid var(--blanc)}
+.about blockquote{font-family:var(--font-titre);font-size:clamp(1.3rem,1.1rem + .8vw,1.75rem);line-height:1.35;border-left:3px solid var(--miel);padding-left:1.2rem;margin:1.2rem 0 1.4rem}
+.about p{color:var(--encre-2);margin-bottom:.9rem}
+.sign{font-family:var(--font-titre);font-style:italic;font-size:1.3rem;color:var(--or)}
+
+/* Parcours des ruches */
+.parcours{background:linear-gradient(180deg,var(--creme),var(--miel-pale))}
+.journey{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.journey-svg{position:absolute;left:0;right:0;top:46px;height:150px;width:100%;pointer-events:none}
+.journey-svg path{fill:none;stroke:var(--or-clair);stroke-width:2.5;stroke-dasharray:8 8}
+.journey-svg .mask{stroke:var(--miel-pale);stroke-width:6;stroke-dasharray:none;transition:stroke-dashoffset 2.6s var(--ease)}
+.step{position:relative;z-index:2;background:var(--blanc);border-radius:var(--r);padding:1.4rem 1.3rem 1.5rem;box-shadow:0 12px 30px rgba(191,116,11,.08);transition:transform .35s var(--ease),box-shadow .35s}
+.step:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(191,116,11,.16)}
+.step .alt{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:var(--miel-pale);color:var(--or);border-radius:999px;padding:.25rem .7rem;margin-bottom:.9rem}
+.step .hex{width:54px;height:60px;display:grid;place-items:center;margin-bottom:.8rem;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--miel);font-family:var(--font-titre);font-size:1.3rem}
+.step h3{font-size:1.25rem;margin-bottom:.4rem}
+.step p{font-size:.93rem;color:var(--encre-2)}
+.step:nth-child(2){margin-top:3rem}.step:nth-child(3){margin-top:-1rem}.step:nth-child(4){margin-top:-3rem}
+.journey-note{margin-top:2rem;font-size:.9rem;color:var(--encre-2);text-align:center}
+
+/* Produits + commande */
+.shop-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:2rem;align-items:start}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
+.prod{background:var(--blanc);border-radius:var(--r);padding:1.3rem;border:1px solid rgba(191,116,11,.14);transition:border-color .3s,transform .3s var(--ease);position:relative;overflow:hidden}
+.prod:hover{border-color:var(--or-clair);transform:translateY(-3px)}
+.prod-top{display:flex;gap:.9rem;align-items:center;margin-bottom:.9rem}
+.jar{width:46px;height:56px;flex:none;position:relative}
+.jar svg{width:100%;height:100%}
+.prod h3{font-size:1.15rem;line-height:1.2}
+.prod .tag{font-size:.72rem;color:var(--or);text-transform:uppercase;letter-spacing:.08em}
+.formats{display:flex;flex-direction:column;gap:.5rem}
+.fmt{display:flex;align-items:center;justify-content:space-between;gap:.6rem;font-size:.93rem;padding:.35rem 0;border-top:1px dashed rgba(23,24,24,.12)}
+.fmt .price{font-weight:700;margin-left:auto;margin-right:.6rem}
+.qty{display:flex;align-items:center;border:1px solid rgba(23,24,24,.18);border-radius:999px;overflow:hidden}
+.qty button{width:34px;height:34px;border:0;background:transparent;font-size:1.1rem;cursor:pointer;transition:background .2s}
+.qty button:hover{background:var(--miel-pale)}
+.qty output{min-width:22px;text-align:center;font-weight:500}
+.prod.has{border-color:var(--or-clair);box-shadow:0 0 0 3px rgba(253,188,92,.35)}
+.order{position:sticky;top:96px;background:var(--encre);color:#f5efe4;border-radius:24px;padding:1.6rem;box-shadow:0 30px 60px rgba(23,24,24,.25)}
+.order h3{font-size:1.5rem;color:#fff;margin-bottom:.3rem}
+.order .sub{font-size:.85rem;color:#c9bfae;margin-bottom:1.1rem}
+.lines{list-style:none;min-height:60px;margin-bottom:1rem}
+.lines li{display:flex;justify-content:space-between;gap:.6rem;font-size:.9rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.08);animation:pop .35s var(--ease)}
+.lines .empty{color:#a59c8c;font-style:italic;border:0}
+@keyframes pop{from{opacity:0;transform:translateX(-8px)}}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--font-titre);font-size:1.5rem;margin:.6rem 0 1.2rem}
+.total span:last-child{color:var(--miel)}
+.order label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:#c9bfae;margin:.9rem 0 .45rem}
+.pickups{display:grid;gap:.5rem}
+.pick{display:flex;gap:.7rem;align-items:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.7rem .8rem;cursor:pointer;transition:border-color .2s,background .2s}
+.pick:hover{border-color:var(--miel)}
+.pick input{accent-color:var(--miel);margin-top:.25rem}
+.pick b{display:block;font-size:.92rem;color:#fff}
+.pick small{font-size:.8rem;color:#c9bfae}
+.pick.sel{border-color:var(--miel);background:rgba(253,188,92,.1)}
+.order input[type=text],.order textarea{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:.7rem .8rem;color:#fff;font:400 .92rem var(--font-texte)}
+.order textarea{resize:vertical;min-height:64px}
+.order .btn{width:100%;justify-content:center;margin-top:1.1rem;background:var(--miel);color:var(--encre)}
+.order .btn:hover{background:#fff}
+.order .alt-actions{display:flex;gap:.5rem;margin-top:.6rem}
+.order .alt-actions button{flex:1;background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:999px;padding:.6rem;font:.85rem var(--font-texte);cursor:pointer;min-height:44px}
+.order .alt-actions button:hover{border-color:var(--miel);color:var(--miel)}
+.order .fine{font-size:.75rem;color:#a59c8c;margin-top:.9rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8rem 1.2rem;border-radius:999px;font-size:.9rem;z-index:99;transition:transform .4s var(--ease)}
+.toast.on{transform:translate(-50%,0)}
+
+/* Galerie */
+.gallery{background:var(--blanc)}
+.g-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:160px;gap:12px}
+.g-grid figure{position:relative;border-radius:14px;overflow:hidden;cursor:zoom-in}
+.g-grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease),filter .5s}
+.g-grid figure:hover img{transform:scale(1.06)}
+.g-grid figcaption{position:absolute;left:10px;bottom:10px;background:rgba(253,250,243,.92);font-size:.78rem;padding:.3rem .7rem;border-radius:999px;transform:translateY(8px);opacity:0;transition:.35s var(--ease)}
+.g-grid figure:hover figcaption{opacity:1;transform:none}
+.g1{grid-column:span 3;grid-row:span 2}.g2{grid-column:span 3;grid-row:span 1}.g3{grid-column:span 2;grid-row:span 2}.g4{grid-column:span 1;grid-row:span 1}.g5{grid-column:span 2;grid-row:span 2}.g6{grid-column:span 2;grid-row:span 1}
+.lightbox{position:fixed;inset:0;background:rgba(23,24,24,.9);display:grid;place-items:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .3s}
+.lightbox.on{opacity:1;pointer-events:auto}
+.lightbox img{max-width:min(92vw,1000px);max-height:86vh;border-radius:14px}
+.lightbox button{position:absolute;top:18px;right:18px;width:48px;height:48px;border-radius:50%;border:0;background:#fff;font-size:1.4rem;cursor:pointer}
+
+/* Où me rencontrer */
+.meet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.meet{background:var(--blanc);border-radius:var(--r);padding:1.6rem;position:relative;overflow:hidden;border:1px solid rgba(191,116,11,.14);transition:transform .35s var(--ease)}
+.meet:hover{transform:translateY(-5px)}
+.meet::before{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;background:var(--miel-pale);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transition:transform .6s var(--ease)}
+.meet:hover::before{transform:rotate(30deg) scale(1.1)}
+.meet .day{position:relative;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--or);font-weight:500}
+.meet h3{position:relative;font-size:1.45rem;margin:.4rem 0 .5rem}
+.meet p{position:relative;font-size:.93rem;color:var(--encre-2)}
+.next{position:relative;margin-top:1.2rem;padding-top:1rem;border-top:1px dashed rgba(23,24,24,.15);font-size:.88rem}
+.next b{display:block;font-family:var(--font-titre);font-size:1.15rem;color:var(--encre)}
+.today{display:inline-block;background:#2e9e5b;color:#fff;border-radius:999px;font-size:.72rem;padding:.15rem .6rem;margin-left:.4rem;vertical-align:middle}
+
+/* Contact */
+.contact{background:var(--encre);color:#f5efe4;position:relative;overflow:hidden}
+.contact .hex-bg{opacity:.18;mask-image:radial-gradient(ellipse at 10% 50%,#000 0%,transparent 60%);-webkit-mask-image:radial-gradient(ellipse at 10% 50%,#000 0%,transparent 60%)}
+.contact-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;position:relative}
+.contact h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);color:#fff;margin:.6rem 0 1rem}
+.contact .eyebrow{color:var(--miel)}.contact .eyebrow::before{background:var(--miel)}
+.contact p{color:#d6ccbb}
+.c-cards{display:grid;gap:.8rem}
+.c-card{display:flex;gap:1rem;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1rem 1.2rem;text-decoration:none;transition:border-color .25s,transform .25s var(--ease)}
+.c-card:hover{border-color:var(--miel);transform:translateX(6px)}
+.c-card .ic{width:44px;height:44px;border-radius:12px;background:var(--miel);color:var(--encre);display:grid;place-items:center;flex:none}
+.c-card small{display:block;font-size:.75rem;color:#a59c8c;text-transform:uppercase;letter-spacing:.08em}
+.c-card b{color:#fff;font-weight:500;word-break:break-word}
+
+footer{background:#0f1010;color:#a59c8c;font-size:.82rem;padding:2rem 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between}
+footer p{max-width:60rem}
+
+/* Barre mobile */
+.mobile-bar{display:none}
+
+@media (max-width:980px){
+  .hero-grid,.about-grid,.shop-grid,.contact-grid{grid-template-columns:1fr}
+  .journey{grid-template-columns:1fr 1fr}
+  .journey-svg{display:none}
+  .step:nth-child(n){margin-top:0}
+  .order{position:relative;top:0}
+  .meet-grid{grid-template-columns:1fr}
+  .about-photos{height:420px}
+}
+@media (max-width:760px){
+  .nav ul{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--creme);padding:6rem 1.5rem 2rem;gap:1.2rem;transform:translateY(-120%);visibility:hidden;opacity:0;transition:transform .45s var(--ease),opacity .3s,visibility .45s;z-index:-1;box-shadow:0 20px 40px rgba(23,24,24,.12)}
+  .nav ul.open{transform:none;visibility:visible;opacity:1}
+  .nav ul a{font-size:1.3rem;font-family:var(--font-titre)}
+  .burger{display:block}
+  .nav .btn.cart-pill{display:none}
+  .products{grid-template-columns:1fr}
+  .journey{grid-template-columns:1fr}
+  .g-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px}
+  .g-grid figure{grid-column:span 1!important;grid-row:span 1!important}
+  .g-grid .g1{grid-column:span 2!important;grid-row:span 2!important}
+  .badge-float{left:8px;bottom:12px}
+  .hero-photo{border-radius:24px 24px 24px 80px}
+  .mobile-bar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:.5rem}
+  .mobile-bar a{flex:1;justify-content:center}
+  footer{padding-bottom:5.5rem}
+  .bee{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .bee{display:none}
+}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"LocalBusiness",
+ "name":"Miellerie des Gorges du Désert",
+ "description":"Apiculteur professionnel installé à Arcon depuis 2020 : miels du terroir roannais.",
+ "founder":{"@type":"Person","name":"Geoffrey Gras"},
+ "url":"https://www.mielleriedesgorgesdudesert.fr",
+ "telephone":"+33635577810",
+ "email":"gras.geoffrey@gmail.com",
+ "address":{"@type":"PostalAddress","streetAddress":"209 lieu-dit La Martelanche","postalCode":"42370","addressLocality":"Arcon","addressCountry":"FR"},
+ "areaServed":["Arcon","Riorges","Mably","Roanne","Roannais"],
+ "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"15:00","closes":"18:00"}],
+ "makesOffer":[
+  {"@type":"Offer","itemOffered":{"@type":"Product","name":"Miel de montagne, fleurs d'été"}},
+  {"@type":"Offer","itemOffered":{"@type":"Product","name":"Miel d'acacia"}},
+  {"@type":"Offer","itemOffered":{"@type":"Product","name":"Miel de pissenlit bio"}},
+  {"@type":"Offer","itemOffered":{"@type":"Product","name":"Miel de sapin"}}
+ ]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — <b>Miellerie des Gorges du Désert</b> · prix repris de la grille actuelle, indicatifs</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#accueil" aria-label="Accueil">
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=180/mv0ygg46JWHnwaV1/logo-AQEvllDGXMfn3zxp.jpg" alt="Logo Miellerie des Gorges du Désert">
+      <span>Miellerie des Gorges du Désert<small>Apiculteur producteur</small></span>
+    </a>
+    <ul id="menu">
+      <li><a href="#accueil" class="active">Accueil</a></li>
+      <li><a href="#produits">Produits</a></li>
+      <li><a href="#rencontrer">Où me rencontrer ?</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#produits" class="btn cart-pill">Préparer ma commande <span class="count" id="navCount">0</span></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hex-bg"></div>
+  <div class="bee b1" aria-hidden="true"><svg viewBox="0 0 30 24"><ellipse class="wing" cx="13" cy="7" rx="5" ry="6" fill="#fff" stroke="#171818" stroke-width=".8" opacity=".9"/><ellipse class="wing" cx="18" cy="7" rx="4" ry="5" fill="#fff" stroke="#171818" stroke-width=".8" opacity=".9"/><ellipse cx="15" cy="15" rx="9" ry="6" fill="#fdbc5c" stroke="#171818" stroke-width="1"/><path d="M12 9.5v11M16 9.2v11.6" stroke="#171818" stroke-width="2.2"/><circle cx="24" cy="14" r="2.6" fill="#171818"/></svg></div>
+  <div class="bee b2" aria-hidden="true"><svg viewBox="0 0 30 24"><ellipse class="wing" cx="13" cy="7" rx="5" ry="6" fill="#fff" stroke="#171818" stroke-width=".8" opacity=".9"/><ellipse class="wing" cx="18" cy="7" rx="4" ry="5" fill="#fff" stroke="#171818" stroke-width=".8" opacity=".9"/><ellipse cx="15" cy="15" rx="9" ry="6" fill="#fdbc5c" stroke="#171818" stroke-width="1"/><path d="M12 9.5v11M16 9.2v11.6" stroke="#171818" stroke-width="2.2"/><circle cx="24" cy="14" r="2.6" fill="#171818"/></svg></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow reveal">Geoffrey Gras · Apiculteur professionnel à Arcon</span>
+      <h1 class="reveal d1">Des miels du <em>terroir Roannais</em>, de la plaine à la montagne.</h1>
+      <p class="lead reveal d2">Natif de la région roannaise, installé à Arcon depuis 2020, je récolte mes miels sur environ 200 colonies — du printemps dans la plaine aux fleurs d'été entre 500 et 1000 mètres d'altitude.</p>
+      <div class="ctas reveal d3">
+        <a href="#produits" class="btn">Composer ma commande →</a>
+        <a href="#rencontrer" class="btn ghost">Où me rencontrer ?</a>
+      </div>
+      <div class="hero-meta reveal d3">
+        <div><strong data-count="200">200</strong>colonies environ</div>
+        <div><strong>2020</strong>installé à Arcon</div>
+        <div><strong>500–1000 m</strong>ruchers d'été</div>
+      </div>
+    </div>
+    <div class="hero-visual reveal d2">
+      <div class="hero-photo"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024/mv0ygg46JWHnwaV1/375756214_315810967606270_1390851756068629466_n-YrD142LrRPuz18vA.jpg" alt="Le stand de la Miellerie des Gorges du Désert sur un marché, pots de miel alignés"></div>
+      <div class="badge-float" id="liveBadge"><span class="dot"></span><div><small id="liveLabel">Prochain rendez-vous</small><b id="liveText">—</b></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- APICULTEUR -->
+<section class="about">
+  <div class="wrap about-grid">
+    <div class="about-photos reveal">
+      <figure class="p1"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/mv0ygg46JWHnwaV1/20220621_125051-dJo8xo1Z3kSVyn2x.jpg" alt="Ruches dans un rucher en sous-bois" loading="lazy"></figure>
+      <figure class="p2"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/mv0ygg46JWHnwaV1/20220324_145330-YyvqeLv4DrHBNw38.jpg" alt="Cadre de ruche couvert d'abeilles" loading="lazy"></figure>
+    </div>
+    <div>
+      <span class="eyebrow reveal">Apiculteur professionnel</span>
+      <blockquote class="reveal d1">« Natif de la région roannaise, il était important pour moi de m'installer dans la région et de proposer des miels du terroir Roannais. »</blockquote>
+      <p class="reveal d2">Je suis apiculteur installé depuis 2020 à Arcon, et je possède environ 200 colonies. Chaque miel raconte un moment de la saison et un endroit précis du Roannais : c'est pour ça que je déplace mes ruches au fil de l'année.</p>
+      <p class="reveal d2">Vous me trouvez sur les marchés de Riorges et de Mably, et le samedi après-midi directement à la miellerie.</p>
+      <p class="sign reveal d3">Geoffrey Gras</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section class="parcours" id="parcours">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Le parcours des ruches</span>
+      <h2>Une année de transhumance, quatre étapes.</h2>
+      <p>Les ruches ne restent pas au même endroit : elles suivent les floraisons, de la plaine du Roannais jusqu'aux ruchers de montagne.</p>
+    </div>
+    <div class="journey">
+      <svg class="journey-svg" viewBox="0 0 1000 150" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M60 120 C 200 120, 260 150, 380 90 S 600 40, 680 50 S 880 10, 960 0"/>
+        <path class="mask" id="pathMask" d="M60 120 C 200 120, 260 150, 380 90 S 600 40, 680 50 S 880 10, 960 0"/>
+      </svg>
+      <article class="step reveal"><span class="alt">Plaine du Roannais</span><div class="hex">1</div><h3>L'hivernage</h3><p>Les ruches passent l'hiver dans la plaine du Roannais.</p></article>
+      <article class="step reveal d1"><span class="alt">Mêmes ruchers</span><div class="hex">2</div><h3>Miel de printemps</h3><p>Produit sur les ruchers d'hivernage, dès le retour des premières floraisons.</p></article>
+      <article class="step reveal d2"><span class="alt">Ensuite</span><div class="hex">3</div><h3>L'acacia</h3><p>Vient ensuite la récolte du miel d'acacia.</p></article>
+      <article class="step reveal d3"><span class="alt">500 à 1000 m</span><div class="hex">4</div><h3>Fleurs d'été &amp; montagne</h3><p>Les ruches montent entre 500 et 1000 mètres d'altitude pour le miel de fleurs d'été et de montagne.</p></article>
+    </div>
+    <p class="journey-note reveal">Texte repris de la présentation actuelle de la miellerie — mis en scène sous forme de parcours.</p>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section id="produits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Produits</span>
+      <h2>Choisissez vos pots, je les prépare pour votre retrait.</h2>
+      <p>Ajoutez les formats qui vous intéressent, choisissez où les récupérer — marché ou miellerie — et votre demande part par mail ou par SMS, déjà rédigée.</p>
+    </div>
+    <div class="shop-grid">
+      <div class="products" id="products"></div>
+      <aside class="order reveal" aria-live="polite">
+        <h3>Ma commande</h3>
+        <p class="sub">Réglée sur place, au moment du retrait.</p>
+        <ul class="lines" id="lines"><li class="empty">Aucun pot pour l'instant — utilisez les boutons +.</li></ul>
+        <div class="total"><span>Total</span><span id="total">0,00 €</span></div>
+        <label>Où récupérer ma commande ?</label>
+        <div class="pickups" id="pickups"></div>
+        <label for="nom">Votre nom</label>
+        <input type="text" id="nom" placeholder="Prénom Nom" autocomplete="name">
+        <label for="msg">Un mot pour Geoffrey (facultatif)</label>
+        <textarea id="msg" placeholder="Ex. : je passerai plutôt vers 10 h"></textarea>
+        <button class="btn" id="sendMail">Envoyer ma demande par mail</button>
+        <div class="alt-actions"><button id="sendSms">Par SMS</button><button id="copy">Copier le texte</button></div>
+        <p class="fine">Aucun paiement en ligne : la demande est simplement transmise à la miellerie, qui confirme la disponibilité.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Au rucher &amp; à la miellerie</span>
+      <h2>Du cadre au pot.</h2>
+    </div>
+    <div class="g-grid reveal" id="gallery">
+      <figure class="g1"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024/mv0ygg46JWHnwaV1/20220621_125051-dJo8xo1Z3kSVyn2x.jpg" alt="Rucher en sous-bois"><figcaption>Un rucher en sous-bois</figcaption></figure>
+      <figure class="g2"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024/mv0ygg46JWHnwaV1/20220707_104415-AzGkaGVok1h0ae9w.jpg" alt="Hausse remplie de cadres operculés"><figcaption>Cadres operculés</figcaption></figure>
+      <figure class="g3"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/mv0ygg46JWHnwaV1/20220614_105207-m2WMOW03y5fE9gOD.jpg" alt="La miellerie : maturateurs et matériel d'extraction"><figcaption>La miellerie, à Arcon</figcaption></figure>
+      <figure class="g4"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/mv0ygg46JWHnwaV1/20220604_162937-mnlzXlVR55Fxrq9Z.jpg" alt="Ruche ouverte, abeilles sur les cadres"><figcaption>Visite de ruche</figcaption></figure>
+      <figure class="g5"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=768/mv0ygg46JWHnwaV1/20220324_145330-YyvqeLv4DrHBNw38.jpg" alt="Cadre couvert d'abeilles"><figcaption>Au cœur de la colonie</figcaption></figure>
+      <figure class="g6"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1024/mv0ygg46JWHnwaV1/375756214_315810967606270_1390851756068629466_n-YrD142LrRPuz18vA.jpg" alt="Le stand sur le marché"><figcaption>Le stand du marché</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- OU ME RENCONTRER -->
+<section id="rencontrer">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Où me rencontrer ?</span>
+      <h2>Deux marchés et la miellerie.</h2>
+      <p>Les dates ci-dessous se calculent toutes seules : vous voyez tout de suite le prochain passage.</p>
+    </div>
+    <div class="meet-grid">
+      <article class="meet reveal"><span class="day">Mercredi matin</span><h3>Marché de Riorges</h3><p>Sur le marché, le mercredi matin.</p><div class="next" data-day="3">Prochain passage<b>—</b></div></article>
+      <article class="meet reveal d1"><span class="day">Vendredi matin</span><h3>Marché de Mably bourg</h3><p>Sur le marché du bourg, le vendredi matin.</p><div class="next" data-day="5">Prochain passage<b>—</b></div></article>
+      <article class="meet reveal d2"><span class="day">Samedi · 15 h – 18 h</span><h3>À la miellerie</h3><p>209 La Martelanche, 42370 Arcon. Pensez à téléphoner avant pour vous assurer de ma présence.</p><div class="next" data-day="6">Prochaine ouverture<b>—</b></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="hex-bg"></div>
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Une question sur un miel, une commande, un coffret ?</h2>
+      <p>Appelez, écrivez, ou passez le samedi à la miellerie — un coup de fil avant, c'est plus sûr.</p>
+    </div>
+    <div class="c-cards reveal d1">
+      <a class="c-card" href="tel:+33635577810"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>Téléphone</small><b>06 35 57 78 10</b></span></a>
+      <a class="c-card" href="mailto:gras.geoffrey@gmail.com"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><span><small>Mail</small><b>gras.geoffrey@gmail.com</b></span></a>
+      <a class="c-card" href="https://www.google.com/maps/search/?api=1&query=209+La+Martelanche+42370+Arcon" target="_blank" rel="noopener"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span><small>Miellerie</small><b>209 lieu-dit La Martelanche, 42370 Arcon</b></span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Maquette de démonstration</strong> réalisée pour la Miellerie des Gorges du Désert — non contractuelle. Prix repris de la grille tarifaire publiée sur le site actuel, à titre indicatif. Toutes les photos et le logo sont ceux du site actuel de la miellerie. Couleurs et polices (Caudex, Roboto) reprises du site actuel ; tons ajustables. Le formulaire de commande prépare un mail ou un SMS, il n'enregistre ni ne transmet rien de lui-même.</p>
+    <p>© Miellerie des Gorges du Désert · Geoffrey Gras · Arcon</p>
+  </div>
+</footer>
+
+<div class="mobile-bar"><a class="btn" href="tel:+33635577810">Appeler</a><a class="btn ghost" style="background:var(--creme)" href="#produits">Commander</a></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><img alt=""><button aria-label="Fermer">×</button></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  const fmt=n=>n.toFixed(2).replace('.',',')+' €';
+  const PRODUCTS=[
+    {id:'montagne',name:"Miel de montagne, fleurs d'été",tag:'500 à 1000 m',color:'#e8a33a',formats:[['250 g',4.5],['500 g',7.5],['1 kg',14]]},
+    {id:'acacia',name:"Miel d'acacia",tag:'Après le printemps',color:'#f6d77a',formats:[['250 g',5],['500 g',8],['1 kg',15]]},
+    {id:'pissenlit',name:'Miel de pissenlit bio',tag:'Bio',color:'#f2c230',formats:[['250 g',4.5],['500 g',7.5]]},
+    {id:'sapin',name:'Miel de sapin',tag:'Miel de sapin',color:'#7a4a1c',formats:[['250 g',5],['500 g',8]]},
+    {id:'coffret',name:'Coffret 3 miels',tag:'Idée cadeau',color:'#d3881f',formats:[['3 × 250 g',15]]},
+    {id:'bonbons',name:'Bonbons à façon',tag:'Confiserie',color:'#bf740b',formats:[['250 g',5]]}
+  ];
+  const cart={};
+  const jar=c=>`<svg viewBox="0 0 46 56"><rect x="12" y="2" width="22" height="8" rx="2" fill="#171818"/><path d="M8 14h30a4 4 0 0 1 4 4v30a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V18a4 4 0 0 1 4-4z" fill="${c}" stroke="#171818" stroke-width="1.5"/><rect x="10" y="26" width="26" height="14" rx="2" fill="#fdfaf3" stroke="#171818" stroke-width="1"/><path d="M23 29l4 2.3v4.6L23 38l-4-2.1v-4.6z" fill="none" stroke="#bf740b" stroke-width="1.2"/></svg>`;
+  const P=document.getElementById('products');
+  P.innerHTML=PRODUCTS.map((p,i)=>`<article class="prod reveal ${i%2?'d1':''}" data-id="${p.id}"><div class="prod-top"><div class="jar">${jar(p.color)}</div><div><span class="tag">${p.tag}</span><h3>${p.name}</h3></div></div><div class="formats">${p.formats.map((f,j)=>`<div class="fmt"><span>${f[0]}</span><span class="price">${fmt(f[1])}</span><div class="qty"><button aria-label="Retirer ${p.name} ${f[0]}" data-k="${p.id}|${j}" data-d="-1">−</button><output id="q-${p.id}-${j}">0</output><button aria-label="Ajouter ${p.name} ${f[0]}" data-k="${p.id}|${j}" data-d="1">+</button></div></div>`).join('')}</div></article>`).join('');
+
+  const DAYS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  const MONTHS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  const PICK=[
+    {id:'riorges',label:'Marché de Riorges',when:'mercredi matin',day:3,endH:12.5},
+    {id:'mably',label:'Marché de Mably bourg',when:'vendredi matin',day:5,endH:12.5},
+    {id:'miellerie',label:'À la miellerie, Arcon',when:'samedi 15 h – 18 h',day:6,startH:15,endH:18}
+  ];
+  function nextDate(day,endH){const d=new Date();const h=d.getHours()+d.getMinutes()/60;let add=(day-d.getDay()+7)%7;if(add===0&&h>=endH)add=7;const n=new Date(d);n.setDate(d.getDate()+add);return {date:n,today:add===0};}
+  const label=d=>`${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+  const PK=document.getElementById('pickups');
+  PK.innerHTML=PICK.map((p,i)=>{const n=nextDate(p.day,p.endH);return `<label class="pick ${i===0?'sel':''}"><input type="radio" name="pick" value="${p.id}" ${i===0?'checked':''}><span><b>${p.label}</b><small>${p.when} · prochain : ${label(n.date)}${n.today?' (aujourd\'hui)':''}</small></span></label>`}).join('');
+  PK.addEventListener('change',()=>PK.querySelectorAll('.pick').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)));
+
+  document.querySelectorAll('.next').forEach(el=>{const day=+el.dataset.day;const p=PICK.find(x=>x.day===day);const n=nextDate(day,p.endH);el.querySelector('b').innerHTML=label(n.date)+(n.today?'<span class="today">aujourd\'hui</span>':'');});
+
+  // badge prochain rendez-vous
+  (function(){let best=null;PICK.forEach(p=>{const n=nextDate(p.day,p.endH);if(!best||n.date<best.n.date)best={p,n};});
+    const now=new Date(),h=now.getHours()+now.getMinutes()/60;const open=best.n.today&&h>=(best.p.startH||7.5)&&h<best.p.endH;
+    document.getElementById('liveLabel').textContent=open?'En ce moment':'Prochain rendez-vous';
+    document.getElementById('liveText').textContent=(open?'':label(best.n.date).replace(/^./,c=>c.toUpperCase())+' · ')+best.p.label;
+  })();
+
+  const lines=document.getElementById('lines'),totalEl=document.getElementById('total'),navCount=document.getElementById('navCount');
+  function render(){
+    const items=Object.entries(cart).filter(([,q])=>q>0);let total=0,count=0;
+    lines.innerHTML=items.length?items.map(([k,q])=>{const [id,j]=k.split('|');const p=PRODUCTS.find(x=>x.id===id);const f=p.formats[j];total+=f[1]*q;count+=q;return `<li><span>${q} × ${p.name} (${f[0]})</span><span>${fmt(f[1]*q)}</span></li>`}).join(''):'<li class="empty">Aucun pot pour l\'instant — utilisez les boutons +.</li>';
+    totalEl.textContent=fmt(total);navCount.textContent=count;navCount.classList.toggle('on',count>0);
+    document.querySelectorAll('.prod').forEach(el=>el.classList.toggle('has',Object.keys(cart).some(k=>k.startsWith(el.dataset.id+'|')&&cart[k]>0)));
+    return {items,total};
+  }
+  P.addEventListener('click',e=>{const b=e.target.closest('button[data-k]');if(!b)return;const k=b.dataset.k;cart[k]=Math.max(0,(cart[k]||0)+(+b.dataset.d));const [id,j]=k.split('|');document.getElementById(`q-${id}-${j}`).textContent=cart[k];render();});
+
+  function text(){
+    const {items,total}=render();if(!items.length)return null;
+    const pk=PICK.find(p=>p.id===document.querySelector('input[name=pick]:checked').value);const n=nextDate(pk.day,pk.endH);
+    const nom=document.getElementById('nom').value.trim(),msg=document.getElementById('msg').value.trim();
+    let t=`Bonjour Geoffrey,\n\nJe souhaiterais réserver :\n`;
+    items.forEach(([k,q])=>{const [id,j]=k.split('|');const p=PRODUCTS.find(x=>x.id===id);t+=`- ${q} × ${p.name} (${p.formats[j][0]})\n`;});
+    t+=`\nTotal indicatif : ${fmt(total)}\nRetrait : ${pk.label}, ${label(n.date)} (${pk.when})\n`;
+    if(msg)t+=`\n${msg}\n`;t+=`\nMerci !\n${nom}`;return t;
+  }
+  const toast=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);};
+  const need=()=>{toast('Ajoutez au moins un pot avec le bouton +');document.getElementById('products').scrollIntoView({behavior:'smooth'});};
+  document.getElementById('sendMail').onclick=()=>{const t=text();if(!t)return need();location.href='mailto:gras.geoffrey@gmail.com?subject='+encodeURIComponent('Réservation de miel')+'&body='+encodeURIComponent(t);};
+  document.getElementById('sendSms').onclick=()=>{const t=text();if(!t)return need();location.href='sms:+33635577810?&body='+encodeURIComponent(t);};
+  document.getElementById('copy').onclick=()=>{const t=text();if(!t)return need();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Texte copié'),()=>toast('Copie impossible sur ce navigateur'));};
+
+  // reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // chemin du parcours
+  const mask=document.getElementById('pathMask');
+  if(mask){const L=mask.getTotalLength();mask.style.strokeDasharray=L;mask.style.strokeDashoffset=0;
+    new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){mask.style.strokeDashoffset=-L;o.disconnect();}}),{threshold:.4}).observe(document.querySelector('.journey'));}
+  // header + nav active
+  const header=document.querySelector('header');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const links=[...document.querySelectorAll('#menu a')];
+  const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}}),{rootMargin:'-45% 0px -50% 0px'});
+  ['accueil','produits','rencontrer','contact'].forEach(id=>so.observe(document.getElementById(id)));
+  // burger
+  const bg=document.getElementById('burger'),menu=document.getElementById('menu');
+  bg.onclick=()=>{const o=menu.classList.toggle('open');bg.setAttribute('aria-expanded',o);};
+  menu.addEventListener('click',e=>{if(e.target.tagName==='A'){menu.classList.remove('open');bg.setAttribute('aria-expanded','false');}});
+  // lightbox
+  const lb=document.getElementById('lb');
+  document.getElementById('gallery').addEventListener('click',e=>{const im=e.target.closest('figure')?.querySelector('img');if(!im)return;lb.querySelector('img').src=im.src.replace(/w=\d+/,'w=1440');lb.querySelector('img').alt=im.alt;lb.classList.add('on');});
+  lb.onclick=e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on');};
+  addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on');});
+  addEventListener('load',()=>document.body.classList.add('loaded'));
+  render();
+})();
+</script>
+</body>
+</html>
