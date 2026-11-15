@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Cloche à Fromage — Fromagerie à Amplepuis | Plateaux, raclette, fondue</title>
+<meta name="description" content="Fromagerie et crèmerie à Amplepuis, entre Roanne, Tarare et Thizy-les-Bourgs : plus de 70 fromages, plateaux sur commande, raclette découpée, fondue râpée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel et de la devanture
+   --anthracite : couleur secondaire du site (rgb 44,46,54) = façade
+   --orange     : couleur principale du site (rgb 220,82,19) = murs de la boutique
+   Typo : Josefin Sans (titres, comme le site et l'enseigne) + Montserrat
+   ========================================================== */
+:root{
+  --anthracite:#2c2e36;
+  --anthracite-2:#363944;
+  --nuit:#1f2127;
+  --orange:#dc5213;
+  --orange-fonce:#b0420f;
+  --orange-pale:#f8dcd0;
+  --creme:#faf6ef;
+  --pate:#f3e6c4;           /* ton "pâte de fromage" pour les fonds doux */
+  --texte:#212529;
+  --gris:#6b6e78;
+  --blanc:#fff;
+  --font-titre:"Josefin Sans", Arial, Helvetica, sans-serif;
+  --font-texte:"Montserrat", Arial, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--creme);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-titre);font-weight:300;letter-spacing:.04em;line-height:1.1}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--orange);color:#fff;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(44,46,54,.94);backdrop-filter:blur(10px);color:#fff;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px rgba(0,0,0,.25)}
+.topbar{display:flex;justify-content:space-between;gap:1rem;font-size:.75rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.12);color:#d7d8dc}
+.topbar a{text-decoration:none}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{width:54px;height:54px;mix-blend-mode:lighten;border-radius:50%}
+.logo span{font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.18em;font-size:1rem;font-weight:300}
+.menu{display:flex;gap:1.3rem;list-style:none;font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;white-space:nowrap}
+.nav .btn{white-space:nowrap;padding:.8rem 1.2rem;font-size:.78rem}
+.logo span{white-space:nowrap}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;font-weight:600;text-decoration:none;padding:.9rem 1.5rem;border-radius:999px;border:0;cursor:pointer;transition:transform .25s var(--spring),background .25s,box-shadow .25s;min-height:44px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 8px 22px rgba(220,82,19,.35)}
+.btn-orange:hover{background:var(--orange-fonce)}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
+
+/* Hero */
+.hero{position:relative;min-height:88vh;display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--nuit)}
+.hero-bg{position:absolute;inset:-6% 0 0 0;background:url("https://www.la-cloche-a-fromage.fr/images/diaporamas/diaporama-la-cloche-a-fromage2.jpg") center/cover;transform:scale(1.08);animation:kenburns 18s ease-in-out infinite alternate}
+@keyframes kenburns{to{transform:scale(1.18) translateX(-2%)}}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,33,39,.25) 0%,rgba(31,33,39,.55) 45%,rgba(31,33,39,.95) 100%);z-index:1}
+.hero-content{position:relative;z-index:2;padding:6rem 0 4.5rem}
+.status{display:inline-flex;align-items:center;gap:.55rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);padding:.4rem .9rem;border-radius:999px;font-size:.8rem;margin-bottom:1.4rem}
+.dot{width:9px;height:9px;border-radius:50%;background:#8a8d96}
+.dot.open{background:#3ccf6b;box-shadow:0 0 0 0 rgba(60,207,107,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(60,207,107,0)}100%{box-shadow:0 0 0 0 rgba(60,207,107,0)}}
+.kicker{font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.3em;font-size:.85rem;color:var(--orange-pale)}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);text-transform:uppercase;font-weight:200;margin:.6rem 0 1rem;max-width:14ch}
+.hero h1 b{font-weight:700;color:var(--orange)}
+.hero p.lead{font-size:clamp(1rem,.95rem + .4vw,1.2rem);max-width:52ch;color:#e6e6ea}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.split span{display:inline-block;opacity:0;transform:translateY(60%);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.scroll-ind{position:absolute;right:2rem;bottom:2rem;z-index:2;writing-mode:vertical-rl;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:#cfd0d4}
+.scroll-ind::after{content:"";display:block;width:1px;height:50px;background:#fff;margin:.6rem auto 0;animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* Bandeau défilant (reprend les mentions de la vitrine) */
+.marquee{background:var(--orange);color:#fff;overflow:hidden;white-space:nowrap;padding:1rem 0;font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.25em;font-size:clamp(.9rem,.8rem + .5vw,1.2rem)}
+.marquee-track{display:inline-flex;gap:3rem;animation:defile 28s linear infinite}
+.marquee-track span::after{content:"✦";margin-left:3rem;opacity:.7}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.sec-head{max-width:720px;margin-bottom:3rem}
+.sec-head .kicker{color:var(--orange)}
+.sec-head h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);text-transform:uppercase;margin:.6rem 0 1rem}
+.sec-head p{color:var(--gris)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* La fromagerie */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(2rem,4vw,5rem);align-items:center}
+.about-img{position:relative}
+.about-img img{border-radius:6px;aspect-ratio:1/1;object-fit:cover;width:100%}
+.about-img .tag{position:absolute;right:-1rem;bottom:2rem;background:var(--anthracite);color:#fff;padding:1.1rem 1.4rem;border-radius:4px;font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.12em;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.about-img .tag b{display:block;font-size:2.4rem;color:var(--orange);font-weight:700;letter-spacing:0}
+.about blockquote{font-family:var(--font-titre);font-size:clamp(1.3rem,1.1rem + .8vw,1.8rem);font-weight:300;border-left:3px solid var(--orange);padding-left:1.2rem;margin:1.6rem 0;color:var(--anthracite)}
+.about p{margin-bottom:1rem}
+.sign{font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.2em;color:var(--orange);font-weight:600}
+
+/* Calculateur — pièce centrale */
+.calc-sec{background:var(--anthracite);color:#fff;position:relative;overflow:hidden}
+.calc-sec::before{content:"";position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(220,82,19,.22),transparent 65%);top:-250px;right:-200px}
+.calc-sec .sec-head p{color:#c9cad0}
+.calc{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:start}
+.panel{background:var(--anthracite-2);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:clamp(1.3rem,2.5vw,2.2rem)}
+.step{margin-bottom:1.8rem}
+.step-t{font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.14em;font-size:.85rem;color:var(--orange-pale);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.step-t i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--orange);display:grid;place-items:center;font-size:.75rem;color:#fff}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.6rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;inset:0;pointer-events:none}
+.chip label{display:block;cursor:pointer;padding:.85rem .9rem;border:1px solid rgba(255,255,255,.18);border-radius:8px;transition:all .25s var(--ease);font-size:.9rem;line-height:1.3;min-height:44px}
+.chip label small{display:block;color:#a9abb3;font-size:.72rem;margin-top:.2rem}
+.chip input:checked+label{border-color:var(--orange);background:rgba(220,82,19,.14);transform:translateY(-2px)}
+.chip input:focus-visible+label{outline:3px solid var(--orange);outline-offset:2px}
+.guests{display:flex;align-items:center;gap:1rem}
+.guests button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:none;color:#fff;font-size:1.4rem;cursor:pointer;transition:background .2s,transform .2s var(--spring)}
+.guests button:hover{background:var(--orange);border-color:var(--orange)}
+.guests button:active{transform:scale(.9)}
+.guests output{font-family:var(--font-titre);font-size:2.6rem;font-weight:700;min-width:2.5ch;text-align:center}
+input[type=range]{width:100%;accent-color:var(--orange);margin-top:.6rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.field label{display:block;font-size:.8rem;color:#c9cad0;margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;background:var(--nuit);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:6px;padding:.75rem .8rem;font:inherit;font-size:.9rem;min-height:44px}
+.field input[type=date]{color-scheme:dark}
+.toggle{display:flex;align-items:center;gap:.7rem;cursor:pointer;font-size:.9rem;margin-top:.4rem}
+.toggle input{width:20px;height:20px;accent-color:var(--orange)}
+.hint{font-size:.78rem;color:#ffb48f;margin-top:.4rem;min-height:1.1em}
+
+.result{position:sticky;top:110px;background:var(--creme);color:var(--texte);border-radius:10px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.result-top{background:var(--orange);color:#fff;padding:1rem 1.4rem;font-family:var(--font-titre);text-transform:uppercase;letter-spacing:.16em;font-size:.85rem;display:flex;justify-content:space-between}
+.board{display:grid;place-items:center;padding:1.5rem 1rem .5rem;background:var(--pate)}
+.board svg{width:min(280px,80%);height:auto;overflow:visible}
+.wedge{transition:transform .6s var(--spring),opacity .4s;transform-origin:140px 140px}
+.cloche-lid{transition:transform .9s var(--spring);transform-origin:140px 60px}
+.result.lifted .cloche-lid{transform:translateY(-38px) rotate(-8deg)}
+.res-body{padding:1.3rem 1.4rem 1.6rem}
+.big{font-family:var(--font-titre);font-size:clamp(2.6rem,2rem + 2vw,3.6rem);font-weight:700;color:var(--anthracite);line-height:1}
+.big small{font-size:1rem;font-weight:400;color:var(--gris);margin-left:.3rem}
+.res-list{list-style:none;margin:1rem 0;border-top:1px solid #e6dccb}
+.res-list li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid #e6dccb;font-size:.9rem}
+.res-list li b{text-align:right}
+.res-note{font-size:.78rem;color:var(--gris);margin-bottom:1rem}
+.res-actions{display:flex;flex-wrap:wrap;gap:.6rem}
+.res-actions .btn{font-size:.78rem;padding:.8rem 1.1rem}
+.btn-dark{background:var(--anthracite);color:#fff}
+.btn-dark:hover{background:var(--nuit)}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 0 rgba(0,0,0,.03);transition:transform .45s var(--ease),box-shadow .45s}
+.card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(44,46,54,.15)}
+.card figure{overflow:hidden;aspect-ratio:4/3}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.card:hover img{transform:scale(1.07)}
+.card div{padding:1.3rem 1.4rem 1.6rem}
+.card h3{font-size:1.25rem;text-transform:uppercase;margin-bottom:.5rem;color:var(--anthracite)}
+.card p{font-size:.9rem;color:var(--gris)}
+.card .pill{display:inline-block;margin-top:.8rem;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--orange-pale);color:var(--orange-fonce);padding:.3rem .7rem;border-radius:999px;font-weight:600}
+
+/* Plateaux des fêtes */
+.fetes{background:var(--pate)}
+.fetes-grid{display:grid;grid-template-columns:.8fr 1fr 1fr;gap:1.5rem;align-items:stretch}
+.fetes-grid>img{border-radius:8px;object-fit:cover;height:100%;width:100%;max-height:560px}
+.plateau{background:#fff;border-radius:8px;padding:2rem 1.6rem;position:relative;display:flex;flex-direction:column}
+.plateau h3{font-size:1.7rem;text-transform:uppercase;color:var(--anthracite)}
+.plateau .sub{color:var(--orange);font-family:var(--font-titre);letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;margin:.4rem 0 1rem}
+.plateau ul{list-style:none;flex:1}
+.plateau li{padding:.45rem 0;border-bottom:1px dashed #e3d8c3;font-size:.9rem}
+.prix{display:flex;gap:.8rem;margin-top:1.2rem}
+.prix div{flex:1;border:1px solid #ecdfc7;border-radius:6px;padding:.7rem;text-align:center;font-size:.78rem;color:var(--gris)}
+.prix b{display:block;font-family:var(--font-titre);font-size:1.6rem;color:var(--anthracite)}
+.fetes-note{margin-top:1.4rem;font-size:.82rem;color:var(--gris)}
+
+/* Partenaires : défilement horizontal */
+.partners{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:1rem;scrollbar-color:var(--orange) transparent}
+.partner{flex:0 0 min(320px,82vw);scroll-snap-align:start;background:#fff;border-radius:8px;overflow:hidden}
+.partner img{aspect-ratio:16/10;object-fit:cover;width:100%;filter:saturate(.9)}
+.partner div{padding:1.1rem 1.2rem 1.4rem}
+.partner h3{font-size:1.15rem;text-transform:uppercase;color:var(--anthracite);margin-bottom:.2rem}
+.partner .lieu{font-size:.75rem;color:var(--orange);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.partner p{font-size:.85rem;color:var(--gris);margin-top:.5rem}
+.drag{font-size:.8rem;color:var(--gris);margin-top:.5rem}
+
+/* Galerie */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:.8rem}
+.gallery figure{overflow:hidden;border-radius:6px;position:relative}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.gallery figure:hover img{transform:scale(1.08)}
+.g-tall{grid-row:span 2}.g-wide{grid-column:span 2}
+
+/* Contact */
+.contact{background:var(--nuit);color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+.contact h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);text-transform:uppercase;margin:.6rem 0 1.5rem}
+.contact .kicker{color:var(--orange)}
+.info{display:grid;gap:1.1rem;font-size:1rem}
+.info a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
+.info a:hover{border-color:var(--orange)}
+.hours{list-style:none;background:var(--anthracite);border-radius:8px;padding:1.2rem 1.4rem}
+.hours li{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.92rem}
+.hours li:last-child{border:0}
+.hours li.today{color:var(--orange);font-weight:600}
+.socials{display:flex;gap:.8rem;margin-top:1.2rem}
+.socials a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;text-decoration:none;font-size:.75rem;font-weight:600;transition:background .25s}
+.socials a:hover{background:var(--orange);border-color:var(--orange)}
+
+footer{background:#16171b;color:#9a9ca4;font-size:.78rem;padding:2rem 0}
+footer p{margin-bottom:.5rem}
+
+/* Barre d'action mobile */
+.mbar{display:none}
+@media (max-width:1380px){.logo span{display:none}}
+@media (max-width:900px){
+  .topbar>span:first-child{display:none}
+  .logo span{display:inline;font-size:.85rem}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--anthracite);flex-direction:column;padding:1rem 1.25rem;gap:1rem}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nav .btn{display:none}
+  .topbar .h{display:none}
+  .about,.calc,.contact-grid,.fetes-grid{grid-template-columns:1fr}
+  .result{position:relative;top:0}
+  .services{grid-template-columns:1fr 1fr}
+  .gallery{grid-template-columns:1fr 1fr;grid-auto-rows:170px}
+  .about-img .tag{right:.5rem}
+  .mbar{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--anthracite);padding:.6rem;gap:.5rem}
+  .mbar a{flex:1;justify-content:center;font-size:.75rem;padding:.8rem .5rem}
+  body{padding-bottom:66px}
+  .scroll-ind{display:none}
+}
+@media (max-width:560px){
+  .services{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .g-wide{grid-column:span 2}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Store",
+ "name":"La Cloche à Fromage",
+ "description":"Fromagerie, crèmerie, plateaux de fromages personnalisés, raclette, fondue, épicerie fine.",
+ "url":"https://www.la-cloche-a-fromage.fr/",
+ "telephone":"+33474100989",
+ "email":"severine@la-cloche-a-fromage.fr",
+ "image":"https://www.la-cloche-a-fromage.fr/images/noel2024-devanture.jpg",
+ "address":{"@type":"PostalAddress","streetAddress":"17 Rue du 11 Novembre 1918","postalCode":"69550","addressLocality":"Amplepuis","addressCountry":"FR"},
+ "areaServed":["Amplepuis","Thizy-les-Bourgs","Tarare","Roanne","Ouest rhodanien"],
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"12:30"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"14:30","closes":"19:00"}
+ ],
+ "sameAs":["https://www.facebook.com/profile.php?id=61552068395694","https://www.instagram.com/laclocheafromage/","https://www.tiktok.com/@laclocheafromage"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour La Cloche à Fromage</div>
+
+<header id="top">
+  <div class="wrap topbar">
+    <span>17 Rue du 11 Novembre 1918 — 69550 Amplepuis</span>
+    <span class="h">Mardi – Samedi : 9h-12h30 / 14h30-19h</span>
+    <a href="tel:+33474100989">04 74 10 09 89</a>
+  </div>
+  <nav class="wrap nav" aria-label="Navigation principale">
+    <a class="logo" href="#top"><img src="https://www.la-cloche-a-fromage.fr/images/logo-la-cloche-a-fromage-positif-noirx140.jpg" alt="Logo La Cloche à Fromage"><span>La Cloche à Fromage</span></a>
+    <ul class="menu" id="menu">
+      <li><a href="#fromagerie">La Fromagerie</a></li>
+      <li><a href="#services">Nos Services</a></li>
+      <li><a href="#partenaires">Nos Partenaires</a></li>
+      <li><a href="#actualites">Nos Actualités</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-orange" href="#plateau">Composer mon plateau</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="hero-bg" role="img" aria-label="Plateau de fromages étiquetés dans la boutique"></div>
+  <div class="wrap hero-content">
+    <div class="status"><span class="dot" id="dot"></span><span id="statusTxt">Horaires : mardi – samedi</span></div>
+    <p class="kicker">Entre Roanne, Tarare et Thizy les Bourgs</p>
+    <h1 class="split"><span>Votre</span> <span><b>fromagerie</b></span> <span>de l'ouest</span> <span>rhôdanien</span></h1>
+    <p class="lead">Plus de 70 références de fromages &amp; spécialités fromagères, des plateaux sur mesure, la raclette découpée et la fondue fraîchement râpée.</p>
+    <div class="hero-cta">
+      <a class="btn btn-orange" href="#plateau">Composer mon plateau →</a>
+      <a class="btn btn-ghost" href="tel:+33474100989">Appeler la fromagerie</a>
+    </div>
+  </div>
+  <div class="scroll-ind">Défiler</div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">
+  <span>Raclettes</span><span>Fondues</span><span>Plateaux de fromages</span><span>Crèmerie</span><span>Épicerie fine</span><span>Bon cadeau</span>
+  <span>Raclettes</span><span>Fondues</span><span>Plateaux de fromages</span><span>Crèmerie</span><span>Épicerie fine</span><span>Bon cadeau</span>
+</div></div>
+
+<section id="fromagerie">
+  <div class="wrap about">
+    <div class="about-img reveal">
+      <img src="https://www.la-cloche-a-fromage.fr/images/sev.jpg" alt="Séverine dans sa fromagerie à Amplepuis" loading="lazy">
+      <div class="tag"><b>70+</b>références</div>
+    </div>
+    <div class="reveal d1">
+      <p class="kicker" style="color:var(--orange)">La Fromagerie</p>
+      <h2 style="font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);text-transform:uppercase;margin:.6rem 0 0">Une passion réinventée : du rêve à la fromagerie</h2>
+      <blockquote>« Suite à une reconversion professionnelle, j'ai souhaité mettre mes valeurs et ma passion du fromage à votre service. »</blockquote>
+      <p>Dans la boutique du centre d'Amplepuis, des fromages issus d'une sélection de producteurs locaux et d'un Maître fromager Meilleur Ouvrier de France. Une attention particulière à la qualité et à la provenance, avec un point d'honneur à défendre les produits fermiers et artisanaux.</p>
+      <p>Des fromages, mais aussi des produits de crémerie, des œufs, des coulis, des confitures, du miel et des tartinables avec leurs biscuits apéritifs.</p>
+      <p class="sign">Au plaisir de vous rencontrer — Séverine</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTIL CENTRAL ============ -->
+<section class="calc-sec" id="plateau">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Sur commande, 24h à l'avance</p>
+      <h2>Composez votre plateau</h2>
+      <p>Combien de fromage pour une raclette à 8 ? Quel plateau pour les conscrits ? Indiquez l'occasion et le nombre de convives : la quantité s'affiche, et votre demande part directement à la fromagerie.</p>
+    </div>
+
+    <div class="calc">
+      <form class="panel reveal d1" id="calcForm" onsubmit="return false">
+        <div class="step">
+          <p class="step-t"><i>1</i>L'occasion</p>
+          <div class="chips" role="radiogroup" aria-label="Type de commande">
+            <div class="chip"><input type="radio" name="type" id="t1" value="apero" checked><label for="t1">Plateau apéritif<small>planche à partager</small></label></div>
+            <div class="chip"><input type="radio" name="type" id="t2" value="fin"><label for="t2">Fin de repas<small>après le plat</small></label></div>
+            <div class="chip"><input type="radio" name="type" id="t3" value="repas"><label for="t3">Repas fromage<small>le plateau est le plat</small></label></div>
+            <div class="chip"><input type="radio" name="type" id="t4" value="raclette"><label for="t4">Raclette découpée<small>prête à déguster</small></label></div>
+            <div class="chip"><input type="radio" name="type" id="t5" value="fondue"><label for="t5">Fondue râpée<small>prête à savourer</small></label></div>
+          </div>
+        </div>
+
+        <div class="step">
+          <p class="step-t"><i>2</i>Nombre de convives</p>
+          <div class="guests">
+            <button type="button" id="minus" aria-label="Retirer un convive">−</button>
+            <output id="nb" aria-live="polite">8</output>
+            <button type="button" id="plus" aria-label="Ajouter un convive">+</button>
+          </div>
+          <input type="range" id="range" min="2" max="80" value="8" aria-label="Nombre de convives">
+        </div>
+
+        <div class="step">
+          <p class="step-t"><i>3</i>Les appétits</p>
+          <div class="chips">
+            <div class="chip"><input type="radio" name="app" id="a1" value="0.85"><label for="a1">Petits appétits</label></div>
+            <div class="chip"><input type="radio" name="app" id="a2" value="1" checked><label for="a2">Normal</label></div>
+            <div class="chip"><input type="radio" name="app" id="a3" value="1.2"><label for="a3">Gros mangeurs</label></div>
+          </div>
+        </div>
+
+        <div class="step" style="margin-bottom:0">
+          <p class="step-t"><i>4</i>Retrait</p>
+          <div class="row2">
+            <div class="field"><label for="date">Date de retrait</label><input type="date" id="date"></div>
+            <div class="field"><label for="moment">Créneau</label>
+              <select id="moment"><option>Matin (9h-12h30)</option><option>Après-midi (14h30-19h)</option></select></div>
+          </div>
+          <p class="hint" id="dateHint"></p>
+          <label class="toggle"><input type="checkbox" id="decoupe" checked> Fromages prédécoupés</label>
+          <label class="toggle"><input type="checkbox" id="livraison"> Livraison à domicile (Amplepuis uniquement)</label>
+        </div>
+      </form>
+
+      <aside class="result reveal d2" id="result" aria-live="polite">
+        <div class="result-top"><span>Votre estimation</span><span id="rType">Plateau apéritif</span></div>
+        <div class="board">
+          <svg viewBox="0 0 280 230" aria-hidden="true">
+            <ellipse cx="140" cy="190" rx="125" ry="22" fill="#8b5a2b" opacity=".85"/>
+            <ellipse cx="140" cy="184" rx="125" ry="22" fill="#b07a45"/>
+            <g id="wedges"></g>
+            <g class="cloche-lid">
+              <path d="M30 182 Q30 60 140 55 Q250 60 250 182" fill="rgba(255,255,255,.35)" stroke="#2c2e36" stroke-width="3"/>
+              <circle cx="140" cy="48" r="9" fill="#2c2e36"/>
+            </g>
+          </svg>
+        </div>
+        <div class="res-body">
+          <p class="big"><span id="qty">0</span><small id="unit">g</small></p>
+          <ul class="res-list">
+            <li><span>Par personne</span><b id="pp">—</b></li>
+            <li><span>Variétés conseillées</span><b id="var">—</b></li>
+            <li><span>Préparation</span><b id="prep">—</b></li>
+            <li><span>Retrait</span><b id="when">À choisir</b></li>
+          </ul>
+          <p class="res-note" id="note">Quantités indicatives : Séverine ajuste la sélection selon vos goûts et le nombre de convives.</p>
+          <div class="res-actions">
+            <a class="btn btn-orange" id="mailBtn" href="#">Envoyer ma demande</a>
+            <a class="btn btn-dark" href="tel:+33474100989">04 74 10 09 89</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Nos Services</p>
+      <h2>Le fromage au cœur de vos moments</h2>
+      <p>Du quotidien aux grandes occasions, profitez de nos prestations sur mesure : plateaux, livraison et découpe personnalisée.</p>
+    </div>
+    <div class="services">
+      <article class="card reveal"><figure><img src="https://www.la-cloche-a-fromage.fr/images/plateaux3.jpg" alt="Plateau de fromages prédécoupés" loading="lazy"></figure>
+        <div><h3>Plateaux pour tout événement</h3><p>Plateaux de fromages prédécoupés : réunion d'entreprise, inauguration, conscrits, baptême, anniversaire, mariage…</p><span class="pill">Sur commande 24h avant</span></div></article>
+      <article class="card reveal d1"><figure><img src="https://www.la-cloche-a-fromage.fr/images/plateaux1.jpg" alt="Plateau de fromages à offrir" loading="lazy"></figure>
+        <div><h3>Plateaux pour offrir ou recevoir</h3><p>Des plateaux composés pour la table, ou pour faire plaisir.</p><span class="pill">Sur commande 24h avant</span></div></article>
+      <article class="card reveal d2"><figure><img src="https://www.la-cloche-a-fromage.fr/images/diaporamas/diaporama-la-cloche-a-fromage3.jpg" alt="Fromages sous cloche" loading="lazy"></figure>
+        <div><h3>Raclette &amp; fondue</h3><p>Raclette découpée, prête à être dégustée. Fondue fraîchement râpée et prête à être savourée.</p><span class="pill">Sur commande 24h avant</span></div></article>
+      <article class="card reveal"><figure><img src="https://www.la-cloche-a-fromage.fr/images/carrousel/cloche-a-fromage-amplepuis-05.jpg" alt="Emmental à la coupe" loading="lazy"></figure>
+        <div><h3>Râpés à la demande</h3><p>Pour vous faciliter la tâche, on peut vous râper votre Emmental, Comté, Gruyère et même le Parmesan !</p></div></article>
+      <article class="card reveal d1"><figure><img src="https://www.la-cloche-a-fromage.fr/images/carrousel/cloche-a-fromage-amplepuis-03.jpg" alt="Fromages de chèvre fermiers" loading="lazy"></figure>
+        <div><h3>Lait &amp; yaourts de la ferme</h3><p>Lait de vache ou de chèvre de la ferme, yaourts de chèvre : commande avant chaque samedi, récupération le mardi suivant, frais du matin.</p><span class="pill">Commande avant samedi</span></div></article>
+      <article class="card reveal d2"><figure><img src="https://www.la-cloche-a-fromage.fr/images/bon-cadeaux.jpg" alt="Bons cadeaux La Cloche à Fromage" loading="lazy"></figure>
+        <div><h3>Bon cadeau</h3><p>Vous souhaitez offrir un cadeau original et qui fait plaisir ? Pensez au bon cadeau La Cloche à Fromage !</p></div></article>
+    </div>
+    <p class="reveal" style="margin-top:2rem;font-size:.9rem;color:var(--gris)"><b style="color:var(--anthracite)">Livraison sur Amplepuis</b> — possibilité de livrer à domicile, avec un supplément de 3 euros, sur Amplepuis uniquement, du mardi au samedi entre 12h30 et 14h30 (personnes âgées seules ou personnes à mobilité réduite). Appelez la fromagerie au <a href="tel:+33474100989">04 74 10 09 89</a>.</p>
+  </div>
+</section>
+
+<section class="fetes" id="actualites">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Nos Actualités</p>
+      <h2>Les plateaux des fêtes</h2>
+      <p>Deux créations fromagères pour régaler 6 à 10 ou 10 à 15 personnes : L'Incontournable et Le Gourmet.</p>
+    </div>
+    <div class="fetes-grid">
+      <img class="reveal" src="https://www.la-cloche-a-fromage.fr/images/actualites/plateaux-2025.jpg" alt="Affiche des plateaux de fromages des fêtes" loading="lazy">
+      <article class="plateau reveal d1">
+        <h3>L'Incontournable</h3><p class="sub">Un voyage au cœur des saveurs traditionnelles</p>
+        <ul><li>Comté Fruité AOP</li><li>Brie de Meaux AOP</li><li>Saint-Nectaire AOP</li><li>Bleu d'Auvergne AOP</li><li>Selles-sur-Cher AOP</li><li>Ardi Gasna</li></ul>
+        <div class="prix"><div><b>46 €</b>6-10 pers.</div><div><b>54 €</b>10-15 pers.</div></div>
+      </article>
+      <article class="plateau reveal d2">
+        <h3>Le Gourmet</h3><p class="sub">Une évasion de saveurs élégantes</p>
+        <ul><li>Gruyère AOP</li><li>Brie Truffé</li><li>Roquefort AOP</li><li>Gouda 24 mois</li><li>Manchego à la truffe</li><li>Selles-sur-Cher AOP</li></ul>
+        <div class="prix"><div><b>62 €</b>6-10 pers.</div><div><b>74 €</b>10-15 pers.</div></div>
+      </article>
+    </div>
+    <p class="fetes-note reveal">Tarifs TTC de l'édition 2025, tels que publiés sur le site actuel — à mettre à jour pour les fêtes 2026.</p>
+  </div>
+</section>
+
+<section id="partenaires">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="kicker">Nos Partenaires</p>
+      <h2>Une alliance de terroir</h2>
+      <p>La qualité, les produits locaux, le partage, le goût, le savoir-faire, la transmission, la tradition et bien évidemment la passion.</p>
+    </div>
+    <div class="partners reveal" tabindex="0" aria-label="Liste des partenaires, défilement horizontal">
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/partenaire1-janier.jpg" alt="Maison Janier" loading="lazy"><div><p class="lieu">Meilleur Ouvrier de France 2000</p><h3>La Maison Janier</h3><p>Christian Janier sélectionne les meilleurs fromages fermiers ou artisanaux, partout en France et à l'étranger.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/ferme-des-pins.jpg" alt="La Ferme des Pins qui dansent" loading="lazy"><div><p class="lieu">Saint-Marcel-de-Félines (42)</p><h3>La Ferme des Pins qui dansent</h3><p>Magali &amp; Jean-Pierre et leurs brebis Lacaune : fromages frais aromatisés, tommes, yaourts.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/partenaire2-cocagne.jpg" alt="Les Fromages de Cocagne" loading="lazy"><div><p class="lieu">MOF 2011</p><h3>Les Fromages de Cocagne</h3><p>François Bourgon valorise le Sud-Ouest et ses fromages fermiers et artisanaux.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/partenaire2-triomphe.jpg" alt="La ferme Triomphe" loading="lazy"><div><p class="lieu">Saint-Vérand</p><h3>La ferme Triomphe</h3><p>Agriculture biologique : les vaches de Christophe et les chèvres de Maëlys.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/partenaire3-roche.jpg" alt="La laiterie de la Roche" loading="lazy"><div><p class="lieu">Col des Sauvages</p><h3>La laiterie de la Roche</h3><p>« Bon, Local et Social » : produits laitiers bio et travail pour des adultes en situation de handicap.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/partenaire4-sauvages.jpg" alt="Aux Saveurs Sauvages" loading="lazy"><div><p class="lieu">Col des Sauvages</p><h3>Aux Saveurs Sauvages</h3><p>Depuis 2020, Julie Lièvre-Morel a repris l'exploitation familiale.</p></div></article>
+      <article class="partner"><img src="https://www.la-cloche-a-fromage.fr/images/partenaires/terra-doree.jpg" alt="Restaurant Terra Dorée" loading="lazy"><div><p class="lieu">Ville-sur-Jarnioux</p><h3>Restaurant Terra Dorée</h3><p>Manon et Matthias mettent le terroir à l'honneur… et ont choisi nos fromages.</p></div></article>
+    </div>
+    <p class="drag">← Faites glisser pour découvrir tous nos partenaires →</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap gallery">
+    <figure class="g-tall reveal"><img src="https://www.la-cloche-a-fromage.fr/images/carrousel/cloche-a-fromage-amplepuis-02.jpg" alt="Fromages et étiquettes à l'ardoise" loading="lazy"></figure>
+    <figure class="g-wide reveal d1"><img src="https://www.la-cloche-a-fromage.fr/images/noel2024-devanture.jpg" alt="Devanture de La Cloche à Fromage" loading="lazy"></figure>
+    <figure class="g-tall reveal d2"><img src="https://www.la-cloche-a-fromage.fr/images/carrousel/cloche-a-fromage-amplepuis-06.jpg" alt="Intérieur de la boutique" loading="lazy"></figure>
+    <figure class="reveal"><img src="https://www.la-cloche-a-fromage.fr/images/plateaux4.jpg" alt="Fromages de chèvre et brebis" loading="lazy"></figure>
+    <figure class="reveal d1"><img src="https://www.la-cloche-a-fromage.fr/images/plateaux2.jpg" alt="Plateau de tommes" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="kicker">Contact</p>
+      <h2>Contactez la fromagerie</h2>
+      <div class="info">
+        <p><b>La Cloche à Fromage</b><br>17 Rue du 11 Novembre 1918<br>69550 Amplepuis</p>
+        <p><a href="tel:+33474100989">04 74 10 09 89</a></p>
+        <p><a href="mailto:severine@la-cloche-a-fromage.fr">severine@la-cloche-a-fromage.fr</a></p>
+        <p><a href="https://osm.org/go/0AsWIfM?m=" target="_blank" rel="noopener">Voir sur la carte →</a></p>
+      </div>
+      <div class="socials">
+        <a href="https://www.facebook.com/profile.php?id=61552068395694" target="_blank" rel="noopener" aria-label="Facebook">fb</a>
+        <a href="https://www.instagram.com/laclocheafromage/" target="_blank" rel="noopener" aria-label="Instagram">ig</a>
+        <a href="https://www.tiktok.com/@laclocheafromage" target="_blank" rel="noopener" aria-label="TikTok">tt</a>
+      </div>
+      <div class="hero-cta"><a class="btn btn-orange" href="#plateau">Composer mon plateau</a></div>
+    </div>
+    <div class="reveal d1">
+      <ul class="hours" id="hours">
+        <li data-d="1"><span>Lundi</span><span>Fermé</span></li>
+        <li data-d="2"><span>Mardi</span><span>9h-12h30 / 14h30-19h</span></li>
+        <li data-d="3"><span>Mercredi</span><span>9h-12h30 / 14h30-19h</span></li>
+        <li data-d="4"><span>Jeudi</span><span>9h-12h30 / 14h30-19h</span></li>
+        <li data-d="5"><span>Vendredi</span><span>9h-12h30 / 14h30-19h</span></li>
+        <li data-d="6"><span>Samedi</span><span>9h-12h30 / 14h30-19h</span></li>
+        <li data-d="0"><span>Dimanche</span><span>Fermé</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© La Cloche à Fromage — Fromagerie, crèmerie et épicerie fine à Amplepuis.</p>
+    <p><b>Maquette de démonstration</b>, non contractuelle. Textes, horaires, services, partenaires et tarifs repris du site actuel la-cloche-a-fromage.fr ; tarifs des plateaux de l'édition 2025, à actualiser. Toutes les photos sont celles déjà publiées par la fromagerie. Les quantités du calculateur sont des repères indicatifs, ajustables par la fromagerie. Couleurs et typographie reprises du site et de la devanture.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-orange" href="#plateau">Mon plateau</a><a class="btn btn-ghost" href="tel:+33474100989">Appeler</a></div>
+
+<script>
+(function(){
+  // Menu mobile + header
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+  const header=document.querySelector('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
+
+  // Mot à mot du titre
+  document.querySelectorAll('.split span').forEach((s,i)=>s.style.animationDelay=(.15+i*.12)+'s');
+
+  // Révélations au défilement
+  const els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+    els.forEach(e=>io.observe(e));
+  } else els.forEach(e=>e.classList.add('in'));
+
+  // Ouvert / fermé en direct
+  const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+  const open=d>=2&&d<=6&&((m>=540&&m<750)||(m>=870&&m<1140));
+  document.getElementById('dot').classList.toggle('open',open);
+  let txt;
+  if(open) txt='Ouvert maintenant — jusqu\'à '+(m<750?'12h30':'19h');
+  else if(d>=2&&d<=6&&m>=750&&m<870) txt='Pause déjeuner — réouverture à 14h30';
+  else if(d>=2&&d<=6&&m<540) txt='Fermé — ouverture à 9h';
+  else txt='Fermé — ouverture '+(d===6||d===0||d===1?'mardi':'demain')+' à 9h';
+  document.getElementById('statusTxt').textContent=txt;
+  const li=document.querySelector('#hours li[data-d="'+d+'"]'); if(li) li.classList.add('today');
+
+  // ===== Calculateur =====
+  // Repères usuels en fromagerie (g / personne) — à ajuster par la fromagerie
+  const T={
+    apero:{g:60,label:'Plateau apéritif',prep:'Planche à partager'},
+    fin:{g:80,label:'Fin de repas',prep:'Plateau après le plat'},
+    repas:{g:200,label:'Repas fromage',prep:'Plateau complet'},
+    raclette:{g:200,label:'Raclette découpée',prep:'Raclette découpée en tranches'},
+    fondue:{g:200,label:'Fondue râpée',prep:'Fromages fraîchement râpés'}
+  };
+  const $=id=>document.getElementById(id);
+  const range=$('range'),nb=$('nb'),date=$('date'),hint=$('dateHint'),result=$('result');
+  const colors=['#f3d27a','#e9c46a','#fff3d6','#d9a441','#f6e7b8','#c9a227','#ffe9a8','#e3b04b'];
+  const jours=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+
+  // Date minimale : 24h à l'avance, hors dimanche/lundi
+  function minDate(){const t=new Date(Date.now()+24*3600e3);while(t.getDay()===0||t.getDay()===1)t.setDate(t.getDate()+1);return t}
+  const iso=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+  date.min=iso(minDate()); date.value=iso(minDate());
+
+  function drawBoard(n){
+    const g=$('wedges'); g.innerHTML='';
+    const k=Math.min(8,n);
+    for(let i=0;i<k;i++){
+      const x=k===1?140:62+i*(156/(k-1)), y=168+((i%2)?6:-2);
+      const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      const w=26+((i*7)%10),h=34+((i*5)%14);
+      p.setAttribute('d','M'+(x-w)+' '+(y+12)+' L'+(x+w)+' '+(y+12)+' L'+x+' '+(y+12-h)+' Z');
+      p.setAttribute('fill',colors[i%colors.length]);p.setAttribute('stroke','#b98a2e');p.setAttribute('stroke-width','1.5');
+      p.setAttribute('class','wedge');p.style.transform='translateY(-30px)';p.style.opacity='0';
+      g.appendChild(p);
+      setTimeout(()=>{p.style.transform='none';p.style.opacity='1'},60+i*70);
+    }
+  }
+
+  function calc(){
+    const n=+range.value; nb.textContent=n;
+    const type=document.querySelector('input[name=type]:checked').value;
+    const app=+document.querySelector('input[name=app]:checked').value;
+    const t=T[type];
+    const per=Math.round(t.g*app/5)*5;
+    let tot=Math.ceil(per*n/50)*50;
+    $('rType').textContent=t.label;
+    if(tot>=1000){$('qty').textContent=(tot/1000).toLocaleString('fr-FR',{maximumFractionDigits:2});$('unit').textContent='kg'}
+    else{$('qty').textContent=tot;$('unit').textContent='g'}
+    $('pp').textContent='≈ '+per+' g';
+    let v;
+    if(type==='raclette') v=n<=6?'1 à 2 (nature + fumée…)':n<=15?'2 à 3':'3 à 4';
+    else if(type==='fondue') v='2 à 3 (mélange)';
+    else v=n<=5?'3 à 4':n<=15?'5 à 6':'7 à 8';
+    $('var').textContent=v;
+    $('prep').textContent=t.prep+(document.getElementById('decoupe').checked&&(type==='apero'||type==='fin'||type==='repas')?', prédécoupé':'');
+    // Repère avec les plateaux des fêtes (6-10 / 10-15 pers.)
+    $('note').textContent=(type!=='raclette'&&type!=='fondue'&&n>=6&&n<=15)
+      ? 'Bon à savoir : pour '+n+' personnes, les plateaux des fêtes (L\'Incontournable, Le Gourmet) existent en format '+(n<=10?'6-10':'10-15')+' pers. Quantités indicatives, ajustées par Séverine.'
+      : 'Quantités indicatives : Séverine ajuste la sélection selon vos goûts et le nombre de convives.';
+    drawBoard(type==='fondue'?3:type==='raclette'?Math.min(4,1+Math.floor(n/6)):Math.min(8,2+Math.floor(n/3)));
+    checkDate(); buildMail(n,t,tot,per);
+    result.classList.add('lifted'); clearTimeout(calc.t); calc.t=setTimeout(()=>result.classList.remove('lifted'),1400);
+  }
+
+  function checkDate(){
+    if(!date.value){$('when').textContent='À choisir';hint.textContent='';return}
+    const x=new Date(date.value+'T12:00'),day=x.getDay();
+    if(day===0||day===1){hint.textContent='La fromagerie est fermée le '+jours[day]+' : choisissez du mardi au samedi.';$('when').textContent='—';return}
+    if(x<new Date(date.min+'T00:00')){hint.textContent='Les commandes se font minimum 24h à l\'avance.';$('when').textContent='—';return}
+    hint.textContent='';
+    $('when').textContent=jours[day]+' '+x.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})+', '+($('moment').value.startsWith('Matin')?'matin':'après-midi');
+  }
+
+  function buildMail(n,t,tot,per){
+    const liv=$('livraison').checked?'\nLivraison à domicile souhaitée (Amplepuis, +3 €).':'';
+    const body='Bonjour Séverine,\n\nJe souhaite commander :\n- '+t.label+' pour '+n+' personnes\n- Quantité estimée : '+(tot>=1000?(tot/1000)+' kg':tot+' g')+' (≈ '+per+' g / pers.)\n- Retrait : '+$('when').textContent+liv+'\n\nMerci de me recontacter pour confirmer.\n';
+    $('mailBtn').href='mailto:severine@la-cloche-a-fromage.fr?subject='+encodeURIComponent('Commande '+t.label+' — '+n+' pers.')+'&body='+encodeURIComponent(body);
+  }
+
+  $('minus').onclick=()=>{range.value=Math.max(2,+range.value-1);calc()};
+  $('plus').onclick=()=>{range.value=Math.min(80,+range.value+1);calc()};
+  document.getElementById('calcForm').addEventListener('input',calc);
+  document.getElementById('calcForm').addEventListener('change',calc);
+  calc();
+})();
+</script>
+</body>
+</html>
