@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACM Allo Contrôles Maintenance — Contrôleur VGP Loire, Rhône | Riorges</title>
+<meta name="description" content="Joël Peltier, contrôleur VGP indépendant à Riorges : engins de levage et de TP, extincteurs, installations électriques. Loire, Rhône, Saône-et-Loire, Allier.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   ACM — Allo Contrôles Maintenance — maquette de démonstration
+   Charte reprise du site actuel acm-vgp.fr :
+   - bleu nuit des titres (#0a0a56), bleu du logo (#2a5c9f),
+     orange des filets (#f39726), jaune casque (#fdc23a)
+   - Montserrat pour les titres, Vollkorn pour le texte courant
+   Pour ajuster : modifier uniquement ces variables.
+   ===================================================================== */
+:root{
+  --nuit:#0a0a56;
+  --nuit-2:#12127a;
+  --bleu:#2a5c9f;
+  --bleu-clair:#2ea3f2;
+  --orange:#f39726;
+  --orange-2:#e07f0c;
+  --jaune:#fdc23a;
+  --fond:#f5f5f5;
+  --blanc:#ffffff;
+  --texte:#313131;
+  --gris:#6d7f9e;
+  --ligne:#e0e0e0;
+  --ok:#1f8a5b;
+  --alerte:#c9361b;
+  --titre:'Montserrat',Helvetica,Arial,sans-serif;
+  --corps:'Vollkorn',Georgia,'Times New Roman',serif;
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--corps);color:var(--texte);background:var(--blanc);font-size:1.08rem;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--titre);color:var(--nuit);line-height:1.12;font-weight:700;letter-spacing:-.01em}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--nuit);color:#cfd3ee;font:500 .78rem/1.4 var(--titre);text-align:center;padding:.5rem 1rem}
+.demo b{color:var(--jaune);font-weight:600}
+
+/* En-tête */
+header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.top.scrolled{border-color:var(--ligne);box-shadow:0 6px 24px rgba(10,10,86,.07)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:76px}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{height:46px;width:auto}
+.logo span{font:600 .72rem/1.2 var(--titre);color:var(--gris);text-transform:uppercase;letter-spacing:.08em;max-width:9rem}
+.menu{display:flex;gap:1.6rem;list-style:none;font:600 .86rem var(--titre)}
+.menu a{text-decoration:none;color:var(--nuit);position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:3px;background:var(--orange);transition:right .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{right:0}
+.tel{display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:#fff;text-decoration:none;font:700 .9rem var(--titre);padding:.7rem 1.1rem;border-radius:999px;transition:transform .25s var(--ease),background .25s}
+.tel:hover{background:var(--orange-2);transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger i{display:block;width:24px;height:2px;background:var(--nuit);margin:5px auto;transition:.3s}
+@media (max-width:960px){
+  .menu{position:absolute;top:76px;left:0;right:0;flex-direction:column;background:#fff;padding:1.2rem 1.5rem 1.6rem;gap:1rem;border-bottom:1px solid var(--ligne);box-shadow:0 18px 30px rgba(10,10,86,.1);visibility:hidden;opacity:0;transform:translateY(-10px);transition:opacity .3s,transform .35s var(--ease),visibility .3s}
+  .menu.open{visibility:visible;opacity:1;transform:none}
+  .logo span{display:none}
+  .burger{display:block}
+  .tel .t-lg{display:none}
+}
+
+/* Hero */
+.hero{position:relative;background:var(--nuit);color:#fff;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(900px 420px at 85% 10%,rgba(42,92,159,.55),transparent 60%),
+  radial-gradient(600px 400px at 10% 110%,rgba(243,151,38,.18),transparent 60%);z-index:-1}
+.grid-bg{position:absolute;inset:0;z-index:-1;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(180deg,#000,transparent 85%)}
+.hero-in{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;padding:5.5rem 0 6rem}
+.kicker{display:inline-flex;align-items:center;gap:.6rem;font:700 .76rem var(--titre);letter-spacing:.14em;text-transform:uppercase;color:var(--jaune)}
+.kicker::before{content:"";width:34px;height:3px;background:var(--orange)}
+.hero h1{color:#fff;font-size:clamp(2.1rem,1.4rem + 3vw,3.9rem);margin:1.1rem 0 1.3rem;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--orange);position:relative;white-space:nowrap}
+.hero p.lead{font-size:clamp(1.08rem,1rem + .4vw,1.3rem);color:#d8dbf2;max-width:36rem}
+.hero .actions{display:flex;flex-wrap:wrap;gap:.9rem;margin-top:2rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;font:700 .95rem var(--titre);text-decoration:none;padding:.95rem 1.4rem;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s,border-color .25s}
+.btn:active{transform:scale(.97)}
+.btn-o{background:var(--orange);color:#fff}
+.btn-o:hover{background:var(--orange-2);transform:translateY(-2px)}
+.btn-g{border-color:rgba(255,255,255,.4);color:#fff;background:transparent}
+.btn-g:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.btn-n{background:var(--nuit);color:#fff}
+.btn-n:hover{background:var(--bleu)}
+.btn-l{border-color:var(--nuit);color:var(--nuit);background:transparent}
+.btn-l:hover{background:var(--nuit);color:#fff}
+.depts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.2rem}
+.depts span{font:600 .8rem var(--titre);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.35rem .8rem;color:#e7e9fb}
+.depts span b{color:var(--jaune)}
+
+.hero-visual{position:relative}
+.hero-photo{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.35);transform:rotate(1.5deg)}
+.hero-photo img{width:100%;aspect-ratio:600/531;object-fit:cover}
+.hook{position:absolute;top:-120px;left:16%;width:70px;transform-origin:50% 0;animation:swing 5.5s ease-in-out infinite;z-index:3;pointer-events:none}
+@keyframes swing{0%,100%{transform:rotate(4deg)}50%{transform:rotate(-4deg)}}
+.badge-live{position:absolute;left:-1.6rem;bottom:-1.6rem;background:#fff;color:var(--nuit);border-radius:16px;padding:1rem 1.1rem;box-shadow:0 20px 40px rgba(0,0,0,.25);width:min(270px,80%);z-index:4}
+.badge-live small{display:block;font:700 .66rem var(--titre);letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.badge-live strong{display:block;font:800 1.02rem/1.25 var(--titre);margin:.3rem 0 .45rem}
+.badge-live .bar{height:6px;border-radius:6px;background:var(--fond);overflow:hidden}
+.badge-live .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--jaune));transition:width 1.4s var(--ease)}
+.badge-live p{font-size:.86rem;color:var(--gris);margin-top:.4rem}
+@media (max-width:960px){.hero-in{grid-template-columns:1fr;padding:3.5rem 0 5rem}.hero-visual{max-width:440px;margin:1rem auto 0}.hook{display:none}}
+
+/* Bande défilante */
+.ticker{background:var(--orange);color:#fff;overflow:hidden;white-space:nowrap;font:700 .92rem var(--titre);letter-spacing:.04em;text-transform:uppercase}
+.ticker div{display:inline-flex;gap:2.4rem;padding:.85rem 0;animation:defile 38s linear infinite}
+.ticker span::after{content:"•";margin-left:2.4rem;color:var(--nuit)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:6rem 0}
+.sec-h{display:grid;grid-template-columns:auto 1fr;gap:1.2rem 2.4rem;align-items:end;margin-bottom:3rem}
+.num{font:800 clamp(3rem,2rem + 4vw,5.5rem)/0.8 var(--titre);color:transparent;-webkit-text-stroke:2px var(--orange)}
+.sec-h h2{font-size:clamp(1.7rem,1.2rem + 2vw,2.7rem)}
+.sec-h p{grid-column:2;color:var(--gris);max-width:44rem}
+.filet{width:60px;height:4px;background:var(--orange);margin:1rem 0 0}
+@media (max-width:700px){.sec-h{grid-template-columns:1fr}.sec-h p{grid-column:1}.num{font-size:3rem}}
+
+/* Services */
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.chip{font:600 .86rem var(--titre);padding:.6rem 1.05rem;border-radius:999px;border:1.5px solid var(--ligne);background:#fff;color:var(--nuit);cursor:pointer;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--nuit)}
+.chip.on{background:var(--nuit);border-color:var(--nuit);color:#fff}
+.chip .n{opacity:.6;margin-left:.3rem}
+.services{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.3rem}
+.svc{position:relative;background:#fff;border:1px solid var(--ligne);border-radius:var(--r);overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s var(--ease),opacity .35s,filter .35s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(10,10,86,.12)}
+.svc.dim{opacity:.22;filter:grayscale(1);transform:scale(.97)}
+.svc figure{aspect-ratio:1/0.72;overflow:hidden;background:var(--fond)}
+.svc img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.svc:hover img{transform:scale(1.07)}
+.svc .body{padding:1.1rem 1.2rem 1.3rem}
+.svc h3{font-size:1.02rem}
+.svc .per{display:inline-block;margin-top:.55rem;font:700 .72rem var(--titre);letter-spacing:.06em;text-transform:uppercase;padding:.28rem .6rem;border-radius:6px;background:rgba(243,151,38,.13);color:var(--orange-2)}
+.svc .per.na{background:var(--fond);color:var(--gris)}
+.svc .tag{position:absolute;top:.8rem;left:.8rem;font:700 .66rem var(--titre);letter-spacing:.08em;text-transform:uppercase;background:var(--nuit);color:#fff;padding:.3rem .55rem;border-radius:6px}
+
+/* Planificateur */
+.planner-sec{background:var(--fond);position:relative}
+.planner{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:1.6rem;align-items:start}
+.card{background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(10,10,86,.07);padding:1.6rem}
+.card h3{font-size:1.15rem;margin-bottom:.3rem}
+.card .hint{font-size:.95rem;color:var(--gris);margin-bottom:1.2rem}
+.row-add{display:grid;grid-template-columns:1.5fr .6fr 1fr auto;gap:.6rem;align-items:end}
+label.f{display:flex;flex-direction:column;gap:.3rem;font:600 .74rem var(--titre);color:var(--nuit);text-transform:uppercase;letter-spacing:.05em}
+select,input,textarea{font:400 1rem var(--corps);color:var(--texte);border:1.5px solid var(--ligne);border-radius:10px;padding:.7rem .75rem;background:#fff;width:100%;transition:border-color .2s}
+select:focus,input:focus,textarea:focus{border-color:var(--bleu);outline:none}
+.row-add .btn{padding:.78rem 1rem}
+@media (max-width:640px){.row-add{grid-template-columns:1fr 1fr}.row-add .full{grid-column:1/-1}}
+.parc{list-style:none;margin-top:1.3rem;display:flex;flex-direction:column;gap:.6rem;max-height:430px;overflow:auto;padding-right:.2rem}
+.item{display:grid;grid-template-columns:auto 1fr auto auto;gap:.8rem;align-items:center;padding:.8rem .9rem;border:1px solid var(--ligne);border-radius:12px;animation:pop .45s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.98)}}
+.dot{width:12px;height:12px;border-radius:50%;box-shadow:0 0 0 4px rgba(0,0,0,.05)}
+.dot.late{background:var(--alerte);animation:pulse 1.6s infinite}
+.dot.soon{background:var(--orange)}
+.dot.ok{background:var(--ok)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,54,27,.45)}100%{box-shadow:0 0 0 10px rgba(201,54,27,0)}}
+.item b{font:700 .95rem var(--titre);color:var(--nuit);display:block}
+.item small{color:var(--gris);font-size:.88rem}
+.item .due{font:700 .82rem var(--titre);text-align:right;white-space:nowrap}
+.item .due.late{color:var(--alerte)}.item .due.soon{color:var(--orange-2)}.item .due.ok{color:var(--ok)}
+.del{background:none;border:0;cursor:pointer;color:var(--gris);font-size:1.3rem;width:36px;height:36px;border-radius:8px}
+.del:hover{background:var(--fond);color:var(--alerte)}
+.empty{padding:1.4rem;text-align:center;color:var(--gris);border:1.5px dashed var(--ligne);border-radius:12px;font-size:.95rem}
+
+.result{position:sticky;top:96px;background:var(--nuit);color:#e7e9fb}
+.result h3{color:#fff}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:1.1rem 0 1.4rem}
+.kpi{background:rgba(255,255,255,.07);border-radius:12px;padding:.8rem .7rem;text-align:center}
+.kpi strong{display:block;font:800 1.8rem/1 var(--titre)}
+.kpi span{font:600 .68rem var(--titre);letter-spacing:.06em;text-transform:uppercase;color:#aeb3dc}
+.kpi.l strong{color:#ff8a72}.kpi.s strong{color:var(--jaune)}.kpi.o strong{color:#7fe0b2}
+.timeline{position:relative;height:120px;margin:.5rem 0 .3rem;border-bottom:1px solid rgba(255,255,255,.2)}
+.timeline .m{position:absolute;bottom:-1.4rem;font:600 .62rem var(--titre);color:#9aa0cf;transform:translateX(-50%);text-transform:uppercase}
+.timeline .tick{position:absolute;bottom:0;width:1px;height:8px;background:rgba(255,255,255,.25)}
+.timeline .today{position:absolute;top:0;bottom:0;width:2px;background:var(--jaune)}
+.timeline .today::after{content:"aujourd'hui";position:absolute;top:-1.2rem;left:50%;transform:translateX(-50%);font:700 .6rem var(--titre);color:var(--jaune);text-transform:uppercase;white-space:nowrap}
+.pin{position:absolute;bottom:0;width:12px;margin-left:-6px;border-radius:6px 6px 2px 2px;transition:height .8s var(--ease)}
+.pin.late{background:#ff8a72}.pin.soon{background:var(--jaune)}.pin.ok{background:#7fe0b2}
+.pin:hover::after{content:attr(data-t);position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:#fff;color:var(--nuit);font:600 .72rem var(--titre);padding:.3rem .5rem;border-radius:6px;white-space:nowrap}
+.advice{margin-top:2.2rem;background:rgba(255,255,255,.07);border-left:3px solid var(--orange);border-radius:0 12px 12px 0;padding:1rem 1.1rem;font-size:.98rem}
+.advice b{color:#fff;font-family:var(--titre);font-size:.92rem}
+.result .actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+.result .btn-g{font-size:.86rem;padding:.75rem 1rem}
+.result .btn-o{font-size:.86rem;padding:.75rem 1rem}
+.legal{font-size:.8rem;color:#9aa0cf;margin-top:1rem;line-height:1.5}
+@media (max-width:960px){.planner{grid-template-columns:minmax(0,1fr)}.result{position:static}}
+
+/* Périodicités */
+.period{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4rem}
+.pcard{border:1px solid var(--ligne);border-radius:18px;padding:1.8rem;position:relative;overflow:hidden}
+.pcard .big{font:800 3.6rem/1 var(--titre);color:var(--nuit)}
+.pcard .big small{font-size:1rem;color:var(--gris);font-weight:600;margin-left:.3rem}
+.pcard p{margin-top:.8rem}
+.pcard::after{content:"";position:absolute;right:-40px;top:-40px;width:140px;height:140px;border-radius:50%;border:16px solid rgba(243,151,38,.12)}
+.list-eq{columns:2;gap:2rem;margin-top:2rem;list-style:none}
+.list-eq li{break-inside:avoid;padding:.55rem 0 .55rem 1.6rem;border-bottom:1px solid var(--ligne);position:relative}
+.list-eq li::before{content:"";position:absolute;left:0;top:1.05rem;width:10px;height:10px;border:2px solid var(--orange);border-radius:2px;transform:rotate(45deg)}
+table.ext{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.95rem}
+table.ext th{font:700 .72rem var(--titre);text-transform:uppercase;letter-spacing:.05em;color:#fff;background:var(--nuit);padding:.7rem;text-align:left}
+table.ext td{padding:.7rem;border-bottom:1px solid var(--ligne)}
+table.ext tr:hover td{background:#fafafa}
+.tbl-wrap{overflow-x:auto}
+@media (max-width:760px){.period{grid-template-columns:minmax(0,1fr)}.list-eq{columns:1}}
+
+/* Réglementation */
+.acc{border-top:1px solid var(--ligne)}
+.acc details{border-bottom:1px solid var(--ligne)}
+.acc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1.3rem 0;font:700 1.08rem var(--titre);color:var(--nuit)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .art{font:600 .78rem var(--titre);color:var(--orange-2);margin-right:.8rem}
+.acc summary .pl{width:32px;height:32px;flex:none;border-radius:50%;border:1.5px solid var(--ligne);position:relative;transition:transform .35s var(--ease),background .3s}
+.acc summary .pl::before,.acc summary .pl::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;background:var(--nuit);transform:translate(-50%,-50%)}
+.acc summary .pl::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .35s}
+.acc details[open] .pl{background:var(--orange);border-color:var(--orange)}
+.acc details[open] .pl::after{transform:translate(-50%,-50%) rotate(0)}
+.acc details p{padding:0 0 1.4rem;max-width:52rem;color:#4b4b4b}
+
+/* Qui suis-je */
+.about{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:3.5rem;align-items:center}
+.about .ph{position:relative}
+.about .ph img{border-radius:18px;width:100%;aspect-ratio:250/341;object-fit:cover}
+.about .ph::before{content:"";position:absolute;inset:18px -18px -18px 18px;border:3px solid var(--orange);border-radius:18px;z-index:-1}
+.about blockquote{font:italic 400 1.35rem/1.5 var(--corps);color:var(--nuit);border-left:4px solid var(--orange);padding-left:1.2rem;margin:1.4rem 0}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;counter-reset:s}
+.step{counter-increment:s;padding-top:1rem;border-top:3px solid var(--ligne);position:relative}
+.step::before{content:"0" counter(s);font:800 .8rem var(--titre);color:var(--orange-2)}
+.step::after{content:"";position:absolute;top:-3px;left:0;height:3px;width:0;background:var(--orange);transition:width 1s var(--ease)}
+.step.in::after{width:100%}
+.step h4{font-size:.95rem;margin:.3rem 0 .3rem}
+.step p{font-size:.92rem;color:var(--gris);line-height:1.45}
+@media (max-width:900px){.about{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.about .ph{max-width:380px}}
+
+/* Zone */
+.zone{background:var(--nuit);color:#e7e9fb;position:relative;overflow:hidden}
+.zone h2{color:#fff}
+.zone .sec-h p{color:#b8bde6}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.map{position:relative;aspect-ratio:1/1;max-width:460px;width:100%;margin-inline:auto}
+.map svg{width:100%;height:100%}
+.map .ring{fill:none;stroke:rgba(255,255,255,.12);stroke-dasharray:4 6}
+.map .city circle{fill:var(--jaune)}
+.map .city text{font:600 13px var(--titre);fill:#e7e9fb}
+.map .hq circle{fill:var(--orange)}
+.map .hq .halo{fill:rgba(243,151,38,.25);transform-origin:center;transform-box:fill-box;animation:halo 2.4s ease-out infinite}
+@keyframes halo{from{transform:scale(.6);opacity:1}to{transform:scale(2.6);opacity:0}}
+.map line{stroke:rgba(253,194,58,.4);stroke-width:1.5;stroke-dasharray:500;stroke-dashoffset:500;transition:stroke-dashoffset 1.8s var(--ease)}
+.map.in line{stroke-dashoffset:0}
+.dlist{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.d{border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:1.1rem}
+.d b{font:800 1.8rem var(--titre);color:var(--jaune);display:block}
+.d span{font:600 .95rem var(--titre);color:#fff}
+.zone .cities{margin-top:1.4rem;color:#b8bde6}
+@media (max-width:900px){.zone-grid{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem}
+.coord{background:var(--fond);border-radius:18px;padding:2rem}
+.coord dl{display:grid;gap:1.2rem;margin-top:1.4rem}
+.coord dt{font:700 .72rem var(--titre);text-transform:uppercase;letter-spacing:.08em;color:var(--orange-2)}
+.coord dd{font-size:1.08rem;color:var(--nuit)}
+.coord dd a{text-decoration:none;border-bottom:2px solid rgba(243,151,38,.4)}
+.coord dd a:hover{border-color:var(--orange)}
+form.f-contact{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+form.f-contact .full{grid-column:1/-1}
+form.f-contact .btn{justify-self:start}
+.msg-ok{display:none;grid-column:1/-1;background:rgba(31,138,91,.1);color:var(--ok);font:600 .95rem var(--titre);padding:1rem;border-radius:10px}
+@media (max-width:860px){.contact{grid-template-columns:1fr}form.f-contact{grid-template-columns:1fr}}
+
+/* CTA */
+.cta{background:linear-gradient(110deg,var(--orange),#f7b04f);color:#fff;border-radius:22px;padding:2.6rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;margin-top:-3rem;position:relative;z-index:2;box-shadow:0 24px 50px rgba(243,151,38,.3)}
+.cta h2{color:#fff;font-size:clamp(1.4rem,1.1rem + 1.4vw,2.1rem);max-width:30rem}
+.cta .btn-n{background:var(--nuit)}
+
+footer{background:#06063a;color:#b8bde6;padding:5rem 0 2rem;margin-top:-1px}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-size:.95rem;margin-bottom:.8rem}
+footer ul{list-style:none;display:grid;gap:.4rem}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.foot img{height:52px;width:auto;background:#fff;border-radius:10px;padding:5px;margin-bottom:1rem}
+.note-demo{margin-top:3rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.1);font-size:.8rem;line-height:1.6;color:#8d92c4}
+@media (max-width:800px){.foot{grid-template-columns:1fr}}
+
+/* Révélations */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.split .w{display:inline-block;overflow:hidden;vertical-align:top}
+.split .w>span{display:inline-block;transform:translateY(105%);transition:transform .9s var(--ease)}
+.split.in .w>span{transform:none}
+.toast{position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,150%);background:var(--nuit);color:#fff;font:600 .9rem var(--titre);padding:.85rem 1.2rem;border-radius:12px;box-shadow:0 14px 30px rgba(0,0,0,.25);transition:transform .45s var(--ease);z-index:99}
+.toast.show{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}.split .w>span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"ACM — Allo Contrôles Maintenance",
+  "description":"Contrôleur VGP indépendant : vérifications générales périodiques des engins de levage et de TP, contrôle des extincteurs et des installations électriques.",
+  "url":"https://acm-vgp.fr/",
+  "telephone":"+33658965247",
+  "email":"jpeltier@acm-vgp.fr",
+  "founder":{"@type":"Person","name":"Joël Peltier"},
+  "foundingDate":"2016",
+  "address":{"@type":"PostalAddress","streetAddress":"452 rue Jean-Baptiste Magnet","postalCode":"42153","addressLocality":"Riorges","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[
+    {"@type":"AdministrativeArea","name":"Loire (42)"},
+    {"@type":"AdministrativeArea","name":"Rhône (69)"},
+    {"@type":"AdministrativeArea","name":"Saône-et-Loire (71)"},
+    {"@type":"AdministrativeArea","name":"Allier (03)"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>ACM — Allo Contrôles Maintenance</b> — ne constitue pas le site officiel.</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="ACM, retour à l'accueil">
+      <img src="https://acm-vgp.fr/wp-content/uploads/2017/10/Logo-ACM.png" alt="Logo ACM Allo Contrôle Maintenance">
+      <span>Contrôleur VGP indépendant</span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil" class="on">Accueil</a></li>
+      <li><a href="#services">Contrôles VGP</a></li>
+      <li><a href="#planificateur">Mes échéances</a></li>
+      <li><a href="#reglementation">Réglementation VGP</a></li>
+      <li><a href="#autres">Autres contrôles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.4rem">
+      <a class="tel" href="tel:+33658965247"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span class="t-lg">06.58.96.52.47</span></a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="grid-bg"></div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="kicker rv">ACM — Joël Peltier · Riorges</span>
+      <h1 class="split" id="h1">Vérifications générales périodiques des engins de <em>levage et TP</em></h1>
+      <p class="lead rv d1">Un contrôleur VGP, à votre service, dans les départements de la Loire, du Rhône, de la Saône-et-Loire et de l’Allier. Interlocuteur unique pour vos engins, vos extincteurs et vos installations électriques.</p>
+      <div class="actions rv d2">
+        <a class="btn btn-o" href="#planificateur">Calculer mes prochaines VGP <span aria-hidden="true">→</span></a>
+        <a class="btn btn-g" href="tel:+33658965247">Prendre rendez-vous</a>
+      </div>
+      <div class="depts rv d3">
+        <span><b>42</b> Loire</span><span><b>69</b> Rhône</span><span><b>71</b> Saône-et-Loire</span><span><b>03</b> Allier</span>
+      </div>
+    </div>
+    <div class="hero-visual rv d2">
+      <svg class="hook" viewBox="0 0 70 220" aria-hidden="true">
+        <line x1="35" y1="0" x2="35" y2="150" stroke="#cfd3ee" stroke-width="3"/>
+        <rect x="22" y="148" width="26" height="22" rx="4" fill="#f39726"/>
+        <path d="M35 170 v18 a14 14 0 1 1 -14 14" fill="none" stroke="#fdc23a" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+      <div class="hero-photo">
+        <img src="https://acm-vgp.fr/wp-content/uploads/2019/01/allo-controle-maintenance-vgp.jpg" alt="Chantier avec grues, casque de chantier et tablette au logo ACM">
+      </div>
+      <div class="badge-live" id="badge">
+        <small>Votre parc, en direct</small>
+        <strong id="badge-t">Ajoutez vos engins pour voir vos échéances</strong>
+        <div class="bar"><i id="badge-bar"></i></div>
+        <p id="badge-p">Calcul selon les périodicités indiquées par ACM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div id="tk">
+  <span>VGP grues</span><span>VGP engins de TP</span><span>VGP chariots élévateurs</span><span>VGP hayons élévateurs</span><span>VGP bras de levage</span><span>VGP accessoires levage</span><span>Bennes à ordures ménagères</span><span>Compacteurs à déchets</span><span>Ponts de garages</span><span>Extincteurs</span><span>Contrôles électriques</span><span>Portes sectionnelles</span>
+</div></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">01</span>
+      <div><h2>Mes services de contrôles</h2><div class="filet"></div></div>
+      <p>Les engins et appareils de levage sont des équipements de travail présentant des risques particuliers. Après chaque visite, un rapport d’intervention vous est remis.</p>
+    </div>
+    <div class="chips" role="tablist" aria-label="Filtrer les contrôles">
+      <button class="chip on" data-f="all">Tous<span class="n">12</span></button>
+      <button class="chip" data-f="levage">Levage<span class="n"></span></button>
+      <button class="chip" data-f="tp">Engins de TP<span class="n"></span></button>
+      <button class="chip" data-f="vehic">Véhicules &amp; déchets<span class="n"></span></button>
+      <button class="chip" data-f="secu">Incendie &amp; électricité<span class="n"></span></button>
+    </div>
+    <div class="services" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- PLANIFICATEUR -->
+<section class="planner-sec" id="planificateur">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">02</span>
+      <div><h2>Quand tombent vos prochaines VGP ?</h2><div class="filet"></div></div>
+      <p>Indiquez vos équipements et la date de leur dernière vérification : le calendrier se construit tout seul, signale ce qui est en retard et propose de regrouper les contrôles en une seule visite.</p>
+    </div>
+
+    <div class="planner">
+      <div class="card rv">
+        <h3>Mon parc d’équipements</h3>
+        <p class="hint">Les données restent sur votre ordinateur. Rien n’est envoyé tant que vous ne cliquez pas sur « Préparer ma demande ».</p>
+        <form class="row-add" id="add">
+          <label class="f full">Équipement
+            <select id="eq"></select>
+          </label>
+          <label class="f">Nombre
+            <input type="number" id="qty" min="1" max="99" value="1">
+          </label>
+          <label class="f">Dernière vérification
+            <input type="month" id="last">
+          </label>
+          <button class="btn btn-n" type="submit">Ajouter</button>
+        </form>
+        <ul class="parc" id="parc"></ul>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1rem">
+          <button class="btn btn-l" type="button" id="exemple" style="font-size:.82rem;padding:.6rem .9rem">Charger un exemple d’entreprise de TP</button>
+          <button class="btn btn-l" type="button" id="vider" style="font-size:.82rem;padding:.6rem .9rem">Tout effacer</button>
+        </div>
+      </div>
+
+      <div class="card result rv d1" aria-live="polite">
+        <h3>Mon calendrier VGP</h3>
+        <div class="kpis">
+          <div class="kpi l"><strong id="k-late">0</strong><span>En retard</span></div>
+          <div class="kpi s"><strong id="k-soon">0</strong><span>Sous 60 jours</span></div>
+          <div class="kpi o"><strong id="k-ok">0</strong><span>À jour</span></div>
+        </div>
+        <div class="timeline" id="timeline"></div>
+        <div class="advice" id="advice"><b>Conseil</b><br>Ajoutez au moins un équipement pour obtenir une proposition de visite groupée.</div>
+        <div class="actions">
+          <button class="btn btn-o" type="button" id="demande">Préparer ma demande de rendez-vous</button>
+          <button class="btn btn-g" type="button" id="ics">Ajouter les rappels à mon agenda (.ics)</button>
+        </div>
+        <p class="legal">Périodicités indicatives reprises du site ACM et de l’arrêté du 1er mars 2004 ; certains équipements dépendent de leur usage. Joël Peltier confirme la périodicité exacte de chaque appareil lors de la prise de rendez-vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERIODICITES -->
+<section id="reglementation">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">03</span>
+      <div><h2>Réglementation VGP</h2><div class="filet"></div></div>
+      <p>Arrêté du 1er mars 2004 relatif aux vérifications des appareils et accessoires de levage. La V.G.P a pour but d’écarter tout danger sur les chantiers et les environnements professionnels.</p>
+    </div>
+    <div class="period">
+      <div class="pcard rv">
+        <div class="big">6<small>mois</small></div>
+        <h3 style="margin-top:.6rem">Contrôles tous les 6 mois</h3>
+        <p>Tous les engins destinés à effectuer des opérations de levage : télescopiques, chariots élévateurs, chargeurs frontal sur tracteur, plates-formes élévatrices mobile de personnel (nacelles).</p>
+      </div>
+      <div class="pcard rv d1">
+        <div class="big">12<small>mois</small></div>
+        <h3 style="margin-top:.6rem">Contrôles tous les 12 mois</h3>
+        <p>Tous les engins de chantiers n’effectuant aucune opération de levage : pelles, mini pelles, chargeuses, tracto-pelles…</p>
+      </div>
+    </div>
+
+    <h3 class="rv" style="margin-top:3rem">Les équipements nécessitant des vérifications périodiques</h3>
+    <ul class="list-eq rv">
+      <li>Engins travaux publics (catégories 1 à 9)</li>
+      <li>Chariot élévateur (catégories 1 à 5)</li>
+      <li>Nacelle élévatrice (catégories 1A à 3B)</li>
+      <li>Grue auxiliaire / levage / forestier</li>
+      <li>Grue mobile (3 catégories)</li>
+      <li>Grue à tour (3 catégories)</li>
+      <li>Pont roulant</li>
+      <li>Accessoires de levage : élingues, sangles, harnais et dérivés</li>
+      <li>Bras de levage</li>
+      <li>Monte meubles</li>
+      <li>Matériels de garage</li>
+      <li>Hayon élévateur et P.M.R. (mobilité réduite)</li>
+    </ul>
+
+    <div class="acc rv" style="margin-top:3rem">
+      <details open>
+        <summary><span><span class="art">Art. R. 4323-22</span>Vérification initiale</span><span class="pl"></span></summary>
+        <p>Effectuée lors de la première utilisation d’un appareil ou d’un accessoire de levage dans l’entreprise, elle a pour objectif de s’assurer que l’appareil ou l’accessoire est installé conformément aux spécifications prévues, le cas échéant, par la notice d’instructions du constructeur. Elle permet également de s’assurer que l’équipement peut être utilisé en sécurité.</p>
+      </details>
+      <details>
+        <summary><span><span class="art">Art. R. 4323-23</span>Vérifications générales périodiques</span><span class="pl"></span></summary>
+        <p>Des arrêtés déterminent les équipements de travail pour lesquels l’employeur procède ou fait procéder à des vérifications générales périodiques afin que soit décelée en temps utile toute détérioration susceptible de créer des dangers. Ces arrêtés précisent la périodicité des vérifications, leur nature et leur contenu. L’objectif visé est de protéger les travailleurs de tout risque d’accident.</p>
+      </details>
+      <details>
+        <summary><span><span class="art">Art. R. 4323-28</span>Vérification de remise en service</span><span class="pl"></span></summary>
+        <p>Lors de la remise en service après toute opération de démontage et remontage, ou modification susceptible de mettre en cause leur sécurité et de créer des situations dangereuses.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- AUTRES CONTROLES -->
+<section id="autres" style="background:var(--fond)">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">04</span>
+      <div><h2>Autres contrôles — installations électriques, extincteurs</h2><div class="filet"></div></div>
+      <p>Contrôleur agréé, Joël Peltier vous accompagne pour la réalisation de vos contrôles et le maintien en état de conformité de vos installations électriques et de vos extincteurs.</p>
+    </div>
+    <div class="period">
+      <div class="card rv">
+        <h3>Vérifications des installations électriques</h3>
+        <p style="margin-top:.7rem">Installations électriques mobiles de chantiers et foires, installations électriques de bâtiments, d’entreprises et de commerces, vérifications électriques pour les propriétaires-bailleurs… Diagnostic des anomalies (tableau électrique, éclairage, prises, terre structure…), contrôles visuels, essais et mesures.</p>
+      </div>
+      <div class="card rv d1">
+        <h3>Vérifications des extincteurs</h3>
+        <p style="margin-top:.7rem">Extincteurs d’incendie portatifs, mobiles et fixes toutes marques, dans le respect de l’art. R. 4227-29 du code du travail et de la norme NFS 61-919.</p>
+        <div class="tbl-wrap">
+        <table class="ext">
+          <thead><tr><th>Type</th><th>Maintenance</th><th>Additionnelle</th><th>Révision atelier</th><th>Durée de vie</th></tr></thead>
+          <tbody>
+            <tr><td>Eau et additif</td><td>1 an</td><td>À 5 et 15 ans</td><td>10 ans</td><td>20 ans</td></tr>
+            <tr><td>Poudre</td><td>1 an</td><td>À 5 et 15 ans</td><td>10 ans</td><td>20 ans</td></tr>
+            <tr><td>CO2</td><td>1 an</td><td>—</td><td>10 ans</td><td>Non défini</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUI SUIS-JE -->
+<section id="qui">
+  <div class="wrap about">
+    <div class="ph rv">
+      <img src="https://acm-vgp.fr/wp-content/uploads/2018/12/infos-contact-acm.jpg" alt="Cariste aux commandes d’un chariot élévateur" loading="lazy">
+    </div>
+    <div>
+      <div class="sec-h rv" style="margin-bottom:1rem;grid-template-columns:auto 1fr">
+        <span class="num">05</span>
+        <div><h2>Qui suis-je ?</h2><div class="filet"></div></div>
+      </div>
+      <p class="rv">Je suis <strong>Joël Peltier</strong>, contrôleur indépendant VGP agréé. J’assure le suivi de votre matériel dans la durée à l’aide des derniers outils informatiques (tablette, logiciel de suivi, imprimante bluetooth…).</p>
+      <blockquote class="rv d1">« Ayant acquis une solide expérience au cours de mes 30 ans de chef d’atelier dans le monde de la mécanique poids lourd, de l’hydraulique et du levage, en 2016, j’ai décidé de créer mon entreprise afin de mettre mes acquis au service des entreprises. »</blockquote>
+      <div class="steps">
+        <div class="step"><h4>Rendez-vous</h4><p>Par téléphone ou par mail, du lundi au vendredi.</p></div>
+        <div class="step"><h4>Intervention sur site</h4><p>Rapidement, chez vous ou sur le chantier.</p></div>
+        <div class="step"><h4>Examen &amp; essais</h4><p>État de conservation, essais de fonctionnement, montage, épreuves.</p></div>
+        <div class="step"><h4>Rapport remis</h4><p>Pour prendre les décisions appropriées par la suite.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONE -->
+<section class="zone" id="zone">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">06</span>
+      <div><h2>Périmètre d’intervention</h2><div class="filet"></div></div>
+      <p>Depuis Riorges, à côté de Roanne : Loire (42), Rhône (69), Saône-et-Loire (71), Allier (03).</p>
+    </div>
+    <div class="zone-grid">
+      <div class="map rv" id="map">
+        <svg viewBox="0 0 400 400" role="img" aria-label="Carte schématique des villes desservies depuis Riorges">
+          <circle class="ring" cx="170" cy="150" r="70"/><circle class="ring" cx="170" cy="150" r="150"/><circle class="ring" cx="170" cy="150" r="230"/>
+          <line x1="170" y1="150" x2="190" y2="235"/>
+          <line x1="170" y1="150" x2="290" y2="140"/>
+          <line x1="170" y1="150" x2="270" y2="190"/>
+          <line x1="170" y1="150" x2="325" y2="200"/>
+          <line x1="170" y1="150" x2="230" y2="335"/>
+          <g class="hq"><circle class="halo" cx="170" cy="150" r="12"/><circle cx="170" cy="150" r="8"/><text x="60" y="185" style="font:700 14px Montserrat;fill:#fff">Riorges · Roanne</text></g>
+          <g class="city"><circle cx="190" cy="235" r="5"/><text x="200" y="240">Feurs</text></g>
+          <g class="city"><circle cx="290" cy="140" r="5"/><text x="232" y="122">Villefranche-sur-S.</text></g>
+          <g class="city"><circle cx="270" cy="190" r="5"/><text x="226" y="210">Tarare</text></g>
+          <g class="city"><circle cx="325" cy="200" r="5"/><text x="335" y="205">Lyon</text></g>
+          <g class="city"><circle cx="230" cy="335" r="5"/><text x="240" y="340">Saint-Étienne</text></g>
+        </svg>
+      </div>
+      <div>
+        <div class="dlist">
+          <div class="d rv"><b>42</b><span>Loire</span></div>
+          <div class="d rv d1"><b>69</b><span>Rhône</span></div>
+          <div class="d rv d2"><b>71</b><span>Saône-et-Loire</span></div>
+          <div class="d rv d3"><b>03</b><span>Allier</span></div>
+        </div>
+        <p class="cities rv">Roanne, Feurs, Villefranche-sur-Saône, Tarare, Lyon, Saint-Étienne… J’interviens rapidement sur site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta rv">
+    <h2>Vous avez besoin d’un service de contrôle VGP ?</h2>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+      <a class="btn btn-n" href="tel:+33658965247">06.58.96.52.47</a>
+      <a class="btn btn-g" href="#contact" style="border-color:#fff">Me laisser un message</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-h rv">
+      <span class="num">07</span>
+      <div><h2>Me contacter</h2><div class="filet"></div></div>
+      <p>Pour tout renseignement ou un rendez-vous, et pour tout conseil technique ou juridique concernant vos visites générales périodiques.</p>
+    </div>
+    <div class="contact">
+      <div class="coord rv">
+        <h3>ACM — Allo Contrôles Maintenance</h3>
+        <dl>
+          <div><dt>Adresse</dt><dd>452 rue Jean-Baptiste Magnet<br>42153 Riorges</dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+33658965247">06.58.96.52.47</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:jpeltier@acm-vgp.fr">jpeltier@acm-vgp.fr</a></dd></div>
+          <div><dt>Horaires</dt><dd>Du lundi au vendredi de 8h à 19h</dd></div>
+        </dl>
+      </div>
+      <form class="f-contact rv d1" id="f-contact">
+        <label class="f">Nom<input required name="nom" autocomplete="name"></label>
+        <label class="f">Téléphone<input name="tel" autocomplete="tel"></label>
+        <label class="f full">Email<input type="email" required name="email" autocomplete="email"></label>
+        <label class="f full">Votre message<textarea rows="6" name="msg" id="msg" required></textarea></label>
+        <button class="btn btn-o" type="submit">Envoyer le message</button>
+        <div class="msg-ok" id="msg-ok">Merci ! Dans la version en ligne, ce message serait transmis directement à Joël Peltier.</div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img src="https://acm-vgp.fr/wp-content/uploads/2017/10/Logo-ACM.png" alt="ACM">
+        <p>ACM (Allo Contrôles Maintenance) est votre interlocuteur unique pour la VGP de vos appareils de levage ou TP, le contrôle de vos extincteurs et de vos installations électriques.</p>
+      </div>
+      <div>
+        <h4>Liens utiles</h4>
+        <ul><li><a href="#accueil">Accueil</a></li><li><a href="#services">Contrôles VGP</a></li><li><a href="#reglementation">Réglementation VGP</a></li><li><a href="#autres">Autres contrôles</a></li><li><a href="#contact">Contact</a></li></ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul><li>452, rue Jean-Baptiste Magnet<br>42153 Riorges</li><li><a href="tel:+33658965247">06.58.96.52.47</a></li><li><a href="mailto:jpeltier@acm-vgp.fr">jpeltier@acm-vgp.fr</a></li></ul>
+      </div>
+    </div>
+    <p class="note-demo">Maquette de démonstration, non officielle, réalisée à partir des informations publiées sur acm-vgp.fr. Logo, couleurs (bleu nuit, bleu, orange), polices (Montserrat, Vollkorn), textes et photos sont repris du site actuel ; aucune photo extérieure n’a été ajoutée. Les périodicités du calendrier sont indicatives (reprises du site ACM et de l’arrêté du 1er mars 2004) et sont à confirmer par ACM pour chaque équipement ; les équipements sans périodicité affichée sur le site sont notés « à définir ». Le formulaire et le planificateur fonctionnent en démonstration : rien n’est envoyé.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  "use strict";
+  var IMG = "https://acm-vgp.fr/wp-content/uploads/";
+  /* Services du site actuel. per = périodicité en mois (null = à définir avec ACM) */
+  var SERVICES = [
+    {id:"grue", t:"VGP grues", cat:"levage", img:"2019/01/vgp-grues.jpg", per:6, note:"Grue auxiliaire sur porteur"},
+    {id:"tp", t:"VGP engins de TP", cat:"tp", img:"2019/01/vgp-engins-tp.jpg", per:12, note:"Sans opération de levage"},
+    {id:"chariot", t:"VGP chariots élévateurs", cat:"levage", img:"2018/12/chariot-elevateur.jpg", per:6},
+    {id:"hayon", t:"VGP hayons élévateurs", cat:"vehic", img:"2018/12/hayon-elevateur.jpg", per:6},
+    {id:"bras", t:"VGP bras de levage", cat:"vehic", img:"2019/01/vgp-ampliroll.jpg", per:null},
+    {id:"acc", t:"VGP accessoires levage", cat:"levage", img:"2018/12/accessoires-levage.jpg", per:12},
+    {id:"bom", t:"Bennes à ordures ménagères (BOM)", cat:"vehic", img:"2019/01/vgp-benne-a-ordures-menageres.jpg", per:null},
+    {id:"compact", t:"VGP compacteur à déchets", cat:"vehic", img:"2019/01/vgp-compacteur-dechets.jpg", per:null},
+    {id:"pont", t:"VGP ponts de garages", cat:"levage", img:"2018/12/elevateur-garage.jpg", per:12},
+    {id:"ext", t:"Contrôles extincteurs", cat:"secu", img:"2018/12/controle-extincteurs.jpg", per:12},
+    {id:"elec", t:"Contrôles électriques", cat:"secu", img:"2018/12/controles-electriques.jpg", per:null},
+    {id:"porte", t:"Portes sectionnelles", cat:"secu", img:"2019/01/vgp-portes-sectionnelles.jpg", per:null}
+  ];
+  /* Choix du planificateur : services + engins cités sur la page VGP */
+  var EQUIP = [
+    {id:"chariot", t:"Chariot élévateur", per:6},
+    {id:"tele", t:"Télescopique", per:6},
+    {id:"nacelle", t:"Nacelle (PEMP)", per:6},
+    {id:"chargeur", t:"Chargeur frontal sur tracteur", per:6},
+    {id:"grue", t:"Grue auxiliaire", per:6},
+    {id:"hayon", t:"Hayon élévateur", per:6},
+    {id:"tp", t:"Pelle / mini-pelle / chargeuse (sans levage)", per:12},
+    {id:"acc", t:"Accessoires de levage (élingues, sangles…)", per:12},
+    {id:"pont", t:"Pont élévateur de garage", per:12},
+    {id:"ext", t:"Extincteurs", per:12},
+    {id:"bras", t:"Bras de levage (ampliroll)", per:null},
+    {id:"bom", t:"Benne à ordures ménagères", per:null},
+    {id:"compact", t:"Compacteur à déchets", per:null},
+    {id:"porte", t:"Porte sectionnelle", per:null}
+  ];
+  var CATS = {levage:"Levage", tp:"TP", vehic:"Véhicules", secu:"Sécurité"};
+  var $ = function(s,c){return (c||document).querySelector(s)};
+  var $$ = function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- Menu --- */
+  var burger=$("#burger"), menu=$("#menu");
+  burger.addEventListener("click",function(){var o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+  $$("#menu a").forEach(function(a){a.addEventListener("click",function(){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")})});
+  var head=$("#top");
+  window.addEventListener("scroll",function(){head.classList.toggle("scrolled",window.scrollY>10)},{passive:true});
+
+  /* --- Titre découpé --- */
+  var h1=$("#h1");
+  (function splitWords(el){
+    var nodes=Array.prototype.slice.call(el.childNodes), i=0, out=document.createDocumentFragment();
+    nodes.forEach(function(n){
+      var target = n.nodeType===3 ? out : n.cloneNode(false);
+      var text = n.textContent;
+      text.split(/(\s+)/).forEach(function(w){
+        if(!w) return;
+        if(/^\s+$/.test(w)){target.appendChild(document.createTextNode(" "));return;}
+        var o=document.createElement("span");o.className="w";
+        var s=document.createElement("span");s.textContent=w;s.style.transitionDelay=(i++*0.06)+"s";
+        o.appendChild(s);target.appendChild(o);
+      });
+      if(n.nodeType!==3) out.appendChild(target);
+    });
+    el.textContent="";el.appendChild(out);
+  })(h1);
+  requestAnimationFrame(function(){setTimeout(function(){h1.classList.add("in")},120)});
+
+  /* --- Bande défilante dupliquée --- */
+  var tk=$("#tk"); tk.innerHTML+=tk.innerHTML;
+
+  /* --- Services --- */
+  var grid=$("#services-grid");
+  SERVICES.forEach(function(s,i){
+    var a=document.createElement("article");
+    a.className="svc rv";a.dataset.cat=s.cat;a.style.transitionDelay=(i%4*0.07)+"s";
+    a.innerHTML='<span class="tag">'+CATS[s.cat]+'</span><figure><img loading="lazy" src="'+IMG+s.img+'" alt="'+s.t+'"></figure>'+
+      '<div class="body"><h3>'+s.t+'</h3>'+
+      (s.per?'<span class="per">Tous les '+s.per+' mois</span>':'<span class="per na">Périodicité : sur conseil ACM</span>')+'</div>';
+    grid.appendChild(a);
+  });
+  $$(".chip").forEach(function(c){
+    var f=c.dataset.f;
+    if(f!=="all") $(".n",c).textContent=SERVICES.filter(function(s){return s.cat===f}).length;
+    c.addEventListener("click",function(){
+      $$(".chip").forEach(function(x){x.classList.toggle("on",x===c)});
+      $$(".svc").forEach(function(card){card.classList.toggle("dim", f!=="all" && card.dataset.cat!==f)});
+    });
+  });
+
+  /* --- Révélations au scroll --- */
+  var io = "IntersectionObserver" in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}});
+  },{threshold:.15,rootMargin:"0px 0px -40px 0px"}) : null;
+  function observe(){ $$(".rv:not(.in),.step:not(.in),.map:not(.in)").forEach(function(el){ io?io.observe(el):el.classList.add("in") }); }
+  observe();
+  $$(".step").forEach(function(s,i){s.style.transitionDelay=(i*.15)+"s"});
+
+  /* --- Planificateur VGP --- */
+  var sel=$("#eq");
+  EQUIP.forEach(function(e){var o=document.createElement("option");o.value=e.id;o.textContent=e.t+(e.per?" — "+e.per+" mois":" — à définir");sel.appendChild(o)});
+  var today=new Date(); today.setHours(0,0,0,0);
+  function ym(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")}
+  var dLast=new Date(today.getFullYear(),today.getMonth()-4,1); $("#last").value=ym(dLast); $("#last").max=ym(today);
+
+  var KEY="acm-parc-demo", parc=[];
+  try{parc=JSON.parse(localStorage.getItem(KEY)||"[]")||[]}catch(e){parc=[]}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(parc))}catch(e){}}
+  function eqById(id){for(var i=0;i<EQUIP.length;i++) if(EQUIP[i].id===id) return EQUIP[i]; return null}
+  function due(it){
+    var e=eqById(it.id); if(!e||!e.per) return null;
+    var p=it.last.split("-"); var d=new Date(+p[0],+p[1]-1+e.per,1); return d;
+  }
+  function status(d){
+    if(!d) return "na";
+    var diff=(d-today)/864e5;
+    return diff<0?"late":diff<=60?"soon":"ok";
+  }
+  var MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+  function fmt(d){return MOIS[d.getMonth()]+" "+d.getFullYear()}
+  function toast(t){var el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(function(){el.classList.remove("show")},2600)}
+
+  function render(){
+    var ul=$("#parc"); ul.innerHTML="";
+    if(!parc.length){ul.innerHTML='<li class="empty">Aucun équipement pour l’instant. Ajoutez votre premier engin ci-dessus, ou chargez l’exemple.</li>'}
+    var counts={late:0,soon:0,ok:0};
+    var rows=parc.map(function(it,idx){var d=due(it);return {it:it,idx:idx,d:d,s:status(d)}});
+    rows.sort(function(a,b){return (a.d?a.d:9e15)-(b.d?b.d:9e15)});
+    rows.forEach(function(r){
+      var e=eqById(r.it.id); if(r.s!=="na") counts[r.s]+=r.it.qty;
+      var li=document.createElement("li");li.className="item";
+      var lbl = r.s==="late"?"En retard · "+fmt(r.d):r.s==="soon"?"Bientôt · "+fmt(r.d):r.s==="ok"?"Prochaine · "+fmt(r.d):"À définir avec ACM";
+      var p=r.it.last.split("-");
+      li.innerHTML='<span class="dot '+(r.s==="na"?"ok":r.s)+'" '+(r.s==="na"?'style="background:#c8ccd8"':'')+'></span>'+
+        '<div><b>'+r.it.qty+' × '+e.t+'</b><small>Dernière VGP : '+MOIS[+p[1]-1]+' '+p[0]+(e.per?' · tous les '+e.per+' mois':'')+'</small></div>'+
+        '<span class="due '+r.s+'">'+lbl+'</span>'+
+        '<button class="del" aria-label="Retirer '+e.t+'" data-i="'+r.idx+'">×</button>';
+      ul.appendChild(li);
+    });
+    $$(".del",ul).forEach(function(b){b.addEventListener("click",function(){parc.splice(+b.dataset.i,1);save();render()})});
+    animateNum($("#k-late"),counts.late);animateNum($("#k-soon"),counts.soon);animateNum($("#k-ok"),counts.ok);
+    timeline(rows); advice(rows); badge(rows,counts);
+  }
+  function animateNum(el,to){
+    var from=+el.textContent||0; if(reduce||from===to){el.textContent=to;return}
+    var t0=null;function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/600);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  }
+  function timeline(rows){
+    var tl=$("#timeline"); tl.innerHTML="";
+    var start=new Date(today.getFullYear(),today.getMonth()-3,1), end=new Date(today.getFullYear(),today.getMonth()+13,1);
+    var span=end-start;
+    for(var m=0;m<=16;m++){var d=new Date(start.getFullYear(),start.getMonth()+m,1);var x=(d-start)/span*100;
+      var tick=document.createElement("span");tick.className="tick";tick.style.left=x+"%";tl.appendChild(tick);
+      if(m%3===0){var lab=document.createElement("span");lab.className="m";lab.style.left=x+"%";lab.textContent=MOIS[d.getMonth()];tl.appendChild(lab)}}
+    var td=document.createElement("span");td.className="today";td.style.left=((today-start)/span*100)+"%";tl.appendChild(td);
+    var buckets={};
+    rows.forEach(function(r){if(!r.d)return;var d=r.d<start?start:r.d>end?end:r.d;var k=ym(d);(buckets[k]=buckets[k]||{d:d,q:0,s:r.s,names:[]});buckets[k].q+=r.it.qty;buckets[k].names.push(r.it.qty+"× "+eqById(r.it.id).t);if(r.s==="late")buckets[k].s="late";});
+    Object.keys(buckets).forEach(function(k){
+      var b=buckets[k],pin=document.createElement("span");pin.className="pin "+b.s;
+      pin.style.left=Math.max(1,Math.min(99,(b.d-start)/span*100))+"%";pin.style.height="0px";
+      pin.dataset.t=(b.s==="late"?"En retard : ":fmt(b.d)+" : ")+b.names.join(", ");
+      tl.appendChild(pin);
+      setTimeout(function(){pin.style.height=Math.min(100,22+b.q*14)+"px"},60);
+    });
+  }
+  function advice(rows){
+    var box=$("#advice"), dated=rows.filter(function(r){return r.d});
+    if(!rows.length){box.innerHTML="<b>Conseil</b><br>Ajoutez au moins un équipement pour obtenir une proposition de visite groupée.";return}
+    var late=dated.filter(function(r){return r.s==="late"});
+    var horizon=new Date(today.getFullYear(),today.getMonth()+3,today.getDate());
+    var group=dated.filter(function(r){return r.d<=horizon});
+    var html="<b>Proposition</b><br>";
+    if(late.length) html+="<strong style='color:#ff8a72'>"+late.reduce(function(a,r){return a+r.it.qty},0)+" équipement(s) dépassent leur échéance</strong> : à vérifier en priorité. ";
+    if(group.length>1) html+="Une seule visite dans les prochaines semaines couvrirait "+group.reduce(function(a,r){return a+r.it.qty},0)+" équipements dont l’échéance tombe d’ici "+fmt(horizon)+" — un seul déplacement, un seul rendez-vous.";
+    else if(group.length===1) html+="Prochaine échéance : "+fmt(group[0].d)+". Pensez à réserver votre créneau un mois avant.";
+    else if(dated.length) html+="Rien à prévoir avant "+fmt(dated[0].d)+". Ajoutez les rappels à votre agenda pour ne pas l’oublier.";
+    var na=rows.filter(function(r){return !r.d});
+    if(na.length) html+="<br><span style='color:#b8bde6'>"+na.length+" type(s) d’équipement à périodicité à définir avec ACM.</span>";
+    box.innerHTML=html;
+  }
+  function badge(rows,c){
+    var tot=c.late+c.soon+c.ok, t=$("#badge-t"), p=$("#badge-p"), bar=$("#badge-bar");
+    if(!tot){t.textContent="Ajoutez vos engins pour voir vos échéances";bar.style.width="0";p.textContent="Calcul selon les périodicités indiquées par ACM.";return}
+    var next=rows.filter(function(r){return r.d&&r.s!=="late"})[0];
+    t.textContent=c.late?c.late+" équipement(s) en retard":next?"Prochaine VGP : "+fmt(next.d):"Parc à jour";
+    bar.style.width=Math.round(c.ok/tot*100)+"%";
+    p.textContent=c.ok+" sur "+tot+" à jour";
+  }
+
+  $("#add").addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var id=sel.value, q=Math.max(1,Math.min(99,parseInt($("#qty").value,10)||1)), l=$("#last").value||ym(today);
+    if(l>ym(today)) l=ym(today);
+    parc.push({id:id,qty:q,last:l}); save(); render(); toast(q+" × "+eqById(id).t+" ajouté(s)");
+  });
+  $("#exemple").addEventListener("click",function(){
+    function m(n){return ym(new Date(today.getFullYear(),today.getMonth()-n,1))}
+    parc=[{id:"chariot",qty:2,last:m(7)},{id:"nacelle",qty:1,last:m(5)},{id:"tp",qty:3,last:m(10)},{id:"acc",qty:6,last:m(4)},{id:"ext",qty:8,last:m(11)},{id:"hayon",qty:1,last:m(2)}];
+    save();render();toast("Exemple chargé : entreprise de TP fictive");
+  });
+  $("#vider").addEventListener("click",function(){parc=[];save();render()});
+
+  function summary(){
+    var rows=parc.map(function(it){var d=due(it);return {it:it,d:d,s:status(d)}});
+    return rows.map(function(r){var e=eqById(r.it.id);var p=r.it.last.split("-");
+      return "- "+r.it.qty+" x "+e.t+" (dernière VGP "+p[1]+"/"+p[0]+")"+(r.d?(r.s==="late"?" : EN RETARD, échéance "+fmt(r.d):" : échéance "+fmt(r.d)):" : périodicité à définir");}).join("\n");
+  }
+  $("#demande").addEventListener("click",function(){
+    if(!parc.length){toast("Ajoutez d’abord vos équipements");return}
+    var txt="Bonjour,\n\nJe souhaite organiser les vérifications suivantes :\n"+summary()+"\n\nMerci de me proposer un créneau.\n";
+    var m=$("#msg"); m.value=txt;
+    document.getElementById("contact").scrollIntoView({behavior:reduce?"auto":"smooth"});
+    setTimeout(function(){m.focus()},700);
+    toast("Votre demande est pré-remplie dans le formulaire");
+  });
+  $("#ics").addEventListener("click",function(){
+    var rows=parc.map(function(it){return {it:it,d:due(it)}}).filter(function(r){return r.d});
+    if(!rows.length){toast("Aucune échéance datée à exporter");return}
+    function pad(n){return String(n).padStart(2,"0")}
+    function dt(d){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())}
+    var lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//ACM maquette//VGP//FR","CALSCALE:GREGORIAN"];
+    rows.forEach(function(r,i){
+      var e=eqById(r.it.id), d=r.d<today?today:r.d, end=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+      lines.push("BEGIN:VEVENT","UID:acm-"+i+"-"+dt(d)+"@maquette","DTSTAMP:"+dt(today)+"T000000Z","DTSTART;VALUE=DATE:"+dt(d),"DTEND;VALUE=DATE:"+dt(end),
+        "SUMMARY:VGP à prévoir — "+r.it.qty+" x "+e.t,"DESCRIPTION:Rendez-vous avec ACM Allo Contrôles Maintenance — 06.58.96.52.47",
+        "BEGIN:VALARM","TRIGGER:-P30D","ACTION:DISPLAY","DESCRIPTION:Réserver la VGP avec ACM","END:VALARM","END:VEVENT");
+    });
+    lines.push("END:VCALENDAR");
+    var blob=new Blob([lines.join("\r\n")],{type:"text/calendar"}), a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download="echeances-vgp-acm.ics";document.body.appendChild(a);a.click();a.remove();
+    toast(rows.length+" rappel(s) exporté(s), alerte 30 jours avant");
+  });
+
+  $("#f-contact").addEventListener("submit",function(ev){ev.preventDefault();$("#msg-ok").style.display="block";toast("Message prêt (démonstration)")});
+
+  /* Menu actif selon la section */
+  var secs=["accueil","services","planificateur","reglementation","autres","contact"].map(function(id){return document.getElementById(id)});
+  if(io){var mo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){$$("#menu a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})}})},{rootMargin:"-45% 0px -50% 0px"});secs.forEach(function(s){s&&mo.observe(s)})}
+
+  render();
+})();
+</script>
+</body>
+</html>
