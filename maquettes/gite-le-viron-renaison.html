@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gîte Le Viron — Gîte en Côte Roannaise | Renaison, 3 chambres</title>
+<meta name="description" content="Gîte Le Viron, maison de famille au cœur du vignoble de la Côte Roannaise à Renaison : 3 chambres climatisées, grange, terrasses. Estimez votre séjour en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel leviron.fr
+   (couleurs relevées sur le site et le logo ; ajustables ici)
+   ========================================================== */
+:root{
+  --creme:#FFFBF5;        /* fond principal du site actuel */
+  --peche:#FAEFE0;        /* fond des bandeaux "Prendre l'air" / "Activités" */
+  --olive:#777E54;        /* bandeau "pièces de vie" + pastille "Ouvert en juin 2025" */
+  --vert:#435B47;         /* bloc réservation / contact */
+  --vert-logo:#2F5A3A;    /* "Le Viron" du logo */
+  --sauge:#7E9A80;        /* arc clair du logo */
+  --texte:#323232;
+  --blanc:#fff;
+  --f-titre:"Questrial", "Helvetica Neue", Arial, sans-serif;  /* proche de la police géométrique du site */
+  --f-accent:"Cormorant Garamond", Georgia, serif;              /* le "réservation" manuscrit */
+  --ease:cubic-bezier(.22,.8,.26,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-titre);color:var(--texte);background:var(--creme);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sauge);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--vert-logo);color:#e9efe6;font-size:12.5px;text-align:center;padding:7px 12px;letter-spacing:.02em}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,251,245,.0);transition:background .4s,box-shadow .4s,backdrop-filter .4s}
+.nav.solid{background:rgba(255,251,245,.92);backdrop-filter:blur(10px);box-shadow:0 6px 24px rgba(50,50,50,.07)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:20px;color:var(--vert-logo)}
+.brand img{width:44px;height:44px;border-radius:8px}
+.menu{display:flex;gap:26px;list-style:none;font-size:14.5px;letter-spacing:.03em}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:100%;background:var(--olive);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:12px 22px;text-decoration:none;font-family:var(--f-accent);font-style:italic;font-size:20px;cursor:pointer;border:2px solid var(--vert);transition:transform .25s var(--ease),background .25s,color .25s;background:var(--blanc);color:var(--vert)}
+.btn .ar{width:26px;height:26px;border-radius:50%;background:var(--vert);color:#fff;display:grid;place-items:center;font-family:var(--f-titre);font-style:normal;font-size:14px;transition:transform .3s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .ar{transform:translateX(3px)}
+.btn.plein{background:var(--vert);color:#fff;border-color:var(--vert)}
+.btn.plein .ar{background:#fff;color:var(--vert)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--vert-logo);margin:6px 8px;transition:.3s}
+@media(max-width:900px){
+  .menu{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--creme);padding:20px 24px 28px;gap:16px;transform:translateY(-130%);transition:transform .45s var(--ease);box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* HERO */
+.hero{position:relative;height:min(92vh,820px);min-height:560px;margin-top:-68px;overflow:hidden;display:grid;place-items:center}
+.hero .bg{position:absolute;inset:0;background:url(https://leviron.fr/_assets/media/aea91b62a1872803f764e4dfbcaa21a8.jpg) center/cover;transform:scale(1.12);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{to{transform:scale(1.02) translate(-1%,-1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.05) 40%,rgba(30,40,30,.45))}
+.hero .logo{position:relative;z-index:2;width:min(330px,70vw);aspect-ratio:1;background:#f1f1f1;display:grid;place-items:center;box-shadow:0 30px 60px rgba(0,0,0,.25);opacity:0;transform:translateY(30px) scale(.96);animation:entre 1.2s .2s var(--ease) forwards}
+.hero .logo img{width:100%}
+.hero .trait{position:absolute;z-index:2;bottom:22%;left:50%;width:0;height:1.5px;background:#fff;transform:translateX(-50%);animation:trait 1.4s .9s var(--ease) forwards}
+@keyframes trait{to{width:min(420px,70vw)}}
+.hero .sous{position:absolute;z-index:2;bottom:11%;left:0;right:0;text-align:center;color:#fff;padding:0 16px}
+.hero .sous p{font-family:var(--f-accent);font-style:italic;font-size:clamp(22px,3vw,30px);opacity:0;animation:fade 1s 1.4s forwards}
+.hero .sous .btn{margin-top:14px;opacity:0;animation:fade 1s 1.7s forwards}
+@keyframes entre{to{opacity:1;transform:none}}
+@keyframes fade{to{opacity:1}}
+.scroll{position:absolute;z-index:2;bottom:22px;left:50%;width:22px;height:36px;border:1.5px solid rgba(255,255,255,.8);border-radius:12px;transform:translateX(-50%)}
+.scroll::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;border-radius:2px;background:#fff;transform:translateX(-50%);animation:roule 1.8s infinite}
+@keyframes roule{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* SECTIONS */
+section{position:relative}
+.pad{padding:clamp(64px,9vw,120px) 0}
+h2{font-weight:400;font-size:clamp(32px,4.4vw,52px);line-height:1.1;letter-spacing:-.01em;color:#2b2b2b}
+.kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--olive);margin-bottom:14px;display:block}
+.pastille{display:inline-block;background:var(--olive);color:#fff;border-radius:999px;padding:7px 18px;font-size:14px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* intro */
+.intro{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+.intro .photo{position:relative;border-radius:var(--r);overflow:hidden;clip-path:inset(0 100% 0 0);transition:clip-path 1.3s var(--ease)}
+.intro .photo.vu{clip-path:inset(0)}
+.intro .photo img{width:100%;aspect-ratio:4/3.4;object-fit:cover}
+.intro .txt p{margin-bottom:12px}
+.def{font-family:var(--f-accent);font-style:italic;font-size:26px;color:var(--vert-logo);margin:18px 0 16px}
+.pieces{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 26px}
+.pieces span{border:1px solid #d9d2c3;border-radius:999px;padding:5px 13px;font-size:13.5px;background:#fff}
+.labels{display:flex;align-items:center;gap:18px;margin-top:22px}
+.labels .etoiles{color:#2b2b2b;font-size:24px;letter-spacing:4px}
+.labels img{width:62px;border-radius:6px}
+.labels small{font-size:12.5px;color:#666;max-width:220px;line-height:1.4}
+@media(max-width:860px){.intro{grid-template-columns:1fr}}
+
+/* prendre l'air */
+.air{background:var(--peche)}
+.air .tete{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end;margin-bottom:40px}
+.air .duo{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+.air figure{overflow:hidden;border-radius:var(--r)}
+.air figure img{width:100%;height:clamp(260px,34vw,440px);object-fit:cover;transform:scale(1.08);transition:transform 1.6s var(--ease)}
+.air figure.vu img{transform:scale(1)}
+.air figure:hover img{transform:scale(1.04)}
+@media(max-width:760px){.air .tete,.air .duo{grid-template-columns:1fr}}
+
+/* chambres */
+.chambres{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.ch{background:#fff;border:1px solid #e7e0d2;border-radius:var(--r);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.ch:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(67,91,71,.13)}
+.ch .im{overflow:hidden}
+.ch img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .8s var(--ease)}
+.ch:hover img{transform:scale(1.06)}
+.ch .c{padding:18px 20px 22px}
+.ch h3{font-weight:400;letter-spacing:.14em;font-size:14px;padding-bottom:12px;border-bottom:1px solid #eee;margin-bottom:12px}
+.ch p{font-size:14px}
+.lits{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+.lits b{font-weight:400;font-size:12px;letter-spacing:.06em;background:var(--creme);border:1px solid #e7e0d2;border-radius:6px;padding:4px 8px}
+@media(max-width:860px){.chambres{grid-template-columns:1fr}}
+
+/* pièces de vie */
+.vie{background:var(--olive);color:#fff}
+.vie h2{color:#fff}
+.vie .grille{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.carte{background:var(--creme);color:var(--texte);border-radius:4px;overflow:hidden;transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.carte h3{font-weight:400;font-size:22px;line-height:1.15;padding:18px 20px 14px}
+.carte img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.carte p{padding:16px 20px 22px;font-size:14px}
+@media(max-width:860px){.vie .grille{grid-template-columns:1fr}}
+
+/* équipé */
+.equip{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.equip article{border:1px solid #d8cfbf;border-radius:4px;padding:10px;background:#fff}
+.equip img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:2px}
+.equip ul{list-style:none;padding:16px 8px 8px;font-size:14px}
+.equip li{padding:5px 0 5px 22px;position:relative}
+.equip li::before{content:"";position:absolute;left:2px;top:13px;width:10px;height:1.5px;background:var(--olive)}
+@media(max-width:860px){.equip{grid-template-columns:1fr}}
+
+/* SIMULATEUR */
+.simu{background:var(--vert);color:#fff;overflow:hidden}
+.simu::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border:60px solid rgba(255,255,255,.05);border-radius:50%}
+.simu h2{color:#fff}
+.simu .intro-s{max-width:640px;margin:14px 0 36px;color:#dfe7dd}
+.sim{display:grid;grid-template-columns:1.1fr 1fr;gap:26px}
+.panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:clamp(20px,3vw,32px)}
+.champ{margin-bottom:20px}
+.champ label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#cfdacd;margin-bottom:8px}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+input[type=date],input[type=text],input[type=email],textarea{width:100%;background:#fff;border:0;border-radius:10px;padding:12px 14px;font:inherit;color:var(--texte)}
+.compteur{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.compteur span small{display:block;color:#bfcdbd;font-size:12px}
+.compteur .ctl{display:flex;align-items:center;gap:12px}
+.compteur button{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);background:none;color:#fff;font-size:20px;cursor:pointer;transition:background .2s,transform .15s}
+.compteur button:hover{background:rgba(255,255,255,.14)}
+.compteur button:active{transform:scale(.9)}
+.compteur output{min-width:22px;text-align:center;font-size:20px}
+.alerte{font-size:13.5px;background:rgba(250,239,224,.14);border-left:3px solid var(--peche);padding:8px 12px;border-radius:4px;margin-top:6px;display:none}
+.alerte.on{display:block}
+.recap{background:var(--creme);color:var(--texte);border-radius:18px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column}
+.recap h3{font-weight:400;font-size:22px;margin-bottom:6px}
+.ligne{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #ddd3c2;font-size:15px}
+.ligne[hidden]{display:none}
+.ligne em{font-style:normal;color:#777;font-size:13px;display:block}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 6px}
+.total strong{font-weight:400;font-size:clamp(34px,4vw,46px);color:var(--vert-logo);font-variant-numeric:tabular-nums}
+.note{font-size:12.5px;color:#777;line-height:1.5}
+.recap .btn{margin-top:18px;align-self:flex-start}
+.recap .alt{font-size:13px;margin-top:12px;color:#555}
+@media(max-width:860px){.sim{grid-template-columns:1fr}}
+
+/* activités */
+.act{background:var(--peche)}
+.act .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,64px);align-items:center;margin-top:36px}
+.act .grid img{border-radius:var(--r);width:100%;aspect-ratio:4/3;object-fit:cover}
+.onglets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.onglets button{font:inherit;font-size:14px;padding:9px 16px;border-radius:999px;border:1.5px solid var(--olive);background:none;color:var(--olive);cursor:pointer;transition:.25s}
+.onglets button[aria-selected=true]{background:var(--olive);color:#fff}
+.volet{display:none;animation:fade .5s}
+.volet.on{display:block}
+.volet h3{font-weight:400;font-size:24px;margin-bottom:10px}
+.volet a{color:var(--vert)}
+@media(max-width:860px){.act .grid{grid-template-columns:1fr}}
+
+/* adresses */
+.adr{display:grid;grid-template-columns:.8fr 1fr 1fr;gap:clamp(24px,4vw,48px);margin-top:36px}
+.adr img{border-radius:var(--r);width:100%;height:100%;min-height:280px;object-fit:cover}
+.bloc h4{font-weight:400;letter-spacing:.14em;font-size:13px;margin:0 0 10px;color:#2b2b2b}
+.bloc .it{border-bottom:1px solid #2b2b2b22;padding:8px 0}
+.bloc .it b{display:block;font-weight:400;color:#8a5a3c}
+.bloc .it span{font-size:13.5px}
+.bloc+.bloc{margin-top:22px}
+.bloc p{font-size:13.5px}
+@media(max-width:860px){.adr{grid-template-columns:1fr}}
+
+/* galerie */
+.gal{background:#1e221e;color:#fff}
+.gal h2{color:#fff}
+.mur{columns:4 220px;column-gap:12px;margin-top:36px}
+.mur button{display:block;width:100%;margin-bottom:12px;border:0;padding:0;cursor:zoom-in;overflow:hidden;border-radius:8px;background:none}
+.mur img{width:100%;transition:transform .7s var(--ease),filter .5s;filter:saturate(.9)}
+.mur button:hover img{transform:scale(1.05);filter:saturate(1.05)}
+.lb{position:fixed;inset:0;background:rgba(15,18,15,.94);z-index:100;display:none;place-items:center;padding:20px}
+.lb.on{display:grid}
+.lb img{max-height:86vh;max-width:min(1100px,100%);border-radius:8px;animation:entre .5s var(--ease)}
+.lb button{position:absolute;background:none;border:0;color:#fff;font-size:34px;cursor:pointer;width:54px;height:54px}
+.lb .x{top:12px;right:12px}.lb .p{left:8px;top:50%}.lb .n{right:8px;top:50%}
+
+/* avis */
+.avis{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.avis blockquote{background:#fff;border-radius:var(--r);padding:26px;border:1px solid #ece4d6;position:relative}
+.avis blockquote::before{content:"“";font-family:var(--f-accent);font-size:80px;line-height:.6;color:var(--sauge);display:block;height:30px}
+.avis p{font-size:14.5px}
+.avis cite{display:block;margin-top:14px;font-style:normal;font-size:13px;color:var(--olive);letter-spacing:.06em}
+.src{font-size:12.5px;color:#777;margin-top:14px}
+@media(max-width:860px){.avis{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--vert);color:#fff}
+.contact .g{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact h2{color:#fff}
+.contact a{color:#fff}
+.contact ul{list-style:none;margin-top:16px}
+.contact li{padding:6px 0 6px 18px;position:relative}
+.contact li::before{content:"";position:absolute;left:0;top:16px;width:6px;height:6px;border-radius:50%;background:var(--peche)}
+.carte-acces{border-radius:var(--r);overflow:hidden;min-height:320px;background:#2c3b2e}
+.carte-acces iframe{width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.3) contrast(1.05)}
+.tel{font-size:26px;text-decoration:none;display:inline-block;margin:14px 0 4px}
+@media(max-width:860px){.contact .g{grid-template-columns:1fr}}
+
+footer{background:#1e221e;color:#bfc6bd;font-size:12.5px;padding:28px 0 90px}
+footer p+p{margin-top:8px}
+
+/* barre mobile */
+.barre{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:10px}
+.barre a{flex:1;text-align:center;padding:14px;border-radius:999px;text-decoration:none;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.barre .a1{background:#fff;color:var(--vert)}
+.barre .a2{background:var(--vert);color:#fff}
+@media(max-width:760px){.barre{display:flex}.hero .trait,.scroll{display:none}.nav{background:rgba(255,251,245,.92)}.hero{margin-top:0;height:78vh}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.intro .photo{opacity:1;transform:none;clip-path:none}.hero .logo,.hero .sous p,.hero .sous .btn{opacity:1;transform:none}.hero .trait{width:min(420px,70vw)}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"LodgingBusiness",
+ "name":"Gîte Le Viron",
+ "description":"Maison de famille au cœur du vignoble de la Côte Roannaise : 3 chambres climatisées, cuisine équipée, terrasses et grange salle de jeux.",
+ "url":"https://www.leviron.fr",
+ "telephone":"+33666463655",
+ "email":"gite.le.viron@gmail.com",
+ "image":"https://leviron.fr/_assets/media/aea91b62a1872803f764e4dfbcaa21a8.jpg",
+ "address":{"@type":"PostalAddress","streetAddress":"554 montée des James","postalCode":"42370","addressLocality":"Renaison","addressCountry":"FR"},
+ "areaServed":"Côte Roannaise",
+ "priceRange":"à partir de 240 € la nuit (gîte entier)",
+ "numberOfRooms":3,
+ "petsAllowed":false,
+ "smokingAllowed":false,
+ "sameAs":["https://www.instagram.com/gite.leviron/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site du Gîte Le Viron, non officielle.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="https://leviron.fr/_assets/media/1d5b7ff42cd51968910873287cb88f7b.jpg" alt="Logo Le Viron">Le Viron</a>
+    <ul class="menu" id="menu">
+      <li><a href="#maison">La maison</a></li>
+      <li><a href="#chambres">Chambres</a></li>
+      <li><a href="#sejour">Votre séjour</a></li>
+      <li><a href="#activites">Activités</a></li>
+      <li><a href="#adresses">Bonnes adresses</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn plein" href="#sejour">réservation <span class="ar">›</span></a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="top" aria-label="Accueil">
+  <div class="bg" role="img" aria-label="Le salon du gîte, poêle et banquette"></div>
+  <div class="logo"><img src="https://leviron.fr/_assets/media/1d5b7ff42cd51968910873287cb88f7b.jpg" alt="Le Viron — gîte en Côte Roannaise"></div>
+  <div class="trait"></div>
+  <div class="sous">
+    <p>« Le viron » signifie une petite balade.</p>
+    <a class="btn" href="#sejour">estimer mon séjour <span class="ar">›</span></a>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</section>
+
+<main>
+<section class="pad" id="maison">
+  <div class="wrap intro">
+    <div class="photo reveal"><img src="https://leviron.fr/_assets/media/e27491e8c7e7aff31c72d2bfa86ba81a.jpg" alt="Le salon du gîte Le Viron"></div>
+    <div class="txt">
+      <span class="kicker reveal">Gîte à Renaison</span>
+      <h2 class="reveal d1">Maison de vacances en Côte Roannaise</h2>
+      <p class="def reveal d2">Une maison de famille, au cœur du vignoble.</p>
+      <p class="reveal d2">Cette maison de famille au cœur du vignoble de la Côte Roannaise est parfaitement située pour se promener ou se reposer dans un espace authentique et à toutes les saisons. C'est un gîte idéal pour les familles et groupes d'amis.</p>
+      <div class="pieces reveal d3">
+        <span>Salon</span><span>Salle à manger</span><span>Cuisine équipée</span><span>3 chambres</span><span>2 salles de bain</span><span>3 WC</span><span>Cellier</span><span>Local vélo</span><span>Abri moto</span>
+      </div>
+      <span class="pastille reveal d3">Ouvert en juin 2025</span>
+      <div class="labels reveal d3">
+        <span class="etoiles" aria-label="3 étoiles">★★★</span>
+        <img src="https://leviron.fr/_assets/media/005de229ed80404d0a82986398dca302.jpg" alt="Label Vignobles &amp; Découvertes">
+        <small>Classement Atout France 3 étoiles et label Vignobles &amp; Découvertes, tels qu'affichés sur le site actuel.</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad air">
+  <div class="wrap">
+    <div class="tete">
+      <h2 class="reveal">Prendre l'air</h2>
+      <p class="reveal d1">Partez sur les chemins de randonnée, VTT, depuis la maison, visitez les domaines viticoles. Prenez juste le temps d'apprécier les espaces extérieurs : 2 terrasses, parasols et transats, et la salle de jeux dans la grange…</p>
+    </div>
+    <div class="duo">
+      <figure class="reveal"><img src="https://leviron.fr/_assets/media/eed6815164d0d21ed7ed29af35b1da4b.jpg" alt="Les vignes de la Côte Roannaise autour du gîte"></figure>
+      <figure class="reveal d2"><img src="https://leviron.fr/_assets/media/f9ec01595f82c60fe794e1ba2881af6f.jpg" alt="La grange ouverte sur la terrasse, le soir"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="chambres">
+  <div class="wrap">
+    <span class="kicker reveal">Toutes climatisées</span>
+    <h2 class="reveal d1">3 chambres</h2>
+    <div class="chambres">
+      <article class="ch reveal">
+        <div class="im"><img src="https://leviron.fr/_assets/media/7396f7c6b6cfa90f97cb8f6664ea4ff1.jpg" alt="Chambre 1"></div>
+        <div class="c"><h3>CHAMBRE 1</h3><p>Rez-de-chaussée — climatisée<br>Salle de bain privative</p><div class="lits"><b>1 lit double 160</b></div></div>
+      </article>
+      <article class="ch reveal d1">
+        <div class="im"><img src="https://leviron.fr/_assets/media/a2ade89afd5c346318bef751f913b99c.jpg" alt="Chambre 2"></div>
+        <div class="c"><h3>CHAMBRE 2</h3><p>Étage — climatisée<br>Salle de bain partagée</p><div class="lits"><b>1 lit double 140</b><b>1 lit simple 90</b></div></div>
+      </article>
+      <article class="ch reveal d2">
+        <div class="im"><img src="https://leviron.fr/_assets/media/2e44dcf5581f174031e736944ecb0238.jpg" alt="Chambre 3"></div>
+        <div class="c"><h3>CHAMBRE 3</h3><p>Étage — climatisée<br>Salle de bain partagée</p><div class="lits"><b>4 lits simples 80 (jumelables)</b><b>1 lit enfant 60</b></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="pad vie">
+  <div class="wrap">
+    <h2 class="reveal">Les pièces de vie</h2>
+    <div class="grille">
+      <article class="carte reveal tilt"><h3>Partager de<br>grandes tablées</h3><img src="https://leviron.fr/_assets/media/3d23305cf1d8dd2f79e773b12b4c20f7.jpg" alt="La salle à manger"><p>Un cadre chaleureux, une grande table : notre salle à manger est prête à accueillir vos plus beaux repas en famille ou entre amis.</p></article>
+      <article class="carte reveal d1 tilt"><h3>Cuisiner<br>dans la lumière</h3><img src="https://leviron.fr/_assets/media/a6ac72af7ecd4b36b9bbbb10894413b1.jpg" alt="La cuisine équipée"><p>Une cuisine pensée pour se sentir comme à la maison, baignée de lumière et toute équipée… Pour que cuisiner soit un vrai plaisir.</p></article>
+      <article class="carte reveal d2 tilt"><h3>Profiter<br>de l'espace</h3><img src="https://leviron.fr/_assets/media/f40e6d4f6d446d3cfb7600f3ec272a93.jpg" alt="La façade et la terrasse"><p>Dès le printemps, profitez aussi de la terrasse et de la grange transformée en salle de jeux, un extérieur propice aux longues soirées d'été.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="wrap">
+    <span class="kicker reveal">Pratique !</span>
+    <h2 class="reveal d1">Tout équipé !</h2>
+    <div class="equip">
+      <article class="reveal"><img src="https://leviron.fr/_assets/media/a7dd537325feb4c951b705bb755b776a.jpg" alt="Linge de lit fourni"><ul><li>Lits faits à votre arrivée et serviettes de toilette fournies</li><li>Sèche-cheveux</li><li>Lit bébé (lit parapluie) sans supplément</li><li>Chaise haute sur demande</li></ul></article>
+      <article class="reveal d1"><img src="https://leviron.fr/_assets/media/603f09155c40f352620d16210cce7554.jpg" alt="La vaisselle de la cuisine"><ul><li>Lave-vaisselle, cuisson induction, four</li><li>Cafetière Nespresso et filtre, bouilloire, grille-pain</li><li>Appareil à raclette, vaisselle</li><li>Lave-linge, fer à repasser, cintres, ventilateurs</li></ul></article>
+      <article class="reveal d2"><img src="https://leviron.fr/_assets/media/65b58b03afadaeb899b2f88217bf97b6.jpg" alt="Le babyfoot de la grange"><ul><li>Babyfoot, jeu de fléchettes, pétanque, mölkky</li><li>Télévision, wifi, jeux de société et livres</li><li>Tables extérieures, transats</li><li>Barbecue</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTIL CENTRAL : estimation + demande de réservation ============ -->
+<section class="pad simu" id="sejour">
+  <div class="wrap">
+    <span class="kicker reveal" style="color:#cfdacd">Réservation en direct</span>
+    <h2 class="reveal d1">Estimez votre séjour</h2>
+    <p class="intro-s reveal d2">Choisissez vos dates et le nombre de voyageurs : le montant se calcule tout de suite avec les conditions du gîte, puis votre demande part directement chez Delphine, déjà remplie.</p>
+    <div class="sim">
+      <form class="panneau reveal" id="form" onsubmit="return false">
+        <div class="champ dates">
+          <div><label for="arr">Arrivée</label><input type="date" id="arr"></div>
+          <div><label for="dep">Départ</label><input type="date" id="dep"></div>
+        </div>
+        <div class="champ">
+          <label>Voyageurs</label>
+          <div class="compteur"><span>Adultes<small>18 ans et plus (taxe de séjour)</small></span><span class="ctl"><button type="button" data-k="ad" data-d="-1" aria-label="Moins d'adultes">−</button><output id="ad">4</output><button type="button" data-k="ad" data-d="1" aria-label="Plus d'adultes">+</button></span></div>
+          <div class="compteur"><span>Enfants<small>moins de 18 ans</small></span><span class="ctl"><button type="button" data-k="en" data-d="-1" aria-label="Moins d'enfants">−</button><output id="en">0</output><button type="button" data-k="en" data-d="1" aria-label="Plus d'enfants">+</button></span></div>
+          <div class="compteur"><span>Lit bébé<small>lit parapluie, sans supplément</small></span><span class="ctl"><button type="button" data-k="bb" data-d="-1" aria-label="Retirer le lit bébé">−</button><output id="bb">0</output><button type="button" data-k="bb" data-d="1" aria-label="Ajouter le lit bébé">+</button></span></div>
+          <p class="alerte" id="al-cap"></p>
+        </div>
+        <div class="champ">
+          <label for="nom">Votre nom</label><input type="text" id="nom" placeholder="Prénom Nom" autocomplete="name">
+        </div>
+        <div class="champ">
+          <label for="msg">Un mot pour Delphine (facultatif)</label><textarea id="msg" rows="3" placeholder="Occasion, heure d'arrivée, chaise haute…"></textarea>
+        </div>
+        <p class="alerte" id="al-nuits"></p>
+      </form>
+      <aside class="recap reveal d2" aria-live="polite">
+        <h3>Votre estimation</h3>
+        <p class="note" id="periode">Choisissez vos dates.</p>
+        <div class="ligne"><span>Location du gîte entier<em id="det-loc">à partir de 240 € la nuit</em></span><span id="v-loc">—</span></div>
+        <div class="ligne"><span>Ménage + draps et serviettes<em>frais obligatoires</em></span><span>90 €</span></div>
+        <div class="ligne"><span>Taxe de séjour<em id="det-taxe">0,99 € / pers. / jour, dès 18 ans</em></span><span id="v-taxe">—</span></div>
+        <div class="ligne" id="l-sem" hidden><span>Séjour d'une semaine<em>réduction appliquée par le gîte, montant confirmé à la réponse</em></span><span>réduction</span></div>
+        <div class="total"><span>À partir de</span><strong id="tot">—</strong></div>
+        <p class="note">Tarif indicatif calculé sur le prix plancher affiché (240 €/nuit) ; le tarif exact dépend de la saison et vous est confirmé par le gîte. 2 nuits minimum, et plus selon la saison.</p>
+        <a class="btn plein" id="envoyer" href="mailto:gite.le.viron@gmail.com">envoyer ma demande <span class="ar">›</span></a>
+        <p class="alt">ou par téléphone : <a href="tel:+33666463655">06 66 46 36 55</a> — réservation aussi possible en ligne via <a href="https://loire-mb-prestataire.for-system.com/z8515e3_fr-gite-5-pieces-renaison.aspx?Param/CodeOs=OSMB-133957-1&amp;Globales/ListeIdFournisseur=133957" target="_blank" rel="noopener">Roannais Tourisme</a>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="pad act" id="activites">
+  <div class="wrap">
+    <h2 class="reveal">Les activités</h2>
+    <div class="grid">
+      <img class="reveal" src="https://leviron.fr/_assets/media/5d196fea6c59dca489b9e537e367d96a.jpg" alt="Barrage et lac dans le Roannais">
+      <div class="reveal d1">
+        <div class="onglets" role="tablist">
+          <button role="tab" aria-selected="true" data-v="v1">Sportifs</button>
+          <button role="tab" aria-selected="false" data-v="v2">Familles</button>
+          <button role="tab" aria-selected="false" data-v="v3">Bons produits</button>
+          <button role="tab" aria-selected="false" data-v="v4">Patrimoine</button>
+        </div>
+        <div class="volet on" id="v1"><h3>Pour les sportifs</h3><p>La randonnée : parcours depuis la porte du gîte, golf de Champlong (18 trous), parcours VTT (location de vélos électriques dans le village), nombreux évènements sportifs (trail en Côte Roannaise…).</p></div>
+        <div class="volet" id="v2"><h3>Pour les familles</h3><p>Vélorail à Villerest, Parc de Loisirs Filéo à Renaison, un accrobranche… Les parcs d'attraction Le PAL et Vulcania sont à 1 h de route pour une escapade à la journée.</p></div>
+        <div class="volet" id="v3"><h3>Pour les amateurs de bons produits</h3><p>Visite des domaines viticoles de la Côte Roannaise. Découvrir les bonnes tables du Roannais : auberge à la ferme, gastronomique ou étoilés ! Juste en face de la maison, le caveau du Domaine Sérol est ouvert aux particuliers.</p></div>
+        <div class="volet" id="v4"><h3>Patrimoine et visites culturelles</h3><p>Visite du Château de la Roche et des villages de caractère. Concerts et programmation culturelle du Roannais : demandez le programme !</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="adresses">
+  <div class="wrap">
+    <h2 class="reveal">Restauration<br>&amp; commerces</h2>
+    <div class="adr">
+      <img class="reveal" src="https://leviron.fr/_assets/media/51cb0c9754ec1a84f4ea10285e283d55.jpg" alt="Les vignes de la Côte Roannaise à l'automne">
+      <div class="reveal d1">
+        <div class="bloc"><h4>RENAISON</h4>
+          <div class="it"><b>Les Gens heureux</b><span>Café, épicerie fine et restaurant</span></div>
+          <div class="it"><b>La Maison</b><span>Café, bar à vin, menu du jour</span></div>
+          <div class="it"><b>Brasserie des Vignes</b><span>Café et restaurant</span></div>
+          <div class="it"><b>Le 1451</b><span>Restaurant gastronomique</span></div>
+        </div>
+        <div class="bloc"><h4>ST-HAON-LE-VIEUX</h4><div class="it"><b>Les petits pois sont rouges</b><span>Restaurant : cuisine végétale (été uniquement)</span></div></div>
+        <div class="bloc"><h4>ST-HAON-LE-CHÂTEL</h4><div class="it"><b>La Bastide de Châtel</b><span>Cuisine française et locale</span></div></div>
+      </div>
+      <div class="reveal d2">
+        <div class="bloc"><h4>RENAISON — VINS</h4>
+          <div class="it"><b>Domaine Sérol</b><span>Juste en face de la maison, le caveau est ouvert aux particuliers</span></div>
+          <div class="it"><b>Maison J.B. Clair</b><span>Spécialité de la maison : des vins effervescents « Méthode Traditionnelle »</span></div>
+        </div>
+        <div class="bloc"><h4>TERROIR ET BONS PRODUITS</h4><p>Maison Pralus (praluline et chocolats), pain, fromager affineur Maison Mons, 2 boucheries Lapalus et Gonin, Les Prés d'Ici magasin de producteurs, Les petits pois sont rouges maraîcher.<br><br>Marché : le vendredi matin à Roanne, samedi matin à Renaison.</p></div>
+        <div class="bloc"><h4>AUTRES COMMERCES</h4><p>3 boulangeries, pharmacie, supermarché, magasin bio, fleuriste… Les autres bonnes adresses sont dans le gîte !</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad gal" aria-label="Galerie">
+  <div class="wrap">
+    <h2 class="reveal">La maison en images</h2>
+    <div class="mur" id="mur"></div>
+  </div>
+</section>
+<div class="lb" id="lb" role="dialog" aria-label="Photo agrandie"><button class="x" aria-label="Fermer">×</button><button class="p" aria-label="Précédente">‹</button><img alt=""><button class="n" aria-label="Suivante">›</button></div>
+
+<section class="pad">
+  <div class="wrap">
+    <span class="kicker reveal">Ils sont venus</span>
+    <h2 class="reveal d1">Les mots des voyageurs</h2>
+    <div class="avis">
+      <blockquote class="reveal"><p>Nous avons passé un magnifique séjour chez Delphine. L'accueil fut très chaleureux. La maison est très bien décorée et équipée. Il y a de très nombreuses activités, visites et balades à faire autour du gîte. Nous reviendrons avec grand plaisir !</p><cite>Marion — mai 2026</cite></blockquote>
+      <blockquote class="reveal d1"><p>Des hôtes merveilleux. Nous avons visité la région pour un mariage en famille et avons passé un merveilleux séjour. […] La visite des fromages locaux recommandée par Delphine était incroyable. J'ai adoré !!</p><cite>Martyn, Angleterre — juillet 2026</cite></blockquote>
+      <blockquote class="reveal d2"><p>Nous avons passé un excellent séjour dans le gîte de Delphine. Hôte très réactive avec d'excellents conseils pour découvrir les environs. La maison est agréable et fonctionnelle, et décorée avec beaucoup de goût. On s'y sent comme à la maison !</p><cite>Margot — octobre 2026</cite></blockquote>
+    </div>
+    <p class="src">Avis repris tels que publiés sur le site actuel du gîte.</p>
+  </div>
+</section>
+
+<section class="pad contact" id="contact">
+  <div class="wrap g">
+    <div class="reveal">
+      <span class="kicker" style="color:#cfdacd">Un contact direct</span>
+      <h2>Gîte Le Viron</h2>
+      <a class="tel" href="tel:+33666463655">06 66 46 36 55</a><br>
+      <a href="mailto:gite.le.viron@gmail.com">gite.le.viron@gmail.com</a>
+      <p style="margin-top:14px">554 montée des James<br>42370 Renaison</p>
+      <ul>
+        <li>Location toute l'année — durée et tarif selon saison</li>
+        <li>2 nuits minimum, et plus selon saison</li>
+        <li>À partir de 240 € la nuit (gîte entier), réduction à la semaine</li>
+        <li>Accès : à 2 km du bourg de Renaison, suivre le Domaine « Sérol », route des Vins</li>
+        <li>La maison est non fumeur, les animaux ne sont pas acceptés</li>
+      </ul>
+      <p style="margin-top:16px">Suivez-nous : <a href="https://www.instagram.com/gite.leviron/" target="_blank" rel="noopener">@gite.leviron</a></p>
+    </div>
+    <div class="carte-acces reveal d2">
+      <iframe title="Accès au gîte Le Viron" loading="lazy" src="https://www.google.com/maps?q=554+mont%C3%A9e+des+James+42370+Renaison&amp;output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Maquette de démonstration réalisée pour le Gîte Le Viron — non contractuelle. Les montants affichés par l'estimateur sont indicatifs, calculés sur les conditions publiées sur leviron.fr (à partir de 240 €/nuit, frais de ménage et linge 90 €, taxe de séjour 0,99 €/pers./jour dès 18 ans) ; le tarif exact reste fixé par le gîte selon la saison.</p>
+    <p>Toutes les photos, le logo et les textes proviennent du site actuel leviron.fr. Couleurs relevées sur le site actuel, ajustables. Le classement et le label sont repris tels qu'affichés sur le site actuel.</p>
+  </div>
+</footer>
+
+<div class="barre"><a class="a1" href="tel:+33666463655">Appeler</a><a class="a2" href="#sejour">Estimer mon séjour</a></div>
+
+<script>
+(function(){
+  /* nav */
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40),{passive:true});
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+  menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+  const liens=[...menu.querySelectorAll('a')];
+  /* reveals */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal,.intro .photo,.air figure').forEach(el=>io.observe(el));
+  const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){liens.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>io2.observe(s));
+  /* tilt cartes */
+  if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    document.querySelectorAll('.tilt').forEach(c=>{
+      c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*6}deg) rotateX(${-y*6}deg) translateY(-4px)`});
+      c.addEventListener('mouseleave',()=>c.style.transform='');
+    });
+  }
+  /* onglets */
+  const tabs=document.querySelectorAll('[role=tab]');
+  tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>x.setAttribute('aria-selected',x===t));document.querySelectorAll('.volet').forEach(v=>v.classList.toggle('on',v.id===t.dataset.v))});
+
+  /* galerie */
+  const photos=['e875d37e9062e612dbd5f795bd80c88c','7d59845e7126db4ff060759522580125','629b411596f77e44c48c4430afa583ff','ee612af9baaf8fd1fb9b0b2e54f69322','7a34fbd06a3b62c5a6a45273965eff7b','1bf8f658f984f5f300d3d556a7c7c511','45b3efbc284f02442f68cdd138d11ec8','a6ac72af7ecd4b36b9bbbb10894413b1'].map(h=>`https://leviron.fr/_assets/media/${h}.jpg`);
+  const mur=document.getElementById('mur'),lb=document.getElementById('lb'),lbi=lb.querySelector('img');let idx=0;
+  photos.forEach((p,i)=>{const b=document.createElement('button');b.className='reveal';b.innerHTML=`<img loading="lazy" src="${p}" alt="Photo du gîte ${i+1}">`;b.onclick=()=>ouvre(i);mur.appendChild(b);io.observe(b)});
+  function ouvre(i){idx=(i+photos.length)%photos.length;lbi.src=photos[idx];lb.classList.add('on')}
+  lb.querySelector('.x').onclick=()=>lb.classList.remove('on');
+  lb.querySelector('.p').onclick=()=>ouvre(idx-1);lb.querySelector('.n').onclick=()=>ouvre(idx+1);
+  lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+  addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')ouvre(idx-1);if(e.key==='ArrowRight')ouvre(idx+1)});
+
+  /* ===== estimateur ===== */
+  const PRIX=240, FRAIS=90, TAXE=0.99, MIN=2, COUCHAGES=9; // 160 (2) + 140 (2) + 90 (1) + 4×80 (4) ; + 1 lit enfant 60
+  const v={ad:4,en:0,bb:0};
+  const $=id=>document.getElementById(id);
+  const arr=$('arr'),dep=$('dep');
+  const auj=new Date();auj.setHours(0,0,0,0);
+  const iso=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+  arr.min=iso(auj);
+  const a0=new Date(auj);a0.setDate(a0.getDate()+((5-a0.getDay()+7)%7||7));const d0=new Date(a0);d0.setDate(d0.getDate()+2);
+  arr.value=iso(a0);dep.value=iso(d0);
+  const eur=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:n%1?2:0,maximumFractionDigits:2})+' €';
+  const fmt=s=>new Date(s+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  let affiche=0;
+  function anim(to){const from=affiche,t0=performance.now();affiche=to;const el=$('tot');
+    (function f(t){const k=Math.min(1,(t-t0)/600),e=1-Math.pow(1-k,3);el.textContent=eur(Math.round((from+(to-from)*e)*100)/100);if(k<1)requestAnimationFrame(f)})(t0)}
+  function calc(){
+    $('ad').value=v.ad;$('en').value=v.en;$('bb').value=v.bb;
+    const pers=v.ad+v.en, cap=$('al-cap');
+    cap.classList.toggle('on',pers>COUCHAGES);
+    cap.textContent=pers>COUCHAGES?`La maison compte ${COUCHAGES} couchages (plus un lit enfant) : précisez la composition de votre groupe dans votre message.`:'';
+    if(dep.value&&arr.value&&dep.value<=arr.value){const d=new Date(arr.value);d.setDate(d.getDate()+MIN);dep.value=iso(d)}
+    if(arr.value)dep.min=arr.value;
+    const n=Math.round((new Date(dep.value)-new Date(arr.value))/864e5)||0;
+    const al=$('al-nuits');al.classList.toggle('on',n>0&&n<MIN);al.textContent=n<MIN?'Le gîte se loue 2 nuits minimum (et plus selon la saison).':'';
+    if(n<=0){$('periode').textContent='Choisissez vos dates.';return}
+    const loc=n*PRIX, taxe=Math.round(v.ad*n*TAXE*100)/100;
+    $('periode').textContent=`Du ${fmt(arr.value)} au ${fmt(dep.value)} — ${n} nuit${n>1?'s':''}, ${pers} voyageur${pers>1?'s':''}${v.bb?' + bébé':''}`;
+    $('det-loc').textContent=`${n} nuit${n>1?'s':''} × à partir de ${PRIX} €`;
+    $('v-loc').textContent=eur(loc);
+    $('det-taxe').textContent=`${v.ad} adulte${v.ad>1?'s':''} × ${n} jour${n>1?'s':''} × 0,99 €`;
+    $('v-taxe').textContent=eur(taxe);
+    $('l-sem').hidden=n<7;
+    anim(loc+FRAIS+taxe);
+    const corps=`Bonjour Delphine,\n\nJe souhaiterais séjourner au gîte Le Viron :\n- Arrivée : ${fmt(arr.value)}\n- Départ : ${fmt(dep.value)} (${n} nuits)\n- ${v.ad} adulte(s), ${v.en} enfant(s)${v.bb?', lit bébé souhaité':''}\n\nEstimation affichée sur le site : à partir de ${eur(loc+FRAIS+taxe)} (ménage, linge et taxe de séjour compris).\n${$('msg').value?'\n'+$('msg').value+'\n':''}\nMerci de me confirmer la disponibilité et le tarif exact.\n\n${$('nom').value||''}`;
+    $('envoyer').href='mailto:gite.le.viron@gmail.com?subject='+encodeURIComponent('Demande de séjour — '+fmt(arr.value))+'&body='+encodeURIComponent(corps);
+  }
+  document.querySelectorAll('.compteur button').forEach(b=>b.onclick=()=>{const k=b.dataset.k,lim={ad:[1,12],en:[0,10],bb:[0,1]}[k];v[k]=Math.max(lim[0],Math.min(lim[1],v[k]+ +b.dataset.d));calc()});
+  ['arr','dep','nom','msg'].forEach(id=>$(id).addEventListener('input',calc));
+  calc();
+})();
+</script>
+</body>
+</html>
