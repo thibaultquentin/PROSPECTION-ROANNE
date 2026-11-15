@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Fée Viviane — Chambres d'hôtes à Villerest, bourg médiéval près de Roanne</title>
+<meta name="description" content="Trois suites dans une maison ancienne et classée du bourg médiéval de Villerest, à deux pas de Roanne. Piscine, petit-déjeuner compris, ouvert toute l'année.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE — La Fée Viviane n'a pas de site propre ni de logo en ligne :
+   les couleurs ci-dessous sont tirées des photos de la maison
+   (pierre dorée, colombages, plaid bleu canard, jaune moutarde).
+   Elles se remplacent ici en quelques lignes.
+   ============================================================ */
+:root{
+  --chaux:#FAF7F2;        /* murs blanchis */
+  --chaux-2:#F1EBE1;
+  --pierre:#9A6440;       /* pierre dorée du bourg */
+  --colombage:#2A201A;    /* bois des pans de bois */
+  --canard:#1E6670;       /* plaid bleu canard des chambres */
+  --canard-2:#15505A;
+  --moutarde:#E2A72E;     /* jaune moutarde (couvre-lit, chaises) */
+  --texte:#2A201A;
+  --texte-doux:#5E5148;
+  --font-titre:"Fraunces", Georgia, serif;
+  --font-texte:"Instrument Sans", system-ui, sans-serif;
+  --rayon:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--chaux);line-height:1.6;font-size:clamp(1rem,.95rem + .2vw,1.08rem);overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--moutarde);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--colombage);color:#d8cfc6;font-size:.82rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:#fff;font-weight:600}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.86);backdrop-filter:blur(10px) saturate(150%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:#e6ddd1;box-shadow:0 6px 24px -18px rgba(42,32,26,.5)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
+.brand{font-family:var(--font-titre);font-size:1.35rem;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.brand svg{width:22px;height:22px;color:var(--moutarde)}
+.nav ul{list-style:none;display:flex;gap:1.6rem;font-size:.95rem}
+.nav ul a{text-decoration:none;position:relative;padding:.3rem 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--canard);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;font:600 .95rem var(--font-texte);text-decoration:none;padding:.8rem 1.35rem;border-radius:999px;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:44px}
+.btn:active{transform:scale(.96)}
+.btn-canard{background:var(--canard);color:#fff}
+.btn-canard:hover{background:var(--canard-2);transform:translateY(-2px);box-shadow:0 10px 24px -12px var(--canard)}
+.btn-moutarde{background:var(--moutarde);color:var(--colombage)}
+.btn-moutarde:hover{transform:translateY(-2px);box-shadow:0 10px 24px -12px #b9831a}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.6)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:22px;height:2px;background:var(--texte);margin:5px auto;transition:.3s}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,820px);display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero__img{position:absolute;inset:-6% 0 0 0;z-index:-2;background:url("https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/10732e9084e835ca-800x520.webp") center 40%/cover;transform:scale(1.08);animation:lent 18s var(--ease) forwards}
+@keyframes lent{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(42,32,26,.15) 0%,rgba(42,32,26,.35) 45%,rgba(30,22,17,.88) 100%)}
+.hero .wrap{padding-block:clamp(3rem,8vw,6rem)}
+.hero__kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:#f3dfb4;margin-bottom:1rem}
+.hero h1{font-family:var(--font-titre);font-weight:600;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:1.02;max-width:14ch;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--moutarde);position:relative}
+.hero__lead{max-width:46ch;margin:1.2rem 0 2rem;font-size:clamp(1.05rem,1rem + .4vw,1.25rem);color:#efe7de}
+.hero__cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero__facts{display:flex;gap:clamp(1rem,4vw,3rem);margin-top:2.6rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.22);flex-wrap:wrap}
+.hero__facts div{font-size:.9rem;color:#d9cfc4}
+.hero__facts strong{display:block;font-family:var(--font-titre);font-size:1.6rem;color:#fff;font-weight:600}
+.sparkle{position:fixed;pointer-events:none;z-index:90;width:8px;height:8px;border-radius:50%;background:radial-gradient(circle,#fff6d6 0%,var(--moutarde) 45%,transparent 70%);animation:poudre .9s ease-out forwards}
+@keyframes poudre{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+
+/* frise colombage */
+.colombage{height:34px;color:var(--colombage);opacity:.9}
+.colombage svg{width:100%;height:100%}
+
+/* sections */
+section{padding-block:clamp(4rem,9vw,7rem)}
+.eyebrow{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--pierre);font-weight:600;margin-bottom:.8rem;display:block}
+h2{font-family:var(--font-titre);font-weight:600;font-size:clamp(2rem,1.5rem + 2.2vw,3.3rem);line-height:1.08;letter-spacing:-.01em;max-width:20ch}
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.intro p{color:var(--texte-doux);margin-top:1.2rem;max-width:52ch}
+.intro__quote{font-family:var(--font-titre);font-size:clamp(1.3rem,1.1rem + .8vw,1.8rem);font-style:italic;line-height:1.35;color:var(--canard);border-left:3px solid var(--moutarde);padding-left:1.2rem;margin-top:1.6rem}
+.intro__pics{position:relative;height:clamp(360px,42vw,520px)}
+.intro__pics figure{position:absolute;border-radius:var(--rayon);overflow:hidden;box-shadow:0 30px 60px -30px rgba(42,32,26,.55)}
+.intro__pics figure:nth-child(1){inset:0 22% 18% 0}
+.intro__pics figure:nth-child(2){inset:42% 0 0 38%;border:6px solid var(--chaux)}
+.intro__pics img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.intro__pics figure:hover img{transform:scale(1.05)}
+
+/* galerie */
+.galerie{background:var(--colombage);color:#f2ebe3}
+.galerie .eyebrow{color:var(--moutarde)}
+.galerie__head{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.2rem}
+.filtres{display:flex;gap:.5rem;flex-wrap:wrap}
+.filtres button{background:transparent;color:#e5dbd0;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:.55rem 1.05rem;font:500 .9rem var(--font-texte);cursor:pointer;transition:.25s;min-height:44px}
+.filtres button[aria-pressed="true"],.filtres button:hover{background:var(--moutarde);color:var(--colombage);border-color:var(--moutarde)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:12px}
+.grid figure{position:relative;overflow:hidden;border-radius:10px;cursor:zoom-in;transition:opacity .4s,transform .4s var(--ease)}
+.grid figure.big{grid-column:span 2;grid-row:span 2}
+.grid figure.wide{grid-column:span 2}
+.grid figure.hide{display:none}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.grid figure:hover img{transform:scale(1.06)}
+.grid figcaption{position:absolute;left:10px;bottom:10px;background:rgba(42,32,26,.72);backdrop-filter:blur(6px);color:#fff;font-size:.8rem;padding:.3rem .7rem;border-radius:999px;opacity:0;transform:translateY(6px);transition:.3s}
+.grid figure:hover figcaption,.grid figure:focus-within figcaption{opacity:1;transform:none}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(20,15,12,.92);display:none;place-items:center;padding:1.5rem}
+.lightbox.open{display:grid}
+.lightbox img{max-height:82vh;border-radius:10px}
+.lightbox p{color:#ddd;text-align:center;margin-top:.8rem}
+.lightbox button{position:absolute;top:1rem;right:1rem;background:#fff;border:0;border-radius:50%;width:44px;height:44px;font-size:1.3rem;cursor:pointer}
+
+/* chambres / équipements */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
+.card{background:#fff;border:1px solid #ebe2d6;border-radius:var(--rayon);padding:1.6rem;transition:transform .35s var(--ease),box-shadow .35s}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(42,32,26,.5)}
+.card h3{font-family:var(--font-titre);font-weight:600;font-size:1.3rem;margin:.6rem 0 .5rem}
+.card p,.card li{color:var(--texte-doux);font-size:.97rem}
+.card ul{list-style:none;display:grid;gap:.35rem}
+.card li::before{content:"✦";color:var(--moutarde);margin-right:.5rem;font-size:.8rem}
+.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--chaux-2);color:var(--canard)}
+.ico svg{width:24px;height:24px}
+
+/* simulateur */
+.simu{background:linear-gradient(180deg,var(--chaux-2),var(--chaux))}
+.simu__box{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:#fff;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -50px rgba(42,32,26,.6);margin-top:2.4rem;border:1px solid #ebe2d6}
+.simu__form{padding:clamp(1.5rem,4vw,2.8rem);display:grid;gap:1.4rem}
+.field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:.45rem}
+.field small{color:var(--texte-doux);font-weight:400}
+.dates{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+input[type=date],input[type=text],input[type=email],textarea{width:100%;font:inherit;padding:.75rem .9rem;border:1.5px solid #ddd2c4;border-radius:10px;background:var(--chaux);color:var(--texte);min-height:44px}
+input:focus,textarea:focus{border-color:var(--canard);outline:none;box-shadow:0 0 0 3px rgba(30,102,112,.15)}
+.stepper{display:flex;align-items:center;gap:.8rem}
+.stepper button{width:44px;height:44px;border-radius:50%;border:1.5px solid #ddd2c4;background:var(--chaux);font-size:1.3rem;cursor:pointer;transition:.2s}
+.stepper button:hover{border-color:var(--canard);color:var(--canard)}
+.stepper output{font-family:var(--font-titre);font-size:1.8rem;min-width:2ch;text-align:center}
+.persos{display:flex;gap:4px;margin-left:.4rem}
+.persos i{width:12px;height:22px;border-radius:6px 6px 3px 3px;background:#e4dacd;transition:background .3s,transform .3s var(--ease)}
+.persos i.on{background:var(--canard);transform:translateY(-3px)}
+.formules{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.formule{position:relative;border:1.5px solid #ddd2c4;border-radius:12px;padding:1rem;cursor:pointer;transition:.25s;background:var(--chaux)}
+.formule input{position:absolute;opacity:0}
+.formule strong{display:block;font-size:1rem}
+.formule span{font-size:.85rem;color:var(--texte-doux)}
+.formule:has(input:checked){border-color:var(--canard);background:#eef6f6;box-shadow:inset 0 0 0 1px var(--canard)}
+.formule:has(input:focus-visible){outline:3px solid var(--moutarde);outline-offset:2px}
+.simu__res{background:var(--canard);color:#fff;padding:clamp(1.5rem,4vw,2.8rem);display:flex;flex-direction:column;gap:1rem;position:relative;overflow:hidden}
+.simu__res::before{content:"";position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(226,167,46,.35),transparent 65%);top:-120px;right:-120px}
+.simu__res .eyebrow{color:#f3dfb4}
+.prix{font-family:var(--font-titre);font-size:clamp(2.6rem,2rem + 2.5vw,3.8rem);line-height:1;font-weight:600}
+.prix small{font-size:1rem;font-family:var(--font-texte);font-weight:400;color:#cfe3e4}
+.detail{font-size:.95rem;color:#dcecec;display:grid;gap:.35rem}
+.detail div{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed rgba(255,255,255,.2);padding-bottom:.35rem}
+.conseil{background:rgba(255,255,255,.1);border-radius:12px;padding:.9rem 1rem;font-size:.92rem;border-left:3px solid var(--moutarde)}
+.simu__res .btn{align-self:flex-start;margin-top:auto}
+.mini{font-size:.78rem;color:#bcd7d8}
+.alerte{color:#ffd9a0;font-size:.9rem;min-height:1.2em}
+
+/* autour */
+.autour{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+.balade{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1.2rem 0;border-bottom:1px solid #e6ddd1}
+.balade:first-of-type{border-top:1px solid #e6ddd1}
+.balade .km{font-family:var(--font-titre);font-size:2rem;color:var(--pierre);min-width:3.4ch}
+.balade h3{font-size:1.08rem}
+.balade p{font-size:.9rem;color:var(--texte-doux)}
+.tag{font-size:.78rem;padding:.25rem .65rem;border-radius:999px;background:var(--chaux-2);white-space:nowrap}
+.velo{margin-top:1.6rem;display:flex;gap:1rem;align-items:center;background:#fff;border:1px solid #ebe2d6;border-radius:var(--rayon);padding:1.1rem 1.3rem}
+
+/* infos pratiques */
+.infos{background:var(--colombage);color:#efe6dc}
+.infos .eyebrow{color:var(--moutarde)}
+.infos__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:2.4rem}
+.infos h3{font-family:var(--font-titre);font-weight:600;font-size:1.15rem;margin-bottom:.6rem;color:#fff}
+.infos p,.infos li{font-size:.95rem;color:#cfc3b6;list-style:none}
+.infos a{color:#fff}
+.contact-cta{margin-top:3rem;display:flex;gap:.8rem;flex-wrap:wrap}
+
+footer{background:#1d1612;color:#a99c8f;font-size:.85rem;padding:2.2rem 0}
+footer p+p{margin-top:.6rem}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+  .intro,.autour,.simu__box{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr 1fr}
+  .infos__grid{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+}
+@media (max-width:760px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--chaux);padding:1.2rem 1.5rem 1.6rem;gap:1rem;border-bottom:1px solid #e6ddd1;transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .btn-canard{display:none}
+  .cols,.infos__grid{grid-template-columns:1fr}
+  .formules,.dates{grid-template-columns:1fr}
+  .grid figure.big,.grid figure.wide{grid-column:span 2}
+  .balade{grid-template-columns:auto 1fr}
+  .balade .tag{grid-column:2}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BedAndBreakfast",
+  "name":"La Fée Viviane",
+  "description":"Trois suites situées dans le bourg médiéval de Villerest. Maison ancienne, atypique et classée.",
+  "address":{"@type":"PostalAddress","streetAddress":"9 rue de Bise","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"},
+  "telephone":["+33671998217","+33624280874"],
+  "email":"lafeeviviane42@gmail.com",
+  "areaServed":["Villerest","Roanne","Roannais"],
+  "numberOfRooms":3,
+  "petsAllowed":false,
+  "priceRange":"120 € – 130 € la nuit, petit-déjeuner compris",
+  "availableLanguage":["fr","en"],
+  "amenityFeature":[
+    {"@type":"LocationFeatureSpecification","name":"Piscine","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wifi","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Abri vélos","value":true}
+  ],
+  "image":"https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/10732e9084e835ca-800x520.webp"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de site</b> pour La Fée Viviane, Villerest</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="La Fée Viviane, accueil">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1l2.2 7.8L22 11l-7.8 2.2L12 21l-2.2-7.8L2 11l7.8-2.2z"/></svg>
+      La Fée Viviane
+    </a>
+    <ul id="menu">
+      <li><a href="#maison">La maison</a></li>
+      <li><a href="#galerie">En images</a></li>
+      <li><a href="#sejour">Votre séjour</a></li>
+      <li><a href="#autour">Autour de Villerest</a></li>
+      <li><a href="#infos">Infos & contact</a></li>
+    </ul>
+    <a href="#sejour" class="btn btn-canard">Demander mes dates</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-label="Présentation">
+    <div class="hero__img" role="img" aria-label="La façade à colombages de la maison, rue de Bise, dans le bourg médiéval de Villerest"></div>
+    <div class="wrap">
+      <span class="hero__kicker">✦ Chambres d'hôtes · Villerest, près de Roanne</span>
+      <h1 id="titre">Une nuit chez <em>la Fée</em>, au cœur du bourg médiéval</h1>
+      <p class="hero__lead">Trois suites situées dans le bourg médiéval de Villerest. Maison ancienne, atypique et classée.</p>
+      <div class="hero__cta">
+        <a href="#sejour" class="btn btn-moutarde">Estimer mon séjour</a>
+        <a href="#galerie" class="btn btn-ghost">Visiter la maison</a>
+      </div>
+      <div class="hero__facts">
+        <div><strong>3</strong>suites</div>
+        <div><strong>6</strong>personnes max.</div>
+        <div><strong>365 j</strong>ouvert toute l'année</div>
+        <div><strong>dès 120 €</strong>petit-déjeuner compris</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="colombage" aria-hidden="true">
+    <svg viewBox="0 0 240 34" preserveAspectRatio="none"><defs><pattern id="pb" width="60" height="34" patternUnits="userSpaceOnUse"><rect width="60" height="34" fill="#9A6440" opacity=".18"/><path d="M0 2H60M0 32H60M0 2L30 32M30 2L60 32M30 2V32" stroke="currentColor" stroke-width="4" fill="none"/></pattern></defs><rect width="240" height="34" fill="url(#pb)"/></svg>
+  </div>
+
+  <section id="maison">
+    <div class="wrap intro">
+      <div class="reveal">
+        <span class="eyebrow">La maison</span>
+        <h2>Pierre, pans de bois et un brin de magie</h2>
+        <p>Au 9 rue de Bise, la maison ouvre ses portes dans les ruelles du vieux Villerest. Une demeure ancienne et classée, où se mêlent murs de pierre, poutres, couleurs franches et objets de caractère, avec une piscine nichée dans la cour.</p>
+        <p>Trois suites pour six personnes au plus, un séjour commun avec cuisine, et la possibilité de privatiser toute la maison en formule gîte.</p>
+        <p class="intro__quote">« Trois suites situées dans le bourg médiéval de Villerest. Maison ancienne, atypique et classée. »</p>
+      </div>
+      <div class="intro__pics reveal">
+        <figure><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/e203a69bd30470db-800x520.webp" alt="La pièce de vie aux murs de pierre et sa grande table" loading="lazy"></figure>
+        <figure><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/58c01249c7dbf631-800x520.webp" alt="La piscine nichée dans la cour" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="galerie" id="galerie">
+    <div class="wrap">
+      <div class="galerie__head reveal">
+        <div>
+          <span class="eyebrow">En images</span>
+          <h2>Faites le tour de la maison</h2>
+        </div>
+        <div class="filtres" role="group" aria-label="Filtrer les photos">
+          <button aria-pressed="true" data-f="tout">Tout</button>
+          <button aria-pressed="false" data-f="chambre">Chambres</button>
+          <button aria-pressed="false" data-f="vie">Pièce de vie</button>
+          <button aria-pressed="false" data-f="piscine">Piscine</button>
+          <button aria-pressed="false" data-f="ext">Extérieur</button>
+        </div>
+      </div>
+      <div class="grid" id="grid">
+        <figure class="big" data-c="chambre" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/7431e3dcc805db20-800x520.webp" alt="Chambre de la Fée" loading="lazy"><figcaption>Chambre de la Fée</figcaption></figure>
+        <figure data-c="vie" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/7fa0984b706d8dc2-800x520.webp" alt="Pièce de vie" loading="lazy"><figcaption>Pièce de vie</figcaption></figure>
+        <figure data-c="piscine" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/3fcc5602d3ff7093-800x520.webp" alt="Piscine" loading="lazy"><figcaption>Piscine</figcaption></figure>
+        <figure data-c="chambre" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/993e11e52c129bb4-800x520.webp" alt="Chambre" loading="lazy"><figcaption>Chambre</figcaption></figure>
+        <figure data-c="ext" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/f3cf8290c2ea34ea-800x520.webp" alt="Vue extérieure, les colombages" loading="lazy"><figcaption>Vue extérieure</figcaption></figure>
+        <figure class="wide" data-c="vie" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/20bd10c9fbfb77d2-800x520.webp" alt="Table à manger" loading="lazy"><figcaption>Table à manger</figcaption></figure>
+        <figure data-c="chambre" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/8d53113da5a0659a-800x520.webp" alt="Chambre" loading="lazy"><figcaption>Chambre</figcaption></figure>
+        <figure data-c="ext" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/1c885a2fd80dc778-800x520.webp" alt="Entrée de la maison" loading="lazy"><figcaption>Entrée</figcaption></figure>
+        <figure class="wide" data-c="piscine" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/58c01249c7dbf631-800x520.webp" alt="Piscine" loading="lazy"><figcaption>Piscine</figcaption></figure>
+        <figure data-c="vie" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/e203a69bd30470db-800x520.webp" alt="Pièce de vie" loading="lazy"><figcaption>Pièce de vie</figcaption></figure>
+        <figure data-c="ext" tabindex="0"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5741423/10732e9084e835ca-800x520.webp" alt="Vue extérieure sur la rue de Bise" loading="lazy"><figcaption>Vue extérieure</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="chambres">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Le confort</span>
+        <h2>Tout ce qu'il faut pour poser ses valises</h2>
+      </div>
+      <div class="cols">
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 18V8M21 18v-5a3 3 0 0 0-3-3H10v8M3 14h18M6.5 11.5a1.5 1.5 0 1 0 0-.01"/></svg></div>
+          <h3>Trois suites</h3>
+          <ul><li>3 lits doubles, 2 lits simples</li><li>Jusqu'à 6 personnes</li><li>Draps et linge compris</li><li>Baignoire ou douche</li><li>Lit et chaise bébé sur place</li></ul>
+        </article>
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11h16M6 11V7a6 6 0 0 1 12 0v4M5 11l1 9h12l1-9"/></svg></div>
+          <h3>Le petit-déjeuner</h3>
+          <p>Compris dans le prix de la nuit en chambre d'hôtes. Le séjour commun dispose d'une cuisine équipée : plaque à induction, micro-ondes, réfrigérateur, bouilloire, machine à café.</p>
+        </article>
+        <article class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5M7 15V5a2 2 0 0 1 4 0M13 15V5a2 2 0 0 1 4 0M7 9h6M7 12h6"/></svg></div>
+          <h3>Piscine & détente</h3>
+          <p>Une piscine dans la cour, entre les vieux murs. Wifi, télévision, canapé convertible, lave-linge collectif. Maison non fumeur.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="simu" id="sejour">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow">Votre séjour</span>
+        <h2>Combien de nuits, combien de personnes ?</h2>
+        <p style="color:var(--texte-doux);margin-top:1rem;max-width:58ch">Choisissez vos dates et votre formule : le prix s'affiche tout de suite, et votre demande part directement à la maison, déjà remplie.</p>
+      </div>
+      <div class="simu__box reveal">
+        <form class="simu__form" id="simu" onsubmit="return false">
+          <div class="field">
+            <label>Vos dates</label>
+            <div class="dates">
+              <input type="date" id="arr" aria-label="Date d'arrivée">
+              <input type="date" id="dep" aria-label="Date de départ">
+            </div>
+          </div>
+          <div class="field">
+            <label>Voyageurs <small>(6 au maximum)</small></label>
+            <div class="stepper">
+              <button type="button" id="moins" aria-label="Retirer une personne">−</button>
+              <output id="nb" aria-live="polite">2</output>
+              <button type="button" id="plus" aria-label="Ajouter une personne">+</button>
+              <span class="persos" id="persos" aria-hidden="true"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Formule</label>
+            <div class="formules">
+              <label class="formule"><input type="radio" name="f" value="ch" checked><strong>Chambres d'hôtes</strong><span>120 à 130 € la nuit par chambre, petit-déjeuner compris</span></label>
+              <label class="formule"><input type="radio" name="f" value="gite"><strong>Toute la maison</strong><span>3 chambres + cuisine, 300 € la nuit, hors petit-déjeuner</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="nom">Votre nom</label>
+            <input type="text" id="nom" placeholder="Prénom Nom" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="msg">Un mot pour la maison <small>(facultatif)</small></label>
+            <textarea id="msg" rows="2" placeholder="Arrivée en vélo, heure d'arrivée, occasion particulière…"></textarea>
+          </div>
+        </form>
+        <div class="simu__res" aria-live="polite">
+          <span class="eyebrow">Estimation</span>
+          <div class="prix" id="prix">—</div>
+          <div class="detail" id="detail"></div>
+          <div class="conseil" id="conseil">Choisissez vos dates pour voir le prix de votre séjour.</div>
+          <p class="alerte" id="alerte"></p>
+          <a class="btn btn-moutarde" id="envoyer" href="mailto:lafeeviviane42@gmail.com">Envoyer ma demande</a>
+          <p class="mini">Taxe de séjour incluse. Tarifs 2026 issus de la fiche Roannais Tourisme, indicatifs : la disponibilité et le prix définitif sont confirmés par la maison.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="autour">
+    <div class="wrap autour">
+      <div class="reveal">
+        <span class="eyebrow">Autour de Villerest</span>
+        <h2>Partir à pied depuis la porte</h2>
+        <p style="color:var(--texte-doux);margin-top:1rem">Deux boucles balisées partent du village, de quoi ouvrir l'appétit avant le dîner ou digérer le petit-déjeuner.</p>
+        <div class="velo">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="5.5" cy="17" r="3.5"/><circle cx="18.5" cy="17" r="3.5"/><path d="M5.5 17l4-8h6l3 8M9.5 9L8 6H6M15.5 9l-3 8"/></svg></div>
+          <p><strong>À vélo ?</strong> Un garage accueille les vélos pendant votre séjour.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="balade">
+          <span class="km">5,5</span>
+          <div><h3>La boucle des 2 ponts</h3><p>km · 1 h 45 · 100 m de dénivelé</p></div>
+          <span class="tag">Facile</span>
+        </div>
+        <div class="balade">
+          <span class="km">8,5</span>
+          <div><h3>Le chemin des puits</h3><p>km · 2 h 30 · 100 m de dénivelé</p></div>
+          <span class="tag">Modéré</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="infos" id="infos">
+    <div class="wrap">
+      <span class="eyebrow">Infos & contact</span>
+      <h2>On vous attend rue de Bise</h2>
+      <div class="infos__grid">
+        <div><h3>Adresse</h3><p>9 rue de Bise<br>42300 Villerest</p><p style="margin-top:.6rem"><a href="https://www.google.com/maps/search/?api=1&query=9+rue+de+Bise+42300+Villerest" target="_blank" rel="noopener">Voir l'itinéraire</a></p></div>
+        <div><h3>Contact</h3><p><a href="tel:+33671998217">06 71 99 82 17</a><br><a href="tel:+33624280874">06 24 28 08 74</a><br><a href="mailto:lafeeviviane42@gmail.com">lafeeviviane42@gmail.com</a></p></div>
+        <div><h3>Ouverture</h3><p>Tous les jours, du 1er janvier au 31 décembre.</p><p style="margin-top:.6rem">Nous parlons français et anglais.</p></div>
+        <div><h3>Bon à savoir</h3><ul><li>Paiement par chèque ou espèces</li><li>Les animaux ne sont pas acceptés</li><li>Maison non fumeur</li></ul></div>
+      </div>
+      <div class="contact-cta">
+        <a href="#sejour" class="btn btn-moutarde">Estimer mon séjour</a>
+        <a href="tel:+33671998217" class="btn btn-ghost">Appeler la maison</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Maquette de démonstration réalisée pour La Fée Viviane — elle n'est pas le site en ligne de l'établissement. Prix indicatifs non contractuels, repris de la fiche Roannais Tourisme (tarifs 2026).</p>
+    <p>Photos : visuels réels de la maison publiés sur la fiche Roannais Tourisme. La maison n'ayant pas de charte graphique en ligne, les couleurs sont tirées des photos (pierre, colombages, bleu canard, moutarde) et s'ajustent en quelques minutes. Aucun avis client n'est affiché : ils pourront être ajoutés avec l'accord de la maison.</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button aria-label="Fermer">×</button>
+  <div><img src="" alt=""><p></p></div>
+</div>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // nav
+  const nav=document.getElementById('nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+  const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // révélations
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+    document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+  } else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+
+  // poudre de fée sur le titre
+  if(!reduce && matchMedia('(pointer:fine)').matches){
+    const t=document.getElementById('titre');let last=0;
+    t.addEventListener('mousemove',e=>{const n=performance.now();if(n-last<40)return;last=n;
+      const s=document.createElement('span');s.className='sparkle';
+      s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+      s.style.setProperty('--dx',(Math.random()*40-20)+'px');s.style.setProperty('--dy',(Math.random()*30+10)+'px');
+      document.body.appendChild(s);setTimeout(()=>s.remove(),900);});
+  }
+
+  // galerie
+  const btns=document.querySelectorAll('.filtres button'),figs=document.querySelectorAll('#grid figure');
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    btns.forEach(x=>x.setAttribute('aria-pressed',x===b));
+    figs.forEach(f=>f.classList.toggle('hide',b.dataset.f!=='tout'&&f.dataset.c!==b.dataset.f));
+  }));
+  const lb=document.getElementById('lb'),lbi=lb.querySelector('img'),lbp=lb.querySelector('p');
+  const open=f=>{const i=f.querySelector('img');lbi.src=i.src;lbi.alt=i.alt;lbp.textContent=f.querySelector('figcaption').textContent;lb.classList.add('open');lb.querySelector('button').focus()};
+  figs.forEach(f=>{f.addEventListener('click',()=>open(f));f.addEventListener('keydown',e=>{if(e.key==='Enter')open(f)})});
+  const close=()=>lb.classList.remove('open');
+  lb.addEventListener('click',e=>{if(e.target===lb||e.target.tagName==='BUTTON')close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+
+  // simulateur
+  const arr=document.getElementById('arr'),dep=document.getElementById('dep'),nbO=document.getElementById('nb'),persos=document.getElementById('persos');
+  const prix=document.getElementById('prix'),detail=document.getElementById('detail'),conseil=document.getElementById('conseil'),alerte=document.getElementById('alerte'),env=document.getElementById('envoyer');
+  let nb=2;const MAX=6;
+  for(let i=0;i<MAX;i++)persos.appendChild(document.createElement('i'));
+  const iso=d=>d.toISOString().slice(0,10);
+  const today=new Date();today.setHours(12);
+  const a0=new Date(today);a0.setDate(a0.getDate()+14);const d0=new Date(a0);d0.setDate(d0.getDate()+2);
+  arr.min=iso(today);arr.value=iso(a0);dep.value=iso(d0);dep.min=iso(a0);
+  const fr=s=>new Date(s+'T12:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long'});
+  const eur=n=>n.toLocaleString('fr-FR')+' €';
+  function calc(){
+    [...persos.children].forEach((p,i)=>p.classList.toggle('on',i<nb));
+    nbO.textContent=nb;
+    const f=document.querySelector('input[name=f]:checked').value;
+    alerte.textContent='';
+    if(!arr.value||!dep.value){prix.textContent='—';return}
+    dep.min=arr.value;
+    const nuits=Math.round((new Date(dep.value)-new Date(arr.value))/864e5);
+    if(nuits<1){prix.textContent='—';detail.innerHTML='';alerte.textContent='La date de départ doit suivre la date d’arrivée.';return}
+    const ch=Math.min(3,Math.ceil(nb/2));
+    const chMin=ch*120*nuits,chMax=ch*130*nuits,gite=300*nuits;
+    let html='<div><span>Arrivée</span><span>'+fr(arr.value)+'</span></div><div><span>Départ</span><span>'+fr(dep.value)+'</span></div><div><span>Nuits</span><span>'+nuits+'</span></div>';
+    if(f==='ch'){
+      prix.innerHTML=(chMin===chMax?eur(chMin):eur(chMin)+' – '+eur(chMax))+' <small>au total</small>';
+      html+='<div><span>Chambres</span><span>'+ch+' pour '+nb+' pers.</span></div><div><span>Petit-déjeuner</span><span>compris</span></div>';
+      conseil.textContent= ch===3 && gite<chMin ? 'À '+nb+', la maison entière en formule gîte reviendrait à '+eur(gite)+' (hors petit-déjeuner), avec la cuisine pour vous seuls.' : 'Petit-déjeuner compris chaque matin. Les draps et le linge sont fournis.';
+    }else{
+      prix.innerHTML=eur(gite)+' <small>au total</small>';
+      html+='<div><span>Formule</span><span>maison entière</span></div><div><span>Petit-déjeuner</span><span>non compris</span></div>';
+      conseil.textContent= ch<3 ? 'À '+nb+', '+ch+' chambre'+(ch>1?'s':'')+' en chambres d’hôtes suffi'+(ch>1?'sent':'t')+' : de '+eur(chMin)+' à '+eur(chMax)+', petit-déjeuner compris.' : 'Les trois chambres et la cuisine rien que pour vous : idéal en famille ou entre amis.';
+    }
+    detail.innerHTML=html;
+    const nom=document.getElementById('nom').value.trim(),msg=document.getElementById('msg').value.trim();
+    const corps='Bonjour,\n\nJe souhaiterais séjourner à La Fée Viviane :\n- Arrivée : '+fr(arr.value)+'\n- Départ : '+fr(dep.value)+' ('+nuits+' nuit'+(nuits>1?'s':'')+')\n- Voyageurs : '+nb+'\n- Formule : '+(f==='ch'?'chambres d’hôtes ('+ch+' chambre'+(ch>1?'s':'')+')':'maison entière (formule gîte)')+'\n'+(msg?'\n'+msg+'\n':'')+'\nPouvez-vous me confirmer vos disponibilités ?\n\n'+(nom||'');
+    env.href='mailto:lafeeviviane42@gmail.com?subject='+encodeURIComponent('Demande de séjour du '+fr(arr.value)+' au '+fr(dep.value))+'&body='+encodeURIComponent(corps);
+  }
+  document.getElementById('moins').onclick=()=>{if(nb>1){nb--;calc()}};
+  document.getElementById('plus').onclick=()=>{if(nb<MAX){nb++;calc()}else{alerte.textContent='La maison accueille 6 personnes au maximum.'}};
+  document.getElementById('simu').addEventListener('input',calc);
+  document.getElementById('simu').addEventListener('change',calc);
+  calc();
+})();
+</script>
+</body>
+</html>
