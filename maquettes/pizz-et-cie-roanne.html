@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  PIZZ' & CIE — PIZZERIA, ROANNE — maquette de démonstration
+  Charte reprise du site actuel (pizzetcie-roanne.fr) : fond blanc, rouge #D0021B, noir,
+  polices Montserrat / Montserrat Alternates. Tout se règle dans les variables :root ci-dessous.
+-->
+<title>Pizz' &amp; Cie — Pizzeria à Roanne | Livraison gratuite, plaques à pizza</title>
+<meta name="description" content="Pizz' & Cie, pizzeria au 2 rue Mulsant à Roanne : pâte fraîche préparée chaque matin, livraison gratuite sans minimum, 2 = 3 du lundi au jeudi et plaques à pizza pour vos événements.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Restaurant","name":"Pizz' & Cie","servesCuisine":["Pizza","Italienne"],
+"address":{"@type":"PostalAddress","streetAddress":"2 rue Mulsant","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+"telephone":"+33477700909","email":"pizzetcieroanne@gmail.com","url":"https://pizzetcie-roanne.fr","areaServed":"Roanne",
+"priceRange":"7,50 € – 17 €","acceptsReservations":false,"hasMenu":"https://pizzetcie-roanne.fr/menu-commande-en-ligne/"}
+</script>
+<style>
+:root{
+  /* ===== Charte Pizz' & Cie (reprise du site actuel) ===== */
+  --rouge:#D0021B;        /* couleur secondaire du site actuel */
+  --rouge-fonce:#A30015;
+  --noir:#0E0E0E;         /* couleur sombre du site actuel (#000) adoucie */
+  --blanc:#FFFFFF;        /* couleur principale du site actuel */
+  --creme:#FFF6F0;        /* fond doux pour alterner les sections */
+  --gris:#5d5d5d;
+  --ligne:#ececec;
+  --titre:'Montserrat Alternates',system-ui,sans-serif;
+  --texte:'Montserrat',system-ui,sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--noir);background:var(--blanc);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--titre);line-height:1.08;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);font-weight:800}
+.kicker{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rouge)}
+.kicker::before{content:"";width:28px;height:3px;background:var(--rouge);border-radius:3px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:48px;padding:.85rem 1.5rem;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:var(--texte);font-size:1rem;transition:transform .25s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 10px 24px -10px rgba(208,2,27,.7)}
+.btn-rouge:hover{background:var(--rouge-fonce)}
+.btn-ligne{border-color:currentColor;background:transparent}
+.btn-blanc{background:#fff;color:var(--rouge)}
+
+/* ---------- bandeau de démonstration ---------- */
+.demo{background:var(--noir);color:#fff;font-size:.78rem;text-align:center;padding:.5rem 1rem}
+.demo b{color:#ff8a98}
+
+/* ---------- en-tête ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--ligne);transition:box-shadow .3s}
+header.ombre{box-shadow:0 8px 30px -18px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.logo{font-family:var(--titre);font-weight:900;font-size:1.6rem;text-decoration:none;color:var(--noir);display:flex;align-items:center;gap:.5rem}
+.logo span{color:var(--rouge)}
+.logo svg{width:34px;height:34px;transition:transform .8s var(--ease)}
+.logo:hover svg{transform:rotate(200deg)}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:600;font-size:.92rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.nav .btn{min-height:42px;padding:.55rem 1.1rem;font-size:.9rem}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--noir);margin:5px auto;transition:.3s}
+@media(max-width:920px){
+  .menu{position:fixed;inset:72px 0 auto 0;background:#fff;flex-direction:column;gap:0;padding:.5rem 16px 1.2rem;border-bottom:1px solid var(--ligne);transform:translateY(-130%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s;z-index:-1}
+  .menu.ouvert{transform:none;visibility:visible}
+  .menu a{display:block;padding:.9rem 0;border-bottom:1px solid var(--ligne)}
+  .burger{display:block}
+  .nav .tel{display:none}
+}
+@media(max-width:520px){.nav .btn-rouge{display:none}.logo{font-size:1.3rem}}
+
+/* ---------- bandeau défilant ---------- */
+.defile{background:var(--rouge);color:#fff;overflow:hidden;white-space:nowrap;font-weight:700;font-size:.92rem}
+.defile div{display:inline-flex;gap:2.4rem;padding:.7rem 0;animation:defile 32s linear infinite}
+.defile span::after{content:"●";margin-left:2.4rem;opacity:.6;font-size:.6rem;vertical-align:middle}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* ---------- héro ---------- */
+.hero{position:relative;padding:clamp(2.5rem,5vw,5rem) 0 clamp(3rem,6vw,6rem);overflow:hidden}
+.hero .grille{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.6vw,5.6rem);font-weight:900}
+.hero h1 em{font-style:normal;color:var(--rouge);display:inline-block}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);color:var(--gris);margin:1.3rem 0 2rem;max-width:34ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero .infos{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2.2rem;font-size:.9rem;font-weight:600}
+.hero .infos div{display:flex;align-items:center;gap:.5rem}
+.hero .infos svg{width:22px;height:22px;color:var(--rouge)}
+.visuel{position:relative;aspect-ratio:1;max-width:560px;justify-self:center;width:100%}
+.visuel .disque{position:absolute;inset:6%;border-radius:50%;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.45);animation:tourne 60s linear infinite}
+.visuel .disque img{width:100%;height:100%;object-fit:cover;transform:scale(1.25)}
+.visuel .cercle{position:absolute;inset:0;border:2px dashed rgba(208,2,27,.35);border-radius:50%;animation:tourne 40s linear infinite reverse}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.pastille{position:absolute;right:-2%;top:6%;width:clamp(120px,22vw,170px);aspect-ratio:1;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--titre);box-shadow:0 18px 40px -12px rgba(208,2,27,.7);animation:flotte 4s ease-in-out infinite}
+.pastille b{display:block;font-size:clamp(1.9rem,4vw,2.7rem);font-weight:900;line-height:1}
+.pastille small{font-family:var(--texte);font-size:.72rem;font-weight:600;line-height:1.25;display:block;margin-top:.3rem;padding:0 .8rem}
+.etiquette{position:absolute;left:-2%;bottom:10%;background:#fff;border-radius:16px;padding:.8rem 1rem;box-shadow:0 18px 40px -16px rgba(0,0,0,.35);display:flex;gap:.7rem;align-items:center;font-weight:700;font-size:.9rem;animation:flotte 5s ease-in-out infinite reverse}
+.etiquette i{font-style:normal;font-size:1.6rem}
+.etiquette small{display:block;font-weight:500;color:var(--gris);font-size:.75rem}
+@keyframes flotte{50%{transform:translateY(-10px)}}
+.illu{position:absolute;bottom:.5rem;right:.5rem;background:rgba(0,0,0,.6);color:#fff;font-size:.68rem;padding:.2rem .5rem;border-radius:6px;z-index:2}
+@media(max-width:860px){.hero .grille{grid-template-columns:1fr}.visuel{max-width:420px}}
+
+/* ---------- atouts ---------- */
+.atouts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:-1rem}
+.atout{background:var(--creme);border-radius:var(--r);padding:1.6rem;position:relative;overflow:hidden;transition:transform .35s var(--ease)}
+.atout:hover{transform:translateY(-4px)}
+.atout .num{font-family:var(--titre);font-weight:900;font-size:2.4rem;color:var(--rouge);line-height:1}
+.atout h3{font-size:1.2rem;margin:.6rem 0 .3rem}
+.atout p{color:var(--gris);font-size:.95rem}
+@media(max-width:760px){.atouts{grid-template-columns:1fr}}
+
+section{padding:clamp(4rem,8vw,7rem) 0}
+.entete{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.entete p{color:var(--gris);max-width:46ch}
+
+/* ---------- carte interactive ---------- */
+#carte{background:var(--creme)}
+.filtres{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin-bottom:1.6rem}
+.chip{border:2px solid var(--noir);background:transparent;border-radius:999px;padding:.5rem 1rem;font-weight:700;font-family:var(--texte);cursor:pointer;font-size:.88rem;min-height:42px;transition:.2s}
+.chip[aria-pressed="true"]{background:var(--noir);color:#fff}
+.chip:hover{transform:translateY(-1px)}
+.recherche{flex:1 1 220px;min-height:44px;border:2px solid var(--ligne);border-radius:999px;padding:.5rem 1.1rem;font:inherit;background:#fff}
+.layout-carte{display:grid;grid-template-columns:1fr 340px;gap:1.6rem;align-items:start}
+.liste{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem}
+.pz{background:#fff;border-radius:14px;padding:1rem 1.1rem;display:grid;grid-template-columns:1fr auto;gap:.3rem .8rem;border:1px solid transparent;transition:border-color .2s,transform .3s var(--ease),opacity .3s}
+.pz:hover{border-color:var(--rouge);transform:translateY(-2px)}
+.pz h3{font-family:var(--texte);font-size:.98rem;font-weight:800;letter-spacing:.01em}
+.pz p{grid-column:1/-1;font-size:.84rem;color:var(--gris)}
+.pz .prix{font-weight:800;color:var(--rouge);white-space:nowrap;font-size:.95rem}
+.pz .prix small{font-weight:500;color:var(--gris);font-size:.7rem;margin-right:.2rem}
+.pz .bas{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;margin-top:.3rem}
+.tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.tag{font-size:.68rem;font-weight:700;padding:.15rem .5rem;border-radius:999px;background:var(--creme);color:var(--noir)}
+.ajout{width:40px;height:40px;border-radius:50%;border:0;background:var(--rouge);color:#fff;font-size:1.4rem;font-weight:700;cursor:pointer;transition:transform .2s var(--ease)}
+.ajout:hover{transform:scale(1.1) rotate(90deg)}
+.ajout.pop{animation:pop .4s var(--ease)}
+@keyframes pop{50%{transform:scale(1.35)}}
+.vide{grid-column:1/-1;text-align:center;padding:2rem;color:var(--gris)}
+.panier{position:sticky;top:96px;background:var(--noir);color:#fff;border-radius:var(--r);padding:1.4rem}
+.panier h3{font-size:1.3rem;display:flex;align-items:center;gap:.5rem}
+.panier .regle{font-size:.8rem;opacity:.75;margin:.3rem 0 1rem}
+.panier ul{list-style:none;display:grid;gap:.4rem;max-height:240px;overflow:auto;margin-bottom:1rem}
+.panier li{display:flex;justify-content:space-between;gap:.6rem;font-size:.88rem;background:rgba(255,255,255,.07);padding:.5rem .7rem;border-radius:10px;align-items:center}
+.panier li.offerte{background:rgba(208,2,27,.35)}
+.panier li button{background:none;border:0;color:#fff;opacity:.6;cursor:pointer;font-size:1rem;min-width:28px;min-height:28px}
+.panier .ligne{display:flex;justify-content:space-between;font-size:.9rem;padding:.25rem 0}
+.panier .total{font-family:var(--titre);font-size:1.6rem;font-weight:800;border-top:1px solid rgba(255,255,255,.2);margin-top:.5rem;padding-top:.7rem}
+.panier .eco{color:#ff8a98;font-weight:700}
+.jauge{display:flex;gap:6px;margin:.2rem 0 1rem}
+.jauge i{flex:1;height:8px;border-radius:8px;background:rgba(255,255,255,.15);transition:background .3s}
+.jauge i.on{background:var(--rouge)}
+.panier .note{font-size:.72rem;opacity:.65;margin-top:.8rem}
+.panier .btn{width:100%;margin-top:1rem}
+@media(max-width:980px){.layout-carte{grid-template-columns:1fr}.panier{position:relative;top:0}}
+@media(max-width:640px){.liste{grid-template-columns:1fr}}
+.illustrations{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:2rem}
+.illustrations figure{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:16/10}
+.illustrations img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.illustrations figure:hover img{transform:scale(1.07)}
+@media(max-width:640px){.illustrations{grid-template-columns:1fr 1fr}.illustrations figure:nth-child(3){display:none}}
+
+/* ---------- comment ça marche ---------- */
+.etapes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;counter-reset:e;position:relative}
+.etape{padding:1.4rem;border-radius:var(--r);border:2px solid var(--ligne);position:relative;background:#fff;transition:border-color .3s}
+.etape:hover{border-color:var(--rouge)}
+.etape::before{counter-increment:e;content:"0" counter(e);font-family:var(--titre);font-weight:900;font-size:2.2rem;color:var(--rouge)}
+.etape h3{font-family:var(--texte);font-size:1.05rem;font-weight:800;margin:.5rem 0 .3rem}
+.etape p{color:var(--gris);font-size:.9rem}
+@media(max-width:860px){.etapes{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.etapes{grid-template-columns:1fr}}
+
+/* ---------- plaques ---------- */
+#plaques{background:var(--noir);color:#fff;position:relative;overflow:hidden}
+#plaques .kicker{color:#ff8a98}#plaques .kicker::before{background:#ff8a98}
+#plaques .entete p{color:rgba(255,255,255,.7)}
+.simu{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.simu .panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:clamp(1.2rem,3vw,2rem)}
+.champ{margin-bottom:1.4rem}
+.champ label,.champ .lbl{display:flex;justify-content:space-between;font-weight:700;margin-bottom:.6rem}
+.champ output{color:#ff8a98;font-family:var(--titre);font-size:1.3rem}
+input[type=range]{width:100%;accent-color:var(--rouge);height:28px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.seg button{min-height:48px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-family:var(--texte);font-weight:700;cursor:pointer;font-size:.85rem;padding:.4rem}
+.seg button small{display:block;font-weight:500;opacity:.7;font-size:.72rem}
+.seg button[aria-pressed="true"]{background:var(--rouge);border-color:var(--rouge)}
+.champ input[type=date]{width:100%;min-height:48px;border-radius:12px;border:2px solid rgba(255,255,255,.2);background:transparent;color:#fff;padding:.5rem .8rem;font:inherit;color-scheme:dark}
+.alerte{font-size:.82rem;margin-top:.5rem;color:#ffb3bd;min-height:1.2em}
+.resultat{text-align:center}
+.plaques-vis{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;min-height:150px;align-content:center;margin-bottom:1.2rem}
+.plaque{width:78px;height:58px;border-radius:8px;background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(0,0,0,.18) 18px 19.5px),radial-gradient(circle at 30% 40%,#a8341f 0 5px,transparent 6px),radial-gradient(circle at 70% 65%,#a8341f 0 5px,transparent 6px),radial-gradient(circle at 55% 25%,#3d6b2a 0 3px,transparent 4px),linear-gradient(135deg,#f2b84b,#e08a2c);border:4px solid #d9a066;box-shadow:0 10px 18px -8px rgba(0,0,0,.6);animation:arrive .5s var(--ease) both}
+@keyframes arrive{from{opacity:0;transform:translateY(-20px) rotate(-8deg) scale(.6)}}
+.gros{font-family:var(--titre);font-weight:900;font-size:clamp(3rem,8vw,5.5rem);line-height:1;color:#fff}
+.gros span{color:var(--rouge)}
+.sous{opacity:.75;margin:.4rem 0 1.2rem}
+.chiffres{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;text-align:left;margin-bottom:1.2rem}
+.chiffres div{background:rgba(255,255,255,.06);border-radius:12px;padding:.8rem 1rem;font-size:.85rem}
+.chiffres b{display:block;font-size:1.25rem;font-family:var(--titre)}
+.petit{font-size:.75rem;opacity:.6;margin-top:1rem}
+@media(max-width:860px){.simu{grid-template-columns:1fr}}
+
+/* ---------- entrées & glaces ---------- */
+.duo{display:grid;grid-template-columns:1.1fr .9fr;gap:1.2rem}
+.carteBox{border-radius:var(--r);overflow:hidden;position:relative;min-height:380px;color:#fff;display:flex;align-items:end}
+.carteBox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.carteBox:hover img{transform:scale(1.05)}
+.carteBox::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.85))}
+.carteBox .txt{position:relative;z-index:1;padding:1.8rem}
+.carteBox h3{font-size:1.8rem}
+.carteBox .prixBig{font-family:var(--titre);font-size:2.2rem;font-weight:900;color:#fff;background:var(--rouge);display:inline-block;padding:.1rem .8rem;border-radius:10px;margin-top:.6rem}
+.colonne{display:grid;gap:1.2rem}
+.mini{background:var(--creme);border-radius:var(--r);padding:1.5rem}
+.mini h3{font-size:1.25rem;margin-bottom:.6rem}
+.mini ul{list-style:none;display:grid;gap:.35rem;font-size:.92rem}
+.mini li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dashed #e5d6cc;padding-bottom:.35rem}
+.mini li b{color:var(--rouge);white-space:nowrap}
+@media(max-width:860px){.duo{grid-template-columns:1fr}}
+
+/* ---------- avis ---------- */
+#avis{overflow:hidden}
+.avis-piste{display:flex;gap:1rem;width:max-content;animation:defile 60s linear infinite}
+.avis-piste:hover{animation-play-state:paused}
+.avis{width:min(340px,80vw);background:#fff;border:2px solid var(--ligne);border-radius:var(--r);padding:1.4rem}
+.avis .etoiles{color:var(--rouge);letter-spacing:.1em}
+.avis p{margin:.6rem 0 .9rem;font-size:.95rem}
+.avis b{font-size:.85rem}
+.source{font-size:.78rem;color:var(--gris);margin-top:1.4rem}
+
+/* ---------- partenaires ---------- */
+#partenaires{background:var(--creme)}
+.part-grille{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.formules{display:grid;gap:.7rem;margin:1.4rem 0 1.8rem}
+.formules div{display:flex;gap:.8rem;align-items:center;background:#fff;border-radius:14px;padding:.9rem 1.1rem;font-weight:600}
+.formules div::before{content:"";flex:0 0 12px;height:12px;border-radius:50%;background:var(--rouge)}
+.frise{display:grid;gap:.8rem}
+.actu{display:grid;grid-template-columns:110px 1fr;gap:1rem;background:#fff;border-radius:14px;padding:.8rem;align-items:center;transition:transform .3s var(--ease)}
+.actu:hover{transform:translateX(6px)}
+.actu img{width:110px;height:80px;object-fit:cover;border-radius:10px;background:#fff}
+.actu img.logo-p{object-fit:contain}
+.actu small{color:var(--rouge);font-weight:700;font-size:.75rem}
+.actu h3{font-family:var(--texte);font-size:.95rem;font-weight:800;margin:.1rem 0}
+.actu p{font-size:.84rem;color:var(--gris)}
+@media(max-width:860px){.part-grille{grid-template-columns:1fr}}
+
+/* ---------- contact ---------- */
+.contact-grille{display:grid;grid-template-columns:1fr 1.1fr;gap:1.6rem}
+.coord{display:grid;gap:1rem}
+.coord a,.coord div.c{display:flex;gap:1rem;align-items:center;padding:1.1rem 1.2rem;border-radius:14px;border:2px solid var(--ligne);text-decoration:none;transition:border-color .2s}
+.coord a:hover{border-color:var(--rouge)}
+.coord svg{width:26px;height:26px;color:var(--rouge);flex:0 0 26px}
+.coord small{display:block;color:var(--gris);font-size:.78rem}
+.coord b{font-size:1.05rem}
+.carte-map{border-radius:var(--r);overflow:hidden;min-height:360px;border:2px solid var(--ligne)}
+.carte-map iframe{width:100%;height:100%;min-height:360px;border:0;filter:grayscale(.3)}
+@media(max-width:860px){.contact-grille{grid-template-columns:1fr}}
+
+footer{background:var(--noir);color:rgba(255,255,255,.75);padding:3rem 0 2rem;font-size:.85rem}
+footer .logo{color:#fff;margin-bottom:1rem}
+footer .legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;border-top:1px solid rgba(255,255,255,.15);margin-top:1.6rem;padding-top:1.2rem;font-size:.78rem}
+footer p{max-width:80ch}
+
+/* ---------- barre mobile ---------- */
+.barre-mobile{display:none}
+@media(max-width:640px){
+  .barre-mobile{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:.6rem 16px calc(.6rem + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--ligne)}
+  .barre-mobile .btn{min-height:46px;font-size:.92rem;padding:.6rem}
+  body{padding-bottom:76px}
+}
+
+/* ---------- apparitions ---------- */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.mot{display:inline-block;opacity:0;transform:translateY(.5em) rotate(4deg);animation:mot .8s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}.mot{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour Pizz' &amp; Cie, pizzeria à Roanne. Ce n'est pas le site officiel.</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="Pizz' & Cie, accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="#F2B84B" stroke="#D0021B" stroke-width="3"/><circle cx="14" cy="15" r="3" fill="#D0021B"/><circle cx="25" cy="13" r="2.5" fill="#D0021B"/><circle cx="24" cy="25" r="3" fill="#D0021B"/><circle cx="13" cy="26" r="2.2" fill="#0E0E0E"/><path d="M20 2v36M2 20h36M7 7l26 26M33 7L7 33" stroke="#fff" stroke-width="1" opacity=".6"/></svg>
+      <b style="font-weight:900">Pizz' <span>&amp;</span> Cie</b>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#carte">Menu ● Commande en ligne</a></li>
+        <li><a href="#plaques">Plaques à pizza</a></li>
+        <li><a href="#partenaires">Partenaires</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;gap:.5rem;align-items:center">
+      <a class="btn btn-ligne tel" href="tel:+33477700909">04 77 70 09 09</a>
+      <a class="btn btn-rouge" href="https://pizzetcie-roanne.fr/menu-commande-en-ligne/" target="_blank" rel="noopener">Commander</a>
+      <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="defile" aria-hidden="true"><div>
+  <span>Livraison gratuite 🛵</span><span>Sans minimum de commande</span><span>Pâte fraîche préparée tous les matins</span><span>② = ③ du lundi au jeudi</span><span>Plaques à pizza pour vos événements</span><span>2 rue Mulsant · Roanne</span>
+  <span>Livraison gratuite 🛵</span><span>Sans minimum de commande</span><span>Pâte fraîche préparée tous les matins</span><span>② = ③ du lundi au jeudi</span><span>Plaques à pizza pour vos événements</span><span>2 rue Mulsant · Roanne</span>
+</div></div>
+
+<main>
+<section class="hero" id="accueil" style="padding-top:clamp(2.5rem,5vw,5rem)">
+  <div class="wrap grille">
+    <div>
+      <span class="kicker">Votre pizzeria · 2 rue Mulsant · Roanne</span>
+      <h1 style="margin-top:1rem" id="titre"><span class="mot">Bienvenue</span> <span class="mot">chez</span><br><em class="mot">Pizz'&nbsp;&amp;&nbsp;Cie</em> <span class="mot">Roanne</span></h1>
+      <p class="lead">Pâte fraîche préparée dans notre pizzeria tous les matins, plus de soixante recettes, et la livraison gratuite sans minimum de commande.</p>
+      <div class="ctas">
+        <a class="btn btn-rouge" href="https://pizzetcie-roanne.fr/menu-commande-en-ligne/" target="_blank" rel="noopener">Commandez en ligne dès maintenant</a>
+        <a class="btn btn-ligne" href="#carte">Parcourir la carte</a>
+      </div>
+      <div class="infos">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h2l2-6h6l3 6h1M7 17a2 2 0 1 0 4 0M15 17a2 2 0 1 0 4 0M9 11 8 7H5"/></svg>Livraison gratuite</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3c4 3 4 15 0 18M12 3c-4 3-4 15 0 18"/><circle cx="12" cy="12" r="9"/></svg>Sur place, à emporter, livré</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>04 77 70 09 09</div>
+      </div>
+    </div>
+    <div class="visuel" aria-hidden="true">
+      <div class="cercle"></div>
+      <div class="disque"><img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/10e1764b-2d0f-4a2e-b966-2201ee318c0f.jpeg?width=1200" alt=""></div>
+      <div class="pastille"><div><b>② = ③</b><small>du lundi au jeudi, la moins chère des 3 offerte*</small></div></div>
+      <div class="etiquette"><i>🛵</i><div>Livraison gratuite<small>Sans minimum de commande</small></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap atouts">
+  <div class="atout rv"><div class="num">Frais</div><h3>Pâte fraîche</h3><p>Préparée dans notre pizzeria tous les matins.</p></div>
+  <div class="atout rv"><div class="num">0 €</div><h3>Livraison gratuite</h3><p>Sans minimum de commande, avec des livreurs souriants (c'est vous qui le dites).</p></div>
+  <div class="atout rv"><div class="num">2=3</div><h3>Du lundi au jeudi</h3><p>La moins chère des 3 est déduite en caisse.* Hors livraison, hors promotion, hors jours fériés.</p></div>
+</div>
+
+<section id="carte">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><span class="kicker">Menu ● Commande en ligne</span><h2 style="margin-top:.6rem">La carte, en un coup d'œil.</h2></div>
+      <p>Filtrez par base ou par envie, ajoutez vos pizzas : le calcul du ② = ③ se fait tout seul. La commande se finalise ensuite sur votre module de commande actuel.</p>
+    </div>
+    <div class="illustrations rv">
+      <figure><img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=70" alt="Pizza sortie du four" loading="lazy"><span class="illu">Photo d'illustration</span></figure>
+      <figure><img src="https://images.unsplash.com/photo-1590947132387-155cc02f3212?w=700&q=70" alt="Parts de pizza" loading="lazy"><span class="illu">Photo d'illustration</span></figure>
+      <figure><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=700&q=70" alt="Pizza poulet" loading="lazy"><span class="illu">Photo d'illustration</span></figure>
+    </div>
+    <div class="filtres" role="group" aria-label="Filtrer la carte">
+      <button class="chip" data-f="tout" aria-pressed="true">Toutes</button>
+      <button class="chip" data-f="tomate" aria-pressed="false">Base tomate</button>
+      <button class="chip" data-f="creme" aria-pressed="false">Base crème</button>
+      <button class="chip" data-f="fromages" aria-pressed="false">Fromagères</button>
+      <button class="chip" data-f="mer" aria-pressed="false">Poisson &amp; mer</button>
+      <button class="chip" data-f="vege" aria-pressed="false">Sans viande</button>
+      <input class="recherche" type="search" placeholder="Un ingrédient ? reblochon, chorizo, miel…" aria-label="Rechercher un ingrédient">
+    </div>
+    <div class="layout-carte">
+      <div class="liste" id="liste" aria-live="polite"></div>
+      <aside class="panier" aria-label="Simulation ② = ③">
+        <h3>Ma commande ② = ③</h3>
+        <p class="regle">Du lundi au jeudi, à emporter : la moins chère de chaque lot de 3 est offerte.</p>
+        <div class="jauge" aria-hidden="true"><i></i><i></i><i></i></div>
+        <ul id="panier-liste"><li style="justify-content:center;opacity:.7">Ajoutez des pizzas avec le bouton +</li></ul>
+        <div class="ligne"><span>Sous-total</span><span id="st">0,00 €</span></div>
+        <div class="ligne eco"><span>Offert avec ② = ③</span><span id="eco">− 0,00 €</span></div>
+        <div class="ligne total"><span>Total</span><span id="tot">0,00 €</span></div>
+        <a class="btn btn-rouge" href="https://pizzetcie-roanne.fr/menu-commande-en-ligne/" target="_blank" rel="noopener">Finaliser ma commande</a>
+        <p class="note">Calcul sur les prix « à partir de » affichés (taille de base). Simulation indicative : l'offre s'applique hors livraison, hors promotion et hors jours fériés.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="entete rv"><div><span class="kicker">Commande en ligne</span><h2 style="margin-top:.6rem">De notre four à votre porte.</h2></div></div>
+    <div class="etapes">
+      <div class="etape rv"><h3>Vous commandez</h3><p>En ligne ou par téléphone au 04 77 70 09 09.</p></div>
+      <div class="etape rv"><h3>On prépare</h3><p>Sur une pâte fraîche, préparée le matin même dans la pizzeria.</p></div>
+      <div class="etape rv"><h3>On livre</h3><p>Gratuitement, sans minimum de commande.</p></div>
+      <div class="etape rv"><h3>Ou vous passez</h3><p>Au 2 rue Mulsant, et le ② = ③ du lundi au jeudi s'applique à emporter.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="plaques">
+  <div class="wrap">
+    <div class="entete rv">
+      <div><span class="kicker">Plaques à pizza</span><h2 style="margin-top:.6rem">Combien de plaques pour votre événement&nbsp;?</h2></div>
+      <p>Anniversaire, apéro de club, réunion d'association : indiquez le nombre d'invités, on calcule le nombre de plaques. Une plaque, c'est environ 50 parts.</p>
+    </div>
+    <div class="simu">
+      <div class="panneau rv">
+        <div class="champ">
+          <label for="invites">Nombre d'invités <output id="o-inv">40</output></label>
+          <input type="range" id="invites" min="5" max="300" step="5" value="40">
+        </div>
+        <div class="champ">
+          <span class="lbl">Format</span>
+          <div class="seg" role="group" aria-label="Format de l'événement">
+            <button data-p="3" aria-pressed="false">Apéritif<small>≈ 3 parts / pers.</small></button>
+            <button data-p="5" aria-pressed="true">Buffet<small>≈ 5 parts / pers.</small></button>
+            <button data-p="8" aria-pressed="false">Repas<small>≈ 8 parts / pers.</small></button>
+          </div>
+        </div>
+        <div class="champ">
+          <label for="date">Date de l'événement</label>
+          <input type="date" id="date">
+          <p class="alerte" id="alerte" role="status"></p>
+        </div>
+        <div class="champ" style="margin-bottom:0">
+          <span class="lbl">Livraison sur place ?</span>
+          <div class="seg" role="group" aria-label="Retrait ou livraison" style="grid-template-columns:1fr 1fr">
+            <button data-l="livraison" aria-pressed="true">Livrée<small>gratuite</small></button>
+            <button data-l="retrait" aria-pressed="false">Retrait<small>2 rue Mulsant</small></button>
+          </div>
+        </div>
+      </div>
+      <div class="resultat rv">
+        <div class="plaques-vis" id="vis" aria-hidden="true"></div>
+        <div class="gros"><span id="nb">4</span> plaque<i id="pl" style="font-style:normal">s</i></div>
+        <p class="sous" id="sous">soit environ 200 parts pour 40 invités</p>
+        <div class="chiffres">
+          <div><b id="parts">200</b>parts au total (≈ 50 par plaque)</div>
+          <div><b id="budget">dès 88 €</b>indicatif, selon les recettes choisies</div>
+        </div>
+        <a class="btn btn-rouge" id="demande" href="#">Envoyer ma demande à Pizz' &amp; Cie</a>
+        <p class="petit">À commander au plus tard 24 heures avant l'événement. Prix d'une plaque : prix de la pizza géante (48 cm) + 6 €. L'estimation part du prix de la géante la moins chère relevé publiquement (16 €) : à confirmer par la pizzeria.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="entete rv"><div><span class="kicker">Pour accompagner</span><h2 style="margin-top:.6rem">Starters, glaces &amp; desserts.</h2></div></div>
+    <div class="duo">
+      <div class="carteBox rv">
+        <img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/91ef18dc-c9d7-4081-b81c-303eed5aab73.jpeg?width=1000" alt="Box à partager : wings, nuggets, sticks et oignons rings" loading="lazy">
+        <div class="txt"><span class="kicker" style="color:#fff">Starters 🍗</span><h3 style="margin-top:.4rem">Box à partager</h3><p>5 mozza sticks, 5 nuggets, 5 wings, 5 chèvre sticks, 10 oignons rings, sauce BBQ et ketchup inclus.</p><div class="prixBig">20,00 €</div></div>
+      </div>
+      <div class="colonne">
+        <div class="mini rv"><h3>Starters à l'unité</h3><ul>
+          <li><span>Nuggets</span><b>dès 5,00 €</b></li><li><span>Chèvre sticks 🍃</span><b>dès 5,00 €</b></li><li><span>Wings, sauce barbecue</span><b>dès 5,00 €</b></li><li><span>Mozza sticks 🍃</span><b>dès 5,00 €</b></li></ul></div>
+        <div class="mini rv"><h3>Glaces &amp; desserts 🍨</h3><ul>
+          <li><span>La Manufacture des Belles Glaces, 120 ml</span><b>4,00 €</b></li><li><span>Chocolate Fudge Brownie, Peanut Butter Cup…</span><b>dès 3,50 €</b></li><li><span>Caramel Brownie Party, Cookie Dough</span><b>7,50 €</b></li><li><span>Fondant chocolat</span><b>3,00 €</b></li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="avis" style="padding-top:0">
+  <div class="wrap entete rv"><div><span class="kicker">Ils en parlent</span><h2 style="margin-top:.6rem">« Super bien garnie&nbsp;!! »</h2></div></div>
+  <div class="avis-piste" id="piste"></div>
+  <div class="wrap"><p class="source">Avis repris tels qu'affichés sur le site actuel de Pizz' &amp; Cie.</p></div>
+</section>
+
+<section id="partenaires">
+  <div class="wrap part-grille">
+    <div class="rv">
+      <span class="kicker">Espace partenariat</span>
+      <h2 style="margin-top:.6rem">Votre club, votre asso, votre école.</h2>
+      <p style="color:var(--gris);margin-top:1rem">Pizz' &amp; Cie vous propose différentes formules adaptées à vos besoins dans le cadre d'un partenariat avec votre association, école ou club de sport :</p>
+      <div class="formules"><div>Ventes de tickets pizzas</div><div>Remises sur les commandes groupées de vos adhérents</div><div>Livraison lors de vos événements</div><div>Sponsor de votre club…</div></div>
+      <a class="btn btn-rouge" href="mailto:pizzetcieroanne@gmail.com?subject=Demande%20de%20partenariat">Proposer un partenariat</a>
+    </div>
+    <div class="frise">
+      <article class="actu rv"><img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/65bab179-23a1-4d10-84b7-114253bb416f.jpeg?width=300" alt="Affiche des Finales nationales de Gymnastique Artistique" loading="lazy"><div><small>Juin 2024</small><h3>Finales nationales de Gymnastique Artistique</h3><p>Au Scarabée, Pizz' &amp; Cie livre les 5 000 visiteurs et athlètes attendus.</p></div></article>
+      <article class="actu rv"><img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/fbe550f6-c00d-4149-b9d1-bd714d03785f.jpeg?width=300" alt="Équipe du Roanne-Riorges Handball à la pizzeria" loading="lazy"><div><small>Décembre 2023</small><h3>Roanne-Riorges Handball</h3><p>Visite des équipes senior du 2R Handball, dans le cadre du partenariat avec le club.</p></div></article>
+      <article class="actu rv"><img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/0c1d20fb-8cb1-41f4-bd13-47bc8e2257be.jpeg?width=300" alt="Épéistes de l'Académie d'Escrime du Roannais" loading="lazy"><div><small>Novembre 2023</small><h3>Académie d'Escrime du Roannais</h3><p>Rencontre avec les épéistes de l'AER42 pour présenter le panneau sponsor.</p></div></article>
+      <article class="actu rv"><img src="https://cdn-cms.ugo.co/accounts/061fc967-de7e-42d5-abdd-1a443e8e09af/medias/b7e79782-a640-4be8-84ee-fe890daf37b0.jpeg?width=300" alt="Cyclistes du CSADN aux couleurs de Pizz' & Cie" loading="lazy"><div><small>Juin 2022</small><h3>CSADN Cyclotourisme VTT</h3><p>Pizz' &amp; Cie est fier d'habiller les cyclistes du club roannais.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="entete rv"><div><span class="kicker">Contact</span><h2 style="margin-top:.6rem">Une question, un devis&nbsp;?</h2></div><p>Pour toute demande de renseignement, partenariat, devis ou dépôt de candidature, appelez-nous ou écrivez-nous.</p></div>
+    <div class="contact-grille">
+      <div class="coord rv">
+        <a href="tel:+33477700909"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><div><small>Téléphone</small><b>04 77 70 09 09</b></div></a>
+        <a href="mailto:pizzetcieroanne@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><div><small>E-mail</small><b>pizzetcieroanne@gmail.com</b></div></a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Pizz'+%26+Cie+2+rue+Mulsant+42300+Roanne" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><small>Adresse</small><b>2 rue Mulsant, 42300 Roanne</b></div></a>
+        <div class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><small>Horaires</small><b>Midi et soir</b><small>Horaires détaillés à confirmer par la pizzeria</small></div></div>
+        <a class="btn btn-rouge" href="https://pizzetcie-roanne.fr/menu-commande-en-ligne/" target="_blank" rel="noopener" style="border:0;justify-content:center">Commander en ligne</a>
+      </div>
+      <div class="carte-map rv"><iframe title="Plan d'accès Pizz' & Cie" loading="lazy" src="https://www.google.com/maps?q=2+rue+Mulsant+42300+Roanne&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">Pizz'&nbsp;<span style="color:var(--rouge)">&amp;</span>&nbsp;Cie</div>
+    <p>Votre pizzeria ● 2 rue Mulsant ● Roanne — 04 77 70 09 09 — pizzetcieroanne@gmail.com</p>
+    <p style="margin-top:1rem">* ② = ③ du lundi au jeudi : hors livraison, hors promotion, hors jours fériés. La moins chère des 3 est déduite lors du passage en caisse.</p>
+    <p style="margin-top:1rem"><b>À propos de cette maquette :</b> textes, carte et prix repris du site actuel (prix « à partir de », indicatifs et non contractuels). Photos réelles de Pizz' &amp; Cie : la pizza du premier écran, la box à partager et les photos partenaires. Les trois photos de pizzas de la section carte sont des photos d'illustration (Unsplash). Couleurs et polices reprises du site actuel (blanc, rouge, noir, Montserrat), ajustables. Le logo officiel reste à fournir. Le module de commande en ligne existant est conservé tel quel (liens « Commander »).</p>
+    <div class="legal"><span>© Pizz' &amp; Cie, Roanne</span><span>Maquette de démonstration — Thibault Quentin, Roanne</span></div>
+  </div>
+</footer>
+
+<div class="barre-mobile"><a class="btn btn-ligne" href="tel:+33477700909">Appeler</a><a class="btn btn-rouge" href="https://pizzetcie-roanne.fr/menu-commande-en-ligne/" target="_blank" rel="noopener">Commander</a></div>
+
+<script>
+const PIZZAS = [{"n": "FROMAGE", "d": "Sauce tomate, fromage, olives", "p": 7.5, "f": true}, {"n": "JAMBON", "d": "Sauce tomate, jambon, fromage, olives", "p": 8.0, "f": true}, {"n": "ANCHOIS", "d": "Sauce tomate, anchois, fromage, olives", "p": 8.0, "f": true}, {"n": "AUBERGINE", "d": "Sauce tomate, poivrons, aubergines grillées, mozzarella, olives", "p": 8.5, "f": true}, {"n": "CROQUE-MONSIEUR", "d": "Béchamel, jambon, fromage, olives", "p": 8.5, "f": true}, {"n": "ROQUEFORT", "d": "Sauce tomate, roquefort, fromage, olives", "p": 9.0, "f": true}, {"n": "FLAMBÉE", "d": "Crème, lardons fumés, oignons, fromage, olives", "p": 9.0, "f": true}, {"n": "JAMBON CHAMPIGNON", "d": "Sauce tomate, jambon, champignons, fromage, olives", "p": 9.0, "f": true}, {"n": "JAMBON MOZZARELLA", "d": "Sauce tomate, jambon, mozzarella, olives", "p": 9.0, "f": true}, {"n": "JAMBON LARDONS", "d": "Sauce tomate, jambon, lardons fumés, fromage, olives", "p": 9.0, "f": true}, {"n": "COMPAGNIE", "d": "Sauce tomate, jambon, champignons, crème, œufs battus, fromage, olives", "p": 9.0, "f": true}, {"n": "BOEUF OEUF", "d": "Sauce tomate, bœuf, œufs battus, fromage, olives", "p": 9.0, "f": true}, {"n": "FRUITS DE MER", "d": "Sauce tomate, fruits de mer, fromage, olives", "p": 9.0, "f": true}, {"n": "MERGUEZ POIVRON", "d": "Sauce tomate, merguez, poivrons, fromage, olives", "p": 9.0, "f": true}, {"n": "BOLOGNAISE", "d": "Sauce tomate, bœuf, fromage, oignons, olives", "p": 9.0, "f": true}, {"n": "HAWAÏENNE JAMBON 🍍", "d": "Sauce tomate, jambon, ananas, emmental, olives", "p": 9.0, "f": true}, {"n": "JAMBON CHORIZO", "d": "Sauce tomate, jambon, chorizo, fromage, olives", "p": 9.0, "f": true}, {"n": "QUICHE", "d": "Crème, œuf, fromage, lardons, olives", "p": 10.0, "f": true}, {"n": "CAMPAGNARDE", "d": "Sauce tomate, jambon, champignons, crème, lardons, fromage, olives", "p": 10.0, "f": true}, {"n": "VÉGÉTARIENNE", "d": "Sauce tomate, champignons frais, artichaut, poivrons, oignons, fromage, olives", "p": 10.0, "f": true}, {"n": "RACLETTE", "d": "Sauce tomate, bacon, pommes de terre, crème, raclette, olives", "p": 10.0, "f": true}, {"n": "HAWAÏENNE POULET 🍍", "d": "Sauce tomate, poulet rôti, ananas, emmental, olives", "p": 10.0, "f": true}, {"n": "CHÈVRE MIEL", "d": "Double crème, fromage de chèvre, miel, amandes, fromage, olives", "p": 10.0, "f": true}, {"n": "THON", "d": "Sauce tomate, thon, crème, fromage, olives", "p": 10.0, "f": true}, {"n": "SAUMON", "d": "Sauce tomate, saumon fumé, crème, fromage, olives", "p": 11.0, "f": true}, {"n": "FOURME JAMBON CRU", "d": "Sauce tomate, Fourme, jambon cru, fromage, olives", "p": 11.0, "f": true}, {"n": "SICILIENNE", "d": "Sauce tomate, oignons, câpres, mozzarella, anchois, olives", "p": 11.0, "f": true}, {"n": "MAGRET", "d": "Crème, jambon, champignons, magret fumé, fromage, olives", "p": 11.0, "f": true}, {"n": "3 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, emmental, olives", "p": 11.0, "f": true}, {"n": "RAVIOLE", "d": "Double crème, fromage, ravioles, Saint-Marcellin, olives", "p": 11.5, "f": true}, {"n": "BURGER", "d": "Ketchup, fromage fondu, oignons, cornichons, bœuf, fromage, olives", "p": 11.5, "f": true}, {"n": "BARBECUE", "d": "Double crème, bœuf haché, mozzarella fior di latte, sauce BBQ, oignons, olives", "p": 11.5, "f": true}, {"n": "CHAUSSON", "d": "Sauce tomate, jambon, champignons, œuf, crème, emmental", "p": 12.0, "f": false}, {"n": "AMÉRICAINE", "d": "Sauce tomate, chorizo, bœuf, champignons, poivrons, oignons, fromage, olives", "p": 12.0, "f": true}, {"n": "MONTAGNARDE", "d": "Double crème, champignons frais, mozzarella, reblochon, jambon cru, olives", "p": 12.0, "f": true}, {"n": "MOUSSAKA", "d": "Sauce tomate, bœuf, aubergine, oignons, poivrons, fromage, huile d'olive, olives", "p": 12.0, "f": true}, {"n": "BOISEE", "d": "Crème, poulet, champignons, mozzarella, olives", "p": 12.0, "f": true}, {"n": "CARNIVORE", "d": "Sauce tomate, chorizo, merguez, poulet rôti, sauce barbecue, mozzarella fior di latte, olives", "p": 12.0, "f": true}, {"n": "KEBAB", "d": "Sauce tomate, poivrons, fromage, viande de kebab, oignons, olives", "p": 12.0, "f": true}, {"n": "4 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, fromage de chèvre, emmental, olives", "p": 12.0, "f": true}, {"n": "MEXICAINE", "d": "Sauce tomate, jambon, champignons, poivrons, poulet, fromage, olives", "p": 12.0, "f": true}, {"n": "TARTIFLETTE", "d": "Sauce tomate, lardons fumés, pommes de terre, oignons, crème, reblochon, emmental, olives", "p": 12.0, "f": true}, {"n": "HOLLYWOOD", "d": "Double crème, bœuf haché, pommes de terre, emmental, fromage de chèvre, olives", "p": 12.0, "f": true}, {"n": "NORVÉGIENNE", "d": "Double crème, pommes de terre, saumon fumé, oignons, mozzarella fior di latte, olives", "p": 12.0, "f": true}, {"n": "POULET CURRY", "d": "Double crème, poivrons, poulet, sauce curry, mozzarella fior di latte, olives", "p": 12.0, "f": true}, {"n": "ANDOUILLETTE", "d": "Sauce tomate, andouillette, persillade, lardon fumé, fromage, olives", "p": 12.0, "f": true}, {"n": "GRENOUILLE 🐸", "d": "Double crème, fromage, grenouilles, beurre persillé, olives", "p": 12.0, "f": true}, {"n": "CHAMONIX", "d": "Double crème, reblochon, mozzarella fior di latte, raclette, emmental, olives", "p": 12.0, "f": true}, {"n": "SALMON DELUXE", "d": "Base crème fraîche, saumon fumé, raclette fondante, emmental, beurre persillé, olives.", "p": 13.0, "f": true}, {"n": "CHEESEBURGER 🆕", "d": "Base crème fraîche, viande hachée, poulet rôti, mozzarella fondante, cornichons, oignons crispy, olives et sauce façon burger.", "p": 13.0, "f": true}, {"n": "PIZZA DU MOMENT : LA CREAMY KEBAB", "d": "Base crème, mozzarella fondante, viande de kebab grillée, poivrons, oignons, sauce spéciale façon tartare et olives.", "p": 13.0, "f": true}, {"n": "ANTHROPOPHAGE", "d": "Sauce tomate, jambon, merguez, bœuf haché, chorizo, fromage, olives", "p": 13.0, "f": true}, {"n": "5 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, emmental, raclette, chèvre, olives", "p": 13.0, "f": true}, {"n": "VOLCANO 🌋", "d": "Sauce tomate, boeuf haché, merguez, pommes de terre, mozzarella, raclette, olives", "p": 13.0, "f": true}, {"n": "TARTUFO", "d": "Préparation à base de truffes, jambon, champignons, mozzarella", "p": 13.0, "f": true}, {"n": "SUPRÊME TARTARE", "d": "Une base crème onctueuse , du poulet rôti tendre, des pommes de terre fondantes et une mozzarella généreusement gratinée. Le tout sublimé par une sauce tartare savoureuse, des oignons crispy et quelques olives.", "p": 13.0, "f": true}, {"n": "BBQ & BACON", "d": "Double crème, bacon fumé, bœuf haché, mozzarella fior di latte, sauce BBQ, olives", "p": 13.0, "f": true}, {"n": "TARTI'FOURME", "d": "Base crème, oignons, lardons fumés, pommes de terre, fourme de Montbrison AOP, Reblochon de Savoie AOP, emmental, olives", "p": 13.5, "f": true}, {"n": "6 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, emmental, raclette, chèvre, reblochon, olives", "p": 14.0, "f": true}, {"n": "7 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, emmental, raclette, chèvre, reblochon, Saint-Marcellin, olives", "p": 15.0, "f": true}, {"n": "8 FROMAGES", "d": "Sauce tomate, roquefort, mozzarella, emmental, raclette, chèvre, reblochon,  Saint-Marcellin, fourme de Montbrison, olives", "p": 16.0, "f": true}, {"n": "9 FROMAGES", "d": "Sauce tomate, parmesan, roquefort, mozzarella, emmental, raclette, chèvre, reblochon,  Saint-Marcellin, fourme de Montbrison, olives", "p": 17.0, "f": true}];
+const euro = n => n.toFixed(2).replace('.', ',') + ' €';
+const VIANDE = /jambon|lardon|b(œ|oe)uf|poulet|merguez|chorizo|kebab|magret|bacon|viande|andouillette|grenouille/i;
+const MER = /anchois|thon|saumon|fruits de mer/i;
+PIZZAS.forEach((p, i) => {
+  p.id = i;
+  const d = p.d.toLowerCase();
+  p.base = /^sauce tomate/.test(d) ? 'tomate' : /cr[èe]me|béchamel/.test(d.slice(0, 40)) ? 'creme' : 'autre';
+  p.mer = MER.test(d);
+  p.vege = !VIANDE.test(d) && !p.mer;
+  p.fromages = /fromages/i.test(p.n) || (d.match(/roquefort|reblochon|raclette|ch[èe]vre|fourme|saint-marcellin|parmesan/g) || []).length >= 2;
+  p.nom = p.n.replace(/\s*[\u{1F300}-\u{1FAFF}☀-➿]+/gu, '').trim();
+  p.emoji = (p.n.match(/[\u{1F300}-\u{1FAFF}☀-➿]/gu) || []).join('');
+});
+const liste = document.getElementById('liste');
+let filtre = 'tout', q = '';
+function rendre() {
+  const res = PIZZAS.filter(p => (filtre === 'tout' || (filtre === 'tomate' && p.base === 'tomate') || (filtre === 'creme' && p.base === 'creme') || (filtre === 'fromages' && p.fromages) || (filtre === 'mer' && p.mer) || (filtre === 'vege' && p.vege)) && (!q || (p.n + ' ' + p.d).toLowerCase().includes(q)));
+  liste.innerHTML = res.length ? res.map(p => `<article class="pz"><h3>${p.nom} ${p.emoji}</h3><span class="prix">${p.f ? '<small>dès</small>' : ''}${euro(p.p)}</span><p>${p.d}</p><div class="bas"><div class="tags">${p.base === 'tomate' ? '<span class="tag">Base tomate</span>' : p.base === 'creme' ? '<span class="tag">Base crème</span>' : ''}${p.vege ? '<span class="tag">Sans viande</span>' : ''}${p.mer ? '<span class="tag">Mer</span>' : ''}</div><button class="ajout" data-id="${p.id}" aria-label="Ajouter ${p.nom} à la simulation">+</button></div></article>`).join('') : '<p class="vide">Aucune pizza ne correspond… essayez un autre ingrédient.</p>';
+}
+document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
+  b.setAttribute('aria-pressed', 'true'); filtre = b.dataset.f; rendre();
+}));
+document.querySelector('.recherche').addEventListener('input', e => { q = e.target.value.trim().toLowerCase(); rendre(); });
+rendre();
+
+/* ---- simulation 2 = 3 ---- */
+let panier = [];
+liste.addEventListener('click', e => {
+  const b = e.target.closest('.ajout'); if (!b) return;
+  panier.push(PIZZAS[+b.dataset.id]); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); majPanier();
+});
+function majPanier() {
+  const ul = document.getElementById('panier-liste');
+  const tri = panier.map((p, i) => ({ p, i })).sort((a, b) => b.p.p - a.p.p);
+  const offertes = new Set();
+  for (let k = 2; k < tri.length; k += 3) offertes.add(tri[k].i);
+  const st = panier.reduce((s, p) => s + p.p, 0);
+  const eco = [...offertes].reduce((s, i) => s + panier[i].p, 0);
+  ul.innerHTML = panier.length ? panier.map((p, i) => `<li class="${offertes.has(i) ? 'offerte' : ''}"><span>${p.nom}${offertes.has(i) ? ' · offerte' : ''}</span><span>${euro(p.p)} <button data-i="${i}" aria-label="Retirer ${p.nom}">×</button></span></li>`).join('') : '<li style="justify-content:center;opacity:.7">Ajoutez des pizzas avec le bouton +</li>';
+  document.getElementById('st').textContent = euro(st);
+  document.getElementById('eco').textContent = '− ' + euro(eco);
+  document.getElementById('tot').textContent = euro(st - eco);
+  const n = panier.length % 3 === 0 && panier.length ? 3 : panier.length % 3;
+  document.querySelectorAll('.jauge i').forEach((j, k) => j.classList.toggle('on', k < n));
+}
+document.getElementById('panier-liste').addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]'); if (!b) return; panier.splice(+b.dataset.i, 1); majPanier();
+});
+
+/* ---- simulateur plaques ---- */
+const inv = document.getElementById('invites'), dateI = document.getElementById('date');
+let parts = 5, mode = 'livraison';
+const PRIX_GEANTE_MIN = 16, SUPPLEMENT = 6, PARTS_PLAQUE = 50;
+const demain = new Date(Date.now() + 24 * 3600e3);
+dateI.min = demain.toISOString().slice(0, 10);
+const d0 = new Date(Date.now() + 7 * 24 * 3600e3); dateI.value = d0.toISOString().slice(0, 10);
+function majSimu() {
+  const n = +inv.value, total = n * parts, nb = Math.max(1, Math.ceil(total / PARTS_PLAQUE));
+  document.getElementById('o-inv').textContent = n;
+  document.getElementById('nb').textContent = nb;
+  document.getElementById('pl').textContent = nb > 1 ? 's' : '';
+  document.getElementById('sous').textContent = `soit environ ${nb * PARTS_PLAQUE} parts pour ${n} invités`;
+  document.getElementById('parts').textContent = nb * PARTS_PLAQUE;
+  document.getElementById('budget').textContent = 'dès ' + Math.round(nb * (PRIX_GEANTE_MIN + SUPPLEMENT)) + ' €';
+  const vis = document.getElementById('vis');
+  const montrer = Math.min(nb, 18);
+  if (vis.children.length !== montrer) {
+    vis.innerHTML = Array.from({ length: montrer }, (_, k) => `<div class="plaque" style="animation-delay:${k * 40}ms"></div>`).join('') + (nb > 18 ? `<div style="align-self:center;font-weight:800">+${nb - 18}</div>` : '');
+  }
+  const al = document.getElementById('alerte');
+  const d = dateI.value ? new Date(dateI.value + 'T12:00') : null;
+  al.textContent = d && d < demain ? 'Attention : les plaques se commandent au plus tard 24 heures avant l\'événement.' : '';
+  const corps = `Bonjour,\n\nJe souhaiterais commander des plaques à pizza :\n- Date de l'événement : ${dateI.value ? new Date(dateI.value + 'T12:00').toLocaleDateString('fr-FR') : 'à préciser'}\n- Nombre d'invités : ${n}\n- Nombre de plaques estimé : ${nb} (≈ ${nb * PARTS_PLAQUE} parts)\n- ${mode === 'livraison' ? 'Livraison sur place (adresse : …)' : 'Retrait au 2 rue Mulsant'}\n- Recettes souhaitées : …\n\nMerci de me confirmer le tarif.\n`;
+  document.getElementById('demande').href = 'mailto:pizzetcieroanne@gmail.com?subject=' + encodeURIComponent('Commande de plaques à pizza') + '&body=' + encodeURIComponent(corps);
+}
+inv.addEventListener('input', majSimu); dateI.addEventListener('change', majSimu);
+document.querySelectorAll('[data-p]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-p]').forEach(c => c.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); parts = +b.dataset.p; majSimu(); }));
+document.querySelectorAll('[data-l]').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('[data-l]').forEach(c => c.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); mode = b.dataset.l; majSimu(); }));
+majSimu();
+
+/* ---- avis (repris du site actuel) ---- */
+const AVIS = [["Emilie Degorre","Très bon service à domicile. Pizza très bonne. Livreurs souriants."],["Francois Libeau","Comme d'habitude les pizzas sont toujours excellente et très garni."],["Thomas Philibert","Excellentes pizzas, livraison gratuite et rapide, que demander de plus ?! Je recommande"],["Steven ANDRE","Les meilleurs pizza de Roanne"],["Jean-Maël Drs","Meilleure pizzeria de Roanne pour ma part. Super bien garnie !! Et délicieuse. Endroit très propre, très rapide, et très accueillant"],["Coline Mourterot","Pizzaïolo efficace et pizzas haute qualité."],["Adam terki","Un 5/5 bien mérité !"]];
+const piste = document.getElementById('piste');
+piste.innerHTML = [...AVIS, ...AVIS].map(([n, t]) => `<figure class="avis"><div class="etoiles" aria-hidden="true">★★★★★</div><p>« ${t} »</p><b>${n}</b></figure>`).join('');
+
+/* ---- navigation & apparitions ---- */
+const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+burger.addEventListener('click', () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); });
+menu.addEventListener('click', e => { if (e.target.tagName === 'A') { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', 'false'); } });
+const header = document.getElementById('haut');
+addEventListener('scroll', () => header.classList.toggle('ombre', scrollY > 10), { passive: true });
+document.querySelectorAll('.mot').forEach((m, i) => m.style.animationDelay = (i * 0.12) + 's');
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io.observe(el); });
+  const liens = [...document.querySelectorAll('.menu a')];
+  const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) liens.forEach(a => a.classList.toggle('actif', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => so.observe(s));
+} else document.querySelectorAll('.rv').forEach(el => el.classList.add('vu'));
+</script>
+</body>
+</html>
