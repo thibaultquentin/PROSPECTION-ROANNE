@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSI — Services informatiques et Sage 100 à Roanne et sa région</title>
+<meta name="description" content="RSI, société de services informatiques à Roanne depuis 1993 : Sage 100, réseaux, sauvegarde, infogérance et développements pour les PME du Roannais et de la région.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE RSI — reprise du site actuel rsi-roanne.com
+   Couleurs relevées dans la feuille de style du thème actuel
+   et dans le logo ; polices déjà chargées par le site actuel.
+   Ajuster ici si RSI fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --rsi-blue:#1e61a6;      /* bleu principal (liens, boutons, "i" du logo) */
+  --rsi-navy:#224365;      /* bleu nuit (titres secondaires) */
+  --rsi-slate:#434852;     /* gris ardoise du logo "RS" */
+  --rsi-text:#333333;      /* texte courant */
+  --rsi-mute:#85868c;      /* texte secondaire */
+  --rsi-soft:#f7f7f7;      /* fonds de sections */
+  --rsi-line:#e2e2e2;
+  --white:#ffffff;
+  --ok:#2e8b57; --warn:#c77700;
+  --f-head:'Montserrat',Arial,sans-serif;
+  --f-body:'Roboto',Arial,sans-serif;
+  --f-label:'Roboto Condensed',Arial,sans-serif;
+  --radius:10px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+  --shadow:0 10px 30px rgba(34,67,101,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);color:var(--rsi-text);background:var(--white);line-height:1.6;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--rsi-blue)}
+h1,h2,h3,h4{font-family:var(--f-head);color:var(--rsi-slate);line-height:1.15}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.label{font-family:var(--f-label);text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;color:var(--rsi-blue);font-weight:700}
+:focus-visible{outline:3px solid var(--rsi-blue);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--rsi-slate);color:#fff;font-size:.82rem;text-align:center;padding:7px 16px}
+.demo b{color:#9cc4ef}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--rsi-line);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0}
+.logo img{height:46px;width:auto}
+nav ul{display:flex;gap:26px;list-style:none}
+nav a{font-family:var(--f-head);font-weight:600;font-size:.88rem;color:var(--rsi-slate);text-decoration:none;position:relative;padding:6px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--rsi-blue);transition:width .3s var(--ease)}
+nav a:hover::after,nav a.active::after{width:100%}
+.head-cta{display:flex;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-head);font-weight:700;font-size:.88rem;padding:12px 20px;border-radius:6px;text-decoration:none;border:2px solid var(--rsi-blue);background:var(--rsi-blue);color:#fff;cursor:pointer;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:44px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(30,97,166,.28)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--rsi-blue)}
+.btn.ghost:hover{background:var(--rsi-blue);color:#fff}
+.btn.light{background:#fff;color:var(--rsi-navy);border-color:#fff}
+.tel{font-family:var(--f-head);font-weight:700;color:var(--rsi-slate);text-decoration:none;white-space:nowrap}
+.tel span{color:var(--rsi-blue)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--rsi-slate);margin:6px 10px;transition:.3s}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff 0%,#fff 46%,var(--rsi-soft) 46%)}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding:70px 0 80px}
+.hero h1{font-size:clamp(2.2rem,1.4rem + 3.2vw,3.9rem);font-weight:900;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--rsi-blue)}
+.hero p.lead{font-size:1.12rem;margin:22px 0 30px;max-width:540px;color:#4a4f58}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.ticker{margin-top:34px;font-family:var(--f-label);font-size:.95rem;color:var(--rsi-slate);display:flex;align-items:center;gap:10px;min-height:28px}
+.ticker .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(46,139,87,.5);animation:ping 2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(46,139,87,.5)}70%{box-shadow:0 0 0 10px rgba(46,139,87,0)}100%{box-shadow:0 0 0 0 rgba(46,139,87,0)}}
+.ticker b{color:var(--rsi-blue);font-weight:700}
+.caret{display:inline-block;width:2px;height:1em;background:var(--rsi-blue);vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-visual{position:relative}
+.hero-visual .photo{border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transform:perspective(1000px) rotateY(-6deg);transition:transform .6s var(--ease)}
+.hero-visual:hover .photo{transform:perspective(1000px) rotateY(0)}
+.hero-visual .photo img{aspect-ratio:1024/705;object-fit:cover;width:100%}
+.hero-visual svg.net{position:absolute;inset:-30px -20px auto auto;width:180px;height:180px;pointer-events:none}
+.badge-years{position:absolute;left:-22px;bottom:-26px;background:var(--rsi-navy);color:#fff;border-radius:12px;padding:16px 20px;box-shadow:var(--shadow);font-family:var(--f-head)}
+.badge-years strong{display:block;font-size:2rem;font-weight:900;line-height:1}
+.badge-years span{font-size:.78rem;opacity:.85;font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase}
+
+/* Chiffres */
+.stats{background:var(--rsi-navy);color:#fff}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding:34px 0}
+.stat strong{font-family:var(--f-head);font-size:clamp(1.8rem,1.3rem + 1.6vw,2.6rem);font-weight:900;display:block;line-height:1}
+.stat span{font-size:.9rem;opacity:.85}
+.stat{border-left:3px solid #6fa5dd;padding-left:16px}
+
+section.block{padding:90px 0}
+.sec-head{max-width:720px;margin-bottom:46px}
+.sec-head h2{font-size:clamp(1.8rem,1.3rem + 1.8vw,2.7rem);font-weight:800;margin-top:8px}
+.sec-head p{margin-top:14px;color:#555}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.svc{border:1px solid var(--rsi-line);border-radius:var(--radius);padding:20px 18px;background:#fff;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.svc::before{content:"";position:absolute;left:0;top:0;height:3px;width:0;background:var(--rsi-blue);transition:width .4s var(--ease)}
+.svc:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+.svc:hover::before{width:100%}
+.svc svg{width:30px;height:30px;stroke:var(--rsi-blue);fill:none;stroke-width:1.7;margin-bottom:12px}
+.svc h3{font-size:.98rem;font-weight:700}
+
+/* Domaines */
+.domains{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:60px}
+.dom{background:var(--rsi-soft);border-radius:14px;padding:30px 28px;position:relative}
+.dom .num{font-family:var(--f-head);font-weight:900;font-size:3.2rem;color:rgba(30,97,166,.13);position:absolute;right:20px;top:10px}
+.dom h3{font-size:1.25rem;margin-bottom:12px}
+.dom p{font-size:.95rem;color:#555;margin-bottom:14px}
+.dom ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.dom li{font-family:var(--f-label);font-size:.82rem;background:#fff;border:1px solid var(--rsi-line);border-radius:30px;padding:4px 12px;color:var(--rsi-navy)}
+
+/* Outil e-facturation */
+.efact{background:linear-gradient(160deg,var(--rsi-navy),#16304b);color:#fff;position:relative;overflow:hidden}
+.efact::after{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;border:1px solid rgba(255,255,255,.07);box-shadow:0 0 0 60px rgba(255,255,255,.02),0 0 0 120px rgba(255,255,255,.015)}
+.efact h2,.efact h3{color:#fff}
+.efact .label{color:#9cc4ef}
+.efact .sec-head p{color:#c9d6e4}
+.countdown{display:flex;gap:12px;margin:8px 0 40px;flex-wrap:wrap}
+.cd{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:12px 18px;min-width:96px;text-align:center}
+.cd strong{display:block;font-family:var(--f-head);font-size:1.9rem;font-weight:900;line-height:1}
+.cd span{font-family:var(--f-label);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.cd-txt{align-self:center;max-width:300px;font-size:.9rem;color:#c9d6e4}
+.tool{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;position:relative;z-index:1}
+.panel{background:#fff;color:var(--rsi-text);border-radius:16px;padding:28px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.panel h3{color:var(--rsi-slate);font-size:1.15rem;margin-bottom:6px}
+.q{margin-top:22px}
+.q > p{font-family:var(--f-head);font-weight:700;font-size:.9rem;color:var(--rsi-slate);margin-bottom:10px}
+.q > p small{font-weight:500;color:var(--rsi-mute);font-family:var(--f-body)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt label{display:inline-block;cursor:pointer;border:1.5px solid var(--rsi-line);border-radius:8px;padding:9px 14px;font-size:.88rem;transition:all .2s;user-select:none;min-height:40px}
+.opt label:hover{border-color:var(--rsi-blue)}
+.opt input:checked + label{background:var(--rsi-blue);border-color:var(--rsi-blue);color:#fff;box-shadow:0 4px 12px rgba(30,97,166,.3)}
+.opt input:focus-visible + label{outline:3px solid #9cc4ef;outline-offset:2px}
+.result h3{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.score{font-family:var(--f-label);font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:20px;background:var(--rsi-soft);color:var(--rsi-navy);white-space:nowrap}
+.timeline{list-style:none;margin:20px 0 10px;position:relative;padding-left:26px}
+.timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--rsi-line)}
+.timeline li{position:relative;padding-bottom:18px;opacity:0;transform:translateX(-8px);animation:slideIn .45s var(--ease) forwards}
+.timeline li::before{content:"";position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--rsi-blue)}
+.timeline li.done::before{background:var(--ok);border-color:var(--ok)}
+.timeline li.na{opacity:.45 !important}
+.timeline li.na::before{border-color:#bbb}
+@keyframes slideIn{to{opacity:1;transform:none}}
+.tl-date{font-family:var(--f-label);font-weight:700;color:var(--rsi-blue);font-size:.85rem;letter-spacing:.04em}
+.tl-date .tag{display:inline-block;margin-left:6px;font-size:.72rem;padding:1px 8px;border-radius:12px;background:#e7f4ec;color:var(--ok)}
+.tl-date .tag.soon{background:#fff3e0;color:var(--warn)}
+.timeline li strong{display:block;font-family:var(--f-head);color:var(--rsi-slate);font-size:.95rem}
+.timeline li p{font-size:.86rem;color:#555}
+.steps{margin-top:8px;border-top:1px solid var(--rsi-line);padding-top:16px}
+.steps h4{font-size:.9rem;margin-bottom:10px}
+.steps ol{padding-left:20px;font-size:.88rem;color:#444}
+.steps li{margin-bottom:6px}
+.soft-note{font-size:.78rem;color:var(--rsi-mute);margin-top:14px}
+.result .btn{margin-top:16px;width:100%;justify-content:center}
+
+/* Assistance */
+.assist{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.as-card{border-radius:14px;padding:28px;border:1px solid var(--rsi-line);transition:transform .3s var(--ease),box-shadow .3s;background:#fff}
+.as-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.as-card .ico{width:52px;height:52px;border-radius:12px;background:rgba(30,97,166,.1);display:grid;place-items:center;margin-bottom:16px}
+.as-card .ico svg{width:26px;height:26px;stroke:var(--rsi-blue);fill:none;stroke-width:1.8}
+.as-card h3{font-size:1.1rem;margin-bottom:8px}
+.as-card p{font-size:.93rem;color:#555;margin-bottom:16px}
+.as-card a.link{font-family:var(--f-head);font-weight:700;font-size:.88rem;text-decoration:none}
+.as-card a.link::after{content:" →";transition:margin .2s}
+.as-card a.link:hover::after{margin-left:4px}
+
+/* Présentation */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.about .txt p{margin-bottom:14px;color:#444}
+.forts{list-style:none;margin-top:20px}
+.forts li{padding:12px 0 12px 34px;border-bottom:1px solid var(--rsi-line);position:relative;font-weight:500}
+.forts li::before{content:"";position:absolute;left:4px;top:17px;width:14px;height:8px;border-left:2.5px solid var(--rsi-blue);border-bottom:2.5px solid var(--rsi-blue);transform:rotate(-45deg)}
+.team{background:var(--rsi-soft);border-radius:14px;padding:26px;margin-top:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.team strong{font-family:var(--f-head);font-size:1.8rem;font-weight:900;color:var(--rsi-blue);display:block}
+.team span{font-size:.82rem;color:#555}
+.partners h3{font-size:1.05rem;margin-bottom:14px}
+.p-list{display:grid;gap:10px}
+.p-item{display:flex;justify-content:space-between;gap:14px;align-items:center;border:1px solid var(--rsi-line);border-radius:10px;padding:14px 16px;transition:border-color .2s,transform .2s}
+.p-item:hover{border-color:var(--rsi-blue);transform:translateX(4px)}
+.p-item b{font-family:var(--f-head);color:var(--rsi-slate);font-size:.93rem}
+.p-item span{font-family:var(--f-label);font-size:.8rem;color:var(--rsi-mute);text-align:right}
+.p-logos{display:flex;gap:16px;align-items:center;margin-top:20px}
+.p-logos img{height:42px;width:auto;border-radius:6px;border:1px solid var(--rsi-line)}
+
+/* Secteurs défilants */
+.marquee{overflow:hidden;border-block:1px solid var(--rsi-line);padding:18px 0;background:#fff}
+.marquee .track{display:flex;gap:46px;width:max-content;animation:scroll 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{font-family:var(--f-head);font-weight:800;font-size:1.25rem;color:var(--rsi-slate);white-space:nowrap}
+.marquee span i{font-style:normal;color:var(--rsi-blue);margin-right:46px}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* Zones */
+.zones{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.zone-map{position:relative;aspect-ratio:1/1;max-width:440px;margin:auto;width:100%}
+.zone-map svg{width:100%;height:100%}
+.zone-map .pin{cursor:pointer}
+.zone-map .pin circle.halo{transform-origin:center;transform-box:fill-box;animation:halo 2.4s infinite}
+@keyframes halo{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.2);opacity:0}}
+.zone-list{list-style:none;display:grid;gap:8px}
+.zone-list li{padding:12px 16px;border-radius:10px;background:var(--rsi-soft);font-family:var(--f-head);font-weight:600;color:var(--rsi-slate);cursor:default;transition:background .2s,color .2s;display:flex;justify-content:space-between}
+.zone-list li.on,.zone-list li:hover{background:var(--rsi-blue);color:#fff}
+.zone-list li small{font-family:var(--f-label);font-weight:400;opacity:.8}
+
+/* Contact */
+.contact{background:var(--rsi-soft)}
+.c-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:30px}
+.c-info{background:var(--rsi-slate);color:#fff;border-radius:16px;padding:32px}
+.c-info h3{color:#fff;margin-bottom:18px}
+.c-row{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.c-row svg{width:22px;height:22px;stroke:#9cc4ef;fill:none;stroke-width:1.8;flex:none;margin-top:2px}
+.c-row a{color:#fff}
+.c-row small{display:block;font-family:var(--f-label);letter-spacing:.08em;text-transform:uppercase;opacity:.7;font-size:.72rem}
+.map{border-radius:12px;overflow:hidden;margin-top:12px;height:200px;background:#555}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.3)}
+form.panel{box-shadow:var(--shadow)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-family:var(--f-head);font-weight:600;font-size:.83rem;color:var(--rsi-slate)}
+.field input,.field select,.field textarea{font:inherit;font-size:.95rem;border:1.5px solid var(--rsi-line);border-radius:8px;padding:11px 12px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--rsi-blue);box-shadow:0 0 0 4px rgba(30,97,166,.12)}
+.field textarea{min-height:120px;resize:vertical}
+.form-note{font-size:.82rem;color:var(--rsi-mute);margin-top:10px}
+.form-ok{display:none;background:#e7f4ec;color:#1e5e3b;border-radius:8px;padding:12px;margin-top:12px;font-size:.9rem}
+
+footer{background:#2c3038;color:#c9ccd2;padding:50px 0 30px;font-size:.88rem}
+.f-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;font-size:.95rem;margin-bottom:12px}
+footer a{color:#c9ccd2;text-decoration:none}
+footer a:hover{color:#fff}
+footer ul{list-style:none;display:grid;gap:6px}
+.f-logo{background:#fff;display:inline-block;padding:8px 12px;border-radius:8px;margin-bottom:14px}
+.f-logo img{height:36px}
+.disclaimer{margin-top:34px;border-top:1px solid #444a54;padding-top:20px;font-size:.8rem;color:#9ea3ab;line-height:1.6}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--rsi-blue);z-index:60;width:0}
+
+@media (max-width:1000px){
+  .hero-grid,.tool,.about,.zones,.c-grid{grid-template-columns:1fr}
+  .services{grid-template-columns:repeat(2,1fr)}
+  .domains,.assist{grid-template-columns:1fr}
+  .stats .wrap{grid-template-columns:repeat(2,1fr)}
+  .hero{background:#fff}
+  .hero-visual{margin:10px 10px 30px}
+  .f-grid{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  nav{position:fixed;inset:0 0 auto 0;top:0;background:#fff;padding:90px 24px 30px;transform:translateY(-120%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;box-shadow:var(--shadow);z-index:-1}
+  nav.open{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+  nav ul{flex-direction:column;gap:18px}
+  .burger{display:block}
+  .head-cta .btn{display:none}
+  .tel{font-size:.85rem}
+}
+@media (max-width:520px){
+  .services{grid-template-columns:1fr}
+  .f2{grid-template-columns:1fr}
+  .team{grid-template-columns:1fr}
+  .badge-years{left:0}
+  .cd{min-width:78px;padding:10px 12px}
+  .panel{padding:22px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"RSI — Roanne Services Informatiques",
+  "description":"Société de services informatiques créée en 1993 : logiciels de gestion Sage 100, infrastructure, réseaux, sauvegarde, infogérance et développements spécifiques pour PME, professions libérales et associations.",
+  "url":"https://www.rsi-roanne.com/",
+  "logo":"https://www.rsi-roanne.com/wp-content/uploads/2019/11/logo-rsi.png",
+  "telephone":"+33477236623",
+  "email":"contact@rsi-roanne.com",
+  "foundingDate":"1993-06",
+  "address":{"@type":"PostalAddress","streetAddress":"3 rue Mulsant","postalCode":"42300","addressLocality":"Roanne","addressRegion":"Auvergne-Rhône-Alpes","addressCountry":"FR"},
+  "areaServed":["Bassin roannais","Monts du Lyonnais","Saint-Étienne","Vichy","Sud Bourgogne","Lyon"]
+}
+</script>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="demo"><b>Maquette de démonstration</b> — proposition non commandée, réalisée à partir des informations publiques de rsi-roanne.com. Contenus indicatifs, non contractuels.</div>
+
+<header id="top">
+  <div class="wrap topbar">
+    <a class="logo" href="#accueil" aria-label="RSI Services Informatiques — accueil"><img src="https://www.rsi-roanne.com/wp-content/uploads/2019/11/logo-rsi.png" alt="RSI Services Informatiques" width="128" height="62"></a>
+    <nav id="nav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#accueil" class="active">Accueil</a></li>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#domaines">Nos domaines d’intervention</a></li>
+        <li><a href="#efacturation">e-Facturation</a></li>
+        <li><a href="#espace-clients">Espace clients</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="head-cta">
+      <a class="tel" href="tel:+33477236623"><span>✆</span> 04 77 23 66 23</a>
+      <a class="btn" href="#espace-clients">Maintenance</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="label rv">RSI Services informatiques à Roanne</p>
+      <h1 class="rv d1">L’informatique de votre PME, <em>maîtrisée</em> de bout en bout.</h1>
+      <p class="lead rv d2">Présente sur Roanne depuis 1993, RSI est une société de services informatiques qui intervient sur la région Rhône-Alpes – Auvergne auprès d’une clientèle de PME-PMI, de professions libérales et d’associations.</p>
+      <div class="ctas rv d3">
+        <a class="btn" href="#efacturation">Où en êtes-vous avec la facture électronique ?</a>
+        <a class="btn ghost" href="#contact">Contactez-nous</a>
+      </div>
+      <div class="ticker rv d3" aria-live="off"><span class="dot"></span><span>Nous intervenons sur : <b id="tick"></b><span class="caret"></span></span></div>
+    </div>
+    <div class="hero-visual rv d2">
+      <svg class="net" viewBox="0 0 180 180" aria-hidden="true">
+        <g stroke="#1e61a6" stroke-width="1.2" fill="none" opacity=".55">
+          <line x1="30" y1="40" x2="90" y2="90"><animate attributeName="opacity" values=".2;1;.2" dur="3s" repeatCount="indefinite"/></line>
+          <line x1="150" y1="30" x2="90" y2="90"><animate attributeName="opacity" values="1;.2;1" dur="3.4s" repeatCount="indefinite"/></line>
+          <line x1="140" y1="150" x2="90" y2="90"><animate attributeName="opacity" values=".3;1;.3" dur="2.6s" repeatCount="indefinite"/></line>
+          <line x1="30" y1="140" x2="90" y2="90"><animate attributeName="opacity" values="1;.3;1" dur="3.8s" repeatCount="indefinite"/></line>
+        </g>
+        <g fill="#1e61a6"><circle cx="90" cy="90" r="7"/><circle cx="30" cy="40" r="4"/><circle cx="150" cy="30" r="4"/><circle cx="140" cy="150" r="4"/><circle cx="30" cy="140" r="4"/></g>
+      </svg>
+      <div class="photo"><img src="https://www.rsi-roanne.com/wp-content/uploads/2022/04/AdobeStock_105351037.jpg" alt="Infrastructure informatique connectée : serveurs, postes et cloud" width="1024" height="705"></div>
+      <div class="badge-years"><strong data-count="33">0</strong><span>ans d’expérience</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat rv"><strong data-count="350">0</strong><span>clients actifs PME</span></div>
+    <div class="stat rv d1"><strong data-count="150">0</strong><span>clients en infogérance</span></div>
+    <div class="stat rv d2"><strong data-count="180">0</strong><span>sites équipés en Sage (ligne 30 et 100)</span></div>
+    <div class="stat rv d3"><strong>1993</strong><span>création de RSI à Roanne</span></div>
+  </div>
+</div>
+
+<section class="block" id="domaines">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label rv">Nos domaines d’intervention</p>
+      <h2 class="rv d1">Du serveur au logiciel de gestion, un seul interlocuteur.</h2>
+      <p class="rv d2">Notre équipe de techniciens est rodée aux interventions en environnement professionnel et notre démarche commerciale est adaptée aux attentes des organisations.</p>
+    </div>
+    <div class="services">
+      <div class="svc rv"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="1.5"/><rect x="3" y="14" width="18" height="7" rx="1.5"/><path d="M7 6.5h.01M7 17.5h.01"/></svg><h3>Serveur – Physique et Virtualisation</h3></div>
+      <div class="svc rv d1"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg><h3>PC Bureau – Portable – Périphérique</h3></div>
+      <div class="svc rv d2"><svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7"/></svg><h3>Services d’impression</h3></div>
+      <div class="svc rv d3"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5 6.5 17M12 11.5l5.5 5.5"/></svg><h3>Réseaux – Infrastructures – Sécurité</h3></div>
+      <div class="svc rv"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><h3>Sauvegarde et protection des données</h3></div>
+      <div class="svc rv d1"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg><h3>Support Technique</h3></div>
+      <div class="svc rv d2"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 9v11"/></svg><h3>Logiciel SAGE</h3></div>
+      <div class="svc rv d3"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z"/></svg><h3>Logiciel Microsoft</h3></div>
+      <div class="svc rv"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H4zM4 4l8 7 8-7"/><path d="M8 20h8"/></svg><h3>Plateforme collaborative Exchange Online</h3></div>
+      <div class="svc rv d1"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg><h3>Plateforme ACRONIS – Protection et Cybersécurité</h3></div>
+      <div class="svc rv d2"><svg viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg><h3>Développements spécifiques</h3></div>
+      <div class="svc rv d3"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg><h3>Dépannage – Maintenance</h3></div>
+    </div>
+
+    <div class="domains">
+      <div class="dom rv"><span class="num">01</span><h3>Logiciel de gestion</h3><p>Nous distribuons les logiciels de gestion de la gamme Sage 100 Cloud en tant que Centre de Compétence Sage (CCS) : mise en place, formation des utilisateurs et maintenance.</p><ul><li>Comptabilité – Gestion Commerciale</li><li>Moyen de paiement – Immobilisation</li><li>e-Facturation</li><li>Gestion de Production</li><li>CRM</li></ul></div>
+      <div class="dom rv d1"><span class="num">02</span><h3>Infrastructure</h3><p>Sans la maîtrise de l’infra, le système informatique d’une entreprise reste fermé sur lui-même et peut vite être saturé (LAN, WLAN, impression…).</p><ul><li>Switch – Firewall UTM</li><li>Wifi Roaming</li><li>VPN SSL – IPSec</li><li>Certificat</li><li>Passerelle RDS</li><li>Télétravail</li></ul></div>
+      <div class="dom rv d2"><span class="num">03</span><h3>Développement de solutions</h3><p>La maîtrise d’une solution standard n’est parfois pas suffisante. Notre connaissance des produits Sage nous permet de les interfacer avec des applications développées en interne.</p><ul><li>Développement spécifique</li><li>Liaison ODBC</li><li>SQL Server</li><li>API</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-label="Secteurs d’activité de nos clients">
+  <div class="track">
+    <span>Agro-alimentaire<i>/</i>Textile (Tissage et Tricotage)<i>/</i>Professions de santé<i>/</i>Administrations, Associations, Mairies<i>/</i>Mécanique – Assemblage<i>/</i>Éducation<i>/</i>Bâtiment<i>/</i>Négoce<i>/</i></span>
+    <span aria-hidden="true">Agro-alimentaire<i>/</i>Textile (Tissage et Tricotage)<i>/</i>Professions de santé<i>/</i>Administrations, Associations, Mairies<i>/</i>Mécanique – Assemblage<i>/</i>Éducation<i>/</i>Bâtiment<i>/</i>Négoce<i>/</i></span>
+  </div>
+</div>
+
+<section class="block efact" id="efacturation">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label rv">e-Facturation · Réforme 2026-2027</p>
+      <h2 class="rv d1">Facture électronique : où en est votre entreprise ?</h2>
+      <p class="rv d2">Depuis le 1<sup>er</sup> septembre 2026, toutes les entreprises assujetties à la TVA établies en France doivent pouvoir recevoir des factures électroniques. L’émission devient obligatoire pour les PME et TPE au 1<sup>er</sup> septembre 2027. Quatre questions pour savoir ce qui vous concerne.</p>
+    </div>
+    <div class="countdown rv d2" aria-label="Compte à rebours avant le 1er septembre 2027">
+      <div class="cd"><strong id="cd-m">–</strong><span>mois</span></div>
+      <div class="cd"><strong id="cd-d">–</strong><span>jours</span></div>
+      <div class="cd"><strong id="cd-t">–</strong><span>jours au total</span></div>
+      <p class="cd-txt">avant l’obligation d’émission pour les PME, TPE et micro-entreprises (1<sup>er</sup> septembre 2027).</p>
+    </div>
+
+    <div class="tool">
+      <div class="panel rv" id="quiz">
+        <h3>Votre situation</h3>
+        <p style="font-size:.88rem;color:#666">Le résultat se met à jour à chaque réponse.</p>
+        <div class="q"><p>1. Taille de votre entreprise</p>
+          <div class="opts">
+            <div class="opt"><input type="radio" name="size" id="s1" value="tpe" checked><label for="s1">Micro-entreprise / TPE</label></div>
+            <div class="opt"><input type="radio" name="size" id="s2" value="pme"><label for="s2">PME</label></div>
+            <div class="opt"><input type="radio" name="size" id="s3" value="eti"><label for="s3">ETI</label></div>
+            <div class="opt"><input type="radio" name="size" id="s4" value="ge"><label for="s4">Grande entreprise</label></div>
+          </div></div>
+        <div class="q"><p>2. Vous êtes assujetti à la TVA en France ?</p>
+          <div class="opts">
+            <div class="opt"><input type="radio" name="tva" id="t1" value="oui" checked><label for="t1">Oui</label></div>
+            <div class="opt"><input type="radio" name="tva" id="t2" value="nsp"><label for="t2">Je ne sais pas</label></div>
+            <div class="opt"><input type="radio" name="tva" id="t3" value="non"><label for="t3">Non (association non assujettie…)</label></div>
+          </div></div>
+        <div class="q"><p>3. Vos clients <small>(plusieurs choix possibles)</small></p>
+          <div class="opts">
+            <div class="opt"><input type="checkbox" name="cli" id="c1" value="b2b" checked><label for="c1">Entreprises en France</label></div>
+            <div class="opt"><input type="checkbox" name="cli" id="c2" value="b2c"><label for="c2">Particuliers</label></div>
+            <div class="opt"><input type="checkbox" name="cli" id="c3" value="intl"><label for="c3">Clients à l’étranger</label></div>
+          </div></div>
+        <div class="q"><p>4. Aujourd’hui, vous facturez avec…</p>
+          <div class="opts">
+            <div class="opt"><input type="radio" name="soft" id="l1" value="sage" checked><label for="l1">Sage 100</label></div>
+            <div class="opt"><input type="radio" name="soft" id="l2" value="autre"><label for="l2">Un autre logiciel de gestion</label></div>
+            <div class="opt"><input type="radio" name="soft" id="l3" value="tableur"><label for="l3">Un tableur / traitement de texte</label></div>
+            <div class="opt"><input type="radio" name="soft" id="l4" value="nsp"><label for="l4">Je ne sais pas</label></div>
+          </div></div>
+      </div>
+
+      <div class="panel result rv d1" id="result" aria-live="polite">
+        <h3><span>Votre calendrier</span><span class="score" id="score">–</span></h3>
+        <ol class="timeline" id="tl"></ol>
+        <div class="steps"><h4 id="steps-title">Vos prochaines étapes</h4><ol id="steps"></ol></div>
+        <a class="btn" href="#contact" id="cta-efact">Faire le point e-facturation avec RSI</a>
+        <p class="soft-note">Calendrier issu des lois de finances 2024 et 2026, donné à titre d’information générale. Votre situation précise (catégorie d’entreprise, régimes particuliers) est à confirmer avec votre expert-comptable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="espace-clients">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label rv">Espace clients</p>
+      <h2 class="rv d1">Besoin d’une intervention ?</h2>
+      <p class="rv d2">Dédié à nos clients, cet espace permet de mettre à disposition différentes informations utiles de manière dynamique.</p>
+    </div>
+    <div class="assist">
+      <div class="as-card rv"><div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="1.5"/><path d="M8 21h8M12 17v4M9 10l2 2 4-4"/></svg></div><h3>Télémaintenance</h3><p>Téléchargez le module de prise en main à distance : un technicien RSI se connecte à votre poste, avec votre accord, pendant l’appel.</p><a class="link" href="https://www.rsi-roanne.com/espace-clients/teamviewer/">Télécharger TeamViewer</a></div>
+      <div class="as-card rv d1"><div class="ico"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></div><h3>Support technique</h3><p>Un souci sur un poste, une imprimante, le réseau ou un logiciel ? Appelez directement l’équipe technique à Roanne.</p><a class="link" href="tel:+33477236623">04 77 23 66 23</a></div>
+      <div class="as-card rv d2"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m10.8 12.2 9.2-9.2M17 6l3 3M14 9l2 2"/></svg></div><h3>Clés DUA / DSU Sage</h3><p>Renouvellement de vos clés de licence Sage 100 : nous préparons la mise à jour et l’installation.</p><a class="link" href="#contact" data-subject="Renouvellement clés DUA / DSU">Demander le renouvellement</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="presentation" style="background:var(--rsi-soft)">
+  <div class="wrap about">
+    <div class="txt">
+      <p class="label rv">Roanne services informatiques</p>
+      <h2 class="rv d1" style="font-size:clamp(1.8rem,1.3rem + 1.8vw,2.6rem);margin:8px 0 18px">Les valeurs RSI Roanne</h2>
+      <p class="rv">Société de services informatiques basée à Roanne, RSI a été créée en juin 1993. Elle intervient dans le domaine des communications et des réseaux locaux, dans la mise en place d’applications de gestion et dans le développement d’applications spécifiques (productions mécaniques et textiles, fabrication, assemblage…).</p>
+      <p class="rv">Notre implication dans les projets de nos clients, la connaissance de leurs métiers et de leurs contraintes nous permettent de les accompagner dans leur croissance et leur développement.</p>
+      <ul class="forts">
+        <li class="rv">Équipe rodée aux installations et mises en place en milieu professionnel</li>
+        <li class="rv d1">Maîtrise des contraintes d’installation des outils informatiques professionnels</li>
+        <li class="rv d2">Connaissance de l’environnement informatique</li>
+        <li class="rv d3">Approche commerciale adaptée aux attentes des PME</li>
+      </ul>
+      <div class="team rv">
+        <div><strong>3</strong><span>techniciens</span></div>
+        <div><strong>3</strong><span>formateurs-développeurs</span></div>
+        <div><strong>1</strong><span>secrétaire commerciale</span></div>
+      </div>
+    </div>
+    <div class="partners">
+      <h3 class="rv">Partenaires techniques</h3>
+      <div class="p-list">
+        <div class="p-item rv"><b>SAGE</b><span>RCS depuis 1996 – CCS depuis 2007</span></div>
+        <div class="p-item rv d1"><b>SAGE CRM</b><span>Agrément CCS HL CRM 2016</span></div>
+        <div class="p-item rv d2"><b>SAGE 100 Production Industrie</b><span>Agrément 2013</span></div>
+        <div class="p-item rv d3"><b>MICROSOFT</b><span>Partenaire référence</span></div>
+        <div class="p-item rv"><b>Constructeurs informatiques</b><span>Fujitsu, HP, Lenovo</span></div>
+        <div class="p-item rv d1"><b>Grossistes informatiques</b><span>&nbsp;</span></div>
+      </div>
+      <div class="p-logos rv"><img src="https://www.rsi-roanne.com/wp-content/uploads/2022/04/Zyxel-1.jpg" alt="Zyxel" width="155" height="62"><img src="https://www.rsi-roanne.com/wp-content/uploads/2022/04/Acronis.jpg" alt="Acronis" width="183" height="68"></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="zones">
+  <div class="wrap zones">
+    <div>
+      <p class="label rv">Clientèle et localisation</p>
+      <h2 class="rv d1" style="font-size:clamp(1.8rem,1.3rem + 1.8vw,2.6rem);margin:8px 0 14px">Principalement des PME de 10 à 50 salariés, autour de Roanne.</h2>
+      <p class="rv d2" style="color:#555;margin-bottom:22px">Survolez une zone pour la situer.</p>
+      <ul class="zone-list" id="zlist">
+        <li data-z="roanne" class="rv">Bassin Roannais <small>Loire (42)</small></li>
+        <li data-z="lyonnais" class="rv d1">Monts du Lyonnais <small>Rhône (69)</small></li>
+        <li data-z="stetienne" class="rv d2">Saint-Étienne <small>Loire (42)</small></li>
+        <li data-z="vichy" class="rv d3">Vichy <small>Allier (03)</small></li>
+        <li data-z="bourgogne" class="rv">Sud Bourgogne <small>Saône-et-Loire (71)</small></li>
+        <li data-z="lyon" class="rv d1">Lyon <small>Rhône (69)</small></li>
+      </ul>
+    </div>
+    <div class="zone-map rv d2" aria-hidden="true">
+      <svg viewBox="0 0 400 400" id="zmap">
+        <defs><radialGradient id="g" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#1e61a6" stop-opacity=".12"/><stop offset="1" stop-color="#1e61a6" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="200" cy="200" r="190" fill="url(#g)"/>
+        <circle cx="200" cy="200" r="90" fill="none" stroke="#e2e2e2" stroke-dasharray="4 6"/>
+        <circle cx="200" cy="200" r="160" fill="none" stroke="#e2e2e2" stroke-dasharray="4 6"/>
+        <g stroke="#1e61a6" stroke-width="1.3" opacity=".35" id="zlines"></g>
+        <g id="zpins"></g>
+        <text x="200" y="392" text-anchor="middle" font-family="Roboto Condensed" font-size="11" fill="#85868c">Schéma de principe, positions approximatives</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="block contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="label rv">Contact</p>
+      <h2 class="rv d1">Contactez-nous</h2>
+    </div>
+    <div class="c-grid">
+      <div class="c-info rv">
+        <h3>RSI — Roanne Services Informatiques</h3>
+        <div class="c-row"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><small>Adresse</small>3 rue Mulsant<br>42300 Roanne</div></div>
+        <div class="c-row"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><div><small>Téléphone</small><a href="tel:+33477236623">04 77 23 66 23</a></div></div>
+        <div class="c-row"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 4l8 8 8-8"/></svg><div><small>E-mail</small><a href="mailto:contact@rsi-roanne.com">contact@rsi-roanne.com</a></div></div>
+        <div class="map"><iframe title="Plan d’accès RSI, 3 rue Mulsant à Roanne" loading="lazy" src="https://maps.google.com/maps?q=3%20rue%20Mulsant%2042300%20Roanne&z=15&output=embed"></iframe></div>
+      </div>
+      <form class="panel rv d1" id="cform" novalidate>
+        <div class="f2">
+          <div class="field"><label for="nom">Nom et prénom</label><input id="nom" required autocomplete="name"></div>
+          <div class="field"><label for="soc">Société</label><input id="soc" autocomplete="organization"></div>
+        </div>
+        <div class="f2">
+          <div class="field"><label for="mail">E-mail</label><input id="mail" type="email" required autocomplete="email"></div>
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field"><label for="sujet">Objet</label>
+          <select id="sujet">
+            <option>Facture électronique / Sage 100</option>
+            <option>Renouvellement clés DUA / DSU</option>
+            <option>Infrastructure, réseau, sécurité</option>
+            <option>Sauvegarde et protection des données</option>
+            <option>Développement spécifique</option>
+            <option>Dépannage – Maintenance</option>
+            <option>Autre demande</option>
+          </select></div>
+        <div class="field"><label for="msg">Votre message</label><textarea id="msg"></textarea></div>
+        <button class="btn" type="submit">Envoyer la demande</button>
+        <p class="form-ok" id="fok">Maquette de démonstration : le message n’a pas été envoyé. Sur le site réel, il arriverait directement chez RSI.</p>
+        <p class="form-note">Maquette de démonstration : ce formulaire n’envoie aucune donnée.</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="f-logo"><img src="https://www.rsi-roanne.com/wp-content/uploads/2019/11/logo-rsi.png" alt="RSI" width="128" height="62"></div>
+        <p>Société de services informatiques à Roanne depuis 1993. Logiciels de gestion Sage 100, infrastructure, sauvegarde et développements pour les PME.</p>
+      </div>
+      <div><h4>Navigation</h4><ul><li><a href="#presentation">Présentation</a></li><li><a href="#domaines">Nos domaines d’intervention</a></li><li><a href="#efacturation">e-Facturation</a></li><li><a href="#espace-clients">Espace clients</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h4>Contact</h4><ul><li>3 rue Mulsant, 42300 Roanne</li><li><a href="tel:+33477236623">04 77 23 66 23</a></li><li><a href="mailto:contact@rsi-roanne.com">contact@rsi-roanne.com</a></li><li>Mentions légales · RGPD · Cookies</li></ul></div>
+    </div>
+    <p class="disclaimer"><strong>Maquette de démonstration.</strong> Cette page a été construite à partir des informations publiées sur rsi-roanne.com (textes, chiffres, partenaires, coordonnées), dont elle reprend les couleurs, les polices et la structure de navigation. Les images (logo, visuels, logos partenaires) sont celles déjà présentes sur le site actuel ; aucune photo d’équipe ou de locaux n’y figurant, cet emplacement reste à fournir par RSI. Les horaires d’ouverture ne sont pas publiés et restent à compléter. Le diagnostic « facture électronique » reprend le calendrier légal en vigueur (lois de finances 2024 et 2026) à titre d’information générale ; il ne constitue pas un conseil. Les formulaires n’envoient aucune donnée.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Header + barre de progression */
+  const header=document.querySelector('header'), prog=document.getElementById('progress');
+  function onScroll(){
+    header.classList.toggle('scrolled', scrollY>10);
+    const h=document.documentElement.scrollHeight-innerHeight;
+    prog.style.width=(h>0? scrollY/h*100:0)+'%';
+  }
+  addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* Menu mobile */
+  const burger=document.getElementById('burger'), nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{const o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');burger.setAttribute('aria-expanded','false')}));
+
+  /* Lien actif selon la section */
+  const links=[...nav.querySelectorAll('a')];
+  const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  if('IntersectionObserver' in window){
+    const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(s=>so.observe(s));
+  }
+
+  /* Apparitions + compteurs */
+  function countUp(el){
+    const end=+el.dataset.count; if(reduce){el.textContent=end;return}
+    const t0=performance.now(), d=1400;
+    (function step(t){const p=Math.min((t-t0)/d,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0);
+  }
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('[data-count]').forEach(countUp);if(e.target.dataset.count)countUp(e.target);io.unobserve(e.target)}}),{threshold:.15});
+    document.querySelectorAll('.rv,.stat strong[data-count]').forEach(el=>io.observe(el));
+  } else {document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'));document.querySelectorAll('[data-count]').forEach(e=>e.textContent=e.dataset.count)}
+
+  /* Ticker des services (textes du site actuel) */
+  const words=['Serveur – Physique et Virtualisation','Réseaux – Infrastructures – Sécurité','Sauvegarde et protection des données','Logiciel SAGE','Plateforme collaborative Exchange Online','Développements spécifiques','Dépannage – Maintenance'];
+  const tick=document.getElementById('tick'); let wi=0,ci=0,del=false;
+  function type(){
+    const w=words[wi];
+    if(reduce){tick.textContent=w;wi=(wi+1)%words.length;setTimeout(type,2500);return}
+    tick.textContent=w.slice(0,ci);
+    if(!del&&ci<w.length){ci++;setTimeout(type,45)}
+    else if(!del){del=true;setTimeout(type,1700)}
+    else if(ci>0){ci--;setTimeout(type,18)}
+    else{del=false;wi=(wi+1)%words.length;setTimeout(type,250)}
+  }
+  type();
+
+  /* Compte à rebours 1er septembre 2027 */
+  (function(){
+    const target=new Date(2027,8,1), now=new Date();
+    const total=Math.max(0,Math.ceil((target-now)/864e5));
+    let m=(target.getFullYear()-now.getFullYear())*12+(target.getMonth()-now.getMonth());
+    let ref=new Date(now.getFullYear(),now.getMonth()+m,now.getDate());
+    if(ref>target){m--;ref=new Date(now.getFullYear(),now.getMonth()+m,now.getDate())}
+    const d=Math.max(0,Math.round((target-ref)/864e5));
+    document.getElementById('cd-m').textContent=Math.max(0,m);
+    document.getElementById('cd-d').textContent=d;
+    document.getElementById('cd-t').textContent=total;
+  })();
+
+  /* Diagnostic facture électronique */
+  const quiz=document.getElementById('quiz'), tl=document.getElementById('tl'), stepsEl=document.getElementById('steps'), score=document.getElementById('score');
+  const today=new Date();
+  function past(d){return today>=d}
+  function fmt(d){return d.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}).replace(/^1 /,'1er ')}
+  function render(){
+    const size=quiz.querySelector('[name=size]:checked').value;
+    const tva=quiz.querySelector('[name=tva]:checked').value;
+    const cli=[...quiz.querySelectorAll('[name=cli]:checked')].map(i=>i.value);
+    const soft=quiz.querySelector('[name=soft]:checked').value;
+    const big=(size==='eti'||size==='ge');
+    const dRec=new Date(2026,8,1), dEm=big?new Date(2026,8,1):new Date(2027,8,1);
+    const items=[]; const steps=[];
+
+    if(tva==='non'){
+      items.push({cls:'na',date:'—',t:'Hors du champ principal de la réforme',p:'La réforme vise les entreprises assujetties à la TVA établies en France. Une association non assujettie n’est en principe pas concernée par l’émission, mais peut recevoir des factures électroniques de ses fournisseurs.'});
+      steps.push('Vérifier votre statut au regard de la TVA avec votre expert-comptable.');
+      steps.push('Savoir où consulter les factures électroniques que vos fournisseurs vous enverront.');
+      score.textContent='À vérifier';
+    } else {
+      items.push({cls:past(dRec)?'done':'',date:fmt(dRec),tag:past(dRec)?'En vigueur':'',t:'Réception des factures électroniques',p:'Toutes les entreprises assujetties doivent pouvoir recevoir leurs factures fournisseurs au format électronique, via une plateforme agréée.'});
+      items.push({cls:past(dEm)?'done':'',date:fmt(dEm),tag:past(dEm)?'En vigueur':'À préparer',soon:!past(dEm),t:'Émission de vos factures au format électronique',p:big?'Obligation applicable aux grandes entreprises et ETI.':'Obligation étendue aux PME, TPE et micro-entreprises.'});
+      const er=cli.filter(c=>c!=='b2b');
+      items.push({cls:er.length?(past(dEm)?'done':''):'na',date:fmt(dEm),tag:er.length?(past(dEm)?'En vigueur':'À préparer'):'',soon:er.length&&!past(dEm),t:'E-reporting',p:er.length?'Transmission à l’administration des données de vos ventes '+(er.includes('b2c')?'aux particuliers':'')+(er.length===2?' et ':'')+(er.includes('intl')?'à l’international':'')+'.':'Concerne les ventes aux particuliers et à l’international : non applicable selon vos réponses.'});
+
+      steps.push('Choisir la plateforme agréée par laquelle vos factures transiteront.');
+      if(soft==='sage'){steps.push('Vérifier votre version de Sage 100 et le module @facturation : RSI, Centre de Compétence Sage, prépare la mise à jour.');score.textContent='Bonne base'}
+      else if(soft==='autre'){steps.push('Vérifier auprès de l’éditeur que votre logiciel de gestion sait produire et transmettre des factures électroniques.');score.textContent='À vérifier'}
+      else if(soft==='tableur'){steps.push('Passer à un logiciel de gestion capable d’émettre des factures électroniques (par exemple Sage 100, mis en place et formé par RSI).');score.textContent='À équiper'}
+      else {steps.push('Faire l’inventaire de votre outil de facturation actuel : RSI peut s’en charger.');score.textContent='À clarifier'}
+      steps.push('Contrôler les données de vos clients (SIREN, adresses de facturation) dans votre fichier.');
+      steps.push('Former les utilisateurs à la réception et au suivi des factures.');
+      if(tva==='nsp')steps.unshift('Confirmer votre statut au regard de la TVA avec votre expert-comptable.');
+    }
+    tl.innerHTML=items.map((it,i)=>`<li class="${it.cls}" style="animation-delay:${i*90}ms"><span class="tl-date">${it.date}${it.tag?` <span class="tag ${it.soon?'soon':''}">${it.tag}</span>`:''}</span><strong>${it.t}</strong><p>${it.p}</p></li>`).join('');
+    stepsEl.innerHTML=steps.map(s=>`<li>${s}</li>`).join('');
+  }
+  quiz.addEventListener('change',render); render();
+
+  document.getElementById('cta-efact').addEventListener('click',()=>{
+    const s=document.getElementById('sujet'); s.selectedIndex=0;
+    const size=quiz.querySelector('[name=size]:checked + label').textContent;
+    const soft=quiz.querySelector('[name=soft]:checked + label').textContent;
+    document.getElementById('msg').value='Bonjour, je souhaite faire le point sur la facture électronique.\nTaille : '+size+'\nFacturation actuelle : '+soft;
+  });
+  document.querySelectorAll('[data-subject]').forEach(a=>a.addEventListener('click',()=>{const s=document.getElementById('sujet');[...s.options].forEach((o,i)=>{if(o.text===a.dataset.subject)s.selectedIndex=i})}));
+
+  /* Zones : schéma */
+  const zones={roanne:[200,200,'Roanne'],lyonnais:[285,265,'Monts du Lyonnais'],stetienne:[235,330,'Saint-Étienne'],vichy:[95,170,'Vichy'],bourgogne:[245,75,'Sud Bourgogne'],lyon:[330,215,'Lyon']};
+  const pins=document.getElementById('zpins'), lines=document.getElementById('zlines'), ns='http://www.w3.org/2000/svg';
+  Object.entries(zones).forEach(([k,[x,y,n]])=>{
+    if(k!=='roanne'){const l=document.createElementNS(ns,'line');l.setAttribute('x1',200);l.setAttribute('y1',200);l.setAttribute('x2',x);l.setAttribute('y2',y);lines.appendChild(l)}
+    const g=document.createElementNS(ns,'g');g.setAttribute('class','pin');g.dataset.z=k;
+    g.innerHTML=`<circle class="halo" cx="${x}" cy="${y}" r="9" fill="#1e61a6" opacity=".4"/><circle cx="${x}" cy="${y}" r="${k==='roanne'?10:6}" fill="${k==='roanne'?'#434852':'#1e61a6'}"/><text x="${x}" y="${y-16}" text-anchor="middle" font-family="Montserrat" font-weight="700" font-size="${k==='roanne'?14:12}" fill="#434852">${n}</text>`;
+    pins.appendChild(g);
+  });
+  const zl=[...document.querySelectorAll('#zlist li')];
+  function hi(k){zl.forEach(li=>li.classList.toggle('on',li.dataset.z===k));pins.querySelectorAll('.pin').forEach(p=>{p.style.opacity=(!k||p.dataset.z===k||p.dataset.z==='roanne')?1:.35})}
+  zl.forEach(li=>{li.addEventListener('mouseenter',()=>hi(li.dataset.z));li.addEventListener('mouseleave',()=>hi(null))});
+  pins.querySelectorAll('.pin').forEach(p=>{p.addEventListener('mouseenter',()=>hi(p.dataset.z));p.addEventListener('mouseleave',()=>hi(null))});
+
+  /* Formulaire démo */
+  document.getElementById('cform').addEventListener('submit',e=>{e.preventDefault();document.getElementById('fok').style.display='block'});
+})();
+</script>
+</body>
+</html>
