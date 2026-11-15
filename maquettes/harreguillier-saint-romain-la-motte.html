@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harreguillier — Mécanique de précision et usinage CN dans le Roannais</title>
+<meta name="description" content="Harreguillier, mécanique générale de précision à Saint-Romain-la-Motte, à 3 km au nord de Roanne : usinage sur commande numérique, tournage, fraisage, outillages divers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Harreguillier SARL",
+  "description": "Mécanique générale de précision de petite et moyenne dimensions, usinage sur commande numérique, outillages divers.",
+  "url": "https://www.harreguillier.com/",
+  "telephone": "+33477712368",
+  "faxNumber": "+33477727157",
+  "email": "contact@harreguillier.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Les Baraques",
+    "postalCode": "42640",
+    "addressLocality": "Saint-Romain-la-Motte",
+    "addressCountry": "FR"
+  },
+  "areaServed": ["Roanne", "Roannais", "Loire"],
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"],"opens": "07:30","closes": "12:00"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday"],"opens": "12:30","closes": "16:30"},
+    {"@type": "OpeningHoursSpecification","dayOfWeek": "Friday","opens": "07:00","closes": "12:00"}
+  ]
+}
+</script>
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel harreguillier.com
+   (feuille css/harreguillier.css + logo). Ajustable ici.
+   ========================================================== */
+:root{
+  --rouge: #a60808;        /* barre de menu du site actuel */
+  --rouge-fonce: #8b0b0b;  /* boutons / bordures du formulaire actuel */
+  --noir: #000000;
+  --anthracite: #2c2c2c;   /* textes secondaires du site actuel */
+  --gris: #9e9e9e;
+  --gris-clair: #c8c8c8;
+  --fond: #f2f2f2;         /* fond gris clair des sections */
+  --blanc: #ffffff;
+  --vert-logo: #1e9a50;    /* monogramme du logo (teinte approchée) */
+  --police: 'Karla', Arial, Helvetica, sans-serif; /* police du site actuel */
+  --ease: cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--police);color:var(--anthracite);background:var(--blanc);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:#ddd;font-size:.8rem;text-align:center;padding:6px 16px}
+.demo b{color:#fff}
+
+/* En-tête : logo sur gris clair + barre rouge, comme le site actuel */
+.top{background:#e6e6e6;border-bottom:1px solid #d8d8d8}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
+.top img{height:56px;width:auto}
+.top .tel{display:flex;gap:18px;align-items:center;font-size:.95rem;flex-wrap:wrap}
+.top .tel a{text-decoration:none;font-weight:700;color:var(--noir)}
+.top .tel a.btn{color:#fff}
+.nav{background:var(--rouge);position:sticky;top:0;z-index:50;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.nav ul{list-style:none;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav a{display:block;padding:12px 16px;color:#fff;text-decoration:none;font-size:.85rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;position:relative}
+.nav a::after{content:"";position:absolute;left:16px;right:16px;bottom:8px;height:2px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav a:hover::after,.nav a.on::after{transform:scaleX(1)}
+.progress{position:absolute;left:0;bottom:0;height:3px;background:var(--noir);width:0}
+
+/* Hero : les 10 photos du bandeau actuel en fondu, avec léger zoom */
+.hero{position:relative;height:min(78vh,640px);min-height:440px;background:var(--noir);overflow:hidden;color:#fff}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 7s linear}
+.hero .slide.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.1) 100%)}
+.hero .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center}
+.hero .kick{display:flex;flex-direction:column;gap:4px;margin-bottom:22px}
+.hero .kick span{font-size:clamp(.8rem,.7rem + .4vw,1rem);font-weight:700;letter-spacing:.18em;text-transform:uppercase;opacity:0;transform:translateY(14px);animation:up .8s var(--ease) forwards}
+.hero .kick span:nth-child(1){animation-delay:.2s}.hero .kick span:nth-child(2){animation-delay:.35s;color:#ffb3b3}.hero .kick span:nth-child(3){animation-delay:.5s}
+.hero h1{font-size:clamp(2.2rem,1.4rem + 4vw,4.6rem);line-height:1.02;font-weight:800;max-width:15ch;opacity:0;animation:up 1s .55s var(--ease) forwards}
+.hero p{max-width:52ch;margin-top:18px;font-size:clamp(1rem,.95rem + .3vw,1.2rem);color:#e6e6e6;opacity:0;animation:up 1s .75s var(--ease) forwards}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;opacity:0;animation:up 1s .95s var(--ease) forwards}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:12px 24px;border-radius:3px;font-weight:800;text-decoration:none;font-size:.95rem;letter-spacing:.02em;border:2px solid transparent;cursor:pointer;font-family:inherit;transition:transform .2s var(--ease),background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:scale(.97)}
+.btn-r{background:var(--rouge);color:#fff}.btn-r:hover{background:var(--rouge-fonce)}
+.btn-w{border-color:#fff;color:#fff}.btn-w:hover{background:#fff;color:var(--noir)}
+.btn-n{background:var(--noir);color:#fff}
+.dots{position:absolute;z-index:3;right:16px;bottom:18px;display:flex;gap:6px}
+.dots button{width:22px;height:4px;border:0;background:rgba(255,255,255,.35);cursor:pointer;transition:background .3s,width .3s}
+.dots button.on{background:#fff;width:36px}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:clamp(56px,6vw,96px) 0}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--rouge);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--rouge)}
+h2{font-size:clamp(1.8rem,1.3rem + 2vw,3rem);line-height:1.08;color:var(--noir);font-weight:800;margin:10px 0 18px;max-width:22ch}
+.lead{max-width:62ch;font-size:1.06rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Qui sommes-nous */
+.who{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:center}
+.fiche{border-top:2px solid var(--noir);margin-top:22px}
+.fiche div{display:grid;grid-template-columns:170px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid #e3e3e3;font-size:.97rem}
+.fiche dt{font-weight:800;color:var(--noir)}
+.who figure{position:relative}
+.who figure img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.who figure .tag{position:absolute;left:-14px;bottom:24px;background:var(--rouge);color:#fff;padding:14px 18px;font-weight:800;font-size:.9rem;line-height:1.3;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.devise{background:var(--noir);color:#fff;margin-top:34px;padding:22px 24px;border-left:6px solid var(--rouge);font-size:1.02rem}
+.devise b{display:block;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#ffb3b3;margin-bottom:6px}
+
+/* Savoir-faire : 3 piliers du bandeau actuel */
+.piliers{background:var(--fond)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.card{background:#fff;padding:28px 24px;border-top:4px solid var(--rouge);position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.12)}
+.card .n{font-size:3rem;font-weight:800;color:#ececec;position:absolute;right:16px;top:6px;line-height:1}
+.card h3{color:var(--noir);font-size:1.2rem;margin-bottom:8px;position:relative}
+
+/* Outil faisabilité */
+.outil{background:var(--anthracite);color:#eee;position:relative;overflow:hidden}
+.outil::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+.outil h2{color:#fff}
+.outil .eyebrow{color:#ff8a8a}.outil .eyebrow::before{background:#ff8a8a}
+.tool{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:30px}
+.panel{background:#1d1d1d;border:1px solid #3b3b3b;padding:24px;border-radius:3px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.seg button{min-height:52px;background:transparent;border:2px solid #4a4a4a;color:#ddd;font:700 .95rem var(--police);cursor:pointer;border-radius:3px;transition:all .25s}
+.seg button.on{border-color:var(--rouge);background:var(--rouge);color:#fff}
+.field{margin-bottom:14px}
+.field label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:700;margin-bottom:6px;color:#ccc}
+.field label output{color:#fff;font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--rouge);height:28px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+select,input[type=text],input[type=email],input[type=number],textarea{width:100%;min-height:44px;background:#111;border:1px solid #444;color:#fff;border-radius:3px;padding:10px 12px;font:inherit}
+textarea{min-height:80px;resize:vertical}
+.schema{display:flex;align-items:center;justify-content:center;height:150px;margin:6px 0 16px;background:#141414;border:1px dashed #444;border-radius:3px}
+.schema svg{width:100%;height:100%}
+.verdict{font-size:1.25rem;font-weight:800;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.verdict i{width:12px;height:12px;border-radius:50%;background:#2ecc71;box-shadow:0 0 0 6px rgba(46,204,113,.15);flex:none}
+.verdict.no i{background:#ff6b6b;box-shadow:0 0 0 6px rgba(255,107,107,.15)}
+.mlist{list-style:none;margin:14px 0 18px;display:grid;gap:8px}
+.mlist li{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;background:#262626;border-left:3px solid var(--rouge);font-size:.9rem;animation:up .45s var(--ease) both}
+.mlist li span{color:#aaa;font-size:.8rem;text-align:right}
+.note{font-size:.8rem;color:#a9a9a9}
+
+/* Parc machines */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:24px 0}
+.filters button{min-height:42px;padding:8px 16px;border:2px solid var(--noir);background:#fff;font:700 .85rem var(--police);cursor:pointer;border-radius:3px;transition:all .2s}
+.filters button.on{background:var(--noir);color:#fff}
+.parc{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mach{border:1px solid #e1e1e1;padding:16px 18px;border-radius:2px;transition:opacity .3s,transform .3s,border-color .2s;background:#fff}
+.mach:hover{border-color:var(--rouge)}
+.mach.hide{display:none}
+.mach small{font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--rouge)}
+.mach h4{color:var(--noir);font-size:1.02rem;margin:4px 0}
+.mach p{font-size:.88rem;color:#555}
+
+/* Pièces */
+.pieces{background:var(--fond)}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:28px}
+.gal button{border:0;background:#fff;padding:0;cursor:zoom-in;overflow:hidden;aspect-ratio:1;border-radius:2px}
+.gal img{width:100%;height:100%;object-fit:contain;transition:transform .5s var(--ease)}
+.gal button:hover img{transform:scale(1.07) rotate(-1.5deg)}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:100;display:none;align-items:center;justify-content:center;padding:16px}
+.lb.on{display:flex}
+.lb img{max-height:85vh;background:#fff;border-radius:2px}
+.lb button{position:absolute;top:14px;right:16px;width:48px;height:48px;border:0;background:var(--rouge);color:#fff;font-size:1.6rem;cursor:pointer}
+
+/* QSE + partenaires */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px)}
+.engag{list-style:none;margin-top:14px}
+.engag li{padding:10px 0 10px 28px;border-bottom:1px solid #e6e6e6;position:relative}
+.engag li::before{content:"";position:absolute;left:0;top:19px;width:14px;height:2px;background:var(--rouge)}
+.part{display:grid;gap:12px;margin-top:14px}
+.part div{padding:18px 20px;background:var(--fond);border-left:4px solid var(--noir)}
+.part b{color:var(--noir)}
+
+/* Contact */
+.contact{background:var(--noir);color:#ddd}
+.contact h2{color:#fff}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px}
+.coord p{margin-bottom:12px}
+.coord a{color:#fff;font-weight:700}
+.hours{margin-top:18px;border-top:1px solid #333}
+.hours div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid #333;font-size:.95rem}
+.map{min-height:300px;border:0;width:100%;height:100%;filter:grayscale(1) contrast(1.1)}
+footer{background:#111;color:#999;font-size:.82rem;padding:24px 0}
+footer p{margin-bottom:6px}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.35);transform:translateY(120px);transition:transform .4s var(--ease)}
+.fab.on{transform:none}
+
+@media (max-width:860px){
+  .who,.tool,.duo,.cgrid,.grid3{grid-template-columns:1fr}
+  .fiche div{grid-template-columns:1fr;gap:2px}
+  .who figure .tag{left:10px}
+  .top .tel{font-size:.85rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte du site harreguillier.com, non officielle.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#accueil" aria-label="Harreguillier — accueil"><img src="https://www.harreguillier.com/images/interface/logo-Harreguillier.jpg" alt="Harreguillier" width="481" height="85"></a>
+    <div class="tel">
+      <span>Tél. <a href="tel:+33477712368">04 77 71 23 68</a></span>
+      <a class="btn btn-r" href="#faisabilite" style="min-height:42px;padding:8px 18px">Demander un chiffrage</a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Navigation principale">
+  <div class="wrap" style="position:relative">
+    <ul>
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#qui">Qui sommes-nous ?</a></li>
+      <li><a href="#faisabilite">Faisabilité</a></li>
+      <li><a href="#parc">Usinage / Parc</a></li>
+      <li><a href="#pieces">Exemples de pièces</a></li>
+      <li><a href="#qse">Politique QSE</a></li>
+      <li><a href="#partenariat">Partenariat local</a></li>
+      <li><a href="#acces">Plan d'accès</a></li>
+    </ul>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div id="slides"></div>
+  <div class="wrap">
+    <div class="kick"><span>Usinage sur commande numérique</span><span>Outillages divers</span><span>Mécanique de précision</span></div>
+    <h1>Mécanique de précision dans le Roannais</h1>
+    <p>Mécanique générale de précision de petite et moyenne dimensions, usinage sur commande numérique. À 3 km au nord de Roanne, en bordure de la RN7.</p>
+    <div class="cta">
+      <a class="btn btn-r" href="#faisabilite">Vérifier la faisabilité d'une pièce →</a>
+      <a class="btn btn-w" href="#parc">Voir le parc machines</a>
+    </div>
+  </div>
+  <div class="dots" id="dots" aria-label="Choisir la photo"></div>
+</section>
+
+<section id="qui">
+  <div class="wrap who">
+    <div class="reveal">
+      <div class="eyebrow">Qui sommes-nous ?</div>
+      <h2>Bienvenue chez Harreguillier</h2>
+      <p class="lead">Une entreprise de mécanique générale de précision installée à Saint-Romain-la-Motte, qui usine sur commande numérique des pièces de petite et moyenne dimensions et s'appuie sur des partenaires régionaux pour le traitement thermique, le traitement de surface et la mécano-soudure.</p>
+      <dl class="fiche">
+        <div><dt>Forme juridique</dt><dd>S.A.R.L.</dd></div>
+        <div><dt>Domaine d'activité</dt><dd>Mécanique générale de précision de petite et moyenne dimensions, usinage sur commande numérique</dd></div>
+        <div><dt>Surface au sol</dt><dd>3 000 m², dont 1 000 m² couverts</dd></div>
+        <div><dt>Situation</dt><dd>Les Baraques, 42640 Saint-Romain-la-Motte — à 3 km au nord de Roanne, en bordure de la RN7</dd></div>
+      </dl>
+      <div class="devise"><b>Notre devise</b>Qualité irréprochable toujours à temps à un coût minime.</div>
+    </div>
+    <figure class="reveal">
+      <img src="https://www.harreguillier.com/images/photos/batiement-harreguillier-001.png" alt="Bâtiment Harreguillier à Saint-Romain-la-Motte" loading="lazy">
+      <figcaption class="tag">Saint-Romain-la-Motte<br>Les Baraques</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="piliers">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Savoir-faire</div>
+      <h2>Trois métiers, un même atelier</h2>
+    </div>
+    <div class="grid3">
+      <article class="card reveal"><span class="n">01</span><h3>Usinage sur commande numérique</h3><p>Centres d'usinage verticaux jusqu'à 4 axes et tours CN, dont un tour bi-broche avec axe Y.</p></article>
+      <article class="card reveal"><span class="n">02</span><h3>Outillages divers</h3><p>Fraiseuses universelles, rectifieuses plane et cylindrique, marquage par percussion et par frappe.</p></article>
+      <article class="card reveal"><span class="n">03</span><h3>Mécanique de précision</h3><p>Salle de contrôle avec colonne de mesure et machine tridimensionnelle, soudure acier, aluminium et inox.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="outil" id="faisabilite">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Outil de faisabilité</div>
+      <h2>Votre pièce passe-t-elle sur nos machines ?</h2>
+      <p class="lead">Indiquez le type d'usinage et l'encombrement de votre pièce : l'outil la compare aux capacités du parc et prépare votre demande de chiffrage.</p>
+    </div>
+    <div class="tool">
+      <div class="panel reveal">
+        <div class="seg" role="tablist">
+          <button type="button" class="on" data-type="fraisage" role="tab" aria-selected="true">Fraisage</button>
+          <button type="button" data-type="tournage" role="tab" aria-selected="false">Tournage</button>
+        </div>
+        <div class="schema" aria-hidden="true"><svg id="schema" viewBox="0 0 300 150"></svg></div>
+        <div id="dimsF">
+          <div class="field"><label for="x">Longueur (X) <output id="ox"></output></label><input type="range" id="x" min="10" max="1600" step="10" value="400"></div>
+          <div class="field"><label for="y">Largeur (Y) <output id="oy"></output></label><input type="range" id="y" min="10" max="800" step="10" value="250"></div>
+          <div class="field"><label for="z">Hauteur (Z) <output id="oz"></output></label><input type="range" id="z" min="10" max="700" step="10" value="150"></div>
+        </div>
+        <div id="dimsT" hidden>
+          <div class="field"><label for="d">Diamètre <output id="od"></output></label><input type="range" id="d" min="5" max="600" step="5" value="120"></div>
+          <div class="field"><label for="l">Longueur <output id="ol"></output></label><input type="range" id="l" min="10" max="1600" step="10" value="300"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="qte">Quantité</label><input type="number" id="qte" min="1" value="10"></div>
+          <div class="field"><label for="mat">Matière</label><select id="mat"><option>Acier</option><option>Inox</option><option>Aluminium</option><option>Autre (à préciser)</option></select></div>
+        </div>
+      </div>
+      <div class="panel reveal" aria-live="polite">
+        <div class="verdict" id="verdict"><i></i><span></span></div>
+        <p class="note" id="vsub"></p>
+        <ul class="mlist" id="mlist"></ul>
+        <div class="field"><label for="soc">Société</label><input type="text" id="soc" placeholder="Raison sociale"></div>
+        <div class="field"><label for="msg">Précisions (tolérances, délai, traitement…)</label><textarea id="msg" placeholder="Joignez votre plan au mail qui s'ouvrira."></textarea></div>
+        <a class="btn btn-r" id="send" href="#">Préparer ma demande de chiffrage →</a>
+        <p class="note" style="margin-top:12px">Comparaison indicative basée sur les courses et capacités publiées du parc. La faisabilité réelle (bridage, outillage, tolérances) est toujours confirmée par l'atelier.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="parc">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Usinage / Parc</div>
+      <h2>Le parc machines</h2>
+    </div>
+    <div class="filters" id="filters">
+      <button class="on" data-f="all">Tout</button>
+      <button data-f="fraisage">Centres d'usinage</button>
+      <button data-f="tournage">Tournage</button>
+      <button data-f="outillage">Fraiseuses &amp; rectification</button>
+      <button data-f="controle">Contrôle &amp; soudure</button>
+    </div>
+    <div class="parc" id="parcList"></div>
+  </div>
+</section>
+
+<section class="pieces" id="pieces">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Exemples de pièces</div>
+      <h2>Quelques pièces mécaniques réalisées</h2>
+      <p class="lead">Cliquez sur une image pour l'agrandir.</p>
+    </div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Pièce agrandie"><button type="button" id="lbClose" aria-label="Fermer">×</button><img id="lbImg" alt=""></div>
+
+<section id="qse">
+  <div class="wrap duo">
+    <div class="reveal">
+      <div class="eyebrow">Politique QSE</div>
+      <h2>Qualité, sécurité, environnement</h2>
+      <p>« Notre réussite passe impérativement par la satisfaction de toutes les parties intéressées qui attendent de nous une performance sans faille : de notre qualité, de nos délais, de nos coûts. »</p>
+      <ul class="engag">
+        <li>Faire bien du premier coup est notre règle prioritaire</li>
+        <li>L'action préventive est la règle, l'action corrective l'exception</li>
+        <li>Le respect de la personne avant tout</li>
+        <li>Réduire et trier tous les déchets de nos processus</li>
+        <li>Diminuer autant que possible la consommation d'énergie</li>
+      </ul>
+    </div>
+    <div class="reveal" id="partenariat">
+      <div class="eyebrow">Prestations en partenariat local</div>
+      <h2>Des partenaires régionaux</h2>
+      <p>Pour des besoins spécifiques de traitement thermique, traitement de surface ou mécano-soudure, Harreguillier a recours à des partenaires régionaux avec lesquels elle a tissé toute une synergie de compétences.</p>
+      <div class="part">
+        <div><b>PASSOT Industrie</b><br>Conception, parachèvement</div>
+        <div><b>MECANEO</b><br>Bureau d'études, mécanique générale, traitement des métaux</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="acces">
+  <div class="wrap">
+    <div class="eyebrow" style="color:#ff8a8a">Plan d'accès &amp; contact</div>
+    <h2>Nous trouver</h2>
+    <div class="cgrid">
+      <div class="coord">
+        <p><b style="color:#fff">HARREGUILLIER SARL</b><br>Les Baraques<br>42640 Saint-Romain-la-Motte</p>
+        <p>Tél. <a href="tel:+33477712368">04 77 71 23 68</a><br>Fax 04 77 72 71 57<br><a href="mailto:contact@harreguillier.com">contact@harreguillier.com</a></p>
+        <div class="hours">
+          <div><span>Lundi au jeudi</span><span>7h30 – 12h00 · 12h30 – 16h30</span></div>
+          <div><span>Vendredi</span><span>7h00 – 12h00</span></div>
+        </div>
+        <p style="margin-top:20px"><a class="btn btn-r" href="#faisabilite">Demander un chiffrage</a></p>
+      </div>
+      <iframe class="map" title="Plan d'accès Harreguillier" loading="lazy" src="https://www.google.com/maps?q=Les+Baraques+42640+Saint-Romain-la-Motte&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Maquette de démonstration</b> réalisée à partir des contenus publics de harreguillier.com — non contractuelle. Textes, photos du bandeau, photos d'atelier et des pièces : ceux du site actuel. Couleurs et police reprises de la feuille de style actuelle ; la teinte verte du logo est approchée.</p>
+    <p>L'outil de faisabilité est indicatif : il compare l'encombrement saisi aux courses publiées et ne remplace pas l'étude de l'atelier.</p>
+  </div>
+</footer>
+
+<a class="btn btn-n fab" id="fab" href="#faisabilite">Chiffrer une pièce</a>
+
+<script>
+const IMG='https://www.harreguillier.com/images/';
+/* Hero : diaporama des photos du bandeau actuel */
+const slides=document.getElementById('slides'),dots=document.getElementById('dots');let cur=0,timer;
+for(let i=1;i<=10;i++){const s=document.createElement('div');s.className='slide'+(i===1?' on':'');s.style.backgroundImage=`url(${IMG}bandeau/${String(i).padStart(3,'0')}.jpg)`;slides.appendChild(s);
+ const b=document.createElement('button');b.setAttribute('aria-label','Photo '+i);if(i===1)b.className='on';b.onclick=()=>{go(i-1);restart()};dots.appendChild(b);}
+function go(n){slides.children[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=n;slides.children[cur].classList.add('on');dots.children[cur].classList.add('on');}
+function restart(){clearInterval(timer);timer=setInterval(()=>go((cur+1)%10),5000)}restart();
+
+/* Parc machines (repris de la page Usinage / Parc) */
+const P=[
+ {c:'fraisage',t:'Centre d\'usinage vertical MK 602 ROTO-PALETTE',d:'40 outils, FANUC 18 MC, 8 000 tr/min, 4e axe NIKKEN D.250 — course 1050 × 550 mm ×2',X:1050,Y:550},
+ {c:'fraisage',t:'Centre d\'usinage HAMAI-HURON',d:'24 outils, FANUC OM, 10 000 tr/min — course X 1050 · Y 560 · Z 560',X:1050,Y:560,Z:560},
+ {c:'fraisage',t:'Centre d\'usinage KITAMURA Mycenter 3',d:'30 outils, FANUC 11 MA'},
+ {c:'fraisage',t:'Centre d\'usinage MAZAK VQC20/40',d:'MAZATROL-M1, 16 outils — course X 1000 · Y 500 · Z 500',X:1000,Y:500,Z:500},
+ {c:'fraisage',t:'Centre d\'usinage vertical MCV-1020BA',d:'4e axe, 24 outils — course X 1020 · Y 550 · Z 560',X:1020,Y:550,Z:560},
+ {c:'fraisage',t:'Centre d\'usinage PILOTE TECHNOLOGIE',d:'Capacité 400 mm, changeur 16 outils, FANUC OM',X:400,Y:400},
+ {c:'fraisage',t:'Centre d\'usinage LEADWELL',d:'16 outils — course X 600 · Y 500 · Z 500',X:600,Y:500,Z:500},
+ {c:'tournage',t:'Tour ASTRHAL 35/60 M',d:'Capacité en barre Ø 75, FANUC 18T, axe C, ravitailleur barres courtes MULTISAM 2000',D:75,bar:true},
+ {c:'tournage',t:'Deux tours KIAMASTER',d:'FANUC 10 TF, mandrin 260, 12 outils — passage maximum 580, EP 600',D:580,L:600},
+ {c:'tournage',t:'Tour CN DOOSAN S310N',d:'Capacité Ø 310 / entre-pointes 750',D:310,L:750},
+ {c:'tournage',t:'Tour CN DOOSAN S390',d:'Capacité Ø 400 / entre-pointes 1000',D:400,L:1000},
+ {c:'tournage',t:'Tour CN DOOSAN SMLY310',d:'Tour bi-broche + axe Y — capacité Ø 310 / entre-pointes 750',D:310,L:750},
+ {c:'tournage',t:'Tour parallèle RAMO',d:'Visu, 1500 entre-pointes',L:1500},
+ {c:'outillage',t:'Fraiseuse universelle HURON MU5',d:'1300 × 700 × 550',X:1300,Y:700,Z:550,conv:true},
+ {c:'outillage',t:'Fraiseuse 4 axes Visu LAGUN 1600',d:'Fraisage conventionnel avec visualisation'},
+ {c:'outillage',t:'Fraiseuses universelles SAGEM, DUFOUR, MULLER & PESANT',d:'Visu'},
+ {c:'outillage',t:'Rectifieuses plane et cylindrique',d:'Tours parallèles, perceuses, fraiseuse banc fixe, fraiseuses horizontales'},
+ {c:'outillage',t:'Scies automatiques KASTO',d:'260 à ruban · 180 alternative'},
+ {c:'controle',t:'Machine tridimensionnelle Derby',d:'Étalon 457 × 508 × 406 mm — salle de contrôle avec colonne de mesure ROCH'},
+ {c:'controle',t:'Soudure',d:'Acier, aluminium, inox'},
+ {c:'controle',t:'Marquage',d:'Marqueuse à percussion PRO-PEN P3000, marqueuse à frappe'},
+ {c:'controle',t:'FAO / DAO GOELAN · GPAO CLIPPER 4',d:'Programmation et gestion de production'}
+];
+const lab={fraisage:'Centre d\'usinage',tournage:'Tournage',outillage:'Outillage',controle:'Contrôle & atelier'};
+const pl=document.getElementById('parcList');
+P.forEach(m=>{const e=document.createElement('article');e.className='mach reveal';e.dataset.c=m.c;e.innerHTML=`<small>${lab[m.c]}</small><h4>${m.t}</h4><p>${m.d}</p>`;pl.appendChild(e)});
+document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+ document.querySelectorAll('#filters button').forEach(x=>x.classList.toggle('on',x===b));
+ document.querySelectorAll('.mach').forEach(m=>m.classList.toggle('hide',b.dataset.f!=='all'&&m.dataset.c!==b.dataset.f));});
+
+/* Galerie des 16 pièces du site actuel */
+const gal=document.getElementById('gal'),lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg');
+for(let i=1;i<=16;i++){const u=`${IMG}pieces/piece${String(i).padStart(3,'0')}.jpg`;const b=document.createElement('button');b.className='reveal';b.innerHTML=`<img src="${u}" alt="Pièce mécanique réalisée par Harreguillier n°${i}" loading="lazy">`;b.onclick=()=>{lbImg.src=u;lbImg.alt=b.firstChild.alt;lb.classList.add('on');document.getElementById('lbClose').focus()};gal.appendChild(b);}
+const closeLb=()=>lb.classList.remove('on');document.getElementById('lbClose').onclick=closeLb;lb.onclick=e=>{if(e.target===lb)closeLb()};document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+
+/* Outil de faisabilité */
+let type='fraisage';const $=id=>document.getElementById(id);
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{type=b.dataset.type;document.querySelectorAll('.seg button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-selected',x===b)});$('dimsF').hidden=type!=='fraisage';$('dimsT').hidden=type!=='tournage';calc()});
+['x','y','z','d','l','qte','mat'].forEach(id=>$(id).addEventListener('input',calc));
+function fitsMill(m,a,b,c){if(!m.X)return false;const s=[a,b].sort((p,q)=>q-p),k=[m.X,m.Y].sort((p,q)=>q-p);return s[0]<=k[0]&&s[1]<=k[1]&&(!m.Z||c<=m.Z)}
+function fitsTurn(m,d,l){if(!m.D&&!m.L)return false;if(m.D&&d>m.D)return false;if(m.L&&l>m.L)return false;return true}
+function calc(){
+ let ok=[];
+ if(type==='fraisage'){const x=+$('x').value,y=+$('y').value,z=+$('z').value;$('ox').textContent=x+' mm';$('oy').textContent=y+' mm';$('oz').textContent=z+' mm';
+  ok=P.filter(m=>(m.c==='fraisage'||m.conv)&&fitsMill(m,x,y,z));drawMill(x,y,z);}
+ else{const d=+$('d').value,l=+$('l').value;$('od').textContent='Ø '+d+' mm';$('ol').textContent=l+' mm';
+  ok=P.filter(m=>m.c==='tournage'&&fitsTurn(m,d,l));drawTurn(d,l);}
+ const v=$('verdict');v.classList.toggle('no',!ok.length);
+ v.querySelector('span').textContent=ok.length?`${ok.length} machine${ok.length>1?'s':''} compatible${ok.length>1?'s':''}`:'Hors des courses publiées';
+ $('vsub').textContent=ok.length?'D\'après l\'encombrement saisi, votre pièce entre dans la course de :':'Votre pièce dépasse les courses annoncées. Envoyez quand même votre plan : l\'atelier peut étudier une solution, y compris en partenariat.';
+ $('mlist').innerHTML=ok.map((m,i)=>`<li style="animation-delay:${i*60}ms"><b>${m.t.replace('Centre d\'usinage ','')}</b><span>${m.d.split('—').pop().trim()}</span></li>`).join('');
+ const dims=type==='fraisage'?`${$('x').value} × ${$('y').value} × ${$('z').value} mm`:`Ø ${$('d').value} × ${$('l').value} mm`;
+ const body=`Bonjour,\n\nJe souhaite un chiffrage pour la pièce suivante :\n- Type d'usinage : ${type}\n- Encombrement : ${dims}\n- Quantité : ${$('qte').value}\n- Matière : ${$('mat').value}\n- Société : ${$('soc').value||'(à compléter)'}\n\n${$('msg').value}\n\nPlan joint à ce mail.\n`;
+ $('send').href='mailto:contact@harreguillier.com?subject='+encodeURIComponent('Demande de chiffrage – '+type+' '+dims)+'&body='+encodeURIComponent(body);
+}
+['soc','msg'].forEach(id=>$(id).addEventListener('input',calc));
+function drawMill(x,y,z){const s=Math.min(200/Math.max(x,1),90/Math.max(y*.5+z,1));const w=x*s,h=z*s,dp=y*s*.5;const ox=150-(w+dp)/2,oy=75+(h+dp)/2;
+ $('schema').innerHTML=`<g fill="none" stroke-width="2"><polygon points="${ox},${oy} ${ox+w},${oy} ${ox+w},${oy-h} ${ox},${oy-h}" fill="#a60808" fill-opacity=".35" stroke="#ff8a8a"/><polygon points="${ox},${oy-h} ${ox+dp},${oy-h-dp} ${ox+w+dp},${oy-h-dp} ${ox+w},${oy-h}" fill="#a60808" fill-opacity=".55" stroke="#ff8a8a"/><polygon points="${ox+w},${oy} ${ox+w+dp},${oy-dp} ${ox+w+dp},${oy-h-dp} ${ox+w},${oy-h}" fill="#a60808" fill-opacity=".2" stroke="#ff8a8a"/></g>`;}
+function drawTurn(d,l){const s=Math.min(240/Math.max(l,1),110/Math.max(d,1));const w=l*s,h=d*s,ox=150-w/2,oy=75;
+ $('schema').innerHTML=`<line x1="20" y1="75" x2="280" y2="75" stroke="#666" stroke-dasharray="6 4"/><rect x="${ox}" y="${oy-h/2}" width="${w}" height="${h}" rx="3" fill="#a60808" fill-opacity=".4" stroke="#ff8a8a" stroke-width="2"/><ellipse cx="${ox+w}" cy="${oy}" rx="${Math.max(h/6,3)}" ry="${h/2}" fill="#a60808" fill-opacity=".6" stroke="#ff8a8a" stroke-width="2"/>`;}
+calc();
+
+/* Révélations au défilement, barre de progression, menu actif */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+const nav=document.querySelector('.nav'),fab=$('fab'),links=[...document.querySelectorAll('.nav a')];
+addEventListener('scroll',()=>{const h=document.documentElement;$('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+ nav.classList.toggle('scrolled',scrollY>120);const t=$('faisabilite').getBoundingClientRect();fab.classList.toggle('on',scrollY>500&&(t.bottom<0||t.top>innerHeight));
+ let c='';document.querySelectorAll('main section[id]').forEach(s=>{if(s.getBoundingClientRect().top<160)c=s.id});links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+c));},{passive:true});
+</script>
+</body>
+</html>
