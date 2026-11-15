@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Antre aux Pots — Cours de poterie à Villerest, près de Roanne</title>
+<meta name="description" content="Atelier de poterie à Villerest : cours hebdomadaires de poterie et de modelage pour enfants et adultes, tous niveaux, tournage individuel et stages sur demande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — à ajuster en quelques lignes
+   L'atelier n'a pas de site : les couleurs sont relevées sur la
+   photo de l'atelier publiée sur sa fiche Roannais Tourisme
+   (murs orange et framboise, plancher et établis en bois clair,
+   terre cuite rouge des pièces en séchage).
+   ========================================================== */
+:root{
+  --orange:#E5622A;      /* mur orange de l'atelier */
+  --framboise:#B81E45;   /* mur framboise du fond */
+  --terre:#9C4526;       /* terre cuite des bols */
+  --bois:#E8C48E;        /* plancher et établis */
+  --bois-clair:#F6E7CF;
+  --creme:#FBF5EC;
+  --encre:#2B1A14;
+  --encre-doux:#5A4238;
+  --f-titre:'Fraunces', Georgia, serif;
+  --f-texte:'Work Sans', system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:var(--bois-clair);font-size:.8rem;text-align:center;padding:7px 12px}
+.demo b{color:var(--bois)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(251,245,236,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(43,26,20,.08);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(43,26,20,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-titre);font-weight:800;font-size:1.25rem}
+.logo svg{width:34px;height:34px}
+.nav ul{display:flex;gap:26px;list-style:none;font-weight:500;font-size:.95rem}
+.nav ul a{text-decoration:none;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-family:inherit;font-size:.95rem;transition:transform .2s var(--ease),box-shadow .2s,background .2s}
+.btn:active{transform:scale(.96)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 6px 18px rgba(229,98,42,.35)}
+.btn-orange:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(229,98,42,.45)}
+.btn-ligne{background:transparent;border:2px solid var(--encre);color:var(--encre)}
+.btn-ligne:hover{background:var(--encre);color:var(--creme)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media(max-width:900px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--creme);padding:24px 16px;gap:18px;transform:translateY(-130%);transition:transform .4s var(--ease);border-bottom:1px solid rgba(0,0,0,.08)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .btn-tel{display:none}
+}
+
+/* Hero */
+.hero{position:relative;padding:72px 0 90px;overflow:hidden}
+.hero::before{content:"";position:absolute;right:-12vw;top:-10vw;width:58vw;height:58vw;border-radius:50%;background:radial-gradient(circle at 40% 40%,var(--orange),var(--framboise) 70%);opacity:.95;z-index:-1}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--terre)}
+.statut{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:8px 16px;font-size:.9rem;box-shadow:0 4px 16px rgba(43,26,20,.08);margin-top:18px}
+.statut i{width:10px;height:10px;border-radius:50%;background:#999;position:relative}
+.statut.ouvert i{background:#2E9B57}
+.statut.ouvert i::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid #2E9B57;animation:pulse 1.8s infinite}
+@keyframes pulse{from{transform:scale(.6);opacity:1}to{transform:scale(1.6);opacity:0}}
+h1{font-family:var(--f-titre);font-size:clamp(2.8rem,1.8rem + 5vw,5.6rem);line-height:.98;font-weight:800;margin:14px 0 18px;letter-spacing:-.02em}
+h1 .mot{display:inline-block;opacity:0;transform:translateY(40px) rotate(3deg);animation:monte .9s var(--ease) forwards}
+h1 .mot:nth-child(2){animation-delay:.12s}h1 .mot:nth-child(3){animation-delay:.24s}
+@keyframes monte{to{opacity:1;transform:none}}
+.hero p.lead{font-size:1.15rem;color:var(--encre-doux);max-width:34rem}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.tour{position:relative;aspect-ratio:1;max-width:440px;margin-inline:auto;width:100%}
+.tour svg{width:100%;height:100%;overflow:visible}
+.plateau{transform-origin:220px 372px;animation:tourne 2.4s linear infinite}
+@keyframes tourne{to{transform:rotateY(0)}}
+.strie{animation:glisse 1.6s linear infinite}
+@keyframes glisse{from{transform:translateX(-30px)}to{transform:translateX(30px)}}
+.faconne{background:#fff;border-radius:var(--r);padding:16px 18px;box-shadow:0 10px 30px rgba(43,26,20,.12);margin-top:-30px;position:relative}
+.faconne label{display:flex;justify-content:space-between;font-size:.88rem;font-weight:600;margin-bottom:6px}
+input[type=range]{width:100%;accent-color:var(--orange)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero{padding-top:40px}.hero::before{width:110vw;height:110vw;right:-50vw;top:auto;bottom:-40vw}}
+
+/* Sections */
+section{padding:90px 0}
+.titre-sec{font-family:var(--f-titre);font-size:clamp(2rem,1.4rem + 2.6vw,3.3rem);line-height:1.05;font-weight:800;letter-spacing:-.015em;margin-bottom:14px}
+.sous{color:var(--encre-doux);max-width:42rem;font-size:1.07rem}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Atelier */
+.atelier{background:var(--bois-clair)}
+.atelier-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;clip-path:inset(0 100% 0 0 round 18px);transition:clip-path 1.3s var(--ease)}
+.photo.vu{clip-path:inset(0 0 0 0 round 18px)}
+.photo img{width:100%;aspect-ratio:3/2;object-fit:cover;transform:scale(1.12);transition:transform 1.6s var(--ease)}
+.photo.vu img{transform:scale(1)}
+.photo figcaption{position:absolute;left:12px;bottom:12px;background:rgba(43,26,20,.75);color:#fff;font-size:.78rem;padding:5px 10px;border-radius:8px}
+.atouts{display:grid;gap:14px;margin-top:26px}
+.atout{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:14px;padding:14px 16px}
+.atout b{display:block;font-family:var(--f-titre);font-size:1.05rem}
+.atout .ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--orange);color:#fff}
+@media(max-width:900px){.atelier-grid{grid-template-columns:1fr}}
+
+/* Cours */
+.cartes{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.carte{background:#fff;border-radius:var(--r);padding:26px 22px 24px;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;border:1px solid rgba(43,26,20,.06)}
+.carte::before{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;border-radius:50%;background:var(--bois);opacity:.35;transition:transform .5s var(--ease)}
+.carte:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(43,26,20,.12)}
+.carte:hover::before{transform:scale(1.4)}
+.carte h3{font-family:var(--f-titre);font-size:1.3rem;margin:14px 0 8px;position:relative}
+.carte p{font-size:.95rem;color:var(--encre-doux);position:relative}
+.carte .tag{display:inline-block;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--creme);color:var(--terre);position:relative}
+.carte svg{width:46px;height:46px;position:relative}
+@media(max-width:1000px){.cartes{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.cartes{grid-template-columns:1fr}}
+
+/* Bandeau défilant */
+.defile{background:var(--framboise);color:#fff;overflow:hidden;padding:18px 0;font-family:var(--f-titre);font-size:clamp(1.3rem,1rem + 1.5vw,2.1rem);font-weight:600;white-space:nowrap}
+.defile div{display:inline-flex;gap:46px;animation:defile 26s linear infinite;padding-left:46px}
+.defile span::after{content:"✺";margin-left:46px;color:var(--bois)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Outil créneau */
+.outil{background:var(--encre);color:var(--creme)}
+.outil .sous{color:#d9c8b8}
+.outil-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;margin-top:40px;align-items:start}
+.semaine{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.jour h4{font-family:var(--f-titre);font-size:1.1rem;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline}
+.jour h4 small{font-family:var(--f-texte);font-size:.72rem;font-weight:500;color:var(--bois)}
+.slot{width:100%;display:block;text-align:left;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);color:var(--creme);padding:14px 12px;border-radius:14px;margin-bottom:10px;cursor:pointer;font-family:inherit;font-size:.95rem;transition:transform .2s var(--ease),background .2s,border-color .2s;min-height:64px}
+.slot b{display:block;font-size:1.05rem}
+.slot span{font-size:.75rem;color:#cdb9a6}
+.slot:hover{transform:translateY(-3px);border-color:var(--orange)}
+.slot.actif{background:var(--orange);border-color:var(--orange);color:#fff}
+.slot.actif span{color:#fff}
+.slot.maintenant{box-shadow:0 0 0 3px rgba(46,155,87,.6)}
+.panneau{background:var(--creme);color:var(--encre);border-radius:var(--r);padding:24px;position:sticky;top:90px}
+.panneau h3{font-family:var(--f-titre);font-size:1.4rem;margin-bottom:6px}
+.choix{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.choix input{position:absolute;opacity:0;pointer-events:none}
+.choix label{padding:9px 14px;border-radius:999px;border:1.5px solid rgba(43,26,20,.2);cursor:pointer;font-size:.88rem;font-weight:500;transition:.2s}
+.choix input:checked+label{background:var(--encre);color:var(--creme);border-color:var(--encre)}
+.choix input:focus-visible+label{outline:3px solid var(--orange);outline-offset:2px}
+.panneau .champ{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--terre)}
+.panneau input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid rgba(43,26,20,.2);font:inherit;margin:6px 0 14px;background:#fff}
+.resume{background:var(--bois-clair);border-radius:14px;padding:14px;font-size:.92rem;margin-bottom:16px;min-height:72px;white-space:pre-line}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.actions .btn{flex:1 1 auto;justify-content:center}
+.note{font-size:.8rem;color:var(--encre-doux);margin-top:12px}
+@media(max-width:1000px){.outil-grid{grid-template-columns:1fr}.panneau{position:static}}
+@media(max-width:620px){.semaine{grid-template-columns:repeat(2,1fr)}}
+
+/* Venir */
+.venir-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:stretch}
+.infos{background:#fff;border-radius:var(--r);padding:28px}
+.infos dl{display:grid;gap:16px;margin:18px 0 24px}
+.infos dt{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--terre);font-weight:600}
+.infos dd{font-size:1.05rem}
+.horaires{width:100%;border-collapse:collapse;font-size:.95rem}
+.horaires td{padding:7px 0;border-bottom:1px dashed rgba(43,26,20,.15)}
+.horaires tr.auj td{font-weight:700;color:var(--orange)}
+.carte-map{border-radius:var(--r);overflow:hidden;min-height:380px;border:0;width:100%;height:100%}
+@media(max-width:900px){.venir-grid{grid-template-columns:1fr}}
+
+/* CTA final */
+.final{background:linear-gradient(120deg,var(--orange),var(--framboise));color:#fff;text-align:center;border-radius:28px;padding:60px 24px;margin:0 16px}
+.final .titre-sec{color:#fff}
+.final .btn-blanc{background:#fff;color:var(--encre)}
+.final .btn-blanc:hover{transform:translateY(-2px)}
+
+footer{padding:50px 0 30px;font-size:.85rem;color:var(--encre-doux)}
+footer .mention{margin-top:16px;padding:14px;border-radius:12px;background:var(--bois-clair);font-size:.8rem}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:12px 18px;border-radius:12px;font-size:.9rem;transition:transform .4s var(--ease);z-index:99}
+.toast.show{transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal,.photo{opacity:1;transform:none;clip-path:none}
+  h1 .mot{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Atelier poterie l'Antre aux Pots",
+  "description":"Cours de poterie, modelage et diverses techniques tout au long de l'année pour tous niveaux, enfants ou adultes. Tournage individuel sur demande.",
+  "telephone":"+33624396422",
+  "email":"marc.giroudon@wanadoo.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"Route de St Sulpice","postalCode":"42300","addressLocality":"Villerest","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.990832,"longitude":4.015272},
+  "areaServed":["Villerest","Roanne","Roannais"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"10:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"14:00","closes":"16:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"18:00","closes":"20:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Wednesday","opens":"18:15","closes":"20:15"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Thursday","opens":"14:00","closes":"16:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"14:00","closes":"16:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour l'Antre aux Pots, non publiée par l'atelier.</div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="L'Antre aux Pots, accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M13 6h14v4c0 2 5 5 5 13 0 7-5 12-12 12S8 30 8 23c0-8 5-11 5-13z" fill="#E5622A"/><path d="M11 18c4 2 14 2 18 0" stroke="#FBF5EC" stroke-width="2" fill="none"/><path d="M10 25c5 2 15 2 20 0" stroke="#B81E45" stroke-width="2" fill="none"/></svg>
+      L'Antre aux Pots
+    </a>
+    <ul id="menu">
+      <li><a href="#atelier">L'atelier</a></li>
+      <li><a href="#cours">Les cours</a></li>
+      <li><a href="#creneau">Choisir un créneau</a></li>
+      <li><a href="#venir">Venir</a></li>
+    </ul>
+    <a class="btn btn-orange btn-tel" href="tel:+33624396422">06 24 39 64 22</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Atelier de poterie · Villerest, près de Roanne</span>
+      <h1><span class="mot">Les&nbsp;mains</span> <span class="mot">dans&nbsp;la</span> <span class="mot">terre.</span></h1>
+      <p class="lead">Cours de poterie, modelage et diverses techniques, toute l'année, pour tous niveaux, enfants ou adultes. Tournage individuel sur demande.</p>
+      <div class="statut" id="statut" role="status" aria-live="polite"><i></i><span>Chargement des horaires…</span></div>
+      <div class="ctas">
+        <a class="btn btn-orange" href="#creneau">Choisir mon créneau</a>
+        <a class="btn btn-ligne" href="#atelier">Découvrir l'atelier</a>
+      </div>
+    </div>
+    <div>
+      <div class="tour" aria-hidden="true">
+        <svg viewBox="0 0 440 440">
+          <ellipse cx="220" cy="390" rx="170" ry="26" fill="rgba(43,26,20,.22)"/>
+          <ellipse cx="220" cy="372" rx="150" ry="24" fill="#5A4238"/>
+          <ellipse cx="220" cy="366" rx="150" ry="24" fill="#7a5a4b"/>
+          <g id="pot">
+            <path id="potForme" fill="#9C4526"/>
+            <clipPath id="clipPot"><use href="#potForme"/></clipPath>
+            <g clip-path="url(#clipPot)" opacity=".35">
+              <g class="strie"><path d="M40 0v440M70 0v440M100 0v440M130 0v440M160 0v440M190 0v440M220 0v440M250 0v440M280 0v440M310 0v440M340 0v440M370 0v440M400 0v440" stroke="#2B1A14" stroke-width="2"/></g>
+            </g>
+            <path id="potReflet" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="6" stroke-linecap="round"/>
+            <ellipse id="potCol" fill="#6e2e18"/>
+          </g>
+        </svg>
+      </div>
+      <div class="faconne">
+        <label for="forme"><span>Façonnez la pièce</span><span id="formeNom">Bol</span></label>
+        <input id="forme" type="range" min="0" max="100" value="20" aria-label="Forme de la pièce : du bol au vase">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="atelier" id="atelier">
+  <div class="wrap atelier-grid">
+    <figure class="photo reveal-photo">
+      <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/38/111/552742.jpg" alt="L'atelier de l'Antre aux Pots : établis en bois, tours de potier et pièces en terre cuite en train de sécher" loading="lazy">
+      <figcaption>L'atelier, à Villerest</figcaption>
+    </figure>
+    <div class="reveal">
+      <span class="eyebrow">L'atelier</span>
+      <h2 class="titre-sec">Un atelier à la campagne, à deux pas du lac.</h2>
+      <p class="sous">L'Antre aux Pots est l'atelier de poterie de Marc Giroudon, route de Saint-Sulpice à Villerest, à moins de 5 km du lac. On y vient chaque semaine pour apprendre, progresser ou simplement modeler, quel que soit son âge et son niveau.</p>
+      <div class="atouts">
+        <div class="atout"><span class="ic">✋</span><div><b>Tous niveaux</b>Premiers pas ou pratique confirmée, enfants comme adultes.</div></div>
+        <div class="atout"><span class="ic">◷</span><div><b>Toute l'année</b>Cours hebdomadaires du mardi au vendredi, autres horaires possibles sur demande.</div></div>
+        <div class="atout"><span class="ic">◎</span><div><b>Tournage individuel</b>Des séances au tour en individuel, sur demande.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="defile" aria-hidden="true"><div>
+  <span>Poterie</span><span>Modelage</span><span>Tournage</span><span>Stages</span><span>Enfants et adultes</span><span>Villerest</span>
+  <span>Poterie</span><span>Modelage</span><span>Tournage</span><span>Stages</span><span>Enfants et adultes</span><span>Villerest</span>
+</div></div>
+
+<section id="cours">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Les cours</span>
+      <h2 class="titre-sec">Quatre façons de travailler la terre.</h2>
+      <p class="sous">Cours de poterie, modelage et diverses techniques tout au long de l'année. Les horaires ci-dessous sont ceux des cours hebdomadaires ; pour le reste, il suffit de demander.</p>
+    </div>
+    <div class="cartes">
+      <article class="carte reveal">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="10" width="40" height="32" rx="6" fill="#E5622A"/><path d="M4 18h40" stroke="#FBF5EC" stroke-width="3"/><circle cx="14" cy="28" r="3" fill="#FBF5EC"/><circle cx="24" cy="28" r="3" fill="#FBF5EC"/><circle cx="34" cy="28" r="3" fill="#FBF5EC"/></svg>
+        <span class="tag">Chaque semaine</span>
+        <h3>Cours hebdomadaires</h3>
+        <p>Sept créneaux par semaine, du mardi au vendredi, pour avancer à son rythme sur l'année.</p>
+      </article>
+      <article class="carte reveal">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 40c0-12 6-14 6-22 0-6 4-10 8-10s8 4 8 10c0 8 6 10 6 22z" fill="#9C4526"/><circle cx="24" cy="16" r="3" fill="#E8C48E"/></svg>
+        <span class="tag">Tous niveaux</span>
+        <h3>Modelage et techniques</h3>
+        <p>Poterie, modelage et diverses techniques, pour les enfants comme pour les adultes.</p>
+      </article>
+      <article class="carte reveal">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="38" rx="18" ry="5" fill="#5A4238"/><path d="M15 36c0-8 3-10 3-16h12c0 6 3 8 3 16z" fill="#B81E45"/></svg>
+        <span class="tag">Sur demande</span>
+        <h3>Tournage individuel</h3>
+        <p>Une séance au tour en tête-à-tête, pour apprendre à centrer et monter une pièce.</p>
+      </article>
+      <article class="carte reveal">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18" fill="#E8C48E"/><path d="M24 12v12l8 5" stroke="#2B1A14" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+        <span class="tag">Sur demande</span>
+        <h3>Stages et autres horaires</h3>
+        <p>Stages et cours à d'autres moments de la semaine : à convenir directement avec l'atelier.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="outil" id="creneau">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--bois)">Choisir un créneau</span>
+      <h2 class="titre-sec">Quel cours vous va&nbsp;?</h2>
+      <p class="sous">Touchez un créneau, dites qui vient et votre niveau : le message pour l'atelier se rédige tout seul. Vous pouvez aussi ajouter le prochain cours à votre agenda.</p>
+    </div>
+    <div class="outil-grid">
+      <div class="semaine" id="semaine"></div>
+      <aside class="panneau" aria-live="polite">
+        <h3 id="pTitre">Aucun créneau choisi</h3>
+        <p class="note" style="margin:0 0 14px">Ou choisissez « Autre horaire » pour une demande sur mesure.</p>
+        <div class="champ">Pour qui</div>
+        <div class="choix" role="radiogroup" aria-label="Pour qui">
+          <input type="radio" name="qui" id="q1" value="un adulte" checked><label for="q1">Adulte</label>
+          <input type="radio" name="qui" id="q2" value="un enfant"><label for="q2">Enfant</label>
+          <input type="radio" name="qui" id="q3" value="plusieurs personnes"><label for="q3">Plusieurs</label>
+        </div>
+        <div class="champ">Niveau</div>
+        <div class="choix" role="radiogroup" aria-label="Niveau">
+          <input type="radio" name="niv" id="n1" value="jamais pratiqué" checked><label for="n1">Débutant</label>
+          <input type="radio" name="niv" id="n2" value="déjà pratiqué un peu"><label for="n2">Un peu</label>
+          <input type="radio" name="niv" id="n3" value="pratique régulière"><label for="n3">Confirmé</label>
+        </div>
+        <div class="champ">Formule</div>
+        <div class="choix" role="radiogroup" aria-label="Formule">
+          <input type="radio" name="form" id="f1" value="cours hebdomadaire" checked><label for="f1">Cours hebdo</label>
+          <input type="radio" name="form" id="f2" value="tournage individuel"><label for="f2">Tournage individuel</label>
+          <input type="radio" name="form" id="f3" value="stage"><label for="f3">Stage</label>
+        </div>
+        <label class="champ" for="prenom">Votre prénom</label>
+        <input type="text" id="prenom" placeholder="ex. Claire" autocomplete="given-name">
+        <div class="resume" id="resume">Choisissez un créneau à gauche.</div>
+        <div class="actions">
+          <a class="btn btn-orange" id="bMail" href="mailto:marc.giroudon@wanadoo.fr">Envoyer la demande</a>
+          <button class="btn btn-ligne" id="bIcs" type="button">Ajouter à l'agenda</button>
+        </div>
+        <p class="note">Ou appelez directement l'atelier au <a href="tel:+33624396422">06 24 39 64 22</a>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="venir">
+  <div class="wrap venir-grid">
+    <div class="infos reveal">
+      <span class="eyebrow">Venir à l'atelier</span>
+      <h2 class="titre-sec">Route de Saint-Sulpice, Villerest.</h2>
+      <dl>
+        <div><dt>Adresse</dt><dd>Route de St Sulpice<br>42300 Villerest</dd></div>
+        <div><dt>Téléphone</dt><dd><a href="tel:+33624396422">06 24 39 64 22</a></dd></div>
+        <div><dt>Mail</dt><dd><a href="mailto:marc.giroudon@wanadoo.fr">marc.giroudon@wanadoo.fr</a></dd></div>
+      </dl>
+      <table class="horaires" id="horaires" aria-label="Horaires des cours">
+        <tr data-j="2"><td>Mardi</td><td>10h–12h · 14h–16h · 18h–20h</td></tr>
+        <tr data-j="3"><td>Mercredi</td><td>18h15–20h15</td></tr>
+        <tr data-j="4"><td>Jeudi</td><td>14h–16h</td></tr>
+        <tr data-j="5"><td>Vendredi</td><td>14h–16h</td></tr>
+        <tr data-j="6"><td>Samedi, dimanche, lundi</td><td>Sur demande</td></tr>
+      </table>
+      <div class="ctas" style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-orange" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=45.990832,4.015272">Itinéraire</a>
+      </div>
+    </div>
+    <iframe class="carte-map reveal" title="Plan d'accès à l'atelier" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.995%2C45.980%2C4.035%2C46.001&amp;layer=mapnik&amp;marker=45.990832%2C4.015272"></iframe>
+  </div>
+</section>
+
+<div class="final reveal">
+  <h2 class="titre-sec">Envie d'essayer&nbsp;?</h2>
+  <p style="max-width:34rem;margin:0 auto 24px;opacity:.92">Un coup de fil ou un message suffit pour trouver le cours qui vous convient.</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a class="btn btn-blanc" href="tel:+33624396422">Appeler l'atelier</a>
+    <a class="btn btn-ligne" style="border-color:#fff;color:#fff" href="#creneau">Choisir un créneau</a>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Atelier poterie l'Antre aux Pots</strong> · Route de St Sulpice, 42300 Villerest · 06 24 39 64 22
+    <div class="mention">
+      Maquette de démonstration réalisée à titre de proposition. Informations reprises de la fiche de l'atelier sur Roannais Tourisme (horaires 2026). La photo de l'atelier est celle publiée sur cette fiche ; d'autres photos (pièces, cours) seraient à fournir par l'atelier. L'atelier n'ayant pas de site, les couleurs sont relevées sur la photo de l'atelier et restent ajustables. Aucun tarif n'est affiché : à compléter avec l'atelier.
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // En-tête et menu mobile
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Apparitions au défilement
+  const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15}):null;
+  document.querySelectorAll('.reveal,.reveal-photo').forEach((el,i)=>{
+    if(el.classList.contains('reveal-photo'))el.classList.add('photo');
+    if(el.classList.contains('carte'))el.style.transitionDelay=(i%4)*90+'ms';
+    io?io.observe(el):el.classList.add('vu');
+  });
+
+  // Pièce sur le tour : forme pilotée par le curseur
+  const forme=document.getElementById('forme'),nom=document.getElementById('formeNom');
+  const pF=document.getElementById('potForme'),pR=document.getElementById('potReflet'),pC=document.getElementById('potCol');
+  function lerp(a,b,t){return a+(b-a)*t}
+  function dessine(v){
+    const t=v/100, base=362;
+    const h=lerp(90,250,t), top=base-h;
+    const lvr=lerp(120,46,t), ventre=lerp(118,96,t), pied=lerp(60,52,t), col=lerp(126,34,t);
+    const yV=base-h*lerp(.55,.42,t);
+    const d=`M${220-pied} ${base} C${220-ventre-20} ${base-10} ${220-ventre} ${yV+30} ${220-ventre} ${yV} C${220-ventre} ${yV-h*.25} ${220-col} ${top+h*.2} ${220-col} ${top+14} L${220-lvr} ${top} L${220+lvr} ${top} L${220+col} ${top+14} C${220+col} ${top+h*.2} ${220+ventre} ${yV-h*.25} ${220+ventre} ${yV} C${220+ventre} ${yV+30} ${220+ventre+20} ${base-10} ${220+pied} ${base} Z`;
+    pF.setAttribute('d',d);
+    pR.setAttribute('d',`M${220-ventre+16} ${yV-20} C${220-ventre+12} ${yV+10} ${220-ventre+22} ${yV+40} ${220-ventre+34} ${yV+56}`);
+    pC.setAttribute('cx',220);pC.setAttribute('cy',top);pC.setAttribute('rx',lvr);pC.setAttribute('ry',lerp(16,7,t));
+    nom.textContent=t<.3?'Bol':t<.6?'Pot':t<.85?'Pichet':'Vase';
+  }
+  forme.addEventListener('input',e=>dessine(+e.target.value));
+  dessine(+forme.value);
+  if(!reduit){let v=20,dir=1,auto=true;forme.addEventListener('pointerdown',()=>auto=false);forme.addEventListener('keydown',()=>auto=false);
+    (function boucle(){if(!auto)return;v+=dir*.25;if(v>80||v<10)dir*=-1;forme.value=v;dessine(v);requestAnimationFrame(boucle)})();}
+
+  // Créneaux réels (fiche Roannais Tourisme, 2026)
+  const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const SLOTS=[
+    {j:2,d:'10:00',f:'12:00',m:'Matin'},{j:2,d:'14:00',f:'16:00',m:'Après-midi'},{j:2,d:'18:00',f:'20:00',m:'Soirée'},
+    {j:3,d:'18:15',f:'20:15',m:'Soirée'},
+    {j:4,d:'14:00',f:'16:00',m:'Après-midi'},
+    {j:5,d:'14:00',f:'16:00',m:'Après-midi'}
+  ];
+  const hfr=s=>s.replace(':00','h').replace(':','h');
+  const min=s=>{const[a,b]=s.split(':');return +a*60+ +b};
+  const sem=document.getElementById('semaine');
+  [2,3,4,5].forEach(j=>{
+    const col=document.createElement('div');col.className='jour';
+    const n=SLOTS.filter(s=>s.j===j).length;
+    col.innerHTML=`<h4>${JOURS[j]}<small>${n} cours</small></h4>`;
+    SLOTS.forEach((s,i)=>{if(s.j!==j)return;
+      const b=document.createElement('button');b.type='button';b.className='slot';b.dataset.i=i;
+      b.innerHTML=`<b>${hfr(s.d)} – ${hfr(s.f)}</b><span>${s.m}</span>`;
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',()=>choisir(i));col.appendChild(b)});
+    sem.appendChild(col);
+  });
+  const autre=document.createElement('div');autre.className='jour';autre.style.gridColumn='1/-1';
+  autre.innerHTML=`<button type="button" class="slot" data-i="-1" aria-pressed="false"><b>Autre horaire</b><span>Stage, tournage individuel ou autre jour : sur demande</span></button>`;
+  autre.querySelector('button').addEventListener('click',()=>choisir(-1));
+  sem.appendChild(autre);
+
+  let sel=null;
+  function prochaine(s){
+    const now=new Date();const d=new Date(now);d.setHours(0,0,0,0);
+    for(let k=0;k<14;k++){const c=new Date(d);c.setDate(d.getDate()+k);
+      if(c.getDay()===s.j){const st=new Date(c);st.setHours(...s.d.split(':').map(Number));if(st>now)return st}}
+  }
+  function choisir(i){
+    sel=i;
+    sem.querySelectorAll('.slot').forEach(b=>{const a=+b.dataset.i===i;b.classList.toggle('actif',a);b.setAttribute('aria-pressed',a)});
+    maj();
+  }
+  const val=n=>document.querySelector(`input[name=${n}]:checked`).value;
+  document.querySelectorAll('.panneau input').forEach(x=>x.addEventListener('input',maj));
+  function maj(){
+    const t=document.getElementById('pTitre'),r=document.getElementById('resume'),m=document.getElementById('bMail');
+    if(sel===null){return}
+    const pr=document.getElementById('prenom').value.trim();
+    let quand;
+    if(sel===-1){t.textContent='Autre horaire';quand='un autre horaire (à convenir)'}
+    else{const s=SLOTS[sel];const p=prochaine(s);
+      t.textContent=`${JOURS[s.j]} ${hfr(s.d)} – ${hfr(s.f)}`;
+      quand=`le cours du ${JOURS[s.j].toLowerCase()} de ${hfr(s.d)} à ${hfr(s.f)}`+(p?` (prochain : ${p.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})})`:'');}
+    const corps=`Bonjour,\n\nJe suis intéressé(e) par ${quand}, en ${val('form')}, pour ${val('qui')} (${val('niv')}).\nPourriez-vous me dire s'il reste de la place et comment s'inscrire ?\n\nMerci,\n${pr||''}`;
+    r.textContent=corps;
+    m.href='mailto:marc.giroudon@wanadoo.fr?subject='+encodeURIComponent('Demande de cours – L\'Antre aux Pots')+'&body='+encodeURIComponent(corps);
+    document.getElementById('bIcs').disabled=(sel===-1);
+  }
+
+  // Export agenda (.ics)
+  const toast=document.getElementById('toast');
+  function msg(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2600)}
+  document.getElementById('bIcs').addEventListener('click',()=>{
+    if(sel===null||sel===-1){msg('Choisissez d\'abord un créneau de la semaine.');return}
+    const s=SLOTS[sel],p=prochaine(s);if(!p)return;
+    const e=new Date(p);e.setHours(...s.f.split(':').map(Number));
+    const f=x=>`${x.getFullYear()}${String(x.getMonth()+1).padStart(2,'0')}${String(x.getDate()).padStart(2,'0')}T${String(x.getHours()).padStart(2,'0')}${String(x.getMinutes()).padStart(2,'0')}00`;
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Antre aux Pots//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@antre-aux-pots','DTSTAMP:'+f(new Date()),'DTSTART:'+f(p),'DTEND:'+f(e),'SUMMARY:Cours de poterie – L\'Antre aux Pots','LOCATION:Route de St Sulpice\\, 42300 Villerest','DESCRIPTION:Pensez à confirmer votre venue au 06 24 39 64 22.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='cours-poterie-antre-aux-pots.ics';a.click();
+    msg('Le cours a été ajouté à votre agenda.');
+  });
+
+  // Statut en direct + horaires du jour
+  function statut(){
+    const now=new Date(),j=now.getDay(),m=now.getHours()*60+now.getMinutes();
+    const el=document.getElementById('statut');
+    const enCours=SLOTS.findIndex(s=>s.j===j&&m>=min(s.d)&&m<min(s.f));
+    sem.querySelectorAll('.slot').forEach(b=>b.classList.toggle('maintenant',enCours>=0&&+b.dataset.i===enCours));
+    if(enCours>=0){el.className='statut ouvert';el.querySelector('span').textContent=`Cours en ce moment, jusqu'à ${hfr(SLOTS[enCours].f)}`}
+    else{let best=null;SLOTS.forEach(s=>{const p=prochaine(s);if(p&&(!best||p<best.p))best={s,p}});
+      el.className='statut';
+      el.querySelector('span').textContent=best?`Prochain cours : ${best.p.toLocaleDateString('fr-FR',{weekday:'long'})} à ${hfr(best.s.d)}`:'Horaires sur demande';}
+    document.querySelectorAll('#horaires tr').forEach(tr=>{const d=+tr.dataset.j;tr.classList.toggle('auj',d===j||(d===6&&(j===6||j===0||j===1)))});
+  }
+  statut();setInterval(statut,60000);
+})();
+</script>
+</body>
+</html>
