@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cycles A Scoot'tuning — Réparation vélo, VAE et scooter à Roanne</title>
+<meta name="description" content="Atelier rue de Charlieu à Roanne : entretien et réparation de vélos, vélos électriques, scooters et motos, diagnostic de batterie et location de VAE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — À AJUSTER
+   Le site ascoottuning.fr ne répondait plus au moment de la
+   maquette : couleurs et polices sont APPROCHÉES. Remplacer ces
+   variables par les vrais codes du logo / de l'enseigne.
+   ========================================================== */
+:root{
+  --c-ink:#14181d;        /* texte principal, fonds sombres */
+  --c-steel:#2b333c;      /* gris acier atelier */
+  --c-paper:#f3f4f2;      /* fond clair */
+  --c-line:#d7dad6;       /* filets */
+  --c-accent:#e2492b;     /* rouge-orangé "signal" (à confirmer) */
+  --c-accent-ink:#ffffff;
+  --c-ok:#2f9e5b;         /* statut ouvert */
+  --c-muted:#5e6670;
+  --f-title:"Barlow Condensed", "Arial Narrow", sans-serif;
+  --f-body:"Barlow", system-ui, sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);color:var(--c-ink);background:var(--c-paper);line-height:1.6;font-size:clamp(1rem,.95rem + .25vw,1.12rem);overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--c-accent);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--c-ink);color:#cfd4d9;font-size:.82rem;text-align:center;padding:7px 16px}
+.demo b{color:#fff}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(243,244,242,.88);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s, box-shadow .3s}
+header.scrolled{border-color:var(--c-line);box-shadow:0 6px 24px rgba(20,24,29,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-title);font-weight:800;font-size:1.45rem;letter-spacing:.02em;text-transform:uppercase}
+.logo .mark{width:38px;height:38px;border-radius:50%;background:var(--c-ink);display:grid;place-items:center}
+.logo .mark svg{width:24px;height:24px}
+.logo small{display:block;font-family:var(--f-body);font-weight:500;font-size:.7rem;letter-spacing:.14em;color:var(--c-muted);text-transform:uppercase;line-height:1}
+.menu{display:flex;gap:26px;list-style:none;font-weight:500}
+.menu a{text-decoration:none;position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-title);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:1.05rem;padding:12px 22px;border-radius:999px;border:2px solid var(--c-ink);text-decoration:none;cursor:pointer;background:transparent;color:var(--c-ink);transition:transform .2s var(--ease),background .2s,color .2s;min-height:46px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-accent{background:var(--c-accent);border-color:var(--c-accent);color:var(--c-accent-ink)}
+.btn-dark{background:var(--c-ink);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--c-ink);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:68px 0 auto 0;background:var(--c-paper);flex-direction:column;padding:20px 16px 28px;gap:14px;border-bottom:1px solid var(--c-line);transform:translateY(-12px);opacity:0;visibility:hidden;transition:transform .35s var(--ease),opacity .3s,visibility .3s}
+  .menu.open{transform:none;opacity:1;visibility:visible}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;padding:clamp(40px,7vw,90px) 0 clamp(50px,8vw,110px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--c-line);border-radius:999px;padding:7px 14px 7px 10px;font-size:.9rem;font-weight:500}
+.status i{width:10px;height:10px;border-radius:50%;background:var(--c-muted);box-shadow:0 0 0 0 currentColor}
+.status.open i{background:var(--c-ok);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,158,91,.5)}70%{box-shadow:0 0 0 10px rgba(47,158,91,0)}100%{box-shadow:0 0 0 0 rgba(47,158,91,0)}}
+h1{font-family:var(--f-title);font-weight:800;text-transform:uppercase;line-height:.92;font-size:clamp(2.8rem,1.8rem + 5vw,6rem);letter-spacing:-.01em;margin:22px 0 18px}
+h1 .line{display:block;overflow:hidden}
+h1 .line span{display:block;transform:translateY(105%);animation:rise .9s var(--ease) forwards}
+h1 .line:nth-child(2) span{animation-delay:.12s}
+h1 .line:nth-child(3) span{animation-delay:.24s;color:var(--c-accent)}
+@keyframes rise{to{transform:none}}
+.lead{font-size:1.15rem;color:var(--c-steel);max-width:34ch;margin-bottom:28px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-art{position:relative;aspect-ratio:1/1;max-width:540px;justify-self:end;width:100%}
+.hero-art .disc{position:absolute;inset:6%;border-radius:50%;background:var(--c-ink)}
+.hero-art .ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed var(--c-line);animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-art svg.bike{position:absolute;inset:14% 8%;width:84%;height:72%}
+.bike .draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.2s var(--ease) .4s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.bike .wheel{transform-box:fill-box;transform-origin:center;animation:spin 6s linear infinite}
+.tag-float{position:absolute;background:#fff;border-radius:12px;padding:10px 14px;font-size:.88rem;font-weight:600;box-shadow:0 12px 30px rgba(20,24,29,.14);display:flex;align-items:center;gap:8px;animation:float 5s ease-in-out infinite}
+.tag-float b{font-family:var(--f-title);font-size:1.1rem;color:var(--c-accent)}
+.tag-1{left:-4%;top:16%}
+.tag-2{right:-2%;bottom:14%;animation-delay:-2.5s}
+@keyframes float{50%{transform:translateY(-10px)}}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-art{justify-self:center;max-width:420px}}
+
+/* Ticker */
+.ticker{background:var(--c-accent);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--f-title);font-weight:700;font-size:1.3rem;text-transform:uppercase;letter-spacing:.06em;padding:12px 0}
+.ticker .track{display:inline-flex;gap:40px;animation:tick 28s linear infinite}
+.ticker span::after{content:"✦";margin-left:40px;opacity:.6}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(60px,9vw,120px) 0}
+.kicker{font-family:var(--f-title);font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--c-accent);font-size:.95rem;margin-bottom:10px}
+h2{font-family:var(--f-title);font-weight:800;text-transform:uppercase;line-height:.95;font-size:clamp(2.1rem,1.5rem + 2.8vw,3.8rem);margin-bottom:18px}
+.sub{color:var(--c-muted);max-width:56ch}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.svc{position:relative;background:#fff;border:1px solid var(--c-line);border-radius:var(--r);padding:26px 22px 24px;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;min-height:260px;display:flex;flex-direction:column}
+.svc::before{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(20,24,29,.1)}
+.svc:hover::before{transform:scaleX(1)}
+.svc .ico{width:56px;height:56px;border-radius:14px;background:var(--c-paper);display:grid;place-items:center;margin-bottom:20px;transition:background .3s}
+.svc:hover .ico{background:var(--c-ink)}
+.svc .ico svg{width:32px;height:32px;stroke:var(--c-ink);transition:stroke .3s}
+.svc:hover .ico svg{stroke:#fff}
+.svc h3{font-family:var(--f-title);font-size:1.55rem;text-transform:uppercase;line-height:1;margin-bottom:10px}
+.svc p{color:var(--c-muted);font-size:.98rem;flex:1}
+.svc .go{margin-top:16px;font-weight:600;font-size:.92rem;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+.svc .go:hover{color:var(--c-accent)}
+@media (max-width:1000px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.services-grid{grid-template-columns:1fr}}
+
+/* Battery focus */
+.dark{background:var(--c-ink);color:#e8ebee}
+.dark .sub{color:#a7afb8}
+.batt-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.battery{position:relative;width:min(380px,100%);margin-inline:auto;aspect-ratio:2.2/1;border:4px solid #e8ebee;border-radius:22px;padding:12px}
+.battery::after{content:"";position:absolute;right:-20px;top:32%;width:12px;height:36%;background:#e8ebee;border-radius:0 6px 6px 0}
+.battery .cells{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;height:100%}
+.battery .cells i{border-radius:8px;background:#2b333c;transition:background .4s}
+.battery .cells i.on{background:var(--c-ok)}
+.battery .cells i.low{background:#e0a32b}
+.battery .cells i.crit{background:var(--c-accent)}
+.batt-steps{list-style:none;margin-top:26px;display:grid;gap:14px;counter-reset:s}
+.batt-steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.batt-steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--f-title);font-weight:800;font-size:1.5rem;color:var(--c-accent)}
+.batt-caption{text-align:center;margin-top:16px;font-size:.88rem;color:#a7afb8}
+@media (max-width:900px){.batt-grid{grid-template-columns:1fr}}
+
+/* Outil : préparer son passage */
+.tool{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;margin-top:44px;align-items:start}
+.panel{background:#fff;border:1px solid var(--c-line);border-radius:20px;padding:clamp(20px,3vw,34px)}
+.step{border-bottom:1px dashed var(--c-line);padding-bottom:22px;margin-bottom:22px}
+.step:last-child{border:0;margin:0;padding:0}
+.step h3{font-family:var(--f-title);text-transform:uppercase;font-size:1.3rem;margin-bottom:14px;display:flex;gap:10px;align-items:center}
+.step h3 em{font-style:normal;background:var(--c-ink);color:#fff;border-radius:50%;width:28px;height:28px;display:grid;place-items:center;font-size:1rem}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip label{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1.5px solid var(--c-line);border-radius:999px;cursor:pointer;font-weight:500;transition:all .2s var(--ease);min-height:44px;user-select:none}
+.chip label svg{width:22px;height:22px}
+.chip label:hover{border-color:var(--c-ink)}
+.chip input:checked + label{background:var(--c-ink);border-color:var(--c-ink);color:#fff;transform:scale(1.03)}
+.chip input:checked + label svg{stroke:#fff}
+.chip input:focus-visible + label{outline:3px solid var(--c-accent);outline-offset:2px}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day{border:1.5px solid var(--c-line);border-radius:12px;padding:10px 4px;text-align:center;cursor:pointer;background:#fff;font-family:inherit;transition:all .2s}
+.day b{display:block;font-family:var(--f-title);font-size:1.4rem;line-height:1}
+.day small{font-size:.75rem;color:var(--c-muted);text-transform:uppercase;letter-spacing:.06em}
+.day:hover{border-color:var(--c-ink)}
+.day[aria-pressed="true"]{background:var(--c-accent);border-color:var(--c-accent);color:#fff}
+.day[aria-pressed="true"] small{color:#fff}
+textarea,input[type=text],input[type=tel]{width:100%;font:inherit;border:1.5px solid var(--c-line);border-radius:12px;padding:12px 14px;background:var(--c-paper);transition:border-color .2s}
+textarea:focus,input:focus{outline:none;border-color:var(--c-ink)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media (max-width:560px){.row2{grid-template-columns:1fr}}
+.ticket{position:sticky;top:90px;background:var(--c-steel);color:#fff;border-radius:20px;padding:28px 26px;overflow:hidden}
+.ticket::before,.ticket::after{content:"";position:absolute;width:28px;height:28px;border-radius:50%;background:var(--c-paper);top:58%}
+.ticket::before{left:-14px}.ticket::after{right:-14px}
+.ticket .k{font-family:var(--f-title);letter-spacing:.18em;text-transform:uppercase;font-size:.85rem;color:#a7afb8}
+.ticket h3{font-family:var(--f-title);font-size:2rem;text-transform:uppercase;line-height:1;margin:6px 0 18px}
+.ticket dl{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:.95rem}
+.ticket dt{color:#a7afb8}
+.ticket dd{font-weight:600;transition:color .3s}
+.ticket dd.flash{color:#ffb19f}
+.ticket hr{border:0;border-top:2px dashed rgba(255,255,255,.25);margin:22px 0}
+.ticket .actions{display:grid;gap:10px}
+.ticket .btn{justify-content:center;border-color:#fff;color:#fff}
+.ticket .btn-accent{border-color:var(--c-accent);color:#fff}
+.ticket .note{font-size:.8rem;color:#a7afb8;margin-top:14px}
+.progress{height:6px;background:rgba(255,255,255,.15);border-radius:6px;overflow:hidden;margin-bottom:18px}
+.progress i{display:block;height:100%;width:0;background:var(--c-accent);transition:width .5s var(--ease)}
+@media (max-width:960px){.tool{grid-template-columns:1fr}.ticket{position:relative;top:0}}
+
+/* Location VAE */
+.rent{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center}
+.photo-slot{position:relative;border-radius:20px;aspect-ratio:4/3;background:repeating-linear-gradient(-45deg,#e7e9e6 0 14px,#eef0ed 14px 28px);display:grid;place-items:center;text-align:center;color:var(--c-muted);font-size:.95rem;border:1.5px dashed #c5c9c4;padding:20px}
+.photo-slot b{display:block;font-family:var(--f-title);font-size:1.3rem;text-transform:uppercase;color:var(--c-ink)}
+.ideas{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.idea{background:#fff;border:1px solid var(--c-line);border-radius:12px;padding:14px 16px;font-size:.95rem}
+.idea b{display:block;font-family:var(--f-title);font-size:1.15rem;text-transform:uppercase}
+@media (max-width:900px){.rent{grid-template-columns:1fr}.ideas{grid-template-columns:1fr}}
+
+/* Horaires & contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+.hours{background:#fff;border:1px solid var(--c-line);border-radius:20px;padding:26px}
+.hours table{width:100%;border-collapse:collapse}
+.hours td{padding:11px 4px;border-bottom:1px solid var(--c-line)}
+.hours td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.hours tr.today td{font-weight:700;color:var(--c-accent)}
+.hours tr.closed td:last-child{color:var(--c-muted)}
+.coords{background:var(--c-ink);color:#fff;border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:18px}
+.coords a{text-decoration:none}
+.coord{display:flex;gap:14px;align-items:flex-start}
+.coord svg{width:26px;height:26px;stroke:var(--c-accent);flex:none;margin-top:2px}
+.coord small{display:block;color:#a7afb8;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
+.coord b{font-size:1.1rem}
+.map{flex:1;min-height:200px;border-radius:14px;overflow:hidden;border:0}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:#0d1013;color:#a7afb8;padding:44px 0 30px;font-size:.88rem}
+footer .f-top{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+footer .logo{color:#fff}
+footer .disclaimer{border-top:1px solid #222a31;padding-top:20px;line-height:1.7}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--c-ink);color:#fff;padding:12px 20px;border-radius:999px;font-weight:500;z-index:90;transition:transform .4s var(--ease);max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translate(-50%,0)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;display:none}
+@media (max-width:700px){.fab{display:inline-flex}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  h1 .line span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BicycleStore",
+  "name":"Cycles A Scoot'tuning",
+  "telephone":"+33477780562",
+  "email":"scoottuning@orange.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"90 rue de Charlieu","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":"Roanne",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:30","closes":"11:45"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"13:30","closes":"18:00"}
+  ],
+  "makesOffer":[
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Entretien et réparation de vélos et vélos électriques"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Entretien et réparation de scooters et motos"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Diagnostic de capacité de batterie"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Location de vélos à assistance électrique"}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de site pour Cycles A Scoot'tuning, non officielle.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Cycles A Scoot'tuning, accueil">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l2 8h-6M14 5h3"/></svg></span>
+      <span>A Scoot'tuning<small>Cycles · Roanne</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#atelier">L'atelier</a></li>
+      <li><a href="#batterie">Batterie</a></li>
+      <li><a href="#passage">Préparer mon passage</a></li>
+      <li><a href="#location">Location VAE</a></li>
+      <li><a href="#contact">Horaires &amp; accès</a></li>
+    </ul>
+    <a class="btn btn-dark" href="tel:+33477780562">04 77 78 05 62</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status" id="status"><i></i><span id="statusTxt">Horaires de l'atelier</span></span>
+      <h1><span class="line"><span>Vélo, VAE,</span></span><span class="line"><span>scooter, moto :</span></span><span class="line"><span>on s'en occupe.</span></span></h1>
+      <p class="lead">Entretien, réparation et diagnostic de batterie, au 90 rue de Charlieu à Roanne. Et des vélos électriques à louer.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-accent" href="#passage">Préparer mon passage <span aria-hidden="true">→</span></a>
+        <a class="btn" href="tel:+33477780562">Appeler l'atelier</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="ring"></div>
+      <div class="disc"></div>
+      <svg class="bike" viewBox="0 0 400 260" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <g class="wheel"><circle cx="95" cy="180" r="62" style="--len:390" class="draw"/><path d="M95 118v124M33 180h124M51 136l88 88M139 136l-88 88" stroke-width="1.5" opacity=".45"/></g>
+        <g class="wheel"><circle cx="305" cy="180" r="62" style="--len:390" class="draw"/><path d="M305 118v124M243 180h124M261 136l88 88M349 136l-88 88" stroke-width="1.5" opacity=".45"/></g>
+        <path class="draw" style="--len:700" d="M95 180l70-100h110l30 100M165 80l40 100h-110M205 180l70-100"/>
+        <path class="draw" style="--len:120" d="M150 60h40M275 80l-12-30h32"/>
+        <rect x="178" y="98" width="62" height="22" rx="6" stroke="#e2492b" class="draw" style="--len:180"/>
+        <path d="M198 109h22" stroke="#e2492b" stroke-width="3"/>
+      </svg>
+      <div class="tag-float tag-1"><b>VAE</b> diagnostic batterie</div>
+      <div class="tag-float tag-2"><b>2 roues</b> vélo · scooter · moto</div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="track">
+  <span>Entretien</span><span>Réparation</span><span>Diagnostic batterie</span><span>Vélos électriques</span><span>Scooters</span><span>Motos</span><span>Location VAE</span>
+  <span>Entretien</span><span>Réparation</span><span>Diagnostic batterie</span><span>Vélos électriques</span><span>Scooters</span><span>Motos</span><span>Location VAE</span>
+</div></div>
+
+<section id="atelier">
+  <div class="wrap">
+    <p class="kicker reveal">L'atelier</p>
+    <h2 class="reveal">Tous les deux-roues,<br>un seul atelier</h2>
+    <p class="sub reveal">Sur place, l'atelier assure les entretiens, les réparations et les diagnostics de capacité de batterie — pour les vélos classiques comme pour les électriques, les scooters et les motos.</p>
+    <div class="services-grid">
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="21" r="6"/><circle cx="24" cy="21" r="6"/><path d="M8 21l5-10h7l4 10M13 11l3 10h-8"/></svg></div>
+        <h3>Vélos</h3>
+        <p>Entretien courant et réparation : freins, transmission, crevaisons, réglages.</p>
+        <a class="go" href="#passage" data-pick="velo">Préparer mon passage →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="22" r="6"/><circle cx="24" cy="22" r="6"/><path d="M8 22l5-10h7l4 10"/><path d="M17 3l-3 6h4l-3 6" stroke-linejoin="round"/></svg></div>
+        <h3>Vélos électriques</h3>
+        <p>Entretien et réparation des VAE, avec diagnostic de la capacité de la batterie.</p>
+        <a class="go" href="#passage" data-pick="vae">Préparer mon passage →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="23" r="4"/><circle cx="25" cy="23" r="4"/><path d="M12 23h9l-2-9h-5M21 7h3l1 7M4 19c1-3 4-5 8-5"/></svg></div>
+        <h3>Scooters</h3>
+        <p>Entretien et réparation de scooters, du diagnostic à la remise en route.</p>
+        <a class="go" href="#passage" data-pick="scooter">Préparer mon passage →</a>
+      </article>
+      <article class="svc reveal">
+        <div class="ico"><svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="22" r="5"/><circle cx="25" cy="22" r="5"/><path d="M7 22l6-7h7l5 7M20 15l-2-6h4M13 15l-2-3H7"/></svg></div>
+        <h3>Motos</h3>
+        <p>Entretien et réparation de motos à l'atelier de la rue de Charlieu.</p>
+        <a class="go" href="#passage" data-pick="moto">Préparer mon passage →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="batterie" class="dark">
+  <div class="wrap batt-grid">
+    <div>
+      <p class="kicker reveal">Vélo électrique</p>
+      <h2 class="reveal">Votre batterie tient-elle encore la route ?</h2>
+      <p class="sub reveal">Une autonomie qui fond, un vélo qui coupe en montée : avant de penser à racheter une batterie, l'atelier mesure sa capacité réelle.</p>
+      <ol class="batt-steps reveal">
+        <li><span><b>Vous déposez le vélo ou la batterie</b><br><span class="sub">aux horaires d'ouverture, rue de Charlieu.</span></span></li>
+        <li><span><b>Diagnostic de capacité</b><br><span class="sub">l'état réel de la batterie est mesuré sur place.</span></span></li>
+        <li><span><b>On vous explique le résultat</b><br><span class="sub">et les options possibles pour votre vélo.</span></span></li>
+      </ol>
+    </div>
+    <div class="reveal">
+      <div class="battery" aria-hidden="true"><div class="cells" id="cells"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <p class="batt-caption">Illustration animée — le diagnostic se fait à l'atelier.</p>
+    </div>
+  </div>
+</section>
+
+<section id="passage">
+  <div class="wrap">
+    <p class="kicker reveal">Préparer mon passage</p>
+    <h2 class="reveal">Dites-nous ce qui cloche,<br>on vous attend</h2>
+    <p class="sub reveal">En trente secondes, décrivez votre deux-roues et le souci rencontré. Le récapitulatif part directement par mail à l'atelier — ou vous l'avez sous les yeux pendant l'appel.</p>
+
+    <div class="tool">
+      <form class="panel reveal" id="form" onsubmit="return false">
+        <div class="step">
+          <h3><em>1</em> Votre deux-roues</h3>
+          <div class="chips" role="radiogroup" aria-label="Type de deux-roues">
+            <div class="chip"><input type="radio" name="veh" id="v-velo" value="Vélo"><label for="v-velo"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="6"/><circle cx="24" cy="21" r="6"/><path d="M8 21l5-10h7l4 10"/></svg>Vélo</label></div>
+            <div class="chip"><input type="radio" name="veh" id="v-vae" value="Vélo électrique"><label for="v-vae"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="22" r="6"/><circle cx="24" cy="22" r="6"/><path d="M17 3l-3 6h4l-3 6"/></svg>Vélo électrique</label></div>
+            <div class="chip"><input type="radio" name="veh" id="v-scooter" value="Scooter"><label for="v-scooter"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="23" r="4"/><circle cx="25" cy="23" r="4"/><path d="M12 23h9l-2-9h-5"/></svg>Scooter</label></div>
+            <div class="chip"><input type="radio" name="veh" id="v-moto" value="Moto"><label for="v-moto"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="22" r="5"/><circle cx="25" cy="22" r="5"/><path d="M7 22l6-7h7l5 7"/></svg>Moto</label></div>
+          </div>
+        </div>
+        <div class="step">
+          <h3><em>2</em> Ce dont vous avez besoin</h3>
+          <div class="chips" id="needs">
+            <div class="chip"><input type="checkbox" id="n1" value="Entretien / révision"><label for="n1">Entretien / révision</label></div>
+            <div class="chip"><input type="checkbox" id="n2" value="Réparation / panne"><label for="n2">Réparation / panne</label></div>
+            <div class="chip" data-only="vae"><input type="checkbox" id="n3" value="Diagnostic batterie"><label for="n3">Diagnostic batterie</label></div>
+            <div class="chip"><input type="checkbox" id="n4" value="Freins"><label for="n4">Freins</label></div>
+            <div class="chip"><input type="checkbox" id="n5" value="Crevaison / pneus"><label for="n5">Crevaison / pneus</label></div>
+            <div class="chip"><input type="checkbox" id="n6" value="Ne démarre plus"><label for="n6">Ne démarre plus</label></div>
+            <div class="chip"><input type="checkbox" id="n7" value="Bruit anormal"><label for="n7">Bruit anormal</label></div>
+            <div class="chip"><input type="checkbox" id="n8" value="Location d'un VAE"><label for="n8">Location d'un VAE</label></div>
+          </div>
+          <textarea id="details" rows="3" placeholder="En quelques mots (marque, modèle, ce qui se passe…)" style="margin-top:14px"></textarea>
+        </div>
+        <div class="step">
+          <h3><em>3</em> Quand souhaitez-vous passer ?</h3>
+          <div class="days" id="days" aria-label="Jours d'ouverture à venir"></div>
+          <div class="chips" style="margin-top:12px" role="radiogroup" aria-label="Demi-journée">
+            <div class="chip"><input type="radio" name="slot" id="s-am" value="Matin (8h30 – 11h45)"><label for="s-am">Matin · 8h30 – 11h45</label></div>
+            <div class="chip"><input type="radio" name="slot" id="s-pm" value="Après-midi (13h30 – 18h)"><label for="s-pm">Après-midi · 13h30 – 18h</label></div>
+          </div>
+        </div>
+        <div class="step">
+          <h3><em>4</em> Vos coordonnées</h3>
+          <div class="row2">
+            <input type="text" id="name" placeholder="Nom" autocomplete="name">
+            <input type="tel" id="phone" placeholder="Téléphone" autocomplete="tel">
+          </div>
+        </div>
+      </form>
+
+      <aside class="ticket reveal" aria-live="polite">
+        <p class="k">Récapitulatif</p>
+        <h3>Ma fiche atelier</h3>
+        <div class="progress"><i id="prog"></i></div>
+        <dl>
+          <dt>Deux-roues</dt><dd id="t-veh">—</dd>
+          <dt>Besoin</dt><dd id="t-need">—</dd>
+          <dt>Passage</dt><dd id="t-when">—</dd>
+          <dt>Contact</dt><dd id="t-who">—</dd>
+        </dl>
+        <hr>
+        <div class="actions">
+          <a class="btn btn-accent" id="send" href="#">Envoyer à l'atelier</a>
+          <button class="btn" id="ics" type="button">Ajouter à mon agenda</button>
+          <a class="btn" href="tel:+33477780562">Appeler · 04 77 78 05 62</a>
+        </div>
+        <p class="note">Une demande, pas une réservation ferme : l'atelier vous confirme le créneau.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="wrap rent">
+    <div class="photo-slot reveal"><div><b>Photo de la flotte de VAE</b>à fournir par le client</div></div>
+    <div>
+      <p class="kicker reveal">Location</p>
+      <h2 class="reveal">Un vélo électrique pour la journée</h2>
+      <p class="sub reveal">A Scoot'tuning loue des vélos à assistance électrique. De quoi tester l'électrique avant d'acheter, ou partir découvrir le Roannais sans forcer.</p>
+      <div class="ideas reveal">
+        <div class="idea"><b>Essayer avant d'acheter</b>Se faire une idée de l'assistance au quotidien.</div>
+        <div class="idea"><b>Balade dans le Roannais</b>Bords de Loire, côte roannaise : les reliefs passent mieux.</div>
+      </div>
+      <a class="btn btn-accent reveal" href="#passage" data-pick-need="n8">Demander une location →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <p class="kicker reveal">Horaires &amp; accès</p>
+    <h2 class="reveal">Rue de Charlieu, Roanne</h2>
+    <div class="contact-grid">
+      <div class="hours reveal">
+        <table aria-label="Horaires d'ouverture"><tbody id="hours"></tbody></table>
+      </div>
+      <div class="coords reveal">
+        <a class="coord" href="https://www.google.com/maps/search/?api=1&query=90+rue+de+Charlieu+42300+Roanne" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s7-6 7-12a7 7 0 10-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span><small>Adresse</small><b>90 rue de Charlieu<br>42300 Roanne</b></span></a>
+        <a class="coord" href="tel:+33477780562">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 3h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 5a2 2 0 012-2z"/></svg>
+          <span><small>Téléphone</small><b>04 77 78 05 62</b></span></a>
+        <a class="coord" href="mailto:scoottuning@orange.fr">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          <span><small>Mail</small><b>scoottuning@orange.fr</b></span></a>
+        <iframe class="map" title="Plan d'accès" loading="lazy" src="https://www.google.com/maps?q=90+rue+de+Charlieu+42300+Roanne&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <a class="logo" href="#top"><span>A Scoot'tuning<small>Cycles · Roanne</small></span></a>
+      <span>90 rue de Charlieu, 42300 Roanne · 04 77 78 05 62</span>
+    </div>
+    <p class="disclaimer">Maquette de démonstration, non contractuelle. Le site actuel (ascoottuning.fr) n'étant pas accessible, les couleurs, le logo et la typographie sont approchés et ajustables en quelques lignes. Aucune photo réelle de l'atelier n'a pu être récupérée : les visuels sont des illustrations dessinées, et l'emplacement photo de la flotte de location reste à fournir. Horaires repris des fiches publiques (mardi au samedi) — à confirmer, certaines fiches indiquant une fermeture plus tardive le vendredi.</p>
+  </div>
+</footer>
+
+<a class="btn btn-accent fab" href="tel:+33477780562" aria-label="Appeler l'atelier">Appeler</a>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const header=$('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('#burger'), menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Reveal on scroll
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach((e)=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+    $$('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+  } else $$('.reveal').forEach(el=>el.classList.add('in'));
+
+  // Horaires (repris des fiches publiques)
+  const H={2:[[510,705],[810,1080]],3:[[510,705],[810,1080]],4:[[510,705],[810,1080]],5:[[510,705],[810,1080]],6:[[510,705],[810,1080]]};
+  const names=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const fmt=m=>Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');
+  const now=new Date(), d=now.getDay(), mins=now.getHours()*60+now.getMinutes();
+  const tb=$('#hours');
+  [1,2,3,4,5,6,0].forEach(i=>{
+    const tr=document.createElement('tr'); if(i===d) tr.className='today'; if(!H[i]) tr.classList.add('closed');
+    tr.innerHTML='<td>'+names[i]+(i===d?' · aujourd\'hui':'')+'</td><td>'+(H[i]?H[i].map(r=>fmt(r[0])+' – '+fmt(r[1])).join(' · '):'Fermé')+'</td>';
+    tb.appendChild(tr);
+  });
+  const st=$('#status'), stt=$('#statusTxt');
+  const openNow=H[d]&&H[d].some(r=>mins>=r[0]&&mins<r[1]);
+  if(openNow){st.classList.add('open');const r=H[d].find(r=>mins>=r[0]&&mins<r[1]);stt.textContent='Atelier ouvert · jusqu\'à '+fmt(r[1]);}
+  else{
+    let nd=d,nm=mins,txt='';
+    for(let k=0;k<8;k++){const day=(d+k)%7;const sl=H[day];if(sl){const nx=sl.find(r=>k>0||r[0]>mins);if(nx){txt=(k===0?'aujourd\'hui':k===1?'demain':names[day].toLowerCase())+' à '+fmt(nx[0]);break;}}}
+    stt.textContent='Fermé · réouverture '+txt;
+  }
+
+  // Batterie animée
+  const cells=$$('#cells i'); let lvl=0, dir=1;
+  setInterval(()=>{lvl+=dir; if(lvl>=5||lvl<=0) dir*=-1;
+    cells.forEach((c,i)=>{c.className=i<lvl?(lvl<=1?'crit':lvl<=2?'low':'on'):''})},650);
+
+  // Jours ouvrés à venir
+  const daysEl=$('#days'); let chosen=null; const short=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  let dt=new Date(); dt.setHours(12,0,0,0); let n=0;
+  while(n<5){ if(H[dt.getDay()]){const b=document.createElement('button');b.type='button';b.className='day';b.setAttribute('aria-pressed','false');
+      const date=new Date(dt); b.innerHTML='<small>'+short[date.getDay()]+'</small><b>'+date.getDate()+'</b><small>'+date.toLocaleDateString('fr-FR',{month:'short'})+'</small>';
+      b.addEventListener('click',()=>{$$('.day').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');chosen=date;update('t-when')});
+      daysEl.appendChild(b); n++; }
+    dt.setDate(dt.getDate()+1); }
+
+  // Fiche atelier
+  const vehMap={velo:'v-velo',vae:'v-vae',scooter:'v-scooter',moto:'v-moto'};
+  $$('[data-pick]').forEach(a=>a.addEventListener('click',()=>{$('#'+vehMap[a.dataset.pick]).checked=true;update('t-veh')}));
+  $$('[data-pick-need]').forEach(a=>a.addEventListener('click',()=>{$('#'+a.dataset.pickNeed).checked=true;$('#v-vae').checked=true;update('t-need')}));
+  function state(){
+    const veh=($('input[name=veh]:checked')||{}).value||'';
+    const needs=$$('#needs input:checked').map(i=>i.value);
+    const slot=($('input[name=slot]:checked')||{}).value||'';
+    const when=chosen?chosen.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+(slot?' — '+slot:''):'';
+    const who=[$('#name').value.trim(),$('#phone').value.trim()].filter(Boolean).join(' · ');
+    return {veh,needs,slot,when,who,details:$('#details').value.trim()};
+  }
+  function update(flash){
+    const s=state();
+    $('#t-veh').textContent=s.veh||'—';
+    $('#t-need').textContent=s.needs.length?s.needs.join(', '):'—';
+    $('#t-when').textContent=s.when||'—';
+    $('#t-who').textContent=s.who||'—';
+    const done=[s.veh,s.needs.length,s.when,s.who].filter(Boolean).length;
+    $('#prog').style.width=(done*25)+'%';
+    if(flash){const el=$('#'+flash);el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),600)}
+    const body='Bonjour,\n\nJe souhaite passer à l\'atelier.\n\nDeux-roues : '+(s.veh||'-')+'\nBesoin : '+(s.needs.join(', ')||'-')+'\nDétails : '+(s.details||'-')+'\nPassage souhaité : '+(s.when||'-')+'\nContact : '+(s.who||'-')+'\n\nMerci !';
+    $('#send').href='mailto:scoottuning@orange.fr?subject='+encodeURIComponent('Demande atelier — '+(s.veh||'deux-roues'))+'&body='+encodeURIComponent(body);
+    // Diagnostic batterie visible surtout pour les VAE
+    $$('[data-only="vae"]').forEach(c=>c.style.display=(s.veh&&s.veh!=='Vélo électrique')?'none':'');
+  }
+  $('#form').addEventListener('change',e=>{update(e.target.name==='veh'?'t-veh':e.target.name==='slot'?'t-when':'t-need')});
+  $('#form').addEventListener('input',e=>{if(e.target.id==='name'||e.target.id==='phone')update('t-who');else update()});
+  update();
+
+  const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)};
+  $('#ics').addEventListener('click',()=>{
+    const s=state(); if(!chosen){toast('Choisissez d\'abord un jour de passage');return}
+    const st=new Date(chosen); const pm=s.slot.startsWith('Après'); st.setHours(pm?13:8,30,0,0);
+    const en=new Date(st); en.setHours(pm?14:9,30);
+    const f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,'0')+String(x.getDate()).padStart(2,'0')+'T'+String(x.getHours()).padStart(2,'0')+String(x.getMinutes()).padStart(2,'0')+'00';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//A Scoot tuning//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@ascoottuning','DTSTAMP:'+f(new Date()),'DTSTART:'+f(st),'DTEND:'+f(en),'SUMMARY:Passage atelier A Scoot\'tuning','LOCATION:90 rue de Charlieu\\, 42300 Roanne','DESCRIPTION:'+((s.veh||'')+' — '+s.needs.join(', ')).replace(/,/g,'\\,'),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='passage-atelier-ascoottuning.ics';a.click();
+    toast('Rappel ajouté — pensez à confirmer avec l\'atelier');
+  });
+})();
+</script>
+</body>
+</html>
