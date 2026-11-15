@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferme de la Roharie — Fromages fermiers au Pays de Charlieu</title>
+<meta name="description" content="Ferme familiale à Pouilly-sous-Charlieu : fromages de vache au lait cru moulés à la louche, crème, œufs et viande charolaise. Vente à la ferme et sur trois marchés.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — à ajuster quand la ferme fournira ses codes exacts.
+   La ferme n'a plus de site en ligne (la-roharie.com ne répond plus) :
+   la palette est approchée à partir de son étiquette fromagère
+   (papier kraft, encre sépia, mention « Lait cru entier de vache »)
+   et de ses propres photos (prés, robe pie noire).
+   ========================================================= */
+:root{
+  --rh-papier:#f3ecdc;      /* fond étiquette kraft clair */
+  --rh-papier-2:#e8dec8;    /* kraft plus soutenu */
+  --rh-encre:#2a241d;       /* encre de l'étiquette */
+  --rh-sepia:#7c5f3c;       /* gravure sépia de l'étiquette */
+  --rh-pre:#4f6232;         /* vert des prés */
+  --rh-pre-clair:#dfe6cc;
+  --rh-lait:#fffdf7;
+  --rh-serif:"Libre Caslon Text",Georgia,serif;
+  --rh-sans:"Work Sans",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--rh-papier);color:var(--rh-encre);font-family:var(--rh-sans);font-size:clamp(1rem,.95rem + .25vw,1.1rem);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rh-pre);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--rh-serif);font-weight:400;line-height:1.15}
+h2{font-size:clamp(1.9rem,1.4rem + 2vw,3rem)}
+.kicker{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rh-sepia);font-weight:600;display:inline-flex;align-items:center;gap:.6em}
+.kicker::before{content:"";width:28px;height:1px;background:currentColor}
+
+.demo{background:var(--rh-encre);color:var(--rh-papier);font-size:.76rem;text-align:center;padding:6px 16px;letter-spacing:.03em}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--rh-papier) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:var(--rh-papier-2);box-shadow:0 6px 24px -18px rgba(42,36,29,.5)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.brand{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.brand b{font-family:var(--rh-serif);font-size:1.35rem;font-weight:700}
+.brand small{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rh-sepia)}
+.nav ul{display:flex;gap:26px;list-style:none;font-size:.92rem}
+.nav ul a{text-decoration:none;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:.8em 1.4em;border-radius:999px;border:1.5px solid var(--rh-encre);background:var(--rh-encre);color:var(--rh-papier);text-decoration:none;font-weight:500;font-size:.95rem;cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s;font-family:inherit}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--rh-encre)}
+.btn.ghost:hover{background:var(--rh-encre);color:var(--rh-papier)}
+.btn.pre{background:var(--rh-pre);border-color:var(--rh-pre)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:22px;height:2px;background:var(--rh-encre);margin:5px auto;transition:.3s}
+@media (max-width:880px){
+  .nav ul{position:fixed;inset:68px 0 auto 0;flex-direction:column;background:var(--rh-papier);padding:24px 16px;gap:18px;border-bottom:1px solid var(--rh-papier-2);transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .btn.call{display:none}
+}
+
+/* HERO */
+.hero{position:relative;padding:clamp(32px,6vw,72px) 0 0}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:end}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 3.6vw,4.6rem);letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--rh-pre)}
+.hero p.lead{margin:22px 0 30px;max-width:34em;font-size:1.08rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.hero-photo{position:relative;border-radius:200px 200px 18px 18px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px -30px rgba(42,36,29,.55)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.6s var(--ease)}
+.loaded .hero-photo img{transform:scale(1.02)}
+.stamp{position:absolute;left:-28px;bottom:36px;width:132px;height:132px;border-radius:50%;background:var(--rh-papier);border:1.5px solid var(--rh-encre);display:grid;place-items:center;text-align:center;font-family:var(--rh-serif);font-size:.82rem;line-height:1.2;padding:14px;animation:spin 26s linear infinite}
+.stamp svg{position:absolute;inset:0;width:100%;height:100%}
+.stamp strong{font-size:1.4rem;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stamp .inner{animation:spin 26s linear infinite reverse}
+.reveal-line{display:block;overflow:hidden}
+.reveal-line>span{display:block;transform:translateY(105%);transition:transform 1s var(--ease)}
+.loaded .reveal-line>span{transform:none}
+.reveal-line:nth-child(2)>span{transition-delay:.12s}
+.reveal-line:nth-child(3)>span{transition-delay:.24s}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-photo{aspect-ratio:1/1;border-radius:160px 160px 18px 18px}.stamp{left:12px;bottom:12px;width:110px;height:110px}}
+
+/* TICKER */
+.ticker{margin-top:clamp(40px,6vw,72px);border-block:1px solid var(--rh-encre);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--rh-serif);font-size:1.15rem}
+.ticker div{display:inline-block;animation:tick 38s linear infinite}
+.ticker span{margin:0 26px}
+.ticker i{color:var(--rh-pre);font-style:normal}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* AUJOURD'HUI (outil central) */
+section{padding:clamp(64px,9vw,120px) 0}
+.today{background:var(--rh-encre);color:var(--rh-papier)}
+.today .kicker{color:#cbb48f}
+.today-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px;margin-bottom:36px}
+.today-head p{max-width:30em;opacity:.85}
+.status{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+.status-card{background:#352d24;border:1px solid #4a3f33;border-radius:20px;padding:clamp(22px,3vw,34px);position:relative;overflow:hidden}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;color:#cbb48f}
+.dot{width:10px;height:10px;border-radius:50%;background:#9aa86f;box-shadow:0 0 0 0 rgba(154,168,111,.7);animation:pulse 2s infinite}
+.dot.off{background:#b98c6a;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(154,168,111,0)}100%{box-shadow:0 0 0 0 rgba(154,168,111,0)}}
+.status-main{font-family:var(--rh-serif);font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem);margin:14px 0 8px;line-height:1.2}
+.status-sub{opacity:.85}
+.status-card .btn{margin-top:22px;background:var(--rh-papier);color:var(--rh-encre);border-color:var(--rh-papier)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:18px}
+.day{background:transparent;border:1px solid #4a3f33;color:var(--rh-papier);border-radius:12px;padding:10px 0;cursor:pointer;font-family:inherit;text-align:center;transition:background .25s,border-color .25s,transform .25s var(--ease)}
+.day small{display:block;font-size:.68rem;opacity:.7;text-transform:uppercase;letter-spacing:.08em}
+.day b{font-family:var(--rh-serif);font-size:1.2rem;font-weight:400}
+.day .pips{display:flex;justify-content:center;gap:3px;margin-top:4px;height:6px}
+.day .pips i{width:6px;height:6px;border-radius:50%;background:#9aa86f}
+.day .pips i.m{background:#cbb48f}
+.day:hover{transform:translateY(-2px);border-color:#cbb48f}
+.day[aria-pressed="true"]{background:var(--rh-papier);color:var(--rh-encre);border-color:var(--rh-papier)}
+.day.today-mark{position:relative}
+.day.today-mark::after{content:"aujourd'hui";position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:.58rem;background:#9aa86f;color:var(--rh-encre);padding:1px 6px;border-radius:99px;white-space:nowrap}
+.slots{list-style:none;display:grid;gap:10px;min-height:120px}
+.slots li{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#2a241d;border:1px solid #4a3f33;animation:slotIn .45s var(--ease) both}
+.slots li:nth-child(2){animation-delay:.07s}.slots li:nth-child(3){animation-delay:.14s}
+@keyframes slotIn{from{opacity:0;transform:translateY(8px)}}
+.slots .ico{flex:0 0 36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#9aa86f;color:var(--rh-encre);font-size:1rem}
+.slots .ico.m{background:#cbb48f}
+.slots strong{display:block;font-weight:600}
+.slots span{opacity:.8;font-size:.92rem}
+.legend{display:flex;gap:18px;font-size:.8rem;opacity:.75;margin-top:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#9aa86f;margin-right:6px}
+.legend i.m{background:#cbb48f}
+@media (max-width:880px){.status{grid-template-columns:1fr}.day b{font-size:1rem}}
+
+/* FERME */
+.story{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}
+.story-photo{border-radius:18px;overflow:hidden;position:relative;aspect-ratio:5/4}
+.story-photo img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.story h2{margin:14px 0 20px}
+.story p+p{margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px;border-top:1px solid var(--rh-papier-2);padding-top:26px}
+.stats b{font-family:var(--rh-serif);font-size:clamp(2rem,1.5rem + 2vw,3rem);font-weight:400;display:block;color:var(--rh-pre);line-height:1}
+.stats span{font-size:.86rem;color:var(--rh-sepia)}
+@media (max-width:880px){.story{grid-template-columns:1fr}}
+
+/* PRODUITS */
+.produits{background:var(--rh-lait)}
+.p-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:40px}
+.p-head p{max-width:30em}
+.p-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:18px}
+.p-card{border:1px solid var(--rh-papier-2);border-radius:18px;padding:26px;background:var(--rh-papier);position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.p-card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -28px rgba(42,36,29,.5)}
+.p-card.big{grid-row:span 2;padding:0;display:flex;flex-direction:column}
+.p-card.big .img{flex:1;min-height:300px;overflow:hidden}
+.p-card.big .img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.p-card.big:hover .img img{transform:scale(1.05)}
+.p-card.big .txt{padding:26px}
+.p-card h3{font-size:1.5rem;margin-bottom:8px}
+.p-card .tag{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rh-pre);font-weight:600;margin-bottom:10px;display:block}
+.p-card.pre{background:var(--rh-pre-clair)}
+.p-card .num{position:absolute;right:20px;top:14px;font-family:var(--rh-serif);font-size:3.4rem;color:var(--rh-papier-2);line-height:1}
+.placeholder{display:grid;place-items:center;text-align:center;min-height:150px;border:1.5px dashed var(--rh-sepia);border-radius:12px;color:var(--rh-sepia);font-size:.86rem;margin-top:16px;padding:16px;background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(124,95,60,.06) 10px 20px)}
+@media (max-width:880px){.p-grid{grid-template-columns:1fr}.p-card.big{grid-row:auto}}
+
+/* MARCHES */
+.marches-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.m-photo{border-radius:18px;overflow:hidden;aspect-ratio:4/3}
+.m-photo img{width:100%;height:100%;object-fit:cover}
+.m-list{list-style:none;margin-top:26px}
+.m-list li{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--rh-papier-2);align-items:baseline;transition:padding .3s var(--ease)}
+.m-list li:hover{padding-left:8px}
+.m-list b{font-family:var(--rh-serif);font-size:1.3rem;font-weight:400}
+.m-list span{color:var(--rh-sepia);font-size:.9rem}
+@media (max-width:880px){.marches-grid{grid-template-columns:1fr}}
+
+/* COMMANDE */
+.commande{background:var(--rh-papier-2)}
+.cmd{display:grid;grid-template-columns:1fr 1.3fr;gap:clamp(28px,5vw,64px)}
+.cmd-form{background:var(--rh-lait);border-radius:22px;padding:clamp(22px,3vw,36px);box-shadow:0 30px 60px -40px rgba(42,36,29,.5)}
+.items{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:12px 14px;border:1px solid var(--rh-papier-2);border-radius:12px;transition:border-color .25s,background .25s}
+.item.on{border-color:var(--rh-pre);background:#f6f8ef}
+.item label{display:flex;gap:10px;align-items:center;cursor:pointer;font-weight:500}
+.item input[type=checkbox]{accent-color:var(--rh-pre);width:18px;height:18px}
+.item input[type=text]{width:130px;padding:8px 10px;border:1px solid var(--rh-papier-2);border-radius:8px;font:inherit;font-size:.9rem;opacity:.4;transition:opacity .25s}
+.item.on input[type=text]{opacity:1}
+.fld{display:grid;gap:6px;margin-top:16px}
+.fld label{font-size:.85rem;font-weight:600}
+.fld input,.fld select,.fld textarea{padding:12px 14px;border:1px solid var(--rh-papier-2);border-radius:10px;font:inherit;background:#fff;width:100%}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.recap{margin-top:18px;padding:16px;border-radius:12px;background:var(--rh-papier);font-size:.9rem;white-space:pre-line;min-height:60px;color:var(--rh-sepia)}
+.send{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.note{font-size:.8rem;color:var(--rh-sepia);margin-top:10px}
+@media (max-width:880px){.cmd{grid-template-columns:1fr}.row2{grid-template-columns:1fr}.item{grid-template-columns:1fr}.item input[type=text]{width:100%}}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.c-card{border-top:2px solid var(--rh-encre);padding-top:18px}
+.c-card h3{font-size:1.3rem;margin-bottom:10px}
+.c-card table{border-collapse:collapse;width:100%;font-size:.92rem}
+.c-card td{padding:5px 0;border-bottom:1px dotted var(--rh-papier-2);vertical-align:top}
+.c-card td:first-child{width:90px;font-weight:600}
+.c-card tr.is-today td{color:var(--rh-pre);font-weight:600}
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:var(--rh-encre);color:var(--rh-papier);padding:48px 0 32px;font-size:.88rem}
+footer .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:24px}
+footer .brand b{color:var(--rh-papier)}
+footer .mention{opacity:.7;font-size:.78rem;max-width:70em}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.reveal-line>span{transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Ferme de la Roharie",
+  "description":"Ferme familiale : fromages de vache traditionnels moulés à la louche, produits laitiers et viande charolaise. Vente directe à la ferme et sur les marchés.",
+  "telephone":"+33684512649",
+  "email":"laroharie@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"150, impasse de la Roharie","postalCode":"42720","addressLocality":"Pouilly-sous-Charlieu","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.146463,"longitude":4.154149},
+  "areaServed":["Pouilly-sous-Charlieu","Charlieu","Paray-le-Monial","Pays de Charlieu"],
+  "paymentAccepted":"Chèque, Espèces, Virement",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Friday"],"opens":"09:00","closes":"11:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Friday"],"opens":"16:30","closes":"18:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Thursday","Saturday"],"opens":"09:00","closes":"11:30"}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de site pour la Ferme de la Roharie · non officielle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>Ferme de la Roharie</b><small>Pouilly-sous-Charlieu</small></a>
+    <ul id="menu">
+      <li><a href="#aujourdhui">Aujourd'hui</a></li>
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#produits">Nos produits</a></li>
+      <li><a href="#marches">Marchés</a></li>
+      <li><a href="#commande">Commander</a></li>
+      <li><a href="#contact">Accès</a></li>
+    </ul>
+    <a class="btn call" href="tel:+33684512649">06 84 51 26 49</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding-bottom:0">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Exploitation familiale · frères et sœur</span>
+      <h1 style="margin-top:18px">
+        <span class="reveal-line"><span>Fromages fermiers</span></span>
+        <span class="reveal-line"><span><em>moulés à la louche</em></span></span>
+        <span class="reveal-line"><span>&amp; viande charolaise</span></span>
+      </h1>
+      <p class="lead">Producteurs de viande charolaise depuis trois générations et de fromages de vache traditionnels depuis quarante ans, au lait cru entier. Vente directe à la ferme, à Pouilly-sous-Charlieu, et sur trois marchés chaque semaine.</p>
+      <div class="ctas">
+        <a class="btn pre" href="#aujourdhui">Où nous trouver aujourd'hui ?</a>
+        <a class="btn ghost" href="#commande">Préparer ma commande</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="https://api.cloudly.space/resize/cropratio/1200/1500/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvMTk0LzE3LzQzNDU0OTE0LmpwZw==/image.webp" alt="Plateau de fromages fermiers de la Roharie posé sur des feuilles de vigne">
+      <div class="stamp" aria-hidden="true">
+        <svg viewBox="0 0 132 132"><defs><path id="c" d="M66,66 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs><text font-size="10.5" letter-spacing="2.6" fill="#2a241d" font-family="Work Sans"><textPath href="#c">LAIT CRU ENTIER DE VACHE · LA ROHARIE ·</textPath></text></svg>
+        <div class="inner"><strong>40</strong>ans</div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker" aria-hidden="true"><div>
+    <span>Fromages affinés</span><i>✦</i><span>Fromage blanc</span><i>✦</i><span>Crème fermière</span><i>✦</i><span>Œufs</span><i>✦</i><span>Apéricônes</span><i>✦</i><span>Tartare maison</span><i>✦</i><span>Viande charolaise</span><i>✦</i>
+    <span>Fromages affinés</span><i>✦</i><span>Fromage blanc</span><i>✦</i><span>Crème fermière</span><i>✦</i><span>Œufs</span><i>✦</i><span>Apéricônes</span><i>✦</i><span>Tartare maison</span><i>✦</i><span>Viande charolaise</span><i>✦</i>
+  </div></div>
+</section>
+
+<!-- OUTIL CENTRAL : où et quand trouver la ferme -->
+<section class="today" id="aujourdhui">
+  <div class="wrap">
+    <div class="today-head">
+      <div><span class="kicker">En direct</span><h2 style="margin-top:12px">Ouvert, au marché<br>ou à la ferme ?</h2></div>
+      <p>Les horaires de la ferme changent d'un jour à l'autre, et trois marchés s'y ajoutent. Ici, la réponse s'affiche tout de suite, selon le jour et l'heure.</p>
+    </div>
+    <div class="status">
+      <div class="status-card">
+        <span class="live"><span class="dot" id="dot"></span><span id="liveLbl">Maintenant</span></span>
+        <p class="status-main" id="statusMain">—</p>
+        <p class="status-sub" id="statusSub"></p>
+        <a class="btn" id="statusBtn" href="https://www.google.com/maps/dir/?api=1&destination=46.146463,4.154149" target="_blank" rel="noopener">Itinéraire vers la ferme</a>
+      </div>
+      <div class="status-card">
+        <div class="week" id="week" role="group" aria-label="Choisir un jour"></div>
+        <ul class="slots" id="slots" aria-live="polite"></ul>
+        <div class="legend"><span><i></i>Vente à la ferme</span><span><i class="m"></i>Marché</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ferme">
+  <div class="wrap story">
+    <div class="story-photo rv"><img id="para" src="https://api.cloudly.space/resize/cropratio/1500/1200/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvMTk2LzE3LzQzNDU0OTE2LmpwZw==/image.webp" alt="Vue aérienne de la Ferme de la Roharie et de ses prés" loading="lazy"></div>
+    <div class="rv">
+      <span class="kicker">La ferme</span>
+      <h2>Trois générations à la Roharie</h2>
+      <p>Edith, Jean-Paul et Guillaume Raveaud tiennent ensemble l'exploitation familiale, au bout de l'impasse de la Roharie, à Pouilly-sous-Charlieu.</p>
+      <p>Les vaches donnent un lait cru entier, transformé à la ferme en fromages traditionnels moulés à la louche, comme depuis quarante ans. À côté, l'élevage charolais se poursuit depuis trois générations.</p>
+      <div class="stats">
+        <div><b data-count="3">0</b><span>générations d'éleveurs charolais</span></div>
+        <div><b data-count="40">0</b><span>ans de fromages à la louche</span></div>
+        <div><b data-count="3">0</b><span>marchés chaque semaine</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="produits" id="produits">
+  <div class="wrap">
+    <div class="p-head rv">
+      <div><span class="kicker">Nos produits</span><h2 style="margin-top:12px">De la ferme, sans détour</h2></div>
+      <p>Productions traditionnelles laitières, fromagères et charolaises, vendues à la ferme et sur les marchés.</p>
+    </div>
+    <div class="p-grid">
+      <article class="p-card big rv">
+        <div class="img"><img src="https://api.cloudly.space/resize/cropratio/1200/1200/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvMTk5LzE3LzQzNDU0OTE5LmpwZw==/image.webp" alt="Vaches laitières de la ferme dans les herbes hautes" loading="lazy"></div>
+        <div class="txt"><span class="tag">Lait cru entier de vache</span><h3>Fromages affinés</h3><p>Fromages de vache traditionnels, moulés à la louche à la ferme, nature ou affinés.</p></div>
+      </article>
+      <article class="p-card rv"><span class="num">02</span><span class="tag">Frais</span><h3>Fromage blanc &amp; crème fermière</h3><p>Le fromage blanc et la crème de la ferme, au lait de nos vaches.</p></article>
+      <article class="p-card rv"><span class="num">03</span><span class="tag">À l'apéritif</span><h3>Apéricônes &amp; tartare maison</h3><p>Deux préparations maison pour l'apéritif ou la tartine.</p></article>
+      <article class="p-card pre rv"><span class="num">04</span><span class="tag">Élevage</span><h3>Viande charolaise</h3><p>Élevée à la ferme depuis trois générations.</p><div class="placeholder">Photo de la viande ou du troupeau charolais<br>à fournir par la ferme</div></article>
+      <article class="p-card rv"><span class="num">05</span><span class="tag">Basse-cour</span><h3>Œufs</h3><p>Disponibles à la vente directe.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="marches">
+  <div class="wrap marches-grid">
+    <div class="m-photo rv"><img src="https://api.cloudly.space/resize/cropratio/1200/900/75/aHR0cHM6Ly9zdGF0aWMuYXBpZGFlLXRvdXJpc21lLmNvbS9maWxlc3RvcmUvb2JqZXRzLXRvdXJpc3RpcXVlcy9pbWFnZXMvMjIwLzE3LzQzNDU0OTQwLmpwZw==/image.webp" alt="Le camion de marché de la Ferme de la Roharie" loading="lazy"></div>
+    <div class="rv">
+      <span class="kicker">Sur les marchés</span>
+      <h2 style="margin-top:12px">Le camion de la Roharie</h2>
+      <p style="margin-top:16px">En dehors des heures de vente à la ferme, retrouvez nos produits sur trois marchés de la semaine.</p>
+      <ul class="m-list">
+        <li><b>Mercredi</b><span>Marché de Charlieu</span></li>
+        <li><b>Vendredi</b><span>Marché de Paray-le-Monial</span></li>
+        <li><b>Dimanche</b><span>Marché de Pouilly-sous-Charlieu</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="commande" id="commande">
+  <div class="wrap cmd">
+    <div class="rv">
+      <span class="kicker">Commander</span>
+      <h2 style="margin-top:12px">Préparez votre panier, on le met de côté</h2>
+      <p style="margin-top:16px">Cochez ce qui vous fait envie, choisissez où et quand passer : la ferme reçoit votre demande par SMS ou par mail, déjà rédigée. Rien n'est envoyé sans que vous l'ayez relue.</p>
+      <p style="margin-top:14px">Paiement sur place : chèque, espèces ou virement.</p>
+    </div>
+    <form class="cmd-form rv" id="cmdForm" onsubmit="return false">
+      <div class="items" id="items"></div>
+      <div class="fld"><label for="retrait">Retrait</label><select id="retrait"></select></div>
+      <div class="row2">
+        <div class="fld"><label for="nom">Votre nom</label><input id="nom" autocomplete="name" placeholder="Nom et prénom"></div>
+        <div class="fld"><label for="tel">Votre téléphone</label><input id="tel" autocomplete="tel" placeholder="06 …"></div>
+      </div>
+      <div class="fld"><label for="msg">Précision (facultatif)</label><textarea id="msg" rows="2" placeholder="Affinage, quantité de viande, question…"></textarea></div>
+      <div class="recap" id="recap">Votre récapitulatif apparaîtra ici.</div>
+      <div class="send">
+        <a class="btn pre" id="sendSms" href="#">Envoyer par SMS</a>
+        <a class="btn ghost" id="sendMail" href="#">Envoyer par mail</a>
+      </div>
+      <p class="note">La disponibilité est confirmée par la ferme. Aucun prix affiché : la ferme ne publie pas ses tarifs en ligne.</p>
+    </form>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="rv" style="margin-bottom:36px"><span class="kicker">Accès &amp; contact</span><h2 style="margin-top:12px">Venir à la Roharie</h2></div>
+    <div class="contact-grid">
+      <div class="c-card rv">
+        <h3>Adresse</h3>
+        <p>150, impasse de la Roharie<br>42720 Pouilly-sous-Charlieu</p>
+        <p style="margin-top:10px">Parking sur place.</p>
+        <p style="margin-top:14px"><a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=46.146463,4.154149" target="_blank" rel="noopener">Itinéraire</a></p>
+      </div>
+      <div class="c-card rv">
+        <h3>Vente à la ferme</h3>
+        <table id="hoursTable">
+          <tr data-d="1"><td>Lundi</td><td>9h – 11h30 · 16h30 – 18h30</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>9h – 11h30</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>16h30 – 18h30</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>9h – 11h30</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>9h – 11h30 · 16h30 – 18h30</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>9h – 11h30</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé (marché de Pouilly)</td></tr>
+        </table>
+      </div>
+      <div class="c-card rv">
+        <h3>Nous joindre</h3>
+        <p><a href="tel:+33684512649">06 84 51 26 49</a></p>
+        <p><a href="mailto:laroharie@gmail.com">laroharie@gmail.com</a></p>
+        <p style="margin-top:10px">Chèque, espèces, virement.</p>
+        <p style="margin-top:14px"><a class="btn pre" href="#commande">Préparer ma commande</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <a class="brand" href="#top"><b>Ferme de la Roharie</b><small style="color:#cbb48f">GAEC de la Roharie · Pouilly-sous-Charlieu</small></a>
+      <p>06 84 51 26 49 · laroharie@gmail.com</p>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non officielle. Informations (présentation, horaires, marchés, coordonnées, moyens de paiement, parking) reprises de la fiche de l'Office de Tourisme du Pays de Charlieu – Belmont mise à jour le 28/10/2026 ; liste des produits reprise de la fiche Gault&amp;Millau de la ferme. Les quatre photos (fromages, vue aérienne, vaches, camion de marché) sont celles publiées par la ferme sur sa fiche touristique ; la photo de la viande charolaise reste à fournir. La ferme n'ayant plus de site en ligne, les couleurs et polices sont approchées à partir de son étiquette et restent ajustables. Les horaires de présence sur les marchés ne sont pas publiés et restent à préciser. Aucun prix n'est affiché. Le formulaire prépare un SMS ou un mail : rien n'est envoyé sans action du visiteur.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  requestAnimationFrame(()=>document.body.classList.add('loaded'));
+
+  // nav
+  const nav=document.getElementById('nav'), burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // reveal + compteurs
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,end=+el.dataset.count;co.unobserve(el);
+    if(reduce){el.textContent=end;return}let t0=null;const step=t=>{t0=t0||t;const p=Math.min((t-t0)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+  // parallaxe douce
+  const para=document.getElementById('para');
+  if(!reduce) addEventListener('scroll',()=>{const r=para.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;para.style.transform=`scale(1.12) translateY(${(r.top-innerHeight/2)*-.06}px)`},{passive:true});
+
+  // ===== Planning réel (fiche Office de Tourisme, 28/10/2026) =====
+  const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const AM=[9*60,11*60+30], PM=[16*60+30,18*60+30];
+  const FERME={0:[],1:[AM,PM],2:[AM],3:[PM],4:[AM],5:[AM,PM],6:[AM]};
+  const MARCHE={0:'Marché de Pouilly-sous-Charlieu',3:'Marché de Charlieu',5:'Marché de Paray-le-Monial'};
+  const hm=m=>{const h=Math.floor(m/60),mi=m%60;return h+'h'+(mi?String(mi).padStart(2,'0'):'')};
+
+  function nextOpening(now){
+    const cur=now.getHours()*60+now.getMinutes();
+    for(let i=0;i<8;i++){const d=(now.getDay()+i)%7;
+      for(const s of FERME[d]){ if(i>0||s[0]>cur) return {i,d,s}; } }
+  }
+  function renderStatus(){
+    const now=new Date(), d=now.getDay(), cur=now.getHours()*60+now.getMinutes();
+    const open=FERME[d].find(s=>cur>=s[0]&&cur<s[1]);
+    const main=document.getElementById('statusMain'), sub=document.getElementById('statusSub'), dot=document.getElementById('dot');
+    if(open){
+      dot.classList.remove('off');
+      main.textContent='La ferme est ouverte, jusqu’à '+hm(open[1])+'.';
+      sub.textContent=(MARCHE[d]?'Aujourd’hui aussi : '+MARCHE[d].toLowerCase()+'. ':'')+'150, impasse de la Roharie, Pouilly-sous-Charlieu.';
+    }else{
+      dot.classList.add('off');
+      const n=nextOpening(now);
+      const quand=n.i===0?'aujourd’hui':n.i===1?'demain':JOURS[n.d].toLowerCase();
+      main.textContent='Vente à la ferme fermée pour l’instant.';
+      sub.textContent=(MARCHE[d]?'Aujourd’hui, nous sommes au '+MARCHE[d].replace('Marché','marché')+'. ':'')+'Prochaine ouverture : '+quand+' à '+hm(n.s[0])+'.';
+    }
+  }
+  const week=document.getElementById('week'), slots=document.getElementById('slots');
+  function renderDay(d){
+    week.querySelectorAll('.day').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d==d));
+    let h='';
+    FERME[d].forEach(s=>h+=`<li><span class="ico">⌂</span><div><strong>Vente à la ferme · ${hm(s[0])} – ${hm(s[1])}</strong><span>150, impasse de la Roharie</span></div></li>`);
+    if(MARCHE[d]) h+=`<li><span class="ico m">◎</span><div><strong>${MARCHE[d]}</strong><span>Le camion de la Roharie · horaires à confirmer</span></div></li>`;
+    if(!h) h='<li><span class="ico m">–</span><div><strong>Pas de vente ce jour-là</strong></div></li>';
+    slots.innerHTML=h;
+  }
+  const today=new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(d=>{
+    const b=document.createElement('button');b.type='button';b.className='day'+(d===today?' today-mark':'');b.dataset.d=d;
+    b.innerHTML=`<small>${JOURS[d].slice(0,3)}</small><b>${JOURS[d][0]}</b><span class="pips">${FERME[d].map(()=>'<i></i>').join('')}${MARCHE[d]?'<i class="m"></i>':''}</span>`;
+    b.setAttribute('aria-label',JOURS[d]);
+    b.addEventListener('click',()=>renderDay(d));week.appendChild(b);
+  });
+  renderDay(today); renderStatus(); setInterval(renderStatus,60000);
+  document.querySelector(`#hoursTable tr[data-d="${today}"]`)?.classList.add('is-today');
+
+  // ===== Commande =====
+  const PRODUITS=['Fromages affinés','Fromage blanc','Crème fermière','Œufs','Apéricônes','Tartare maison','Viande charolaise'];
+  const items=document.getElementById('items');
+  PRODUITS.forEach((p,i)=>{
+    const row=document.createElement('div');row.className='item';
+    row.innerHTML=`<label><input type="checkbox" data-p="${p}"> ${p}</label><input type="text" aria-label="Quantité ${p}" placeholder="quantité">`;
+    items.appendChild(row);
+  });
+  // créneaux de retrait réels sur 7 jours
+  const sel=document.getElementById('retrait');
+  (function(){const now=new Date();for(let i=0;i<7;i++){const dt=new Date(now);dt.setDate(now.getDate()+i);const d=dt.getDay();
+    const lib=(i===0?'Aujourd’hui':i===1?'Demain':JOURS[d])+' '+dt.getDate()+'/'+(dt.getMonth()+1);
+    FERME[d].forEach(s=>{if(i===0&&s[1]<=now.getHours()*60+now.getMinutes())return;const o=document.createElement('option');o.textContent=`${lib} · à la ferme, ${hm(s[0])}–${hm(s[1])}`;sel.appendChild(o)});
+    if(MARCHE[d]){const o=document.createElement('option');o.textContent=`${lib} · ${MARCHE[d].toLowerCase()}`;sel.appendChild(o)}}})();
+  const recap=document.getElementById('recap'), sms=document.getElementById('sendSms'), mail=document.getElementById('sendMail');
+  function build(){
+    const lignes=[];items.querySelectorAll('.item').forEach(r=>{const c=r.querySelector('input[type=checkbox]'),q=r.querySelector('input[type=text]');r.classList.toggle('on',c.checked);if(c.checked)lignes.push('- '+c.dataset.p+(q.value?' : '+q.value:''))});
+    const nom=document.getElementById('nom').value.trim(),tel=document.getElementById('tel').value.trim(),msg=document.getElementById('msg').value.trim();
+    const txt='Bonjour, je souhaiterais réserver :\n'+(lignes.join('\n')||'(aucun produit coché)')+'\nRetrait : '+sel.value+(msg?'\n'+msg:'')+(nom?'\n'+nom:'')+(tel?' – '+tel:'');
+    recap.textContent=lignes.length?txt:'Cochez au moins un produit pour voir votre récapitulatif.';
+    sms.href='sms:+33684512649?body='+encodeURIComponent(txt);
+    mail.href='mailto:laroharie@gmail.com?subject='+encodeURIComponent('Commande – '+(nom||'client'))+'&body='+encodeURIComponent(txt);
+  }
+  document.getElementById('cmdForm').addEventListener('input',build);build();
+})();
+</script>
+</body>
+</html>
