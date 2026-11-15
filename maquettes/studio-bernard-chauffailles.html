@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Bernard — Photographes à Chauffailles | Portraits, mariages, identité</title>
+<meta name="description" content="Studio Bernard, photographes à Chauffailles : portraits en studio et en extérieur, mariages, reportages, conscrits, photos d'identité ANTS et location de borne selfie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel studiobernardchauffailles.fr
+   Fond noir, logo manuscrit blanc, capitales « PHOTOGRAPHES »
+   encadrées de tirets, accent orange #fa9600 (relevé dans le CSS
+   du site), police Quicksand (police du site actuel).
+   La police manuscrite du logo est approchée par « Sacramento » :
+   à remplacer par le logo vectoriel du studio s'il est fourni.
+   ========================================================= */
+:root{
+  --noir:#000000;
+  --noir-2:#0d0d0d;
+  --noir-3:#171717;
+  --blanc:#ffffff;
+  --gris:#9a9a9a;
+  --gris-clair:#cfcfcf;
+  --orange:#fa9600;
+  --orange-2:#faab0d;
+  --script:'Sacramento', cursive;
+  --texte:'Quicksand', system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--blanc);font-family:var(--texte);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+
+.demo{background:var(--orange);color:#000;text-align:center;font-size:.82rem;font-weight:600;padding:.45rem 1rem}
+
+/* ---------- En-tête ---------- */
+header{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);border-bottom:1px solid #1d1d1d;transition:padding .3s}
+.nav{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.25rem;gap:1rem}
+.logo{text-decoration:none;display:flex;flex-direction:column;align-items:center;line-height:1}
+.logo .s{font-family:var(--script);font-size:2.1rem}
+.logo .p{font-size:.62rem;letter-spacing:.32em;display:flex;align-items:center;gap:.5rem;margin-top:.15rem}
+.logo .p::before,.logo .p::after{content:"";width:16px;height:1px;background:var(--blanc)}
+.menu{display:flex;gap:1.3rem;list-style:none;font-size:.88rem}
+.menu a{text-decoration:none;color:var(--gris-clair);position:relative;padding:.3rem 0;transition:color .2s}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--orange);transition:width .3s var(--ease)}
+.menu a:hover{color:#fff}.menu a:hover::after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--orange);color:#000;text-decoration:none;font-weight:700;padding:.75rem 1.3rem;border-radius:40px;border:0;cursor:pointer;font-family:inherit;font-size:.92rem;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:var(--orange-2)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid #444}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+@media(max-width:980px){
+  .menu{position:fixed;inset:64px 0 auto 0;background:#000;flex-direction:column;padding:1.5rem;gap:1rem;transform:translateY(-130%);transition:transform .35s var(--ease);border-bottom:1px solid #222}
+  .menu.open{transform:none}
+  .burger{display:block}.nav .btn{display:none}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;height:min(92vh,820px);min-height:540px;overflow:hidden}
+.slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s linear}
+.slide.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.15) 40%,rgba(0,0,0,.85) 100%)}
+.hero-txt{position:absolute;z-index:2;left:0;right:0;bottom:9%;text-align:center;padding:0 1.25rem}
+.hero-txt .s{font-family:var(--script);font-size:clamp(3.4rem,9vw,7.5rem);line-height:.9;display:block;opacity:0;transform:translateY(20px);animation:up 1.2s .3s var(--ease) forwards}
+.hero-txt .p{display:inline-flex;align-items:center;gap:1rem;letter-spacing:.42em;font-size:clamp(.85rem,1.6vw,1.2rem);margin:.6rem 0 1.4rem;opacity:0;animation:up 1.2s .6s var(--ease) forwards}
+.hero-txt .p::before,.hero-txt .p::after{content:"";width:46px;height:1px;background:#fff}
+.hero-txt p.l{max-width:620px;margin:0 auto 1.6rem;color:var(--gris-clair);opacity:0;animation:up 1.2s .8s var(--ease) forwards}
+.hero-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:up 1.2s 1s var(--ease) forwards}
+.dots{position:absolute;z-index:3;right:1.5rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.6rem}
+.dots button{width:9px;height:9px;border-radius:50%;border:1px solid #fff;background:transparent;cursor:pointer}
+.dots button.on{background:var(--orange);border-color:var(--orange)}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* ---------- Statut ouverture ---------- */
+.statut{background:var(--noir-2);border-bottom:1px solid #1d1d1d}
+.statut .in{max-width:1240px;margin:auto;padding:.9rem 1.25rem;display:flex;flex-wrap:wrap;gap:.6rem 2rem;align-items:center;justify-content:center;font-size:.9rem;color:var(--gris-clair)}
+.pastille{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;color:#fff}
+.pastille i{width:9px;height:9px;border-radius:50%;background:#555;box-shadow:0 0 0 0 rgba(250,150,0,.6)}
+.pastille.ouvert i{background:var(--orange);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(250,150,0,0)}100%{box-shadow:0 0 0 0 rgba(250,150,0,0)}}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(4rem,9vw,7rem) 1.25rem}
+.wrap{max-width:1240px;margin:auto}
+.kicker{display:inline-flex;align-items:center;gap:.7rem;color:var(--orange);letter-spacing:.28em;font-size:.75rem;font-weight:600;text-transform:uppercase}
+.kicker::before{content:"";width:28px;height:1px;background:var(--orange)}
+h2{font-family:var(--script);font-weight:400;font-size:clamp(2.8rem,6vw,4.6rem);line-height:1;margin:.6rem 0 1rem}
+.lead{color:var(--gris-clair);max-width:640px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Présentation */
+.equipe{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.equipe .ph{position:relative}
+.equipe .ph img{border-radius:4px;aspect-ratio:4/5;object-fit:cover;width:100%;filter:grayscale(.15)}
+.equipe .ph .cadre{position:absolute;inset:18px -18px -18px 18px;border:1px solid var(--orange);border-radius:4px;z-index:-1}
+.chiffres{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+.chiffre{border-top:1px solid #2a2a2a;padding-top:1rem}
+.chiffre b{font-size:2.3rem;font-weight:600;color:var(--orange);display:block;line-height:1}
+.chiffre span{font-size:.85rem;color:var(--gris)}
+.signature{font-family:var(--script);font-size:2rem;margin-top:1.6rem}
+@media(max-width:860px){.equipe{grid-template-columns:1fr}.chiffres{grid-template-columns:repeat(2,1fr)}}
+
+/* Prestations */
+.presta{background:var(--noir-2)}
+.cartes{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.carte{position:relative;overflow:hidden;border-radius:4px;aspect-ratio:343/750;max-height:520px;background:#111;text-decoration:none}
+.carte img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.carte:hover img{transform:scale(1.06)}
+.carte .info{position:absolute;inset:auto 0 0 0;padding:1.2rem;background:linear-gradient(transparent,rgba(0,0,0,.92));transform:translateY(40%);transition:transform .5s var(--ease)}
+.carte:hover .info{transform:none}
+.carte .info p{font-size:.86rem;color:var(--gris-clair);opacity:0;transition:opacity .4s .1s}
+.carte:hover .info p{opacity:1}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#222;margin-top:3rem;border:1px solid #222}
+.service{background:var(--noir-2);padding:1.6rem;transition:background .3s}
+.service:hover{background:#151515}
+.service h3{font-weight:600;font-size:1.05rem;margin-bottom:.4rem;display:flex;gap:.6rem;align-items:center}
+.service h3::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.service p{color:var(--gris);font-size:.92rem}
+@media(max-width:980px){.cartes{grid-template-columns:repeat(2,1fr)}.services{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.services{grid-template-columns:1fr}}
+
+/* Galerie */
+.filtres{display:flex;gap:.5rem;flex-wrap:wrap;margin:2rem 0 1.5rem}
+.filtres button{background:transparent;border:1px solid #333;color:var(--gris-clair);padding:.5rem 1.1rem;border-radius:30px;cursor:pointer;font-family:inherit;font-size:.88rem;transition:all .25s}
+.filtres button.on,.filtres button:hover{border-color:var(--orange);color:#000;background:var(--orange)}
+.mur{columns:3 280px;column-gap:12px}
+.mur figure{break-inside:avoid;margin-bottom:12px;overflow:hidden;border-radius:3px;cursor:zoom-in;position:relative;transition:opacity .4s,transform .4s}
+.mur figure.cache{display:none}
+.mur img{width:100%;transition:transform .8s var(--ease),filter .5s}
+.mur figure:hover img{transform:scale(1.04)}
+.mur figcaption{position:absolute;left:.7rem;bottom:.6rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;background:rgba(0,0,0,.6);padding:.2rem .6rem;border-radius:20px;opacity:0;transition:opacity .3s}
+.mur figure:hover figcaption{opacity:1}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:100;display:none;align-items:center;justify-content:center;padding:2rem}
+.lb.on{display:flex}
+.lb img{max-height:88vh;max-width:92vw;border-radius:3px;animation:zoom .4s var(--ease)}
+.lb button{position:absolute;background:none;border:0;color:#fff;font-size:2.2rem;cursor:pointer;padding:.6rem 1rem}
+.lb .x{top:1rem;right:1rem}.lb .g{left:.5rem}.lb .d{right:.5rem}
+@keyframes zoom{from{opacity:0;transform:scale(.96)}}
+
+/* ---------- OUTIL : réservation de séance ---------- */
+.resa{background:radial-gradient(1200px 500px at 85% 0%,rgba(250,150,0,.08),transparent 60%),var(--noir-2)}
+.resa-grid{display:grid;grid-template-columns:1fr 380px;gap:2rem;margin-top:2.5rem;align-items:start}
+.panneau{background:var(--noir-3);border:1px solid #262626;border-radius:8px;padding:clamp(1.2rem,3vw,2rem)}
+.etapes{display:flex;gap:.4rem;margin-bottom:1.6rem}
+.etapes span{flex:1;height:3px;background:#2b2b2b;border-radius:3px;overflow:hidden;position:relative}
+.etapes span::after{content:"";position:absolute;inset:0;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.etapes span.ok::after{transform:none}
+.step{display:none;animation:fade .45s var(--ease)}
+.step.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateX(14px)}}
+.step h3{font-weight:600;font-size:1.2rem;margin-bottom:1rem}
+.choix{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem}
+.choix label{border:1px solid #2f2f2f;border-radius:6px;padding:1rem;cursor:pointer;transition:all .25s;display:block}
+.choix label:hover{border-color:#555}
+.choix input{position:absolute;opacity:0;pointer-events:none}
+.choix input:checked+label{border-color:var(--orange);background:rgba(250,150,0,.08)}
+.choix b{display:block;font-weight:600}
+.choix small{color:var(--gris);font-size:.8rem}
+@media(max-width:560px){.choix{grid-template-columns:1fr}}
+.champ{margin-bottom:1rem}
+.champ label{display:block;font-size:.82rem;color:var(--gris-clair);margin-bottom:.35rem}
+.champ input,.champ select,.champ textarea{width:100%;background:#0b0b0b;border:1px solid #2f2f2f;color:#fff;border-radius:6px;padding:.75rem .9rem;font-family:inherit;font-size:.95rem}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--orange);outline:none}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:560px){.deux{grid-template-columns:1fr}}
+.aide{font-size:.85rem;color:var(--gris);margin:-.4rem 0 1rem;min-height:1.2em}
+.aide.alerte{color:var(--orange-2)}
+.creneaux{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.creneaux button{background:#0b0b0b;border:1px solid #2f2f2f;color:#fff;padding:.55rem .9rem;border-radius:30px;font-family:inherit;cursor:pointer;font-size:.86rem}
+.creneaux button.on{border-color:var(--orange);color:var(--orange)}
+.creneaux button:disabled{opacity:.3;cursor:not-allowed}
+.nav-step{display:flex;justify-content:space-between;margin-top:1.4rem;gap:.8rem}
+.borne-opts{display:none;margin-top:1rem}
+.borne-opts.on{display:block}
+.recap{position:sticky;top:96px}
+.bon{background:#f6f3ee;color:#111;border-radius:6px;padding:1.6rem;position:relative;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:rotate(-1deg);transition:transform .4s var(--ease)}
+.bon:hover{transform:rotate(0)}
+.bon::before{content:"";position:absolute;top:-9px;left:50%;width:70px;height:18px;margin-left:-35px;background:rgba(250,150,0,.55);transform:rotate(2deg)}
+.bon .s{font-family:var(--script);font-size:2rem;line-height:1;text-align:center}
+.bon .p{text-align:center;letter-spacing:.3em;font-size:.6rem;margin-bottom:1rem}
+.bon dl{display:grid;grid-template-columns:auto 1fr;gap:.35rem .8rem;font-size:.86rem;border-top:1px dashed #bbb;padding-top:.9rem}
+.bon dt{color:#777}
+.bon dd{font-weight:600;text-align:right}
+.bon .note{font-size:.76rem;color:#666;margin-top:1rem;border-top:1px dashed #bbb;padding-top:.8rem}
+.confirm{display:none;text-align:center;padding:1rem 0}
+.confirm.on{display:block;animation:fade .5s}
+.confirm .ok{width:64px;height:64px;border-radius:50%;border:2px solid var(--orange);margin:0 auto 1rem;display:grid;place-items:center;font-size:1.8rem;color:var(--orange)}
+@media(max-width:980px){.resa-grid{grid-template-columns:1fr}.recap{position:static}}
+
+/* Actualité */
+.actus{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.actu{border:1px solid #222;border-radius:6px;padding:1.5rem;transition:border-color .3s,transform .3s}
+.actu:hover{border-color:var(--orange);transform:translateY(-4px)}
+.actu time{font-size:.75rem;color:var(--orange);letter-spacing:.15em;text-transform:uppercase}
+.actu h3{font-weight:600;margin:.5rem 0}
+.actu p{color:var(--gris);font-size:.92rem}
+.actu .sig{font-family:var(--script);font-size:1.5rem;color:#fff;margin-top:.6rem}
+@media(max-width:860px){.actus{grid-template-columns:1fr}}
+
+/* Borne + espace client */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.bloc{background:var(--noir-2);border:1px solid #222;border-radius:8px;padding:2rem;position:relative;overflow:hidden}
+.bloc h3{font-family:var(--script);font-weight:400;font-size:2.6rem;line-height:1;margin-bottom:.8rem}
+.bloc ul{list-style:none;margin:1rem 0 1.4rem}
+.bloc li{padding:.45rem 0;border-bottom:1px solid #1f1f1f;color:var(--gris-clair);font-size:.93rem}
+.bloc li::before{content:"— ";color:var(--orange)}
+.galeries-privees{display:flex;flex-wrap:wrap;gap:.4rem;margin:1rem 0 1.4rem}
+.galeries-privees span{font-size:.75rem;border:1px solid #333;padding:.25rem .7rem;border-radius:20px;color:var(--gris-clair)}
+.vide{border:1px dashed #444;border-radius:6px;height:150px;display:grid;place-items:center;color:var(--gris);font-size:.82rem;margin-bottom:1rem;text-align:center;padding:1rem}
+@media(max-width:860px){.duo{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem)}
+.horaires{width:100%;border-collapse:collapse;margin-top:1rem}
+.horaires td{padding:.65rem 0;border-bottom:1px solid #1f1f1f;font-size:.95rem}
+.horaires td:last-child{text-align:right;color:var(--gris-clair)}
+.horaires tr.auj td{color:var(--orange)}
+.coord a{text-decoration:none}
+.coord p{margin-bottom:.9rem;color:var(--gris-clair)}
+.coord strong{color:#fff;display:block;font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.15rem}
+.carte-lieu{border-radius:8px;overflow:hidden;border:1px solid #222;min-height:300px;background:#111}
+.carte-lieu iframe{width:100%;height:100%;min-height:300px;border:0;filter:grayscale(1) invert(.92) contrast(.9)}
+@media(max-width:860px){.contact{grid-template-columns:1fr}}
+
+footer{border-top:1px solid #1d1d1d;padding:3rem 1.25rem;text-align:center;color:var(--gris);font-size:.82rem}
+footer .s{font-family:var(--script);font-size:2.4rem;color:#fff;line-height:1}
+footer .mention{max-width:820px;margin:1.4rem auto 0;line-height:1.7}
+.mobile-cta{display:none}
+@media(max-width:700px){.mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:#000;border-top:1px solid #222}
+.mobile-cta a{flex:1;text-align:center;padding:.9rem;text-decoration:none;font-weight:600;font-size:.9rem}
+.mobile-cta a+a{background:var(--orange);color:#000}
+body{padding-bottom:52px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal,.hero-txt *{opacity:1!important;transform:none!important}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"Studio Bernard Photographes",
+  "description":"Studio photo à Chauffailles : portraits, mariages, reportages, conscrits, photos d'identité, location de borne selfie.",
+  "url":"https://www.studiobernardchauffailles.fr/",
+  "telephone":"+33385261014",
+  "email":"studiobernardchauffailles@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"11 bis et 13 place de la République","postalCode":"71170","addressLocality":"Chauffailles","addressCountry":"FR"},
+  "areaServed":["Chauffailles","Sud Brionnais"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}
+  ],
+  "sameAs":["https://www.facebook.com/studiobernardphotographe"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de nouveau site pour le Studio Bernard</div>
+
+<header id="top">
+  <nav class="nav" aria-label="Navigation principale">
+    <a class="logo" href="#top" aria-label="Studio Bernard Chauffailles, accueil">
+      <span class="s">Studio Bernard Chauffailles</span>
+      <span class="p">PHOTOGRAPHES</span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#top">Accueil</a></li>
+      <li><a href="#actualite">Actualité</a></li>
+      <li><a href="#galeries">Galeries</a></li>
+      <li><a href="#presentation">Présentation</a></li>
+      <li><a href="#borne">Borne selfie</a></li>
+      <li><a href="#espace-client">Espace client</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="#reserver">Réserver une séance</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger">☰</button>
+  </nav>
+</header>
+
+<main>
+<section class="hero" aria-label="Photographies du studio" style="padding:0">
+  <div class="slide on" style="background-image:url('https://www.studiobernardchauffailles.fr/files/126/galeries/385/images/DSC_7684.jpg')"></div>
+  <div class="slide" style="background-image:url('https://www.studiobernardchauffailles.fr/files/126/galeries/386/images/DSC_5448.jpg')"></div>
+  <div class="slide" style="background-image:url('https://www.studiobernardchauffailles.fr/files/126/galeries/635/images/dsc_7465.jpg')"></div>
+  <div class="slide" style="background-image:url('https://www.studiobernardchauffailles.fr/files/126/galeries/386/images/DSC_7526.jpg')"></div>
+  <div class="hero-txt">
+    <span class="s">Studio Bernard Chauffailles</span>
+    <span class="p">PHOTOGRAPHES</span>
+    <p class="l">Portraits, mariages, reportages, conscrits et photos d'identité. Magali et Marie-Line vous accueillent place de la République, et viennent à vous pour vos grands moments.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#reserver">Réserver une séance</a>
+      <a class="btn ghost" href="#galeries">Voir les galeries</a>
+    </div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<div class="statut">
+  <div class="in">
+    <span class="pastille" id="pastille"><i></i><span id="statut-txt">Horaires du studio</span></span>
+    <span>11 bis et 13 place de la République, Chauffailles</span>
+    <a href="tel:+33385261014" style="text-decoration:none;color:#fff">03 85 26 10 14</a>
+  </div>
+</div>
+
+<section id="presentation">
+  <div class="wrap equipe">
+    <div class="ph reveal">
+      <img src="https://www.studiobernardchauffailles.fr/files/126/portraits22.jpg" alt="Portrait en extérieur réalisé par le Studio Bernard" loading="lazy">
+      <div class="cadre"></div>
+    </div>
+    <div class="reveal">
+      <span class="kicker">Présentation</span>
+      <h2>L'équipe du studio Bernard</h2>
+      <p class="lead">Quelques chiffres qui parlent d'eux-mêmes pour retracer notre parcours. Magali et Marie-Line sont disponibles pour répondre au mieux à vos attentes. Merci à tous pour votre fidélité.</p>
+      <div class="chiffres">
+        <div class="chiffre"><b data-n="19">0</b><span>ans dans les locaux pour l'une</span></div>
+        <div class="chiffre"><b data-n="17">0</b><span>ans pour l'autre</span></div>
+        <div class="chiffre"><b data-n="11">0</b><span>ans de reprise</span></div>
+        <div class="chiffre"><b data-n="4">0</b><span>examens validés</span></div>
+        <div class="chiffre"><b data-n="1">0</b><span>apprentie diplômée</span></div>
+        <div class="chiffre"><b>∞</b><span>des milliers de clichés, des millions de pixels</span></div>
+      </div>
+      <p class="signature">Magali &amp; Marie-Line</p>
+    </div>
+  </div>
+</section>
+
+<section class="presta" id="prestations">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Nos prestations</span>
+      <h2>Du studio à vos grands jours</h2>
+      <p class="lead">Des séances en studio aux reportages sur place, en passant par les tirages, les cadres et les albums : tout se prépare au magasin, à Chauffailles.</p>
+    </div>
+    <div class="cartes">
+      <a class="carte reveal" href="#galeries" data-f="portrait"><img src="https://www.studiobernardchauffailles.fr/files/126/portraits22.jpg" alt="Portraits" loading="lazy"><div class="info"><p>Famille, grossesse, enfants : en studio ou en extérieur.</p></div></a>
+      <a class="carte reveal" href="#galeries" data-f="mariage"><img src="https://www.studiobernardchauffailles.fr/files/126/Mariage.jpg" alt="Mariages" loading="lazy"><div class="info"><p>Plusieurs dizaines de mariages photographiés.</p></div></a>
+      <a class="carte reveal" href="#galeries" data-f="reportage"><img src="https://www.studiobernardchauffailles.fr/files/126/reportageok.jpg" alt="Reportages" loading="lazy"><div class="info"><p>Événements, conscrits, entreprises.</p></div></a>
+      <a class="carte reveal" href="#prestations"><img src="https://www.studiobernardchauffailles.fr/files/126/livres2.jpg" alt="Albums livres" loading="lazy"><div class="info"><p>Albums livres, faire-part et invitations.</p></div></a>
+    </div>
+    <div class="services reveal">
+      <div class="service"><h3>Photos d'identité</h3><p>Photos d'identité au studio, agréé ANTS.</p></div>
+      <div class="service"><h3>Développement express</h3><p>Tirages de vos photos en express au magasin.</p></div>
+      <div class="service"><h3>Cadres, albums &amp; matériel</h3><p>Un choix de cadres, d'albums et de matériel photo en boutique.</p></div>
+      <div class="service"><h3>Conscrits</h3><p>Le studio prend la route des conscrits chaque année dans les villages alentour.</p></div>
+      <div class="service"><h3>Photos de classe</h3><p>Photos scolaires et de classe pour les écoles.</p></div>
+      <div class="service"><h3>Industrie</h3><p>Prises de vue pour les entreprises et l'industrie.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeries">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Galeries</span>
+      <h2>Quelques images</h2>
+      <p class="lead">Une sélection tirée des galeries du studio. Cliquez sur une photo pour l'agrandir.</p>
+    </div>
+    <div class="filtres" role="group" aria-label="Filtrer la galerie">
+      <button class="on" data-f="tout">Tout</button>
+      <button data-f="portrait">Portrait</button>
+      <button data-f="mariage">Mariages</button>
+      <button data-f="reportage">Reportage</button>
+    </div>
+    <div class="mur" id="mur"></div>
+  </div>
+</section>
+
+<!-- ===== OUTIL CENTRAL ===== -->
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Réservation</span>
+      <h2>Préparer votre séance</h2>
+      <p class="lead">Les week-ends se remplissent vite, et sans bon de commande la date n'est pas bloquée. Ici, votre demande et votre bon partent en une fois : le studio vous recontacte pour confirmer.</p>
+    </div>
+    <div class="resa-grid">
+      <div class="panneau">
+        <div class="etapes"><span class="ok"></span><span></span><span></span><span></span></div>
+        <form id="form" novalidate>
+          <div class="step on" data-s="1">
+            <h3>1. Quelle prestation ?</h3>
+            <div class="choix" id="choix-presta"></div>
+            <div class="borne-opts" id="borne-opts">
+              <div class="champ" style="margin-top:1rem"><label for="tirage">Format des tirages (borne selfie)</label>
+                <select id="tirage"><option>Jusqu'à 400 tirages 10x15</option><option>Jusqu'à 800 tirages 5x15</option></select></div>
+              <div class="champ"><label for="livraison">Livraison des photos</label>
+                <select id="livraison"><option>Lien WeTransfer (photos illimitées)</option><option>Clé USB (en option)</option></select></div>
+            </div>
+          </div>
+          <div class="step" data-s="2">
+            <h3>2. Pour quand ?</h3>
+            <div class="champ"><label for="date">Date souhaitée</label><input type="date" id="date"></div>
+            <p class="aide" id="aide-date">Choisissez une date pour voir les créneaux possibles.</p>
+            <div class="creneaux" id="creneaux"></div>
+            <div class="deux">
+              <div class="champ"><label for="nb">Nombre de personnes</label><input type="number" id="nb" min="1" value="1"></div>
+              <div class="champ"><label for="lieu">Lieu</label><select id="lieu"><option>Au studio</option><option>En extérieur</option><option>Sur le lieu de l'événement</option></select></div>
+            </div>
+          </div>
+          <div class="step" data-s="3">
+            <h3>3. Vos coordonnées</h3>
+            <div class="deux">
+              <div class="champ"><label for="nom">Nom *</label><input id="nom" autocomplete="name" required></div>
+              <div class="champ"><label for="tel">Téléphone *</label><input id="tel" type="tel" autocomplete="tel" required></div>
+            </div>
+            <div class="champ"><label for="mail">Email *</label><input id="mail" type="email" autocomplete="email" required></div>
+            <div class="champ"><label for="msg">Votre projet en quelques mots</label><textarea id="msg" rows="3" placeholder="Ex. : séance grossesse en extérieur, mariage à…, conscrits de…"></textarea></div>
+            <p class="aide alerte" id="err"></p>
+          </div>
+          <div class="step" data-s="4">
+            <div class="confirm on">
+              <div class="ok">✓</div>
+              <h3>Votre demande est prête</h3>
+              <p class="lead" style="margin:0 auto 1.2rem">Elle s'ouvre dans votre messagerie, adressée au studio avec le bon ci-contre. Vous pouvez aussi ajouter un rappel à votre agenda.</p>
+              <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+                <a class="btn" id="envoi" href="#">Envoyer au studio</a>
+                <button class="btn ghost" type="button" id="ics">Ajouter à mon agenda</button>
+              </div>
+            </div>
+          </div>
+          <div class="nav-step">
+            <button class="btn ghost" type="button" id="prec" style="visibility:hidden">← Retour</button>
+            <button class="btn" type="button" id="suiv">Continuer →</button>
+          </div>
+        </form>
+      </div>
+      <aside class="recap">
+        <div class="bon" aria-live="polite">
+          <div class="s">Studio Bernard</div>
+          <div class="p">BON DE RÉSERVATION</div>
+          <dl>
+            <dt>Prestation</dt><dd id="r-presta">—</dd>
+            <dt>Date</dt><dd id="r-date">—</dd>
+            <dt>Créneau</dt><dd id="r-creneau">—</dd>
+            <dt>Personnes</dt><dd id="r-nb">1</dd>
+            <dt>Lieu</dt><dd id="r-lieu">Au studio</dd>
+            <dt>Nom</dt><dd id="r-nom">—</dd>
+          </dl>
+          <p class="note">Demande de réservation : la date n'est bloquée qu'après confirmation du studio. Aucun tarif n'est affiché ici, le devis est établi par le studio.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="actualite">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="kicker">Actualité</span>
+      <h2>Les nouvelles du magasin</h2>
+    </div>
+    <div class="actus">
+      <article class="actu reveal"><time>Août 2026</time><h3>Fermeture exceptionnelle</h3><p>Afin de pouvoir assurer les photos d'un mariage, le magasin sera fermé le samedi 1er août 2026.</p><p class="sig">Magali &amp; Marie-Line</p></article>
+      <article class="actu reveal"><time>Février 2026</time><h3>Toujours ouvert</h3><p>Le magasin reste ouvert aux horaires habituels malgré la vitrine « légèrement cachée ». Nous nous occupons de vos photos comme d'habitude !</p><p class="sig">Magali, Marie-Line &amp; Méline</p></article>
+      <article class="actu reveal"><time>Janvier 2026</time><h3>Sur la route des conscrits</h3><p>Merci de renvoyer au plus vite les bons de commande pour valider les prestations : l'agenda estival se remplit vite.</p><p class="sig">Magali, Marie-Line &amp; Méline</p></article>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap duo">
+    <div class="bloc reveal" id="borne">
+      <span class="kicker">Location</span>
+      <h3>Borne selfie</h3>
+      <p class="lead">Depuis début 2019, le studio dispose d'une borne selfie pour vos événements : mariage, anniversaire, séminaire.</p>
+      <ul>
+        <li>Impression immédiate jusqu'à 400 tirages 10x15 ou 800 5x15 cm</li>
+        <li>Photos en illimité, livrées par lien WeTransfer ou en option sur clé USB</li>
+        <li>Template personnalisable</li>
+        <li>Devis sur demande</li>
+      </ul>
+      <a class="btn" href="#reserver" data-pre="borne">Demander un devis</a>
+    </div>
+    <div class="bloc reveal" id="espace-client">
+      <span class="kicker">Espace client</span>
+      <h3>Vos reportages</h3>
+      <p class="lead">Retrouvez les images de votre reportage : choisissez votre galerie, puis entrez le mot de passe transmis par le studio.</p>
+      <div class="galeries-privees"><span>Montages</span><span>Familles</span><span>Écoles</span><span>Conscrits</span></div>
+      <div class="champ"><label for="pw">Mot de passe</label><input id="pw" type="password" placeholder="Fourni par le studio"></div>
+      <a class="btn ghost" href="https://www.studiobernardchauffailles.fr/2001-Mes_reportages">Accéder à ma galerie</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--noir-2)">
+  <div class="wrap contact">
+    <div class="reveal coord">
+      <span class="kicker">Contact</span>
+      <h2>Passez au studio</h2>
+      <p><strong>Adresse</strong>11 bis et 13 place de la République<br>71170 Chauffailles</p>
+      <p><strong>Téléphone</strong><a href="tel:+33385261014">03 85 26 10 14</a></p>
+      <p><strong>Email</strong><a href="mailto:studiobernardchauffailles@gmail.com">studiobernardchauffailles@gmail.com</a></p>
+      <p><strong>Facebook</strong><a href="https://www.facebook.com/studiobernardphotographe">Studio Bernard Photographe</a></p>
+      <table class="horaires" id="horaires" aria-label="Horaires d'ouverture">
+        <tr data-j="1"><td>Lundi</td><td>Fermé</td></tr>
+        <tr data-j="2"><td>Mardi</td><td>9h–12h · 14h–18h</td></tr>
+        <tr data-j="3"><td>Mercredi</td><td>9h–12h · 14h–18h</td></tr>
+        <tr data-j="4"><td>Jeudi</td><td>9h–12h · 14h–18h</td></tr>
+        <tr data-j="5"><td>Vendredi</td><td>9h–12h · 14h–18h</td></tr>
+        <tr data-j="6"><td>Samedi</td><td>9h–12h · après-midi sur RDV (séances)</td></tr>
+        <tr data-j="0"><td>Dimanche</td><td>Fermé</td></tr>
+      </table>
+    </div>
+    <div class="carte-lieu reveal">
+      <iframe title="Plan d'accès au Studio Bernard" loading="lazy" src="https://www.google.com/maps?q=13+place+de+la+R%C3%A9publique+71170+Chauffailles&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="s">Studio Bernard Chauffailles</div>
+  <div style="letter-spacing:.3em;font-size:.7rem;margin-top:.3rem;color:#fff">PHOTOGRAPHES</div>
+  <p class="mention">Maquette de démonstration réalisée pour le Studio Bernard. Toutes les photos sont celles publiées sur le site actuel du studio ; textes, horaires et coordonnées sont repris de ce site et de l'annuaire des Vitrines du Sud Brionnais. Aucun tarif n'est affiché. La police manuscrite du logo est approchée et sera remplacée par le logo d'origine. Le formulaire de réservation est une démonstration : la demande s'ouvre dans la messagerie du visiteur.</p>
+</footer>
+
+<div class="mobile-cta"><a href="tel:+33385261014">Appeler</a><a href="#reserver">Réserver</a></div>
+
+<div class="lb" id="lb" role="dialog" aria-label="Photo agrandie">
+  <button class="x" aria-label="Fermer">×</button><button class="g" aria-label="Photo précédente">‹</button>
+  <img alt=""><button class="d" aria-label="Photo suivante">›</button>
+</div>
+
+<script>
+const B='https://www.studiobernardchauffailles.fr/files/126/galeries/';
+const STUDIO_MAIL='studiobernardchauffailles@gmail.com';
+
+/* Menu mobile */
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+/* Diaporama hero */
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots');let cur=0,timer;
+slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));if(!i)b.classList.add('on');b.onclick=()=>{go(i);auto()};dots.appendChild(b)});
+function go(i){slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');dots.children[cur].classList.add('on')}
+function auto(){clearInterval(timer);timer=setInterval(()=>go((cur+1)%slides.length),5500)}auto();
+
+/* Ouvert / fermé en direct */
+function statut(){
+  const d=new Date(),j=d.getDay(),m=d.getHours()*60+d.getMinutes();
+  let ouvert=false,txt='';
+  const matin=m>=540&&m<720,aprem=m>=840&&m<1080;
+  if(j>=2&&j<=5){ouvert=matin||aprem}
+  if(j===6){ouvert=matin}
+  if(ouvert)txt='Ouvert en ce moment';
+  else if(j===6&&m>=720)txt='Samedi après-midi : séances sur rendez-vous';
+  else txt='Fermé — ouverture '+(j===0||j===1||(j===6&&m>=720)?'mardi 9h':(m<540?'à 9h':(m<840?'à 14h':'demain 9h')));
+  const p=document.getElementById('pastille');p.classList.toggle('ouvert',ouvert);
+  document.getElementById('statut-txt').textContent=txt;
+  const tr=document.querySelector('#horaires tr[data-j="'+j+'"]');if(tr)tr.classList.add('auj');
+}statut();
+
+/* Apparitions au défilement + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');e.target.querySelectorAll('[data-n]').forEach(c=>{const n=+c.dataset.n;let k=0;const t=setInterval(()=>{k++;c.textContent=k;if(k>=n)clearInterval(t)},Math.max(40,900/n))});io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*90+'ms';io.observe(el)});
+
+/* Galerie filtrable */
+const photos=[
+ ['386/images/DSC_5448.jpg','portrait'],['385/images/DSC_7684.jpg','mariage'],['635/images/dsc_7465.jpg','reportage'],
+ ['386/images/DSC_7526.jpg','portrait'],['385/images/DSC_7153NB.jpg','mariage'],['635/images/toile.jpg','reportage'],
+ ['386/images/DSC_4643.jpg','portrait'],['385/images/2020-LL.jpg','mariage'],['635/images/dsc_8662.jpg','reportage'],
+ ['386/images/DSC_6114.jpg','portrait'],['385/images/DSC_8142_copie.jpg','mariage'],['635/images/dsc_9474.jpg','reportage'],
+ ['386/images/DSC_8470.jpg','portrait'],['385/images/Aj_2019.jpg','mariage'],['635/images/rep7.jpg','reportage']
+];
+const mur=document.getElementById('mur');
+photos.forEach(([src,f],i)=>{const fig=document.createElement('figure');fig.dataset.f=f;fig.dataset.i=i;
+fig.innerHTML='<img src="'+B+src+'" alt="Photo '+f+' du Studio Bernard" loading="lazy"><figcaption>'+f+'</figcaption>';mur.appendChild(fig)});
+function filtre(f){document.querySelectorAll('.filtres button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
+mur.querySelectorAll('figure').forEach(fig=>fig.classList.toggle('cache',f!=='tout'&&fig.dataset.f!==f))}
+document.querySelectorAll('.filtres button').forEach(b=>b.onclick=()=>filtre(b.dataset.f));
+document.querySelectorAll('.carte[data-f]').forEach(c=>c.addEventListener('click',()=>filtre(c.dataset.f)));
+const lb=document.getElementById('lb'),lbi=lb.querySelector('img');let li=0;
+function vis(){return [...mur.querySelectorAll('figure:not(.cache)')]}
+function ouvre(i){const v=vis();li=(i+v.length)%v.length;lbi.src=v[li].querySelector('img').src;lb.classList.add('on')}
+mur.onclick=e=>{const f=e.target.closest('figure');if(f)ouvre(vis().indexOf(f))};
+lb.querySelector('.x').onclick=()=>lb.classList.remove('on');
+lb.querySelector('.g').onclick=()=>ouvre(li-1);lb.querySelector('.d').onclick=()=>ouvre(li+1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+document.addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')ouvre(li-1);if(e.key==='ArrowRight')ouvre(li+1)});
+
+/* ===== Outil de réservation ===== */
+const prestas=[
+ {id:'portrait',t:'Portrait',d:'Famille, grossesse, enfants',studio:true},
+ {id:'identite',t:"Photo d'identité",d:'Agréé ANTS, au magasin',studio:true,simple:true},
+ {id:'mariage',t:'Mariage',d:'Reportage le jour J',event:true},
+ {id:'reportage',t:'Reportage',d:'Événement, entreprise',event:true},
+ {id:'conscrits',t:'Conscrits',d:'Photos de classe des conscrits',event:true},
+ {id:'borne',t:'Borne selfie',d:'Mariage, anniversaire, séminaire',event:true}
+];
+const cp=document.getElementById('choix-presta');
+prestas.forEach((p,i)=>{cp.insertAdjacentHTML('beforeend','<div><input type="radio" name="presta" id="p-'+p.id+'" value="'+p.id+'"'+(i?'':' checked')+'><label for="p-'+p.id+'"><b>'+p.t+'</b><small>'+p.d+'</small></label></div>')});
+const st={presta:'portrait',date:'',creneau:'',nb:1,lieu:'Au studio'};
+const $=id=>document.getElementById(id);
+function P(){return prestas.find(p=>p.id===st.presta)}
+function maj(){
+ $('r-presta').textContent=P().t+(st.presta==='borne'?' · '+$('tirage').value.replace("Jusqu'à ",''):'');
+ $('r-date').textContent=st.date?new Date(st.date+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'—';
+ $('r-creneau').textContent=st.creneau||'—';$('r-nb').textContent=st.nb;$('r-lieu').textContent=st.lieu;
+ $('r-nom').textContent=$('nom').value||'—';
+}
+cp.onchange=e=>{st.presta=e.target.value;$('borne-opts').classList.toggle('on',st.presta==='borne');
+ $('lieu').value=P().event?"Sur le lieu de l'événement":'Au studio';st.lieu=$('lieu').value;creneaux();maj()};
+$('tirage').onchange=maj;
+const d0=new Date();d0.setDate(d0.getDate()+1);$('date').min=d0.toISOString().slice(0,10);
+function creneaux(){
+ const box=$('creneaux'),aide=$('aide-date');box.innerHTML='';st.creneau='';
+ if(!st.date){aide.textContent='Choisissez une date pour voir les créneaux possibles.';aide.className='aide';return}
+ const j=new Date(st.date+'T12:00').getDay();let list=[];
+ if(P().event){aide.className='aide';aide.textContent=j===6||j===0?'Week-end : les samedis se réservent vite, pensez à le faire tôt.':'Le studio vous confirmera sa disponibilité pour cette date.';list=['Matin','Après-midi','Journée','Soirée']}
+ else if(j===1||j===0){aide.className='aide alerte';aide.textContent='Le magasin est fermé le '+(j?'lundi':'dimanche')+'. Choisissez un autre jour.';}
+ else if(j===6){aide.className='aide';aide.textContent=P().simple?'Samedi : magasin ouvert de 9h à 12h.':"Samedi : le matin au magasin, l'après-midi est réservé aux séances sur rendez-vous.";list=P().simple?['9h–10h','10h–11h','11h–12h']:['9h–10h','10h–11h','11h–12h','Après-midi (séance)']}
+ else{aide.className='aide';aide.textContent='Créneaux indicatifs, confirmés par le studio.';list=['9h–10h','10h–11h','11h–12h','14h–15h','15h–16h','16h–17h','17h–18h']}
+ list.forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=()=>{box.querySelectorAll('button').forEach(x=>x.classList.remove('on'));b.classList.add('on');st.creneau=c;maj()};box.appendChild(b)});
+ maj();
+}
+$('date').onchange=e=>{st.date=e.target.value;creneaux()};
+$('nb').oninput=e=>{st.nb=Math.max(1,+e.target.value||1);maj()};
+$('lieu').onchange=e=>{st.lieu=e.target.value;maj()};
+$('nom').oninput=maj;
+let step=1;const steps=[...document.querySelectorAll('.step')],bars=[...document.querySelectorAll('.etapes span')];
+function aff(){steps.forEach(s=>s.classList.toggle('on',+s.dataset.s===step));bars.forEach((b,i)=>b.classList.toggle('ok',i<step));
+ $('prec').style.visibility=step>1&&step<4?'visible':'hidden';$('suiv').style.display=step<4?'':'none';$('suiv').textContent=step===3?'Préparer ma demande →':'Continuer →'}
+$('prec').onclick=()=>{step--;aff()};
+$('suiv').onclick=()=>{
+ if(step===2&&!st.date){$('aide-date').className='aide alerte';$('aide-date').textContent='Indiquez une date souhaitée.';return}
+ if(step===3){const ok=$('nom').value.trim()&&$('tel').value.trim()&&/\S+@\S+\.\S+/.test($('mail').value);
+  if(!ok){$('err').textContent='Merci de remplir nom, téléphone et un email valide.';return}$('err').textContent='';prepare()}
+ step++;aff();document.getElementById('reserver').scrollIntoView({behavior:'smooth',block:'start'})};
+function texte(){return 'Bonjour,\n\nJe souhaite réserver :\n- Prestation : '+$('r-presta').textContent+'\n- Date souhaitée : '+$('r-date').textContent+'\n- Créneau : '+(st.creneau||'à convenir')+'\n- Nombre de personnes : '+st.nb+'\n- Lieu : '+st.lieu+'\n\n'+($('msg').value?'Mon projet : '+$('msg').value+'\n\n':'')+'Nom : '+$('nom').value+'\nTéléphone : '+$('tel').value+'\nEmail : '+$('mail').value+'\n\nMerci de me confirmer la disponibilité.'}
+function prepare(){$('envoi').href='mailto:'+STUDIO_MAIL+'?subject='+encodeURIComponent('Demande de réservation — '+P().t)+'&body='+encodeURIComponent(texte())}
+$('ics').onclick=()=>{
+ const d=st.date.replace(/-/g,'');const nx=new Date(st.date+'T12:00');nx.setDate(nx.getDate()+1);const d2=nx.toISOString().slice(0,10).replace(/-/g,'');
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Studio Bernard//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@studiobernard','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART;VALUE=DATE:'+d,'DTEND;VALUE=DATE:'+d2,'SUMMARY:Studio Bernard — '+P().t+' (à confirmer)','LOCATION:11 bis et 13 place de la République\\, 71170 Chauffailles','DESCRIPTION:Demande envoyée au studio. Créneau : '+(st.creneau||'à convenir')+'. Tél. 03 85 26 10 14','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='studio-bernard-seance.ics';a.click()};
+document.querySelectorAll('[data-pre]').forEach(a=>a.addEventListener('click',()=>{const r=$('p-'+a.dataset.pre);r.checked=true;cp.dispatchEvent(new Event('change'));step=1;aff()}));
+maj();aff();
+</script>
+</body>
+</html>
