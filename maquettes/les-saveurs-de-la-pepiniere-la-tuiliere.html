@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Saveurs de la Pépinière — Petits fruits bio et confitures | La Tuilière, Roannais</title>
+<meta name="description" content="Petits fruits en Agriculture Biologique à La Tuilière, dans les Monts de la Madeleine : confitures, nectars, coulis et purées de fruits rouges, toute l'année.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Short+Stack&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise du logo réel (fiche Roannais Tourisme du producteur)
+   Lettrage rouge manuscrit, trait d'encre noir, fruits rouge / framboise /
+   bleu myrtille / bleu nuit / orange groseille, fond blanc.
+   Étiquettes des pots : typographie à empattements.
+   Codes couleur relevés à l'œil sur le logo : à ajuster avec le fichier source.
+   ===================================================================== */
+:root{
+  --rouge:#E3161B;        /* lettrage du logo, fraises */
+  --framboise:#E8124F;    /* framboises */
+  --myrtille:#2F6FA8;     /* baies bleues */
+  --nuit:#2E2F4F;         /* cassis */
+  --groseille:#F2401C;    /* groseilles à maquereau */
+  --encre:#141414;        /* trait du dessin */
+  --papier:#FFFFFF;
+  --creme:#FBF7F2;        /* fond doux (pierre ensoleillée de la photo) */
+  --pierre:#E9DCCB;
+  --font-main:"Short Stack", "Comic Neue", cursive;   /* proche du lettrage du logo */
+  --font-label:"Crimson Pro", Georgia, serif;          /* proche des étiquettes */
+  --font-ui:"Inter", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.26,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-label);font-size:1.13rem;line-height:1.6;color:var(--encre);background:var(--papier);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--myrtille);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.hand{font-family:var(--font-main);font-weight:400;color:var(--rouge);line-height:1.15}
+.ui{font-family:var(--font-ui)}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:#fff;font:500 .8rem var(--font-ui);text-align:center;padding:.5rem 1rem}
+.demo b{color:#ffb3b5}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1.5px solid transparent;transition:border-color .3s, box-shadow .3s}
+header.scrolled{border-color:var(--encre);box-shadow:0 6px 24px rgba(0,0,0,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.6rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand img{width:54px;height:54px;object-fit:contain;transition:transform .6s var(--spring)}
+.brand:hover img{transform:rotate(-12deg) scale(1.06)}
+.brand span{font-family:var(--font-main);color:var(--rouge);font-size:1.15rem;line-height:1.05}
+.menu{display:flex;gap:1.4rem;list-style:none;font:500 .92rem var(--font-ui)}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font:600 .95rem var(--font-ui);text-decoration:none;border:2px solid var(--encre);border-radius:999px;padding:.75rem 1.3rem;background:var(--rouge);color:#fff;box-shadow:3px 3px 0 var(--encre);transition:transform .2s var(--ease), box-shadow .2s var(--ease);cursor:pointer}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--encre)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--encre)}
+.btn.ghost{background:#fff;color:var(--encre)}
+.burger{display:none;background:none;border:2px solid var(--encre);border-radius:10px;width:44px;height:44px;font-size:1.3rem;cursor:pointer}
+
+/* Hero */
+.hero{position:relative;padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,7vw,6rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.kicker{font:600 .78rem var(--font-ui);letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;border:1.5px solid var(--encre);border-radius:999px;padding:.35rem .8rem;background:#fff}
+.kicker i{width:9px;height:9px;border-radius:50%;background:#5BA33B;display:inline-block}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5.2rem);margin:1rem 0 1rem}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(30px) rotate(-3deg);animation:pop .8s var(--spring) forwards}
+@keyframes pop{to{opacity:1;transform:none}}
+.hero p.lead{font-size:clamp(1.15rem,1.6vw,1.35rem);max-width:34rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-art{position:relative;aspect-ratio:1;max-width:520px;margin-inline:auto;width:100%}
+.hero-art svg{width:100%;height:100%;overflow:visible}
+.ink{fill:none;stroke:var(--encre);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.4s var(--ease) .3s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.berry{transform-box:fill-box;transform-origin:center;opacity:0;animation:drop .9s var(--spring) forwards}
+@keyframes drop{0%{opacity:0;transform:translateY(-160px) scale(.6)}100%{opacity:1;transform:none}}
+.berry.float{animation:drop .9s var(--spring) forwards, bob 5s ease-in-out 2.5s infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.sticker{position:absolute;right:2%;top:6%;width:118px;height:118px;border-radius:50%;background:#fff;border:2px solid var(--encre);display:grid;place-items:center;text-align:center;font:600 .78rem/1.2 var(--font-ui);transform:rotate(10deg);box-shadow:3px 3px 0 var(--encre);animation:spin 18s linear infinite}
+.sticker b{display:block;font-family:var(--font-main);color:#3E8A2A;font-size:1.25rem;font-weight:400}
+@keyframes spin{to{transform:rotate(370deg)}}
+
+/* Marquee */
+.marquee{border-block:2px solid var(--encre);background:var(--rouge);color:#fff;overflow:hidden;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:2.5rem;padding:.85rem 0;animation:mq 30s linear infinite;font-family:var(--font-main);font-size:1.25rem}
+.marquee .track span::after{content:"✿";margin-left:2.5rem;color:#ffd0d1}
+@keyframes mq{to{transform:translateX(-50%)}}
+.marquee:hover .track{animation-play-state:paused}
+
+/* Sections */
+section{scroll-margin-top:80px}
+.sec{padding:clamp(3.5rem,8vw,6.5rem) 0}
+.sec-head{max-width:46rem;margin-bottom:2.5rem}
+.sec-head h2{font-size:clamp(2rem,4.2vw,3.2rem);margin:.6rem 0 .8rem}
+.sec-head p{font-size:1.15rem}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease), transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Produits */
+.prod-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem}
+.photo-card{position:relative;border:2px solid var(--encre);border-radius:28px;overflow:hidden;box-shadow:6px 6px 0 var(--encre);background:var(--pierre)}
+.photo-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.photo-card:hover img{transform:scale(1.05)}
+.cap{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);border:1.5px solid var(--encre);border-radius:999px;font:500 .72rem var(--font-ui);padding:.3rem .7rem}
+.families{display:grid;gap:1rem}
+.fam{border:2px solid var(--encre);border-radius:22px;padding:1.2rem 1.4rem;background:#fff;display:flex;gap:1rem;align-items:flex-start;transition:transform .35s var(--spring), background .3s}
+.fam:hover{transform:translateX(6px) rotate(-.5deg);background:var(--creme)}
+.fam .ic{flex:0 0 52px;height:52px}
+.fam h3{font-family:var(--font-main);font-weight:400;color:var(--rouge);font-size:1.35rem}
+.fam p{font-size:1.02rem}
+.parfums{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.5rem}
+.parfums span{font:500 .8rem var(--font-ui);border:1.5px solid var(--encre);border-radius:999px;padding:.2rem .65rem;background:#fff}
+
+/* Calendrier */
+.cal{background:var(--creme);border-block:2px solid var(--encre)}
+.cal-box{border:2px solid var(--encre);border-radius:28px;background:#fff;padding:clamp(1.2rem,3vw,2.2rem);box-shadow:6px 6px 0 var(--encre)}
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:.35rem;margin-bottom:1.6rem}
+.months button{font:600 .8rem var(--font-ui);border:1.5px solid var(--encre);background:#fff;border-radius:12px;padding:.55rem 0;cursor:pointer;transition:background .25s, color .25s, transform .25s var(--spring)}
+.months button:hover{transform:translateY(-3px)}
+.months button[aria-pressed="true"]{background:var(--encre);color:#fff}
+.rows{display:grid;gap:.9rem}
+.row{display:grid;grid-template-columns:150px 1fr 120px;align-items:center;gap:1rem}
+.row .name{font-family:var(--font-main);font-size:1.15rem}
+.bar{position:relative;height:30px;border:1.5px solid var(--encre);border-radius:999px;background:repeating-linear-gradient(90deg,#fff 0 calc(100%/12 - 1px),#eee calc(100%/12 - 1px) calc(100%/12));overflow:hidden}
+.bar .fill{position:absolute;top:0;bottom:0;border-radius:999px;transition:left .6s var(--ease), width .6s var(--ease)}
+.bar .cursor{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--encre);transition:left .5s var(--spring)}
+.state{font:600 .82rem var(--font-ui);text-align:right}
+.state.on{color:#2f7a1f}
+.state.pot{color:var(--myrtille)}
+.cal-note{margin-top:1.4rem;font:400 .85rem var(--font-ui);color:#555}
+.cal-msg{margin-top:1.2rem;font-family:var(--font-main);font-size:1.25rem;color:var(--rouge);min-height:1.6em}
+
+/* Panier */
+.basket-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:1.6rem;align-items:start}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.item{border:2px solid var(--encre);border-radius:22px;padding:1rem;background:#fff;position:relative;transition:transform .3s var(--spring), box-shadow .3s}
+.item:hover{transform:translateY(-4px);box-shadow:4px 4px 0 var(--encre)}
+.jar{width:62px;height:76px;margin-bottom:.6rem}
+.item h3{font-family:var(--font-label);font-weight:600;font-size:1.08rem;line-height:1.25}
+.item small{font:400 .75rem var(--font-ui);color:#666;display:block;margin:.2rem 0 .7rem}
+.qty{display:flex;align-items:center;gap:.5rem}
+.qty button{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--encre);background:#fff;font:600 1.1rem var(--font-ui);cursor:pointer;transition:transform .2s var(--spring), background .2s}
+.qty button:hover{background:var(--rouge);color:#fff;transform:scale(1.1)}
+.qty output{min-width:1.6rem;text-align:center;font:600 1rem var(--font-ui)}
+.item.has{background:#FFF4F4}
+.summary{position:sticky;top:96px;border:2px solid var(--encre);border-radius:28px;padding:1.5rem;background:var(--creme);box-shadow:6px 6px 0 var(--encre)}
+.summary h3{font-family:var(--font-main);font-weight:400;color:var(--rouge);font-size:1.5rem;margin-bottom:.6rem}
+.summary ul{list-style:none;font:400 .95rem var(--font-ui);margin:.4rem 0 1rem;min-height:2rem}
+.summary li{display:flex;justify-content:space-between;border-bottom:1px dashed #bbb;padding:.35rem 0;animation:pop .4s var(--spring)}
+.summary label{display:block;font:600 .8rem var(--font-ui);margin:.8rem 0 .3rem}
+.summary select,.summary input,.summary textarea{width:100%;font:400 .95rem var(--font-ui);border:1.5px solid var(--encre);border-radius:12px;padding:.6rem .7rem;background:#fff}
+.summary .btn{width:100%;justify-content:center;margin-top:1rem}
+.summary .fine{font:400 .75rem var(--font-ui);color:#555;margin-top:.8rem}
+.count-bubble{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:.5rem;background:var(--rouge);color:#fff;border:2px solid var(--encre);border-radius:999px;padding:.7rem 1.1rem;font:600 .9rem var(--font-ui);box-shadow:3px 3px 0 var(--encre);text-decoration:none;transform:translateY(120px);transition:transform .5s var(--spring)}
+.count-bubble.show{transform:none}
+.count-bubble.bump{animation:bump .45s var(--spring)}
+@keyframes bump{50%{transform:scale(1.15)}}
+
+/* Où trouver */
+.where{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.card{border:2px solid var(--encre);border-radius:24px;padding:1.5rem;background:#fff;transition:transform .35s var(--spring)}
+.card:hover{transform:rotate(-1deg) translateY(-4px)}
+.card h3{font-family:var(--font-main);font-weight:400;font-size:1.3rem;color:var(--rouge);margin:.5rem 0}
+.card .tag{font:600 .72rem var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--myrtille)}
+.card .todo{display:inline-block;margin-top:.6rem;font:500 .75rem var(--font-ui);background:#FFF1C2;border:1.5px dashed #b08a00;border-radius:8px;padding:.2rem .5rem}
+
+/* Contact */
+.contact{background:var(--encre);color:#fff}
+.contact .hand{color:#ff6b6f}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center}
+.coords{display:grid;gap:1rem;font:400 1rem var(--font-ui)}
+.coords a{color:#fff}
+.coords div{border:1.5px solid rgba(255,255,255,.35);border-radius:18px;padding:1rem 1.2rem;transition:border-color .3s, background .3s}
+.coords div:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+.coords b{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#ffb3b5;margin-bottom:.2rem}
+.pay{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.3rem}
+.pay span{font-size:.78rem;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:.15rem .6rem}
+.contact .btn{background:#fff;color:var(--encre);border-color:#fff;box-shadow:3px 3px 0 var(--rouge)}
+
+footer{background:#0b0b0b;color:#bbb;font:400 .8rem/1.6 var(--font-ui);padding:2rem 0}
+footer p+p{margin-top:.6rem}
+
+@media (max-width:900px){
+  .hero-grid,.prod-grid,.basket-grid,.contact-grid{grid-template-columns:1fr}
+  .where{grid-template-columns:1fr}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:#fff;padding:1rem 16px;border-bottom:2px solid var(--encre)}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nav .btn.call{display:none}
+  .months{grid-template-columns:repeat(6,1fr)}
+  .row{grid-template-columns:90px 1fr;}
+  .state{grid-column:1/-1;text-align:left;margin-top:-.5rem}
+  .summary{position:static}
+  .sticker{width:92px;height:92px;font-size:.66rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["LocalBusiness","Store"],
+  "name":"Les Saveurs de la Pépinière",
+  "description":"Producteurs de petits fruits en Agriculture Biologique : confitures, nectars, coulis et purée de fruits.",
+  "image":"https://static.apidae-tourisme.com/filestore/objets-touristiques/images/119/21/36115831.jpg",
+  "logo":"https://static.apidae-tourisme.com/filestore/objets-touristiques/images/120/21/36115832.jpg",
+  "telephone":"+33674727481",
+  "email":"saveursdelapepiniere@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"12 lieu-dit la Pépinière Bas","postalCode":"42830","addressLocality":"La Tuilière","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["La Tuilière","Monts de la Madeleine","Roannais"],
+  "paymentAccepted":"Carte bancaire, chèque, espèces, paiement sans contact"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Les Saveurs de la Pépinière</b> — non officielle, contenus à valider par le producteur</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Les Saveurs de la Pépinière — accueil">
+      <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/120/21/36115832.jpg" alt="Logo Les Saveurs de la Pépinière">
+      <span>Les Saveurs<br>de la Pépinière</span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#produits">Nos produits</a></li>
+      <li><a href="#calendrier">Le calendrier</a></li>
+      <li><a href="#panier">Réserver mes pots</a></li>
+      <li><a href="#trouver">Où nous trouver</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn call" href="tel:+33674727481">06 74 72 74 81</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker"><i></i> Producteur bio · La Tuilière (Loire)</span>
+      <h1 class="hand" aria-label="Les Saveurs de la Pépinière">
+        <span class="w" style="animation-delay:.05s">Les</span> <span class="w" style="animation-delay:.15s">Saveurs</span><br>
+        <span class="w" style="animation-delay:.25s">de</span> <span class="w" style="animation-delay:.32s">la</span> <span class="w" style="animation-delay:.42s">Pépinière</span>
+      </h1>
+      <p class="lead">Producteurs de petits fruits en Agriculture Biologique. Retrouvez le bon goût des fruits rouges toute l'année avec les confitures, nectars, coulis et purée de fruits.</p>
+      <div class="ctas">
+        <a class="btn" href="#panier">Réserver mes pots</a>
+        <a class="btn ghost" href="#calendrier">Quels fruits ce mois-ci ?</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="sticker"><div><b>Bio</b>Agriculture<br>Biologique</div></div>
+      <svg viewBox="0 0 500 500">
+        <!-- cercle d'encre repris du logo -->
+        <path class="ink" style="--len:1500" d="M60 160 C 120 40, 360 20, 440 150 C 520 290, 420 470, 250 470 C 130 470, 60 400, 50 330"/>
+        <!-- main -->
+        <path class="ink" style="--len:900;animation-delay:1s" d="M70 360 C 140 340, 250 345, 330 352 C 380 356, 400 380, 360 392 C 330 400, 270 398, 250 400 M 120 430 C 200 425, 300 420, 380 400 C 410 392, 420 372, 400 360"/>
+        <!-- baies -->
+        <g id="berries"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Confiture de cassis</span><span>Confiture de rhubarbe</span><span>Confiture de fraise-rhubarbe</span><span>Confiture de framboises</span><span>Confiture de fraise</span><span>Nectars</span><span>Coulis</span><span>Purée de fruits</span>
+    <span>Confiture de cassis</span><span>Confiture de rhubarbe</span><span>Confiture de fraise-rhubarbe</span><span>Confiture de framboises</span><span>Confiture de fraise</span><span>Nectars</span><span>Coulis</span><span>Purée de fruits</span>
+  </div>
+</div>
+
+<section id="produits" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Nos produits</span>
+      <h2 class="hand">Le bon goût des fruits rouges, toute l'année</h2>
+      <p>Des petits fruits cultivés en Agriculture Biologique à La Tuilière, et tout ce qu'on en tire quand la saison est passée.</p>
+    </div>
+    <div class="prod-grid">
+      <figure class="photo-card reveal">
+        <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/119/21/36115831.jpg" alt="Pots de confitures Les Saveurs de la Pépinière : cassis, rhubarbe, fraise-rhubarbe, framboises, fraise" loading="lazy">
+        <figcaption class="cap">Photo du producteur (fiche Roannais Tourisme)</figcaption>
+      </figure>
+      <div class="families">
+        <article class="fam reveal">
+          <svg class="ic" viewBox="0 0 52 52" aria-hidden="true"><rect x="12" y="14" width="28" height="32" rx="7" fill="#E3161B" stroke="#141414" stroke-width="2.5"/><rect x="11" y="7" width="30" height="9" rx="3" fill="#141414"/><rect x="15" y="24" width="22" height="11" rx="2" fill="#fff"/></svg>
+          <div><h3>Confitures</h3><p>Les parfums visibles sur les pots :</p>
+            <div class="parfums"><span>Cassis</span><span>Rhubarbe</span><span>Fraise-rhubarbe</span><span>Framboises</span><span>Fraise</span></div></div>
+        </article>
+        <article class="fam reveal">
+          <svg class="ic" viewBox="0 0 52 52" aria-hidden="true"><path d="M19 6h14v8l5 8v24H14V22l5-8z" fill="#2E2F4F" stroke="#141414" stroke-width="2.5" stroke-linejoin="round"/><rect x="17" y="28" width="18" height="10" rx="2" fill="#fff"/></svg>
+          <div><h3>Nectars</h3><p>Le fruit à boire, pour retrouver la saison au petit-déjeuner.</p></div>
+        </article>
+        <article class="fam reveal">
+          <svg class="ic" viewBox="0 0 52 52" aria-hidden="true"><path d="M10 22h32c0 12-7 20-16 20S10 34 10 22z" fill="#fff" stroke="#141414" stroke-width="2.5"/><path d="M16 24c4 6 16 6 20 0" stroke="#E8124F" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="26" cy="13" r="5" fill="#E8124F" stroke="#141414" stroke-width="2"/></svg>
+          <div><h3>Coulis</h3><p>Pour napper un dessert, un yaourt, une glace.</p></div>
+        </article>
+        <article class="fam reveal">
+          <svg class="ic" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="28" r="15" fill="#2F6FA8" stroke="#141414" stroke-width="2.5"/><circle cx="26" cy="28" r="4" fill="#141414"/><path d="M26 13c0-4 3-7 7-7" stroke="#141414" stroke-width="2.5" fill="none"/></svg>
+          <div><h3>Purée de fruits</h3><p>Le fruit tel quel, prêt pour la pâtisserie ou les plus petits.</p></div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calendrier" class="sec cal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Le calendrier des fruits</span>
+      <h2 class="hand">Qu'est-ce qui se cueille ce mois-ci ?</h2>
+      <p>Choisissez un mois : le calendrier montre les fruits frais de saison, et rappelle que les pots, eux, sont là toute l'année.</p>
+    </div>
+    <div class="cal-box reveal">
+      <div class="months" role="group" aria-label="Choisir un mois"></div>
+      <div class="rows"></div>
+      <p class="cal-msg" role="status" aria-live="polite"></p>
+      <p class="cal-note">Calendrier indicatif établi pour la maquette, à ajuster par le producteur selon ses parcelles et l'altitude des Monts de la Madeleine.</p>
+    </div>
+  </div>
+</section>
+
+<section id="panier" class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Réserver mes pots</span>
+      <h2 class="hand">Composez votre panier, on vous le met de côté</h2>
+      <p>Choisissez vos pots, indiquez où vous préférez les récupérer : votre demande part directement par mail au producteur, qui vous confirme la disponibilité et le prix.</p>
+    </div>
+    <div class="basket-grid">
+      <div class="items" id="items"></div>
+      <aside class="summary reveal" aria-labelledby="sumtitle">
+        <h3 id="sumtitle">Mon panier</h3>
+        <ul id="sumlist"><li style="border:0;color:#777">Aucun pot pour l'instant.</li></ul>
+        <label for="retrait">Retrait</label>
+        <select id="retrait">
+          <option>À convenir avec le producteur</option>
+          <option>À La Tuilière</option>
+          <option>Sur un marché</option>
+        </select>
+        <label for="nom">Votre nom</label>
+        <input id="nom" autocomplete="name" placeholder="Prénom Nom">
+        <label for="tel">Votre téléphone</label>
+        <input id="tel" autocomplete="tel" placeholder="06 …">
+        <label for="msg">Un mot (cadeau, date…)</label>
+        <textarea id="msg" rows="2" placeholder="Ex. : panier pour offrir"></textarea>
+        <a class="btn" id="send" href="#">Envoyer ma demande</a>
+        <p class="fine">Aucun paiement en ligne : la demande s'ouvre dans votre messagerie. Carte Cadeau 100 % Roannaise acceptée.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="trouver" class="sec cal">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Où nous trouver</span>
+      <h2 class="hand">Nos produits près de chez vous</h2>
+    </div>
+    <div class="where">
+      <article class="card reveal">
+        <span class="tag">Point de vente</span>
+        <h3>Office de Tourisme – Roannais Tourisme</h3>
+        <p>À Roanne : les produits y sont proposés dans la boutique de l'Office de Tourisme.</p>
+      </article>
+      <article class="card reveal">
+        <span class="tag">Marchés</span>
+        <h3>Sur les marchés</h3>
+        <p>Vente directe sur les marchés de la région.</p>
+        <span class="todo">Liste des marchés et jours à fournir</span>
+      </article>
+      <article class="card reveal">
+        <span class="tag">Idée cadeau</span>
+        <h3>Carte Cadeau 100 % Roannaise</h3>
+        <p>Partenaire de la carte cadeau de Roannais Tourisme : une façon simple d'offrir des produits locaux.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="sec contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="kicker" style="color:var(--encre)">Contact</span>
+      <h2 class="hand" style="font-size:clamp(2rem,4.2vw,3.2rem);margin:.8rem 0">Une question, une commande ?</h2>
+      <p>Appelez ou écrivez, on vous répond avec plaisir.</p>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.4rem">
+        <a class="btn" href="tel:+33674727481">Appeler</a>
+        <a class="btn" href="mailto:saveursdelapepiniere@gmail.com">Écrire un mail</a>
+      </div>
+    </div>
+    <div class="coords reveal">
+      <div><b>Adresse</b>12 lieu-dit la Pépinière Bas, 42830 La Tuilière<br><a href="https://www.google.com/maps/search/?api=1&query=12+lieu-dit+la+P%C3%A9pini%C3%A8re+Bas+42830+La+Tuili%C3%A8re" target="_blank" rel="noopener">Itinéraire</a></div>
+      <div><b>Téléphone</b><a href="tel:+33674727481">06 74 72 74 81</a></div>
+      <div><b>Mail</b><a href="mailto:saveursdelapepiniere@gmail.com">saveursdelapepiniere@gmail.com</a></div>
+      <div><b>Moyens de paiement</b><div class="pay"><span>Carte bancaire</span><span>Sans contact</span><span>Chèque</span><span>Espèces</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="count-bubble" id="bubble" href="#panier" aria-live="polite">🧺 <span id="bcount">0</span> pot(s)</a>
+
+<footer>
+  <div class="wrap">
+    <p>© Les Saveurs de la Pépinière — La Tuilière (Loire). Maquette de démonstration, non contractuelle.</p>
+    <p>Photos : le logo et la photo des pots sont ceux publiés par le producteur sur sa fiche Roannais Tourisme ; aucune autre photo n'a été utilisée, les pictogrammes sont dessinés pour la maquette. Couleurs relevées sur le logo, approchées et ajustables. Calendrier des fruits indicatif. Les prix ne sont pas affichés : ils restent à fournir par le producteur. Liste des marchés à compléter.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Header + menu */
+  const header = document.querySelector('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), {passive:true});
+  const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+
+  /* Baies du hero, dans l'esprit du logo */
+  const C = {rouge:'#E3161B', fram:'#E8124F', myr:'#2F6FA8', nuit:'#2E2F4F', gro:'#F2401C'};
+  const pile = [
+    [140,318,22,'gro'],[188,322,24,'gro'],[236,326,22,'nuit'],[284,322,26,'rouge'],[330,326,24,'rouge'],
+    [160,282,22,'fram'],[206,286,21,'myr'],[250,288,23,'nuit'],[296,284,22,'fram'],[340,290,20,'gro'],
+    [182,246,20,'myr'],[226,250,22,'fram'],[270,246,21,'myr'],[314,252,22,'rouge'],
+    [208,212,19,'nuit'],[250,210,20,'myr'],[292,214,19,'fram'],[250,176,18,'rouge']
+  ];
+  const g = document.getElementById('berries'), ns = 'http://www.w3.org/2000/svg';
+  pile.forEach(([x,y,r,c],i) => {
+    const grp = document.createElementNS(ns,'g');
+    grp.setAttribute('class','berry float');
+    grp.style.animationDelay = (1.2 + i*0.08) + 's, ' + (2.5 + (i%5)*0.3) + 's';
+    const circ = document.createElementNS(ns,'circle');
+    circ.setAttribute('cx',x); circ.setAttribute('cy',y); circ.setAttribute('r',r);
+    circ.setAttribute('fill',C[c]); circ.setAttribute('stroke','#141414'); circ.setAttribute('stroke-width','3');
+    grp.appendChild(circ);
+    if (c==='gro') for (let k=-1;k<=1;k++){ const p=document.createElementNS(ns,'path'); p.setAttribute('d',`M${x+k*r*.45} ${y-r*.85} Q ${x+k*r*.75} ${y} ${x+k*r*.45} ${y+r*.85}`); p.setAttribute('stroke','#141414'); p.setAttribute('stroke-width','1.6'); p.setAttribute('fill','none'); grp.appendChild(p); }
+    if (c==='myr'||c==='nuit'){ const s=document.createElementNS(ns,'circle'); s.setAttribute('cx',x); s.setAttribute('cy',y-r*.35); s.setAttribute('r',r*.22); s.setAttribute('fill','none'); s.setAttribute('stroke','#141414'); s.setAttribute('stroke-width','1.8'); grp.appendChild(s); }
+    if (c==='rouge'||c==='fram') for (let k=0;k<5;k++){ const d=document.createElementNS(ns,'circle'); d.setAttribute('cx',x+Math.cos(k*1.3)*r*.5); d.setAttribute('cy',y+Math.sin(k*1.3)*r*.5); d.setAttribute('r',1.6); d.setAttribute('fill','#141414'); grp.appendChild(d); }
+    g.appendChild(grp);
+  });
+  if (!reduce) {
+    const art = document.querySelector('.hero-art');
+    art.addEventListener('pointermove', e => {
+      const b = art.getBoundingClientRect(), dx = (e.clientX-b.left)/b.width-.5, dy = (e.clientY-b.top)/b.height-.5;
+      g.style.transform = `translate(${dx*14}px, ${dy*10}px)`; g.style.transition = 'transform .4s ease-out';
+    });
+    art.addEventListener('pointerleave', () => g.style.transform = '');
+  }
+
+  /* Reveal */
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }), {threshold:.15}) : null;
+  document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i%4)*0.08+'s'; io ? io.observe(el) : el.classList.add('in'); });
+
+  /* Calendrier (indicatif) — mois 0 à 11 */
+  const MOIS = ['Janv.','Févr.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'];
+  const FRUITS = [
+    {n:'Rhubarbe', c:C.myr, from:4, to:6},
+    {n:'Fraise',   c:C.rouge, from:5, to:7},
+    {n:'Cassis',   c:C.nuit, from:6, to:7},
+    {n:'Framboise',c:C.fram, from:6, to:8}
+  ];
+  const monthsEl = document.querySelector('.months'), rowsEl = document.querySelector('.rows'), msg = document.querySelector('.cal-msg');
+  MOIS.forEach((m,i) => { const b=document.createElement('button'); b.textContent=m; b.dataset.m=i; b.setAttribute('aria-pressed','false'); monthsEl.appendChild(b); });
+  FRUITS.forEach(f => {
+    const r = document.createElement('div'); r.className='row';
+    r.innerHTML = `<span class="name">${f.n}</span><div class="bar"><span class="fill" style="background:${f.c};left:${f.from/12*100}%;width:${(f.to-f.from+1)/12*100}%"></span><span class="cursor"></span></div><span class="state"></span>`;
+    rowsEl.appendChild(r); f.el = r;
+  });
+  function setMonth(m){
+    monthsEl.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', +b.dataset.m===m));
+    const fresh = [];
+    FRUITS.forEach(f => {
+      f.el.querySelector('.cursor').style.left = `calc(${(m+.5)/12*100}% - 1.5px)`;
+      const on = m>=f.from && m<=f.to, st = f.el.querySelector('.state');
+      st.textContent = on ? 'Fruit frais' : 'En pot'; st.className = 'state ' + (on?'on':'pot');
+      f.el.querySelector('.fill').style.opacity = on ? 1 : .35;
+      if (on) fresh.push(f.n.toLowerCase());
+    });
+    msg.textContent = fresh.length ? `En ${MOIS[m].replace('.','')} : ${fresh.join(', ')} en frais (selon la récolte).` : `En ${MOIS[m].replace('.','')} : place aux pots — confitures, nectars, coulis et purées.`;
+  }
+  monthsEl.addEventListener('click', e => { if (e.target.dataset.m) setMonth(+e.target.dataset.m); });
+  setMonth(new Date().getMonth());
+
+  /* Panier de réservation */
+  const PRODUITS = [
+    {id:'cassis', n:'Confiture de cassis', c:C.nuit, s:'Confiture'},
+    {id:'rhubarbe', n:'Confiture de rhubarbe', c:'#B7A23A', s:'Confiture'},
+    {id:'fraise-rhubarbe', n:'Confiture de fraise-rhubarbe', c:'#B8452C', s:'Confiture'},
+    {id:'framboises', n:'Confiture de framboises', c:C.fram, s:'Confiture'},
+    {id:'fraise', n:'Confiture de fraise', c:C.rouge, s:'Confiture'},
+    {id:'nectar', n:'Nectar', c:C.gro, s:'Parfum selon disponibilité'},
+    {id:'coulis', n:'Coulis', c:'#C2185B', s:'Parfum selon disponibilité'},
+    {id:'puree', n:'Purée de fruits', c:C.myr, s:'Parfum selon disponibilité'}
+  ];
+  const q = {}; const itemsEl = document.getElementById('items');
+  PRODUITS.forEach(p => {
+    q[p.id]=0;
+    const el = document.createElement('article'); el.className='item reveal in';
+    el.innerHTML = `<svg class="jar" viewBox="0 0 62 76" aria-hidden="true"><rect x="8" y="16" width="46" height="56" rx="12" fill="${p.c}" stroke="#141414" stroke-width="2.5"/><rect x="6" y="5" width="50" height="13" rx="4" fill="#141414"/><rect x="13" y="32" width="36" height="20" rx="3" fill="#fff"/><circle cx="31" cy="42" r="4" fill="${p.c}"/></svg>
+      <h3>${p.n}</h3><small>${p.s}</small>
+      <div class="qty"><button type="button" aria-label="Retirer un pot : ${p.n}" data-d="-1">−</button><output aria-live="polite">0</output><button type="button" aria-label="Ajouter un pot : ${p.n}" data-d="1">+</button></div>`;
+    el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      q[p.id] = Math.max(0, q[p.id] + +b.dataset.d);
+      el.querySelector('output').textContent = q[p.id]; el.classList.toggle('has', q[p.id]>0); render(+b.dataset.d>0);
+    }));
+    itemsEl.appendChild(el);
+  });
+  const list = document.getElementById('sumlist'), bubble = document.getElementById('bubble'), bcount = document.getElementById('bcount'), send = document.getElementById('send');
+  function render(added){
+    const chosen = PRODUITS.filter(p => q[p.id]>0), total = chosen.reduce((s,p)=>s+q[p.id],0);
+    list.innerHTML = chosen.length ? chosen.map(p=>`<li><span>${p.n}</span><b>× ${q[p.id]}</b></li>`).join('') : '<li style="border:0;color:#777">Aucun pot pour l\'instant.</li>';
+    bcount.textContent = total; bubble.classList.toggle('show', total>0);
+    if (added){ bubble.classList.remove('bump'); void bubble.offsetWidth; bubble.classList.add('bump'); }
+  }
+  send.addEventListener('click', e => {
+    e.preventDefault();
+    const chosen = PRODUITS.filter(p => q[p.id]>0);
+    if (!chosen.length){ list.innerHTML = '<li style="border:0;color:#E3161B">Ajoutez au moins un pot.</li>'; return; }
+    const body = `Bonjour,\n\nJe souhaite réserver :\n${chosen.map(p=>`- ${p.n} x ${q[p.id]}`).join('\n')}\n\nRetrait : ${document.getElementById('retrait').value}\nNom : ${document.getElementById('nom').value}\nTéléphone : ${document.getElementById('tel').value}\n${document.getElementById('msg').value}\n\nMerci de me confirmer la disponibilité et le prix.`;
+    location.href = 'mailto:saveursdelapepiniere@gmail.com?subject=' + encodeURIComponent('Réservation de pots') + '&body=' + encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
