@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Boucherie du Moulin à Vent — Boucherie à Balbigny | Ferme, distributeur, boutique</title>
+<meta name="description" content="Boucherie à Balbigny tenue par Alix et Loïc Gardette, éleveurs au Moulin à Vent : saucisses, merguez de porc, côtes de veau, grillades et charcuterie. Préparez votre commande en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — à ajuster en quelques lignes
+   Aucune identité visuelle n'a été trouvée en ligne (pas de site,
+   pas de logo publié). Couleurs PROPOSÉES, inspirées des codes
+   d'une boucherie traditionnelle (carrelage blanc, rouge, paille).
+   Remplacer ici le jour où l'enseigne fournit ses vrais codes.
+   ========================================================== */
+:root{
+  --rouge:#b3202a;        /* rouge boucherie (accent principal) */
+  --rouge-fonce:#7d1219;
+  --paille:#e2b04a;       /* jaune paille (rappel de la ferme) */
+  --encre:#1d2329;        /* texte, fonds sombres */
+  --ardoise:#2c353d;
+  --blanc:#ffffff;
+  --carrelage:#f3f5f6;    /* blanc carrelage, légèrement froid */
+  --gris:#5d6770;
+  --trait:#dde2e5;
+  --titre:'Oswald', 'Arial Narrow', sans-serif;
+  --texte:'Inter', system-ui, -apple-system, sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--blanc);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--titre);font-weight:600;line-height:1.05;letter-spacing:.01em;text-transform:uppercase}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--paille);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:#cfd6db;font-size:.78rem;text-align:center;padding:7px 16px}
+.demo strong{color:var(--paille);font-weight:600}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--trait);box-shadow:0 6px 24px rgba(29,35,41,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:44px;height:44px;flex:none}
+.brand b{display:block;font-family:var(--titre);font-size:1.12rem;font-weight:600;text-transform:uppercase;letter-spacing:.03em;line-height:1}
+.brand small{display:block;font-size:.72rem;color:var(--gris);letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+.menu{display:flex;gap:26px;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.93rem;position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--rouge);transition:right .35s var(--ease)}
+.menu a:hover::after{right:0}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:600 .95rem var(--texte);text-decoration:none;padding:13px 22px;border-radius:999px;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 8px 20px rgba(179,32,42,.25)}
+.btn-rouge:hover{background:var(--rouge-fonce);transform:translateY(-2px)}
+.btn-ligne{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+.btn-ligne:hover{transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:46px;height:46px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+
+/* Moulin animé (élément signature) */
+.ailes{transform-origin:50px 42px;animation:tourne 14s linear infinite}
+@keyframes tourne{to{transform:rotate(360deg)}}
+
+/* Héros */
+.hero{position:relative;background:var(--encre);color:#fff;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:min(78vh,720px);padding:70px 0 90px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--paille);font-weight:600}
+.kicker::before{content:"";width:28px;height:2px;background:var(--paille)}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.2vw,5.4rem);margin:18px 0 22px}
+.hero h1 em{font-style:normal;color:var(--paille)}
+.hero h1 .ligne{display:block;overflow:hidden}
+.hero h1 .ligne span{display:inline-block;transform:translateY(105%);animation:monte .9s var(--ease) forwards}
+.hero h1 .ligne:nth-child(2) span{animation-delay:.12s}
+.hero h1 .ligne:nth-child(3) span{animation-delay:.24s}
+@keyframes monte{to{transform:none}}
+.hero p.lead{font-size:1.08rem;color:#d3d9dd;max-width:540px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero .btn-ligne{color:#fff}
+.hero-visuel{position:relative}
+.hero-photo{border-radius:22px;overflow:hidden;aspect-ratio:4/5;position:relative;transform:rotate(2deg);box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.2s var(--ease)}
+.hero-photo:hover img{transform:scale(1.02)}
+.illu{position:absolute;left:10px;bottom:10px;background:rgba(29,35,41,.78);color:#fff;font-size:.68rem;letter-spacing:.04em;padding:4px 9px;border-radius:6px;pointer-events:none}
+.hero-moulin{position:absolute;right:-30px;top:-46px;width:150px;color:var(--paille);opacity:.95}
+.badge-ouv{position:absolute;left:-18px;bottom:40px;background:#fff;color:var(--encre);border-radius:14px;padding:14px 16px;box-shadow:0 18px 40px rgba(0,0,0,.25);font-size:.85rem;max-width:230px}
+.badge-ouv b{display:flex;align-items:center;gap:8px;font-family:var(--titre);text-transform:uppercase;font-size:1rem}
+.point{width:10px;height:10px;border-radius:50%;background:#2e9d5b;box-shadow:0 0 0 0 rgba(46,157,91,.6);animation:pulse 2s infinite}
+.point.ferme{background:var(--rouge);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(46,157,91,0)}100%{box-shadow:0 0 0 0 rgba(46,157,91,0)}}
+.vague{position:absolute;bottom:-1px;left:0;width:100%;height:60px;color:var(--blanc)}
+
+/* Bandeau défilant */
+.defile{background:var(--rouge);color:#fff;overflow:hidden;padding:16px 0;border-block:4px solid var(--rouge-fonce)}
+.defile-piste{display:flex;gap:46px;width:max-content;animation:defile 28s linear infinite;font-family:var(--titre);text-transform:uppercase;font-size:1.35rem;letter-spacing:.06em}
+.defile-piste span{display:flex;align-items:center;gap:46px}
+.defile-piste span::after{content:"✳";color:var(--paille);font-size:1rem}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:96px 0}
+.tete{max-width:720px;margin-bottom:46px}
+.tete h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.3rem);margin:12px 0 14px}
+.tete p{color:var(--gris);font-size:1.04rem}
+.kicker.sombre{color:var(--rouge)}
+.kicker.sombre::before{background:var(--rouge)}
+
+/* Trois points de vente */
+.trois{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.lieu{position:relative;border:1px solid var(--trait);border-radius:var(--r);padding:30px 26px 26px;background:#fff;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s;overflow:hidden}
+.lieu:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(29,35,41,.10);border-color:transparent}
+.lieu .num{font-family:var(--titre);font-size:3.4rem;color:var(--carrelage);position:absolute;right:18px;top:6px;line-height:1;transition:color .35s}
+.lieu:hover .num{color:#f6dfe0}
+.lieu .ico{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;background:var(--carrelage);color:var(--rouge);margin-bottom:18px}
+.lieu h3{font-size:1.4rem;margin-bottom:8px}
+.lieu p{color:var(--gris);font-size:.95rem}
+.lieu .adr{margin-top:14px;font-weight:600;font-size:.92rem;color:var(--encre)}
+.verif{display:inline-block;margin-top:10px;font-size:.72rem;color:#8a5a00;background:#fbf1d9;border-radius:6px;padding:3px 8px}
+
+/* Produits */
+.carreaux{background:var(--carrelage);background-image:linear-gradient(#e6eaec 1px,transparent 1px),linear-gradient(90deg,#e6eaec 1px,transparent 1px);background-size:44px 22px}
+.produits{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.prod{position:relative;border-radius:var(--r);overflow:hidden;background:var(--encre);color:#fff;min-height:270px;display:flex;align-items:flex-end;isolation:isolate}
+.prod img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--ease)}
+.prod::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(29,35,41,0) 30%,rgba(29,35,41,.88));z-index:-1}
+.prod:hover img{transform:scale(1.07)}
+.prod .txt{padding:22px}
+.prod h3{font-size:1.5rem}
+.prod p{font-size:.9rem;color:#dfe4e7;margin-top:4px}
+.prod .illu{top:10px;bottom:auto}
+.p1{grid-column:span 7;min-height:340px}.p2{grid-column:span 5;min-height:340px}
+.p3,.p4,.p5{grid-column:span 4}
+.note-prod{margin-top:22px;font-size:.88rem;color:var(--gris)}
+
+/* Outil commande */
+.outil{background:var(--encre);color:#fff;position:relative;overflow:hidden}
+.outil .tete p{color:#b9c2c8}
+.outil .kicker{color:var(--paille)}
+.atelier{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start}
+.carte{background:var(--ardoise);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px}
+.etape{display:flex;align-items:center;gap:12px;font-family:var(--titre);text-transform:uppercase;font-size:1.15rem;margin-bottom:18px}
+.etape i{font-style:normal;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--paille);color:var(--encre);font-size:.95rem}
+.ligne-ctrl{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.ligne-ctrl label{font-size:.95rem}
+.ligne-ctrl small{display:block;color:#9aa6ae;font-size:.78rem}
+.compteur{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border-radius:999px;padding:4px}
+.compteur button{width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:#fff;font-size:1.2rem;cursor:pointer;transition:background .2s,transform .15s}
+.compteur button:hover{background:var(--rouge)}
+.compteur button:active{transform:scale(.9)}
+.compteur output{min-width:30px;text-align:center;font-family:var(--titre);font-size:1.25rem}
+.appetit{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0 4px}
+.appetit input{position:absolute;opacity:0;pointer-events:none}
+.appetit label{display:block;text-align:center;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:10px 6px;cursor:pointer;font-size:.86rem;transition:.2s}
+.appetit input:checked+label{background:var(--paille);color:var(--encre);border-color:var(--paille);font-weight:600}
+.appetit input:focus-visible+label{outline:3px solid var(--paille);outline-offset:2px}
+.choix{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.puce{position:relative}
+.puce input{position:absolute;opacity:0}
+.puce label{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:9px 14px;border:1px solid rgba(255,255,255,.18);cursor:pointer;font-size:.88rem;transition:.2s}
+.puce input:checked+label{background:#fff;color:var(--encre);border-color:#fff}
+.puce input:focus-visible+label{outline:3px solid var(--paille);outline-offset:2px}
+.resultat{margin-top:22px;background:rgba(0,0,0,.18);border-radius:14px;padding:18px}
+.resultat .total{font-family:var(--titre);font-size:2.6rem;color:var(--paille);line-height:1}
+.resultat .total small{font-size:1rem;color:#cfd6db;margin-left:6px}
+.barres{margin-top:14px;display:grid;gap:9px}
+.barre{display:grid;grid-template-columns:120px 1fr 74px;align-items:center;gap:10px;font-size:.86rem}
+.barre .jauge{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.barre .jauge span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--rouge),var(--paille));border-radius:99px;transition:width .6s var(--ease)}
+.barre b{text-align:right;font-weight:600}
+.mini{font-size:.76rem;color:#9aa6ae;margin-top:12px}
+.panier ul{list-style:none;display:grid;gap:8px;margin-bottom:14px;min-height:60px}
+.panier li{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;font-size:.92rem;animation:pop .35s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}}
+.panier li button{background:none;border:0;color:#9aa6ae;cursor:pointer;font-size:1.1rem;width:32px;height:32px;border-radius:50%}
+.panier li button:hover{color:#fff;background:var(--rouge)}
+.vide{color:#9aa6ae;font-size:.9rem;padding:10px 0}
+.ajout{display:grid;grid-template-columns:1fr 92px 84px auto;gap:8px;margin-bottom:16px}
+select,input[type=text],input[type=number],textarea{font:inherit;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 12px;min-height:44px;width:100%}
+select option{color:var(--encre)}
+textarea{min-height:70px;resize:vertical}
+.jours{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.jours button{border:1px solid rgba(255,255,255,.18);background:transparent;color:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-size:.85rem;line-height:1.2;transition:.2s}
+.jours button small{display:block;color:#9aa6ae;font-size:.72rem}
+.jours button[aria-pressed=true]{background:var(--paille);color:var(--encre);border-color:var(--paille)}
+.jours button[aria-pressed=true] small{color:var(--encre)}
+.jours button:disabled{opacity:.35;cursor:not-allowed}
+.envoi{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.envoi .btn-ligne{color:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--paille);color:var(--encre);font-weight:600;padding:12px 20px;border-radius:999px;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .4s var(--ease);z-index:90}
+.toast.vu{transform:translate(-50%,0)}
+
+/* Ferme / histoire */
+.histoire{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.histoire .photo{border-radius:22px;overflow:hidden;position:relative;aspect-ratio:1/1}
+.histoire .photo img{width:100%;height:100%;object-fit:cover}
+.frise{list-style:none;position:relative;margin-top:26px;padding-left:30px}
+.frise::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--trait)}
+.frise .avance{position:absolute;left:8px;top:6px;width:2px;height:0;background:var(--rouge);transition:height 1.4s var(--ease)}
+.frise li{position:relative;padding-bottom:24px}
+.frise li::before{content:"";position:absolute;left:-28px;top:6px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--rouge)}
+.frise time{font-family:var(--titre);text-transform:uppercase;color:var(--rouge);letter-spacing:.05em}
+.frise h3{font-size:1.2rem;margin:2px 0 4px}
+.frise p{color:var(--gris);font-size:.95rem}
+
+/* Infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.bloc{border:1px solid var(--trait);border-radius:18px;padding:30px;background:#fff}
+.bloc h3{font-size:1.5rem;margin-bottom:16px}
+.horaires{width:100%;border-collapse:collapse;font-size:.95rem}
+.horaires td{padding:9px 0;border-bottom:1px solid var(--trait)}
+.horaires td:last-child{text-align:right;font-weight:500}
+.horaires tr.auj td{color:var(--rouge);font-weight:700}
+.horaires tr.ferme td:last-child{color:var(--gris);font-weight:400}
+.coord{display:grid;gap:14px;font-size:.98rem}
+.coord a{text-decoration:none;font-weight:600}
+.coord a:hover{color:var(--rouge)}
+.coord .l{display:flex;gap:12px;align-items:flex-start}
+.coord svg{flex:none;color:var(--rouge);margin-top:3px}
+.afournir{margin-top:18px;border:2px dashed var(--trait);border-radius:14px;aspect-ratio:16/7;display:grid;place-items:center;text-align:center;color:var(--gris);font-size:.88rem;padding:16px;background:var(--carrelage)}
+
+/* CTA final */
+.final{background:var(--rouge);color:#fff;text-align:center;padding:84px 0;position:relative;overflow:hidden}
+.final h2{font-size:clamp(2rem,1.3rem + 3vw,3.6rem)}
+.final p{color:#f6d5d7;max-width:560px;margin:14px auto 28px}
+.final .btn{background:#fff;color:var(--rouge)}
+.final .btn-ligne{background:transparent;color:#fff}
+.final svg.fond{position:absolute;right:-60px;bottom:-60px;width:320px;opacity:.12;color:#fff}
+
+footer{background:var(--encre);color:#aeb8bf;padding:46px 0 30px;font-size:.86rem}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;margin-bottom:28px}
+footer b{color:#fff;font-family:var(--titre);text-transform:uppercase;font-weight:500;letter-spacing:.04em}
+footer a{text-decoration:none}
+footer .mention{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:.78rem;line-height:1.7}
+
+/* Barre d'appel mobile */
+.appel-mobile{display:none}
+
+/* Révélations au défilement */
+.rev{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rev.vu{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+@media (max-width:960px){
+  .menu{display:none;position:absolute;top:74px;left:0;right:0;background:#fff;flex-direction:column;padding:18px 16px;gap:4px;border-bottom:1px solid var(--trait)}
+  .menu.ouvert{display:flex}
+  .menu a{display:block;padding:12px 0}
+  .burger{display:block}
+  .nav .btn-rouge{display:none}
+  .hero-grid,.atelier,.histoire,.infos{grid-template-columns:1fr}
+  .hero-grid{padding:46px 0 80px}
+  .hero-visuel{max-width:420px;margin-inline:auto;width:100%}
+  .hero-moulin{width:110px;right:-6px;top:-36px}
+  .badge-ouv{left:0}
+  .trois{grid-template-columns:1fr}
+  .p1,.p2,.p3,.p4,.p5{grid-column:span 12;min-height:240px}
+  footer .cols{grid-template-columns:1fr}
+  section{padding:72px 0}
+}
+@media (max-width:600px){
+  .ajout{grid-template-columns:1fr 1fr}
+  .ajout select{grid-column:span 2}
+  .barre{grid-template-columns:96px 1fr 64px}
+  .appel-mobile{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:60;gap:8px}
+  .appel-mobile a{flex:1;justify-content:center}
+  body{padding-bottom:70px}
+  .carte{padding:22px 18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rev{opacity:1;transform:none}
+  .hero h1 .ligne span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ButcherShop",
+  "name":"La Boucherie du Moulin à Vent",
+  "address":{"@type":"PostalAddress","streetAddress":"19 rue de la République","postalCode":"42510","addressLocality":"Balbigny","addressCountry":"FR"},
+  "telephone":"+33782994564",
+  "email":"earlgardette@gmail.com",
+  "areaServed":"Balbigny",
+  "founder":[{"@type":"Person","name":"Loïc Gardette"},{"@type":"Person","name":"Alix Gardette"}],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"08:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Thursday","opens":"08:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"08:00","closes":"18:45"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"12:00"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <strong>proposition de site</strong> pour La Boucherie du Moulin à Vent · horaires et informations à confirmer</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="brand" href="#accueil" aria-label="La Boucherie du Moulin à Vent, accueil">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="48" fill="#b3202a"/>
+        <path d="M42 90 L46 48 H54 L58 90 Z" fill="#fff"/>
+        <path d="M40 50 L50 38 L60 50 Z" fill="#e2b04a"/>
+        <g class="ailes" fill="#fff">
+          <rect x="47.5" y="12" width="5" height="30" rx="1.5"/>
+          <rect x="47.5" y="42" width="5" height="30" rx="1.5" transform="rotate(90 50 42)"/>
+          <rect x="47.5" y="42" width="5" height="30" rx="1.5"/>
+          <rect x="47.5" y="12" width="5" height="30" rx="1.5" transform="rotate(90 50 42)"/>
+        </g>
+        <circle cx="50" cy="42" r="3.5" fill="#e2b04a"/>
+      </svg>
+      <span><b>Boucherie du Moulin à Vent</b><small>Balbigny · Loire</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#lieux">Où nous trouver</a></li>
+      <li><a href="#produits">Nos produits</a></li>
+      <li><a href="#commande">Préparer sa commande</a></li>
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#infos">Horaires &amp; contact</a></li>
+    </ul>
+    <a class="btn btn-rouge" href="tel:+33782994564">07 82 99 45 64</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero" style="padding:0">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Boucherie · Charcuterie · Balbigny</span>
+      <h1><span class="ligne"><span>La boucherie</span></span><span class="ligne"><span>de la ferme du</span></span><span class="ligne"><span><em>Moulin à Vent</em></span></span></h1>
+      <p class="lead">Alix et Loïc Gardette élèvent des porcs au Moulin à Vent, à Balbigny. Depuis décembre 2024, ils vous accueillent aussi dans leur boucherie, au 19 rue de la République.</p>
+      <div class="ctas">
+        <a class="btn btn-rouge" href="#commande">Préparer ma commande
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ligne" href="#infos">Horaires &amp; adresse</a>
+      </div>
+    </div>
+    <div class="hero-visuel">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1000&q=72&auto=format&fit=crop" alt="Assortiment de grillades, saucisses et brochettes" fetchpriority="high">
+        <span class="illu">Photo d'illustration</span>
+      </div>
+      <svg class="hero-moulin" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M43 98 L46 50 H54 L57 98 Z" fill="currentColor"/>
+        <path d="M41 52 L50 40 L59 52 Z" fill="currentColor"/>
+        <g class="ailes" id="ailesHero" fill="none" stroke="currentColor" stroke-width="3">
+          <path d="M50 42 L50 4 M44 8 H56 M44 18 H56 M44 28 H56"/>
+          <path d="M50 42 L50 4 M44 8 H56 M44 18 H56 M44 28 H56" transform="rotate(90 50 42)"/>
+          <path d="M50 42 L50 4 M44 8 H56 M44 18 H56 M44 28 H56" transform="rotate(180 50 42)"/>
+          <path d="M50 42 L50 4 M44 8 H56 M44 18 H56 M44 28 H56" transform="rotate(270 50 42)"/>
+        </g>
+        <circle cx="50" cy="42" r="4" fill="currentColor"/>
+      </svg>
+      <div class="badge-ouv" id="badgeOuv" aria-live="polite">
+        <b><span class="point" id="pointOuv"></span><span id="etatOuv">Boutique</span></b>
+        <span id="detailOuv">19 rue de la République</span>
+      </div>
+    </div>
+  </div>
+  <svg class="vague" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 V30 C240 0 480 0 720 24 C960 48 1200 50 1440 20 V60 Z" fill="currentColor"/></svg>
+</section>
+
+<div class="defile" aria-hidden="true">
+  <div class="defile-piste">
+    <span>Saucisses</span><span>Merguez de porc</span><span>Côtes de veau</span><span>Grillades</span><span>Charcuterie</span><span>Saucisses</span><span>Merguez de porc</span><span>Côtes de veau</span><span>Grillades</span><span>Charcuterie</span>
+  </div>
+</div>
+
+<section id="lieux">
+  <div class="wrap">
+    <div class="tete rev">
+      <span class="kicker sombre">Trois façons de nous trouver</span>
+      <h2>La boutique, la ferme, le marché</h2>
+      <p>La boucherie de la rue de la République, le distributeur installé à la ferme et le stand du samedi matin : tout est réuni ici, pour savoir où aller et quand.</p>
+    </div>
+    <div class="trois">
+      <article class="lieu rev">
+        <span class="num">01</span>
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M3 9h18M9 20v-6h6v6"/></svg></div>
+        <h3>La boucherie</h3>
+        <p>Ouverte depuis le 13 décembre 2024 au cœur de Balbigny : viande, charcuterie et conseils au comptoir.</p>
+        <p class="adr">19 rue de la République, 42510 Balbigny</p>
+      </article>
+      <article class="lieu rev d1">
+        <span class="num">02</span>
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h3M15 15h1"/></svg></div>
+        <h3>Le distributeur à la ferme</h3>
+        <p>Un distributeur installé au Moulin à Vent, présenté lors d'une porte ouverte en juin 2023 : saucisses, merguez de porc, côtes de veau, grillades.</p>
+        <p class="adr">Chemin du Moulin à Vent, Balbigny</p>
+        <span class="verif">Horaires d'accès à confirmer</span>
+      </article>
+      <article class="lieu rev d2">
+        <span class="num">03</span>
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10h18l-2-5H5zM4 10v10h16V10M8 14h8"/></svg></div>
+        <h3>Le marché du samedi</h3>
+        <p>Alix tient le stand de la ferme au marché du samedi matin de Balbigny, présent depuis octobre 2023.</p>
+        <p class="adr">Samedi matin · Balbigny</p>
+        <span class="verif">Présence actuelle à confirmer</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="produits" class="carreaux">
+  <div class="wrap">
+    <div class="tete rev">
+      <span class="kicker sombre">Au comptoir</span>
+      <h2>Ce que vous trouverez</h2>
+      <p>Les produits cités ici sont ceux présentés par la ferme lors de sa porte ouverte et ceux référencés pour la boucherie. La liste complète reste à compléter avec vous.</p>
+    </div>
+    <div class="produits">
+      <article class="prod p1 rev"><img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=1100&q=70&auto=format&fit=crop" alt="Planche de viandes crues et saucisses" loading="lazy"><span class="illu">Photo d'illustration</span><div class="txt"><h3>Saucisses &amp; merguez de porc</h3><p>Pour la poêle comme pour la grille.</p></div></article>
+      <article class="prod p2 rev d1"><img src="https://images.unsplash.com/photo-1602470520998-f4a52199a3d6?w=900&q=70&auto=format&fit=crop" alt="Pièces de viande crue au romarin" loading="lazy"><span class="illu">Photo d'illustration</span><div class="txt"><h3>Côtes de veau</h3><p>À poêler ou à griller.</p></div></article>
+      <article class="prod p3 rev"><img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=70&auto=format&fit=crop" alt="Grillades de porc" loading="lazy"><span class="illu">Photo d'illustration</span><div class="txt"><h3>Grillades</h3><p>Pour les beaux jours et les grandes tablées.</p></div></article>
+      <article class="prod p4 rev d1"><img src="https://images.unsplash.com/photo-1616631124348-c63521eb484c?w=800&q=70&auto=format&fit=crop" alt="Planche de charcuterie" loading="lazy"><span class="illu">Photo d'illustration</span><div class="txt"><h3>Charcuterie</h3><p>Celle qu'on a fait goûter à l'inauguration.</p></div></article>
+      <article class="prod p5 rev d2"><img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&q=70&auto=format&fit=crop" alt="Porcelet sur la paille" loading="lazy"><span class="illu">Photo d'illustration</span><div class="txt"><h3>L'élevage</h3><p>Des porcs élevés au Moulin à Vent.</p></div></article>
+    </div>
+    <p class="note-prod rev">Les photos de cette maquette sont des illustrations libres de droits : elles seront remplacées par vos propres photos (vitrine, produits, ferme).</p>
+  </div>
+</section>
+
+<section id="commande" class="outil">
+  <div class="wrap">
+    <div class="tete rev">
+      <span class="kicker">Préparer sa commande</span>
+      <h2>Un repas, un barbecue&nbsp;? On calcule pour vous.</h2>
+      <p>Indiquez le nombre de convives : l'outil propose les quantités, vous ajustez, puis vous envoyez la liste à la boucherie par SMS ou par mail, avec le jour de retrait. Rien à payer en ligne.</p>
+    </div>
+
+    <div class="atelier">
+      <div class="carte rev">
+        <div class="etape"><i>1</i>Vos convives</div>
+        <div class="ligne-ctrl"><label for="adultes">Adultes</label>
+          <div class="compteur"><button type="button" data-cible="adultes" data-pas="-1" aria-label="Retirer un adulte">−</button><output id="adultes">6</output><button type="button" data-cible="adultes" data-pas="1" aria-label="Ajouter un adulte">+</button></div></div>
+        <div class="ligne-ctrl"><label for="enfants">Enfants <small>moins de 12 ans</small></label>
+          <div class="compteur"><button type="button" data-cible="enfants" data-pas="-1" aria-label="Retirer un enfant">−</button><output id="enfants">2</output><button type="button" data-cible="enfants" data-pas="1" aria-label="Ajouter un enfant">+</button></div></div>
+
+        <div class="appetit" role="radiogroup" aria-label="Appétit">
+          <div><input type="radio" name="app" id="a1" value="0.8"><label for="a1">Petit appétit</label></div>
+          <div><input type="radio" name="app" id="a2" value="1" checked><label for="a2">Normal</label></div>
+          <div><input type="radio" name="app" id="a3" value="1.25"><label for="a3">Grosses fourchettes</label></div>
+        </div>
+
+        <div class="choix" aria-label="Produits souhaités">
+          <div class="puce"><input type="checkbox" id="c-sau" value="Saucisses" checked><label for="c-sau">Saucisses</label></div>
+          <div class="puce"><input type="checkbox" id="c-mer" value="Merguez de porc" checked><label for="c-mer">Merguez de porc</label></div>
+          <div class="puce"><input type="checkbox" id="c-veau" value="Côtes de veau"><label for="c-veau">Côtes de veau</label></div>
+          <div class="puce"><input type="checkbox" id="c-gri" value="Grillades de porc" checked><label for="c-gri">Grillades de porc</label></div>
+        </div>
+
+        <div class="resultat" aria-live="polite">
+          <div class="total" id="total">0 kg<small>de viande à prévoir</small></div>
+          <div class="barres" id="barres"></div>
+          <p class="mini">Repère indicatif d'environ 250 g de viande crue par adulte et 150 g par enfant pour un repas grillé. Le boucher ajustera selon les pièces.</p>
+          <div class="envoi"><button class="btn btn-rouge" type="button" id="versPanier">Ajouter ces quantités à ma liste</button></div>
+        </div>
+      </div>
+
+      <div class="carte panier rev d1">
+        <div class="etape"><i>2</i>Ma liste</div>
+        <ul id="liste"><li class="vide" id="vide">Votre liste est vide : utilisez le calculateur ou ajoutez un produit ci-dessous.</li></ul>
+        <div class="ajout">
+          <select id="ajProd" aria-label="Produit">
+            <option>Saucisses</option><option>Merguez de porc</option><option>Côtes de veau</option><option>Grillades de porc</option><option>Charcuterie</option><option>Autre (préciser en remarque)</option>
+          </select>
+          <input type="number" id="ajQte" min="1" value="1" aria-label="Quantité">
+          <select id="ajUnite" aria-label="Unité"><option>kg</option><option>pièce(s)</option></select>
+          <button class="btn btn-rouge" type="button" id="ajBtn" aria-label="Ajouter à la liste">+</button>
+        </div>
+
+        <div class="etape" style="margin-top:8px"><i>3</i>Retrait en boutique</div>
+        <div class="jours" id="jours" role="group" aria-label="Jour de retrait"></div>
+        <input type="text" id="nom" placeholder="Votre nom" aria-label="Votre nom" autocomplete="name">
+        <div style="height:8px"></div>
+        <textarea id="remarque" placeholder="Une remarque ? (épaisseur des côtes, nombre de pièces…)" aria-label="Remarque"></textarea>
+
+        <div class="envoi">
+          <a class="btn btn-rouge" id="sms" href="#">Envoyer par SMS</a>
+          <a class="btn btn-ligne" id="mail" href="#">Envoyer par mail</a>
+          <button class="btn btn-ligne" type="button" id="copier">Copier</button>
+        </div>
+        <p class="mini">La commande est confirmée par la boucherie. Jours proposés selon les horaires relevés en ligne, à confirmer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ferme">
+  <div class="wrap histoire">
+    <div class="photo rev">
+      <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&q=70&auto=format&fit=crop" alt="Prés et bâtiments de ferme en fin de journée" loading="lazy">
+      <span class="illu">Photo d'illustration — photo de la ferme à fournir</span>
+    </div>
+    <div>
+      <div class="rev">
+        <span class="kicker sombre">La ferme du Moulin à Vent</span>
+        <h2 style="font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin:12px 0 14px">De l'élevage au comptoir</h2>
+        <p style="color:var(--gris)">Au Moulin à Vent, à Balbigny, Alix et Loïc Gardette élèvent des porcs. Leurs produits sont d'abord passés par un distributeur à la ferme et par le marché, avant l'ouverture de la boucherie en centre-bourg.</p>
+      </div>
+      <ol class="frise" id="frise">
+        <span class="avance" id="avance" aria-hidden="true"></span>
+        <li class="rev"><time>Juin 2023</time><h3>Porte ouverte au distributeur</h3><p>Présentation des nouveautés : saucisses, merguez de porc, côtes de veau, grillades.</p></li>
+        <li class="rev d1"><time>Octobre 2023</time><h3>Premier marché du samedi</h3><p>Le stand de la ferme s'installe au marché de Balbigny.</p></li>
+        <li class="rev d2"><time>13 décembre 2024</time><h3>Ouverture de la boucherie</h3><p>Après quelques mois de travaux, inauguration rue de la République, dégustation de charcuterie à la clé.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="infos" class="carreaux">
+  <div class="wrap">
+    <div class="tete rev">
+      <span class="kicker sombre">Infos pratiques</span>
+      <h2>Horaires &amp; contact</h2>
+    </div>
+    <div class="infos">
+      <div class="bloc rev">
+        <h3>Horaires de la boutique</h3>
+        <table class="horaires" id="tabHoraires"><tbody></tbody></table>
+        <span class="verif">Horaires relevés sur un annuaire en ligne — à confirmer par la boucherie</span>
+      </div>
+      <div class="bloc rev d1">
+        <h3>Nous joindre</h3>
+        <div class="coord">
+          <div class="l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+            <div><b>Boucherie</b><br><a href="https://www.google.com/maps/search/?api=1&query=19+rue+de+la+R%C3%A9publique+42510+Balbigny" target="_blank" rel="noopener">19 rue de la République, 42510 Balbigny</a></div></div>
+          <div class="l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+            <div><a href="tel:+33782994564">07 82 99 45 64</a><br><a href="tel:+33767277041">07 67 27 70 41</a></div></div>
+          <div class="l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            <div><a href="mailto:earlgardette@gmail.com">earlgardette@gmail.com</a></div></div>
+          <div class="l"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18M6 21V10l6-5 6 5v11"/></svg>
+            <div><b>Ferme du Moulin à Vent</b><br>Chemin du Moulin à Vent, 42510 Balbigny</div></div>
+        </div>
+        <div class="afournir">Photo de la devanture<br>à fournir par la boucherie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <svg class="fond" viewBox="0 0 100 100" aria-hidden="true"><g class="ailes" fill="currentColor"><rect x="46" y="2" width="8" height="40"/><rect x="46" y="42" width="8" height="40"/><rect x="46" y="2" width="8" height="40" transform="rotate(90 50 42)"/><rect x="46" y="42" width="8" height="40" transform="rotate(90 50 42)"/></g></svg>
+  <div class="wrap rev">
+    <h2>Une fête, un barbecue, un dimanche en famille&nbsp;?</h2>
+    <p>Préparez votre liste en deux minutes et passez la récupérer à la boutique.</p>
+    <a class="btn" href="#commande">Préparer ma commande</a>
+    <a class="btn btn-ligne" href="tel:+33782994564" style="margin-left:8px">Appeler</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><b>La Boucherie du Moulin à Vent</b><p style="margin-top:8px">19 rue de la République<br>42510 Balbigny</p></div>
+      <div><b>Contact</b><p style="margin-top:8px"><a href="tel:+33782994564">07 82 99 45 64</a><br><a href="mailto:earlgardette@gmail.com">earlgardette@gmail.com</a></p></div>
+      <div><b>Plan du site</b><p style="margin-top:8px"><a href="#lieux">Où nous trouver</a><br><a href="#produits">Nos produits</a><br><a href="#commande">Préparer sa commande</a><br><a href="#infos">Horaires</a></p></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non mise en ligne pour le public. Aucune identité visuelle (logo, couleurs) n'ayant été trouvée en ligne, les couleurs et le pictogramme du moulin sont une proposition, ajustable en quelques minutes. Toutes les photos sont des illustrations libres de droits (Unsplash) à remplacer par celles de la boucherie et de la ferme ; la photo de la devanture reste à fournir. Horaires, présence au marché et accès au distributeur sont à confirmer. Les quantités du calculateur sont des repères indicatifs.</p>
+  </div>
+</footer>
+
+<div class="appel-mobile">
+  <a class="btn btn-rouge" href="tel:+33782994564">Appeler</a>
+  <a class="btn btn-ligne" style="background:#fff;color:var(--encre)" href="#commande">Commander</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* En-tête + menu mobile */
+  const header=$('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('#burger'),menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+  $$('#menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('ouvert');burger.setAttribute('aria-expanded',false)}));
+
+  /* Les ailes du moulin accélèrent quand on fait défiler */
+  if(!reduit){
+    const ailes=$$('.ailes');let angle=0,vitesse=0,dernier=scrollY;
+    ailes.forEach(a=>a.style.animation='none');
+    (function boucle(){
+      const d=Math.abs(scrollY-dernier);dernier=scrollY;
+      vitesse+=(Math.min(d,60)*0.12-vitesse)*0.08;
+      angle+=0.45+vitesse;
+      ailes.forEach(a=>a.style.transform=`rotate(${angle}deg)`);
+      requestAnimationFrame(boucle);
+    })();
+  }
+
+  /* Révélations */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.14});
+  $$('.rev').forEach(el=>io.observe(el));
+  const frise=$('#frise'),avance=$('#avance');
+  new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)avance.style.height='calc(100% - 30px)'}),{threshold:.4}).observe(frise);
+
+  /* Horaires (relevés sur annuaire, à confirmer) — 0 = dimanche */
+  const H={1:[['08:00','12:00']],2:[],3:[],4:[['08:00','19:00']],5:[['08:00','18:45']],6:[['08:00','12:00']],0:[]};
+  const NOMS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const fmt=h=>h.replace(':','h');
+  const tb=$('#tabHoraires tbody'),auj=new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(j=>{
+    const tr=document.createElement('tr');
+    if(!H[j].length)tr.className='ferme';
+    if(j===auj)tr.classList.add('auj');
+    tr.innerHTML=`<td>${NOMS[j]}${j===auj?' · aujourd\'hui':''}</td><td>${H[j].length?H[j].map(p=>fmt(p[0])+' – '+fmt(p[1])).join(', '):'Fermé'}</td>`;
+    tb.appendChild(tr);
+  });
+  const enMin=t=>{const[a,b]=t.split(':').map(Number);return a*60+b};
+  function etat(){
+    const n=new Date(),m=n.getHours()*60+n.getMinutes(),p=H[n.getDay()].find(p=>m>=enMin(p[0])&&m<enMin(p[1]));
+    if(p){$('#etatOuv').textContent='Ouvert maintenant';$('#detailOuv').textContent='jusqu\'à '+fmt(p[1])+' (horaires à confirmer)';$('#pointOuv').classList.remove('ferme');return}
+    $('#pointOuv').classList.add('ferme');$('#etatOuv').textContent='Fermé pour le moment';
+    for(let k=0;k<8;k++){const d=(n.getDay()+k)%7;const s=H[d].find(p=>k>0||enMin(p[0])>m);if(s){$('#detailOuv').textContent='Réouverture '+(k===0?'aujourd\'hui':k===1?'demain':NOMS[d].toLowerCase())+' à '+fmt(s[0]);return}}
+  }
+  etat();setInterval(etat,60000);
+
+  /* Calculateur */
+  const conv={adultes:6,enfants:2};
+  $$('.compteur button').forEach(b=>b.addEventListener('click',()=>{
+    const c=b.dataset.cible;conv[c]=Math.max(c==='adultes'?1:0,Math.min(60,conv[c]+Number(b.dataset.pas)));
+    $('#'+c).textContent=conv[c];calc();
+  }));
+  $$('input[name=app], .choix input').forEach(i=>i.addEventListener('change',calc));
+  let propo=[];
+  function calc(){
+    const coef=Number($('input[name=app]:checked').value);
+    const kg=(conv.adultes*0.25+conv.enfants*0.15)*coef;
+    const choisis=$$('.choix input:checked').map(i=>i.value);
+    propo=choisis.map(p=>({p,q:Math.max(0.3,Math.round(kg/choisis.length*10)/10)}));
+    const tot=propo.reduce((s,x)=>s+x.q,0);
+    $('#total').innerHTML=(choisis.length?tot.toFixed(1).replace('.',','):'0')+' kg<small>de viande à prévoir</small>';
+    const max=Math.max(...propo.map(x=>x.q),1);
+    $('#barres').innerHTML=propo.map(x=>`<div class="barre"><span>${x.p}</span><span class="jauge"><span style="width:0" data-w="${x.q/max*100}"></span></span><b>${x.q.toFixed(1).replace('.',',')} kg</b></div>`).join('')||'<p class="mini">Choisissez au moins un produit.</p>';
+    requestAnimationFrame(()=>$$('#barres .jauge span').forEach(s=>s.style.width=s.dataset.w+'%'));
+  }
+  calc();
+
+  /* Liste */
+  const liste=[];
+  function rendre(){
+    const ul=$('#liste');ul.innerHTML='';
+    if(!liste.length){ul.innerHTML='<li class="vide">Votre liste est vide : utilisez le calculateur ou ajoutez un produit ci-dessous.</li>';majLiens();return}
+    liste.forEach((x,i)=>{const li=document.createElement('li');li.innerHTML=`<span><b>${x.q.toString().replace('.',',')} ${x.u}</b> · ${x.p}</span><button type="button" aria-label="Retirer ${x.p}">×</button>`;li.querySelector('button').onclick=()=>{liste.splice(i,1);rendre()};ul.appendChild(li)});
+    majLiens();
+  }
+  function ajouter(p,q,u){const ex=liste.find(x=>x.p===p&&x.u===u);if(ex)ex.q=Math.round((ex.q+q)*10)/10;else liste.push({p,q,u});rendre()}
+  $('#versPanier').addEventListener('click',()=>{if(!propo.length)return;propo.forEach(x=>ajouter(x.p,x.q,'kg'));toast('Quantités ajoutées à votre liste');if(innerWidth<960)$('.panier').scrollIntoView({behavior:reduit?'auto':'smooth',block:'start'})});
+  $('#ajBtn').addEventListener('click',()=>{const q=Math.max(1,Number($('#ajQte').value)||1);ajouter($('#ajProd').value,q,$('#ajUnite').value)});
+
+  /* Jours de retrait : 10 prochains jours d'ouverture */
+  let jourChoisi='';
+  const jw=$('#jours');let d=new Date(),n=0;
+  for(let k=0;k<14&&n<6;k++){
+    const x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+k),j=x.getDay();
+    if(!H[j].length)continue;n++;
+    const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed','false');
+    const lib=(k===0?'Aujourd\'hui':k===1?'Demain':NOMS[j])+' '+x.getDate()+'/'+(x.getMonth()+1);
+    b.innerHTML=`${lib}<small>${H[j].map(p=>fmt(p[0])+'–'+fmt(p[1])).join(' ')}</small>`;
+    b.onclick=()=>{$$('#jours button').forEach(z=>z.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');jourChoisi=lib;majLiens()};
+    jw.appendChild(b);
+  }
+  ['nom','remarque'].forEach(id=>$('#'+id).addEventListener('input',majLiens));
+  function texte(){
+    let t='Bonjour, je souhaite commander :\n'+(liste.length?liste.map(x=>'- '+x.q.toString().replace('.',',')+' '+x.u+' '+x.p).join('\n'):'- (liste à compléter)');
+    if(jourChoisi)t+='\nRetrait : '+jourChoisi;
+    const r=$('#remarque').value.trim();if(r)t+='\nRemarque : '+r;
+    const nm=$('#nom').value.trim();t+='\nMerci'+(nm?', '+nm:'')+' !';
+    return t;
+  }
+  function majLiens(){
+    const t=texte();
+    $('#sms').href='sms:+33782994564?&body='+encodeURIComponent(t);
+    $('#mail').href='mailto:earlgardette@gmail.com?subject='+encodeURIComponent('Commande boucherie'+(jourChoisi?' – retrait '+jourChoisi:''))+'&body='+encodeURIComponent(t);
+  }
+  $('#copier').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(texte());toast('Liste copiée')}catch(e){toast('Copie impossible sur ce navigateur')}});
+  rendre();
+
+  let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('vu');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('vu'),2200)}
+})();
+</script>
+</body>
+</html>
