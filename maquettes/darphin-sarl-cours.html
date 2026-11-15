@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Darphin SARL — Chauffagiste et pompe à chaleur à Cours (Haut-Beaujolais)</title>
+<meta name="description" content="Darphin SARL, chauffagiste à Cours depuis 2007 : pompe à chaleur, chaudière, climatisation, chauffe-eau thermodynamique et plomberie. Estimez votre reste à charge en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — À AJUSTER
+   Darphin SARL n'a pas de site internet : aucune charte n'a pu
+   être récupérée. Couleurs et polices ci-dessous = proposition
+   neutre (bleu ardoise + cuivre « chaleur »), à remplacer par
+   les codes du logo / des véhicules / du papier à en-tête.
+   ========================================================= */
+:root{
+  --ink:#14263a;        /* bleu ardoise foncé : textes, fonds sombres */
+  --ink-2:#1f3a56;      /* bleu ardoise : sections sombres */
+  --cold:#3d8fc6;       /* bleu froid : air extérieur, climatisation */
+  --warm:#e0702b;       /* cuivre : chaleur, boutons principaux */
+  --warm-2:#f2a65a;     /* cuivre clair : survols, dégradés */
+  --paper:#f5f7f9;      /* fond clair */
+  --line:#dbe3ea;       /* filets */
+  --muted:#5b6b7b;      /* textes secondaires */
+  --font-title:'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-text:'Manrope', system-ui, sans-serif;
+  --radius:14px;
+  --ease:cubic-bezier(.22,.8,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-text);color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-title);line-height:1.05;letter-spacing:.01em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--ink);color:#c9d6e2;font-size:.78rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--warm-2)}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(245,247,249,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--line);box-shadow:0 6px 24px rgba(20,38,58,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo-mark{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--cold),var(--ink-2) 50%,var(--warm));display:grid;place-items:center;color:#fff;font-family:var(--font-title);font-weight:700;font-size:1.35rem}
+.logo-txt{font-family:var(--font-title);font-weight:700;font-size:1.45rem;letter-spacing:.04em}
+.logo-txt small{display:block;font-family:var(--font-text);font-weight:500;font-size:.66rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:-2px}
+.menu{display:flex;gap:1.6rem;list-style:none;font-weight:600;font-size:.92rem}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--warm);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.95rem;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:.85rem 1.4rem;min-height:44px;transition:transform .25s var(--ease),box-shadow .25s,background .25s;font-family:var(--font-text)}
+.btn:active{transform:scale(.96)}
+.btn-warm{background:var(--warm);color:#fff;box-shadow:0 8px 22px rgba(224,112,43,.32)}
+.btn-warm:hover{background:#c95f1f;transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-light{background:#fff;color:var(--ink)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ink);margin:5px auto;transition:.3s}
+@media(max-width:920px){
+  .menu{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--paper);padding:1.5rem 16px 2rem;gap:1rem;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .btn-warm{display:none}
+}
+
+/* Hero */
+.hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(3rem,6vw,5rem);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40% -10% auto auto;width:70vw;height:70vw;border-radius:50%;background:radial-gradient(circle,rgba(224,112,43,.16),transparent 62%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:auto auto -45% -20%;width:60vw;height:60vw;border-radius:50%;background:radial-gradient(circle,rgba(61,143,198,.14),transparent 62%);pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--warm)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.hero h1{font-size:clamp(2.8rem,2rem + 4.2vw,5.6rem);font-weight:700;margin:.8rem 0 1.2rem;text-transform:uppercase}
+.hero h1 .swap{display:inline-block;color:var(--warm);min-width:4ch}
+.hero h1 .swap.out{animation:out .35s forwards}
+.hero h1 .swap.in{animation:in .45s var(--ease)}
+@keyframes out{to{opacity:0;transform:translateY(-.3em)}}
+@keyframes in{from{opacity:0;transform:translateY(.35em)}to{opacity:1;transform:none}}
+.hero p.lead{font-size:clamp(1.02rem,.95rem + .4vw,1.2rem);color:var(--muted);max-width:52ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.facts{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:2.4rem;font-size:.88rem;color:var(--muted)}
+.facts b{display:block;font-family:var(--font-title);font-size:1.7rem;color:var(--ink);line-height:1}
+
+/* Illustration PAC animée */
+.pac-card{background:#fff;border-radius:24px;padding:1.4rem;box-shadow:0 30px 60px -20px rgba(20,38,58,.25);position:relative}
+.pac-card .tag{position:absolute;top:-14px;left:24px;background:var(--ink);color:#fff;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .8rem;border-radius:999px}
+.fan{transform-origin:110px 120px;animation:spin 2.2s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.flow{stroke-dasharray:8 10;animation:dash 1.4s linear infinite}
+.flow.cold{animation-direction:reverse}
+@keyframes dash{to{stroke-dashoffset:-36}}
+.wave{animation:rise 3s ease-in-out infinite;opacity:.0}
+.wave:nth-of-type(2){animation-delay:1s}.wave:nth-of-type(3){animation-delay:2s}
+@keyframes rise{0%{opacity:0;transform:translateY(8px)}40%{opacity:.9}100%{opacity:0;transform:translateY(-14px)}}
+.temp-row{display:flex;justify-content:space-between;margin-top:.8rem;font-size:.82rem;color:var(--muted)}
+.temp-row b{font-family:var(--font-title);font-size:1.5rem;color:var(--ink)}
+.temp-row .c b{color:var(--cold)}.temp-row .h b{color:var(--warm)}
+
+/* Sections */
+section{padding:clamp(4rem,8vw,7rem) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(2.2rem,1.6rem + 2.6vw,3.8rem);text-transform:uppercase;max-width:16ch}
+.sec-head p{max-width:44ch;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.on{opacity:1;transform:none}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.svc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s,border-color .4s}
+.svc::before{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:linear-gradient(90deg,var(--cold),var(--warm));transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:0 20px 40px -18px rgba(20,38,58,.25);border-color:transparent}
+.svc:hover::before{transform:scaleX(1)}
+.svc .ico{width:52px;height:52px;border-radius:12px;background:var(--paper);display:grid;place-items:center;margin-bottom:1.2rem;transition:background .3s}
+.svc:hover .ico{background:#fdf0e6}
+.svc h3{font-size:1.65rem;text-transform:uppercase;margin-bottom:.5rem}
+.svc p{color:var(--muted);font-size:.95rem}
+.svc .num{position:absolute;top:1.2rem;right:1.4rem;font-family:var(--font-title);font-size:1rem;color:var(--line);font-weight:700}
+
+/* Simulateur */
+.sim-sec{background:var(--ink);color:#e8eef4;position:relative;overflow:hidden}
+.sim-sec .sec-head p{color:#a9bccd}
+.sim-sec .eyebrow{color:var(--warm-2)}
+.sim{display:grid;grid-template-columns:1.15fr .85fr;gap:1.6rem}
+.sim-form,.sim-out{background:var(--ink-2);border-radius:22px;padding:clamp(1.4rem,3vw,2.4rem);border:1px solid rgba(255,255,255,.07)}
+.step{margin-bottom:1.8rem}
+.step:last-child{margin-bottom:0}
+.step-label{display:flex;align-items:center;gap:.7rem;font-weight:700;margin-bottom:.9rem}
+.step-label i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--warm);color:#fff;display:grid;place-items:center;font-size:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{border:1.5px solid rgba(255,255,255,.18);background:transparent;color:#e8eef4;padding:.6rem 1rem;border-radius:999px;font:600 .9rem var(--font-text);cursor:pointer;min-height:44px;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--warm-2)}
+.chip[aria-pressed="true"]{background:var(--warm);border-color:var(--warm);color:#fff;transform:scale(1.03)}
+.chip .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.4rem;vertical-align:middle}
+.range-row{display:flex;align-items:center;gap:1rem}
+input[type=range]{flex:1;accent-color:var(--warm);height:44px}
+.range-val{font-family:var(--font-title);font-size:2rem;min-width:5ch;text-align:right}
+.sim-out{display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,var(--ink-2),#173049)}
+.out-big{font-family:var(--font-title);font-size:clamp(2.6rem,2rem + 2.4vw,4rem);line-height:1;color:#fff}
+.out-big small{font-size:.9rem;color:#a9bccd;display:block;margin-top:.4rem;font-family:var(--font-text);font-weight:500}
+.bars{margin:1.6rem 0}
+.bar{margin-bottom:1rem}
+.bar-top{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.35rem;color:#c9d6e2}
+.bar-track{height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;transition:width .7s var(--ease)}
+.f-cost{background:#6f8aa3}.f-aid{background:var(--cold)}.f-rest{background:var(--warm)}
+.out-note{font-size:.78rem;color:#94a9bc;margin-top:1rem}
+.warn{background:rgba(224,112,43,.12);border:1px solid rgba(224,112,43,.35);color:#f8d2b4;padding:.8rem 1rem;border-radius:12px;font-size:.86rem;margin-top:1rem;display:none}
+.warn.show{display:block;animation:in .4s var(--ease)}
+
+/* Pourquoi QualiPAC */
+.why{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.why ol{list-style:none;counter-reset:s}
+.why li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:1rem;padding:1.2rem 0;border-bottom:1px solid var(--line)}
+.why li::before{content:counter(s,decimal-leading-zero);font-family:var(--font-title);font-size:2rem;color:var(--warm);font-weight:700}
+.why li b{display:block;font-size:1.05rem}
+.why li span{color:var(--muted);font-size:.93rem}
+.badge-box{background:#fff;border-radius:24px;padding:2.2rem;border:1px solid var(--line);position:relative}
+.badge-box h3{font-size:2rem;text-transform:uppercase;margin-bottom:.8rem}
+.badge-box p{color:var(--muted)}
+.badges{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+.badges span{background:var(--paper);border:1px solid var(--line);padding:.5rem .9rem;border-radius:999px;font-weight:700;font-size:.85rem}
+
+/* Photos */
+.photos{display:grid;grid-template-columns:2fr 1fr 1fr;gap:1rem}
+.ph{aspect-ratio:4/3;border-radius:var(--radius);border:2px dashed #b9c6d2;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.88rem;padding:1rem;background:repeating-linear-gradient(45deg,#fff,#fff 10px,#f0f3f6 10px,#f0f3f6 20px)}
+.ph b{display:block;color:var(--ink);font-size:1rem;margin-bottom:.2rem}
+
+/* Demande d'intervention */
+.req{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem}
+.req-side{background:var(--warm);color:#fff;border-radius:24px;padding:2.2rem;display:flex;flex-direction:column;gap:1.2rem}
+.req-side h3{font-size:2.3rem;text-transform:uppercase}
+.req-side a.tel{font-family:var(--font-title);font-size:2.3rem;text-decoration:none;font-weight:700}
+form.card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:2.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+form.card .full{grid-column:1/-1}
+label{font-weight:600;font-size:.88rem;display:block;margin-bottom:.35rem}
+input,select,textarea{width:100%;font:500 1rem var(--font-text);padding:.8rem .9rem;border:1.5px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);min-height:46px;transition:border-color .2s,background .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--warm);background:#fff;outline:none}
+.toggle{display:flex;gap:.5rem;flex-wrap:wrap}
+.toggle .chip{color:var(--ink);border-color:var(--line)}
+.toggle .chip[aria-pressed="true"]{color:#fff}
+.ok-msg{display:none;grid-column:1/-1;background:#eaf5ee;border:1px solid #b9dcc5;color:#215a35;padding:.9rem 1rem;border-radius:12px;font-size:.92rem}
+.ok-msg.show{display:block;animation:in .4s var(--ease)}
+
+/* Contact */
+.contact{background:var(--ink-2);color:#e8eef4}
+.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.ct{border-top:2px solid rgba(255,255,255,.15);padding-top:1.2rem}
+.ct small{color:#a9bccd;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700}
+.ct p,.ct a{font-size:1.05rem;font-weight:600;text-decoration:none;display:block;margin-top:.4rem}
+.ct a:hover{color:var(--warm-2)}
+.contact .sec-head h2{color:#fff}
+.contact .sec-head p{color:#a9bccd}
+
+footer{background:var(--ink);color:#93a7ba;font-size:.82rem;padding:2.4rem 0}
+footer .wrap{display:grid;gap:.8rem}
+footer b{color:#e8eef4}
+
+/* Barre mobile */
+.mobile-cta{display:none}
+@media(max-width:920px){
+  .hero-grid,.sim,.why,.req{grid-template-columns:1fr}
+  .services{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .photos{grid-template-columns:1fr 1fr}
+  .photos .ph:first-child{grid-column:1/-1}
+  .mobile-cta{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:60;gap:.6rem}
+  .mobile-cta .btn{flex:1;justify-content:center}
+  footer{padding-bottom:6rem}
+}
+@media(max-width:600px){
+  .services,.contact-grid{grid-template-columns:1fr}
+  form.card{grid-template-columns:1fr;padding:1.4rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HVACBusiness",
+  "name":"Darphin SARL",
+  "description":"Chauffagiste installé à Cours depuis 2007 : pompe à chaleur, chaudière gaz et fioul, climatisation, chauffe-eau thermodynamique, plomberie, ventilation.",
+  "foundingDate":"2007",
+  "telephone":"+33474644178",
+  "email":"sarl-darphin@orange.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"54 rue Antoine Jolivet","postalCode":"69470","addressLocality":"Cours","addressRegion":"Rhône","addressCountry":"FR"},
+  "areaServed":[{"@type":"City","name":"Cours"},{"@type":"Place","name":"Haut-Beaujolais"}],
+  "founder":{"@type":"Person","name":"Thierry Darphin"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Darphin SARL</b> — prix et aides indicatifs, non contractuels.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Darphin SARL, accueil">
+      <span class="logo-mark">D</span>
+      <span class="logo-txt">DARPHIN<small>Chauffage · Climatisation · Sanitaire</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#services">Nos métiers</a></li>
+      <li><a href="#simulateur">Estimer ma PAC</a></li>
+      <li><a href="#qualipac">Aides &amp; QualiPAC</a></li>
+      <li><a href="#intervention">Intervention</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-warm" href="tel:+33474644178">04 74 64 41 78</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Chauffagiste à Cours depuis 2007</span>
+      <h1>Votre <span class="swap" id="swap">chauffage</span><br>entre de bonnes mains</h1>
+      <p class="lead">Pompe à chaleur, chaudière, climatisation, chauffe-eau thermodynamique et plomberie : Darphin SARL installe, remplace et entretient vos équipements à Cours et dans le Haut-Beaujolais.</p>
+      <div class="hero-cta">
+        <a class="btn btn-warm" href="#simulateur">Estimer mon reste à charge →</a>
+        <a class="btn btn-ghost" href="#intervention">Demander une intervention</a>
+      </div>
+      <div class="facts">
+        <div><b>2007</b>année de création</div>
+        <div><b>QualiPAC</b>chauffage &amp; chauffe-eau</div>
+        <div><b>Qualibat</b>chaudière gaz / fioul</div>
+      </div>
+    </div>
+    <div class="pac-card reveal" aria-hidden="true">
+      <span class="tag">Pompe à chaleur air / eau</span>
+      <svg viewBox="0 0 420 260" role="img">
+        <!-- unité extérieure -->
+        <rect x="20" y="40" width="180" height="160" rx="14" fill="#eef3f7" stroke="#c8d4df" stroke-width="2"/>
+        <circle cx="110" cy="120" r="58" fill="#fff" stroke="#c8d4df" stroke-width="2"/>
+        <g class="fan" fill="#3d8fc6">
+          <path d="M110 120 C 100 90, 112 70, 126 72 C 130 90, 122 108, 110 120Z"/>
+          <path d="M110 120 C 140 110, 160 122, 158 136 C 140 140, 122 132, 110 120Z"/>
+          <path d="M110 120 C 120 150, 108 170, 94 168 C 90 150, 98 132, 110 120Z"/>
+          <path d="M110 120 C 80 130, 60 118, 62 104 C 80 100, 98 108, 110 120Z"/>
+        </g>
+        <circle cx="110" cy="120" r="7" fill="#14263a"/>
+        <g stroke="#c8d4df" stroke-width="2"><line x1="40" y1="215" x2="40" y2="200"/><line x1="180" y1="215" x2="180" y2="200"/></g>
+        <!-- liaisons -->
+        <path class="flow" d="M200 100 H 270 V 80 H 300" fill="none" stroke="#e0702b" stroke-width="5" stroke-linecap="round"/>
+        <path class="flow cold" d="M200 150 H 280 V 170 H 300" fill="none" stroke="#3d8fc6" stroke-width="5" stroke-linecap="round"/>
+        <!-- radiateur -->
+        <g transform="translate(300 60)">
+          <rect x="0" y="0" width="100" height="130" rx="10" fill="#fff" stroke="#c8d4df" stroke-width="2"/>
+          <g fill="#f6dcc8"><rect x="12" y="14" width="12" height="102" rx="6"/><rect x="32" y="14" width="12" height="102" rx="6"/><rect x="52" y="14" width="12" height="102" rx="6"/><rect x="72" y="14" width="12" height="102" rx="6"/></g>
+          <path class="wave" d="M20 -8 q8 -10 0 -20 q-8 -10 0 -20" stroke="#e0702b" stroke-width="3" fill="none"/>
+          <path class="wave" d="M50 -8 q8 -10 0 -20 q-8 -10 0 -20" stroke="#e0702b" stroke-width="3" fill="none"/>
+          <path class="wave" d="M80 -8 q8 -10 0 -20 q-8 -10 0 -20" stroke="#e0702b" stroke-width="3" fill="none"/>
+        </g>
+      </svg>
+      <div class="temp-row">
+        <div class="c">Air extérieur<br><b id="tOut">3 °C</b></div>
+        <div class="h" style="text-align:right">Départ chauffage<br><b id="tIn">45 °C</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Nos métiers</span><h2>Chauffage, clim, eau chaude et sanitaire</h2></div>
+      <p>Une seule entreprise pour l'installation, le remplacement et le suivi de vos équipements thermiques.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal"><span class="num">01</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e0702b" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></div><h3>Pompe à chaleur</h3><p>Étude, pose et mise en service de pompes à chaleur pour le chauffage, par un installateur QualiPAC.</p></article>
+      <article class="svc reveal"><span class="num">02</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e0702b" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 15c0-2 3-3 3-6 0 3 3 4 3 6a3 3 0 0 1-6 0z"/></svg></div><h3>Chaudière gaz &amp; fioul</h3><p>Installation et remplacement de chaudières gaz ou fioul (qualification Qualibat).</p></article>
+      <article class="svc reveal"><span class="num">03</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3d8fc6" stroke-width="2"><path d="M12 2v20M4.9 6.5l14.2 11M19.1 6.5L4.9 17.5"/></svg></div><h3>Climatisation</h3><p>Pose de systèmes de climatisation pour garder la maison au frais l'été.</p></article>
+      <article class="svc reveal"><span class="num">04</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e0702b" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="5"/><path d="M12 8v6"/></svg></div><h3>Chauffe-eau thermo</h3><p>Chauffe-eau thermodynamiques pour produire l'eau chaude en consommant moins.</p></article>
+      <article class="svc reveal"><span class="num">05</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3d8fc6" stroke-width="2"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></div><h3>Plomberie &amp; sanitaire</h3><p>Travaux de plomberie et de sanitaire, du remplacement d'équipement à la rénovation.</p></article>
+      <article class="svc reveal"><span class="num">06</span><div class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3d8fc6" stroke-width="2"><path d="M3 8h12a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8"/></svg></div><h3>Ventilation &amp; zinguerie</h3><p>Ventilation, zinguerie et électricité liées à vos installations.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="sim-sec" id="simulateur">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Simulateur</span><h2 style="color:#fff">Combien me coûtera ma pompe à chaleur&nbsp;?</h2></div>
+      <p>Quatre questions, une fourchette tout de suite : prix de pose indicatif, aide MaPrimeRénov' par geste déduite, reste à charge. Le devis précis se fait après visite.</p>
+    </div>
+    <div class="sim">
+      <div class="sim-form reveal">
+        <div class="step">
+          <div class="step-label"><i>1</i>Surface chauffée</div>
+          <div class="range-row"><input type="range" id="surf" min="50" max="250" step="10" value="110" aria-label="Surface chauffée en m²"><span class="range-val" id="surfV">110 m²</span></div>
+        </div>
+        <div class="step">
+          <div class="step-label"><i>2</i>Chauffage actuel</div>
+          <div class="chips" data-group="actuel">
+            <button class="chip" aria-pressed="true" data-v="fioul">Chaudière fioul</button>
+            <button class="chip" aria-pressed="false" data-v="gaz">Chaudière gaz</button>
+            <button class="chip" aria-pressed="false" data-v="elec">Radiateurs électriques</button>
+            <button class="chip" aria-pressed="false" data-v="bois">Bois / autre</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-label"><i>3</i>Logement de plus de 15 ans&nbsp;?</div>
+          <div class="chips" data-group="age">
+            <button class="chip" aria-pressed="true" data-v="oui">Oui</button>
+            <button class="chip" aria-pressed="false" data-v="non">Non</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-label"><i>4</i>Profil de revenus MaPrimeRénov'</div>
+          <div class="chips" data-group="rev">
+            <button class="chip" aria-pressed="false" data-v="5000"><span class="dot" style="background:#4f7fd9"></span>Très modestes</button>
+            <button class="chip" aria-pressed="true" data-v="4000"><span class="dot" style="background:#e6c43a"></span>Modestes</button>
+            <button class="chip" aria-pressed="false" data-v="3000"><span class="dot" style="background:#9a62c9"></span>Intermédiaires</button>
+            <button class="chip" aria-pressed="false" data-v="0"><span class="dot" style="background:#e07a9a"></span>Supérieurs</button>
+          </div>
+        </div>
+      </div>
+      <div class="sim-out reveal" aria-live="polite">
+        <div>
+          <span class="eyebrow">Reste à charge estimé</span>
+          <div class="out-big" id="rest">— €<small>après aide MaPrimeRénov' par geste</small></div>
+          <div class="bars">
+            <div class="bar"><div class="bar-top"><span>Pose PAC air / eau (fourchette)</span><b id="costT">—</b></div><div class="bar-track"><div class="bar-fill f-cost" id="costB" style="width:100%"></div></div></div>
+            <div class="bar"><div class="bar-top"><span>MaPrimeRénov' par geste</span><b id="aidT">—</b></div><div class="bar-track"><div class="bar-fill f-aid" id="aidB"></div></div></div>
+            <div class="bar"><div class="bar-top"><span>Reste à charge</span><b id="restT">—</b></div><div class="bar-track"><div class="bar-fill f-rest" id="restB"></div></div></div>
+          </div>
+          <div class="warn" id="warn"></div>
+        </div>
+        <div>
+          <a class="btn btn-warm" href="#intervention" id="simCta">Demander une visite pour un devis →</a>
+          <p class="out-note">Barème MaPrimeRénov' par geste pour une PAC air/eau : 5 000 / 4 000 / 3 000 € selon les revenus, dépense plafonnée à 12 000 €, logement de plus de 15 ans, pose par un professionnel RGE. Primes CEE possibles en plus, non comptées ici. Prix de pose indicatifs du marché, à confirmer par Darphin SARL.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="qualipac">
+  <div class="wrap why">
+    <div class="reveal">
+      <span class="eyebrow">Aides &amp; qualifications</span>
+      <h2 style="font-size:clamp(2.2rem,1.6rem + 2.6vw,3.6rem);text-transform:uppercase;margin:.6rem 0 1.4rem">Pourquoi passer par un installateur QualiPAC</h2>
+      <ol>
+        <li><div><b>Les aides en dépendent</b><span>MaPrimeRénov' et les primes CEE ne sont versées que si les travaux sont réalisés par une entreprise qualifiée RGE.</span></div></li>
+        <li><div><b>Un dimensionnement adapté</b><span>Une pompe à chaleur se choisit selon la maison, l'isolation et les émetteurs en place.</span></div></li>
+        <li><div><b>Un interlocuteur local</b><span>L'entreprise qui pose est aussi celle qui suit l'installation ensuite, à Cours.</span></div></li>
+      </ol>
+    </div>
+    <div class="badge-box reveal">
+      <h3>Darphin SARL</h3>
+      <p>Entreprise créée en 2007 et dirigée par Thierry Darphin, spécialisée dans l'installation d'équipements thermiques et de climatisation.</p>
+      <div class="badges"><span>QualiPAC chauffage</span><span>QualiPAC CET</span><span>Qualibat chaudière gaz / fioul</span></div>
+      <p style="margin-top:1.2rem;font-size:.8rem">Qualifications reprises de l'annuaire public des installateurs — logos officiels et dates de validité à ajouter.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Réalisations</span><h2>Vos chantiers en images</h2></div><p>Emplacements prévus pour les photos de l'entreprise : aucune photo n'est publiée en ligne aujourd'hui.</p></div>
+    <div class="photos reveal">
+      <div class="ph"><div><b>Photo chantier PAC</b>à fournir par le client</div></div>
+      <div class="ph"><div><b>Chaufferie / chaudière</b>à fournir par le client</div></div>
+      <div class="ph"><div><b>Équipe / véhicule</b>à fournir par le client</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="intervention" style="padding-top:0">
+  <div class="wrap req">
+    <div class="req-side reveal">
+      <span class="eyebrow" style="color:#fff">Intervention</span>
+      <h3>Une panne, un entretien, un projet&nbsp;?</h3>
+      <p>Décrivez votre besoin, la demande arrive directement par mail avec toutes les informations utiles. Pour une panne, le plus rapide reste le téléphone.</p>
+      <a class="tel" href="tel:+33474644178">04 74 64 41 78</a>
+    </div>
+    <form class="card reveal" id="reqForm" novalidate>
+      <div class="full"><label>Type de demande</label>
+        <div class="toggle chips" data-group="type">
+          <button type="button" class="chip" aria-pressed="true" data-v="Projet / devis">Projet / devis</button>
+          <button type="button" class="chip" aria-pressed="false" data-v="Panne">Panne</button>
+          <button type="button" class="chip" aria-pressed="false" data-v="Entretien">Entretien</button>
+        </div>
+      </div>
+      <div><label for="eq">Équipement</label><select id="eq"><option>Pompe à chaleur</option><option>Chaudière gaz</option><option>Chaudière fioul</option><option>Climatisation</option><option>Chauffe-eau thermodynamique</option><option>Plomberie / sanitaire</option></select></div>
+      <div><label for="ville">Commune</label><input id="ville" placeholder="Cours, Thizy-les-Bourgs…"></div>
+      <div><label for="nom">Nom</label><input id="nom" autocomplete="name"></div>
+      <div><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+      <div class="full"><label for="msg">Votre message</label><textarea id="msg" rows="4" placeholder="Marque, âge de l'installation, ce qui se passe…"></textarea></div>
+      <div class="full"><button class="btn btn-warm" type="submit">Envoyer ma demande</button></div>
+      <div class="ok-msg" id="okMsg">Votre messagerie s'ouvre avec la demande pré-remplie, il ne reste qu'à l'envoyer.</div>
+    </form>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow" style="color:var(--warm-2)">Contact</span><h2>Darphin SARL, à Cours</h2></div><p>Horaires d'ouverture à compléter par l'entreprise.</p></div>
+    <div class="contact-grid">
+      <div class="ct reveal"><small>Adresse</small><a href="https://www.openstreetmap.org/search?query=54%20rue%20Antoine%20Jolivet%2069470%20Cours" target="_blank" rel="noopener">54 rue Antoine Jolivet<br>69470 Cours</a></div>
+      <div class="ct reveal"><small>Téléphone</small><a href="tel:+33474644178">04 74 64 41 78</a></div>
+      <div class="ct reveal"><small>Mail</small><a href="mailto:sarl-darphin@orange.fr">sarl-darphin@orange.fr</a></div>
+      <div class="ct reveal"><small>Gérant</small><p>Thierry Darphin</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Maquette de démonstration</b> réalisée pour Darphin SARL — elle ne constitue pas le site officiel de l'entreprise.</p>
+    <p>Prix et aides indicatifs, non contractuels : barème MaPrimeRénov' par geste 2026 pour une PAC air/eau, fourchettes de pose issues des prix moyens du marché. Couleurs et polices proposées, faute de charte existante : ajustables au logo de l'entreprise. Aucune photo réelle n'étant publiée en ligne, les emplacements photo sont à fournir par le client ; les illustrations sont des dessins vectoriels.</p>
+    <p>Darphin SARL · 54 rue Antoine Jolivet, 69470 Cours · 04 74 64 41 78</p>
+  </div>
+</footer>
+
+<div class="mobile-cta"><a class="btn btn-light" href="#simulateur">Estimer</a><a class="btn btn-warm" href="tel:+33474644178">Appeler</a></div>
+
+<script>
+(function(){
+  const header=document.querySelector('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // mots qui défilent
+  const words=['chauffage','eau chaude','confort','installation'];let wi=0;const sw=document.getElementById('swap');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce)setInterval(()=>{sw.classList.add('out');setTimeout(()=>{wi=(wi+1)%words.length;sw.textContent=words[wi];sw.classList.remove('out');sw.classList.add('in');setTimeout(()=>sw.classList.remove('in'),460)},350)},2600);
+
+  // températures vivantes
+  const tO=document.getElementById('tOut'),tI=document.getElementById('tIn');
+  if(!reduce)setInterval(()=>{const o=Math.round(-2+Math.random()*8);tO.textContent=o+' °C';tI.textContent=Math.round(48-o*.8)+' °C'},2400);
+
+  // apparitions
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*80+'ms';io.observe(el)});
+
+  // groupes de boutons
+  const state={actuel:'fioul',age:'oui',rev:'4000',type:'Projet / devis'};
+  document.querySelectorAll('[data-group]').forEach(g=>{
+    g.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+      g.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));
+      state[g.dataset.group]=b.dataset.v;calc();});
+  });
+
+  // simulateur
+  const surf=document.getElementById('surf'),surfV=document.getElementById('surfV');
+  const fmt=n=>Math.round(n/100)*100;
+  const eur=n=>n.toLocaleString('fr-FR')+' €';
+  function calc(){
+    const s=+surf.value;surfV.textContent=s+' m²';
+    // fourchette indicative de pose PAC air/eau selon la surface (prix moyens du marché)
+    let lo=fmt(8500+ (s-50)*30), hi=fmt(12000+(s-50)*45);
+    if(state.actuel==='elec'){lo+=2500;hi+=4000;} // création d'un réseau de chauffage à eau
+    let aid=+state.rev;const warn=document.getElementById('warn');let msg='';
+    if(state.age==='non'){aid=0;msg='MaPrimeRénov\' est réservée aux logements de plus de 15 ans : seules les primes CEE resteraient envisageables.';}
+    else if(aid===0){msg='Pour les revenus supérieurs, la PAC air/eau n\'ouvre pas droit à MaPrimeRénov\' par geste ; des primes CEE peuvent s\'appliquer.';}
+    if(state.actuel==='elec')msg+=(msg?' ':'')+'Passer de radiateurs électriques à une PAC air/eau suppose de créer un circuit d\'eau chaude : la visite sur place est indispensable.';
+    warn.textContent=msg;warn.classList.toggle('show',!!msg);
+    const aidLo=Math.min(aid,lo), rLo=Math.max(lo-aid,0), rHi=Math.max(hi-aid,0);
+    document.getElementById('rest').firstChild.textContent=eur(rLo)+' – '+eur(rHi);
+    document.getElementById('costT').textContent=eur(lo)+' – '+eur(hi);
+    document.getElementById('aidT').textContent=aid?'− '+eur(aid):'0 €';
+    document.getElementById('restT').textContent=eur(rLo)+' – '+eur(rHi);
+    document.getElementById('aidB').style.width=(aidLo/hi*100)+'%';
+    document.getElementById('restB').style.width=(rHi/hi*100)+'%';
+    document.getElementById('costB').style.width='100%';
+  }
+  surf.addEventListener('input',calc);calc();
+
+  document.getElementById('simCta').addEventListener('click',()=>{
+    document.getElementById('eq').value='Pompe à chaleur';
+    document.getElementById('msg').value='Projet de pompe à chaleur air/eau, environ '+surf.value+' m² chauffés, chauffage actuel : '+({fioul:'chaudière fioul',gaz:'chaudière gaz',elec:'radiateurs électriques',bois:'bois / autre'})[state.actuel]+'. Estimation vue sur le site : '+document.getElementById('restT').textContent+' de reste à charge.';
+  });
+
+  // demande d'intervention -> mail pré-rempli
+  document.getElementById('reqForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=id=>document.getElementById(id).value.trim();
+    const body=`Type : ${state.type}\nÉquipement : ${v('eq')}\nCommune : ${v('ville')}\nNom : ${v('nom')}\nTéléphone : ${v('tel')}\n\n${v('msg')}`;
+    location.href='mailto:sarl-darphin@orange.fr?subject='+encodeURIComponent(state.type+' – '+v('eq'))+'&body='+encodeURIComponent(body);
+    document.getElementById('okMsg').classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>
