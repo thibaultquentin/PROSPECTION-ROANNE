@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--
+  BATEAU L'ESCAPADE — MAQUETTE DE DÉMONSTRATION
+  Croisières commentées sur le canal de Roanne à Digoin, départ du port de Briennon (42).
+  L'Escapade n'a pas de site propre : aucune charte graphique n'existe en ligne.
+  La palette reprend les couleurs du bateau lui-même (coque blanche, liseré rouge)
+  et du canal (vert d'eau, ciel). Tout se règle dans les variables ci-dessous.
+-->
+<title>Bateau l'Escapade — Croisières sur le canal à Briennon | Roanne à Digoin</title>
+<meta name="description" content="Croisières commentées d'1 h ou 2 h sur le canal de Roanne à Digoin, au départ du port de Briennon. Avec ou sans passage d'écluse, sur réservation, d'avril à fin octobre.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   VARIABLES DE CHARTE — couleurs prises sur le bateau et le canal
+   (à remplacer en quelques lignes si l'Escapade a un logo / des codes)
+   ========================================================= */
+:root{
+  --coque:#ffffff;          /* coque blanche du bateau */
+  --liseré:#d4232c;         /* liseré rouge de la coque */
+  --liseré-fonce:#a9161e;
+  --canal:#0e3a3c;          /* eau du canal, ombre des arbres */
+  --canal-2:#14524f;
+  --berge:#5f9a3a;          /* herbe des berges */
+  --ciel:#2f86d6;           /* ciel des photos */
+  --brume:#eef5f3;          /* fond clair */
+  --texte:#12302f;
+  --texte-doux:#4b6866;
+  --font-titre:"Bricolage Grotesque", system-ui, sans-serif;
+  --font-texte:"Source Sans 3", system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--brume);font-size:clamp(1rem,.95rem + .25vw,1.12rem);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--font-titre);line-height:1.05;letter-spacing:-.02em}
+:focus-visible{outline:3px solid var(--liseré);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+
+/* ---------- Bandeau de démonstration ---------- */
+.demo-bar{background:var(--canal);color:#d8ebe8;font-size:.82rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo-bar b{color:#fff}
+
+/* ---------- Navigation ---------- */
+header.nav{position:sticky;top:0;z-index:50;transition:background .35s,box-shadow .35s}
+header.nav.scrolled{background:rgba(255,255,255,.92);backdrop-filter:blur(12px) saturate(160%);box-shadow:0 6px 24px rgba(14,58,60,.12)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 0}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand-mark{width:44px;height:44px;border-radius:50%;background:var(--coque);display:grid;place-items:center;box-shadow:0 0 0 3px var(--liseré)}
+.brand-name{font-family:var(--font-titre);font-weight:800;font-size:1.25rem;line-height:1}
+.brand-name small{display:block;font-family:var(--font-texte);font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte-doux);margin-top:.2rem}
+header.nav:not(.scrolled) .brand-name, header.nav:not(.scrolled) .menu a{color:#fff}
+header.nav:not(.scrolled) .brand-name small{color:#d5ece8}
+.menu{display:flex;gap:1.6rem;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-weight:600;font-size:.95rem;position:relative}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--liseré);transition:right .3s var(--ease)}
+.menu a:not(.btn):hover::after{right:0}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;margin:5px auto;background:currentColor;transition:.3s}
+header.nav:not(.scrolled) .burger{color:#fff}
+
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 1.4rem;border-radius:999px;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-family:var(--font-texte);font-size:1rem;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-red{background:var(--liseré);color:#fff!important;box-shadow:0 8px 22px rgba(212,35,44,.35)}
+.btn-red:hover{background:var(--liseré-fonce)}
+.btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.6);backdrop-filter:blur(6px)}
+.btn-ghost:hover{background:rgba(255,255,255,.26)}
+.btn-line{background:#fff;color:var(--canal);border:1.5px solid #cfe0dc}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100svh;margin-top:-76px;display:flex;align-items:flex-end;color:#fff;overflow:hidden;isolation:isolate}
+.hero-img{position:absolute;inset:0;z-index:-2}
+.hero-img img{width:100%;height:110%;object-fit:cover;object-position:center 45%;transform:scale(1.06);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:scale(1.12) translateX(-1.5%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(14,58,60,.55) 0%,rgba(14,58,60,.05) 35%,rgba(14,58,60,.15) 55%,rgba(10,40,42,.88) 100%)}
+.hero-in{padding:0 0 clamp(5rem,10vh,8rem)}
+.kicker{display:inline-flex;align-items:center;gap:.6rem;font-weight:700;font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);padding:.45rem .9rem;border-radius:999px;backdrop-filter:blur(6px)}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--liseré);box-shadow:0 0 0 0 rgba(212,35,44,.7);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(212,35,44,0)}100%{box-shadow:0 0 0 0 rgba(212,35,44,0)}}
+.hero h1{font-size:clamp(3rem,2rem + 6vw,7.2rem);font-weight:800;margin:1.2rem 0 1rem;max-width:12ch}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s;color:#fff}
+.hero h1 em{font-style:normal;color:#fff;background:linear-gradient(transparent 70%,var(--liseré) 70%,var(--liseré) 88%,transparent 88%)}
+@keyframes rise{to{transform:none}}
+.hero p.lead{max-width:46ch;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);opacity:0;animation:fade 1s .45s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem;opacity:0;animation:fade 1s .6s forwards}
+@keyframes fade{to{opacity:1}}
+.hero-facts{display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;margin-top:2.2rem;font-weight:600;font-size:.95rem;opacity:0;animation:fade 1s .8s forwards}
+.hero-facts span{display:flex;align-items:center;gap:.45rem}
+.hero-facts svg{flex:none}
+.waves{position:absolute;left:0;right:0;bottom:-1px;height:70px;z-index:1;pointer-events:none}
+.waves path{animation:wave 9s linear infinite}
+.waves path:nth-child(2){animation-duration:13s;animation-direction:reverse;opacity:.6}
+@keyframes wave{to{transform:translateX(-50%)}}
+
+/* ---------- Sections communes ---------- */
+section{position:relative}
+.sec{padding:clamp(4.5rem,9vw,8rem) 0}
+.eyebrow{font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--liseré);display:flex;align-items:center;gap:.6rem}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.sec h2{font-size:clamp(2.1rem,1.5rem + 2.6vw,3.6rem);font-weight:800;margin:.8rem 0 1.1rem;max-width:18ch}
+.sec .intro{max-width:60ch;color:var(--texte-doux);font-size:1.1rem}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+
+/* ---------- Bande défilante ---------- */
+.ticker{background:var(--liseré);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--font-titre);font-weight:700;font-size:clamp(1.1rem,1rem + .6vw,1.5rem);padding:.9rem 0}
+.ticker-track{display:inline-flex;gap:2.5rem;animation:tick 30s linear infinite;padding-left:2.5rem}
+.ticker-track span{display:inline-flex;align-items:center;gap:2.5rem}
+.ticker-track span::after{content:"";width:9px;height:9px;border-radius:50%;background:#fff;opacity:.7}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- Croisières ---------- */
+.cruises{display:grid;grid-template-columns:repeat(2,1fr);gap:1.6rem;margin-top:3rem}
+.cruise{background:#fff;border-radius:calc(var(--r) + 6px);overflow:hidden;box-shadow:0 14px 40px rgba(14,58,60,.09);display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s}
+.cruise:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(14,58,60,.16)}
+.cruise-media{position:relative;aspect-ratio:16/10;overflow:hidden}
+.cruise-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.cruise:hover .cruise-media img{transform:scale(1.06)}
+.cruise-tag{position:absolute;top:1rem;left:1rem;background:#fff;color:var(--canal);font-weight:700;font-size:.85rem;padding:.4rem .8rem;border-radius:999px}
+.cruise-dur{position:absolute;bottom:1rem;right:1rem;background:var(--liseré);color:#fff;font-family:var(--font-titre);font-weight:800;font-size:1.6rem;padding:.3rem .9rem;border-radius:12px}
+.cruise-body{padding:1.6rem 1.7rem 1.8rem;display:flex;flex-direction:column;gap:1rem;flex:1}
+.cruise-body h3{font-size:1.7rem}
+.cruise-body p{color:var(--texte-doux)}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:auto}
+.price{background:var(--brume);border-radius:12px;padding:.8rem 1rem}
+.price small{display:block;color:var(--texte-doux);font-size:.82rem;font-weight:600}
+.price b{font-family:var(--font-titre);font-size:1.6rem}
+.price.group{grid-column:1/-1;background:var(--canal);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.price.group small{color:#bcd9d4}
+.free{font-size:.88rem;color:var(--texte-doux)}
+
+/* ---------- L'écluse (signature) ---------- */
+.lock{background:var(--canal);color:#fff;overflow:hidden}
+.lock .eyebrow{color:#ff8a8f}
+.lock .intro{color:#bcd9d4}
+.lock-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:3rem;align-items:center}
+.lock-steps{list-style:none;margin-top:2rem;display:grid;gap:1rem}
+.lock-steps li{display:flex;gap:1rem;align-items:flex-start;padding:1rem 1.1rem;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);transition:background .4s,border-color .4s}
+.lock-steps li.on{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+.lock-steps b{font-family:var(--font-titre);font-size:1.4rem;color:#ff8a8f;min-width:1.6rem}
+.lock-steps p{color:#d6ebe7}
+.lock-visual{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3.4;background:linear-gradient(#bfe0f5,#e8f5fb 60%)}
+.lock-visual svg{width:100%;height:100%}
+.lock-note{margin-top:1rem;font-size:.85rem;color:#9fc4be}
+
+/* ---------- Outil : composer sa sortie ---------- */
+.tool{background:linear-gradient(180deg,var(--brume),#fff)}
+.tool-card{margin-top:3rem;background:#fff;border-radius:28px;box-shadow:0 30px 70px rgba(14,58,60,.14);display:grid;grid-template-columns:1.15fr .85fr;overflow:hidden}
+.tool-form{padding:clamp(1.5rem,3vw,2.6rem);display:grid;gap:1.6rem}
+.field-label{font-weight:700;margin-bottom:.6rem;display:block}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.choice input{position:absolute;opacity:0;pointer-events:none}
+.choice label{border:2px solid #d6e5e1;border-radius:16px;padding:1rem 1.1rem;cursor:pointer;display:grid;gap:.15rem;transition:border-color .25s,background .25s,transform .25s var(--ease)}
+.choice label:hover{transform:translateY(-2px)}
+.choice label b{font-family:var(--font-titre);font-size:1.25rem}
+.choice label span{font-size:.9rem;color:var(--texte-doux)}
+.choice input:checked + label{border-color:var(--liseré);background:#fff5f5}
+.choice input:focus-visible + label{outline:3px solid var(--liseré);outline-offset:2px}
+.people{display:grid;gap:.7rem}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem .9rem;border-radius:14px;background:var(--brume)}
+.row div small{display:block;color:var(--texte-doux);font-size:.85rem}
+.stepper{display:flex;align-items:center;gap:.4rem}
+.stepper button{width:44px;height:44px;border-radius:50%;border:0;background:#fff;color:var(--canal);font-size:1.4rem;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(14,58,60,.12);transition:transform .2s var(--ease),background .2s}
+.stepper button:hover{background:var(--liseré);color:#fff}
+.stepper button:active{transform:scale(.9)}
+.stepper output{min-width:2.4rem;text-align:center;font-family:var(--font-titre);font-weight:800;font-size:1.4rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+input[type=date],select,input[type=text],input[type=tel]{width:100%;padding:.85rem 1rem;border-radius:12px;border:2px solid #d6e5e1;font:inherit;background:#fff;color:var(--texte)}
+input:focus,select:focus{border-color:var(--canal-2);outline:none}
+.hint{font-size:.85rem;color:var(--texte-doux);margin-top:.4rem}
+.hint.warn{color:var(--liseré-fonce);font-weight:600}
+
+.tool-sum{background:var(--canal);color:#fff;padding:clamp(1.5rem,3vw,2.6rem);display:flex;flex-direction:column;gap:1.3rem;position:relative;overflow:hidden}
+.tool-sum::after{content:"";position:absolute;right:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;border:40px solid rgba(255,255,255,.04)}
+.sum-title{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:#9fc4be;font-weight:700}
+.boat-gauge{position:relative;height:96px}
+.gauge-water{position:absolute;left:0;right:0;bottom:0;height:34px;border-radius:10px;background:linear-gradient(90deg,#1b6763,#2a7f7a)}
+.gauge-mark{position:absolute;bottom:0;width:2px;height:58px;background:#ffd2d4;left:100%}
+.gauge-mark::after{content:attr(data-l);position:absolute;top:-1.4rem;left:50%;transform:translateX(-50%);font-size:.75rem;white-space:nowrap;color:#ffd2d4;font-weight:700}
+.gauge-boat{position:absolute;bottom:18px;left:0;transform:translateX(-50%);transition:left .6s var(--ease)}
+.gauge-boat svg{width:74px;height:auto;animation:bob 2.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-1.5deg)}}
+.status{font-weight:700;font-size:1.05rem;min-height:3.2em}
+.status.ok{color:#9ff0c3}
+.total{font-family:var(--font-titre);font-weight:800;font-size:clamp(2.6rem,2rem + 2vw,3.6rem);line-height:1}
+.total small{font-family:var(--font-texte);font-weight:600;font-size:1rem;color:#bcd9d4;display:block;margin-top:.35rem}
+.detail{list-style:none;display:grid;gap:.35rem;font-size:.95rem;color:#d6ebe7;border-top:1px solid rgba(255,255,255,.12);padding-top:1rem}
+.detail li{display:flex;justify-content:space-between;gap:1rem}
+.saving{display:none;background:rgba(159,240,195,.14);color:#9ff0c3;font-weight:700;border-radius:10px;padding:.55rem .8rem;font-size:.92rem}
+.saving.show{display:block}
+.sum-actions{display:grid;gap:.6rem;margin-top:auto}
+.sum-actions .btn{justify-content:center}
+.btn-white{background:#fff;color:var(--canal)}
+.copy-ok{font-size:.85rem;color:#9ff0c3;min-height:1.2em;text-align:center}
+
+/* ---------- Galerie ---------- */
+.gallery{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:1rem;margin-top:3rem}
+.gallery figure{position:relative;border-radius:var(--r);overflow:hidden;background:#cfe0dc}
+.gallery figure:first-child{grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.gallery figure:hover img{transform:scale(1.05)}
+.gallery figcaption{position:absolute;left:1rem;bottom:1rem;background:rgba(255,255,255,.92);color:var(--canal);font-weight:700;font-size:.88rem;padding:.4rem .8rem;border-radius:999px}
+.gallery .todo{display:grid;place-items:center;text-align:center;padding:2rem;color:var(--texte-doux);border:2px dashed #b7cec9;background:transparent;min-height:220px}
+.gallery .todo b{display:block;color:var(--canal);font-family:var(--font-titre);font-size:1.2rem;margin-bottom:.3rem}
+
+/* ---------- Infos pratiques ---------- */
+.infos{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:3rem}
+.info{background:#fff;border-radius:var(--r);padding:1.5rem;box-shadow:0 10px 30px rgba(14,58,60,.07);display:grid;gap:.6rem;align-content:start;transition:transform .35s var(--ease)}
+.info:hover{transform:translateY(-4px)}
+.info .ic{width:48px;height:48px;border-radius:14px;background:#fff0f0;color:var(--liseré);display:grid;place-items:center}
+.info h3{font-size:1.25rem}
+.info p{color:var(--texte-doux);font-size:.98rem}
+
+/* ---------- Contact ---------- */
+.contact{background:var(--canal);color:#fff}
+.contact .eyebrow{color:#ff8a8f}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-list{list-style:none;display:grid;gap:1rem;margin-top:2rem}
+.contact-list a,.contact-list div{display:flex;gap:1rem;align-items:center;text-decoration:none;padding:1rem 1.2rem;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);transition:background .3s,transform .3s var(--ease)}
+.contact-list a:hover{background:rgba(255,255,255,.13);transform:translateX(6px)}
+.contact-list small{display:block;color:#9fc4be;font-size:.82rem;font-weight:600}
+.contact-list b{font-size:1.15rem}
+.map{border-radius:22px;overflow:hidden;aspect-ratio:4/3;border:0;width:100%;background:#1b4b4b}
+.gift{margin-top:1.4rem;display:flex;gap:1rem;align-items:center;padding:1rem 1.2rem;border-radius:16px;background:var(--liseré)}
+.gift p{font-size:.95rem}
+
+footer{background:#0a2a2b;color:#9fc4be;font-size:.88rem;padding:2.5rem 0}
+footer .wrap{display:grid;gap:1rem}
+footer strong{color:#fff}
+
+/* ---------- Barre d'appel mobile ---------- */
+.callbar{display:none}
+
+/* ---------- Responsive ---------- */
+@media (max-width:960px){
+  .lock-grid,.contact-grid,.tool-card{grid-template-columns:1fr}
+  .infos{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:#fff;padding:5.5rem 1.5rem 2rem;gap:1.2rem;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.15)}
+  .menu.open{transform:none}
+  .menu a{color:var(--texte)!important;font-size:1.15rem}
+  .burger{display:block;position:relative;z-index:60}
+  .burger.open{color:var(--texte)!important}
+  .burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .cruises,.infos,.gallery,.choice,.two{grid-template-columns:1fr}
+  .gallery figure:first-child{grid-row:auto}
+  .callbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:.6rem}
+  .callbar a{flex:1;justify-content:center;white-space:nowrap;padding:.8rem 1rem;font-size:.95rem}
+  footer{padding-bottom:6rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["LocalBusiness","TouristAttraction"],
+  "name":"Bateau l'Escapade",
+  "description":"Croisières commentées sur le canal de Roanne à Digoin au départ du port de Briennon : 1 heure sans passage d'écluse ou 2 heures avec passage d'écluse. Sur réservation uniquement.",
+  "address":{"@type":"PostalAddress","streetAddress":"Port de Plaisance","postalCode":"42720","addressLocality":"Briennon","addressRegion":"Loire","addressCountry":"FR"},
+  "telephone":"+33667892016",
+  "email":"escapade.briennon@gmail.com",
+  "areaServed":["Briennon","Pays de Charlieu","Roannais","Canal de Roanne à Digoin"],
+  "image":"https://static.apidae-tourisme.com/filestore/objets-touristiques/images/39/173/41987367.jpg",
+  "paymentAccepted":"Espèces, virement",
+  "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"validFrom":"2026-04-01","validThrough":"2026-10-31","description":"Départs tous les jours, matin et après-midi, sur réservation"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo-bar">Maquette de démonstration — <b>Bateau l'Escapade</b>, Briennon · proposition non contractuelle</div>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Bateau l'Escapade, retour en haut">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="28" height="20" viewBox="0 0 28 20"><path d="M3 12h22l-3 6H6z" fill="#fff" stroke="#0e3a3c" stroke-width="1.6"/><path d="M3 12h22" stroke="#d4232c" stroke-width="2.4"/><rect x="8" y="5" width="12" height="7" rx="1.5" fill="#fff" stroke="#0e3a3c" stroke-width="1.6"/><path d="M9 2h10" stroke="#0e3a3c" stroke-width="1.6"/></svg>
+      </span>
+      <span class="brand-name">L'Escapade<small>Port de Briennon</small></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a href="#croisieres">Les croisières</a></li>
+      <li><a href="#ecluse">L'écluse</a></li>
+      <li><a href="#sortie">Composer ma sortie</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+      <li><a class="btn btn-red" href="tel:+33667892016">06 67 89 20 16</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-img"><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/39/173/41987367.jpg" alt="Le bateau l'Escapade amarré sur le canal de Roanne à Digoin, à côté d'une maison éclusière" fetchpriority="high"></div>
+  <div class="wrap hero-in">
+    <span class="kicker"><i></i>Canal de Roanne à Digoin · Briennon (42)</span>
+    <h1><span class="line"><span>Bateau</span></span><span class="line"><span><em>l'Escapade</em></span></span></h1>
+    <p class="lead">Venez découvrir le charme du canal à travers deux types de croisières, idéales pour les amoureux de nature et d'histoire&nbsp;!</p>
+    <div class="ctas">
+      <a class="btn btn-red" href="#sortie">Composer ma sortie
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-ghost" href="#croisieres">Voir les croisières</a>
+    </div>
+    <div class="hero-facts">
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>1 h ou 2 h à bord</span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>D'avril à fin octobre</span>
+      <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Sur réservation uniquement</span>
+    </div>
+  </div>
+  <svg class="waves" viewBox="0 0 2880 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40 Q 180 10 360 40 T 720 40 T 1080 40 T 1440 40 T 1800 40 T 2160 40 T 2520 40 T 2880 40 V70 H0Z" fill="#eef5f3"/>
+    <path d="M0 48 Q 180 26 360 48 T 720 48 T 1080 48 T 1440 48 T 1800 48 T 2160 48 T 2520 48 T 2880 48 V70 H0Z" fill="#eef5f3"/>
+  </svg>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track">
+  <span>Croisières commentées</span><span>Canal de Roanne à Digoin</span><span>Avec ou sans passage d'écluse</span><span>Départ du port de Briennon</span><span>Groupes dès 12 personnes</span>
+  <span>Croisières commentées</span><span>Canal de Roanne à Digoin</span><span>Avec ou sans passage d'écluse</span><span>Départ du port de Briennon</span><span>Groupes dès 12 personnes</span>
+</div></div>
+
+<!-- ================= CROISIÈRES ================= -->
+<section class="sec" id="croisieres">
+  <div class="wrap">
+    <p class="eyebrow reveal">Les croisières</p>
+    <h2 class="reveal d1">Croisières commentées sur le canal de Roanne à Digoin</h2>
+    <p class="intro reveal d2">Deux formules au départ du port de Briennon, en aller-retour. L'une se contente du plan d'eau et de ses berges, l'autre va jusqu'à franchir une écluse.</p>
+
+    <div class="cruises">
+      <article class="cruise reveal">
+        <div class="cruise-media">
+          <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/104/173/41987432.jpg" alt="L'Escapade au bord du quai, coque blanche et liseré rouge" loading="lazy">
+          <span class="cruise-tag">Sans passage d'écluse</span>
+          <span class="cruise-dur">1 h</span>
+        </div>
+        <div class="cruise-body">
+          <h3>La balade d'une heure</h3>
+          <p>Aller-retour depuis le port de Briennon, au fil de l'eau et des berges du canal. Le format idéal pour une première découverte, en famille ou entre amis.</p>
+          <div class="prices">
+            <div class="price"><small>Adulte</small><b>13 €</b></div>
+            <div class="price"><small>Enfant</small><b>6 €</b></div>
+            <div class="price group"><span><small>Tarif de groupe, à partir de 12 personnes</small>11 € adulte · 5 € enfant</span>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8 0 5 2.2 5 5"/></svg></div>
+          </div>
+          <p class="free">Gratuit pour les moins de 3 ans.</p>
+        </div>
+      </article>
+
+      <article class="cruise reveal d1">
+        <div class="cruise-media">
+          <img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/105/173/41987433.jpg" alt="Des passagers à bord de l'Escapade dans le sas d'une écluse" loading="lazy" style="object-position:center 60%">
+          <span class="cruise-tag">Avec passage d'écluse</span>
+          <span class="cruise-dur">2 h</span>
+        </div>
+        <div class="cruise-body">
+          <h3>La croisière avec écluse</h3>
+          <p>Deux heures aller-retour, avec le moment que tout le monde attend&nbsp;: entrer dans le sas, sentir le bateau monter ou descendre avec l'eau, puis repartir de l'autre côté.</p>
+          <div class="prices">
+            <div class="price"><small>Adulte</small><b>16 €</b></div>
+            <div class="price"><small>Enfant</small><b>10 €</b></div>
+            <div class="price group"><span><small>Tarif de groupe, à partir de 12 personnes</small>15 € adulte · 8 € enfant</span>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 14.5c2.8 0 5 2.2 5 5"/></svg></div>
+          </div>
+          <p class="free">Gratuit pour les moins de 3 ans.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= L'ÉCLUSE ================= -->
+<section class="sec lock" id="ecluse">
+  <div class="wrap lock-grid">
+    <div>
+      <p class="eyebrow reveal">Le passage d'écluse</p>
+      <h2 class="reveal d1">Ce qui se passe dans le sas</h2>
+      <p class="intro reveal d2">Faites défiler&nbsp;: l'eau du sas suit votre lecture, comme pendant la croisière de 2 heures.</p>
+      <ol class="lock-steps" id="lockSteps">
+        <li data-s="0"><b>1</b><p>Le bateau entre dans le sas, les portes se referment derrière lui.</p></li>
+        <li data-s="1"><b>2</b><p>L'eau remplit le sas&nbsp;: le bateau monte doucement, contre le mur de pierre.</p></li>
+        <li data-s="2"><b>3</b><p>Le niveau est égal des deux côtés, les portes avant s'ouvrent.</p></li>
+        <li data-s="3"><b>4</b><p>L'Escapade reprend sa route sur le bief suivant.</p></li>
+      </ol>
+      <p class="lock-note">Illustration simplifiée du principe d'une écluse.</p>
+    </div>
+    <div class="lock-visual reveal d1" aria-hidden="true">
+      <svg viewBox="0 0 400 340" id="lockSvg">
+        <rect x="0" y="0" width="400" height="340" fill="url(#sky)"/>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0f2"/><stop offset="1" stop-color="#e9f6fb"/></linearGradient>
+          <linearGradient id="eau" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a7f7a"/><stop offset="1" stop-color="#0e3a3c"/></linearGradient>
+        </defs>
+        <!-- berges -->
+        <rect x="0" y="230" width="70" height="110" fill="#5f9a3a"/>
+        <rect x="330" y="150" width="70" height="190" fill="#5f9a3a"/>
+        <!-- bief aval (bas, à gauche) et bief amont (haut, à droite) -->
+        <rect x="0" y="250" width="70" height="90" fill="url(#eau)"/>
+        <rect x="330" y="170" width="70" height="170" fill="url(#eau)"/>
+        <!-- murs du sas -->
+        <rect x="70" y="120" width="14" height="220" fill="#8b8f86"/>
+        <rect x="316" y="120" width="14" height="220" fill="#8b8f86"/>
+        <!-- eau du sas -->
+        <rect id="sasWater" x="84" y="250" width="232" height="90" fill="url(#eau)"/>
+        <!-- portes -->
+        <rect id="gateA" x="76" y="120" width="8" height="220" fill="#3b2f25"/>
+        <rect id="gateB" x="316" y="120" width="8" height="220" fill="#3b2f25"/>
+        <!-- bateau -->
+        <g id="boat" transform="translate(130,212)">
+          <path d="M0 30h140l-14 18H12z" fill="#fff" stroke="#0e3a3c" stroke-width="2"/>
+          <path d="M0 30h140" stroke="#d4232c" stroke-width="5"/>
+          <rect x="22" y="6" width="96" height="24" rx="4" fill="#fff" stroke="#0e3a3c" stroke-width="2"/>
+          <rect x="30" y="11" width="18" height="12" rx="2" fill="#9fd0f2"/><rect x="54" y="11" width="18" height="12" rx="2" fill="#9fd0f2"/><rect x="78" y="11" width="18" height="12" rx="2" fill="#9fd0f2"/>
+          <path d="M40 0h60" stroke="#0e3a3c" stroke-width="2.5"/>
+        </g>
+        <!-- maison éclusière -->
+        <g transform="translate(318,90)" opacity=".95"><rect x="10" y="20" width="60" height="40" fill="#f3efe6"/><path d="M4 22 L40 0 L76 22z" fill="#c25a3a"/><rect x="34" y="38" width="12" height="22" fill="#6b4b33"/></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUTIL ================= -->
+<section class="sec tool" id="sortie">
+  <div class="wrap">
+    <p class="eyebrow reveal">Composer ma sortie</p>
+    <h2 class="reveal d1">Votre groupe, votre croisière, le prix tout de suite</h2>
+    <p class="intro reveal d2">Choisissez la formule, indiquez qui embarque&nbsp;: le tarif s'affiche, le tarif de groupe s'applique tout seul, et votre demande part prête à confirmer.</p>
+
+    <div class="tool-card reveal">
+      <form class="tool-form" id="tool" onsubmit="return false">
+        <div>
+          <span class="field-label">Quelle croisière&nbsp;?</span>
+          <div class="choice">
+            <input type="radio" name="f" id="f1" value="1" checked>
+            <label for="f1"><b>1 heure</b><span>Sans passage d'écluse</span></label>
+            <input type="radio" name="f" id="f2" value="2">
+            <label for="f2"><b>2 heures</b><span>Avec passage d'écluse</span></label>
+          </div>
+        </div>
+
+        <div>
+          <span class="field-label">Qui embarque&nbsp;?</span>
+          <div class="people">
+            <div class="row"><div><b>Adultes</b></div><div class="stepper"><button type="button" data-k="a" data-d="-1" aria-label="Retirer un adulte">−</button><output id="oa">10</output><button type="button" data-k="a" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+            <div class="row"><div><b>Enfants</b><small>3 ans et plus</small></div><div class="stepper"><button type="button" data-k="e" data-d="-1" aria-label="Retirer un enfant">−</button><output id="oe">0</output><button type="button" data-k="e" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+            <div class="row"><div><b>Moins de 3 ans</b><small>Gratuit</small></div><div class="stepper"><button type="button" data-k="b" data-d="-1" aria-label="Retirer un enfant de moins de 3 ans">−</button><output id="ob">0</output><button type="button" data-k="b" data-d="1" aria-label="Ajouter un enfant de moins de 3 ans">+</button></div></div>
+          </div>
+        </div>
+
+        <div class="two">
+          <div>
+            <label class="field-label" for="date">Date souhaitée</label>
+            <input type="date" id="date">
+            <p class="hint" id="dateHint">Départs tous les jours d'avril à fin octobre.</p>
+          </div>
+          <div>
+            <label class="field-label" for="moment">Moment</label>
+            <select id="moment"><option>Matin</option><option>Après-midi</option><option>Indifférent</option></select>
+          </div>
+        </div>
+        <div class="two">
+          <div><label class="field-label" for="nom">Votre nom</label><input type="text" id="nom" autocomplete="name" placeholder="Nom ou association"></div>
+          <div><label class="field-label" for="tel">Téléphone</label><input type="tel" id="tel" autocomplete="tel" placeholder="06 …"></div>
+        </div>
+      </form>
+
+      <aside class="tool-sum" aria-live="polite">
+        <p class="sum-title">Votre sortie</p>
+        <div class="boat-gauge" aria-hidden="true">
+          <div class="gauge-water"></div>
+          <div class="gauge-mark" id="mark" data-l="12 payants"></div>
+          <div class="gauge-boat" id="gBoat"><svg viewBox="0 0 74 40"><path d="M2 24h70l-8 12H10z" fill="#fff"/><path d="M2 24h70" stroke="#d4232c" stroke-width="4"/><rect x="14" y="6" width="46" height="18" rx="3" fill="#fff"/><rect x="19" y="10" width="10" height="8" rx="1.5" fill="#9fd0f2"/><rect x="32" y="10" width="10" height="8" rx="1.5" fill="#9fd0f2"/><rect x="45" y="10" width="10" height="8" rx="1.5" fill="#9fd0f2"/></svg></div>
+        </div>
+        <p class="status" id="status"></p>
+        <div class="total" id="total">0 €<small id="totalSub"></small></div>
+        <p class="saving" id="saving"></p>
+        <ul class="detail" id="detail"></ul>
+        <div class="sum-actions">
+          <a class="btn btn-red" id="mailBtn" href="#">Envoyer ma demande par mail</a>
+          <a class="btn btn-white" href="tel:+33667892016">Appeler le 06 67 89 20 16</a>
+          <p class="copy-ok" id="copyOk"></p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALERIE ================= -->
+<section class="sec" id="photos" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow reveal">À bord</p>
+    <h2 class="reveal d1">Le canal, côté eau</h2>
+    <div class="gallery">
+      <figure class="reveal"><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/39/173/41987367.jpg" alt="L'Escapade et son reflet sur le canal, maison éclusière en arrière-plan" loading="lazy"><figcaption>Le canal de Roanne à Digoin</figcaption></figure>
+      <figure class="reveal d1"><img src="https://static.apidae-tourisme.com/filestore/objets-touristiques/images/105/173/41987433.jpg" alt="Passagers à l'avant du bateau, dans l'écluse" loading="lazy" style="object-position:center 55%"><figcaption>Dans le sas</figcaption></figure>
+      <figure class="todo reveal d2"><div><b>Photo à fournir</b>Une vue de l'intérieur du bateau ou du départ au port de Briennon.</div></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INFOS PRATIQUES ================= -->
+<section class="sec" id="infos" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow reveal">Infos pratiques</p>
+    <h2 class="reveal d1">Avant d'embarquer</h2>
+    <div class="infos">
+      <div class="info reveal"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><h3>Saison</h3><p>D'avril à fin octobre, départs tous les jours, le matin et l'après-midi.</p></div>
+      <div class="info reveal d1"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Réservation</h3><p>Sur réservation uniquement. Départ à partir de 12 personnes payantes.</p></div>
+      <div class="info reveal d2"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg></span><h3>Paiement</h3><p>Espèces ou virement.</p></div>
+      <div class="info reveal"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></span><h3>Accès</h3><p>Parking et accès autocar au port de plaisance de Briennon.</p></div>
+      <div class="info reveal d1"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg></span><h3>Enfants</h3><p>Gratuit pour les moins de 3 ans.</p></div>
+      <div class="info reveal d2"><span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2 2 0 1 1 0-4c3 0 4 4 4 4zM12 7h4a2 2 0 1 0 0-4c-3 0-4 4-4 4z"/></svg></span><h3>Carte cadeau</h3><p>Partenaire de la Carte Cadeau 100&nbsp;% Roannaise.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="sec contact" id="contact">
+  <div class="wrap contact-grid">
+    <div>
+      <p class="eyebrow reveal">Renseignements et réservations</p>
+      <h2 class="reveal d1">On embarque quand&nbsp;?</h2>
+      <ul class="contact-list">
+        <li class="reveal"><a href="tel:+33667892016"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span><small>Portable</small><b>06 67 89 20 16</b></span></a></li>
+        <li class="reveal d1"><a href="tel:+33981733736"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/></svg><span><small>Fixe</small><b>09 81 73 37 36</b></span></a></li>
+        <li class="reveal d2"><a href="mailto:escapade.briennon@gmail.com"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span><small>Mail</small><b>escapade.briennon@gmail.com</b></span></a></li>
+        <li class="reveal d3"><a href="https://www.google.com/maps/search/?api=1&query=Port+de+plaisance+42720+Briennon" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff8a8f" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><small>Départ</small><b>Port de plaisance, 42720 Briennon</b></span></a></li>
+      </ul>
+      <div class="gift reveal"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7"/></svg><p>Une croisière à offrir&nbsp;? L'Escapade accepte la Carte Cadeau 100&nbsp;% Roannaise.</p></div>
+    </div>
+    <iframe class="map reveal d1" title="Plan d'accès au port de Briennon" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.055%2C46.135%2C4.095%2C46.165&amp;layer=mapnik"></iframe>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Bateau l'Escapade</strong> · Port de plaisance, 42720 Briennon · 06 67 89 20 16 · escapade.briennon@gmail.com</p>
+    <p><strong>Maquette de démonstration.</strong> Cette page a été réalisée à partir des informations publiques de l'Escapade (fiches de Roannais Tourisme, de l'office de tourisme de Charlieu-Belmont et page du port de Briennon). Tarifs indicatifs, non contractuels, repris de la page du port de Briennon&nbsp;; le nombre minimum de passagers apparaît à 12 ou 15 personnes selon les sources, à confirmer. L'Escapade n'ayant pas de site, les couleurs sont reprises du bateau lui-même (coque blanche, liseré rouge) et restent ajustables. Photos&nbsp;: images réelles de l'Escapade publiées sur sa fiche touristique (© otpcb)&nbsp;; la troisième photo est à fournir. L'illustration de l'écluse est un schéma de principe.</p>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn btn-red" href="tel:+33667892016">Appeler</a><a class="btn btn-line" href="#sortie">Composer ma sortie</a></div>
+
+<script>
+(function(){
+  /* --- Navigation --- */
+  var nav=document.getElementById('nav'),burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>40)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  burger.addEventListener('click',function(){var o=menu.classList.toggle('open');burger.classList.toggle('open',o);burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded',false)})});
+
+  /* --- Apparitions au défilement --- */
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el)});
+  }else{els.forEach(function(el){el.classList.add('in')})}
+
+  /* --- Écluse liée au défilement --- */
+  var lockSec=document.getElementById('ecluse'),water=document.getElementById('sasWater'),boat=document.getElementById('boat'),gA=document.getElementById('gateA'),gB=document.getElementById('gateB'),steps=document.querySelectorAll('#lockSteps li');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function lockTick(){
+    var r=lockSec.getBoundingClientRect(),vh=window.innerHeight;
+    var p=Math.min(1,Math.max(0,(vh*.75-r.top)/(r.height*.8)));
+    if(reduce)p=.5;
+    // 0-.2 entrée ; .2-.65 remplissage ; .65-.8 ouverture ; .8-1 sortie
+    var fill=Math.min(1,Math.max(0,(p-.2)/.45));
+    var top=250-fill*80; water.setAttribute('y',top); water.setAttribute('height',340-top);
+    var bx=p<.2?40+p/.2*90:(p<.8?130:130+(p-.8)/.2*150);
+    boat.setAttribute('transform','translate('+bx+','+(top-35)+')');
+    gA.setAttribute('y',p<.2?250:120);
+    var open=p>.65; gB.style.opacity=open?0:1;
+    var s=p<.2?0:p<.65?1:p<.8?2:3;
+    steps.forEach(function(li,i){li.classList.toggle('on',i===s)});
+  }
+  window.addEventListener('scroll',function(){requestAnimationFrame(lockTick)},{passive:true});lockTick();
+
+  /* --- Outil : composer sa sortie --- */
+  var TARIFS={ "1":{nom:"Croisière 1 h, sans passage d'écluse",a:13,e:6,ga:11,ge:5},
+               "2":{nom:"Croisière 2 h, avec passage d'écluse",a:16,e:10,ga:15,ge:8} };
+  var MIN=12; // personnes payantes (12 selon l'office de tourisme, 15 selon la page du port : à confirmer)
+  var n={a:10,e:0,b:0};
+  var $=function(id){return document.getElementById(id)};
+  var eur=function(v){return v.toLocaleString('fr-FR')+' €'};
+  var dateIn=$('date');
+  var today=new Date();
+  dateIn.min=today.toISOString().slice(0,10);
+
+  document.querySelectorAll('.stepper button').forEach(function(b){
+    b.addEventListener('click',function(){var k=b.dataset.k;n[k]=Math.max(0,Math.min(120,n[k]+ +b.dataset.d));calc()});
+  });
+  document.querySelectorAll('#tool input, #tool select').forEach(function(i){i.addEventListener('input',calc)});
+
+  function seasonOk(v){if(!v)return null;var m=+v.slice(5,7);return m>=4&&m<=10}
+
+  function calc(){
+    $('oa').textContent=n.a;$('oe').textContent=n.e;$('ob').textContent=n.b;
+    var f=document.querySelector('input[name=f]:checked').value,t=TARIFS[f];
+    var pay=n.a+n.e,group=pay>=MIN;
+    var pa=group?t.ga:t.a,pe=group?t.ge:t.e;
+    var tot=n.a*pa+n.e*pe,pub=n.a*t.a+n.e*t.e;
+    $('total').firstChild.nodeValue=eur(tot);
+    $('totalSub').textContent=pay?(group?'Tarif de groupe appliqué':'Tarif individuel'):'';
+    var d=[];
+    if(n.a)d.push('<li><span>'+n.a+' adulte'+(n.a>1?'s':'')+' × '+eur(pa)+'</span><span>'+eur(n.a*pa)+'</span></li>');
+    if(n.e)d.push('<li><span>'+n.e+' enfant'+(n.e>1?'s':'')+' × '+eur(pe)+'</span><span>'+eur(n.e*pe)+'</span></li>');
+    if(n.b)d.push('<li><span>'+n.b+' moins de 3 ans</span><span>gratuit</span></li>');
+    $('detail').innerHTML=d.join('');
+    var sv=$('saving');
+    if(group&&pub>tot){sv.textContent='Économie de groupe : '+eur(pub-tot)+' par rapport au tarif individuel';sv.classList.add('show')}else sv.classList.remove('show');
+    var st=$('status');
+    if(!pay){st.textContent='Ajoutez les passagers pour voir le tarif.';st.className='status'}
+    else if(group){st.textContent='Le groupe est complet : '+pay+' personnes payantes, le départ peut être organisé.';st.className='status ok'}
+    else{var m=MIN-pay;st.textContent='Encore '+m+' personne'+(m>1?'s':'')+' payante'+(m>1?'s':'')+' pour atteindre le minimum de départ ('+MIN+').';st.className='status'}
+    $('gBoat').style.left=Math.min(100,pay/MIN*100)+'%';
+    var so=seasonOk(dateIn.value),h=$('dateHint');
+    if(so===false){h.textContent="Hors saison : les départs ont lieu d'avril à fin octobre.";h.className='hint warn'}
+    else{h.textContent="Départs tous les jours d'avril à fin octobre.";h.className='hint'}
+    // Mail pré-rempli
+    var dt=dateIn.value?new Date(dateIn.value+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'}):'à définir';
+    var body='Bonjour,\n\nJe souhaite réserver une sortie à bord de l\'Escapade :\n\n'+
+      '- Formule : '+t.nom+'\n- Date souhaitée : '+dt+' ('+$('moment').value.toLowerCase()+')\n'+
+      '- Passagers : '+n.a+' adulte(s), '+n.e+' enfant(s), '+n.b+' enfant(s) de moins de 3 ans\n'+
+      '- Estimation : '+eur(tot)+(group?' (tarif de groupe)':'')+'\n\n'+
+      'Nom : '+($('nom').value||'')+'\nTéléphone : '+($('tel').value||'')+'\n\nMerci de me confirmer la disponibilité.\n';
+    $('mailBtn').href='mailto:escapade.briennon@gmail.com?subject='+encodeURIComponent('Demande de réservation – '+t.nom)+'&body='+encodeURIComponent(body);
+  }
+  calc();
+})();
+</script>
+</body>
+</html>
