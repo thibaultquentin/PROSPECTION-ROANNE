@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bistrot les 4 Sources — Restaurant bistronomique à Saint-Alban-les-Eaux</title>
+<meta name="description" content="Bistrot les 4 Sources, restaurant bistronomique au cœur de Saint-Alban-les-Eaux : cuisine faite maison de saison, menu du marché le midi, formules le soir, crus de la Côte Roannaise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Just+Another+Hand&family=Kumbh+Sans:wght@400;600;700;800&family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel bistrot-lesquatresources.fr
+   (couleurs relevées dans la feuille de style du site, polices identiques)
+   Ajuster ici si besoin : tout le reste en découle.
+   ========================================================= */
+:root{
+  --or:#c68f0b;          /* doré principal (bandeau horaires, chiffres, icônes) */
+  --or-clair:#d7ae5a;    /* doré secondaire */
+  --noir:#1f1f1f;        /* fond des sections sombres, top-bar */
+  --noir-2:#1a1b1d;
+  --creme:#f2f1ed;       /* fond des sections claires */
+  --creme-2:#e5e4e0;
+  --gris:#75706d;        /* texte courant */
+  --blanc:#ffffff;
+  --f-texte:"Urbanist",sans-serif;
+  --f-titre:"Kumbh Sans","Urbanist",sans-serif;
+  --f-main:"Just Another Hand",cursive;   /* chiffres manuscrits « 01 », « 02 » */
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--f-texte);color:var(--gris);background:var(--creme);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}
+.wrap{width:min(1200px,100% - 40px);margin-inline:auto}
+.demo{background:var(--or);color:#fff;font-size:13px;text-align:center;padding:6px 12px;letter-spacing:.02em}
+.demo b{font-weight:700}
+
+/* ---------- Top bar + header (structure du site actuel) ---------- */
+.topbar{background:var(--noir);color:#fff;font-size:15px}
+.topbar .wrap{display:flex;justify-content:space-between;gap:16px;padding:12px 0;flex-wrap:wrap}
+.topbar span::before{content:"✦";color:var(--or);margin-right:10px}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.08)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:86px;transition:height .3s}
+header.nav.scrolled .wrap{height:68px}
+.logo img{height:64px;width:auto;transition:height .3s}
+header.nav.scrolled .logo img{height:50px}
+nav ul{display:flex;gap:34px;list-style:none}
+nav a{font-family:var(--f-titre);font-weight:700;font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--noir);position:relative;padding:6px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+nav a:hover::after,nav a.actif::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-titre);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;padding:14px 26px;border-radius:40px;border:2px solid var(--or);transition:transform .25s var(--ease),background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-or{background:var(--or);color:#fff}
+.btn-or:hover{background:#b07e06}
+.btn-ligne{color:#fff;border-color:#fff}
+.btn-ligne:hover{background:#fff;color:var(--noir)}
+.burger{display:none;background:none;border:0;width:44px;height:44px}
+.burger span{display:block;height:2px;background:var(--noir);margin:6px 8px;transition:.3s}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;height:min(88vh,760px);min-height:520px;overflow:hidden;color:#fff;display:grid;place-items:center;text-align:center}
+.hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 7s linear}
+.hero .slide.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(0,0,0,.35) 50%,rgba(0,0,0,.6))}
+.hero-c{position:relative;z-index:2;padding:0 20px}
+.hero .sur{font-family:var(--f-main);font-size:clamp(30px,4vw,44px);letter-spacing:.08em;display:inline-flex;align-items:center;gap:14px}
+.hero .sur::before,.hero .sur::after{content:"◇";color:var(--or);font-family:var(--f-texte);font-size:18px}
+.hero h1{font-family:var(--f-titre);font-weight:800;font-size:clamp(46px,9vw,112px);line-height:.95;text-transform:uppercase;letter-spacing:.01em;margin:6px 0 28px}
+.hero h1 .mot{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .mot span{display:inline-block;transform:translateY(105%);animation:monte 1s var(--ease) forwards}
+.hero h1 .mot:nth-child(2) span{animation-delay:.15s}
+@keyframes monte{to{transform:none}}
+.hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:apparait .8s .6s forwards}
+@keyframes apparait{to{opacity:1}}
+.hero .points{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px}
+.hero .points button{width:34px;height:4px;border:0;background:rgba(255,255,255,.4);border-radius:3px;padding:0}
+.hero .points button.on{background:var(--or)}
+.bandeau{background:var(--or);color:#fff;font-family:var(--f-titre);font-weight:700;text-transform:uppercase;font-size:15px;letter-spacing:.03em;text-align:center;padding:16px 20px}
+.bandeau .live{display:inline-flex;align-items:center;gap:8px;margin-left:14px;padding:3px 12px;border-radius:30px;background:rgba(0,0,0,.18);font-size:13px}
+.bandeau .live i{width:8px;height:8px;border-radius:50%;background:#7dff9b;box-shadow:0 0 0 0 rgba(125,255,155,.7);animation:pulse 1.8s infinite}
+.bandeau .live.ferme i{background:#ffb4a8;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(125,255,155,0)}100%{box-shadow:0 0 0 0 rgba(125,255,155,0)}}
+
+/* ---------- Sections génériques ---------- */
+section{position:relative}
+.pad{padding:clamp(70px,10vw,120px) 0}
+.kicker{font-family:var(--f-main);color:var(--or);font-size:34px;line-height:1;letter-spacing:.04em}
+h2{font-family:var(--f-titre);font-weight:800;color:var(--noir);font-size:clamp(32px,4.4vw,52px);line-height:1.08;margin:6px 0 20px}
+.sombre{background:radial-gradient(ellipse at 20% 0%,rgba(198,143,11,.10),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(255,255,255,.04),transparent 50%),var(--noir);color:#c9c5c1}
+.sombre h2,.sombre h3{color:#fff}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+
+/* ---------- Le restaurant ---------- */
+.resto{display:grid;grid-template-columns:1.05fr 1fr;gap:70px;align-items:center}
+.photos{position:relative;height:540px}
+.photos figure{position:absolute;overflow:hidden;border-radius:4px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+.photos figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photos figure:hover img{transform:scale(1.06)}
+.photos .p1{left:0;top:0;width:62%;height:78%}
+.photos .p2{right:0;bottom:0;width:52%;height:58%;border:10px solid var(--creme)}
+.tampon{position:absolute;left:55%;top:66%;width:112px;height:112px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--f-main);font-size:26px;line-height:.95;z-index:3;animation:tourne 18s linear infinite}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.chiffres{display:flex;gap:40px;margin:30px 0 34px;flex-wrap:wrap}
+.chiffres div{font-family:var(--f-main);font-size:56px;color:var(--or);line-height:1}
+.chiffres small{display:block;font-family:var(--f-texte);font-size:14px;color:var(--gris);text-transform:uppercase;letter-spacing:.08em;margin-top:6px}
+
+/* ---------- 01 02 03 04 ---------- */
+.quatre{display:grid;grid-template-columns:repeat(2,1fr);gap:56px 90px}
+.quatre article{position:relative;padding-left:96px}
+.quatre .num{position:absolute;left:0;top:-14px;font-family:var(--f-main);font-size:86px;color:var(--or);line-height:1}
+.quatre h3{font-family:var(--f-titre);font-size:24px;margin-bottom:10px}
+.quatre a{display:inline-block;margin-top:14px;color:var(--or-clair);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.08em}
+.quatre a:hover{color:#fff}
+
+/* ---------- OUTIL CENTRAL : réservation + menu du jour ---------- */
+.resa{background:var(--creme)}
+.resa-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:0;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 30px 70px rgba(31,31,31,.12)}
+.resa-g{padding:44px}
+.resa-d{background:var(--noir);color:#d9d4cf;padding:44px;position:relative;overflow:hidden}
+.resa-d::before{content:"4";position:absolute;right:-20px;bottom:-90px;font-family:var(--f-titre);font-weight:800;font-size:340px;color:rgba(255,255,255,.04);line-height:1}
+.etape{font-family:var(--f-titre);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--noir);margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.etape:first-of-type{margin-top:6px}
+.etape b{width:26px;height:26px;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-size:12px}
+.jours{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.jour{border:1.5px solid var(--creme-2);background:#fff;border-radius:8px;padding:8px 0 7px;text-align:center;transition:.2s;line-height:1.15}
+.jour small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.jour strong{font-family:var(--f-titre);font-size:20px;color:var(--noir)}
+.jour:hover:not(:disabled){border-color:var(--or);transform:translateY(-2px)}
+.jour.sel{background:var(--or);border-color:var(--or);color:#fff}
+.jour.sel strong{color:#fff}
+.jour:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.nav-sem{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:14px}
+.nav-sem button{background:none;border:0;color:var(--or);font-weight:700;padding:6px}
+.nav-sem button:disabled{color:#ccc;cursor:default}
+.services,.creneaux{display:flex;gap:10px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--creme-2);background:#fff;border-radius:30px;padding:9px 18px;font-weight:600;color:var(--noir);transition:.2s}
+.chip:hover:not(:disabled){border-color:var(--or)}
+.chip.sel{background:var(--noir);border-color:var(--noir);color:#fff}
+.chip:disabled{opacity:.35;cursor:not-allowed}
+.couverts{display:flex;align-items:center;gap:16px}
+.couverts button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--creme-2);background:#fff;font-size:22px;color:var(--noir)}
+.couverts button:hover{border-color:var(--or)}
+.couverts output{font-family:var(--f-titre);font-weight:800;font-size:30px;color:var(--noir);min-width:40px;text-align:center}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.champs input,.champs textarea{width:100%;border:1.5px solid var(--creme-2);border-radius:8px;padding:12px 14px;font:inherit;font-size:15px;color:var(--noir);background:#fff}
+.champs textarea{grid-column:1/-1;min-height:70px;resize:vertical}
+.champs input:focus,.champs textarea:focus{border-color:var(--or);outline:none}
+.check{display:flex;gap:10px;align-items:center;font-size:15px;margin-top:12px;color:var(--noir)}
+.check input{accent-color:var(--or);width:18px;height:18px}
+.recap-titre{font-family:var(--f-main);color:var(--or);font-size:38px;line-height:1}
+.recap-date{font-family:var(--f-titre);color:#fff;font-weight:800;font-size:28px;line-height:1.15;margin:8px 0 4px;min-height:34px}
+.recap-info{font-size:15px;margin-bottom:26px}
+.carte-jour{border:1px solid rgba(215,174,90,.35);border-radius:6px;padding:22px;position:relative;z-index:1;background:rgba(255,255,255,.02)}
+.carte-jour h4{font-family:var(--f-titre);color:#fff;font-size:20px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.carte-jour h4 em{font-style:normal;color:var(--or);font-family:var(--f-main);font-size:38px}
+.carte-jour p.q{font-size:14px;color:var(--or-clair);margin:4px 0 14px}
+.carte-jour ul{list-style:none;font-size:15px}
+.carte-jour li{padding:7px 0;border-top:1px dashed rgba(255,255,255,.12)}
+.carte-jour li b{color:#fff;font-weight:600}
+.swap{animation:swap .5s var(--ease)}
+@keyframes swap{from{opacity:0;transform:translateY(10px)}}
+.actions{display:flex;flex-direction:column;gap:10px;margin-top:26px;position:relative;z-index:1}
+.actions .btn{justify-content:center}
+.actions .btn[disabled]{opacity:.4;pointer-events:none}
+.petit{font-size:13px;color:#9a948f;margin-top:14px;position:relative;z-index:1}
+.toast{visibility:hidden;position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--noir);color:#fff;padding:14px 22px;border-radius:40px;border:1px solid var(--or);z-index:99;transition:transform .45s var(--ease);font-size:15px;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+
+/* ---------- Carte menu ---------- */
+.onglets{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:30px 0 40px}
+.onglet{background:none;border:0;font-family:var(--f-titre);font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:#a39d98;padding:10px 18px;position:relative}
+.onglet::after{content:"";position:absolute;left:18px;right:18px;bottom:2px;height:2px;background:var(--or);transform:scaleX(0);transition:transform .35s var(--ease)}
+.onglet.sel{color:#fff}
+.onglet.sel::after{transform:scaleX(1)}
+.panneau{display:none}
+.panneau.on{display:grid;grid-template-columns:1fr 1fr;gap:16px 70px;animation:swap .5s var(--ease)}
+.panneau .entete{grid-column:1/-1;text-align:center;margin-bottom:16px}
+.panneau .entete strong{display:block;font-family:var(--f-titre);color:#fff;font-size:22px}
+.panneau .entete span{color:var(--or-clair);font-size:15px}
+.groupe{grid-column:1/-1;font-family:var(--f-main);color:var(--or);font-size:34px;margin-top:14px;line-height:1}
+.plat{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.plat h5{font-family:var(--f-titre);color:#fff;font-size:17px;display:flex;align-items:center;gap:10px}
+.plat h5::after{content:"";flex:1;border-bottom:1px dotted rgba(255,255,255,.25);transform:translateY(4px)}
+.plat .prix{color:var(--or);font-weight:700;font-family:var(--f-titre)}
+.plat p{grid-column:1/-1;font-size:14px;color:#a8a29d}
+.filtre-vin{grid-column:1/-1;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.filtre-vin .chip{background:transparent;color:#ddd;border-color:rgba(255,255,255,.2)}
+.filtre-vin .chip.sel{background:var(--or);border-color:var(--or)}
+.local{display:inline-block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;background:var(--or);color:#fff;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:middle}
+
+/* ---------- En cuisine ---------- */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.carte-p{background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.carte-p figure{height:380px;overflow:hidden}
+.carte-p img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.carte-p:hover img{transform:scale(1.05)}
+.carte-p div{padding:28px}
+.carte-p h3{font-family:var(--f-titre);color:var(--noir);font-size:22px}
+.carte-p h3 small{display:block;font-family:var(--f-main);color:var(--or);font-size:28px;font-weight:400}
+
+/* ---------- Galerie défilante ---------- */
+.galerie{overflow:hidden;padding-bottom:20px}
+.rail{display:flex;gap:16px;width:max-content;animation:defile 60s linear infinite}
+.rail:hover{animation-play-state:paused}
+.rail img{height:300px;width:auto;aspect-ratio:7/5;object-fit:cover;border-radius:4px;cursor:zoom-in;transition:filter .3s}
+.rail img:hover{filter:brightness(1.1)}
+@keyframes defile{to{transform:translateX(-50%)}}
+.lb{position:fixed;inset:0;background:rgba(10,10,10,.92);display:none;place-items:center;z-index:100;padding:20px}
+.lb.on{display:grid}
+.lb img{max-height:86vh;max-width:92vw;border-radius:4px;animation:swap .4s var(--ease)}
+.lb button{position:absolute;top:18px;right:22px;background:none;border:0;color:#fff;font-size:38px;width:48px;height:48px}
+
+/* ---------- Contact ---------- */
+.contact-g{display:grid;grid-template-columns:1fr 1.2fr;gap:50px;align-items:start}
+.infos div{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--creme-2)}
+.infos .ic{width:46px;height:46px;flex:none;border-radius:50%;background:var(--or);color:#fff;display:grid;place-items:center;font-size:18px}
+.infos h4{font-family:var(--f-titre);color:var(--noir);font-size:16px}
+.horaires{width:100%;border-collapse:collapse;font-size:15px;margin-top:6px}
+.horaires td{padding:6px 0;border-bottom:1px dashed var(--creme-2)}
+.horaires td:last-child{text-align:right;color:var(--noir);font-weight:600}
+.horaires tr.auj td{color:var(--or);font-weight:700}
+.carte-map{border-radius:6px;overflow:hidden;height:440px;box-shadow:0 20px 50px rgba(0,0,0,.1)}
+.carte-map iframe{width:100%;height:100%;border:0;filter:grayscale(.3) sepia(.15)}
+footer{background:var(--noir-2);color:#8f8984;font-size:14px;padding:50px 0 30px}
+footer .wrap{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}
+footer img{height:54px;filter:invert(1) brightness(1.6)}
+footer .mention{width:100%;border-top:1px solid #333;padding-top:20px;font-size:12.5px;line-height:1.6}
+.flottant{position:fixed;right:18px;bottom:18px;z-index:60;display:none}
+@media(max-width:980px){
+  header.nav{backdrop-filter:none;background:#fff}
+  nav{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);background:#fff;transform:translateX(100%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s;padding:110px 34px;box-shadow:-20px 0 40px rgba(0,0,0,.1)}
+  nav.ouvert{transform:none;visibility:visible}
+  header.nav .btn-or{display:none}
+  nav ul{flex-direction:column;gap:22px}
+  .burger{display:block;z-index:60;position:relative}
+  .resto,.resa-grid,.contact-g,.duo{grid-template-columns:1fr}
+  .quatre{grid-template-columns:1fr}
+  .panneau.on{grid-template-columns:1fr}
+  .photos{height:420px}
+  .topbar .wrap{justify-content:center;font-size:13px}
+  .topbar span:first-child{display:none}
+  .flottant{display:inline-flex}
+}
+@media(max-width:560px){
+  .resa-g,.resa-d{padding:26px 18px}
+  .jours{gap:4px}
+  .jour strong{font-size:17px}
+  .champs{grid-template-columns:1fr}
+  .rail img{height:200px}
+  .bandeau .live{display:flex;width:max-content;margin:8px auto 0}
+  .quatre article{padding-left:70px}.quatre .num{font-size:64px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero h1 .mot span{transform:none}.hero .cta{opacity:1}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Bistrot les 4 Sources",
+  "url":"https://www.bistrot-lesquatresources.fr/",
+  "telephone":"+33477628109",
+  "email":"sarlles4sources@gmail.com",
+  "servesCuisine":["Bistronomique","Cuisine française faite maison"],
+  "priceRange":"€€",
+  "image":"https://www.bistrot-lesquatresources.fr/upload/content/5/14.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"33 Grande Rue","addressLocality":"Saint-Alban-les-Eaux","postalCode":"42370","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.0091939,"longitude":3.9362661},
+  "areaServed":["Saint-Alban-les-Eaux","Côte Roannaise"],
+  "acceptsReservations":true,
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday","Saturday","Sunday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Thursday","Friday","Saturday","Sunday"],"opens":"19:00","closes":"21:30"}
+  ],
+  "sameAs":["https://www.facebook.com/people/Bistrot-Les-4-Sources/100063466696164/"]
+}
+</script>
+</head>
+<body>
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour le Bistrot les 4 Sources, non officielle.</div>
+
+<div class="topbar"><div class="wrap">
+  <span>33 Grande Rue - 42370 - Saint-Alban-les-Eaux</span>
+  <span><a href="tel:+33477628109">04 77 62 81 09</a></span>
+  <span><a href="mailto:sarlles4sources@gmail.com">sarlles4sources@gmail.com</a></span>
+</div></div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a href="#accueil" class="logo" aria-label="Bistrot les Quatre Sources — accueil"><img src="https://www.bistrot-lesquatresources.fr/upload/content/13/logo-noir.png" alt="Bistrot les Quatre Sources"></a>
+    <nav id="menu" aria-label="Navigation principale"><ul>
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#le-restaurant">Le restaurant</a></li>
+      <li><a href="#en-cuisine">En cuisine</a></li>
+      <li><a href="#carte-menu">Carte menu</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+    <a href="#reserver" class="btn btn-or" style="padding:11px 20px">Réserver</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <div class="slide on" style="background-image:url(https://www.bistrot-lesquatresources.fr/upload/content/5/14.jpg)"></div>
+  <div class="slide" style="background-image:url(https://www.bistrot-lesquatresources.fr/upload/content/5/12.jpg)"></div>
+  <div class="slide" style="background-image:url(https://www.bistrot-lesquatresources.fr/upload/content/5/9.jpg)"></div>
+  <div class="hero-c">
+    <div class="sur" id="hero-sur">Restaurant</div>
+    <h1><span class="mot"><span id="hero-1">Atypique</span></span> <span class="mot"><span id="hero-2">Cosy</span></span></h1>
+    <div class="cta">
+      <a href="#reserver" class="btn btn-or">Réserver une table</a>
+      <a href="#carte-menu" class="btn btn-ligne">Voir les menus</a>
+    </div>
+  </div>
+  <div class="points" role="tablist" aria-label="Diaporama"><button class="on" aria-label="Image 1"></button><button aria-label="Image 2"></button><button aria-label="Image 3"></button></div>
+</section>
+<div class="bandeau">Notre restaurant est ouvert du jeudi au dimanche, le midi et le soir ainsi que le lundi midi <span class="live" id="live"><i></i><span id="live-txt">…</span></span></div>
+
+<section class="pad" id="le-restaurant">
+  <div class="wrap resto">
+    <div class="photos reveal">
+      <figure class="p1"><img src="https://www.bistrot-lesquatresources.fr/upload/content/5/13.jpg" alt="La salle du Bistrot les 4 Sources, canapés et murs en pierre" loading="lazy"></figure>
+      <figure class="p2"><img src="https://www.bistrot-lesquatresources.fr/upload/content/5/2.jpg" alt="Assiette de saumon du bistrot" loading="lazy"></figure>
+      <div class="tampon">Fait<br>maison<br>de saison</div>
+    </div>
+    <div>
+      <div class="kicker reveal">Le restaurant</div>
+      <h2 class="reveal d1">Une cuisine Bistronomique</h2>
+      <p class="reveal d2">Dans un cadre atypique, cosy et plein de charme, le bistrot propose pour le déjeuner une formule complète Entrée-Plat-Dessert-café pour 18&nbsp;€. Les menus changent chaque semaine en fonction des produits du moment que nous proposent nos fournisseurs locaux.</p>
+      <div class="chiffres reveal d2">
+        <div>95&nbsp;%<small>de produits faits maison</small></div>
+        <div>18&nbsp;€<small>menu du marché le midi</small></div>
+        <div>1<small>menu qui change chaque semaine</small></div>
+      </div>
+      <div class="reveal d3" style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#reserver" class="btn btn-or">Réserver</a>
+        <a href="#carte-menu" class="btn" style="color:var(--noir)">Voir les menus</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad sombre">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:60px">
+      <div class="kicker reveal">les 4 sources</div>
+      <h2 class="reveal d1">Fait maison, de saison</h2>
+    </div>
+    <div class="quatre">
+      <article class="reveal"><span class="num">01</span><h3>Au fil des saisons</h3><p>Dans un cadre atypique, cosy et plein de charme, le bistrot propose pour le déjeuner une formule Entrée-Plat-Dessert-café pour 18&nbsp;€. Le menu change chaque semaine en fonction des produits du moment.</p><a href="#reserver">Réserver →</a></article>
+      <article class="reveal d1"><span class="num">02</span><h3>La philosophie du bistrot</h3><p>Le fait maison avec les produits de saisons. Les menus sont donc régulièrement renouvelés en fonction de ce qui se trouve sur les marchés. Tout est fait maison sauf le pain qui provient de la boulangerie de Renaison La cave à pain.</p><a href="#carte-menu">Voir la carte →</a></article>
+      <article class="reveal"><span class="num">03</span><h3>En soirée</h3><p>En soirée, et les samedis et dimanches midis, le chef propose des menus avec des recettes plus élaborées, fraîches et gourmandes qu’il aime là encore préparer avec des aliments phare du moment.</p><a href="#reserver">Réserver un soir →</a></article>
+      <article class="reveal d1"><span class="num">04</span><h3>Nos spécificités</h3><p>Parmi les spécificités du lieu, des crus du coin amoureusement sélectionnés et qui peuvent se savourer avec une planche de charcuterie et de fromage. Le restaurant est privatisable sur demande.</p><a href="#reserver" data-privat>Demander une privatisation →</a></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTIL CENTRAL ============ -->
+<section class="pad resa" id="reserver">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:46px">
+      <div class="kicker reveal">Réserver</div>
+      <h2 class="reveal d1">Votre table, et le menu qui vous attend</h2>
+      <p class="reveal d2" style="max-width:640px;margin:0 auto">Choisissez un jour : le bistrot vous indique s’il est ouvert, quel menu est servi à ce service, et prépare votre demande de réservation.</p>
+    </div>
+    <div class="resa-grid reveal">
+      <div class="resa-g">
+        <div class="etape"><b>1</b> Le jour</div>
+        <div class="nav-sem"><button id="prec" aria-label="Semaine précédente">← Précédent</button><span id="mois"></span><button id="suiv" aria-label="Semaine suivante">Suivant →</button></div>
+        <div class="jours" id="jours"></div>
+        <div class="etape"><b>2</b> Le service</div>
+        <div class="services" id="services">
+          <button class="chip" data-s="midi">Le midi</button>
+          <button class="chip" data-s="soir">Le soir</button>
+        </div>
+        <div class="etape"><b>3</b> L’heure d’arrivée</div>
+        <div class="creneaux" id="creneaux"><span style="font-size:14px">Choisissez d’abord un jour et un service.</span></div>
+        <div class="etape"><b>4</b> Nombre de couverts</div>
+        <div class="couverts"><button id="moins" aria-label="Retirer un couvert">−</button><output id="nb">2</output><button id="plus" aria-label="Ajouter un couvert">+</button><span style="font-size:14px" id="nb-info"></span></div>
+        <label class="check"><input type="checkbox" id="privat"> Je souhaite privatiser le restaurant (groupe, événement)</label>
+        <div class="etape"><b>5</b> Vos coordonnées</div>
+        <div class="champs">
+          <input id="nom" placeholder="Nom" autocomplete="name">
+          <input id="tel" placeholder="Téléphone" autocomplete="tel" inputmode="tel">
+          <textarea id="msg" placeholder="Une précision ? (allergie, chaise bébé, occasion particulière…)"></textarea>
+        </div>
+      </div>
+      <aside class="resa-d" aria-live="polite">
+        <div class="recap-titre">Votre réservation</div>
+        <div class="recap-date" id="r-date">Choisissez un jour</div>
+        <div class="recap-info" id="r-info">Le bistrot est ouvert du jeudi au dimanche midi et soir, et le lundi midi.</div>
+        <div class="carte-jour" id="r-menu">
+          <h4>Ce jour-là au bistrot</h4>
+          <p class="q">Le menu servi s’affiche selon le jour et le service choisis.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-or" id="envoyer" href="#" disabled>Envoyer ma demande par mail</a>
+          <a class="btn btn-ligne" href="tel:+33477628109">Appeler le 04 77 62 81 09</a>
+          <a class="btn btn-ligne" id="ics" href="#" disabled>Ajouter à mon agenda</a>
+        </div>
+        <p class="petit">Votre demande est confirmée par le bistrot. Horaires de service indicatifs, à ajuster.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="pad sombre" id="carte-menu">
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="kicker reveal">Notre carte menu</div>
+      <h2 class="reveal d1">Un menu qui change chaque semaine</h2>
+      <p class="reveal d2">La cuisine bistronomique initiée par les anciens propriétaires est toujours de mise.</p>
+    </div>
+    <div class="onglets" role="tablist">
+      <button class="onglet sel" data-p="marche">Menu du marché</button>
+      <button class="onglet" data-p="formules">Nos formules</button>
+      <button class="onglet" data-p="bistrot">La carte du bistrot</button>
+      <button class="onglet" data-p="boissons">Carte des boissons</button>
+      <button class="onglet" data-p="vins">Carte des vins</button>
+    </div>
+
+    <div class="panneau on" id="p-marche">
+      <div class="entete"><strong>Entrée - plat - fromage ou dessert - 18 €</strong><span>Servi les lundis, jeudis et vendredis midi</span></div>
+      <div class="groupe">Les plats</div>
+      <div class="plat"><h5>Entrecôte Charolaise de la maison Gonin</h5><span class="prix">28 €</span><p>Pièce de 400 g servie avec des pommes de terre grenaille</p></div>
+      <div class="plat"><h5>Burger des 4 sources</h5><span class="prix">18 €</span><p>Steak de la maison Gonin, provola fumé, tomate confite, oignon cru, pommes de terre grenaille</p></div>
+      <div class="plat"><h5>Black Burger</h5><span class="prix">21 €</span><p>Pain à l’huile de truffe, steak de la maison Gonin, lard de Colonnata IGP, comté, confit d’échalotes, cœur de romaine et tomates confites, pommes de terre grenaille</p></div>
+      <div class="groupe">Gourmandise</div>
+      <div class="plat"><h5>Le chocolat</h5><span class="prix">7 €</span><p>Finger chocolat et noix de pécan</p></div>
+      <div class="plat"><h5>La pomme</h5><span class="prix">7 €</span><p>Tatin aux pommes, glace vanille de Bourbon et tonka</p></div>
+      <div class="plat"><h5>Café gourmand</h5><span class="prix">7 €</span><p>Sur la base de 3 petits desserts</p></div>
+      <div class="plat"><h5>Sélection de fromages affinés</h5><span class="prix">7 €</span><p>Maison Jourcy, Saint-Symphorien-de-Lay</p></div>
+    </div>
+
+    <div class="panneau" id="p-formules">
+      <div class="entete"><strong>Entrée - Fromage ou Dessert - 27 € · Entrée - Plat - Fromage ou Dessert - 31 €</strong><span>Servies le soir, les week-ends et jours fériés</span></div>
+      <div class="groupe">Pour commencer</div>
+      <div class="plat"><h5>La Raviole</h5><span class="prix"></span><p>Ravioles de champignons, crème de parmesan</p></div>
+      <div class="plat"><h5>Le Foie gras</h5><span class="prix"></span><p>Foie gras mi-cuit IGP du Sud-Ouest, brioche toastée, chutney de Granny Smith</p></div>
+      <div class="groupe">La suite</div>
+      <div class="plat"><h5>Le canard</h5><span class="prix"></span><p>Magret de canard à l’orange, pressé de patate douce</p></div>
+      <div class="plat"><h5>Le saumon</h5><span class="prix"></span><p>Saumon grillé sur peau, petit épeautre du Velay et butternut, sauce vin blanc</p></div>
+      <div class="groupe">Gourmandise</div>
+      <div class="plat"><h5>La pomme</h5><span class="prix"></span><p>Tatin aux pommes, glace vanille de Bourbon et tonka</p></div>
+      <div class="plat"><h5>Le chocolat</h5><span class="prix"></span><p>Finger chocolat et noix de pécan</p></div>
+      <div class="plat"><h5>Café gourmand</h5><span class="prix"></span><p>Sur la base de 3 petits desserts</p></div>
+      <div class="plat"><h5>Sélection de fromages affinés</h5><span class="prix"></span><p>Maison Jourcy, Saint-Symphorien-de-Lay</p></div>
+    </div>
+
+    <div class="panneau" id="p-bistrot">
+      <div class="entete"><strong>Notre carte</strong><span>À toute heure de service</span></div>
+      <div class="plat"><h5>Entrecôte charolaise 400 g</h5><span class="prix">28 €</span><p>De la Maison Gonin, servie avec des pommes de terre grenaille</p></div>
+      <div class="plat"><h5>Burger des 4 sources</h5><span class="prix">18 €</span><p>Steak de la maison Gonin, provola fumé, tomate confite, oignon cru, pommes de terre grenaille</p></div>
+      <div class="plat"><h5>Black Burger</h5><span class="prix">21 €</span><p>Pain à l’huile de truffe, steak de la maison Gonin, lard de Colonnata IGP, comté, confit d’échalotes, cœur de romaine et tomates confites</p></div>
+      <div class="plat"><h5>Planche charcuterie et fromage</h5><span class="prix">10 €</span><p>Planche de charcuterie locale et fromages (prix pour 2 personnes)</p></div>
+    </div>
+
+    <div class="panneau" id="p-boissons">
+      <div class="groupe">Apéritifs</div>
+      <div class="plat"><h5>Suze, Porto, Martini, Ricard</h5><span class="prix">3 €</span></div>
+      <div class="plat"><h5>Kir</h5><span class="prix">5 €</span><p>Cassis, pêche, châtaigne</p></div>
+      <div class="plat"><h5>Kir pétillant</h5><span class="prix">7 €</span><p>Cassis, pêche, châtaigne</p></div>
+      <div class="plat"><h5>Coupe de champagne</h5><span class="prix">10 €</span></div>
+      <div class="plat"><h5>Apéritif maison</h5><span class="prix">7 €</span></div>
+      <div class="groupe">Bière artisanale (La Germanoise)</div>
+      <div class="plat"><h5>Pression blonde 25 cl</h5><span class="prix">3,50 €</span></div>
+      <div class="plat"><h5>Ambrée, blanche ou brune 33 cl</h5><span class="prix">4,50 €</span></div>
+      <div class="groupe">Whisky</div>
+      <div class="plat"><h5>Ardbeg single malt (Écosse)</h5><span class="prix">5 €</span><p>2 cl : 5 € · 4 cl : 7,50 €</p></div>
+      <div class="plat"><h5>Hatozaki blended whisky (Japon)</h5><span class="prix">5 €</span><p>2 cl : 5 € · 4 cl : 7,50 €</p></div>
+      <div class="groupe">Sans alcool</div>
+      <div class="plat"><h5>Orangina, Coca-Cola 25 cl</h5><span class="prix">3,50 €</span></div>
+      <div class="plat"><h5>Sirop</h5><span class="prix">3 €</span><p>Fraise, menthe, citron, grenadine</p></div>
+      <div class="plat"><h5>Diabolo</h5><span class="prix">3,50 €</span><p>Fraise, menthe, citron, grenadine</p></div>
+      <div class="plat"><h5>Jus de fruit</h5><span class="prix">3,50 €</span><p>Pomme, orange, ACE, tomate</p></div>
+      <div class="groupe">Digestifs</div>
+      <div class="plat"><h5>Rhum blanc ou ambré</h5><span class="prix">5 €</span></div>
+      <div class="plat"><h5>Cognac</h5><span class="prix">5 €</span></div>
+      <div class="plat"><h5>Bas Armagnac</h5><span class="prix">5,50 €</span></div>
+      <div class="plat"><h5>Calvados Pays d’Auge</h5><span class="prix">6 €</span></div>
+      <div class="plat"><h5>Poire Williams</h5><span class="prix">5 €</span></div>
+      <div class="plat"><h5>Get 27</h5><span class="prix">4,50 €</span></div>
+    </div>
+
+    <div class="panneau" id="p-vins">
+      <div class="filtre-vin" id="filtre-vin">
+        <button class="chip sel" data-f="tous">Tous</button><button class="chip" data-f="blanc">Blancs</button><button class="chip" data-f="rouge">Rouges</button><button class="chip" data-f="rose">Rosés</button><button class="chip" data-f="local">Côte Roannaise</button><button class="chip" data-f="bulles">Champagne</button>
+      </div>
+      <div class="groupe" data-v="blanc rouge rose local">Au verre</div>
+      <div class="plat" data-v="blanc"><h5>Blanc — sélection du moment</h5><span class="prix">6 €</span></div>
+      <div class="plat" data-v="blanc local"><h5>Blanc — Côte Roannaise <span class="local">du coin</span></h5><span class="prix">6 €</span></div>
+      <div class="plat" data-v="rouge"><h5>Rouge — sélection du moment</h5><span class="prix">6 €</span></div>
+      <div class="plat" data-v="rouge local"><h5>Rouge — Côte Roannaise <span class="local">du coin</span></h5><span class="prix">6 €</span></div>
+      <div class="plat" data-v="rose"><h5>Rosé — sélection du moment</h5><span class="prix">6 €</span></div>
+      <div class="groupe" data-v="blanc rouge rose local bulles">À la bouteille (75 cl)</div>
+      <div class="plat" data-v="blanc"><h5>Saint-Joseph 2022</h5><span class="prix">48 €</span><p>Blanc · Vallée du Rhône</p></div>
+      <div class="plat" data-v="blanc local"><h5>Domaine Le Retour aux Sources, Mimi Robin 2022 <span class="local">du coin</span></h5><span class="prix">26 €</span><p>Blanc · Côte Roannaise</p></div>
+      <div class="plat" data-v="blanc local"><h5>Domaine Sérol, Champtoisé 2022 <span class="local">du coin</span></h5><span class="prix">30 €</span><p>Blanc · Côte Roannaise</p></div>
+      <div class="plat" data-v="blanc"><h5>Mâcon-Villages 2023</h5><span class="prix">28 €</span><p>Blanc · Bourgogne</p></div>
+      <div class="plat" data-v="blanc"><h5>Meursault Les Meurgers, Domaine Boussey 2021</h5><span class="prix">85 €</span><p>Blanc · Bourgogne</p></div>
+      <div class="plat" data-v="blanc"><h5>Petit Chablis, J. Collet et fils 2022</h5><span class="prix">32 €</span><p>Blanc · Bourgogne</p></div>
+      <div class="plat" data-v="rouge"><h5>Aloxe-Corton, Domaine Chevalier 2020</h5><span class="prix">75 €</span><p>Rouge · Bourgogne</p></div>
+      <div class="plat" data-v="rouge"><h5>Hautes-Côtes de Nuits 2022</h5><span class="prix">35 €</span><p>Rouge · Bourgogne</p></div>
+      <div class="plat" data-v="rouge"><h5>Vacqueyras AOC 2022</h5><span class="prix">32 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Gloire de mon Père, Domaine de la Bastide 2022</h5><span class="prix">27 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Saint-Joseph 2022</h5><span class="prix">40 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Côte-Rôtie 2021</h5><span class="prix">85 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Châteauneuf-du-Pape 2020</h5><span class="prix">60 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Rasteau 2022</h5><span class="prix">32 €</span><p>Rouge · Vallée du Rhône</p></div>
+      <div class="plat" data-v="rouge"><h5>Château Roquevieille, Côtes de Bordeaux 2019</h5><span class="prix">27 €</span><p>Rouge · Bordeaux</p></div>
+      <div class="plat" data-v="rouge"><h5>Roque Palatin 2016</h5><span class="prix">32 €</span><p>Rouge · Bordeaux</p></div>
+      <div class="plat" data-v="rouge local"><h5>Sérol, Éclat de granite <span class="local">du coin</span></h5><span class="prix">26 €</span><p>Rouge · Côte Roannaise</p></div>
+      <div class="plat" data-v="rose local"><h5>Rosé Côte Roannaise <span class="local">du coin</span></h5><span class="prix">26 €</span><p>Rosé · Côte Roannaise</p></div>
+      <div class="plat" data-v="bulles"><h5>Chassenay d’Arce brut</h5><span class="prix">55 €</span><p>Champagne</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pad" id="en-cuisine">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:50px">
+      <div class="kicker reveal">Elodie et Gennaro</div>
+      <h2 class="reveal d1">En cuisine et en salle</h2>
+      <p class="reveal d2" style="max-width:700px;margin:0 auto">Gennaro Tia et Elodie Witt sont les nouveaux propriétaires du Bistrot du bourg de Saint-Alban, un lieu convivial rebaptisé Bistrot Les 4 Sources.</p>
+    </div>
+    <div class="duo">
+      <article class="carte-p reveal"><figure><img src="https://www.bistrot-lesquatresources.fr/upload/content/3/gennaro-2.jpg" alt="Gennaro, chef du Bistrot les 4 Sources" loading="lazy"></figure><div><h3><small>aux fourneaux</small>Gennaro</h3><p>Originaire de Roanne, il a toujours gardé à l’esprit son envie d’ouvrir son restaurant dans le Roannais, synonyme d’un aboutissement professionnel.</p></div></article>
+      <article class="carte-p reveal d1"><figure><img src="https://www.bistrot-lesquatresources.fr/upload/content/3/elodie-2.jpg" alt="Elodie, en salle au Bistrot les 4 Sources" loading="lazy"></figure><div><h3><small>en salle</small>Elodie</h3><p>Ensemble, ils forment un duo expérimenté qui, après de nombreuses expériences en France et à l’étranger, a eu envie de poser ses valises en plein cœur du bourg de Saint-Alban-les-Eaux.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" id="galerie">
+  <div style="text-align:center;margin-bottom:34px" class="wrap">
+    <div class="kicker reveal">En image</div>
+    <h2 class="reveal d1">Notre galerie photos</h2>
+  </div>
+  <div class="rail" id="rail"></div>
+</section>
+<div class="lb" id="lb" role="dialog" aria-label="Photo agrandie"><button aria-label="Fermer">×</button><img alt=""></div>
+
+<section class="pad" id="contact">
+  <div class="wrap">
+    <div class="kicker reveal">Contact</div>
+    <h2 class="reveal d1">Pour plus d’infos…</h2>
+    <div class="contact-g">
+      <div class="infos reveal">
+        <div><span class="ic">⌂</span><span><h4>Adresse</h4>33 Grande Rue - 42370 - Saint-Alban-les-Eaux<br><a href="https://www.google.fr/maps/place/Les+quatre+sources/@46.0091939,3.9340774,17z" target="_blank" rel="noopener" style="color:var(--or);font-weight:600">Itinéraire Google Maps →</a></span></div>
+        <div><span class="ic">✆</span><span><h4>Contacts</h4><a href="tel:+33477628109">04 77 62 81 09</a><br><a href="mailto:sarlles4sources@gmail.com">sarlles4sources@gmail.com</a></span></div>
+        <div><span class="ic">◷</span><span style="flex:1"><h4>Ouverture</h4>
+          <table class="horaires" id="horaires">
+            <tr data-j="1"><td>Lundi</td><td>Midi</td></tr>
+            <tr data-j="2"><td>Mardi</td><td>Fermé</td></tr>
+            <tr data-j="3"><td>Mercredi</td><td>Fermé</td></tr>
+            <tr data-j="4"><td>Jeudi</td><td>Midi et soir</td></tr>
+            <tr data-j="5"><td>Vendredi</td><td>Midi et soir</td></tr>
+            <tr data-j="6"><td>Samedi</td><td>Midi et soir</td></tr>
+            <tr data-j="0"><td>Dimanche</td><td>Midi et soir</td></tr>
+          </table></span></div>
+        <div style="border:0"><span class="ic">✦</span><span><h4>Sur place</h4>Wifi · Parking · Fait maison · Restaurant privatisable sur demande</span></div>
+      </div>
+      <div class="carte-map reveal d1"><iframe title="Plan d’accès au Bistrot les 4 Sources" loading="lazy" src="https://www.google.com/maps?q=33+Grande+Rue,+42370+Saint-Alban-les-Eaux&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="https://www.bistrot-lesquatresources.fr/upload/content/13/logo-noir.png" alt="Bistrot les Quatre Sources">
+    <div>33 Grande Rue - 42370 Saint-Alban-les-Eaux<br>04 77 62 81 09 · sarlles4sources@gmail.com</div>
+    <div><a href="https://www.facebook.com/people/Bistrot-Les-4-Sources/100063466696164/" target="_blank" rel="noopener">Facebook</a></div>
+    <p class="mention">Maquette de démonstration réalisée à titre de proposition, non officielle. Textes, menus, prix et photos repris du site actuel du Bistrot les 4 Sources (toutes les photos sont celles du bistrot) ; couleurs et polices relevées sur le site actuel. Prix indicatifs non contractuels, à mettre à jour selon le menu de la semaine. Les heures de service proposées dans l’outil de réservation sont indicatives et à confirmer par l’établissement. Aucune réservation n’est enregistrée automatiquement : la demande part par mail au bistrot.</p>
+  </div>
+</footer>
+<a href="#reserver" class="btn btn-or flottant">Réserver</a>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+/* ---- Header / burger ---- */
+const header=$('header.nav');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>40),{passive:true});
+const burger=$('.burger'),menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('ouvert');burger.setAttribute('aria-expanded',o)});
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('ouvert')));
+const secs=$$('main section[id]');
+addEventListener('scroll',()=>{let id='';secs.forEach(s=>{if(s.getBoundingClientRect().top<140)id=s.id});$$('#menu a').forEach(a=>a.classList.toggle('actif',a.getAttribute('href')==='#'+id))},{passive:true});
+
+/* ---- Hero : diaporama + textes du site actuel ---- */
+const textes=[['Restaurant','Atypique','Cosy'],['Bienvenue','Bistrot les','4 Sources'],['Une cuisine','Fait maison','de saison']];
+const slides=$$('.hero .slide'),pts=$$('.hero .points button');let cur=0,timer;
+function va(i){slides[cur].classList.remove('on');pts[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');pts[cur].classList.add('on');
+  $('#hero-sur').textContent=textes[i][0];['hero-1','hero-2'].forEach((id,k)=>{const el=document.getElementById(id);el.textContent=textes[i][k+1];el.style.animation='none';el.offsetHeight;el.style.animation=''});}
+pts.forEach((b,i)=>b.addEventListener('click',()=>{va(i);clearInterval(timer);timer=setInterval(()=>va((cur+1)%3),6000)}));
+timer=setInterval(()=>va((cur+1)%3),6000);
+
+/* ---- Ouvert / fermé en direct ---- */
+const OUV={1:['midi'],4:['midi','soir'],5:['midi','soir'],6:['midi','soir'],0:['midi','soir']};
+const SERV={midi:[12*60,14*60],soir:[19*60,21*60+30]};
+(function live(){const d=new Date(),j=d.getDay(),m=d.getHours()*60+d.getMinutes(),s=OUV[j]||[];
+  const en=s.find(k=>m>=SERV[k][0]&&m<SERV[k][1]);const el=$('#live');
+  if(en){$('#live-txt').textContent='En service en ce moment';el.classList.remove('ferme')}
+  else{el.classList.add('ferme');$('#live-txt').textContent=(s.length?"Ouvert aujourd'hui":"Fermé aujourd'hui")}
+  const tr=document.querySelector('#horaires tr[data-j="'+j+'"]');if(tr)tr.classList.add('auj');})();
+
+/* ---- Révélations au scroll ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+$$('.reveal').forEach(el=>io.observe(el));
+
+/* ---- Carte menu : onglets + filtre vins ---- */
+$$('.onglet').forEach(b=>b.addEventListener('click',()=>{$$('.onglet').forEach(x=>x.classList.toggle('sel',x===b));$$('.panneau').forEach(p=>p.classList.toggle('on',p.id==='p-'+b.dataset.p))}));
+$$('#filtre-vin .chip').forEach(b=>b.addEventListener('click',()=>{$$('#filtre-vin .chip').forEach(x=>x.classList.toggle('sel',x===b));const f=b.dataset.f;
+  $$('#p-vins [data-v]').forEach(el=>el.style.display=(f==='tous'||el.dataset.v.split(' ').includes(f))?'':'none')}));
+
+/* ---- Galerie défilante + visionneuse ---- */
+const imgs=[1,12,2,6,13,9,3,14,11,15,8,4,16,10,5,17,18,19];
+const rail=$('#rail');[...imgs,...imgs].forEach((n,i)=>{const im=new Image();im.src='https://www.bistrot-lesquatresources.fr/upload/content/5/'+n+'.webp';im.alt=i<imgs.length?'Photo du Bistrot les 4 Sources':'';im.loading='lazy';if(i>=imgs.length)im.setAttribute('aria-hidden','true');rail.appendChild(im)});
+const lb=$('#lb');rail.addEventListener('click',e=>{if(e.target.tagName==='IMG'){lb.querySelector('img').src=e.target.src.replace('.webp','.jpg');lb.classList.add('on')}});
+lb.addEventListener('click',e=>{if(e.target!==lb.querySelector('img'))lb.classList.remove('on')});
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+
+/* ================= OUTIL DE RÉSERVATION ================= */
+const JN=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'],JL=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+const ML=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const CRE={midi:['12:00','12:15','12:30','12:45','13:00','13:15','13:30'],soir:['19:00','19:15','19:30','19:45','20:00','20:15','20:30','20:45','21:00']};
+const st={date:null,serv:null,heure:null,nb:2};let offset=0;
+const auj=new Date();auj.setHours(0,0,0,0);
+function menuPour(d,s){const j=d.getDay();
+  if(s==='midi'&&(j===1||j===4||j===5))return{t:'Menu du marché',p:'18 €',q:'Entrée - plat - fromage ou dessert · le menu change chaque semaine',l:[['Les plats de la semaine','selon le marché'],['La carte du bistrot','entrecôte charolaise, burgers de la maison Gonin'],['Gourmandise','tatin, finger chocolat, fromages Maison Jourcy']]};
+  return{t:'Nos formules',p:'27 € / 31 €',q:(s==='soir'?'Le soir':'Le week-end')+' : recettes plus élaborées, avec les produits phare du moment',l:[['Pour commencer','la raviole, le foie gras'],['La suite','le canard, le saumon'],['Gourmandise','la pomme, le chocolat, café gourmand, fromages']]};}
+function rendJours(){const box=$('#jours');box.innerHTML='';const deb=new Date(auj);deb.setDate(deb.getDate()+offset*7);
+  $('#mois').textContent=ML[deb.getMonth()]+' '+deb.getFullYear();$('#prec').disabled=offset===0;$('#suiv').disabled=offset>=5;
+  for(let i=0;i<7;i++){const d=new Date(deb);d.setDate(deb.getDate()+i);const b=document.createElement('button');b.className='jour';
+    b.innerHTML='<small>'+JN[d.getDay()]+'</small><strong>'+d.getDate()+'</strong>';const ouvert=!!OUV[d.getDay()];b.disabled=!ouvert;
+    b.title=ouvert?'Ouvert : '+OUV[d.getDay()].join(' et '):'Fermé le '+JL[d.getDay()];
+    if(st.date&&d.getTime()===st.date.getTime())b.classList.add('sel');
+    b.addEventListener('click',()=>{st.date=d;if(st.serv&&!OUV[d.getDay()].includes(st.serv))st.serv=null;if(!st.serv&&OUV[d.getDay()].length===1)st.serv='midi';st.heure=null;rendJours();maj()});box.appendChild(b)}}
+function rendServ(){$$('#services .chip').forEach(c=>{const ok=st.date&&OUV[st.date.getDay()].includes(c.dataset.s);c.disabled=!ok;c.classList.toggle('sel',st.serv===c.dataset.s)});
+  const box=$('#creneaux');if(!st.date||!st.serv){box.innerHTML='<span style="font-size:14px">Choisissez d’abord un jour et un service.</span>';return}
+  box.innerHTML='';let liste=CRE[st.serv];
+  const now=new Date();if(st.date.getTime()===auj.getTime())liste=liste.filter(h=>{const[a,b]=h.split(':');return a*60+ +b>now.getHours()*60+now.getMinutes()+60});
+  if(!liste.length){box.innerHTML='<span style="font-size:14px">Plus de créneau pour ce service aujourd’hui, appelez le bistrot.</span>';return}
+  liste.forEach(h=>{const b=document.createElement('button');b.className='chip'+(st.heure===h?' sel':'');b.textContent=h.replace(':','h');b.addEventListener('click',()=>{st.heure=h;maj()});box.appendChild(b)})}
+$$('#services .chip').forEach(c=>c.addEventListener('click',()=>{st.serv=c.dataset.s;st.heure=null;maj()}));
+$('#moins').addEventListener('click',()=>{st.nb=Math.max(1,st.nb-1);maj()});
+$('#plus').addEventListener('click',()=>{st.nb=Math.min(40,st.nb+1);maj()});
+$('#privat').addEventListener('change',maj);
+$$('[data-privat]').forEach(a=>a.addEventListener('click',()=>{$('#privat').checked=true;maj()}));
+['#nom','#tel','#msg'].forEach(s=>$(s).addEventListener('input',maj));
+function maj(){rendServ();$('#nb').textContent=st.nb;
+  $('#nb-info').textContent=$('#privat').checked?'privatisation : à étudier avec le bistrot':(st.nb>=10?'grand groupe : le bistrot vous rappellera':'');
+  const rd=$('#r-date'),ri=$('#r-info'),rm=$('#r-menu');
+  if(!st.date){return}
+  rd.textContent=JL[st.date.getDay()].replace(/^./,c=>c.toUpperCase())+' '+st.date.getDate()+' '+ML[st.date.getMonth()]+(st.heure?' · '+st.heure.replace(':','h'):'');
+  ri.textContent=st.serv?(st.nb+' couvert'+(st.nb>1?'s':'')+' · service du '+st.serv+($('#privat').checked?' · privatisation':'')):'Choisissez le service du midi ou du soir.';
+  if(st.serv){const m=menuPour(st.date,st.serv);rm.innerHTML='<h4>'+m.t+' <em>'+m.p+'</em></h4><p class="q">'+m.q+'</p><ul>'+m.l.map(x=>'<li><b>'+x[0]+'</b> — '+x[1]+'</li>').join('')+'</ul>';rm.classList.remove('swap');rm.offsetWidth;rm.classList.add('swap')}
+  const pret=st.date&&st.serv&&st.heure&&$('#nom').value.trim()&&$('#tel').value.trim();
+  ['#envoyer','#ics'].forEach(s=>pret?$(s).removeAttribute('disabled'):$(s).setAttribute('disabled',''))}
+function txtDate(){return JL[st.date.getDay()]+' '+st.date.getDate()+' '+ML[st.date.getMonth()]+' '+st.date.getFullYear()+' à '+st.heure.replace(':','h')}
+$('#envoyer').addEventListener('click',e=>{e.preventDefault();if($('#envoyer').hasAttribute('disabled'))return;
+  const corps='Bonjour,\n\nJe souhaite réserver une table pour '+st.nb+' personne'+(st.nb>1?'s':'')+' le '+txtDate()+'.'+($('#privat').checked?'\nDemande de privatisation du restaurant.':'')+($('#msg').value.trim()?'\n\nPrécision : '+$('#msg').value.trim():'')+'\n\nNom : '+$('#nom').value.trim()+'\nTéléphone : '+$('#tel').value.trim()+'\n\nMerci de me confirmer la réservation.';
+  location.href='mailto:sarlles4sources@gmail.com?subject='+encodeURIComponent('Réservation '+st.date.toLocaleDateString('fr-FR')+' — '+st.nb+' couvert(s)')+'&body='+encodeURIComponent(corps);
+  toast('Votre messagerie s’ouvre avec la demande déjà rédigée.')});
+$('#ics').addEventListener('click',e=>{e.preventDefault();if($('#ics').hasAttribute('disabled'))return;
+  const p=n=>String(n).padStart(2,'0'),d=st.date,[h,m]=st.heure.split(':').map(Number);
+  const deb=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(h)+p(m)+'00',fin=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'T'+p(h+2)+p(m)+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Bistrot les 4 Sources//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@bistrot-4-sources','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z','DTSTART:'+deb,'DTEND:'+fin,'SUMMARY:Bistrot les 4 Sources ('+st.nb+' couvert'+(st.nb>1?'s':'')+')','LOCATION:33 Grande Rue\\, 42370 Saint-Alban-les-Eaux','DESCRIPTION:Réservation à confirmer par le bistrot - 04 77 62 81 09','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='bistrot-les-4-sources.ics';a.click();toast('Le rendez-vous est ajouté à votre agenda.')});
+$('#prec').addEventListener('click',()=>{offset=Math.max(0,offset-1);rendJours()});
+$('#suiv').addEventListener('click',()=>{offset=Math.min(5,offset+1);rendJours()});
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),3200)}
+rendJours();maj();
+})();
+</script>
+</body>
+</html>
