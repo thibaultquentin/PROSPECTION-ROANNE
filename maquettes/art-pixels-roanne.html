@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art-Pixels — Photographe de mariage à Roanne et dans le Roannais | Reportage</title>
+<meta name="description" content="Art-Pixels, photographes de mariage, famille et portrait basés à Roanne. Reportage naturel et discret, de Vichy à Tarare. Composez votre reportage en ligne.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE ART-PIXELS — reprise du site actuel (photographe-roanne.fr)
+   Couleur d'accent : feuille "color/purple.css" du site (#7e86b5)
+   Typo : Playfair Display (déjà utilisée sur le site)
+   Logo : script noir "Art-pixels" (hotlink depuis le site actuel)
+   Pour ajuster : modifier uniquement les variables ci-dessous.
+   ========================================================= */
+:root{
+  --accent:#7e86b5;        /* lavande Art-Pixels (boutons, liens) */
+  --accent-dark:#6f78ad;   /* survol */
+  --accent-soft:#eeeff7;   /* fonds de section */
+  --accent-line:#d8dae9;   /* filets */
+  --ink:#2b2b33;
+  --muted:#6b6d7a;
+  --paper:#ffffff;
+  --font-title:'Playfair Display', Georgia, serif;
+  --font-body:'Mulish', system-ui, sans-serif;
+  --radius:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--ink);background:var(--paper);line-height:1.65;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-title);font-weight:500;line-height:1.15}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.eyebrow{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:.5em;padding:.95em 1.6em;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;border:0;cursor:pointer;font-size:.95rem;transition:transform .25s var(--ease),background .25s,box-shadow .25s;font-family:var(--font-body)}
+.btn:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 10px 24px rgba(126,134,181,.35)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid currentColor}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn.light{background:#fff;color:var(--ink)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--ink);color:#fff;font-size:.8rem;text-align:center;padding:.45em 1em}
+.demo b{color:var(--accent-line)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s, box-shadow .3s}
+header.scrolled{border-color:var(--accent-line);box-shadow:0 6px 30px rgba(43,43,51,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.nav img{height:38px;width:auto}
+.nav ul{display:flex;gap:1.9rem;list-style:none}
+.nav ul a{text-decoration:none;font-size:.92rem;font-weight:600;position:relative;padding:.3em 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.active::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:74px 0 auto 0;background:#fff;flex-direction:column;padding:1.5rem 20px;gap:1rem;transform:translateY(-130%);transition:transform .4s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+  .nav ul.open{transform:none}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* Hero diaporama */
+.hero{position:relative;height:min(92vh,860px);min-height:560px;overflow:hidden;color:#fff}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 9s linear}
+.slide.on img{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,20,30,.15) 0%,rgba(20,20,30,.15) 45%,rgba(20,20,30,.72) 100%)}
+.hero-c{position:absolute;inset:auto 0 0 0;z-index:2;padding-bottom:clamp(2.5rem,7vh,5rem)}
+.hero h1{font-size:clamp(2.2rem,1.4rem + 3.6vw,4.6rem);max-width:15ch;margin:.4em 0 .35em}
+.hero h1 em{font-style:italic;color:var(--accent-line)}
+.hero p.lead{max-width:52ch;font-size:1.08rem;opacity:.92}
+.rot{display:inline-block;min-width:8ch;color:#fff;border-bottom:2px solid var(--accent);transition:opacity .4s, transform .4s}
+.rot.out{opacity:0;transform:translateY(8px)}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.hero .ghost{color:#fff}
+.hero .ghost:hover{background:#fff;color:var(--ink)}
+.dots{position:absolute;right:20px;bottom:24px;z-index:3;display:flex;gap:8px}
+.dots button{width:28px;height:3px;border:0;background:rgba(255,255,255,.4);cursor:pointer;padding:0;position:relative;overflow:hidden}
+.dots button.on::after{content:"";position:absolute;inset:0;background:#fff;animation:fill 6s linear forwards}
+@keyframes fill{from{transform:translateX(-100%)}to{transform:none}}
+.reveal-line{display:block;overflow:hidden}
+.reveal-line>span{display:inline-block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.reveal-line:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+
+/* Sections */
+section{padding:clamp(4rem,9vw,7.5rem) 0}
+.sec-head{max-width:720px;margin-bottom:2.8rem}
+.sec-head h2{font-size:clamp(1.9rem,1.3rem + 2.2vw,3.1rem);margin:.35em 0 .4em}
+.sec-head p{color:var(--muted)}
+.r{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.r.in{opacity:1;transform:none}
+
+/* Intro */
+.intro{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.intro .pics{position:relative;aspect-ratio:4/5}
+.intro .pics img{position:absolute;border-radius:var(--radius);object-fit:cover;box-shadow:0 30px 60px rgba(43,43,51,.18)}
+.intro .pics img:first-child{inset:0 22% 18% 0;width:78%;height:82%}
+.intro .pics img:last-child{right:0;bottom:0;width:52%;height:48%;border:8px solid #fff}
+.intro blockquote{font-family:var(--font-title);font-style:italic;font-size:1.35rem;border-left:3px solid var(--accent);padding-left:1rem;margin:1.4rem 0;color:var(--ink)}
+.intro p{color:var(--muted);margin-bottom:1rem}
+@media (max-width:860px){.intro{grid-template-columns:1fr}.intro .pics{max-width:480px}}
+
+/* Chiffres */
+.stats{background:var(--accent-soft);padding:3.2rem 0}
+.stats .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center}
+.stats strong{font-family:var(--font-title);font-size:clamp(2.2rem,1.6rem + 2vw,3.4rem);font-weight:500;color:var(--accent-dark);display:block}
+.stats span{font-size:.9rem;color:var(--muted)}
+@media (max-width:640px){.stats .grid{grid-template-columns:1fr}}
+
+/* Portfolio */
+.filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.filters button{border:1.5px solid var(--accent-line);background:#fff;padding:.55em 1.2em;border-radius:999px;font:600 .9rem var(--font-body);cursor:pointer;transition:all .25s}
+.filters button.on,.filters button:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.masonry{columns:4 240px;column-gap:14px}
+.masonry figure{break-inside:avoid;margin-bottom:14px;border-radius:10px;overflow:hidden;cursor:zoom-in;position:relative;transition:opacity .4s, transform .4s}
+.masonry figure.hide{display:none}
+.masonry img{width:100%;transition:transform .8s var(--ease)}
+.masonry figure:hover img{transform:scale(1.05)}
+.masonry figure::after{content:"Agrandir";position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.92);font-size:.75rem;font-weight:700;padding:.3em .8em;border-radius:99px;opacity:0;transform:translateY(6px);transition:all .3s}
+.masonry figure:hover::after{opacity:1;transform:none}
+.lb{position:fixed;inset:0;background:rgba(15,15,22,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+.lb.open{display:flex}
+.lb img{max-height:88vh;max-width:100%;border-radius:6px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.lb button{position:absolute;background:rgba(255,255,255,.12);color:#fff;border:0;width:48px;height:48px;border-radius:50%;font-size:1.4rem;cursor:pointer}
+.lb .x{top:20px;right:20px}.lb .p{left:20px;top:50%}.lb .n{right:20px;top:50%}
+
+/* Configurateur */
+.config{background:linear-gradient(180deg,#fff 0%,var(--accent-soft) 100%)}
+.cfg{display:grid;grid-template-columns:1.25fr .75fr;gap:2rem;align-items:start}
+@media (max-width:980px){.cfg{grid-template-columns:1fr}}
+.panel{background:#fff;border-radius:20px;padding:clamp(1.3rem,3vw,2.2rem);box-shadow:0 20px 60px rgba(43,43,51,.07);border:1px solid var(--accent-line)}
+.step{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted);margin:0 0 .9rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+@media (max-width:560px){.cols{grid-template-columns:1fr}}
+.col-card{position:relative;border:2px solid var(--accent-line);border-radius:16px;padding:1.3rem;cursor:pointer;transition:all .3s var(--ease);background:#fff}
+.col-card input{position:absolute;opacity:0}
+.col-card:hover{transform:translateY(-3px)}
+.col-card.on{border-color:var(--accent);box-shadow:0 14px 34px rgba(126,134,181,.25)}
+.col-card h3{font-size:1.45rem}
+.col-card .price{font-family:var(--font-title);font-size:2rem;color:var(--accent-dark)}
+.col-card ul{list-style:none;font-size:.88rem;color:var(--muted);margin-top:.6rem}
+.col-card li::before{content:"— ";color:var(--accent)}
+.col-card .tick{position:absolute;top:14px;right:14px;width:26px;height:26px;border-radius:50%;border:2px solid var(--accent-line);display:grid;place-items:center;color:#fff;font-size:.8rem;transition:all .3s}
+.col-card.on .tick{background:var(--accent);border-color:var(--accent)}
+.opts{display:grid;gap:.7rem}
+.opt{display:flex;align-items:center;gap:1rem;padding:.9rem 1rem;border:1.5px solid var(--accent-line);border-radius:12px;cursor:pointer;transition:all .25s}
+.opt:hover{border-color:var(--accent)}
+.opt.on{background:var(--accent-soft);border-color:var(--accent)}
+.opt input{width:20px;height:20px;accent-color:var(--accent);flex:none}
+.opt .t{flex:1}
+.opt .t b{display:block;font-size:.98rem}
+.opt .t small{color:var(--muted);font-size:.82rem}
+.opt .pr{font-weight:700;white-space:nowrap}
+.qty{display:flex;align-items:center;gap:.4rem}
+.qty button{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--accent-line);background:#fff;cursor:pointer;font-weight:700}
+.summary{position:sticky;top:96px}
+.total{font-family:var(--font-title);font-size:clamp(2.6rem,2rem + 2vw,3.6rem);color:var(--ink);line-height:1}
+.total small{font-size:1rem;color:var(--muted)}
+.photos-min{margin:.8rem 0 1.4rem;font-size:.95rem}
+.photos-min b{color:var(--accent-dark);font-size:1.15rem}
+.timeline{list-style:none;margin:1.2rem 0;position:relative;padding-left:1.4rem}
+.timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--accent-line)}
+.timeline li{position:relative;padding:.3rem 0;color:#b8bacb;font-size:.92rem;transition:color .35s}
+.timeline li::before{content:"";position:absolute;left:-1.4rem;top:.72rem;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--accent-line);transition:all .35s}
+.timeline li.on{color:var(--ink);font-weight:600}
+.timeline li.on::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px rgba(126,134,181,.18)}
+.date-row{display:flex;gap:.6rem;flex-wrap:wrap;margin:1rem 0}
+.date-row input{flex:1;min-width:160px;padding:.85em 1em;border:1.5px solid var(--accent-line);border-radius:10px;font:inherit}
+.date-msg{font-size:.88rem;min-height:1.4em;color:var(--muted)}
+.date-msg.warn{color:#a2541f}
+.recap{display:none;margin-top:1rem;padding:1rem;border-radius:12px;background:var(--accent-soft);font-size:.9rem;white-space:pre-line}
+.recap.show{display:block;animation:pop .5s var(--ease)}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.note{font-size:.78rem;color:var(--muted);margin-top:.8rem}
+
+/* Autres prestations */
+.others{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+@media (max-width:980px){.others{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.others{grid-template-columns:1fr}}
+.other{border-radius:var(--radius);overflow:hidden;background:#fff;border:1px solid var(--accent-line);transition:transform .35s var(--ease), box-shadow .35s}
+.other:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(43,43,51,.1)}
+.other .ph{aspect-ratio:4/3;overflow:hidden;background:var(--accent-soft);display:grid;place-items:center;color:var(--muted);font-size:.85rem}
+.other .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.other:hover .ph img{transform:scale(1.06)}
+.other .b{padding:1.2rem}
+.other h3{font-size:1.25rem}
+.other .pr{font-family:var(--font-title);color:var(--accent-dark);font-size:1.6rem}
+.other p{font-size:.88rem;color:var(--muted)}
+
+/* Témoignages */
+.testi{background:var(--ink);color:#fff;overflow:hidden}
+.testi .sec-head p{color:#c9cad6}
+.track{display:flex;gap:1.4rem;transition:transform .7s var(--ease)}
+.card-t{flex:0 0 min(440px,85vw);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:1.8rem}
+.card-t h3{font-size:1.3rem;margin-bottom:.6rem;color:var(--accent-line)}
+.card-t p{font-size:.95rem;color:#e3e4ec}
+.card-t .who{margin-top:1rem;font-weight:700;font-size:.85rem;letter-spacing:.06em}
+.t-nav{display:flex;gap:.6rem;margin-top:1.8rem;align-items:center}
+.t-nav button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:none;color:#fff;cursor:pointer;font-size:1.1rem;transition:background .25s}
+.t-nav button:hover{background:var(--accent)}
+.mn{margin-left:auto;font-size:.9rem;color:#c9cad6}
+.mn b{color:#fff;font-family:var(--font-title);font-size:1.5rem;font-weight:500}
+
+/* Équipe */
+.team{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+@media (max-width:760px){.team{grid-template-columns:1fr}}
+.member{padding:2rem;border-radius:var(--radius);background:var(--accent-soft)}
+.member h3{font-size:1.7rem}
+.member .role{color:var(--accent-dark);font-weight:700;font-size:.85rem;margin-bottom:.8rem;display:block}
+.member p{color:var(--muted);font-size:.95rem}
+.kit{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.kit span{border:1px solid var(--accent-line);border-radius:999px;padding:.35em .9em;font-size:.82rem;background:#fff}
+
+/* FAQ */
+.faq details{border-bottom:1px solid var(--accent-line);padding:1.1rem 0}
+.faq summary{cursor:pointer;font-family:var(--font-title);font-size:1.2rem;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.faq summary::after{content:"+";color:var(--accent);font-size:1.5rem;line-height:1;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--muted);margin-top:.7rem;max-width:75ch}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+.zone{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.zone span{background:var(--accent-soft);border-radius:999px;padding:.35em .9em;font-size:.85rem;animation:float 4s ease-in-out infinite}
+.zone span:nth-child(2n){animation-delay:-1.3s}.zone span:nth-child(3n){animation-delay:-2.6s}
+@keyframes float{50%{transform:translateY(-4px)}}
+.coord p{margin-bottom:.4rem}
+.coord a{color:var(--accent-dark);font-weight:700;text-decoration:none}
+.badges{display:flex;gap:.8rem;margin-top:1.4rem;align-items:center}
+.badges img{width:54px;height:54px;object-fit:contain}
+form.cf{display:grid;gap:.8rem}
+form.cf input,form.cf textarea,form.cf select{width:100%;padding:.9em 1em;border:1.5px solid var(--accent-line);border-radius:10px;font:inherit;background:#fff}
+form.cf input:focus,form.cf textarea:focus{border-color:var(--accent);outline:none}
+
+footer{background:#1f1f26;color:#b9bac6;padding:3rem 0 2rem;font-size:.85rem}
+footer .wrap{display:grid;gap:1rem}
+footer img{height:34px;filter:invert(1)}
+footer .disc{border-top:1px solid rgba(255,255,255,.1);padding-top:1rem;font-size:.78rem;line-height:1.6}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .r{opacity:1;transform:none}
+  .reveal-line>span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"Art-Pixels",
+  "description":"Photographes de mariage, famille, portrait et EVJF en mode reportage, basés à Roanne.",
+  "url":"https://photographe-roanne.fr/",
+  "telephone":"+33688691256",
+  "image":"https://photographe-roanne.fr/style/images/art/photographe-mariage-roanne.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"25 rue Émile Noirot","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "areaServed":["Roanne","Riorges","Mably","Charlieu","Vichy","Paray-le-Monial","Chauffailles","Amplepuis","Tarare"],
+  "priceRange":"50 € – 1 065 €",
+  "sameAs":["https://www.instagram.com/art_pixels_photographies","http://www.facebook.com/oliskaphoto","https://www.mariages.net/photo-mariage/art-pixels--e156114"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de refonte pour Art-Pixels</b>, non officielle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" aria-label="Art-Pixels, accueil"><img src="https://photographe-roanne.fr/style/images/logo@2x.png" alt="Art-pixels"></a>
+    <ul id="menu">
+      <li><a href="#presentation">Présentation</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#composer">Mes prestations</a></li>
+      <li><a href="#faq">Questions fréquentes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn" href="#composer">Vérifier ma date</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<section class="hero" aria-label="Diaporama" style="padding:0">
+  <div class="slide on"><img src="https://photographe-roanne.fr/style/images/art/photographe-mariage-roanne.jpg" alt="Mariés dans les vignes, photo Art-Pixels"></div>
+  <div class="slide"><img src="https://photographe-roanne.fr/style/images/art/photographe-mariage-riorges.jpg" alt="Reportage de mariage Art-Pixels" loading="lazy"></div>
+  <div class="slide"><img src="https://photographe-roanne.fr/style/images/art/photographe-mariage-vichy.jpg" alt="Reportage de mariage Art-Pixels" loading="lazy"></div>
+  <div class="slide"><img src="https://photographe-roanne.fr/style/images/art/photographe-mariage-charlieu.jpg" alt="Reportage de mariage Art-Pixels" loading="lazy"></div>
+  <div class="slide"><img src="https://photographe-roanne.fr/style/images/art/photographe-mariage-mably.jpg" alt="Reportage de mariage Art-Pixels" loading="lazy"></div>
+  <div class="hero-c wrap">
+    <span class="eyebrow" style="color:#fff">Photographe à Roanne · reportage</span>
+    <h1><span class="reveal-line"><span>Réaliser vos souvenirs</span></span><span class="reveal-line"><span>avec <em>passion</em>, discrétion et simplicité</span></span></h1>
+    <p class="lead">Photographe de mariage, famille, portraits et autres instants de vie — votre <span class="rot" id="rot">mariage</span>, raconté en images.</p>
+    <div class="ctas">
+      <a class="btn" href="#composer">Composer mon reportage</a>
+      <a class="btn ghost" href="#portfolio">Voir les galeries</a>
+    </div>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<section id="presentation">
+  <div class="wrap intro">
+    <div class="pics r">
+      <img src="https://photographe-roanne.fr/style/images/gm/co/co-3-full.jpg" alt="Photo de couple, reportage Art-Pixels" loading="lazy">
+      <img src="https://photographe-roanne.fr/style/images/gm/ce/ce-2-full.jpg" alt="Cérémonie de mariage, reportage Art-Pixels" loading="lazy">
+    </div>
+    <div class="r">
+      <span class="eyebrow">Présentation</span>
+      <h2 style="font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem);margin:.35em 0">Raconter l'histoire de votre journée</h2>
+      <p>Je suis photographe spécialisé dans la réalisation de reportages de mariages et autres événements. Le mode reportage consiste à être toujours au plus près de ce qui se passe d'important, sans négliger non plus ce qui se passe autour de ce moment.</p>
+      <blockquote>« C'est à la fois être près des mariés pour immortaliser l'échange des alliances, et capter l'émotion des parents sur les bancs de l'église. »</blockquote>
+      <p>Mariage, anniversaire, enterrement de vie de jeune fille : l'histoire de votre journée, en images. Avec passion, discrétion et simplicité.</p>
+      <a class="btn ghost" href="#equipe" style="margin-top:.6rem">Qui sommes-nous ?</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap grid">
+    <div class="r"><strong data-count="32344">0</strong><span>photos livrées</span></div>
+    <div class="r"><strong data-count="1550">0</strong><span>heures de traitement</span></div>
+    <div class="r"><strong>4,9<small style="font-size:.45em">/5</small></strong><span>sur Mariages.net (19 avis)</span></div>
+  </div>
+</div>
+
+<section id="portfolio">
+  <div class="wrap">
+    <div class="sec-head r">
+      <span class="eyebrow">Portfolio</span>
+      <h2>Les galeries</h2>
+      <p>Je suis spécialisé dans le reportage de mariage et les portraits, mais je peux également couvrir vos EVJF, vos anniversaires ou votre quotidien en famille en mode reportage.</p>
+    </div>
+    <div class="filters" role="tablist">
+      <button class="on" data-f="all">Tout</button>
+      <button data-f="mariage">Mariages</button>
+      <button data-f="portrait">Portraits</button>
+      <button data-f="lifestyle">LifeStyle</button>
+      <button data-f="evjf">EVJF</button>
+    </div>
+    <div class="masonry" id="masonry"></div>
+  </div>
+</section>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Agrandissement">
+  <button class="x" aria-label="Fermer">×</button>
+  <button class="p" aria-label="Précédente">‹</button>
+  <img alt="">
+  <button class="n" aria-label="Suivante">›</button>
+</div>
+
+<section id="composer" class="config">
+  <div class="wrap">
+    <div class="sec-head r">
+      <span class="eyebrow">Collections reportages pour votre mariage</span>
+      <h2>Composez votre reportage, voyez le tarif tout de suite</h2>
+      <p>Choisissez une collection, ajoutez les options qui vous ressemblent : le total et le déroulé couvert s'affichent en direct. Indiquez ensuite votre date pour envoyer votre demande en un clic. Les tarifs comprennent le rendez-vous de signature du contrat et tout le travail de post-traitement.</p>
+    </div>
+    <div class="cfg">
+      <div class="panel r">
+        <p class="step">1 · La collection</p>
+        <div class="cols" id="cols">
+          <label class="col-card on" data-id="or">
+            <input type="radio" name="col" value="or" checked>
+            <span class="tick">✓</span>
+            <h3>Collection Or</h3>
+            <div class="price">855 €</div>
+            <ul>
+              <li>2 cérémonies, ou préparations + 1 cérémonie</li>
+              <li>Photos de couple et de groupe</li>
+              <li>Cocktail ou vin d'honneur</li>
+              <li>400 photos HD minimum</li>
+              <li>Galerie en ligne privée + clé USB en coffret</li>
+            </ul>
+          </label>
+          <label class="col-card" data-id="platine">
+            <input type="radio" name="col" value="platine">
+            <span class="tick">✓</span>
+            <h3>Collection Platine</h3>
+            <div class="price">1 065 €</div>
+            <ul>
+              <li>Préparation des mariés</li>
+              <li>2 cérémonies</li>
+              <li>Photos de couple et de groupe</li>
+              <li>Cocktail ou vin d'honneur</li>
+              <li>500 photos HD minimum</li>
+              <li>Galerie en ligne privée + clé USB en coffret</li>
+            </ul>
+          </label>
+        </div>
+        <p class="step">2 · Les options</p>
+        <div class="opts" id="opts">
+          <label class="opt" data-price="200" data-photos="50" data-tl="engage"><input type="checkbox"><span class="t"><b>Séance engagement</b><small>Reportage de 90 min à la date de votre choix · 50 photos HD min.</small></span><span class="pr">200 €</span></label>
+          <label class="opt" data-price="300" data-photos="150" data-tl="soiree"><input type="checkbox"><span class="t"><b>Forfait soirée</b><small>De l'entrée des mariés dans la salle jusqu'à la pièce montée, max 00h00 (sous conditions) · 150 photos HD min.</small></span><span class="pr">300 €</span></label>
+          <label class="opt" data-price="100" data-photos="10" data-tl="drone"><input type="checkbox"><span class="t"><b>Photos par drone</b><small>Sous condition de possibilité et d'autorisation de vol · 10 photos HD min.</small></span><span class="pr">100 €</span></label>
+          <label class="opt" data-price="129"><input type="checkbox"><span class="t"><b>Album photo</b><small>26 pages, ouverture à plat, couverture molletonnée simili cuir blanc, 28×19 cm · 30 photos · livraison comprise</small></span><span class="pr">129 €</span></label>
+          <div class="opt" data-price="60" data-qty="1"><span class="t"><b>Tirages d'art 20×30</b><small>Papier Fine Art Sirio Pearl · lot de 20 tirages · livraison comprise</small></span><span class="qty"><button type="button" data-d="-1" aria-label="Retirer un lot">−</button><output>0</output><button type="button" data-d="1" aria-label="Ajouter un lot">+</button></span><span class="pr">60 €</span></div>
+          <div class="opt" data-price="30" data-qty="1"><span class="t"><b>Tirages d'art 14×21</b><small>Papier Fine Art Sirio Pearl · lot de 20 tirages · livraison comprise</small></span><span class="qty"><button type="button" data-d="-1" aria-label="Retirer un lot">−</button><output>0</output><button type="button" data-d="1" aria-label="Ajouter un lot">+</button></span><span class="pr">30 €</span></div>
+        </div>
+      </div>
+
+      <aside class="panel summary r" aria-live="polite">
+        <p class="step">Votre reportage</p>
+        <div class="total"><span id="total">855</span> € <small>TTC indicatif</small></div>
+        <p class="photos-min">Au moins <b id="photos">400</b> photos HD livrées</p>
+        <ul class="timeline" id="tl">
+          <li data-k="engage">Séance engagement (avant le jour J)</li>
+          <li data-k="prep">Préparatifs des mariés</li>
+          <li data-k="cer" class="on">Cérémonie(s)</li>
+          <li data-k="couple" class="on">Photos de couple &amp; de groupe</li>
+          <li data-k="vin" class="on">Cocktail ou vin d'honneur</li>
+          <li data-k="drone">Vues aériennes par drone</li>
+          <li data-k="soiree">Soirée, jusqu'à la pièce montée</li>
+        </ul>
+        <p class="step" style="margin-top:1.4rem">3 · Votre date</p>
+        <div class="date-row">
+          <input type="date" id="date" aria-label="Date du mariage">
+          <button class="btn" id="ask" type="button">Envoyer ma demande</button>
+        </div>
+        <p class="date-msg" id="dmsg">Une seule prestation de mariage par jour : réservez tôt.</p>
+        <div class="recap" id="recap"></div>
+        <p class="note">Tarifs repris du site actuel, au 15/11/2026. Frais de déplacement éventuels selon le lieu, à confirmer avec Art-Pixels.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="autres">
+  <div class="wrap">
+    <div class="sec-head r">
+      <span class="eyebrow">Autres prestations</span>
+      <h2>Faites-vous plaisir</h2>
+      <p>Des photos faites par un professionnel, que ce soit en solo, en famille ou pour votre enterrement de vie de jeune fille…</p>
+    </div>
+    <div class="others">
+      <article class="other r"><div class="ph"><img src="https://photographe-roanne.fr/style/images/glif/lif-2.jpg" alt="Séance lifestyle en famille" loading="lazy"></div><div class="b"><h3>Séance Lifestyle</h3><div class="pr">120 €</div><p>45 min en extérieur ou chez vous (max 20 km de Roanne) · 20 photos HD min.</p></div></article>
+      <article class="other r"><div class="ph"><img src="https://photographe-roanne.fr/style/images/gp/gp1-2.jpg" alt="Portrait solo" loading="lazy"></div><div class="b"><h3>Mini shooting</h3><div class="pr">50 €</div><p>Portraits solo · 30 min en extérieur · 10 photos HD.</p></div></article>
+      <article class="other r"><div class="ph"><img src="https://photographe-roanne.fr/style/images/gevjf/evjf-2.jpg" alt="Enterrement de vie de jeune fille" loading="lazy"></div><div class="b"><h3>EVJF, anniversaire, baptême</h3><div class="pr">200 €</div><p>Reportage de 90 min · 60 photos HD min.</p></div></article>
+      <article class="other r"><div class="ph">Visuel à fournir par le client</div><div class="b"><h3>Boudoir</h3><div class="pr">250 €</div><p>Reportage de 90 min · 30 photos HD min.</p></div></article>
+    </div>
+    <p class="note" style="margin-top:1.4rem">Toutes ces séances : accès aux photos et commande de tirages via une galerie en ligne privée.</p>
+  </div>
+</section>
+
+<section class="testi">
+  <div class="wrap">
+    <div class="sec-head r">
+      <span class="eyebrow" style="color:var(--accent-line)">Témoignages</span>
+      <h2>Ce qu'en disent les mariés</h2>
+      <p>Extraits des témoignages publiés sur le site actuel d'Art-Pixels.</p>
+    </div>
+    <div class="track" id="track">
+      <article class="card-t"><h3>Je recommande !</h3><p>« Il a fait preuve d'un réel professionnalisme, était ponctuel et a respecté nos souhaits. Nous sommes très satisfaits de sa prestation et avons à présent de très belles photos de notre mariage avec un bel album en guise de souvenir. »</p><p class="who">MARIELLE &amp; JORDAN</p></article>
+      <article class="card-t"><h3>Photographe extraordinaire !</h3><p>« Le photographe avait besoin de très peu de directives et respectait nos souhaits. Très professionnel et les photos sont superbes. Un grand merci ! »</p><p class="who">ELINE &amp; RAPHAEL</p></article>
+      <article class="card-t"><h3>Prestation au top !</h3><p>« Olivier a couvert notre cérémonie laïque, le vin d'honneur et nous avons fait des photos de couple et de groupe. Des photos naturelles qui nous correspondent. Olivier a été parfait : à l'écoute, professionnel, discret. »</p><p class="who">COSETTE &amp; VICTOR</p></article>
+      <article class="card-t"><h3>Merci !</h3><p>« Il a su bien nous mettre à l'aise, c'était parfait et les photos nous sont parvenues très rapidement. Nous le recommandons vivement ! »</p><p class="who">MANUELA &amp; ANTOINE</p></article>
+      <article class="card-t"><h3>Très heureux !</h3><p>« Très disponible et attentif, les photos réalisées sont superbes. Merci beaucoup pour ce beau travail ! »</p><p class="who">JULIE &amp; SYLVAIN</p></article>
+    </div>
+    <div class="t-nav">
+      <button id="tp" aria-label="Témoignage précédent">←</button>
+      <button id="tn" aria-label="Témoignage suivant">→</button>
+      <a class="mn" href="https://www.mariages.net/photo-mariage/art-pixels--e156114" target="_blank" rel="noopener" style="text-decoration:none"><b>4,9/5</b> · 19 avis sur Mariages.net ↗</a>
+    </div>
+  </div>
+</section>
+
+<section id="equipe">
+  <div class="wrap">
+    <div class="sec-head r">
+      <span class="eyebrow">Art Pixels : Olivier et Maëlys</span>
+      <h2>Une passion partagée pour la photographie de reportage</h2>
+      <p>Nous privilégions le contact humain avec les mariés et leurs invités afin d'obtenir les clichés les plus naturels et les moins posés possibles, sous la forme d'un photo-reportage.</p>
+    </div>
+    <div class="team">
+      <div class="member r"><h3>Olivier</h3><span class="role">Photographe de mariage et de portrait</span><p>Dès l'acquisition de mon premier réflex numérique il y a plus d'une dizaine d'années, j'ai cherché à immortaliser les sourires et instants de vie de mes proches. C'est tout naturellement que je suis venu à la photographie de mariage, qui me permet de pratiquer le mode reportage lors d'un évènement exceptionnel : votre mariage.</p></div>
+      <div class="member r"><h3>Maëlys</h3><span class="role">Photographe de mariage et animalier</span><p>À travers mon objectif, je capture votre journée avec un style lumineux et naturel, en accordant une attention particulière aux petits détails comme aux instants spontanés. Je propose également des prestations de photographie animalière pour chiens, chats, chevaux et NAC.</p></div>
+    </div>
+    <div class="kit r"><span>Discrétion et gentillesse</span><span>Déclencher au bon moment</span><span>Développement (Lightroom)</span><span>Retouche (Photoshop)</span><span>Boîtiers Nikon</span><span>Drone DJI</span></div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--accent-soft)">
+  <div class="wrap faq">
+    <div class="sec-head r"><span class="eyebrow">Foire aux questions</span><h2>Les questions qu'on me pose le plus</h2></div>
+    <details class="r"><summary>Est-ce que vous retouchez vos photos ?</summary><p>J'harmonise d'abord la lumière et les couleurs sur l'ensemble des photos pour un rendu homogène. Ensuite, selon le besoin, j'effectue des retouches plus poussées sur Photoshop pour enlever un détail qui nuit à la photo — des promeneurs au fond du parc d'un château, par exemple.</p></details>
+    <details class="r"><summary>Est-ce que vous livrez toutes les photos ?</summary><p>Je livre l'ensemble des photos que j'ai sélectionnées et retouchées, en qualité HD, sans supplément.</p></details>
+    <details class="r"><summary>Comment livrez-vous les photos ?</summary><p>Sur une galerie privée en ligne (que vous pouvez partager avec vos proches, qui peuvent aussi y commander des tirages), et dans un coffret contenant une clé USB avec l'ensemble des photos en HD.</p></details>
+    <details class="r"><summary>Est-ce que vous proposez un album ?</summary><p>Oui : vous choisissez les photos sur la galerie en ligne, je m'occupe de la mise en page et de la commande à l'imprimeur, et vous recevez l'album directement chez vous.</p></details>
+    <details class="r"><summary>Que photographiez-vous pour les préparatifs ?</summary><p>Généralement les préparatifs de la mariée, avec les demoiselles d'honneur et la famille ; si le marié ne se prépare pas trop loin et que le timing le permet, lui aussi. La séance de préparatifs ne dépasse pas deux heures.</p></details>
+    <details class="r"><summary>Est-ce que vous maîtrisez l'anglais ?</summary><p>Oui, je peux parfaitement m'exprimer en anglais, que ce soit lors d'un entretien ou le jour du mariage.</p></details>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact">
+    <div class="r">
+      <span class="eyebrow">Coordonnées</span>
+      <h2 style="font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem);margin:.35em 0">Parlons de votre projet</h2>
+      <p style="color:var(--muted)">Basé sur Roanne, ma zone habituelle de travail s'étend à une cinquantaine de kilomètres aux alentours. Mais je peux aussi me déplacer plus loin si besoin !</p>
+      <div class="zone"><span>Roanne</span><span>Vichy</span><span>Nord de Saint-Étienne</span><span>Paray-le-Monial</span><span>Chauffailles</span><span>Amplepuis</span><span>Tarare</span></div>
+      <div class="coord">
+        <p><strong>Olivier Liska</strong>, entrepreneur individuel</p>
+        <p>25 rue Émile Noirot, 42300 Roanne</p>
+        <p><a href="tel:+33688691256">06 88 69 12 56</a></p>
+        <p style="font-size:.85rem;color:var(--muted)">Siret 830 166 625 00012</p>
+      </div>
+      <div class="badges">
+        <a href="https://www.regardauteur.com/" target="_blank" rel="noopener" title="Regard d'auteur"><img src="https://photographe-roanne.fr/style/images/1833.png" alt="Regard d'auteur"></a>
+        <a href="https://www.label.photo/" target="_blank" rel="noopener" title="Label Photographie"><img src="https://photographe-roanne.fr/style/images/label.png" alt="Membre de Label Photographie"></a>
+        <a href="https://www.mariages.net/photo-mariage/art-pixels--e156114" target="_blank" rel="noopener" title="Mariages.net"><img src="https://photographe-roanne.fr/style/images/mariage.png" alt="Avis Mariages.net"></a>
+        <a href="https://www.instagram.com/art_pixels_photographies" target="_blank" rel="noopener" style="font-weight:700;color:var(--accent-dark);text-decoration:none">Instagram ↗</a>
+      </div>
+    </div>
+    <form class="cf panel r" id="cf">
+      <p class="step">Envoyez-moi un message</p>
+      <input name="nom" placeholder="Vos prénoms et nom" required>
+      <input name="email" type="email" placeholder="Votre e-mail" required>
+      <input name="tel" placeholder="Votre téléphone">
+      <select name="presta"><option>Mariage</option><option>Séance Lifestyle</option><option>Mini shooting</option><option>EVJF, anniversaire, baptême</option><option>Boudoir</option><option>Autre</option></select>
+      <input name="date" type="date" aria-label="Date prévue (si connue)">
+      <textarea name="msg" rows="4" placeholder="Lieu, nombre d'invités, cérémonies… Dites-moi tout !"></textarea>
+      <button class="btn" type="submit">Envoyer</button>
+      <p class="date-msg" id="cfmsg"></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="https://photographe-roanne.fr/style/images/logo@2x.png" alt="Art-pixels">
+    <p>© Art-Pixels — Photographe de mariage, famille et portrait à Roanne · 06 88 69 12 56</p>
+    <p class="disc">Maquette de démonstration réalisée à titre de proposition, non mise en ligne par Art-Pixels. Textes, tarifs, témoignages et chiffres repris du site actuel photographe-roanne.fr (au 15/11/2026) et de la fiche Mariages.net ; prix indicatifs non contractuels. Toutes les photos sont celles du site actuel d'Art-Pixels ; le visuel « Boudoir » reste à fournir. Couleur lavande et typographie Playfair Display reprises de la charte existante, ajustables. Le formulaire et l'envoi de demande ne transmettent rien dans cette démonstration.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+
+/* Header + menu */
+const hd=$('header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>20),{passive:true});
+$('.burger').onclick=()=>$('#menu').classList.toggle('open');
+$$('#menu a').forEach(a=>a.onclick=()=>$('#menu').classList.remove('open'));
+
+/* Diaporama */
+const slides=$$('.slide'),dots=$('#dots');let cur=0,timer;
+slides.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=(i+slides.length)%slides.length;slides[cur].classList.add('on');const d=dots.children[cur];d.classList.remove('on');void d.offsetWidth;d.classList.add('on');clearTimeout(timer);if(!RM)timer=setTimeout(()=>go(cur+1),6000)}
+go(0);
+
+/* Mot tournant */
+const words=['mariage','EVJF','portrait','quotidien en famille','anniversaire'];let wi=0;const rot=$('#rot');
+if(!RM)setInterval(()=>{rot.classList.add('out');setTimeout(()=>{wi=(wi+1)%words.length;rot.textContent=words[wi];rot.classList.remove('out')},400)},2600);
+
+/* Apparitions + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');const c=e.target.querySelector('[data-count]');if(c)count(c);io.unobserve(e.target)}),{threshold:.15});
+$$('.r').forEach(el=>io.observe(el));
+function count(el){const end=+el.dataset.count,t0=performance.now(),d=RM?0:1800;const f=t=>{const p=d?Math.min(1,(t-t0)/d):1;el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+
+/* Portfolio (photos du site actuel) */
+const B='https://photographe-roanne.fr/style/images/';
+const pics=[];
+const add=(cat,arr)=>arr.forEach(([t,f])=>pics.push({cat,t:B+t,f:B+f}));
+add('mariage',[1,2,4,6,8,10,12].map(n=>['gm/co/co-'+n+'.jpg','gm/co/co-'+n+'-full.jpg']));
+add('mariage',[1,3,5,7,9].map(n=>['gm/ce/ce-'+n+'.jpg','gm/ce/ce-'+n+'-full.jpg']));
+add('mariage',[1,3,5,8].map(n=>['gm/pr/pr-'+n+'.jpg','gm/pr/pr-'+n+'-full.jpg']));
+add('mariage',[2,4,7].map(n=>['gm/ck/ck-'+n+'.jpg','gm/ck/ck-'+n+'-full.jpg']));
+add('portrait',[1,3,4,5,6,7,8,9].map(n=>['gp/gp1-'+n+'.jpg','gp/gp1-'+n+'.jpg']));
+add('lifestyle',[1,3,4,5,6,7,8].map(n=>['glif/lif-'+n+'.jpg','glif/lif-'+n+'.jpg']));
+add('evjf',[1,3,4,5,6,7].map(n=>['gevjf/evjf-'+n+'.jpg','gevjf/evjf-'+n+'.jpg']));
+/* mélange déterministe pour un rendu vivant */
+pics.sort((a,b)=>(a.t.length*7%5)-(b.t.length*7%5));
+const m=$('#masonry');
+pics.forEach((p,i)=>{const f=document.createElement('figure');f.dataset.cat=p.cat;f.dataset.i=i;f.innerHTML='<img src="'+p.t+'" alt="Photo Art-Pixels — '+p.cat+'" loading="lazy">';f.querySelector('img').onerror=()=>f.remove();m.appendChild(f)});
+let filt='all';
+$$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.classList.remove('on'));b.classList.add('on');filt=b.dataset.f;$$('#masonry figure').forEach(f=>f.classList.toggle('hide',filt!=='all'&&f.dataset.cat!==filt))});
+const lb=$('#lb'),lbi=$('img',lb);let li=0;
+const vis=()=>$$('#masonry figure:not(.hide)');
+m.onclick=e=>{const f=e.target.closest('figure');if(!f)return;li=vis().indexOf(f);show()};
+function show(){const f=vis()[li];if(!f)return;lbi.src=pics[f.dataset.i].f;lb.classList.add('open')}
+$('.x',lb).onclick=()=>lb.classList.remove('open');
+$('.p',lb).onclick=()=>{li=(li-1+vis().length)%vis().length;show()};
+$('.n',lb).onclick=()=>{li=(li+1)%vis().length;show()};
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')$('.n',lb).click();if(e.key==='ArrowLeft')$('.p',lb).click()});
+
+/* Configurateur */
+const COL={or:{p:855,ph:400,n:'Collection Or',prep:false},platine:{p:1065,ph:500,n:'Collection Platine',prep:true}};
+let col='or';const qty=new Map();
+$$('.col-card').forEach(c=>c.onclick=()=>{$$('.col-card').forEach(x=>x.classList.remove('on'));c.classList.add('on');col=c.dataset.id;calc()});
+$$('#opts label.opt input').forEach(i=>i.onchange=()=>{i.closest('.opt').classList.toggle('on',i.checked);calc()});
+$$('#opts .opt[data-qty]').forEach(o=>{qty.set(o,0);$$('button',o).forEach(b=>b.onclick=ev=>{ev.preventDefault();const v=Math.max(0,Math.min(10,qty.get(o)+ +b.dataset.d));qty.set(o,v);$('output',o).textContent=v;o.classList.toggle('on',v>0);calc()})});
+const totEl=$('#total'),phEl=$('#photos');let shown=855;
+function anim(el,from,to){if(RM){el.textContent=to.toLocaleString('fr-FR');return}const t0=performance.now();const f=t=>{const p=Math.min(1,(t-t0)/500);el.textContent=Math.round(from+(to-from)*p).toLocaleString('fr-FR');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function calc(){
+  const c=COL[col];let t=c.p,ph=c.ph;const keys=new Set(['cer','couple','vin']);if(c.prep)keys.add('prep');
+  $$('#opts label.opt').forEach(o=>{if($('input',o).checked){t+=+o.dataset.price;ph+=+(o.dataset.photos||0);if(o.dataset.tl)keys.add(o.dataset.tl)}});
+  qty.forEach((v,o)=>t+=v*o.dataset.price);
+  anim(totEl,shown,t);shown=t;phEl.textContent=ph.toLocaleString('fr-FR');
+  $$('#tl li').forEach(li=>li.classList.toggle('on',keys.has(li.dataset.k)));
+  if(col==='or')$('#tl [data-k=cer]').textContent='Cérémonie(s) — 2 cérémonies, ou préparatifs + 1';else $('#tl [data-k=cer]').textContent='Cérémonie(s) — civile + laïque ou religieuse';
+}
+calc();
+const dIn=$('#date'),dm=$('#dmsg');
+const today=new Date();today.setHours(0,0,0,0);dIn.min=today.toISOString().slice(0,10);
+dIn.onchange=()=>{const d=new Date(dIn.value);if(isNaN(d))return;const days=Math.round((d-today)/864e5);const j=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  dm.className='date-msg'+(days<90?' warn':'');
+  dm.textContent=days<0?'Cette date est passée.':(days<90?j+' : c\'est bientôt ! Appelez directement au 06 88 69 12 56 pour vérifier la disponibilité.':j+' : envoyez votre demande, la disponibilité vous sera confirmée rapidement.')};
+$('#ask').onclick=()=>{
+  const c=COL[col];const lines=[c.n+' — '+c.p+' €'];
+  $$('#opts label.opt').forEach(o=>{if($('input',o).checked)lines.push('+ '+$('b',o).textContent+' — '+o.dataset.price+' €')});
+  qty.forEach((v,o)=>{if(v)lines.push('+ '+v+' × '+$('b',o).textContent+' — '+v*o.dataset.price+' €')});
+  const d=dIn.value?new Date(dIn.value).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}):'date à préciser';
+  const r=$('#recap');r.textContent='Demande prête à envoyer (démonstration) :\n'+lines.join('\n')+'\nTotal indicatif : '+shown.toLocaleString('fr-FR')+' €\nDate : '+d+'\n\nSur le vrai site, ce récapitulatif arrive directement chez Art-Pixels, prêt pour le rendez-vous de signature.';
+  r.classList.remove('show');void r.offsetWidth;r.classList.add('show');
+  const msg=$('#cf textarea');msg.value='Bonjour, je souhaite un devis pour notre mariage ('+d+') : '+lines.join(', ')+' — total indicatif '+shown+' €.';
+};
+
+/* Témoignages */
+const tr=$('#track');let ti=0;const cards=$$('.card-t');
+function tgo(i){ti=(i+cards.length)%cards.length;tr.style.transform='translateX(-'+(cards[ti].offsetLeft-cards[0].offsetLeft)+'px)'}
+$('#tn').onclick=()=>tgo(ti+1);$('#tp').onclick=()=>tgo(ti-1);
+if(!RM)setInterval(()=>tgo(ti+1),7000);
+
+/* Formulaire (démo) */
+$('#cf').onsubmit=e=>{e.preventDefault();$('#cfmsg').textContent='Merci ! (Démonstration : aucun message n\'a été envoyé.)'};
+})();
+</script>
+</body>
+</html>
