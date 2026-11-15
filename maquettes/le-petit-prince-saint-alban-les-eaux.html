@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Petit Prince — Restaurant gastronomique à Saint-Alban-les-Eaux | Côte roannaise</title>
+<meta name="description" content="Restaurant gastronomique et bistrot 1534 dans une maison de 1534 à Saint-Alban-les-Eaux, sur la Côte roannaise. Menus Antonin, Julia, César, ateliers et menu des fêtes à emporter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel restaurant-lepetitprince.fr
+   (couleurs relevées dans la feuille de style en place)
+   ========================================================== */
+:root{
+  --fond:#141210;        /* fond principal brun-noir du site actuel */
+  --fond-2:#1d1a17;      /* surfaces */
+  --fond-3:#26221e;      /* bandeaux / menus déroulants du site actuel */
+  --or:#ffd233;          /* jaune doré des boutons, soulignés et pictos */
+  --or-doux:rgba(255,210,51,.14);
+  --texte:#ffffff;
+  --texte-2:#b0b0b0;     /* gris des paragraphes du site actuel */
+  --ligne:rgba(255,255,255,.1);
+  --titre:"Playfair Display",Georgia,serif;   /* titres du site actuel */
+  --corps:"Open Sans",system-ui,sans-serif;  /* textes du site actuel */
+  --ease:cubic-bezier(.22,.8,.25,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--fond);color:var(--texte);font-family:var(--corps);font-size:16px;line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.demo{background:var(--or);color:#141210;font-size:.8rem;text-align:center;padding:6px 16px;font-weight:600;letter-spacing:.02em}
+
+/* ---------- En-tête ---------- */
+.topbar{border-bottom:1px solid var(--ligne);font-size:.85rem;color:#ddd}
+.topbar .wrap{display:flex;gap:28px;justify-content:space-between;padding:10px 0;flex-wrap:wrap}
+.topbar span{display:inline-flex;gap:8px;align-items:center}
+.topbar svg{width:14px;height:14px;fill:var(--or)}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(20,18,16,.82);backdrop-filter:blur(10px);transition:padding .3s var(--ease),background .3s}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px 0;transition:padding .3s var(--ease)}
+header.nav.compact .wrap{padding:6px 0}
+.logo img{height:78px;width:auto;transition:height .3s var(--ease)}
+header.nav.compact .logo img{height:48px}
+.menu{display:flex;gap:30px;list-style:none;align-items:center}
+.menu a{text-decoration:none;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--or);color:#141210;border:0;text-decoration:none;font-weight:600;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;padding:14px 26px;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s;font-family:var(--corps)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,210,51,.25)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+.btn.ghost:hover{border-color:var(--or);color:var(--or);box-shadow:none}
+.burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px}
+.burger span{display:block;height:2px;background:#fff;margin:6px 8px;transition:.3s}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:calc(100vh - 140px);display:grid;place-items:center;text-align:center;overflow:hidden;isolation:isolate}
+.hero .slides{position:absolute;inset:0;z-index:-2}
+.hero .slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 9s linear}
+.hero .slides img.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,18,16,.55),rgba(20,18,16,.35) 40%,rgba(20,18,16,.95))}
+.surtitre{color:var(--or);letter-spacing:.45em;text-transform:uppercase;font-size:.78rem;display:inline-flex;align-items:center;gap:12px}
+.surtitre::after{content:"";width:34px;height:10px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 10'%3E%3Cpath d='M1 6c6-6 12 4 19 0s13-6 19 0' fill='none' stroke='%23ffd233' stroke-width='1.4'/%3E%3C/svg%3E")}
+.hero h1{font-family:var(--titre);font-weight:400;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:1.05;margin:22px 0 18px}
+.hero h1 em{color:var(--or);font-style:italic}
+.hero p.base{color:#e7e2da;font-size:clamp(1rem,.9rem + .4vw,1.2rem);max-width:640px;margin:0 auto 34px}
+.hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hero .univers{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:46px}
+.hero .univers a{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:1px solid var(--ligne);padding:8px 14px;background:rgba(20,18,16,.5);transition:.3s}
+.hero .univers a:hover{border-color:var(--or);color:var(--or)}
+.scroll{position:absolute;bottom:24px;left:50%;translate:-50% 0;width:1px;height:54px;background:linear-gradient(var(--or),transparent);animation:descend 2.2s infinite}
+@keyframes descend{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* bandeau fêtes */
+.fetes-bandeau{background:var(--fond-3);border-block:1px solid var(--ligne);overflow:hidden}
+.fetes-bandeau .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;flex-wrap:wrap}
+.fetes-bandeau b{color:var(--or);font-weight:600}
+.compte{display:flex;gap:16px;font-family:var(--titre)}
+.compte div{text-align:center;min-width:54px}
+.compte strong{display:block;font-size:1.7rem;color:var(--or);font-weight:400;line-height:1}
+.compte small{font-family:var(--corps);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--texte-2)}
+
+/* ---------- Sections ---------- */
+section{padding:clamp(70px,8vw,120px) 0}
+.tete{text-align:center;max-width:720px;margin:0 auto 54px}
+.tete h2{font-family:var(--titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1.15;margin:14px 0 16px}
+.tete p{color:var(--texte-2)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+
+/* histoire */
+.histoire{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,80px);align-items:center}
+.histoire .photo{position:relative}
+.histoire .photo img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.histoire .photo .cadre{position:absolute;inset:18px -18px -18px 18px;border:1px solid var(--or);z-index:-1}
+.histoire .photo figcaption{position:absolute;left:0;bottom:-1px;background:var(--fond);padding:14px 20px;font-family:var(--titre);font-size:1.1rem}
+.histoire .photo figcaption span{display:block;font-family:var(--corps);font-size:.75rem;color:var(--texte-2);letter-spacing:.08em}
+.frise{list-style:none;position:relative;margin-top:30px}
+.frise::before{content:"";position:absolute;left:62px;top:8px;bottom:8px;width:1px;background:var(--ligne)}
+.frise li{display:grid;grid-template-columns:62px 1fr;gap:26px;padding:12px 0;position:relative;cursor:default}
+.frise li::before{content:"";position:absolute;left:58px;top:24px;width:9px;height:9px;border-radius:50%;background:var(--fond);border:1px solid var(--or);transition:.3s}
+.frise li:hover::before{background:var(--or);box-shadow:0 0 0 6px var(--or-doux)}
+.frise .an{font-family:var(--titre);color:var(--or);font-size:1.2rem;text-align:right;padding-right:6px}
+.frise p{color:var(--texte-2);font-size:.95rem}
+.signature{font-family:var(--titre);font-style:italic;color:#fff;margin-top:24px;font-size:1.15rem}
+
+/* salles */
+.salles{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.salles figure{position:relative;overflow:hidden}
+.salles figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.salles figure:hover img{transform:scale(1.06)}
+.salles figcaption{position:absolute;left:0;right:0;bottom:0;padding:40px 22px 18px;background:linear-gradient(transparent,rgba(20,18,16,.92))}
+.salles figcaption h3{font-family:var(--titre);font-weight:400;font-size:1.4rem}
+.salles figcaption p{color:#ddd;font-size:.88rem;max-height:0;opacity:0;transition:.5s var(--ease);overflow:hidden}
+.salles figure:hover figcaption p{max-height:140px;opacity:1}
+.s1{grid-column:span 7;height:440px}.s2{grid-column:span 5;height:440px}.s3{grid-column:span 5;height:340px}.s4{grid-column:span 7;height:340px}
+
+/* menus */
+.fond2{background:var(--fond-2)}
+.menus{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,4vw,60px);align-items:start}
+.choix-menu{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:26px}
+.choix-menu button{background:transparent;border:1px solid var(--ligne);color:#fff;padding:16px 10px;cursor:pointer;font-family:var(--corps);transition:.3s var(--ease);text-align:center}
+.choix-menu button strong{display:block;font-family:var(--titre);font-weight:400;font-size:1.35rem}
+.choix-menu button span{color:var(--texte-2);font-size:.85rem}
+.choix-menu button[aria-pressed="true"]{border-color:var(--or);background:var(--or-doux)}
+.choix-menu button[aria-pressed="true"] span{color:var(--or)}
+.carte{list-style:none;border-top:1px solid var(--ligne)}
+.carte li{display:flex;gap:16px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--ligne);transition:opacity .45s,transform .45s var(--ease),color .45s}
+.carte li .n{font-family:var(--titre);color:var(--or);min-width:28px;font-size:.95rem}
+.carte li.off{opacity:.22;transform:translateX(-6px)}
+.carte li .alt{margin-left:auto;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--or);white-space:nowrap}
+.note{color:var(--texte-2);font-size:.85rem;margin-top:16px}
+.menu-visuel{position:sticky;top:110px}
+.menu-visuel .img{aspect-ratio:1;overflow:hidden;position:relative}
+.menu-visuel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s}
+.menu-visuel img.on{opacity:1}
+.menu-visuel .prix{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--ligne)}
+.menu-visuel .prix strong{font-family:var(--titre);font-size:2.6rem;font-weight:400;color:var(--or)}
+.faustine{margin-top:22px;padding:20px 22px;border:1px dashed rgba(255,210,51,.4)}
+.faustine h4{font-family:var(--titre);font-weight:400;font-size:1.2rem;margin-bottom:6px}
+.faustine p{color:var(--texte-2);font-size:.9rem}
+
+/* outil commande fêtes */
+.outil{display:grid;grid-template-columns:1.25fr .9fr;gap:30px;align-items:start}
+.etape{border:1px solid var(--ligne);padding:26px;margin-bottom:16px;background:var(--fond-2)}
+.etape h3{font-family:var(--titre);font-weight:400;font-size:1.3rem;margin-bottom:16px;display:flex;gap:14px;align-items:center}
+.etape h3 i{font-style:normal;font-family:var(--corps);font-size:.75rem;width:28px;height:28px;border-radius:50%;border:1px solid var(--or);color:var(--or);display:grid;place-items:center;flex:none}
+.formules{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.formules label{border:1px solid var(--ligne);padding:16px;cursor:pointer;transition:.3s var(--ease);display:block}
+.formules input{position:absolute;opacity:0}
+.formules label:has(input:checked){border-color:var(--or);background:var(--or-doux)}
+.formules label:hover{border-color:rgba(255,210,51,.6)}
+.formules strong{font-family:var(--titre);font-size:1.5rem;font-weight:400;color:var(--or);display:block}
+.formules span{font-size:.85rem;color:var(--texte-2)}
+.qte{display:flex;align-items:center;gap:0;border:1px solid var(--ligne);width:max-content}
+.qte button{background:none;border:0;color:#fff;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+.qte button:hover{color:var(--or)}
+.qte output{min-width:40px;text-align:center;font-family:var(--titre);font-size:1.2rem}
+.ligne-choix{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ligne)}
+.ligne-choix:last-child{border-bottom:0}
+.ligne-choix small{display:block;color:var(--texte-2);font-size:.8rem;line-height:1.4}
+.groupe{margin-bottom:18px}
+.groupe h4{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or);font-weight:600;display:flex;justify-content:space-between}
+.groupe h4 em{font-style:normal;color:var(--texte-2)}
+.groupe h4 em.ok{color:#9fd49a}
+.groupe .inclus{color:var(--texte-2);font-size:.9rem;padding:10px 0}
+.champ{display:grid;gap:6px;margin-bottom:14px}
+.champ label{font-size:.8rem;color:var(--texte-2)}
+.champ input,.champ select{background:var(--fond);border:1px solid var(--ligne);color:#fff;padding:12px 14px;font:inherit;color-scheme:dark}
+.creneaux{display:flex;gap:8px;flex-wrap:wrap}
+.creneaux button{background:none;border:1px solid var(--ligne);color:#fff;padding:9px 12px;font:inherit;font-size:.85rem;cursor:pointer;transition:.25s}
+.creneaux button[aria-pressed="true"]{background:var(--or);color:#141210;border-color:var(--or)}
+.creneaux button:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.recap{position:sticky;top:110px;border:1px solid var(--or);padding:28px;background:linear-gradient(160deg,#211d18,#141210)}
+.recap h3{font-family:var(--titre);font-weight:400;font-size:1.5rem}
+.recap ul{list-style:none;margin:18px 0;font-size:.92rem}
+.recap li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dotted var(--ligne)}
+.recap li span:last-child{color:var(--texte-2);text-align:right}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:16px 0 20px}
+.total strong{font-family:var(--titre);font-size:2.4rem;font-weight:400;color:var(--or)}
+.alerte{font-size:.82rem;color:#f0b9a0;margin-bottom:14px;min-height:1.2em}
+.recap .btn{width:100%;justify-content:center;margin-bottom:10px}
+.recap .petit{font-size:.78rem;color:var(--texte-2);margin-top:8px}
+
+/* 1534 */
+.bistrot{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.bistrot .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bistrot .duo img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.bistrot .duo img:nth-child(2){margin-top:60px}
+.ardoise{margin-top:24px}
+.ardoise h4{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or);margin:18px 0 6px}
+.ardoise p{display:flex;gap:10px;color:#ddd;font-size:.95rem;padding:4px 0}
+.ardoise p::after{content:"";order:1;flex:1;border-bottom:1px dotted rgba(255,255,255,.25);margin-bottom:6px}
+.ardoise p b{order:2;font-weight:400;color:var(--or)}
+
+/* ateliers */
+.onglets{display:flex;justify-content:center;gap:8px;margin-bottom:34px;flex-wrap:wrap}
+.onglets button{background:none;border:1px solid var(--ligne);color:#fff;padding:12px 22px;font:inherit;letter-spacing:.08em;cursor:pointer;transition:.3s}
+.onglets button[aria-selected="true"]{border-color:var(--or);color:var(--or);background:var(--or-doux)}
+.panneau{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.panneau[hidden]{display:none}
+.panneau h3{font-family:var(--titre);font-weight:400;font-size:1.8rem;margin-bottom:12px}
+.panneau p{color:var(--texte-2);margin-bottom:12px}
+.deroule{list-style:none;margin:16px 0}
+.deroule li{display:grid;grid-template-columns:70px 1fr;padding:8px 0;border-bottom:1px solid var(--ligne);font-size:.92rem;color:#ddd}
+.deroule b{color:var(--or);font-weight:400;font-family:var(--titre)}
+.tarifs{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.tarifs div{border:1px solid var(--ligne);padding:14px 18px}
+.tarifs strong{display:block;font-family:var(--titre);font-size:1.6rem;font-weight:400;color:var(--or)}
+.tarifs span{font-size:.8rem;color:var(--texte-2)}
+.agenda{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.agenda button{text-align:left;background:var(--fond-2);border:1px solid var(--ligne);color:#fff;padding:14px 16px;font:inherit;cursor:pointer;transition:.3s var(--ease);display:flex;gap:14px;align-items:center}
+.agenda button:hover{border-color:var(--or);transform:translateY(-2px)}
+.agenda button .j{font-family:var(--titre);font-size:1.8rem;color:var(--or);line-height:1;min-width:42px}
+.agenda button small{display:block;color:var(--texte-2);font-size:.78rem}
+.agenda button[aria-pressed="true"]{background:var(--or);color:#141210}
+.agenda button[aria-pressed="true"] .j,.agenda button[aria-pressed="true"] small{color:#141210}
+.agenda-note{font-size:.8rem;color:var(--texte-2);margin-top:12px}
+
+/* dormir / épicerie / offrir */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.carte-univers{background:var(--fond-2);border:1px solid var(--ligne);display:flex;flex-direction:column;transition:transform .5s var(--ease),border-color .5s}
+.carte-univers:hover{transform:translateY(-6px);border-color:rgba(255,210,51,.5)}
+.carte-univers .img{height:230px;overflow:hidden}
+.carte-univers .img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.carte-univers:hover .img img{transform:scale(1.07)}
+.carte-univers .c{padding:24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.carte-univers h3{font-family:var(--titre);font-weight:400;font-size:1.5rem}
+.carte-univers p{color:var(--texte-2);font-size:.92rem}
+.carte-univers ul{list-style:none;font-size:.88rem;color:#ddd}
+.carte-univers ul li{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px dotted var(--ligne)}
+.carte-univers ul li b{color:var(--or);font-weight:400;white-space:nowrap}
+.carte-univers .lien{margin-top:auto;color:var(--or);text-decoration:none;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding-top:10px}
+.carte-univers .lien:hover{text-decoration:underline}
+
+/* séminaires */
+.seminaire{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.seminaire img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.seminaire ul{list-style:none;margin:18px 0}
+.seminaire li{padding:10px 0 10px 26px;border-bottom:1px solid var(--ligne);color:#ddd;font-size:.94rem;position:relative}
+.seminaire li::before{content:"";position:absolute;left:0;top:19px;width:12px;height:1px;background:var(--or)}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.contact div{border-top:1px solid var(--or);padding-top:20px}
+.contact h3{font-family:var(--titre);font-weight:400;font-size:1.3rem;margin-bottom:10px}
+.contact p,.contact a{color:var(--texte-2);font-size:.95rem;text-decoration:none;display:block}
+.contact a:hover{color:var(--or)}
+footer{border-top:1px solid var(--ligne);padding:40px 0 60px;color:var(--texte-2);font-size:.82rem}
+footer .wrap{display:grid;gap:12px}
+footer .baseline{font-family:var(--titre);font-style:italic;color:#fff;font-size:1.2rem}
+.fixe-mobile{display:none}
+
+@media (max-width:980px){
+  .menu{display:none}
+  .burger{display:block}
+  .menu.ouvert{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--fond);padding:24px;gap:18px;border-bottom:1px solid var(--ligne)}
+  .histoire,.menus,.outil,.bistrot,.panneau,.seminaire{grid-template-columns:1fr}
+  .trio,.contact{grid-template-columns:1fr}
+  .s1,.s2,.s3,.s4{grid-column:span 12;height:300px}
+  .salles figcaption p{max-height:none;opacity:1}
+  .menu-visuel,.recap{position:static}
+  .nav .btn.res{display:none}
+  .fixe-mobile{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:60;background:var(--fond-3);border-top:1px solid var(--ligne)}
+  .fixe-mobile a{flex:1;text-align:center;padding:14px;text-decoration:none;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+  .fixe-mobile a+a{background:var(--or);color:#141210;font-weight:600}
+  body{padding-bottom:50px}
+}
+@media (max-width:600px){
+  .formules,.choix-menu{grid-template-columns:1fr}
+  .agenda{grid-template-columns:1fr}
+  .topbar .wrap{justify-content:center;gap:8px 18px}
+  .logo img{height:58px}
+  .frise::before{left:48px}.frise li{grid-template-columns:48px 1fr;gap:20px}.frise li::before{left:44px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Petit Prince",
+  "description":"Restaurant gastronomique et salon bistronomique 1534 dans une maison du XVIe siècle, à Saint-Alban-les-Eaux sur la Côte roannaise.",
+  "url":"https://www.restaurant-lepetitprince.fr/",
+  "telephone":"+33477658713",
+  "email":"contact@restaurant-lepetitprince.fr",
+  "servesCuisine":"Cuisine française gastronomique",
+  "priceRange":"34 € – 106 €",
+  "acceptsReservations":true,
+  "address":{"@type":"PostalAddress","streetAddress":"28 rue des Marronniers","postalCode":"42370","addressLocality":"Saint-Alban-les-Eaux","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Saint-Alban-les-Eaux","Côte roannaise","Roanne","Renaison"],
+  "sameAs":["https://www.facebook.com/RestaurantLePetitPrinceStAlban","https://www.instagram.com/lepetitprince.restaurant/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte non officielle, réalisée à partir du site actuel du restaurant</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <span><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>28, rue des Marronniers — 42370 Saint-Alban-les-Eaux</span>
+    <span><svg viewBox="0 0 24 24"><path d="M2 5h20v14H2zm2 2v.4l8 5 8-5V7zm16 2.7-8 5-8-5V17h16z"/></svg><a href="mailto:contact@restaurant-lepetitprince.fr">contact@restaurant-lepetitprince.fr</a></span>
+    <span><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><a href="tel:+33477658713">04 77 65 87 13</a></span>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#accueil" aria-label="Le Petit Prince, accueil"><img src="https://www.restaurant-lepetitprince.fr/build/website/images/petit-prince/petit-prince-logo.png" alt="Logo Le Petit Prince — 1534 Moncigny Treille Reure"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#restaurant">Restaurant gastronomique</a></li>
+      <li><a href="#bistrot">Le 1534 bistronomique</a></li>
+      <li><a href="#ateliers">Ateliers</a></li>
+      <li><a href="#dormir">Dormir · Épicerie</a></li>
+      <li><a href="#fetes">Menu des fêtes</a></li>
+    </ul>
+    <a class="btn res" href="#reserver">Réserver</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="accueil">
+  <section class="hero" style="padding:0">
+    <div class="slides" aria-hidden="true">
+      <img class="on" src="https://www.restaurant-lepetitprince.fr/upload/cms/media/terr-site-6abfc7c29282d.webp" alt="">
+      <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/b4-6af4915f1836b.webp" alt="">
+      <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/b2-6aeded03d5d78.webp" alt="">
+      <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/grd-site-6abfc761a31f3.webp" alt="">
+    </div>
+    <div class="wrap" style="padding:80px 0 110px">
+      <span class="surtitre reveal">Saint-Alban-les-Eaux · Côte roannaise</span>
+      <h1 class="reveal d1">Depuis <em>1534</em>,<br>l'histoire continue</h1>
+      <p class="base reveal d2">Le Petit Prince, terroir précis, émotions raffinées. Une table gastronomique, un salon bistronomique, un appartement pour prolonger la soirée et l'épicerie d'Anna, dans la même maison de famille.</p>
+      <div class="ctas reveal d3">
+        <a class="btn" href="#reserver">Réserver une table</a>
+        <a class="btn ghost" href="#fetes">Commander le menu des fêtes</a>
+      </div>
+      <nav class="univers reveal d3" aria-label="Les univers du Petit Prince">
+        <a href="#restaurant">Restaurant gastronomique</a><a href="#bistrot">Le 1534</a><a href="#ateliers">Ateliers</a><a href="#dormir">Dormir au Petit Prince</a><a href="#epicerie">L'Épicerie d'Anna</a>
+      </nav>
+    </div>
+    <span class="scroll" aria-hidden="true"></span>
+  </section>
+
+  <div class="fetes-bandeau">
+    <div class="wrap">
+      <p><b>Menu des fêtes à emporter</b> — du jeudi 17 décembre au 1<sup>er</sup> janvier · commande jusqu'à 48 h avant</p>
+      <div class="compte" aria-label="Compte à rebours avant le premier retrait">
+        <div><strong id="cj">–</strong><small>jours</small></div>
+        <div><strong id="ch">–</strong><small>heures</small></div>
+        <div><strong id="cm">–</strong><small>min</small></div>
+      </div>
+      <a class="btn ghost" href="#fetes">Composer ma commande</a>
+    </div>
+  </div>
+
+  <!-- HISTOIRE -->
+  <section id="restaurant">
+    <div class="wrap histoire">
+      <figure class="photo reveal">
+        <span class="cadre"></span>
+        <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/chef-6aedf03b4e825.webp" alt="Jean-François (Max) Reure avec Marylou et Benjamin Baylot, chefs de cuisine">
+        <figcaption>Max Reure, Marylou &amp; Benjamin Baylot<span>Propriétaire · cheffe et chef de cuisine</span></figcaption>
+      </figure>
+      <div>
+        <span class="surtitre reveal">Le Petit Prince</span>
+        <h2 class="reveal d1" style="font-family:var(--titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1.15;margin:14px 0 12px">Histoire d'une maison qui date de 1534</h2>
+        <p class="reveal d1" style="color:var(--texte-2)">Le merveilleux conte de Saint-Exupéry n'est pas à l'origine de l'enseigne : il a fallu trois siècles pour que la maison au balcon de bois devienne un restaurant.</p>
+        <ol class="frise reveal d2">
+          <li><span class="an">1534</span><p>Construction de la maison au balcon de bois. Elle reste longtemps une ferme et un vigneronnage.</p></li>
+          <li><span class="an">XVIII<sup>e</sup></span><p>Avec la mode du thermalisme, les demoiselles de Moncigny en font une pension de famille pour les buveurs d'eau.</p></li>
+          <li><span class="an">1930</span><p>Charles Reure en fait un hôtel-restaurant très moderne pour l'époque.</p></li>
+          <li><span class="an">1954</span><p>L'hôtel des Princes devient une annexe du village d'enfants ; naît un minuscule café, le Petit Prince.</p></li>
+          <li><span class="an">1988</span><p>Reprise de l'affaire familiale par Max Reure, aujourd'hui entouré de Marylou et Benjamin Baylot.</p></li>
+        </ol>
+        <p class="signature reveal d3">« Nous espérons vous faire passer un agréable moment dans ces murs ancestraux. »</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SALLES -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="salles">
+        <figure class="s1 reveal"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/brique-1-6aedecb9345b8.webp" alt="La petite salle en brique, ouverte sur le jardin" loading="lazy"><figcaption><h3>La petite salle en brique</h3><p>Créée dans les années 20, plein sud, avec vue sur le jardin fleuri de glycines. Idéale en table individuelle ou pour un repas de famille.</p></figcaption></figure>
+        <figure class="s2 reveal d1"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/b4-6af4915f1836b.webp" alt="La grande salle, ancien cuvage" loading="lazy"><figcaption><h3>La grande salle</h3><p>Ancien cuvage aux appliques de barriques, avec une cave murale qui rend hommage aux vins de la Côte roannaise.</p></figcaption></figure>
+        <figure class="s3 reveal"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/terr-site-6abfc7c29282d.webp" alt="La terrasse sous les glycines" loading="lazy"><figcaption><h3>La terrasse</h3><p>Entre lumière et nature, à l'ombre des glycines : un havre de sérénité.</p></figcaption></figure>
+        <figure class="s4 reveal d1"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/b-2-6af4915f185ec.webp" alt="Tables dressées du restaurant gastronomique" loading="lazy"><figcaption><h3>Bois, teintes naturelles</h3><p>Sous une lumière douce, une ambiance intime et raffinée où chaque repas devient un moment privilégié.</p></figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENUS -->
+  <section class="fond2" id="menus">
+    <div class="wrap">
+      <div class="tete reveal">
+        <span class="surtitre">Restaurant gastronomique</span>
+        <h2>Antonin, Julia ou César</h2>
+        <p>Un même menu de saison, trois façons de le parcourir. Choisissez votre menu : les plats qu'il comprend s'allument.</p>
+      </div>
+      <div class="menus">
+        <div class="reveal">
+          <div class="choix-menu" role="group" aria-label="Choisir un menu">
+            <button type="button" data-menu="antonin" aria-pressed="true"><strong>Antonin</strong><span>72 €</span></button>
+            <button type="button" data-menu="julia" aria-pressed="false"><strong>Julia</strong><span>86 €</span></button>
+            <button type="button" data-menu="cesar" aria-pressed="false"><strong>César</strong><span>106 €</span></button>
+          </div>
+          <p class="note" style="margin:0 0 12px">Déclinaison de mises en bouche pour commencer votre repas</p>
+          <ul class="carte" id="carte">
+            <li data-in="julia cesar" data-alt-antonin="Truite ou raviole"><span class="n">I</span><span>Truite du Moulin du Piat, mandarine, noisette, salsifis</span><span class="alt"></span></li>
+            <li data-in="cesar" data-alt-antonin="ou truite"><span class="n">II</span><span>Raviole lièvre, topinambour, grué cacao, parmesan</span><span class="alt"></span></li>
+            <li data-in="cesar"><span class="n">III</span><span>Saint-Jacques, betterave, poivre voatsiperifery, croustillant de volaille</span><span class="alt"></span></li>
+            <li data-in="julia cesar" data-alt-antonin="Cabillaud ou cochon"><span class="n">IV</span><span>Cabillaud, oignon, gingembre, jus d'arête</span><span class="alt"></span></li>
+            <li data-in="julia cesar" data-alt-antonin="ou cabillaud"><span class="n">V</span><span>Chou farci cochon et anguille, pressa ibérique, kombu</span><span class="alt"></span></li>
+            <li data-in="antonin julia cesar"><span class="n">VI</span><span>Les fromages de la maison Mons et d'ailleurs</span><span class="alt"></span></li>
+            <li data-in="antonin julia cesar"><span class="n">VII</span><span>Chocolat Pralus, fève de cacao, pruneaux, safran — <i>ou</i> — poire, châtaigne, miel, citron confit</span><span class="alt">au choix</span></li>
+          </ul>
+          <p class="note">Menu servi uniquement dans la partie gastronomique. Menu groupe entreprise au dîner, mercredi et jeudi soir, à partir de 10 personnes : 65 € boissons comprises.</p>
+        </div>
+        <aside class="menu-visuel reveal d1">
+          <div class="img">
+            <img class="on" data-v="antonin" src="https://www.restaurant-lepetitprince.fr/upload/cms/media/photo-site-574-x-574-px-6acf71f255a22.webp" alt="Assiette du menu Antonin">
+            <img data-v="julia" src="https://www.restaurant-lepetitprince.fr/upload/cms/media/photo-site-574-x-574-px-6acf72663e758.webp" alt="Assiette du menu Julia">
+            <img data-v="cesar" src="https://www.restaurant-lepetitprince.fr/upload/cms/media/photo-site-574-x-574-px-6acf72bbb82a8.webp" alt="Assiette du menu César">
+          </div>
+          <div class="prix"><span id="menu-nom" style="font-family:var(--titre);font-size:1.5rem">Menu Antonin</span><strong id="menu-prix">72 €</strong></div>
+          <div class="faustine">
+            <h4>Menu Faustine du déjeuner — 34 €</h4>
+            <p>Servi uniquement le midi du 4 au 30 décembre (sauf jours fériés) : poireaux grillés ou œuf parfait, raviole végétale de blette ou suprême de volaille, comme une crème caramel.</p>
+          </div>
+          <p style="margin-top:22px"><a class="btn" href="#reserver">Réserver une table</a></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTIL COMMANDE FÊTES -->
+  <section id="fetes">
+    <div class="wrap">
+      <div class="tete reveal">
+        <span class="surtitre">À la maison</span>
+        <h2>Composez votre menu des fêtes</h2>
+        <p>Du jeudi 17 décembre au 1<sup>er</sup> janvier, à emporter. Choisissez la formule, répartissez les plats entre vos convives et le jour de retrait : la commande est prête à envoyer.</p>
+      </div>
+      <div class="outil">
+        <div>
+          <div class="etape reveal">
+            <h3><i>1</i>La formule</h3>
+            <div class="formules" id="formules">
+              <label><input type="radio" name="f" value="2" checked><strong>42 €</strong>Formule 2 plats<br><span>Une entrée, un plat chaud</span></label>
+              <label><input type="radio" name="f" value="3"><strong>54 €</strong>Formule 3 plats<br><span>Une entrée, les deux plats</span></label>
+              <label><input type="radio" name="f" value="4"><strong>64 €</strong>Formule 4 plats<br><span>Les deux entrées, les deux plats</span></label>
+            </div>
+            <p class="note">Toutes les formules comprennent la mise en bouche (crémeux haricot blanc, citron confit, noisettes torréfiées, œuf de lompe), le millefeuille de pomme de terre au thym et un dessert.</p>
+          </div>
+          <div class="etape reveal">
+            <h3><i>2</i>Vos convives</h3>
+            <div class="ligne-choix"><span>Nombre de personnes</span><div class="qte"><button type="button" data-q="-1" aria-label="Retirer une personne">−</button><output id="nb">2</output><button type="button" data-q="1" aria-label="Ajouter une personne">+</button></div></div>
+          </div>
+          <div class="etape reveal">
+            <h3><i>3</i>Qui prend quoi ?</h3>
+            <div id="groupes"></div>
+          </div>
+          <div class="etape reveal">
+            <h3><i>4</i>Retrait</h3>
+            <p class="note" style="margin:0 0 12px">Commande jusqu'à 48 h avant, dans la limite des quantités disponibles.</p>
+            <div class="creneaux" id="jours"></div>
+            <div class="champ" style="margin-top:16px"><label for="nom">Nom pour la commande</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+            <div class="champ"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+          </div>
+        </div>
+        <aside class="recap reveal d1" aria-live="polite">
+          <span class="surtitre">Votre commande</span>
+          <h3 id="r-titre">Formule 2 plats × 2</h3>
+          <ul id="r-liste"></ul>
+          <div class="total"><span>Total</span><strong id="r-total">84 €</strong></div>
+          <p class="alerte" id="r-alerte"></p>
+          <a class="btn" id="r-mail" href="#">Envoyer la commande</a>
+          <a class="btn ghost" href="tel:+33477658713" style="width:100%;justify-content:center">Commander par téléphone</a>
+          <p class="petit">La commande part par mail au restaurant, qui la confirme. Prix indicatifs repris du site actuel.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1534 -->
+  <section class="fond2" id="bistrot">
+    <div class="wrap bistrot">
+      <div class="duo reveal">
+        <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/photo-site-1534-w-697cd5a28e7a8.webp" alt="Le salon lounge du 1534" loading="lazy">
+        <img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/1534-site-6af491dda70b6.webp" alt="Tables du 1534 bistronomique" loading="lazy">
+      </div>
+      <div>
+        <span class="surtitre reveal">Le 1534 bistronomique</span>
+        <h2 class="reveal d1" style="font-family:var(--titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1.15;margin:14px 0">Cadre lounge, esprit bistrot</h2>
+        <p class="reveal d1" style="color:var(--texte-2)">Dans la lignée du relooking de 2023, un salon lounge où les plats de la cuisine traditionnelle sont revisités avec justesse et générosité. Ouvert le soir, du mercredi au samedi, de mi-septembre à mi-mai.</p>
+        <div class="ardoise reveal d2">
+          <h4>Les entrées</h4>
+          <p>Carpaccio de maigre de ligne, gel granny smith<b>12 €</b></p>
+          <p>Mousse de foie, gel cassis, pickles<b>10 €</b></p>
+          <p>Pissaladière<b>8 €</b></p>
+          <h4>Les plats</h4>
+          <p>Chou farci, jus de viande<b>18 €</b></p>
+          <p>Encornet, citron confit et olives<b>18 €</b></p>
+          <p>Hampe de bœuf au barbecue, beurre ail des ours<b>28 €</b></p>
+          <h4>Les desserts</h4>
+          <p>Mille-feuille vanille caramel · nougat glacé<b>8 €</b></p>
+          <p>Assortiment de fromages<b>8 €</b></p>
+        </div>
+        <p class="reveal d3" style="margin-top:26px"><a class="btn" href="#reserver">Réserver au 1534</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATELIERS -->
+  <section id="ateliers">
+    <div class="wrap">
+      <div class="tete reveal">
+        <span class="surtitre">Partager, apprendre</span>
+        <h2>Les ateliers du Petit Prince</h2>
+      </div>
+      <div class="onglets reveal" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="p-oeno" id="t-oeno">Apéritifs œnologiques</button>
+        <button role="tab" aria-selected="false" aria-controls="p-cuisine" id="t-cuisine">Ateliers cuisine</button>
+      </div>
+      <div class="panneau" id="p-oeno" role="tabpanel" aria-labelledby="t-oeno">
+        <div>
+          <h3>Tous les jeudis soirs, dans la cave Treille</h3>
+          <p>Le sommelier du restaurant vous présente chaque mois un nouveau domaine. Une partie théorique laisse place à une dégustation accompagnée de mises en bouche, dans l'ancienne cave de l'Hôtel des Princes aménagée en petit salon cosy, de 19 h à 20 h 30.</p>
+          <div class="tarifs"><div><strong>35 €</strong><span>par personne</span></div><div><strong>+ 40 €</strong><span>pour poursuivre au restaurant : plat, fromage, dessert, vin surprise</span></div></div>
+        </div>
+        <div>
+          <p style="color:#fff;margin-bottom:12px">Prochains jeudis — choisissez votre soirée :</p>
+          <div class="agenda" id="agenda-oeno"></div>
+          <p class="agenda-note">Dates calculées automatiquement sur les jeudis à venir ; le restaurant pourra marquer les soirées complètes.</p>
+          <p style="margin-top:16px"><a class="btn" id="oeno-mail" href="mailto:contact@restaurant-lepetitprince.fr?subject=Ap%C3%A9ritif%20%C5%93nologique">Demander une place</a></p>
+        </div>
+      </div>
+      <div class="panneau" id="p-cuisine" role="tabpanel" aria-labelledby="t-cuisine" hidden>
+        <div>
+          <h3>Les astuces des chefs, puis le dîner</h3>
+          <p>Dans une ambiance conviviale, préparez un menu complet de saison avec mises en bouche, entrée, plat et dessert.</p>
+          <ul class="deroule">
+            <li><b>14 h 45</b>Café et présentation du menu</li>
+            <li><b>15 h</b>Début du cours</li>
+            <li><b>19 h</b>Fin de l'atelier, arrivée de votre invité</li>
+            <li><b>—</b>Apéritif œnologique dans la cave Moncigny</li>
+            <li><b>20 h</b>Repas, association mets et vins</li>
+          </ul>
+        </div>
+        <div>
+          <div class="tarifs"><div><strong>192 €</strong><span>1 atelier et 2 repas</span></div><div><strong>234 €</strong><span>2 ateliers et 2 repas</span></div></div>
+          <p>Les ateliers d'automne affichent complet. Les prochaines dates seront annoncées ici, et l'atelier peut aussi s'offrir en bon cadeau.</p>
+          <p style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="mailto:contact@restaurant-lepetitprince.fr?subject=Atelier%20cuisine">Être prévenu des dates</a><a class="btn ghost" href="#offrir">L'offrir</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DORMIR / EPICERIE / OFFRIR -->
+  <section class="fond2" id="dormir">
+    <div class="wrap">
+      <div class="tete reveal">
+        <span class="surtitre">Prolonger le moment</span>
+        <h2>Dormir, emporter, offrir</h2>
+      </div>
+      <div class="trio">
+        <article class="carte-univers reveal">
+          <div class="img"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/dormir-1-1-68a71f02c2bea.webp" alt="L'appartement au-dessus du restaurant" loading="lazy"></div>
+          <div class="c">
+            <h3>Dormir au Petit Prince</h3>
+            <p>Un appartement au-dessus du restaurant : lumière douce, matières chaleureuses, literie généreuse. Wi-Fi et parking à proximité.</p>
+            <ul>
+              <li>La nuit pour deux<b>70 €</b></li>
+              <li>Nuit et petits déjeuners pour deux<b>94 €</b></li>
+              <li>2 menus Antonin, boissons, nuit, petits déjeuners<b>295 €</b></li>
+              <li>Même formule en menus Julia<b>324 €</b></li>
+              <li>Même formule en menus César<b>370 €</b></li>
+            </ul>
+            <a class="lien" href="mailto:contact@restaurant-lepetitprince.fr?subject=Dormir%20au%20Petit%20Prince">Demander une date →</a>
+          </div>
+        </article>
+        <article class="carte-univers reveal d1" id="epicerie">
+          <div class="img"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/g3-6af4915f18a78.webp" alt="Le Petit Prince" loading="lazy"></div>
+          <div class="c">
+            <h3>L'Épicerie d'Anna</h3>
+            <p>Épicerie fine, coffrets, entremets et vacherins, cave, thés, cafés et art de la table, avec retrait sur place.</p>
+            <ul>
+              <li>Calendrier de l'avent pour 2 personnes<b>44,90 €</b></li>
+              <li>Calendrier de l'avent le thé d'Anna<b>24,90 €</b></li>
+              <li>Palets Saint-Albanais, 14 pièces<b>14,90 €</b></li>
+              <li>Confiture fraise géranium<b>3,50 €</b></li>
+            </ul>
+            <a class="lien" href="https://www.restaurant-lepetitprince.fr/boutique-anna">Voir l'épicerie →</a>
+          </div>
+        </article>
+        <article class="carte-univers reveal d2" id="offrir">
+          <div class="img"><img src="https://www.restaurant-lepetitprince.fr/upload/cms/media/b1-6af4915f18159.webp" alt="Salle du restaurant" loading="lazy"></div>
+          <div class="c">
+            <h3>Offrir le Petit Prince</h3>
+            <p>Un menu, un atelier, une soirée œnologique ou un montant libre : le bon cadeau se commande en ligne.</p>
+            <ul>
+              <li>Apéritif œnologique<b>35 €</b></li>
+              <li>2 formules Antonin<b>144 €</b></li>
+              <li>1 atelier cuisine + 2 repas<b>192 €</b></li>
+              <li>Chèque cadeau<b>montant libre</b></li>
+            </ul>
+            <a class="lien" href="https://www.restaurant-lepetitprince.fr/offrir-le-petit-prince">Choisir un bon cadeau →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEMINAIRES -->
+  <section>
+    <div class="wrap seminaire">
+      <div>
+        <span class="surtitre reveal">Entreprises</span>
+        <h2 class="reveal d1" style="font-family:var(--titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);line-height:1.15;margin:14px 0">L'élégance au service de vos réunions</h2>
+        <ul class="reveal d2">
+          <li>Accueil café, jus de fruits et viennoiseries</li>
+          <li>De 20 à 25 personnes en U ou en îlots, jusqu'à 28 sans table</li>
+          <li>Paperboard, rétroprojecteur, sonorisation, Wi-Fi</li>
+          <li>Déjeuner mise en bouche, entrée, plat, dessert, boissons comprises</li>
+          <li>Animations : cuisine avec les chefs, apéritif œnologique en cave</li>
+        </ul>
+        <p class="reveal d3" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap"><span style="font-family:var(--titre);font-size:2rem;color:var(--or)">70 €</span><span style="color:var(--texte-2)">par personne pour la journée</span><a class="btn" href="mailto:contact@restaurant-lepetitprince.fr?subject=S%C3%A9minaire">Imaginer votre séminaire</a></p>
+      </div>
+      <img class="reveal d1" src="https://www.restaurant-lepetitprince.fr/upload/cms/media/photo-site-1920-x-450-px-732-x-488-px-512-x-608-px-698dc912c7f4c.webp" alt="Salle de séminaire en U" loading="lazy">
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="fond2" id="reserver">
+    <div class="wrap">
+      <div class="tete reveal">
+        <span class="surtitre">Réserver</span>
+        <h2>Au plaisir de vous recevoir</h2>
+        <p>Restaurant gastronomique ou 1534 : réservez par téléphone ou par mail.</p>
+        <p style="margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap"><a class="btn" href="tel:+33477658713">04 77 65 87 13</a><a class="btn ghost" href="mailto:contact@restaurant-lepetitprince.fr?subject=R%C3%A9servation">Réserver par mail</a></p>
+      </div>
+      <div class="contact">
+        <div class="reveal"><h3>Le restaurant</h3><p>28, rue des Marronniers<br>42370 Saint-Alban-les-Eaux</p><a href="https://www.google.com/maps/search/?api=1&query=Le+Petit+Prince+28+rue+des+Marronniers+42370+Saint-Alban-les-Eaux">Itinéraire →</a></div>
+        <div class="reveal d1"><h3>Restaurant &amp; 1534</h3><a href="tel:+33477658713">04 77 65 87 13</a><a href="mailto:contact@restaurant-lepetitprince.fr">contact@restaurant-lepetitprince.fr</a></div>
+        <div class="reveal d2"><h3>L'Épicerie d'Anna</h3><a href="tel:+33477638415">04 77 63 84 15</a><a href="mailto:epicerie@restaurant-lepetitprince.fr">epicerie@restaurant-lepetitprince.fr</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="baseline">Le Petit Prince, terroir précis, émotions raffinées.</p>
+    <p><a href="https://www.facebook.com/RestaurantLePetitPrinceStAlban">Facebook</a> · <a href="https://www.instagram.com/lepetitprince.restaurant/">Instagram</a></p>
+    <p>Maquette de démonstration réalisée à partir du site actuel du restaurant. Textes, menus et tarifs repris tels qu'affichés sur restaurant-lepetitprince.fr (novembre 2026), prix indicatifs non contractuels. Toutes les photos sont celles du site actuel ; couleurs et typographies reprises de la charte en place. La commande du menu des fêtes est une démonstration : elle prépare un mail au restaurant, sans paiement.</p>
+  </div>
+</footer>
+
+<div class="fixe-mobile"><a href="tel:+33477658713">Appeler</a><a href="#fetes">Menu des fêtes</a></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+/* nav compacte + burger */
+const nav=$('#nav');addEventListener('scroll',()=>nav.classList.toggle('compact',scrollY>80),{passive:true});
+$('#burger').addEventListener('click',e=>{const m=$('#menu');const o=m.classList.toggle('ouvert');e.currentTarget.setAttribute('aria-expanded',o)});
+$$('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('ouvert')));
+/* reveal */
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});$$('.reveal').forEach(el=>io.observe(el))}else $$('.reveal').forEach(el=>el.classList.add('vu'));
+/* hero diaporama */
+const sl=$$('.hero .slides img');let si=0;setInterval(()=>{sl[si].classList.remove('on');si=(si+1)%sl.length;sl[si].classList.add('on')},6000);
+/* compte à rebours jusqu'au 17 décembre */
+const now0=new Date();let y=now0.getFullYear();let debut=new Date(y,11,17,9,0);const fin=new Date(y+1,0,1,23,59);
+if(now0>new Date(y+1,0,1)&&now0.getMonth()!==11){}
+function tick(){const d=debut-new Date();if(d<=0){$('#cj').textContent='0';$('#ch').textContent='0';$('#cm').textContent='0';return}
+$('#cj').textContent=Math.floor(d/864e5);$('#ch').textContent=Math.floor(d/36e5)%24;$('#cm').textContent=Math.floor(d/6e4)%60}
+tick();setInterval(tick,30000);
+/* menus */
+const prix={antonin:72,julia:86,cesar:106},noms={antonin:'Menu Antonin',julia:'Menu Julia',cesar:'Menu César'};
+function choisir(m){$$('.choix-menu button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.menu===m));
+$$('#carte li').forEach(li=>{const alt=li.dataset['alt'+m.charAt(0).toUpperCase()+m.slice(1)];const inc=li.dataset.in.split(' ').includes(m)||alt;li.classList.toggle('off',!inc);if(li.dataset.in.includes('antonin')&&li.querySelector('.alt').textContent==='au choix')return;li.querySelector('.alt').textContent=alt&&m==='antonin'?alt:''});
+$$('.menu-visuel img').forEach(i=>i.classList.toggle('on',i.dataset.v===m));$('#menu-nom').textContent=noms[m];$('#menu-prix').textContent=prix[m]+' €'}
+$$('.choix-menu button').forEach(b=>b.addEventListener('click',()=>choisir(b.dataset.menu)));choisir('antonin');
+/* outil menu des fêtes */
+const F={2:{p:42,g:[{id:'e',t:'Entrée',o:['Foie gras au poivre voatsiperifery, gel cassis, pain au lait','Escargots de Saint-Bonnet-des-Quarts rôtis au beurre d\'ail des ours']},{id:'p',t:'Plat chaud',o:['Lotte confite, purée de chou-fleur caramélisé, sauce champagne','Pressé de pintade fermière aux marrons, courge, bisque crémée']},{id:'d',t:'Dessert',o:['Couronne chocolat, fruits rouges et genièvre','Boule de neige, coco et fruit exotique']}]},
+3:{p:54,g:[{id:'e',t:'Entrée',o:['Foie gras au poivre voatsiperifery, gel cassis, pain au lait','Escargots de Saint-Bonnet-des-Quarts rôtis au beurre d\'ail des ours']},{id:'p',t:'Plats chauds',inc:'La lotte confite et le pressé de pintade'},{id:'d',t:'Dessert',o:['Couronne chocolat, fruits rouges et genièvre','Boule de neige, coco et fruit exotique']}]},
+4:{p:64,g:[{id:'e',t:'Entrées',inc:'Le foie gras et les escargots'},{id:'p',t:'Plats chauds',inc:'La lotte confite et le pressé de pintade'},{id:'d',t:'Dessert',o:['Couronne chocolat, fruits rouges et genièvre','Boule de neige, coco et fruit exotique']}]}};
+const court=s=>s.split(',')[0];
+let f=2,n=2,rep={},jour=null;
+function initRep(){rep={};F[f].g.forEach(g=>{if(g.o){const a=Math.ceil(n/2);rep[g.id]=[a,n-a]}})}
+function renderGroupes(){const box=$('#groupes');box.innerHTML='';F[f].g.forEach(g=>{const d=document.createElement('div');d.className='groupe';
+if(g.inc){d.innerHTML=`<h4>${g.t}<em class="ok">inclus</em></h4><p class="inclus">${g.inc}, pour chaque convive.</p>`}else{
+const s=rep[g.id][0]+rep[g.id][1];d.innerHTML=`<h4>${g.t}<em class="${s===n?'ok':''}">${s} / ${n}</em></h4>`+g.o.map((o,i)=>`<div class="ligne-choix"><span>${court(o)}<small>${o.split(',').slice(1).join(',').trim()}</small></span><div class="qte"><button type="button" aria-label="Moins" data-g="${g.id}" data-i="${i}" data-d="-1">−</button><output>${rep[g.id][i]}</output><button type="button" aria-label="Plus" data-g="${g.id}" data-i="${i}" data-d="1">+</button></div></div>`).join('')}
+box.appendChild(d)});
+box.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const r=rep[b.dataset.g],i=+b.dataset.i,d=+b.dataset.d;const o=1-i;
+if(d>0){if(r[i]+r[o]<n)r[i]++;else if(r[o]>0){r[i]++;r[o]--}}else if(r[i]>0){r[i]--;r[o]++}
+renderGroupes();recap()}))}
+function renderJours(){const box=$('#jours');box.innerHTML='';const lim=new Date(Date.now()+48*36e5);const y=new Date().getFullYear();
+const dates=[];for(let d=new Date(y,11,17);d<=new Date(y+1,0,1);d.setDate(d.getDate()+1))dates.push(new Date(d));
+dates.forEach(d=>{const b=document.createElement('button');b.type='button';const ok=new Date(d.getFullYear(),d.getMonth(),d.getDate(),18)>lim;
+b.textContent=d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});b.disabled=!ok;b.setAttribute('aria-pressed',jour&&+jour===+d);
+b.addEventListener('click',()=>{jour=d;renderJours();recap()});box.appendChild(b)})}
+function recap(){const fo=F[f];$('#r-titre').textContent=`Formule ${f} plats × ${n}`;const L=[['Mise en bouche',`× ${n}`]];
+fo.g.forEach(g=>{if(g.inc)L.push([g.inc,`× ${n}`]);else g.o.forEach((o,i)=>{if(rep[g.id][i])L.push([court(o),`× ${rep[g.id][i]}`])})});
+L.push(['Retrait',jour?jour.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'à choisir']);
+$('#r-liste').innerHTML=L.map(l=>`<li><span>${l[0]}</span><span>${l[1]}</span></li>`).join('');
+$('#r-total').textContent=(fo.p*n).toLocaleString('fr-FR')+' €';
+let al='';fo.g.forEach(g=>{if(g.o&&rep[g.id][0]+rep[g.id][1]!==n)al=`Répartissez « ${g.t.toLowerCase()} » entre les ${n} convives.`});if(!al&&!jour)al='Choisissez un jour de retrait.';
+$('#r-alerte').textContent=al;
+const corps=`Bonjour,\n\nJe souhaite commander le menu des fêtes à emporter :\n\n${L.map(l=>'- '+l[0]+' '+l[1]).join('\n')}\n\nTotal indicatif : ${fo.p*n} €\nNom : ${$('#nom').value||''}\nTéléphone : ${$('#tel').value||''}\n\nMerci de me confirmer la commande.`;
+$('#r-mail').href='mailto:contact@restaurant-lepetitprince.fr?subject='+encodeURIComponent('Commande menu des fêtes — formule '+f+' plats')+'&body='+encodeURIComponent(corps);
+$('#r-mail').style.opacity=al?.55:1}
+$('#r-mail').addEventListener('click',e=>{if($('#r-alerte').textContent){e.preventDefault();$('#r-alerte').animate([{transform:'translateX(0)'},{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:300})}});
+$$('#formules input').forEach(i=>i.addEventListener('change',()=>{f=+i.value;initRep();renderGroupes();recap()}));
+$$('[data-q]').forEach(b=>b.addEventListener('click',()=>{n=Math.max(1,Math.min(30,n+ +b.dataset.q));$('#nb').textContent=n;initRep();renderGroupes();recap()}));
+['#nom','#tel'].forEach(s=>$(s).addEventListener('input',recap));
+initRep();renderGroupes();renderJours();recap();
+/* onglets ateliers */
+$$('[role=tab]').forEach(t=>t.addEventListener('click',()=>{$$('[role=tab]').forEach(x=>{x.setAttribute('aria-selected',x===t);$('#'+x.getAttribute('aria-controls')).hidden=x!==t})}));
+/* agenda œnologique : jeudis à venir */
+const ag=$('#agenda-oeno');let d=new Date();d.setHours(0,0,0,0);while(d.getDay()!==4)d.setDate(d.getDate()+1);
+for(let k=0;k<6;k++){const j=new Date(d);j.setDate(d.getDate()+7*k);const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed','false');
+b.innerHTML=`<span class="j">${j.getDate()}</span><span>${j.toLocaleDateString('fr-FR',{weekday:'long',month:'long'})}<small>19 h – 20 h 30 · cave Treille</small></span>`;
+b.addEventListener('click',()=>{ag.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));const lib=j.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+$('#oeno-mail').href='mailto:contact@restaurant-lepetitprince.fr?subject='+encodeURIComponent('Apéritif œnologique du '+lib)+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaite réserver pour l\'apéritif œnologique du '+lib+'.\nNombre de personnes : \nPoursuite au restaurant (40 €/pers.) : oui / non\n\nMerci.');$('#oeno-mail').textContent='Réserver le '+j.getDate()+' '+j.toLocaleDateString('fr-FR',{month:'long'})});
+ag.appendChild(b)}
+})();
+</script>
+</body>
+</html>
