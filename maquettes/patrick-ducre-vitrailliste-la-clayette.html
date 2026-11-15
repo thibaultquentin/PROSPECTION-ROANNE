@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patrick Ducré — Vitrailliste à La Clayette | Création, restauration, stages</title>
+<meta name="description" content="Patrick Ducré, artisan vitrailliste à La Clayette (Saône-et-Loire) : vitraux sur mesure, restauration, totems, lampes et objets de lumière, stages de vitrail de trois jours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel ducrepat.com
+   Fond blanc / encre quasi noire (#131517), gris du thème,
+   titres Poppins en capitales espacées, accents Playfair,
+   pastels (bleu-vert, rose poudré) et cuivre issus du visuel
+   « Sculpteur de lumière » et du logo rond de l'atelier.
+   Pour ajuster : modifier uniquement ces variables.
+   ========================================================= */
+:root{
+  --ink:#131517;
+  --ink-soft:#1d2023;
+  --paper:#ffffff;
+  --mist:#eff2f5;
+  --line:#e3e6e9;
+  --grey:#7c7c7c;
+  --teal:#8fcac4;
+  --teal-deep:#3f8f88;
+  --rose:#e8bdb7;
+  --copper:#d0874a;
+  --font-title:"Poppins",system-ui,sans-serif;
+  --font-serif:"Playfair Display",Georgia,serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-title);font-weight:300;color:var(--ink);background:var(--paper);line-height:1.65;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;font-weight:500;color:var(--grey)}
+h1,h2,h3{font-weight:500;letter-spacing:.06em}
+h2{font-size:clamp(1.6rem,1.2rem + 1.6vw,2.5rem);text-transform:uppercase;line-height:1.15}
+h2 em,h1 em{font-family:var(--font-serif);font-style:italic;text-transform:none;letter-spacing:0;font-weight:400}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.6em;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;font:500 .78rem/1 var(--font-title);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:transform .3s var(--ease),background .3s,color .3s}
+.btn:hover{transform:translateY(-2px);background:var(--copper);border-color:var(--copper)}
+.btn.ghost{background:transparent;color:inherit;border-color:currentColor}
+.btn.ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+
+/* bandeau démo */
+.demo{background:var(--mist);color:var(--grey);font-size:.72rem;text-align:center;padding:.45em 1em;letter-spacing:.05em}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.brand{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+.brand img{width:44px;height:44px;border-radius:50%;transition:transform .8s var(--ease)}
+.brand:hover img{transform:rotate(-20deg)}
+.brand b{display:block;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:.86rem}
+.brand small{display:block;font-family:var(--font-serif);font-style:italic;color:var(--grey);font-size:.82rem}
+.menu{display:flex;gap:1.4rem;list-style:none}
+.menu a{text-decoration:none;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:500;position:relative;padding:.3em 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px auto;transition:.3s}
+@media(max-width:980px){
+  .menu{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:#fff;padding:1.5rem 16px 2rem;gap:1.1rem;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .45s var(--ease)}
+  .menu.open{transform:none}
+  .burger{display:block}
+}
+
+/* hero — vitrail rétroéclairé qui suit la souris */
+.hero{position:relative;min-height:min(calc(100svh - 100px),820px);display:grid;grid-template-columns:1.05fr .95fr;background:var(--ink);color:#fff;overflow:hidden}
+.hero-text{padding:clamp(2.5rem,6vw,6rem) clamp(16px,5vw,5rem);display:flex;flex-direction:column;justify-content:center;gap:1.6rem;position:relative;z-index:2}
+.hero h1{font-size:clamp(2.3rem,1.4rem + 3.6vw,4.6rem);line-height:1.02;text-transform:uppercase;letter-spacing:.04em}
+.hero h1 em{display:block;color:var(--teal);font-size:.62em;margin-top:.25em}
+.hero p.lead{max-width:34rem;color:#d7dadd;font-size:1.05rem}
+.hero .eyebrow{color:var(--rose)}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero-visual{position:relative;overflow:hidden;cursor:crosshair}
+.hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.22) saturate(.35) blur(1px);transform:scale(1.06);transition:transform 8s linear}
+.hero-visual .lit{position:absolute;inset:0;background:url(https://www.ducrepat.com/assets/images/chapelle.jpg) center/cover;transform:scale(1.06);
+  -webkit-mask-image:radial-gradient(circle var(--r,230px) at var(--x,60%) var(--y,40%),#000 35%,transparent 100%);
+          mask-image:radial-gradient(circle var(--r,230px) at var(--x,60%) var(--y,40%),#000 35%,transparent 100%);filter:saturate(1.25) brightness(1.15)}
+.hero-visual .hint{position:absolute;left:1rem;bottom:1rem;font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;color:#fff;opacity:.75;background:rgba(0,0,0,.35);padding:.5em .8em}
+.hero-visual figcaption{position:absolute;right:1rem;bottom:1rem;font-family:var(--font-serif);font-style:italic;font-size:.9rem;color:#fff;opacity:.85}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.hero-visual{min-height:52vh;order:-1}.hero-visual figcaption{display:none}}
+
+/* bandeau infos atelier */
+.ribbon{background:var(--teal);color:var(--ink)}
+.ribbon .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.8rem 2rem;padding:1rem 0;font-size:.82rem}
+.ribbon b{font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.74rem}
+.ribbon a{text-decoration:none;border-bottom:1px solid currentColor}
+
+section{padding:clamp(4rem,8vw,7.5rem) 0}
+.head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:2.8rem}
+.head p{max-width:30rem;color:var(--grey)}
+
+/* trois blurbs */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.trio article{background:#fff;padding:2.4rem 2rem;position:relative;overflow:hidden}
+.trio article::before{content:"";position:absolute;inset:auto 0 0 0;height:4px;background:linear-gradient(90deg,var(--teal),var(--rose),var(--copper));transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.trio article:hover::before{transform:scaleX(1)}
+.trio .num{font-family:var(--font-serif);font-style:italic;color:var(--copper);font-size:1.1rem}
+.trio h3{text-transform:uppercase;font-size:1rem;letter-spacing:.18em;margin:.6rem 0 .8rem}
+.trio p{color:#4a4d50}
+@media(max-width:820px){.trio{grid-template-columns:1fr}}
+
+/* galerie filtrable */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem}
+.filters button{border:1px solid var(--line);background:#fff;padding:.7em 1.1em;font:500 .7rem var(--font-title);letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.filters button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid{columns:4 240px;column-gap:14px}
+.card{break-inside:avoid;margin-bottom:14px;position:relative;cursor:zoom-in;overflow:hidden;background:var(--mist);transition:opacity .4s,transform .4s var(--ease)}
+.card img{width:100%;transition:transform .9s var(--ease),filter .6s}
+.card:hover img{transform:scale(1.05);filter:brightness(1.08) saturate(1.1)}
+.card .cap{position:absolute;inset:auto 0 0 0;padding:1rem;color:#fff;background:linear-gradient(transparent,rgba(19,21,23,.85));transform:translateY(40%);opacity:0;transition:.45s var(--ease)}
+.card:hover .cap,.card:focus-visible .cap{transform:none;opacity:1}
+.cap b{display:block;font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem}
+.cap span{font-family:var(--font-serif);font-style:italic;font-size:.82rem;opacity:.9}
+.card.hide{display:none}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,11,12,.94);display:none;align-items:center;justify-content:center;padding:4vh 16px}
+.lb.open{display:flex}
+.lb figure{max-width:min(1000px,100%);display:grid;gap:1rem;color:#fff}
+.lb img{max-height:72vh;width:auto;margin:auto}
+.lb figcaption b{letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.lb figcaption p{font-family:var(--font-serif);font-style:italic;color:#cfd2d4}
+.lb button{position:absolute;background:none;border:1px solid rgba(255,255,255,.4);color:#fff;width:46px;height:46px;font-size:1.2rem;cursor:pointer}
+.lb .x{top:16px;right:16px}.lb .prev{left:16px;top:50%}.lb .next{right:16px;top:50%}
+
+/* lampe à allumer */
+.lamp{background:var(--ink);color:#fff;transition:background 1.2s}
+.lamp.on{background:#2a2016}
+.lamp .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.lamp-stage{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0b0c0d}
+.lamp-stage img{width:100%;height:100%;object-fit:cover;filter:brightness(.25) saturate(.3);transition:filter 1.4s var(--ease)}
+.lamp.on .lamp-stage img{filter:brightness(1.05) saturate(1.15)}
+.lamp-stage::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,rgba(255,196,120,.38),transparent 55%);opacity:0;transition:opacity 1.4s}
+.lamp.on .lamp-stage::after{opacity:1}
+.switch{display:inline-flex;align-items:center;gap:1rem;background:none;border:0;color:#fff;cursor:pointer;font:500 .75rem var(--font-title);letter-spacing:.2em;text-transform:uppercase}
+.switch i{width:58px;height:30px;border-radius:30px;border:1px solid rgba(255,255,255,.5);position:relative;transition:.4s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .45s var(--ease),background .4s}
+.lamp.on .switch i{background:var(--copper);border-color:var(--copper)}
+.lamp.on .switch i::after{transform:translateX(28px)}
+.lamp blockquote{font-family:var(--font-serif);font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem);font-style:italic;line-height:1.3;margin:1rem 0 1.5rem}
+.lamp ul{list-style:none;display:grid;gap:.6rem;margin:1.6rem 0;color:#cfd2d4;font-size:.92rem}
+.lamp ul b{color:#fff;font-weight:500}
+@media(max-width:820px){.lamp .wrap{grid-template-columns:1fr}}
+
+/* restauration */
+.resto{background:var(--mist)}
+.resto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.resto-grid figure{background:#fff}
+.resto-grid img{aspect-ratio:4/3;object-fit:cover;width:100%}
+.resto-grid figcaption{padding:1.1rem 1.2rem 1.4rem}
+.resto-grid b{display:block;text-transform:uppercase;letter-spacing:.14em;font-weight:500;font-size:.82rem}
+.resto-grid span{color:var(--grey);font-size:.9rem}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem}
+.pillars h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.2em;margin-bottom:.5rem}
+.pillars p{color:#4a4d50;font-size:.95rem}
+@media(max-width:820px){.resto-grid,.pillars{grid-template-columns:1fr}}
+
+/* outil : stage */
+.tool{display:grid;grid-template-columns:1.1fr .9fr;border:1px solid var(--ink)}
+.tool-main{padding:clamp(1.5rem,3vw,2.6rem)}
+.tool-side{background:var(--ink);color:#fff;padding:clamp(1.5rem,3vw,2.6rem);display:flex;flex-direction:column;gap:1.2rem;position:relative;overflow:hidden}
+.tool-side::before{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-120px;border-radius:50%;background:conic-gradient(from 0deg,var(--teal),var(--rose),var(--copper),var(--teal));filter:blur(50px);opacity:.35;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tool-side>*{position:relative}
+.step{margin-bottom:1.8rem}
+.step>label,.step>p.lbl{display:block;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;margin-bottom:.8rem}
+.step>p.lbl span{color:var(--copper)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem}
+.opt input{position:absolute;opacity:0}
+.opt span{display:block;border:1px solid var(--line);padding:1rem;cursor:pointer;transition:.25s;height:100%}
+.opt span b{display:block;font-weight:500;font-size:.9rem}
+.opt span small{color:var(--grey);font-size:.78rem;line-height:1.4;display:block;margin-top:.25rem}
+.opt input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--mist)}
+.opt input:focus-visible+span{outline:2px solid var(--copper)}
+.field{width:100%;border:1px solid var(--line);padding:.85rem 1rem;font:inherit;font-size:.95rem;background:#fff}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+@media(max-width:900px){.tool{grid-template-columns:1fr}}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:.8rem}
+.cal .dow{font-size:.62rem;letter-spacing:.14em;color:var(--grey);text-transform:uppercase;padding:.3rem 0}
+.cal button{aspect-ratio:1;border:1px solid var(--line);background:#fff;cursor:pointer;font:inherit;transition:.2s}
+.cal button:disabled{opacity:.25;cursor:not-allowed}
+.cal button.sel{background:var(--teal);border-color:var(--teal-deep)}
+.cal button.start{background:var(--ink);color:#fff}
+.calnav{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem}
+.calnav button{background:none;border:1px solid var(--line);width:36px;height:36px;cursor:pointer}
+.calnav b{font-weight:500;text-transform:capitalize}
+.sum dt{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:#a9adb1}
+.sum dd{margin:.2rem 0 1rem;font-size:1rem}
+.price{font-family:var(--font-serif);font-size:2.6rem;line-height:1}
+.price small{font-family:var(--font-title);font-size:.8rem;color:#a9adb1;margin-left:.4rem}
+.tool-side .btn{background:#fff;color:var(--ink);border-color:#fff}
+.tool-side .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
+.tool-side .btn:hover{background:var(--copper);color:#fff;border-color:var(--copper)}
+.note{font-size:.76rem;color:#a9adb1}
+.prog{list-style:none;columns:2 200px;column-gap:1.5rem;font-size:.86rem;color:#4a4d50;margin-top:1rem}
+.prog li{break-inside:avoid;padding:.35rem 0 .35rem 1.2rem;position:relative;border-bottom:1px dashed var(--line)}
+.prog li::before{content:"";position:absolute;left:0;top:.85rem;width:6px;height:6px;background:var(--copper);transform:rotate(45deg)}
+
+/* sur mesure */
+.devis{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,4.5rem);align-items:start}
+.devis-img{position:relative}
+.devis-img img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.devis-img figcaption{position:absolute;left:0;bottom:0;background:#fff;padding:.8rem 1.1rem;font-family:var(--font-serif);font-style:italic;font-size:.9rem}
+.devis form{display:grid;gap:.8rem}
+.devis textarea{min-height:120px;resize:vertical}
+.ok{display:none;background:var(--teal);padding:1rem;font-size:.9rem}
+.ok.show{display:block}
+@media(max-width:820px){.devis{grid-template-columns:1fr}}
+
+/* bio */
+.bio{background:var(--ink);color:#fff}
+.bio .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+.bio img{filter:grayscale(1);width:100%;aspect-ratio:1;object-fit:cover}
+.bio blockquote{font-family:var(--font-serif);font-style:italic;font-size:clamp(1.3rem,1rem + 1.2vw,2rem);line-height:1.35;color:var(--rose);margin:1.4rem 0}
+.bio p{color:#cfd2d4;margin-bottom:1rem}
+@media(max-width:820px){.bio .wrap{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.contact div{background:#fff;padding:1.8rem 1.5rem}
+.contact h3{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--grey);margin-bottom:.7rem;font-weight:500}
+.contact a{text-decoration:none;border-bottom:1px solid var(--line)}
+.contact a:hover{border-color:var(--copper)}
+@media(max-width:900px){.contact{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--ink-soft);color:#a9adb1;font-size:.8rem;padding:2.5rem 0}
+footer .wrap{display:grid;gap:1rem}
+footer b{color:#fff;font-weight:500}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.sticky-cta{position:fixed;right:16px;bottom:16px;z-index:60;transform:translateY(140%);transition:transform .5s var(--ease)}
+.sticky-cta.show{transform:none}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Patrick Ducré Vitrailliste",
+  "alternateName":"Verre et Lumière",
+  "description":"Artisan vitrailliste : création et restauration de vitraux, totems, lampes et objets de lumière, ateliers et formations au vitrail.",
+  "url":"https://www.ducrepat.com/",
+  "telephone":"+33685796146",
+  "email":"patduc07@gmail.com",
+  "image":"https://www.ducrepat.com/assets/images/chapelle.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"19 rue du Commerce","postalCode":"71800","addressLocality":"La Clayette","addressRegion":"Saône-et-Loire","addressCountry":"FR"},
+  "areaServed":["La Clayette","Charolais-Brionnais","Roannais","France"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","description":"matin"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"description":"matin et après-midi"}
+  ],
+  "sameAs":["https://www.instagram.com/patduc07/","https://www.facebook.com/ducrepat/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site de Patrick Ducré, vitrailliste</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Patrick Ducré Vitrailliste, accueil">
+      <img src="https://www.ducrepat.com/images/logo-rond.png" alt="Logo de l'atelier Patrick Ducré">
+      <span><b>Patrick Ducré</b><small>Vitrailliste</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#travaux">Vitraux</a></li>
+        <li><a href="#travaux" data-f="totems">Totems</a></li>
+        <li><a href="#lampes">Lampes</a></li>
+        <li><a href="#sur-mesure">Sur-mesure</a></li>
+        <li><a href="#restauration">Restauration</a></li>
+        <li><a href="#ateliers">Ateliers</a></li>
+        <li><a href="#bio">Bio et Contact</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0" aria-label="Présentation">
+  <div class="hero-text">
+    <p class="eyebrow">Nouvel atelier · La Clayette</p>
+    <h1>Patrick Ducré <em>artisan vitrailliste</em></h1>
+    <p class="lead">Je crée et restaure des vitraux, je fabrique des totems et « des objets de lumière ».</p>
+    <div class="hero-cta">
+      <a class="btn" href="#ateliers" style="background:var(--copper);border-color:var(--copper)">Réserver un atelier</a>
+      <a class="btn ghost" href="#sur-mesure">Demander un devis gratuit</a>
+    </div>
+  </div>
+  <figure class="hero-visual" id="heroVisual">
+    <img src="https://www.ducrepat.com/assets/images/chapelle.jpg" alt="Vitrail « La Chapelle sur la Plage » de Patrick Ducré">
+    <div class="lit" aria-hidden="true"></div>
+    <span class="hint" id="hint">Passez la lumière derrière le verre</span>
+    <figcaption>La Chapelle sur la Plage</figcaption>
+  </figure>
+</section>
+
+<div class="ribbon">
+  <div class="wrap">
+    <span><b>Atelier</b> — 19, rue du Commerce, 71800 La Clayette</span>
+    <span><b>Ouvert</b> — mardi matin, vendredi et samedi</span>
+    <span><b>Tél.</b> <a href="tel:+33685796146">06 85 79 61 46</a></span>
+  </div>
+</div>
+
+<section aria-labelledby="t-trio">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">L'atelier</p><h2 id="t-trio">De lumière <em>sculptée</em></h2></div>
+      <p>Vitrail traditionnel au plomb, technique Tiffany au cuivre et à l'étain, verre collé : trois façons de faire passer la lumière.</p>
+    </div>
+    <div class="trio">
+      <article class="reveal"><span class="num">01</span><h3>Les lampes</h3><p>La lumière sublime le vitrail, et inversement. Je crée des lampes selon les techniques classiques ou Tiffany.</p></article>
+      <article class="reveal"><span class="num">02</span><h3>Les vitraux</h3><p>Classiques ou contemporains, créations personnelles ou pour des particuliers, je conçois des compositions de verres.</p></article>
+      <article class="reveal"><span class="num">03</span><h3>Les objets de lumière</h3><p>Le vitrail peut également devenir objet. Créations de lumières, ces compositions sont uniques.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="travaux" aria-labelledby="t-travaux" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Galerie</p><h2 id="t-travaux">Quelques <em>travaux</em></h2></div>
+      <div class="filters" role="group" aria-label="Filtrer les travaux">
+        <button aria-pressed="true" data-f="all">Tout</button>
+        <button aria-pressed="false" data-f="vitraux">Vitraux</button>
+        <button aria-pressed="false" data-f="totems">Totems</button>
+        <button aria-pressed="false" data-f="lampes">Lampes</button>
+        <button aria-pressed="false" data-f="sur-mesure">Sur-mesure</button>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="lamp" id="lampes" aria-labelledby="t-lamp">
+  <div class="wrap">
+    <div class="lamp-stage reveal"><img src="https://www.ducrepat.com/assets/images/lampe-2.jpg" alt="Lampe en verre de Patrick Ducré"></div>
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--teal)">Lampes et lanternes</p>
+      <h2 id="t-lamp" style="margin-top:.6rem">Allumez <em>la lampe</em></h2>
+      <blockquote>« La lumière sublime le vitrail, et inversement. »</blockquote>
+      <button class="switch" id="switch" aria-pressed="false"><i></i><span id="swLbl">Allumer</span></button>
+      <ul>
+        <li><b>Écriture</b> — le fond est un miroir, deux structures de verre l'une dans l'autre.</li>
+        <li><b>Chute d'un ange</b> — structure en verres collés, la luminosité du verre sur sa tranche.</li>
+        <li><b>Lanternes aux oiseaux</b> — pour vos salons ou vos jardins, une présence chaleureuse.</li>
+      </ul>
+      <a class="btn ghost" href="#sur-mesure">Une lampe pour chez vous</a>
+    </div>
+  </div>
+</section>
+
+<section class="resto" id="restauration" aria-labelledby="t-resto">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Restauration</p><h2 id="t-resto">Redonner sa lumière <em>à un vitrail</em></h2></div>
+      <p>Qu'une partie soit détériorée ou les plombs cassés, je vous fais un devis pour une restauration de vos vitraux à façon.</p>
+    </div>
+    <div class="resto-grid">
+      <figure class="reveal"><img src="https://www.ducrepat.com/assets/images/fond.jpg" alt="Restauration d'une rosace d'église" loading="lazy"><figcaption><b>Rosace d'église</b><span>Restauration, église de Cassagnes-Bégonhès</span></figcaption></figure>
+      <figure class="reveal"><img src="https://www.ducrepat.com/assets/images/cathe.jpg" alt="Chantier de restauration à la cathédrale d'Amiens" loading="lazy"><figcaption><b>Cathédrale d'Amiens</b><span>Restauration</span></figcaption></figure>
+      <figure class="reveal"><img src="https://www.ducrepat.com/assets/images/jean.jpg" alt="Petit vitrail Saint-Jean" loading="lazy"><figcaption><b>Vitrail Saint-Jean</b><span>Collection privée, petite chapelle italienne</span></figcaption></figure>
+    </div>
+    <div class="pillars">
+      <div class="reveal"><h3>Déplacements</h3><p>Je me déplace en France pour des chantiers conséquents et peux effectuer une étude préalable de faisabilité.</p></div>
+      <div class="reveal"><h3>Artisan</h3><p>Avec ma formation initiale de vitrailliste et mon expérience d'artiste, je peux répondre à tous les chantiers.</p></div>
+      <div class="reveal"><h3>Production</h3><p>Je peux vous faire une proposition à partir d'une série de photos ou d'un croquis.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ateliers" aria-labelledby="t-ateliers">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><p class="eyebrow">Ateliers et formations</p><h2 id="t-ateliers">Réservez <em>votre stage</em></h2></div>
+      <p>Trois jours dans l'atelier pour réaliser une création simple, seul ou en groupe. Choisissez votre formule et vos dates : la demande part directement à l'atelier.</p>
+    </div>
+    <div class="tool reveal">
+      <div class="tool-main">
+        <div class="step">
+          <p class="lbl"><span>1.</span> Formule</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="formule" value="indiv" checked><span><b>Atelier individuel</b><small>Trois jours · 300 €</small></span></label>
+            <label class="opt"><input type="radio" name="formule" value="groupe"><span><b>Formation collective</b><small>Trois à cinq jours · tarif selon le groupe</small></span></label>
+          </div>
+        </div>
+        <div class="step">
+          <p class="lbl"><span>2.</span> Technique</p>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="tech" value="Vitrail traditionnel au plomb" checked><span><b>Traditionnelle</b><small>Chemin de plomb et mise en plomb</small></span></label>
+            <label class="opt"><input type="radio" name="tech" value="Technique Tiffany"><span><b>Tiffany</b><small>Meulage, rubans de cuivre, soudure à l'étain</small></span></label>
+            <label class="opt"><input type="radio" name="tech" value="À décider avec Patrick"><span><b>Je ne sais pas</b><small>On en parle ensemble</small></span></label>
+          </div>
+        </div>
+        <div class="step" id="groupStep" hidden>
+          <label for="nb"><span style="color:var(--copper)">3.</span> Taille du groupe et durée</label>
+          <div class="row">
+            <input class="field" id="nb" type="number" min="2" max="12" value="4" aria-label="Nombre de participants">
+            <select class="field" id="duree" aria-label="Durée"><option>3 jours</option><option>4 jours</option><option>5 jours</option></select>
+          </div>
+        </div>
+        <div class="step">
+          <p class="lbl"><span id="calNum">3.</span> Premier jour souhaité</p>
+          <div class="calnav"><button type="button" id="prevM" aria-label="Mois précédent">‹</button><b id="monthLbl"></b><button type="button" id="nextM" aria-label="Mois suivant">›</button></div>
+          <div class="cal" id="cal" role="grid" aria-label="Calendrier"></div>
+        </div>
+        <details>
+          <summary style="cursor:pointer;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500">Le programme des trois jours</summary>
+          <ul class="prog">
+            <li>Notions de base : coupe, sertissage et soudage</li>
+            <li>La technique traditionnelle et la technique Tiffany</li>
+            <li>Dessin de la maquette et tracés</li>
+            <li>Confection du calque et des calibres</li>
+            <li>Découpe au ciseau triple lames</li>
+            <li>Choix des verres</li>
+            <li>Découpes</li>
+            <li>Chemin de plomb et mise en plomb</li>
+            <li>Ou meulage et rubans de cuivre</li>
+            <li>Soudure à l'étain</li>
+            <li>Finition et nettoyage</li>
+          </ul>
+        </details>
+      </div>
+      <aside class="tool-side" aria-live="polite">
+        <p class="eyebrow" style="color:var(--teal)">Votre demande</p>
+        <dl class="sum">
+          <dt>Formule</dt><dd id="sF">Atelier individuel</dd>
+          <dt>Technique</dt><dd id="sT">Vitrail traditionnel au plomb</dd>
+          <dt>Dates souhaitées</dt><dd id="sD">Choisissez un premier jour</dd>
+        </dl>
+        <div class="price" id="sP">300 €<small>les trois jours</small></div>
+        <input class="field" id="nom" placeholder="Votre nom" aria-label="Votre nom">
+        <input class="field" id="tel" placeholder="Téléphone ou e-mail" aria-label="Téléphone ou e-mail">
+        <button class="btn" id="send" type="button">Envoyer ma demande</button>
+        <button class="btn ghost" id="ics" type="button">Ajouter à mon agenda</button>
+        <p class="note">Les dates sont confirmées par Patrick selon les disponibilités de l'atelier.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="sur-mesure" aria-labelledby="t-devis" style="padding-top:0">
+  <div class="wrap devis">
+    <figure class="devis-img reveal">
+      <img src="https://www.ducrepat.com/assets/images/porte.jpg" alt="Vitrail réalisé sur mesure par Patrick Ducré" loading="lazy">
+      <figcaption>Création sur mesure</figcaption>
+    </figure>
+    <div class="reveal">
+      <p class="eyebrow">Sur-mesure · Devis gratuit</p>
+      <h2 id="t-devis" style="margin:.6rem 0 1rem">Un vitrail <em>pour chez vous</em></h2>
+      <p style="color:#4a4d50;margin-bottom:1.6rem">Je crée avec vous et sur mesure une réalisation que je vous propose d'installer chez vous — d'après une photo, une peinture, un croquis. Décrivez votre projet, je reviens vers vous avec une proposition.</p>
+      <form id="devisForm">
+        <div class="opts">
+          <label class="opt"><input type="radio" name="projet" value="Création de vitrail" checked><span><b>Création</b><small>Fenêtre, porte, cloison</small></span></label>
+          <label class="opt"><input type="radio" name="projet" value="Restauration"><span><b>Restauration</b><small>Plombs cassés, verre abîmé</small></span></label>
+          <label class="opt"><input type="radio" name="projet" value="Lampe ou objet de lumière"><span><b>Lampe / objet</b><small>Pièce unique</small></span></label>
+        </div>
+        <div class="row">
+          <input class="field" name="l" type="number" min="1" placeholder="Largeur (cm)" aria-label="Largeur en centimètres">
+          <input class="field" name="h" type="number" min="1" placeholder="Hauteur (cm)" aria-label="Hauteur en centimètres">
+        </div>
+        <textarea class="field" name="msg" placeholder="Votre idée, le lieu, l'ambiance… Vous pourrez joindre des photos en réponse au mail." aria-label="Description du projet"></textarea>
+        <div class="row">
+          <input class="field" name="nom" placeholder="Nom" aria-label="Nom" required>
+          <input class="field" name="contact" placeholder="Téléphone ou e-mail" aria-label="Téléphone ou e-mail" required>
+        </div>
+        <button class="btn" type="submit">Envoyer ma demande de devis</button>
+        <p class="ok" id="ok">Votre messagerie s'ouvre avec la demande pré-remplie : il ne reste qu'à l'envoyer.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="bio" id="bio" aria-labelledby="t-bio">
+  <div class="wrap">
+    <img class="reveal" src="https://www.ducrepat.com/assets/images/photo-patrick.jpg" alt="Portrait de Patrick Ducré" loading="lazy">
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--teal)">Bio</p>
+      <h2 id="t-bio" style="margin-top:.6rem">Patrick Ducré</h2>
+      <blockquote>« Décalages à la jointure des mondes »</blockquote>
+      <p>Artiste, comédien, photographe, auteur, directeur de théâtre, j'ai exercé de multiples métiers toujours synonymes de créations et de passions. Mon histoire professionnelle avec le vitrail commence en 2007 auprès d'une maître vitrailliste à Beaucaire, spécialisée dans la restauration des vitraux anciens.</p>
+      <p>Mes recherches s'axent sur trois techniques : le vitrail traditionnel, plomb ou cuivre plus étain, le verre collé et l'utilisation d'éléments photographiques, négatifs sur plaque de verre. Tout dernièrement, j'ai repris le double vitrail, qui permet de jouer sur des profondeurs et de créer des lumières traversantes.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="head reveal"><div><p class="eyebrow">Contact</p><h2 id="t-contact">Passer <em>à l'atelier</em></h2></div>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=19+rue+du+Commerce+71800+La+Clayette" target="_blank" rel="noopener">Itinéraire</a></div>
+    <div class="contact reveal">
+      <div><h3>Adresse</h3><p>19, rue du Commerce<br>71800 La Clayette<br>Saône-et-Loire</p></div>
+      <div><h3>Horaires</h3><p>Mardi matin<br>Vendredi et samedi,<br>matin et après-midi</p></div>
+      <div><h3>Téléphone</h3><p><a href="tel:+33685796146">06 85 79 61 46</a></p><h3 style="margin-top:1rem">E-mail</h3><p><a href="mailto:patduc07@gmail.com">patduc07@gmail.com</a></p></div>
+      <div><h3>Suivre l'atelier</h3><p><a href="https://www.instagram.com/patduc07/" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.facebook.com/ducrepat/" target="_blank" rel="noopener">Facebook</a></p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="btn sticky-cta" id="sticky" href="#ateliers">Réserver un stage</a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Œuvre agrandie">
+  <button class="x" id="lbX" aria-label="Fermer">✕</button>
+  <button class="prev" id="lbP" aria-label="Précédente">‹</button>
+  <figure><img id="lbImg" alt=""><figcaption><b id="lbT"></b><p id="lbD"></p></figcaption></figure>
+  <button class="next" id="lbN" aria-label="Suivante">›</button>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><b>Patrick Ducré Vitrailliste</b> — 19, rue du Commerce, 71800 La Clayette · 06 85 79 61 46</p>
+    <p>Maquette de démonstration, non contractuelle. Toutes les photos sont celles de l'atelier, reprises du site actuel ducrepat.com ; textes et titres d'œuvres issus du même site. Tarif indiqué (atelier individuel, 300 € les trois jours) repris du site actuel. Les couleurs reprennent le noir et blanc du site et les teintes du visuel « Sculpteur de lumière » : elles restent ajustables. Le formulaire et la réservation préparent un e-mail, sans engagement ni paiement en ligne.</p>
+  </div>
+</footer>
+
+<script>
+const IMG="https://www.ducrepat.com/assets/images/";
+const WORKS=[
+ ["chapelle.jpg","vitraux","La Chapelle sur la Plage","La mer, le sable et des éléments qui se mélangent et toujours la lumière."],
+ ["foret.jpg","totems","Celui qui cache la forêt","Au cœur de l'arbre une métamorphose, c'est la lumière autour qui compte."],
+ ["conf.jpg","vitraux","Confinement","De l'air, de la vapeur, de la lumière mais aussi une crispation comme de la lave."],
+ ["lampe-2.jpg","lampes","Lampe","La lumière sublime le vitrail, et inversement."],
+ ["ode.jpg","totems","Ode à la pluie","Le ciel gronde, les corps attendent l'eau, soif et vertige des lumières qui tombent."],
+ ["le-bain-nature.jpg","vitraux","Le Bain Nature","Un regard entre deux herbes sur le chatoiement de la peau et de l'eau, sous influence japonaise."],
+ ["bleurouge.jpg","sur-mesure","Les trottoirs d'Arles","Vitrail réalisé pour un mur, d'après un montage photographique — 100 × 100 cm."],
+ ["Chute-ange.jpg","lampes","Chute d'un ange","Structure en verres collés, la luminosité du verre sur sa tranche."],
+ ["jardin.jpg","vitraux","Le Jardin Confiné","Une profusion de fleurs de couleurs, très serrées, mêlées."],
+ ["soleil.jpg","totems","Petit soleil","Des flammes s'échappent d'un petit soleil matinal comme les promesses d'un beau jour."],
+ ["iris.jpg","sur-mesure","Vitre","D'après une peinture art nouveau de la salle de bain — 110 × 80 cm."],
+ ["route.jpg","vitraux","Route de Nuit","Éblouissement des phares ; des néons rouges de stations d'essence…"],
+ ["lanterne.jpg","lampes","Lanternes aux oiseaux","Pour décorer vos salons ou vos jardins, une présence chaleureuse."],
+ ["cathedrale.jpg","totems","Cathédrale","La lumière qui scintille, qui aspire à regarder ailleurs."],
+ ["coquelicots.jpg","vitraux","Coquelicots",""],
+ ["bras-blanc.jpg","vitraux","Bras Blancs","À la jointure des mondes, des fissures d'où s'échappe de la lumière."],
+ ["afrique.jpg","totems","Soleil Afrique","Le cœur d'un arbre au milieu d'un désert africain."],
+ ["ecriture.jpg","lampes","Écriture","Le fond est un miroir, illusion, reflets, jeu des lettres."]
+];
+const grid=document.getElementById('grid');
+WORKS.forEach((w,i)=>{
+  const d=document.createElement('div');d.className='card';d.dataset.cat=w[1];d.tabIndex=0;d.dataset.i=i;
+  d.innerHTML=`<img src="${IMG+w[0]}" alt="${w[2]}, ${w[1]} de Patrick Ducré" loading="lazy" onerror="this.closest('.card').remove()"><div class="cap"><b>${w[2]}</b><span>${w[1]}</span></div>`;
+  grid.appendChild(d);
+});
+// filtres
+const fbtn=document.querySelectorAll('.filters button');
+function filter(f){fbtn.forEach(b=>b.setAttribute('aria-pressed',b.dataset.f===f));
+  grid.querySelectorAll('.card').forEach(c=>c.classList.toggle('hide',f!=='all'&&c.dataset.cat!==f));}
+fbtn.forEach(b=>b.onclick=()=>filter(b.dataset.f));
+document.querySelectorAll('.menu a[data-f]').forEach(a=>a.addEventListener('click',()=>filter(a.dataset.f)));
+// lightbox
+const lb=document.getElementById('lb');let cur=0;
+function vis(){return [...grid.querySelectorAll('.card:not(.hide)')].map(c=>+c.dataset.i)}
+function show(i){cur=i;const w=WORKS[i];document.getElementById('lbImg').src=IMG+w[0];document.getElementById('lbImg').alt=w[2];
+  document.getElementById('lbT').textContent=w[2];document.getElementById('lbD').textContent=w[3];lb.classList.add('open');}
+function step(s){const v=vis();const k=v.indexOf(cur);show(v[(k+s+v.length)%v.length]);}
+grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)show(+c.dataset.i)});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter'){const c=e.target.closest('.card');if(c)show(+c.dataset.i)}});
+document.getElementById('lbX').onclick=()=>lb.classList.remove('open');
+document.getElementById('lbP').onclick=()=>step(-1);document.getElementById('lbN').onclick=()=>step(1);
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open')});
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+
+// hero : lumière derrière le verre
+const hv=document.getElementById('heroVisual');let tx=60,ty=40,cx=60,cy=40,auto=true,t0=0;
+hv.addEventListener('pointermove',e=>{const r=hv.getBoundingClientRect();tx=(e.clientX-r.left)/r.width*100;ty=(e.clientY-r.top)/r.height*100;auto=false;document.getElementById('hint').style.opacity=0});
+hv.addEventListener('pointerleave',()=>auto=true);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function loop(t){if(auto&&!reduce){tx=50+28*Math.sin(t/2600);ty=45+22*Math.cos(t/3400)}
+  cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;hv.style.setProperty('--x',cx+'%');hv.style.setProperty('--y',cy+'%');requestAnimationFrame(loop)})(0);
+
+// lampe
+const lamp=document.getElementById('lampes'),sw=document.getElementById('switch');
+sw.onclick=()=>{const on=lamp.classList.toggle('on');sw.setAttribute('aria-pressed',on);document.getElementById('swLbl').textContent=on?'Éteindre':'Allumer'};
+new IntersectionObserver((en,o)=>en.forEach(e=>{if(e.isIntersecting){setTimeout(()=>{if(!lamp.classList.contains('on'))sw.click()},900);o.disconnect()}}),{threshold:.5}).observe(lamp);
+
+// header / menu / sticky
+const hd=document.querySelector('header'),st=document.getElementById('sticky'),at=document.getElementById('ateliers');
+addEventListener('scroll',()=>{hd.classList.toggle('scrolled',scrollY>10);const r=at.getBoundingClientRect();st.classList.toggle('show',scrollY>innerHeight*.9&&(r.top>innerHeight||r.bottom<0))},{passive:true});
+const bg=document.getElementById('burger'),mn=document.getElementById('menu');
+bg.onclick=()=>{const o=mn.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mn.classList.remove('open');bg.setAttribute('aria-expanded',false)}));
+
+// reveal
+const io=new IntersectionObserver(en=>en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*90+'ms';io.observe(el)});
+
+// outil stage
+const MAIL='patduc07@gmail.com';
+let view=new Date();view.setDate(1);view.setMonth(view.getMonth()+1);let start=null;
+const fmt=d=>d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+function days(){return document.querySelector('[name=formule]:checked').value==='indiv'?3:parseInt(document.getElementById('duree').value)}
+function render(){
+  const cal=document.getElementById('cal');cal.innerHTML='';
+  document.getElementById('monthLbl').textContent=view.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  ['lun','mar','mer','jeu','ven','sam','dim'].forEach(d=>cal.insertAdjacentHTML('beforeend',`<span class="dow">${d}</span>`));
+  const first=(view.getDay()+6)%7;for(let i=0;i<first;i++)cal.insertAdjacentHTML('beforeend','<span></span>');
+  const n=new Date(view.getFullYear(),view.getMonth()+1,0).getDate();const today=new Date();today.setHours(0,0,0,0);
+  const sel=[];if(start){for(let k=0;k<days();k++){const d=new Date(start);d.setDate(d.getDate()+k);sel.push(d.toDateString())}}
+  for(let d=1;d<=n;d++){const dt=new Date(view.getFullYear(),view.getMonth(),d);const b=document.createElement('button');b.type='button';b.textContent=d;
+    b.disabled=dt<=today||dt.getDay()===0;b.setAttribute('aria-label',fmt(dt));
+    if(sel.includes(dt.toDateString()))b.classList.add('sel');if(start&&dt.toDateString()===start.toDateString())b.classList.add('start');
+    b.onclick=()=>{start=dt;render();sum()};cal.appendChild(b)}
+}
+function sum(){
+  const ind=document.querySelector('[name=formule]:checked').value==='indiv';
+  document.getElementById('groupStep').hidden=ind;document.getElementById('calNum').textContent=ind?'3.':'4.';
+  document.getElementById('sF').textContent=ind?'Atelier individuel · 3 jours':`Formation collective · ${document.getElementById('nb').value} personnes · ${document.getElementById('duree').value}`;
+  document.getElementById('sT').textContent=document.querySelector('[name=tech]:checked').value;
+  if(start){const e=new Date(start);e.setDate(e.getDate()+days()-1);document.getElementById('sD').textContent=`du ${fmt(start)} au ${fmt(e)}`}
+  document.getElementById('sP').innerHTML=ind?'300 €<small>les trois jours</small>':'Sur devis<small>selon le groupe</small>';
+}
+document.querySelectorAll('[name=formule],[name=tech],#nb,#duree').forEach(i=>i.addEventListener('change',()=>{render();sum()}));
+document.getElementById('prevM').onclick=()=>{view.setMonth(view.getMonth()-1);render()};
+document.getElementById('nextM').onclick=()=>{view.setMonth(view.getMonth()+1);render()};
+render();sum();
+document.getElementById('send').onclick=()=>{
+  const body=`Bonjour,\n\nJe souhaite réserver un stage de vitrail.\n\nFormule : ${document.getElementById('sF').textContent}\nTechnique : ${document.getElementById('sT').textContent}\nDates souhaitées : ${document.getElementById('sD').textContent}\n\nNom : ${document.getElementById('nom').value}\nContact : ${document.getElementById('tel').value}\n`;
+  location.href=`mailto:${MAIL}?subject=${encodeURIComponent('Demande de stage de vitrail')}&body=${encodeURIComponent(body)}`;
+};
+document.getElementById('ics').onclick=()=>{
+  if(!start){alert('Choisissez d\'abord un premier jour dans le calendrier.');return}
+  const p=d=>d.toISOString().slice(0,10).replace(/-/g,'');const e=new Date(start);e.setDate(e.getDate()+days());
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Patrick Ducre Vitrailliste//FR','BEGIN:VEVENT',`UID:${Date.now()}@ducrepat`,`DTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').slice(0,15)}Z`,
+    `DTSTART;VALUE=DATE:${p(start)}`,`DTEND;VALUE=DATE:${p(e)}`,'SUMMARY:Stage de vitrail (à confirmer) — Patrick Ducré','LOCATION:19 rue du Commerce\\, 71800 La Clayette','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='stage-vitrail.ics';a.click();
+};
+document.getElementById('devisForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);
+  const body=`Bonjour,\n\nType de projet : ${f.get('projet')}\nDimensions : ${f.get('l')||'?'} × ${f.get('h')||'?'} cm\n\n${f.get('msg')}\n\nNom : ${f.get('nom')}\nContact : ${f.get('contact')}\n`;
+  document.getElementById('ok').classList.add('show');
+  location.href=`mailto:${MAIL}?subject=${encodeURIComponent('Demande de devis — '+f.get('projet'))}&body=${encodeURIComponent(body)}`;});
+</script>
+</body>
+</html>
