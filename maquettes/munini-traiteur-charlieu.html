@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Munini Traiteur — Traiteur à Charlieu et dans le Roannais | Fêtes, réceptions, marchés</title>
+<meta name="description" content="Maison Munini, traiteur, charcutier et boucher à Charlieu depuis 2004 : carte des fêtes à commander, mariages, cocktails, buffets, et sur les marchés de Roanne, Vougy, Charlieu et Pouilly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&family=Raleway+Dots&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE MUNINI TRAITEUR — reprise du site actuel
+   (bandeau « cuir » noir, logo calligraphié crème, accent rose
+   #E5007D des liens actifs et du bouton d'envoi, titres en
+   capitales fines, ornement central sous les titres).
+   Police d'origine : « Sansation » (non libre) → Raleway en
+   remplacement, déjà chargée par le site (Raleway Dots).
+   Ajuster ici en quelques lignes si besoin.
+   ============================================================ */
+:root{
+  --cuir:#1d1d1d;          /* panneau noir façon cuir */
+  --cuir-2:#2a2a2a;
+  --cuir-3:#333333;
+  --rose:#E5007D;          /* accent du site actuel */
+  --rose-sombre:#b80064;
+  --creme:#f4e9cf;         /* couleur du logo */
+  --or:#d9b26a;            /* filets dorés (carte des fêtes) */
+  --papier:#fbf9f4;        /* fond clair repris du CSS (#fbf9f4) */
+  --gris:#999999;
+  --texte:#333333;
+  --filet:#dedede;
+  --font:'Raleway','Sansation',Arial,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--texte);background:var(--papier);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font-family:inherit;cursor:pointer}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+
+/* grain cuir (reprend la texture du panneau d'origine) */
+.cuir{background-color:var(--cuir);background-image:
+  radial-gradient(circle at 20% 30%,rgba(255,255,255,.035) 0 1px,transparent 1.5px),
+  radial-gradient(circle at 70% 60%,rgba(0,0,0,.35) 0 1px,transparent 1.5px),
+  linear-gradient(180deg,#262626,#161616);background-size:5px 5px,7px 7px,100% 100%}
+
+/* ---------- bandeau démo ---------- */
+.demo{background:#111;color:#bbb;font-size:12.5px;text-align:center;padding:7px 12px;letter-spacing:.02em}
+.demo b{color:var(--creme);font-weight:600}
+
+/* ---------- en-tête ---------- */
+header{position:sticky;top:0;z-index:50;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0;position:relative}
+.nav::after{content:"";position:absolute;left:0;right:0;bottom:0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.logo img{height:58px;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.menu{display:flex;gap:4px;list-style:none}
+.menu a{display:block;text-decoration:none;color:#b5b5b5;text-transform:uppercase;font-size:13px;letter-spacing:.06em;padding:8px 12px;position:relative;transition:color .25s}
+.menu a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:1px;background:var(--rose);transform:scaleX(0);transition:transform .35s var(--ease)}
+.menu a:hover,.menu a.on{color:var(--rose)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:2px;padding:13px 24px;font-size:13.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn-rose{background:var(--rose);color:#fff;box-shadow:0 8px 22px -8px rgba(229,0,125,.7)}
+.btn-rose:hover{background:var(--rose-sombre);transform:translateY(-2px)}
+.btn-ghost{border:1px solid rgba(244,233,207,.55);color:var(--creme);background:transparent}
+.btn-ghost:hover{background:rgba(244,233,207,.1);transform:translateY(-2px)}
+.burger{display:none;background:none;border:1px solid #444;color:#ddd;padding:8px 11px;font-size:18px}
+
+/* ---------- héros ---------- */
+.hero{position:relative;min-height:88vh;display:grid;align-items:center;color:#fff;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:0;z-index:-2}
+.hero .bg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 9s linear}
+.hero .bg img.vis{opacity:1;transform:scale(1)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(16,16,16,.92) 0%,rgba(16,16,16,.72) 42%,rgba(16,16,16,.15) 100%)}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:70px 0}
+.kicker{display:inline-flex;align-items:center;gap:12px;color:var(--creme);text-transform:uppercase;letter-spacing:.22em;font-size:12px}
+.kicker::before{content:"";width:34px;height:1px;background:var(--rose)}
+.hero h1{font-weight:300;font-size:clamp(34px,5.2vw,62px);line-height:1.08;margin:18px 0 18px;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--creme);font-weight:500}
+.hero p.lead{max-width:540px;color:#d6d6d6;font-size:17.5px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.hero-card{justify-self:end;width:min(360px,100%);padding:26px 26px 22px;border:1px solid rgba(217,178,106,.4);background:rgba(18,18,18,.72);backdrop-filter:blur(6px);position:relative}
+.hero-card::before,.hero-card::after{content:"✦";position:absolute;color:var(--or);font-size:14px}
+.hero-card::before{top:-9px;left:20px}.hero-card::after{bottom:-9px;right:20px}
+.hero-card h3{font-weight:500;text-transform:uppercase;letter-spacing:.12em;font-size:13px;color:var(--or);margin-bottom:10px}
+.today{font-size:22px;font-weight:300;color:#fff;line-height:1.3}
+.today b{color:var(--creme);font-weight:600}
+.hero-card small{display:block;color:#9a9a9a;margin-top:10px;font-size:12.5px}
+.dots{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.dots button{width:26px;height:3px;border:0;background:rgba(255,255,255,.35);transition:background .3s,width .3s}
+.dots button.on{background:var(--rose);width:40px}
+
+/* ---------- titres + ornement repris du site ---------- */
+.sec{padding:96px 0}
+.titre{text-align:center;margin-bottom:46px}
+.titre h2{font-weight:400;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(24px,3vw,32px);color:#3a3a3a}
+.cuir .titre h2,.sombre .titre h2{color:#eee}
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;margin:16px auto 0;max-width:560px}
+.orn::before,.orn::after{content:"";flex:1;height:1px;background:var(--filet)}
+.cuir .orn::before,.cuir .orn::after,.sombre .orn::before,.sombre .orn::after{background:#444}
+.orn svg{width:42px;height:14px;color:#b9b9b9}
+.titre p{max-width:640px;margin:18px auto 0;color:#777}
+.cuir .titre p,.sombre .titre p{color:#aaa}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* ---------- piliers ---------- */
+.piliers{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.pil{background:#fff;border:1px solid #ededed;padding:0 0 28px;box-shadow:0 18px 40px -30px rgba(0,0,0,.4);transition:transform .4s var(--ease),box-shadow .4s}
+.pil:hover{transform:translateY(-6px);box-shadow:0 26px 50px -28px rgba(0,0,0,.45)}
+.pil .ph{aspect-ratio:16/10;overflow:hidden}
+.pil .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.pil:hover .ph img{transform:scale(1.06)}
+.pil h3{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--rose);margin:24px 26px 8px}
+.pil p{margin:0 26px;color:#555}
+.chiffre{font-size:44px;font-weight:300;color:#3a3a3a;margin:22px 26px 0;line-height:1}
+.chiffre small{font-size:14px;color:#999;letter-spacing:.08em;text-transform:uppercase;margin-left:6px}
+
+/* ---------- carte des fêtes (outil central) ---------- */
+.fetes{position:relative;color:#ddd;overflow:hidden}
+.fetes .stars{position:absolute;inset:0;pointer-events:none}
+.fetes .stars i{position:absolute;width:2px;height:2px;border-radius:50%;background:#f6dca0;box-shadow:0 0 6px 1px rgba(246,220,160,.8);animation:twk 3s ease-in-out infinite}
+@keyframes twk{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.4)}}
+.fetes .titre h2{color:var(--creme)}
+.fetes .titre .kick{color:var(--or);text-transform:uppercase;letter-spacing:.25em;font-size:12px;display:block;margin-bottom:10px}
+.note-carte{display:flex;gap:12px;align-items:flex-start;max-width:760px;margin:-18px auto 36px;padding:12px 16px;border:1px dashed rgba(217,178,106,.45);font-size:13.5px;color:#c8bba0;background:rgba(0,0,0,.25)}
+.app{display:grid;grid-template-columns:1fr 380px;gap:30px;align-items:start}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.tab{background:transparent;border:1px solid #474747;color:#bbb;padding:9px 15px;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;transition:all .25s}
+.tab:hover{border-color:var(--or);color:var(--creme)}
+.tab.on{background:var(--rose);border-color:var(--rose);color:#fff}
+.plats{display:grid;gap:10px}
+.plat{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:15px 18px;background:rgba(255,255,255,.035);border:1px solid #333;border-left:2px solid transparent;transition:border-color .3s,background .3s,transform .3s var(--ease);animation:pIn .5s var(--ease) both}
+@keyframes pIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+.plat:hover{background:rgba(255,255,255,.06);border-left-color:var(--or)}
+.plat.sel{border-left-color:var(--rose);background:rgba(229,0,125,.07)}
+.plat .nom{color:#f1f1f1;font-weight:500}
+.plat .nom small{display:block;color:#8d8d8d;font-weight:400;font-size:12.5px;margin-top:2px}
+.prix{color:var(--or);font-weight:600;white-space:nowrap;font-size:15px}
+.prix small{color:#8d8d8d;font-weight:400;font-size:12px}
+.qte{display:flex;align-items:center;border:1px solid #4a4a4a}
+.qte button{width:34px;height:34px;background:transparent;border:0;color:#ddd;font-size:18px;transition:background .2s,color .2s}
+.qte button:hover{background:var(--rose);color:#fff}
+.qte output{min-width:44px;text-align:center;font-weight:600;color:#fff;font-size:14px}
+.precis{font-size:12.5px;color:#9e8f6f;margin:6px 2px 0;font-style:italic}
+.panier{position:sticky;top:110px;border:1px solid rgba(217,178,106,.4);background:#141414;padding:24px}
+.panier h3{color:var(--creme);font-weight:500;text-transform:uppercase;letter-spacing:.14em;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.badge{background:var(--rose);color:#fff;border-radius:20px;font-size:12px;padding:2px 10px;letter-spacing:0;transition:transform .3s var(--ease)}
+.badge.pop{transform:scale(1.35)}
+.lignes{list-style:none;margin:16px 0;max-height:220px;overflow:auto;font-size:13.5px}
+.lignes li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed #333;color:#cfcfcf}
+.lignes li span:last-child{color:var(--or);white-space:nowrap}
+.vide{color:#777;font-style:italic;font-size:13.5px;padding:10px 0}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #3a3a3a;padding-top:14px;margin-top:6px}
+.total span{text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:#aaa}
+.total b{font-size:30px;font-weight:300;color:#fff}
+.champ{margin-top:14px}
+.champ label{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.12em;color:#9a9a9a;margin-bottom:6px}
+.champ select,.champ input,.champ textarea{width:100%;background:#1f1f1f;border:1px solid #3d3d3d;color:#eee;padding:10px 12px;font-family:inherit;font-size:14px;border-radius:0}
+.champ select:focus,.champ input:focus,.champ textarea:focus{outline:none;border-color:var(--rose)}
+.panier .btn{width:100%;justify-content:center;margin-top:18px}
+.panier .aide{font-size:12px;color:#7d7d7d;margin-top:10px;text-align:center}
+.recap{display:none;margin-top:14px;padding:12px;border:1px solid #333;font-size:12.5px;color:#bbb;white-space:pre-wrap;background:#1a1a1a}
+.recap.on{display:block;animation:pIn .4s both}
+
+/* ---------- services ---------- */
+.services{display:grid;gap:26px}
+.serv{display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid #ededed;overflow:hidden;min-height:340px}
+.serv:nth-child(even) .serv-ph{order:2}
+.serv-ph{position:relative;overflow:hidden}
+.serv-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.serv:hover .serv-ph img{transform:scale(1.05)}
+.serv-tx{padding:44px 46px;display:flex;flex-direction:column;justify-content:center}
+.serv-tx .num{font-family:'Raleway Dots',var(--font);font-size:46px;color:var(--rose);line-height:1}
+.serv-tx h3{font-weight:500;text-transform:uppercase;letter-spacing:.08em;font-size:20px;margin:10px 0 12px;color:#333}
+.serv-tx p{color:#5d5d5d}
+.serv-tx a{align-self:flex-start;margin-top:22px;color:var(--rose);text-decoration:none;font-weight:600;text-transform:uppercase;font-size:13px;letter-spacing:.1em;border-bottom:1px solid currentColor;padding-bottom:3px;transition:letter-spacing .3s}
+.serv-tx a:hover{letter-spacing:.16em}
+.intro-serv{max-width:820px;margin:0 auto 42px;text-align:center;color:#555;font-size:17px}
+
+/* ---------- marchés ---------- */
+.semaine{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.jour{border:1px solid #3a3a3a;padding:18px 12px 16px;text-align:center;min-height:170px;display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.02);transition:transform .35s var(--ease),border-color .3s;position:relative}
+.jour:hover{transform:translateY(-4px);border-color:#666}
+.jour .j{text-transform:uppercase;letter-spacing:.16em;font-size:12px;color:#9a9a9a}
+.jour .lieu{color:#f2f2f2;font-weight:500;font-size:15px}
+.jour .lieu small{display:block;color:#8a8a8a;font-weight:400;font-size:12px;margin-top:3px}
+.jour.off .lieu{color:#666;font-weight:400;font-size:13px}
+.jour.auj{border-color:var(--rose);background:rgba(229,0,125,.08)}
+.jour.auj::before{content:"Aujourd'hui";position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--rose);color:#fff;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;white-space:nowrap}
+.pin{width:30px;height:30px;margin:6px auto 0;color:var(--or)}
+.marche-bas{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;margin-top:40px;align-items:center}
+.marche-bas p{color:#bdbdbd}
+.marche-bas p b{color:var(--creme);font-weight:500}
+.carte-l{border:1px solid #3a3a3a;padding:10px;background:#fff;max-width:360px;justify-self:center}
+.carte-l img{width:100%}
+
+/* ---------- portfolio ---------- */
+.galerie{columns:4 230px;column-gap:14px}
+.galerie button{display:block;width:100%;margin:0 0 14px;border:0;padding:0;background:#fff;box-shadow:0 1px 0 #ddd,0 10px 22px -16px rgba(0,0,0,.5);overflow:hidden;position:relative;break-inside:avoid}
+.galerie img{width:100%;transition:transform 1s var(--ease),filter .5s}
+.galerie button::after{content:"+";position:absolute;inset:auto 12px 12px auto;width:34px;height:34px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center;font-size:20px;transform:scale(0);transition:transform .35s var(--ease)}
+.galerie button:hover img{transform:scale(1.06);filter:saturate(1.1)}
+.galerie button:hover::after{transform:scale(1)}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,10,10,.94);display:none;align-items:center;justify-content:center;padding:30px}
+.lb.on{display:flex;animation:pIn .3s both}
+.lb img{max-height:84vh;max-width:min(1100px,100%);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb button{position:absolute;background:none;border:0;color:#fff;font-size:34px;padding:10px 16px}
+.lb .x{top:14px;right:14px}.lb .pv{left:8px;top:50%}.lb .nx{right:8px;top:50%}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px}
+.coord{background:#fff;border:1px solid #ededed;padding:34px}
+.coord h3{text-transform:uppercase;letter-spacing:.1em;font-weight:500;font-size:15px;margin-bottom:18px}
+.coord ul{list-style:none;display:grid;gap:16px}
+.coord li{display:grid;grid-template-columns:28px 1fr;gap:12px;color:#555}
+.coord li svg{width:22px;height:22px;color:var(--rose);margin-top:2px}
+.coord a{text-decoration:none;border-bottom:1px solid #ddd}
+.coord a:hover{color:var(--rose);border-color:var(--rose)}
+.form{background:#fff;border:1px solid #ededed;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form .plein{grid-column:1/-1}
+.form label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:#777;margin-bottom:6px}
+.form input,.form select,.form textarea{width:100%;border:1px solid #ddd;background:#fbfbfb;padding:12px;font-family:inherit;font-size:15px;transition:border-color .25s,background .25s}
+.form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:var(--rose);background:#fff}
+.form .ok{display:none;color:#2c7a3f;font-size:14px}
+.form .ok.on{display:block}
+
+/* ---------- pied ---------- */
+footer{color:#9a9a9a;font-size:13.5px}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px;padding:56px 0 34px}
+.foot img{height:62px;width:auto;margin-bottom:12px}
+.foot h4{color:#ddd;text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;font-weight:600;margin-bottom:12px}
+.foot a{color:#bbb;text-decoration:none}.foot a:hover{color:var(--rose)}
+.mention{border-top:1px dashed #3a3a3a;padding:18px 0 26px;font-size:12px;color:#7b7b7b;line-height:1.7}
+.mention b{color:#aaa}
+.flottant{position:fixed;right:18px;bottom:18px;z-index:60;transform:translateY(120px);transition:transform .5s var(--ease)}
+.flottant.on{transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-in,.app,.marche-bas,.contact{grid-template-columns:1fr}
+  .hero-card{justify-self:start}
+  .panier{position:static}
+  .piliers{grid-template-columns:1fr}
+  .serv{grid-template-columns:1fr}
+  .serv-ph{min-height:240px}
+  .serv:nth-child(even) .serv-ph{order:0}
+  .semaine{grid-template-columns:repeat(2,1fr)}
+  .foot{grid-template-columns:1fr}
+}
+@media (max-width:860px){
+  .menu{display:none;position:absolute;top:100%;left:-20px;right:-20px;flex-direction:column;background:#161616;padding:10px 20px 18px}
+  .menu.open{display:flex}
+  .burger{display:block}
+  .nav .btn-rose{display:none}
+}
+@media (max-width:560px){
+  .form{grid-template-columns:1fr;padding:22px}
+  .plat{grid-template-columns:1fr auto;}
+  .plat .qte{grid-column:1/-1;justify-self:start}
+  .serv-tx{padding:28px 22px}
+  .sec{padding:72px 0}
+  .logo img{height:46px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"FoodEstablishment",
+ "name":"Munini Traiteur",
+ "alternateName":"Maison Munini",
+ "description":"Traiteur, charcutier et boucher à Charlieu depuis 2004 : réceptions, mariages, cocktails, buffets, plats à emporter et présence sur les marchés du Roannais.",
+ "foundingDate":"2004",
+ "address":{"@type":"PostalAddress","streetAddress":"15 rue André Farinet","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+ "telephone":"+33477231769",
+ "email":"munini.traiteur@gmail.com",
+ "url":"https://munini-traiteur.com/",
+ "areaServed":["Charlieu","Roanne","Vougy","Pouilly-sous-Charlieu","Loire (42)","Saône-et-Loire (71)"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Munini Traiteur</b> — non officielle, contenus issus du site actuel et de la carte des fêtes 2025.</div>
+
+<header class="cuir" id="top">
+  <div class="wrap nav">
+    <a href="#accueil" class="logo" aria-label="Munini Traiteur, accueil"><img src="https://munini-traiteur.com/images/logo.png" alt="Munini traiteur — depuis 2004"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil" class="on">Accueil</a></li>
+      <li><a href="#fetes">Carte des fêtes</a></li>
+      <li><a href="#service">À votre service</a></li>
+      <li><a href="#marches">Sur vos marchés</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#fetes" class="btn btn-rose">Commander pour les fêtes</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<main>
+<!-- ============ HÉROS ============ -->
+<section class="hero" id="accueil">
+  <div class="bg" id="heroBg">
+    <img class="vis" src="https://munini-traiteur.com/images/bgslider-1.jpg" alt="">
+    <img src="https://munini-traiteur.com/portfolio/13.jpg" alt="">
+    <img src="https://munini-traiteur.com/portfolio/3.jpg" alt="">
+  </div>
+  <div class="wrap hero-in">
+    <div>
+      <span class="kicker rv">Traiteur à Charlieu · depuis 2004</span>
+      <h1 class="rv d1">Bienvenue chez <em>Maison Munini</em>, traiteur&nbsp;du&nbsp;Roannais</h1>
+      <p class="lead rv d2">Le plaisir gustatif de nos recettes est le résultat du mélange de la gastronomie régionale et de la cuisine provençale. Réceptions, mariages, buffets — et tous les jours sur vos marchés.</p>
+      <div class="ctas rv d3">
+        <a href="#fetes" class="btn btn-rose">Composer ma commande des fêtes</a>
+        <a href="#contact" class="btn btn-ghost">Demander un devis</a>
+      </div>
+    </div>
+    <aside class="hero-card rv d2" aria-live="polite">
+      <h3>Où nous trouver aujourd'hui</h3>
+      <div class="today" id="today">…</div>
+      <small>Boutique : 15 rue André Farinet, Charlieu</small>
+    </aside>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<!-- ============ PILIERS ============ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="titre rv">
+      <h2>Présentation</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+      <p>Notre chef traiteur a acquis un savoir-faire spécifique à la restauration traiteur : des préparations soigneusement élaborées, qui conservent leur fraîcheur et leurs parfums jusqu'à votre table.</p>
+    </div>
+    <div class="piliers">
+      <article class="pil rv">
+        <div class="ph"><img src="https://munini-traiteur.com/images/nivoslider1.jpg" alt="Préparation froide dressée par Munini Traiteur" loading="lazy"></div>
+        <h3>Le savoir</h3>
+        <p>Le plaisir gustatif de nos recettes est le résultat du mélange de la gastronomie régionale et de la cuisine provençale.</p>
+      </article>
+      <article class="pil rv d1">
+        <div class="ph"><img src="https://munini-traiteur.com/images/nivoslider2.jpg" alt="Assortiment de mignardises salées" loading="lazy"></div>
+        <h3>L'expérience</h3>
+        <p>Nous associons le raffinement des prestations à un service de qualité.</p>
+        <div class="chiffre"><span data-count="2004">2004</span><small>maison fondée</small></div>
+      </article>
+      <article class="pil rv d2">
+        <div class="ph"><img src="https://munini-traiteur.com/images/nivoslider4.jpg" alt="Verrines dressées sur table" loading="lazy"></div>
+        <h3>La qualité</h3>
+        <p>Nos produits sont choisis pour leur fraîcheur et leurs saveurs en veillant au respect des saisons. Nos viandes sont issues des fermes régionales.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CARTE DES FÊTES (OUTIL) ============ -->
+<section class="sec fetes cuir" id="fetes">
+  <div class="stars" id="stars"></div>
+  <div class="wrap">
+    <div class="titre rv">
+      <span class="kick">Noël &amp; Nouvel An</span>
+      <h2>Notre carte des fêtes</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+      <p>Composez votre commande en quelques clics, choisissez où la retirer — à la boutique ou sur l'un de vos marchés — et envoyez-la directement à la maison.</p>
+    </div>
+    <div class="note-carte rv">✦ <span>Démonstration construite avec les plats et prix de la <b>carte des fêtes 2025</b> publiée en PDF sur le site actuel. La carte 2026 se met à jour ici en quelques minutes, sans refaire de document.</span></div>
+
+    <div class="app">
+      <div>
+        <div class="tabs" id="tabs" role="tablist"></div>
+        <div class="plats" id="plats"></div>
+        <p class="precis" id="precis"></p>
+      </div>
+      <aside class="panier" aria-live="polite">
+        <h3>Ma commande <span class="badge" id="badge">0</span></h3>
+        <ul class="lignes" id="lignes"><li class="vide">Aucun plat pour l'instant — ajoutez-en depuis la carte.</li></ul>
+        <div class="total"><span>Total indicatif</span><b id="total">0,00 €</b></div>
+        <div class="champ">
+          <label for="retrait">Retrait</label>
+          <select id="retrait">
+            <option>Boutique — 15 rue André Farinet, Charlieu</option>
+            <option>Marché de Roanne — mardi ou vendredi</option>
+            <option>Marché de Vougy — jeudi</option>
+            <option>Marché de Charlieu, place St Philibert — mercredi ou samedi</option>
+            <option>Marché de Pouilly-sous-Charlieu — dimanche</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="dateR">Date souhaitée</label>
+          <input type="date" id="dateR">
+        </div>
+        <div class="champ">
+          <label for="nomC">Nom et téléphone</label>
+          <input type="text" id="nomC" placeholder="Ex. Dupont — 06 …">
+        </div>
+        <button class="btn btn-rose" id="envoyer">Envoyer ma commande</button>
+        <p class="aide">La commande part par mail à munini.traiteur@gmail.com — la maison la confirme ensuite.</p>
+        <div class="recap" id="recap"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ À VOTRE SERVICE ============ -->
+<section class="sec" id="service">
+  <div class="wrap">
+    <div class="titre rv">
+      <h2>À votre service</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+    </div>
+    <p class="intro-serv rv">Que vous organisiez une rencontre à caractère professionnel, familial ou amical, vous aimez que vos convives apprécient et se souviennent. Nous associons la finesse des mets, le raffinement des présentations, un service efficace et discret.</p>
+    <div class="services">
+      <article class="serv rv">
+        <div class="serv-ph"><img src="https://munini-traiteur.com/portfolio/5.jpg" alt="Table de mariage dressée" loading="lazy"></div>
+        <div class="serv-tx">
+          <span class="num">01</span>
+          <h3>Mariages, cérémonies</h3>
+          <p>Munini Traiteur met à votre service son expérience pour vous accompagner dans l'organisation de vos réceptions : choix du lieu, des mets, accord des vins, définition du timing. Avec nos partenaires privilégiés, nous pouvons prendre en charge l'ensemble des prestations.</p>
+          <a href="#contact" data-devis="Devis Mariage">Demande de devis</a>
+        </div>
+      </article>
+      <article class="serv rv">
+        <div class="serv-ph"><img src="https://munini-traiteur.com/portfolio/15.jpg" alt="Plateaux de verrines et bouchées pour cocktail" loading="lazy"></div>
+        <div class="serv-tx">
+          <span class="num">02</span>
+          <h3>Cocktails, anniversaires</h3>
+          <p>Pour vos événements familiaux, Munini Traiteur organise vos anniversaires et cocktails dînatoires à domicile ou sur le lieu de votre choix. Nous prenons en charge l'organisation pour que vous restiez auprès de vos convives.</p>
+          <a href="#contact" data-devis="Devis Anniversaire">Demande de devis</a>
+        </div>
+      </article>
+      <article class="serv rv">
+        <div class="serv-ph"><img src="https://munini-traiteur.com/portfolio/13.jpg" alt="Buffet en extérieur" loading="lazy"></div>
+        <div class="serv-tx">
+          <span class="num">03</span>
+          <h3>Buffets, séminaires</h3>
+          <p>Pour vos séminaires, réunions de travail ou buffets : livraison de plateaux repas avec un choix important de menus et boissons, accueil, pauses et repas, dans la plus grande discrétion et en respectant le timing de vos séances.</p>
+          <a href="#contact" data-devis="Devis Séminaire / Buffet">Demande de devis</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARCHÉS ============ -->
+<section class="sec sombre cuir" id="marches">
+  <div class="wrap">
+    <div class="titre rv">
+      <h2>Sur vos marchés</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+      <p>Retrouvez-nous sur vos marchés locaux, avec nos plats préparés selon la saison, notre charcuterie et nos viandes issues des fermes régionales.</p>
+    </div>
+    <div class="semaine rv" id="semaine"></div>
+    <div class="marche-bas">
+      <p class="rv">Nous complétons notre activité de <b>charcutier traiteur</b> avec celle de <b>boucher</b>. Pour vos réceptions, mariages et buffets, notre équipe vous accueille tous les jours au <b>15 rue André Farinet à Charlieu</b>, où nous nous ferons un plaisir d'élaborer des prestations selon vos désirs.</p>
+      <div class="carte-l rv d1"><img src="https://munini-traiteur.com/images/munini_plan_loire_marches_2021.png" alt="Carte des marchés Munini dans la Loire" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section class="sec" id="portfolio">
+  <div class="wrap">
+    <div class="titre rv">
+      <h2>Nos réalisations</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+    </div>
+    <div class="galerie" id="galerie"></div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="sec" id="contact" style="padding-top:20px">
+  <div class="wrap">
+    <div class="titre rv">
+      <h2>Contactez-nous !</h2>
+      <div class="orn"><svg viewBox="0 0 42 14" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 7c5-5 9 5 14 0s-4-6-4 0 9 5 9 0m0 0c0 5 9 5 9 0s-9-6-4 0 9 5 14 0"/></svg></div>
+    </div>
+    <div class="contact">
+      <div class="coord rv">
+        <h3>Maison Munini</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>15 rue André Farinet<br>42190 Charlieu</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><a href="tel:+33477231769">04 77 23 17 69</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="m3 7 9 6 9-6"/></svg><span>Commandes : <a href="mailto:munini.traiteur@gmail.com">munini.traiteur@gmail.com</a><br>Contact : <a href="mailto:laetitia.munini@wanadoo.fr">laetitia.munini@wanadoo.fr</a></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Boutique ouverte tous les jours — marchés de Roanne, Vougy, Charlieu et Pouilly-sous-Charlieu (voir le planning).</span></li>
+        </ul>
+      </div>
+      <form class="form rv d1" id="form">
+        <div><label for="fn">Nom *</label><input id="fn" required></div>
+        <div><label for="fe">Email *</label><input id="fe" type="email" required></div>
+        <div><label for="ft">Téléphone</label><input id="ft" type="tel"></div>
+        <div><label for="fd">Votre demande</label>
+          <select id="fd">
+            <option>Veuillez sélectionner</option>
+            <option>Devis Mariage</option>
+            <option>Devis Anniversaire</option>
+            <option>Devis Baptême / Communion</option>
+            <option>Devis Séminaire / Buffet</option>
+            <option>Le marché</option>
+            <option>Autre devis / Autre demande</option>
+          </select></div>
+        <div class="plein"><label for="fm">Message *</label><textarea id="fm" rows="5" required placeholder="Date, nombre de convives, lieu…"></textarea></div>
+        <div class="plein"><button class="btn btn-rose" type="submit">Envoyer</button> <span class="ok" id="ok">Votre messagerie s'ouvre avec la demande pré-remplie.</span></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="cuir">
+  <div class="wrap foot">
+    <div><img src="https://munini-traiteur.com/images/logo.png" alt="Munini traiteur"><p>Traiteur, charcutier et boucher à Charlieu depuis 2004. Loire (42) et Saône-et-Loire (71).</p></div>
+    <div><h4>Navigation</h4><p><a href="#fetes">Carte des fêtes</a><br><a href="#service">À votre service</a><br><a href="#marches">Sur vos marchés</a><br><a href="#portfolio">Portfolio</a></p></div>
+    <div><h4>Nous joindre</h4><p>15 rue André Farinet, 42190 Charlieu<br><a href="tel:+33477231769">04 77 23 17 69</a><br><a href="mailto:munini.traiteur@gmail.com">munini.traiteur@gmail.com</a></p></div>
+  </div>
+  <div class="wrap mention"><b>Maquette de démonstration</b> réalisée à titre de proposition, non affiliée officiellement à Munini Traiteur. Textes, horaires de marchés, coordonnées et logo repris du site actuel munini-traiteur.com ; plats et prix issus de la carte des fêtes 2025 publiée par la maison — <b>prix indicatifs, non contractuels</b>, à mettre à jour avec la carte 2026. <b>Toutes les photos sont celles de la maison</b> (site actuel). Couleurs reprises du site (noir « cuir », crème du logo, rose #E5007D) ; la police d'origine Sansation est remplacée par Raleway, ajustable. L'envoi de commande ouvre la messagerie du visiteur (aucun paiement en ligne).</div>
+</footer>
+
+<a href="#fetes" class="btn btn-rose flottant" id="flottant">✦ Carte des fêtes</a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button>
+  <img id="lbImg" alt=""><button class="nx" aria-label="Suivante">›</button>
+</div>
+
+<script>
+/* ---------- données : carte des fêtes 2025 (PDF du site) ---------- */
+const CARTE = {
+  "Entrées froides":{note:"Ces produits sont dressés sur plats et décorés.",plats:[
+    ["Cervelas truffé pistache","truffe 3 %, fabrication maison",69,"kg",.5],
+    ["Foie gras de canard maison","avec son pain de mie aux figues toasté",15,"part"],
+    ["Terrine de chevreuil","aux groseilles et aux noisettes",5.5,"part"],
+    ["Terrine de saumon à l'oseille","mayonnaise et crevettes",6.95,"part"],
+    ["Saumon fumé","",9.5,"part"]]},
+  "Entrées chaudes":{note:"",plats:[
+    ["Cassolette de ris de veau aux morilles","",11,"part"],
+    ["Cassolette de St Jacques","",11,"part"],
+    ["Boudin blanc à la crème de porto","",7.5,"part"],
+    ["Escargots de Bourgogne","",9.5,"douzaine"]]},
+  "Poissons chauds":{note:"Tous les poissons sont accompagnés d'une timbale de riz.",plats:[
+    ["Dos de cabillaud sauce Champagne","",9.5,"part"],
+    ["Cassolette de lotte à l'Américaine","",13.9,"part"]]},
+  "Viandes chaudes":{note:"",plats:[
+    ["Chapon sauce Champagne","cuisses",9.95,"part"],
+    ["Civet de sanglier sauce Grand veneur","",9.95,"part"]]},
+  "Légumes":{note:"",plats:[
+    ["Pois gourmands, lard fumé, jus corsé","",5,"part"],
+    ["Gratin dauphinois","",4.5,"part"]]},
+  "Menus":{note:"Menu des petits lutins : une surprise offerte par menu.",plats:[
+    ["Menu authentique","foie gras maison · dos de cabillaud sauce Champagne, riz persillé · civet de sanglier, gratin dauphinois",37,"menu"],
+    ["Menu des petits lutins","filet de poulet rôti au jus, pomme dauphine",9,"menu"]]},
+  "Convivial":{note:"Dressé sur plats et décoré.",plats:[
+    ["Pierrade","veau, bœuf, magret, volaille — 280 g / personne",11,"pers."],
+    ["Raclette","jambon cru, jambon blanc, rosette, coppa, bacon — 5 charcuteries / personne",8,"pers."]]}
+};
+const euro=n=>n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+const qtes={}; // clé -> quantité
+let cat=Object.keys(CARTE)[0];
+const $=s=>document.querySelector(s);
+
+function renderTabs(){
+  $('#tabs').innerHTML=Object.keys(CARTE).map(c=>`<button class="tab ${c===cat?'on':''}" role="tab" data-c="${c}">${c}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{cat=b.dataset.c;renderTabs();renderPlats()});
+}
+function renderPlats(){
+  const d=CARTE[cat];
+  $('#plats').innerHTML=d.plats.map((p,i)=>{
+    const k=cat+'|'+i, q=qtes[k]||0, pas=p[4]||1;
+    const aff=p[3]==='kg'?(q?q.toLocaleString('fr-FR')+' kg':'0'):q;
+    return `<div class="plat ${q?'sel':''}" style="animation-delay:${i*60}ms">
+      <div class="nom">${p[0]}${p[1]?`<small>${p[1]}</small>`:''}</div>
+      <div class="prix">${euro(p[2])} <small>/ ${p[3]}</small></div>
+      <div class="qte"><button data-k="${k}" data-d="-${pas}" aria-label="Retirer">−</button><output>${aff}</output><button data-k="${k}" data-d="${pas}" aria-label="Ajouter">+</button></div>
+    </div>`}).join('');
+  $('#precis').textContent=d.note;
+  document.querySelectorAll('.qte button').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.k; qtes[k]=Math.max(0,Math.round(((qtes[k]||0)+parseFloat(b.dataset.d))*10)/10);
+    if(!qtes[k]) delete qtes[k]; renderPlats(); renderPanier(true);
+  });
+}
+function lignes(){
+  return Object.entries(qtes).map(([k,q])=>{const [c,i]=k.split('|');const p=CARTE[c].plats[i];
+    return {txt:(p[3]==='kg'?q.toLocaleString('fr-FR')+' kg':q+' ×')+' '+p[0], prix:q*p[2]}});
+}
+function renderPanier(pop){
+  const L=lignes(), n=Object.keys(qtes).length, tot=L.reduce((a,l)=>a+l.prix,0);
+  $('#lignes').innerHTML=L.length?L.map(l=>`<li><span>${l.txt}</span><span>${euro(l.prix)}</span></li>`).join(''):'<li class="vide">Aucun plat pour l\'instant — ajoutez-en depuis la carte.</li>';
+  $('#total').textContent=euro(tot); const b=$('#badge'); b.textContent=n;
+  if(pop){b.classList.add('pop');setTimeout(()=>b.classList.remove('pop'),250)}
+}
+$('#envoyer').onclick=()=>{
+  const L=lignes(); if(!L.length){$('#recap').textContent='Ajoutez au moins un plat à votre commande.';$('#recap').classList.add('on');return}
+  const tot=L.reduce((a,l)=>a+l.prix,0);
+  const corps='Bonjour,\n\nJe souhaite commander pour les fêtes :\n'+L.map(l=>'- '+l.txt+' ('+euro(l.prix)+')').join('\n')+
+    '\n\nTotal indicatif : '+euro(tot)+'\nRetrait : '+$('#retrait').value+'\nDate souhaitée : '+($('#dateR').value||'à convenir')+'\nNom / téléphone : '+($('#nomC').value||'—')+'\n\nMerci de me confirmer la commande.';
+  $('#recap').textContent=corps; $('#recap').classList.add('on');
+  location.href='mailto:munini.traiteur@gmail.com?subject='+encodeURIComponent('Commande des fêtes')+'&body='+encodeURIComponent(corps);
+};
+
+/* ---------- marchés : planning de la semaine ---------- */
+const JOURS=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+const MARCHES={1:['Roanne','place du marché'],2:['Charlieu','place St Philibert'],3:['Vougy',''],4:['Roanne','place du marché'],5:['Charlieu','place St Philibert'],6:['Pouilly-sous-Charlieu','place du marché']};
+const pin='<svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+const auj=(new Date().getDay()+6)%7;
+$('#semaine').innerHTML=JOURS.map((j,i)=>{const m=MARCHES[i];
+  return `<div class="jour ${m?'':'off'} ${i===auj?'auj':''}"><span class="j">${j}</span>${m?pin+`<span class="lieu">${m[0]}${m[1]?`<small>${m[1]}</small>`:''}</span>`:'<span class="lieu">Boutique à Charlieu</span>'}</div>`}).join('');
+const m=MARCHES[auj];
+$('#today').innerHTML=m?`${JOURS[auj]} : marché de <b>${m[0]}</b>${m[1]?' — '+m[1]:''}`:`${JOURS[auj]} : retrouvez-nous à la <b>boutique de Charlieu</b>`;
+
+/* ---------- galerie + visionneuse ---------- */
+const PH=[3,15,7,5,13,9,2,11,14,6,1,16,19,8,10,4,17,12,20,18];
+$('#galerie').innerHTML=PH.map((n,i)=>`<button data-i="${i}" class="rv"><img src="https://munini-traiteur.com/portfolio/${n}.jpg" alt="Réalisation Munini Traiteur ${i+1}" loading="lazy"></button>`).join('');
+let cur=0; const lb=$('#lb'), li=$('#lbImg');
+const ouvrir=i=>{cur=(i+PH.length)%PH.length;li.src=`https://munini-traiteur.com/portfolio/${PH[cur]}.jpg`;lb.classList.add('on')};
+document.querySelectorAll('#galerie button').forEach(b=>b.onclick=()=>ouvrir(+b.dataset.i));
+lb.querySelector('.x').onclick=()=>lb.classList.remove('on');
+lb.querySelector('.pv').onclick=()=>ouvrir(cur-1);
+lb.querySelector('.nx').onclick=()=>ouvrir(cur+1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('on')};
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowRight')ouvrir(cur+1);if(e.key==='ArrowLeft')ouvrir(cur-1)});
+
+/* ---------- héros : fondu enchaîné ---------- */
+const imgs=[...document.querySelectorAll('#heroBg img')]; let h=0;
+$('#dots').innerHTML=imgs.map((_,i)=>`<button class="${i?'':'on'}" aria-label="Photo ${i+1}"></button>`).join('');
+const dots=[...document.querySelectorAll('#dots button')];
+const go=i=>{imgs[h].classList.remove('vis');dots[h].classList.remove('on');h=i;imgs[h].classList.add('vis');dots[h].classList.add('on')};
+dots.forEach((d,i)=>d.onclick=()=>go(i));
+setInterval(()=>go((h+1)%imgs.length),6500);
+
+/* ---------- étoiles de la carte des fêtes ---------- */
+$('#stars').innerHTML=Array.from({length:42},()=>`<i style="left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(2+Math.random()*3).toFixed(2)}s"></i>`).join('');
+
+/* ---------- apparitions, en-tête, menu, liens devis ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const secs=[...document.querySelectorAll('main section[id]')], liens=[...document.querySelectorAll('.menu a')];
+addEventListener('scroll',()=>{
+  document.querySelector('header').classList.toggle('scrolled',scrollY>10);
+  $('#flottant').classList.toggle('on',scrollY>700 && !(scrollY>$('#fetes').offsetTop-300 && scrollY<$('#fetes').offsetTop+$('#fetes').offsetHeight-300));
+  let a=secs[0].id; secs.forEach(s=>{if(scrollY>=s.offsetTop-160)a=s.id});
+  liens.forEach(l=>l.classList.toggle('on',l.getAttribute('href')==='#'+a));
+},{passive:true});
+$('#burger').onclick=()=>$('#menu').classList.toggle('open');
+liens.forEach(l=>l.onclick=()=>$('#menu').classList.remove('open'));
+document.querySelectorAll('[data-devis]').forEach(a=>a.addEventListener('click',()=>{$('#fd').value=a.dataset.devis}));
+$('#form').onsubmit=e=>{e.preventDefault();
+  const c='Nom : '+$('#fn').value+'\nEmail : '+$('#fe').value+'\nTéléphone : '+$('#ft').value+'\n\n'+$('#fm').value;
+  $('#ok').classList.add('on');
+  location.href='mailto:laetitia.munini@wanadoo.fr?subject='+encodeURIComponent($('#fd').value)+'&body='+encodeURIComponent(c);
+};
+renderTabs(); renderPlats(); renderPanier();
+</script>
+</body>
+</html>
