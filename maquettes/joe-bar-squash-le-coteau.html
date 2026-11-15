@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joe Bar Squash Club — Squash au Coteau, près de Roanne | Courts, bar, leçons</title>
+<meta name="description" content="Joe Bar Squash Club, salle de squash et bar au Coteau, à côté de Roanne : courts à réserver en ligne, tickets ou abonnements, leçons individuelles et location de raquettes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel joebarsquash.fr
+   - Police des titres : Acme (police déjà utilisée sur tout le site actuel)
+   - Barre de navigation noire/anthracite (navbar "inverse" du site actuel)
+   - Rouge : lignes des courts + lettrage "SQUASH" de la façade
+   - Bois clair : parquet des courts et comptoir du bar (photos réelles)
+   - Vert / rouge heures creuses / pleines : codes couleur du tableau actuel
+   Ajustable en quelques lignes si le club fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --ink:#1c1c1c;          /* anthracite navbar */
+  --ink-2:#2a2a2a;
+  --paper:#f6f3ee;        /* fond clair chaud (mur des courts) */
+  --white:#ffffff;
+  --red:#c8312b;          /* ligne de court / lettrage façade */
+  --red-dark:#a32621;
+  --wood:#d8b98b;         /* parquet */
+  --wood-2:#efe1c8;
+  --peak:#cc6666;         /* heures pleines (code du site actuel) */
+  --off:#66cc66;          /* heures creuses (code du site actuel) */
+  --closed:#cccccc;
+  --blue:#337ab7;         /* bleu des panneaux du site actuel, usage discret */
+  --muted:#6b6660;
+  --radius:14px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --f-title:"Acme", system-ui, sans-serif;
+  --f-body:"Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-body);color:var(--ink);background:var(--paper);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,.title{font-family:var(--f-title);font-weight:400;letter-spacing:.01em;line-height:1.05}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--red);color:#fff;font-size:.82rem;text-align:center;padding:7px 16px}
+
+/* Navigation */
+.nav{position:sticky;top:0;z-index:50;background:rgba(28,28,28,.92);backdrop-filter:blur(10px);color:#fff;transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:66px}
+.logo{font-family:var(--f-title);font-size:1.45rem;text-decoration:none;color:#fff;position:relative;white-space:nowrap}
+.logo span{color:var(--red)}
+.menu{display:flex;gap:22px;list-style:none;font-size:.92rem}
+.menu a{text-decoration:none;opacity:.82;position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover{opacity:1}.menu a:hover::after{transform:scaleX(1)}
+.status-pill{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 12px;border-radius:99px;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--closed);box-shadow:0 0 0 0 currentColor}
+.dot.live{animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(102,204,102,.6)}100%{box-shadow:0 0 0 10px rgba(102,204,102,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:12px 22px;border-radius:99px;font-weight:600;font-size:.95rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:active{transform:scale(.96)}
+.btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-dark);transform:translateY(-2px);box-shadow:0 10px 24px rgba(200,49,43,.35)}
+.btn-ghost{border-color:rgba(255,255,255,.5);color:#fff}.btn-ghost:hover{background:#fff;color:var(--ink)}
+.btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{background:#000;transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;width:44px;height:44px}
+@media (max-width:900px){
+  .menu{position:fixed;inset:66px 0 auto 0;flex-direction:column;background:var(--ink);padding:18px 24px 26px;gap:14px;transform:translateY(-120%);transition:transform .35s var(--ease)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 100px);display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--ink)}
+.hero-slides{position:absolute;inset:0}
+.hero-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.4s ease,transform 7s linear}
+.hero-slides img.on{opacity:1;transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.35) 45%,rgba(20,20,20,.92) 100%)}
+.hero .wrap{position:relative;z-index:2;padding:80px 0 56px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;opacity:.9}
+.kicker::before{content:"";width:34px;height:2px;background:var(--red)}
+.hero h1{font-size:clamp(3rem,2rem + 6vw,7.4rem);margin:14px 0 8px;position:relative}
+.hero h1 .reflect{display:block;transform:scaleY(-1);opacity:.14;background:linear-gradient(0deg,#fff 0%,transparent 70%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:.8;height:.42em;overflow:hidden;user-select:none}
+.hero p.lead{font-size:clamp(1.05rem,.95rem + .5vw,1.35rem);max-width:620px;opacity:.92}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.split span{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);animation:rise .8s var(--ease) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.ball{position:absolute;right:8%;top:18%;width:22px;height:22px;border-radius:50%;background:#111;box-shadow:inset -4px -4px 0 rgba(255,255,255,.08),0 0 0 3px rgba(255,255,255,.08);z-index:2;animation:bounce 2.6s cubic-bezier(.5,0,.5,1) infinite}
+@keyframes bounce{0%,100%{transform:translate(0,0)}25%{transform:translate(-120px,140px)}50%{transform:translate(-30px,40px)}75%{transform:translate(-160px,180px)}}
+
+/* Bande défilante */
+.marquee{background:var(--red);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--f-title);font-size:1.4rem;padding:12px 0}
+.marquee div{display:inline-flex;gap:40px;animation:mq 28s linear infinite;padding-right:40px}
+.marquee b{font-weight:400;opacity:.55}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,8vw,120px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.sec-head h2{font-size:clamp(2.2rem,1.6rem + 2.6vw,4rem)}
+.sec-head p{max-width:460px;color:var(--muted)}
+.eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:10px;display:block}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Le club */
+.club{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,60px);align-items:center}
+.club-imgs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.club-imgs figure{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/5;position:relative}
+.club-imgs figure:nth-child(2){margin-top:60px}
+.club-imgs img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.club-imgs figure:hover img{transform:scale(1.06)}
+.club h2{font-size:clamp(2.2rem,1.6rem + 2.6vw,3.8rem);margin-bottom:18px}
+.feat{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+.feat div{background:#fff;border-radius:var(--radius);padding:18px;border:1px solid #e8e1d6;transition:transform .3s var(--ease),box-shadow .3s}
+.feat div:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.08)}
+.feat strong{display:block;font-family:var(--f-title);font-size:1.25rem;font-weight:400}
+.feat span{font-size:.9rem;color:var(--muted)}
+@media (max-width:860px){.club{grid-template-columns:1fr}}
+
+/* Horaires + live */
+.hours{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hours::before{content:"";position:absolute;left:-10%;right:-10%;top:50%;height:2px;background:var(--red);opacity:.35;transform:rotate(-4deg)}
+.hours .sec-head p{color:#bbb}
+.live-card{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius);padding:20px 24px;margin-bottom:30px;position:relative}
+.live-card .big{font-family:var(--f-title);font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem)}
+.live-card .sub{color:#bbb;font-size:.95rem}
+.grid-wrap{overflow-x:auto;position:relative;-webkit-overflow-scrolling:touch}
+.ph-grid{display:grid;grid-template-columns:120px repeat(12,minmax(46px,1fr));gap:4px;min-width:720px}
+.ph-grid .h{font-size:.75rem;color:#aaa;text-align:center;padding-bottom:4px}
+.ph-grid .d{font-size:.85rem;display:flex;align-items:center}
+.cell{height:40px;border-radius:7px;background:var(--closed);opacity:.25;position:relative;cursor:default;transition:transform .2s var(--ease),opacity .4s}
+.cell.p{background:var(--peak);opacity:.9}.cell.o{background:var(--off);opacity:.9}.cell.c{background:#555;opacity:.6}
+.cell:hover{transform:scale(1.12);z-index:3}
+.cell.now{outline:3px solid #fff;outline-offset:2px}
+.cell.now::after{content:"maintenant";position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.65rem;color:#fff;white-space:nowrap}
+.legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:18px;font-size:.88rem;color:#ccc}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:8px;vertical-align:-2px}
+.tip{position:fixed;pointer-events:none;background:#fff;color:var(--ink);font-size:.82rem;padding:8px 12px;border-radius:8px;box-shadow:0 10px 24px rgba(0,0,0,.25);opacity:0;transition:opacity .15s;z-index:99}
+
+/* Comparateur */
+.calc{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(20px,3vw,40px);align-items:start}
+.panel{background:#fff;border-radius:22px;padding:clamp(22px,3vw,36px);border:1px solid #e8e1d6;box-shadow:0 30px 60px -30px rgba(0,0,0,.18)}
+.field{margin-bottom:26px}
+.field label{display:flex;justify-content:space-between;font-weight:600;margin-bottom:10px}
+.field output{font-family:var(--f-title);font-size:1.5rem;color:var(--red);font-weight:400}
+input[type=range]{width:100%;accent-color:var(--red);height:30px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg button{min-height:46px;border-radius:12px;border:2px solid #e8e1d6;background:#faf8f4;font:inherit;font-size:.9rem;cursor:pointer;transition:all .2s var(--ease)}
+.seg button[aria-pressed=true]{border-color:var(--ink);background:var(--ink);color:#fff}
+.seg button:hover{transform:translateY(-2px)}
+.hint{font-size:.85rem;color:var(--muted);margin-top:8px}
+.results{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:1fr auto;align-items:center;gap:6px 16px;padding:16px 18px;border-radius:14px;background:#faf8f4;border:2px solid transparent;transition:all .35s var(--ease)}
+.opt .n{font-weight:600}.opt .d{font-size:.85rem;color:var(--muted);grid-column:1}
+.opt .v{font-family:var(--f-title);font-size:1.6rem;grid-row:1/3;grid-column:2;text-align:right}
+.opt .v small{display:block;font-family:var(--f-body);font-size:.72rem;color:var(--muted)}
+.opt.best{border-color:var(--red);background:#fff;box-shadow:0 14px 30px -12px rgba(200,49,43,.35);transform:translateX(6px)}
+.opt.best .n::after{content:"Le plus avantageux";margin-left:10px;font-size:.7rem;background:var(--red);color:#fff;padding:3px 8px;border-radius:99px;vertical-align:2px}
+.saving{margin-top:18px;padding:18px;border-radius:14px;background:var(--ink);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.saving b{font-family:var(--f-title);font-weight:400;font-size:1.6rem;color:var(--wood)}
+@media (max-width:900px){.calc{grid-template-columns:1fr}}
+
+/* Tarifs */
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.pcard{background:#fff;border-radius:20px;padding:28px;border:1px solid #e8e1d6;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 24px 40px -20px rgba(0,0,0,.25)}
+.pcard::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--red);transform:scaleX(.15);transform-origin:left;transition:transform .5s var(--ease)}
+.pcard:hover::before{transform:scaleX(1)}
+.pcard h3{font-size:1.7rem;margin-bottom:6px}
+.pcard .note{font-size:.88rem;color:var(--muted);margin-bottom:16px}
+.pcard table{width:100%;border-collapse:collapse;font-size:.95rem}
+.pcard th{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:right;font-weight:600;padding-bottom:6px}
+.pcard th:first-child{text-align:left}
+.pcard td{padding:9px 0;border-top:1px solid #f0ebe2;text-align:right}
+.pcard td:first-child{text-align:left}
+.pcard td.hp{color:var(--red-dark);font-weight:600}.pcard td.hc{color:#2f8a2f;font-weight:600}
+@media (max-width:900px){.prices{grid-template-columns:1fr}}
+
+/* Galerie */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px}
+.gal figure{border-radius:var(--radius);overflow:hidden;position:relative;cursor:zoom-in}
+.gal figure:nth-child(1){grid-column:span 2;grid-row:span 2}
+.gal figure:nth-child(4){grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease),filter .5s}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figcaption{position:absolute;left:12px;bottom:12px;background:rgba(28,28,28,.8);color:#fff;font-size:.78rem;padding:5px 10px;border-radius:99px;transform:translateY(8px);opacity:0;transition:all .35s var(--ease)}
+.gal figure:hover figcaption{opacity:1;transform:none}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:160px}.gal figure:nth-child(1),.gal figure:nth-child(4){grid-column:span 2}}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+.lightbox.on{display:flex}
+.lightbox img{max-height:88vh;border-radius:12px}
+.lightbox button{position:absolute;top:16px;right:16px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;font-size:1.3rem;cursor:pointer}
+
+/* Réserver / contact */
+.book{background:linear-gradient(135deg,var(--ink) 0%,#2b2b2b 100%);color:#fff;border-radius:28px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative;overflow:hidden}
+.book::after{content:"";position:absolute;right:-60px;bottom:-60px;width:260px;height:260px;border:2px solid var(--red);border-radius:50%;opacity:.4}
+.book h2{font-size:clamp(2rem,1.5rem + 2.4vw,3.6rem);margin-bottom:12px}
+.book p{color:#ccc;max-width:520px}
+.steps{display:grid;gap:10px;margin-top:22px;counter-reset:s}
+.steps li{list-style:none;display:flex;gap:14px;align-items:center;color:#ddd}
+.steps li::before{counter-increment:s;content:counter(s);width:32px;height:32px;flex:none;border-radius:50%;border:2px solid var(--red);display:grid;place-items:center;font-family:var(--f-title)}
+.book-side{display:grid;gap:12px;position:relative;z-index:2}
+@media (max-width:860px){.book{grid-template-columns:1fr}}
+.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:24px;margin-top:60px}
+.contact .info{background:#fff;border-radius:22px;padding:30px;border:1px solid #e8e1d6}
+.contact .info h3{font-size:1.8rem;margin-bottom:14px}
+.contact .info p{margin-bottom:10px}
+.contact .info a{text-decoration:none;border-bottom:2px solid var(--wood)}
+.contact .info a:hover{border-color:var(--red)}
+.contact iframe{width:100%;height:100%;min-height:320px;border:0;border-radius:22px;filter:grayscale(.3)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--ink);color:#bbb;padding:50px 0 90px;margin-top:80px;font-size:.88rem}
+footer .wrap{display:grid;gap:18px}
+footer .logo{font-size:1.6rem}
+footer .soc{display:flex;gap:16px}
+footer .soc a{color:#fff;text-decoration:none;border-bottom:1px solid #555}
+.disclaimer{border-top:1px solid #333;padding-top:18px;font-size:.8rem;color:#999}
+.mobile-cta{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:8px}
+.mobile-cta a{flex:1}
+@media (max-width:760px){.mobile-cta{display:flex}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["SportsActivityLocation","BarOrPub"],
+  "name":"Joe Bar Squash Club",
+  "legalName":"SARL Squash Loisir",
+  "url":"https://joebarsquash.fr/",
+  "telephone":"+33477678712",
+  "email":"joe.bar.squash@wanadoo.fr",
+  "image":"https://joebarsquash.fr/images/court2.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"10 rue Abbé Prajoux","postalCode":"42120","addressLocality":"Le Coteau","addressCountry":"FR"},
+  "areaServed":["Le Coteau","Roanne","Riorges","Mably","Roannais"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"22:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"19:00"}
+  ],
+  "sameAs":["https://www.facebook.com/JOE-BAR-Squash-Roanne-766772960033609","https://www.youtube.com/channel/UC5VzlwmfPEKiCrVPBofNpKg"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour le Joe Bar Squash Club — tarifs repris du site actuel, à confirmer</div>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top">JOE BAR <span>SQUASH</span> CLUB</a>
+    <ul class="menu" id="menu">
+      <li><a href="#club">Club</a></li>
+      <li><a href="#horaires">Horaires</a></li>
+      <li><a href="#formule">Quelle formule ?</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#acces">Accès</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <span class="status-pill" aria-live="polite"><i class="dot" id="navDot"></i><span id="navStatus">…</span></span>
+    <a class="btn btn-red" href="http://www.resalibre.fr/c.php?snc=squash_loisirs" target="_blank" rel="noopener">Réserver un court</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-slides" id="slides">
+    <img class="on" src="https://joebarsquash.fr/images/court2.jpg" alt="Court de squash avec vue sur le bar du Joe Bar Squash Club">
+    <img src="https://joebarsquash.fr/images/bar.jpg" alt="Le bar et le mur de raquettes du club" loading="lazy">
+    <img src="https://joebarsquash.fr/images/raquette.jpg" alt="Raquette et balle sur le parquet d'un court" loading="lazy">
+    <img src="https://joebarsquash.fr/images/court3.jpg" alt="Court vitré du club" loading="lazy">
+  </div>
+  <div class="ball" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="kicker">Squash &amp; bar · Le Coteau, à côté de Roanne</span>
+    <h1 aria-label="Bienvenue au Joe Bar Squash !"><span class="split" id="split">Bienvenue au Joe Bar Squash !</span><span class="reflect" aria-hidden="true">Bienvenue au Joe Bar Squash !</span></h1>
+    <p class="lead">Des courts à réserver en ligne, un bar pour la suite, des leçons de 40 minutes et des raquettes à louer sur place. Du lundi au samedi, 10, rue Abbé Prajoux.</p>
+    <div class="hero-cta">
+      <a class="btn btn-red" href="http://www.resalibre.fr/c.php?snc=squash_loisirs" target="_blank" rel="noopener">Réserver un court →</a>
+      <a class="btn btn-ghost" href="#formule">Trouver ma formule</a>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div>
+  <span>Squash</span><b>●</b><span>Bar</span><b>●</b><span>Leçons 40 min</span><b>●</b><span>Location de raquettes</span><b>●</b><span>Heures creuses dès 7,5 €</span><b>●</b><span>Abonnements</span><b>●</b>
+  <span>Squash</span><b>●</b><span>Bar</span><b>●</b><span>Leçons 40 min</span><b>●</b><span>Location de raquettes</span><b>●</b><span>Heures creuses dès 7,5 €</span><b>●</b><span>Abonnements</span><b>●</b>
+</div></div>
+
+<main>
+<section id="club">
+  <div class="wrap club">
+    <div class="reveal">
+      <span class="eyebrow">Club</span>
+      <h2>Un court, puis un verre au bar.</h2>
+      <p>Au Joe Bar Squash, le bar donne directement sur les courts : on joue, on regarde la partie d'à côté, on se retrouve au comptoir. Le club accueille aussi bien ceux qui découvrent le squash que les habitués.</p>
+      <div class="feat">
+        <div><strong>40 minutes</strong><span>la durée d'un ticket, pour une personne</span></div>
+        <div><strong>Court vitré</strong><span>pour jouer… ou regarder jouer</span></div>
+        <div><strong>Leçon individuelle</strong><span>40 minutes, 25 €</span></div>
+        <div><strong>Raquette sur place</strong><span>location à 1 €</span></div>
+      </div>
+    </div>
+    <div class="club-imgs reveal">
+      <figure><img src="https://joebarsquash.fr/images/bar2.jpg" alt="Comptoir du bar et raquettes exposées" loading="lazy"></figure>
+      <figure><img src="https://joebarsquash.fr/images/court1.jpg" alt="Court de squash, parquet et lignes rouges" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="hours" id="horaires">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Horaires</span><h2>Heures pleines, heures creuses</h2></div>
+      <p>Passez sur la grille pour voir le prix d'un ticket à chaque heure. Les heures creuses coûtent 7,5 € au lieu de 9 €.</p>
+    </div>
+    <div class="live-card reveal">
+      <i class="dot" id="liveDot" style="width:16px;height:16px"></i>
+      <div><div class="big" id="liveBig">…</div><div class="sub" id="liveSub"></div></div>
+    </div>
+    <div class="grid-wrap reveal"><div class="ph-grid" id="phGrid" role="img" aria-label="Grille des heures pleines et creuses du lundi au samedi"></div></div>
+    <div class="legend"><span><i style="background:var(--peak)"></i>Heures pleines · 9 €</span><span><i style="background:var(--off)"></i>Heures creuses · 7,5 €</span><span><i style="background:#555"></i>Club fermé</span><span>Dimanche et jours fériés : fermé</span></div>
+  </div>
+</section>
+
+<section id="formule">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><span class="eyebrow">Quelle formule ?</span><h2>Tickets ou abonnement :<br>le calcul en 10 secondes</h2></div>
+      <p>Indiquez à quel rythme vous jouez et à quels horaires : le comparatif se fait à partir des tarifs du club.</p>
+    </div>
+    <div class="calc">
+      <div class="panel reveal">
+        <div class="field">
+          <label for="freq">Séances de 40 min par mois <output id="freqOut">6</output></label>
+          <input type="range" id="freq" min="1" max="26" value="6">
+          <p class="hint" id="freqHint">Environ une séance et demie par semaine.</p>
+        </div>
+        <div class="field">
+          <label>Vous jouez plutôt…</label>
+          <div class="seg" id="slot">
+            <button type="button" data-v="hc" aria-pressed="false">En heures creuses</button>
+            <button type="button" data-v="mix" aria-pressed="true">Un peu des deux</button>
+            <button type="button" data-v="hp" aria-pressed="false">En heures pleines</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Engagement</label>
+          <div class="seg" id="engage">
+            <button type="button" data-v="1" aria-pressed="false">1 mois</button>
+            <button type="button" data-v="3" aria-pressed="true">Quelques mois</button>
+            <button type="button" data-v="12" aria-pressed="false">Toute l'année</button>
+          </div>
+          <p class="hint">Un ticket correspond à 40 minutes de jeu pour une personne. L'abonnement permet de réserver un court par jour pour 40 minutes.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="results" id="results" aria-live="polite"></div>
+        <div class="saving"><span id="saveTxt">Par rapport au ticket à l'unité, vous économisez</span><b id="saveVal">0 €</b></div>
+        <p class="hint" style="margin-top:12px">Calcul indicatif par mois, sur la base des tarifs affichés par le club. La durée de validité des carnets est à confirmer auprès du club.</p>
+        <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-dark" href="http://www.resalibre.fr/c.php?snc=squash_loisirs" target="_blank" rel="noopener">Réserver mon premier créneau</a>
+          <a class="btn btn-red" href="tel:+33477678712">Appeler le club</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tarifs" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Tarifs</span><h2>Tous les tarifs</h2></div><p>Les mêmes tarifs que sur le site actuel, présentés pour être lus d'un coup d'œil, y compris sur téléphone.</p></div>
+    <div class="prices">
+      <div class="pcard reveal">
+        <h3>Formule à la Séance</h3><p class="note">1 ticket = 40 minutes de jeu pour 1 personne</p>
+        <table><thead><tr><th>Quantité</th><th>Pleines</th><th>Creuses</th></tr></thead>
+        <tbody><tr><td>1 ticket</td><td class="hp">9 €</td><td class="hc">7,5 €</td></tr><tr><td>10 tickets</td><td class="hp">80 €</td><td class="hc">60 €</td></tr><tr><td>20 tickets</td><td class="hp">140 €</td><td class="hc">110 €</td></tr><tr><td>30 tickets</td><td class="hp">195 €</td><td class="hc">155 €</td></tr></tbody></table>
+      </div>
+      <div class="pcard reveal">
+        <h3>Formule Abonnement</h3><p class="note">Un court par jour pour 40 minutes</p>
+        <table><thead><tr><th>Durée</th><th>Prix</th></tr></thead>
+        <tbody><tr><td>1 mois</td><td>70 €</td></tr><tr><td>3 mois</td><td>165 €</td></tr><tr><td>1 an</td><td>480 €</td></tr></tbody></table>
+      </div>
+      <div class="pcard reveal">
+        <h3>Autres</h3><p class="note">Pour progresser ou venir les mains vides</p>
+        <table><thead><tr><th>Item</th><th>Prix</th></tr></thead>
+        <tbody><tr><td>Leçon individuelle 40 minutes</td><td>25 €</td></tr><tr><td>Location de raquette</td><td>1 €</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="galerie" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><div><span class="eyebrow">Galerie</span><h2>Le club en images</h2></div><p>Photos du club, reprises du site actuel.</p></div>
+    <div class="gal reveal" id="gal">
+      <figure><img src="https://joebarsquash.fr/images/court2.jpg" alt="Court et bar en arrière-plan" loading="lazy"><figcaption>Vue depuis le court</figcaption></figure>
+      <figure><img src="https://joebarsquash.fr/images/raquette.jpg" alt="Raquette et balle" loading="lazy"><figcaption>Sur le parquet</figcaption></figure>
+      <figure><img src="https://joebarsquash.fr/images/bar.jpg" alt="Le bar" loading="lazy"><figcaption>Le bar</figcaption></figure>
+      <figure><img src="https://joebarsquash.fr/images/bar3.jpg" alt="Salle du bar et courts vitrés" loading="lazy"><figcaption>La salle</figcaption></figure>
+      <figure><img src="https://joebarsquash.fr/images/court3.jpg" alt="Court vitré" loading="lazy"><figcaption>Court vitré</figcaption></figure>
+      <figure><img src="https://joebarsquash.fr/images/dehors.jpg" alt="Façade du club, rue Abbé Prajoux" loading="lazy"><figcaption>Rue Abbé Prajoux</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="acces" style="padding-top:0">
+  <div class="wrap">
+    <div class="book reveal">
+      <div>
+        <span class="eyebrow">Réservation</span>
+        <h2>Votre court en trois clics</h2>
+        <p>La réservation reste sur le planning en ligne que le club utilise déjà : rien ne change pour les habitués, c'est simplement plus facile à trouver.</p>
+        <ol class="steps"><li>Choisir le jour et la durée</li><li>Choisir le créneau et le court</li><li>Valider, puis venir jouer</li></ol>
+      </div>
+      <div class="book-side">
+        <a class="btn btn-red" href="http://www.resalibre.fr/c.php?snc=squash_loisirs" target="_blank" rel="noopener">Ouvrir le planning →</a>
+        <a class="btn btn-ghost" href="tel:+33477678712">04 77 67 87 12</a>
+      </div>
+    </div>
+
+    <div class="contact" id="contact">
+      <div class="info reveal">
+        <span class="eyebrow">Accès</span>
+        <h3>Joe Bar Squash</h3>
+        <p>10 Rue Abbé Prajoux<br>42120 Le Coteau</p>
+        <p><a href="tel:+33477678712">04 77 67 87 12</a></p>
+        <p><a href="mailto:joe.bar.squash@wanadoo.fr">joe.bar.squash@wanadoo.fr</a></p>
+        <p style="color:var(--muted);font-size:.9rem;margin-top:16px">Lundi au vendredi 10h – 22h · Samedi 10h – 19h<br>Dimanche et jours fériés : fermé</p>
+        <p style="margin-top:16px"><a href="https://www.google.com/maps/dir/?api=1&destination=10+Rue+Abb%C3%A9+Prajoux+42120+Le+Coteau" target="_blank" rel="noopener">Itinéraire →</a></p>
+      </div>
+      <iframe class="reveal" title="Plan d'accès au Joe Bar Squash" loading="lazy" src="https://www.google.com/maps?q=10+Rue+Abb%C3%A9+Prajoux,+42120+Le+Coteau&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top">JOE BAR <span>SQUASH</span> CLUB</a>
+    <div>10 Rue Abbé Prajoux, 42120 Le Coteau · <a href="tel:+33477678712" style="color:#fff">04 77 67 87 12</a> · <a href="mailto:joe.bar.squash@wanadoo.fr" style="color:#fff">joe.bar.squash@wanadoo.fr</a></div>
+    <div class="soc"><a href="https://www.facebook.com/JOE-BAR-Squash-Roanne-766772960033609" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/channel/UC5VzlwmfPEKiCrVPBofNpKg" target="_blank" rel="noopener">YouTube</a></div>
+    <p class="disclaimer">Maquette de démonstration, non contractuelle. Tarifs, horaires et répartition heures pleines / creuses repris du site actuel joebarsquash.fr, à confirmer par le club ; le comparateur donne un ordre de grandeur indicatif. Toutes les photos sont celles du site actuel du club. Couleurs et police reprises du site actuel (police Acme, barre noire, rouge des lignes de court), ajustables. Réservation : lien vers le planning en ligne déjà utilisé par le club.</p>
+  </div>
+</footer>
+
+<div class="mobile-cta"><a class="btn btn-red" href="http://www.resalibre.fr/c.php?snc=squash_loisirs" target="_blank" rel="noopener">Réserver</a><a class="btn btn-dark" href="tel:+33477678712">Appeler</a></div>
+<div class="tip" id="tip"></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button type="button" aria-label="Fermer">✕</button><img alt=""></div>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Navigation
+  const nav=document.getElementById('nav'), menu=document.getElementById('menu'), burger=document.getElementById('burger');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // Titre mot à mot
+  const sp=document.getElementById('split');
+  if(!reduce){sp.innerHTML=sp.textContent.split(' ').map((w,i)=>`<span style="animation-delay:${.15+i*.09}s">${w}</span>`).join(' ')}
+  else sp.querySelectorAll('span').forEach(s=>s.style.opacity=1);
+
+  // Diaporama hero
+  const imgs=[...document.querySelectorAll('#slides img')];let k=0;
+  if(!reduce) setInterval(()=>{imgs[k].classList.remove('on');k=(k+1)%imgs.length;imgs[k].classList.add('on')},5200);
+
+  // Apparitions au défilement
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*0.08+'s';io.observe(el)});
+
+  // Heures pleines / creuses (reprises du tableau du site actuel)
+  // type par heure de 10h à 21h : p = pleine, o = creuse, c = fermé
+  const LV=['o','o','p','p','o','o','o','p','p','p','p','p']; // lun-ven
+  const SA=['o','o','o','o','p','p','p','p','p','c','c','c']; // samedi
+  const days=[['Lundi',LV],['Mardi',LV],['Mercredi',LV],['Jeudi',LV],['Vendredi',LV],['Samedi',SA]];
+  const g=document.getElementById('phGrid');
+  g.innerHTML='<div></div>'+Array.from({length:12},(_,i)=>`<div class="h">${10+i}h</div>`).join('');
+  const now=new Date(), dow=(now.getDay()+6)%7, hr=now.getHours();
+  days.forEach(([n,arr],di)=>{
+    g.insertAdjacentHTML('beforeend',`<div class="d">${n}</div>`);
+    arr.forEach((t,hi)=>{
+      const lab=t==='p'?'Heures pleines · 9 € le ticket':t==='o'?'Heures creuses · 7,5 € le ticket':'Club fermé';
+      const isNow=(di===dow&&hr===10+hi)?' now':'';
+      g.insertAdjacentHTML('beforeend',`<div class="cell ${t}${isNow}" data-tip="${n} ${10+hi}h–${11+hi}h · ${lab}"></div>`);
+    });
+  });
+  const tip=document.getElementById('tip');
+  g.addEventListener('mousemove',e=>{const c=e.target.closest('.cell');if(!c){tip.style.opacity=0;return}tip.textContent=c.dataset.tip;tip.style.opacity=1;tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY+14)+'px'});
+  g.addEventListener('mouseleave',()=>tip.style.opacity=0);
+
+  // Statut en direct
+  function status(){
+    const d=new Date(), w=(d.getDay()+6)%7, h=d.getHours(), m=d.getMinutes();
+    const arr=w<5?LV:(w===5?SA:null);
+    let open=false,type='c';
+    if(arr&&h>=10&&h<22){type=arr[h-10];open=type!=='c'}
+    let big,sub,color;
+    if(open){
+      let end=h; while(end<22&&arr[end-10]===type) end++;
+      big=type==='o'?'Ouvert · heures creuses':'Ouvert · heures pleines';
+      sub=(type==='o'?'Ticket à 7,5 €':'Ticket à 9 €')+' jusqu\'à '+end+'h';
+      color=type==='o'?'var(--off)':'var(--peak)';
+    }else{
+      // prochaine ouverture
+      let nd=w, label='';
+      if(arr && h<10){label='aujourd\'hui à 10h'}
+      else{ nd=(w+1)%7; while(nd===6) nd=0; label=(nd===(w+1)%7?'demain':['lundi','mardi','mercredi','jeudi','vendredi','samedi'][nd])+' à 10h'}
+      big='Fermé en ce moment'; sub='Réouverture '+label+' · réservez dès maintenant en ligne'; color='var(--closed)';
+    }
+    ['liveDot','navDot'].forEach(id=>{const el=document.getElementById(id);el.style.background=color;el.classList.toggle('live',open&&!reduce)});
+    document.getElementById('liveBig').textContent=big;document.getElementById('liveSub').textContent=sub;
+    document.getElementById('navStatus').textContent=open?(type==='o'?'Ouvert · creuses':'Ouvert · pleines'):'Fermé';
+  }
+  status(); setInterval(status,60000);
+
+  // Comparateur (tarifs du site actuel)
+  const T={hp:{1:9,10:80,20:140,30:195},hc:{1:7.5,10:60,20:110,30:155}};
+  const SUB={1:70,3:165/3,12:480/12};
+  const st={freq:6,slot:'mix',engage:3};
+  const fmt=v=>(Math.round(v*100)/100).toLocaleString('fr-FR',{minimumFractionDigits:v%1?2:0,maximumFractionDigits:2})+' €';
+  function perTicket(pack){ if(st.slot==='mix') return (T.hp[pack]/pack+T.hc[pack]/pack)/2; return T[st.slot][pack]/pack }
+  function calc(){
+    const n=st.freq;
+    const opts=[
+      {n:'Ticket à l\'unité',d:'Payé à chaque séance',v:perTicket(1)*n},
+      {n:'Carnet de 10 tickets',d:fmt(perTicket(10))+' la séance',v:perTicket(10)*n},
+      {n:'Carnet de 20 tickets',d:fmt(perTicket(20))+' la séance',v:perTicket(20)*n},
+      {n:'Carnet de 30 tickets',d:fmt(perTicket(30))+' la séance',v:perTicket(30)*n},
+      {n:st.engage===1?'Abonnement 1 mois':st.engage===3?'Abonnement 3 mois':'Abonnement 1 an',d:'Un court par jour, 40 min · '+fmt(SUB[st.engage]*(st.engage))+' au total',v:SUB[st.engage]}
+    ];
+    const best=opts.reduce((a,b)=>b.v<a.v?b:a);
+    document.getElementById('results').innerHTML=opts.map(o=>`<div class="opt${o===best?' best':''}"><span class="n">${o.n}</span><span class="d">${o.d}</span><span class="v">${fmt(o.v)}<small>par mois</small></span></div>`).join('');
+    const save=opts[0].v-best.v;
+    document.getElementById('saveVal').textContent=fmt(Math.max(0,save))+' / mois';
+    document.getElementById('saveTxt').textContent=best===opts[0]?'À ce rythme, le ticket à l\'unité suffit':'Avec « '+best.n+' », vous économisez par rapport au ticket à l\'unité';
+    const perWeek=n/4.33;
+    document.getElementById('freqHint').textContent=perWeek<1?'Moins d\'une séance par semaine.':perWeek<1.6?'Environ une séance par semaine.':perWeek<2.6?'Environ deux séances par semaine.':'Plus de '+Math.floor(perWeek)+' séances par semaine.';
+  }
+  const fr=document.getElementById('freq');
+  fr.addEventListener('input',()=>{st.freq=+fr.value;document.getElementById('freqOut').textContent=fr.value;calc()});
+  [['slot','slot',v=>v],['engage','engage',v=>+v]].forEach(([id,key,cv])=>{
+    document.getElementById(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+      b.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));st[key]=cv(b.dataset.v);calc()});
+  });
+  calc();
+
+  // Galerie plein écran
+  const lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+  document.getElementById('gal').addEventListener('click',e=>{const i=e.target.closest('img');if(!i)return;lbi.src=i.src;lbi.alt=i.alt;lb.classList.add('on')});
+  lb.addEventListener('click',e=>{if(e.target!==lbi)lb.classList.remove('on')});
+  addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('on')});
+})();
+</script>
+</body>
+</html>
