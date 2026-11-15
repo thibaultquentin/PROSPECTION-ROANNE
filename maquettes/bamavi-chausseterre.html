@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BAMAVI — Bar-pub-restaurant open air à Chausseterre | Flammekueches au feu de bois</title>
+<meta name="description" content="Bar-pub-restaurant open air au cœur des Bois Noirs, à Chausseterre : flammekueches et pizzas au feu de bois, frites au gras de bœuf, menu du jour, concerts et foodtruck traiteur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;600;700&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE BAMAVI — reprise des affiches et du site bamavi.fr
+   Fond noir des affiches, lettrage blanc, flamme orange/rouge,
+   néons cyan/magenta du « B ». Ajustable ici en quelques lignes.
+   ========================================================= */
+:root{
+  --noir:#010101;          /* fond du site et des affiches */
+  --noir-2:#0d0d0d;
+  --noir-3:#1a1a1a;
+  --blanc:#ffffff;
+  --gris:#a4a4a4;          /* contrast-3 du thème actuel */
+  --flamme:#f26a21;        /* flamme des affiches */
+  --braise:#e3361c;        /* rouge de la flamme du logo */
+  --cyan:#19e6f0;          /* néon cyan du « B » */
+  --magenta:#f01ae6;       /* néon magenta du « B » */
+  --soleil:#ffd21e;        /* jaune de l'affiche Saison #3 */
+  --f-titre:'Bebas Neue', 'Inter', sans-serif;      /* lettrage condensé des affiches */
+  --f-marque:'Josefin Sans', 'Inter', sans-serif;   /* wordmark géométrique BAMAVI */
+  --f-script:'Satisfy', cursive;                    /* « Notre carte » */
+  --f-texte:'Inter', system-ui, sans-serif;         /* police du site actuel */
+  --r:14px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--noir);color:var(--blanc);font-family:var(--f-texte);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:linear-gradient(90deg,var(--magenta),var(--cyan));color:#000;font-size:.78rem;text-align:center;padding:6px 12px;font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(1,1,1,.86);backdrop-filter:blur(10px);border-bottom:1px solid #1d1d1d}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:42px;height:42px}
+.brand b{font-family:var(--f-marque);font-weight:700;font-size:1.6rem;letter-spacing:.12em}
+.brand small{display:block;font-size:.58rem;letter-spacing:.2em;color:var(--gris);font-weight:500;margin-top:-4px}
+.menu{display:flex;gap:22px;list-style:none;font-size:.9rem}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:linear-gradient(90deg,var(--cyan),var(--magenta));transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:600 .95rem var(--f-texte);padding:12px 20px;border-radius:999px;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-feu{background:var(--flamme);color:#fff;box-shadow:0 0 0 0 rgba(242,106,33,.5)}
+.btn-feu:hover{box-shadow:0 8px 30px -6px rgba(242,106,33,.8)}
+.btn-ligne{background:transparent;color:#fff;border:1.5px solid #fff}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+
+/* hero */
+.hero{position:relative;min-height:92vh;display:grid;align-items:end;overflow:hidden;isolation:isolate}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-3;transform:scale(1.08);animation:respire 18s ease-in-out infinite alternate}
+@keyframes respire{to{transform:scale(1.18) translateY(-2%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(1,1,1,.25) 0%,rgba(1,1,1,.55) 45%,var(--noir) 100%)}
+#braises{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-in{padding:0 0 72px}
+.tag{display:inline-block;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--soleil);margin-bottom:14px}
+.hero h1{font-family:var(--f-marque);font-weight:700;font-size:clamp(3.6rem,13vw,10rem);line-height:.9;letter-spacing:.06em}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(40px);animation:monte .9s var(--ease) forwards}
+@keyframes monte{to{opacity:1;transform:none}}
+.hero .sous{font-family:var(--f-titre);font-size:clamp(1.4rem,3.4vw,2.4rem);letter-spacing:.06em;margin-top:6px}
+.hero p.lead{max-width:640px;color:#e9e9e9;margin:14px 0 26px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.statut{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:.88rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:8px 14px;border-radius:999px}
+.statut i{width:10px;height:10px;border-radius:50%;background:var(--gris)}
+.statut.ouvert i{background:#2bdc6b;box-shadow:0 0 12px #2bdc6b}
+.statut.ferme i{background:var(--braise)}
+
+/* défilant */
+.defile{border-block:1px solid #222;overflow:hidden;background:var(--noir-2)}
+.defile-in{display:flex;gap:48px;white-space:nowrap;padding:14px 0;animation:defile 32s linear infinite;font-family:var(--f-titre);font-size:1.5rem;letter-spacing:.08em}
+.defile-in span:nth-child(3n+1){color:var(--flamme)}
+.defile-in span:nth-child(3n+2){color:var(--cyan)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+section{padding:96px 0}
+.kicker{font-family:var(--f-script);color:var(--flamme);font-size:2rem;line-height:1}
+h2{font-family:var(--f-titre);font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:.04em;line-height:1;margin:6px 0 18px}
+.intro{max-width:720px;color:#d9d9d9}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* le lieu */
+.lieu{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.lieu figure{position:relative;border-radius:var(--r);overflow:hidden}
+.lieu figure::after{content:"";position:absolute;inset:0;border-radius:var(--r);box-shadow:inset 0 0 0 2px rgba(25,230,240,.35),0 0 0 2px rgba(240,26,230,.25)}
+.lieu figure img{transition:transform 1.2s var(--ease)}
+.lieu figure:hover img{transform:scale(1.04)}
+.puces{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.puces span{border:1px solid #333;padding:6px 12px;border-radius:999px;font-size:.84rem}
+.equipe{font-family:var(--f-script);font-size:1.6rem;color:var(--soleil);margin-top:10px}
+
+/* spécialités */
+.spe{background:var(--noir-2)}
+.grille-spe{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px}
+.carte-spe{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;background:#111}
+.carte-spe img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.carte-spe:hover img{transform:scale(1.07)}
+.carte-spe div{position:absolute;inset:auto 0 0 0;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.9))}
+.carte-spe h3{font-family:var(--f-titre);font-size:1.7rem;letter-spacing:.04em;line-height:1}
+.carte-spe p{font-size:.85rem;color:#ddd}
+.confrerie{display:flex;align-items:center;gap:18px;margin-top:36px;padding:20px 24px;border:1px dashed rgba(242,106,33,.6);border-radius:var(--r)}
+.confrerie b{font-family:var(--f-titre);font-size:1.5rem;letter-spacing:.04em;color:var(--flamme)}
+
+/* carte interactive */
+.outil{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;margin-top:34px;align-items:start}
+.onglets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.onglets button,.filtre{background:var(--noir-3);color:#fff;border:1px solid #2c2c2c;border-radius:999px;padding:9px 16px;font:600 .88rem var(--f-texte);cursor:pointer;transition:.2s}
+.onglets button[aria-selected="true"]{background:#fff;color:#000}
+.filtre[aria-pressed="true"]{border-color:var(--cyan);color:var(--cyan)}
+.plats{display:grid;gap:10px}
+.plat{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:14px;padding:14px 16px;background:var(--noir-2);border:1px solid #1f1f1f;border-radius:12px;transition:border-color .25s,transform .25s var(--ease)}
+.plat:hover{border-color:#3a3a3a;transform:translateX(4px)}
+.plat h4{font-family:var(--f-titre);font-size:1.45rem;letter-spacing:.04em;line-height:1}
+.plat p{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--gris)}
+.plat .prix{font-family:var(--f-titre);font-size:1.5rem;color:var(--soleil)}
+.qte{display:flex;align-items:center;gap:6px}
+.qte button{width:34px;height:34px;border-radius:50%;border:1px solid #444;background:none;color:#fff;font-size:1.1rem;cursor:pointer}
+.qte button:hover{border-color:var(--flamme);color:var(--flamme)}
+.qte output{min-width:18px;text-align:center;font-weight:700}
+.veg{font-size:.65rem;color:#2bdc6b;border:1px solid #2bdc6b;border-radius:4px;padding:0 4px;margin-left:6px;vertical-align:middle}
+.moment{margin-top:14px;padding:14px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(242,106,33,.15),rgba(240,26,230,.08));font-size:.9rem}
+.tablee{position:sticky;top:90px;background:var(--noir-2);border:1px solid #262626;border-radius:var(--r);padding:22px}
+.tablee h3{font-family:var(--f-titre);font-size:2rem;letter-spacing:.04em}
+.liste{list-style:none;margin:10px 0;font-size:.9rem;max-height:180px;overflow:auto}
+.liste li{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dotted #333}
+.liste .vide{color:var(--gris);border:0}
+.total{display:flex;justify-content:space-between;font-family:var(--f-titre);font-size:1.7rem;margin:8px 0 14px}
+.total b{color:var(--soleil)}
+label{display:block;font-size:.8rem;color:var(--gris);margin:10px 0 4px}
+input,select,textarea{width:100%;background:#000;border:1px solid #333;color:#fff;border-radius:10px;padding:11px 12px;font:inherit;font-size:.95rem}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);outline:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode{display:flex;gap:8px;margin-top:6px}
+.mode label{flex:1;margin:0;cursor:pointer}
+.mode input{position:absolute;opacity:0;width:1px}
+.mode span{display:block;text-align:center;padding:10px;border:1px solid #333;border-radius:10px;color:#fff;font-size:.88rem}
+.mode input:checked+span{border-color:var(--flamme);background:rgba(242,106,33,.15)}
+.alerte{font-size:.82rem;color:var(--soleil);min-height:1.2em;margin-top:8px}
+.tablee .btn{width:100%;justify-content:center;margin-top:12px}
+.mini{font-size:.75rem;color:var(--gris);margin-top:10px}
+
+/* bières */
+.bieres{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+.quatre{font-family:var(--f-titre);font-size:clamp(9rem,22vw,16rem);line-height:.8;color:var(--soleil);text-shadow:0 0 40px rgba(255,210,30,.35)}
+.styles{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.styles span{font-family:var(--f-titre);font-size:1.4rem;letter-spacing:.06em;padding:6px 16px;border-radius:8px;background:var(--noir-3);border:1px solid #2a2a2a;transition:.3s}
+.styles span:hover{border-color:var(--magenta);color:var(--magenta);transform:rotate(-2deg)}
+
+/* bamatruck */
+.truck{background:var(--noir-2)}
+.truck-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:30px}
+.truck-grid img{border-radius:var(--r)}
+.etapes{counter-reset:e;display:grid;gap:12px}
+.etape{display:none}
+.etape.active{display:block;animation:fondu .4s var(--ease)}
+@keyframes fondu{from{opacity:0;transform:translateY(10px)}}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.choix button{background:#000;border:1px solid #333;color:#fff;border-radius:12px;padding:16px 12px;text-align:left;cursor:pointer;font:inherit;transition:.2s}
+.choix button:hover,.choix button.sel{border-color:var(--cyan);background:rgba(25,230,240,.08)}
+.choix b{display:block;font-family:var(--f-titre);font-size:1.3rem;letter-spacing:.04em}
+.choix small{color:var(--gris);font-size:.78rem}
+.prog{height:4px;background:#222;border-radius:4px;margin-bottom:18px;overflow:hidden}
+.prog i{display:block;height:100%;width:33%;background:linear-gradient(90deg,var(--cyan),var(--magenta));transition:width .4s var(--ease)}
+.nav-et{display:flex;justify-content:space-between;margin-top:16px;gap:10px}
+.recap{background:#000;border:1px solid #333;border-radius:12px;padding:14px;font-size:.88rem;white-space:pre-line}
+
+/* événements */
+.events{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.ev{padding:26px;border-radius:var(--r);background:var(--noir-2);border:1px solid #1f1f1f;position:relative;overflow:hidden}
+.ev::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--cyan),transparent 40%,transparent 60%,var(--magenta));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .4s}
+.ev:hover::before{opacity:1}
+.ev h3{font-family:var(--f-titre);font-size:1.8rem;letter-spacing:.04em}
+.ev p{color:#cfcfcf;font-size:.92rem}
+.ev .ico{font-size:1.8rem;margin-bottom:8px}
+
+/* infos */
+.infos{display:grid;grid-template-columns:1fr 1.2fr;gap:36px}
+.horaires{list-style:none;margin-top:10px}
+.horaires li{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #1f1f1f}
+.horaires li.auj{color:var(--soleil);font-weight:700}
+.coord a{text-decoration:none}
+.coord p{margin:6px 0}
+.carte-map{border-radius:var(--r);overflow:hidden;border:1px solid #222;min-height:340px}
+.carte-map iframe{width:100%;height:100%;min-height:340px;border:0;filter:grayscale(.8) invert(.92) hue-rotate(180deg)}
+.respect{font-family:var(--f-titre);font-size:2.2rem;letter-spacing:.18em;line-height:1.1;margin-top:26px;color:#ddd}
+.parking{display:flex;gap:10px;margin-top:14px;font-size:.88rem;flex-wrap:wrap}
+.parking span{background:#fff;color:#000;border-radius:6px;padding:4px 10px;font-weight:600}
+
+footer{border-top:1px solid #1d1d1d;padding:40px 0 90px;font-size:.82rem;color:var(--gris)}
+footer .wrap{display:grid;gap:10px}
+footer strong{color:#fff}
+
+/* barre mobile */
+.barre{display:none;position:fixed;bottom:0;left:0;right:0;z-index:60;background:rgba(1,1,1,.95);border-top:1px solid #222;padding:10px 16px;gap:10px}
+.barre a{flex:1;justify-content:center}
+
+@media (max-width:960px){
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--noir);padding:16px;border-bottom:1px solid #222}
+  .menu.ouvert{display:flex}
+  .burger{display:block}
+  .nav .btn-feu{display:none}
+  .lieu,.outil,.truck-grid,.infos,.bieres{grid-template-columns:1fr}
+  .grille-spe{grid-template-columns:repeat(2,1fr)}
+  .events{grid-template-columns:1fr}
+  .tablee{position:static}
+  .barre{display:flex}
+}
+@media (max-width:520px){
+  section{padding:70px 0}
+  .plat{grid-template-columns:1fr auto;}
+  .plat .qte{grid-column:1/-1;justify-content:flex-end}
+  .choix{grid-template-columns:1fr}
+  .duo{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":["BarOrPub","Restaurant"],
+ "name":"BAMAVI",
+ "description":"Bar-pub-restaurant open air, flammekueches au feu de bois, événements et foodtruck traiteur (Bamatruck).",
+ "url":"https://bamavi.fr",
+ "telephone":"+33771008438",
+ "email":"contact@bamavi.fr",
+ "servesCuisine":["Flammekueche","Pizza","Cuisine maison"],
+ "address":{"@type":"PostalAddress","streetAddress":"525 route des Salles, Moussé","postalCode":"42430","addressLocality":"Chausseterre","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":45.892549,"longitude":3.790938},
+ "areaServed":["Chausseterre","Bois Noirs","Monts de la Madeleine","Pays d'Urfé","Roannais"],
+ "acceptsReservations":true,
+ "legalName":"SARL BAMAVI"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site bamavi.fr, non officielle</div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="BAMAVI, accueil">
+      <img src="https://bamavi.fr/wp-content/uploads/2025/04/B.png" alt="">
+      <span><b>BAMAVI</b><small>FAMILIAL &amp; INDÉPENDANT</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#lieu">Le lieu</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#bieres">Bières</a></li>
+      <li><a href="#bamatruck">Bamatruck</a></li>
+      <li><a href="#evenements">Événements</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-feu" href="#carte">Réserver une table</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <img src="https://bamavi.fr/wp-content/uploads/2025/04/Photo-flammekueche-BAMAVI-pitch-Chausseterroire-1024x581.jpg" alt="Flammekueche BAMAVI cuite au feu de bois">
+  <canvas id="braises" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <span class="tag">Bar · Pub · Restaurant · Events · Foodtruck</span>
+    <h1 aria-label="BAMAVI"><span>B</span><span style="animation-delay:.06s">A</span><span style="animation-delay:.12s">M</span><span style="animation-delay:.18s">A</span><span style="animation-delay:.24s">V</span><span style="animation-delay:.3s">I</span></h1>
+    <div class="sous">Le lieu hybride &amp; atypique des Bois Noirs</div>
+    <p class="lead">Un café bar / pub en open air, un restaurant et des événements, concerts, spectacles. Flammekueches au feu de bois, frites au gras de bœuf, menu du jour sur place et à emporter.</p>
+    <div class="ctas">
+      <a class="btn btn-feu" href="#carte">Voir la carte &amp; réserver</a>
+      <a class="btn btn-ligne" href="tel:+33771008438">07 71 00 84 38</a>
+    </div>
+    <div class="statut" id="statut" role="status"><i></i><span>Horaires de saison</span></div>
+  </div>
+</section>
+
+<div class="defile" aria-hidden="true">
+  <div class="defile-in">
+    <span>Flammekueches au feu de bois</span><span>Frites au gras de bœuf</span><span>4 bières à la pression</span><span>Menu du jour</span><span>Open air</span><span>Respect · Bienveillance</span>
+    <span>Flammekueches au feu de bois</span><span>Frites au gras de bœuf</span><span>4 bières à la pression</span><span>Menu du jour</span><span>Open air</span><span>Respect · Bienveillance</span>
+  </div>
+</div>
+
+<section id="lieu">
+  <div class="wrap lieu">
+    <div class="reveal">
+      <div class="kicker">Bienvenue chez BAMAVI !</div>
+      <h2>Le bar restau open air</h2>
+      <p class="intro">Un lieu atypique et convivial au cœur des Massifs des Bois Noirs, des Monts de la Madeleine et du Pays d'Urfé. Venez passer un agréable moment pour vous détendre entre amis, collègues, en famille ou simplement au hasard d'une balade, ou d'une randonnée qu'offrent les sentiers et pistes à proximité.</p>
+      <div class="puces"><span>Cuisine 100 % fait maison</span><span>Cuisson au feu de bois</span><span>Privatisation</span><span>Parking voitures, motos, vélos</span></div>
+      <p class="intro">Notre lieu peut être privatisé afin de célébrer votre évènement.</p>
+      <div class="equipe">Bastien, Maud et Viktor</div>
+    </div>
+    <figure class="reveal"><img src="https://bamavi.fr/wp-content/uploads/2025/04/BAMAVI.BAR_.RESTAU.OPEN_.AIR_.png" alt="Le bar restau open air BAMAVI : terrasse, comptoir en bois, halle et feux de camp" loading="lazy"></figure>
+  </div>
+</section>
+
+<section class="spe">
+  <div class="wrap">
+    <div class="kicker reveal">Fait maison</div>
+    <h2 class="reveal">Nos spécialités</h2>
+    <p class="intro reveal">Une cuisine authentique avec des produits et ingrédients frais, une cuisson majoritairement au feu de bois, avec des recettes aussi bien sucrées que salées.</p>
+    <div class="grille-spe">
+      <article class="carte-spe reveal"><img src="https://bamavi.fr/wp-content/uploads/2025/04/IMG_7212-1024x683.jpg" alt="Flammekueche au feu de bois" loading="lazy"><div><h3>Flam's au feu de bois</h3><p>Pâte et base crème maison</p></div></article>
+      <article class="carte-spe reveal"><img src="https://bamavi.fr/wp-content/uploads/2025/04/FRITES.BAMAVI-1024x683.jpg" alt="Frites BAMAVI" loading="lazy"><div><h3>Frites au gras de bœuf</h3><p>Cuites au pot de suif</p></div></article>
+      <article class="carte-spe reveal"><img src="https://bamavi.fr/wp-content/uploads/2025/04/BAMAVI.MENU-DU-JOUR.Carbonade-Flamande.SERVICE-TRAITEUR-768x1024.png" alt="Carbonade flamande et frites" loading="lazy"><div><h3>Menu du jour</h3><p>Ex. : carbonade flamande — sur place et à emporter</p></div></article>
+      <article class="carte-spe reveal"><img src="https://bamavi.fr/wp-content/uploads/2025/04/BAMAVI.SPAETZELE-1024x683.jpg" alt="Spaetzele" loading="lazy"><div><h3>Recettes de chez nous</h3><p>Spaetzele, flamiche, tarte au chuque…</p></div></article>
+    </div>
+    <div class="confrerie reveal">
+      <span style="font-size:2rem" aria-hidden="true">🔥</span>
+      <div><b>Membre de la confrérie du véritable Flammekueche d'Alsace</b><br><span style="color:#ccc;font-size:.9rem">Flammekueches au feu de bois, dans les règles.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="carte">
+  <div class="wrap">
+    <div class="kicker reveal">Notre carte</div>
+    <h2 class="reveal">Composez votre tablée</h2>
+    <p class="intro reveal">Choisissez vos flam's et vos pizzas, le total se calcule tout seul. Votre demande de réservation — ou de commande à emporter — part ensuite directement par mail, avec votre sélection.</p>
+
+    <div class="outil">
+      <div class="reveal">
+        <div class="onglets" role="tablist">
+          <button role="tab" aria-selected="true" data-cat="flam">Nos flam's</button>
+          <button role="tab" aria-selected="false" data-cat="pizza">Nos pizzas</button>
+          <button class="filtre" aria-pressed="false" id="fveg">Sans viande</button>
+        </div>
+        <div class="plats" id="plats" aria-live="polite"></div>
+        <div class="moment"><strong>Création du moment :</strong> la <b>Bamaflam</b> et la <b>Bamapiz</b> changent régulièrement — à découvrir sur place. Pâte, coulis de tomate et base crème maison. Ingrédients frais, cuisson au feu de bois… Bon appétit !</div>
+      </div>
+
+      <aside class="tablee reveal" aria-labelledby="t-tablee">
+        <h3 id="t-tablee">Ma tablée</h3>
+        <ul class="liste" id="liste"><li class="vide">Aucun plat pour l'instant.</li></ul>
+        <div class="total"><span>Total</span><b id="total">0 €</b></div>
+        <div class="mode" role="radiogroup" aria-label="Formule">
+          <label><input type="radio" name="mode" value="sur place" checked><span>Sur place</span></label>
+          <label><input type="radio" name="mode" value="à emporter"><span>À emporter</span></label>
+        </div>
+        <div class="duo">
+          <div><label for="date">Date</label><input type="date" id="date"></div>
+          <div><label for="heure">Heure</label><input type="time" id="heure" value="19:30"></div>
+        </div>
+        <div class="duo">
+          <div><label for="couverts">Personnes</label><input type="number" id="couverts" min="1" max="80" value="2"></div>
+          <div><label for="nom">Nom</label><input type="text" id="nom" autocomplete="name"></div>
+        </div>
+        <div class="alerte" id="alerte"></div>
+        <button class="btn btn-feu" id="envoyer">Envoyer ma demande</button>
+        <a class="btn btn-ligne" href="tel:+33771008438">Ou appeler le 07 71 00 84 38</a>
+        <p class="mini">Prix repris de la carte affichée par BAMAVI, indicatifs. La réservation est confirmée par l'équipe.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="bieres" class="spe">
+  <div class="wrap bieres">
+    <div class="quatre reveal" aria-hidden="true">4</div>
+    <div class="reveal">
+      <div class="kicker">Pas 1, pas 2, pas 3…</div>
+      <h2>Mais bien 4 bières à la pression</h2>
+      <p class="intro">Bar en non-stop, craft beer et pressions qui tournent.</p>
+      <div class="styles"><span>Triple</span><span>IPA</span><span>White</span><span>NEIPA</span><span>Sour</span><span>DDH…</span></div>
+      <p class="mini" style="margin-top:18px">L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bamatruck" class="truck">
+  <div class="wrap">
+    <div class="kicker reveal">Foodtruck by BAMAVI</div>
+    <h2 class="reveal">Bamatruck &amp; privatisation</h2>
+    <p class="intro reveal">Service traiteur street food sur tous vos événements, ou le BAMAVI rien que pour vous. Préparez votre demande en trois étapes : elle arrive à l'équipe déjà complète.</p>
+    <div class="truck-grid">
+      <img class="reveal" src="https://bamavi.fr/wp-content/uploads/2025/04/BAMAVI.BAMATRUCK.TRAITEUR.png" alt="Le Bamatruck, foodtruck traiteur by BAMAVI, en prestation" loading="lazy">
+      <div class="reveal" id="assistant">
+        <div class="prog"><i id="prog"></i></div>
+        <div class="etape active" data-e="1">
+          <h3 style="font-family:var(--f-titre);font-size:1.8rem">1. Quelle formule ?</h3>
+          <div class="choix" data-champ="formule">
+            <button type="button" data-v="Bamatruck chez moi"><b>Bamatruck</b><small>Le foodtruck vient à votre événement</small></button>
+            <button type="button" data-v="Privatisation du BAMAVI"><b>Privatisation</b><small>Le lieu open air pour vous</small></button>
+          </div>
+        </div>
+        <div class="etape" data-e="2">
+          <h3 style="font-family:var(--f-titre);font-size:1.8rem">2. Pour quelle occasion ?</h3>
+          <div class="choix" data-champ="occasion">
+            <button type="button" data-v="Mariage"><b>Mariage</b></button>
+            <button type="button" data-v="Anniversaire / fête de famille"><b>Anniversaire</b></button>
+            <button type="button" data-v="Entreprise / CSE"><b>Entreprise</b></button>
+            <button type="button" data-v="Association / fête de village"><b>Association</b></button>
+          </div>
+        </div>
+        <div class="etape" data-e="3">
+          <h3 style="font-family:var(--f-titre);font-size:1.8rem">3. Les détails</h3>
+          <div class="duo">
+            <div><label for="ev-date">Date</label><input type="date" id="ev-date"></div>
+            <div><label for="ev-nb">Invités (environ)</label><input type="number" id="ev-nb" min="5" value="50"></div>
+          </div>
+          <label for="ev-lieu">Lieu (si Bamatruck)</label><input type="text" id="ev-lieu" placeholder="Commune">
+          <label for="ev-msg">Votre message</label><textarea id="ev-msg" rows="3" placeholder="Flam's, pizzas, frites, menu… dites-nous tout"></textarea>
+          <div class="recap" id="recap" style="margin-top:12px"></div>
+          <button class="btn btn-feu" id="ev-envoyer" style="margin-top:12px">Envoyer la demande à BAMAVI</button>
+        </div>
+        <div class="nav-et"><button class="btn btn-ligne" id="prec" type="button">← Retour</button><span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="evenements">
+  <div class="wrap">
+    <div class="kicker reveal">Tout au long de l'année</div>
+    <h2 class="reveal">Événements</h2>
+    <p class="intro reveal">Découvrez les évènements que nous proposons tout au long de l'année.</p>
+    <div class="events">
+      <article class="ev reveal"><div class="ico" aria-hidden="true">🎸</div><h3>Concerts</h3><p>De la musique live sous la halle, en plein air, au milieu des Bois Noirs.</p></article>
+      <article class="ev reveal"><div class="ico" aria-hidden="true">🎭</div><h3>Spectacles</h3><p>Des soirées à part, à suivre sur la page Facebook « BAMAVI Bar Restau » et sur Instagram.</p></article>
+      <article class="ev reveal"><div class="ico" aria-hidden="true">🏍️</div><h3>Balades &amp; pauses</h3><p>Randonneurs, vététistes, motards : parking réservé à la clientèle pour voitures, motos et vélos.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="infos" class="spe">
+  <div class="wrap infos">
+    <div class="reveal">
+      <div class="kicker">Venir nous voir</div>
+      <h2>Infos pratiques</h2>
+      <ul class="horaires" id="horaires"></ul>
+      <p class="mini">Horaires de la « Saison #3 » (affiche BAMAVI, à partir du 2 mai) : ouvert tous les jours sauf le mercredi et/ou privatisation. Réservation conseillée pour la restauration.</p>
+      <div class="coord" style="margin-top:18px">
+        <p>📍 525 route des Salles, Moussé — 42430 Chausseterre</p>
+        <p>📞 <a href="tel:+33771008438">07 71 00 84 38</a></p>
+        <p>✉️ <a href="mailto:contact@bamavi.fr">contact@bamavi.fr</a></p>
+      </div>
+      <div class="parking"><span>P 🚗</span><span>P 🏍️</span><span>P 🚲</span></div>
+      <div class="respect">RESPECT<br>BIENVEILLANCE</div>
+    </div>
+    <div class="carte-map reveal">
+      <iframe title="Plan d'accès BAMAVI" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.7709%2C45.8845%2C3.8109%2C45.9005&amp;layer=mapnik&amp;marker=45.892549%2C3.790938"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>BAMAVI</strong> — Bar-pub-restaurant, events, foodtruck. SARL BAMAVI, RCS Roanne 952 330 306. 525 route des Salles, 42430 Chausseterre.</div>
+    <div>Maquette de démonstration réalisée à titre de proposition, non mise en ligne par BAMAVI. Textes, horaires, prix et photos repris du site bamavi.fr et des affiches publiées par BAMAVI (toutes les photos sont celles de BAMAVI). Prix indicatifs, non contractuels. Couleurs et typographies approchées d'après le logo et les affiches, ajustables.</div>
+    <div>L'abus d'alcool est dangereux pour la santé, à consommer avec modération. Il est interdit de vendre de l'alcool à des mineurs.</div>
+  </div>
+</footer>
+
+<div class="barre"><a class="btn btn-ligne" href="tel:+33771008438">Appeler</a><a class="btn btn-feu" href="#carte">Réserver</a></div>
+
+<script>
+(() => {
+  const EMAIL = 'contact@bamavi.fr';
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- menu mobile ---- */
+  const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.remove('ouvert')));
+
+  /* ---- apparitions ---- */
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } }), { threshold: .12 }) : null;
+  document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 4) * 80 + 'ms'; io ? io.observe(el) : el.classList.add('vu'); });
+
+  /* ---- braises (signature : le feu de bois) ---- */
+  const cv = document.getElementById('braises'), cx = cv.getContext('2d');
+  let W, H, pts = [];
+  const taille = () => { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; };
+  taille(); addEventListener('resize', taille);
+  const neuf = () => ({ x: Math.random() * W, y: H + 10, r: Math.random() * 2.2 + .6, vy: Math.random() * 1.1 + .4, vx: (Math.random() - .5) * .5, a: Math.random() * .7 + .3, h: Math.random() < .85 ? 22 + Math.random() * 18 : 300 });
+  for (let i = 0; i < 70; i++) { const p = neuf(); p.y = Math.random() * H; pts.push(p); }
+  const boucle = () => {
+    cx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.y -= p.vy; p.x += p.vx + Math.sin(p.y / 40) * .3; p.a -= .0022;
+      if (p.y < -10 || p.a <= 0) Object.assign(p, neuf());
+      cx.beginPath(); cx.fillStyle = `hsla(${p.h},95%,60%,${p.a})`; cx.shadowBlur = 8; cx.shadowColor = `hsl(${p.h},95%,55%)`;
+      cx.arc(p.x, p.y, p.r, 0, 7); cx.fill();
+    });
+    requestAnimationFrame(boucle);
+  };
+  if (!reduit) boucle();
+
+  /* ---- horaires (affiche Saison #3) ---- */
+  const JOURS = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const HOR = { 0:'Dès 11h', 1:'Dès 16h', 2:'Dès 16h', 3:null, 4:'Dès 16h', 5:'Dès 16h', 6:'Dès 11h' };
+  const OUV = { 0:11, 1:16, 2:16, 3:null, 4:16, 5:16, 6:11 };
+  const now = new Date(), j = now.getDay();
+  const ul = document.getElementById('horaires');
+  [1,2,3,4,5,6,0].forEach(d => { const li = document.createElement('li'); if (d === j) li.className = 'auj'; li.innerHTML = `<span>${JOURS[d]}</span><span>${HOR[d] || 'Fermé'}</span>`; ul.appendChild(li); });
+  const st = document.getElementById('statut'), h = now.getHours() + now.getMinutes() / 60;
+  if (OUV[j] === null) { st.classList.add('ferme'); st.lastElementChild.textContent = 'Fermé le mercredi — à demain !'; }
+  else if (h >= OUV[j]) { st.classList.add('ouvert'); st.lastElementChild.textContent = `${JOURS[j]} : bar ouvert depuis ${OUV[j]}h (horaires de saison)`; }
+  else { st.lastElementChild.textContent = `${JOURS[j]} : ouverture à ${OUV[j]}h (horaires de saison)`; }
+
+  /* ---- carte (prix de la carte BAMAVI) ---- */
+  const CARTE = {
+    flam: [
+      ['La Classique', 10, 'Crème, oignons, lardons', 0],
+      ['La Végétarienne', 11, 'Crème, oignons, champignons, emmental, courgette', 1],
+      ["L'Emmental", 12, 'Crème, oignons, lardons, emmental', 0],
+      ['La Champignon', 12, 'Crème, oignons, lardons, champignons', 0],
+      ['La Forestière', 13, 'Crème, oignons, lardons, champignons, emmental', 0],
+      ['La Fromage', 13, 'Crème, oignons, lardons, fromage du moment', 0]
+    ],
+    pizza: [
+      ['La Jambon', 12, 'Coulis, jambon, oignons, champignons, emmental, brie, persillade', 0],
+      ['La Lardon', 12, 'Coulis, lardons, oignons, crème, emmental, brie', 0],
+      ['La Chèvrizo', 13, 'Coulis, chorizo, oignons, poivrons, chèvre, emmental', 0],
+      ['La Légume', 13, 'Coulis, oignons, poivrons, champignons, courgettes, emmental, brie, persillade', 1],
+      ["L'Anchois", 14, 'Coulis, oignons, anchois, emmental, persillade', 0],
+      ['La Fromage', 14, 'Coulis, brie, fourme, chèvre, emmental, persillade', 1]
+    ]
+  };
+  const qte = {}; let cat = 'flam', veg = false;
+  const plats = document.getElementById('plats');
+  const cle = (c, n) => c + ':' + n;
+  const rendre = () => {
+    plats.innerHTML = '';
+    CARTE[cat].filter(p => !veg || p[3]).forEach(([n, prix, ing, v]) => {
+      const k = cle(cat, n), d = document.createElement('div'); d.className = 'plat';
+      d.innerHTML = `<div><h4>${n}${v ? '<span class="veg">sans viande</span>' : ''}</h4><p>${ing}</p></div><span class="prix">${prix}€</span>
+      <div class="qte"><button aria-label="Retirer ${n}">−</button><output>${qte[k] || 0}</output><button aria-label="Ajouter ${n}">+</button></div>`;
+      const [m, , p] = d.querySelectorAll('.qte > *');
+      m.onclick = () => { qte[k] = Math.max(0, (qte[k] || 0) - 1); maj(); rendre(); };
+      p.onclick = () => { qte[k] = (qte[k] || 0) + 1; maj(); rendre(); };
+      plats.appendChild(d);
+    });
+  };
+  const prixDe = k => { const [c, n] = k.split(':'); return CARTE[c].find(p => p[0] === n)[1]; };
+  const lignes = () => Object.entries(qte).filter(([, q]) => q > 0);
+  const maj = () => {
+    const l = document.getElementById('liste'), L = lignes(); let t = 0;
+    l.innerHTML = L.length ? '' : '<li class="vide">Aucun plat pour l\'instant.</li>';
+    L.forEach(([k, q]) => { const p = prixDe(k) * q; t += p; const li = document.createElement('li'); li.innerHTML = `<span>${q} × ${k.split(':')[1]} <small style="color:#888">(${k.startsWith('flam') ? 'flam' : 'pizza'})</small></span><span>${p} €</span>`; l.appendChild(li); });
+    document.getElementById('total').textContent = t + ' €';
+    return t;
+  };
+  document.querySelectorAll('[role=tab]').forEach(b => b.onclick = () => { document.querySelectorAll('[role=tab]').forEach(x => x.setAttribute('aria-selected', x === b)); cat = b.dataset.cat; rendre(); });
+  const fv = document.getElementById('fveg'); fv.onclick = () => { veg = !veg; fv.setAttribute('aria-pressed', veg); rendre(); };
+  rendre();
+
+  const dIn = document.getElementById('date'), al = document.getElementById('alerte');
+  const iso = d => d.toISOString().slice(0, 10);
+  dIn.min = iso(now); dIn.value = iso(now.getDay() === 3 ? new Date(now.getTime() + 864e5) : now);
+  dIn.addEventListener('change', () => { const d = new Date(dIn.value + 'T12:00'); al.textContent = d.getDay() === 3 ? 'Attention : BAMAVI est fermé le mercredi.' : ''; });
+  document.getElementById('envoyer').onclick = () => {
+    const mode = document.querySelector('input[name=mode]:checked').value, t = maj(), nom = document.getElementById('nom').value.trim();
+    if (new Date(dIn.value + 'T12:00').getDay() === 3) { al.textContent = 'Attention : BAMAVI est fermé le mercredi, choisissez un autre jour.'; return; }
+    if (!nom) { al.textContent = 'Indiquez votre nom pour la réservation.'; document.getElementById('nom').focus(); return; }
+    const sel = lignes().map(([k, q]) => `- ${q} x ${k.split(':')[1]} (${k.startsWith('flam') ? 'flam' : 'pizza'})`).join('\n') || '- (choix sur place)';
+    const corps = `Bonjour,\n\nJe souhaite ${mode === 'sur place' ? 'réserver une table' : 'commander à emporter'} :\n- Date : ${new Date(dIn.value + 'T12:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })}\n- Heure : ${document.getElementById('heure').value}\n- Nombre de personnes : ${document.getElementById('couverts').value}\n- Nom : ${nom}\n\nMa sélection :\n${sel}\nTotal indicatif : ${t} €\n\nMerci !`;
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent((mode === 'sur place' ? 'Réservation' : 'Commande à emporter') + ' — ' + nom)}&body=${encodeURIComponent(corps)}`;
+    al.textContent = 'Votre messagerie s\'ouvre avec la demande prête à envoyer.';
+  };
+
+  /* ---- assistant Bamatruck / privatisation ---- */
+  const rep = {}; let et = 1;
+  const allerA = n => { et = n; document.querySelectorAll('.etape').forEach(e => e.classList.toggle('active', +e.dataset.e === n)); document.getElementById('prog').style.width = (n * 33.34) + '%'; document.getElementById('prec').style.visibility = n > 1 ? 'visible' : 'hidden'; if (n === 3) recap(); };
+  document.querySelectorAll('.choix').forEach(g => g.querySelectorAll('button').forEach(b => b.onclick = () => { g.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); rep[g.dataset.champ] = b.dataset.v; setTimeout(() => allerA(et + 1), reduit ? 0 : 220); }));
+  document.getElementById('prec').onclick = () => allerA(Math.max(1, et - 1));
+  const recap = () => { document.getElementById('recap').textContent = `Formule : ${rep.formule || '—'}\nOccasion : ${rep.occasion || '—'}\nDate : ${document.getElementById('ev-date').value || 'à préciser'}\nInvités : ${document.getElementById('ev-nb').value || '—'}`; };
+  ['ev-date', 'ev-nb'].forEach(id => document.getElementById(id).addEventListener('input', recap));
+  document.getElementById('ev-envoyer').onclick = () => {
+    const corps = `Bonjour,\n\nJe vous contacte pour : ${rep.formule || ''}\nOccasion : ${rep.occasion || ''}\nDate : ${document.getElementById('ev-date').value || 'à préciser'}\nNombre d'invités : ${document.getElementById('ev-nb').value}\nLieu : ${document.getElementById('ev-lieu').value || 'au BAMAVI'}\n\n${document.getElementById('ev-msg').value}\n\nMerci de me recontacter.`;
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent((rep.formule || 'Demande traiteur') + ' — ' + (rep.occasion || 'événement'))}&body=${encodeURIComponent(corps)}`;
+  };
+  allerA(1);
+})();
+</script>
+</body>
+</html>
