@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sisterne — Vitrier, miroitier et menuisier | Beaujolais vert et Roannais</title>
+<meta name="description" content="SARL Sisterne, vitrerie, miroiterie et pose de menuiseries à Cours (69) depuis le début des années 1900. Neuf et rénovation, Beaujolais vert et Roannais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du site actuel vitrerie-sisterne.com
+   Couleurs relevées dans ses feuilles de style :
+   vert principal #248511, vert foncé #124f06, bleu nuit #000316,
+   tons olive clairs #e2e8c9 / #ebf0da. Polices : Ubuntu + Raleway.
+   Tout ajustement de charte se fait ici.
+   ========================================================== */
+:root{
+  --vert:#248511;
+  --vert-fonce:#124f06;
+  --nuit:#000316;
+  --olive:#e2e8c9;
+  --olive-clair:#ebf0da;
+  --gris:#f2f2f2;
+  --texte:#1d2318;
+  --blanc:#ffffff;
+  --f-titre:'Ubuntu',system-ui,sans-serif;
+  --f-texte:'Raleway',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--blanc);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--f-titre);line-height:1.15;font-weight:700}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--vert);outline-offset:3px;border-radius:3px}
+
+/* bandeau démo */
+.demo{background:var(--nuit);color:#cfd6c0;font-size:13px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+.demo b{color:#fff;font-weight:600}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid rgba(18,79,6,.12);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(0,3,22,.08)}
+.hbar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:78px}
+.logo{display:flex;align-items:center;background:var(--vert-fonce);padding:8px 14px;border-radius:var(--r);text-decoration:none}
+.logo img{height:44px;width:auto}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:10px 14px;text-decoration:none;font-family:var(--f-titre);font-weight:500;font-size:15px;color:var(--nuit);border-radius:var(--r);position:relative}
+nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:5px;height:2px;background:var(--vert);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+nav a:hover::after,nav a.on::after{transform:scaleX(1)}
+.tel{display:inline-flex;align-items:center;gap:8px;background:var(--vert);color:#fff;text-decoration:none;font-family:var(--f-titre);font-weight:700;padding:11px 18px;border-radius:var(--r);white-space:nowrap;transition:background .25s,transform .2s}
+.tel:hover{background:var(--vert-fonce);transform:translateY(-1px)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--nuit);margin:5px auto;transition:.3s}
+@media (max-width:980px){
+  nav{position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid #ddd;transform:translateY(-8px);opacity:0;visibility:hidden;transition:transform .35s var(--ease),opacity .35s,visibility .35s}
+  nav.open{transform:none;opacity:1;visibility:visible}
+  nav ul{flex-direction:column;padding:10px 16px 18px}
+  .burger{display:block}
+  .hbar .tel span{display:none}
+}
+
+/* boutons */
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-titre);font-weight:700;font-size:16px;padding:15px 24px;border-radius:var(--r);text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .2s var(--ease),background .25s,color .25s,box-shadow .25s}
+.btn:active{transform:scale(.97)}
+.btn-v{background:var(--vert);color:#fff;box-shadow:0 10px 24px -10px rgba(36,133,17,.7)}
+.btn-v:hover{background:var(--vert-fonce)}
+.btn-o{border-color:currentColor;color:#fff;background:transparent}
+.btn-o:hover{background:#fff;color:var(--nuit)}
+.btn .ar{transition:transform .25s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+
+/* HERO */
+.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--nuit)}
+.slides{position:absolute;inset:0}
+.slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.6s ease,transform 7s linear}
+.slides img.on{opacity:1;transform:scale(1)}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,3,22,.25) 0%,rgba(0,3,22,.35) 40%,rgba(0,3,22,.88) 100%)}
+.hero .sheen{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.16) 47%,rgba(255,255,255,.04) 52%,transparent 60%);transform:translateX(-100%);animation:sheen 7s 1.2s var(--ease) infinite}
+@keyframes sheen{0%{transform:translateX(-100%)}35%,100%{transform:translateX(100%)}}
+.hero .wrap{position:relative;z-index:3;padding:120px 0 70px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-titre);font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--olive);margin-bottom:18px}
+.kicker::before{content:"";width:34px;height:2px;background:var(--vert)}
+.hero h1{font-size:clamp(2rem,1.1rem + 3.2vw,3.7rem);max-width:24ch;margin-bottom:18px}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s}
+.hero h1 .l:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:58ch;color:#e6ebdc;margin-bottom:30px;opacity:0;animation:fade 1s .5s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;opacity:0;animation:fade 1s .7s forwards}
+@keyframes fade{to{opacity:1}}
+.hero .badge{position:absolute;right:16px;bottom:70px;z-index:3;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:16px 20px;font-family:var(--f-titre);max-width:240px}
+.hero .badge strong{display:block;font-size:2.2rem;color:#fff;line-height:1}
+.hero .badge span{font-size:14px;color:var(--olive)}
+.dots{display:flex;gap:8px;margin-top:34px}
+.dots button{width:28px;height:4px;border:0;background:rgba(255,255,255,.35);cursor:pointer;border-radius:2px;transition:background .3s,width .3s}
+.dots button.on{background:var(--vert);width:46px}
+@media(max-width:760px){.hero .badge{display:none}}
+
+/* bande défilante */
+.band{background:var(--vert);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--f-titre);font-weight:500;padding:14px 0}
+.band .track{display:inline-flex;animation:mq 38s linear infinite}
+.band span{padding:0 22px;display:inline-flex;align-items:center;gap:22px}
+.band span::after{content:"◆";font-size:9px;color:var(--olive)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(64px,8vw,110px) 0}
+.st{display:flex;flex-direction:column;gap:12px;margin-bottom:44px;max-width:760px}
+.st .kicker{color:var(--vert)}
+.st h2{font-size:clamp(1.8rem,1.3rem + 2vw,2.8rem);color:var(--nuit)}
+.st p{color:#4a5243}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* présentation */
+.pres{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.pres .ph{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:4/3.2}
+.pres .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.pres .ph:hover img{transform:scale(1.04)}
+.pres .ph .tag{position:absolute;left:16px;bottom:16px;background:#fff;color:var(--vert-fonce);font-family:var(--f-titre);font-weight:700;padding:8px 14px;border-radius:var(--r);font-size:14px}
+.pres p{margin-bottom:16px}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}
+.fact{background:var(--olive-clair);border-left:3px solid var(--vert);padding:16px;border-radius:0 var(--r) var(--r) 0}
+.fact strong{display:block;font-family:var(--f-titre);font-size:1.9rem;color:var(--vert-fonce);line-height:1.1}
+.fact span{font-size:14px;color:#4a5243}
+@media(max-width:860px){.pres{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:520px){.facts{grid-template-columns:1fr}}
+
+/* services */
+.svc-bg{background:var(--gris)}
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 6px rgba(0,3,22,.05);transition:transform .45s var(--ease),box-shadow .45s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 40px -18px rgba(0,3,22,.25)}
+.svc .im{position:relative;aspect-ratio:16/11;overflow:hidden}
+.svc .im img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.svc:hover .im img{transform:scale(1.06)}
+.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 58%);transform:translateX(-120%);transition:transform 1s var(--ease);pointer-events:none}
+.glass:hover::after,.svc:hover .glass::after{transform:translateX(120%)}
+.svc .bd{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.svc h3{font-size:1.35rem;color:var(--nuit)}
+.svc ul{list-style:none;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#4a5243}
+.svc li{padding-left:18px;position:relative}
+.svc li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--vert)}
+.svc .go{margin-top:auto;font-family:var(--f-titre);font-weight:700;color:var(--vert);text-decoration:none;padding-top:8px}
+.svc .go:hover{color:var(--vert-fonce)}
+@media(max-width:900px){.svcs{grid-template-columns:1fr}}
+
+/* OUTIL */
+.tool-bg{background:linear-gradient(180deg,var(--nuit) 0%,#06122a 100%);color:#fff;position:relative;overflow:hidden}
+.tool-bg .st h2{color:#fff}.tool-bg .st p{color:#c9d0bf}.tool-bg .st .kicker{color:var(--olive)}
+.tool{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+.panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:clamp(18px,3vw,30px)}
+.steps{display:flex;gap:6px;margin-bottom:22px}
+.steps div{flex:1;height:4px;border-radius:2px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
+.steps div::after{content:"";position:absolute;inset:0;background:var(--vert);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.steps div.ok::after{transform:scaleX(1)}
+.q{font-family:var(--f-titre);font-size:1.15rem;margin:4px 0 14px}
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px}
+.type{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:14px 10px;cursor:pointer;text-align:left;font-family:var(--f-texte);font-size:14px;font-weight:600;display:flex;flex-direction:column;gap:8px;transition:border-color .25s,background .25s,transform .2s}
+.type svg{width:28px;height:28px;stroke:var(--olive);fill:none;stroke-width:1.6}
+.type:hover{border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+.type[aria-pressed=true]{background:var(--vert);border-color:var(--vert)}
+.type[aria-pressed=true] svg{stroke:#fff}
+@media(max-width:640px){.types{grid-template-columns:repeat(2,1fr)}}
+.row{display:grid;grid-template-columns:1fr 1fr 110px;gap:12px;margin-bottom:18px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#c9d0bf;font-weight:600}
+.f input,.f select,.f textarea{font:inherit;font-size:16px;color:#fff;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.2);border-radius:var(--r);padding:11px 12px;width:100%}
+.f select option{color:#000}
+.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--vert);outline:none;box-shadow:0 0 0 3px rgba(36,133,17,.35)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{border:1px solid rgba(255,255,255,.22);background:transparent;color:#fff;border-radius:40px;padding:8px 14px;font:600 14px var(--f-texte);cursor:pointer;transition:.2s}
+.chip[aria-pressed=true]{background:#fff;color:var(--nuit);border-color:#fff}
+.hint{font-size:13px;color:#aab3a0;margin:-6px 0 18px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr 1fr}.row .qte{grid-column:span 2}.row2{grid-template-columns:1fr}}
+.preview{position:sticky;top:100px}
+.stage{aspect-ratio:1/1;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0 1px,transparent 1px 24px),repeating-linear-gradient(90deg,rgba(255,255,255,.04) 0 1px,transparent 1px 24px);border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:16px}
+.pane{position:relative;background:linear-gradient(135deg,rgba(186,224,214,.55),rgba(140,190,200,.28));border:2px solid rgba(220,240,235,.85);box-shadow:inset 0 0 30px rgba(255,255,255,.15),0 20px 40px -20px rgba(0,0,0,.6);transition:width .5s var(--ease),height .5s var(--ease),background .4s,border-radius .4s;overflow:hidden}
+.pane::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.45) 42%,transparent 50%);animation:sheen 5s var(--ease) infinite}
+.pane.miroir{background:linear-gradient(135deg,#e9eef0,#b9c4c9 60%,#dfe6e8)}
+.pane.laque{background:var(--vert)}
+.pane.atelier{background:linear-gradient(135deg,rgba(186,224,214,.45),rgba(140,190,200,.2));border:6px solid #111}
+.pane.atelier i{position:absolute;background:#111}
+.dimw,.dimh{position:absolute;font:600 12px var(--f-titre);color:var(--olive)}
+.dimw{bottom:8px;left:50%;transform:translateX(-50%)}
+.dimh{right:8px;top:50%;transform:translateY(-50%) rotate(-90deg)}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.kpi{background:rgba(255,255,255,.06);border-radius:var(--r);padding:12px}
+.kpi strong{display:block;font-family:var(--f-titre);font-size:1.5rem}
+.kpi span{font-size:12px;color:#aab3a0}
+.recap{background:#fff;color:var(--texte);border-radius:10px;padding:18px;font-size:14px;white-space:pre-line;min-height:120px;margin-bottom:14px;border-left:4px solid var(--vert)}
+.recap b{font-family:var(--f-titre)}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.actions .btn{font-size:15px;padding:12px 18px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,200%);visibility:hidden;background:var(--vert-fonce);color:#fff;padding:12px 20px;border-radius:var(--r);font-weight:600;transition:transform .4s var(--ease);z-index:99}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+@media(max-width:900px){.tool{grid-template-columns:1fr}.preview{position:static}}
+
+/* réalisations */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filters button{border:1px solid #cfd6c0;background:#fff;border-radius:40px;padding:9px 16px;font:600 14px var(--f-texte);cursor:pointer;color:var(--nuit);transition:.25s}
+.filters button[aria-pressed=true]{background:var(--vert);border-color:var(--vert);color:#fff}
+.gal{columns:4 240px;column-gap:12px}
+.gal figure{break-inside:avoid;margin-bottom:12px;position:relative;border-radius:8px;overflow:hidden;cursor:zoom-in;transition:opacity .4s,transform .4s var(--ease)}
+.gal figure.hide{display:none}
+.gal img{width:100%;height:auto;transition:transform .8s var(--ease)}
+.gal figure:hover img{transform:scale(1.05)}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;background:linear-gradient(transparent,rgba(0,3,22,.8));color:#fff;font-size:13px;font-weight:600;transform:translateY(100%);transition:transform .35s var(--ease)}
+.gal figure:hover figcaption,.gal figure:focus-visible figcaption{transform:none}
+.lb{position:fixed;inset:0;background:rgba(0,3,22,.94);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.lb.open{display:flex}
+.lb img{max-height:84vh;max-width:min(1100px,100%);border-radius:6px}
+.lb button{position:absolute;background:rgba(255,255,255,.12);border:0;color:#fff;width:48px;height:48px;border-radius:50%;font-size:22px;cursor:pointer}
+.lb .x{top:16px;right:16px}.lb .p{left:16px;top:50%}.lb .n{right:16px;top:50%}
+.lb p{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cfd6c0;font-size:14px}
+
+/* zone */
+.zone-bg{background:var(--olive-clair)}
+.zone{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.towns{display:flex;flex-wrap:wrap;gap:10px}
+.towns span{background:#fff;border:1px solid #cfd6c0;padding:9px 16px;border-radius:40px;font-family:var(--f-titre);font-weight:500;transition:transform .3s var(--ease),background .3s,color .3s}
+.towns span.home{background:var(--vert);color:#fff;border-color:var(--vert)}
+.towns span:hover{transform:translateY(-3px)}
+.radar{position:relative;aspect-ratio:1;max-width:420px;margin:auto;width:100%}
+.radar i{position:absolute;inset:0;border:1px solid rgba(36,133,17,.35);border-radius:50%;animation:ring 4s ease-out infinite;opacity:0}
+.radar i:nth-child(2){animation-delay:1.3s}.radar i:nth-child(3){animation-delay:2.6s}
+@keyframes ring{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1);opacity:0}}
+.radar .c{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--vert-fonce);color:#fff;padding:14px 18px;border-radius:10px;font-family:var(--f-titre);text-align:center;box-shadow:0 12px 30px -10px rgba(18,79,6,.6)}
+.radar .c small{display:block;color:var(--olive);font-weight:400}
+@media(max-width:860px){.zone{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px}
+.card{background:var(--nuit);color:#fff;border-radius:12px;padding:30px;display:flex;flex-direction:column;gap:20px}
+.card h3{font-size:1.4rem}
+.card .l{display:flex;gap:14px;align-items:flex-start}
+.card .l svg{flex:none;width:22px;height:22px;stroke:var(--olive);fill:none;stroke-width:1.8;margin-top:3px}
+.card .l a{text-decoration:none}
+.card .l a:hover{color:var(--olive)}
+.hours{width:100%;border-collapse:collapse;font-size:14px}
+.hours td{padding:6px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.hours td:last-child{text-align:right;color:#cfd6c0}
+.hours tr.today td{color:#fff;font-weight:700}
+.open-now{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;padding:6px 12px;border-radius:30px;background:rgba(255,255,255,.08);width:max-content}
+.open-now::before{content:"";width:8px;height:8px;border-radius:50%;background:#888}
+.open-now.yes::before{background:#4cd137;box-shadow:0 0 0 4px rgba(76,209,55,.25)}
+.form{background:var(--gris);border-radius:12px;padding:30px;display:grid;gap:14px}
+.form label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:600}
+.form input,.form textarea,.form select{font:inherit;font-size:16px;padding:12px;border:1px solid #cfd6c0;border-radius:var(--r);background:#fff}
+.form input:focus,.form textarea:focus,.form select:focus{outline:none;border-color:var(--vert);box-shadow:0 0 0 3px rgba(36,133,17,.2)}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form small{color:#6b7363;font-size:12px}
+@media(max-width:860px){.contact{grid-template-columns:1fr}.form .two{grid-template-columns:1fr}}
+
+footer{background:var(--nuit);color:#aab3a0;padding:50px 0 30px;font-size:14px}
+.fgrid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;margin-bottom:30px}
+footer nav{position:static!important;transform:none!important;opacity:1!important;visibility:visible!important;background:none!important;border:0!important}footer nav ul{flex-direction:row!important;flex-wrap:wrap;padding:0!important}footer nav a{color:#cfd6c0}
+footer .flogo{background:var(--vert-fonce);padding:8px 14px;border-radius:var(--r);display:inline-block}
+footer .flogo img{height:40px}
+.note{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:12.5px;line-height:1.7}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;width:56px;height:56px;border-radius:50%;background:var(--vert);display:none;align-items:center;justify-content:center;box-shadow:0 10px 24px -6px rgba(36,133,17,.7)}
+.fab svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2}
+@media(max-width:760px){.fab{display:flex}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"HomeAndConstructionBusiness",
+ "name":"SARL Sisterne",
+ "description":"Vitrerie, miroiterie, pose de menuiseries bois, aluminium et PVC et de volets roulants, neuf et rénovation.",
+ "url":"https://www.vitrerie-sisterne.com",
+ "telephone":"+33474898347",
+ "address":{"@type":"PostalAddress","streetAddress":"ZA Poizat, Chemin de la Vapeur","postalCode":"69470","addressLocality":"Cours-la-Ville","addressRegion":"Rhône","addressCountry":"FR"},
+ "areaServed":["Cours","Tarare","Gleizé","Belleville","Villefranche-sur-Saône","Beaujolais vert","Roannais","Loire (42)"],
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"07:30","closes":"12:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday"],"opens":"13:00","closes":"17:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"07:30","closes":"12:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"13:30","closes":"17:00"}
+ ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour S.A.R.L Sisterne, non mise en ligne.</div>
+
+<header id="top">
+  <div class="wrap hbar">
+    <a class="logo" href="#top" aria-label="S.A.R.L Sisterne, accueil"><img src="https://www.vitrerie-sisterne.com/oktThemes/ra149-s/images/head-logo.png" alt="Sisterne — Particuliers, Collectivités, Entreprises"></a>
+    <nav id="nav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#top" class="on">Accueil</a></li>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#services">Pose</a></li>
+        <li><a href="#services">Vitrerie</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="tel" href="tel:+33474898347"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>04 74 89 83 47</span></a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="slides" id="slides">
+    <img class="on" src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/14/item-1.jpg" alt="Façade vitrée réalisée par Sisterne">
+    <img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/41/item-1.jpg" alt="Garde-corps en verre le long d'un escalier">
+    <img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/6/item-1.jpg" alt="Auvent et garde-corps vitrés">
+    <img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/26/item-1.jpg" alt="Verrière d'intérieur style atelier">
+  </div>
+  <div class="sheen"></div>
+  <div class="wrap">
+    <div class="kicker">Neuf &amp; Rénovation</div>
+    <h1><span class="l"><span>Vitrerie &amp; Miroiterie</span></span><span class="l"><span>en région Beaujolais vert</span></span><span class="l"><span>et en région Roannaise</span></span></h1>
+    <p class="lead">Au service des particuliers et des professionnels, SARL Sisterne à Cours-la-Ville propose ses services en vitrerie et miroiterie, ainsi que la pose de volets roulants et de menuiseries bois, aluminium et PVC.</p>
+    <div class="ctas">
+      <a class="btn btn-v" href="#devis">Préparer ma demande de devis <span class="ar">→</span></a>
+      <a class="btn btn-o" href="tel:+33474898347">04 74 89 83 47</a>
+    </div>
+    <div class="dots" id="dots" role="tablist" aria-label="Photos"></div>
+  </div>
+  <div class="badge"><strong>4</strong><span>générations de la famille Sisterne à Cours-la-Ville</span></div>
+</section>
+
+<div class="band" aria-hidden="true"><div class="track" id="track">
+  <span>Simples vitrages</span><span>Vitrage trempé</span><span>Double et triple vitrage</span><span>Vitrages feuilletés de protection</span><span>Parois de douche</span><span>Crédences de cuisine</span><span>Verre laqué</span><span>Miroirs sur mesure</span><span>Glaces argentées et décorées</span><span>Volets roulants</span><span>Menuiseries bois, alu &amp; PVC</span>
+</div></div>
+
+<section id="presentation">
+  <div class="wrap pres">
+    <div class="ph rv glass">
+      <img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/19/item-1.jpg" alt="Pose d'un grand vitrage à la ventouse par l'équipe">
+      <div class="tag">Une expérience depuis 1900 !</div>
+    </div>
+    <div>
+      <div class="st rv" style="margin-bottom:20px">
+        <div class="kicker">Présentation</div>
+        <h2>Entreprise de miroiterie et de vitrerie, de père en fils</h2>
+      </div>
+      <p class="rv d1">C’est depuis le début des années 1900 que la SARL Sisterne est implantée à Cours-la-Ville, Rhône (69). La famille Sisterne se transmet le flambeau depuis 4 générations, et c’est toujours avec autant de passion que le verre y est transformé.</p>
+      <p class="rv d2">Au fil des années, la société a su se diversifier en ouvrant ses portes à la menuiserie bois, alu et PVC, et la pose de volets roulants. Nous sommes au service des particuliers et des professionnels pour le neuf et la rénovation.</p>
+      <div class="facts">
+        <div class="fact rv d1"><strong data-count="1900">1900</strong><span>implantation à Cours-la-Ville</span></div>
+        <div class="fact rv d2"><strong data-count="4">4</strong><span>générations</span></div>
+        <div class="fact rv d3"><strong>Neuf</strong><span>&amp; rénovation, particuliers et pros</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="svc-bg">
+  <div class="wrap">
+    <div class="st rv">
+      <div class="kicker">Nos savoir-faire</div>
+      <h2>Vitrerie, miroiterie et menuiseries</h2>
+      <p>Notre entreprise intervient rapidement sur site pour tous vos besoins en pose de miroiteries, vitreries et menuiseries.</p>
+    </div>
+    <div class="svcs">
+      <article class="svc rv">
+        <div class="im glass"><img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/1/item-1.jpg" alt="Façade vitrée d'un bâtiment professionnel" loading="lazy"></div>
+        <div class="bd">
+          <h3>Vitrerie</h3>
+          <p>Pose et installation de vitres, dépannage, pose de survitrage et conseils personnalisés.</p>
+          <ul><li>Simples vitrages, vitrage trempé</li><li>Vitrages isolants (double et triple)</li><li>Vitrages feuilletés de protection : verrière, garde-corps, retardateur d’effraction</li></ul>
+          <a class="go" href="#devis" data-type="vitre">Préparer une demande →</a>
+        </div>
+      </article>
+      <article class="svc rv d1">
+        <div class="im glass"><img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/33/item-1.jpg" alt="Paroi de douche en verre posée par Sisterne" loading="lazy"></div>
+        <div class="bd">
+          <h3>Miroiterie</h3>
+          <p>Façades vitrées, miroir sur mesure, miroir décoratif : pour illuminer vos espaces.</p>
+          <ul><li>Parois de douche, dessus de table</li><li>Crédences de cuisine, verre laqué</li><li>Glaces argentées et décorées</li></ul>
+          <a class="go" href="#devis" data-type="douche">Préparer une demande →</a>
+        </div>
+      </article>
+      <article class="svc rv d2">
+        <div class="im glass"><img src="https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/17/item-1.jpg" alt="Fenêtres et volets posés sur une maison en pierre" loading="lazy"></div>
+        <div class="bd">
+          <h3>Pose de menuiseries</h3>
+          <p>Pose en neuf et en rénovation, en bois, aluminium et PVC, intérieur comme extérieur.</p>
+          <ul><li>Fenêtres, baies vitrées, portes-fenêtres</li><li>Volets roulants et battants</li><li>Portes d’entrée, de garage, intérieures, placards</li></ul>
+          <a class="go" href="#devis" data-type="menuiserie">Préparer une demande →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL -->
+<section id="devis" class="tool-bg">
+  <div class="wrap">
+    <div class="st rv">
+      <div class="kicker">Demande de devis guidée</div>
+      <h2>Décrivez votre projet en une minute</h2>
+      <p>Choisissez le type de travaux, indiquez vos mesures : l'aperçu se dessine à l'échelle et votre demande arrive à l'atelier déjà complète. Le devis reste établi par l'entreprise, gratuitement.</p>
+    </div>
+    <div class="tool">
+      <div class="panel rv">
+        <div class="steps" aria-hidden="true"><div id="s1" class="ok"></div><div id="s2"></div><div id="s3"></div></div>
+        <p class="q">1. Votre projet</p>
+        <div class="types" id="types"></div>
+        <p class="q">2. Dimensions</p>
+        <div class="row">
+          <label class="f">Largeur (cm)<input type="number" id="w" min="10" max="600" value="120" inputmode="numeric"></label>
+          <label class="f">Hauteur (cm)<input type="number" id="h" min="10" max="400" value="60" inputmode="numeric"></label>
+          <label class="f qte">Quantité<input type="number" id="qte" min="1" max="50" value="1" inputmode="numeric"></label>
+        </div>
+        <p class="hint" id="hint"></p>
+        <p class="q">3. Précisions</p>
+        <div class="opts" id="opts"></div>
+        <div class="row2">
+          <label class="f">Vous êtes<select id="qui"><option>Particulier</option><option>Professionnel</option><option>Collectivité</option></select></label>
+          <label class="f">Chantier<select id="chantier"><option>Rénovation</option><option>Neuf</option></select></label>
+        </div>
+        <div class="row2">
+          <label class="f">Commune du chantier<input type="text" id="ville" placeholder="ex. Cours, Thizy, Roanne…"></label>
+          <label class="f">Délai souhaité<select id="delai"><option>Dès que possible</option><option>Dans le mois</option><option>Dans les 3 mois</option><option>Pas pressé</option></select></label>
+        </div>
+      </div>
+      <aside class="preview rv d1" aria-live="polite">
+        <div class="stage"><div class="pane" id="pane"></div><span class="dimw" id="dimw"></span><span class="dimh" id="dimh"></span></div>
+        <div class="kpis">
+          <div class="kpi"><strong id="surf">0,72 m²</strong><span>surface par élément</span></div>
+          <div class="kpi"><strong id="tot">0,72 m²</strong><span>surface totale</span></div>
+        </div>
+        <div class="recap" id="recap"></div>
+        <div class="actions">
+          <a class="btn btn-v" id="mail" href="#">Envoyer à l'atelier <span class="ar">→</span></a>
+          <button class="btn btn-o" id="copy" type="button">Copier</button>
+          <a class="btn btn-o" href="tel:+33474898347">Appeler</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="st rv">
+      <div class="kicker">Réalisations</div>
+      <h2>Tous vos travaux de vitrerie &amp; miroiterie</h2>
+      <p>Découvrez nos ouvrages et faites-vous une idée de la qualité de notre travail : poses, remplacements, aménagements intérieurs.</p>
+    </div>
+    <div class="filters" id="filters" role="toolbar" aria-label="Filtrer les réalisations"></div>
+    <div class="gal" id="gal"></div>
+  </div>
+</section>
+
+<section class="zone-bg" aria-labelledby="zt">
+  <div class="wrap zone">
+    <div>
+      <div class="st rv" style="margin-bottom:24px">
+        <div class="kicker">Nos secteurs géographiques</div>
+        <h2 id="zt">Nous intervenons rapidement sur site</h2>
+        <p>Aux alentours de Cours-la-Ville, dans le Rhône (69), dans la Loire (42), en région Beaujolais vert et en région Roannaise.</p>
+      </div>
+      <div class="towns rv d1">
+        <span class="home">Cours-la-Ville</span><span>Tarare</span><span>Gleizé</span><span>Belleville</span><span>Villefranche-sur-Saône</span><span>Beaujolais vert</span><span>Roannais</span><span>Loire (42)</span>
+      </div>
+    </div>
+    <div class="radar rv d2" aria-hidden="true"><i></i><i></i><i></i><div class="c">Cours-la-Ville<small>ZA Poizat</small></div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="st rv">
+      <div class="kicker">Contact</div>
+      <h2>Pour un devis gratuit ou personnalisé</h2>
+    </div>
+    <div class="contact">
+      <div class="card rv">
+        <h3>SARL Sisterne</h3>
+        <span class="open-now" id="opennow">Horaires</span>
+        <div class="l"><svg viewBox="0 0 24 24"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=SARL+Sisterne+ZA+Poizat+Chemin+de+la+Vapeur+69470+Cours-la-Ville" target="_blank" rel="noopener">ZA Poizat, Chemin Vapeur<br>69470 Cours-la-Ville</a></div>
+        <div class="l"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><a href="tel:+33474898347">04 74 89 83 47</a></div>
+        <div class="l"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:sarl.sisterne@orange.fr">sarl.sisterne@orange.fr</a></div>
+        <table class="hours" id="hours" aria-label="Horaires d'ouverture">
+          <tr data-d="1"><td>Lundi</td><td>7h30–12h · 13h–17h</td></tr>
+          <tr data-d="2"><td>Mardi</td><td>7h30–12h · 13h–17h</td></tr>
+          <tr data-d="3"><td>Mercredi</td><td>7h30–12h · 13h–17h</td></tr>
+          <tr data-d="4"><td>Jeudi</td><td>7h30–12h · 13h–17h</td></tr>
+          <tr data-d="5"><td>Vendredi</td><td>7h30–12h · 13h30–17h</td></tr>
+          <tr data-d="6"><td>Samedi</td><td>Fermé</td></tr>
+          <tr data-d="0"><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+      </div>
+      <form class="form rv d1" onsubmit="event.preventDefault();toast('Maquette : le formulaire n\'envoie rien pour l\'instant.')">
+        <div class="two"><label>Nom<input required autocomplete="family-name"></label><label>Prénom<input autocomplete="given-name"></label></div>
+        <div class="two"><label>E-mail<input type="email" required autocomplete="email"></label><label>Téléphone<input type="tel" autocomplete="tel"></label></div>
+        <label>Sujet<select><option>Vitrerie</option><option>Miroiterie</option><option>Menuiseries / volets roulants</option><option>Dépannage</option><option>Autre</option></select></label>
+        <label>Message<textarea rows="5"></textarea></label>
+        <small>En envoyant ce formulaire, j’accepte que les données saisies soient utilisées pour me recontacter dans le cadre de ma demande.</small>
+        <button class="btn btn-v" type="submit" style="justify-self:start">Envoyer <span class="ar">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <span class="flogo"><img src="https://www.vitrerie-sisterne.com/oktThemes/ra149-s/images/head-logo.png" alt="Sisterne"></span>
+        <p style="margin-top:14px">SARL Sisterne · ZA Poizat Chemin Vapeur · 69470 Cours-la-Ville<br>04 74 89 83 47</p>
+      </div>
+      <nav aria-label="Pied de page"><ul><li><a href="#top">Accueil</a></li><li><a href="#presentation">Présentation</a></li><li><a href="#services">Pose</a></li><li><a href="#services">Vitrerie</a></li><li><a href="#realisations">Réalisations</a></li><li><a href="#contact">Contact</a></li></ul></nav>
+    </div>
+    <p class="note">Maquette de démonstration réalisée pour présenter une proposition de refonte, non contractuelle. Textes, logo et photos de réalisations repris du site actuel vitrerie-sisterne.com ; couleurs et polices relevées dans ses feuilles de style. Aucune photo d'illustration extérieure n'a été utilisée. Horaires et adresse e-mail issus d'annuaires professionnels, à confirmer. L'outil de demande de devis ne calcule aucun prix : il prépare une demande que l'entreprise chiffre elle-même.</p>
+  </div>
+</footer>
+
+<a class="fab" href="tel:+33474898347" aria-label="Appeler Sisterne"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button class="x" aria-label="Fermer">×</button><button class="p" aria-label="Précédente">‹</button><img alt=""><button class="n" aria-label="Suivante">›</button><p></p></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const IMG=n=>`https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/${n}/item-1.jpg`;
+const MIN=n=>`https://www.vitrerie-sisterne.com/upload/modules/galleries/img/items/${n}/min-item-xl-1.jpg`;
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('show'),2600)}
+
+/* header + menu */
+addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>10),{passive:true});
+const bg=$('.burger');bg.onclick=()=>{const o=$('#nav').classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+document.querySelectorAll('#nav a').forEach(a=>a.onclick=()=>{$('#nav').classList.remove('open');bg.setAttribute('aria-expanded',false)});
+
+/* diaporama */
+const sl=[...document.querySelectorAll('#slides img')];let si=0;const dots=$('#dots');
+sl.forEach((_,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Photo '+(i+1));b.onclick=()=>go(i);dots.appendChild(b)});
+function go(i){sl[si].classList.remove('on');dots.children[si].classList.remove('on');si=i;sl[si].classList.add('on');dots.children[si].classList.add('on')}
+go(0);setInterval(()=>go((si+1)%sl.length),6000);
+
+/* bande */
+$('#track').innerHTML+=$('#track').innerHTML;
+
+/* apparitions */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);const c=e.target.querySelector('[data-count]');}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const end=+e.target.dataset.count,st=end>100?1850:0,t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1400),v=Math.round(st+(end-st)*(1-Math.pow(1-p,3)));e.target.textContent=v;if(p<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+document.querySelectorAll('[data-count]').forEach(e=>cio.observe(e));
+
+/* ===== OUTIL DEVIS ===== */
+const ICON={
+ vitre:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18"/><path d="M12 3v18M4 12h16"/></svg>',
+ casse:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18"/><path d="m9 3 3 7-4 3 5 8M12 10l6-2"/></svg>',
+ douche:'<svg viewBox="0 0 24 24"><path d="M5 21V8a5 5 0 0 1 10 0"/><path d="M15 8h3M17 11v1M14 13v1M18 14v1"/><path d="M3 21h18"/></svg>',
+ credence:'<svg viewBox="0 0 24 24"><path d="M3 15h18v6H3zM3 5h18v8H3"/><circle cx="8" cy="18" r="1"/></svg>',
+ miroir:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="10" rx="6" ry="8"/><path d="M9 7l3-2M9 11l5-4M12 18v3"/></svg>',
+ atelier:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16"/><path d="M9 4v16M15 4v16M3 12h18"/></svg>',
+ gardecorps:'<svg viewBox="0 0 24 24"><path d="M3 20h18M4 20V9h16v11M4 9l3-4h10l3 4"/></svg>',
+ menuiserie:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18"/><path d="M5 7h14M8 5h8"/><path d="M5 10h14M5 13h14"/></svg>'
+};
+const TYPES={
+ vitre:{l:'Vitrage simple / isolant',w:100,h:120,cls:'',hint:'Mesurez la partie vitrée visible, en fond de feuillure si possible.',o:['Simple vitrage','Double vitrage','Triple vitrage','Feuilleté / sécurité','Verre dépoli ou imprimé']},
+ casse:{l:'Vitre cassée — dépannage',w:80,h:100,cls:'',hint:'Sécurisez la zone, ne retirez pas les éclats vous-même. Une photo jointe aide à préparer l\'intervention.',o:['Fenêtre','Porte vitrée','Vitrine / local pro','Véranda','Je ne sais pas']},
+ douche:{l:'Paroi de douche',w:90,h:200,cls:'',hint:'Indiquez la largeur d\'ouverture et la hauteur souhaitée de la paroi.',o:['Paroi fixe','Porte pivotante','Coulissante','Verre clair','Verre dépoli / décoré']},
+ credence:{l:'Crédence de cuisine',w:240,h:60,cls:'laque',hint:'Mesurez entre plan de travail et meubles hauts ; notez prises et interrupteurs.',o:['Verre laqué couleur','Verre clair','Découpes prises (à préciser)','Plusieurs pans']},
+ miroir:{l:'Miroir sur mesure',w:80,h:120,cls:'miroir',hint:'Rectangulaire, rond ou forme particulière : précisez-le dans le message.',o:['Miroir argenté','Miroir décoré','Bords polis','Pose murale']},
+ atelier:{l:'Verrière d\'intérieur',w:180,h:110,cls:'atelier',hint:'Mesurez l\'ouverture complète, du sol ou de l\'allège jusqu\'au plafond.',o:['Fixe','Avec porte','Sur allège','Toute hauteur']},
+ gardecorps:{l:'Garde-corps / verrière',w:300,h:100,cls:'',hint:'Indiquez la longueur totale et s\'il s\'agit d\'un escalier, d\'une mezzanine ou d\'une terrasse.',o:['Escalier','Mezzanine','Terrasse / balcon','Verrière de toit']},
+ menuiserie:{l:'Fenêtre, porte, volet',w:100,h:135,cls:'',hint:'Donnez les dimensions de l\'ouverture (tableau) ; le métreur confirmera sur place.',o:['Bois','Aluminium','PVC','Volet roulant','Porte d\'entrée / garage']}
+};
+let cur='vitre',opts=new Set();
+const tEl=$('#types');
+Object.entries(TYPES).forEach(([k,v])=>{const b=document.createElement('button');b.type='button';b.className='type';b.dataset.k=k;b.innerHTML=ICON[k]+v.l;b.onclick=()=>pick(k);tEl.appendChild(b)});
+function pick(k){cur=k;opts=new Set();const t=TYPES[k];$('#w').value=t.w;$('#h').value=t.h;
+ tEl.querySelectorAll('.type').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+ $('#hint').textContent=t.hint;
+ $('#opts').innerHTML='';t.o.forEach(o=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=o;c.setAttribute('aria-pressed','false');c.onclick=()=>{opts.has(o)?opts.delete(o):opts.add(o);c.setAttribute('aria-pressed',opts.has(o));upd()};$('#opts').appendChild(c)});
+ $('#s2').classList.add('ok');upd()}
+function fmt(n){return n.toLocaleString('fr-FR',{maximumFractionDigits:2})}
+function upd(){
+ const w=Math.max(1,+$('#w').value||0),h=Math.max(1,+$('#h').value||0),q=Math.max(1,+$('#qte').value||1);
+ const s=w*h/10000;$('#surf').textContent=fmt(s)+' m²';$('#tot').textContent=fmt(s*q)+' m²';
+ const max=74,sc=Math.min(max/w,max/h);const p=$('#pane');
+ p.style.width=(w*sc)+'%';p.style.height=(h*sc)+'%';p.className='pane '+TYPES[cur].cls;
+ p.innerHTML=cur==='atelier'?'<i style="left:33%;top:0;bottom:0;width:4px"></i><i style="left:66%;top:0;bottom:0;width:4px"></i><i style="top:50%;left:0;right:0;height:4px"></i>':'';
+ if(cur==='miroir'&&[...opts].some(o=>/rond/i.test(o)))p.style.borderRadius='50%';
+ $('#dimw').textContent=w+' cm';$('#dimh').textContent=h+' cm';
+ const ville=$('#ville').value.trim();
+ if(ville)$('#s3').classList.add('ok');
+ const txt=`Projet : ${TYPES[cur].l}\nDimensions : ${w} × ${h} cm${q>1?' — '+q+' éléments':''} (${fmt(s*q)} m²)\nPrécisions : ${opts.size?[...opts].join(', '):'à définir ensemble'}\n${$('#qui').value} · ${$('#chantier').value} · ${$('#delai').value}\nCommune : ${ville||'à préciser'}`;
+ $('#recap').innerHTML='<b>Votre demande</b>\n'+txt.replace(/</g,'&lt;');
+ $('#mail').href='mailto:sarl.sisterne@orange.fr?subject='+encodeURIComponent('Demande de devis — '+TYPES[cur].l)+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais un devis pour le projet suivant :\n\n'+txt+'\n\nMes coordonnées :\n\nMerci,\n');
+ $('#recap').dataset.t=txt;
+}
+['w','h','qte','ville','qui','chantier','delai'].forEach(i=>{$('#'+i).addEventListener('input',upd);$('#'+i).addEventListener('change',upd)});
+$('#copy').onclick=()=>{navigator.clipboard?.writeText($('#recap').dataset.t).then(()=>toast('Récapitulatif copié'),()=>toast('Copie impossible sur ce navigateur'))};
+document.querySelectorAll('[data-type]').forEach(a=>a.addEventListener('click',()=>pick(a.dataset.type)));
+pick('vitre');
+
+/* ===== RÉALISATIONS ===== */
+const G=[
+ [1,'facade','Façade vitrée'],[2,'facade','Vitrine de concession'],[3,'facade','Pose de vitrage sur chantier'],[4,'facade','Façade, grand vitrage'],[5,'verriere','Verrière'],[6,'gardecorps','Auvent et garde-corps vitrés'],[7,'facade','Façade de bureaux'],[9,'facade','Façade en cours de pose'],[10,'facade','Chantier de façade'],[11,'facade','Mur rideau en pose'],[12,'facade','Mur rideau'],[13,'facade','Pose en hauteur'],[14,'facade','Façade vitrée'],[15,'gardecorps','Garde-corps de balcons'],[16,'menuiserie','Fenêtre en rénovation'],[17,'menuiserie','Menuiseries d\'une maison en pierre'],[18,'gardecorps','Garde-corps de mezzanine'],[19,'facade','Pose d\'un grand vitrage'],[20,'gardecorps','Garde-corps d\'escalier'],[21,'deco','Verre décoré'],
+ [22,'cuisine','Crédence en verre laqué'],[23,'cuisine','Crédence en verre laqué'],[24,'deco','Tablettes en verre'],[25,'douche','Tablettes d\'angle'],[26,'verriere','Verrière d\'intérieur'],[27,'douche','Paroi de douche'],[28,'douche','Paroi de douche'],[29,'cuisine','Crédence'],[30,'deco','Miroir de salle de bain'],[31,'cuisine','Crédence'],[32,'douche','Paroi de douche'],[33,'douche','Paroi de douche'],[34,'douche','Paroi de douche'],[35,'douche','Paroi de douche'],[36,'deco','Verre imprimé'],[37,'deco','Verre décoré'],[38,'deco','Verre décoré'],[39,'deco','Porte en verre décoré'],[40,'verriere','Verrière d\'intérieur'],[41,'gardecorps','Garde-corps d\'escalier']
+];
+const CAT={all:'Toutes',facade:'Façades & vitrines',gardecorps:'Garde-corps',verriere:'Verrières',douche:'Salles de bain',cuisine:'Crédences',deco:'Verre décoré & miroirs',menuiserie:'Menuiseries'};
+const gal=$('#gal'),fil=$('#filters');
+G.forEach(([n,c,t],i)=>{const f=document.createElement('figure');f.dataset.c=c;f.tabIndex=0;f.innerHTML=`<img src="${MIN(n)}" alt="${t}" loading="lazy" onerror="this.src='${IMG(n)}'"><figcaption>${t}</figcaption>`;f.onclick=()=>openLb(i);f.onkeydown=e=>{if(e.key==='Enter')openLb(i)};gal.appendChild(f)});
+Object.entries(CAT).forEach(([k,v])=>{const b=document.createElement('button');b.textContent=v;b.setAttribute('aria-pressed',k==='all');b.onclick=()=>{fil.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));gal.querySelectorAll('figure').forEach(f=>f.classList.toggle('hide',k!=='all'&&f.dataset.c!==k))};fil.appendChild(b)});
+const lb=$('#lb');let li=0;
+function vis(){return G.map((g,i)=>i).filter(i=>!gal.children[i].classList.contains('hide'))}
+function openLb(i){li=i;lb.querySelector('img').src=IMG(G[i][0]);lb.querySelector('img').alt=G[i][2];lb.querySelector('p').textContent=G[i][2];lb.classList.add('open');lb.querySelector('.x').focus()}
+function step(d){const v=vis(),k=v.indexOf(li);openLb(v[(k+d+v.length)%v.length])}
+lb.querySelector('.x').onclick=()=>lb.classList.remove('open');lb.querySelector('.p').onclick=()=>step(-1);lb.querySelector('.n').onclick=()=>step(1);
+lb.onclick=e=>{if(e.target===lb)lb.classList.remove('open')};
+addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')lb.classList.remove('open');if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
+
+/* ===== OUVERT MAINTENANT ===== */
+(function(){const d=new Date(),day=d.getDay(),m=d.getHours()*60+d.getMinutes();
+ const tr=document.querySelector(`#hours tr[data-d="${day}"]`);if(tr)tr.classList.add('today');
+ const pm=day===5?810:780;const open=day>=1&&day<=5&&((m>=450&&m<720)||(m>=pm&&m<1020));
+ const e=$('#opennow');e.textContent=open?'Ouvert en ce moment':'Fermé en ce moment — laissez une demande';if(open)e.classList.add('yes')})();
+</script>
+</body>
+</html>
