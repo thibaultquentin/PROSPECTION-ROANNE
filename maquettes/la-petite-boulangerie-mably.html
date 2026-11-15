@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Petite Boulangerie — Boulangerie-pâtisserie à Mably | Pains, viennoiseries, gâteaux sur commande</title>
+<meta name="description" content="La Petite Boulangerie, route de Briennon à Mably : pains, viennoiseries et petits fours maison, pâtisseries, sandwichs et quiches le midi. Commandez votre gâteau ou votre pièce montée en ligne.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — La Petite Boulangerie (Mably)
+   L'entreprise n'a ni site ni logo en ligne : ces couleurs sont
+   APPROCHÉES d'après les photos de la boutique (murs jaunes,
+   présentoirs en bois, vitrines dorées). À ajuster dès réception
+   du logo / des vrais codes couleur.
+   ========================================================== */
+:root{
+  --jaune:#E8B53E;       /* murs de la boutique */
+  --jaune-clair:#F8E3A6;
+  --bois:#6E4020;        /* présentoirs à pain */
+  --bois-fonce:#3B2212;
+  --or:#B48A33;          /* montants des vitrines */
+  --creme:#FFFBF1;
+  --blanc:#FFFFFF;
+  --encre:#2B1A0E;
+  --gris:#6F6257;
+  --ok:#2F7D4A; --ko:#B3412E;
+  --titre:'Fraunces', Georgia, serif;
+  --texte:'Nunito Sans', system-ui, sans-serif;
+  --r:18px;
+  --ombre:0 18px 40px -18px rgba(59,34,18,.35);
+  --ease:cubic-bezier(.22,.9,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 2.5rem);margin-inline:auto}
+:focus-visible{outline:3px solid var(--bois);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--bois-fonce);color:var(--jaune-clair);font-size:.82rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:#fff}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,251,241,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:.3s}
+header.scrolled{border-color:rgba(110,64,32,.15);box-shadow:0 6px 20px -14px rgba(0,0,0,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:74px;transition:height .3s}
+header.scrolled .nav{height:60px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.brand-mark{width:42px;height:42px;border-radius:50%;background:var(--jaune);display:grid;place-items:center;box-shadow:inset 0 0 0 3px var(--bois)}
+.brand-mark svg{width:24px;height:24px}
+.brand-name{font-family:var(--titre);font-weight:800;font-size:1.25rem;line-height:1}
+.brand-name small{display:block;font-family:var(--texte);font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-top:.2rem}
+.menu{display:flex;gap:1.6rem;list-style:none;font-weight:700;font-size:.95rem}
+.menu a{text-decoration:none;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--jaune);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.status{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:800;padding:.4rem .8rem;border-radius:99px;background:#fff;border:1px solid rgba(110,64,32,.18);white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--gris);position:relative}
+.dot.on{background:var(--ok)}
+.dot.on::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--ok);animation:ping 1.8s infinite}
+.dot.off{background:var(--ko)}
+@keyframes ping{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.4);opacity:0}}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--encre);margin:6px 8px;transition:.3s}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:800;text-decoration:none;border:0;cursor:pointer;padding:.95rem 1.5rem;border-radius:99px;font-size:1rem;font-family:var(--texte);transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--bois);color:#fff;box-shadow:0 12px 24px -12px rgba(110,64,32,.8)}
+.btn-main:hover{background:var(--bois-fonce)}
+.btn-jaune{background:var(--jaune);color:var(--bois-fonce)}
+.btn-ghost{background:#fff;color:var(--bois-fonce);box-shadow:inset 0 0 0 2px var(--bois)}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;align-items:end;overflow:hidden;color:#fff}
+.hero-img{position:absolute;inset:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate;transform-origin:30% 40%}
+@keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.18) translate(-2%,1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(43,26,14,.15) 0%,rgba(43,26,14,.35) 40%,rgba(43,26,14,.88) 100%)}
+#flour{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hero-in{position:relative;z-index:3;padding:6rem 0 4.5rem}
+.kicker{display:inline-flex;gap:.5rem;align-items:center;background:var(--jaune);color:var(--bois-fonce);font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:.4rem .9rem;border-radius:99px}
+.hero h1{font-family:var(--titre);font-weight:800;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:.98;margin:1.1rem 0 1rem;max-width:14ch;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--jaune)}
+.hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(2deg);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p.lead{max-width:56ch;font-size:clamp(1.02rem,.95rem + .4vw,1.25rem);opacity:.95}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-photo-note{position:absolute;z-index:3;right:1rem;bottom:1rem;font-size:.72rem;opacity:.7}
+
+/* Marquee */
+.marquee{background:var(--jaune);color:var(--bois-fonce);overflow:hidden;border-block:3px solid var(--bois)}
+.track{display:flex;gap:2.5rem;width:max-content;padding:1rem 0;animation:mq 38s linear infinite;font-family:var(--titre);font-weight:700;font-size:1.35rem}
+.track span{display:flex;align-items:center;gap:2.5rem;white-space:nowrap}
+.track span::after{content:"✦";font-size:.9rem;color:var(--bois)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.eyebrow{font-weight:800;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--or)}
+h2{font-family:var(--titre);font-weight:800;font-size:clamp(2rem,1.5rem + 2.2vw,3.4rem);line-height:1.05;margin:.6rem 0 1rem;letter-spacing:-.01em}
+.sub{color:var(--gris);max-width:60ch;font-size:1.06rem}
+
+/* Chiffres */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem;position:relative;z-index:5}
+.fact{background:#fff;border-radius:var(--r);padding:1.4rem 1.5rem;box-shadow:var(--ombre);border-top:5px solid var(--jaune)}
+.fact b{font-family:var(--titre);font-size:2.4rem;line-height:1;display:block;color:var(--bois)}
+.fact span{color:var(--gris);font-weight:600;font-size:.95rem}
+.fact small{display:block;font-size:.72rem;color:var(--gris);margin-top:.3rem;opacity:.8}
+
+/* Produits */
+.prods{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem}
+.prod{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--ombre);transition:transform .45s var(--ease)}
+.prod:hover{transform:translateY(-8px) rotate(-.4deg)}
+.prod figure{aspect-ratio:4/3;overflow:hidden;position:relative}
+.prod img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.prod:hover img{transform:scale(1.08)}
+.prod .ph{width:100%;height:100%;background:repeating-linear-gradient(45deg,var(--jaune-clair) 0 14px,#fff3cf 14px 28px);display:grid;place-items:center;text-align:center;padding:1rem;color:var(--bois);font-weight:700;font-size:.9rem}
+.prod div{padding:1.1rem 1.2rem 1.4rem}
+.prod h3{font-family:var(--titre);font-size:1.3rem;margin-bottom:.35rem}
+.prod p{font-size:.94rem;color:var(--gris)}
+.tag{display:inline-block;font-size:.72rem;font-weight:800;background:var(--jaune-clair);color:var(--bois-fonce);padding:.2rem .6rem;border-radius:99px;margin-top:.7rem}
+
+/* Galerie */
+.galerie{background:var(--bois-fonce);color:#fff}
+.galerie .sub{color:#e9d8c3}
+.g-track{display:flex;gap:1.2rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:2.2rem 0 1rem;cursor:grab;scrollbar-width:thin;scrollbar-color:var(--jaune) transparent}
+.g-track.drag{cursor:grabbing;scroll-snap-type:none}
+.g-item{flex:0 0 min(78vw,460px);scroll-snap-align:start;position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:800/520;user-select:none}
+.g-item img{width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform .7s var(--ease)}
+.g-item:hover img{transform:scale(1.05)}
+.g-item figcaption{position:absolute;left:1rem;bottom:1rem;background:rgba(255,251,241,.92);color:var(--bois-fonce);font-weight:800;padding:.35rem .85rem;border-radius:99px;font-size:.9rem}
+.g-hint{font-size:.85rem;color:var(--jaune-clair);opacity:.8}
+
+/* Commande — outil central */
+.cmd{background:linear-gradient(180deg,var(--creme),#fff4d6)}
+.cmd-grid{display:grid;grid-template-columns:1.25fr .95fr;gap:2rem;margin-top:2.5rem;align-items:start}
+.panel{background:#fff;border-radius:24px;box-shadow:var(--ombre);padding:clamp(1.3rem,1rem + 1.5vw,2.2rem)}
+.step{margin-bottom:1.7rem}
+.step-h{display:flex;align-items:center;gap:.7rem;font-weight:800;margin-bottom:.8rem}
+.step-h i{font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--jaune);display:grid;place-items:center;font-size:.9rem;color:var(--bois-fonce);flex:none}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{border:2px solid rgba(110,64,32,.25);background:#fff;border-radius:99px;padding:.6rem 1.05rem;font:700 .95rem var(--texte);cursor:pointer;transition:.25s var(--ease);color:var(--encre)}
+.chip:hover{border-color:var(--bois)}
+.chip[aria-pressed="true"]{background:var(--bois);border-color:var(--bois);color:#fff;transform:scale(1.04)}
+.range-row{display:flex;align-items:center;gap:1rem}
+input[type=range]{flex:1;accent-color:var(--bois);height:6px}
+.parts-val{font-family:var(--titre);font-weight:800;font-size:2rem;min-width:3.2ch;text-align:right;color:var(--bois)}
+.plates{display:flex;flex-wrap:wrap;gap:4px;margin-top:.8rem;min-height:22px}
+.plates span{width:14px;height:14px;border-radius:50%;background:var(--jaune);box-shadow:inset 0 0 0 2px var(--or);animation:pop .3s var(--ease)}
+@keyframes pop{from{transform:scale(0)}}
+.field{display:grid;gap:.35rem;margin-bottom:.9rem}
+.field label{font-weight:700;font-size:.9rem}
+.field input,.field textarea{font:600 1rem var(--texte);padding:.8rem .95rem;border-radius:12px;border:2px solid rgba(110,64,32,.2);background:var(--creme);color:var(--encre)}
+.field input:focus,.field textarea:focus{border-color:var(--bois);outline:none;background:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.hint{font-size:.82rem;color:var(--gris)}
+.warn{font-size:.85rem;color:var(--ko);font-weight:700;min-height:1.2em}
+/* Ticket */
+.ticket{position:sticky;top:90px;background:var(--creme);border-radius:22px;padding:1.6rem 1.5rem 1.8rem;box-shadow:var(--ombre);border:2px dashed var(--or)}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:#fff4d6;transform:translateY(-50%)}
+.ticket::before{left:-12px}.ticket::after{right:-12px}
+.ticket h3{font-family:var(--titre);font-size:1.5rem;margin-bottom:.2rem}
+.cake{height:150px;display:grid;place-items:end center;margin:1rem 0 1.2rem}
+.cake svg{height:100%;overflow:hidden}
+.cake .tier{transform-box:fill-box;transform-origin:center bottom;transition:transform .5s var(--ease),opacity .4s}
+.recap{list-style:none;display:grid;gap:.55rem;font-size:.95rem;margin-bottom:1.3rem}
+.recap li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px dotted rgba(110,64,32,.3);padding-bottom:.45rem}
+.recap b{text-align:right}
+.ticket .btn{width:100%;justify-content:center;margin-top:.6rem}
+.ticket .note{font-size:.8rem;color:var(--gris);margin-top:1rem}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--bois-fonce);color:#fff;padding:.9rem 1.3rem;border-radius:14px;font-weight:700;z-index:99;transition:transform .45s var(--ease);max-width:calc(100% - 2rem)}
+.toast.show{transform:translate(-50%,0)}
+
+/* Avis */
+.avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.2rem}
+.avis{background:#fff;border-radius:var(--r);padding:1.6rem;box-shadow:var(--ombre);position:relative}
+.avis::before{content:"“";font-family:var(--titre);font-size:5rem;line-height:1;position:absolute;top:.2rem;right:1rem;color:var(--jaune-clair)}
+.stars{color:var(--jaune);letter-spacing:2px;font-size:1.1rem}
+.avis p{margin:.6rem 0 1rem;font-size:1.02rem}
+.avis cite{font-style:normal;font-weight:800;color:var(--bois);font-size:.9rem}
+.avis-src{font-size:.8rem;color:var(--gris);margin-top:1.2rem}
+
+/* Horaires & contact */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.2rem}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;padding:.75rem 1rem;border-radius:12px;font-weight:600}
+.hours li:nth-child(odd){background:var(--creme)}
+.hours li.today{background:var(--jaune);color:var(--bois-fonce);font-weight:800}
+.big-status{display:flex;align-items:center;gap:.8rem;font-family:var(--titre);font-size:1.5rem;font-weight:800;margin-bottom:1rem}
+.big-status .dot{width:14px;height:14px}
+.contact-list{list-style:none;display:grid;gap:1rem;margin:1.2rem 0 1.5rem}
+.contact-list li{display:flex;gap:.9rem;align-items:flex-start}
+.ico{width:42px;height:42px;border-radius:12px;background:var(--jaune-clair);display:grid;place-items:center;flex:none}
+.ico svg{width:20px;height:20px;stroke:var(--bois);fill:none;stroke-width:2}
+.facade{margin-top:1.2rem;border-radius:var(--r);aspect-ratio:16/7;background:repeating-linear-gradient(-45deg,#f4ead6 0 12px,#fbf4e4 12px 24px);display:grid;place-items:center;color:var(--bois);font-weight:800;text-align:center;padding:1rem;border:2px dashed var(--or)}
+
+/* Footer */
+footer{background:var(--encre);color:#e9dccb;padding:3rem 0 2rem;font-size:.92rem}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem}
+footer h4{font-family:var(--titre);color:#fff;font-size:1.15rem;margin-bottom:.7rem}
+footer a{color:var(--jaune-clair)}
+.mention{margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;opacity:.8}
+
+/* Barre mobile */
+.mob-bar{display:none}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+@media (max-width:980px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--creme);padding:6rem 2rem 2rem;gap:1.3rem;font-size:1.3rem;transform:translateY(-110%);transition:transform .45s var(--ease);z-index:-1}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .status{display:none}
+  .prods{grid-template-columns:1fr 1fr}
+  .cmd-grid,.infos{grid-template-columns:1fr}
+  .ticket{position:relative;top:0}
+  .avis-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+}
+@media (max-width:620px){
+  .facts{grid-template-columns:1fr}
+  .prods{grid-template-columns:1fr}
+  .two{grid-template-columns:1fr}
+  .mob-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--bois-fonce);padding:.6rem;gap:.6rem}
+  .mob-bar a{flex:1;justify-content:center;padding:.8rem;font-size:.92rem}
+  body{padding-bottom:70px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Bakery",
+  "name":"La Petite Boulangerie",
+  "description":"Boulangerie-pâtisserie à Mably : pains, viennoiseries et petits fours maison, pâtisseries, gâteaux et pièces montées sur commande, sandwichs, salades, quiches et pizzas le midi.",
+  "address":{"@type":"PostalAddress","streetAddress":"21 route de Briennon","postalCode":"42300","addressLocality":"Mably","addressRegion":"Loire","addressCountry":"FR"},
+  "telephone":"+33477714760",
+  "email":"alexandreabry@gmail.com",
+  "areaServed":"Mably",
+  "paymentAccepted":"Carte bancaire, chèque, espèces, titres-restaurant"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>La Petite Boulangerie</b>, Mably · non contractuelle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="La Petite Boulangerie, accueil">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6E4020" stroke-width="1.8" stroke-linecap="round"><path d="M4 15c0-5 3.6-9 8-9s8 4 8 9c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3z"/><path d="M9 9.5l1.5 3M12.5 8.5l1 3.5M16 10l.5 3"/></svg>
+      </span>
+      <span class="brand-name">La Petite Boulangerie<small>Mably · route de Briennon</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#fournil">Le fournil</a></li>
+      <li><a href="#vitrines">Nos vitrines</a></li>
+      <li><a href="#commande">Commander un gâteau</a></li>
+      <li><a href="#infos">Horaires &amp; accès</a></li>
+    </ul>
+    <span class="status" aria-live="polite"><span class="dot" id="dot1"></span><span id="st1">…</span></span>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-label="Accueil">
+  <div class="hero-img"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/44ff3bfdfa7ecb4c.webp" alt="Les pains sur les présentoirs en bois de La Petite Boulangerie"></div>
+  <canvas id="flour" aria-hidden="true"></canvas>
+  <div class="wrap hero-in">
+    <span class="kicker">Boulangerie · Pâtisserie · Traiteur</span>
+    <h1><span class="w">La</span> <span class="w" style="animation-delay:.08s">Petite</span> <span class="w" style="animation-delay:.16s">Boulangerie,</span> <span class="w" style="animation-delay:.26s"><em>à Mably</em></span></h1>
+    <p class="lead rv in">Une boulangerie incontournable où vous retrouverez nos spécialités (petits fours et viennoiseries maison). Pour vos papilles de midi : sandwichs, salades, quiches, pizzas…</p>
+    <div class="hero-cta">
+      <a class="btn btn-jaune" href="#commande">Commander un gâteau ou une pièce montée →</a>
+      <a class="btn btn-ghost" href="tel:+33477714760">Appeler le 04 77 71 47 60</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Pains</span><span>Viennoiseries maison</span><span>Petits fours maison</span><span>Pâtisseries</span><span>Pièces montées</span><span>Gâteaux d'anniversaire</span><span>Sandwichs</span><span>Salades</span><span>Quiches</span><span>Pizzas</span>
+    <span>Pains</span><span>Viennoiseries maison</span><span>Petits fours maison</span><span>Pâtisseries</span><span>Pièces montées</span><span>Gâteaux d'anniversaire</span><span>Sandwichs</span><span>Salades</span><span>Quiches</span><span>Pizzas</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="facts">
+    <div class="fact rv"><b><span class="count" data-to="4.7" data-dec="1">0</span>/5</b><span>sur Google</span><small>note relevée en novembre 2026</small></div>
+    <div class="fact rv d1"><b><span class="count" data-to="177">0</span></b><span>avis de clients</span><small>avis Google publics</small></div>
+    <div class="fact rv d2"><b>6h</b><span>ouverture le matin</span><small>selon les horaires communiqués</small></div>
+  </div>
+</div>
+
+<section id="fournil">
+  <div class="wrap">
+    <p class="eyebrow rv">Le fournil</p>
+    <h2 class="rv">Une boulangerie-pâtisserie de quartier, route de Briennon à Mably</h2>
+    <p class="sub rv">Du pain du matin à la pièce montée du dimanche, tout ce qui sort du four se retrouve en vitrine.</p>
+    <div class="prods">
+      <article class="prod rv">
+        <figure><img loading="lazy" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/44ff3bfdfa7ecb4c-800x520.webp" alt="Pains en rayon"></figure>
+        <div><h3>Les pains</h3><p>Le pain du jour, sorti du four de la boutique et rangé sur les présentoirs en bois.</p><span class="tag">Tous les jours</span></div>
+      </article>
+      <article class="prod rv d1">
+        <figure><img loading="lazy" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/eb6001c16622ea2b-800x520.webp" alt="Vitrine de petits fours et viennoiseries"></figure>
+        <div><h3>Petits fours &amp; viennoiseries maison</h3><p>Nos spécialités : les petits fours et les viennoiseries, faits maison.</p><span class="tag">Spécialité maison</span></div>
+      </article>
+      <article class="prod rv d2">
+        <figure><img loading="lazy" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/8020967b6846637e-800x520.webp" alt="Vitrine réfrigérée de pâtisseries et gâteaux"></figure>
+        <div><h3>Les pâtisseries</h3><p>Pâtisseries individuelles, gâteaux à partager, gâteaux d'anniversaire et pièces montées sur commande.</p><span class="tag">Sur commande</span></div>
+      </article>
+      <article class="prod rv d3">
+        <figure><img loading="lazy" src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/4bd21672e6292695-800x520.webp" alt="Vitrine de produits salés et sucrés"></figure>
+        <div><h3>Le midi</h3><p>Pour vos papilles de midi : sandwichs, salades, quiches, pizzas… à emporter.</p><span class="tag">Titres-restaurant acceptés</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="galerie" id="vitrines">
+  <div class="wrap">
+    <p class="eyebrow">Nos vitrines</p>
+    <h2>Un tour derrière le comptoir</h2>
+    <p class="sub">Les vraies photos de la boutique et du fournil. <span class="g-hint">Faites glisser pour parcourir →</span></p>
+    <div class="g-track" id="gtrack" tabindex="0" aria-label="Galerie photos, défilement horizontal">
+      <figure class="g-item"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/44ff3bfdfa7ecb4c-800x520.webp" alt="Les pains" loading="lazy"><figcaption>Les pains</figcaption></figure>
+      <figure class="g-item"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/8020967b6846637e-800x520.webp" alt="Les pâtisseries" loading="lazy"><figcaption>Les pâtisseries</figcaption></figure>
+      <figure class="g-item"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/eb6001c16622ea2b-800x520.webp" alt="La vitrine" loading="lazy"><figcaption>La vitrine</figcaption></figure>
+      <figure class="g-item"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/4bd21672e6292695-800x520.webp" alt="Les pâtisseries" loading="lazy"><figcaption>Les pâtisseries</figcaption></figure>
+      <figure class="g-item"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/7552794/8836e0430f5ce864-800x520.webp" alt="Le four" loading="lazy"><figcaption>Le four</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="cmd" id="commande">
+  <div class="wrap">
+    <p class="eyebrow rv">Commande en ligne</p>
+    <h2 class="rv">Votre gâteau ou votre pièce montée, préparé pour le jour J</h2>
+    <p class="sub rv">Anniversaire, baptême, communion, mariage : décrivez ce qu'il vous faut en quelques clics, la boulangerie vous recontacte pour confirmer et vous donner le prix.</p>
+
+    <div class="cmd-grid">
+      <form class="panel rv" id="form" novalidate>
+        <div class="step">
+          <div class="step-h"><i>1</i>L'occasion</div>
+          <div class="chips" data-group="occasion">
+            <button type="button" class="chip" aria-pressed="true" data-v="Anniversaire">Anniversaire</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Baptême">Baptême</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Communion">Communion</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Mariage">Mariage</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Autre fête">Autre fête</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-h"><i>2</i>Ce que vous souhaitez</div>
+          <div class="chips" data-group="type">
+            <button type="button" class="chip" aria-pressed="true" data-v="Gâteau à partager">Gâteau à partager</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Pièce montée">Pièce montée</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Petits fours maison">Petits fours maison</button>
+            <button type="button" class="chip" aria-pressed="false" data-v="Viennoiseries maison">Viennoiseries maison</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-h"><i>3</i>Nombre de personnes</div>
+          <div class="range-row">
+            <input type="range" id="parts" min="4" max="80" value="10" aria-label="Nombre de personnes">
+            <span class="parts-val" id="partsVal">10</span>
+          </div>
+          <div class="plates" id="plates" aria-hidden="true"></div>
+        </div>
+        <div class="step">
+          <div class="step-h"><i>4</i>Retrait à la boutique</div>
+          <div class="two">
+            <div class="field"><label for="date">Date de retrait</label><input type="date" id="date" required></div>
+            <div class="field"><label for="heure">Heure souhaitée</label><input type="time" id="heure" value="10:00" step="900"></div>
+          </div>
+          <p class="warn" id="dateWarn" aria-live="polite"></p>
+          <p class="hint">Délai de commande à définir avec la boulangerie (il sera affiché ici).</p>
+        </div>
+        <div class="step">
+          <div class="step-h"><i>5</i>Vos précisions</div>
+          <div class="field"><label for="msg">Parfum, inscription, allergies…</label><textarea id="msg" rows="3" placeholder="Ex. : « Joyeux anniversaire Léa », sans fruits à coque…"></textarea></div>
+          <div class="two">
+            <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name" required></div>
+            <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" required></div>
+          </div>
+        </div>
+      </form>
+
+      <aside class="ticket rv d1" aria-live="polite">
+        <p class="eyebrow">Votre demande</p>
+        <h3 id="tTitle">Gâteau à partager</h3>
+        <div class="cake" aria-hidden="true">
+          <svg viewBox="0 0 200 150" id="cakeSvg">
+            <ellipse cx="100" cy="146" rx="90" ry="5" fill="rgba(59,34,18,.15)"/>
+            <rect x="40" y="62" width="120" height="16" rx="3" fill="#B48A33"/>
+            <g class="tier" id="t1"><rect x="25" y="105" width="150" height="38" rx="8" fill="#F8E3A6" stroke="#6E4020" stroke-width="3"/><path d="M25 115 q12 10 25 0 t25 0 t25 0 t25 0 t25 0 t25 0" fill="none" stroke="#E8B53E" stroke-width="4"/></g>
+            <g class="tier" id="t2"><rect x="48" y="72" width="104" height="34" rx="7" fill="#fff" stroke="#6E4020" stroke-width="3"/><path d="M48 82 q9 8 17 0 t17 0 t17 0 t17 0 t17 0 t18 0" fill="none" stroke="#E8B53E" stroke-width="4"/></g>
+            <g class="tier" id="t3"><rect x="68" y="42" width="64" height="31" rx="6" fill="#F8E3A6" stroke="#6E4020" stroke-width="3"/></g>
+            <g class="tier" id="t4"><circle cx="100" cy="32" r="9" fill="#B3412E"/><path d="M100 23 q4 -8 10 -9" stroke="#2F7D4A" stroke-width="3" fill="none"/></g>
+          </svg>
+        </div>
+        <ul class="recap">
+          <li><span>Occasion</span><b id="rOcc">Anniversaire</b></li>
+          <li><span>Personnes</span><b id="rParts">10</b></li>
+          <li><span>Retrait</span><b id="rDate">à choisir</b></li>
+          <li><span>Où</span><b>21 route de Briennon, Mably</b></li>
+        </ul>
+        <button class="btn btn-main" type="button" id="send">Envoyer ma demande à la boulangerie</button>
+        <a class="btn btn-ghost" href="tel:+33477714760">Ou appeler le 04 77 71 47 60</a>
+        <button class="btn btn-jaune" type="button" id="ics">Ajouter le retrait à mon agenda</button>
+        <p class="note">Aucun paiement en ligne : la boulangerie confirme la commande et le prix par téléphone ou par mail.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="avis">
+  <div class="wrap">
+    <p class="eyebrow rv">Ils en parlent</p>
+    <h2 class="rv">4,7/5 sur 177 avis Google</h2>
+    <div class="avis-grid">
+      <blockquote class="avis rv"><div class="stars" aria-label="Avis client">★★★★★</div><p>Excellente boulangerie de très bon produit la maîtresse des lieux est accueillante et toujours le sourire bravo</p><cite>Dominique V.</cite></blockquote>
+      <blockquote class="avis rv d1"><div class="stars" aria-label="Avis client">★★★★★</div><p>Magnifique pièce montée commandée pour l'occasion du baptême de notre fille, aussi belle que bonne !</p><cite>M. P.</cite></blockquote>
+      <blockquote class="avis rv d2"><div class="stars" aria-label="Avis client">★★★★★</div><p>Ils sont délicieux, on sent bien le beurre surtout à cette taille</p><cite>Avis client, à propos des croissants</cite></blockquote>
+    </div>
+    <p class="avis-src">Extraits d'avis Google publics, reproduits tels quels.</p>
+  </div>
+</section>
+
+<section id="infos" style="background:#fff">
+  <div class="wrap">
+    <p class="eyebrow rv">Horaires &amp; accès</p>
+    <h2 class="rv">Passez nous voir à Mably</h2>
+    <div class="infos">
+      <div class="panel rv">
+        <div class="big-status"><span class="dot" id="dot2"></span><span id="st2">…</span></div>
+        <ul class="hours" id="hours"></ul>
+        <p class="hint" style="margin-top:1rem">Horaires transmis à l'Office de tourisme du Roannais (avril 2026), à confirmer par la boulangerie.</p>
+      </div>
+      <div class="panel rv d1">
+        <ul class="contact-list">
+          <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><b>21 route de Briennon</b><br>42300 Mably</div></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span><div><a href="tel:+33477714760"><b>04 77 71 47 60</b></a><br><span class="hint">Commandes et renseignements</span></div></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><a href="mailto:alexandreabry@gmail.com">alexandreabry@gmail.com</a></div></li>
+          <li><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></span><div>Carte bancaire, chèque, espèces, titres-restaurant<br><span class="hint">Parking à proximité</span></div></li>
+        </ul>
+        <a class="btn btn-main" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=La+Petite+Boulangerie+21+route+de+Briennon+42300+Mably">Itinéraire →</a>
+        <div class="facade">Photo de la façade<br><small>à fournir par la boulangerie</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div><h4>La Petite Boulangerie</h4><p>Boulangerie, pâtisserie, traiteur à Mably. Pains, viennoiseries et petits fours maison, pâtisseries et pièces montées sur commande, sandwichs et quiches le midi.</p></div>
+      <div><h4>Nous trouver</h4><p>21 route de Briennon<br>42300 Mably<br><a href="tel:+33477714760">04 77 71 47 60</a></p></div>
+      <div><h4>Raccourcis</h4><p><a href="#commande">Commander un gâteau</a><br><a href="#vitrines">Nos vitrines</a><br><a href="#infos">Horaires</a></p></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée sans engagement, non contractuelle. Les photos sont les vraies photos de la boutique publiées sur la fiche de l'Office de tourisme du Roannais ; la photo de façade et le logo restent à fournir. Faute de site et de logo existants, les couleurs ont été approchées d'après la boutique (murs jaunes, bois, vitrines dorées) et s'ajustent en quelques minutes. Les horaires sont ceux transmis à l'Office de tourisme et doivent être confirmés. Aucun prix n'est affiché : ils seront fixés par la boulangerie.</p>
+  </div>
+</footer>
+
+<div class="mob-bar"><a class="btn btn-jaune" href="#commande">Commander</a><a class="btn btn-ghost" href="tel:+33477714760">Appeler</a></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+
+  /* Header + menu */
+  const header = $('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 30), {passive:true});
+  const burger = $('#burger'), menu = $('#menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); burger.setAttribute('aria-expanded', false); }));
+
+  /* Horaires (Office de tourisme du Roannais, avril 2026) — 0 = dimanche */
+  const H = {1:[[360,1140]],2:[[360,1140]],3:[[360,1140]],4:[[360,1140]],5:[[360,1140]],6:[[360,1140]],0:[[390,780]]};
+  const J = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const fmt = m => (Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):''));
+  function status(){
+    const n = new Date(), d = n.getDay(), m = n.getHours()*60+n.getMinutes();
+    const slot = (H[d]||[]).find(s => m>=s[0] && m<s[1]);
+    if (slot) return {on:true, txt:'Ouvert · ferme à '+fmt(slot[1])};
+    for (let i=0;i<8;i++){ const dd=(d+i)%7; const s=(H[dd]||[]).find(x=> i>0 || x[0]>m); if(s) return {on:false, txt:'Fermé · ouvre '+(i===0?'à ':i===1?'demain à ':J[dd].toLowerCase()+' à ')+fmt(s[0])}; }
+    return {on:false, txt:'Fermé'};
+  }
+  function paint(){
+    const s = status();
+    ['1','2'].forEach(k => { $('#dot'+k).className = 'dot '+(s.on?'on':'off'); $('#st'+k).textContent = s.txt; });
+  }
+  paint(); setInterval(paint, 60000);
+  const ul = $('#hours'), today = new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(d => { const li=document.createElement('li'); if(d===today) li.className='today';
+    li.innerHTML = '<span>'+J[d]+'</span><span>'+(H[d]? H[d].map(s=>fmt(s[0])+' – '+fmt(s[1])).join(', ') : 'Fermé')+'</span>'; ul.appendChild(li); });
+
+  /* Reveal + compteurs */
+  const io = new IntersectionObserver(es => es.forEach(e => { if(!e.isIntersecting) return; e.target.classList.add('in');
+    e.target.querySelectorAll('.count').forEach(c => { const to=+c.dataset.to, dec=+(c.dataset.dec||0); if(reduce){c.textContent=to.toFixed(dec).replace('.',',');return;}
+      const t0=performance.now(); (function f(t){ const p=Math.min(1,(t-t0)/1400), v=to*(1-Math.pow(1-p,3)); c.textContent=v.toFixed(dec).replace('.',','); if(p<1) requestAnimationFrame(f); })(t0); });
+    io.unobserve(e.target); }), {threshold:.18});
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  /* Farine qui flotte dans la lumière du hero */
+  const cv = $('#flour');
+  if (cv && !reduce){
+    const ctx = cv.getContext('2d'); let W,Hh,P=[];
+    const size = () => { W=cv.width=cv.offsetWidth; Hh=cv.height=cv.offsetHeight; P=Array.from({length:Math.min(70,Math.floor(W/18))},()=>({x:Math.random()*W,y:Math.random()*Hh,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.25,vy:-(Math.random()*.25+.05),a:Math.random()*.5+.2})); };
+    size(); addEventListener('resize', size);
+    (function loop(){ ctx.clearRect(0,0,W,Hh); P.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; if(p.y<-5){p.y=Hh+5;p.x=Math.random()*W;} ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,7); ctx.fillStyle='rgba(255,245,220,'+p.a+')'; ctx.fill(); }); requestAnimationFrame(loop); })();
+  }
+
+  /* Galerie : glisser à la souris */
+  const g = $('#gtrack'); let down=false, sx=0, sl=0;
+  g.addEventListener('pointerdown', e => { if(e.pointerType!=='mouse') return; down=true; sx=e.clientX; sl=g.scrollLeft; g.classList.add('drag'); });
+  addEventListener('pointerup', () => { down=false; g.classList.remove('drag'); });
+  g.addEventListener('pointermove', e => { if(down) g.scrollLeft = sl - (e.clientX - sx); });
+
+  /* Outil de commande */
+  const state = {occasion:'Anniversaire', type:'Gâteau à partager', parts:10};
+  document.querySelectorAll('.chips').forEach(grp => grp.addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if(!b) return;
+    grp.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c===b));
+    state[grp.dataset.group] = b.dataset.v;
+    if (b.dataset.v==='Mariage' && state.type==='Gâteau à partager'){ const pm=[...document.querySelectorAll('[data-group=type] .chip')][1]; pm.click(); }
+    update();
+  }));
+  const parts = $('#parts'), plates = $('#plates');
+  parts.addEventListener('input', () => { state.parts=+parts.value; update(); });
+  const date = $('#date'), heure = $('#heure');
+  const iso = d => d.toISOString().slice(0,10);
+  const tmr = new Date(); tmr.setDate(tmr.getDate()+1); date.min = iso(tmr);
+  date.addEventListener('change', update); heure.addEventListener('change', update);
+
+  function update(){
+    $('#partsVal').textContent = state.parts;
+    $('#rParts').textContent = state.parts+' pers.';
+    $('#rOcc').textContent = state.occasion;
+    $('#tTitle').textContent = state.type;
+    const n = Math.min(state.parts, 80);
+    while (plates.children.length < n) plates.appendChild(document.createElement('span'));
+    while (plates.children.length > n) plates.lastChild.remove();
+    // le gâteau grandit avec le nombre de personnes
+    const tiers = state.type==='Pièce montée' ? 4 : state.parts>40 ? 3 : state.parts>16 ? 2 : 1;
+    ['t1','t2','t3','t4'].forEach((id,i) => { const el=$('#'+id); const show = i<tiers || (id==='t4' && tiers>=3);
+      el.style.opacity = show?1:0; el.style.transform = show?'scaleY(1)':'scaleY(.2)'; });
+    const w = $('#dateWarn'); w.textContent='';
+    if (date.value){
+      const d = new Date(date.value+'T12:00'); const wd = d.getDay();
+      const s = H[wd]; let txt = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+      if (!s) { w.textContent = 'La boutique est fermée ce jour-là.'; }
+      else { const [hh,mm]=heure.value.split(':').map(Number), m=hh*60+mm; if(m<s[0][0]||m>=s[0][1]) w.textContent='Ce jour-là, retrait possible entre '+fmt(s[0][0])+' et '+fmt(s[0][1])+'.'; }
+      $('#rDate').textContent = txt+' · '+heure.value.replace(':','h');
+    } else $('#rDate').textContent = 'à choisir';
+  }
+  update();
+
+  const toast = msg => { const t=$('#toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3200); };
+
+  $('#send').addEventListener('click', () => {
+    if (!date.value){ date.focus(); toast('Choisissez une date de retrait.'); return; }
+    if (!$('#nom').value.trim() || !$('#tel').value.trim()){ $('#nom').focus(); toast('Indiquez votre nom et votre téléphone pour être rappelé.'); return; }
+    const body = ['Bonjour,','', 'Je souhaite commander :', '- '+state.type+' pour '+state.parts+' personnes', '- Occasion : '+state.occasion, '- Retrait : '+$('#rDate').textContent, $('#msg').value? '- Précisions : '+$('#msg').value : '', '', 'Nom : '+$('#nom').value, 'Téléphone : '+$('#tel').value, '', 'Merci de me confirmer la commande et le prix.'].filter(l=>l!==null).join('\n');
+    location.href = 'mailto:alexandreabry@gmail.com?subject='+encodeURIComponent('Commande '+state.type+' – '+state.occasion)+'&body='+encodeURIComponent(body);
+    toast('Votre messagerie s\'ouvre avec la demande prête à envoyer.');
+  });
+
+  $('#ics').addEventListener('click', () => {
+    if (!date.value){ date.focus(); toast('Choisissez d\'abord une date de retrait.'); return; }
+    const [hh,mm] = heure.value.split(':'); const dt = date.value.replace(/-/g,'')+'T'+hh+mm+'00';
+    const end = date.value.replace(/-/g,'')+'T'+String((+hh+1)%24).padStart(2,'0')+mm+'00';
+    const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//La Petite Boulangerie//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@lapetiteboulangerie-mably','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART:'+dt,'DTEND:'+end,'SUMMARY:Retrait '+state.type+' – La Petite Boulangerie','LOCATION:21 route de Briennon\\, 42300 Mably','DESCRIPTION:'+state.parts+' personnes – '+state.occasion+'. Tél. 04 77 71 47 60','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download = 'retrait-la-petite-boulangerie.ics'; a.click();
+    toast('Rappel ajouté : ouvrez le fichier pour l\'enregistrer dans votre agenda.');
+  });
+})();
+</script>
+</body>
+</html>
