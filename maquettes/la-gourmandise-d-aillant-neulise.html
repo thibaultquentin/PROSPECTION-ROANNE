@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Gourmandise d'Aillant — Brioches et pralines à Neulise, Roannais</title>
+<meta name="description" content="La Gourmandise d'Aillant, atelier de Neulise dans le Roannais : pralines fines et brioches gourmandes. Préparez votre commande pour un anniversaire, un baptême ou un repas de famille.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Parisienne&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE — reprise du visuel actuel de lagourmandisedaillant.fr
+   (ciel de nuit bleu, nuages roses, titre script magenta,
+   baseline script orangée, lumières dorées).
+   Couleurs relevées à l'œil sur l'image du site : ajustables ici.
+   ========================================================== */
+:root{
+  --nuit:#262b55;          /* bleu nuit du ciel */
+  --nuit-2:#3a3f78;        /* bleu plus clair, haut du ciel */
+  --nuit-3:#5a5f9c;
+  --nuage:#f6b6cb;         /* rose des nuages */
+  --nuage-clair:#fde3ec;
+  --creme:#fff7f3;
+  --magenta:#e01fd6;       /* titre « La Gourmandise d'Aillant » */
+  --saumon:#e2895a;        /* baseline « Pralines fines et brioches gourmandes » */
+  --or:#ffd479;            /* lumières dorées */
+  --brioche:#c8652a;       /* croûte caramélisée de la brioche */
+  --texte:#2b2547;
+  --texte-doux:#615b80;
+  --f-script:'Great Vibes', cursive;
+  --f-script-2:'Parisienne', cursive;
+  --f-texte:'Nunito', system-ui, sans-serif;
+  --rayon:22px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:6px}
+
+/* Bandeau démo */
+.demo{background:var(--nuit);color:#fff;font-size:.8rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--or)}
+
+/* Navigation */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem clamp(1rem,4vw,3rem);background:rgba(38,43,85,.82);backdrop-filter:blur(12px) saturate(160%);color:#fff;transition:padding .3s var(--ease)}
+.nav.compact{padding-top:.4rem;padding-bottom:.4rem}
+.nav__logo{font-family:var(--f-script);font-size:clamp(1.6rem,3vw,2.1rem);color:var(--magenta);text-decoration:none;text-shadow:0 0 18px rgba(224,31,214,.45);white-space:nowrap}
+.nav__links{display:flex;gap:1.6rem;list-style:none;font-weight:600;font-size:.95rem}
+.nav__links a{text-decoration:none;opacity:.85;position:relative}
+.nav__links a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav__links a:hover{opacity:1}.nav__links a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;border:0;cursor:pointer;font:700 1rem var(--f-texte);padding:.85rem 1.5rem;border-radius:999px;text-decoration:none;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn--or{background:var(--or);color:var(--nuit);box-shadow:0 8px 24px rgba(255,212,121,.35)}
+.btn--or:hover{box-shadow:0 12px 30px rgba(255,212,121,.55)}
+.btn--ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.35)}
+.btn--magenta{background:var(--magenta);color:#fff;box-shadow:0 10px 26px rgba(224,31,214,.3)}
+.nav .btn{padding:.55rem 1.1rem;font-size:.9rem}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer}
+
+/* HERO — le ciel de nuit du visuel actuel */
+.hero{position:relative;min-height:min(92vh,820px);display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:2rem;padding:clamp(3rem,7vw,6rem) clamp(1rem,5vw,4rem) clamp(7rem,12vw,10rem);background:radial-gradient(ellipse at 70% 20%,var(--nuit-3) 0%,var(--nuit-2) 35%,var(--nuit) 75%);color:#fff;overflow:hidden;isolation:isolate}
+#ciel{position:absolute;inset:0;z-index:-1;width:100%;height:100%}
+.hero__txt{position:relative;z-index:2}
+.hero__kicker{font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;color:var(--nuage);font-weight:700}
+.hero h1{font-family:var(--f-script);font-weight:400;font-size:clamp(3.4rem,8.5vw,7rem);line-height:1.05;color:var(--magenta);text-shadow:0 0 40px rgba(224,31,214,.45);margin:.4rem 0 .3rem}
+.hero h1 .mot{display:inline-block;white-space:nowrap}
+.hero h1 .l{display:inline-block;opacity:0;transform:translateY(30px) rotate(-4deg);animation:lettre .9s var(--ease) forwards}
+@keyframes lettre{to{opacity:1;transform:none}}
+.hero__base{font-family:var(--f-script-2);font-size:clamp(1.6rem,3.4vw,2.5rem);color:var(--saumon)}
+.hero__p{max-width:34rem;margin:1.2rem 0 2rem;color:#e7e5f6;font-size:1.08rem}
+.hero__ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero__visu{position:relative;z-index:1;justify-self:center;width:min(100%,560px);aspect-ratio:1/1.02;border-radius:50% 50% 46% 54%/55% 50% 50% 45%;overflow:hidden;box-shadow:0 30px 80px rgba(10,10,40,.55),0 0 0 10px rgba(246,182,203,.18);animation:flotte 7s ease-in-out infinite}
+.hero__visu img{width:100%;height:100%;object-fit:cover;object-position:100% 96%;transform:scale(1.6);transition:transform .2s linear}
+@keyframes flotte{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.nuages{position:absolute;left:0;right:0;bottom:-2px;z-index:3;line-height:0;pointer-events:none}
+.nuages svg{width:100%;height:clamp(90px,14vw,170px)}
+.statut{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.4rem;font-size:.9rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);padding:.4rem .9rem;border-radius:999px}
+.statut i{width:9px;height:9px;border-radius:50%;background:#9aa0c8}
+.statut.ouvert i{background:#6ee7a0;box-shadow:0 0 0 0 rgba(110,231,160,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(110,231,160,0)}100%{box-shadow:0 0 0 0 rgba(110,231,160,0)}}
+
+/* Bandeau défilant */
+.ruban{background:var(--nuage);color:var(--nuit);overflow:hidden;white-space:nowrap;padding:.9rem 0;font-family:var(--f-script-2);font-size:1.6rem}
+.ruban__piste{display:inline-block;animation:defile 28s linear infinite}
+.ruban span{margin:0 1.4rem}.ruban span.etoile{color:var(--magenta);font-family:var(--f-texte);font-size:1rem}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,9vw,7rem) clamp(1rem,5vw,4rem)}
+.titre{text-align:center;max-width:46rem;margin:0 auto 3rem}
+.titre small{display:block;font-weight:800;letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;color:var(--brioche)}
+.titre h2{font-family:var(--f-script);font-weight:400;font-size:clamp(2.6rem,6vw,4.2rem);color:var(--nuit);line-height:1.1;margin:.3rem 0 .6rem}
+.titre p{color:var(--texte-doux)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Gourmandises (onglets + cartes, inspirés de la référence pâtisserie) */
+.onglets{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.onglet{border:0;background:#fff;color:var(--texte-doux);font:700 .95rem var(--f-texte);padding:.65rem 1.3rem;border-radius:999px;cursor:pointer;box-shadow:0 2px 10px rgba(38,43,85,.08);transition:all .3s var(--ease)}
+.onglet[aria-selected="true"]{background:var(--nuit);color:#fff}
+.cartes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.6rem;max-width:1100px;margin:0 auto}
+.carte{background:#fff;border-radius:var(--rayon);overflow:hidden;box-shadow:0 10px 40px rgba(38,43,85,.08);transition:transform .45s var(--ease),box-shadow .45s var(--ease);transform-style:preserve-3d}
+.carte:hover{box-shadow:0 22px 50px rgba(38,43,85,.16)}
+.carte__visu{position:relative;height:200px;background:linear-gradient(160deg,var(--nuit-2),var(--nuit));display:grid;place-items:center;overflow:hidden}
+.carte__visu::before{content:"";position:absolute;inset:auto -20% -40% -20%;height:70%;background:radial-gradient(ellipse at center,var(--nuage) 0%,rgba(246,182,203,0) 70%)}
+.carte__visu svg{position:relative;width:62%;height:auto;filter:drop-shadow(0 12px 18px rgba(0,0,0,.35));transition:transform .6s var(--ease)}
+.carte:hover .carte__visu svg{transform:scale(1.08) rotate(-4deg)}
+.fournir{position:absolute;top:.7rem;right:.7rem;font-size:.68rem;font-weight:700;background:rgba(255,255,255,.88);color:var(--nuit);padding:.2rem .55rem;border-radius:999px}
+.carte__corps{padding:1.4rem 1.5rem 1.6rem}
+.carte h3{font-family:var(--f-script-2);font-weight:400;font-size:1.9rem;color:var(--nuit);line-height:1.1}
+.carte p{color:var(--texte-doux);font-size:.95rem;margin:.5rem 0 1rem}
+.carte .ajout{background:none;border:2px solid var(--brioche);color:var(--brioche);font:700 .88rem var(--f-texte);padding:.5rem 1rem;border-radius:999px;cursor:pointer;transition:all .25s}
+.carte .ajout:hover{background:var(--brioche);color:#fff}
+.carte[hidden]{display:none}
+
+/* Étapes */
+.etapes{background:linear-gradient(180deg,var(--creme),var(--nuage-clair))}
+.etapes__grille{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.4rem;max-width:1050px;margin:0 auto;counter-reset:e}
+.etape{background:#fff;border-radius:var(--rayon);padding:2rem 1.6rem;position:relative;box-shadow:0 8px 30px rgba(38,43,85,.06)}
+.etape::before{counter-increment:e;content:counter(e);position:absolute;top:-18px;left:1.6rem;width:44px;height:44px;border-radius:50%;background:var(--magenta);color:#fff;display:grid;place-items:center;font-weight:800;box-shadow:0 6px 16px rgba(224,31,214,.35)}
+.etape h3{margin:.6rem 0 .4rem;font-size:1.1rem;color:var(--nuit)}
+.etape p{color:var(--texte-doux);font-size:.95rem}
+
+/* OUTIL — préparer une commande */
+.commande{background:var(--nuit);color:#fff;position:relative;overflow:hidden}
+.commande .titre h2{color:var(--nuage)}
+.commande .titre p{color:#cfcde6}
+.commande .titre small{color:var(--or)}
+.outil{display:grid;grid-template-columns:1.25fr 1fr;gap:1.8rem;max-width:1150px;margin:0 auto}
+.panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:var(--rayon);padding:clamp(1.3rem,3vw,2.2rem);backdrop-filter:blur(6px)}
+.panneau h3{font-family:var(--f-script-2);font-weight:400;font-size:1.8rem;color:var(--or);margin-bottom:1rem}
+.champ{margin-bottom:1.4rem}
+.champ>label,.champ>.lab{display:block;font-weight:700;font-size:.9rem;margin-bottom:.5rem;color:#eceaf8}
+.puces{display:flex;flex-wrap:wrap;gap:.5rem}
+.puce{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;font:600 .9rem var(--f-texte);padding:.5rem 1rem;border-radius:999px;cursor:pointer;transition:all .25s var(--ease)}
+.puce[aria-pressed="true"]{background:var(--nuage);color:var(--nuit);border-color:var(--nuage);transform:translateY(-1px)}
+input[type=range]{width:100%;accent-color:var(--magenta)}
+.convives{display:flex;align-items:baseline;gap:.6rem}
+.convives b{font-size:2.2rem;color:var(--or);font-weight:800;min-width:3ch}
+.produits{display:grid;gap:.6rem}
+.ligne{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:rgba(255,255,255,.05);padding:.65rem .9rem;border-radius:14px}
+.ligne span{font-weight:600}
+.ligne small{display:block;font-weight:400;color:#bdbbd8;font-size:.78rem}
+.pas{display:flex;align-items:center;gap:.4rem}
+.pas button{width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:1.1rem;cursor:pointer;transition:background .2s}
+.pas button:hover{background:var(--magenta)}
+.pas output{min-width:2ch;text-align:center;font-weight:800}
+.suggere{margin-top:.8rem;background:none;border:1px dashed var(--or);color:var(--or);font:700 .85rem var(--f-texte);padding:.5rem .9rem;border-radius:999px;cursor:pointer}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+input[type=date],input[type=text],input[type=tel],textarea{width:100%;font:500 .95rem var(--f-texte);padding:.7rem .9rem;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff}
+input::placeholder,textarea::placeholder{color:#a9a7c8}
+input[type=date]{color-scheme:dark}
+.alerte{font-size:.82rem;color:var(--or);margin-top:.4rem;min-height:1.1em}
+.recap{position:sticky;top:90px;align-self:start;background:var(--creme);color:var(--texte);border-radius:var(--rayon);padding:1.8rem;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.recap h3{font-family:var(--f-script);font-weight:400;font-size:2.4rem;color:var(--magenta);line-height:1}
+.recap ul{list-style:none;margin:1rem 0;border-top:1px dashed #e4cfd8}
+.recap li{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px dashed #e4cfd8;font-size:.95rem}
+.recap li.vide{color:var(--texte-doux);justify-content:center;font-style:italic}
+.recap .meta{font-size:.9rem;color:var(--texte-doux);display:grid;gap:.2rem;margin-bottom:1.2rem}
+.recap .meta b{color:var(--texte)}
+.recap .btn{width:100%;justify-content:center;margin-top:.5rem}
+.recap .btn--ghost{background:#fff;color:var(--nuit);border:1px solid #dcd6ea}
+.recap .note{font-size:.75rem;color:var(--texte-doux);margin-top:.9rem}
+.pop{animation:pop .4s var(--ease)}
+@keyframes pop{50%{transform:scale(1.04)}}
+
+/* Atelier */
+.atelier__grille{display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;max-width:1100px;margin:0 auto;align-items:stretch}
+.infos{background:#fff;border-radius:var(--rayon);padding:2rem;box-shadow:0 10px 40px rgba(38,43,85,.08)}
+.infos h3{font-family:var(--f-script-2);font-weight:400;font-size:2rem;color:var(--nuit);margin-bottom:.8rem}
+.infos dl{display:grid;grid-template-columns:auto 1fr;gap:.6rem 1rem}
+.infos dt{font-weight:800;color:var(--brioche);font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;padding-top:.15rem}
+.infos dd{min-width:0;overflow-wrap:anywhere}
+.infos dd a{color:var(--nuit);font-weight:700}
+.horaires{margin-top:1.4rem;font-size:.93rem}
+.horaires div{display:flex;justify-content:space-between;padding:.35rem .6rem;border-radius:8px}
+.horaires div.auj{background:var(--nuage-clair);font-weight:800}
+.horaires small{display:block;color:var(--texte-doux);margin-top:.6rem;font-size:.78rem}
+.carte-geo{border-radius:var(--rayon);overflow:hidden;min-height:340px;box-shadow:0 10px 40px rgba(38,43,85,.08)}
+.carte-geo iframe{width:100%;height:100%;min-height:340px;border:0}
+
+/* CTA final + pied */
+.final{background:radial-gradient(ellipse at 50% 0%,var(--nuit-2),var(--nuit));color:#fff;text-align:center;position:relative;overflow:hidden}
+.final h2{font-family:var(--f-script);font-weight:400;font-size:clamp(2.6rem,6vw,4.4rem);color:var(--nuage)}
+.final p{color:#d6d4ec;max-width:36rem;margin:.6rem auto 2rem}
+.final .hero__ctas{justify-content:center}
+footer{background:#1b1f40;color:#b9b7d6;padding:2.4rem clamp(1rem,5vw,4rem);font-size:.85rem}
+footer .logo{font-family:var(--f-script);font-size:2rem;color:var(--magenta)}
+footer .cols{display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-start}
+footer .mention{margin-top:1.6rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.1);font-size:.78rem;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,140%);background:var(--nuit);color:#fff;padding:.8rem 1.3rem;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .45s var(--ease);z-index:90;font-weight:600;font-size:.92rem}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  .hero{grid-template-columns:1fr;text-align:left}
+  .hero__visu{width:min(88%,420px);order:-1}
+  .outil,.atelier__grille{grid-template-columns:minmax(0,1fr)}
+  .recap{position:static}
+  .nav__links{position:fixed;inset:58px 0 auto 0;flex-direction:column;background:var(--nuit);padding:1.4rem 1.5rem;gap:1.1rem;transform:translateY(-130%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s}
+  .nav__links.ouvert{transform:none;visibility:visible}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+@media (max-width:520px){.deux{grid-template-columns:1fr}.hero h1{font-size:3.2rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero h1 .l{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Bakery",
+  "name":"La Gourmandise d'Aillant",
+  "description":"Pralines fines et brioches gourmandes, fabriquées à Neulise dans le Roannais.",
+  "url":"https://lagourmandisedaillant.fr/",
+  "telephone":"+33662261091",
+  "email":"miam@lagourmandisedaillant.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"293 rue des Amis de l'Industrie, Parc d'activité Les Jacquins","postalCode":"42590","addressLocality":"Neulise","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.88559,"longitude":4.17793},
+  "areaServed":["Neulise","Le Roannais"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de nouveau site</b> pour La Gourmandise d'Aillant</div>
+
+<nav class="nav" id="nav">
+  <a href="#accueil" class="nav__logo">La Gourmandise d'Aillant</a>
+  <ul class="nav__links" id="menu">
+    <li><a href="#gourmandises">Nos gourmandises</a></li>
+    <li><a href="#commande">Préparer une commande</a></li>
+    <li><a href="#atelier">L'atelier</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn btn--or" href="tel:+33662261091">06 62 26 10 91</a>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+</nav>
+
+<header class="hero" id="accueil">
+  <canvas id="ciel" aria-hidden="true"></canvas>
+  <div class="hero__txt">
+    <p class="hero__kicker">Atelier à Neulise · Roannais</p>
+    <h1 id="titre" aria-label="La Gourmandise d'Aillant">La Gourmandise d'Aillant</h1>
+    <p class="hero__base">Pralines fines et brioches gourmandes</p>
+    <p class="hero__p">Brioches aux pralines, brioches aux grattons et pralines fines, préparées dans notre atelier de Neulise. Un anniversaire, un baptême, un repas de famille&nbsp;? Préparez votre commande en quelques clics, on vous rappelle pour la confirmer.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--or" href="#commande">Préparer une commande</a>
+      <a class="btn btn--ghost" href="mailto:miam@lagourmandisedaillant.fr">miam@lagourmandisedaillant.fr</a>
+    </div>
+    <div class="statut" id="statut"><i></i><span>Horaires de l'atelier</span></div>
+  </div>
+  <div class="hero__visu">
+    <img id="illu" src="https://lagourmandisedaillant.fr/images/unnamed.jpg" alt="Illustration de La Gourmandise d'Aillant : un petit garçon debout sur une brioche, dans un ciel étoilé au-dessus de nuages roses">
+  </div>
+  <div class="nuages" aria-hidden="true">
+    <svg viewBox="0 0 1440 170" preserveAspectRatio="none"><path fill="#f6b6cb" opacity=".55" d="M0 110 C120 40 220 60 300 95 C380 40 520 30 600 90 C700 30 820 40 900 92 C990 35 1120 40 1200 95 C1280 50 1380 60 1440 90 L1440 170 L0 170Z"/><path fill="#fde3ec" opacity=".8" d="M0 135 C140 85 230 100 330 128 C430 80 560 82 660 125 C760 82 880 86 980 128 C1080 84 1200 90 1290 126 C1350 104 1400 102 1440 112 L1440 170 L0 170Z"/><path fill="#fff7f3" d="M0 158 C200 128 360 140 520 152 C700 128 860 132 1020 150 C1180 130 1320 136 1440 146 L1440 170 L0 170Z"/></svg>
+  </div>
+</header>
+
+<div class="ruban" aria-hidden="true"><div class="ruban__piste">
+  <span>Pralines fines</span><span class="etoile">✦</span><span>Brioches gourmandes</span><span class="etoile">✦</span><span>Brioche aux pralines</span><span class="etoile">✦</span><span>Brioche aux grattons</span><span class="etoile">✦</span><span>Fabriqué à Neulise</span><span class="etoile">✦</span><span>Commandes pour vos fêtes</span><span class="etoile">✦</span>
+  <span>Pralines fines</span><span class="etoile">✦</span><span>Brioches gourmandes</span><span class="etoile">✦</span><span>Brioche aux pralines</span><span class="etoile">✦</span><span>Brioche aux grattons</span><span class="etoile">✦</span><span>Fabriqué à Neulise</span><span class="etoile">✦</span><span>Commandes pour vos fêtes</span><span class="etoile">✦</span>
+</div></div>
+
+<section id="gourmandises">
+  <div class="titre reveal">
+    <small>Nos gourmandises</small>
+    <h2>Pralines fines et brioches gourmandes</h2>
+    <p>Ce qui sort de l'atelier de Neulise. Ajoutez directement une gourmandise à votre commande.</p>
+  </div>
+  <div class="onglets" role="tablist">
+    <button class="onglet" role="tab" aria-selected="true" data-filtre="tout">Tout</button>
+    <button class="onglet" role="tab" aria-selected="false" data-filtre="brioche">Brioches</button>
+    <button class="onglet" role="tab" aria-selected="false" data-filtre="praline">Pralines</button>
+    <button class="onglet" role="tab" aria-selected="false" data-filtre="fete">Pour vos fêtes</button>
+  </div>
+  <div class="cartes">
+    <article class="carte reveal" data-cat="brioche">
+      <div class="carte__visu"><span class="fournir">Photo à fournir</span>
+        <svg viewBox="0 0 200 140"><ellipse cx="100" cy="118" rx="80" ry="12" fill="#000" opacity=".2"/><path d="M28 104 C20 60 60 22 100 22 C140 22 180 60 172 104 Z" fill="#c8652a"/><path d="M40 98 C38 66 66 38 100 38 C134 38 162 66 160 98" fill="none" stroke="#e8a060" stroke-width="7" stroke-linecap="round"/><g fill="#e94b8a"><circle cx="70" cy="58" r="6"/><circle cx="96" cy="44" r="6"/><circle cx="124" cy="56" r="6"/><circle cx="84" cy="80" r="6"/><circle cx="114" cy="82" r="6"/><circle cx="142" cy="78" r="5"/><circle cx="56" cy="82" r="5"/></g><path d="M28 104 H172" stroke="#8f3f15" stroke-width="5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="carte__corps"><h3>Brioche aux pralines</h3><p>La brioche gourmande et ses pralines, la spécialité qui fait la réputation de la maison.</p><button class="ajout" data-produit="pralines">+ Ajouter à ma commande</button></div>
+    </article>
+    <article class="carte reveal" data-cat="brioche">
+      <div class="carte__visu"><span class="fournir">Photo à fournir</span>
+        <svg viewBox="0 0 200 140"><ellipse cx="100" cy="118" rx="80" ry="12" fill="#000" opacity=".2"/><path d="M28 104 C20 60 60 22 100 22 C140 22 180 60 172 104 Z" fill="#cf7a35"/><path d="M48 96 C48 68 72 44 100 44 C128 44 152 68 152 96" fill="none" stroke="#f0b26a" stroke-width="7" stroke-linecap="round"/><g fill="#8f4a1f"><rect x="62" y="56" width="10" height="7" rx="2" transform="rotate(20 67 59)"/><rect x="92" y="40" width="10" height="7" rx="2"/><rect x="122" y="58" width="10" height="7" rx="2" transform="rotate(-25 127 61)"/><rect x="80" y="78" width="10" height="7" rx="2"/><rect x="112" y="80" width="10" height="7" rx="2" transform="rotate(15 117 83)"/></g><path d="M28 104 H172" stroke="#8f3f15" stroke-width="5" stroke-linecap="round"/></svg>
+      </div>
+      <div class="carte__corps"><h3>Brioche aux grattons</h3><p>La version salée, parfaite à l'apéritif ou sur un buffet de fête.</p><button class="ajout" data-produit="grattons">+ Ajouter à ma commande</button></div>
+    </article>
+    <article class="carte reveal" data-cat="praline">
+      <div class="carte__visu"><span class="fournir">Photo à fournir</span>
+        <svg viewBox="0 0 200 140"><ellipse cx="100" cy="120" rx="70" ry="10" fill="#000" opacity=".2"/><path d="M40 90 Q100 130 160 90 L150 70 H50 Z" fill="#fde3ec"/><g fill="#e94b8a"><ellipse cx="78" cy="64" rx="15" ry="11"/><ellipse cx="104" cy="56" rx="15" ry="11"/><ellipse cx="128" cy="66" rx="15" ry="11"/><ellipse cx="92" cy="76" rx="14" ry="10"/><ellipse cx="118" cy="80" rx="14" ry="10"/></g><g fill="#fff" opacity=".45"><ellipse cx="74" cy="60" rx="4" ry="2.5"/><ellipse cx="100" cy="52" rx="4" ry="2.5"/><ellipse cx="124" cy="62" rx="4" ry="2.5"/></g></svg>
+      </div>
+      <div class="carte__corps"><h3>Pralines fines</h3><p>Les pralines de la maison, en sachet ou pour garnir vos propres desserts.</p><button class="ajout" data-produit="sachets">+ Ajouter à ma commande</button></div>
+    </article>
+    <article class="carte reveal" data-cat="fete">
+      <div class="carte__visu"><span class="fournir">Photo à fournir</span>
+        <svg viewBox="0 0 200 140"><ellipse cx="100" cy="122" rx="78" ry="10" fill="#000" opacity=".2"/><rect x="42" y="66" width="116" height="50" rx="10" fill="#fde3ec"/><rect x="56" y="34" width="88" height="38" rx="9" fill="#f6b6cb"/><path d="M42 82 Q58 92 74 82 T106 82 T138 82 T158 82" fill="none" stroke="#e01fd6" stroke-width="4"/><g fill="#ffd479"><rect x="76" y="14" width="6" height="22" rx="2"/><rect x="97" y="10" width="6" height="26" rx="2"/><rect x="118" y="14" width="6" height="22" rx="2"/></g><g fill="#ff9f43"><ellipse cx="79" cy="10" rx="3.5" ry="5"/><ellipse cx="100" cy="6" rx="3.5" ry="5"/><ellipse cx="121" cy="10" rx="3.5" ry="5"/></g></svg>
+      </div>
+      <div class="carte__corps"><h3>Douceurs pour vos fêtes</h3><p>Anniversaires, baptêmes, repas de famille&nbsp;: dites-nous l'occasion et le nombre d'invités, on compose avec vous.</p><a class="ajout" style="text-decoration:none;display:inline-block" href="#commande">Préparer ma commande</a></div>
+    </article>
+  </div>
+</section>
+
+<section class="etapes">
+  <div class="titre reveal"><small>Commander, simplement</small><h2>Trois petites étapes</h2></div>
+  <div class="etapes__grille">
+    <div class="etape reveal"><h3>Vous composez</h3><p>L'occasion, le nombre d'invités, vos brioches et vos pralines, la date souhaitée.</p></div>
+    <div class="etape reveal"><h3>Nous confirmons</h3><p>Votre demande arrive par mail à l'atelier, nous vous rappelons pour valider les quantités et la date.</p></div>
+    <div class="etape reveal"><h3>Vous récupérez</h3><p>Retrait à l'atelier de Neulise, ou livraison selon l'occasion, à voir ensemble.</p></div>
+  </div>
+</section>
+
+<section class="commande" id="commande">
+  <div class="titre reveal"><small>Préparer une commande</small><h2>Votre commande, en un coup d'œil</h2><p>Composez votre demande, elle part directement par mail à l'atelier avec toutes les informations utiles.</p></div>
+  <div class="outil">
+    <div class="panneau reveal">
+      <div class="champ"><span class="lab">L'occasion</span>
+        <div class="puces" id="occasions">
+          <button class="puce" aria-pressed="true">Anniversaire</button>
+          <button class="puce" aria-pressed="false">Baptême</button>
+          <button class="puce" aria-pressed="false">Repas de famille</button>
+          <button class="puce" aria-pressed="false">Entreprise / association</button>
+          <button class="puce" aria-pressed="false">Juste pour le plaisir</button>
+        </div>
+      </div>
+      <div class="champ"><label for="nb">Nombre d'invités</label>
+        <div class="convives"><b id="nbAff">12</b><span>personnes</span></div>
+        <input type="range" id="nb" min="2" max="80" value="12">
+      </div>
+      <div class="champ"><span class="lab">Vos gourmandises</span>
+        <div class="produits">
+          <div class="ligne"><span>Brioche aux pralines<small>à l'unité</small></span><div class="pas" data-p="pralines"><button aria-label="Retirer">−</button><output>0</output><button aria-label="Ajouter">+</button></div></div>
+          <div class="ligne"><span>Brioche aux grattons<small>à l'unité</small></span><div class="pas" data-p="grattons"><button aria-label="Retirer">−</button><output>0</output><button aria-label="Ajouter">+</button></div></div>
+          <div class="ligne"><span>Pralines fines<small>en sachet</small></span><div class="pas" data-p="sachets"><button aria-label="Retirer">−</button><output>0</output><button aria-label="Ajouter">+</button></div></div>
+        </div>
+        <button class="suggere" id="suggere">✦ Me proposer des quantités selon le nombre d'invités</button>
+      </div>
+      <div class="champ deux">
+        <div><label for="date">Date souhaitée</label><input type="date" id="date"><p class="alerte" id="alerteDate"></p></div>
+        <div><span class="lab">Retrait</span><div class="puces" id="retrait"><button class="puce" aria-pressed="true">À l'atelier</button><button class="puce" aria-pressed="false">Livraison</button></div></div>
+      </div>
+      <div class="champ deux">
+        <div><label for="nom">Votre nom</label><input type="text" id="nom" placeholder="Prénom Nom"></div>
+        <div><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="06 …"></div>
+      </div>
+      <div class="champ"><label for="msg">Un mot pour l'atelier <span style="font-weight:400;color:#bdbbd8">(facultatif)</span></label><textarea id="msg" rows="2" placeholder="Une allergie, une envie particulière…"></textarea></div>
+    </div>
+    <aside class="recap reveal" id="recap" aria-live="polite">
+      <h3>Ma commande</h3>
+      <ul id="liste"><li class="vide">Ajoutez une gourmandise pour commencer</li></ul>
+      <div class="meta" id="meta"></div>
+      <a class="btn btn--magenta" id="envoyer" href="#">Envoyer ma demande par mail</a>
+      <a class="btn btn--ghost" id="ics" href="#">Ajouter le retrait à mon agenda</a>
+      <p class="note">La demande n'est validée qu'après confirmation de l'atelier par téléphone. Les quantités proposées sont un simple repère, à ajuster avec nous.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="atelier">
+  <div class="titre reveal"><small>L'atelier</small><h2>Nous trouver à Neulise</h2><p>Au parc d'activité Les Jacquins, à Neulise, entre Roanne et Saint-Just-la-Pendue.</p></div>
+  <div class="atelier__grille">
+    <div class="infos reveal" id="contact">
+      <h3>La Gourmandise d'Aillant</h3>
+      <dl>
+        <dt>Adresse</dt><dd>293 rue des Amis de l'Industrie<br>Parc d'activité Les Jacquins<br>42590 Neulise</dd>
+        <dt>Téléphone</dt><dd><a href="tel:+33662261091">06 62 26 10 91</a></dd>
+        <dt>Mail</dt><dd><a href="mailto:miam@lagourmandisedaillant.fr">miam@lagourmandisedaillant.fr</a></dd>
+      </dl>
+      <div class="horaires" id="horaires">
+        <div data-j="1"><span>Lundi</span><span>8h00 – 16h30</span></div>
+        <div data-j="2"><span>Mardi</span><span>8h00 – 16h30</span></div>
+        <div data-j="3"><span>Mercredi</span><span>8h00 – 16h30</span></div>
+        <div data-j="4"><span>Jeudi</span><span>8h00 – 16h30</span></div>
+        <div data-j="5"><span>Vendredi</span><span>8h00 – 16h30</span></div>
+        <div data-j="6"><span>Samedi</span><span>Fermé</span></div>
+        <div data-j="0"><span>Dimanche</span><span>Fermé</span></div>
+        <small>Horaires repris d'un annuaire en ligne, à confirmer par l'atelier.</small>
+      </div>
+    </div>
+    <div class="carte-geo reveal">
+      <iframe title="Plan d'accès à l'atelier de Neulise" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.1679%2C45.8806%2C4.1879%2C45.8906&amp;layer=mapnik&amp;marker=45.88559%2C4.17793"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Une fête qui se prépare&nbsp;?</h2>
+  <p>Brioches aux pralines, brioches aux grattons, pralines fines&nbsp;: dites-nous ce qui vous ferait plaisir.</p>
+  <div class="hero__ctas"><a class="btn btn--or" href="#commande">Préparer une commande</a><a class="btn btn--ghost" href="tel:+33662261091">Appeler l'atelier</a></div>
+</section>
+
+<footer>
+  <div class="cols">
+    <div><div class="logo">La Gourmandise d'Aillant</div><div>Pralines fines et brioches gourmandes</div></div>
+    <div>293 rue des Amis de l'Industrie, 42590 Neulise<br><a href="tel:+33662261091">06 62 26 10 91</a> · <a href="mailto:miam@lagourmandisedaillant.fr">miam@lagourmandisedaillant.fr</a></div>
+  </div>
+  <p class="mention">Maquette de démonstration réalisée pour La Gourmandise d'Aillant, non contractuelle. Couleurs et typographies reprises à l'œil du visuel actuel du site, ajustables. L'illustration de l'en-tête est celle déjà publiée sur lagourmandisedaillant.fr&nbsp;; les dessins des gourmandises sont provisoires, les vraies photos des produits sont à fournir par l'atelier. Aucune donnée n'est envoyée par cette page&nbsp;: la demande de commande s'ouvre simplement dans votre messagerie.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Titre : lettres qui apparaissent une à une */
+  const t = document.getElementById('titre');
+  const txt = t.textContent; t.textContent = '';
+  let n = 0; const mots = txt.split(' '); mots.forEach((mot,wi) => { const w = document.createElement('span'); w.className = 'mot'; w.setAttribute('aria-hidden','true');
+    [...mot].forEach(c => { const s = document.createElement('span'); s.className = 'l'; s.textContent = c; s.style.animationDelay = (0.25 + (n++)*0.045)+'s'; w.appendChild(s); });
+    t.appendChild(w); if(wi < mots.length-1) t.appendChild(document.createTextNode(' ')); });
+
+  /* Ciel étoilé + lumières dorées qui flottent (comme sur le visuel du site) */
+  const cv = document.getElementById('ciel'), cx = cv.getContext('2d');
+  let W,H,etoiles=[],lumieres=[];
+  function taille(){ W = cv.width = cv.offsetWidth*devicePixelRatio; H = cv.height = cv.offsetHeight*devicePixelRatio;
+    etoiles = Array.from({length:140},()=>({x:Math.random()*W,y:Math.random()*H*.85,r:Math.random()*1.4*devicePixelRatio+.3,p:Math.random()*6}));
+    lumieres = Array.from({length:9},()=>({x:Math.random()*W,y:Math.random()*H*.75,r:(Math.random()*5+4)*devicePixelRatio,v:Math.random()*.25+.08,p:Math.random()*6})); }
+  taille(); addEventListener('resize',taille);
+  function dessine(tps){ cx.clearRect(0,0,W,H); const s=tps/1000;
+    etoiles.forEach(e=>{ cx.globalAlpha=.35+.65*Math.abs(Math.sin(s*.8+e.p)); cx.fillStyle='#fff'; cx.beginPath(); cx.arc(e.x,e.y,e.r,0,7); cx.fill(); });
+    lumieres.forEach(l=>{ if(!reduit){ l.y -= l.v; if(l.y < -20) { l.y = H*.8; l.x = Math.random()*W; } }
+      const g = cx.createRadialGradient(l.x,l.y,0,l.x,l.y,l.r*4); g.addColorStop(0,'rgba(255,230,150,1)'); g.addColorStop(.25,'rgba(255,212,121,.7)'); g.addColorStop(1,'rgba(255,212,121,0)');
+      cx.globalAlpha=.75+.25*Math.sin(s*2+l.p); cx.fillStyle=g; cx.beginPath(); cx.arc(l.x+Math.sin(s+l.p)*6,l.y,l.r*4,0,7); cx.fill(); });
+    cx.globalAlpha=1; if(!reduit) requestAnimationFrame(dessine); }
+  requestAnimationFrame(dessine);
+
+  /* Parallaxe légère de l'illustration */
+  const illu = document.getElementById('illu');
+  if(!reduit) addEventListener('mousemove', e => { const x=(e.clientX/innerWidth-.5)*14, y=(e.clientY/innerHeight-.5)*14; illu.style.transform=`scale(1.6) translate(${-x}px,${-y}px)`; });
+
+  /* Nav compacte + menu mobile */
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('compact', scrollY > 40), {passive:true});
+  const burger = document.getElementById('burger'), menu = document.getElementById('menu');
+  burger.onclick = () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); };
+  menu.querySelectorAll('a').forEach(a => a.onclick = () => menu.classList.remove('ouvert'));
+
+  /* Apparitions au défilement */
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vu'); io.unobserve(e.target);} }), {threshold:.15});
+  document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i%4)*0.08+'s'; io.observe(el); });
+
+  /* Inclinaison des cartes au survol */
+  document.querySelectorAll('.carte').forEach(c => {
+    c.addEventListener('mousemove', e => { if(reduit) return; const r=c.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; c.style.transform=`perspective(800px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-6px)`; });
+    c.addEventListener('mouseleave', () => c.style.transform = '');
+  });
+
+  /* Onglets */
+  document.querySelectorAll('.onglet').forEach(o => o.onclick = () => {
+    document.querySelectorAll('.onglet').forEach(x => x.setAttribute('aria-selected', x===o));
+    const f = o.dataset.filtre; document.querySelectorAll('.carte').forEach(c => c.hidden = !(f==='tout' || c.dataset.cat===f));
+  });
+
+  /* Statut ouvert / fermé (horaires indicatifs) */
+  const now = new Date(), j = now.getDay(), m = now.getHours()*60+now.getMinutes();
+  const ouvert = j>=1 && j<=5 && m>=480 && m<990;
+  const st = document.getElementById('statut'); st.classList.toggle('ouvert', ouvert);
+  st.querySelector('span').textContent = ouvert ? "L'atelier est ouvert en ce moment · jusqu'à 16h30" : "L'atelier est fermé · ouvert du lundi au vendredi, 8h00 – 16h30";
+  const auj = document.querySelector(`#horaires [data-j="${j}"]`); if(auj) auj.classList.add('auj');
+
+  /* ===== Outil de commande ===== */
+  const noms = {pralines:'Brioche aux pralines', grattons:'Brioche aux grattons', sachets:'Pralines fines (sachet)'};
+  const q = {pralines:0, grattons:0, sachets:0};
+  const choix = (id) => document.querySelector(`#${id} [aria-pressed="true"]`).textContent;
+  ['occasions','retrait'].forEach(id => document.querySelectorAll(`#${id} .puce`).forEach(b => b.onclick = () => { document.querySelectorAll(`#${id} .puce`).forEach(x => x.setAttribute('aria-pressed', x===b)); maj(); }));
+  const nb = document.getElementById('nb'); nb.oninput = () => { document.getElementById('nbAff').textContent = nb.value; maj(); };
+  document.querySelectorAll('.pas').forEach(p => { const [moins, , plus] = p.children; const k = p.dataset.p;
+    moins.onclick = () => { q[k] = Math.max(0, q[k]-1); maj(); }; plus.onclick = () => { q[k] = Math.min(99, q[k]+1); maj(); }; });
+  document.querySelectorAll('.carte .ajout[data-produit]').forEach(b => b.onclick = () => { q[b.dataset.produit]++; maj(); toast(noms[b.dataset.produit] + ' ajoutée à votre commande'); });
+  document.getElementById('suggere').onclick = () => {
+    const n = +nb.value; const sale = ['Entreprise / association','Repas de famille'].includes(choix('occasions'));
+    q.pralines = Math.max(1, Math.ceil(n / (sale ? 12 : 8))); q.grattons = sale ? Math.max(1, Math.ceil(n/12)) : 0; q.sachets = Math.max(0, Math.round(n/10));
+    maj(); toast('Quantités proposées : un simple repère, à ajuster avec l’atelier');
+  };
+  const dateIn = document.getElementById('date');
+  const min = new Date(); min.setDate(min.getDate()+2); dateIn.min = min.toISOString().slice(0,10);
+  dateIn.onchange = maj; ['nom','tel','msg'].forEach(id => document.getElementById(id).oninput = maj);
+
+  function dateFr(v){ return v ? new Date(v+'T12:00').toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}) : 'à préciser'; }
+  function maj(){
+    document.querySelectorAll('.pas').forEach(p => p.querySelector('output').textContent = q[p.dataset.p]);
+    const ul = document.getElementById('liste'); const lignes = Object.keys(q).filter(k => q[k] > 0);
+    ul.innerHTML = lignes.length ? lignes.map(k => `<li><span>${noms[k]}</span><b>× ${q[k]}</b></li>`).join('') : '<li class="vide">Ajoutez une gourmandise pour commencer</li>';
+    const d = dateIn.value, jour = d ? new Date(d+'T12:00').getDay() : null;
+    document.getElementById('alerteDate').textContent = (jour===0 || jour===6) && choix('retrait')==="À l'atelier" ? "L'atelier est fermé le week-end : retrait possible la veille, à voir ensemble." : '';
+    document.getElementById('meta').innerHTML = `<div>Occasion : <b>${choix('occasions')}</b></div><div>Invités : <b>${nb.value} personnes</b></div><div>Date : <b>${dateFr(d)}</b></div><div>Retrait : <b>${choix('retrait')}</b></div>`;
+    const r = document.getElementById('recap'); r.classList.remove('pop'); void r.offsetWidth; r.classList.add('pop');
+    const corps = `Bonjour,\n\nJe souhaite préparer une commande :\n\n` + (lignes.length ? lignes.map(k => `- ${noms[k]} x ${q[k]}`).join('\n') : '- (à définir ensemble)') +
+      `\n\nOccasion : ${choix('occasions')}\nNombre d'invités : ${nb.value}\nDate souhaitée : ${dateFr(d)}\nRetrait : ${choix('retrait')}\n` +
+      (document.getElementById('msg').value ? `\nPrécision : ${document.getElementById('msg').value}\n` : '') +
+      `\n${document.getElementById('nom').value || ''}\n${document.getElementById('tel').value || ''}`;
+    document.getElementById('envoyer').href = 'mailto:miam@lagourmandisedaillant.fr?subject=' + encodeURIComponent('Demande de commande - ' + choix('occasions')) + '&body=' + encodeURIComponent(corps);
+  }
+  document.getElementById('ics').onclick = e => { e.preventDefault();
+    if(!dateIn.value){ toast('Choisissez d’abord une date'); dateIn.focus(); return; }
+    const d = dateIn.value.replace(/-/g,'');
+    const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@gourmandise-aillant','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART;VALUE=DATE:'+d,'SUMMARY:Commande La Gourmandise d\'Aillant ('+choix('retrait')+')','LOCATION:293 rue des Amis de l\'Industrie\\, 42590 Neulise','DESCRIPTION:A confirmer avec l\'atelier au 06 62 26 10 91','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download = 'commande-gourmandise-aillant.ics'; a.click(); toast('Rappel ajouté : pensez à faire confirmer par l’atelier');
+  };
+  let tt; function toast(m){ const el = document.getElementById('toast'); el.textContent = m; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => el.classList.remove('on'), 2600); }
+  maj();
+})();
+</script>
+</body>
+</html>
