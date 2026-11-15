@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmo Café — Café-resto au Port de Roanne | Snack, salades, sandwichs</title>
+<meta name="description" content="Cosmo Café, café-resto au Port de Roanne : carte internationale de snacking, sandwichs et salades, sur place, en terrasse ou à emporter. Service continu de 9h à 18h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE COSMO CAFÉ — relevée sur l'enseigne et la carte papier
+   (photos de la fiche Roannais Tourisme). Aucun site existant :
+   couleurs approchées, à ajuster avec le logo source.
+   ========================================================== */
+:root{
+  --rouge:#c3262f;        /* « Cosmo » de l'enseigne */
+  --rouge-fonce:#9c1c24;
+  --nuit:#1e2741;         /* « Café » de l'enseigne */
+  --ocre:#d99a4e;         /* continents du globe */
+  --sauge:#55735a;        /* lambris vert de la salle */
+  --terre:#9b3b2f;        /* mur rouge du comptoir */
+  --bambou:#e6d3a8;       /* habillage bambou du bar */
+  --creme:#fbf6ec;
+  --blanc:#ffffff;
+  --texte:#2b2622;
+  --script:'Yellowtail',cursive;
+  --sans:'Figtree',system-ui,sans-serif;
+  --r:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--sans);color:var(--texte);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--nuit);color:#fff;font-size:.82rem;text-align:center;padding:7px 12px}
+.demo b{color:var(--ocre)}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(251,246,236,.88);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid rgba(30,39,65,.08);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(30,39,65,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 0}
+.logo{display:flex;align-items:center;gap:6px;text-decoration:none;line-height:1}
+.logo .c{font-family:var(--script);color:var(--rouge);font-size:2.1rem}
+.logo .f{font-family:var(--script);color:var(--nuit);font-size:2.1rem}
+.globe{width:34px;height:34px;flex:none;animation:spin 24s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sauge);margin-top:2px;font-weight:600}
+.menu{display:flex;gap:26px;list-style:none;font-weight:600;font-size:.95rem}
+.menu a{text-decoration:none;position:relative}
+.menu a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-size:.98rem;font-family:inherit;transition:transform .2s cubic-bezier(.34,1.56,.64,1),background .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-r{background:var(--rouge);color:#fff;box-shadow:0 8px 20px rgba(195,38,47,.25)}
+.btn-r:hover{background:var(--rouge-fonce)}
+.btn-o{border-color:var(--nuit);color:var(--nuit);background:transparent}
+.btn-o:hover{background:var(--nuit);color:#fff}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;width:44px;height:44px}
+@media(max-width:860px){
+  .menu{position:fixed;inset:64px 0 auto 0;flex-direction:column;background:var(--creme);padding:20px 24px;gap:16px;transform:translateY(-20px);opacity:0;visibility:hidden;transition:transform .35s,opacity .35s,visibility .35s;box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .menu.open{transform:none;opacity:1;visibility:visible}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* Hero */
+.hero{position:relative;padding:56px 0 80px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.status{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:999px;padding:8px 16px 8px 12px;font-weight:600;font-size:.9rem;box-shadow:0 6px 18px rgba(30,39,65,.07)}
+.dot{width:10px;height:10px;border-radius:50%;background:#2e9b55;box-shadow:0 0 0 0 rgba(46,155,85,.5);animation:pulse 2s infinite}
+.dot.off{background:var(--rouge);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(46,155,85,0)}100%{box-shadow:0 0 0 0 rgba(46,155,85,0)}}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 3.6vw,4.4rem);line-height:1.04;color:var(--nuit);margin:22px 0 18px;font-weight:800;letter-spacing:-.02em}
+.hero h1 .s{font-family:var(--script);color:var(--rouge);font-weight:400;font-size:1.12em;letter-spacing:0;display:inline-block}
+.hero p.lead{font-size:1.12rem;max-width:520px;color:#4a433c}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+.tagline{margin-top:28px;display:flex;gap:10px;flex-wrap:wrap}
+.chip{background:var(--bambou);color:var(--nuit);padding:6px 14px;border-radius:999px;font-size:.85rem;font-weight:600}
+.hero-visual{position:relative;aspect-ratio:1/1}
+.hv-main{position:absolute;inset:0 0 14% 12%;border-radius:200px 200px var(--r) var(--r);overflow:hidden;box-shadow:0 30px 60px rgba(30,39,65,.18)}
+.hv-main img,.hv-small img{width:100%;height:100%;object-fit:cover}
+.hv-small{position:absolute;left:0;bottom:0;width:44%;aspect-ratio:3/4;border-radius:var(--r);overflow:hidden;border:6px solid var(--creme);box-shadow:0 20px 40px rgba(30,39,65,.2)}
+.stamp{position:absolute;right:-6px;top:6%;width:120px;height:120px}
+.stamp text{font-family:var(--sans);font-weight:700;font-size:11.5px;letter-spacing:3px;fill:var(--nuit)}
+.leaf{position:absolute;pointer-events:none;opacity:.9}
+.leaf.l1{width:220px;left:-70px;top:30px;transform:rotate(-25deg)}
+.leaf.l2{width:180px;right:-50px;bottom:-30px;transform:rotate(150deg)}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-visual{max-width:460px;margin:0 auto;width:100%}.leaf{display:none}}
+
+/* Marquee */
+.marquee{background:var(--rouge);color:#fff;overflow:hidden;padding:16px 0;transform:rotate(-1.2deg) scaleX(1.02)}
+.marquee-box{overflow:hidden;padding:14px 0}
+.track{display:flex;gap:42px;width:max-content;animation:mq 30s linear infinite;font-weight:700;font-size:1.25rem;white-space:nowrap}
+.track span:nth-child(even){font-family:var(--script);font-weight:400;font-size:1.6rem;color:var(--bambou)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{padding:96px 0}
+.kicker{font-family:var(--script);color:var(--rouge);font-size:1.9rem;line-height:1}
+h2{font-size:clamp(1.9rem,1.4rem + 2vw,3rem);color:var(--nuit);line-height:1.1;letter-spacing:-.015em;margin:6px 0 18px;font-weight:800}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Le café */
+.cafe-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.photos2{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+.photos2 figure{border-radius:var(--r);overflow:hidden;position:relative}
+.photos2 figure:first-child{grid-row:span 2}
+.photos2 img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.photos2 figure:hover img{transform:scale(1.05)}
+.photos2 figcaption{position:absolute;left:10px;bottom:10px;background:rgba(255,255,255,.9);padding:4px 10px;border-radius:999px;font-size:.78rem;font-weight:600}
+.figs{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap}
+.fig{background:#fff;border-radius:var(--r);padding:18px 22px;min-width:150px;box-shadow:0 8px 24px rgba(30,39,65,.06);border-top:4px solid var(--sauge)}
+.fig b{display:block;font-size:2.2rem;color:var(--nuit);line-height:1}
+.fig span{font-size:.9rem;color:#5c544c}
+@media(max-width:860px){.cafe-grid{grid-template-columns:1fr}}
+
+/* La carte */
+.carte{background:var(--sauge);color:#fff;position:relative;overflow:hidden}
+.carte h2{color:#fff}.carte .kicker{color:var(--bambou)}
+.carte-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.carte-head p{max-width:460px;opacity:.92}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.card{background:var(--creme);color:var(--texte);border-radius:var(--r);overflow:hidden;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s}
+.card:hover{transform:translateY(-8px) rotate(-.6deg);box-shadow:0 24px 40px rgba(0,0,0,.2)}
+.card .ph{aspect-ratio:4/3;overflow:hidden;position:relative;background:var(--bambou)}
+.card .ph img{width:100%;height:100%;object-fit:cover}
+.card .ph.empty{display:grid;place-items:center;text-align:center;font-size:.85rem;color:var(--nuit);padding:12px;background:repeating-linear-gradient(45deg,var(--bambou),var(--bambou) 10px,#efe0bd 10px,#efe0bd 20px)}
+.card .bd{padding:18px}
+.card h3{font-family:var(--script);color:var(--rouge);font-weight:400;font-size:1.7rem;line-height:1.1}
+.card p{font-size:.92rem;color:#5c544c;margin-top:6px}
+.note{margin-top:22px;font-size:.88rem;opacity:.85}
+@media(max-width:960px){.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}}
+
+/* Outil */
+.tool{background:#fff;border-radius:28px;box-shadow:0 30px 70px rgba(30,39,65,.12);overflow:hidden;display:grid;grid-template-columns:.9fr 1.1fr}
+.tool-side{background:var(--nuit);color:#fff;padding:40px;position:relative;overflow:hidden}
+.tool-side h2{color:#fff}
+.tool-side .kicker{color:var(--ocre)}
+.tool-side p{opacity:.88}
+.tool-side .big-globe{position:absolute;right:-80px;bottom:-80px;width:280px;opacity:.15;animation:spin 60s linear infinite}
+.tabs{display:flex;gap:8px;margin:26px 0 0;flex-wrap:wrap;position:relative;z-index:1}
+.tab{background:rgba(255,255,255,.1);color:#fff;border:0;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;font-family:inherit;font-size:.92rem;transition:background .2s}
+.tab[aria-selected="true"]{background:var(--rouge)}
+.tool-main{padding:40px}
+.panel[hidden]{display:none}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+label{display:block;font-weight:600;font-size:.88rem;color:var(--nuit);margin-bottom:6px}
+input,select,textarea{width:100%;padding:12px 14px;border:1.5px solid #ddd2bd;border-radius:12px;font-family:inherit;font-size:1rem;background:var(--creme);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sauge);box-shadow:0 0 0 4px rgba(85,115,90,.15)}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg label{margin:0;padding:10px 16px;border-radius:999px;border:1.5px solid #ddd2bd;cursor:pointer;font-weight:600;background:var(--creme);transition:all .2s}
+.seg input:checked+label{background:var(--sauge);border-color:var(--sauge);color:#fff}
+.seg input:focus-visible+label{outline:3px solid var(--ocre)}
+.people{display:flex;align-items:center;gap:14px}
+.people button{width:44px;height:44px;border-radius:50%;border:1.5px solid #ddd2bd;background:var(--creme);font-size:1.3rem;cursor:pointer}
+.people output{font-size:1.8rem;font-weight:800;color:var(--nuit);min-width:48px;text-align:center}
+.seats{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.seat{width:14px;height:14px;border-radius:50%;background:#e9e0cd;transition:background .25s,transform .25s}
+.seat.on{background:var(--rouge);transform:scale(1.1)}
+.result{margin-top:20px;padding:18px 20px;border-radius:16px;background:var(--creme);border-left:5px solid var(--sauge);min-height:64px}
+.result.warn{border-left-color:var(--rouge)}
+.result strong{color:var(--nuit)}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:6px 0 14px}
+.week button{border:1.5px solid #ddd2bd;background:var(--creme);border-radius:12px;padding:10px 0;font-weight:700;cursor:pointer;font-family:inherit;color:var(--nuit)}
+.week button.closed{opacity:.45;text-decoration:line-through}
+.week button[aria-pressed="true"]{background:var(--nuit);color:#fff;border-color:var(--nuit)}
+.timeline{position:relative;height:46px;background:repeating-linear-gradient(90deg,#efe6d4 0 1px,transparent 1px calc(100%/15));border-radius:12px;margin-top:8px;overflow:hidden}
+.timeline .open{position:absolute;top:0;bottom:0;background:rgba(85,115,90,.25);border-left:2px solid var(--sauge);border-right:2px solid var(--sauge)}
+.timeline .cur{position:absolute;top:0;bottom:0;width:3px;background:var(--rouge);transition:left .3s}
+.tl-lab{display:flex;justify-content:space-between;font-size:.75rem;color:#8a7f72;margin-top:4px}
+@media(max-width:900px){.tool{grid-template-columns:1fr}.row{grid-template-columns:1fr}.tool-side,.tool-main{padding:28px 20px}}
+
+/* Cadeau */
+.gift{display:flex;align-items:center;gap:26px;background:var(--bambou);border-radius:24px;padding:30px 34px;flex-wrap:wrap}
+.gift .ico{font-size:2.6rem}
+.gift p{flex:1;min-width:240px}
+
+/* Infos */
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.hours{list-style:none;background:#fff;border-radius:var(--r);padding:10px 22px;box-shadow:0 8px 24px rgba(30,39,65,.06)}
+.hours li{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px dashed #e4d9c3}
+.hours li:last-child{border:0}
+.hours li.today{color:var(--rouge);font-weight:700}
+.contact-list{list-style:none;display:grid;gap:14px;margin-top:20px}
+.contact-list a{font-weight:700;text-decoration:none;color:var(--nuit)}
+.map{border-radius:var(--r);overflow:hidden;height:100%;min-height:320px;box-shadow:0 8px 24px rgba(30,39,65,.08)}
+.map iframe{width:100%;height:100%;min-height:320px;border:0}
+.facade{border-radius:var(--r);overflow:hidden;margin-top:20px}
+@media(max-width:860px){.infos-grid{grid-template-columns:1fr}}
+
+footer{background:var(--nuit);color:#cfd3dd;padding:50px 0 30px;font-size:.9rem}
+footer .logo .f{color:#fff}
+.foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:start}
+.disclaimer{margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;opacity:.8;line-height:1.6}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--nuit);color:#fff;padding:12px 20px;border-radius:999px;font-weight:600;z-index:99;visibility:hidden;transition:visibility .4s,transform .4s cubic-bezier(.34,1.56,.64,1)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+.mobile-cta{display:none}
+@media(max-width:700px){.mobile-cta{display:flex;position:fixed;bottom:12px;left:12px;right:12px;z-index:60;gap:8px}.mobile-cta a{flex:1;justify-content:center}body{padding-bottom:70px}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"CafeOrCoffeeShop",
+ "name":"Cosmo Café",
+ "description":"Café-resto au Port de Roanne : carte internationale et cosmopolite de snacking, sur place ou à emporter, service continu.",
+ "address":{"@type":"PostalAddress","streetAddress":"51 quai Commandant Lherminier","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":46.037584,"longitude":4.08085},
+ "telephone":"+33477697094",
+ "email":"contact@cosmocafe.fr",
+ "areaServed":"Roanne",
+ "servesCuisine":["Snacking","Sandwichs","Salades","Cuisine internationale"],
+ "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"18:00"}],
+ "amenityFeature":[{"@type":"LocationFeatureSpecification","name":"Terrasse","value":true}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour <b>Cosmo Café</b> — non officielle, à valider avec l'établissement.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Cosmo Café, accueil">
+      <span class="c">Cosmo</span>
+      <svg class="globe" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#fff" stroke="#1e2741" stroke-width="2"/><path d="M14 22c5-6 12-7 16-4 3 2 1 6 4 7s6-2 9 1-1 7-5 8-3 6-7 6-6-4-10-3-6-2-6-6 4-6-1-9zM40 44c3-2 7-1 8 2s-2 7-5 6-5-6-3-8zM44 14c4 0 8 3 9 7-3 0-6-2-9-1-2-2-2-5 0-6z" fill="#d99a4e"/></svg>
+      <span><span class="f">Café</span><small>Sandwicherie · Saladerie · Snack</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#cafe">Le café</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#outil">Réunions & pauses</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-r" href="tel:+33477697094">04 77 69 70 94</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-top:56px">
+  <svg class="leaf l1" viewBox="0 0 200 80" aria-hidden="true"><path d="M5 40C50 0 150 0 195 40 150 80 50 80 5 40z" fill="#55735a" opacity=".25"/><path d="M5 40h190" stroke="#55735a" stroke-width="2" opacity=".4"/></svg>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="status" id="status"><span class="dot" id="dot"></span><span id="statusTxt">Service continu de 9h à 18h</span></span>
+      <h1>Une carte <span class="s">cosmopolite</span><br>au Port de Roanne.</h1>
+      <p class="lead">Bienvenue au Cosmo Café ! Une carte internationale et cosmopolite de snacking, à déguster sur place, en terrasse face au port ou à emporter. Service en continu de 9h à 18h.</p>
+      <div class="ctas">
+        <a class="btn btn-r" href="#outil">Organiser une réunion</a>
+        <a class="btn btn-o" href="#infos">Nous trouver</a>
+      </div>
+      <div class="tagline"><span class="chip">Sur place</span><span class="chip">À emporter</span><span class="chip">Terrasse</span><span class="chip">Service continu</span></div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="hv-main"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470200-diaporama.jpg" alt="La salle du Cosmo Café : comptoir habillé de bambou et papier peint tropical" fetchpriority="high"></div>
+      <div class="hv-small"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470196-diaporama.jpg" alt="Un sandwich du Cosmo Café" loading="lazy"></div>
+      <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="58" fill="#e6d3a8"/><text><textPath href="#circ">PORT DE ROANNE · 9H — 18H ·</textPath></text><circle cx="60" cy="60" r="22" fill="#c3262f"/><text x="60" y="66" text-anchor="middle" style="font-family:Yellowtail;font-size:20px;letter-spacing:0;fill:#fff">C</text></svg>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-box"><div class="marquee" aria-hidden="true"><div class="track">
+  <span>Sandwicherie</span><span>Saladerie</span><span>Snack</span><span>Service continu</span><span>Terrasse sur le port</span><span>À emporter</span><span>Réunions pro & privées</span><span>Café</span>
+  <span>Sandwicherie</span><span>Saladerie</span><span>Snack</span><span>Service continu</span><span>Terrasse sur le port</span><span>À emporter</span><span>Réunions pro & privées</span><span>Café</span>
+</div></div></div>
+
+<section id="cafe">
+  <div class="wrap cafe-grid">
+    <div class="photos2 reveal">
+      <figure><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470201-diaporama.jpg" alt="Le coin salon extérieur du Cosmo Café, avec guirlande lumineuse" loading="lazy" style="aspect-ratio:3/4"><figcaption>Le coin extérieur</figcaption></figure>
+      <figure><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470197-diaporama.jpg" alt="Une assiette du Cosmo Café" loading="lazy" style="aspect-ratio:1/1"></figure>
+      <figure><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470199-diaporama.jpg" alt="Dessert et café au Cosmo Café" loading="lazy" style="aspect-ratio:1/1"></figure>
+    </div>
+    <div class="reveal">
+      <span class="kicker">Le café-resto du port</span>
+      <h2>Un tour du monde, sans quitter le quai.</h2>
+      <p>Au 51 quai Commandant Lherminier, le Cosmo Café propose une carte internationale et cosmopolite de snacking. Repas sur place ou à emporter, service en continu de 9h à 18h : on y passe pour un café, une pause déjeuner ou un goûter, sans regarder l'heure.</p>
+      <p style="margin-top:12px">La salle, son comptoir en bambou et ses feuillages tropicaux, accueille aussi l'organisation de réunions professionnelles comme de moments privés.</p>
+      <div class="figs">
+        <div class="fig"><b data-count="35">0</b><span>couverts en salle</span></div>
+        <div class="fig"><b data-count="40">0</b><span>places en terrasse</span></div>
+        <div class="fig"><b>9h–18h</b><span>service continu</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="carte" id="carte">
+  <div class="wrap">
+    <div class="carte-head reveal">
+      <div><span class="kicker">La carte</span><h2>Sandwicherie · Saladerie · Snack</h2></div>
+      <p>Les grandes rubriques de la carte papier du Cosmo Café. Le détail des recettes et les prix seront repris tels quels depuis votre carte.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><div class="ph"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470196-diaporama.jpg" alt="Sandwich garni du Cosmo Café" loading="lazy"></div><div class="bd"><h3>Créations fraîches</h3><p>Les sandwichs froids de la maison.</p></div></article>
+      <article class="card reveal"><div class="ph empty">Photo à fournir<br>par l'établissement</div><div class="bd"><h3>Sensations chaudes</h3><p>Les recettes servies chaudes.</p></div></article>
+      <article class="card reveal"><div class="ph"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470197-diaporama.jpg" alt="Assiette salade du Cosmo Café" loading="lazy"></div><div class="bd"><h3>Grands classiques revisités</h3><p>Les incontournables, à la façon du Cosmo.</p></div></article>
+      <article class="card reveal"><div class="ph"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470199-diaporama.jpg" alt="Dessert et expresso du Cosmo Café" loading="lazy"></div><div class="bd"><h3>Petites douceurs</h3><p>Pour finir sur une note sucrée, avec un café.</p></div></article>
+    </div>
+    <p class="note">Rubriques relevées sur la carte en salle — contenu détaillé à compléter avec l'établissement.</p>
+  </div>
+</section>
+
+<section id="outil">
+  <div class="wrap">
+    <div class="tool reveal">
+      <div class="tool-side">
+        <svg class="big-globe" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="2"/><path d="M14 22c5-6 12-7 16-4 3 2 1 6 4 7s6-2 9 1-1 7-5 8-3 6-7 6-6-4-10-3-6-2-6-6 4-6-1-9zM40 44c3-2 7-1 8 2s-2 7-5 6-5-6-3-8z" fill="#d99a4e"/></svg>
+        <span class="kicker">Planifier</span>
+        <h2>Votre moment au Cosmo</h2>
+        <p>Vérifiez en un clic si le café est ouvert au moment qui vous arrange, ou préparez une demande de réunion professionnelle ou de moment privé : elle part directement par mail, avec un rappel à ajouter à votre agenda.</p>
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true">Réunion / moment privé</button>
+          <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Ma pause</button>
+        </div>
+      </div>
+      <div class="tool-main">
+        <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+          <form id="evtForm" novalidate>
+            <label>Type de rendez-vous</label>
+            <div class="seg" style="margin-bottom:16px">
+              <input type="radio" name="type" id="ty1" value="Réunion professionnelle" checked><label for="ty1">Réunion pro</label>
+              <input type="radio" name="type" id="ty2" value="Moment privé"><label for="ty2">Moment privé</label>
+            </div>
+            <div class="row">
+              <div><label for="date">Date</label><input type="date" id="date" required></div>
+              <div><label for="heure">Heure d'arrivée</label><input type="time" id="heure" value="10:00" min="09:00" max="17:30" step="900" required></div>
+            </div>
+            <label>Nombre de personnes</label>
+            <div class="people">
+              <button type="button" id="minus" aria-label="Retirer une personne">−</button>
+              <output id="nb" aria-live="polite">8</output>
+              <button type="button" id="plus" aria-label="Ajouter une personne">+</button>
+            </div>
+            <div class="seats" id="seats" aria-hidden="true"></div>
+            <div class="row" style="margin-top:16px">
+              <div><label for="nom">Votre nom</label><input id="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+              <div><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+            </div>
+            <label for="msg">Précisions (facultatif)</label>
+            <textarea id="msg" rows="2" placeholder="Café d'accueil, déjeuner, terrasse…"></textarea>
+            <div class="result" id="evtRes" role="status" aria-live="polite">Choisissez une date : le Cosmo Café est ouvert tous les jours sauf le mardi, de 9h à 18h.</div>
+            <div class="actions">
+              <button class="btn btn-r" type="submit">Envoyer la demande</button>
+              <button class="btn btn-o" type="button" id="ics">Ajouter à mon agenda</button>
+            </div>
+          </form>
+        </div>
+        <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+          <label>Quel jour ?</label>
+          <div class="week" id="week"></div>
+          <label for="slider">À quelle heure ? <span id="hLab" style="color:var(--rouge)"></span></label>
+          <input type="range" id="slider" min="420" max="1260" step="15" value="750" style="padding:0;background:none;border:0;accent-color:var(--rouge)">
+          <div class="timeline"><div class="open" id="openBand"></div><div class="cur" id="cur"></div></div>
+          <div class="tl-lab"><span>7h</span><span>9h</span><span>12h</span><span>15h</span><span>18h</span><span>21h</span></div>
+          <div class="result" id="pauseRes" role="status" aria-live="polite"></div>
+          <div class="actions"><a class="btn btn-r" href="tel:+33477697094">Appeler le café</a><a class="btn btn-o" href="https://www.openstreetmap.org/?mlat=46.037584&mlon=4.08085#map=18/46.037584/4.08085" target="_blank" rel="noopener">Itinéraire</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="gift reveal">
+      <span class="ico" aria-hidden="true">🎁</span>
+      <p><strong style="color:var(--nuit);font-size:1.15rem">Carte Cadeau 100% Roanne acceptée.</strong><br>Le Cosmo Café est partenaire de la Carte Cadeau 100% Roanne : une idée simple pour offrir un repas sur le port.</p>
+      <a class="btn btn-o" href="#infos">Venir au café</a>
+    </div>
+  </div>
+</section>
+
+<section id="infos" style="padding-top:40px">
+  <div class="wrap infos-grid">
+    <div class="reveal">
+      <span class="kicker">Infos pratiques</span>
+      <h2>Au Port de Roanne</h2>
+      <ul class="hours" id="hours"></ul>
+      <ul class="contact-list">
+        <li>📍 51 quai Commandant Lherminier, 42300 Roanne</li>
+        <li>📞 <a href="tel:+33477697094">04 77 69 70 94</a></li>
+        <li>✉️ <a href="mailto:contact@cosmocafe.fr">contact@cosmocafe.fr</a></li>
+      </ul>
+      <div class="facade"><img src="https://geotrek.auvergnerhonealpes-tourisme.com/media/paperclip/tourism_touristiccontent/32336/36470198-diaporama.jpg" alt="Façade et terrasse du Cosmo Café, quai Commandant Lherminier" loading="lazy"></div>
+    </div>
+    <div class="map reveal">
+      <iframe title="Plan d'accès au Cosmo Café" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.0738%2C46.0346%2C4.0878%2C46.0406&layer=mapnik&marker=46.037584%2C4.08085"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="logo"><span class="c">Cosmo</span><span class="f">Café</span></div>
+      <div>51 quai Commandant Lherminier · 42300 Roanne<br>04 77 69 70 94 · contact@cosmocafe.fr</div>
+      <div>Lundi, puis du mercredi au dimanche<br>9h – 18h · fermé le mardi</div>
+    </div>
+    <p class="disclaimer">Maquette de démonstration non officielle, réalisée à titre de proposition pour Cosmo Café. Informations reprises de la fiche publique Roannais Tourisme (mise à jour avril 2026) : horaires, capacité, services. Photos : visuels de l'établissement publiés sur sa fiche Roannais Tourisme ; photo de la rubrique « Sensations chaudes » à fournir. Couleurs et logo approchés d'après l'enseigne et la carte papier, ajustables avec les fichiers d'origine. Rubriques de carte relevées sur la carte en salle, sans détail ni prix : à compléter. Le formulaire prépare un mail vers l'adresse de l'établissement, sans engagement.</p>
+  </div>
+</footer>
+
+<div class="mobile-cta"><a class="btn btn-r" href="tel:+33477697094">Appeler</a><a class="btn btn-o" style="background:#fff" href="#outil">Réunion</a></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s);
+const DAYS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+const OPEN=9*60, CLOSE=18*60;
+const isOpenDay=d=>d!==2; // fermé le mardi
+const fmt=m=>`${Math.floor(m/60)}h${m%60?String(m%60).padStart(2,'0'):''}`;
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)};
+
+// Header + menu
+addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>10),{passive:true});
+const bg=$('#burger');bg.onclick=()=>{const o=$('#menu').classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>{$('#menu').classList.remove('open');bg.setAttribute('aria-expanded',false)});
+
+// Statut ouvert/fermé (heure de Paris)
+function parisNow(){const p=new Intl.DateTimeFormat('fr-FR',{timeZone:'Europe/Paris',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());const g=t=>p.find(x=>x.type===t).value;const wd=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'].indexOf(g('weekday'));return{d:wd<0?new Date().getDay():wd,m:+g('hour')*60+ +g('minute')}}
+function nextOpen(d,m){for(let i=0;i<8;i++){const dd=(d+i)%7;if(!isOpenDay(dd))continue;if(i===0&&m>=CLOSE)continue;if(i===0&&m<OPEN)return`aujourd'hui à 9h`;if(i===0)return null;return`${i===1?'demain':DAYS[dd].toLowerCase()} à 9h`}}
+function status(){const{d,m}=parisNow();const open=isOpenDay(d)&&m>=OPEN&&m<CLOSE;$('#dot').classList.toggle('off',!open);$('#statusTxt').textContent=open?`Ouvert maintenant · jusqu'à 18h`:`Fermé · réouverture ${nextOpen(d,m)}`;
+  $('#hours').innerHTML=[1,2,3,4,5,6,0].map(i=>`<li class="${i===d?'today':''}"><span>${DAYS[i]}${i===d?' (aujourd’hui)':''}</span><span>${isOpenDay(i)?'9h – 18h':'Fermé'}</span></li>`).join('');}
+status();setInterval(status,60000);
+
+// Reveal + compteurs
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('[data-count]').forEach(c=>{const end=+c.dataset.count;let t0;const step=t=>{t0??=t;const k=Math.min(1,(t-t0)/1200);c.textContent=Math.round(end*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)});io.unobserve(e.target)}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(el.closest('.cards')?(i%4)*90:0)+'ms';io.observe(el)});
+
+// Onglets
+const tabs=[...document.querySelectorAll('.tab')];
+tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>{x.setAttribute('aria-selected',x===t);$('#'+x.getAttribute('aria-controls')).hidden=x!==t})});
+
+// Réunion
+let nb=8;const seats=$('#seats');seats.innerHTML=Array.from({length:35},()=>'<span class="seat"></span>').join('');
+const dateI=$('#date');const today=new Date();const iso=d=>d.toISOString().slice(0,10);
+let def=new Date(today);def.setDate(def.getDate()+7);while(def.getDay()===2)def.setDate(def.getDate()+1);dateI.value=iso(def);dateI.min=iso(today);
+function evt(){ $('#nb').textContent=nb;[...seats.children].forEach((s,i)=>s.classList.toggle('on',i<nb));
+  const r=$('#evtRes');r.classList.remove('warn');const v=dateI.value;if(!v){r.textContent='Choisissez une date.';return false}
+  const d=new Date(v+'T12:00');const [h,mi]=$('#heure').value.split(':').map(Number);const m=h*60+mi;
+  if(d.getDay()===2){r.classList.add('warn');r.innerHTML='<strong>Le mardi, le café est fermé.</strong> Choisissez un autre jour, du mercredi au lundi.';return false}
+  if(m<OPEN||m>=CLOSE){r.classList.add('warn');r.innerHTML='<strong>Hors horaires.</strong> Le service est continu de 9h à 18h.';return false}
+  const dur=Math.min(120,CLOSE-m);
+  r.innerHTML=`<strong>${DAYS[d.getDay()]} ${d.toLocaleDateString('fr-FR',{day:'numeric',month:'long'})}, ${fmt(m)}</strong> · ${nb} personne${nb>1?'s':''}. `+(nb>35?`Au-delà des 35 couverts de la salle, la terrasse (40 places) pourra être proposée selon la météo — le café vous confirmera.`:`La salle compte 35 couverts : le café vous confirmera la disponibilité.`)+` Créneau jusqu'à ${fmt(m+dur)} au plus tard (fermeture 18h).`;return{d,m,dur}}
+$('#minus').onclick=()=>{nb=Math.max(2,nb-1);evt()};$('#plus').onclick=()=>{nb=Math.min(75,nb+1);evt()};
+['change','input'].forEach(e=>{dateI.addEventListener(e,evt);$('#heure').addEventListener(e,evt)});
+document.querySelectorAll('input[name=type]').forEach(x=>x.onchange=evt);evt();
+const typ=()=>document.querySelector('input[name=type]:checked').value;
+$('#evtForm').onsubmit=e=>{e.preventDefault();const o=evt();if(!o){toast('Vérifiez la date et l’heure');return}
+  const body=`Bonjour,\n\nJe souhaite organiser : ${typ()}\nDate : ${DAYS[o.d.getDay()]} ${o.d.toLocaleDateString('fr-FR')}\nHeure d'arrivée : ${fmt(o.m)}\nNombre de personnes : ${nb}\n${$('#msg').value?'Précisions : '+$('#msg').value+'\n':''}\n${$('#nom').value}\n${$('#tel').value}`;
+  location.href=`mailto:contact@cosmocafe.fr?subject=${encodeURIComponent('Demande — '+typ()+' au Cosmo Café')}&body=${encodeURIComponent(body)}`;toast('Votre messagerie s’ouvre avec la demande prête')};
+$('#ics').onclick=()=>{const o=evt();if(!o){toast('Vérifiez la date et l’heure');return}
+  const p=n=>String(n).padStart(2,'0');const ds=o.d.getFullYear()+p(o.d.getMonth()+1)+p(o.d.getDate());const t=m=>p(Math.floor(m/60))+p(m%60)+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cosmo Cafe//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@cosmocafe','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART;TZID=Europe/Paris:'+ds+'T'+t(o.m),'DTEND;TZID=Europe/Paris:'+ds+'T'+t(o.m+o.dur),'SUMMARY:'+typ()+' au Cosmo Café ('+nb+' pers.)','LOCATION:Cosmo Café\\, 51 quai Commandant Lherminier\\, 42300 Roanne','DESCRIPTION:À confirmer avec le café : 04 77 69 70 94','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='cosmo-cafe.ics';a.click();toast('Rappel ajouté à télécharger')};
+
+// Ma pause
+const week=$('#week');const short=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];const map=[1,2,3,4,5,6,0];let sel=parisNow().d;
+week.innerHTML=map.map((d,i)=>`<button type="button" data-d="${d}" class="${isOpenDay(d)?'':'closed'}" aria-pressed="${d===sel}">${short[i]}</button>`).join('');
+week.onclick=e=>{const b=e.target.closest('button');if(!b)return;sel=+b.dataset.d;week.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));pause()};
+const sl=$('#slider');const pct=m=>(m-420)/(1260-420)*100;
+$('#openBand').style.left=pct(OPEN)+'%';$('#openBand').style.width=(pct(CLOSE)-pct(OPEN))+'%';
+function pause(){const m=+sl.value;$('#hLab').textContent=fmt(m);$('#cur').style.left=pct(m)+'%';const r=$('#pauseRes');r.classList.remove('warn');
+  if(!isOpenDay(sel)){r.classList.add('warn');$('#openBand').style.opacity=.15;r.innerHTML='<strong>Fermé le mardi.</strong> Rendez-vous mercredi dès 9h.';return}
+  $('#openBand').style.opacity=1;
+  if(m<OPEN){r.classList.add('warn');r.innerHTML=`<strong>Encore un peu tôt.</strong> Ouverture à 9h, dans ${fmt(OPEN-m).replace(/^0h/,'')}.`;return}
+  if(m>=CLOSE){r.classList.add('warn');r.innerHTML='<strong>Le café a fermé à 18h.</strong> '+(isOpenDay((sel+1)%7)?'Réouverture le lendemain à 9h.':'Réouverture mercredi à 9h.');return}
+  const moment=m<11*60+30?'le café du matin':m<14*60+30?'la pause déjeuner':'le goûter ou un café en fin de journée';
+  r.innerHTML=`<strong>C'est ouvert ✓</strong> Parfait pour ${moment}. Service continu jusqu'à 18h — encore ${fmt(CLOSE-m).replace(/h$/,'h')} devant vous, sur place, en terrasse ou à emporter.`}
+sl.oninput=pause;pause();
+})();
+</script>
+</body>
+</html>
