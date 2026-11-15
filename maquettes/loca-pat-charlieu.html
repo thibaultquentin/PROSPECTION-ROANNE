@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loca'Pat — Location de camion frigorifique à Charlieu, Roanne et alentours</title>
+<meta name="description" content="Loca'Pat loue des camions frigorifiques de 10 à 14 m³, permis B, en courte ou longue durée, pour professionnels et particuliers, depuis Charlieu, dans un rayon de 80 km de Roanne.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE LOCA'PAT — reprise du logo / de la plaquette existants
+   (bleu roi du mot LOCA'PAT, marine de "CHARLIEU", dégradé
+   turquoise du fond, flocons bleu-vert). Codes approchés à partir
+   des visuels publiés : ajustables ici en quelques lignes.
+   ========================================================= */
+:root{
+  --bleu:#1c6db6;        /* lettres LOCA'PAT */
+  --marine:#2a3184;      /* CHARLIEU / téléphone */
+  --turquoise:#5fc1c6;   /* fond du logo, côté gauche */
+  --glace:#e7f6f7;       /* fond du logo, côté droit */
+  --flocon:#2a9fa5;      /* flocons */
+  --blanc:#ffffff;
+  --texte:#1d2747;
+  --texte-doux:#4c5877;
+  --ligne:rgba(42,49,132,.12);
+  --font-titre:"Jost","Century Gothic","Futura",sans-serif; /* proche du lettrage géométrique du logo */
+  --font-texte:"Open Sans",Arial,sans-serif;                /* police du site actuel */
+  --rayon:18px;
+  --ombre:0 18px 40px -18px rgba(42,49,132,.35);
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--blanc);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--flocon);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--marine);color:#fff;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:#9fe3e6}
+
+/* Barre de progression "chaîne du froid" */
+.froid{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--turquoise),var(--bleu),var(--marine));z-index:100}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--ligne);box-shadow:0 8px 24px -18px rgba(42,49,132,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px;transition:height .3s var(--ease)}
+header.scrolled .nav{height:60px}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo svg{width:30px;height:30px;color:var(--flocon);transition:transform 1.2s var(--ease)}
+.logo:hover svg{transform:rotate(60deg)}
+.logo strong{font-family:var(--font-titre);font-weight:600;font-size:1.55rem;color:var(--bleu);letter-spacing:.06em;line-height:1;text-shadow:2px 2px 0 #e9eef6}
+.logo small{display:block;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marine);font-weight:700}
+.menu{display:flex;gap:1.6rem;list-style:none;font-weight:600;font-size:.92rem}
+.menu a{text-decoration:none;color:var(--marine);position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--flocon);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-titre);font-weight:600;font-size:1rem;letter-spacing:.02em;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:.85rem 1.5rem;min-height:46px;transition:transform .25s var(--ease),box-shadow .25s,background .25s}
+.btn:active{transform:scale(.96)}
+.btn-plein{background:var(--bleu);color:#fff;box-shadow:0 10px 24px -10px rgba(28,109,182,.8)}
+.btn-plein:hover{background:var(--marine);transform:translateY(-2px)}
+.btn-contour{background:rgba(255,255,255,.7);color:var(--marine);box-shadow:inset 0 0 0 2px var(--marine)}
+.btn-contour:hover{background:var(--marine);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;color:var(--marine)}
+@media (max-width:900px){
+  .menu{position:fixed;inset:60px 0 auto 0;flex-direction:column;gap:0;background:#fff;padding:.5rem 16px 1rem;border-bottom:1px solid var(--ligne);transform:translateY(-12px);opacity:0;visibility:hidden;transition:transform .4s var(--ease),opacity .3s,visibility .3s}
+  .menu.open{transform:none;opacity:1;visibility:visible}
+  .menu a{display:block;padding:.85rem 0;border-bottom:1px solid var(--ligne)}
+  .burger{display:block}
+  .nav .btn-plein{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 100px);display:grid;align-items:center;overflow:hidden;background:linear-gradient(115deg,var(--turquoise) 0%,#a9dfe2 45%,var(--glace) 100%)}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center;padding:4rem 0 5rem}
+.sur-titre{display:inline-flex;align-items:center;gap:.5rem;font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--marine);background:rgba(255,255,255,.65);padding:.4rem .9rem;border-radius:999px}
+.hero h1{font-family:var(--font-titre);font-weight:600;color:var(--bleu);font-size:clamp(2.4rem,1.6rem + 3.6vw,4.6rem);line-height:1.02;margin:1.1rem 0 1rem;letter-spacing:-.01em;text-shadow:3px 3px 0 rgba(255,255,255,.75)}
+.hero h1 span{color:var(--marine);display:block}
+.hero p.lead{font-size:clamp(1.02rem,.95rem + .4vw,1.22rem);color:var(--texte);max-width:34ch}
+.valeurs{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:1.4rem 0 2rem;font-family:var(--font-titre);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--marine);font-size:.9rem}
+.valeurs span{opacity:0;transform:translateY(10px);animation:monte .7s var(--ease) forwards}
+.valeurs span:nth-child(2){animation-delay:.25s}.valeurs span:nth-child(3){animation-delay:.5s}
+.valeurs span::before{content:"❄";color:var(--flocon);margin-right:.45rem}
+@keyframes monte{to{opacity:1;transform:none}}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.hero-photo{position:relative}
+.hero-photo .cadre{border-radius:28px;overflow:hidden;box-shadow:0 40px 70px -30px rgba(42,49,132,.55);transform:rotate(1.5deg);transition:transform .8s var(--ease)}
+.hero-photo:hover .cadre{transform:rotate(0) scale(1.01)}
+.hero-photo img{width:100%;height:auto;aspect-ratio:16/11;object-fit:cover;object-position:center 80%}
+.badge-froid{position:absolute;left:-1.4rem;bottom:-1.4rem;background:#fff;border-radius:20px;padding:1rem 1.2rem;box-shadow:var(--ombre);display:flex;gap:.8rem;align-items:center;max-width:260px}
+.badge-froid .rond{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:var(--glace);color:var(--flocon)}
+.badge-froid b{font-family:var(--font-titre);color:var(--marine);display:block;line-height:1.2}
+.badge-froid small{color:var(--texte-doux);font-size:.8rem}
+.vague{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:70px;color:#fff}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;padding:2.5rem 0 4.5rem}.badge-froid{left:.6rem;bottom:-1.2rem}}
+
+/* Bandeau communes */
+.marquee{background:var(--marine);color:#cfeff0;overflow:hidden;white-space:nowrap;padding:.85rem 0;font-family:var(--font-titre);letter-spacing:.12em;text-transform:uppercase;font-size:.9rem}
+.marquee .piste{display:inline-flex;gap:2.4rem;animation:defile 38s linear infinite;padding-left:2.4rem}
+.marquee span::after{content:"❄";margin-left:2.4rem;color:var(--turquoise)}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.titre-section{max-width:720px;margin-bottom:2.8rem}
+.titre-section .kicker{font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--flocon)}
+.titre-section h2{font-family:var(--font-titre);font-weight:600;color:var(--marine);font-size:clamp(1.9rem,1.4rem + 2vw,3rem);line-height:1.1;margin:.5rem 0 .9rem}
+.titre-section p{color:var(--texte-doux);font-size:1.05rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+
+/* Atouts */
+.atouts{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+.atout{background:linear-gradient(160deg,#fff,var(--glace));border:1px solid var(--ligne);border-radius:var(--rayon);padding:1.4rem 1.2rem;transition:transform .35s var(--ease),box-shadow .35s}
+.atout:hover{transform:translateY(-6px);box-shadow:var(--ombre)}
+.atout .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--bleu);color:#fff;margin-bottom:.9rem}
+.atout h3{font-family:var(--font-titre);font-weight:600;color:var(--marine);font-size:1.12rem;line-height:1.2;margin-bottom:.35rem}
+.atout p{font-size:.88rem;color:var(--texte-doux)}
+@media (max-width:1000px){.atouts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.atouts{grid-template-columns:1fr}}
+
+/* Gamme */
+.gamme{background:linear-gradient(180deg,var(--glace),#fff)}
+.flotte{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.camion{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--ligne);transition:transform .45s var(--ease),box-shadow .45s}
+.camion:hover{transform:translateY(-8px);box-shadow:var(--ombre)}
+.camion .img{background:radial-gradient(ellipse at 50% 85%,#d7eef0 0%,#fff 65%);padding:1rem 1rem 0;overflow:hidden}
+.camion img{width:100%;aspect-ratio:400/284;object-fit:contain;transition:transform .7s var(--ease)}
+.camion:hover img{transform:translateX(10px) scale(1.04)}
+.camion .txt{padding:1.1rem 1.3rem 1.4rem}
+.camion h3{font-family:var(--font-titre);color:var(--marine);font-weight:600;font-size:1.15rem}
+.camion p{font-size:.9rem;color:var(--texte-doux)}
+.note-gamme{margin-top:1.6rem;font-size:.92rem;color:var(--texte-doux);display:flex;gap:.6rem;align-items:flex-start}
+@media (max-width:900px){.flotte{grid-template-columns:1fr}}
+
+/* Outil */
+.outil{background:var(--marine);color:#fff;position:relative;overflow:hidden}
+.outil::before{content:"";position:absolute;width:640px;height:640px;right:-220px;top:-220px;background:radial-gradient(circle,rgba(95,193,198,.35),transparent 65%);pointer-events:none}
+.outil .titre-section h2{color:#fff}
+.outil .titre-section p{color:#c9d3ef}
+.outil .titre-section .kicker{color:var(--turquoise)}
+.app{position:relative;display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;align-items:start}
+.panneau{background:#fff;color:var(--texte);border-radius:24px;padding:clamp(1.2rem,1rem + 1vw,2rem)}
+.etapes{display:flex;gap:.4rem;margin-bottom:1.5rem}
+.etapes button{flex:1;border:0;background:none;cursor:pointer;text-align:left;font:inherit;padding:0}
+.etapes .barre{height:5px;border-radius:5px;background:#e3e8f3;overflow:hidden;margin-bottom:.45rem}
+.etapes .barre i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--turquoise),var(--bleu));transition:width .5s var(--ease)}
+.etapes .on .barre i,.etapes .fait .barre i{width:100%}
+.etapes small{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9aa3bd}
+.etapes .on small{color:var(--bleu)}
+.etape{display:none;animation:apparait .45s var(--ease)}
+.etape.active{display:block}
+@keyframes apparait{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+.etape h3{font-family:var(--font-titre);color:var(--marine);font-size:1.4rem;font-weight:600;margin-bottom:.3rem}
+.etape > p{color:var(--texte-doux);font-size:.93rem;margin-bottom:1.2rem}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.choix label{position:relative;cursor:pointer}
+.choix input{position:absolute;opacity:0}
+.choix .carte{display:block;border:2px solid #e3e8f3;border-radius:16px;padding:1.1rem;transition:border-color .25s,background .25s,transform .25s var(--ease)}
+.choix .carte b{display:block;font-family:var(--font-titre);color:var(--marine);font-size:1.1rem}
+.choix .carte span{font-size:.85rem;color:var(--texte-doux)}
+.choix input:checked + .carte{border-color:var(--bleu);background:var(--glace);transform:translateY(-2px)}
+.choix input:focus-visible + .carte{outline:3px solid var(--flocon);outline-offset:2px}
+.ligne-qte{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0;border-bottom:1px solid #edf0f7}
+.ligne-qte b{color:var(--marine);font-weight:600}
+.ligne-qte small{display:block;color:var(--texte-doux);font-size:.78rem}
+.compteur{display:flex;align-items:center;gap:.4rem}
+.compteur button{width:38px;height:38px;border-radius:50%;border:2px solid #dbe2f0;background:#fff;color:var(--marine);font-size:1.2rem;cursor:pointer;transition:background .2s,border-color .2s}
+.compteur button:hover{background:var(--glace);border-color:var(--bleu)}
+.compteur output{min-width:2.2rem;text-align:center;font-family:var(--font-titre);font-weight:600;font-size:1.15rem;color:var(--marine)}
+.jauges{margin-top:1.3rem;display:grid;gap:.8rem}
+.jauge small{display:flex;justify-content:space-between;font-weight:600;font-size:.82rem;color:var(--marine)}
+.jauge .fond{height:14px;border-radius:10px;background:#edf1f8;overflow:hidden;margin-top:.3rem;position:relative}
+.jauge .fond i{display:block;height:100%;width:0;border-radius:10px;background:linear-gradient(90deg,var(--turquoise),var(--bleu));transition:width .6s var(--ease),background .3s}
+.jauge.trop .fond i{background:linear-gradient(90deg,#f1a33b,#d9534f)}
+.conseil{margin-top:1rem;padding:.9rem 1rem;border-radius:14px;background:var(--glace);color:var(--marine);font-size:.92rem;display:flex;gap:.6rem}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.champ label{display:block;font-weight:600;font-size:.85rem;color:var(--marine);margin-bottom:.35rem}
+.champ input,.champ select,.champ textarea{width:100%;font:inherit;font-size:.95rem;padding:.75rem .9rem;border:2px solid #e3e8f3;border-radius:12px;background:#fff;color:var(--texte);min-height:46px;transition:border-color .2s}
+.champ input:focus,.champ select:focus,.champ textarea:focus{border-color:var(--bleu);outline:none}
+.champ.large{grid-column:1/-1}
+.case{display:flex;gap:.6rem;align-items:flex-start;font-size:.92rem;margin-top:1rem;cursor:pointer}
+.case input{width:20px;height:20px;accent-color:var(--bleu);margin-top:.15rem}
+.duree{margin-top:1rem;font-family:var(--font-titre);color:var(--bleu);font-weight:600;font-size:1.05rem;min-height:1.6em}
+.nav-etapes{display:flex;justify-content:space-between;gap:.8rem;margin-top:1.6rem}
+.nav-etapes .btn[hidden]{display:none}
+.recap{background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:1.6rem;position:sticky;top:90px}
+.recap h3{font-family:var(--font-titre);font-weight:600;font-size:1.3rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.recap dl{display:grid;gap:.75rem}
+.recap dt{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#9fb0dc}
+.recap dd{font-family:var(--font-titre);font-size:1.08rem;color:#fff}
+.recap .actions{display:grid;gap:.7rem;margin-top:1.4rem}
+.recap .btn-plein{background:var(--turquoise);color:var(--marine);justify-content:center}
+.recap .btn-plein:hover{background:#fff}
+.recap .btn-contour{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.5);justify-content:center}
+.recap .btn-contour:hover{background:#fff;color:var(--marine)}
+.recap .mini{font-size:.78rem;color:#aab6da;margin-top:1rem}
+@media (max-width:960px){.app{grid-template-columns:1fr}.recap{position:static}}
+@media (max-width:520px){.choix,.champs{grid-template-columns:1fr}}
+
+/* Qualité */
+.qualite{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.logo-reel{border-radius:22px;overflow:hidden;box-shadow:var(--ombre);border:1px solid var(--ligne)}
+.qualite blockquote{font-family:var(--font-titre);font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem);color:var(--bleu);line-height:1.15;font-weight:600;margin:.6rem 0 1.2rem}
+.qualite p{color:var(--texte-doux);margin-bottom:.9rem}
+.qualite ul{list-style:none;display:grid;gap:.6rem;margin-top:1.2rem}
+.qualite li{display:flex;gap:.6rem;align-items:flex-start}
+.qualite li::before{content:"❄";color:var(--flocon);font-size:1.05rem;line-height:1.5}
+@media (max-width:900px){.qualite{grid-template-columns:1fr}}
+
+/* Zone */
+.zone{background:linear-gradient(180deg,#fff,var(--glace))}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.carte-zone{background:#fff;border-radius:28px;box-shadow:var(--ombre);padding:1rem}
+.carte-zone svg{width:100%;height:auto;display:block}
+.carte-zone .cercle{fill:rgba(95,193,198,.14);stroke:var(--flocon);stroke-width:.6;stroke-dasharray:3 2}
+.carte-zone .onde{fill:none;stroke:var(--turquoise);stroke-width:.5;transform-origin:0 0;animation:onde 4s ease-out infinite}
+@keyframes onde{from{transform:scale(.1);opacity:.9}to{transform:scale(1);opacity:0}}
+.carte-zone .ville circle{fill:var(--bleu);transition:r .2s}
+.carte-zone .ville text{font-family:var(--font-texte);font-size:4.2px;fill:var(--marine);font-weight:600}
+.carte-zone .ville.charlieu circle{fill:var(--marine)}
+.carte-zone .ville:hover circle,.carte-zone .ville.lit circle{fill:var(--flocon);r:2.6}
+.villes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.villes button{font:inherit;font-size:.88rem;font-weight:600;border:1px solid var(--ligne);background:#fff;color:var(--marine);padding:.45rem .9rem;border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.villes button:hover,.villes button.lit{background:var(--marine);color:#fff}
+.distance{margin-top:1rem;font-family:var(--font-titre);color:var(--bleu);font-size:1.1rem;min-height:1.6em}
+@media (max-width:900px){.zone-grid{grid-template-columns:1fr}}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.coord{border:1px solid var(--ligne);border-radius:var(--rayon);padding:1.6rem;text-decoration:none;display:block;transition:transform .35s var(--ease),box-shadow .35s,background .35s}
+a.coord:hover{transform:translateY(-6px);box-shadow:var(--ombre);background:var(--glace)}
+.coord .ico{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--glace);color:var(--bleu);margin-bottom:1rem}
+.coord small{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--texte-doux);font-weight:700}
+.coord b{display:block;font-family:var(--font-titre);color:var(--marine);font-size:1.25rem;font-weight:600;margin-top:.2rem;word-break:break-word}
+.plaquette{margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;background:linear-gradient(115deg,var(--turquoise),var(--glace));border-radius:24px;padding:1.6rem 2rem}
+.plaquette p{font-family:var(--font-titre);font-size:1.3rem;color:var(--marine);font-weight:600}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:var(--marine);color:#c9d3ef;padding:3rem 0 2rem;font-size:.9rem}
+.pied{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem}
+footer .logo strong{color:#fff;text-shadow:none}
+footer .logo small{color:#9fe3e6}
+.mention{margin-top:2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.15);font-size:.78rem;color:#9fb0dc}
+@media (max-width:700px){.pied{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoRental",
+  "name":"Loca'Pat",
+  "description":"Location de camions frigorifiques de 10 à 14 m³, permis B, en courte ou longue durée, pour professionnels et particuliers.",
+  "url":"https://www.locapat.com",
+  "telephone":"+33637038638",
+  "email":"locapatcharlieu@outlook.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"43 boulevard Thiers","postalCode":"42190","addressLocality":"Charlieu","addressCountry":"FR"},
+  "founder":{"@type":"Person","name":"Patrick Labrosse"},
+  "areaServed":[
+    {"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.036,"longitude":4.068},"geoRadius":"80000"},
+    "Roanne","Charlieu","Digoin","Thizy-les-Bourgs","Chauffailles","Paray-le-Monial","Feurs","Balbigny","Montbrison","Lapalisse","Vichy","Mâcon","Saint-Étienne","Lyon"
+  ]
+}
+</script>
+</head>
+<body>
+<div class="froid" id="froid"></div>
+<div class="demo">Maquette de démonstration — <b>proposition de nouveau site pour Loca'Pat</b>, non officielle</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a href="#accueil" class="logo" aria-label="Loca'Pat, accueil">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5M3 10.3l3.4.9-.9 3.4M21 13.7l-3.4-.9.9-3.4"/></svg>
+      <span><strong>LOCA'PAT</strong><small>Véhicules frigorifiques</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#gamme">Notre gamme</a></li>
+      <li><a href="#reserver">Préparer ma location</a></li>
+      <li><a href="#qualite">Qui sommes-nous ?</a></li>
+      <li><a href="#zone">Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:+33637038638" class="btn btn-plein">06 37 03 86 38</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="accueil">
+  <section class="hero" style="padding:0">
+    <canvas id="neige" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="sur-titre">Charlieu · Roannais · 80 km autour de Roanne</span>
+        <h1>Location de camions <span>frigorifiques</span></h1>
+        <p class="lead">Pour professionnels et particuliers sur Charlieu et ses alentours. Volume de 10 à 14&nbsp;m³, seul le permis&nbsp;B est requis.</p>
+        <div class="valeurs" aria-label="Nos valeurs"><span>Qualité</span><span>Flexibilité</span><span>Disponibilité</span></div>
+        <div class="cta">
+          <a href="#reserver" class="btn btn-plein">Préparer ma location
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="tel:+33637038638" class="btn btn-contour">Appeler Loca'Pat</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="cadre"><img src="https://www.locapat.com/wp-content/uploads/2022/11/Locapat-1920.1080.jpg" alt="Trois camions frigorifiques Loca'Pat stationnés côte à côte" width="1920" height="1080"></div>
+        <div class="badge-froid">
+          <span class="rond"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/></svg></span>
+          <span><b>Groupe froid homologué ATP</b><small>La chaîne du froid respectée</small></span>
+        </div>
+      </div>
+    </div>
+    <svg class="vague" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 40c240 30 480 30 720 10s480-30 720 0v20H0z"/></svg>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="piste" id="piste"></div></div>
+
+  <section>
+    <div class="wrap">
+      <div class="titre-section reveal">
+        <span class="kicker">La qualité à tous les degrés</span>
+        <h2>Location de camion frigorifique sans chauffeur</h2>
+        <p>Des véhicules réfrigérés simples à prendre en main, pour un besoin ponctuel comme pour une location sur la durée.</p>
+      </div>
+      <div class="atouts">
+        <div class="atout reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h4M7 14h7"/></svg></div><h3>Seul le permis B est requis</h3><p>Pas besoin de permis poids lourd pour les conduire.</p></div>
+        <div class="atout reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5-9-5zM3 8v8l9 5 9-5V8"/></svg></div><h3>Volume de 10 à 14 m³</h3><p>Plusieurs tailles de caisse frigorifique selon votre chargement.</p></div>
+        <div class="atout reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><h3>Courte ou longue durée</h3><p>Une location adaptée à vos besoins, ponctuels ou réguliers.</p></div>
+        <div class="atout reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z"/></svg></div><h3>Norme ATP</h3><p>Véhicules équipés d'un système homologué à la norme ATP.</p></div>
+        <div class="atout reveal"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M6 20V9h12v11M9 13h6M12 4v5"/></svg></div><h3>Hayon disponible</h3><p>Certains de nos véhicules sont équipés d'un hayon.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gamme" id="gamme">
+    <div class="wrap">
+      <div class="titre-section reveal">
+        <span class="kicker">Notre flotte de véhicules</span>
+        <h2>Notre gamme de camions frigorifiques</h2>
+        <p>Découvrez notre gamme de véhicules frigorifiques à louer pour professionnels et particuliers ! Avec un volume de 10 à 14&nbsp;m³, nos camions peuvent être loués en location courte ou longue durée suivant vos besoins.</p>
+      </div>
+      <div class="flotte">
+        <article class="camion reveal"><div class="img"><img src="https://www.locapat.com/wp-content/uploads/2022/11/locapat-location-camion-frigorifique-1.png" alt="Camion frigorifique Loca'Pat, vue avant trois quarts" loading="lazy"></div><div class="txt"><h3>Fourgon à caisse frigorifique</h3><p>Groupe froid en façade de caisse, aux couleurs Loca'Pat.</p></div></article>
+        <article class="camion reveal"><div class="img"><img src="https://www.locapat.com/wp-content/uploads/2022/11/locapat-location-camion-frigorifique-2.jpg" alt="Camion frigorifique Loca'Pat avec porte latérale" loading="lazy"></div><div class="txt"><h3>Caisse avec porte latérale</h3><p>Un accès sur le côté pour charger et décharger facilement.</p></div></article>
+        <article class="camion reveal"><div class="img"><img src="https://www.locapat.com/wp-content/uploads/2022/11/locapat-location-camion-frigorifique-3.png" alt="Camion frigorifique Loca'Pat grand volume" loading="lazy"></div><div class="txt"><h3>Caisse frigorifique, autre modèle</h3><p>Un second modèle de fourgon dans la flotte Loca'Pat.</p></div></article>
+      </div>
+      <p class="note-gamme reveal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--flocon)" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:3px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg> Volumes exacts, hayon et disponibilités de chaque véhicule à préciser avec Loca'Pat : les fiches détaillées (dimensions utiles, charge, tarifs) seront ajoutées avec vous.</p>
+    </div>
+  </section>
+
+  <section class="outil" id="reserver">
+    <div class="wrap">
+      <div class="titre-section reveal">
+        <span class="kicker">Nouveau · Préparer ma location</span>
+        <h2>Le bon camion, aux bonnes dates, en quatre étapes</h2>
+        <p>Estimez le volume dont vous avez besoin, choisissez vos dates et votre commune : votre demande part prête à traiter, par mail ou par téléphone.</p>
+      </div>
+      <div class="app reveal">
+        <div class="panneau">
+          <div class="etapes" id="etapes" role="tablist">
+            <button class="on" data-go="0" role="tab"><div class="barre"><i></i></div><small>1. Profil</small></button>
+            <button data-go="1" role="tab"><div class="barre"><i></i></div><small>2. Volume</small></button>
+            <button data-go="2" role="tab"><div class="barre"><i></i></div><small>3. Dates</small></button>
+            <button data-go="3" role="tab"><div class="barre"><i></i></div><small>4. Contact</small></button>
+          </div>
+
+          <div class="etape active" data-etape="0">
+            <h3>Vous louez en tant que…</h3>
+            <p>Loca'Pat loue aux professionnels comme aux particuliers.</p>
+            <div class="choix">
+              <label><input type="radio" name="profil" value="Professionnel" checked><span class="carte"><b>Professionnel</b><span>Commerce, artisan, producteur, entreprise…</span></span></label>
+              <label><input type="radio" name="profil" value="Particulier"><span class="carte"><b>Particulier</b><span>Événement familial, besoin ponctuel…</span></span></label>
+            </div>
+          </div>
+
+          <div class="etape" data-etape="1">
+            <h3>Que devez-vous transporter ?</h3>
+            <p>Ajoutez vos contenants : la jauge compare votre chargement aux camions de 10 et 14&nbsp;m³.</p>
+            <div id="items"></div>
+            <div class="jauges">
+              <div class="jauge" id="j10"><small><span>Camion 10 m³</span><span class="pct">0 %</span></small><div class="fond"><i></i></div></div>
+              <div class="jauge" id="j14"><small><span>Camion 14 m³</span><span class="pct">0 %</span></small><div class="fond"><i></i></div></div>
+            </div>
+            <div class="conseil" id="conseil"><span>❄</span><span>Ajoutez au moins un contenant pour obtenir une suggestion.</span></div>
+          </div>
+
+          <div class="etape" data-etape="2">
+            <h3>Quand et où ?</h3>
+            <p>Location courte ou longue durée, dans un rayon de 80 km autour de Roanne.</p>
+            <div class="champs">
+              <div class="champ"><label for="debut">Début de location</label><input type="date" id="debut"></div>
+              <div class="champ"><label for="fin">Fin de location</label><input type="date" id="fin"></div>
+              <div class="champ large"><label for="commune">Commune de destination</label>
+                <select id="commune"></select></div>
+            </div>
+            <label class="case"><input type="checkbox" id="hayon"> Je souhaite un véhicule équipé d'un hayon (selon disponibilité)</label>
+            <div class="duree" id="duree"></div>
+          </div>
+
+          <div class="etape" data-etape="3">
+            <h3>Vos coordonnées</h3>
+            <p>Patrick Labrosse vous recontacte pour confirmer la disponibilité.</p>
+            <div class="champs">
+              <div class="champ"><label for="nom">Nom</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+              <div class="champ"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+              <div class="champ large"><label for="msg">Précisions (facultatif)</label><textarea id="msg" rows="3" placeholder="Type de marchandise, horaires de retrait…"></textarea></div>
+            </div>
+          </div>
+
+          <div class="nav-etapes">
+            <button class="btn btn-contour" id="prec" hidden>Retour</button>
+            <button class="btn btn-plein" id="suiv" style="margin-left:auto">Continuer</button>
+          </div>
+        </div>
+
+        <aside class="recap" aria-live="polite">
+          <h3><span style="color:var(--turquoise)">❄</span> Ma demande</h3>
+          <dl>
+            <div><dt>Profil</dt><dd id="r-profil">Professionnel</dd></div>
+            <div><dt>Chargement estimé</dt><dd id="r-vol">—</dd></div>
+            <div><dt>Camion suggéré</dt><dd id="r-camion">—</dd></div>
+            <div><dt>Période</dt><dd id="r-dates">—</dd></div>
+            <div><dt>Destination</dt><dd id="r-commune">—</dd></div>
+          </dl>
+          <div class="actions">
+            <a class="btn btn-plein" id="envoi" href="mailto:locapatcharlieu@outlook.fr">Envoyer ma demande par mail</a>
+            <a class="btn btn-contour" href="tel:+33637038638">Appeler le 06 37 03 86 38</a>
+          </div>
+          <p class="mini">Estimation de volume indicative (contenants standards) : la confirmation se fait toujours avec Loca'Pat. Aucun tarif n'est affiché sur cette maquette.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="qualite">
+    <div class="wrap qualite">
+      <div class="logo-reel reveal"><img src="https://www.locapat.com/wp-content/uploads/2022/10/Labrosse-patrick-VISUEL-logo-LOCAPAT.png" alt="Visuel Loca'Pat, location de véhicules frigorifiques à Charlieu" loading="lazy"></div>
+      <div class="reveal">
+        <span class="kicker" style="font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--flocon)">Qui sommes-nous ?</span>
+        <blockquote>Le degré maximum de la qualité</blockquote>
+        <p>Loca'Pat est une société de location de véhicules frigorifiques située à Charlieu, pour les professionnels et les particuliers. Patrick Labrosse dirige la société.</p>
+        <p>À votre service pour la location, la présentation et le stockage sous température dirigée.</p>
+        <ul>
+          <li>Véhicules à destination des particuliers ou professionnels</li>
+          <li>Système homologué à la norme ATP</li>
+          <li>Un service garantissant le respect de la chaîne du froid</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="zone" id="zone">
+    <div class="wrap zone-grid">
+      <div class="reveal">
+        <div class="titre-section" style="margin-bottom:1rem">
+          <span class="kicker">Zone de disponibilité</span>
+          <h2>Dans un rayon de 80 km de Roanne</h2>
+          <p>Nos véhicules sont disponibles sur les communes suivantes. Touchez une commune pour la situer sur la carte.</p>
+        </div>
+        <div class="villes" id="villes"></div>
+        <div class="distance" id="distance"></div>
+      </div>
+      <div class="carte-zone reveal">
+        <svg id="carte" viewBox="-100 -95 200 190" role="img" aria-label="Carte schématique de la zone de 80 km autour de Roanne"></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="titre-section reveal">
+        <span class="kicker">Contact</span>
+        <h2>N'hésitez pas à nous contacter</h2>
+        <p>Par téléphone ou par email, pour une disponibilité, une question ou une location longue durée.</p>
+      </div>
+      <div class="contact-grid">
+        <a class="coord reveal" href="tel:+33637038638"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><small>Téléphone</small><b>06 37 03 86 38</b></a>
+        <a class="coord reveal" href="mailto:locapatcharlieu@outlook.fr"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><small>Email</small><b>locapatcharlieu@outlook.fr</b></a>
+        <div class="coord reveal"><span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><small>Adresse</small><b>43 boulevard Thiers<br>42190 Charlieu</b></div>
+      </div>
+      <div class="plaquette reveal">
+        <p>Toute l'offre Loca'Pat dans notre plaquette</p>
+        <a class="btn btn-plein" href="https://www.locapat.com/wp-content/uploads/2022/12/plaquette-locapat.pdf" target="_blank" rel="noopener">Télécharger notre plaquette</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="pied">
+      <div>
+        <a href="#accueil" class="logo"><span><strong>LOCA'PAT</strong><small>Location de véhicules frigorifiques · Charlieu</small></span></a>
+        <p style="margin-top:1rem;max-width:44ch">Location de camions frigorifiques pour professionnels et particuliers, dans un rayon de 80&nbsp;km de Roanne.</p>
+      </div>
+      <div>
+        <p><b style="color:#fff">Loca'Pat</b> — Patrick Labrosse<br>43 boulevard Thiers, 42190 Charlieu<br>06 37 03 86 38 · locapatcharlieu@outlook.fr</p>
+      </div>
+    </div>
+    <p class="mention">Maquette de démonstration non contractuelle, réalisée à titre de proposition. Textes repris du site locapat.com et de la plaquette Loca'Pat ; photos réelles issues du site actuel (aucune image d'illustration). Couleurs approchées à partir du logo, ajustables. Aucun tarif, avis ou chiffre n'a été ajouté. L'estimation de volume de l'outil est indicative. Adresse issue du registre des entreprises, à confirmer.</p>
+  </div>
+</footer>
+
+<script>
+(()=>{
+const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* En-tête + barre "chaîne du froid" */
+const haut=document.getElementById('haut'), froid=document.getElementById('froid');
+const onScroll=()=>{const h=document.documentElement;haut.classList.toggle('scrolled',scrollY>20);froid.style.width=(scrollY/(h.scrollHeight-innerHeight)*100)+'%'};
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+
+/* Apparition au défilement */
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%5)*70+'ms';io.observe(el)});
+} else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('vu'));
+
+/* Flocons dans le premier écran */
+const cv=document.getElementById('neige'),cx=cv.getContext('2d');let fl=[];
+function taille(){cv.width=cv.offsetWidth*devicePixelRatio;cv.height=cv.offsetHeight*devicePixelRatio;cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  fl=Array.from({length:Math.min(46,Math.round(cv.offsetWidth/28))},()=>({x:Math.random()*cv.offsetWidth,y:Math.random()*cv.offsetHeight,r:1+Math.random()*2.6,v:.2+Math.random()*.55,d:Math.random()*6}))}
+function flocons(){cx.clearRect(0,0,cv.offsetWidth,cv.offsetHeight);cx.fillStyle='rgba(255,255,255,.85)';
+  fl.forEach(f=>{f.y+=f.v;f.d+=.01;f.x+=Math.sin(f.d)*.3;if(f.y>cv.offsetHeight+5){f.y=-5;f.x=Math.random()*cv.offsetWidth}cx.beginPath();cx.arc(f.x,f.y,f.r,0,7);cx.fill()});
+  if(!reduit)requestAnimationFrame(flocons)}
+taille();flocons();addEventListener('resize',taille);
+
+/* Communes (site + plaquette Loca'Pat) — coordonnées approchées */
+const villes=[["Roanne",46.036,4.068],["Charlieu",46.160,4.172],["Thizy-les-Bourgs",46.030,4.313],["Chauffailles",46.207,4.339],["Digoin",46.481,3.980],["Paray-le-Monial",46.451,4.120],["Feurs",45.742,4.226],["Balbigny",45.819,4.189],["Montbrison",45.607,4.065],["Lapalisse",46.248,3.637],["Vichy",46.127,3.426],["Mâcon",46.306,4.828],["Saint-Étienne",45.439,4.387],["Lyon",45.764,4.835]];
+const piste=document.getElementById('piste');
+piste.innerHTML=[...villes,...villes].map(v=>'<span>'+v[0]+'</span>').join('');
+const pos=v=>[(v[2]-4.068)*77,-(v[1]-46.036)*111];
+const svg=document.getElementById('carte'),NS='http://www.w3.org/2000/svg';
+const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e};
+svg.append(el('circle',{class:'cercle',cx:0,cy:0,r:80}));
+if(!reduit)[0,1.3,2.6].forEach(d=>{const o=el('circle',{class:'onde',cx:0,cy:0,r:80});o.style.animationDelay=d+'s';svg.append(o)});
+const lab=el('text',{x:0,y:-83,'text-anchor':'middle','font-size':'4.5',fill:'#2a9fa5','font-weight':'700'});lab.textContent='rayon de 80 km autour de Roanne';svg.append(lab);
+const lien=el('line',{x1:0,y1:0,x2:0,y2:0,stroke:'#1c6db6','stroke-width':'.7','stroke-dasharray':'2 1.5'});svg.append(lien);
+const noeuds={};
+villes.forEach(v=>{const [x,y]=pos(v);const g=el('g',{class:'ville'+(v[0]==='Charlieu'?' charlieu':''),tabindex:0});
+  g.append(el('circle',{cx:x,cy:y,r:v[0]==='Roanne'||v[0]==='Charlieu'?2.4:1.7}));
+  const g2=x>40||v[0]==='Charlieu';const t=el('text',{x:x+(g2?-3:3),y:y-2.6,'text-anchor':g2?'end':'start'});t.textContent=v[0];g.append(t);
+  g.onmouseenter=g.onfocus=()=>montre(v[0]);svg.append(g);noeuds[v[0]]=g});
+const boutons=document.getElementById('villes'),dist=document.getElementById('distance');
+villes.forEach(v=>{const b=document.createElement('button');b.textContent=v[0];b.onclick=()=>montre(v[0]);boutons.append(b)});
+function montre(nom){const v=villes.find(x=>x[0]===nom),[x,y]=pos(v),c=pos(villes[1]);
+  Object.values(noeuds).forEach(n=>n.classList.remove('lit'));noeuds[nom].classList.add('lit');
+  boutons.querySelectorAll('button').forEach(b=>b.classList.toggle('lit',b.textContent===nom));
+  lien.setAttribute('x1',c[0]);lien.setAttribute('y1',c[1]);lien.setAttribute('x2',x);lien.setAttribute('y2',y);
+  const d=Math.round(Math.hypot(x-c[0],y-c[1]));
+  dist.textContent=nom==='Charlieu'?'Charlieu : départ des véhicules Loca\'Pat':nom+' : environ '+d+' km à vol d\'oiseau de Charlieu';}
+montre('Roanne');
+
+/* Outil : préparer ma location */
+const items=[["Palette Europe chargée","120 × 80 cm, hauteur ~1,5 m",1.44],["Bac / caisse plastique","60 × 40 × 30 cm",0.072],["Carton standard","40 × 30 × 30 cm",0.036],["Glacière / caisse isotherme","~50 litres",0.06],["Congélateur coffre","~200 litres",0.5]];
+const qte=items.map(()=>0);const box=document.getElementById('items');
+items.forEach((it,i)=>{const d=document.createElement('div');d.className='ligne-qte';
+  d.innerHTML='<div><b>'+it[0]+'</b><small>'+it[1]+'</small></div><div class="compteur"><button aria-label="Retirer">−</button><output>0</output><button aria-label="Ajouter">+</button></div>';
+  const [m,o,p]=d.querySelectorAll('button,output');
+  const maj=n=>{qte[i]=Math.max(0,n);o.textContent=qte[i];calcul()};
+  m.onclick=()=>maj(qte[i]-(it[2]<.1?5:1));p.onclick=()=>maj(qte[i]+(it[2]<.1?5:1));box.append(d)});
+let vol=0;
+function jauge(id,cap){const j=document.getElementById(id),p=vol/cap*100;j.querySelector('i').style.width=Math.min(100,p)+'%';j.querySelector('.pct').textContent=Math.round(p)+' %';j.classList.toggle('trop',p>100)}
+function calcul(){vol=qte.reduce((s,q,i)=>s+q*items[i][2],0)*1.15; /* +15 % de marge de calage */
+  jauge('j10',10);jauge('j14',14);
+  const c=document.getElementById('conseil').lastChild;let cam='—';
+  if(vol===0)c.textContent='Ajoutez au moins un contenant pour obtenir une suggestion.';
+  else if(vol<=10){cam='Camion de 10 m³';c.textContent='Un camion de 10 m³ devrait suffire, avec de la marge.'}
+  else if(vol<=14){cam='Camion de 14 m³';c.textContent='Plutôt un camion de 14 m³, le plus grand volume de la gamme.'}
+  else{cam='À voir avec Loca\'Pat';c.textContent='Au-delà de 14 m³ : deux véhicules ou plusieurs rotations, à voir directement avec Loca\'Pat.'}
+  document.getElementById('r-vol').textContent=vol?('≈ '+vol.toFixed(1).replace('.',',')+' m³'):'—';
+  document.getElementById('r-camion').textContent=cam;lien_mail()}
+/* Dates */
+const debut=document.getElementById('debut'),fin=document.getElementById('fin'),duree=document.getElementById('duree');
+const iso=d=>d.toISOString().slice(0,10);const auj=new Date();debut.min=fin.min=iso(auj);
+const fmt=s=>new Date(s+'T12:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
+function dates(){if(debut.value)fin.min=debut.value;let t='—';duree.textContent='';
+  if(debut.value&&fin.value&&fin.value>=debut.value){const n=Math.round((new Date(fin.value)-new Date(debut.value))/864e5)+1;
+    t=fmt(debut.value)+' → '+fmt(fin.value)+' ('+n+' jour'+(n>1?'s':'')+')';duree.textContent='Durée : '+n+' jour'+(n>1?'s':'')}
+  document.getElementById('r-dates').textContent=t;lien_mail()}
+debut.onchange=fin.onchange=dates;
+const sel=document.getElementById('commune');sel.innerHTML='<option value="">Choisir…</option>'+villes.map(v=>'<option>'+v[0]+'</option>').join('')+'<option>Autre commune (dans les 80 km)</option>';
+sel.onchange=()=>{document.getElementById('r-commune').textContent=sel.value||'—';lien_mail()};
+document.getElementById('hayon').onchange=lien_mail;
+document.querySelectorAll('input[name=profil]').forEach(r=>r.onchange=()=>{document.getElementById('r-profil').textContent=r.value;lien_mail()});
+['nom','tel','msg'].forEach(id=>document.getElementById(id).oninput=lien_mail);
+function lien_mail(){const g=id=>document.getElementById(id).textContent;const v=id=>document.getElementById(id).value;
+  const corps='Bonjour,\n\nJe souhaite louer un camion frigorifique.\n\nProfil : '+g('r-profil')+'\nChargement estimé : '+g('r-vol')+'\nCamion suggéré : '+g('r-camion')+'\nPériode : '+g('r-dates')+'\nDestination : '+g('r-commune')+'\nHayon souhaité : '+(document.getElementById('hayon').checked?'oui':'non')+'\n\n'+(v('msg')?v('msg')+'\n\n':'')+'Nom : '+v('nom')+'\nTéléphone : '+v('tel');
+  document.getElementById('envoi').href='mailto:locapatcharlieu@outlook.fr?subject='+encodeURIComponent('Demande de location – camion frigorifique')+'&body='+encodeURIComponent(corps)}
+/* Navigation entre étapes */
+let et=0;const etapes=[...document.querySelectorAll('.etape')],onglets=[...document.querySelectorAll('#etapes button')];
+const prec=document.getElementById('prec'),suiv=document.getElementById('suiv');
+function va(n){et=Math.max(0,Math.min(3,n));etapes.forEach((e,i)=>e.classList.toggle('active',i===et));
+  onglets.forEach((o,i)=>{o.classList.toggle('on',i===et);o.classList.toggle('fait',i<et)});
+  prec.hidden=et===0;suiv.textContent=et===3?'Envoyer par mail':'Continuer'}
+onglets.forEach(o=>o.onclick=()=>va(+o.dataset.go));
+prec.onclick=()=>va(et-1);suiv.onclick=()=>{if(et===3)document.getElementById('envoi').click();else va(et+1)};
+calcul();
+})();
+</script>
+</body>
+</html>
