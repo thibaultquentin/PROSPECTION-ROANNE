@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'ÉxuBérands — Restaurant dansant et salle de réception à Renaison</title>
+<meta name="description" content="Au pied de la Côte Roannaise, L'ÉxuBérands à Renaison accueille vos repas de groupe, réceptions, séminaires et soirées dansantes. Menu du midi en semaine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Bitter:ital,wght@1,700;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du logo réel de L'ÉxuBérands
+   (badge bois clair, "L'exu" en script rouge, "Bérands" noir)
+   Couleurs relevées à l'œil sur les photos publiées : à ajuster
+   avec les codes exacts du logo dès qu'ils sont fournis.
+   ========================================================= */
+:root{
+  --rouge:#c8102e;        /* rouge du logo */
+  --rouge-fonce:#9c0c23;
+  --noir:#141212;         /* fond noir de la plaquette */
+  --noir-2:#221e1d;
+  --bois:#ece1cc;         /* bois clair du badge */
+  --bois-2:#d9c6a3;
+  --blanc:#ffffff;
+  --texte:#2a2523;
+  --f-script:'Kaushan Script', cursive;   /* "L'exu" */
+  --f-titre:'Bitter', Georgia, serif;     /* "Bérands" italique gras */
+  --f-texte:'Barlow', system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --r:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--blanc);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+
+/* bandeau démo */
+.demo{background:var(--rouge);color:#fff;text-align:center;font-size:13px;padding:6px 12px;letter-spacing:.02em}
+
+/* barre haute */
+.topbar{background:var(--noir);color:#e9e2d8;font-size:14px}
+.topbar .wrap{display:flex;gap:22px;justify-content:space-between;align-items:center;padding:8px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none;opacity:.9}
+.topbar a:hover{opacity:1;color:#fff}
+.topbar .sep{display:flex;gap:20px;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;background:#888;box-shadow:0 0 0 0 rgba(255,255,255,.5)}
+.dot.on{background:#3ecf6a;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(62,207,106,.6)}100%{box-shadow:0 0 0 10px rgba(62,207,106,0)}}
+
+/* header */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #eee;transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:10px 0;gap:20px}
+.logo{display:flex;align-items:center;text-decoration:none}
+.badge{width:62px;height:62px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6eedd,var(--bois) 55%,var(--bois-2));border:3px solid var(--noir);display:grid;place-items:center;position:relative;transition:transform .5s var(--ease)}
+.logo:hover .badge{transform:rotate(-8deg) scale(1.05)}
+.badge span{font-size:13px;line-height:1;text-align:center}
+.badge .s{font-family:var(--f-script);color:var(--rouge);font-size:19px;display:block}
+.badge .t{font-family:var(--f-titre);font-style:italic;font-weight:800;color:var(--noir);font-size:12px}
+.logo .name{margin-left:12px;line-height:1}
+.logo .name b{font-family:var(--f-script);color:var(--rouge);font-weight:400;font-size:26px}
+.logo .name i{font-family:var(--f-titre);font-weight:800;font-size:22px;color:var(--noir)}
+.logo .name small{display:block;font-size:12px;color:#7a706a;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+.menu{display:flex;gap:26px;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-weight:600;font-size:15px;position:relative;padding:6px 0}
+.menu a:not(.btn)::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:not(.btn):hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--noir);margin:6px 8px;transition:.3s}
+
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--rouge);color:#fff!important;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:999px;border:0;cursor:pointer;font-size:15px;transition:transform .25s var(--ease),background .25s,box-shadow .25s;box-shadow:0 8px 20px rgba(200,16,46,.25)}
+.btn:hover{background:var(--rouge-fonce);transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;border:2px solid currentColor;box-shadow:none;color:#fff!important}
+.btn.ghost:hover{background:#fff;color:var(--noir)!important}
+.btn.dark{background:var(--noir);box-shadow:none}
+
+/* hero */
+.hero{position:relative;min-height:88vh;display:grid;align-items:end;color:#fff;overflow:hidden;background:var(--noir)}
+.hero .bg{position:absolute;inset:-6% 0 0 0;background:url('https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5607955/6615c1ec79a92a00-800x520.webp') center/cover;transform:scale(1.08);animation:kb 18s ease-out forwards;will-change:transform}
+@keyframes kb{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,18,18,.25) 0%,rgba(20,18,18,.55) 45%,rgba(20,18,18,.94) 100%)}
+.hero .wrap{position:relative;z-index:2;padding:0 0 70px}
+.kicker{display:inline-block;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:13px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:6px 14px;border-radius:999px;backdrop-filter:blur(6px)}
+.hero h1{font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:clamp(2.4rem,1.6rem + 4vw,5rem);line-height:1.02;margin:18px 0 14px;max-width:16ch}
+.hero h1 .s{font-family:var(--f-script);font-style:normal;font-weight:400;color:#ff4b63;display:inline-block}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);max-width:56ch;opacity:.92}
+.hero .ctas{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.reveal-line{display:block;overflow:hidden}
+.reveal-line>span{display:inline-block;transform:translateY(105%);animation:up .9s var(--ease) forwards}
+.reveal-line:nth-child(2)>span{animation-delay:.12s}
+@keyframes up{to{transform:none}}
+.scroll-hint{position:absolute;right:24px;bottom:28px;z-index:2;font-size:12px;letter-spacing:.2em;text-transform:uppercase;writing-mode:vertical-rl;opacity:.75}
+.scroll-hint::after{content:"";display:block;width:1px;height:50px;background:#fff;margin:10px auto 0;animation:sh 1.8s infinite}
+@keyframes sh{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* marquee */
+.marquee{background:var(--rouge);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:20px}
+.marquee .track{display:inline-flex;gap:40px;animation:mq 30s linear infinite;padding-left:40px}
+.marquee .track span::after{content:"✦";margin-left:40px;font-style:normal;opacity:.7}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(64px,8vw,110px) 0}
+.eyebrow{font-family:var(--f-script);color:var(--rouge);font-size:24px}
+h2{font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:clamp(1.9rem,1.4rem + 2vw,3rem);line-height:1.1;color:var(--noir);margin:4px 0 14px}
+h2::after{content:"";display:block;width:56px;height:4px;background:var(--rouge);border-radius:2px;margin-top:14px}
+.center{text-align:center}.center h2::after{margin-inline:auto}
+.sub{max-width:62ch;color:#5b524d}
+.center .sub{margin-inline:auto}
+
+/* cartes métiers */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.card{background:var(--bois);border-radius:var(--r);padding:30px 26px;position:relative;overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.1)}
+.card .ico{width:54px;height:54px;border-radius:50%;background:var(--noir);color:#fff;display:grid;place-items:center;margin-bottom:18px;transition:background .3s,transform .4s var(--ease)}
+.card:hover .ico{background:var(--rouge);transform:rotate(-10deg)}
+.card h3{font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:22px;color:var(--noir);margin-bottom:8px}
+.card p{font-size:15.5px;color:#4b433f}
+.card .more{display:inline-block;margin-top:16px;font-weight:700;color:var(--rouge);text-decoration:none}
+.card .more:hover{text-decoration:underline}
+
+/* chiffres */
+.stats{background:var(--noir);color:#fff;padding:56px 0}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat b{display:block;font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:clamp(2.2rem,1.6rem + 2.4vw,3.6rem);color:#ff4b63;line-height:1}
+.stat span{font-size:14px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+
+/* split midi */
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:#ddd}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo:hover img{transform:scale(1.05)}
+.photo .cap{position:absolute;left:12px;bottom:12px;background:rgba(20,18,18,.75);color:#fff;font-size:12px;padding:4px 10px;border-radius:999px}
+.hours{margin-top:22px;border-top:1px solid #eee}
+.hours li{list-style:none;display:flex;justify-content:space-between;padding:12px 2px;border-bottom:1px solid #eee;font-size:16px}
+.hours li.today{color:var(--rouge);font-weight:700}
+.price-tag{display:inline-flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+.price-tag div{background:var(--bois);border-radius:12px;padding:12px 18px}
+.price-tag b{font-family:var(--f-titre);font-style:italic;font-size:24px;color:var(--noir)}
+.price-tag small{display:block;font-size:13px;color:#6b615b}
+
+/* configurateur */
+.config{background:linear-gradient(180deg,var(--bois) 0%,#f6efe1 100%);position:relative}
+.cfg{display:grid;grid-template-columns:1.25fr .9fr;gap:30px;margin-top:40px;align-items:start}
+.panel{background:#fff;border-radius:20px;padding:30px;box-shadow:0 20px 50px rgba(60,40,20,.08)}
+.step{margin-bottom:28px}
+.step h4{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:#7a706a;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.step h4 i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--noir);color:#fff;display:grid;place-items:center;font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:2px solid #e4dccd;background:#fff;border-radius:999px;padding:10px 16px;font:600 15px var(--f-texte);cursor:pointer;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--noir)}
+.chip[aria-pressed="true"]{background:var(--noir);border-color:var(--noir);color:#fff;transform:translateY(-2px)}
+.range-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;margin-bottom:12px}
+.range-row label{font-weight:600}
+.range-row output{font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:26px;color:var(--rouge);min-width:70px;text-align:right}
+input[type=range]{width:100%;accent-color:var(--rouge);height:28px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #eee;border-radius:12px;padding:12px;cursor:pointer;transition:border-color .2s,background .2s;font-size:15px}
+.opt:hover{border-color:#d8cbb3}
+.opt input{accent-color:var(--rouge);width:18px;height:18px;margin-top:2px;flex:none}
+.opt:has(input:checked){border-color:var(--rouge);background:#fff6f7}
+.field{display:grid;gap:6px;margin-bottom:12px}
+.field input{font:inherit;padding:12px 14px;border:2px solid #e4dccd;border-radius:10px}
+.field input:focus{border-color:var(--noir);outline:none}
+.summary{position:sticky;top:100px;background:var(--noir);color:#fff;border-radius:20px;padding:30px;overflow:hidden}
+.summary::before{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(200,16,46,.55),transparent 70%)}
+.summary h3{font-family:var(--f-script);font-weight:400;font-size:30px;color:#ff4b63;position:relative}
+.gauge{margin:20px 0 6px;height:12px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.gauge div{height:100%;width:0;background:linear-gradient(90deg,#ff4b63,var(--rouge));border-radius:99px;transition:width .6s var(--ease)}
+.gauge-l{display:flex;justify-content:space-between;font-size:12px;opacity:.7}
+.sum-list{list-style:none;margin:20px 0;font-size:15px}
+.sum-list li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.18)}
+.sum-list li span:last-child{text-align:right;font-weight:600}
+.budget{font-family:var(--f-titre);font-style:italic;font-weight:800;font-size:40px;line-height:1;margin-top:6px}
+.budget small{font-family:var(--f-texte);font-style:normal;font-weight:500;font-size:13px;display:block;opacity:.7;margin-top:6px}
+.note{font-size:12.5px;opacity:.7;margin-top:14px}
+.summary .btn{width:100%;justify-content:center;margin-top:18px}
+.toast{margin-top:12px;font-size:14px;color:#9ff0b6;min-height:1.2em}
+.bump{animation:bump .4s var(--ease)}
+@keyframes bump{50%{transform:scale(1.08)}}
+
+/* soirées */
+.events-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.ev{border:2px solid #eee;border-radius:var(--r);padding:22px;transition:all .35s var(--ease);background:#fff}
+.ev:hover{border-color:var(--rouge);transform:translateY(-4px)}
+.ev b{font-family:var(--f-titre);font-style:italic;font-size:19px;color:var(--noir);display:block;margin:10px 0 4px}
+.ev p{font-size:14.5px;color:#5b524d}
+.ev svg{color:var(--rouge)}
+
+/* galerie */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:240px 240px;gap:14px;margin-top:40px}
+.gallery .photo{aspect-ratio:auto}
+.gallery .g1{grid-row:1/3}
+.gallery .g4{grid-column:2/4}
+.placeholder{display:grid;place-items:center;text-align:center;background:repeating-linear-gradient(45deg,#f3ece0,#f3ece0 12px,#efe6d6 12px,#efe6d6 24px);color:#7a706a;border:2px dashed #d9c6a3;border-radius:var(--r);font-size:14px;padding:20px}
+
+/* équipements */
+.equip{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.eq{background:#faf6ef;border-radius:var(--r);padding:26px}
+.eq h3{font-family:var(--f-titre);font-style:italic;font-size:20px;color:var(--noir);margin-bottom:10px}
+.eq ul{list-style:none;font-size:15.5px}
+.eq li{padding:5px 0 5px 22px;position:relative}
+.eq li::before{content:"";position:absolute;left:0;top:13px;width:10px;height:10px;border-radius:50%;background:var(--rouge)}
+
+/* contact */
+.contact{background:var(--noir);color:#efe8de}
+.contact h2{color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;margin-top:30px}
+.cinfo{display:grid;gap:18px}
+.cinfo a{text-decoration:none}
+.cline{display:flex;gap:14px;align-items:flex-start}
+.cline svg{flex:none;color:#ff4b63;margin-top:3px}
+.cline b{display:block;color:#fff}
+.map{border-radius:var(--r);overflow:hidden;min-height:320px;background:#2b2523}
+.map iframe{width:100%;height:100%;min-height:320px;border:0;filter:grayscale(.3)}
+
+footer{background:#0c0b0b;color:#a59b92;font-size:13.5px;padding:34px 0}
+footer .wrap{display:grid;gap:10px}
+footer a{color:#d8cfc5}
+
+/* reveal au scroll */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* bouton flottant mobile */
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;display:none}
+
+@media (max-width:980px){
+  .cards,.equip{grid-template-columns:1fr 1fr}
+  .events-grid{grid-template-columns:1fr 1fr}
+  .split,.cfg,.contact-grid{grid-template-columns:1fr}
+  .summary{position:relative;top:0}
+  .stats .wrap{grid-template-columns:1fr 1fr;row-gap:34px}
+}
+@media (max-width:760px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:#fff;padding:90px 24px 30px;gap:18px;transform:translateY(-110%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.15);z-index:-1}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .burger.x span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.x span:nth-child(2){opacity:0}
+  .burger.x span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .cards,.equip,.events-grid,.opts{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr;grid-template-rows:auto}
+  .gallery .g1,.gallery .g4{grid-row:auto;grid-column:auto}
+  .gallery>*{min-height:220px}
+  .logo .name small{display:none}
+  .fab{display:inline-flex}
+  .scroll-hint{display:none}
+  .topbar .wrap{justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"L'ÉxuBérands",
+  "description":"Établissement d'événements et d'animations spécialisé dans l'organisation de repas de groupes, au pied de la Côte Roannaise.",
+  "address":{"@type":"PostalAddress","streetAddress":"280 route de Pouilly-les-Nonains","postalCode":"42370","addressLocality":"Renaison","addressCountry":"FR"},
+  "telephone":"+33427765727",
+  "email":"lexuberands@gmail.com",
+  "servesCuisine":"Cuisine traditionnelle faite maison",
+  "priceRange":"À partir de 18 €",
+  "maximumAttendeeCapacity":314,
+  "areaServed":["Renaison","Côte Roannaise","Roannais"],
+  "sameAs":["https://www.facebook.com/lexuberands/"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"12:00","closes":"14:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"19:00","closes":"21:30"}
+  ],
+  "paymentAccepted":"Carte bancaire, chèque, espèces, sans contact"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour L'ÉxuBérands</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="sep">
+      <a href="tel:+33427765727">☎ 04 27 76 57 27</a>
+      <a href="mailto:lexuberands@gmail.com">✉ lexuberands@gmail.com</a>
+    </div>
+    <div class="sep">
+      <span class="status"><span class="dot" id="dot"></span><span id="statusTxt">Horaires</span></span>
+      <a href="https://www.facebook.com/lexuberands/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="L'ÉxuBérands, accueil">
+      <span class="badge" aria-hidden="true"><span><span class="s">L'exu</span><span class="t">Bérands</span></span></span>
+      <span class="name"><b>L'exu</b><i>Bérands</i><small>Renaison · Côte Roannaise</small></span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <ul class="menu" id="menu">
+      <li><a href="#restaurant">Le midi</a></li>
+      <li><a href="#evenement">Vos événements</a></li>
+      <li><a href="#soirees">Animations</a></li>
+      <li><a href="#lieu">Le lieu</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#evenement" class="btn">Préparer mon repas de groupe</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" style="padding:0">
+  <div class="bg" role="img" aria-label="La terrasse ombragée de L'ÉxuBérands, avec vue sur la campagne"></div>
+  <div class="wrap">
+    <span class="kicker">Restaurant · Réceptions · Soirées</span>
+    <h1><span class="reveal-line"><span>Au pied de la Côte Roannaise,</span></span><span class="reveal-line"><span>le lieu de <span class="s">tous vos événements</span></span></span></h1>
+    <p class="lead rv in">Repas de famille, d'entreprise ou d'association, séminaires, fêtes et soirées dansantes : jusqu'à 314 couverts dans 3 salles, et une terrasse de 100 places. En semaine, le menu du midi fait maison du chef Régis Semet.</p>
+    <div class="ctas">
+      <a href="#evenement" class="btn">Préparer mon événement →</a>
+      <a href="tel:+33427765727" class="btn ghost">Appeler le 04 27 76 57 27</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Découvrir</div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Repas de famille</span><span>Repas d'entreprise</span><span>Associations</span><span>Séminaires</span><span>Soirées dansantes</span><span>Concerts</span><span>Fêtes</span><span>Menu du midi</span>
+  <span>Repas de famille</span><span>Repas d'entreprise</span><span>Associations</span><span>Séminaires</span><span>Soirées dansantes</span><span>Concerts</span><span>Fêtes</span><span>Menu du midi</span>
+</div></div>
+
+<section>
+  <div class="wrap">
+    <div class="center rv">
+      <div class="eyebrow">Bienvenue</div>
+      <h2>Un lieu, trois façons d'en profiter</h2>
+      <p class="sub">L'ÉxuBérands est un établissement d'événements et d'animations spécialisé dans l'organisation de repas de groupes, avec un restaurant ouvert chaque midi de la semaine.</p>
+    </div>
+    <div class="cards">
+      <article class="card rv">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18M17 3c-2 2-3 5-3 8h3v10"/></svg></div>
+        <h3>Le restaurant du midi</h3>
+        <p>Du lundi au vendredi, une cuisine familiale et traditionnelle, faite maison par le chef Régis Semet.</p>
+        <a class="more" href="#restaurant">Horaires et menus →</a>
+      </article>
+      <article class="card rv d1">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 20c0-2.5 1.5-4.5 3-4.5S21 17 21 20"/></svg></div>
+        <h3>Réceptions &amp; groupes</h3>
+        <p>Familles, entreprises, associations : location de salle, banquets, privatisation et devis personnalisé.</p>
+        <a class="more" href="#evenement">Préparer ma demande →</a>
+      </article>
+      <article class="card rv d2">
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <h3>Soirées &amp; animations</h3>
+        <p>Danse, concerts, spectacles, retransmissions sportives et animations pour les enfants.</p>
+        <a class="more" href="#soirees">Voir les animations →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat rv"><b data-count="314">0</b><span>couverts maximum</span></div>
+    <div class="stat rv d1"><b data-count="3">0</b><span>salles</span></div>
+    <div class="stat rv d2"><b data-count="100">0</b><span>places en terrasse</span></div>
+    <div class="stat rv d3"><b data-count="18" data-suffix=" €">0</b><span>menu adulte dès</span></div>
+  </div>
+</div>
+
+<section id="restaurant">
+  <div class="wrap split">
+    <div class="photo rv">
+      <img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5607955/b9752ccc5bc03572-800x520.webp" alt="Terrasse, salle de réception, bar et restaurant de L'ÉxuBérands" loading="lazy">
+      <span class="cap">Photo de l'établissement</span>
+    </div>
+    <div class="rv d1">
+      <div class="eyebrow">Le midi en semaine</div>
+      <h2>Le menu du jour, fait maison</h2>
+      <p class="sub">Depuis son ouverture, L'ÉxuBérands sert chaque midi, du lundi au vendredi, une cuisine familiale et traditionnelle préparée par le chef Régis Semet.</p>
+      <ul class="hours" id="hours">
+        <li data-d="1"><span>Lundi</span><span>12h00 – 14h00</span></li>
+        <li data-d="2"><span>Mardi</span><span>12h00 – 14h00</span></li>
+        <li data-d="3"><span>Mercredi</span><span>12h00 – 14h00</span></li>
+        <li data-d="4"><span>Jeudi</span><span>12h00 – 14h00</span></li>
+        <li data-d="5"><span>Vendredi</span><span>12h00 – 14h00</span></li>
+        <li data-d="6"><span>Samedi</span><span>19h00 – 21h30</span></li>
+        <li data-d="0"><span>Dimanche</span><span>Sur réservation</span></li>
+      </ul>
+      <p style="font-size:14px;color:#7a706a;margin-top:10px">Autres créneaux sur réservation : appelez-nous.</p>
+      <div class="price-tag">
+        <div><b>dès 18 €</b><small>Menu adulte</small></div>
+        <div><b>10 €</b><small>Menu enfant</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="config" id="evenement">
+  <div class="wrap">
+    <div class="center rv">
+      <div class="eyebrow">Outil en ligne</div>
+      <h2>Préparez votre repas de groupe en 1 minute</h2>
+      <p class="sub">Indiquez le type d'événement, le nombre d'invités et vos besoins : vous obtenez un premier budget indicatif, et votre demande part toute prête à l'équipe.</p>
+    </div>
+
+    <div class="cfg">
+      <div class="panel rv">
+        <div class="step">
+          <h4><i>1</i>Votre événement</h4>
+          <div class="chips" id="types">
+            <button class="chip" aria-pressed="true">Repas de famille</button>
+            <button class="chip" aria-pressed="false">Repas d'entreprise</button>
+            <button class="chip" aria-pressed="false">Association</button>
+            <button class="chip" aria-pressed="false">Séminaire</button>
+            <button class="chip" aria-pressed="false">Fête / soirée</button>
+          </div>
+        </div>
+        <div class="step">
+          <h4><i>2</i>Vos invités</h4>
+          <div class="range-row"><label for="adultes">Adultes</label><output id="oA">40</output></div>
+          <input type="range" id="adultes" min="0" max="314" value="40">
+          <div class="range-row" style="margin-top:10px"><label for="enfants">Enfants</label><output id="oE">6</output></div>
+          <input type="range" id="enfants" min="0" max="120" value="6">
+        </div>
+        <div class="step">
+          <h4><i>3</i>Vos besoins</h4>
+          <div class="opts">
+            <label class="opt"><input type="checkbox" data-o="Terrasse (beaux jours)"> Terrasse (100 places)</label>
+            <label class="opt"><input type="checkbox" data-o="Soirée dansante / animation"> Danse ou animation</label>
+            <label class="opt"><input type="checkbox" data-o="Matériel séminaire (vidéoprojecteur, écran, micro, paperboard)"> Vidéoprojecteur, écran, micro</label>
+            <label class="opt"><input type="checkbox" data-o="Animation enfants"> Animation enfants</label>
+            <label class="opt"><input type="checkbox" data-o="Privatisation"> Privatisation</label>
+            <label class="opt"><input type="checkbox" data-o="Accès autocar"> Venue en autocar</label>
+          </div>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <h4><i>4</i>Vos coordonnées</h4>
+          <div class="field"><label for="date">Date souhaitée</label><input type="date" id="date"></div>
+          <div class="field"><label for="nom">Nom</label><input id="nom" placeholder="Votre nom" autocomplete="name"></div>
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" placeholder="06 …" autocomplete="tel"></div>
+        </div>
+      </div>
+
+      <aside class="summary rv d1" aria-live="polite">
+        <h3>Votre événement</h3>
+        <div class="gauge"><div id="gauge"></div></div>
+        <div class="gauge-l"><span id="gaugeTxt">46 / 314 couverts</span><span>capacité max.</span></div>
+        <ul class="sum-list">
+          <li><span>Type</span><span id="sType">Repas de famille</span></li>
+          <li><span>Invités</span><span id="sGuests">40 adultes, 6 enfants</span></li>
+          <li><span>Installation</span><span id="sRoom">—</span></li>
+          <li><span>Options</span><span id="sOpts">aucune</span></li>
+        </ul>
+        <div>Budget repas, à partir de</div>
+        <div class="budget" id="budget">780 €<small>sur la base des menus dès 18 € (adulte) et 10 € (enfant)</small></div>
+        <p class="note">Estimation indicative, non contractuelle : le devis personnalisé est établi par L'ÉxuBérands selon le menu choisi et les prestations.</p>
+        <a class="btn" id="send" href="#">Envoyer ma demande de devis →</a>
+        <a class="btn ghost" style="width:100%;justify-content:center;margin-top:10px" href="tel:+33427765727">Ou appeler le 04 27 76 57 27</a>
+        <div class="toast" id="toast"></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="soirees">
+  <div class="wrap">
+    <div class="rv">
+      <div class="eyebrow">Ça bouge ici</div>
+      <h2>Soirées, danse et animations</h2>
+      <p class="sub">L'ÉxuBérands est aussi un restaurant dansant et un lieu de spectacles. Les prochaines dates seront annoncées ici, en plus de la page Facebook.</p>
+    </div>
+    <div class="events-grid">
+      <div class="ev rv"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l-3 7M12 13l3 7M8 10h8"/></svg><b>Danse</b><p>Soirées et après-midi dansants.</p></div>
+      <div class="ev rv d1"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3zM19 11a7 7 0 0 1-14 0M12 18v4"/></svg><b>Concerts &amp; spectacles</b><p>Soirées animées et spectacles vivants.</p></div>
+      <div class="ev rv d2"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg><b>Matchs en direct</b><p>Retransmissions d'événements sportifs.</p></div>
+      <div class="ev rv d3"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg><b>Pour les enfants</b><p>Animations et menu enfant à 10 €.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="lieu" style="background:#faf6ef">
+  <div class="wrap">
+    <div class="center rv">
+      <div class="eyebrow">Le lieu</div>
+      <h2>Terrasse, salles, bar et restaurant</h2>
+      <p class="sub">Une terrasse ombragée tournée vers la campagne roannaise, trois salles modulables et un bar.</p>
+    </div>
+    <div class="gallery">
+      <div class="photo g1 rv"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5607955/6615c1ec79a92a00-800x520.webp" alt="Terrasse ombragée de L'ÉxuBérands" loading="lazy"><span class="cap">La terrasse</span></div>
+      <div class="photo rv d1"><img src="https://cdn.iris-etourism.io/media/ot_roannais_tourisme/5607955/2480e1048e204195-800x520.webp" alt="Façade de L'ÉxuBérands à Renaison" loading="lazy"><span class="cap">La façade</span></div>
+      <div class="placeholder rv d2">Photo d'une salle dressée<br>à fournir par le client</div>
+      <div class="placeholder g4 rv d3">Photos de soirées, du bar et des plats du midi<br>à fournir par le client</div>
+    </div>
+
+    <div class="equip">
+      <div class="eq rv"><h3>Pour vos réceptions</h3><ul><li>Location de salle</li><li>Banquets et traiteur</li><li>Privatisation</li><li>Location de matériel</li><li>Hébergement</li></ul></div>
+      <div class="eq rv d1"><h3>Pour vos séminaires</h3><ul><li>Vidéoprojecteur et écran</li><li>Micro</li><li>Paperboard</li><li>Wi-Fi en salle</li><li>Accès autocar</li></ul></div>
+      <div class="eq rv d2"><h3>Bon à savoir</h3><ul><li>Plats à emporter</li><li>Menus enfants</li><li>CB, chèque, espèces, sans contact</li><li>Accessible avec aide</li><li>Animaux non acceptés</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="eyebrow">Contact</div>
+    <h2>Venez nous voir à Renaison</h2>
+    <div class="contact-grid">
+      <div class="cinfo">
+        <div class="cline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><div><b>Adresse</b>280 route de Pouilly-les-Nonains<br>42370 Renaison</div></div>
+        <div class="cline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><div><b>Téléphone</b><a href="tel:+33427765727">04 27 76 57 27</a></div></div>
+        <div class="cline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><div><b>E-mail</b><a href="mailto:lexuberands@gmail.com">lexuberands@gmail.com</a></div></div>
+        <div class="cline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Horaires</b>Lundi au vendredi 12h – 14h · Samedi 19h – 21h30<br>Autres créneaux sur réservation</div></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+          <a class="btn" href="#evenement">Demander un devis</a>
+          <a class="btn ghost" href="https://www.facebook.com/lexuberands/" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+      <div class="map"><iframe title="Plan d'accès à L'ÉxuBérands, Renaison" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.905%2C46.035%2C3.945%2C46.060&amp;layer=mapnik"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a href="#evenement" class="btn fab">Préparer mon événement</a>
+
+<footer>
+  <div class="wrap">
+    <div>© L'ÉxuBérands — 280 route de Pouilly-les-Nonains, 42370 Renaison — 04 27 76 57 27</div>
+    <div><strong>Maquette de démonstration</strong>, non contractuelle. Budgets indicatifs calculés sur les tarifs « à partir de » publiés (menu adulte dès 18 €, enfant 10 €) ; seul le devis de l'établissement fait foi. Le logo est redessiné en CSS d'après la plaquette de l'établissement, couleurs approchées et ajustables. Photos : visuels de l'établissement publiés sur sa fiche Roannais Tourisme ; photos des salles, des soirées et des plats à fournir. Plan : © contributeurs OpenStreetMap.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // header au scroll + menu mobile
+  const nav=$('#nav');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=$('#burger'),menu=$('#menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.classList.toggle('x',o);burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.classList.remove('x');burger.setAttribute('aria-expanded',false)}));
+
+  // ouvert / fermé en direct
+  const now=new Date(),d=now.getDay(),m=now.getHours()*60+now.getMinutes();
+  let open=false,txt='';
+  if(d>=1&&d<=5){open=m>=720&&m<840;txt=open?'Ouvert jusqu’à 14h':(m<720?'Ouvre à 12h aujourd’hui':'Fermé · sur réservation')}
+  else if(d===6){open=m>=1140&&m<1290;txt=open?'Ouvert jusqu’à 21h30':(m<1140?'Ouvre à 19h ce soir':'Fermé · sur réservation')}
+  else txt='Sur réservation aujourd’hui';
+  $('#dot').classList.toggle('on',open);$('#statusTxt').textContent=txt;
+  const li=document.querySelector('#hours li[data-d="'+d+'"]'); if(li) li.classList.add('today');
+
+  // reveals
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  $$('.rv').forEach(el=>io.observe(el));
+
+  // compteurs
+  const co=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,end=+el.dataset.count,suf=el.dataset.suffix||'';co.unobserve(el);
+    if(reduce){el.textContent=end+suf;return}
+    const t0=performance.now(),dur=1400;(function f(t){const p=Math.min(1,(t-t0)/dur),v=Math.round(end*(1-Math.pow(1-p,3)));el.textContent=v+suf;if(p<1)requestAnimationFrame(f)})(t0)}),{threshold:.5});
+  $$('[data-count]').forEach(el=>co.observe(el));
+
+  // configurateur
+  let type='Repas de famille';
+  $$('#types .chip').forEach(c=>c.addEventListener('click',()=>{$$('#types .chip').forEach(x=>x.setAttribute('aria-pressed','false'));c.setAttribute('aria-pressed','true');type=c.textContent;upd()}));
+  const A=$('#adultes'),E=$('#enfants');
+  [A,E].forEach(i=>i.addEventListener('input',upd));
+  $$('.opt input').forEach(i=>i.addEventListener('change',upd));
+  const eur=n=>n.toLocaleString('fr-FR')+' €';
+  function upd(){
+    let a=+A.value,e=+E.value;
+    if(a+e>314){e=Math.max(0,314-a);E.value=e}
+    $('#oA').textContent=a;$('#oE').textContent=e;
+    const tot=a+e,opts=[...$$('.opt input:checked')].map(i=>i.dataset.o);
+    const terrasse=opts.some(o=>o.startsWith('Terrasse'));
+    $('#gauge').style.width=(tot/314*100)+'%';
+    $('#gaugeTxt').textContent=tot+' / 314 couverts';
+    $('#sType').textContent=type;
+    $('#sGuests').textContent=a+' adulte'+(a>1?'s':'')+(e?', '+e+' enfant'+(e>1?'s':''):'');
+    let room;
+    if(tot===0) room='—';
+    else if(terrasse&&tot<=100) room='Terrasse possible ('+tot+'/100)';
+    else if(terrasse) room='Au-delà des 100 places en terrasse : en salle';
+    else room=tot>=200?'Plusieurs salles réunies':'En salle';
+    $('#sRoom').textContent=room;
+    $('#sOpts').textContent=opts.length?opts.length+' sélectionnée'+(opts.length>1?'s':''):'aucune';
+    const b=$('#budget');b.firstChild.nodeValue=eur(a*18+e*10);
+    b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');
+    return {a,e,tot,opts,room};
+  }
+  upd();
+  $('#send').addEventListener('click',ev=>{
+    ev.preventDefault();const s=upd();
+    const date=$('#date').value?new Date($('#date').value).toLocaleDateString('fr-FR'):'à définir';
+    const body=['Bonjour,','','Je souhaite organiser : '+type,'Date souhaitée : '+date,'Invités : '+s.a+' adultes, '+s.e+' enfants ('+s.tot+' couverts)','Installation : '+s.room,'Options : '+(s.opts.join(', ')||'aucune'),'','Nom : '+($('#nom').value||''),'Téléphone : '+($('#tel').value||''),'','Merci de me faire parvenir un devis.'].join('\n');
+    location.href='mailto:lexuberands@gmail.com?subject='+encodeURIComponent('Demande de devis – '+type+' – '+s.tot+' couverts')+'&body='+encodeURIComponent(body);
+    $('#toast').textContent='Votre demande est prête dans votre messagerie.';
+  });
+})();
+</script>
+</body>
+</html>
