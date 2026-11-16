@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raquin Duchon — Couvreur, plombier, chauffagiste à Roanne et dans le Roannais</title>
+<meta name="description" content="Raquin Duchon, à Roanne : couverture, zinguerie, plomberie, sanitaire et chauffage. Diagnostic express en ligne et demande d'intervention en deux minutes.">
+<!--
+  RAQUIN DUCHON — maquette de démonstration
+  Réalisée par Thibault Quentin, non commandée par l'entreprise.
+
+  Le site de l'entreprise (raquin-duchon.com) ne répondait plus au moment de la
+  conception (16/11/2026 : le nom de domaine ne renvoie plus aucune adresse).
+  Le logo et les codes couleur exacts n'ont donc pas pu être relevés.
+  Les couleurs ci-dessous sont APPROCHÉES (tons zinc / ardoise + cuivre, en écho
+  aux métiers de la couverture, de la zinguerie et de la plomberie) et se recalent
+  en modifiant uniquement les variables du bloc :root.
+
+  Intitulés repris de l'ancien site, tels qu'indexés par les moteurs de recherche :
+  « Chauffage et toiture à Roanne », « Services en couverture, zinguerie,
+  plomberie, sanitaire et chauffage ».
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* --- Charte (approchée, à recaler sur le logo réel) --- */
+  --ardoise:#1e272e;      /* fond sombre, texte fort */
+  --zinc:#3d4b55;         /* gris zinc, aplats secondaires */
+  --zinc-clair:#8a99a3;
+  --cuivre:#b8692f;       /* accent : boutons, liens, repères */
+  --cuivre-fonce:#93511f;
+  --brume:#eef1f3;        /* fond de section clair */
+  --blanc:#ffffff;
+  --texte:#22292f;
+  --font-titre:'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-texte:'Barlow', system-ui, sans-serif;
+  /* --- Fonctionnel --- */
+  --urgent:#c0392b; --rapide:#d68910; --serein:#2e8b57;
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--blanc);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-titre);line-height:1.05;letter-spacing:.01em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--ardoise);color:#c9d2d8;font-size:13px;text-align:center;padding:8px 16px}
+.demo b{color:#fff}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #e3e8eb;transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(30,39,46,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:42px;height:42px}
+.logo strong{font-family:var(--font-titre);font-size:25px;letter-spacing:.04em;color:var(--ardoise);text-transform:uppercase;line-height:1}
+.logo small{display:block;font-size:11.5px;color:var(--zinc-clair);letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.menu{display:flex;gap:26px;list-style:none;font-weight:500;font-size:15.5px}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--cuivre);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--cuivre);color:#fff;text-decoration:none;font-weight:600;padding:13px 22px;border-radius:999px;border:0;cursor:pointer;font-size:15.5px;font-family:inherit;transition:transform .2s var(--ease),background .2s,box-shadow .2s;min-height:46px}
+.btn:hover{background:var(--cuivre-fonce);transform:translateY(-2px);box-shadow:0 8px 20px rgba(184,105,47,.3)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ardoise);border:2px solid var(--ardoise)}
+.btn.ghost:hover{background:var(--ardoise);color:#fff;box-shadow:none}
+.btn.light{background:#fff;color:var(--ardoise)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ardoise);margin:5px auto;transition:.3s}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#dfe6ea 0%,#f4f6f7 70%);padding:70px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:end}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--cuivre)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.hero h1{font-size:clamp(46px,6.4vw,88px);color:var(--ardoise);text-transform:uppercase;margin:18px 0 20px}
+.hero h1 em{font-style:normal;color:var(--cuivre);display:block}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);max-width:520px;color:#3e4a52}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 26px}
+.trades{display:flex;flex-wrap:wrap;gap:8px;padding-bottom:60px}
+.trades span{background:#fff;border:1px solid #d5dde2;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:500}
+.hero-art{position:relative;align-self:stretch;min-height:440px}
+.hero-art svg{position:absolute;inset:auto 0 0 0;width:100%;height:auto}
+.rain line{stroke:#9fb0bb;stroke-width:1.4;stroke-linecap:round;animation:rain 1.4s linear infinite}
+@keyframes rain{from{transform:translateY(-40px);opacity:0}20%{opacity:.8}to{transform:translateY(70px);opacity:0}}
+.smoke{animation:smoke 5s ease-in-out infinite;transform-origin:center}
+@keyframes smoke{0%{opacity:0;transform:translateY(0) scale(.8)}30%{opacity:.6}100%{opacity:0;transform:translateY(-60px) scale(1.6)}}
+.drip{animation:drip 2.2s ease-in infinite}
+@keyframes drip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(46px);opacity:0}}
+
+/* Bandeau infos */
+.strip{background:var(--ardoise);color:#fff}
+.strip .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+.strip a,.strip div.cell{display:flex;gap:14px;align-items:center;padding:22px 18px;text-decoration:none;border-left:1px solid rgba(255,255,255,.08)}
+.strip svg{width:26px;height:26px;flex:none;stroke:var(--cuivre)}
+.strip small{display:block;color:#9fb0bb;font-size:12.5px;text-transform:uppercase;letter-spacing:.12em}
+.strip strong{font-size:17px;font-weight:600}
+
+section{padding:96px 0}
+.head{max-width:720px;margin-bottom:46px}
+.head h2{font-size:clamp(36px,4.4vw,58px);text-transform:uppercase;color:var(--ardoise);margin:12px 0 14px}
+.head p{color:#4b5861;font-size:18px}
+
+/* Schéma toiture */
+.house{background:var(--brume)}
+.house-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:40px;align-items:center}
+.schema{background:#fff;border-radius:22px;padding:22px;box-shadow:0 20px 50px rgba(30,39,46,.08)}
+.schema svg{width:100%;height:auto}
+.hot{cursor:pointer}
+.hot circle.pulse{fill:var(--cuivre);opacity:.35;transform-box:fill-box;transform-origin:center;animation:pulse 2s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.55}100%{transform:scale(2.2);opacity:0}}
+.hot circle.dot{fill:var(--cuivre);stroke:#fff;stroke-width:3;transition:r .2s}
+.hot:hover circle.dot,.hot.on circle.dot{fill:var(--ardoise)}
+.hot text{font:700 13px var(--font-texte);fill:#fff;pointer-events:none}
+.panel{background:#fff;border-radius:22px;padding:34px;min-height:380px;box-shadow:0 20px 50px rgba(30,39,46,.08);position:relative;overflow:hidden}
+.panel .tag{display:inline-block;background:var(--brume);color:var(--zinc);font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;padding:5px 12px;border-radius:999px}
+.panel h3{font-size:34px;text-transform:uppercase;color:var(--ardoise);margin:14px 0 10px}
+.panel p{color:#4b5861}
+.panel ul{list-style:none;margin:18px 0 26px;display:grid;gap:8px}
+.panel li{display:flex;gap:10px;align-items:flex-start}
+.panel li::before{content:"";width:8px;height:8px;margin-top:9px;background:var(--cuivre);transform:rotate(45deg);flex:none}
+.panel .swap{animation:swap .5s var(--ease)}
+@keyframes swap{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chips button{border:1px solid #d5dde2;background:#fff;border-radius:999px;padding:7px 14px;font:500 14px var(--font-texte);cursor:pointer;transition:.2s}
+.chips button[aria-pressed=true],.chips button:hover{background:var(--ardoise);color:#fff;border-color:var(--ardoise)}
+
+/* Services */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.svc{position:relative;border-radius:var(--r);overflow:hidden;background:var(--ardoise);color:#fff;min-height:420px;display:flex;flex-direction:column;justify-content:flex-end;isolation:isolate;transition:transform .4s var(--ease)}
+.svc:hover{transform:translateY(-6px)}
+.svc .bg{position:absolute;inset:0;z-index:-1}
+.svc .bg img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.svc:hover .bg img{transform:scale(1.06)}
+.svc .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,39,46,.05) 0%,rgba(30,39,46,.92) 70%)}
+.svc .bg svg{width:100%;height:100%}
+.svc .body{padding:28px}
+.svc h3{font-size:34px;text-transform:uppercase}
+.svc p{color:#cfd8de;font-size:15.5px;margin:8px 0 14px}
+.svc ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-size:13px;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 10px}
+.illu{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.55);color:#fff;font-size:11.5px;padding:4px 9px;border-radius:6px;letter-spacing:.04em}
+
+/* Diagnostic */
+.diag{background:var(--ardoise);color:#fff;position:relative;overflow:hidden}
+.diag .head h2{color:#fff}
+.diag .head p{color:#b9c5cc}
+.tool{display:grid;grid-template-columns:280px 1fr;background:#26313a;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.steps{background:#1a2228;padding:30px 26px;display:flex;flex-direction:column;gap:6px}
+.step{display:flex;gap:14px;align-items:center;padding:12px 10px;border-radius:12px;color:#7f909b;font-weight:500;transition:.3s}
+.step b{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;border:2px solid #3d4b55;font-size:14px;flex:none;transition:.3s}
+.step.active{color:#fff;background:rgba(255,255,255,.04)}
+.step.active b{border-color:var(--cuivre);background:var(--cuivre);color:#fff}
+.step.done b{border-color:var(--cuivre);color:var(--cuivre)}
+.progress{height:4px;background:#3d4b55;border-radius:4px;margin-top:auto;overflow:hidden}
+.progress i{display:block;height:100%;width:25%;background:var(--cuivre);transition:width .5s var(--ease)}
+.stage{padding:36px;min-height:470px}
+.stage h3{font-size:30px;text-transform:uppercase;margin-bottom:6px}
+.stage .sub{color:#9fb0bb;margin-bottom:24px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.opt{background:#2f3b45;border:2px solid transparent;border-radius:14px;padding:18px;color:#fff;text-align:left;cursor:pointer;font:inherit;transition:transform .2s var(--ease),border-color .2s,background .2s;display:flex;flex-direction:column;gap:8px;min-height:44px}
+.opt:hover{transform:translateY(-3px);background:#35434e}
+.opt[aria-pressed=true]{border-color:var(--cuivre);background:#3a3430}
+.opt .ic{font-size:26px;line-height:1}
+.opt strong{font-size:16px}
+.opt span{font-size:13.5px;color:#9fb0bb}
+.row{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-top:28px;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:#9fb0bb;font:500 15px var(--font-texte);cursor:pointer;text-decoration:underline;min-height:44px}
+.field{display:grid;gap:6px;margin-bottom:14px}
+.field label{font-size:14px;color:#b9c5cc}
+.field input,.field textarea,.field select{background:#1a2228;border:1px solid #3d4b55;border-radius:10px;padding:12px 14px;color:#fff;font:inherit;font-size:16px}
+.field input:focus,.field textarea:focus{border-color:var(--cuivre);outline:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.result{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:#2f3b45;border-radius:14px;padding:22px}
+.card h4{font-size:20px;text-transform:uppercase;margin-bottom:10px;color:#fff}
+.card ul{list-style:none;display:grid;gap:8px;color:#cfd8de;font-size:15px}
+.card li::before{content:"→ ";color:var(--cuivre)}
+.level{display:inline-flex;align-items:center;gap:8px;font-weight:600;padding:6px 14px;border-radius:999px;font-size:14px;margin-bottom:14px}
+.recap{background:#1a2228;border:1px dashed #4d5c66;border-radius:12px;padding:16px;font-size:14.5px;color:#cfd8de;white-space:pre-wrap;max-height:200px;overflow:auto}
+.note{font-size:13px;color:#7f909b;margin-top:14px}
+.fade{animation:swap .45s var(--ease)}
+
+/* Process */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:p}
+.pstep{border-top:3px solid var(--ardoise);padding-top:22px;position:relative}
+.pstep::before{counter-increment:p;content:"0" counter(p);font:700 52px var(--font-titre);color:#dde3e7;position:absolute;right:0;top:8px}
+.pstep h3{font-size:26px;text-transform:uppercase;color:var(--ardoise);margin-bottom:8px;position:relative}
+.pstep p{color:#4b5861;font-size:15.5px;position:relative}
+
+/* Zone */
+.zone{background:var(--brume)}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.map{background:#fff;border-radius:22px;padding:20px;box-shadow:0 20px 50px rgba(30,39,46,.08)}
+.map svg{width:100%;height:auto}
+.ring{fill:none;stroke:var(--cuivre);stroke-dasharray:4 6;animation:spin 40s linear infinite;transform-origin:250px 210px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.coord{display:grid;gap:18px}
+.coord a,.coord div{display:flex;gap:16px;align-items:flex-start;text-decoration:none;padding:20px;border:1px solid #e3e8eb;border-radius:14px;transition:.25s}
+.coord a:hover{border-color:var(--cuivre);transform:translateX(4px)}
+.coord svg{width:24px;height:24px;stroke:var(--cuivre);flex:none;margin-top:3px}
+.coord small{display:block;color:var(--zinc-clair);font-size:12.5px;text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+.coord strong{font-size:18px;color:var(--ardoise)}
+.photo-slot{border:2px dashed #c7d0d6;border-radius:22px;display:grid;place-items:center;text-align:center;color:var(--zinc-clair);padding:40px;min-height:320px;background:repeating-linear-gradient(45deg,#f7f9fa 0 14px,#f1f4f6 14px 28px)}
+.photo-slot strong{display:block;color:var(--zinc);font-size:18px;margin-bottom:6px}
+
+footer{background:var(--ardoise);color:#9fb0bb;padding:56px 0 30px;font-size:14.5px}
+.foot{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;margin-bottom:36px}
+footer h4{color:#fff;font-size:20px;text-transform:uppercase;margin-bottom:12px}
+footer a{text-decoration:none}
+footer a:hover{color:#fff}
+.legal{border-top:1px solid rgba(255,255,255,.08);padding-top:22px;font-size:13px;line-height:1.7}
+.legal b{color:#dfe6ea}
+
+/* Mobile call bar */
+.callbar{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:60;gap:10px}
+.callbar a{flex:1;justify-content:center}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+@media (max-width:980px){
+  .menu{display:none}
+  .menu.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:#fff;padding:20px 24px;gap:16px;border-bottom:1px solid #e3e8eb}
+  .burger{display:block}
+  .nav .btn{display:none}
+  .hero-grid,.house-grid,.zone-grid,.contact-grid{grid-template-columns:1fr}
+  .hero-art{min-height:300px}
+  .services-grid{grid-template-columns:1fr}
+  .tool{grid-template-columns:1fr}
+  .steps{flex-direction:row;overflow-x:auto;padding:14px}
+  .step span{display:none}
+  .progress{display:none}
+  .result,.two{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .strip .wrap{grid-template-columns:1fr}
+  .foot{grid-template-columns:1fr}
+  .callbar{display:flex}
+  body{padding-bottom:76px}
+  section{padding:70px 0}
+  .stage{padding:24px}
+}
+@media (max-width:560px){.process-grid{grid-template-columns:1fr}.panel{padding:24px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["RoofingContractor","Plumber","HVACBusiness"],
+  "name":"Raquin Duchon",
+  "description":"Couverture, zinguerie, plomberie, sanitaire et chauffage à Roanne et dans le Roannais.",
+  "address":{"@type":"PostalAddress","streetAddress":"12 rue Gardet","postalCode":"42300","addressLocality":"Roanne","addressCountry":"FR"},
+  "telephone":"+33477683259",
+  "email":"raquinduchon@gmail.com",
+  "areaServed":[{"@type":"City","name":"Roanne"},{"@type":"AdministrativeArea","name":"Roannais"}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition réalisée par Thibault Quentin, non commandée par l'entreprise. Aucun avis, aucun prix, aucune certification affichés.</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Raquin Duchon, accueil">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="10" fill="#1e272e"/><path d="M8 27 24 13l16 14" fill="none" stroke="#b8692f" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/><path d="M14 26v12h20V26" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><path d="M24 30c-2 2.6-3 4-3 5.2a3 3 0 0 0 6 0c0-1.2-1-2.6-3-5.2Z" fill="#8ab6d6"/></svg>
+      <span><strong>Raquin Duchon</strong><small>Chauffage et toiture à Roanne</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#toiture">Votre maison</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#diagnostic">Diagnostic express</a></li>
+      <li><a href="#zone">Zone</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:+33477683259" class="btn">04 77 68 32 59</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" id="burger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding-bottom:0">
+  <div class="wrap hero-grid">
+    <div class="rv">
+      <span class="eyebrow">Roanne · Roannais</span>
+      <h1>Du toit<em>à la chaudière</em></h1>
+      <p class="lead">Couverture, zinguerie, plomberie, sanitaire et chauffage : une seule entreprise roannaise pour ce qui protège la maison et ce qui la chauffe. Décrivez votre souci en quelques clics, on vous rappelle avec les bonnes questions déjà posées.</p>
+      <div class="hero-cta">
+        <a href="#diagnostic" class="btn">Lancer le diagnostic express
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="tel:+33477683259" class="btn ghost">Appeler l'entreprise</a>
+      </div>
+      <div class="trades"><span>Couverture</span><span>Zinguerie</span><span>Plomberie</span><span>Sanitaire</span><span>Chauffage</span></div>
+    </div>
+    <div class="hero-art rv d2" aria-hidden="true">
+      <svg viewBox="0 0 560 440">
+        <g class="rain">
+          <line x1="60" y1="20" x2="52" y2="44" style="animation-delay:.1s"/><line x1="140" y1="0" x2="132" y2="24" style="animation-delay:.7s"/>
+          <line x1="230" y1="30" x2="222" y2="54" style="animation-delay:.3s"/><line x1="330" y1="6" x2="322" y2="30" style="animation-delay:1s"/>
+          <line x1="420" y1="24" x2="412" y2="48" style="animation-delay:.5s"/><line x1="500" y1="10" x2="492" y2="34" style="animation-delay:.9s"/>
+          <line x1="100" y1="70" x2="92" y2="94" style="animation-delay:1.2s"/><line x1="470" y1="80" x2="462" y2="104" style="animation-delay:.2s"/>
+        </g>
+        <!-- cheminée -->
+        <rect x="372" y="92" width="38" height="78" fill="#5a6870"/>
+        <rect x="366" y="86" width="50" height="10" fill="#3d4b55"/>
+        <circle class="smoke" cx="391" cy="70" r="12" fill="#c9d2d8"/>
+        <circle class="smoke" cx="398" cy="58" r="9" fill="#d7dee3" style="animation-delay:1.6s"/>
+        <!-- toit -->
+        <path d="M40 250 280 92 520 250Z" fill="#a4532a"/>
+        <g stroke="#8c4421" stroke-width="2" opacity=".9">
+          <path d="M84 222h392M126 194h308M168 166h224M210 138h140M252 110h56"/>
+        </g>
+        <path d="M40 250 280 92 520 250" fill="none" stroke="#1e272e" stroke-width="6" stroke-linejoin="round"/>
+        <!-- solin -->
+        <path d="M366 170h50" stroke="#9aa7af" stroke-width="5"/>
+        <!-- façade -->
+        <rect x="78" y="250" width="404" height="190" fill="#f4efe7"/>
+        <rect x="78" y="250" width="404" height="10" fill="#e0d8cc"/>
+        <!-- gouttière -->
+        <path d="M30 252h500" stroke="#8a99a3" stroke-width="9" stroke-linecap="round"/>
+        <path d="M508 256v184" stroke="#8a99a3" stroke-width="7"/>
+        <circle class="drip" cx="508" cy="440" r="0"/>
+        <!-- fenêtres -->
+        <g fill="#3d4b55"><rect x="120" y="290" width="70" height="80" rx="3"/><rect x="370" y="290" width="70" height="80" rx="3"/></g>
+        <g fill="#cfe0ea"><rect x="126" y="296" width="27" height="68"/><rect x="157" y="296" width="27" height="68"/><rect x="376" y="296" width="27" height="68"/><rect x="407" y="296" width="27" height="68"/></g>
+        <rect x="245" y="320" width="70" height="120" rx="3" fill="#1e272e"/>
+        <circle cx="300" cy="384" r="4" fill="#b8692f"/>
+        <!-- velux -->
+        <path d="M230 150l48-6 6 30-48 6Z" fill="#cfe0ea" stroke="#1e272e" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <a href="tel:+33477683259"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span><small>Téléphone</small><strong>04 77 68 32 59</strong></span></a>
+    <a href="mailto:raquinduchon@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span><small>E-mail</small><strong>raquinduchon@gmail.com</strong></span></a>
+    <div class="cell"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><small>Adresse</small><strong>12 rue Gardet, 42300 Roanne</strong></span></div>
+  </div>
+</div>
+
+<!-- SCHÉMA INTERACTIF -->
+<section class="house" id="toiture">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Votre maison, point par point</span>
+      <h2>Où se situe votre souci&nbsp;?</h2>
+      <p>Touchez un repère sur le schéma : vous voyez tout de suite quel métier intervient et ce que l'entreprise prend en charge à cet endroit.</p>
+    </div>
+    <div class="house-grid">
+      <div class="schema rv">
+        <svg viewBox="0 0 600 470" role="img" aria-label="Schéma d'une maison avec repères cliquables">
+          <rect x="0" y="0" width="600" height="470" fill="#fff"/>
+          <!-- toit en coupe -->
+          <path d="M50 240 300 70 550 240Z" fill="#b65f33"/>
+          <path d="M50 240 300 70 550 240" fill="none" stroke="#1e272e" stroke-width="6" stroke-linejoin="round"/>
+          <g stroke="#9a4b26" stroke-width="2"><path d="M94 210h412M138 180h324M182 150h236M226 120h148M270 90h60"/></g>
+          <!-- combles visibles -->
+          <path d="M120 240 300 118 480 240Z" fill="#f6e6b8"/>
+          <path d="M120 240 300 118 480 240" fill="none" stroke="#e1c97d" stroke-width="10" stroke-dasharray="2 8"/>
+          <rect x="390" y="96" width="36" height="86" fill="#5a6870"/><rect x="384" y="90" width="48" height="9" fill="#3d4b55"/>
+          <path d="M390 172h36" stroke="#9aa7af" stroke-width="5"/>
+          <path d="M210 152l46-6 6 28-46 6Z" fill="#cfe0ea" stroke="#1e272e" stroke-width="3"/>
+          <!-- murs -->
+          <rect x="88" y="240" width="424" height="200" fill="#f4efe7"/>
+          <line x1="88" y1="340" x2="512" y2="340" stroke="#e0d8cc" stroke-width="4"/>
+          <path d="M40 242h520" stroke="#8a99a3" stroke-width="9" stroke-linecap="round"/>
+          <path d="M540 246v194" stroke="#8a99a3" stroke-width="7"/>
+          <!-- salle de bain -->
+          <rect x="110" y="258" width="170" height="74" rx="6" fill="#e3edf2"/>
+          <rect x="124" y="296" width="80" height="26" rx="12" fill="#fff" stroke="#8a99a3" stroke-width="2"/>
+          <rect x="228" y="282" width="34" height="40" rx="4" fill="#fff" stroke="#8a99a3" stroke-width="2"/>
+          <!-- chaufferie -->
+          <rect x="330" y="356" width="160" height="76" rx="6" fill="#e9e3da"/>
+          <rect x="350" y="366" width="44" height="60" rx="5" fill="#fff" stroke="#3d4b55" stroke-width="2"/>
+          <circle cx="372" cy="384" r="7" fill="#b8692f"/>
+          <path d="M394 400h70v-30" fill="none" stroke="#b8692f" stroke-width="4"/>
+          <rect x="110" y="352" width="120" height="16" rx="4" fill="#d5dde2"/>
+          <rect x="110" y="352" width="120" height="16" rx="4" fill="none" stroke="#8a99a3" stroke-width="2"/>
+          <!-- repères -->
+          <g class="hot" data-k="tuiles" tabindex="0" role="button" aria-label="Tuiles et couverture"><circle class="pulse" cx="170" cy="196" r="14"/><circle class="dot" cx="170" cy="196" r="14"/><text x="165" y="201">1</text></g>
+          <g class="hot" data-k="faitage" tabindex="0" role="button" aria-label="Faîtage et étanchéité"><circle class="pulse" cx="300" cy="74" r="14"/><circle class="dot" cx="300" cy="74" r="14"/><text x="295" y="79">2</text></g>
+          <g class="hot" data-k="solin" tabindex="0" role="button" aria-label="Solin de cheminée"><circle class="pulse" cx="440" cy="168" r="14"/><circle class="dot" cx="440" cy="168" r="14"/><text x="435" y="173">3</text></g>
+          <g class="hot" data-k="velux" tabindex="0" role="button" aria-label="Fenêtre de toit"><circle class="pulse" cx="236" cy="138" r="14"/><circle class="dot" cx="236" cy="138" r="14"/><text x="231" y="143">4</text></g>
+          <g class="hot" data-k="combles" tabindex="0" role="button" aria-label="Combles et isolation"><circle class="pulse" cx="330" cy="208" r="14"/><circle class="dot" cx="330" cy="208" r="14"/><text x="325" y="213">5</text></g>
+          <g class="hot" data-k="gouttiere" tabindex="0" role="button" aria-label="Gouttières et descentes"><circle class="pulse" cx="540" cy="300" r="14"/><circle class="dot" cx="540" cy="300" r="14"/><text x="535" y="305">6</text></g>
+          <g class="hot" data-k="sdb" tabindex="0" role="button" aria-label="Salle de bain"><circle class="pulse" cx="196" cy="270" r="14"/><circle class="dot" cx="196" cy="270" r="14"/><text x="191" y="275">7</text></g>
+          <g class="hot" data-k="chauffage" tabindex="0" role="button" aria-label="Chauffage"><circle class="pulse" cx="372" cy="346" r="14"/><circle class="dot" cx="372" cy="346" r="14"/><text x="367" y="351">8</text></g>
+          <g class="hot" data-k="radiateurs" tabindex="0" role="button" aria-label="Radiateurs et plancher chauffant"><circle class="pulse" cx="170" cy="390" r="14"/><circle class="dot" cx="170" cy="390" r="14"/><text x="165" y="395">9</text></g>
+        </svg>
+      </div>
+      <div class="panel rv d2" aria-live="polite"><div id="panel"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Services</span>
+      <h2>Couverture, zinguerie, plomberie, sanitaire et chauffage</h2>
+      <p>Trois familles de métiers sous le même toit. Pour un chantier qui touche à la fois la toiture et la plomberie, un seul interlocuteur coordonne l'ensemble.</p>
+    </div>
+    <div class="services-grid">
+      <article class="svc rv">
+        <div class="bg">
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <rect width="400" height="420" fill="#3d4b55"/>
+            <g fill="#a4532a">
+              <path d="M0 60h400v40H0zM0 140h400v40H0zM0 220h400v40H0zM0 300h400v40H0z"/>
+            </g>
+            <g fill="#8c4421">
+              <path d="M0 100h400v14H0zM0 180h400v14H0zM0 260h400v14H0zM0 340h400v14H0z"/>
+            </g>
+            <g stroke="#7a3b1c" stroke-width="3"><path d="M50 60v54M150 60v54M250 60v54M350 60v54M0 140v54M100 140v54M200 140v54M300 140v54M50 220v54M150 220v54M250 220v54M350 220v54M100 300v54M200 300v54M300 300v54"/></g>
+          </svg>
+        </div>
+        <div class="body">
+          <h3>Couverture</h3>
+          <p>Rénovation et entretien de toiture, étanchéité, couverture en tuiles de terre cuite.</p>
+          <ul><li>Rénovation de toiture</li><li>Étanchéité</li><li>Isolation des combles</li><li>Fenêtres de toit</li></ul>
+        </div>
+      </article>
+      <article class="svc rv d1">
+        <div class="bg">
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs><linearGradient id="zn" x1="0" x2="1"><stop offset="0" stop-color="#9aa7af"/><stop offset=".5" stop-color="#cfd8de"/><stop offset="1" stop-color="#8a99a3"/></linearGradient></defs>
+            <rect width="400" height="420" fill="#2a343c"/>
+            <path d="M-10 120h420" stroke="url(#zn)" stroke-width="34" stroke-linecap="round"/>
+            <path d="M300 136v300" stroke="url(#zn)" stroke-width="26"/>
+            <path d="M286 230h28M286 330h28" stroke="#6f7d86" stroke-width="6"/>
+            <path d="M60 260l70-70 70 70" fill="none" stroke="url(#zn)" stroke-width="14"/>
+          </svg>
+        </div>
+        <div class="body">
+          <h3>Zinguerie</h3>
+          <p>Gouttières, descentes d'eau, solins de cheminée et couvertines en zinc.</p>
+          <ul><li>Gouttières</li><li>Descentes</li><li>Solins</li><li>Couvertines</li></ul>
+        </div>
+      </article>
+      <article class="svc rv d2">
+        <div class="bg">
+          <img src="https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=900&q=70" alt="Tuyauterie de chauffage et de gaz (illustration)" loading="lazy">
+          <span class="illu">Photo d'illustration</span>
+        </div>
+        <div class="body">
+          <h3>Chauffage</h3>
+          <p>Pompe à chaleur, chaudière à condensation gaz ou fioul, chaudière électrique, entretien.</p>
+          <ul><li>Pompe à chaleur</li><li>Chaudières</li><li>Entretien</li><li>Plancher chauffant</li></ul>
+        </div>
+      </article>
+      <article class="svc rv" style="grid-column:span 2">
+        <div class="bg">
+          <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=1300&q=70" alt="Salle de bain rénovée (illustration)" loading="lazy">
+          <span class="illu">Photo d'illustration</span>
+        </div>
+        <div class="body">
+          <h3>Plomberie &amp; sanitaire</h3>
+          <p>Installation et rénovation de salle de bain, équipements sanitaires, aménagements pour personnes à mobilité réduite.</p>
+          <ul><li>Salle de bain</li><li>Sanitaires</li><li>Accessibilité PMR</li><li>Chauffe-eau</li></ul>
+        </div>
+      </article>
+      <article class="svc rv d1" style="background:var(--cuivre)">
+        <div class="body">
+          <h3>Un projet qui mêle plusieurs métiers&nbsp;?</h3>
+          <p style="color:#fbe9dc">Toiture refaite et chaudière à changer, salle de bain sous combles à créer : le diagnostic express prépare une demande unique.</p>
+          <a href="#diagnostic" class="btn light" style="margin-top:6px">Décrire mon projet</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNOSTIC EXPRESS -->
+<section class="diag" id="diagnostic">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Diagnostic express</span>
+      <h2>Expliquez, on vous rappelle préparé</h2>
+      <p>Quatre étapes, deux minutes. À la fin, vous savez quel métier est concerné, quoi faire en attendant, et votre demande est prête à partir — avec tout ce qu'il faut pour qu'on vous rappelle sans vous faire tout répéter.</p>
+    </div>
+    <div class="tool rv">
+      <div class="steps" id="steps">
+        <div class="step active"><b>1</b><span>Le problème</span></div>
+        <div class="step"><b>2</b><span>Les précisions</span></div>
+        <div class="step"><b>3</b><span>Vos coordonnées</span></div>
+        <div class="step"><b>4</b><span>Votre demande</span></div>
+        <div class="progress"><i id="bar"></i></div>
+      </div>
+      <div class="stage" id="stage"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eyebrow">Comment ça se passe</span>
+      <h2>De l'appel au chantier terminé</h2>
+    </div>
+    <div class="process-grid">
+      <div class="pstep rv"><h3>Votre demande</h3><p>Par téléphone, par e-mail ou via le diagnostic express, avec photos si vous en avez.</p></div>
+      <div class="pstep rv d1"><h3>Le passage</h3><p>Visite sur place pour voir la toiture, l'installation ou la pièce concernée.</p></div>
+      <div class="pstep rv d2"><h3>Le devis</h3><p>Un devis détaillé, poste par poste, avant tout engagement.</p></div>
+      <div class="pstep rv d3"><h3>Les travaux</h3><p>Réalisés par l'équipe de l'entreprise, avec un seul interlocuteur du début à la fin.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ZONE -->
+<section class="zone" id="zone">
+  <div class="wrap zone-grid">
+    <div class="rv">
+      <span class="eyebrow">Zone d'intervention</span>
+      <h2 style="font-size:clamp(36px,4.4vw,58px);text-transform:uppercase;color:var(--ardoise);margin:12px 0 14px">Roanne et le Roannais</h2>
+      <p style="color:#4b5861;font-size:18px;margin-bottom:22px">L'entreprise est installée rue Gardet, à Roanne, et intervient dans l'agglomération et ses alentours.</p>
+      <p style="color:#7a8790;font-size:14px">Les communes exactes et le rayon d'intervention restent à préciser par l'entreprise.</p>
+    </div>
+    <div class="map rv d2">
+      <svg viewBox="0 0 500 420" role="img" aria-label="Schéma de la zone : Roanne au centre">
+        <rect width="500" height="420" rx="16" fill="#f7f9fa"/>
+        <path d="M200 0 C 230 80, 210 150, 250 210 S 300 330, 280 420" fill="none" stroke="#b9d3e2" stroke-width="16" stroke-linecap="round"/>
+        <text x="296" y="390" fill="#7aa3bb" font-size="13" font-style="italic" font-family="Barlow">la Loire</text>
+        <circle class="ring" cx="250" cy="210" r="150"/>
+        <circle cx="250" cy="210" r="90" fill="rgba(184,105,47,.08)" stroke="rgba(184,105,47,.4)"/>
+        <circle cx="250" cy="210" r="11" fill="#b8692f"/><circle cx="250" cy="210" r="22" fill="none" stroke="#b8692f" stroke-width="2" opacity=".5"/>
+        <text x="270" y="206" font-family="Barlow Condensed" font-size="24" font-weight="700" fill="#1e272e">ROANNE</text>
+        <text x="270" y="226" font-family="Barlow" font-size="13" fill="#5a6870">12 rue Gardet</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="rv">
+      <span class="eyebrow">Contact</span>
+      <h2 style="font-size:clamp(36px,4.4vw,58px);text-transform:uppercase;color:var(--ardoise);margin:12px 0 26px">Parlons de votre maison</h2>
+      <div class="coord">
+        <a href="tel:+33477683259"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg><span><small>Téléphone</small><strong>04 77 68 32 59</strong></span></a>
+        <a href="mailto:raquinduchon@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg><span><small>E-mail</small><strong>raquinduchon@gmail.com</strong></span></a>
+        <a href="https://www.google.com/maps/search/?api=1&query=12+rue+Gardet+42300+Roanne" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span><small>Adresse</small><strong>12 rue Gardet, 42300 Roanne</strong></span></a>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><small>Horaires</small><strong>À compléter par l'entreprise</strong></span></div>
+      </div>
+    </div>
+    <div class="photo-slot rv d2">
+      <div><strong>Photo de l'équipe ou des locaux</strong>À fournir par l'entreprise — aucune image n'a été inventée ici.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h4>Raquin Duchon</h4>
+        <p>Couverture, zinguerie, plomberie, sanitaire et chauffage à Roanne et dans le Roannais.</p>
+      </div>
+      <div>
+        <h4>Coordonnées</h4>
+        <p>12 rue Gardet<br>42300 Roanne<br><a href="tel:+33477683259">04 77 68 32 59</a><br><a href="mailto:raquinduchon@gmail.com">raquinduchon@gmail.com</a></p>
+      </div>
+      <div>
+        <h4>Raccourcis</h4>
+        <p><a href="#toiture">Votre maison</a><br><a href="#services">Services</a><br><a href="#diagnostic">Diagnostic express</a><br><a href="#contact">Contact</a></p>
+      </div>
+    </div>
+    <div class="legal">
+      <b>Maquette de démonstration.</b> Page réalisée par Thibault Quentin à titre de proposition, non commandée par l'entreprise. Le site raquin-duchon.com ne répondait plus lors de la conception : le logo et les couleurs exactes n'ont pas pu être relevés, la palette est approchée et se recale en quelques lignes. Le pictogramme en tête de page est provisoire et remplacé par le vrai logo dès qu'il est fourni.
+      <br><b>Photos :</b> les visuels « Chauffage » et « Plomberie &amp; sanitaire » sont des photos d'illustration libres de droits (Unsplash) ; les visuels toiture et zinguerie sont des dessins. Aucune photo de chantier, d'équipe ou de locaux n'a été inventée : elles sont à fournir par l'entreprise.
+      <br>Aucun avis client, aucun tarif et aucune certification ne sont affichés. Le diagnostic express donne une orientation générale et ne remplace pas le passage d'un professionnel ; en cas de danger (odeur de gaz, risque électrique), appelez les secours.
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a href="tel:+33477683259" class="btn">Appeler</a>
+  <a href="#diagnostic" class="btn ghost" style="background:#fff">Diagnostic</a>
+</div>
+
+<script>
+/* ---------- Header / menu ---------- */
+const hdr=document.querySelector('header');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>10),{passive:true});
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+/* ---------- Reveal ---------- */
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+}else document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+
+/* ---------- Schéma interactif ---------- */
+const ZONES={
+  tuiles:{tag:'Couverture',t:'Tuiles & couverture',p:"Tuiles cassées, glissées ou poreuses, mousse qui retient l'humidité : c'est souvent là que commencent les infiltrations.",l:['Remplacement de tuiles','Rénovation de toiture','Couverture en tuiles de terre cuite'],d:'fuite'},
+  faitage:{tag:'Couverture',t:'Faîtage & étanchéité',p:"Le faîtage ferme le sommet du toit. Un mortier fissuré ou un closoir abîmé laisse passer l'eau et le vent.",l:["Reprise de faîtage","Étanchéité de la toiture","Contrôle après coup de vent"],d:'tuiles'},
+  solin:{tag:'Zinguerie',t:'Solin de cheminée',p:"La jonction entre la cheminée et le toit est un point faible classique : une tache au plafond près du conduit vient souvent de là.",l:['Solins de cheminée en zinc','Reprise des abergements','Couvertines'],d:'fuite'},
+  velux:{tag:'Couverture',t:'Fenêtres de toit',p:"Pose ou remplacement de fenêtres de toit, avec le raccord d'étanchéité qui va avec.",l:['Pose de fenêtre de toit','Remplacement','Raccord d’étanchéité'],d:'projet'},
+  combles:{tag:'Couverture',t:'Combles & isolation',p:"Des combles mal isolés, c'est une maison froide l'hiver et étouffante l'été. Isolation et aménagement des combles.",l:['Isolation des combles','Aménagement des combles'],d:'froid'},
+  gouttiere:{tag:'Zinguerie',t:'Gouttières & descentes',p:"Une gouttière qui déborde ou une descente percée finit par abîmer la façade et les fondations.",l:['Remplacement de gouttières','Descentes d’eaux pluviales','Récupération d’eau de pluie'],d:'gouttiere'},
+  sdb:{tag:'Plomberie & sanitaire',t:'Salle de bain',p:"Rénovation complète ou remplacement d'équipements, y compris les aménagements pour personnes à mobilité réduite.",l:['Rénovation de salle de bain','Équipements sanitaires','Accessibilité PMR'],d:'sdb'},
+  chauffage:{tag:'Chauffage',t:'Chaudière & pompe à chaleur',p:"Installation, remplacement et entretien : pompe à chaleur, chaudière à condensation gaz ou fioul, chaudière électrique.",l:['Pompe à chaleur','Chaudière à condensation','Entretien de chaudière'],d:'chaudiere'},
+  radiateurs:{tag:'Chauffage',t:'Radiateurs & plancher chauffant',p:"Un radiateur qui reste froid, un circuit à équilibrer ou un plancher chauffant à installer.",l:['Chauffage central','Radiateurs','Plancher chauffant'],d:'froid'}
+};
+const panel=document.getElementById('panel');
+function show(k){
+  const z=ZONES[k];
+  document.querySelectorAll('.hot').forEach(h=>h.classList.toggle('on',h.dataset.k===k));
+  panel.innerHTML=`<div class="swap"><span class="tag">${z.tag}</span><h3>${z.t}</h3><p>${z.p}</p><ul>${z.l.map(x=>`<li>${x}</li>`).join('')}</ul><a href="#diagnostic" class="btn" data-pre="${z.d}">Un souci à cet endroit ? Diagnostic</a></div>`;
+  panel.querySelector('[data-pre]').addEventListener('click',e=>{preselect(e.currentTarget.dataset.pre)});
+}
+document.querySelectorAll('.hot').forEach(h=>{
+  h.addEventListener('click',()=>show(h.dataset.k));
+  h.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(h.dataset.k)}});
+});
+show('tuiles');
+
+/* ---------- Diagnostic express ---------- */
+const PROBS={
+  fuite:{ic:'💧',t:"Fuite ou tache au plafond",s:"Eau qui coule, auréole, plâtre qui gonfle",m:'Couverture / zinguerie',lvl:'u'},
+  tuiles:{ic:'🏠',t:"Tuiles déplacées ou cassées",s:"Après un coup de vent, une chute de branche",m:'Couverture',lvl:'r'},
+  gouttiere:{ic:'🌧️',t:"Gouttière qui déborde",s:"Bouchée, percée, décrochée",m:'Zinguerie',lvl:'r'},
+  chaudiere:{ic:'🔥',t:"Chaudière en panne",s:"Plus de chauffage ou plus d'eau chaude",m:'Chauffage',lvl:'u'},
+  froid:{ic:'🥶',t:"Maison froide, radiateurs tièdes",s:"Pièces mal chauffées, facture qui grimpe",m:'Chauffage / isolation',lvl:'s'},
+  plomberie:{ic:'🚿',t:"Fuite d'eau, sanitaire",s:"Robinet, WC, ballon d'eau chaude",m:'Plomberie',lvl:'r'},
+  sdb:{ic:'🛁',t:"Salle de bain à refaire",s:"Rénovation, douche à l'italienne, PMR",m:'Plomberie & sanitaire',lvl:'s'},
+  projet:{ic:'📐',t:"Projet de rénovation",s:"Toiture, PAC, fenêtre de toit, combles",m:'Selon le projet',lvl:'s'}
+};
+const LVL={u:['Prioritaire','var(--urgent)'],r:['À traiter rapidement','var(--rapide)'],s:['À planifier sereinement','var(--serein)']};
+const DETAILS={
+  fuite:[['Où voyez-vous l’eau ?',['Plafond sous combles','Près de la cheminée','Le long d’un mur','Autour d’une fenêtre de toit']],['Depuis quand ?',['Aujourd’hui','Quelques jours','Ça revient à chaque pluie']]],
+  tuiles:[['Combien de tuiles environ ?',['1 ou 2','Une zone entière','Je ne sais pas']],['L’eau entre-t-elle ?',['Oui','Non','Je ne sais pas']]],
+  gouttiere:[['Que se passe-t-il ?',['Elle déborde','Elle fuit à un raccord','Elle est décrochée']],['Matériau',['Zinc','PVC','Je ne sais pas']]],
+  chaudiere:[['Type d’appareil',['Chaudière gaz','Chaudière fioul','Chaudière électrique','Pompe à chaleur']],['Symptôme',['Plus de chauffage','Plus d’eau chaude','Les deux','Code erreur affiché']]],
+  froid:[['Logement',['Maison','Appartement']],['Chauffage actuel',['Gaz','Fioul','Électrique','Pompe à chaleur','Bois']]],
+  plomberie:[['Où ?',['Cuisine','Salle de bain','WC','Ballon d’eau chaude']],['Gravité',['Goutte à goutte','Fuite continue','J’ai coupé l’eau']]],
+  sdb:[['Le projet',['Rénovation complète','Remplacer baignoire par douche','Accessibilité PMR','Changer des équipements']],['Échéance',['Dès que possible','Dans les 6 mois','Je me renseigne']]],
+  projet:[['Type de projet',['Rénovation de toiture','Pompe à chaleur','Isolation des combles','Fenêtre de toit','Plusieurs à la fois']],['Échéance',['Dès que possible','Dans les 6 mois','Je me renseigne']]]
+};
+const TIPS={
+  fuite:['Placez un récipient et protégez les meubles','Coupez le courant des luminaires touchés par l’eau','Prenez des photos de la tache et, si possible, du toit depuis le sol','Ne montez pas sur le toit, surtout mouillé'],
+  tuiles:['Ne montez pas sur le toit vous-même','Photographiez la zone depuis le sol','Surveillez le plafond sous la zone lors de la prochaine pluie'],
+  gouttiere:['Photographiez le débordement pendant une pluie si possible','Éloignez ce qui craint l’eau du pied de façade','N’utilisez pas d’échelle seul'],
+  chaudiere:['Notez le code erreur affiché et la marque/modèle','Vérifiez la pression du circuit si vous savez le faire','En cas d’odeur de gaz : coupez le gaz, aérez, sortez et appelez les secours'],
+  froid:['Notez quelles pièces sont concernées','Relevez la marque et l’âge de l’appareil de chauffage','Rassemblez vos dernières factures d’énergie'],
+  plomberie:['Coupez l’arrivée d’eau générale si la fuite est continue','Épongez et protégez le sol','Photographiez le raccord ou l’appareil'],
+  sdb:['Mesurez la pièce (longueur, largeur, hauteur)','Rassemblez quelques photos d’inspiration','Notez ce que vous souhaitez garder'],
+  projet:['Rassemblez les plans ou photos du logement','Notez l’année de construction si vous la connaissez','Listez vos priorités (confort, facture, esthétique)']
+};
+let st={step:0,prob:null,ans:[],nom:'',tel:'',ville:'',msg:''};
+const stage=document.getElementById('stage'),bar=document.getElementById('bar'),steps=[...document.querySelectorAll('.step')];
+function setStep(n){st.step=n;steps.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('done',i<n)});bar.style.width=((n+1)*25)+'%';render()}
+function preselect(k){st.prob=k;st.ans=[];setStep(1)}
+function render(){
+  const s=st.step;let h='';
+  if(s===0){
+    h=`<h3>Quel est le problème&nbsp;?</h3><p class="sub">Choisissez ce qui ressemble le plus à votre situation.</p><div class="opts">`+
+      Object.entries(PROBS).map(([k,p])=>`<button class="opt" data-k="${k}" aria-pressed="${st.prob===k}"><span class="ic" aria-hidden="true">${p.ic}</span><strong>${p.t}</strong><span>${p.s}</span></button>`).join('')+`</div>`;
+  }else if(s===1){
+    const p=PROBS[st.prob],qs=DETAILS[st.prob];
+    h=`<h3>${p.t}</h3><p class="sub">Deux précisions pour que l'entreprise arrive préparée.</p>`+
+      qs.map((q,qi)=>`<p style="font-weight:600;margin:18px 0 10px">${q[0]}</p><div class="chips">`+q[1].map(o=>`<button data-q="${qi}" data-v="${o}" aria-pressed="${st.ans[qi]===o}">${o}</button>`).join('')+`</div>`).join('')+
+      `<div class="row"><button class="linkbtn" data-back>← Changer de problème</button><button class="btn" data-next ${st.ans.filter(Boolean).length<qs.length?'disabled style="opacity:.5;cursor:not-allowed"':''}>Continuer</button></div>`;
+  }else if(s===2){
+    h=`<h3>Vos coordonnées</h3><p class="sub">Pour être rappelé. Rien n'est envoyé tant que vous n'avez pas validé l'étape suivante.</p>
+      <div class="two"><div class="field"><label for="nom">Nom</label><input id="nom" value="${st.nom}" autocomplete="name"></div>
+      <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" value="${st.tel}" autocomplete="tel"></div></div>
+      <div class="field"><label for="ville">Commune</label><input id="ville" value="${st.ville}" placeholder="Roanne, Riorges, Mably…"></div>
+      <div class="field"><label for="msg">Un détail à ajouter&nbsp;? (facultatif)</label><textarea id="msg" rows="3">${st.msg}</textarea></div>
+      <div class="row"><button class="linkbtn" data-back>← Retour</button><button class="btn" data-next>Voir mon diagnostic</button></div>`;
+  }else{
+    const p=PROBS[st.prob],L=LVL[p.lvl],qs=DETAILS[st.prob];
+    const recap=`Demande via le site — ${p.t}\nMétier concerné : ${p.m}\n`+qs.map((q,i)=>`${q[0]} ${st.ans[i]}`).join('\n')+`\nNom : ${st.nom||'—'}\nTéléphone : ${st.tel||'—'}\nCommune : ${st.ville||'—'}`+(st.msg?`\nPrécision : ${st.msg}`:'');
+    const mail=`mailto:raquinduchon@gmail.com?subject=${encodeURIComponent('Demande : '+p.t+(st.ville?' — '+st.ville:''))}&body=${encodeURIComponent(recap)}`;
+    h=`<span class="level" style="background:${L[1]}22;color:#fff;border:1px solid ${L[1]}"><span style="width:10px;height:10px;border-radius:50%;background:${L[1]}"></span>${L[0]}</span>
+      <h3>${p.m}</h3><p class="sub">Voici votre orientation et la demande prête à partir.</p>
+      <div class="result"><div class="card"><h4>En attendant</h4><ul>${TIPS[st.prob].map(t=>`<li>${t}</li>`).join('')}</ul></div>
+      <div class="card"><h4>Votre demande</h4><div class="recap">${recap.replace(/</g,'&lt;')}</div></div></div>
+      <div class="row"><button class="linkbtn" data-restart>Recommencer</button><span style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn ghost" style="color:#fff;border-color:#fff" href="tel:+33477683259">Appeler maintenant</a><a class="btn" href="${mail}">Envoyer la demande</a></span></div>
+      <p class="note">Orientation indicative, sans valeur de diagnostic technique. Dans la version en ligne, la demande arriverait directement dans la boîte de l'entreprise, avec les photos jointes.</p>`;
+  }
+  stage.innerHTML=`<div class="fade">${h}</div>`;
+  stage.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{st.prob=b.dataset.k;st.ans=[];setStep(1)}));
+  stage.querySelectorAll('[data-q]').forEach(b=>b.addEventListener('click',()=>{st.ans[+b.dataset.q]=b.dataset.v;render()}));
+  const nx=stage.querySelector('[data-next]');
+  if(nx)nx.addEventListener('click',()=>{if(nx.disabled)return;if(st.step===2){['nom','tel','ville','msg'].forEach(i=>st[i]=document.getElementById(i).value.trim())}setStep(st.step+1)});
+  const bk=stage.querySelector('[data-back]');
+  if(bk)bk.addEventListener('click',()=>{if(st.step===2){['nom','tel','ville','msg'].forEach(i=>st[i]=document.getElementById(i).value.trim())}setStep(st.step-1)});
+  const rs=stage.querySelector('[data-restart]');
+  if(rs)rs.addEventListener('click',()=>{st={step:0,prob:null,ans:[],nom:'',tel:'',ville:'',msg:''};setStep(0)});
+}
+setStep(0);
+</script>
+</body>
+</html>
