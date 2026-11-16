@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Champignons du Brionnais — Champignons frais en Brionnais | Briant</title>
+<meta name="description" content="Pleurotes, shiitakés et pholiotes cultivés dans un ancien chai du XVIe siècle à Briant, récoltés à la main et vendus en circuit court dans un rayon de 50 km.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600;1,700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE — relevée sur le logo et les étiquettes de la ferme
+   (logo bleu encre sur fond gris-bleu clair, sachets kraft,
+   pots à étiquette bleu nuit). Codes exacts à confirmer.
+   ============================================================ */
+:root{
+  --encre:#1f4d7a;        /* bleu du logo : titres, boutons, liens */
+  --encre-fonce:#163a5d;  /* survol des boutons */
+  --nuit:#18232f;         /* étiquette des pots : bandeaux sombres */
+  --brume:#e8edf0;        /* fond du logo : fond de page */
+  --papier:#f6f7f6;       /* cartes */
+  --kraft:#b58a5b;        /* sachets kraft : accents chauds */
+  --kraft-clair:#e7d6bf;
+  --mousse:#5f7a3e;       /* mousse et herbe des photos : touches discrètes */
+  --texte:#22303c;
+  --texte-doux:#55636e;
+  --serif:"Lora", Georgia, serif;          /* lettrage italique du logo */
+  --sans:"Source Sans 3", system-ui, sans-serif;
+  --rayon:14px;
+  --ease:cubic-bezier(.22,.8,.26,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--texte);background:var(--brume);line-height:1.6;font-size:1.05rem;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--encre)}
+:focus-visible{outline:3px solid var(--kraft);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--nuit);color:#cfd8df;font-size:.78rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--kraft-clair);font-weight:600}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(232,237,240,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid rgba(31,77,122,.12);transition:box-shadow .3s}
+header.nav.ombre{box-shadow:0 6px 24px rgba(24,35,47,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.marque{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--encre)}
+.tampon{width:46px;height:46px;border:2px solid var(--encre);border-radius:11px;display:grid;place-items:center;box-shadow:inset 0 0 0 3px var(--brume),inset 0 0 0 4px var(--encre);background:#eef2f4}
+.tampon svg{width:26px;height:26px}
+.marque b{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.08rem;line-height:1.1;display:block}
+.marque small{font-variant:small-caps;letter-spacing:.06em;font-size:.72rem;color:var(--texte-doux)}
+.nav ul{display:flex;gap:1.6rem;list-style:none}
+.nav ul a{text-decoration:none;color:var(--texte);font-weight:500;font-size:.95rem;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:2px;background:var(--kraft);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after,.nav ul a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--encre);color:#fff;text-decoration:none;border:0;border-radius:999px;padding:.75rem 1.3rem;font:600 .95rem var(--sans);cursor:pointer;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:44px}
+.btn:hover{background:var(--encre-fonce);transform:translateY(-2px);box-shadow:0 10px 22px rgba(31,77,122,.25)}
+.btn:active{transform:scale(.96)}
+.btn.ligne{background:transparent;color:var(--encre);box-shadow:inset 0 0 0 2px var(--encre)}
+.btn.ligne:hover{background:var(--encre);color:#fff}
+.btn.kraft{background:var(--kraft)}
+.btn.kraft:hover{background:#9c7449}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media (max-width:880px){
+  .nav ul{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--brume);padding:1.2rem 16px 1.6rem;gap:1rem;transform:translateY(-130%);transition:transform .4s var(--ease);box-shadow:0 20px 30px rgba(0,0,0,.08)}
+  .nav ul.ouvert{transform:none}
+  .burger{display:block}
+  .nav .btn.tel{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;grid-template-columns:minmax(0,1fr);align-items:center;overflow:hidden;background:var(--nuit)}
+.hero img.fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 70%;transform:scale(1.08);animation:zoom 16s var(--ease) forwards;filter:saturate(1.05)}
+@keyframes zoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(24,35,47,.88) 0%,rgba(24,35,47,.6) 45%,rgba(24,35,47,.05) 80%)}
+#spores{position:absolute;inset:0;z-index:1;pointer-events:none}
+.hero .wrap{position:relative;z-index:2;color:#fff;padding:5rem 0}
+.surtitre{font-variant:small-caps;letter-spacing:.14em;color:var(--kraft-clair);font-weight:600;font-size:.95rem}
+.hero h1{font-family:var(--serif);font-style:italic;font-weight:600;font-size:clamp(2.4rem,1.6rem + 4vw,4.6rem);line-height:1.05;margin:.6rem 0 1.2rem;max-width:13ch}
+.hero h1 .l{display:inline-block;opacity:0;transform:translateY(.6em);animation:monte .9s var(--ease) forwards}
+@keyframes monte{to{opacity:1;transform:none}}
+.hero p.chapo{max-width:46ch;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);color:#e3e9ee;opacity:0;animation:monte .9s .7s var(--ease) forwards}
+.hero .actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem;opacity:0;animation:monte .9s .9s var(--ease) forwards}
+.hero .btn.ligne{color:#fff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.hero .btn.ligne:hover{background:#fff;color:var(--encre)}
+.defile{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;color:#fff;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.7;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.defile i{width:1px;height:38px;background:linear-gradient(#fff,transparent);animation:goutte 2s infinite}
+@keyframes goutte{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* bande de repères */
+.reperes{background:var(--papier);border-bottom:1px solid rgba(31,77,122,.1)}
+.reperes .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2.2rem 0}
+.repere{text-align:center}
+.repere strong{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(1.8rem,1.4rem + 1.5vw,2.6rem);color:var(--encre);line-height:1.1}
+.repere > span{color:var(--texte-doux);font-size:.92rem}
+@media (max-width:720px){.reperes .wrap{grid-template-columns:repeat(2,1fr)}}
+
+/* sections */
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+.titre-sec{font-family:var(--serif);font-style:italic;font-weight:600;color:var(--encre);font-size:clamp(1.9rem,1.4rem + 2vw,3rem);line-height:1.15}
+.intro-sec{color:var(--texte-doux);max-width:60ch;margin-top:.8rem}
+.filet{width:64px;height:3px;background:var(--kraft);border-radius:2px;margin:1rem 0 0}
+.revele{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.revele.vu{opacity:1;transform:none}
+
+/* ferme */
+.ferme .grille{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+.photo{position:relative;border-radius:var(--rayon);overflow:hidden;box-shadow:0 24px 50px rgba(24,35,47,.16)}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo:hover img{transform:scale(1.04)}
+.ferme .photo{aspect-ratio:4/3}
+.ferme .photo img{object-position:50% 0%}
+.etapes{list-style:none;margin-top:2rem;display:grid;gap:1.2rem;counter-reset:e}
+.etapes li{display:grid;grid-template-columns:48px 1fr;gap:1rem;align-items:start}
+.etapes li::before{counter-increment:e;content:counter(e);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-weight:700;color:var(--encre);background:#fff;box-shadow:inset 0 0 0 2px var(--encre)}
+.etapes b{display:block;color:var(--nuit)}
+.etapes p{color:var(--texte-doux);font-size:.98rem}
+.vide{display:grid;place-items:center;text-align:center;background:repeating-linear-gradient(45deg,#dfe6ea 0 12px,#e8edf0 12px 24px);color:var(--texte-doux);font-size:.9rem;padding:2rem;border:2px dashed rgba(31,77,122,.25);border-radius:var(--rayon);min-height:180px}
+.ferme .duo{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
+@media (max-width:880px){.ferme .grille{grid-template-columns:1fr}}
+
+/* produits */
+.produits{background:var(--papier)}
+.onglets{display:flex;flex-wrap:wrap;gap:.5rem;margin:2rem 0 1.6rem}
+.onglet{border:0;background:#fff;color:var(--encre);font:600 .95rem var(--sans);padding:.65rem 1.2rem;border-radius:999px;box-shadow:inset 0 0 0 1.5px rgba(31,77,122,.3);cursor:pointer;transition:.25s;min-height:44px}
+.onglet[aria-selected="true"]{background:var(--encre);color:#fff;box-shadow:none}
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.carte{background:#fff;border-radius:var(--rayon);padding:1.6rem;box-shadow:0 1px 0 rgba(31,77,122,.08),0 14px 30px rgba(24,35,47,.06);transition:transform .35s var(--ease),box-shadow .35s;position:relative;overflow:hidden}
+.carte:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(24,35,47,.12)}
+.carte .ico{width:56px;height:56px;border-radius:50%;background:var(--brume);display:grid;place-items:center;margin-bottom:1rem}
+.carte h3{font-family:var(--serif);font-style:italic;color:var(--encre);font-size:1.35rem}
+.carte .format{display:inline-block;margin-top:.3rem;font-size:.8rem;font-variant:small-caps;letter-spacing:.08em;color:var(--kraft);font-weight:600}
+.carte p{color:var(--texte-doux);font-size:.96rem;margin-top:.6rem}
+.carte.kraft{background:linear-gradient(180deg,#f3e9db,#e9d8bf)}
+.carte.pot{background:var(--nuit);color:#dfe6ec}
+.carte.pot h3{color:#fff}.carte.pot p{color:#b9c5cf}.carte.pot .ico{background:#243444}
+.panneau[hidden]{display:none}
+.bandeau-photo{max-width:860px;margin:2.6rem auto 0}
+@media (max-width:880px){.cartes{grid-template-columns:1fr}}
+
+/* outil commande */
+.commande{background:var(--nuit);color:#e3e9ee;position:relative;overflow:clip}
+.commande::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(181,138,91,.18),transparent 70%);right:-160px;top:-160px}
+.commande .titre-sec{color:#fff}
+.commande .intro-sec{color:#b9c5cf}
+.outil{display:grid;grid-template-columns:1.25fr 1fr;gap:1.6rem;margin-top:2.4rem;position:relative}
+.bloc{background:#212f3d;border-radius:var(--rayon);padding:1.6rem;border:1px solid rgba(255,255,255,.06)}
+.bloc h3{font-family:var(--serif);font-style:italic;color:#fff;font-size:1.25rem;margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.bloc h3 em{font-style:normal;font-family:var(--sans);font-size:.75rem;background:var(--kraft);color:#fff;border-radius:999px;padding:.15rem .6rem}
+.ligne-prod{display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:center;padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.ligne-prod:last-child{border-bottom:0}
+.ligne-prod b{color:#fff;font-weight:600}
+.ligne-prod small{display:block;color:#93a3b0;font-size:.82rem}
+.qte{display:flex;align-items:center;gap:.3rem;background:#18232f;border-radius:999px;padding:.2rem}
+.qte button{width:38px;height:38px;border-radius:50%;border:0;background:#2c3d4e;color:#fff;font-size:1.2rem;cursor:pointer;transition:.2s}
+.qte button:hover{background:var(--kraft)}
+.qte output{min-width:66px;text-align:center;font-weight:600;color:#fff;font-size:.92rem}
+.qte output.plein{color:var(--kraft-clair)}
+.champ{display:grid;gap:.35rem;margin-top:1rem}
+.champ label{font-size:.85rem;color:#b9c5cf}
+.champ input,.champ select,.champ textarea{background:#18232f;border:1px solid #33475a;color:#fff;border-radius:10px;padding:.7rem .85rem;font:inherit;font-size:.95rem;min-height:44px}
+.champ input:focus,.champ select:focus,.champ textarea:focus{outline:none;border-color:var(--kraft)}
+.jours{display:flex;flex-wrap:wrap;gap:.4rem}
+.jour{border:1px solid #33475a;background:#18232f;color:#dfe6ec;border-radius:10px;padding:.5rem .7rem;font:500 .85rem var(--sans);cursor:pointer;min-height:44px;transition:.2s}
+.jour[aria-pressed="true"]{background:var(--kraft);border-color:var(--kraft);color:#fff}
+.recap{background:#f6f7f6;color:var(--texte);border-radius:var(--rayon);padding:1.4rem;position:sticky;top:96px;align-self:start}
+@media (max-width:700px){.hero::after{background:linear-gradient(180deg,rgba(24,35,47,.55),rgba(24,35,47,.82))}}
+.recap h3{color:var(--encre)}
+.recap ul{list-style:none;margin:.4rem 0 1rem;min-height:3rem}
+.recap li{display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px dashed #cfd8df;font-size:.95rem;animation:monte .4s var(--ease)}
+.recap .vide-recap{color:var(--texte-doux);font-style:italic;font-size:.92rem}
+.recap .note{font-size:.82rem;color:var(--texte-doux);margin:.8rem 0 1rem}
+.recap .envoi{display:grid;gap:.6rem}
+.recap .btn{justify-content:center}
+.recap .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.message{white-space:pre-wrap;background:#fff;border:1px solid #d9e1e6;border-radius:10px;padding:.8rem;font-size:.84rem;color:var(--texte-doux);max-height:170px;overflow:auto;margin-top:.4rem}
+@media (max-width:880px){.outil{grid-template-columns:1fr}.recap{position:static}}
+
+/* zone */
+.zone .grille{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.carte-zone{background:var(--papier);border-radius:var(--rayon);padding:1rem;box-shadow:0 18px 40px rgba(24,35,47,.08)}
+.carte-zone svg{width:100%;height:auto;display:block}
+.ville{cursor:pointer}
+.ville circle{fill:var(--encre);transition:r .25s}
+.ville text{font:600 13px var(--sans);fill:var(--nuit)}
+.ville:hover circle,.ville.sel circle{fill:var(--kraft);r:7}
+.ferme-pt{animation:pouls 2.4s infinite}
+@keyframes pouls{0%{r:9;opacity:.7}100%{r:30;opacity:0}}
+.rayon-anim{stroke-dasharray:6 6;animation:tourne 40s linear infinite;transform-origin:center;transform-box:fill-box}
+@keyframes tourne{to{transform:rotate(360deg)}}
+.distance{margin-top:1.4rem;background:#fff;border-radius:var(--rayon);padding:1.2rem 1.4rem;border-left:4px solid var(--kraft);min-height:96px}
+.distance b{font-family:var(--serif);font-style:italic;color:var(--encre);font-size:1.4rem}
+.lieux{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.6rem}
+.lieu{background:#fff;border-radius:12px;padding:1rem;text-align:center;font-size:.92rem;color:var(--texte-doux)}
+.lieu strong{display:block;color:var(--encre);font-family:var(--serif);font-style:italic;font-size:1.05rem}
+@media (max-width:880px){.zone .grille{grid-template-columns:1fr}.lieux{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--papier)}
+.contact .grille{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:2.2rem}
+.info{background:#fff;border-radius:var(--rayon);padding:1.6rem;box-shadow:0 12px 26px rgba(24,35,47,.06)}
+.info h3{font-family:var(--serif);font-style:italic;color:var(--encre);font-size:1.2rem;margin-bottom:.5rem}
+.info p{color:var(--texte-doux)}
+.info a{font-weight:600;text-decoration:none}
+.info a:hover{text-decoration:underline}
+@media (max-width:880px){.contact .grille{grid-template-columns:1fr}}
+
+footer{background:var(--nuit);color:#9fb0bd;padding:3rem 0 2rem;font-size:.88rem}
+footer .haut{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1.5rem;align-items:center;padding-bottom:1.6rem;border-bottom:1px solid #2c3d4e;margin-bottom:1.4rem}
+footer .marque{color:#fff}
+footer .marque small{color:#9fb0bd}
+footer .tampon{background:#243444;border-color:#c9d6e0;box-shadow:inset 0 0 0 3px #243444,inset 0 0 0 4px #c9d6e0}
+footer .tampon svg path{stroke:#c9d6e0}
+footer a{color:#dfe6ec}
+footer .mention{max-width:90ch}
+
+.illus{position:absolute;left:10px;bottom:10px;background:rgba(24,35,47,.75);color:#fff;font-size:.7rem;padding:.2rem .5rem;border-radius:6px}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .revele{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Les Champignons du Brionnais",
+  "description":"Producteur artisanal de champignons frais (pleurotes, shiitakés…), séchés et en poudre, cultivés dans un ancien chai du XVIe siècle.",
+  "telephone":"+33619981428",
+  "email":"contact@leschampignonsdubrionnais.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"Lieu-dit Farges","postalCode":"71110","addressLocality":"Briant","addressRegion":"Saône-et-Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":46.2974368,"longitude":4.13570276},
+  "areaServed":[{"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.2974368,"longitude":4.13570276},"geoRadius":"50000"},"Brionnais","Roannais","Charolais"],
+  "paymentAccepted":"Chèques, mandats postaux, espèces",
+  "sameAs":["https://www.facebook.com/leschampignonsdubrionnais"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>non officielle</b>, réalisée pour Les Champignons du Brionnais · photos et textes repris des fiches publiées par la ferme</div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a class="marque" href="#accueil" aria-label="Les Champignons du Brionnais, accueil">
+      <span class="tampon" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M5 14c1-6 7-9 12-8s10 4 10 8c-5 1.5-17 1.5-22 0z" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 15.5c0 4-1 8-2.5 11h7c-1.5-3-2.5-7-2.5-11" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 27h16" stroke="#1f4d7a" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+      <span><b>Les Champignons<br>du Brionnais</b><small>Producteur artisanal · 71110 Briant</small></span>
+    </a>
+    <ul id="menu">
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#produits">Nos champignons</a></li>
+      <li><a href="#commande">Commander</a></li>
+      <li><a href="#zone">Où nous trouver</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn tel" href="tel:+33619981428">06 19 98 14 28</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <img class="fond" src="https://www.burgundy-tourism.com/uploads/external/181841cb65c30b61d08f6f5b0501cb9a-PanierPrintemps-300dpi-1600x900.jpg" alt="Panier de shiitakés et de pleurotes posé dans l'herbe fleurie">
+  <canvas id="spores" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <p class="surtitre">Producteur artisanal · Brionnais</p>
+    <h1 aria-label="Des champignons frais toute l'année"><span class="l" style="animation-delay:.1s">Des</span> <span class="l" style="animation-delay:.2s">champignons</span> <span class="l" style="animation-delay:.3s">frais</span> <span class="l" style="animation-delay:.4s">toute</span> <span class="l" style="animation-delay:.5s">l'année</span></h1>
+    <p class="chapo">Produits de manière artisanale dans le Brionnais, récoltés à la main et vendus juste après la cueillette — en direct et en circuit court.</p>
+    <div class="actions">
+      <a class="btn kraft" href="#commande">Préparer ma commande</a>
+      <a class="btn ligne" href="#produits">Découvrir nos champignons</a>
+    </div>
+  </div>
+  <div class="defile" aria-hidden="true">Défiler<i></i></div>
+</section>
+
+<div class="reperes">
+  <div class="wrap">
+    <div class="repere revele"><strong><span data-compte="16">16</span><sup>e</sup> siècle</strong><span>un ancien chai pour salle de culture</span></div>
+    <div class="repere revele"><strong>À la main</strong><span>chaque récolte est cueillie à la main</span></div>
+    <div class="repere revele"><strong><span data-compte="50">50</span> km</strong><span>rayon de vente autour de la ferme</span></div>
+    <div class="repere revele"><strong>Toute l'année</strong><span>vente à la ferme sur rendez-vous</span></div>
+  </div>
+</div>
+
+<section class="ferme" id="ferme">
+  <div class="wrap grille">
+    <div class="revele">
+      <div class="photo"><img src="https://www.burgundy-tourism.com/uploads/external/726ab666bb7084aad1003d9930478567-LesChampignonsDuBrionnais-Photo2-1600x0.jpg" alt="Grand panier de pleurotes et de pholiotes devant un mur de pierre" loading="lazy"></div>
+    </div>
+    <div class="revele">
+      <p class="surtitre" style="color:var(--kraft)">La ferme</p>
+      <h2 class="titre-sec">Nos champignons poussent dans un ancien chai du 16<sup>e</sup> siècle</h2>
+      <div class="filet"></div>
+      <p class="intro-sec">Des conditions naturelles, un savoir-faire artisanal, et des champignons qui ne font pas de longs voyages : de la salle de culture à votre assiette, il ne s'écoule que le temps de la cueillette.</p>
+      <ol class="etapes">
+        <li><div><b>Cultivés dans le chai</b><p>Les champignons poussent dans les conditions naturelles d'un ancien chai du XVIe siècle, à Briant.</p></div></li>
+        <li><div><b>Récoltés à la main</b><p>Chaque bouquet est cueilli à la main, au bon moment.</p></div></li>
+        <li><div><b>Vendus juste après la cueillette</b><p>En direct et en circuit court : restaurants, marchés, épiceries, et à la ferme sur rendez-vous.</p></div></li>
+      </ol>
+      <div class="duo">
+        <div class="vide">Photo du chai<br><small>à fournir par la ferme</small></div>
+        <div class="vide">Photo de la récolte<br><small>à fournir par la ferme</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="produits" id="produits">
+  <div class="wrap">
+    <div class="revele">
+      <p class="surtitre" style="color:var(--kraft)">Nos champignons</p>
+      <h2 class="titre-sec">Frais, séchés ou en poudre</h2>
+      <div class="filet"></div>
+      <p class="intro-sec">Pleurotes, shiitakés, pholiotes du peuplier : la récolte du moment se vend fraîche, le reste est séché à la ferme à basse température pour se garder dans le placard.</p>
+    </div>
+    <div class="onglets" role="tablist" aria-label="Gammes">
+      <button class="onglet" role="tab" aria-selected="true" aria-controls="p-frais" id="t-frais">Champignons frais</button>
+      <button class="onglet" role="tab" aria-selected="false" aria-controls="p-seches" id="t-seches">Séchés</button>
+      <button class="onglet" role="tab" aria-selected="false" aria-controls="p-poudres" id="t-poudres">En poudre</button>
+    </div>
+
+    <div class="panneau" id="p-frais" role="tabpanel" aria-labelledby="t-frais">
+      <div class="cartes">
+        <article class="carte"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M4 13c3-6 13-8 22-4-2 3-9 5-13 5" stroke="#1f4d7a" stroke-width="1.8" stroke-linecap="round"/><path d="M13 14c1 5 0 9-2 13" stroke="#1f4d7a" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Pleurotes</h3><span class="format">frais · selon la récolte</span><p>Chapeaux en éventail qui poussent en bouquets serrés. Une chair tendre qui se poêle en quelques minutes.</p></article>
+        <article class="carte"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M5 15a11 9 0 0 1 22 0z" stroke="#1f4d7a" stroke-width="1.8"/><path d="M14 15v11h4V15" stroke="#1f4d7a" stroke-width="1.8"/><circle cx="12" cy="11" r="1" fill="#1f4d7a"/><circle cx="19" cy="10" r="1" fill="#1f4d7a"/></svg></div><h3>Shiitakés</h3><span class="format">frais · selon la récolte</span><p>Chapeau brun, chair ferme et un goût marqué, boisé, qui tient bien à la cuisson.</p></article>
+        <article class="carte"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M6 14c0-4 4-7 8-7s7 3 7 7z M17 17c0-3 3-5 5-5s5 2 5 5z" stroke="#1f4d7a" stroke-width="1.6"/><path d="M13 14v12M22 17v9" stroke="#1f4d7a" stroke-width="1.6"/></svg></div><h3>Pholiotes du peuplier</h3><span class="format">selon la récolte</span><p>Petits chapeaux dorés sur un pied élancé, à la texture croquante. Aussi proposées en poudre.</p></article>
+      </div>
+    </div>
+
+    <div class="panneau" id="p-seches" role="tabpanel" aria-labelledby="t-seches" hidden>
+      <div class="cartes">
+        <article class="carte kraft"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M8 6h16l2 22H6z" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><rect x="11" y="14" width="10" height="8" rx="1" stroke="#1f4d7a" stroke-width="1.4"/></svg></div><h3>Champignons séchés</h3><span class="format">sachet kraft · 40 g</span><p>50 % pleurotes, 50 % shiitakés, produits et séchés à la ferme. Séchage basse température.</p></article>
+        <article class="carte kraft"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M8 6h16l2 22H6z" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><rect x="11" y="14" width="10" height="8" rx="1" stroke="#1f4d7a" stroke-width="1.4"/></svg></div><h3>Shiitakés séchés</h3><span class="format">sachet kraft · 40 g</span><p>100 % shiitakés, produits et séchés à la ferme. Séchage basse température.</p></article>
+        <article class="carte pot"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><rect x="9" y="5" width="14" height="4" rx="1" stroke="#c9d6e0" stroke-width="1.6"/><rect x="8" y="9" width="16" height="18" rx="3" stroke="#c9d6e0" stroke-width="1.6"/></svg></div><h3>Shiitakés séchés en pot</h3><span class="format">pot · 10 g</span><p>Le format pot, pratique pour garder quelques shiitakés séchés à portée de main.</p></article>
+      </div>
+    </div>
+
+    <div class="panneau" id="p-poudres" role="tabpanel" aria-labelledby="t-poudres" hidden>
+      <div class="cartes">
+        <article class="carte pot"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><rect x="9" y="5" width="14" height="4" rx="1" stroke="#c9d6e0" stroke-width="1.6"/><rect x="8" y="9" width="16" height="18" rx="3" stroke="#c9d6e0" stroke-width="1.6"/><path d="M11 20h10" stroke="#c9d6e0" stroke-width="1.4" stroke-dasharray="1 2"/></svg></div><h3>Shiitakés en poudre</h3><span class="format">pot · 30 g</span><p>Une cuillère dans une sauce, un risotto ou un bouillon pour un goût de sous-bois.</p></article>
+        <article class="carte pot"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><rect x="9" y="5" width="14" height="4" rx="1" stroke="#c9d6e0" stroke-width="1.6"/><rect x="8" y="9" width="16" height="18" rx="3" stroke="#c9d6e0" stroke-width="1.6"/><path d="M11 20h10" stroke="#c9d6e0" stroke-width="1.4" stroke-dasharray="1 2"/></svg></div><h3>Pholiotes du peuplier en poudre</h3><span class="format">pot · 30 g</span><p>La pholiote réduite en poudre, à saupoudrer en fin de cuisson.</p></article>
+        <article class="carte"><div class="ico"><svg width="30" height="30" viewBox="0 0 32 32" fill="none"><path d="M6 26c6-2 14-2 20 0M10 22c2-8 10-8 12 0" stroke="#5f7a3e" stroke-width="1.8" stroke-linecap="round"/></svg></div><h3>Recettes &amp; idées</h3><span class="format">sur la page Facebook</span><p>La ferme partage ses infos et ses recettes sur sa page Facebook — un espace « Recettes » pourrait les reprendre ici.</p></article>
+      </div>
+    </div>
+
+    <div class="bandeau-photo revele">
+      <div class="photo"><img src="https://www.burgundy-tourism.com/uploads/external/a0c9fab267c2c7c88640fc59115055db-fond-noir-1600x0.jpg" alt="Panier de champignons frais, sachets kraft et pots de champignons séchés et en poudre des Champignons du Brionnais" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="commande" id="commande">
+  <div class="wrap">
+    <div class="revele">
+      <p class="surtitre">Vente à la ferme · sur rendez-vous</p>
+      <h2 class="titre-sec">Préparez votre commande, venez la retirer à Briant</h2>
+      <div class="filet"></div>
+      <p class="intro-sec">La vente à la ferme se fait uniquement sur commande préalable. Composez votre panier, indiquez quand vous souhaitez passer : votre demande est prête à partir par SMS, par mail ou à lire au téléphone. La ferme vous confirme selon la récolte.</p>
+    </div>
+
+    <div class="outil">
+      <div>
+        <div class="bloc revele">
+          <h3>1. Votre panier <em>frais</em></h3>
+          <div id="liste-frais"></div>
+        </div>
+        <div class="bloc revele" style="margin-top:1.2rem">
+          <h3>2. Le placard <em>séché &amp; poudre</em></h3>
+          <div id="liste-sec"></div>
+        </div>
+        <div class="bloc revele" style="margin-top:1.2rem">
+          <h3>3. Votre passage à la ferme</h3>
+          <div class="champ"><label>Jour souhaité</label><div class="jours" id="jours"></div></div>
+          <div class="champ"><label for="moment">Moment</label>
+            <select id="moment"><option>Matin</option><option>Midi</option><option selected>Après-midi</option><option>Fin de journée</option></select></div>
+          <div class="champ"><label for="nom">Votre nom</label><input id="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+          <div class="champ"><label for="tel">Votre téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+          <div class="champ"><label for="mot">Un mot pour la ferme (facultatif)</label><textarea id="mot" rows="2" placeholder="Ex. pour un repas de 6 personnes samedi"></textarea></div>
+        </div>
+      </div>
+
+      <aside class="recap revele" aria-live="polite">
+        <h3 class="titre-sec" style="font-size:1.4rem">Votre demande</h3>
+        <ul id="recap"><li class="vide-recap" style="border:0">Ajoutez un produit pour commencer.</li></ul>
+        <p class="note">Quantités indicatives : la ferme ajuste selon la cueillette du jour. Retrait à Lieu-dit Farges, 71110 Briant. Règlement par chèque, mandat postal ou espèces.</p>
+        <div class="envoi">
+          <a class="btn" id="b-sms" aria-disabled="true" href="#">Envoyer par SMS</a>
+          <a class="btn ligne" id="b-mail" aria-disabled="true" href="#">Envoyer par mail</a>
+          <a class="btn kraft" href="tel:+33619981428">Appeler le 06 19 98 14 28</a>
+        </div>
+        <details style="margin-top:1rem"><summary style="cursor:pointer;font-size:.88rem;color:var(--encre)">Voir le message préparé</summary><div class="message" id="message"></div></details>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="zone" id="zone">
+  <div class="wrap grille">
+    <div class="revele">
+      <p class="surtitre" style="color:var(--kraft)">Circuit court</p>
+      <h2 class="titre-sec">À moins de 50 km de chez vous ?</h2>
+      <div class="filet"></div>
+      <p class="intro-sec">Les champignons sont vendus en local, dans un rayon de 50 km autour de la ferme. Touchez une ville sur la carte pour voir la distance qui la sépare de Briant.</p>
+      <div class="distance" id="distance"><b>Briant</b><br><span style="color:var(--texte-doux)">Choisissez une ville sur la carte.</span></div>
+      <div class="lieux">
+        <div class="lieu"><strong>Restaurants</strong>du secteur</div>
+        <div class="lieu"><strong>Marchés</strong>&amp; épiceries</div>
+        <div class="lieu"><strong>À la ferme</strong>sur rendez-vous</div>
+      </div>
+      <p style="font-size:.82rem;color:var(--texte-doux);margin-top:.8rem">La liste des restaurants, marchés et épiceries partenaires est à compléter par la ferme.</p>
+    </div>
+    <div class="carte-zone revele">
+      <svg id="carte" viewBox="0 0 440 440" role="img" aria-label="Carte du rayon de 50 km autour de Briant"></svg>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="revele">
+      <p class="surtitre" style="color:var(--kraft)">Contact</p>
+      <h2 class="titre-sec">Une commande, une question ?</h2>
+      <div class="filet"></div>
+    </div>
+    <div class="grille">
+      <div class="info revele"><h3>Téléphone</h3><p><a href="tel:+33619981428">06 19 98 14 28</a><br>Commande préalable par téléphone pour un retrait à la ferme.</p></div>
+      <div class="info revele"><h3>Adresse</h3><p>Les Champignons du Brionnais<br>Lieu-dit Farges<br>71110 Briant<br><a href="https://www.google.com/maps?daddr=46.2974368,4.13570276" target="_blank" rel="noopener">Itinéraire</a></p></div>
+      <div class="info revele"><h3>Mail &amp; réseaux</h3><p><a href="mailto:contact@leschampignonsdubrionnais.fr">contact@leschampignonsdubrionnais.fr</a><br><a href="https://www.facebook.com/leschampignonsdubrionnais" target="_blank" rel="noopener">Page Facebook</a> — infos &amp; recettes<br>Ouvert toute l'année, sur rendez-vous uniquement.</p></div>
+    </div>
+    <p style="text-align:center;margin-top:2.4rem"><a class="btn" href="#commande">Préparer ma commande</a></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="haut">
+      <a class="marque" href="#accueil"><span class="tampon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5 14c1-6 7-9 12-8s10 4 10 8c-5 1.5-17 1.5-22 0z" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 15.5c0 4-1 8-2.5 11h7c-1.5-3-2.5-7-2.5-11" stroke="#1f4d7a" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 27h16" stroke="#1f4d7a" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><b>Les Champignons<br>du Brionnais</b><small>Producteur artisanal · 71110 Briant</small></span></a>
+      <p>Lieu-dit Farges, 71110 Briant · <a href="tel:+33619981428">06 19 98 14 28</a> · <a href="mailto:contact@leschampignonsdubrionnais.fr">contact@leschampignonsdubrionnais.fr</a></p>
+    </div>
+    <p class="mention"><b>Maquette de démonstration</b>, non officielle, préparée pour présenter un site possible pour Les Champignons du Brionnais. Textes, produits, formats et coordonnées repris des fiches publiées par la ferme (office de tourisme Marcigny-Semur, Bourgogne Tourisme) et de ses étiquettes. Toutes les photos sont celles publiées par la ferme&nbsp;; aucune photo d'illustration n'a été ajoutée — les photos du chai et de la récolte restent à fournir. Couleurs et lettrage approchés à partir du logo, ajustables&nbsp;; le pictogramme est provisoire, à remplacer par le logo original. Aucun prix n'est affiché&nbsp;: les tarifs sont à ajouter par la ferme. Le formulaire prépare un message mais ne transmet rien automatiquement.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* menu */
+  const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', false); }));
+  const nav = document.querySelector('header.nav');
+  addEventListener('scroll', () => nav.classList.toggle('ombre', scrollY > 20), {passive:true});
+
+  /* révélations + compteurs + lien actif */
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('vu');
+    e.target.querySelectorAll('[data-compte]').forEach(c => {
+      const fin = +c.dataset.compte; if (reduit) return;
+      let t0; const pas = t => { t0 ??= t; const p = Math.min((t - t0) / 1200, 1); c.textContent = Math.round(fin * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(pas); };
+      requestAnimationFrame(pas);
+    });
+    io.unobserve(e.target);
+  }), {threshold:.15});
+  document.querySelectorAll('.revele').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(el); });
+  const liens = [...menu.querySelectorAll('a')];
+  const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) liens.forEach(l => l.classList.toggle('actif', l.getAttribute('href') === '#' + e.target.id)); }), {rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s => io2.observe(s));
+
+  /* spores qui flottent dans la lumière du hero */
+  const cv = document.getElementById('spores');
+  if (cv && !reduit) {
+    const cx = cv.getContext('2d'); let W, H, pts = [];
+    const taille = () => { W = cv.width = cv.offsetWidth * devicePixelRatio; H = cv.height = cv.offsetHeight * devicePixelRatio; };
+    taille(); addEventListener('resize', taille);
+    for (let i = 0; i < 60; i++) pts.push({x:Math.random(), y:Math.random(), r:Math.random() * 1.8 + .4, v:Math.random() * .00025 + .00008, d:Math.random() * 6.28});
+    const boucle = () => {
+      cx.clearRect(0, 0, W, H);
+      pts.forEach(p => { p.y -= p.v; p.d += .01; if (p.y < -.02) { p.y = 1.02; p.x = Math.random(); }
+        const x = (p.x + Math.sin(p.d) * .01) * W, y = p.y * H;
+        cx.beginPath(); cx.arc(x, y, p.r * devicePixelRatio, 0, 6.28); cx.fillStyle = 'rgba(231,214,191,' + (.25 + .35 * Math.sin(p.d) ** 2) + ')'; cx.fill(); });
+      requestAnimationFrame(boucle);
+    };
+    boucle();
+  }
+
+  /* onglets produits */
+  const onglets = document.querySelectorAll('.onglet');
+  onglets.forEach(o => o.addEventListener('click', () => {
+    onglets.forEach(x => { x.setAttribute('aria-selected', x === o); document.getElementById(x.getAttribute('aria-controls')).hidden = x !== o; });
+  }));
+
+  /* outil de commande */
+  const frais = [
+    {id:'pl', nom:'Pleurotes', info:'frais, selon la récolte', pas:250, unite:'g'},
+    {id:'sh', nom:'Shiitakés', info:'frais, selon la récolte', pas:250, unite:'g'},
+    {id:'ph', nom:'Pholiotes du peuplier', info:'selon la récolte', pas:250, unite:'g'}
+  ];
+  const sec = [
+    {id:'mx', nom:'Champignons séchés', info:'sachet 40 g · pleurotes & shiitakés', pas:1, unite:'sachet'},
+    {id:'ss', nom:'Shiitakés séchés', info:'sachet 40 g', pas:1, unite:'sachet'},
+    {id:'sp', nom:'Shiitakés séchés', info:'pot 10 g', pas:1, unite:'pot'},
+    {id:'ps', nom:'Shiitakés en poudre', info:'pot 30 g', pas:1, unite:'pot'},
+    {id:'pp', nom:'Pholiotes du peuplier en poudre', info:'pot 30 g', pas:1, unite:'pot'}
+  ];
+  const q = {};
+  const fmt = p => { const n = q[p.id] || 0; if (!n) return '—'; if (p.unite === 'g') return n >= 1000 ? (n / 1000).toString().replace('.', ',') + ' kg' : n + ' g'; return n + ' ' + p.unite + (n > 1 ? 's' : ''); };
+  const remplir = (id, liste) => {
+    const box = document.getElementById(id);
+    liste.forEach(p => {
+      const l = document.createElement('div'); l.className = 'ligne-prod';
+      l.innerHTML = `<div><b>${p.nom}</b><small>${p.info}</small></div><div class="qte"><button aria-label="Retirer ${p.nom}">−</button><output id="o-${p.id}">—</output><button aria-label="Ajouter ${p.nom}">+</button></div>`;
+      const [moins, plus] = l.querySelectorAll('button');
+      moins.onclick = () => { q[p.id] = Math.max(0, (q[p.id] || 0) - p.pas); maj(); };
+      plus.onclick = () => { q[p.id] = Math.min(p.unite === 'g' ? 5000 : 20, (q[p.id] || 0) + p.pas); maj(); };
+      box.appendChild(l);
+    });
+  };
+  remplir('liste-frais', frais); remplir('liste-sec', sec);
+
+  /* jours : les 10 prochains jours */
+  const joursBox = document.getElementById('jours'); let jourChoisi = null;
+  const noms = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
+  for (let i = 1; i <= 10; i++) {
+    const d = new Date(); d.setDate(d.getDate() + i);
+    const b = document.createElement('button'); b.className = 'jour'; b.type = 'button';
+    b.textContent = noms[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth() + 1);
+    b.setAttribute('aria-pressed', 'false');
+    b.onclick = () => { joursBox.querySelectorAll('.jour').forEach(x => x.setAttribute('aria-pressed', x === b)); jourChoisi = b.textContent; maj(); };
+    joursBox.appendChild(b);
+  }
+  ['moment', 'nom', 'tel', 'mot'].forEach(id => document.getElementById(id).addEventListener('input', () => maj()));
+
+  const bSms = document.getElementById('b-sms'), bMail = document.getElementById('b-mail');
+  function maj() {
+    const tous = [...frais, ...sec];
+    tous.forEach(p => { const o = document.getElementById('o-' + p.id); o.textContent = fmt(p); o.classList.toggle('plein', !!q[p.id]); });
+    const pris = tous.filter(p => q[p.id]);
+    const ul = document.getElementById('recap');
+    ul.innerHTML = pris.length ? pris.map(p => `<li><span>${p.nom}${p.unite !== 'g' ? ' <small style="color:var(--texte-doux)">(' + p.info.split(' · ')[0] + ')</small>' : ''}</span><b>${fmt(p)}</b></li>`).join('')
+      : '<li class="vide-recap" style="border:0">Ajoutez un produit pour commencer.</li>';
+    const nom = document.getElementById('nom').value.trim(), tel = document.getElementById('tel').value.trim(), mot = document.getElementById('mot').value.trim();
+    const txt = 'Bonjour, je souhaiterais commander pour un retrait à la ferme :\n'
+      + pris.map(p => '- ' + p.nom + (p.unite !== 'g' ? ' (' + p.info.split(' · ')[0] + ')' : '') + ' : ' + fmt(p)).join('\n')
+      + '\nPassage souhaité : ' + (jourChoisi || 'à convenir') + ', ' + document.getElementById('moment').value.toLowerCase()
+      + (mot ? '\n' + mot : '') + '\n' + (nom || '') + (tel ? ' — ' + tel : '') + '\nMerci !';
+    document.getElementById('message').textContent = pris.length ? txt : '';
+    const ok = pris.length > 0;
+    [bSms, bMail].forEach(b => b.setAttribute('aria-disabled', !ok));
+    bSms.href = ok ? 'sms:+33619981428?&body=' + encodeURIComponent(txt) : '#';
+    bMail.href = ok ? 'mailto:contact@leschampignonsdubrionnais.fr?subject=' + encodeURIComponent('Commande à retirer à la ferme') + '&body=' + encodeURIComponent(txt) : '#';
+  }
+
+  /* carte du rayon de 50 km */
+  const F = {lat:46.2974368, lon:4.13570276};
+  const villes = [
+    ['Marcigny', 46.2760, 4.0400, -9, -6, 'end'], ['Semur-en-Brionnais', 46.2670, 4.0900, -8, 18, 'end'], ['La Clayette', 46.2905, 4.3040, 9, 18, 'start'],
+    ['Charlieu', 46.1590, 4.1730, 9, 5, 'start'], ['Paray-le-Monial', 46.4510, 4.1200, 9, -6, 'start'], ['Chauffailles', 46.2070, 4.3390, 9, 5, 'start'],
+    ['Digoin', 46.4810, 3.9800, -9, -6, 'end'], ['Roanne', 46.0360, 4.0680, 9, 5, 'start'], ['Charolles', 46.4340, 4.2760, 8, 20, 'start']
+  ];
+  const km = (a, b, c, d) => { const R = 6371, r = Math.PI / 180, x = (d - b) * r * Math.cos((a + c) / 2 * r), y = (c - a) * r; return Math.sqrt(x * x + y * y) * R; };
+  const svg = document.getElementById('carte'), NS = 'http://www.w3.org/2000/svg', C = 220, ech = 190 / 50;
+  const pos = (la, lo) => [C + (lo - F.lon) * 111.32 * Math.cos(F.lat * Math.PI / 180) * ech, C - (la - F.lat) * 110.57 * ech];
+  const el = (n, a, p = svg) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
+  el('circle', {cx:C, cy:C, r:190, fill:'rgba(31,77,122,.06)', stroke:'none'});
+  el('circle', {cx:C, cy:C, r:190, fill:'none', stroke:'#1f4d7a', 'stroke-width':1.5, class:'rayon-anim'});
+  el('circle', {cx:C, cy:C, r:95, fill:'none', stroke:'rgba(31,77,122,.25)', 'stroke-dasharray':'2 5'});
+  el('text', {x:C + 4, y:C - 192 + 16, fill:'#1f4d7a', 'font-size':12, 'font-family':'Source Sans 3, sans-serif', 'font-weight':600}).textContent = '50 km';
+  el('text', {x:C + 4, y:C - 97 + 14, fill:'#55636e', 'font-size':11, 'font-family':'Source Sans 3, sans-serif'}).textContent = '25 km';
+  el('circle', {cx:C, cy:C, r:9, fill:'#b58a5b', class:'ferme-pt'});
+  el('circle', {cx:C, cy:C, r:8, fill:'#b58a5b', stroke:'#fff', 'stroke-width':2.5});
+  const tF = el('text', {x:C, y:C - 18, 'text-anchor':'middle', 'font-family':'Lora, serif', 'font-style':'italic', 'font-weight':700, 'font-size':15, fill:'#1f4d7a'}); tF.textContent = 'Briant · la ferme';
+  const dist = document.getElementById('distance');
+  villes.forEach(([n, la, lo, dx, dy, ta]) => {
+    const [x, y] = pos(la, lo), d = km(F.lat, F.lon, la, lo);
+    const g = el('g', {class:'ville', tabindex:0, role:'button', 'aria-label':n + ', ' + Math.round(d) + ' km'});
+    el('line', {x1:C, y1:C, x2:x, y2:y, stroke:'rgba(31,77,122,0)', 'stroke-width':1.5, 'stroke-dasharray':'3 4'}, g);
+    el('circle', {cx:x, cy:y, r:5}, g);
+    const t = el('text', {x:x + dx, y:y + dy, 'text-anchor':ta}, g); t.textContent = n;
+    const choisir = () => {
+      svg.querySelectorAll('.ville').forEach(v => { v.classList.remove('sel'); v.querySelector('line').setAttribute('stroke', 'rgba(31,77,122,0)'); });
+      g.classList.add('sel'); g.querySelector('line').setAttribute('stroke', '#b58a5b');
+      dist.innerHTML = `<b>${n}</b><br>environ <strong>${Math.round(d)} km</strong> à vol d'oiseau de la ferme — dans la zone de vente en circuit court (rayon de 50 km).`;
+    };
+    g.addEventListener('click', choisir); g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choisir(); } });
+  });
+})();
+</script>
+</body>
+</html>
