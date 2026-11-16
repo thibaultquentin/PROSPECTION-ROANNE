@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cave Verdier Logel — Vigneron bio en Côtes du Forez | Marcilly-le-Châtel</title>
+<meta name="description" content="Vins bio de la Cave Verdier Logel à Marcilly-le-Châtel : Gamay en AOC Côtes du Forez sur granite et basalte, blancs en IGP d'Urfé. Vente au caveau du lundi au samedi.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE CAVE VERDIER LOGEL — relevée sur verdier-logel.com
+   Or (titres, liens, boutons)  : #c0a66f  (couleur dominante du site)
+   Or clair (survol)            : #d8c08c  (CSS du site)
+   Anthracite (textes, fonds)   : #2f2f2f  (CSS du site)
+   Rose du tracteur             : #d9315a  (approché de l'illustration « tracteur rose »)
+   Police                       : Lato (celle du site, 100 à 900)
+   Logo                         : oiseau au trait, versions noire et blanche du site
+   ========================================================= */
+:root{
+  --or:#c0a66f;
+  --or-clair:#d8c08c;
+  --or-pale:#f4efe4;
+  --anthracite:#2f2f2f;
+  --nuit:#1c1b19;
+  --rose:#d9315a;      /* approché */
+  --granite:#9a8f84;
+  --basalte:#3b3d42;
+  --texte:#2f2f2f;
+  --gris:#6b6760;
+  --blanc:#ffffff;
+  --creme:#faf8f3;
+  --rayon:14px;
+  --ombre:0 22px 50px -24px rgba(28,27,25,.45);
+  --font:"Lato",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--texte);background:var(--blanc);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--or)}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px;border-radius:6px}
+.eyebrow{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--or);font-weight:700}
+h1,h2,h3{font-weight:900;line-height:1.1;letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,1.4rem + 2.2vw,3.1rem);margin:.4rem 0 1rem}
+h2 em{font-style:normal;color:var(--or);font-weight:300}
+.lead{color:var(--gris);font-size:1.07rem;max-width:62ch}
+section{padding:clamp(4rem,3rem + 4vw,7rem) 0}
+
+/* progression lecture */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--or),var(--rose));z-index:100}
+
+/* bandeau démo */
+.demo{background:var(--nuit);color:#e9e2d3;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo b{color:var(--or)}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(28,27,25,.86);backdrop-filter:blur(12px) saturate(150%);transition:background .3s,box-shadow .3s}
+header.scrolled{background:rgba(28,27,25,.96);box-shadow:0 12px 30px -20px rgba(0,0,0,.6)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:#fff}
+.brand img{height:40px;width:auto}
+.brand span{display:flex;flex-direction:column;line-height:1.05}
+.brand b{font-weight:900;letter-spacing:.14em;text-transform:uppercase;font-size:.95rem}
+.brand small{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--or)}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{color:#e9e2d3;text-decoration:none;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--or);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:.6rem;border:0;border-radius:999px;padding:.85rem 1.5rem;font-weight:700;font-size:.9rem;letter-spacing:.06em;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s,color .25s}
+.btn-or{background:var(--or);color:var(--nuit)}
+.btn-or:hover{background:var(--or-clair);transform:translateY(-2px);box-shadow:0 14px 28px -14px rgba(192,166,111,.9)}
+.btn-ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+.btn-ghost:hover{box-shadow:inset 0 0 0 1.5px var(--or);color:var(--or)}
+.btn:active{transform:scale(.97)}
+.burger{display:none;background:none;border:0;color:#fff;width:44px;height:44px}
+.burger span{display:block;height:2px;background:currentColor;margin:6px 8px;transition:transform .3s}
+@media (max-width:960px){
+  .menu{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--nuit);padding:1.4rem 24px 2rem;gap:1.1rem;transform:translateY(-110%);visibility:hidden;transition:transform .45s var(--ease),visibility .45s}
+  .menu.open{transform:none;visibility:visible}
+  .brand small{display:none}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* héros */
+.hero{position:relative;min-height:calc(100vh - 100px);display:grid;align-items:end;color:#fff;overflow:hidden;padding:0}
+.hero__bg{position:absolute;inset:0;background:url("https://www.verdier-logel.com/wp-content/uploads/2019/11/9.jpg") center 35%/cover;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.16) translate(-1.5%,-1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(28,27,25,.15) 0%,rgba(28,27,25,.35) 40%,rgba(28,27,25,.92) 100%)}
+.hero__inner{position:relative;z-index:2;padding:5rem 0 4.2rem}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);max-width:15ch}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l>span{display:inline-block;transform:translateY(110%);animation:up 1s var(--ease) forwards}
+.hero h1 .l:nth-child(2)>span{animation-delay:.12s;color:var(--or);font-weight:300}
+@keyframes up{to{transform:none}}
+.hero p.sub{margin:1.1rem 0 2rem;font-size:1.15rem;color:#ece4d4;max-width:52ch;opacity:0;animation:fade 1s .5s forwards}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;opacity:0;animation:fade 1s .7s forwards}
+@keyframes fade{to{opacity:1}}
+.hero__tag{position:absolute;right:24px;bottom:4.4rem;z-index:2;writing-mode:vertical-rl;letter-spacing:.35em;text-transform:uppercase;font-size:.72rem;color:var(--or)}
+@media (max-width:700px){.hero__tag{display:none}.hero::after{background:linear-gradient(180deg,rgba(28,27,25,.25) 0%,rgba(28,27,25,.55) 45%,rgba(28,27,25,.95) 100%)}}
+.scroll-ind{position:absolute;left:50%;bottom:16px;z-index:2;width:22px;height:36px;border:2px solid rgba(255,255,255,.6);border-radius:12px;transform:translateX(-50%)}
+.scroll-ind::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;background:var(--or);border-radius:2px;transform:translateX(-50%);animation:sc 1.8s infinite}
+@keyframes sc{0%{opacity:0;transform:translate(-50%,0)}40%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+
+/* repères */
+.facts{background:var(--nuit);color:#fff;padding:2.4rem 0}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.fact b{display:block;font-size:clamp(1.8rem,1.3rem + 2vw,2.7rem);font-weight:900;color:var(--or);line-height:1}
+.fact span{font-size:.86rem;color:#cfc7b8;letter-spacing:.04em}
+@media (max-width:760px){.facts .wrap{grid-template-columns:repeat(2,1fr)}}
+
+/* révélations */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* la cave */
+.cave{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,4.5rem);align-items:center}
+.cave__img{position:relative}
+.cave__img img{border-radius:var(--rayon);box-shadow:var(--ombre);aspect-ratio:4/5;object-fit:cover;width:100%}
+.cave__img .stamp{position:absolute;right:-18px;bottom:28px;background:var(--or);color:var(--nuit);border-radius:50%;width:132px;height:132px;display:grid;place-items:center;text-align:center;font-weight:900;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;line-height:1.2;animation:spin 18s linear infinite}
+.cave__img .stamp i{font-style:normal;display:block;font-size:1.6rem}
+@keyframes spin{from{transform:rotate(-8deg)}50%{transform:rotate(8deg)}to{transform:rotate(-8deg)}}
+.trio{display:flex;gap:.6rem;margin-top:1.6rem;flex-wrap:wrap}
+.trio span{background:var(--or-pale);color:var(--anthracite);border-radius:999px;padding:.4rem .95rem;font-size:.85rem;font-weight:700}
+@media (max-width:860px){.cave{grid-template-columns:1fr}.cave__img .stamp{right:10px}}
+
+/* terroirs */
+.terroirs{background:var(--creme)}
+.tt{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:22px;overflow:hidden;box-shadow:var(--ombre);margin-top:2.4rem;min-height:440px}
+.tt__side{position:relative;padding:2.4rem;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;transition:flex .6s var(--ease),filter .5s;cursor:pointer;overflow:hidden}
+.tt__side::before{content:"";position:absolute;inset:0;background-size:cover;background-position:center;transition:transform 1.2s var(--ease)}
+.tt__side::after{content:"";position:absolute;inset:0}
+.tt__side>*{position:relative;z-index:2}
+.tt__g::before{background-image:url("https://www.verdier-logel.com/wp-content/uploads/2019/09/NT3_1412.jpg")}
+.tt__g::after{background:linear-gradient(180deg,rgba(154,143,132,.15),rgba(60,52,44,.92))}
+.tt__b::before{background-image:url("https://www.verdier-logel.com/wp-content/uploads/2017/02/93-10-Grappes.jpg")}
+.tt__b::after{background:linear-gradient(180deg,rgba(30,30,34,.1),rgba(22,22,26,.94))}
+.tt__side:hover::before{transform:scale(1.07)}
+.tt__side h3{font-size:clamp(1.8rem,1.4rem + 1.6vw,2.6rem);letter-spacing:.06em;text-transform:uppercase}
+.tt__side p{color:#eee6d8;max-width:40ch;margin:.5rem 0 1rem}
+.tt__list{display:flex;flex-wrap:wrap;gap:.45rem}
+.tt__list button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:.35rem .85rem;font-size:.82rem;font-weight:700;transition:background .25s,color .25s}
+.tt__list button:hover{background:var(--or);color:var(--nuit);border-color:var(--or)}
+@media (max-width:760px){.tt{grid-template-columns:1fr}.tt__side{min-height:340px}}
+
+/* vins */
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:2rem 0 1.6rem}
+.chip{border:1.5px solid #ddd5c5;background:#fff;color:var(--anthracite);border-radius:999px;padding:.5rem 1.05rem;font-size:.86rem;font-weight:700;transition:all .25s var(--ease)}
+.chip:hover{border-color:var(--or)}
+.chip[aria-pressed="true"]{background:var(--anthracite);border-color:var(--anthracite);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:1.1rem}
+.wine{position:relative;background:#fff;border:1px solid #ece6da;border-radius:var(--rayon);padding:1.2rem 1rem 1rem;text-align:center;transition:transform .45s var(--ease),box-shadow .45s,opacity .4s;display:flex;flex-direction:column}
+.wine:hover{transform:translateY(-6px);box-shadow:var(--ombre)}
+.wine.hide{display:none}
+.wine__img{height:190px;display:grid;place-items:center;margin-bottom:.8rem;background:radial-gradient(circle at 50% 75%,var(--or-pale) 0 38%,transparent 39%)}
+.wine__img img{max-height:180px;width:auto;transition:transform .6s var(--ease)}
+.wine:hover .wine__img img{transform:rotate(-6deg) scale(1.05)}
+.wine h3{font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase}
+.wine .meta{font-size:.8rem;color:var(--gris);margin:.2rem 0 .7rem}
+.wine .tag{position:absolute;top:.75rem;left:.75rem;font-size:.66rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .5rem;border-radius:6px;background:var(--or-pale);color:#7d6a3f}
+.wine .tag.b{background:#2f3035;color:#e8e3d8}
+.wine .acts{margin-top:auto;display:flex;gap:.4rem;justify-content:center}
+.mini{border:0;border-radius:999px;padding:.45rem .8rem;font-size:.78rem;font-weight:700;background:var(--or-pale);color:var(--anthracite);transition:background .2s}
+.mini:hover{background:var(--or)}
+.mini.add{background:var(--anthracite);color:#fff}
+.mini.add:hover{background:var(--rose)}
+
+/* fiche */
+dialog{border:0;border-radius:20px;max-width:760px;width:calc(100% - 32px);padding:0;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(20,19,17,.66);backdrop-filter:blur(4px)}
+.sheet{display:grid;grid-template-columns:200px 1fr}
+.sheet__img{background:var(--or-pale);display:grid;place-items:center;padding:1.5rem}
+.sheet__img img{max-height:300px;width:auto}
+.sheet__txt{padding:2rem 2rem 1.6rem}
+.sheet__txt h3{font-size:1.6rem;text-transform:uppercase;letter-spacing:.05em}
+.sheet__txt h4{font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin:1.1rem 0 .3rem}
+.sheet__txt p{font-size:.95rem;color:#4a4740}
+.x{position:absolute;top:10px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:1.3rem;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+@media (max-width:640px){.sheet{grid-template-columns:1fr}.sheet__img img{max-height:200px}}
+
+/* accords — outil central */
+.accords{background:var(--nuit);color:#fff;position:relative;overflow:hidden}
+.accords::before{content:"";position:absolute;inset:-20% -10% auto auto;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(192,166,111,.22),transparent 65%);filter:blur(10px);animation:float 14s ease-in-out infinite alternate}
+@keyframes float{to{transform:translate(-120px,140px)}}
+.accords .lead{color:#cfc7b8}
+.acc{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.4rem;margin-top:2.4rem;position:relative}
+.dishes{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;align-content:start}
+.dish{display:flex;align-items:center;gap:.7rem;text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:12px;padding:.8rem .9rem;font-weight:700;font-size:.92rem;transition:all .3s var(--ease)}
+.dish i{font-style:normal;font-size:1.3rem}
+.dish:hover{border-color:var(--or);transform:translateX(4px)}
+.dish[aria-pressed="true"]{background:var(--or);color:var(--nuit);border-color:var(--or)}
+.result{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:1.6rem;min-height:340px}
+.result h3{font-size:1.3rem;margin-bottom:1rem}
+.result h3 span{color:var(--or)}
+.match{display:grid;grid-template-columns:70px 1fr;gap:1rem;align-items:center;padding:1rem 0;border-top:1px solid rgba(255,255,255,.1);animation:pop .55s var(--ease) both}
+.match:nth-child(3){animation-delay:.08s}.match:nth-child(4){animation-delay:.16s}.match:nth-child(5){animation-delay:.24s}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}}
+.match img{max-height:110px;width:auto;margin:auto;filter:drop-shadow(0 10px 14px rgba(0,0,0,.5))}
+.match b{display:block;text-transform:uppercase;letter-spacing:.08em}
+.match small{color:var(--or);font-weight:700;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase}
+.match q{display:block;color:#d9d1c2;font-size:.92rem;margin:.35rem 0 .55rem;font-style:italic}
+.match q::before,.match q::after{content:""}
+.empty{color:#a49d8f;display:grid;place-items:center;height:260px;text-align:center}
+@media (max-width:900px){.acc{grid-template-columns:1fr}.dishes{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.dishes{grid-template-columns:1fr}}
+
+/* visite */
+.visite{background:var(--creme)}
+.vis{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;margin-top:2.2rem;align-items:start}
+.card{background:#fff;border-radius:20px;padding:1.8rem;box-shadow:0 18px 40px -30px rgba(0,0,0,.35);border:1px solid #eee6d6}
+.card h3{font-size:1.15rem;margin-bottom:.3rem}
+.card .hint{font-size:.86rem;color:var(--gris);margin-bottom:1.1rem}
+.carton{list-style:none;display:grid;gap:.5rem;min-height:70px}
+.carton li{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.6rem;background:var(--creme);border-radius:12px;padding:.55rem .55rem .55rem .9rem;animation:pop .4s var(--ease)}
+.carton li b{font-size:.92rem;text-transform:uppercase;letter-spacing:.05em}
+.carton li small{display:block;color:var(--gris);font-size:.76rem}
+.qty{display:flex;align-items:center;gap:.25rem}
+.qty button{width:34px;height:34px;border-radius:50%;border:1px solid #ddd5c5;background:#fff;font-weight:900}
+.qty button:hover{border-color:var(--or)}
+.qty output{min-width:28px;text-align:center;font-weight:900}
+.carton .vide{background:none;color:var(--gris);font-size:.9rem;display:block;padding:.4rem 0}
+.box{margin-top:1.2rem;display:flex;align-items:center;gap:1rem}
+.box__bar{flex:1;height:10px;border-radius:999px;background:#ece5d6;overflow:hidden}
+.box__bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--or),var(--rose));transition:width .5s var(--ease)}
+.box b{font-size:.86rem;white-space:nowrap}
+.field{display:grid;gap:.3rem;margin-bottom:.9rem}
+.field label{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.field input,.field select,.field textarea{font:inherit;border:1.5px solid #e2dacb;border-radius:10px;padding:.7rem .8rem;background:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--or);outline:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.slots{display:flex;flex-wrap:wrap;gap:.4rem}
+.slots button{border:1.5px solid #e2dacb;background:#fff;border-radius:8px;padding:.4rem .6rem;font-size:.82rem;font-weight:700}
+.slots button[aria-pressed="true"]{background:var(--anthracite);color:#fff;border-color:var(--anthracite)}
+.slots .closed{color:var(--rose);font-size:.86rem;font-weight:700}
+.recap{font-size:.86rem;color:var(--gris);background:var(--or-pale);border-radius:10px;padding:.7rem .9rem;margin:.6rem 0 1rem}
+.card .btn{width:100%;justify-content:center;margin-top:.4rem}
+.card .btn-line{background:#fff;color:var(--anthracite);box-shadow:inset 0 0 0 1.5px var(--anthracite)}
+.card .btn-line:hover{background:var(--anthracite);color:#fff}
+@media (max-width:900px){.vis{grid-template-columns:minmax(0,1fr)}}
+.card{min-width:0}.field input,.field select,.field textarea{min-width:0;width:100%}
+@media (max-width:480px){.row2{grid-template-columns:1fr}.card{padding:1.3rem}}
+
+/* histoire */
+.timeline{position:relative;margin-top:2.6rem;display:grid;gap:2.2rem}
+.timeline::before{content:"";position:absolute;left:92px;top:6px;bottom:6px;width:2px;background:#ece5d6}
+.timeline .fill{position:absolute;left:92px;top:6px;width:2px;height:0;background:var(--or);transition:height .2s linear}
+.step{display:grid;grid-template-columns:76px 1fr;gap:42px;position:relative}
+.step::before{content:"";position:absolute;left:86px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid var(--or)}
+.step time{font-weight:900;font-size:1.3rem;color:var(--or);text-align:right}
+.step h3{font-size:1.15rem;margin-bottom:.25rem}
+.step p{color:var(--gris);max-width:68ch}
+.portraits{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3rem}
+.portraits figure{position:relative;border-radius:var(--rayon);overflow:hidden}
+.portraits img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(1);transition:filter .7s,transform 1s var(--ease)}
+.portraits figure:hover img{filter:none;transform:scale(1.04)}
+.portraits figcaption{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.2rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));font-weight:700}
+@media (max-width:640px){.portraits{grid-template-columns:1fr}.timeline::before,.timeline .fill{left:60px}.step{grid-template-columns:48px 1fr;gap:30px}.step::before{left:54px}.step time{font-size:1rem}}
+
+/* bio */
+.bio{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.4rem}
+.bio figure{position:relative;border-radius:var(--rayon);overflow:hidden;min-height:330px}
+.bio img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.bio figure:hover img{transform:scale(1.06)}
+.bio figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.3rem;color:#fff;background:linear-gradient(transparent,rgba(20,19,17,.9));transform:translateY(38%);transition:transform .5s var(--ease)}
+.bio figure:hover figcaption,.bio figure:focus-within figcaption{transform:none}
+.bio figcaption b{display:block;font-size:1.05rem;margin-bottom:.35rem}
+.bio figcaption span{font-size:.88rem;color:#e6dfd0}
+@media (max-width:860px){.bio{grid-template-columns:1fr}.bio figcaption{transform:none}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1.1fr;gap:2rem;align-items:stretch}
+.contact .card{display:flex;flex-direction:column;gap:1rem}
+.line{display:flex;gap:.9rem;align-items:flex-start}
+.line i{font-style:normal;width:40px;height:40px;flex:none;border-radius:50%;background:var(--or-pale);display:grid;place-items:center}
+.line a{color:var(--anthracite);font-weight:700;text-decoration:none}
+.line a:hover{color:var(--or)}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:.2rem 1rem;font-size:.92rem}
+.hours .today{color:var(--or);font-weight:900}
+.open-badge{display:inline-flex;align-items:center;gap:.45rem;font-size:.8rem;font-weight:900;letter-spacing:.06em;padding:.3rem .7rem;border-radius:999px;background:#eef6ea;color:#2f6b2c}
+.open-badge.closed{background:#fbe9ed;color:var(--rose)}
+.open-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.map{border-radius:20px;overflow:hidden;min-height:380px;box-shadow:var(--ombre)}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.35) sepia(.15)}
+@media (max-width:860px){.contact{grid-template-columns:minmax(0,1fr)}}
+
+/* pied */
+footer{background:var(--nuit);color:#bfb8aa;padding:3rem 0 2rem;font-size:.88rem}
+footer .top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem;align-items:flex-start}
+footer img{height:46px;width:auto;margin-bottom:.6rem}
+footer a{color:#e9e2d3;text-decoration:none}
+footer a:hover{color:var(--or)}
+footer ul{list-style:none;display:grid;gap:.35rem}
+.disclaimer{margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.1);font-size:.78rem;color:#8f887b}
+
+/* barre mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;display:none;gap:.5rem;transform:translateY(160%);transition:transform .45s var(--ease)}
+.mbar.on{transform:none}
+.mbar a{flex:1;justify-content:center}
+@media (max-width:700px){.mbar{display:flex}footer{padding-bottom:5.5rem}}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--anthracite);color:#fff;padding:.75rem 1.2rem;border-radius:999px;font-size:.88rem;font-weight:700;z-index:90;transition:transform .45s var(--ease);box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+.toast.show{transform:translate(-50%,0)}
+@media (max-width:700px){.toast{bottom:80px}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Winery",
+  "name":"Cave Verdier Logel",
+  "description":"Vignerons en Côtes du Forez depuis 1992, vignoble en agriculture biologique : Gamay en AOC Côtes du Forez sur granite et basalte, Pinot gris et Viognier en IGP d'Urfé, vins de France.",
+  "url":"https://www.verdier-logel.com/",
+  "telephone":"+33477974195",
+  "email":"cave.verdierlogel@orange.fr",
+  "foundingDate":"1992",
+  "address":{"@type":"PostalAddress","streetAddress":"434 rue de la Côte","postalCode":"42130","addressLocality":"Marcilly-le-Châtel","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Côtes du Forez","Loire","Saint-Étienne","Lyon"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"12:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"14:00","closes":"19:00"}],
+  "sameAs":["https://www.facebook.com/Cave-Verdier-Logel-158076367553777/"]
+}
+</script>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+<div class="demo">Maquette de démonstration — <b>proposition de refonte</b> du site de la Cave Verdier Logel, réalisée à partir des contenus et photos de verdier-logel.com</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#accueil" aria-label="Cave Verdier Logel, accueil">
+      <img src="https://www.verdier-logel.com/wp-content/uploads/2017/02/logo-petit-blanc-1.png" alt="">
+      <span><b>Verdier Logel</b><small>Vignerons en Côtes du Forez</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#la-cave">La cave</a></li>
+      <li><a href="#terroirs">Le Forez</a></li>
+      <li><a href="#vins">Nos vins</a></li>
+      <li><a href="#accords">Accords</a></li>
+      <li><a href="#visite">Votre visite</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-or" href="#visite">Préparer ma visite</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil">
+  <div class="hero__bg" role="img" aria-label="Max, Julie et Odile dans les vignes du domaine"></div>
+  <div class="wrap hero__inner">
+    <p class="eyebrow">Cave Verdier Logel · Marcilly-le-Châtel</p>
+    <h1><span class="l"><span>Découvrez nos vins</span></span><span class="l"><span>du Forez</span></span></h1>
+    <p class="sub">L'expression de 2 terroirs, granite &amp; basalte. Max, Julie, Odile &amp; Jacky, vignerons engagés, vignoble en agriculture biologique.</p>
+    <div class="ctas">
+      <a class="btn btn-or" href="#accords">Trouver le vin de mon plat</a>
+      <a class="btn btn-ghost" href="#vins">Voir nos 14 cuvées</a>
+    </div>
+  </div>
+  <span class="hero__tag">Granite &amp; Basalte</span>
+  <span class="scroll-ind" aria-hidden="true"></span>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact"><b data-count="1992">1992</b><span>Début de la cave</span></div>
+    <div class="fact"><b>≈ <span data-count="18">18</span> ha</b><span>de vignes en Côtes du Forez</span></div>
+    <div class="fact"><b data-count="1997">1997</b><span>Conversion en agriculture biologique</span></div>
+    <div class="fact"><b data-count="14">14</b><span>cuvées : AOP, IGP d'Urfé, vins de France</span></div>
+  </div>
+</div>
+
+<section id="la-cave">
+  <div class="wrap cave">
+    <div class="rv">
+      <p class="eyebrow">Cave Verdier Logel</p>
+      <h2>Des vins authentiques, <em>élevés dans le respect de l'environnement</em></h2>
+      <p class="lead">Depuis 1992, la cave Verdier Logel vous offre des vins authentiques et de qualité. S'étalant sur près de 18 ha, le domaine est planté en majorité en Gamay, dans l'aire d'appellation Côtes du Forez. Les autres parcelles accueillent des cépages blancs en IGP Urfé (Pinot gris, Viognier) et des vins de France blanc ou rouge (Riesling, Gewurztraminer, Syrah, Malbec).</p>
+      <div class="trio"><span>Vendanges manuelles</span><span>Agriculture biologique</span><span>AOC Côtes du Forez</span></div>
+      <p style="margin-top:1.6rem"><a class="btn btn-or" href="#vins">Découvrir nos vins</a></p>
+    </div>
+    <div class="cave__img rv d2">
+      <img src="https://www.verdier-logel.com/wp-content/uploads/2017/02/178m-768x510.jpg" alt="Verres de vin rouge, rosé et blanc du vignoble du Forez" loading="lazy">
+      <div class="stamp"><span><i>Bio</i>depuis<br>1997</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="terroirs" id="terroirs">
+  <div class="wrap">
+    <p class="eyebrow rv">Le Forez</p>
+    <h2 class="rv">Deux grands terroirs <em>foréziens</em></h2>
+    <p class="lead rv">Nichés sur les premiers coteaux volcaniques du Massif Central, les Côtes du Forez sont en AOC depuis 2000. Deux sols s'y côtoient : des buttes basaltiques, parmi les plus vieux volcans de France, et un terroir granitique, issu de l'érosion du Massif Central. Touchez un terroir pour voir les cuvées qui en sont issues.</p>
+    <div class="tt rv">
+      <div class="tt__side tt__g" tabindex="0">
+        <p class="eyebrow" style="color:#f0e2c2">Sol granitique</p>
+        <h3>Granite</h3>
+        <p>Le fruit en premier : myrtille, cerise, prune, une bouche vive et pulpeuse.</p>
+        <div class="tt__list" data-sol="granite"></div>
+      </div>
+      <div class="tt__side tt__b" tabindex="0">
+        <p class="eyebrow" style="color:#f0e2c2">Sol basaltique</p>
+        <h3>Basalte</h3>
+        <p>Des notes plus chaudes, fumées et poivrées, une bouche structurée par les tanins.</p>
+        <div class="tt__list" data-sol="basalte"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vins">
+  <div class="wrap">
+    <p class="eyebrow rv">Nos vins</p>
+    <h2 class="rv">Une palette de vins, <em>tous en agriculture biologique</em></h2>
+    <p class="lead rv">Qu'ils soient en AOC Côtes du Forez, en IGP Urfé ou en vin de France, nos vins sont cultivés avec respect de leurs terroirs. Ouvrez une fiche pour lire sa description et son accord mets et vins, ou ajoutez-la à votre carton.</p>
+    <div class="filters rv" role="group" aria-label="Filtrer les cuvées">
+      <button class="chip" data-f="all" aria-pressed="true">Toutes</button>
+      <button class="chip" data-f="aop" aria-pressed="false">AOP Côtes du Forez</button>
+      <button class="chip" data-f="igp" aria-pressed="false">IGP Urfé</button>
+      <button class="chip" data-f="vdf" aria-pressed="false">Vins de France</button>
+      <button class="chip" data-f="rouge" aria-pressed="false">Rouges</button>
+      <button class="chip" data-f="blanc" aria-pressed="false">Blancs</button>
+      <button class="chip" data-f="bulles" aria-pressed="false">Rosé pétillant</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section class="accords" id="accords">
+  <div class="wrap">
+    <p class="eyebrow">Accords mets &amp; vins</p>
+    <h2>Qu'y a-t-il <em>dans votre assiette ?</em></h2>
+    <p class="lead">Choisissez un plat : les cuvées qui s'y accordent s'affichent, avec les conseils d'accord rédigés pour chaque vin du domaine.</p>
+    <div class="acc">
+      <div class="dishes" id="dishes" role="group" aria-label="Choisir un plat"></div>
+      <div class="result" id="result" aria-live="polite">
+        <div class="empty"><p>Sélectionnez un plat à gauche<br>pour découvrir les cuvées conseillées.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visite" id="visite">
+  <div class="wrap">
+    <p class="eyebrow rv">Votre visite au caveau</p>
+    <h2 class="rv">Préparez votre carton, <em>prévenez de votre passage</em></h2>
+    <p class="lead rv">La vigne étant un métier d'extérieur, le mieux est de prévenir de votre passage. Composez votre sélection, choisissez un créneau pendant les heures d'ouverture : la demande part directement par mail au domaine, qui vous confirme la disponibilité et les tarifs.</p>
+    <div class="vis">
+      <div class="card rv">
+        <h3>Mon carton</h3>
+        <p class="hint">Ajoutez des cuvées depuis « Nos vins » ou « Accords ». Un carton classique compte 6 ou 12 bouteilles.</p>
+        <ul class="carton" id="carton"><li class="vide">Votre carton est vide pour l'instant.</li></ul>
+        <div class="box"><div class="box__bar"><i id="boxbar"></i></div><b id="boxtxt">0 / 6 bouteilles</b></div>
+      </div>
+      <div class="card rv d2">
+        <h3>Mon passage</h3>
+        <p class="hint">Ouvert du lundi au samedi, 9h–12h et 14h–19h. Fermé le dimanche.</p>
+        <div class="field"><label for="nom">Nom</label><input id="nom" autocomplete="name" placeholder="Votre nom"></div>
+        <div class="row2">
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel" placeholder="06 …"></div>
+          <div class="field"><label for="jour">Jour</label><input id="jour" type="date"></div>
+        </div>
+        <div class="field"><label>Créneau</label><div class="slots" id="slots"><span class="closed" style="color:var(--gris);font-weight:400">Choisissez d'abord un jour.</span></div></div>
+        <div class="field"><label for="msg">Message (facultatif)</label><textarea id="msg" rows="2" placeholder="Une question, une visite en groupe…"></textarea></div>
+        <div class="recap" id="recap">Aucun créneau choisi.</div>
+        <button class="btn btn-or" id="send">Envoyer ma demande au domaine</button>
+        <button class="btn btn-line" id="ics">Ajouter à mon agenda (.ics)</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap">
+    <p class="eyebrow rv">Notre histoire</p>
+    <h2 class="rv">Une histoire <em>de famille</em></h2>
+    <p class="lead rv">Elle débute lorsque Odile et Jacky Logel décident de reprendre les vignes familiales pour développer la production de Côtes du Forez et vinifier leurs propres raisins en agriculture biologique. Aujourd'hui, ils transmettent peu à peu leur savoir-faire à leur neveu Maxime et à leur fille Julie.</p>
+    <div class="timeline" id="timeline">
+      <span class="fill" id="tfill"></span>
+      <div class="step rv"><time>1992</time><div><h3>Naissance de la cave</h3><p>Jacky Logel reprend l'exploitation de son beau-père, 8 ha de vigne uniquement en Gamay. Peu à peu, toute la production est vinifiée au domaine, pour privilégier la vente en bouteilles aux particuliers et aux professionnels.</p></div></div>
+      <div class="step rv"><time>1997</time><div><h3>Conversion en agriculture biologique</h3><p>Odile Logel rejoint son mari et l'EARL Cave Verdier Logel est créée. L'ensemble de la production, une quinzaine d'hectares, est converti en agriculture biologique : une démarche novatrice à l'époque.</p></div></div>
+      <div class="step rv"><time>2000</time><div><h3>L'AOC Côtes du Forez</h3><p>Aux côtés d'autres producteurs, Odile et Jacky s'impliquent dans la dynamisation du vignoble, qui obtient l'AOC et fait connaître les vins du Forez à plus grande échelle.</p></div></div>
+      <div class="step rv"><time>Puis</time><div><h3>La diversification</h3><p>Des cépages insolites (Pinot gris et Viognier) vinifiés en IGP d'Urfé, et des cuvées parcellaires haut de gamme qui valorisent la spécificité du terroir basaltique.</p></div></div>
+      <div class="step rv"><time>Auj.</time><div><h3>Place à la nouvelle génération</h3><p>Maxime Gillier et Julie Logel reprennent peu à peu le flambeau, avec Odile et Jacky à leurs côtés.</p></div></div>
+    </div>
+    <div class="portraits">
+      <figure class="rv"><img src="https://www.verdier-logel.com/wp-content/uploads/2020/07/maxime-et-julie-logel-scaled.jpg" alt="Maxime Gillier et Julie Logel" loading="lazy"><figcaption>Maxime &amp; Julie</figcaption></figure>
+      <figure class="rv d2"><img src="https://www.verdier-logel.com/wp-content/uploads/2019/09/2002-Jacky-et-Odile-2-15x10-ptn-a1.jpg" alt="Jacky et Odile Logel" loading="lazy"><figcaption>Jacky &amp; Odile</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--creme)" id="bio">
+  <div class="wrap">
+    <p class="eyebrow rv">De la vigne au vin</p>
+    <h2 class="rv">Précurseurs du bio <em>dans le vignoble du Forez</em></h2>
+    <p class="lead rv">Tout au long de la saison, les sols sont travaillés mécaniquement pour maintenir un enherbement en équilibre avec la vigne. Les traitements respectent le cahier des charges biologique et ne font appel qu'au cuivre et au soufre.</p>
+    <div class="bio">
+      <figure class="rv" tabindex="0"><img src="https://www.verdier-logel.com/wp-content/uploads/2019/09/NT3_1412.jpg" alt="Vendange manuelle dans les vignes" loading="lazy"><figcaption><b>Vendanges manuelles</b><span>Elles permettent un tri sur pied des raisins, puis en cave, pour vinifier une récolte de qualité optimale.</span></figcaption></figure>
+      <figure class="rv d1" tabindex="0"><img src="https://www.verdier-logel.com/wp-content/uploads/2019/09/NT2_5400.jpg" alt="Table de tri en cave" loading="lazy"><figcaption><b>Le tri en cave</b><span>Nos vendangeurs sont fidèles et reviennent chaque année célébrer la récolte à nos côtés.</span></figcaption></figure>
+      <figure class="rv d2" tabindex="0"><img src="https://www.verdier-logel.com/wp-content/uploads/2019/09/NT2_5404.jpg" alt="Contrôle de la maturité au réfractomètre" loading="lazy"><figcaption><b>Une maturité contrôlée</b><span>Ébourgeonnage, effeuillage, vendange en vert : les travaux en vert maîtrisent le rendement et garantissent une bonne maturité.</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow rv">Contact</p>
+    <h2 class="rv">À très vite <em>au caveau</em></h2>
+    <div class="contact">
+      <div class="card rv">
+        <span class="open-badge" id="openBadge">…</span>
+        <div class="line"><i>📍</i><div><b>Cave Verdier Logel</b><br>434 rue de la Côte<br>42130 Marcilly-le-Châtel<br><small style="color:var(--gris)">À 40 min de Saint-Étienne et 1h15 de Lyon</small></div></div>
+        <div class="line"><i>📞</i><a href="tel:+33477974195">04 77 97 41 95</a></div>
+        <div class="line"><i>✉️</i><a href="mailto:cave.verdierlogel@orange.fr">cave.verdierlogel@orange.fr</a></div>
+        <div class="line"><i>🕘</i><div class="hours" id="hours"></div></div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:auto">
+          <a class="btn btn-or" href="tel:+33477974195">Appeler le domaine</a>
+          <a class="btn btn-line" style="background:#fff;color:var(--anthracite);box-shadow:inset 0 0 0 1.5px var(--anthracite)" href="https://www.facebook.com/Cave-Verdier-Logel-158076367553777/" target="_blank" rel="noopener">Facebook</a>
+        </div>
+      </div>
+      <div class="map rv d2"><iframe title="Plan d'accès à la Cave Verdier Logel" loading="lazy" src="https://www.google.com/maps?q=434+rue+de+la+C%C3%B4te,+42130+Marcilly-le-Ch%C3%A2tel&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <img src="https://www.verdier-logel.com/wp-content/uploads/2017/02/logo-petit-blanc-1.png" alt="Cave Verdier Logel">
+        <p>Cave Verdier Logel — Vignerons en Côtes du Forez<br>434 rue de la Côte, 42130 Marcilly-le-Châtel<br>04 77 97 41 95 · cave.verdierlogel@orange.fr</p>
+      </div>
+      <ul>
+        <li><a href="#la-cave">La cave</a></li><li><a href="#terroirs">Le Forez</a></li><li><a href="#vins">Nos vins</a></li>
+      </ul>
+      <ul>
+        <li><a href="#accords">Accords mets &amp; vins</a></li><li><a href="#visite">Préparer ma visite</a></li><li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <p class="disclaimer">Maquette de démonstration non contractuelle, réalisée à titre de proposition. Textes, descriptions de cuvées, accords mets et vins, horaires et photos repris du site actuel verdier-logel.com (toutes les photos sont celles du domaine). Aucun tarif n'est affiché : ils restent communiqués par le domaine. Couleurs relevées sur le site actuel ; le rose est approché de l'illustration du tracteur et reste ajustable. L'envoi de la demande de passage ouvre la messagerie du visiteur. L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-or" href="#visite">Préparer ma visite</a><a class="btn btn-ghost" style="background:var(--nuit)" href="tel:+33477974195">Appeler</a></div>
+
+<dialog id="fiche" aria-labelledby="ficheTitre"><div style="position:relative"><button class="x" id="closeFiche" aria-label="Fermer">×</button><div class="sheet"><div class="sheet__img"><img id="ficheImg" alt=""></div><div class="sheet__txt"><p class="eyebrow" id="ficheApp"></p><h3 id="ficheTitre"></h3><h4>Description</h4><p id="ficheDesc"></p><h4>Accord mets et vins</h4><p id="ficheAcc"></p><button class="btn btn-or" id="ficheAdd" style="margin-top:1.2rem">Ajouter à mon carton</button></div></div></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const U="https://www.verdier-logel.com/wp-content/uploads/";
+const WINES=[
+ {id:"gourmets",n:"Cuvée des Gourmets",app:"aop",c:"rouge",sol:"granite",cep:"Gamay – AOC Côtes du Forez",lab:"Sol granitique",img:U+"2017/01/Gourmets.png",
+  d:"Cuvée remarquable par son fruité qui, évoluant du frais au mûr suivant les millésimes, reste centré sur la myrtille. L'intensité du fruité se confirme en bouche ; le vin est vif mais sans agressivité grâce à sa chair qui vient à propos enrober la structure.",
+  a:"Un gamay somme toute classique qui apportera sa fraîcheur et son fruité pour une alliance de contraste avec le charnu et le viandé des préparations charcutières ou le crémeux des fromages lactiques de chèvre ou de vache."},
+ {id:"volcanique",n:"La Volcanique",app:"aop",c:"rouge",sol:"basalte",cep:"Gamay – AOC Côtes du Forez",lab:"Sol basaltique",img:U+"2017/01/Volcanique.png",
+  d:"Un grand classique du domaine où le terroir confère au cépage un caractère différent de ses expressions les plus courantes. Le fruité typique du gamay est dominé par des notes plus chaudes qui évoquent le fumé et le poivre ; la bouche est structurée par des tanins renforçant la sensation de fumé.",
+  a:"Un vin puissant propre à de nombreuses alliances, tant avec des viandes en sauce dont le charnu et la rondeur viendront habiller la structure tannique qu'avec des préparations de mets fumés dont le caractère sera renforcé par le vin."},
+ {id:"rezinet",n:"Rézinet",app:"aop",c:"rouge",sol:"granite",cep:"Gamay – AOC Côtes du Forez",lab:"Sélection parcellaire · granite",img:U+"2017/01/Rezinet-1.png",
+  d:"Toujours le fruité comme élément dominant, mais un fruit à noyau, très mûr, évoquant la cerise ou la prune. La fraîcheur en bouche est assurée autant par les notes réglissées que par l'acidité, avec une sensation pulpeuse.",
+  a:"Si l'on reste sur les fromages, on les préférera secs ; sur les viandes, le caractère charnu de cette cuvée donnera de la jutosité aux viandes grillées."},
+ {id:"poycelan",n:"Poycelan",app:"aop",c:"rouge",sol:"basalte",cep:"Gamay – AOC Côtes du Forez",lab:"Sélection parcellaire · basalte",img:U+"2017/01/poycelan.png",
+  d:"Beaucoup de points communs avec « La Volcanique », avec une impression de maturité et de concentration supplémentaire. Derrière les notes empyreumatiques du nez, le fruité s'exprime sur des notes très mûres, voire de confiture ; une bouche plus dense et plus ronde, tout en restant ferme et fraîche.",
+  a:"La richesse de ce vin permet de le confronter à des mets plus riches et aromatiques, tels des préparations de gibier à poil, surtout si on l'attend 3 à 5 ans."},
+ {id:"feux",n:"Feux de Forez",app:"aop",c:"rouge",sol:"",cep:"Gamay – AOC Côtes du Forez",lab:"Élevée en fût de chêne",img:U+"2017/01/feux-de-forez-1.png",
+  d:"Élevée en barrique, cette cuvée en présente sans excès les caractéristiques attendues : notes de fruits secs et torréfiés, arômes de fruits à noyau, et une sucrosité qui atténue la tension habituelle du gamay pour un vin plus tendre et plus doux.",
+  a:"Pour une alliance de contraste, une cuisine utilisant le citron frais ou confit, ou des fromages persillés ; avec des abats, foie, rognons, on jouera le renforcement de la douceur de l'ensemble."},
+ {id:"vertu",n:"Petite Vertu",app:"igp",c:"blanc",sol:"",cep:"Viognier – IGP Pays d'Urfé",lab:"Viognier",img:U+"2017/01/petite-vertu.png",
+  d:"Toujours très expressif au nez, sur un registre de maturité allant de la rose à la réglisse en passant par la pêche, l'abricot bien mûr et la fleur d'oranger. Sa maturité est équilibrée par les notes fraîches de la réglisse et un caractère acidulé.",
+  a:"Un vin de nez qui, par son exubérance et sa fraîcheur, est d'évidence un vin d'apéritif."},
+ {id:"pierrelune",n:"Pierrelune",app:"igp",c:"blanc",sol:"granite",cep:"Pinot gris sur granite – IGP Pays d'Urfé",lab:"Pinot gris · granite",img:U+"2017/01/Pierrelune.png",
+  d:"Toute en discrétion au nez, une cuvée qui demande un peu d'attente pour exprimer son potentiel ; jeune, on y reconnaît quelques notes mentholées et briochées. Le granit confère au Pinot gris une structure qui s'appuie sur une légère acidité et une pointe d'amertume.",
+  a:"Sa puissance en bouche et sa discrétion aromatique mettront en valeur les poissons grillés ou les charcuteries un peu grasses."},
+ {id:"sentimentale",n:"La Sentimentale",app:"igp",c:"blanc",sol:"basalte",cep:"Pinot gris sur basalte – IGP Pays d'Urfé",lab:"Pinot gris · basalte",img:U+"2017/01/Sentimentale.png",
+  d:"On commence à percevoir des notes de pain d'épices et de citron confit. En bouche, la douceur et le gras dominent, relevés par une légère amertume ; le Pinot gris sur basalte plaira aux amateurs de vins ronds et tendres.",
+  a:"Pour ceux qui n'aiment pas l'alliance foie gras – vin doux, ce vin tout en rondeur sera le parfait compromis. Ceux qui souhaitent donner du relief au vin tenteront l'accord avec un poisson relevé d'une sauce citronnée."},
+ {id:"oktober",n:"Oktober Faß",app:"igp",c:"blanc",sol:"",cep:"Pinot gris surmaturé – IGP Pays d'Urfé",lab:"Vendange surmaturée",img:U+"2017/01/octoberfab.png",
+  d:"Un vin de passerillage plus subtil qu'exubérant, avec ses notes de poire confite, de cannelle et de cire. En bouche, la sucrosité domine, sans caractère pâteux en fin de bouche.",
+  a:"On pense naturellement aux desserts autour de la poire, mais une association avec des tommes de brebis affinées serait des plus heureuses."},
+ {id:"ribambulles",n:"Ribambulles",app:"vdf",c:"bulles",sol:"",cep:"Gamay – Vin de France",lab:"Rosé pétillant",img:U+"2017/01/ribambulles.png",
+  d:"Un vin inscrit dans la tradition par sa méthode et dans la modernité par son résultat. Rose pâle fuchsia, des arômes floraux et de confiserie ; en bouche, une touche acidulée, de la douceur et une bulle crémeuse.",
+  a:"Il prendra naturellement sa place en fin de repas sur des desserts à base de fruits rouges ou confits, d'autant que son faible degré d'alcool rend l'accord plus digeste."},
+ {id:"loyela",n:"Loyela Blues",app:"vdf",c:"blanc",sol:"",cep:"Riesling – Vin de France",lab:"Riesling",img:U+"2017/01/Loyela-Blues.png",
+  d:"Toujours frais, des notes allant de la pomme verte à la pomme au four et la liqueur de mandarine selon le millésime ; la tension du cépage est tempérée par une douceur d'attaque.",
+  a:"Plus un vin de bouche que de nez, il s'associera avec une viande blanche ou un poisson apprêté avec une sauce crémée dont la douceur demande du relief."},
+ {id:"pupschen",n:"Pupschen",app:"vdf",c:"blanc",sol:"",cep:"Gewurztraminer – Vin de France",lab:"Gewurztraminer",img:U+"2017/01/Pupschen.png",
+  d:"Les notes de litchi et de rose du Gewurztraminer, une évocation du raisin muscat ; la bouche, très aromatique, surprend par sa fraîcheur.",
+  a:"Les cuisines épicées d'origine asiatique, tel un curry, offriront un heureux contraste pour une alliance tout en puissance."},
+ {id:"rats",n:"6 Rats",app:"vdf",c:"rouge",sol:"",cep:"Syrah – Vin de France",lab:"Syrah",img:U+"2019/11/LES-RATS.png",
+  d:"Une syrah d'un terroir difficile, pauvre et en altitude : des notes florales de violette, de poivre et de réglisse, et une bouche marquée par la fraîcheur et la finesse.",
+  a:"Mûr au nez, frais en bouche : un contraste inattendu qui s'associera fort bien avec des plats aigres-doux."},
+ {id:"cot",n:"Côt à Côte",app:"vdf",c:"rouge",sol:"",cep:"Malbec – Vin de France",lab:"Malbec",img:U+"2017/01/C%C3%B4t-%C3%A0-C%C3%B4te.png",
+  d:"Il faut 3 à 5 ans pour que cette cuvée issue d'un cépage de structure trouve son harmonie. Groseille, framboise : le fruit s'affirme progressivement ; on obtient alors un vin ferme, dense, charnu.",
+  a:"Par sa structure, c'est un vin qui appelle des viandes rouges, saignantes, de canard ou de bœuf."}
+];
+const APP={aop:"AOP Côtes du Forez",igp:"IGP Pays d'Urfé",vdf:"Vin de France"};
+const DISHES=[
+ {k:"ape",e:"🥂",t:"Apéritif",w:["vertu"]},
+ {k:"charc",e:"🥓",t:"Charcuterie",w:["gourmets","pierrelune"]},
+ {k:"from",e:"🧀",t:"Fromages",w:["gourmets","rezinet","feux","oktober"]},
+ {k:"grill",e:"🔥",t:"Viandes grillées",w:["rezinet"]},
+ {k:"sauce",e:"🍲",t:"Viande en sauce, fumé",w:["volcanique"]},
+ {k:"rouge",e:"🥩",t:"Bœuf, canard",w:["cot"]},
+ {k:"gibier",e:"🦌",t:"Gibier",w:["poycelan"]},
+ {k:"blanche",e:"🍗",t:"Viande blanche crémée",w:["loyela"]},
+ {k:"poisson",e:"🐟",t:"Poissons",w:["pierrelune","sentimentale","loyela"]},
+ {k:"foie",e:"🍞",t:"Foie gras, abats",w:["sentimentale","feux"]},
+ {k:"epice",e:"🌶️",t:"Cuisine épicée, curry",w:["pupschen"]},
+ {k:"aigre",e:"🍍",t:"Plats aigres-doux",w:["rats"]},
+ {k:"dessert",e:"🍐",t:"Desserts",w:["ribambulles","oktober"]}
+];
+const $=s=>document.querySelector(s), byId=id=>WINES.find(w=>w.id===id);
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(t._);t._=setTimeout(()=>t.classList.remove("show"),2200)};
+
+/* grille des vins */
+const grid=$("#grid");
+grid.innerHTML=WINES.map(w=>`<article class="wine" data-app="${w.app}" data-c="${w.c}">
+ <span class="tag ${w.sol==='basalte'?'b':''}">${w.sol?w.sol:APP[w.app].split(" ")[0]}</span>
+ <div class="wine__img"><img src="${w.img}" alt="Bouteille ${w.n}" loading="lazy"></div>
+ <h3>${w.n}</h3><p class="meta">${w.cep}<br>${w.lab}</p>
+ <div class="acts"><button class="mini" data-open="${w.id}">Fiche</button><button class="mini add" data-add="${w.id}">+ Carton</button></div></article>`).join("");
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  const f=b.dataset.f;
+  grid.querySelectorAll(".wine").forEach(c=>c.classList.toggle("hide",!(f==="all"||c.dataset.app===f||c.dataset.c===f)));
+});
+
+/* terroirs */
+document.querySelectorAll(".tt__list").forEach(l=>{
+  l.innerHTML=WINES.filter(w=>w.sol===l.dataset.sol).map(w=>`<button data-open="${w.id}">${w.n}</button>`).join("");
+});
+
+/* fiche */
+const dlg=$("#fiche");let cur=null;
+document.addEventListener("click",e=>{
+  const o=e.target.closest("[data-open]"); if(o){const w=byId(o.dataset.open);cur=w;
+    $("#ficheImg").src=w.img;$("#ficheImg").alt="Bouteille "+w.n;$("#ficheApp").textContent=w.cep;$("#ficheTitre").textContent=w.n;$("#ficheDesc").textContent=w.d;$("#ficheAcc").textContent=w.a;
+    dlg.showModal?dlg.showModal():dlg.setAttribute("open","");}
+  const a=e.target.closest("[data-add]"); if(a) add(a.dataset.add,1);
+});
+$("#closeFiche").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+$("#ficheAdd").onclick=()=>{add(cur.id,1);dlg.close()};
+
+/* accords */
+$("#dishes").innerHTML=DISHES.map(d=>`<button class="dish" data-k="${d.k}" aria-pressed="false"><i>${d.e}</i>${d.t}</button>`).join("");
+$("#dishes").onclick=e=>{const b=e.target.closest(".dish");if(!b)return;
+  document.querySelectorAll(".dish").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  const d=DISHES.find(x=>x.k===b.dataset.k);
+  $("#result").innerHTML=`<h3>${d.e} ${d.t} : <span>${d.w.length} cuvée${d.w.length>1?"s":""} conseillée${d.w.length>1?"s":""}</span></h3>`+
+   d.w.map(id=>{const w=byId(id);return `<div class="match"><img src="${w.img}" alt=""><div><small>${w.cep}</small><b>${w.n}</b><q>${w.a}</q><button class="mini add" data-add="${w.id}">+ Ajouter au carton</button> <button class="mini" data-open="${w.id}">Fiche</button></div></div>`}).join("");
+};
+
+/* carton */
+const cart={};
+function add(id,n){cart[id]=Math.max(0,(cart[id]||0)+n);if(!cart[id])delete cart[id];renderCart();if(n>0)toast(byId(id).n+" ajouté à votre carton")}
+function total(){return Object.values(cart).reduce((a,b)=>a+b,0)}
+function renderCart(){
+  const ids=Object.keys(cart),ul=$("#carton");
+  ul.innerHTML=ids.length?ids.map(id=>{const w=byId(id);return `<li><div><b>${w.n}</b><small>${w.cep}</small></div><div class="qty"><button aria-label="Retirer une bouteille" onclick="add('${id}',-1)">−</button><output>${cart[id]}</output><button aria-label="Ajouter une bouteille" onclick="add('${id}',1)">+</button></div></li>`}).join(""):'<li class="vide">Votre carton est vide pour l\'instant.</li>';
+  const t=total(),cap=t>6?12:6;$("#boxbar").style.width=Math.min(100,t/cap*100)+"%";$("#boxtxt").textContent=`${t} / ${cap} bouteilles`;recap();
+}
+
+/* créneaux */
+let slot=null;const jour=$("#jour");
+const d0=new Date();jour.min=d0.toISOString().slice(0,10);
+jour.onchange=()=>{slot=null;const d=new Date(jour.value+"T12:00");const s=$("#slots");
+  if(!jour.value){return}
+  if(d.getDay()===0){s.innerHTML='<span class="closed">Le caveau est fermé le dimanche, choisissez un autre jour.</span>';recap();return}
+  const H=["9h00","10h00","11h00","14h00","15h00","16h00","17h00","18h00"];
+  s.innerHTML=H.map(h=>`<button aria-pressed="false">${h}</button>`).join("");recap();
+};
+$("#slots").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#slots button").forEach(x=>x.setAttribute("aria-pressed",x===b));slot=b.textContent;recap()};
+function dateFr(){return new Date(jour.value+"T12:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"})}
+function recap(){const t=total();$("#recap").textContent=(slot&&jour.value?`Passage prévu le ${dateFr()} à ${slot}`:"Aucun créneau choisi")+` · ${t} bouteille${t>1?"s":""} dans le carton.`}
+$("#send").onclick=()=>{
+  if(!jour.value||!slot){toast("Choisissez un jour et un créneau");return}
+  const lignes=Object.keys(cart).map(id=>`- ${byId(id).n} : ${cart[id]} bouteille(s)`).join("\n")||"- (pas de sélection, simple visite)";
+  const body=`Bonjour,\n\nJe souhaite passer au caveau le ${dateFr()} à ${slot}.\n\nMa sélection :\n${lignes}\n\n${$("#msg").value}\n\n${$("#nom").value}\n${$("#tel").value}`;
+  location.href="mailto:cave.verdierlogel@orange.fr?subject="+encodeURIComponent("Passage au caveau – "+dateFr())+"&body="+encodeURIComponent(body);
+};
+$("#ics").onclick=()=>{
+  if(!jour.value||!slot){toast("Choisissez un jour et un créneau");return}
+  const h=parseInt(slot),d=jour.value.replace(/-/g,""),p=n=>String(n).padStart(2,"0");
+  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Cave Verdier Logel//Maquette//FR","BEGIN:VEVENT","UID:"+Date.now()+"@verdier-logel","DTSTAMP:"+new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z","DTSTART:"+d+"T"+p(h)+"0000","DTEND:"+d+"T"+p(h+1)+"0000","SUMMARY:Passage à la Cave Verdier Logel","LOCATION:434 rue de la Côte\\, 42130 Marcilly-le-Châtel","DESCRIPTION:Tél. 04 77 97 41 95","END:VEVENT","END:VCALENDAR"].join("\r\n");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));a.download="visite-cave-verdier-logel.ics";a.click();
+};
+
+/* horaires + ouvert maintenant */
+const J=["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"],now=new Date(),dn=now.getDay();
+$("#hours").innerHTML=[1,2,3,4,5,6,0].map(i=>`<span class="${i===dn?"today":""}">${J[i]}</span><span class="${i===dn?"today":""}">${i===0?"Fermé":"9h–12h · 14h–19h"}</span>`).join("");
+const m=now.getHours()*60+now.getMinutes(),open=dn!==0&&((m>=540&&m<720)||(m>=840&&m<1140));
+const ob=$("#openBadge");ob.textContent=open?"Ouvert en ce moment":"Fermé en ce moment";ob.classList.toggle("closed",!open);
+
+/* compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);
+  const end=+el.dataset.count,start=end>1000?end-30:0,t0=performance.now();
+  (function f(t){const k=Math.min(1,(t-t0)/1400),v=Math.round(start+(end-start)*(1-Math.pow(1-k,3)));el.textContent=v;if(k<1)requestAnimationFrame(f)})(t0);
+}),{threshold:.6});
+document.querySelectorAll("[data-count]").forEach(el=>io.observe(el));
+
+/* révélations */
+const rv=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");rv.unobserve(e.target)}}),{threshold:.14});
+document.querySelectorAll(".rv").forEach(el=>rv.observe(el));
+
+/* scroll : progression, en-tête, frise, menu actif */
+const hdr=$("#top"),tl=$("#timeline"),fill=$("#tfill"),secs=[...document.querySelectorAll("main section[id]")],links=[...document.querySelectorAll(".menu a")];
+addEventListener("scroll",()=>{
+  const h=document.documentElement;$("#progress").style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";
+  hdr.classList.toggle("scrolled",scrollY>40);$(".mbar").classList.toggle("on",scrollY>innerHeight*.8);
+  const r=tl.getBoundingClientRect(),k=Math.min(1,Math.max(0,(innerHeight*.65-r.top)/r.height));fill.style.height=(k*(r.height-12))+"px";
+  let id="";secs.forEach(s=>{if(s.getBoundingClientRect().top<innerHeight*.35)id=s.id});links.forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+id));
+},{passive:true});
+
+/* menu mobile */
+const bg=$("#burger"),mn=$("#menu");
+bg.onclick=()=>{const o=mn.classList.toggle("open");bg.setAttribute("aria-expanded",o)};
+mn.onclick=e=>{if(e.target.tagName==="A"){mn.classList.remove("open");bg.setAttribute("aria-expanded",false)}};
+</script>
+</body>
+</html>
