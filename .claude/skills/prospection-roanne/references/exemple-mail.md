@@ -10,7 +10,7 @@ Le mail part en HTML : ci-dessous, le lien vers la maquette est représenté en 
 
 Bonjour David,
 
-Thibault Quentin. Je conçois des sites sur mesure pour des artisans et commerces du Roannais, et votre site a retenu mon attention.
+Thibault Quentin. Je conçois des sites sur mesure pour des artisans et commerces locaux, et votre site a retenu mon attention.
 
 Une chose m'a marqué : vous êtes certifiés RGE Qualibat, mais ça n'apparaît nulle part sur votre site — pourtant c'est ce qui ouvre droit à MaPrimeRénov' et à la TVA à 5,5 %, et beaucoup de gens vérifient ça avant de choisir un artisan. Et avec la fin de MaPrimeRénov' sur les fenêtres annoncée au 1er septembre, un site qui chiffre tout de suite le reste à charge peut vraiment faire pencher la balance.
 
