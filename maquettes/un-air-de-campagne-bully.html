@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Un Air de Campagne — Auberge, bistrot et épicerie à Bully (42), au sud de Roanne</title>
+<meta name="description" content="Auberge de village à Bully (Loire) : menu du jour fait maison, Niacs le vendredi et samedi soir, épicerie, dépôt de pain et relais Poste. Jeanne et Vincent vous accueillent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Schoolbell&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel unairdecampagne42.fr
+   (relevée dans sa feuille de style : bandeau noir filet ocre,
+   boutons vert tendre qui passent à l'ocre au survol, fond crème,
+   polices Schoolbell / Playfair Display / Montserrat).
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --noir:#1f1f1f;        /* bandeau du site actuel rgb(31 31 31) */
+  --texte:#212121;       /* texte courant rgb(33 33 33) */
+  --ocre:#eda93a;        /* filet + survol boutons rgb(237 169 58) */
+  --vert:#aaed9e;        /* boutons rgb(170 237 158) */
+  --creme:#f8eedd;       /* blocs crème rgb(248 238 221) */
+  --blanc:#ffffff;
+  --gris:#6b6b6b;
+  --ligne:#e7dcc6;
+  --f-main:"Schoolbell", cursive;              /* accroches manuscrites */
+  --f-titre:"Playfair Display", Georgia, serif; /* titres */
+  --f-texte:"Montserrat", Helvetica, Arial, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.22,.8,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--blanc);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ocre);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--ocre);color:#1f1f1f;font-size:.78rem;text-align:center;padding:6px 12px;font-weight:600;letter-spacing:.02em}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:var(--noir);color:#fff;border-bottom:3px solid var(--ocre);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
+.brand{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.brand b{font-family:var(--f-main);font-size:1.9rem;font-weight:400;color:#fff}
+.brand small{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ocre);margin-top:4px}
+.menu{display:flex;gap:26px;list-style:none;align-items:center}
+.menu a{text-decoration:none;font-size:.9rem;font-weight:500;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--ocre);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1)}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;background:rgba(255,255,255,.08);padding:6px 12px;border-radius:99px;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#888}
+.dot.on{background:var(--vert);box-shadow:0 0 0 0 rgba(170,237,158,.7);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(170,237,158,0)}100%{box-shadow:0 0 0 0 rgba(170,237,158,0)}}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;width:44px;height:44px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 24px;border-radius:99px;border:2px solid transparent;font-family:var(--f-texte);font-weight:600;font-size:.95rem;text-decoration:none;cursor:pointer;transition:background .25s,color .25s,transform .2s var(--ease),border-color .25s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-vert{background:var(--vert);color:#000}
+.btn-vert:hover{background:var(--ocre)}
+.btn-ligne{border-color:currentColor;background:transparent}
+.btn-ligne:hover{background:#fff;color:#000;border-color:#fff}
+.btn-noir{background:var(--noir);color:#fff}
+.btn-noir:hover{background:var(--ocre);color:#000}
+
+/* Hero */
+.hero{position:relative;padding:28px 0 0}
+.hero-card{position:relative;border-radius:28px;overflow:hidden;min-height:min(78vh,640px);display:grid;align-items:end;background:#222}
+.hero-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);animation:zoom 14s var(--ease) forwards}
+@keyframes zoom{to{transform:scale(1)}}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 20%,rgba(0,0,0,.72) 100%)}
+.hero-txt{position:relative;z-index:2;color:#fff;padding:clamp(24px,5vw,60px);max-width:760px}
+.hand{font-family:var(--f-main);color:var(--ocre);font-size:clamp(1.3rem,1rem + 1vw,1.8rem);display:block;margin-bottom:6px}
+.hero h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(2.2rem,1.4rem + 4vw,4.4rem);line-height:1.05;margin-bottom:14px}
+.hero p{font-size:clamp(1rem,.95rem + .3vw,1.15rem);max-width:600px;opacity:.95;margin-bottom:24px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero-cta .btn-ligne{color:#fff}
+.split span{display:inline-block;opacity:0;transform:translateY(40%);animation:up .8s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.today{position:absolute;z-index:3;right:clamp(16px,3vw,36px);top:clamp(16px,3vw,36px);background:var(--creme);color:var(--texte);border-radius:var(--r);padding:16px 18px;max-width:260px;box-shadow:0 20px 40px rgba(0,0,0,.25);transform:rotate(2deg);animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:rotate(2deg) translateY(-8px)}}
+.today .hand{font-size:1.35rem;color:#b07514;margin:0}
+.today strong{display:block;font-family:var(--f-titre);font-size:1.15rem;line-height:1.25;margin:4px 0}
+.today small{color:var(--gris);font-size:.8rem}
+
+/* Atouts (reprise des 4 intitulés du site) */
+.atouts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.atout{background:var(--creme);border-radius:var(--r);padding:20px;display:flex;gap:12px;align-items:center;font-weight:600;font-size:.95rem;transition:transform .3s var(--ease)}
+.atout:hover{transform:translateY(-4px)}
+.atout svg{flex:none;width:38px;height:38px}
+
+section{padding:clamp(64px,8vw,110px) 0;scroll-margin-top:70px}
+.hero-txt .hand{color:#ffc766;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.ornement{width:220px;margin:0 auto 10px;opacity:.75}
+.titre{text-align:center;max-width:760px;margin:0 auto clamp(34px,5vw,56px)}
+.titre h2{font-family:var(--f-titre);font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem);line-height:1.15;margin-bottom:12px}
+.titre p{color:#4a4a4a}
+
+/* Le coeur de Bully */
+.coeur{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+.coeur .ph{border-radius:24px;overflow:hidden;aspect-ratio:4/3.3;position:relative}
+.coeur .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.coeur .ph:hover img{transform:scale(1.05)}
+.mots{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}
+.mots span{background:var(--creme);padding:6px 14px;border-radius:99px;font-size:.85rem;font-weight:500}
+.coeur h2{font-family:var(--f-titre);font-size:clamp(1.8rem,1.3rem + 2vw,2.7rem);line-height:1.15;margin-bottom:14px}
+
+/* Menus */
+.menus{background:var(--creme);position:relative;overflow:hidden}
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:34px}
+.tab{border:2px solid var(--noir);background:transparent;padding:10px 20px;border-radius:99px;font-family:var(--f-texte);font-weight:600;cursor:pointer;transition:all .25s;min-height:44px}
+.tab[aria-selected="true"]{background:var(--noir);color:#fff}
+.tab:hover{border-color:var(--ocre)}
+.panel{display:none;grid-template-columns:1fr 1.1fr;gap:clamp(24px,4vw,54px);align-items:center}
+.panel.on{display:grid;animation:fade .6s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.panel .ph{border-radius:24px;overflow:hidden;aspect-ratio:1/1}
+.panel .ph img{width:100%;height:100%;object-fit:cover}
+.panel h3{font-family:var(--f-titre);font-size:clamp(1.6rem,1.2rem + 1.5vw,2.3rem);margin-bottom:6px}
+.quand{font-family:var(--f-main);font-size:1.35rem;color:#b07514;margin-bottom:12px;display:block}
+.prix{list-style:none;margin:20px 0;border-top:1px dashed #cdbd9e}
+.prix li{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px dashed #cdbd9e}
+.prix b{font-family:var(--f-titre);font-size:1.15rem;white-space:nowrap}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}
+.trio div{background:#fff;border-radius:14px;padding:14px;font-size:.88rem}
+.trio strong{display:block;font-family:var(--f-titre);font-size:1.05rem}
+.note{font-size:.85rem;color:var(--gris)}
+
+/* Outil réservation */
+.resa{background:var(--noir);color:#fff;position:relative}
+.resa .titre h2{color:#fff}
+.resa .titre p{color:#d6d6d6}
+.outil{display:grid;grid-template-columns:1.25fr .9fr;gap:22px}
+.box{background:#2a2a2a;border-radius:24px;padding:clamp(20px,3vw,34px);border:1px solid #3a3a3a}
+.switch{display:flex;background:#1a1a1a;border-radius:99px;padding:5px;margin-bottom:24px;width:fit-content;max-width:100%}
+.switch button{border:0;background:transparent;color:#ddd;padding:10px 18px;border-radius:99px;font-family:var(--f-texte);font-weight:600;cursor:pointer;min-height:42px}
+.switch button[aria-pressed="true"]{background:var(--vert);color:#000}
+.step{margin-bottom:22px}
+.step>label,.lab{display:block;font-weight:600;font-size:.88rem;margin-bottom:10px;color:#f3f3f3}
+.step>label i,.lab i{font-style:normal;color:var(--ocre);font-family:var(--f-main);font-size:1.1rem;margin-right:6px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{border:1px solid #444;background:#1e1e1e;color:#fff;border-radius:12px;padding:8px 2px;cursor:pointer;text-align:center;font-family:var(--f-texte);transition:all .2s;min-height:58px}
+.day small{display:block;font-size:.66rem;text-transform:uppercase;color:#aaa;letter-spacing:.05em}
+.day b{font-size:1.05rem}
+.day:hover:not(:disabled){border-color:var(--ocre)}
+.day[aria-pressed="true"]{background:var(--vert);color:#000;border-color:var(--vert)}
+.day[aria-pressed="true"] small{color:#234}
+.day:disabled{opacity:.3;cursor:not-allowed}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid #555;background:transparent;color:#fff;border-radius:99px;padding:9px 16px;cursor:pointer;font-family:var(--f-texte);font-size:.88rem;transition:all .2s;min-height:42px}
+.chip[aria-pressed="true"]{background:var(--ocre);color:#000;border-color:var(--ocre)}
+.chip:disabled{opacity:.3;cursor:not-allowed}
+.count{display:flex;align-items:center;gap:12px}
+.count button{width:44px;height:44px;border-radius:50%;border:1px solid #555;background:#1e1e1e;color:#fff;font-size:1.3rem;cursor:pointer}
+.count button:hover{border-color:var(--ocre)}
+.count output{font-family:var(--f-titre);font-size:1.6rem;min-width:36px;text-align:center}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+input[type=text],input[type=tel],textarea{width:100%;background:#1e1e1e;border:1px solid #444;color:#fff;border-radius:12px;padding:12px 14px;font-family:var(--f-texte);font-size:.95rem}
+input:focus,textarea:focus{border-color:var(--ocre);outline:none}
+textarea{min-height:96px;resize:vertical}
+.recap{background:var(--creme);color:var(--texte);border-radius:24px;padding:clamp(20px,3vw,30px);position:sticky;top:96px;align-self:start}
+.recap .hand{color:#b07514;margin:0}
+.recap h3{font-family:var(--f-titre);font-size:1.5rem;margin-bottom:12px}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.92rem;margin-bottom:16px}
+.recap dt{color:var(--gris)}
+.recap dd{font-weight:600}
+.total{border-top:2px dashed #cdbd9e;padding-top:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:baseline}
+.total b{font-family:var(--f-titre);font-size:2rem}
+.recap .btn{width:100%;margin-top:8px}
+.info{font-size:.78rem;color:var(--gris);margin-top:12px}
+.alerte{background:#3a2e14;border-left:3px solid var(--ocre);padding:10px 14px;border-radius:8px;font-size:.85rem;color:#f5e2bd;margin-top:6px}
+[hidden]{display:none!important}
+
+/* Multiservices */
+.services{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc{background:#fff;border:1px solid var(--ligne);border-radius:var(--r);padding:24px 20px;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s;position:relative;overflow:hidden}
+.svc::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;background:var(--ocre);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.svc:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.08);border-color:transparent}
+.svc:hover::before{transform:scaleX(1)}
+.svc svg{width:42px;height:42px;margin-bottom:12px}
+.svc h3{font-family:var(--f-titre);font-size:1.15rem;margin-bottom:6px}
+.svc p{font-size:.88rem;color:#4a4a4a}
+.bande-pain{margin-top:28px;display:grid;grid-template-columns:1fr 1.3fr;border-radius:24px;overflow:hidden;background:var(--creme)}
+.bande-pain img{height:100%;width:100%;object-fit:cover;min-height:260px}
+.bande-pain div{padding:clamp(22px,4vw,44px)}
+.bande-pain h3{font-family:var(--f-titre);font-size:1.6rem;margin-bottom:10px}
+
+/* Cave */
+.cave{background:var(--creme)}
+.cave-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,60px);align-items:center}
+.regions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.regions span{border:1px solid #cdbd9e;border-radius:99px;padding:6px 14px;font-size:.82rem;background:#fff;transition:background .2s}
+.regions span:hover{background:var(--vert)}
+.styles{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.styles span{background:var(--noir);color:#fff;border-radius:99px;padding:6px 14px;font-size:.8rem}
+.cave .ph{border-radius:24px;overflow:hidden;aspect-ratio:4/3}
+.cave .ph img{width:100%;height:100%;object-fit:cover}
+
+/* Jeanne & Vincent */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+.duo .ph{border-radius:24px;overflow:hidden;filter:grayscale(1);aspect-ratio:3/2}
+.duo .ph img{width:100%;height:100%;object-fit:cover}
+.cartes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.carte{background:var(--creme);border-radius:var(--r);padding:18px}
+.carte b{font-family:var(--f-main);font-size:1.35rem;font-weight:400;color:#b07514;display:block}
+.carte p{font-size:.88rem}
+
+/* Galerie défilante */
+.marquee{overflow:hidden;padding:0 0 clamp(60px,8vw,100px)}
+.track{display:flex;gap:16px;width:max-content;animation:defile 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track img{height:240px;width:auto;border-radius:18px;object-fit:cover;aspect-ratio:4/3}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.horaires{list-style:none}
+.horaires li{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border-radius:10px;font-size:.95rem}
+.horaires li:nth-child(odd){background:var(--creme)}
+.horaires li.auj{background:var(--vert)!important;font-weight:700}
+.coord{background:var(--noir);color:#fff;border-radius:24px;padding:clamp(22px,4vw,40px)}
+.coord h3{font-family:var(--f-titre);font-size:1.7rem;margin-bottom:16px}
+.coord p{margin-bottom:10px}
+.coord a{color:var(--vert)}
+.coord .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.coord .btn-ligne{color:#fff}
+.reseaux{display:flex;gap:12px;margin-top:18px}
+.reseaux a{width:44px;height:44px;border-radius:50%;border:1px solid #555;display:grid;place-items:center;transition:background .2s}
+.reseaux a:hover{background:var(--ocre);border-color:var(--ocre)}
+
+footer{background:#111;color:#bbb;padding:40px 0 90px;font-size:.82rem}
+footer .wrap{display:grid;gap:10px}
+footer b{color:#fff;font-family:var(--f-main);font-size:1.5rem;font-weight:400}
+
+/* Barre mobile */
+.mobile-bar{position:fixed;bottom:0;left:0;right:0;z-index:60;display:none;gap:8px;padding:10px 12px;background:var(--noir);border-top:3px solid var(--ocre)}
+.mobile-bar .btn{flex:1;padding:11px 10px;font-size:.88rem}
+.mobile-bar .btn-ligne{color:#fff}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,30px);background:var(--vert);color:#000;padding:12px 20px;border-radius:99px;font-weight:600;opacity:0;transition:all .4s var(--ease);z-index:80;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .atouts,.services{grid-template-columns:repeat(2,1fr)}
+  .coeur,.panel.on,.outil,.cave-grid,.duo,.contact,.bande-pain{grid-template-columns:1fr}
+  .recap{position:static}
+  .today{display:none}
+}
+@media (max-width:760px){
+  .menu{position:fixed;inset:72px 0 auto 0;background:var(--noir);flex-direction:column;padding:24px;gap:18px;transform:translateY(-130%);transition:transform .4s var(--ease);border-bottom:3px solid var(--ocre)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .nav .status{display:none}
+  .mobile-bar{display:flex}
+  .trio{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(4,1fr)}
+  .cartes{grid-template-columns:1fr}
+  .track img{height:170px}
+}
+@media (max-width:420px){.atouts,.services{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Un Air de Campagne",
+  "description":"Auberge, bistrot, épicerie, dépôt de pain et relais Poste au cœur du village de Bully (Loire).",
+  "servesCuisine":"Cuisine traditionnelle française, produits locaux et de saison",
+  "telephone":"+33477659645",
+  "email":"contact@unairdecampagne42.fr",
+  "url":"https://www.unairdecampagne42.fr/",
+  "priceRange":"12,50 € – 26,50 €",
+  "acceptsReservations":"True",
+  "address":{"@type":"PostalAddress","streetAddress":"5 Place Georges Ernst","postalCode":"42260","addressLocality":"Bully","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.92871,"longitude":4.006134},
+  "areaServed":["Bully","Roannais"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"08:30","closes":"15:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"08:00","closes":"16:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"17:30","closes":"21:30"}
+  ],
+  "sameAs":["https://www.facebook.com/profile.php?id=61560530499836","https://www.instagram.com/unairdecampagne42/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte non officielle, réalisée à partir du site et des informations publiques d'Un Air de Campagne</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Un Air de Campagne, accueil">
+      <b>Un Air de Campagne</b>
+      <small>Auberge · Bistrot · Épicerie</small>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#auberge">Notre restaurant</a></li>
+      <li><a href="#menus">Les menus</a></li>
+      <li><a href="#services">Multiservices</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="btn btn-vert" href="#reserver" style="padding:9px 18px;min-height:40px">Réserver</a></li>
+    </ul>
+    <span class="status" aria-live="polite"><span class="dot" id="dot"></span><span id="statusTxt">Horaires</span></span>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">☰</button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="hero-card">
+      <img src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Bandeau/Bandeau-Assiette%20de%20jambon.jpg" alt="Assiette servie à table" fetchpriority="high">
+      <aside class="today" aria-live="polite">
+        <span class="hand" id="todayHand">Aujourd'hui</span>
+        <strong id="todayTitle">L'Air du Jour</strong>
+        <small id="todayTxt">2 entrées, 2 plats, 2 desserts au choix</small>
+      </aside>
+      <div class="hero-txt">
+        <span class="hand">Bienvenue à Bully !</span>
+        <h1 class="split" data-split>Auberge Bistrot Épicerie à Bully dans la Loire</h1>
+        <p>Un restaurant, un bar, une épicerie, un dépôt de pain, un relais de Poste… au cœur du village, à 25 minutes au sud de Roanne. Nous serons ravis de vous accueillir, Jeanne &amp; Vincent.</p>
+        <div class="hero-cta">
+          <a class="btn btn-vert" href="#reserver">Réservez votre table</a>
+          <a class="btn btn-ligne" href="#reserver" data-mode="pain">Commander du pain</a>
+        </div>
+      </div>
+    </div>
+    <div class="atouts">
+      <div class="atout rv"><svg viewBox="0 0 40 40" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="20" cy="20" r="17" fill="#aaed9e" stroke="none"/><path d="M13 22c2 3 4 4 7 4s5-1 7-4M15 16h.01M25 16h.01" stroke-linecap="round"/></svg>Accueil chaleureux</div>
+      <div class="atout rv d1"><svg viewBox="0 0 40 40" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="20" cy="20" r="17" fill="#eda93a" stroke="none"/><path d="M14 13h12l-2 9h-8zM20 22v6M16 28h8" stroke-linejoin="round"/></svg>Ambiance conviviale</div>
+      <div class="atout rv d2"><svg viewBox="0 0 40 40" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="20" cy="20" r="17" fill="#aaed9e" stroke="none"/><path d="M12 26c0-4 3-6 5-6s5 2 5 6M23 26c0-3 2-5 4-5M17 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM27 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>Proximité avec les clients</div>
+      <div class="atout rv d3"><svg viewBox="0 0 40 40" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="20" cy="20" r="17" fill="#eda93a" stroke="none"/><path d="M13 14h14v14H13zM13 19h14M18 14v-2h4v2"/></svg>Services variés</div>
+    </div>
+  </div>
+</section>
+
+<!-- LE COEUR DE BULLY -->
+<section id="auberge">
+  <div class="wrap coeur">
+    <div class="ph rv"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/notre-restaurant/Savourez%20nos%20plats%20traditionnels.jpg" alt="Plat traditionnel servi à l'auberge"></div>
+    <div class="rv d1">
+      <span class="hand">Le coeur de Bully</span>
+      <h2>Notre auberge en quelques mots</h2>
+      <div class="mots"><span>convivialité</span><span>rencontre</span><span>lieu de vie</span><span>bien manger</span><span>bons vins</span><span>bons moments</span></div>
+      <p>C'est l'endroit pour profiter d'un moment de détente, en couple, en famille, entre amis ou entre collègues. L'été, vous profiterez de notre jolie terrasse ombragée, l'hiver de la salle cosy.</p>
+      <p style="margin-top:12px">Une cuisine dite traditionnelle : chaque jour un menu différent, élaboré avec des produits locaux, frais et de saison. Pas de « carte », une cuisine d'instinct selon le marché et l'inspiration.</p>
+      <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-noir" href="#menus">Voir les menus</a><a class="btn btn-vert" href="#reserver">Réserver</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section class="menus" id="menus">
+  <div class="wrap">
+    <div class="titre rv">
+      <img class="ornement" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Icone/1.png" alt="">
+      <span class="hand">Un menu, pas de carte</span>
+      <h2>Le midi, le week-end et les soirs de Niacs</h2>
+      <p>Toujours le même esprit : produits frais, de saison, locaux, et tout fait maison.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Nos menus">
+      <button class="tab" role="tab" aria-selected="true" aria-controls="p1" id="t1">L'Air du Jour</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p2" id="t2">L'Air du Week End</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="p3" id="t3">Les Niacs</button>
+    </div>
+
+    <div class="panel on" id="p1" role="tabpanel" aria-labelledby="t1">
+      <div class="ph"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/notre-restaurant/Restaurant%20pr%C3%A8s%20de%20Roanne.jpg" alt="Plat du menu du jour"></div>
+      <div>
+        <span class="quand">Le midi, du mardi au vendredi</span>
+        <h3>L'Air du Jour</h3>
+        <p>Le choix entre deux entrées, deux plats et deux desserts. Il change quotidiennement. Les plats principaux de la semaine, « L'Air de la semaine », sont annoncés sur nos réseaux sociaux.</p>
+        <ul class="prix">
+          <li><span>Entrée + plat + dessert</span><b>16,50 €</b></li>
+          <li><span>Entrée + plat ou plat + dessert</span><b>14,50 €</b></li>
+          <li><span>Plat unique</span><b>12,50 €</b></li>
+        </ul>
+        <a class="btn btn-noir" href="#reserver" data-service="jour">Réserver un midi en semaine</a>
+      </div>
+    </div>
+
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2">
+      <div class="ph"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/notre-restaurant/Glace.jpg" alt="Dessert glacé"></div>
+      <div>
+        <span class="quand">Le midi, samedi, dimanche et jours fériés</span>
+        <h3>L'Air du Week End</h3>
+        <p>Même configuration et même état d'esprit qu'en semaine, avec des plats plus élaborés. En supplément : fromage blanc fermier ou assortiment de fromages d'ici et d'ailleurs.</p>
+        <ul class="prix">
+          <li><span>Entrée + plat + dessert</span><b>26,50 €</b></li>
+          <li><span>Entrée + plat ou plat + dessert</span><b>20,50 €</b></li>
+          <li><span>Plat unique</span><b>16,50 €</b></li>
+        </ul>
+        <a class="btn btn-noir" href="#reserver" data-service="we">Réserver un midi le week-end</a>
+      </div>
+    </div>
+
+    <div class="panel" id="p3" role="tabpanel" aria-labelledby="t3">
+      <div class="ph"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Accueil/H3/Cuisine%20traditionnelle.jpg" alt="Assiettes à partager"></div>
+      <div>
+        <span class="quand">Les vendredis et samedis soir (+ jeudi soir en juillet-août)</span>
+        <h3>Les Niacs</h3>
+        <p>Un concept venu du Sud-Ouest : « niac » veut dire « bouchée » en occitan. Des assiettes qui se partagent… ou pas. On compose son menu et on commande au fil de la soirée, selon ses envies.</p>
+        <div class="trio">
+          <div><strong>Les Immuables</strong>Six assiettes, toujours là.</div>
+          <div><strong>Les Éphémères</strong>Cinq ou six, qui changent chaque jour.</div>
+          <div><strong>Les Gourmands</strong>La partie sucrée.</div>
+        </div>
+        <a class="btn btn-noir" href="#reserver" data-service="niacs">Réserver un soir de Niacs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL RESERVATION / PAIN -->
+<section class="resa" id="reserver">
+  <div class="wrap">
+    <div class="titre rv">
+      <span class="hand">C'est toujours mieux de réserver !</span>
+      <h2>Réservez votre table ou commandez votre pain</h2>
+      <p>Le calendrier ne propose que les services réellement ouverts. Votre demande est préparée en un clic, puis confirmée par Jeanne et Vincent.</p>
+    </div>
+
+    <div class="outil">
+      <div class="box">
+        <div class="switch" role="group" aria-label="Type de demande">
+          <button type="button" id="mTable" aria-pressed="true">Une table</button>
+          <button type="button" id="mPain" aria-pressed="false">Du pain</button>
+        </div>
+
+        <!-- TABLE -->
+        <div id="fTable">
+          <div class="step">
+            <span class="lab"><i>1.</i>Quel jour ?</span>
+            <div class="days" id="days"></div>
+          </div>
+          <div class="step">
+            <span class="lab"><i>2.</i>Quel service ?</span>
+            <div class="chips" id="services"></div>
+            <div class="alerte" id="svcInfo" hidden></div>
+          </div>
+          <div class="step">
+            <span class="lab"><i>3.</i>Combien de personnes ?</span>
+            <div class="row2">
+              <div><small style="color:#bbb">Adultes</small><div class="count"><button type="button" data-c="ad" data-d="-1" aria-label="Retirer un adulte">−</button><output id="ad">2</output><button type="button" data-c="ad" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+              <div><small style="color:#bbb">Enfants</small><div class="count"><button type="button" data-c="en" data-d="-1" aria-label="Retirer un enfant">−</button><output id="en">0</output><button type="button" data-c="en" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+            </div>
+          </div>
+          <div class="step" id="stepFormule">
+            <span class="lab"><i>4.</i>Formule envisagée <span style="font-weight:400;color:#aaa">(pour estimer)</span></span>
+            <div class="chips" id="formules"></div>
+          </div>
+          <div class="step">
+            <span class="lab"><i>5.</i>Où préférez-vous être ?</span>
+            <div class="chips" id="places">
+              <button type="button" class="chip" aria-pressed="true" data-v="Peu importe">Peu importe</button>
+              <button type="button" class="chip" aria-pressed="false" data-v="En salle">En salle</button>
+              <button type="button" class="chip" aria-pressed="false" data-v="En terrasse">En terrasse</button>
+            </div>
+          </div>
+          <div class="step row2">
+            <div><label for="nom">Votre nom</label><input type="text" id="nom" placeholder="Nom" autocomplete="name"></div>
+            <div><label for="tel">Téléphone</label><input type="tel" id="tel" placeholder="06 …" autocomplete="tel"></div>
+          </div>
+        </div>
+
+        <!-- PAIN -->
+        <div id="fPain" hidden>
+          <div class="step">
+            <span class="lab"><i>1.</i>Jour de retrait</span>
+            <div class="days" id="daysPain"></div>
+            <div class="alerte" id="painInfo" hidden></div>
+          </div>
+          <div class="step">
+            <span class="lab"><i>2.</i>De quelle boulangerie ?</span>
+            <div class="chips" id="fournils">
+              <button type="button" class="chip" aria-pressed="true" data-v="Boulangerie Denis (St André d'Apchon)">Boulangerie Denis · tous les jours</button>
+              <button type="button" class="chip" aria-pressed="false" data-v="Les Pérelles (pain bio au kilo)">Les Pérelles · bio au kilo, le mardi</button>
+            </div>
+          </div>
+          <div class="step">
+            <label for="painTxt"><i>3.</i>Votre commande</label>
+            <textarea id="painTxt" placeholder="Ex. : 2 pains, 1 pain bio au kilo…"></textarea>
+          </div>
+          <div class="step row2">
+            <div><label for="nomP">Votre nom</label><input type="text" id="nomP" placeholder="Nom"></div>
+            <div><label for="telP">Téléphone</label><input type="tel" id="telP" placeholder="06 …"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="recap" aria-live="polite">
+        <span class="hand" id="rHand">Votre demande</span>
+        <h3 id="rTitre">Une table à Un Air de Campagne</h3>
+        <dl id="rList"></dl>
+        <div class="total" id="rTotal"><span>Estimation</span><b id="rPrix">—</b></div>
+        <a class="btn btn-noir" id="rMail" href="#">Envoyer la demande par mail</a>
+        <a class="btn btn-vert" href="tel:+33477659645">Appeler le 04 77 65 96 45</a>
+        <button type="button" class="btn btn-ligne" id="rIcs" style="color:#1f1f1f">Ajouter à mon agenda</button>
+        <p class="info">Le téléphone reste à privilégier. Une réservation n'est confirmée qu'après réponse de l'auberge. Prix indicatifs, tirés des menus affichés.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- MULTISERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="titre rv">
+      <img class="ornement" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Icone/1.png" alt="">
+      <span class="hand">Multi services</span>
+      <h2>Des services de proximité pour votre quotidien</h2>
+      <p>Une course en épicerie, un envoi de courrier, une baguette, un café ou un canon : l'adresse qu'il vous faut.</p>
+    </div>
+    <div class="services">
+      <article class="svc rv"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M14 12v8a3 3 0 0 0 6 0v-8M17 12v18M26 12c-2 2-2 8 0 9v9"/></svg><h3>Restaurant</h3><p>Menu du jour en semaine, menu du week-end, Niacs le vendredi et samedi soir.</p></article>
+      <article class="svc rv d1"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M15 12h12l-1 10a5 5 0 0 1-10 0zM21 27v4M17 31h8"/></svg><h3>Bar</h3><p>Un café le matin, un verre à l'ardoise, les pichets dans toutes les couleurs.</p></article>
+      <article class="svc rv d2"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M12 16h18l-2 13H14zM17 16a4 4 0 0 1 8 0"/></svg><h3>Épicerie d'appoint</h3><p>Viande, charcuterie et fromage de qualité locale, produits de première nécessité et de dépannage.</p></article>
+      <article class="svc rv d3"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M11 25c0-6 5-10 10-10s10 4 10 10H11zM16 19l2 6M21 17v8M26 19l-2 6"/></svg><h3>Dépôt de pain</h3><p>Pains frais livrés chaque jour par la boulangerie Denis. Commande possible.</p></article>
+      <article class="svc rv"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M11 14h20v14H11zM11 14l10 8 10-8"/></svg><h3>Relais de Poste</h3><p>Lettres et colis, carnets de timbres, boîtes Colissimo, pochettes Chronopost, enveloppes prétimbrées.</p></article>
+      <article class="svc rv d1"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M11 15h20v12H11zM11 19h20M15 24h4"/></svg><h3>Point vert Crédit Agricole</h3><p>Retrait d'espèces dans la limite de 100 €, pour les clients de cette banque.</p></article>
+      <article class="svc rv d2"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M16 14h10v3h-10zM14 17h14v14H14zM18 31v2M24 31v2"/></svg><h3>Gaz Butagaz</h3><p>Dépôt-vente de bouteilles de gaz butane et propane, en plusieurs formats.</p></article>
+      <article class="svc rv d3"><svg viewBox="0 0 42 42" fill="none" stroke="#1f1f1f" stroke-width="2"><circle cx="21" cy="21" r="19" fill="#f8eedd" stroke="none"/><path d="M12 13h15v16H14a2 2 0 0 1-2-2zM27 17h3v10a2 2 0 0 1-2 2M16 18h7M16 22h7M16 26h5"/></svg><h3>Journaux le dimanche</h3><p>Le Progrès, avec le Femina et le programme TV, dans la limite des stocks.</p></article>
+    </div>
+
+    <div class="bande-pain rv">
+      <img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/notre-restaurant/Pains.jpg" alt="Pains en dépôt à l'auberge">
+      <div>
+        <span class="hand">Dépôt de pain</span>
+        <h3>Votre pain, mis de côté</h3>
+        <p>La boulangerie Denis de St André d'Apchon nous livre différents pains frais tous les jours. Et chaque mardi matin, « Les Pérelles » de Vincent Bardot, paysan boulanger de St Jean St Maurice, apporte ses pains bio au kilo, avec différentes farines.</p>
+        <a class="btn btn-noir" href="#reserver" data-mode="pain" style="margin-top:18px">Commander mon pain</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAVE -->
+<section class="cave">
+  <div class="wrap cave-grid">
+    <div class="rv">
+      <span class="hand">La Cave d'Un Air de Campagne</span>
+      <h2 style="font-family:var(--f-titre);font-size:clamp(1.8rem,1.3rem + 2vw,2.7rem);line-height:1.15;margin-bottom:14px">Des vins choisis un à un par Jeanne</h2>
+      <p>Bulles, blanc, rouge, rosé et même vin orange. Une sélection de vins au verre à l'ardoise, et les incontournables pichets.</p>
+      <div class="styles"><span>conventionnel</span><span>bio</span><span>nature</span><span>biodynamie</span><span>raisonné</span></div>
+      <div class="regions">
+        <span>Val de Loire</span><span>Vallée du Rhône</span><span>Bordelais</span><span>Bourgogne</span><span>Beaujolais</span><span>Alsace</span><span>Provence</span><span>Languedoc-Roussillon</span><span>Sud-Ouest</span>
+      </div>
+    </div>
+    <div class="ph rv d1"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Accueil/H3/Autres%20services.jpg" alt="Un Air de Campagne, l'auberge"></div>
+  </div>
+</section>
+
+<!-- JEANNE & VINCENT -->
+<section>
+  <div class="wrap duo">
+    <div class="ph rv"><img loading="lazy" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Accueil/H3/450908843_122116782572351016_1034297547307085131_n.jpg" alt="Jeanne et Vincent, à l'auberge"></div>
+    <div class="rv d1">
+      <span class="hand">À propos de Jeanne et Vincent</span>
+      <h2 style="font-family:var(--f-titre);font-size:clamp(1.8rem,1.3rem + 2vw,2.7rem);line-height:1.15;margin-bottom:14px">Un coup de cœur pour Bully, en juillet 2024</h2>
+      <p>Rencontrés au travail, ils ont vécu plusieurs années à côté de Pau avant de choisir Bully, pour l'emplacement, le village et l'outil de travail.</p>
+      <div class="cartes">
+        <div class="carte"><b>Jeanne, à l'accueil et au service</b><p>Originaire de Mulhouse, passée du lycée hôtelier au gastronomique et à l'étoilé, entre mer et montagne. Elle vous conseille sur les vins qu'elle a sélectionnés.</p></div>
+        <div class="carte"><b>Vincent, en cuisine</b><p>Originaire de Tarbes, cuisinier depuis une quinzaine d'années. Une cuisine « d'instinct » selon le marché, la saison et l'inspiration.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track" id="track"></div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="titre rv">
+      <img class="ornement" src="https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/Icone/1.png" alt="">
+      <span class="hand">Où nous trouver ?</span>
+      <h2>Contactez Un Air de Campagne à Bully</h2>
+    </div>
+    <div class="contact">
+      <div class="rv">
+        <h3 style="font-family:var(--f-titre);font-size:1.5rem;margin-bottom:12px">Nos horaires</h3>
+        <ul class="horaires" id="horaires">
+          <li data-d="1"><span>Lundi</span><span>Fermé</span></li>
+          <li data-d="2"><span>Mardi</span><span>8h30 – 15h</span></li>
+          <li data-d="3"><span>Mercredi</span><span>8h30 – 15h</span></li>
+          <li data-d="4"><span>Jeudi</span><span>8h30 – 15h</span></li>
+          <li data-d="5"><span>Vendredi</span><span>8h30 – 15h · 17h30 – 21h30</span></li>
+          <li data-d="6"><span>Samedi</span><span>8h30 – 15h · 17h30 – 21h30</span></li>
+          <li data-d="0"><span>Dimanche</span><span>8h – 16h</span></li>
+        </ul>
+        <p class="note" style="margin-top:10px">En juillet et août, ouverture également le jeudi soir.</p>
+      </div>
+      <div class="coord rv d1">
+        <h3>Un Air de Campagne</h3>
+        <p>5 Place Georges Ernst<br>42260 Bully</p>
+        <p>Téléphone : <a href="tel:+33477659645">04 77 65 96 45</a></p>
+        <p>Mail : <a href="mailto:contact@unairdecampagne42.fr">contact@unairdecampagne42.fr</a></p>
+        <p style="color:#bbb;font-size:.9rem">Pour toutes réservations, questions ou commande de pain, contactez-nous de préférence par téléphone.</p>
+        <div class="btns">
+          <a class="btn btn-vert" href="#reserver">Réserver</a>
+          <a class="btn btn-ligne" target="_blank" rel="noopener" href="https://www.google.com/maps/place/Un+air+de+campagne+Bully+(42260)/@45.928823,4.005596,15z/data=!4m2!3m1!1s0x0:0xf29a130792ac4a1c">Itinéraire</a>
+        </div>
+        <div class="reseaux">
+          <a href="https://www.facebook.com/profile.php?id=61560530499836" target="_blank" rel="noopener" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg></a>
+          <a href="https://www.instagram.com/unairdecampagne42/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <b>Un Air de Campagne</b>
+    <span>Auberge · Bistrot · Épicerie — 5 Place Georges Ernst, 42260 Bully — 04 77 65 96 45</span>
+    <span>Maquette de démonstration non contractuelle. Textes, menus, prix et horaires repris du site unairdecampagne42.fr et de la fiche Roannais Tourisme ; à valider par l'établissement. Couleurs et polices relevées sur le site actuel, ajustables. Photos : toutes issues du site actuel de l'auberge. Formulaire de démonstration : aucune donnée n'est envoyée sans votre action, la demande s'ouvre dans votre messagerie.</span>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn-ligne" href="tel:+33477659645">Appeler</a>
+  <a class="btn btn-vert" href="#reserver">Réserver</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const MAIL='contact@unairdecampagne42.fr';
+const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+const JC=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const toast=t=>{const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2600)};
+
+/* Titre hero mot à mot */
+$$('[data-split]').forEach(h=>{h.innerHTML=h.textContent.split(' ').map((w,i)=>`<span style="animation-delay:${.15+i*.08}s">${w}</span>`).join(' ')});
+
+/* Header + menu mobile */
+addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>20),{passive:true});
+const menu=$('#menu'),bg=$('#burger');
+bg.onclick=()=>{const o=menu.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');bg.setAttribute('aria-expanded',false)});
+
+/* Reveal */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(e=>io.observe(e));
+
+/* Horaires (site actuel, page contact) */
+const H={0:[[8*60,16*60]],1:[],2:[[510,900]],3:[[510,900]],4:[[510,900]],5:[[510,900],[1050,1290]],6:[[510,900],[1050,1290]]};
+function plages(d){const p=[...H[d.getDay()]];if(d.getDay()===4&&[6,7].includes(d.getMonth()))p.push([1050,1290]);return p}
+const hm=m=>`${Math.floor(m/60)}h${m%60?String(m%60).padStart(2,'0'):''}`;
+function statut(){
+  const n=new Date(),m=n.getHours()*60+n.getMinutes(),p=plages(n);
+  const cur=p.find(([a,b])=>m>=a&&m<b);
+  $('#dot').classList.toggle('on',!!cur);
+  if(cur){$('#statusTxt').textContent=`Ouvert · jusqu'à ${hm(cur[1])}`;}
+  else{const nx=p.find(([a])=>a>m);$('#statusTxt').textContent=nx?`Fermé · ouvre à ${hm(nx[0])}`:'Fermé pour aujourd\'hui';}
+  $$('#horaires li').forEach(li=>li.classList.toggle('auj',+li.dataset.d===n.getDay()));
+  const d=n.getDay();
+  if(d===1){$('#todayHand').textContent='Aujourd\'hui, lundi';$('#todayTitle').textContent='Repos à l\'auberge';$('#todayTxt').textContent='On se retrouve mardi dès 8h30.';}
+  else if(d===0||d===6){$('#todayTitle').textContent='L\'Air du Week End';$('#todayTxt').textContent=d===6?'Le midi · et Les Niacs ce soir':'Le midi · 2 entrées, 2 plats, 2 desserts';}
+  else if(d===5){$('#todayTitle').textContent='L\'Air du Jour';$('#todayTxt').textContent='Le midi · et Les Niacs ce soir';}
+}
+statut();setInterval(statut,60000);
+
+/* Onglets menus */
+const tabs=$$('.tab');
+function showTab(i){tabs.forEach((t,j)=>{t.setAttribute('aria-selected',i===j);$('#p'+(j+1)).classList.toggle('on',i===j)})}
+tabs.forEach((t,i)=>{t.onclick=()=>showTab(i);t.onkeydown=e=>{if(e.key==='ArrowRight'){showTab((i+1)%3);tabs[(i+1)%3].focus()}if(e.key==='ArrowLeft'){showTab((i+2)%3);tabs[(i+2)%3].focus()}}});
+
+/* ---- OUTIL ---- */
+const SV={
+  jour:{nom:"L'Air du Jour (midi)",h:'12:00',f:[["Entrée + plat + dessert",16.5],["Entrée + plat ou plat + dessert",14.5],["Plat unique",12.5]]},
+  we:{nom:"L'Air du Week End (midi)",h:'12:00',f:[["Entrée + plat + dessert",26.5],["Entrée + plat ou plat + dessert",20.5],["Plat unique",16.5]]},
+  niacs:{nom:"Les Niacs (soir)",h:'19:30',f:null}
+};
+const ENFANT=10.5;
+function servicesDu(d){const w=d.getDay(),s=[];if(w>=2&&w<=5)s.push('jour');if(w===6||w===0)s.push('we');if(w===5||w===6||(w===4&&[6,7].includes(d.getMonth())))s.push('niacs');return s}
+const st={mode:'table',date:null,svc:null,f:0,ad:2,en:0,place:'Peu importe',pdate:null,four:"Boulangerie Denis (St André d'Apchon)"};
+const jours=[...Array(14)].map((_,i)=>{const d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+i);return d});
+function buildDays(el,isPain){
+  el.innerHTML='';
+  jours.forEach((d,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='day';
+    b.innerHTML=`<small>${i===0?'Auj.':JC[d.getDay()]}</small><b>${d.getDate()}</b>`;
+    b.setAttribute('aria-label',`${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`);
+    const ok=isPain?d.getDay()!==1:servicesDu(d).length>0;
+    b.disabled=!ok;b.setAttribute('aria-pressed','false');
+    b.onclick=()=>{[...el.children].forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');if(isPain){st.pdate=d;painInfo()}else{st.date=d;buildSvc()}render()};
+    el.appendChild(b);
+  });
+}
+function buildSvc(){
+  const box=$('#services');box.innerHTML='';
+  const dispo=st.date?servicesDu(st.date):[];
+  if(!dispo.includes(st.svc))st.svc=dispo[0]||null;
+  ['jour','we','niacs'].forEach(k=>{
+    const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=SV[k].nom;
+    b.disabled=!dispo.includes(k);b.setAttribute('aria-pressed',st.svc===k);
+    b.onclick=()=>{st.svc=k;buildSvc();render()};box.appendChild(b);
+  });
+  const inf=$('#svcInfo');
+  if(st.svc==='niacs'){inf.hidden=false;inf.textContent='Les Niacs se commandent au fil de la soirée : pas de formule fixe, donc pas d\'estimation de prix.';}
+  else inf.hidden=true;
+  buildF();
+}
+function buildF(){
+  const box=$('#formules');box.innerHTML='';
+  const s=st.svc&&SV[st.svc];
+  $('#stepFormule').hidden=!(s&&s.f);
+  if(!s||!s.f)return;
+  s.f.forEach(([n,p],i)=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=`${n} · ${p.toFixed(2).replace('.',',')} €`;b.setAttribute('aria-pressed',st.f===i);b.onclick=()=>{st.f=i;buildF();render()};box.appendChild(b)});
+}
+$$('.count button').forEach(b=>b.onclick=()=>{const k=b.dataset.c,min=k==='ad'?1:0;st[k]=Math.max(min,Math.min(30,st[k]+ +b.dataset.d));$('#'+k).textContent=st[k];render()});
+$$('#places .chip').forEach(b=>b.onclick=()=>{$$('#places .chip').forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');st.place=b.dataset.v;render()});
+$$('#fournils .chip').forEach(b=>b.onclick=()=>{$$('#fournils .chip').forEach(c=>c.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');st.four=b.dataset.v;painInfo();render()});
+function painInfo(){const i=$('#painInfo');if(st.four.startsWith('Les Pérelles')&&st.pdate&&st.pdate.getDay()!==2){i.hidden=false;i.textContent='Les pains bio des Pérelles arrivent le mardi matin : choisissez un mardi.'}else i.hidden=true}
+['#nom','#tel','#nomP','#telP','#painTxt'].forEach(s=>$(s).addEventListener('input',render));
+
+function setMode(m){
+  st.mode=m;$('#mTable').setAttribute('aria-pressed',m==='table');$('#mPain').setAttribute('aria-pressed',m==='pain');
+  $('#fTable').hidden=m!=='table';$('#fPain').hidden=m!=='pain';
+  $('#rIcs').hidden=m!=='table';$('#rTotal').hidden=m!=='table';render();
+}
+$('#mTable').onclick=()=>setMode('table');$('#mPain').onclick=()=>setMode('pain');
+$$('[data-mode="pain"]').forEach(a=>a.addEventListener('click',()=>setMode('pain')));
+$$('[data-service]').forEach(a=>a.addEventListener('click',()=>{
+  setMode('table');const k=a.dataset.service;
+  const d=jours.find(d=>servicesDu(d).includes(k));
+  if(d){st.date=d;st.svc=k;[...$('#days').children].forEach((c,i)=>c.setAttribute('aria-pressed',jours[i]===d));buildSvc();render()}
+}));
+const fdate=d=>`${JOURS[d.getDay()]} ${d.getDate()} ${MOIS[d.getMonth()]}`;
+const eur=n=>n.toFixed(2).replace('.',',')+' €';
+function render(){
+  const dl=$('#rList');let rows=[],body='';
+  if(st.mode==='table'){
+    $('#rHand').textContent='Votre demande';$('#rTitre').textContent='Une table à Un Air de Campagne';
+    const s=st.svc&&SV[st.svc];
+    rows=[['Jour',st.date?fdate(st.date):'à choisir'],['Service',s?s.nom:'à choisir'],['Couverts',`${st.ad} adulte${st.ad>1?'s':''}${st.en?` + ${st.en} enfant${st.en>1?'s':''}`:''}`],['Place',st.place]];
+    if(s&&s.f)rows.push(['Formule',s.f[st.f][0]]);
+    if($('#nom').value)rows.push(['Nom',$('#nom').value]);
+    let prix='—';
+    if(s&&s.f){prix=eur(st.ad*s.f[st.f][1]+st.en*ENFANT)}else if(s)prix='à la carte';
+    $('#rPrix').textContent=prix;
+    body=`Bonjour Jeanne et Vincent,\n\nJe souhaiterais réserver une table :\n- ${rows.map(r=>r.join(' : ')).join('\n- ')}\n- Téléphone : ${$('#tel').value||'…'}\n\nMerci de me confirmer la disponibilité.\n`;
+    $('#rMail').href=`mailto:${MAIL}?subject=${encodeURIComponent('Réservation '+(st.date?fdate(st.date):''))}&body=${encodeURIComponent(body)}`;
+  }else{
+    $('#rHand').textContent='Dépôt de pain';$('#rTitre').textContent='Votre commande de pain';
+    rows=[['Retrait',st.pdate?fdate(st.pdate):'à choisir'],['Boulangerie',st.four],['Commande',$('#painTxt').value||'à préciser']];
+    if($('#nomP').value)rows.push(['Nom',$('#nomP').value]);
+    body=`Bonjour,\n\nJe souhaiterais commander du pain :\n- ${rows.map(r=>r.join(' : ')).join('\n- ')}\n- Téléphone : ${$('#telP').value||'…'}\n\nMerci !\n`;
+    $('#rMail').href=`mailto:${MAIL}?subject=${encodeURIComponent('Commande de pain '+(st.pdate?fdate(st.pdate):''))}&body=${encodeURIComponent(body)}`;
+  }
+  dl.innerHTML=rows.map(([k,v])=>`<dt>${k}</dt><dd>${String(v).replace(/</g,'&lt;')}</dd>`).join('');
+}
+$('#rMail').addEventListener('click',e=>{
+  if(st.mode==='table'&&(!st.date||!st.svc)){e.preventDefault();toast('Choisissez d\'abord un jour et un service');}
+  if(st.mode==='pain'&&!st.pdate){e.preventDefault();toast('Choisissez d\'abord un jour de retrait');}
+});
+$('#rIcs').onclick=()=>{
+  if(!st.date||!st.svc){toast('Choisissez d\'abord un jour et un service');return}
+  const s=SV[st.svc],[h,m]=s.h.split(':'),d=new Date(st.date);d.setHours(+h,+m);
+  const e=new Date(d.getTime()+2*3600e3),f=x=>x.getFullYear()+String(x.getMonth()+1).padStart(2,'0')+String(x.getDate()).padStart(2,'0')+'T'+String(x.getHours()).padStart(2,'0')+String(x.getMinutes()).padStart(2,'0')+'00';
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Un Air de Campagne//Maquette//FR','BEGIN:VEVENT',`UID:${Date.now()}@unairdecampagne42`,`DTSTART:${f(d)}`,`DTEND:${f(e)}`,`SUMMARY:${s.nom} - Un Air de Campagne`,'LOCATION:5 Place Georges Ernst\\, 42260 Bully',`DESCRIPTION:Demande pour ${st.ad+st.en} personne(s). A confirmer avec l'auberge : 04 77 65 96 45`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='un-air-de-campagne.ics';a.click();toast('Rendez-vous ajouté à votre agenda');
+};
+buildDays($('#days'),false);buildDays($('#daysPain'),true);buildSvc();render();
+
+/* Galerie défilante (photos du site actuel) */
+const B='https://local-fr-public.s3.eu-west-3.amazonaws.com/prod/webtool/userfiles/140110/';
+const ph=['notre-restaurant/Restaurant%20pr%C3%A8s%20de%20Roanne.jpg','notre-restaurant/Glace.jpg','notre-restaurant/Pains.jpg','Accueil/H3/Cuisine%20traditionnelle.jpg','notre-restaurant/Savourez%20nos%20plats%20traditionnels.jpg','Accueil/H3/Autres%20services.jpg'];
+$('#track').innerHTML=[...ph,...ph].map(p=>`<img loading="lazy" src="${B+p}" alt="">`).join('');
+})();
+</script>
+</body>
+</html>
