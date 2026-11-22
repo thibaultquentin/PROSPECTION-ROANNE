@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jérémy Charnay — Plaquiste peintre dans le Roannais | Ambierle</title>
+<meta name="description" content="Jérémy Charnay, artisan plaquiste peintre basé à Ambierle : peinture intérieure et extérieure, cloisons en plaque de plâtre et pose de papier peint dans le Roannais.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel charnay-jeremy.fr
+   (relevée dans la feuille de style du site, novembre 2026)
+   Ajuster ici si le client fournit d'autres codes.
+   ========================================================= */
+:root{
+  --rouge:#991115;        /* couleur secondaire du site : titres h1, liens, boutons */
+  --rouge-fonce:#6f0c0f;
+  --beige:#b9aa99;        /* couleur principale du site : soulignés des boutons */
+  --beige-clair:#efe9e2;
+  --brun:#312011;         /* fond de page (body) du site actuel */
+  --noir:#121212;         /* titres h2/h4 du site */
+  --gris:#525252;
+  --blanc:#ffffff;
+  --f-titre:"Poppins",system-ui,sans-serif;   /* police des titres du site */
+  --f-texte:"Barlow",system-ui,sans-serif;    /* police des paragraphes du site */
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--noir);background:var(--blanc);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:var(--rouge);text-decoration:none}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3,h4{font-family:var(--f-titre)}
+h2{font-weight:400;font-size:clamp(1.8rem,1.2rem + 2.4vw,3rem);letter-spacing:2px;line-height:1.15}
+h2 strong{color:var(--rouge);font-weight:600}
+.kicker{font-family:var(--f-titre);color:var(--rouge);text-transform:uppercase;letter-spacing:5px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.kicker::before{content:"";width:34px;height:2px;background:var(--beige)}
+
+/* bandeau démo */
+.demo{background:var(--brun);color:var(--beige-clair);font-size:.8rem;text-align:center;padding:7px 16px;letter-spacing:.5px}
+
+/* boutons — même logique que le site : souligné beige + carré rouge pour l'icône */
+.btn{display:inline-flex;align-items:center;gap:14px;font-family:var(--f-titre);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;color:var(--noir);border-bottom:2px solid var(--beige);padding:10px 4px 10px 0;position:relative;transition:color .3s;cursor:pointer;background:none;border-top:0;border-left:0;border-right:0}
+.btn i{width:38px;height:38px;background:var(--rouge);color:#fff;display:grid;place-items:center;font-style:normal;transition:transform .35s var(--ease)}
+.btn:hover i{transform:translateX(4px) rotate(-8deg)}
+.btn::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--rouge);transition:width .45s var(--ease)}
+.btn:hover::after{width:100%}
+.btn.light{color:#fff}
+.btn.plein{background:var(--rouge);color:#fff;border:0;padding:14px 22px}
+.btn.plein::after{display:none}
+.btn.plein:hover{background:var(--rouge-fonce)}
+
+/* navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 5px 20px #00000012}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:20px}
+.logo{display:flex;align-items:center;gap:10px;color:var(--noir);font-family:var(--f-titre);font-weight:600;letter-spacing:1px}
+.logo img{width:46px;height:46px;transition:transform .6s var(--ease)}
+.logo:hover img{transform:rotate(-18deg)}
+.logo small{display:block;font-weight:400;font-size:.7rem;letter-spacing:3px;color:var(--rouge);text-transform:uppercase}
+.menu{display:flex;gap:26px;list-style:none;font-family:var(--f-titre);font-size:.85rem;letter-spacing:1px}
+.menu a{color:var(--noir);position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;background:var(--rouge);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1);transform-origin:left}
+.tel-nav{font-family:var(--f-titre);font-weight:600;color:#fff;background:var(--rouge);padding:10px 16px;font-size:.85rem;white-space:nowrap}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--noir);margin:5px auto;transition:.3s}
+@media(max-width:900px){
+  .menu{position:fixed;inset:74px 0 auto 0;background:#fff;flex-direction:column;padding:20px 24px 30px;gap:16px;transform:translateY(-20px);opacity:0;visibility:hidden;transition:transform .45s var(--ease),opacity .3s,visibility .3s;box-shadow:0 20px 30px #0001}
+  .menu.open{transform:none;opacity:1;visibility:visible}
+  .burger{display:block}
+  .tel-nav{display:none}
+}
+
+/* hero */
+.hero{position:relative;padding:clamp(40px,6vw,90px) 0 clamp(60px,8vw,110px);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,70px);align-items:center}
+.hero h1{font-weight:300;font-size:clamp(2.2rem,1.3rem + 4vw,4.4rem);line-height:1.05;letter-spacing:2px;color:var(--noir)}
+.hero h1 .trait{color:var(--rouge);font-weight:800;background:linear-gradient(#b9aa9970,#b9aa9970) no-repeat 0 88%/0% .26em;-webkit-box-decoration-break:clone;box-decoration-break:clone;animation:coup 1.2s .7s var(--ease) forwards}
+@keyframes coup{to{background-size:100% .26em}}
+.hero p.lead{font-size:1.15rem;color:var(--gris);max-width:520px;margin:22px 0 32px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:26px;align-items:center}
+.forts{display:flex;gap:22px;flex-wrap:wrap;margin-top:40px}
+.forts div{display:flex;align-items:baseline;gap:8px;font-family:var(--f-titre);font-size:.78rem;letter-spacing:2px;text-transform:uppercase}
+.forts b{color:var(--rouge);font-size:1.4rem;font-weight:300}
+.hero-visu{position:relative;aspect-ratio:4/4.4}
+.hero-visu figure{position:absolute;overflow:hidden;box-shadow:0 30px 60px -20px #31201166}
+.hero-visu figure img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);transition:transform 1.6s var(--ease)}
+.hero-visu.vu figure img{transform:scale(1)}
+.hero-visu .f1{inset:0 22% 18% 0;clip-path:inset(0 100% 0 0);animation:volet 1.2s .2s var(--ease) forwards}
+.hero-visu .f2{inset:45% 0 0 40%;border:10px solid #fff;clip-path:inset(100% 0 0 0);animation:volet2 1.1s .75s var(--ease) forwards}
+@keyframes volet{to{clip-path:inset(0 0 0 0)}}
+@keyframes volet2{to{clip-path:inset(0 0 0 0)}}
+.hero-visu .pinceau{position:absolute;width:110px;right:4%;top:-4%;animation:balance 5s ease-in-out infinite;transform-origin:70% 10%}
+@keyframes balance{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(10deg)}}
+.hero-visu .tag{position:absolute;left:-14px;bottom:8%;background:var(--brun);color:#fff;padding:14px 18px;font-family:var(--f-titre);font-size:.8rem;letter-spacing:2px;z-index:2}
+.hero-visu .tag b{display:block;color:var(--beige);font-weight:400;font-size:.7rem}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.hero-visu{max-width:520px;margin:0 auto;width:100%}}
+
+/* bande défilante */
+.bande{background:var(--brun);color:var(--beige-clair);overflow:hidden;padding:18px 0;font-family:var(--f-titre);letter-spacing:4px;text-transform:uppercase;font-size:.85rem}
+.bande .rail{display:flex;gap:44px;white-space:nowrap;animation:defile 38s linear infinite;width:max-content}
+.bande span::after{content:"◆";color:var(--rouge);margin-left:44px}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(60px,8vw,110px) 0}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* prestations */
+.presta-tete{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:46px}
+.presta-tete p{max-width:430px;color:var(--gris)}
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.carte{position:relative;background:#fff;border:1px solid #eee;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s}
+.carte:hover{transform:translateY(-8px);box-shadow:0 26px 50px -24px #31201155}
+.carte .img{aspect-ratio:4/3;overflow:hidden;position:relative}
+.carte .img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.carte:hover .img img{transform:scale(1.07)}
+.carte .num{position:absolute;top:14px;left:14px;background:var(--rouge);color:#fff;font-family:var(--f-titre);padding:4px 10px;font-size:.8rem;letter-spacing:2px}
+.carte .corps{padding:26px 24px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+.carte h3{color:var(--rouge);letter-spacing:5px;text-transform:uppercase;font-size:1.15rem;font-weight:600}
+.carte ul{list-style:none;color:var(--gris);font-size:.98rem}
+.carte li{padding:6px 0;border-bottom:1px dashed #e4ddd5;display:flex;gap:10px}
+.carte li::before{content:"";flex:0 0 7px;height:7px;margin-top:.55em;background:var(--beige)}
+.carte .btn{margin-top:auto;align-self:flex-start}
+@media(max-width:900px){.cartes{grid-template-columns:1fr}}
+
+/* outil devis */
+.outil{background:var(--brun);color:#f4efe9;position:relative;overflow:hidden}
+.outil::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,#99111555,transparent 65%);top:-200px;right:-160px;pointer-events:none}
+.outil h2{color:#fff}
+.outil h2 strong{color:var(--beige)}
+.outil .kicker{color:var(--beige)}
+.outil .intro{color:#d8cfc4;max-width:620px;margin:14px 0 40px}
+.outil-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:start}
+.etapes{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.etapes button{flex:1;min-width:120px;background:transparent;border:1px solid #ffffff2a;color:#d8cfc4;padding:12px;font-family:var(--f-titre);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.3s;text-align:left}
+.etapes button b{display:block;font-size:1.2rem;color:var(--beige);font-weight:300}
+.etapes button.on{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.etapes button.on b{color:#fff}
+.panneau{background:#ffffff0d;border:1px solid #ffffff1f;padding:26px}
+.panneau[hidden]{display:none}
+.choix{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.choix label{position:relative;cursor:pointer}
+.choix input{position:absolute;opacity:0}
+.choix span{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid #ffffff2a;transition:.25s;height:100%}
+.choix span em{font-style:normal;font-size:.85rem;color:#bfb4a7}
+.choix span strong{font-family:var(--f-titre);font-weight:600;letter-spacing:1px}
+.choix input:checked+span{border-color:var(--beige);background:#b9aa9922;box-shadow:inset 4px 0 0 var(--rouge)}
+.choix input:focus-visible+span{outline:3px solid var(--beige)}
+.pieces{display:flex;flex-direction:column;gap:14px}
+.piece{display:grid;grid-template-columns:1.3fr repeat(3,.7fr) .8fr auto;gap:10px;align-items:end;padding:14px;border:1px solid #ffffff1f;background:#0000001a;animation:entre .45s var(--ease)}
+@keyframes entre{from{opacity:0;transform:translateY(10px)}}
+.piece label{display:flex;flex-direction:column;gap:5px;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#bfb4a7}
+.piece input,.piece select,.champ input,.champ select,.champ textarea{background:#fff;border:0;padding:10px;font:inherit;font-size:.95rem;color:var(--noir);width:100%;text-transform:none;letter-spacing:0}
+.piece .suppr{background:none;border:1px solid #ffffff33;color:#fff;width:40px;height:40px;cursor:pointer;font-size:1.1rem}
+.piece .suppr:hover{background:var(--rouge);border-color:var(--rouge)}
+@media(max-width:760px){.piece{grid-template-columns:1fr 1fr}.piece label:first-child{grid-column:1/-1}}
+.ajout{margin-top:14px;background:none;border:1px dashed var(--beige);color:var(--beige);padding:12px 18px;font-family:var(--f-titre);letter-spacing:2px;font-size:.78rem;text-transform:uppercase;cursor:pointer;width:100%}
+.ajout:hover{background:#b9aa9918}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.champ{display:flex;flex-direction:column;gap:6px;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:#bfb4a7}
+.champ.large{grid-column:1/-1}
+@media(max-width:600px){.champs{grid-template-columns:1fr}}
+.nav-etape{display:flex;justify-content:space-between;margin-top:22px;gap:12px}
+.nav-etape .btn{color:#fff}
+.recap{background:#fff;color:var(--noir);padding:26px;position:sticky;top:96px}
+.recap h3{font-size:.8rem;letter-spacing:4px;text-transform:uppercase;color:var(--rouge);margin-bottom:16px}
+.jauge{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+.jauge div{background:var(--beige-clair);padding:14px}
+.jauge b{display:block;font-family:var(--f-titre);font-size:1.9rem;font-weight:300;color:var(--rouge);line-height:1}
+.jauge small{font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:var(--gris)}
+.recap ul{list-style:none;font-size:.92rem;color:var(--gris);max-height:220px;overflow:auto;margin-bottom:16px}
+.recap li{padding:6px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:10px}
+.recap .vide{font-style:italic}
+.recap .note{font-size:.78rem;color:var(--gris);margin-top:12px}
+.recap .btn.plein{width:100%;justify-content:center}
+.copie{margin-top:10px;width:100%;background:none;border:1px solid var(--beige);padding:11px;font-family:var(--f-titre);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer}
+.copie:hover{border-color:var(--rouge);color:var(--rouge)}
+@media(max-width:980px){.outil-grid{grid-template-columns:1fr}.recap{position:static}}
+
+/* réalisations */
+.filtres{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 34px}
+.filtres button{background:none;border:1px solid #ddd;padding:10px 18px;font-family:var(--f-titre);font-size:.78rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:.3s}
+.filtres button.on{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+.filtres button sup{color:var(--beige);margin-left:4px}
+.galerie{columns:4 230px;column-gap:14px}
+.galerie figure{break-inside:avoid;margin-bottom:14px;position:relative;overflow:hidden;cursor:zoom-in;background:var(--beige-clair);transition:opacity .4s,transform .4s}
+.galerie figure.cache{display:none}
+.galerie img{width:100%;transition:transform .8s var(--ease)}
+.galerie figure:hover img{transform:scale(1.06)}
+.galerie figcaption{position:absolute;inset:auto 0 0 0;padding:26px 14px 12px;background:linear-gradient(transparent,#312011dd);color:#fff;font-size:.82rem;letter-spacing:1px;transform:translateY(100%);transition:transform .4s var(--ease)}
+.galerie figure:hover figcaption,.galerie figure:focus-visible figcaption{transform:none}
+.lb{position:fixed;inset:0;background:#120b06f2;z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+.lb.on{display:flex}
+.lb img{max-height:84vh;max-width:min(1100px,100%);box-shadow:0 30px 80px #000}
+.lb p{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#e9e1d8;font-size:.9rem;letter-spacing:1px}
+.lb button{position:absolute;background:var(--rouge);border:0;color:#fff;width:48px;height:48px;font-size:1.3rem;cursor:pointer}
+.lb .x{top:18px;right:18px}.lb .g{left:18px;top:50%}.lb .d{right:18px;top:50%}
+
+/* zones */
+.zones{background:var(--beige-clair)}
+.zones .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:center}
+.carte-zone{position:relative;aspect-ratio:1;max-width:460px;width:100%;margin:auto}
+.carte-zone svg{width:100%;height:100%}
+.carte-zone .pt{cursor:pointer}
+.carte-zone .pt circle{fill:var(--beige);transition:.3s}
+.carte-zone .pt.on circle,.carte-zone .pt:hover circle{fill:var(--rouge)}
+.carte-zone text{font-family:var(--f-titre);font-size:11px;fill:var(--noir);letter-spacing:.5px}
+.onde{fill:none;stroke:var(--rouge);stroke-width:1.5;opacity:.5;transform-origin:center;transform-box:fill-box;animation:onde 3s ease-out infinite}
+@keyframes onde{from{transform:scale(.3);opacity:.7}to{transform:scale(1.6);opacity:0}}
+.liste-communes{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.liste-communes button{background:#fff;border:1px solid #ddd2c6;padding:9px 14px;font-family:var(--f-texte);font-size:.95rem;cursor:pointer;transition:.25s}
+.liste-communes button.on,.liste-communes button:hover{background:var(--rouge);color:#fff;border-color:var(--rouge)}
+.zone-info{margin-top:20px;min-height:48px;color:var(--gris);font-size:1rem}
+@media(max-width:900px){.zones .wrap{grid-template-columns:1fr}}
+
+/* engagements */
+.engag{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid #eee}
+.engag div{padding:40px 30px;border-right:1px solid #eee;position:relative}
+.engag div:last-child{border-right:0}
+.engag b{font-family:var(--f-titre);font-size:3.2rem;font-weight:200;color:var(--beige);display:block;line-height:1}
+.engag h3{color:var(--rouge);letter-spacing:4px;text-transform:uppercase;font-size:1rem;margin:14px 0 8px}
+.engag p{color:var(--gris)}
+@media(max-width:800px){.engag{grid-template-columns:1fr}.engag div{border-right:0;border-bottom:1px solid #eee}}
+
+/* contact */
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.coord{display:flex;flex-direction:column;gap:22px;margin-top:26px}
+.coord div{display:flex;gap:16px;align-items:flex-start}
+.coord i{width:44px;height:44px;flex:0 0 44px;background:var(--rouge);color:#fff;display:grid;place-items:center;font-style:normal}
+.coord small{display:block;font-family:var(--f-titre);letter-spacing:3px;text-transform:uppercase;font-size:.7rem;color:var(--gris)}
+.coord a,.coord span{font-size:1.15rem;color:var(--noir);font-weight:500}
+.form-c{background:var(--beige-clair);padding:30px;display:grid;gap:14px}
+.form-c label{display:flex;flex-direction:column;gap:6px;font-size:.75rem;letter-spacing:1px;text-transform:uppercase;color:var(--gris)}
+.form-c input,.form-c textarea,.form-c select{border:1px solid #ddd2c6;background:#fff;padding:12px;font:inherit;font-size:1rem}
+.form-c .ok{display:none;background:#fff;border-left:4px solid var(--rouge);padding:12px;font-size:.95rem}
+@media(max-width:900px){.contact .wrap{grid-template-columns:1fr}}
+
+footer{background:var(--brun);color:#cfc5b9;padding:50px 0 30px;font-size:.92rem}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer h4{color:#fff;letter-spacing:3px;text-transform:uppercase;font-size:.8rem;margin-bottom:12px}
+footer a{color:#e9e1d8}
+footer .logo{color:#fff}
+footer .logo img{filter:invert(1)}
+.mention{border-top:1px solid #ffffff1f;margin-top:34px;padding-top:20px;font-size:.8rem;color:#a99d90;grid-column:1/-1}
+@media(max-width:800px){footer .wrap{grid-template-columns:1fr}}
+
+.appel-mobile{display:none}
+@media(max-width:700px){.appel-mobile{display:flex;position:fixed;bottom:14px;right:14px;z-index:60;background:var(--rouge);color:#fff;width:58px;height:58px;border-radius:50%;align-items:center;justify-content:center;box-shadow:0 10px 25px #99111577;font-size:1.4rem}}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"HousePainter",
+ "name":"Jérémy Charnay - Plaquiste Peintre",
+ "url":"https://charnay-jeremy.fr/",
+ "telephone":"+33681582212",
+ "email":"jeremyc42300@gmail.com",
+ "image":"https://charnay-jeremy.fr/uploads/media/images/cms/medias/426c0eaaea64d416ff8c4285fab1a4f7c07c55d2.png",
+ "address":{"@type":"PostalAddress","addressLocality":"Ambierle","postalCode":"42820","addressRegion":"Loire","addressCountry":"FR"},
+ "areaServed":["Ambierle","Lentigny","Renaison","Riorges","Roanne","Saint-Alban-les-Eaux","Saint-Germain-Lespinasse","Saint-Haon-le-Vieux","Saint-Romain-la-Motte","Villerest"],
+ "knowsAbout":["Peinture intérieure","Peinture extérieure","Plaque de plâtre","Cloisons","Pose de papier peint","Toile de verre"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site de Jérémy Charnay, non contractuelle</div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a href="#haut" class="logo" aria-label="Jérémy Charnay, accueil">
+      <img src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/426c0eaaea64d416ff8c4285fab1a4f7c07c55d2.png" alt="">
+      <span>Jérémy Charnay<small>Plaquiste peintre</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#prestations">Plaquiste</a></li>
+      <li><a href="#prestations">Peintre</a></li>
+      <li><a href="#prestations">Papier peint</a></li>
+      <li><a href="#devis">Mon projet</a></li>
+      <li><a href="#realisations">Nos réalisations</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="tel-nav" href="tel:+33681582212">06 81 58 22 12</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="kicker">Artisan plaquiste peintre</div>
+      <h1>Votre artisan <span class="trait">plaquiste peintre</span> dans le Roannais</h1>
+      <p class="lead">Peinture intérieure et extérieure, cloisons et plafonds en plaque de plâtre, pose de papier peint : Jérémy Charnay rafraîchit votre intérieur et redonne de l’éclat à votre façade, depuis Ambierle.</p>
+      <div class="actions">
+        <a class="btn plein" href="#devis">Préparer mon devis <i aria-hidden="true">→</i></a>
+        <a class="btn" href="#realisations"><i aria-hidden="true">◫</i>Voir les réalisations</a>
+      </div>
+      <div class="forts">
+        <div><b>01</b>Conseils personnalisés</div>
+        <div><b>02</b>Devis gratuit</div>
+        <div><b>03</b>Garantie décennale</div>
+      </div>
+    </div>
+    <div class="hero-visu" id="heroVisu">
+      <figure class="f1"><img src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6a38f35a39cb5_images_large.jpeg" alt="Réalisation de joints placo par Jérémy Charnay"></figure>
+      <figure class="f2"><img src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/6a38f5126cba9_images_medium.jpeg" alt="Rénovation en peinture d’un couloir et d’un escalier, avant et après"></figure>
+      <img class="pinceau" src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/426c0eaaea64d416ff8c4285fab1a4f7c07c55d2.png" alt="" aria-hidden="true">
+      <div class="tag">Escalier, avant / après<b>Rénovation peinture</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="bande" aria-hidden="true"><div class="rail">
+  <span>Peinture intérieure</span><span>Peinture extérieure</span><span>Cloisons</span><span>Plafonds sous rampants</span><span>Papier peint</span><span>Toile sur plafond</span><span>Garage en chambre</span><span>Portails en fer</span>
+  <span>Peinture intérieure</span><span>Peinture extérieure</span><span>Cloisons</span><span>Plafonds sous rampants</span><span>Papier peint</span><span>Toile sur plafond</span><span>Garage en chambre</span><span>Portails en fer</span>
+</div></div>
+
+<section id="prestations">
+  <div class="wrap">
+    <div class="presta-tete">
+      <div class="reveal">
+        <div class="kicker">Découvrir nos prestations</div>
+        <h2>Plâtre, peinture,<br><strong>papier peint</strong></h2>
+      </div>
+      <p class="reveal d1">Un seul artisan, du montage des cloisons jusqu’à la dernière couche : les finitions s’enchaînent sans attendre un autre corps de métier.</p>
+    </div>
+    <div class="cartes">
+      <article class="carte reveal">
+        <div class="img"><span class="num">01</span><img loading="lazy" src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/664afae06e452_images_medium.jpeg" alt="Travaux en plaque de plâtre"></div>
+        <div class="corps">
+          <h3>Plaquiste</h3>
+          <ul>
+            <li>Rénovation d’intérieur d’appartement</li>
+            <li>Transformation d’un garage en chambre</li>
+            <li>Création de niches murales</li>
+            <li>Montage de cloisons, plafonds sous rampants</li>
+            <li>Pose d’une toile sur plafond</li>
+          </ul>
+          <a class="btn" href="#devis" data-preselect="plaquiste"><i aria-hidden="true">→</i>Préparer ce projet</a>
+        </div>
+      </article>
+      <article class="carte reveal d1">
+        <div class="img"><span class="num">02</span><img loading="lazy" src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/664afbc40853c_images_medium.jpeg" alt="Travaux de peinture"></div>
+        <div class="corps">
+          <h3>Peintre</h3>
+          <ul>
+            <li>Rénovation peinture d’une maison ou d’un appartement</li>
+            <li>Salle de bain, chambre, plafonds</li>
+            <li>Peinture pour mur extérieur</li>
+            <li>Rénovation de peinture de portail en fer</li>
+          </ul>
+          <a class="btn" href="#devis" data-preselect="peinture"><i aria-hidden="true">→</i>Préparer ce projet</a>
+        </div>
+      </article>
+      <article class="carte reveal d2">
+        <div class="img"><span class="num">03</span><img loading="lazy" src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/65830017adabf_images_medium.png" alt="Pose de papier peint gris"></div>
+        <div class="corps">
+          <h3>Papier peint</h3>
+          <ul>
+            <li>Pose de papier peint, une pièce ou tout l’intérieur</li>
+            <li>Pose de papier à peindre (patent) sur les murs</li>
+            <li>Pose d’une toile lisse sur plafond</li>
+          </ul>
+          <a class="btn" href="#devis" data-preselect="papier"><i aria-hidden="true">→</i>Préparer ce projet</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL : préparation de la demande de devis -->
+<section class="outil" id="devis">
+  <div class="wrap">
+    <div class="kicker">Devis gratuit</div>
+    <h2>Décrivez votre chantier,<br><strong>pièce par pièce</strong></h2>
+    <p class="intro">Choisissez les travaux, indiquez les dimensions de chaque pièce : les surfaces de murs et de plafonds se calculent toutes seules, ouvertures déduites. Jérémy reçoit une demande complète et peut vous répondre plus vite.</p>
+
+    <div class="outil-grid">
+      <div>
+        <div class="etapes" role="tablist">
+          <button class="on" data-step="1" role="tab"><b>1</b>Travaux</button>
+          <button data-step="2" role="tab"><b>2</b>Pièces</button>
+          <button data-step="3" role="tab"><b>3</b>Vos coordonnées</button>
+        </div>
+
+        <div class="panneau" data-panel="1">
+          <div class="choix" id="travaux">
+            <label><input type="checkbox" value="Peinture des murs" data-k="peinture"><span><strong>Peinture des murs</strong><em>Intérieur, rafraîchissement ou rénovation</em></span></label>
+            <label><input type="checkbox" value="Peinture des plafonds" data-k="peinture"><span><strong>Peinture des plafonds</strong><em>Toutes pièces</em></span></label>
+            <label><input type="checkbox" value="Pose de papier peint" data-k="papier"><span><strong>Papier peint</strong><em>Ou papier à peindre</em></span></label>
+            <label><input type="checkbox" value="Toile sur plafond" data-k="papier"><span><strong>Toile sur plafond</strong><em>Toile lisse avant peinture</em></span></label>
+            <label><input type="checkbox" value="Cloisons / plaque de plâtre" data-k="plaquiste"><span><strong>Cloisons, placo</strong><em>Création, niches, rampants</em></span></label>
+            <label><input type="checkbox" value="Transformation de garage en chambre" data-k="plaquiste"><span><strong>Garage en chambre</strong><em>Changement d’usage d’une pièce</em></span></label>
+            <label><input type="checkbox" value="Peinture extérieure / façade" data-k="peinture"><span><strong>Mur extérieur</strong><em>Façade, murets</em></span></label>
+            <label><input type="checkbox" value="Rénovation de portail en fer" data-k="peinture"><span><strong>Portail en fer</strong><em>Remise en peinture</em></span></label>
+          </div>
+          <div class="nav-etape"><span></span><button class="btn" data-go="2"><i aria-hidden="true">→</i>Ajouter les pièces</button></div>
+        </div>
+
+        <div class="panneau" data-panel="2" hidden>
+          <div class="pieces" id="pieces"></div>
+          <button class="ajout" id="ajoutPiece">+ Ajouter une pièce</button>
+          <div class="nav-etape"><button class="btn" data-go="1"><i aria-hidden="true">←</i>Travaux</button><button class="btn" data-go="3"><i aria-hidden="true">→</i>Coordonnées</button></div>
+        </div>
+
+        <div class="panneau" data-panel="3" hidden>
+          <div class="champs">
+            <label class="champ">Nom<input id="cNom" autocomplete="name"></label>
+            <label class="champ">Téléphone<input id="cTel" type="tel" autocomplete="tel"></label>
+            <label class="champ">Commune du chantier
+              <select id="cVille">
+                <option>Ambierle</option><option>Lentigny</option><option>Renaison</option><option>Riorges</option><option>Roanne</option><option>Saint-Alban-les-Eaux</option><option>Saint-Germain-Lespinasse</option><option>Saint-Haon-le-Vieux</option><option>Saint-Romain-la-Motte</option><option>Villerest</option><option>Autre commune</option>
+              </select></label>
+            <label class="champ">Délai souhaité
+              <select id="cDelai"><option>Pas pressé</option><option>Dans les 3 mois</option><option>Dès que possible</option></select></label>
+            <label class="champ large">Précisions (état des murs, couleurs, accès…)<textarea id="cMsg" rows="3"></textarea></label>
+          </div>
+          <div class="nav-etape"><button class="btn" data-go="2"><i aria-hidden="true">←</i>Pièces</button><span></span></div>
+        </div>
+      </div>
+
+      <aside class="recap" aria-live="polite">
+        <h3>Votre projet</h3>
+        <div class="jauge">
+          <div><b id="mMurs">0</b><small>m² de murs</small></div>
+          <div><b id="mPlaf">0</b><small>m² de plafonds</small></div>
+        </div>
+        <ul id="recapListe"><li class="vide">Choisissez des travaux pour commencer.</li></ul>
+        <a class="btn plein" id="envoi" href="#"><span>Envoyer ma demande</span><i aria-hidden="true">✉</i></a>
+        <button class="copie" id="copie">Copier le récapitulatif</button>
+        <p class="note">Les surfaces sont calculées à titre indicatif ; Jérémy confirme les métrés lors de sa visite et établit un devis gratuit.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Découvrez les réalisations de votre artisan</div>
+      <h2>Nos <strong>réalisations</strong></h2>
+    </div>
+    <div class="filtres" id="filtres">
+      <button class="on" data-f="tout">Tout<sup></sup></button>
+      <button data-f="platre">Les travaux en plâtre<sup></sup></button>
+      <button data-f="peinture">Les travaux de peinture<sup></sup></button>
+      <button data-f="papier">Papiers peints<sup></sup></button>
+    </div>
+    <div class="galerie" id="galerie"></div>
+  </div>
+</section>
+
+<section class="zones" id="zones">
+  <div class="wrap">
+    <div class="carte-zone reveal">
+      <svg viewBox="0 0 400 400" id="svgZone" role="img" aria-label="Communes d’intervention autour d’Ambierle"></svg>
+    </div>
+    <div class="reveal d1">
+      <div class="kicker">Recherches fréquentes</div>
+      <h2>Où intervient<br><strong>Jérémy Charnay ?</strong></h2>
+      <p style="color:var(--gris);margin-top:14px">Basé à Ambierle, Jérémy intervient sur les communes citées sur son site, entre la Côte roannaise et l’agglomération de Roanne.</p>
+      <div class="liste-communes" id="listeCommunes"></div>
+      <p class="zone-info" id="zoneInfo">Touchez une commune pour la situer.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom:34px">
+      <div class="kicker">Nos engagements de qualité</div>
+      <h2>Nos <strong>points forts</strong></h2>
+    </div>
+    <div class="engag">
+      <div class="reveal"><b>01</b><h3>Conseils personnalisés</h3><p>Choix des teintes, des finitions et des supports selon la pièce et son usage.</p></div>
+      <div class="reveal d1"><b>02</b><h3>Devis gratuit</h3><p>Décrivez votre projet en ligne ou par téléphone : le devis ne vous engage à rien.</p></div>
+      <div class="reveal d2"><b>03</b><h3>Garantie décennale</h3><p>Vos travaux de plâtrerie et de peinture sont couverts par la garantie décennale.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" style="background:var(--beige-clair)">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="kicker">Contactez votre artisan</div>
+      <h2>N’hésitez pas<br>à <strong>me contacter</strong></h2>
+      <div class="coord">
+        <div><i aria-hidden="true">☏</i><p><small>Téléphone</small><a href="tel:+33681582212">06 81 58 22 12</a></p></div>
+        <div><i aria-hidden="true">✉</i><p><small>E-mail</small><a href="mailto:jeremyc42300@gmail.com">jeremyc42300@gmail.com</a></p></div>
+        <div><i aria-hidden="true">⌂</i><p><small>Adresse</small><span>Ambierle (Loire)</span></p></div>
+      </div>
+    </div>
+    <form class="form-c reveal d1" id="formC">
+      <label>Votre nom<input required name="nom" autocomplete="name"></label>
+      <label>Téléphone ou e-mail<input required name="contact"></label>
+      <label>Votre message<textarea required name="msg" rows="4"></textarea></label>
+      <button class="btn plein" type="submit">Envoyer <i aria-hidden="true">→</i></button>
+      <p class="ok" id="okC">Merci, votre message est prêt à partir : votre messagerie va s’ouvrir.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a class="logo" href="#haut"><img src="https://charnay-jeremy.fr/uploads/media/images/cms/medias/426c0eaaea64d416ff8c4285fab1a4f7c07c55d2.png" alt="" width="46" height="46"><span>Jérémy Charnay<small style="color:var(--beige)">Plaquiste peintre</small></span></a>
+      <p style="margin-top:14px">Artisan plaquiste peintre à Ambierle, dans le Roannais.</p>
+    </div>
+    <div>
+      <h4>Prestations</h4>
+      <p><a href="#prestations">Plaquiste</a><br><a href="#prestations">Peintre</a><br><a href="#prestations">Papier peint</a><br><a href="#realisations">Nos réalisations</a></p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:+33681582212">06 81 58 22 12</a><br><a href="mailto:jeremyc42300@gmail.com">jeremyc42300@gmail.com</a><br>Ambierle (42)<br>SIRET 824 450 530 00038</p>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée à partir du site actuel charnay-jeremy.fr : textes, couleurs (rouge #991115, beige #b9aa99, brun #312011), polices et photos repris du site existant ; toutes les photos sont celles déjà publiées par l’entreprise. Les surfaces calculées par l’outil de devis sont indicatives. Aucun avis, chiffre ni certification n’a été ajouté. Document non contractuel.</p>
+  </div>
+</footer>
+
+<a class="appel-mobile" href="tel:+33681582212" aria-label="Appeler Jérémy Charnay">☏</a>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+  <button class="x" aria-label="Fermer">✕</button><button class="g" aria-label="Photo précédente">‹</button><button class="d" aria-label="Photo suivante">›</button>
+  <img alt=""><p></p>
+</div>
+
+<script>
+(function(){
+const MAIL="jeremyc42300@gmail.com";
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+
+/* navigation */
+const nav=$('header.nav');addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+const burger=$('#burger'),menu=$('#menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+$$('#menu a').forEach(a=>a.onclick=()=>menu.classList.remove('open'));
+
+/* apparitions */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+$$('.reveal').forEach(el=>io.observe(el));
+setTimeout(()=>$('#heroVisu').classList.add('vu'),300);
+
+/* galerie : photos réelles publiées sur charnay-jeremy.fr */
+const B="https://charnay-jeremy.fr/uploads/media/images/cms/medias/thumb_/cms/medias/";
+const photos=[
+ ["platre","6a38f35a39cb5","jpeg","Réalisation de joints placo"],
+ ["platre","6582fce99bb79","jpeg","Travaux en plâtre"],
+ ["platre","65ae6516a4d51","jpeg","Travaux en plâtre"],
+ ["platre","65ae65227691f","jpeg","Travaux en plâtre"],
+ ["platre","65ae652c43267","jpeg","Travaux en plâtre"],
+ ["platre","664afae06e452","jpeg","Travaux en plâtre"],
+ ["platre","664afadbd9954","jpeg","Travaux en plâtre"],
+ ["platre","664afae81ff5d","jpeg","Travaux en plâtre"],
+ ["platre","664afae53afb4","jpeg","Travaux en plâtre"],
+ ["peinture","6a38f5126cba9","jpeg","Rénovation en peinture d’un couloir et d’un escalier"],
+ ["peinture","6582fe9571d87","jpeg","Portail"],
+ ["peinture","6582ff63806f2","png","Salle de bain"],
+ ["peinture","65ae64a9731e4","jpeg","Travaux de peinture"],
+ ["peinture","65ae64b4a68a5","jpeg","Travaux de peinture"],
+ ["peinture","664afc01e654d","jpeg","Travaux de peinture"],
+ ["peinture","664afbfdbd303","jpeg","Travaux de peinture"],
+ ["peinture","664afbb68f9a1","jpeg","Travaux de peinture"],
+ ["peinture","664afbb1e27eb","jpeg","Travaux de peinture"],
+ ["peinture","664afbc74f697","jpeg","Travaux de peinture"],
+ ["peinture","664afbc40853c","jpeg","Travaux de peinture"],
+ ["papier","6583017275282","png","Papier peint"],
+ ["papier","6583000ab7a35","png","Salon"],
+ ["papier","65830017adabf","png","Tapisserie grise"],
+ ["papier","65ae64694a6da","jpeg","Pose d’une toile lisse sur plafond"],
+ ["papier","65ae65b977afd","jpeg","Pose d’un patent (papier à peindre) sur les murs"]
+];
+const gal=$('#galerie');
+photos.forEach((p,i)=>{const f=document.createElement('figure');f.dataset.cat=p[0];f.tabIndex=0;f.dataset.i=i;
+ f.innerHTML=`<img loading="lazy" src="${B+p[1]}_images_medium.${p[2]}" alt="${p[3]}"><figcaption>${p[3]}</figcaption>`;gal.appendChild(f)});
+const compte={tout:photos.length};photos.forEach(p=>compte[p[0]]=(compte[p[0]]||0)+1);
+$$('#filtres button').forEach(b=>{b.querySelector('sup').textContent=compte[b.dataset.f];
+ b.onclick=()=>{$$('#filtres button').forEach(x=>x.classList.toggle('on',x===b));
+  $$('#galerie figure').forEach(f=>{const ok=b.dataset.f==='tout'||f.dataset.cat===b.dataset.f;f.classList.toggle('cache',!ok)})}});
+/* visionneuse */
+const lb=$('#lb');let cur=0;
+const visibles=()=>$$('#galerie figure:not(.cache)').map(f=>+f.dataset.i);
+function ouvre(i){cur=i;const p=photos[i];$('img',lb).src=B+p[1]+'_images_large.'+p[2];$('img',lb).alt=p[3];$('p',lb).textContent=p[3];lb.classList.add('on');$('.x',lb).focus()}
+function pas(d){const v=visibles();let k=v.indexOf(cur)+d;k=(k+v.length)%v.length;ouvre(v[k])}
+gal.addEventListener('click',e=>{const f=e.target.closest('figure');if(f)ouvre(+f.dataset.i)});
+gal.addEventListener('keydown',e=>{if(e.key==='Enter'){const f=e.target.closest('figure');if(f)ouvre(+f.dataset.i)}});
+$('.x',lb).onclick=()=>lb.classList.remove('on');$('.g',lb).onclick=()=>pas(-1);$('.d',lb).onclick=()=>pas(1);
+lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('on')});
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')pas(-1);if(e.key==='ArrowRight')pas(1)});
+
+/* outil devis */
+function etape(n){$$('.etapes button').forEach(b=>b.classList.toggle('on',+b.dataset.step===n));$$('.panneau').forEach(p=>p.hidden=+p.dataset.panel!==n)}
+$$('.etapes button').forEach(b=>b.onclick=()=>etape(+b.dataset.step));
+$$('[data-go]').forEach(b=>b.onclick=()=>etape(+b.dataset.go));
+$$('[data-preselect]').forEach(a=>a.addEventListener('click',()=>{const k=a.dataset.preselect;$$('#travaux input').forEach(i=>{if(i.dataset.k===k&&!$$('#travaux input:checked').some(c=>c.dataset.k===k))i.checked=true});
+ const premier=$$('#travaux input').find(i=>i.dataset.k===k);if(premier)premier.checked=true;etape(1);calc()}));
+
+const TYPES=["Salon / séjour","Chambre","Cuisine","Salle de bain","Couloir / entrée","Escalier","Bureau","Garage","Autre"];
+const box=$('#pieces');let nb=0;let texte="";
+function ajout(type){nb++;const d=document.createElement('div');d.className='piece';
+ d.innerHTML=`<label>Pièce<select class="t">${TYPES.map(t=>`<option${t===type?' selected':''}>${t}</option>`).join('')}</select></label>
+ <label>Longueur (m)<input class="L" type="number" min="0" step="0.1" value="4"></label>
+ <label>Largeur (m)<input class="l" type="number" min="0" step="0.1" value="3.5"></label>
+ <label>Hauteur (m)<input class="h" type="number" min="0" step="0.05" value="2.5"></label>
+ <label>Portes / fenêtres<input class="o" type="number" min="0" step="1" value="2"></label>
+ <button class="suppr" aria-label="Retirer cette pièce">✕</button>`;
+ box.appendChild(d);d.querySelector('.suppr').onclick=()=>{d.remove();calc()};d.addEventListener('input',calc);calc()}
+$('#ajoutPiece').onclick=()=>ajout('Chambre');
+ajout('Salon / séjour');
+$('#travaux').addEventListener('change',calc);
+['cNom','cTel','cVille','cDelai','cMsg'].forEach(id=>$('#'+id).addEventListener('input',calc));
+
+function anim(el,v){const de=+el.dataset.v||0;el.dataset.v=v;const t0=performance.now();
+ (function f(t){const k=Math.min(1,(t-t0)/500);el.textContent=Math.round(de+(v-de)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(t0)}
+function calc(){
+ const tr=$$('#travaux input:checked').map(i=>i.value);
+ let murs=0,plaf=0;const lignes=[];
+ $$('.piece',box).forEach(p=>{const L=+$('.L',p).value||0,l=+$('.l',p).value||0,h=+$('.h',p).value||0,o=+$('.o',p).value||0;
+  const m=Math.max(0,2*(L+l)*h-o*1.6),pl=L*l;murs+=m;plaf+=pl;lignes.push([$('.t',p).value,m,pl])});
+ anim($('#mMurs'),murs);anim($('#mPlaf'),plaf);
+ const ul=$('#recapListe');ul.innerHTML='';
+ if(!tr.length&&!lignes.length){ul.innerHTML='<li class="vide">Choisissez des travaux pour commencer.</li>'}
+ tr.forEach(t=>ul.insertAdjacentHTML('beforeend',`<li><span>${t}</span><span>✓</span></li>`));
+ lignes.forEach(x=>ul.insertAdjacentHTML('beforeend',`<li><span>${x[0]}</span><span>${x[1].toFixed(1)} m² murs · ${x[2].toFixed(1)} m² plafond</span></li>`));
+ texte="Bonjour,\n\nJe souhaite un devis pour les travaux suivants :\n"+(tr.length?tr.map(t=>"- "+t).join("\n"):"- (à préciser)")+
+ "\n\nPièces concernées :\n"+lignes.map(x=>`- ${x[0]} : ${x[1].toFixed(1)} m² de murs, ${x[2].toFixed(1)} m² de plafond`).join("\n")+
+ `\nTotal indicatif : ${murs.toFixed(1)} m² de murs, ${plaf.toFixed(1)} m² de plafonds (ouvertures déduites).`+
+ `\n\nCommune du chantier : ${$('#cVille').value}\nDélai : ${$('#cDelai').value}`+($('#cMsg').value?`\nPrécisions : ${$('#cMsg').value}`:"")+
+ `\n\n${$('#cNom').value||''}\n${$('#cTel').value||''}`;
+ $('#envoi').href="mailto:"+MAIL+"?subject="+encodeURIComponent("Demande de devis - "+$('#cVille').value)+"&body="+encodeURIComponent(texte);
+}
+$('#copie').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(texte).then(()=>{$('#copie').textContent='Récapitulatif copié ✓';setTimeout(()=>$('#copie').textContent='Copier le récapitulatif',2200)})};
+
+/* formulaire contact */
+$('#formC').addEventListener('submit',e=>{e.preventDefault();const f=e.target;$('#okC').style.display='block';
+ location.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Contact depuis le site")+"&body="+encodeURIComponent(f.msg.value+"\n\n"+f.nom.value+"\n"+f.contact.value)});
+
+/* carte des communes (positions approximatives, schéma non à l'échelle) */
+const C=[["Ambierle",120,120,"Le point de départ : l’entreprise est installée à Ambierle."],["Saint-Haon-le-Vieux",115,190,"Sur la Côte roannaise, au sud d’Ambierle."],["Saint-Germain-Lespinasse",205,105,"Au nord-est d’Ambierle, sur la route de Roanne."],["Saint-Romain-la-Motte",185,175,"Entre la Côte roannaise et la plaine."],["Saint-Alban-les-Eaux",120,265,"Au sud-ouest de Renaison."],["Renaison",160,245,"Au cœur de la Côte roannaise."],["Riorges",245,255,"Porte ouest de l’agglomération roannaise."],["Roanne",300,250,"Au centre de l’agglomération."],["Lentigny",215,325,"Au sud de Riorges."],["Villerest",290,320,"Au sud de Roanne, au bord de la Loire."]];
+const svg=$('#svgZone');const ns="http://www.w3.org/2000/svg";
+svg.innerHTML=`<path d="M330 20 C 320 120, 345 200, 300 260 S 280 360, 320 395" fill="none" stroke="#b9aa99" stroke-width="10" opacity=".45"/><text x="335" y="60" style="font-size:10px;fill:#8d7f70">Loire</text>`;
+const [ax,ay]=[C[0][1],C[0][2]];
+C.slice(1).forEach(c=>{const l=document.createElementNS(ns,'line');l.setAttribute('x1',ax);l.setAttribute('y1',ay);l.setAttribute('x2',c[1]);l.setAttribute('y2',c[2]);l.setAttribute('stroke','#b9aa99');l.setAttribute('stroke-dasharray','3 5');svg.appendChild(l)});
+const onde=document.createElementNS(ns,'circle');onde.setAttribute('cx',ax);onde.setAttribute('cy',ay);onde.setAttribute('r',40);onde.setAttribute('class','onde');svg.appendChild(onde);
+const liste=$('#listeCommunes');
+function choisir(i){$$('.pt',svg).forEach((g,k)=>g.classList.toggle('on',k===i));$$('button',liste).forEach((b,k)=>b.classList.toggle('on',k===i));$('#zoneInfo').textContent=C[i][0]+" — "+C[i][3]}
+C.forEach((c,i)=>{const g=document.createElementNS(ns,'g');g.setAttribute('class','pt'+(i===0?' on':''));
+ g.innerHTML=`<circle cx="${c[1]}" cy="${c[2]}" r="${i===0?9:6}"/><text x="${c[1]+12}" y="${c[2]+4}">${c[0]}</text>`;g.onclick=()=>choisir(i);svg.appendChild(g);
+ const b=document.createElement('button');b.textContent=c[0];b.onclick=()=>choisir(i);liste.appendChild(b)});
+choisir(0);
+})();
+</script>
+</body>
+</html>
