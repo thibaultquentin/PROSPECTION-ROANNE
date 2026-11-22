@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roanne Clé Auto — Double de clé voiture à domicile dans le Roannais</title>
+<meta name="description" content="Reproduction et programmation de clés, télécommandes et cartes de voiture, sur place à domicile ou au travail, à Roanne et dans un rayon de 50 km. Devis gratuit.">
+<meta name="robots" content="noindex">
+<style>
+/* =========================================================
+   CHARTE — reprise du site actuel roanne-cle-auto.fr
+   (gabarit violet / rose, titres capitales espacées, sans-serif)
+   Ajuster ici si le client fournit d'autres codes couleur.
+   ========================================================= */
+:root{
+  --nuit:#312450;        /* fond principal (sidebar / sections sombres) */
+  --nuit-2:#261c3e;      /* fond le plus profond */
+  --violet:#5e42a6;      /* sections "style1" */
+  --violet-2:#493382;
+  --rose:#b74e91;        /* accent principal */
+  --rose-2:#953d75;
+  --bleu:#5052b5;        /* accent secondaire */
+  --blanc:#ffffff;
+  --texte-doux:rgba(255,255,255,.55);
+  --trait:rgba(255,255,255,.15);
+  --police:Arial, Helvetica, sans-serif;   /* police du site actuel */
+  --mono:"Courier New", monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--police);background:var(--nuit);color:var(--blanc);line-height:1.65;font-size:16px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,.caps{text-transform:uppercase;letter-spacing:.12em;font-weight:700;line-height:1.2}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{position:relative;z-index:60;background:var(--nuit-2);color:var(--texte-doux);font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.04em}
+.demo b{color:#fff}
+
+/* ---------- Sidebar (structure du site actuel) ---------- */
+.side{position:fixed;top:0;left:0;height:100vh;width:15.5rem;background:var(--nuit);z-index:50;display:flex;flex-direction:column;justify-content:center;padding:2.5rem 2rem;border-right:1px solid var(--trait)}
+.side .brand{font-size:.8rem;letter-spacing:.25em;color:var(--texte-doux);margin-bottom:2.2rem}
+.side nav a{position:relative;display:block;text-decoration:none;text-transform:uppercase;letter-spacing:.2em;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.35);padding:.85rem 0;transition:color .25s}
+.side nav a::before{content:"";position:absolute;left:0;bottom:.45rem;height:2px;width:100%;background:rgba(255,255,255,.12)}
+.side nav a::after{content:"";position:absolute;left:0;bottom:.45rem;height:2px;width:0;background:linear-gradient(90deg,var(--bleu),var(--rose));transition:width .5s var(--ease)}
+.side nav a:hover{color:rgba(255,255,255,.6)}
+.side nav a.active{color:#fff}
+.side nav a.active::after{width:100%}
+.side .tel{margin-top:2.2rem;text-decoration:none;font-weight:700;letter-spacing:.06em;font-size:1rem;display:flex;gap:.6rem;align-items:center}
+.side .tel span{display:block;font-size:.65rem;letter-spacing:.2em;color:var(--texte-doux);font-weight:400}
+main{margin-left:15.5rem}
+
+/* Barre mobile */
+.topbar{display:none}
+@media(max-width:980px){
+  .side{display:none}
+  main{margin-left:0}
+  .topbar{display:flex;position:sticky;top:0;z-index:50;background:rgba(49,36,80,.92);backdrop-filter:blur(10px);align-items:center;justify-content:space-between;padding:.7rem 16px;border-bottom:1px solid var(--trait)}
+  .topbar .brand{font-size:.75rem;letter-spacing:.22em;font-weight:700}
+  .topbar a.call{background:var(--rose);text-decoration:none;font-weight:700;font-size:.8rem;padding:.55rem .9rem;border-radius:999px;letter-spacing:.06em}
+}
+
+/* ---------- Sections ---------- */
+.wrap{padding:clamp(3.5rem,8vw,6rem) clamp(16px,5vw,4.5rem)}
+.style1{background:var(--violet)}
+.style2{background:var(--nuit)}
+.style3{background:var(--violet-2)}
+.kicker{font-family:var(--mono);font-size:.8rem;color:rgba(255,255,255,.7);letter-spacing:.08em;margin-bottom:.8rem;display:block}
+.lead{color:rgba(255,255,255,.78);max-width:42rem;font-size:1.05rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:700;padding:1rem 1.6rem;border-radius:999px;border:2px solid rgba(255,255,255,.35);transition:transform .3s var(--spring),background .3s,border-color .3s;cursor:pointer;background:none;color:#fff;font-family:var(--police)}
+.btn:hover{transform:translateY(-3px);border-color:#fff}
+.btn:active{transform:scale(.96)}
+.btn.plein{background:linear-gradient(135deg,var(--rose),var(--bleu));border-color:transparent;box-shadow:0 10px 30px rgba(183,78,145,.35)}
+.btn.plein:hover{box-shadow:0 16px 40px rgba(183,78,145,.5)}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* ---------- Intro / héro ---------- */
+#intro{min-height:calc(100vh - 2rem);display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(2rem,4vw,4rem);align-items:center;background:
+ radial-gradient(60rem 40rem at 110% -10%,rgba(183,78,145,.45),transparent 60%),
+ radial-gradient(40rem 30rem at -10% 110%,rgba(80,82,181,.5),transparent 60%),var(--violet);position:relative;overflow:hidden}
+#intro h1{font-size:clamp(2.2rem,5.4vw,4.4rem);letter-spacing:.06em;line-height:1.02}
+#intro h1 .l{display:block;overflow:hidden}
+#intro h1 .l span{display:block;transform:translateY(110%);animation:up 1s var(--ease) forwards}
+#intro h1 .l:nth-child(2) span{animation-delay:.12s}
+#intro .sub{font-family:var(--mono);margin:1.2rem 0 .4rem;color:rgba(255,255,255,.8);letter-spacing:.05em}
+#intro .lead{margin-bottom:2rem}
+@keyframes up{to{transform:none}}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.prix{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .5rem;margin-top:2rem;padding:.7rem 1.1rem;border:1px dashed rgba(255,255,255,.4);border-radius:12px;font-size:.92rem}
+.prix strong{font-size:1.5rem;letter-spacing:.02em;white-space:nowrap}
+/* clé SVG signature : la lame se "taille" au chargement */
+.key-line{position:absolute;left:0;right:0;bottom:2.2rem;height:70px;opacity:.55;pointer-events:none}
+.key-line path{stroke:#fff;stroke-width:2;fill:none;stroke-dasharray:1600;stroke-dashoffset:1600;animation:cut 3.2s .6s var(--ease) forwards}
+.key-line circle{fill:var(--rose)}
+@keyframes cut{to{stroke-dashoffset:0}}
+.hero-photo{position:relative;justify-self:center;width:min(100%,24rem)}
+.hero-photo .frame{border-radius:1.6rem;overflow:hidden;aspect-ratio:3/4;box-shadow:0 30px 80px rgba(20,10,40,.55);transform:rotate(2deg);transition:transform .8s var(--ease)}
+.hero-photo:hover .frame{transform:rotate(0) scale(1.02)}
+.hero-photo .frame img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;background:rgba(38,28,62,.88);backdrop-filter:blur(8px);border:1px solid var(--trait);border-radius:14px;padding:.7rem .95rem;font-size:.8rem;line-height:1.35;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.badge b{display:block;font-size:.95rem}
+.badge.b1{left:-1.6rem;top:12%;animation:float 6s ease-in-out infinite}
+.badge.b2{right:-1.2rem;bottom:14%;animation:float 7s ease-in-out infinite reverse}
+@keyframes float{50%{transform:translateY(-10px)}}
+.signal{position:absolute;right:18%;top:30%;width:14px;height:14px;border-radius:50%;background:var(--rose)}
+.signal::before,.signal::after{content:"";position:absolute;inset:-6px;border:2px solid var(--rose);border-radius:50%;animation:ping 2.4s ease-out infinite}
+.signal::after{animation-delay:1.2s}
+@keyframes ping{from{transform:scale(.6);opacity:1}to{transform:scale(3.2);opacity:0}}
+@media(max-width:980px){#intro{grid-template-columns:1fr;min-height:auto}.badge.b1{left:-.4rem}.badge.b2{right:-.4rem}.key-line{display:none}}
+
+/* ---------- Spotlights (Mon activité) ---------- */
+.spot{display:grid;grid-template-columns:minmax(0,22rem) 1fr;align-items:stretch;border-bottom:1px solid var(--trait)}
+.spot:nth-child(even){background:rgba(255,255,255,.03)}
+.spot .img{position:relative;overflow:hidden;min-height:20rem}
+.spot .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 1.4s var(--ease)}
+.spot.in .img img{transform:scale(1)}
+.spot .img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--nuit));}
+.spot .txt{padding:clamp(2rem,5vw,4rem);align-self:center}
+.spot h2{font-size:clamp(1.2rem,2.2vw,1.6rem);margin-bottom:1rem}
+.spot p{color:rgba(255,255,255,.75);max-width:38rem}
+.spot .chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+.chip{font-size:.75rem;padding:.35rem .75rem;border-radius:999px;border:1px solid var(--trait);background:rgba(255,255,255,.05)}
+.spot .num{font-family:var(--mono);color:var(--rose);font-size:.85rem;display:block;margin-bottom:.6rem}
+@media(max-width:760px){.spot{grid-template-columns:1fr}.spot .img{min-height:16rem}.spot .img::after{background:linear-gradient(180deg,transparent 60%,var(--nuit))}}
+
+/* ---------- Outil central ---------- */
+#outil h2{font-size:clamp(1.5rem,3.2vw,2.3rem);margin-bottom:.8rem}
+.tool{margin-top:2.4rem;display:grid;grid-template-columns:1.1fr .9fr;gap:1.6rem;align-items:start}
+@media(max-width:1100px){.tool{grid-template-columns:1fr}}
+.panel{background:rgba(38,28,62,.55);border:1px solid var(--trait);border-radius:1.4rem;padding:clamp(1.2rem,3vw,2rem)}
+.steps{display:flex;gap:.4rem;margin-bottom:1.6rem}
+.steps i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden;position:relative}
+.steps i::after{content:"";position:absolute;inset:0;width:0;background:linear-gradient(90deg,var(--bleu),var(--rose));transition:width .5s var(--ease)}
+.steps i.on::after{width:100%}
+.q{display:none}
+.q.show{display:block;animation:qin .5s var(--ease)}
+@keyframes qin{from{opacity:0;transform:translateX(20px)}}
+.q h3{font-size:.85rem;letter-spacing:.18em;margin-bottom:1rem}
+.q h3 em{font-style:normal;font-family:var(--mono);color:var(--rose);letter-spacing:0;margin-right:.5rem}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr));gap:.7rem}
+.opt{background:rgba(255,255,255,.05);border:2px solid var(--trait);border-radius:1rem;padding:1rem .9rem;color:#fff;font-family:var(--police);font-size:.9rem;text-align:left;cursor:pointer;transition:transform .25s var(--spring),border-color .25s,background .25s;min-height:44px}
+.opt:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.5)}
+.opt.sel{border-color:var(--rose);background:rgba(183,78,145,.22)}
+.opt svg{width:46px;height:46px;margin-bottom:.5rem;display:block}
+.opt small{display:block;color:var(--texte-doux);font-size:.75rem;margin-top:.2rem}
+.field{display:flex;flex-direction:column;gap:.4rem;margin-top:1rem}
+.field label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--texte-doux)}
+input,select,textarea{font-family:var(--police);font-size:1rem;color:#fff;background:rgba(255,255,255,.07);border:1px solid var(--trait);border-radius:.8rem;padding:.8rem 1rem;width:100%}
+select option{color:#222}
+input:focus,select:focus,textarea:focus{border-color:var(--rose);outline:none}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.nav-q{display:flex;justify-content:space-between;margin-top:1.4rem;gap:.6rem}
+.nav-q .btn{padding:.8rem 1.2rem}
+.btn[disabled]{opacity:.35;pointer-events:none}
+
+/* Résultat */
+.result{position:sticky;top:5rem}
+.result h3{font-size:.8rem;letter-spacing:.2em;color:var(--texte-doux);margin-bottom:1rem}
+.ticket{border-radius:1.2rem;background:linear-gradient(160deg,rgba(94,66,166,.9),rgba(49,36,80,.95));border:1px solid var(--trait);padding:1.4rem;position:relative;overflow:hidden}
+.ticket::before{content:"";position:absolute;right:-3rem;top:-3rem;width:9rem;height:9rem;border-radius:50%;background:radial-gradient(circle,rgba(183,78,145,.55),transparent 70%)}
+.ticket .veh{font-size:1.25rem;font-weight:700;letter-spacing:.04em;min-height:1.6em}
+.ticket .veh small{display:block;font-size:.75rem;color:var(--texte-doux);font-weight:400;letter-spacing:.14em;text-transform:uppercase}
+.lines{list-style:none;margin:1.1rem 0 0;display:grid;gap:.65rem}
+.lines li{display:flex;gap:.7rem;align-items:flex-start;font-size:.9rem;color:rgba(255,255,255,.85);opacity:.35;transition:opacity .4s}
+.lines li.ok{opacity:1}
+.lines li .ic{flex:0 0 1.5rem;height:1.5rem;border-radius:50%;display:grid;place-items:center;font-size:.75rem;background:rgba(255,255,255,.12)}
+.lines li.ok .ic{background:var(--rose)}
+.lines li.warn .ic{background:#d98b2b}
+.papers{margin-top:1rem;border-top:1px dashed var(--trait);padding-top:1rem}
+.papers label{display:flex;gap:.6rem;align-items:center;font-size:.88rem;cursor:pointer;padding:.25rem 0}
+.papers input{width:1.1rem;height:1.1rem;accent-color:var(--rose)}
+.ready{font-family:var(--mono);font-size:.8rem;color:var(--texte-doux);margin-top:.4rem}
+.ready.go{color:#fff}
+.send{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.2rem}
+.note{font-size:.75rem;color:var(--texte-doux);margin-top:1rem}
+
+/* ---------- Types de clés ---------- */
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;background:var(--trait);border:1px solid var(--trait);border-radius:1.2rem;overflow:hidden;margin-top:2.4rem}
+.cell{background:var(--violet);padding:2rem 1.6rem;transition:background .35s}
+.cell:hover{background:var(--violet-2)}
+.cell svg{width:44px;height:44px;margin-bottom:1rem;transition:transform .5s var(--spring)}
+.cell:hover svg{transform:rotate(-12deg) scale(1.1)}
+.cell h3{font-size:.85rem;margin-bottom:.6rem}
+.cell p{font-size:.9rem;color:rgba(255,255,255,.75)}
+
+/* ---------- Modèles ---------- */
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:2rem}
+.tab{background:none;border:2px solid var(--trait);color:#fff;border-radius:999px;padding:.6rem 1.1rem;font-family:var(--police);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;cursor:pointer;transition:all .25s}
+.tab.sel{background:#fff;color:var(--nuit);border-color:#fff}
+.models{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem;min-height:6rem}
+.models .chip{animation:pop .4s var(--spring) both}
+@keyframes pop{from{opacity:0;transform:scale(.7)}}
+.brands{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,16rem);gap:2rem;align-items:center}
+.brands img{border-radius:1rem;background:#fff}
+@media(max-width:820px){.brands{grid-template-columns:1fr}.brands img{max-width:16rem}}
+
+/* ---------- Zone ---------- */
+.zone{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center}
+@media(max-width:900px){.zone{grid-template-columns:1fr}}
+.radar{position:relative;aspect-ratio:1;max-width:30rem;width:100%;margin:auto}
+.radar svg{width:100%;height:100%}
+.radar .sweep{transform-origin:200px 200px;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.town{cursor:pointer}
+.town circle{fill:#fff;transition:r .25s,fill .25s}
+.town text{fill:rgba(255,255,255,.85);font-size:11px;font-family:var(--police)}
+.town:hover circle,.town.hl circle{fill:var(--rose);r:7}
+.check{margin-top:1.4rem}
+.verdict{margin-top:.9rem;font-size:.95rem;min-height:3em;padding:.8rem 1rem;border-radius:.8rem;background:rgba(255,255,255,.06);border-left:3px solid var(--rose)}
+
+/* ---------- FAQ ---------- */
+.faq{margin-top:2rem;display:grid;gap:.7rem;max-width:52rem}
+details{border:1px solid var(--trait);border-radius:1rem;background:rgba(255,255,255,.04);overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:1.1rem 1.3rem;font-weight:700;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;color:var(--rose);transition:transform .3s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 1.3rem 1.2rem;color:rgba(255,255,255,.78)}
+
+/* ---------- Contact ---------- */
+.contact{display:grid;grid-template-columns:1.1fr .9fr;gap:2.5rem}
+@media(max-width:900px){.contact{grid-template-columns:1fr}}
+.coords{list-style:none;display:grid;gap:1.4rem}
+.coords h3{font-size:.75rem;letter-spacing:.2em;color:var(--texte-doux);margin-bottom:.3rem}
+.coords a{text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.4)}
+form .field:first-child{margin-top:0}
+footer{background:var(--nuit-2);padding:2rem clamp(16px,5vw,4.5rem);font-size:.78rem;color:var(--texte-doux);line-height:1.7}
+footer b{color:#fff}
+
+/* Barre d'action mobile */
+.fab{display:none}
+@media(max-width:980px){.fab{display:flex;position:fixed;bottom:14px;left:16px;right:16px;z-index:55;gap:.5rem}.fab a{flex:1;text-align:center;justify-content:center;padding:.9rem}footer{padding-bottom:6rem}}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutomotiveBusiness",
+  "name":"Roanne Clé Auto",
+  "description":"Reproduction et programmation de clés, télécommandes et cartes de voiture, intervention mobile à domicile ou sur le lieu de travail.",
+  "url":"https://roanne-cle-auto.fr",
+  "telephone":"+33635219870",
+  "email":"contact@roanne-cle-auto.fr",
+  "image":"https://roanne-cle-auto.fr/images/visuel03.jpg",
+  "priceRange":"À partir de 50 €",
+  "address":{"@type":"PostalAddress","addressLocality":"Saint-Haon-le-Vieux","postalCode":"42370","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Roanne","Mably","Riorges","Le Coteau","Villerest","Commelle-Vernay","Renaison","Pouilly-sous-Charlieu","Charlieu","Perreux","Saint-Germain-Laval","Saint-Haon-le-Vieux",
+    {"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.07,"longitude":3.91},"geoRadius":"50000"}]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte pour Roanne Clé Auto, non contractuelle.</div>
+
+<aside class="side" aria-label="Navigation">
+  <div class="brand caps">Roanne Clé Auto</div>
+  <nav>
+    <a href="#intro" class="active">Bienvenue</a>
+    <a href="#activite">Mon activité</a>
+    <a href="#outil">Ma clé en 4 questions</a>
+    <a href="#modeles">Modèles</a>
+    <a href="#zone">Zone d'intervention</a>
+    <a href="#faq">Questions</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="tel" href="tel:0635219870"><span>Appeler<br></span>06 35 21 98 70</a>
+</aside>
+
+<div class="topbar"><span class="brand">ROANNE CLÉ AUTO</span><a class="call" href="tel:0635219870">06 35 21 98 70</a></div>
+
+<main>
+<!-- ============ BIENVENUE ============ -->
+<section id="intro" class="wrap">
+  <div>
+    <span class="kicker">// Reproduction de clés automobiles</span>
+    <h1><span class="l"><span>Roanne</span></span><span class="l"><span>Clé Auto</span></span></h1>
+    <p class="sub">Roanne et agglomération roannaise</p>
+    <p class="lead">Double de clés et cartes de voiture, directement chez vous ou sur votre lieu de travail. Clés simples, télécommandes et cartes, pour la majorité du parc automobile, même lorsque toutes les clés sont perdues.</p>
+    <div class="hero-ctas">
+      <a href="#outil" class="btn plein">Trouver ma clé →</a>
+      <a href="tel:0635219870" class="btn">Appeler le 06 35 21 98 70</a>
+    </div>
+    <div class="prix">Tarifs à partir de <strong>50 €</strong> <span style="color:var(--texte-doux)">— une alternative nettement moins chère qu'en concession</span></div>
+  </div>
+  <div class="hero-photo rv">
+    <div class="frame"><img src="assets/roanne-cle-auto-saint-haon-le-vieux/intervention.jpg" alt="Programmation d'une clé directement dans le véhicule du client" fetchpriority="high"></div>
+    <span class="signal" aria-hidden="true"></span>
+    <div class="badge b1"><b>Sur place</b>à domicile ou au travail</div>
+    <div class="badge b2"><b>Rayon de 50 km</b>autour de Roanne</div>
+  </div>
+  <svg class="key-line" viewBox="0 0 1600 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40 H520 l14 -18 l16 18 l12 -26 l18 26 l10 -14 l14 14 l20 -22 l14 22 H1600"/>
+  </svg>
+</section>
+
+<!-- ============ MON ACTIVITÉ ============ -->
+<section id="activite" class="style2">
+  <div class="spot rv">
+    <div class="img"><img src="assets/roanne-cle-auto-saint-haon-le-vieux/cles.jpg" alt="Clés simples, télécommandes et cartes de démarrage" loading="lazy"></div>
+    <div class="txt">
+      <span class="num">01 — Double de clés et cartes de voiture à Roanne</span>
+      <h2>Clés, télécommandes, cartes</h2>
+      <p>Reproduction et programmation, pour la majorité du parc automobile, de tous les types de clés de véhicules légers : clés simples, télécommandes, et cartes. Possibilité de reproduction même en cas de toutes clés perdues.</p>
+      <div class="chips"><span class="chip">Cartes Renault (Mégane, Clio…)</span><span class="chip">Clés et télécommandes Peugeot / Citroën</span><span class="chip">Service multi-marques</span></div>
+    </div>
+  </div>
+  <div class="spot rv">
+    <div class="img"><img src="assets/roanne-cle-auto-saint-haon-le-vieux/outils.jpg" alt="Formation Keyfirst, matériel OBDstar et Xhorse" loading="lazy" style="object-fit:contain;background:#f3f3f3"></div>
+    <div class="txt">
+      <span class="num">02 — Méthode et outils</span>
+      <h2>Une intervention sécurisée</h2>
+      <p>Technicien titulaire d'une formation dispensée par KEYFIRST, organisme certifié Qualiopi. Utilisation de consommables et de matériel de marques leaders du marché : Xhorse pour la taille de précision et OBDstar pour la programmation électronique, afin de garantir une intervention sécurisée et une compatibilité parfaite avec votre véhicule.</p>
+    </div>
+  </div>
+  <div class="spot rv">
+    <div class="img"><img src="assets/roanne-cle-auto-saint-haon-le-vieux/intervention.jpg" alt="Intervention mobile dans le véhicule" loading="lazy" style="object-position:50% 40%"></div>
+    <div class="txt">
+      <span class="num">03 — Service mobile</span>
+      <h2>On vient à votre voiture</h2>
+      <p>Intervention possible à domicile ou sur votre lieu de travail sur Roanne, toute l'agglomération roannaise et dans un rayon de 50 kilomètres, avec le camion atelier : pas de remorquage, la clé est taillée et programmée sur place.</p>
+      <div class="chips"><span class="chip">Devis gratuit</span><span class="chip">Double de carte Renault en moins de 30 minutes</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTIL ============ -->
+<section id="outil" class="wrap style1">
+  <span class="kicker">// Avant d'appeler</span>
+  <h2 class="rv">Ma clé en 4 questions</h2>
+  <p class="lead rv d1">Marque, modèle, type de clé, situation : en trente secondes, vous savez ce qu'il faut préparer, si votre commune est dans la zone de déplacement gratuit, et votre demande de devis part déjà complète.</p>
+
+  <div class="tool">
+    <div class="panel rv d2">
+      <div class="steps" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+
+      <div class="q show" data-q="1">
+        <h3><em>01</em>Quelle est la marque ?</h3>
+        <div class="opts" data-name="marque">
+          <button class="opt" data-v="Renault">Renault<small>cartes et clés</small></button>
+          <button class="opt" data-v="Peugeot">Peugeot<small>clés et plips</small></button>
+          <button class="opt" data-v="Citroën / DS">Citroën / DS<small>clés et plips</small></button>
+          <button class="opt" data-v="Autre marque">Autre marque<small>service multi-marques</small></button>
+        </div>
+      </div>
+
+      <div class="q" data-q="2">
+        <h3><em>02</em>Quel modèle, quelle année ?</h3>
+        <div class="row">
+          <div class="field" id="f-modele-list"><label for="modele">Modèle</label><select id="modele"></select></div>
+          <div class="field" id="f-modele-txt" hidden><label for="modele-txt">Marque et modèle</label><input id="modele-txt" placeholder="ex. Volkswagen Polo"></div>
+          <div class="field"><label for="annee">Année (approximative)</label><input id="annee" inputmode="numeric" maxlength="4" placeholder="ex. 2016"></div>
+        </div>
+      </div>
+
+      <div class="q" data-q="3">
+        <h3><em>03</em>Quel type de clé ?</h3>
+        <div class="opts" data-name="type">
+          <button class="opt" data-v="Clé simple"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="6" y="14" width="14" height="20" rx="6"/><path d="M20 24h22l-3 4-3-3-3 4-3-3"/></svg>Clé simple<small>avec transpondeur</small></button>
+          <button class="opt" data-v="Télécommande / plip"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="14" width="22" height="20" rx="7"/><circle cx="11" cy="21" r="2"/><circle cx="19" cy="21" r="2"/><circle cx="15" cy="28" r="2"/><path d="M26 24h18"/></svg>Télécommande<small>plip 2 ou 3 boutons</small></button>
+          <button class="opt" data-v="Carte"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="8" y="6" width="32" height="36" rx="6"/><circle cx="18" cy="18" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="18" cy="29" r="3"/><circle cx="30" cy="29" r="3"/></svg>Carte<small>4 boutons</small></button>
+          <button class="opt" data-v="Mains-libres"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="12" y="14" width="20" height="26" rx="6"/><path d="M34 12a10 10 0 0 1 0 14M38 8a16 16 0 0 1 0 22"/></svg>Mains-libres<small>carte ou clé ADML</small></button>
+        </div>
+      </div>
+
+      <div class="q" data-q="4">
+        <h3><em>04</em>Quelle est la situation ?</h3>
+        <div class="opts" data-name="situation">
+          <button class="opt" data-v="Double">Il me reste une clé<small>je veux un double</small></button>
+          <button class="opt" data-v="Perte totale">Toutes clés perdues<small>perte ou vol</small></button>
+          <button class="opt" data-v="Casse">Clé cassée / ne répond plus<small>boîtier, carte non détectée</small></button>
+        </div>
+        <div class="field"><label for="commune">Où se trouve le véhicule ?</label>
+          <select id="commune">
+            <option value="">— Choisir une commune —</option>
+            <option>Roanne</option><option>Mably</option><option>Riorges</option><option>Le Coteau</option><option>Villerest</option><option>Commelle-Vernay</option><option>Renaison</option><option>Saint-Haon-le-Vieux</option><option>Pouilly-sous-Charlieu</option><option>Charlieu</option><option>Perreux</option><option>Saint-Germain-Laval</option><option value="autre">Une autre commune</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="nav-q">
+        <button class="btn" id="prev" disabled>← Retour</button>
+        <button class="btn plein" id="next" disabled>Suivant →</button>
+      </div>
+    </div>
+
+    <div class="result rv d3" aria-live="polite">
+      <h3>Votre fiche d'intervention</h3>
+      <div class="ticket">
+        <div class="veh" id="r-veh"><small>Véhicule</small>—</div>
+        <ul class="lines">
+          <li id="r-prise"><span class="ic">✓</span><span>Prise en charge du véhicule</span></li>
+          <li id="r-cle"><span class="ic">✓</span><span>Type de clé</span></li>
+          <li id="r-sit"><span class="ic">✓</span><span>Déroulé de l'intervention</span></li>
+          <li id="r-zone"><span class="ic">✓</span><span>Déplacement</span></li>
+        </ul>
+        <div class="papers">
+          <div class="caps" style="font-size:.7rem;color:var(--texte-doux);margin-bottom:.4rem">Obligatoire le jour J</div>
+          <label><input type="checkbox" class="pp"> Original de la carte grise</label>
+          <label><input type="checkbox" class="pp"> Pièce d'identité en cours de validité, au même nom</label>
+          <div class="ready" id="ready">Cochez quand c'est prêt.</div>
+        </div>
+        <div class="send">
+          <a class="btn plein" id="mail" href="mailto:contact@roanne-cle-auto.fr">Envoyer ma demande</a>
+          <a class="btn" href="tel:0635219870">Appeler</a>
+        </div>
+        <p class="note">Tarifs à partir de 50 € pour une clé simple ; le prix exact dépend du modèle et de la génération de clé. Devis gratuit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TYPES ============ -->
+<section class="wrap style2" id="types">
+  <span class="kicker">// Ce que je prends en charge</span>
+  <h2 class="rv" style="font-size:clamp(1.4rem,3vw,2.1rem)">Toutes les clés de véhicules légers</h2>
+  <div class="grid3 rv d1">
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="6" y="14" width="14" height="20" rx="6"/><path d="M20 24h22l-3 4-3-3-3 4-3-3"/></svg><h3>Clés simples</h3><p>Clés à transpondeur, taille haute précision de la lame (VA2, HU83…).</p></div>
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="14" width="22" height="20" rx="7"/><circle cx="11" cy="21" r="2"/><circle cx="19" cy="21" r="2"/><path d="M26 24h18"/></svg><h3>Télécommandes</h3><p>Plips rétractables 2 ou 3 boutons, extraction du code PIN et programmation.</p></div>
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="8" y="6" width="32" height="36" rx="6"/><circle cx="18" cy="18" r="3"/><circle cx="30" cy="18" r="3"/><circle cx="18" cy="29" r="3"/><circle cx="30" cy="29" r="3"/></svg><h3>Cartes Renault</h3><p>Versions classiques 4 boutons et mains-libres, avec lame de secours.</p></div>
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><rect x="12" y="14" width="20" height="26" rx="6"/><path d="M34 12a10 10 0 0 1 0 14M38 8a16 16 0 0 1 0 22"/></svg><h3>Mains-libres</h3><p>Cartes mains-libres et clés de démarrage mains-libres (ADML).</p></div>
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><circle cx="24" cy="24" r="16"/><path d="M14 34L34 14"/></svg><h3>Toutes clés perdues</h3><p>Effacement des anciennes clés par sécurité, programmation des nouvelles et taille de la lame à partir du code clé.</p></div>
+    <div class="cell"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2"><path d="M8 30l10-10 6 6 16-16"/><path d="M30 10h10v10"/></svg><h3>Multi-marques</h3><p>Prise en charge et programmation de clés pour toutes marques de véhicules.</p></div>
+  </div>
+</section>
+
+<!-- ============ MODÈLES ============ -->
+<section class="wrap style3" id="modeles">
+  <div class="brands">
+    <div>
+      <span class="kicker">// Stock permanent de clés et cartes vierges</span>
+      <h2 class="rv" style="font-size:clamp(1.4rem,3vw,2.1rem)">Votre modèle est-il pris en charge ?</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab sel" data-b="Renault">Renault</button>
+        <button class="tab" data-b="Peugeot">Peugeot</button>
+        <button class="tab" data-b="Citroën / DS">Citroën / DS</button>
+        <button class="tab" data-b="Utilitaires">Utilitaires</button>
+      </div>
+      <div class="models" id="models"></div>
+      <p class="note">Liste reprise des pages Cartes Renault et Clés Peugeot / Citroën du site actuel. Autres marques : sur demande.</p>
+    </div>
+    <img src="assets/roanne-cle-auto-saint-haon-le-vieux/marques.jpg" alt="Logos des marques automobiles prises en charge" loading="lazy" class="rv d2">
+  </div>
+</section>
+
+<!-- ============ ZONE ============ -->
+<section class="wrap style2" id="zone">
+  <div class="zone">
+    <div>
+      <span class="kicker">// Basé à Saint-Haon-le-Vieux</span>
+      <h2 class="rv" style="font-size:clamp(1.4rem,3vw,2.1rem)">Zone d'intervention</h2>
+      <p class="lead rv d1">Déplacement gratuit sur Roanne, Mably, Riorges, Le Coteau, Villerest, Commelle-Vernay, Renaison, Pouilly-sous-Charlieu, Charlieu, Perreux, et intervention dans un rayon de 50 km.</p>
+      <div class="check rv d2">
+        <div class="field"><label for="ville">Votre commune</label><input id="ville" list="villes" placeholder="Tapez votre commune…"><datalist id="villes"></datalist></div>
+        <div class="verdict" id="verdict">Survolez le schéma ou tapez votre commune.</div>
+      </div>
+    </div>
+    <div class="radar rv d2">
+      <svg viewBox="0 0 400 400" aria-label="Schéma indicatif de la zone d'intervention">
+        <defs><radialGradient id="g"><stop offset="0" stop-color="#b74e91" stop-opacity=".35"/><stop offset="1" stop-color="#b74e91" stop-opacity="0"/></radialGradient>
+        <linearGradient id="sw" x1="0" x2="1"><stop offset="0" stop-color="#b74e91" stop-opacity="0"/><stop offset="1" stop-color="#b74e91" stop-opacity=".45"/></linearGradient></defs>
+        <circle cx="200" cy="200" r="190" fill="url(#g)" stroke="rgba(255,255,255,.18)" stroke-dasharray="4 6"/>
+        <circle cx="200" cy="200" r="125" fill="none" stroke="rgba(255,255,255,.12)"/>
+        <circle cx="200" cy="200" r="60" fill="none" stroke="rgba(255,255,255,.12)"/>
+        <path class="sweep" d="M200 200 L390 200 A190 190 0 0 0 334 66 Z" fill="url(#sw)"/>
+        <text x="200" y="18" text-anchor="middle" fill="rgba(255,255,255,.45)" font-size="10" font-family="Arial">≈ 50 km</text>
+        <g id="towns"></g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="wrap style1" id="faq">
+  <span class="kicker">// Tout ce qu'il faut savoir avant l'intervention</span>
+  <h2 class="rv" style="font-size:clamp(1.4rem,3vw,2.1rem)">Questions fréquentes</h2>
+  <div class="faq">
+    <details class="rv"><summary>Combien coûte la reproduction d'une carte Renault Mégane ou Clio à Roanne ?</summary><p>Le tarif dépend du modèle et de la génération (carte simple 4 boutons ou carte mains-libres). Les prestations débutent à partir de 50 € pour une clé simple et restent nettement plus avantageuses qu'en concession, déplacement inclus sur Roanne, Mably, Riorges et Le Coteau.</p></details>
+    <details class="rv"><summary>Pouvez-vous refaire une carte ou une clé en cas de perte totale ?</summary><p>Oui, si votre véhicule est déjà déverrouillé (ou si vous disposez du code clé / carte code), l'intervention se fait directement sur place avec le camion atelier pour tailler une nouvelle lame et programmer une nouvelle carte ou clé électronique sur le véhicule.</p></details>
+    <details class="rv"><summary>Quels documents faut-il fournir pour refaire une clé de voiture ?</summary><p>Pour des raisons de sécurité et de légalité, vous devez obligatoirement présenter l'original de la carte grise (certificat d'immatriculation) du véhicule ainsi qu'une pièce d'identité en cours de validité au même nom.</p></details>
+    <details class="rv"><summary>Dans quelles communes autour de Roanne intervenez-vous ?</summary><p>Basé à Saint-Haon-le-Vieux, je me déplace gratuitement sur Roanne, Mably, Riorges, Le Coteau, Villerest, Commelle-Vernay, Renaison, Pouilly-sous-Charlieu, Charlieu, Perreux et dans un rayon de 50 km.</p></details>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="wrap style2" id="contact">
+  <span class="kicker">// Devis gratuit</span>
+  <h2 class="rv" style="font-size:clamp(1.4rem,3vw,2.1rem);margin-bottom:1rem">Contact</h2>
+  <p class="lead rv d1" style="margin-bottom:2rem">En cas de perte, de casse ou pour toute demande de double de clé, ce formulaire permet d'obtenir un devis gratuit. Précisez la marque, le modèle et l'année de votre véhicule. Les interventions sont réalisées rapidement sur Roanne, l'agglomération roannaise et sa périphérie.</p>
+  <div class="contact">
+    <form id="cform" class="panel rv d2">
+      <div class="row">
+        <div class="field"><label for="c-nom">Nom</label><input id="c-nom" required></div>
+        <div class="field"><label for="c-mail">Email</label><input id="c-mail" type="email" required></div>
+      </div>
+      <div class="field"><label for="c-msg">Message</label><textarea id="c-msg" rows="5" placeholder="Marque, modèle, année du véhicule…"></textarea></div>
+      <div style="margin-top:1.2rem"><button class="btn plein" type="submit">Envoyer le message</button></div>
+    </form>
+    <ul class="coords rv d3">
+      <li><h3 class="caps">Localisation</h3>42370 Saint-Haon-le-Vieux<br>Loire, Auvergne-Rhône-Alpes</li>
+      <li><h3 class="caps">Téléphone</h3><a href="tel:0635219870">06 35 21 98 70</a></li>
+      <li><h3 class="caps">Email</h3><a href="mailto:contact@roanne-cle-auto.fr">contact@roanne-cle-auto.fr</a></li>
+      <li><h3 class="caps">Intervention</h3>7j/7 sur devis gratuit, à domicile ou sur votre lieu de travail</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <b>Roanne Clé Auto</b> — Serrurier automobile, reproduction de clés et cartes de voiture, Roanne (42).<br>
+  Maquette de démonstration non contractuelle. Couleurs et structure reprises du site actuel ; textes, tarifs (« à partir de 50 € ») et listes de modèles repris tels quels du site actuel. Photos : visuels réels publiés sur roanne-cle-auto.fr (aucune photo d'illustration ajoutée). Le schéma de zone est indicatif. Le formulaire ouvre la messagerie de l'internaute (pas d'envoi serveur dans cette maquette).
+</footer>
+</main>
+
+<div class="fab"><a class="btn plein" href="#outil">Ma clé</a><a class="btn" style="background:var(--nuit)" href="tel:0635219870">Appeler</a></div>
+
+<script>
+(()=>{
+const MODELES={
+  "Renault":["Mégane 2","Mégane 3","Mégane 4","Clio 3","Clio 4","Clio 5","Captur","Kadjar","Scénic 2","Scénic 3","Scénic 4","Espace 4","Espace 5","Koleos","Laguna 2","Laguna 3","Talisman","Trafic","Master","Kangoo"],
+  "Peugeot":["107","108","206","207","208","307","308","407","508","2008","3008","5008","Partner","Boxer","Expert"],
+  "Citroën / DS":["C1","C2","C3","C3 Picasso","C4","C4 Cactus","C4 Picasso / SpaceTourer","C5","Xsara Picasso","DS3","DS4","DS5","Berlingo","Jumper","Jumpy"],
+  "Utilitaires":["Renault Trafic","Renault Master","Renault Kangoo","Peugeot Partner","Peugeot Boxer","Peugeot Expert","Citroën Berlingo","Citroën Jumper","Citroën Jumpy"]
+};
+const GRATUIT=["Roanne","Mably","Riorges","Le Coteau","Villerest","Commelle-Vernay","Renaison","Pouilly-sous-Charlieu","Charlieu","Perreux","Saint-Haon-le-Vieux"];
+const ZONE=[...GRATUIT,"Saint-Germain-Laval"];
+
+/* ---- Reveal ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv,.spot').forEach(el=>io.observe(el));
+
+/* ---- Nav active ---- */
+const links=[...document.querySelectorAll('.side nav a')];
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+links.forEach(l=>{const s=document.querySelector(l.getAttribute('href'));s&&so.observe(s)});
+
+/* ---- Outil ---- */
+const st={marque:'',modele:'',annee:'',type:'',situation:'',commune:''};
+let step=1;
+const qs=[...document.querySelectorAll('.q')], bars=[...document.querySelectorAll('.steps i')];
+const prev=document.getElementById('prev'), next=document.getElementById('next');
+const selM=document.getElementById('modele'), txtM=document.getElementById('modele-txt'), an=document.getElementById('annee'), com=document.getElementById('commune');
+
+document.querySelectorAll('.opts').forEach(g=>g.addEventListener('click',e=>{
+  const b=e.target.closest('.opt'); if(!b) return;
+  g.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o===b));
+  st[g.dataset.name]=b.dataset.v;
+  if(g.dataset.name==='marque') fillModeles();
+  update(); if(g.dataset.name!=='situation') setTimeout(()=>{if(valid())go(1)},280);
+}));
+function fillModeles(){
+  const autre=st.marque==='Autre marque';
+  document.getElementById('f-modele-list').hidden=autre;
+  document.getElementById('f-modele-txt').hidden=!autre;
+  st.modele='';
+  if(!autre){selM.innerHTML='<option value="">— Choisir —</option>'+MODELES[st.marque].map(m=>`<option>${m}</option>`).join('')+'<option value="Autre modèle">Autre modèle</option>'}
+}
+selM.addEventListener('change',()=>{st.modele=selM.value;update()});
+txtM.addEventListener('input',()=>{st.modele=txtM.value.trim();update()});
+an.addEventListener('input',()=>{an.value=an.value.replace(/\D/g,'');st.annee=an.value;update()});
+com.addEventListener('change',()=>{st.commune=com.value;update()});
+function valid(){return step===1?!!st.marque:step===2?!!st.modele:step===3?!!st.type:!!st.situation}
+function go(d){step=Math.min(4,Math.max(1,step+d));qs.forEach(q=>q.classList.toggle('show',+q.dataset.q===step));update()}
+prev.onclick=()=>go(-1); next.onclick=()=>go(1);
+function line(id,txt,cls){const li=document.getElementById(id);li.className=cls||'';li.querySelector('span:last-child').textContent=txt;li.querySelector('.ic').textContent=cls==='warn'?'!':'✓'}
+function update(){
+  bars.forEach((b,i)=>b.classList.toggle('on',i<step));
+  prev.disabled=step===1; next.disabled=!valid()||step===4;
+  next.textContent=step===4?'Terminé':'Suivant →';
+  const veh=document.getElementById('r-veh');
+  veh.innerHTML='<small>Véhicule</small>'+(st.marque?((st.marque==='Autre marque'?'':st.marque+' ')+(st.modele||'…')+(st.annee?' · '+st.annee:'')):'—');
+  // prise en charge
+  if(!st.marque) line('r-prise','Prise en charge du véhicule','');
+  else if(st.marque==='Autre marque') line('r-prise','Service multi-marques : prise en charge à confirmer sur devis selon le modèle','ok');
+  else if(st.modele && st.modele!=='Autre modèle') line('r-prise',st.modele+' : modèle listé, clés et cartes vierges en stock permanent','ok');
+  else if(st.modele==='Autre modèle') line('r-prise','Modèle non listé : prise en charge à confirmer sur devis','warn');
+  else line('r-prise','Choisissez le modèle','');
+  // type
+  if(st.type){
+    let t=st.type;
+    if(st.type==='Carte' && st.marque && st.marque!=='Renault' && st.marque!=='Autre marque') line('r-cle','Carte : plutôt une spécificité Renault, à préciser par téléphone','warn');
+    else line('r-cle',t+(st.type==='Mains-libres'?' : cartes mains-libres Renault, clés ADML Peugeot / Citroën':'')+' — lame de secours taillée si besoin','ok');
+  } else line('r-cle','Type de clé','');
+  // situation
+  if(st.situation==='Double') line('r-sit','Double : nouvelle clé taillée et programmée sur place, en moins de 30 minutes pour les modèles Renault / Peugeot / Citroën listés','ok');
+  else if(st.situation==='Perte totale') line('r-sit','Perte totale : possible si le véhicule est déverrouillé (ou avec le code clé / carte code). Les anciennes clés sont effacées par sécurité.','warn');
+  else if(st.situation==='Casse') line('r-sit','Clé cassée ou carte non détectée : diagnostic et remplacement sur place, sans remorquage','ok');
+  else line('r-sit',"Déroulé de l'intervention",'');
+  // zone
+  if(!st.commune) line('r-zone','Déplacement','');
+  else if(st.commune==='autre') line('r-zone','Intervention dans un rayon de 50 km : déplacement précisé sur le devis','warn');
+  else if(GRATUIT.includes(st.commune)) line('r-zone','Déplacement gratuit à '+st.commune,'ok');
+  else line('r-zone','Intervention à '+st.commune+' (bassin roannais), sur devis gratuit','ok');
+  // mailto
+  const corps=`Bonjour,\n\nJe souhaite un devis.\n\nMarque : ${st.marque||'-'}\nModèle : ${st.modele||'-'}\nAnnée : ${st.annee||'-'}\nType de clé : ${st.type||'-'}\nSituation : ${st.situation==='Double'?'il me reste une clé, je veux un double':st.situation==='Perte totale'?'toutes clés perdues':st.situation==='Casse'?'clé cassée / ne répond plus':'-'}\nCommune du véhicule : ${st.commune==='autre'?'autre (à préciser)':st.commune||'-'}\n\nMerci.`;
+  document.getElementById('mail').href='mailto:contact@roanne-cle-auto.fr?subject='+encodeURIComponent('Demande de devis clé '+(st.marque||'')+' '+(st.modele||''))+'&body='+encodeURIComponent(corps);
+}
+document.querySelectorAll('.pp').forEach(c=>c.addEventListener('change',()=>{
+  const all=[...document.querySelectorAll('.pp')].every(x=>x.checked), r=document.getElementById('ready');
+  r.textContent=all?'✓ Tout est prêt pour l\'intervention.':'Cochez quand c\'est prêt.'; r.classList.toggle('go',all);
+}));
+update();
+
+/* ---- Modèles ---- */
+const box=document.getElementById('models');
+function showB(b){box.innerHTML=MODELES[b].map((m,i)=>`<span class="chip" style="animation-delay:${i*25}ms">${m}</span>`).join('')}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('sel',x===t));showB(t.dataset.b)});
+showB('Renault');
+
+/* ---- Zone : schéma indicatif (positions approximatives) ---- */
+const POS={"Saint-Haon-le-Vieux":[200,200],"Renaison":[214,236],"Riorges":[262,206],"Roanne":[292,198],"Mably":[294,160],"Le Coteau":[318,214],"Villerest":[288,246],"Commelle-Vernay":[322,250],"Perreux":[344,186],"Pouilly-sous-Charlieu":[290,112],"Charlieu":[330,96],"Saint-Germain-Laval":[230,350]};
+const g=document.getElementById('towns'), verdict=document.getElementById('verdict');
+function say(n){
+  if(!n){verdict.textContent='Survolez le schéma ou tapez votre commune.';return}
+  const k=ZONE.find(z=>z.toLowerCase()===n.toLowerCase());
+  if(k&&GRATUIT.includes(k)) verdict.innerHTML='<b>'+k+'</b> : déplacement gratuit.';
+  else if(k) verdict.innerHTML='<b>'+k+'</b> : dans la zone d\'intervention, devis gratuit.';
+  else verdict.innerHTML='<b>'+n+'</b> : intervention possible dans un rayon de 50 km autour de Roanne. Appelez le <a href="tel:0635219870">06 35 21 98 70</a> pour confirmer.';
+  g.querySelectorAll('.town').forEach(t=>t.classList.toggle('hl',k&&t.dataset.n===k));
+}
+Object.entries(POS).forEach(([n,[x,y]])=>{
+  const el=document.createElementNS('http://www.w3.org/2000/svg','g');el.setAttribute('class','town');el.dataset.n=n;
+  const right=x>200||n==='Saint-Germain-Laval';
+  el.innerHTML=`<circle cx="${x}" cy="${y}" r="${n==='Saint-Haon-le-Vieux'?7:4.5}" ${n==='Saint-Haon-le-Vieux'?'style="fill:#b74e91"':''}></circle><text x="${right?x+9:x-9}" y="${y+4}" text-anchor="${right?'start':'end'}">${n==='Saint-Haon-le-Vieux'?'Saint-Haon-le-Vieux (base)':n}</text>`;
+  el.addEventListener('mouseenter',()=>say(n));el.addEventListener('click',()=>say(n));
+  g.appendChild(el);
+});
+document.getElementById('villes').innerHTML=ZONE.map(z=>`<option value="${z}">`).join('');
+document.getElementById('ville').addEventListener('input',e=>say(e.target.value.trim()));
+
+/* ---- Formulaire contact (mailto) ---- */
+document.getElementById('cform').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=document.getElementById('c-nom').value, m=document.getElementById('c-mail').value, t=document.getElementById('c-msg').value;
+  location.href='mailto:contact@roanne-cle-auto.fr?subject='+encodeURIComponent('Demande de devis — '+n)+'&body='+encodeURIComponent(t+'\n\n'+n+' ('+m+')');
+});
+})();
+</script>
+</body>
+</html>
