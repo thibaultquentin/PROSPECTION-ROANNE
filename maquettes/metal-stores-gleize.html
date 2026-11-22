@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metal Stores — Métallier et storiste dans le Beaujolais et la Dombes | Gleizé</title>
+<meta name="description" content="Metal Stores, fabricant à Gleizé près de Villefranche-sur-Saône : stores, pergolas, fenêtres, volets, portails et métallerie sur-mesure dans le Beaujolais et la Dombes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE METAL STORES — relevée sur metalstores.fr (app.css + logo.svg)
+   Ajuster ici si le client fournit ses codes exacts.
+   ========================================================= */
+:root{
+  --ms-navy:#032B71;      /* fond du diaporama d'accueil, survols */
+  --ms-logo:#323366;      /* couleur du logo */
+  --ms-red:#BE0715;       /* filets d'accent, boutons de formulaire */
+  --ms-grey:#808080;      /* textes secondaires */
+  --ms-ink:#1d1d1f;
+  --ms-line:#000;         /* filet noir sous l'en-tête */
+  --ms-bg:#ffffff;
+  --ms-soft:#f4f5f8;
+  --font:"Roboto", Arial, sans-serif; /* Roboto Light / Regular sur le site actuel */
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);font-weight:300;color:var(--ms-ink);background:var(--ms-bg);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--ms-red);outline-offset:3px}
+
+/* Bandeau démo */
+.demo{background:var(--ms-ink);color:#fff;font-size:12.5px;text-align:center;padding:7px 16px;font-weight:400;letter-spacing:.02em}
+.demo b{color:#ff8a93;font-weight:500}
+
+/* En-tête : blanc, filet noir, logo à gauche, téléphone à droite (comme l'actuel) */
+header{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--ms-line);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(3,43,113,.08)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:24px;height:84px;transition:height .4s var(--ease)}
+header.scrolled .hd{height:64px}
+.logo{display:block;width:240px;height:36px;background:url("https://www.metalstores.fr/wp-content/themes/metalstores/img/logo-large.svg") left center/contain no-repeat;text-indent:-9999px;overflow:hidden;flex-shrink:0}
+nav ul{display:flex;gap:28px;list-style:none}
+nav a{text-decoration:none;font-weight:400;font-size:15px;position:relative;padding:6px 0}
+nav a::before{content:"";position:absolute;left:0;bottom:0;width:20px;height:2px;background:var(--ms-red);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+nav a:hover::before{transform:scaleX(1)}
+.phone{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;color:var(--ms-navy);white-space:nowrap}
+.phone svg{width:18px;height:18px}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--ms-ink);margin:5px auto;transition:.3s}
+@media(max-width:960px){
+  nav{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);background:#fff;padding:100px 28px;transform:translateX(100%);transition:transform .4s var(--ease)}
+  nav.open{transform:none;box-shadow:-10px 0 40px rgba(0,0,0,.15)}
+  nav ul{flex-direction:column;gap:18px}
+  nav a{font-size:18px}
+  .burger{display:block;position:relative;z-index:60}
+  .phone span{display:none}
+  .logo{width:180px}
+}
+
+/* Héros : diaporama sur fond bleu marine (comme l'actuel), en fondu + zoom lent */
+.hero{position:relative;height:calc(100vh - 120px);min-height:540px;background:var(--ms-navy);overflow:hidden;color:#fff}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transition:transform 7s linear}
+.slide.on img{transform:scale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,43,113,.92) 0%,rgba(3,43,113,.55) 55%,rgba(3,43,113,.15) 100%)}
+.hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:680px}
+.kicker{display:flex;align-items:center;gap:12px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:400;opacity:.85}
+.kicker::before{content:"";width:20px;height:2px;background:var(--ms-red)}
+.hero h1{font-weight:300;font-size:clamp(2rem,1.3rem + 3vw,3.6rem);line-height:1.12;margin:18px 0 18px}
+.hero h1 strong{font-weight:700}
+.hero p{font-size:clamp(1rem,.95rem + .3vw,1.2rem);opacity:.9;max-width:520px}
+.ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 26px;border-radius:2px;font-weight:500;font-size:15px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn-red{background:var(--ms-red);color:#fff}
+.btn-red:hover{background:#9e0611;box-shadow:0 10px 24px rgba(190,7,21,.35);transform:translateY(-2px)}
+.btn-ghost{border:1px solid rgba(255,255,255,.7);color:#fff;background:transparent}
+.btn-ghost:hover{background:#fff;color:var(--ms-navy)}
+.btn-navy{background:var(--ms-navy);color:#fff}
+.btn-navy:hover{background:#021d4d;transform:translateY(-2px)}
+.dots{position:absolute;z-index:3;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:10px}
+.dots button{width:34px;height:3px;border:0;background:rgba(255,255,255,.35);cursor:pointer;position:relative;overflow:hidden}
+.dots button.on::after{content:"";position:absolute;inset:0;background:#fff;animation:fill 6s linear forwards}
+@keyframes fill{from{transform:translateX(-100%)}to{transform:none}}
+.scroll-hint{position:absolute;z-index:3;right:32px;bottom:26px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;writing-mode:vertical-rl;opacity:.7}
+
+/* Défilant des familles de produits */
+.marquee{background:#fff;border-bottom:1px solid #e6e6ea;overflow:hidden;white-space:nowrap;padding:18px 0}
+.marquee-track{display:inline-flex;gap:46px;animation:mq 38s linear infinite;font-size:clamp(1.1rem,1rem + .6vw,1.6rem);font-weight:300;color:var(--ms-logo)}
+.marquee-track span::after{content:"—";margin-left:46px;color:var(--ms-red)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Titres de section avec le filet rouge de 20px du site actuel */
+section{padding:clamp(64px,8vw,110px) 0}
+.st{position:relative;padding-top:18px;font-weight:300;font-size:clamp(1.7rem,1.3rem + 1.6vw,2.6rem);line-height:1.2;color:var(--ms-logo)}
+.st::before{content:"";position:absolute;left:0;top:0;width:20px;height:2px;background:var(--ms-red)}
+.st strong{font-weight:500}
+.lead{color:#555;max-width:640px;margin-top:14px;font-size:1.05rem}
+
+/* Intro "Les plus Métal Stores" */
+.plus{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.plus-txt p{margin-top:18px;color:#444}
+.plus-txt p strong{font-weight:500;color:var(--ms-navy)}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e2e3ea;margin-top:34px}
+.trio div{background:#fff;padding:20px 16px}
+.trio b{display:block;font-weight:500;color:var(--ms-navy);font-size:15px}
+.trio small{color:var(--ms-grey);font-size:13.5px}
+.plus-img{position:relative}
+.plus-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.plus-img .tag{position:absolute;left:-18px;bottom:-18px;background:var(--ms-red);color:#fff;padding:16px 20px;font-weight:400;font-size:14px;max-width:240px}
+@media(max-width:860px){.plus{grid-template-columns:1fr}.plus-img .tag{left:12px}.trio{grid-template-columns:1fr}}
+
+/* Produits */
+.soft{background:var(--ms-soft)}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.prod{background:#fff;text-decoration:none;display:flex;flex-direction:column;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.prod:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(3,43,113,.14)}
+.prod figure{overflow:hidden;aspect-ratio:4/3}
+.prod img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.prod:hover img{transform:scale(1.06)}
+.prod div{padding:22px 22px 26px;position:relative}
+.prod h3{font-weight:500;font-size:18px;color:var(--ms-navy);padding-top:14px;position:relative}
+.prod h3::before{content:"";position:absolute;left:0;top:0;width:20px;height:2px;background:var(--ms-red);transition:width .35s var(--ease)}
+.prod:hover h3::before{width:48px}
+.prod p{color:#555;font-size:14.5px;margin-top:8px}
+@media(max-width:960px){.prod-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.prod-grid{grid-template-columns:1fr}}
+
+/* ======= OUTIL CENTRAL : estimateur d'ombrage ======= */
+.tool{background:var(--ms-navy);color:#fff;position:relative;overflow:hidden}
+.tool .st{color:#fff}
+.tool .lead{color:rgba(255,255,255,.8)}
+.est{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;margin-top:44px;align-items:start}
+.panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:28px}
+.step{margin-bottom:26px}
+.step>label,.step>.lbl{display:flex;justify-content:space-between;font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;opacity:.85;margin-bottom:12px}
+.step output{font-weight:500;letter-spacing:0;text-transform:none;font-size:15px;opacity:1}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.types button{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:14px 10px;text-align:left;cursor:pointer;font:inherit;font-size:14px;font-weight:400;transition:.25s;min-height:64px}
+.types button small{display:block;opacity:.65;font-size:12px;font-weight:300}
+.types button[aria-pressed=true]{background:#fff;color:var(--ms-navy);border-color:#fff}
+.types button:hover{border-color:#fff}
+input[type=range]{width:100%;accent-color:var(--ms-red);height:28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.3);padding:10px 14px;cursor:pointer;font-size:14px;font-weight:400;transition:.25s;user-select:none;min-height:44px}
+.chip input{accent-color:var(--ms-red);width:16px;height:16px}
+.chip:has(input:checked){background:rgba(190,7,21,.25);border-color:#ff8a93}
+.chip.hide{display:none}
+.seg{display:flex;border:1px solid rgba(255,255,255,.3)}
+.seg button{flex:1;background:transparent;border:0;color:#fff;padding:12px;cursor:pointer;font:inherit;font-size:14px;font-weight:400;min-height:44px}
+.seg button[aria-pressed=true]{background:#fff;color:var(--ms-navy)}
+.seg.hide{display:none}
+.viz{background:#fff;color:var(--ms-ink);position:sticky;top:90px}
+.viz-top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #e6e6ea;font-size:13px;color:var(--ms-grey)}
+.viz-top b{color:var(--ms-navy);font-weight:500}
+#scene{width:100%;height:auto;display:block;background:linear-gradient(#eaf1fb,#fff 70%)}
+.sun-row{display:flex;align-items:center;gap:12px;padding:10px 18px;border-top:1px solid #eee;font-size:13px;color:#555}
+.sun-row input{flex:1;accent-color:#e3a21a}
+.price{padding:22px 18px 24px;border-top:1px solid #e6e6ea}
+.price small{display:block;color:var(--ms-grey);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.price .amt{font-size:clamp(1.8rem,1.4rem + 1.4vw,2.5rem);font-weight:300;color:var(--ms-navy);line-height:1.2;margin:6px 0 4px}
+.price .amt b{font-weight:500}
+.price p{font-size:13px;color:#666}
+.price .btn{margin-top:16px;width:100%;justify-content:center}
+.shade-info{font-size:13px;color:#555;padding:0 18px 4px}
+@media(max-width:960px){.est{grid-template-columns:1fr}.viz{position:relative;top:0}.types{grid-template-columns:1fr}}
+
+/* Ateliers & chiffres */
+.atel{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:44px}
+.atel figure{position:relative;overflow:hidden}
+.atel img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .8s var(--ease)}
+.atel figure:hover img{transform:scale(1.05)}
+.atel figcaption{position:absolute;left:0;bottom:0;background:#fff;padding:14px 18px;font-weight:400;font-size:14px;color:var(--ms-navy)}
+.figs{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #ddd;margin-top:50px}
+.figs div{padding:26px 20px;border-right:1px solid #ddd}
+.figs div:last-child{border-right:0}
+.figs b{display:block;font-size:clamp(2rem,1.6rem + 1.5vw,3rem);font-weight:300;color:var(--ms-navy);line-height:1}
+.figs span{color:#555;font-size:14px}
+@media(max-width:760px){.atel{grid-template-columns:1fr}.figs{grid-template-columns:1fr 1fr}.figs div:nth-child(2){border-right:0}}
+
+/* Réalisations filtrables */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.filters button{background:#fff;border:1px solid #ccd;padding:10px 16px;font:inherit;font-size:14px;font-weight:400;cursor:pointer;min-height:44px;transition:.25s}
+.filters button[aria-pressed=true]{background:var(--ms-navy);border-color:var(--ms-navy);color:#fff}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+.gal figure{position:relative;overflow:hidden;aspect-ratio:4/3;transition:opacity .4s,transform .4s var(--ease)}
+.gal figure.out{display:none}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figcaption{position:absolute;inset:auto 0 0 0;padding:28px 14px 12px;color:#fff;font-size:13.5px;font-weight:400;background:linear-gradient(transparent,rgba(3,43,113,.85));transform:translateY(100%);transition:transform .35s var(--ease)}
+.gal figure:hover figcaption,.gal figure:focus-within figcaption{transform:none}
+@media(max-width:960px){.gal{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.gal figcaption{transform:none}}
+
+/* Rentoilage + domotique */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{display:grid;grid-template-columns:200px 1fr;background:#fff;border:1px solid #e3e4ea;overflow:hidden}
+.card img{width:100%;height:100%;object-fit:cover;min-height:220px}
+.card div{padding:26px}
+.card h3{font-weight:500;color:var(--ms-navy);font-size:19px}
+.card p{color:#555;font-size:14.5px;margin:10px 0 16px}
+.card a{color:var(--ms-red);font-weight:500;text-decoration:none;font-size:14.5px}
+.card a:hover{text-decoration:underline}
+@media(max-width:960px){.duo{grid-template-columns:1fr}}
+@media(max-width:520px){.card{grid-template-columns:1fr}.card img{min-height:180px;max-height:220px}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.coords{list-style:none;margin-top:28px}
+.coords li{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #e6e6ea}
+.coords li span:first-child{width:92px;flex-shrink:0;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ms-grey);padding-top:2px}
+.coords a{color:var(--ms-navy);font-weight:500;text-decoration:none}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:15px}
+.hours .now{color:var(--ms-red);font-weight:500}
+form.f{background:var(--ms-soft);padding:28px;display:grid;gap:14px}
+.f label{font-size:13px;color:#555;display:grid;gap:6px}
+.f input,.f textarea,.f select{font:inherit;font-weight:400;padding:12px 14px;border:1px solid #cfd2dc;background:#fff;border-radius:2px;width:100%}
+.f textarea{min-height:120px;resize:vertical}
+.f .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.f .btn{justify-content:center}
+.f .ok{display:none;background:#fff;border:2px solid var(--ms-red);padding:14px;font-size:14px}
+@media(max-width:860px){.contact{grid-template-columns:1fr}.f .row{grid-template-columns:1fr}}
+
+/* Pied de page */
+footer{background:var(--ms-navy);color:rgba(255,255,255,.85);padding:56px 0 28px;font-size:14px}
+.ft{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px}
+footer h4{color:#fff;font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+footer ul{list-style:none;display:grid;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{color:#fff;text-decoration:underline}
+.legal{border-top:1px solid rgba(255,255,255,.18);margin-top:40px;padding-top:20px;font-size:12.5px;opacity:.8;line-height:1.7}
+@media(max-width:760px){.ft{grid-template-columns:1fr}}
+
+/* Barre d'appel mobile */
+.mbar{display:none}
+@media(max-width:700px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;bottom:0;left:0;right:0;z-index:40;box-shadow:0 -6px 20px rgba(0,0,0,.12)}
+  .mbar a{display:flex;justify-content:center;align-items:center;min-height:54px;text-decoration:none;font-weight:500;font-size:15px}
+  .mbar a:first-child{background:#fff;color:var(--ms-navy)}
+  .mbar a:last-child{background:var(--ms-red);color:#fff}
+  body{padding-bottom:54px}
+}
+
+/* Apparitions au défilement */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .slide img{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "name":"Metal Stores",
+  "description":"Métallier et storiste : stores, pergolas, fenêtres, volets, portes, portails, clôtures et métallerie sur-mesure.",
+  "url":"https://www.metalstores.fr/",
+  "telephone":"+33474652673",
+  "email":"contact@metalstores.fr",
+  "foundingDate":"2004",
+  "address":{"@type":"PostalAddress","streetAddress":"ZAC d'Epinay, 109 rue des Pêchères","postalCode":"69400","addressLocality":"Gleizé","addressRegion":"Rhône","addressCountry":"FR"},
+  "areaServed":["Beaujolais","Dombes","Villefranche-sur-Saône","Rhône","Ain"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"09:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"14:00","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:00","closes":"12:00"}
+  ],
+  "sameAs":["https://www.facebook.com/metalstores/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>non officielle</b>, préparée pour Metal Stores. Prix indicatifs non contractuels.</div>
+
+<header id="top">
+  <div class="wrap hd">
+    <a class="logo" href="#top">Metal Stores</a>
+    <nav id="nav" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#estimer">Estimer mon projet</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#metal-stores">Métal Stores</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="phone" href="tel:+33474652673" aria-label="Appeler Metal Stores au 04 74 65 26 73">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>
+      <span>04 74 65 26 73</span>
+    </a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<!-- HÉROS -->
+<section class="hero" aria-label="Accueil" style="padding:0">
+  <div class="slide on"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/PERGOLA-OPEN_MARQUISES_1_site-1200x900.jpg" alt="Pergola posée par Metal Stores"></div>
+  <div class="slide"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/DICKSON_12355-1200x900.jpg" alt="Store banne de terrasse" loading="lazy"></div>
+  <div class="slide"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/atelier-stores-1200x900.jpg" alt="Atelier de fabrication des stores à Gleizé" loading="lazy"></div>
+  <div class="slide"><img src="https://www.metalstores.fr/wp-content/uploads/2023/10/show-room-ext-3-1200x900.jpg" alt="Showroom Metal Stores à Gleizé" loading="lazy"></div>
+  <div class="wrap hero-in">
+    <div class="kicker rv">Gleizé · Beaujolais · Dombes</div>
+    <h1 class="rv d1">Rénovation de votre habitat&nbsp;: <strong>stores, fenêtres, volets, clôtures, portes, portails, pergolas</strong>…</h1>
+    <p class="rv d2">Expert de l'équipement de l'habitat sur-mesure. Fabricant, équipes de pose intégrées et SAV à votre écoute.</p>
+    <div class="ctas rv d3">
+      <a class="btn btn-red" href="#estimer">Estimer mon store ou ma pergola →</a>
+      <a class="btn btn-ghost" href="#contact">Venir au showroom</a>
+    </div>
+  </div>
+  <div class="dots" id="dots" aria-label="Choisir une image"></div>
+  <div class="scroll-hint" aria-hidden="true">Défiler</div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Pergolas</span><span>Stores extérieurs</span><span>Fenêtres &amp; baies vitrées</span><span>Volets / BSO</span><span>Portails &amp; portillons</span><span>Clôtures</span><span>Garde-corps</span><span>Carports</span><span>Métallerie / serrurerie</span><span>Domotique</span>
+    <span>Pergolas</span><span>Stores extérieurs</span><span>Fenêtres &amp; baies vitrées</span><span>Volets / BSO</span><span>Portails &amp; portillons</span><span>Clôtures</span><span>Garde-corps</span><span>Carports</span><span>Métallerie / serrurerie</span><span>Domotique</span>
+  </div>
+</div>
+
+<!-- LES PLUS -->
+<section id="metal-stores">
+  <div class="wrap plus">
+    <div class="plus-txt rv">
+      <h2 class="st">Un accompagnement <strong>pour un projet réussi&nbsp;!</strong></h2>
+      <p>Que ce soit pour du standard ou du sur-mesure, nous vous accompagnons dans vos projets&nbsp;: conseils et expertise d'un fabricant, équipes de pose intégrées pour une maîtrise parfaite de votre chantier et un SAV à votre écoute pour répondre à toutes vos questions.</p>
+      <p><strong>Métal Stores, des prestations haut de gamme à prix abordable&nbsp;!</strong></p>
+      <div class="trio">
+        <div><b>Conseil de fabricant</b><small>Un interlocuteur qui conçoit ce qu'il vous vend</small></div>
+        <div><b>Pose intégrée</b><small>Nos propres équipes sur votre chantier</small></div>
+        <div><b>SAV à l'écoute</b><small>Réparation et maintenance</small></div>
+      </div>
+    </div>
+    <div class="plus-img rv d2">
+      <img src="https://www.metalstores.fr/wp-content/uploads/2023/10/show-room-int-1-1200x900.jpg" alt="Intérieur du showroom Metal Stores" loading="lazy">
+      <div class="tag">Entreprise familiale créée en 2004 par Stéphane Narmand</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUITS -->
+<section class="soft" id="produits">
+  <div class="wrap">
+    <h2 class="st rv">Nos <strong>produits</strong></h2>
+    <p class="lead rv d1">Standard haut de gamme ou sur-mesure, toutes les familles sont exposées dans notre showroom de Gleizé.</p>
+    <div class="prod-grid">
+      <a class="prod rv" href="#estimer"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2023/10/KT-archi-Bayle-cap-dagde-7-600x450.jpg" alt="Pergola" loading="lazy"></figure><div><h3>Protections solaires</h3><p>Pergolas, stores extérieurs et vérandas, BSO, voiles d'ombrage, parasols.</p></div></a>
+      <a class="prod rv d1" href="#contact"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2023/10/11-arti-acier-belm-porte-entree-gris-7016-satine-300-600x450.jpg" alt="Porte d'entrée acier" loading="lazy"></figure><div><h3>Fermetures</h3><p>Menuiseries (fenêtres et portes-fenêtres), volets, portes d'entrée et portes de garage.</p></div></a>
+      <a class="prod rv d2" href="#contact"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/KT-contemporain-maez-cloture-anthracite_site-600x450.jpg" alt="Clôture contemporaine anthracite" loading="lazy"></figure><div><h3>Portails &amp; Clôtures</h3><p>Une gamme variée, des solutions sur-mesure.</p></div></a>
+      <a class="prod rv" href="#contact"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2023/10/metallerie-600x450.jpg" alt="Ouvrage de métallerie" loading="lazy"></figure><div><h3>Métallerie / Serrurerie</h3><p>Garde-corps, escaliers, portails type fer forgé, grilles de défense… et des pièces sur-mesure&nbsp;!</p></div></a>
+      <a class="prod rv d1" href="#contact"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2023/10/Type-store-verif-600x450.jpg" alt="Store intérieur" loading="lazy"></figure><div><h3>Stores intérieurs</h3><p>Stores intérieurs et moustiquaires.</p></div></a>
+      <a class="prod rv d2" href="#domotique"><figure><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/tahoma-switch-face-600x450.jpg" alt="Box domotique TaHoma switch" loading="lazy"></figure><div><h3>Domotique</h3><p>Connectez votre maison avec la TaHoma switch Somfy, compatible avec plus de 300 produits.</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL : ESTIMATEUR -->
+<section class="tool" id="estimer">
+  <div class="wrap">
+    <h2 class="st rv">Estimez votre <strong>protection solaire</strong> en 1 minute</h2>
+    <p class="lead rv d1">Choisissez votre équipement, indiquez les dimensions de votre terrasse&nbsp;: l'ombre portée et une fourchette de budget s'affichent en direct. Nous affinons ensuite avec vous, au showroom ou chez vous.</p>
+
+    <div class="est">
+      <div class="panel rv">
+        <div class="step">
+          <div class="lbl">1 · Équipement</div>
+          <div class="types" id="types" role="group" aria-label="Type d'équipement">
+            <button type="button" data-t="store" aria-pressed="true">Store banne<small>Sans poteau, fixé en façade</small></button>
+            <button type="button" data-t="toile" aria-pressed="false">Pergola toile<small>Toile enroulable</small></button>
+            <button type="button" data-t="bio" aria-pressed="false">Pergola bioclimatique<small>Lames orientables</small></button>
+          </div>
+        </div>
+        <div class="step">
+          <label for="w">2 · Largeur <output id="wo">4,0 m</output></label>
+          <input type="range" id="w" min="2" max="7" step="0.5" value="4">
+        </div>
+        <div class="step">
+          <label for="d"><span id="dlabel">3 · Avancée</span> <output id="do">3,0 m</output></label>
+          <input type="range" id="d" min="1.5" max="5" step="0.5" value="3">
+        </div>
+        <div class="step">
+          <div class="lbl">4 · Pose</div>
+          <div class="seg hide" id="pose" role="group" aria-label="Type de pose">
+            <button type="button" data-p="ados" aria-pressed="true">Adossée à la façade</button>
+            <button type="button" data-p="libre" aria-pressed="false">Autoportée (îlot)</button>
+          </div>
+          <div class="seg" id="manoeuvre" role="group" aria-label="Manœuvre">
+            <button type="button" data-m="moteur" aria-pressed="true">Motorisé (télécommande)</button>
+            <button type="button" data-m="manivelle" aria-pressed="false">Manivelle</button>
+          </div>
+        </div>
+        <div class="step">
+          <div class="lbl">5 · Options</div>
+          <div class="chips" id="opts">
+            <label class="chip" data-for="store"><input type="checkbox" value="coffre" checked> Coffre de protection</label>
+            <label class="chip" data-for="store"><input type="checkbox" value="lambrequin"> Lambrequin (soleil bas)</label>
+            <label class="chip" data-for="store toile bio"><input type="checkbox" value="led"> Éclairage LED</label>
+            <label class="chip" data-for="store toile bio"><input type="checkbox" value="vent"> Capteur vent / soleil</label>
+            <label class="chip" data-for="toile bio"><input type="checkbox" value="vertical"> Store vertical latéral</label>
+            <label class="chip" data-for="bio"><input type="checkbox" value="chauffage"> Chauffage</label>
+            <label class="chip" data-for="store toile bio"><input type="checkbox" value="tahoma"> Pilotage TaHoma (smartphone)</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="viz rv d2" aria-live="polite">
+        <div class="viz-top"><span>Vue de votre terrasse</span><b id="surf">12 m² ombragés</b></div>
+        <svg id="scene" viewBox="0 0 520 330" role="img" aria-label="Schéma de la terrasse et de l'ombre portée">
+          <defs>
+            <pattern id="dalle" width="26" height="26" patternUnits="userSpaceOnUse"><rect width="26" height="26" fill="#f1efe9"/><path d="M26 0H0V26" fill="none" stroke="#dcd8cf" stroke-width="1"/></pattern>
+          </defs>
+          <!-- sol -->
+          <rect x="0" y="230" width="520" height="100" fill="url(#dalle)"/>
+          <!-- façade -->
+          <rect x="0" y="40" width="70" height="190" fill="#e3e5ec"/>
+          <rect x="16" y="120" width="38" height="110" fill="#c8ccd8"/>
+          <!-- soleil -->
+          <g id="sun"><circle r="16" fill="#f5b72a"/><circle r="26" fill="#f5b72a" opacity=".18"/></g>
+          <!-- ombre -->
+          <polygon id="shadow" fill="#032B71" opacity=".18"/>
+          <!-- équipement -->
+          <g id="equip"></g>
+          <!-- cote -->
+          <g font-family="Roboto,Arial" font-size="12" fill="#808080">
+            <line id="coteL" y1="312" y2="312" stroke="#BE0715" stroke-width="1.5"/>
+            <text id="coteT" y="326" text-anchor="middle"></text>
+          </g>
+        </svg>
+        <div class="sun-row"><span aria-hidden="true">☀</span><label for="h" style="white-space:nowrap">Heure&nbsp;: <b id="ho">14h</b></label><input type="range" id="h" min="8" max="20" step="0.5" value="14"></div>
+        <p class="shade-info" id="shadeInfo"></p>
+        <div class="price">
+          <small>Budget indicatif fourni posé (TTC)</small>
+          <div class="amt" id="amt"><b>—</b></div>
+          <p>Fourchette calculée sur les prix moyens du marché 2026. Le prix réel dépend des modèles, toiles et contraintes de pose&nbsp;: il est établi gratuitement sur devis.</p>
+          <a class="btn btn-red" id="sendCfg" href="#contact">Recevoir mon devis personnalisé →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ATELIERS -->
+<section>
+  <div class="wrap">
+    <h2 class="st rv">Les ateliers&nbsp;: <strong>création sur-mesure et installation</strong></h2>
+    <p class="lead rv d1">Situés à Gleizé, près de la sortie d'autoroute Villefranche Nord, nos deux ateliers répondent aux besoins des particuliers comme des professionnels&nbsp;: fabrication, réparation, maintenance et installation.</p>
+    <div class="atel">
+      <figure class="rv"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/Atelier-2-2017-1200x900.jpg" alt="Atelier de métallerie-serrurerie" loading="lazy"><figcaption>Atelier métallerie-serrurerie</figcaption></figure>
+      <figure class="rv d1"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/atelier-stores-2-1200x900.jpg" alt="Atelier de fabrication de stores sur-mesure" loading="lazy"><figcaption>Atelier stores sur-mesure</figcaption></figure>
+    </div>
+    <div class="figs">
+      <div class="rv"><b data-count="2004">2004</b><span>Création de l'entreprise</span></div>
+      <div class="rv d1"><b data-count="2">2</b><span>Ateliers de fabrication</span></div>
+      <div class="rv d2"><b data-count="1000" data-suf=" m²">1000 m²</b><span>Surface d'atelier</span></div>
+      <div class="rv d3"><b data-count="3">3</b><span>Compagnons qualifiés en métallerie</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RÉALISATIONS -->
+<section class="soft" id="realisations">
+  <div class="wrap">
+    <h2 class="st rv">Nos <strong>réalisations</strong></h2>
+    <div class="filters" id="filters" role="group" aria-label="Filtrer les réalisations">
+      <button type="button" data-f="all" aria-pressed="true">Tout</button>
+      <button type="button" data-f="solaire" aria-pressed="false">Pergolas &amp; stores</button>
+      <button type="button" data-f="ferm" aria-pressed="false">Fenêtres &amp; portes</button>
+      <button type="button" data-f="ext" aria-pressed="false">Portails, clôtures, garde-corps</button>
+      <button type="button" data-f="metal" aria-pressed="false">Carports &amp; ouvrages</button>
+    </div>
+    <div class="gal" id="gal">
+      <figure data-c="solaire"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/PERGOLA-OPEN_MARQUISES_4_site-1200x900.jpg" alt="Pergola" loading="lazy"><figcaption>Pergola</figcaption></figure>
+      <figure data-c="metal"><img src="https://www.metalstores.fr/wp-content/uploads/2026/10/CARPORT-4-600x450.jpg" alt="Carport" loading="lazy"><figcaption>Carport</figcaption></figure>
+      <figure data-c="solaire"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/fetuna-2012-nuit_HD-600x450.jpg" alt="Store de terrasse éclairé" loading="lazy"><figcaption>Store de terrasse</figcaption></figure>
+      <figure data-c="ext"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/KT-garde-corps-evy-anthracite-2-600x450.jpg" alt="Garde-corps anthracite" loading="lazy"><figcaption>Garde-corps</figcaption></figure>
+      <figure data-c="ferm"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/Baie-seve-600x450.jpg" alt="Baie vitrée" loading="lazy"><figcaption>Fenêtres &amp; baies vitrées</figcaption></figure>
+      <figure data-c="solaire"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/Voile-theize-5-600x450.jpg" alt="Voile d'ombrage" loading="lazy"><figcaption>Voile d'ombrage</figcaption></figure>
+      <figure data-c="ext"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/KT-contemporain-tellen-cloture-anthracite_site-600x450.jpg" alt="Clôture" loading="lazy"><figcaption>Clôture</figcaption></figure>
+      <figure data-c="ferm"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/11-selene-alu-60-belm-porte-entree-gris-7030-satine-copie-600x450.jpeg" alt="Porte d'entrée" loading="lazy"><figcaption>Porte d'entrée</figcaption></figure>
+      <figure data-c="ferm"><img src="https://www.metalstores.fr/wp-content/uploads/2021/04/Marquise_4_site-600x450.jpg" alt="Marquise" loading="lazy"><figcaption>Marquise</figcaption></figure>
+      <figure data-c="ext"><img src="https://www.metalstores.fr/wp-content/uploads/2022/02/KT-archi-esus-aluminium-noir-battant-600x450.jpg" alt="Portail aluminium noir battant" loading="lazy"><figcaption>Portail battant</figcaption></figure>
+      <figure data-c="solaire"><img src="https://www.metalstores.fr/wp-content/uploads/2021/05/Faber-enrouleur-30-600x450.jpg" alt="Store intérieur enrouleur" loading="lazy"><figcaption>Store intérieur</figcaption></figure>
+      <figure data-c="metal"><img src="https://www.metalstores.fr/wp-content/uploads/2026/10/FORTANO_-600x450.jpg" alt="Réalisation récente" loading="lazy"><figcaption>Réalisation récente</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- RENTOILAGE + DOMOTIQUE -->
+<section id="domotique">
+  <div class="wrap duo">
+    <article class="card rv">
+      <img src="https://www.metalstores.fr/wp-content/uploads/2021/04/SAD-Rentoilage-Dickson-25_site-1200x900.jpg" alt="Rentoilage de store" loading="lazy">
+      <div>
+        <h3>Rentoilage de vos stores</h3>
+        <p>Économique, rapide et performant&nbsp;: changez la toile de votre store sans changer de store. Une technique qui s'applique sur tout type de store et de pergola. Storiste agréé Dickson.</p>
+        <a href="#contact">Demander un rentoilage →</a>
+      </div>
+    </article>
+    <article class="card rv d1">
+      <img src="https://www.metalstores.fr/wp-content/uploads/2022/02/tahoma-switch-face-600x450.jpg" alt="TaHoma switch Somfy" loading="lazy">
+      <div>
+        <h3>Pensez domotique&nbsp;!</h3>
+        <p>Envie de simplicité, praticité et confort dans votre maison&nbsp;? Metal Stores vous propose de connecter votre maison avec la TaHoma switch Somfy, compatible avec plus de 300 produits.</p>
+        <a href="#contact">En parler avec nous →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="soft" id="contact">
+  <div class="wrap contact">
+    <div class="rv">
+      <h2 class="st">Venir <strong>nous voir</strong></h2>
+      <p class="lead">Dans notre espace d'exposition, les produits sont présentés en taille réelle&nbsp;: vous pouvez les manipuler et vous faire une idée précise de leur qualité. Metal Stores intervient principalement dans le Beaujolais et la Dombes, mais aussi sur tous les départements limitrophes.</p>
+      <ul class="coords">
+        <li><span>Adresse</span><span>ZAC d'Epinay, 109 rue des Pêchères<br>69400 Gleizé — sortie Villefranche Nord<br><a href="https://www.google.com/maps/search/?api=1&query=Metal+Stores+109+rue+des+P%C3%AAch%C3%A8res+69400+Gleiz%C3%A9" target="_blank" rel="noopener">Itinéraire →</a></span></li>
+        <li><span>Téléphone</span><a href="tel:+33474652673">04 74 65 26 73</a></li>
+        <li><span>Email</span><a href="mailto:contact@metalstores.fr">contact@metalstores.fr</a></li>
+        <li><span>Horaires</span>
+          <div class="hours" id="hours">
+            <span data-d="1-5">Lun – Ven</span><span>9h – 12h · 14h – 18h</span>
+            <span data-d="6">Samedi</span><span>9h – 12h</span>
+            <span data-d="0">Dimanche</span><span>Fermé</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <form class="f rv d1" id="form" novalidate>
+      <h3 class="st" style="font-size:1.4rem">Des questions&nbsp;? <strong>Vous souhaitez un devis</strong></h3>
+      <div class="row">
+        <label>Prénom Nom*<input required name="nom" autocomplete="name"></label>
+        <label>Tél*<input required name="tel" type="tel" autocomplete="tel"></label>
+      </div>
+      <label>Email*<input required name="email" type="email" autocomplete="email"></label>
+      <label>Votre projet
+        <select name="projet"><option>Protection solaire (store, pergola)</option><option>Fermetures (fenêtres, volets, portes)</option><option>Portail, clôture, garde-corps</option><option>Métallerie sur-mesure</option><option>Rentoilage</option><option>Domotique</option></select>
+      </label>
+      <label>Message<textarea name="msg" id="msg"></textarea></label>
+      <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px"><input type="checkbox" required style="width:auto;margin-top:3px"> Je comprends et j'accepte la politique de confidentialité</label>
+      <button class="btn btn-red" type="submit">Envoyer ma demande</button>
+      <div class="ok" id="ok">Merci&nbsp;! (Démonstration&nbsp;: sur le site final, votre demande arrive directement chez Metal Stores.)</div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <h4>Métal Stores</h4>
+        <p>ZAC d'Epinay, 109 rue des Pêchères<br>69400 Gleizé<br><a href="tel:+33474652673">04 74 65 26 73</a> · <a href="mailto:contact@metalstores.fr">contact@metalstores.fr</a></p>
+        <p style="margin-top:12px"><a href="https://www.facebook.com/metalstores/" target="_blank" rel="noopener">Nous suivre sur Facebook →</a></p>
+      </div>
+      <div>
+        <h4>Produits</h4>
+        <ul><li><a href="#produits">Fermetures</a></li><li><a href="#produits">Portails &amp; Clôtures</a></li><li><a href="#estimer">Protections solaires</a></li><li><a href="#produits">Stores intérieurs</a></li><li><a href="#produits">Métallerie / Serrurerie</a></li><li><a href="#domotique">Domotique</a></li></ul>
+      </div>
+      <div>
+        <h4>Réalisations</h4>
+        <ul><li><a href="#realisations">Pergolas</a></li><li><a href="#realisations">Fenêtres &amp; baies vitrées</a></li><li><a href="#realisations">Portes d'entrée / marquise</a></li><li><a href="#realisations">Portails &amp; portillons</a></li><li><a href="#realisations">Gardes-corps</a></li><li><a href="#realisations">Carports</a></li></ul>
+      </div>
+    </div>
+    <div class="legal">
+      Maquette de démonstration réalisée à titre de proposition, non officielle. Couleurs, typographie (Roboto), logo, textes et toutes les photos proviennent du site actuel metalstores.fr ; aucune photo d'illustration n'a été ajoutée. Les fourchettes de prix de l'estimateur sont indicatives et non contractuelles (moyennes du marché 2026), à ajuster selon les tarifs réels de Metal Stores. Horaires à confirmer.
+    </div>
+  </div>
+</footer>
+
+<div class="mbar"><a href="tel:+33474652673">Appeler</a><a href="#estimer">Estimer mon projet</a></div>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* En-tête qui se resserre + menu mobile */
+const hd=$('header');addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>30),{passive:true});
+const nav=$('#nav'),bg=$('#burger');
+bg.onclick=()=>{const o=nav.classList.toggle('open');bg.setAttribute('aria-expanded',o)};
+$$('#nav a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');bg.setAttribute('aria-expanded',false)});
+
+/* Diaporama */
+const slides=$$('.slide'),dots=$('#dots');let cur=0,timer;
+slides.forEach((s,i)=>{const b=document.createElement('button');b.setAttribute('aria-label','Image '+(i+1));b.onclick=()=>go(i,true);dots.appendChild(b)});
+function go(i,user){slides[cur].classList.remove('on');dots.children[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');const d=dots.children[cur];d.classList.remove('on');void d.offsetWidth;d.classList.add('on');if(user)restart()}
+function restart(){clearInterval(timer);if(!reduce)timer=setInterval(()=>go((cur+1)%slides.length),6000)}
+go(0);restart();
+
+/* Apparitions + compteurs */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');io.unobserve(e.target);const c=e.target.querySelector('[data-count]');if(c&&!reduce)count(c)}),{threshold:.15});
+$$('.rv').forEach(el=>io.observe(el));
+function count(el){const end=+el.dataset.count,suf=el.dataset.suf||'',start=end>1900?1980:0,t0=performance.now();(function f(t){const p=Math.min((t-t0)/1400,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(start+(end-start)*e).toLocaleString('fr-FR').replace(/\s/g,end>1900?'':' ')+suf;if(p<1)requestAnimationFrame(f)})(t0)}
+
+/* Réalisations filtrables */
+$$('#filters button').forEach(b=>b.onclick=()=>{$$('#filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));const f=b.dataset.f;$$('#gal figure').forEach(g=>g.classList.toggle('out',f!=='all'&&g.dataset.c!==f))});
+
+/* Horaires : jour courant mis en avant */
+const day=new Date().getDay();$$('#hours [data-d]').forEach(s=>{const d=s.dataset.d;const ok=d.includes('-')?(day>=1&&day<=5):+d===day;if(ok){s.classList.add('now');s.nextElementSibling.classList.add('now')}});
+
+/* ========== ESTIMATEUR ========== */
+const st={t:'store',w:4,d:3,pose:'ados',man:'moteur',h:14};
+const fmt=n=>n.toLocaleString('fr-FR',{maximumFractionDigits:1});
+const eur=n=>Math.round(n/50)*50;
+const euro=n=>eur(n).toLocaleString('fr-FR')+' €';
+const opts=()=>$$('#opts input').filter(i=>i.checked&&!i.closest('.chip').classList.contains('hide')).map(i=>i.value);
+
+/* Fourchettes calées sur les moyennes de marché 2026 (store banne motorisé posé 1 200–3 500 € ;
+   pergola bioclimatique alu posée ~450–1 000 €/m²). À remplacer par la grille réelle de Metal Stores. */
+function price(){
+  const {t,w,d}=st,o=opts(),m2=w*d;let lo,hi;
+  if(t==='store'){
+    lo=650+w*230+d*120;hi=1000+w*420+d*230;
+    if(st.man==='manivelle'){lo-=300;hi-=450}
+    if(o.includes('coffre')){lo+=250;hi+=500}
+    if(o.includes('lambrequin')){lo+=200;hi+=400}
+  }else if(t==='toile'){
+    lo=m2*300+600;hi=m2*560+900;
+    if(st.man==='manivelle'){lo-=300;hi-=450}
+    if(st.pose==='libre'){lo*=1.12;hi*=1.15}
+    if(o.includes('vertical')){lo+=900;hi+=1700}
+  }else{
+    lo=m2*450+800;hi=m2*950+1200;
+    if(st.pose==='libre'){lo*=1.12;hi*=1.18}
+    if(o.includes('vertical')){lo+=1200;hi+=2200}
+    if(o.includes('chauffage')){lo+=450;hi+=900}
+  }
+  if(o.includes('led')){lo+=300;hi+=650}
+  if(o.includes('vent')){lo+=180;hi+=350}
+  if(o.includes('tahoma')){lo+=200;hi+=320}
+  return [lo,hi];
+}
+
+/* Scène : vue de côté — façade à gauche, équipement, soleil selon l'heure, ombre au sol */
+const S=55; // px par mètre
+function draw(){
+  const {t,d,h}=st,x0=70,ground=230,len=d*S;
+  const eq=$('#equip');let svg='';
+  const top=t==='store'?130:118, tipY=t==='store'?top+len*0.28:top; // le store est incliné
+  if(t==='store'){
+    svg+=`<rect x="${x0}" y="${top-10}" width="16" height="14" fill="#323366"/>`;
+    svg+=`<polygon points="${x0+8},${top} ${x0+len},${tipY} ${x0+len},${tipY+6} ${x0+8},${top+6}" fill="#BE0715" opacity=".88"/>`;
+    if(opts().includes('lambrequin'))svg+=`<rect x="${x0+len-3}" y="${tipY+6}" width="5" height="22" fill="#BE0715" opacity=".7"/>`;
+    svg+=`<line x1="${x0+8}" y1="${top+32}" x2="${x0+len-6}" y2="${tipY+4}" stroke="#323366" stroke-width="2"/>`;
+  }else{
+    const post=st.pose==='libre';
+    if(post)svg+=`<rect x="${x0+6}" y="${top}" width="7" height="${ground-top}" fill="#3a3d4a"/>`;
+    svg+=`<rect x="${x0+len-7}" y="${top}" width="7" height="${ground-top}" fill="#3a3d4a"/>`;
+    svg+=`<rect x="${x0}" y="${top-6}" width="${len}" height="9" fill="#3a3d4a"/>`;
+    if(t==='bio'){const n=Math.max(4,Math.round(len/16));for(let i=0;i<n;i++){const cx=x0+8+i*(len-16)/(n-1);svg+=`<rect x="${cx-6}" y="${top+4}" width="12" height="3" fill="#6b7085" transform="rotate(${-25} ${cx} ${top+5})"/>`}}
+    else svg+=`<rect x="${x0}" y="${top+3}" width="${len}" height="4" fill="#e9e3d6" stroke="#cfc6b2"/>`;
+    if(opts().includes('vertical'))svg+=`<rect x="${x0+len-6}" y="${top+8}" width="4" height="${ground-top-30}" fill="#cfc6b2" opacity=".9"/>`;
+    if(opts().includes('led'))svg+=`<line x1="${x0+10}" y1="${top+10}" x2="${x0+len-10}" y2="${top+10}" stroke="#ffd56b" stroke-width="2" stroke-dasharray="3 7"/>`;
+  }
+  if(t==='store'&&opts().includes('led'))svg+=`<line x1="${x0+14}" y1="${top+10}" x2="${x0+len-14}" y2="${tipY+8}" stroke="#ffd56b" stroke-width="2" stroke-dasharray="3 7"/>`;
+  eq.innerHTML=svg;
+
+  /* soleil : arc de 8h à 20h ; vue de côté, la façade fait face au soleil de l'après-midi */
+  const p=(h-8)/12, sx=520-p*420, sy=210-Math.sin(p*Math.PI)*175;
+  $('#sun').setAttribute('transform',`translate(${sx},${sy})`);
+  /* ombre portée : projection des deux extrémités de la couverture vers le sol, à l'opposé du soleil */
+  const proj=(x,y)=>{const dx=x-sx,dy=y-sy; if(dy<=0)return x; return x+dx*(ground-y)/dy};
+  const a=proj(x0+ (t==='store'?8:0), t==='store'?top:top), b=proj(x0+len, tipY);
+  const L=Math.max(x0,Math.min(a,b)),R=Math.min(520,Math.max(a,b));
+  $('#shadow').setAttribute('points',`${L},${ground} ${R},${ground} ${R},${ground+60} ${L},${ground+60}`);
+  const onTerr=Math.max(0,Math.min(R,x0+len)-Math.max(L,x0))/S;
+  const hh=Math.floor(h),mm=h%1?'30':'';$('#ho').textContent=hh+'h'+mm;
+  $('#shadeInfo').textContent= sy>200? "Soleil très bas : pensez au lambrequin ou au store vertical pour couper le soleil rasant."
+    : `À ${hh}h${mm}, environ ${fmt(onTerr)} m de profondeur de terrasse restent à l'ombre sous l'équipement.`;
+  $('#coteL').setAttribute('x1',x0);$('#coteL').setAttribute('x2',x0+len);
+  $('#coteT').setAttribute('x',x0+len/2);$('#coteT').textContent=(t==='store'?'avancée ':'profondeur ')+fmt(d)+' m';
+}
+
+function update(){
+  $('#wo').textContent=fmt(st.w)+' m';$('#do').textContent=fmt(st.d)+' m';
+  $('#dlabel').textContent=st.t==='store'?'3 · Avancée':'3 · Profondeur';
+  $('#pose').classList.toggle('hide',st.t==='store');
+  $('#manoeuvre').classList.toggle('hide',st.t==='bio');
+  const dIn=$('#d');dIn.max=st.t==='store'?4:5;if(st.d>+dIn.max){st.d=+dIn.max;dIn.value=st.d}
+  $$('#opts .chip').forEach(c=>c.classList.toggle('hide',!c.dataset.for.split(' ').includes(st.t)));
+  $('#surf').textContent=fmt(st.w*st.d)+' m² couverts';
+  const [lo,hi]=price();$('#amt').innerHTML=`<b>${euro(lo)}</b> à <b>${euro(hi)}</b>`;
+  draw();
+}
+$$('#types button').forEach(b=>b.onclick=()=>{$$('#types button').forEach(x=>x.setAttribute('aria-pressed',x===b));st.t=b.dataset.t;update()});
+$$('#pose button').forEach(b=>b.onclick=()=>{$$('#pose button').forEach(x=>x.setAttribute('aria-pressed',x===b));st.pose=b.dataset.p;update()});
+$$('#manoeuvre button').forEach(b=>b.onclick=()=>{$$('#manoeuvre button').forEach(x=>x.setAttribute('aria-pressed',x===b));st.man=b.dataset.m;update()});
+$('#w').oninput=e=>{st.w=+e.target.value;update()};
+$('#d').oninput=e=>{st.d=+e.target.value;update()};
+$('#h').oninput=e=>{st.h=+e.target.value;draw()};
+$$('#opts input').forEach(i=>i.onchange=update);
+update();
+
+/* Le bouton devis pré-remplit le formulaire avec la configuration */
+$('#sendCfg').onclick=()=>{
+  const names={store:'Store banne',toile:'Pergola à toile enroulable',bio:'Pergola bioclimatique'};
+  const [lo,hi]=price();
+  $('#msg').value=`Bonjour, je souhaite un devis pour : ${names[st.t]}, ${fmt(st.w)} m x ${fmt(st.d)} m`+
+   (st.t!=='store'?`, pose ${st.pose==='libre'?'autoportée':'adossée'}`:'')+(st.t!=='bio'?`, ${st.man==='moteur'?'motorisé':'manivelle'}`:'')+
+   (opts().length?`, options : ${opts().join(', ')}`:'')+`. (Estimation en ligne : ${euro(lo)} – ${euro(hi)})`;
+  $('#form select').selectedIndex=0;
+};
+$('#form').onsubmit=e=>{e.preventDefault();$('#ok').style.display='block'};
+})();
+</script>
+</body>
+</html>
