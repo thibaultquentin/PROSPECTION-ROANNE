@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jérôme Perey Géomètre-Expert — Bornage, division, topographie | Riorges</title>
+<meta name="description" content="Cabinet de géomètre-expert à Riorges, dans le Roannais : bornage, division de terrain, relevés topographiques, scanner laser 3D, copropriété et mesurage loi Carrez.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — à ajuster en quelques lignes
+   Le cabinet n'a pas de site ni de charte publiée : palette
+   proposée (bleu ardoise des plans + orange des piquets de
+   chantier). À remplacer par les vraies couleurs du cabinet.
+   ========================================================= */
+:root{
+  --ink:#0f2a36;          /* bleu ardoise — fond foncé, titres */
+  --ink-2:#1d4152;
+  --paper:#f3f5f6;        /* fond clair, gris plan */
+  --white:#ffffff;
+  --line:#c9d3d8;
+  --muted:#587080;
+  --stake:#e5762a;        /* orange piquet / borne */
+  --stake-dark:#b9561a;
+  --grid:rgba(15,42,54,.07);
+  --font:"Public Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --radius:14px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);line-height:1.6;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.mono{font-family:var(--mono);letter-spacing:.02em}
+:focus-visible{outline:3px solid var(--stake);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--ink);color:#cfe0e7;font-size:.8rem;text-align:center;padding:7px 16px}
+.demo strong{color:#fff}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(243,245,246,.86);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+header.scrolled{border-color:var(--line);background:rgba(255,255,255,.94)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;height:70px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-mark{width:40px;height:40px;flex:none}
+.brand-txt strong{display:block;font-weight:800;font-size:1.02rem;letter-spacing:-.01em}
+.brand-txt span{display:block;font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.nav ul{display:flex;gap:26px;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--stake);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:46px;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;font-family:inherit;font-size:.96rem;transition:transform .2s var(--ease),background .2s,color .2s,box-shadow .2s}
+.btn:active{transform:scale(.96)}
+.btn-stake{background:var(--stake);color:#fff}
+.btn-stake:hover{background:var(--stake-dark);box-shadow:0 10px 24px -10px var(--stake)}
+.btn-ghost{border-color:currentColor;background:transparent;color:inherit}
+.btn-ghost:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--ink);margin:6px 8px;transition:.3s}
+
+/* Hero */
+.hero{position:relative;padding:72px 0 60px;overflow:hidden;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:44px 44px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.8rem;color:var(--stake-dark);text-transform:uppercase;letter-spacing:.14em;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--stake)}
+h1{font-size:clamp(2.3rem,1.6rem + 3.4vw,4.3rem);line-height:1.03;letter-spacing:-.035em;font-weight:800}
+h1 em{font-style:normal;color:var(--stake)}
+.lead{font-size:clamp(1.05rem,1rem + .3vw,1.22rem);color:var(--muted);max-width:34em;margin:22px 0 30px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+.coords{display:flex;flex-wrap:wrap;gap:22px;margin-top:34px;font-size:.92rem}
+.coords div{display:flex;flex-direction:column}
+.coords small{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.coords a{font-weight:700;text-decoration:none}
+
+/* Plan animé */
+.plan{position:relative;background:var(--white);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 30px 60px -36px rgba(15,42,54,.45)}
+.plan svg{width:100%;height:auto;display:block}
+.plan-head{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;color:var(--muted);padding:2px 4px 12px;border-bottom:1px dashed var(--line);margin-bottom:12px}
+.contour{fill:none;stroke:#9fb4bd;stroke-width:1;opacity:.7}
+.parcel{fill:rgba(229,118,42,.06);stroke:var(--ink);stroke-width:2;stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.6s .4s var(--ease) forwards}
+.parcel.b{fill:rgba(15,42,54,.04);animation-delay:1.1s}
+.split{stroke:var(--stake);stroke-width:2.5;stroke-dasharray:6 6;fill:none;opacity:0;animation:fade .6s 2.6s forwards}
+.borne{fill:var(--stake);stroke:#fff;stroke-width:2;transform-box:fill-box;transform-origin:center;transform:scale(0);animation:pop .5s var(--ease) forwards}
+.lbl{font-family:var(--mono);font-size:11px;fill:var(--ink-2);opacity:0;animation:fade .6s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes pop{70%{transform:scale(1.35)}to{transform:scale(1)}}
+@keyframes fade{to{opacity:1}}
+.scan{position:absolute;left:18px;right:18px;top:52px;height:2px;background:linear-gradient(90deg,transparent,var(--stake),transparent);opacity:.55;animation:scan 5s 3s ease-in-out infinite}
+@keyframes scan{0%{transform:translateY(0)}50%{transform:translateY(300px)}100%{transform:translateY(0)}}
+
+/* Sections */
+section{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px;flex-wrap:wrap}
+h2{font-size:clamp(1.9rem,1.4rem + 2vw,3rem);line-height:1.08;letter-spacing:-.03em;font-weight:800;max-width:16em}
+.sec-head p{max-width:30em;color:var(--muted)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Bandeau défilant */
+.marquee{background:var(--ink);color:#fff;overflow:hidden;padding:18px 0;border-block:1px solid var(--ink-2)}
+.marquee-track{display:flex;gap:46px;width:max-content;animation:marq 38s linear infinite}
+.marquee span{font-weight:700;font-size:1.05rem;white-space:nowrap;display:flex;align-items:center;gap:46px}
+.marquee span::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--stake)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 40px -28px rgba(15,42,54,.55);border-color:var(--ink)}
+.svc .num{font-family:var(--mono);font-size:.75rem;color:var(--stake-dark)}
+.svc h3{font-size:1.25rem;margin:10px 0 8px;letter-spacing:-.01em}
+.svc p{color:var(--muted);font-size:.96rem}
+.svc ul{list-style:none;margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.svc li{font-size:.78rem;font-family:var(--mono);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.svc svg{position:absolute;right:-12px;top:-12px;width:110px;opacity:.09;transition:opacity .35s,transform .6s var(--ease)}
+.svc:hover svg{opacity:.2;transform:rotate(-8deg) scale(1.08)}
+
+/* Outil */
+.tool-sec{background:var(--ink);color:#e7f0f3;position:relative;overflow:hidden}
+.tool-sec::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+.tool-sec h2{color:#fff}
+.tool-sec .sec-head p{color:#a9c1cb}
+.tool{position:relative;display:grid;grid-template-columns:.9fr 1.1fr;gap:26px}
+.steps-bar{display:flex;gap:8px;margin-bottom:18px}
+.steps-bar i{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.14);transition:background .4s}
+.steps-bar i.on{background:var(--stake)}
+.q{font-weight:700;font-size:1.15rem;margin-bottom:14px;color:#fff}
+.choices{display:grid;gap:10px}
+.choice{display:flex;align-items:center;gap:14px;text-align:left;width:100%;padding:15px 16px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);color:#e7f0f3;font:inherit;cursor:pointer;transition:background .25s,border-color .25s,transform .2s}
+.choice:hover{background:rgba(255,255,255,.09);transform:translateX(4px)}
+.choice[aria-pressed="true"]{border-color:var(--stake);background:rgba(229,118,42,.14)}
+.choice b{display:block;color:#fff}
+.choice small{color:#a9c1cb}
+.choice .ico{flex:none;width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center;font-family:var(--mono);color:var(--stake)}
+.panel{background:#fff;color:var(--ink);border-radius:18px;padding:30px;min-height:100%;display:flex;flex-direction:column}
+.panel .tag{font-family:var(--mono);font-size:.74rem;color:var(--stake-dark);text-transform:uppercase;letter-spacing:.12em}
+.panel h3{font-size:1.6rem;letter-spacing:-.02em;margin:6px 0 10px;line-height:1.15}
+.panel p{color:var(--muted)}
+.panel .law{margin:16px 0;padding:12px 14px;border-left:3px solid var(--stake);background:#fff6ef;font-size:.92rem;border-radius:0 8px 8px 0}
+.panel h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:18px 0 8px;font-family:var(--mono);font-weight:500}
+.checklist{list-style:none;display:grid;gap:8px}
+.checklist label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-size:.96rem}
+.checklist input{accent-color:var(--stake);width:18px;height:18px;margin-top:3px;flex:none}
+.timeline{display:flex;gap:0;margin-top:6px;counter-reset:t}
+.timeline span{flex:1;font-size:.8rem;padding-top:22px;position:relative;color:var(--ink-2)}
+.timeline span::before{counter-increment:t;content:counter(t);position:absolute;top:0;left:0;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font-size:.65rem;display:grid;place-items:center;font-family:var(--mono)}
+.timeline span::after{content:"";position:absolute;top:9px;left:22px;right:6px;height:1px;background:var(--line)}
+.timeline span:last-child::after{display:none}
+.panel-foot{margin-top:auto;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.panel-empty{display:grid;place-items:center;text-align:center;flex:1;color:var(--muted)}
+.panel-empty svg{width:120px;margin:0 auto 14px;opacity:.7}
+.fadein{animation:fadein .5s var(--ease)}
+@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.progress-note{font-size:.82rem;color:var(--muted)}
+
+/* Méthode */
+.method{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink)}
+.method div{padding:26px 22px 0 0;position:relative}
+.method div::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--stake);box-shadow:0 0 0 4px var(--paper)}
+.method b{font-family:var(--mono);font-size:.8rem;color:var(--stake-dark)}
+.method h3{font-size:1.15rem;margin:6px 0}
+.method p{color:var(--muted);font-size:.94rem}
+
+/* Bon à savoir */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.fact{border-radius:var(--radius);padding:26px;background:var(--white);border:1px solid var(--line)}
+.fact h3{font-size:1.08rem;margin-bottom:8px}
+.fact p{color:var(--muted);font-size:.95rem}
+
+/* Cabinet */
+.cabinet{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ph{aspect-ratio:4/3;border-radius:20px;border:2px dashed var(--line);display:grid;place-items:center;text-align:center;color:var(--muted);background:repeating-linear-gradient(45deg,transparent 0 14px,rgba(15,42,54,.03) 14px 28px)}
+.ph b{display:block;color:var(--ink);margin-bottom:4px}
+.cabinet p{color:var(--muted);margin-bottom:14px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:10px 22px;margin-top:20px;font-size:.96rem}
+.kv dt{font-family:var(--mono);font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;padding-top:3px}
+.kv dd a{font-weight:700}
+
+/* Contact */
+.contact{background:var(--white);border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.hours{width:100%;border-collapse:collapse;margin-top:14px}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-family:var(--mono);font-size:.9rem}
+.hours tr.today td{color:var(--stake-dark);font-weight:700}
+form{display:grid;gap:14px}
+.field{display:grid;gap:6px}
+.field label{font-size:.85rem;font-weight:600}
+.field input,.field select,.field textarea{font:inherit;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);transition:border-color .2s,background .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink);background:#fff}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.map{margin-top:18px;border-radius:14px;overflow:hidden;border:1px solid var(--line);height:220px}
+.map iframe{width:100%;height:100%;border:0;filter:grayscale(.5)}
+
+footer{background:var(--ink);color:#a9c1cb;padding:40px 0;font-size:.86rem}
+footer .wrap{display:grid;gap:14px}
+footer strong{color:#fff}
+.sticky-call{display:none}
+
+@media (max-width:960px){
+  .hero-grid,.tool,.cabinet,.contact-grid{grid-template-columns:1fr}
+  .services,.facts{grid-template-columns:1fr 1fr}
+  .method{grid-template-columns:1fr 1fr;row-gap:30px}
+  .nav ul,.nav .btn{display:none}
+  .burger{display:block}
+  .nav.open ul{display:flex;flex-direction:column;position:absolute;top:70px;left:0;right:0;background:#fff;padding:20px 16px;border-bottom:1px solid var(--line);gap:16px}
+}
+@media (max-width:620px){
+  section{padding:70px 0}
+  .services,.facts,.method,.row2{grid-template-columns:1fr}
+  .hero{padding-top:46px}
+  .sticky-call{display:flex;position:fixed;bottom:14px;left:16px;right:16px;z-index:60;justify-content:center}
+  footer{padding-bottom:90px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .parcel{stroke-dashoffset:0}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ProfessionalService",
+  "name":"Jérôme Perey Géomètre-Expert",
+  "legalName":"SASU Jérôme Perey Géomètre-Expert",
+  "description":"Cabinet de géomètre-expert : bornage, division de terrain, relevés topographiques, scanner laser 3D, mise en copropriété, mesurage loi Carrez.",
+  "telephone":"+33477716874",
+  "email":"jerome.perey@geometre-expert.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"7 rue Germaine de Staël","postalCode":"42153","addressLocality":"Riorges","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":[{"@type":"AdministrativeArea","name":"Roannais"},{"@type":"City","name":"Riorges"},{"@type":"City","name":"Roanne"}],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"}],
+  "founder":{"@type":"Person","name":"Jérôme Perey","jobTitle":"Géomètre-expert"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <strong>proposition de site pour Jérôme Perey Géomètre-Expert</strong>, non publiée officiellement.</div>
+
+<header id="top">
+  <nav class="nav wrap" aria-label="Navigation principale">
+    <a href="#top" class="brand" aria-label="Accueil">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="10" fill="#0f2a36"/><path d="M9 29 L17 11 L31 17 L27 30 Z" fill="none" stroke="#fff" stroke-width="2"/><circle cx="9" cy="29" r="3" fill="#e5762a"/><circle cx="17" cy="11" r="3" fill="#e5762a"/><circle cx="31" cy="17" r="3" fill="#e5762a"/><circle cx="27" cy="30" r="3" fill="#e5762a"/></svg>
+      <span class="brand-txt"><strong>Jérôme Perey</strong><span>Géomètre-Expert · Riorges</span></span>
+    </a>
+    <ul>
+      <li><a href="#services">Prestations</a></li>
+      <li><a href="#projet">Votre projet</a></li>
+      <li><a href="#methode">Démarche</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="tel:+33477716874" class="btn btn-stake">04 77 71 68 74</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Géomètre-expert · Roannais</p>
+      <h1>Les limites de votre terrain, <em>posées</em> et reconnues.</h1>
+      <p class="lead">Bornage, division de terrain, relevés topographiques, scanner laser 3D, copropriété et mesurage loi Carrez : le cabinet de Jérôme Perey accompagne particuliers, notaires, collectivités et professionnels depuis Riorges.</p>
+      <div class="hero-cta">
+        <a href="#projet" class="btn btn-stake">Quel document pour mon projet ? →</a>
+        <a href="#contact" class="btn btn-ghost">Demander un rendez-vous</a>
+      </div>
+      <div class="coords">
+        <div><small>Téléphone</small><a href="tel:+33477716874">04 77 71 68 74</a></div>
+        <div><small>Cabinet</small><span>7 rue Germaine de Staël, Riorges</span></div>
+        <div><small>Horaires</small><span>Lun.–Ven. · 8h–18h</span></div>
+      </div>
+    </div>
+
+    <div class="plan reveal" aria-hidden="true">
+      <div class="plan-head"><span>PLAN DE DIVISION — exemple</span><span id="coordLive">X 1 789 420 · Y 5 217 630</span></div>
+      <div class="scan"></div>
+      <svg viewBox="0 0 460 340">
+        <path class="contour" d="M-10 60 C90 30 180 80 270 50 S420 20 480 45"/>
+        <path class="contour" d="M-10 110 C80 85 190 130 290 100 S420 80 480 95"/>
+        <path class="contour" d="M-10 165 C100 140 200 190 300 160 S430 140 480 150"/>
+        <path class="contour" d="M-10 225 C110 200 210 250 310 220 S430 205 480 215"/>
+        <path class="contour" d="M-10 285 C120 265 220 305 320 280 S430 265 480 275"/>
+        <polygon class="parcel" points="70,70 250,52 262,200 84,236"/>
+        <polygon class="parcel b" points="250,52 400,78 386,262 262,200"/>
+        <path class="split" d="M256 126 L394 160"/>
+        <circle class="borne" style="animation-delay:1.4s" cx="70" cy="70" r="7"/>
+        <circle class="borne" style="animation-delay:1.6s" cx="250" cy="52" r="7"/>
+        <circle class="borne" style="animation-delay:1.8s" cx="262" cy="200" r="7"/>
+        <circle class="borne" style="animation-delay:2s" cx="84" cy="236" r="7"/>
+        <circle class="borne" style="animation-delay:2.2s" cx="400" cy="78" r="7"/>
+        <circle class="borne" style="animation-delay:2.4s" cx="386" cy="262" r="7"/>
+        <circle class="borne" style="animation-delay:2.9s" cx="256" cy="126" r="6"/>
+        <circle class="borne" style="animation-delay:3s" cx="394" cy="160" r="6"/>
+        <text class="lbl" style="animation-delay:2.2s" x="128" y="150">Lot A</text>
+        <text class="lbl" style="animation-delay:3.1s" x="300" y="118">Lot B</text>
+        <text class="lbl" style="animation-delay:3.2s" x="300" y="215">Lot C</text>
+        <text class="lbl" style="animation-delay:2.6s" x="56" y="58">B1</text>
+        <text class="lbl" style="animation-delay:2.6s" x="244" y="40">B2</text>
+        <text class="lbl" style="animation-delay:2.6s" x="404" y="72">B3</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Bornage</span><span>Division de terrain</span><span>Relevé topographique</span><span>Scanner laser 3D</span><span>Géoréférencement</span><span>Mise en copropriété</span><span>Mesurage loi Carrez</span><span>Permis d'aménager</span><span>Relevé de façade</span><span>Relevé d'intérieur</span>
+    <span>Bornage</span><span>Division de terrain</span><span>Relevé topographique</span><span>Scanner laser 3D</span><span>Géoréférencement</span><span>Mise en copropriété</span><span>Mesurage loi Carrez</span><span>Permis d'aménager</span><span>Relevé de façade</span><span>Relevé d'intérieur</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Prestations du cabinet</h2>
+      <p>Du foncier à la mesure en 3D, les missions réalisées par le cabinet, regroupées par besoin.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><polygon points="10,20 80,10 90,80 20,90" fill="none" stroke="#0f2a36" stroke-width="4"/><circle cx="10" cy="20" r="7" fill="#e5762a"/><circle cx="90" cy="80" r="7" fill="#e5762a"/></svg>
+        <span class="num mono">01 — Foncier</span>
+        <h3>Bornage et limites</h3>
+        <p>Fixer contradictoirement les limites de propriété avec les voisins, et poser les bornes sur le terrain.</p>
+        <ul><li>Bornage</li><li>Géomètre-expert foncier</li></ul>
+      </article>
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="none" stroke="#0f2a36" stroke-width="4"/><path d="M50 10 V90" stroke="#e5762a" stroke-width="4" stroke-dasharray="8 6"/></svg>
+        <span class="num mono">02 — Aménagement</span>
+        <h3>Division et terrain à bâtir</h3>
+        <p>Découper une parcelle, créer un terrain à bâtir, monter le dossier de permis d'aménager.</p>
+        <ul><li>Division de terrain</li><li>Création de terrain à bâtir</li><li>Permis d'aménager</li></ul>
+      </article>
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><path d="M0 70 C30 50 60 80 100 55" fill="none" stroke="#0f2a36" stroke-width="4"/><path d="M0 45 C30 25 60 55 100 30" fill="none" stroke="#0f2a36" stroke-width="4"/></svg>
+        <span class="num mono">03 — Topographie</span>
+        <h3>Relevés et géoréférencement</h3>
+        <p>Plans topographiques avant construction ou travaux, rattachés aux coordonnées officielles.</p>
+        <ul><li>Relevé topographique</li><li>Géoréférencement</li></ul>
+      </article>
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="12" fill="#e5762a"/><circle cx="50" cy="50" r="28" fill="none" stroke="#0f2a36" stroke-width="3"/><circle cx="50" cy="50" r="44" fill="none" stroke="#0f2a36" stroke-width="3"/></svg>
+        <span class="num mono">04 — Mesure 3D</span>
+        <h3>Scanner laser 3D</h3>
+        <p>Nuage de points d'un bâtiment, d'un intérieur ou d'une façade, pour concevoir ou rénover sur une base exacte.</p>
+        <ul><li>Scanner laser 3D</li><li>Relevé de façade</li><li>Relevé d'intérieur</li></ul>
+      </article>
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><rect x="15" y="10" width="70" height="80" fill="none" stroke="#0f2a36" stroke-width="4"/><path d="M15 37 H85 M15 63 H85 M50 10 V90" stroke="#0f2a36" stroke-width="3"/></svg>
+        <span class="num mono">05 — Immobilier</span>
+        <h3>Copropriété</h3>
+        <p>Mise en copropriété d'un immeuble : découpage en lots et documents nécessaires au notaire.</p>
+        <ul><li>Mise en copropriété</li></ul>
+      </article>
+      <article class="svc reveal">
+        <svg viewBox="0 0 100 100"><path d="M10 80 H90 M10 80 V20 M30 80 V70 M50 80 V65 M70 80 V70" stroke="#0f2a36" stroke-width="4" fill="none"/><path d="M20 30 H80" stroke="#e5762a" stroke-width="4"/></svg>
+        <span class="num mono">06 — Vente</span>
+        <h3>Mesurage loi Carrez</h3>
+        <p>Mesure de la surface privative d'un lot de copropriété, à annexer à la promesse et à l'acte de vente.</p>
+        <ul><li>Mesurage loi Carrez</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="projet" class="tool-sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Quel document pour votre projet ?</h2>
+      <p>Trois questions, et vous savez quelle mission demander, quoi préparer avant le premier appel, et comment se déroule l'intervention.</p>
+    </div>
+
+    <div class="tool">
+      <div>
+        <div class="steps-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+        <div id="qBox" aria-live="polite"></div>
+        <p class="progress-note" id="back" style="margin-top:14px;display:none"><button class="btn btn-ghost" style="color:#e7f0f3;min-height:38px;padding:6px 16px" type="button">← Question précédente</button></p>
+      </div>
+      <div class="panel" id="result">
+        <div class="panel-empty">
+          <div>
+            <svg viewBox="0 0 120 90" aria-hidden="true"><polygon points="10,15 100,8 110,75 18,82" fill="none" stroke="#c9d3d8" stroke-width="3" stroke-dasharray="6 5"/><circle cx="10" cy="15" r="6" fill="#e5762a"/><circle cx="110" cy="75" r="6" fill="#e5762a"/></svg>
+            <p>Répondez aux questions : la mission adaptée s'affichera ici, avec la liste des pièces à rassembler.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="methode">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Comment se déroule une intervention</h2>
+      <p>Le schéma général d'une mission foncière, du premier appel au document remis.</p>
+    </div>
+    <div class="method reveal">
+      <div><b class="mono">01</b><h3>Premier échange</h3><p>Vous décrivez votre projet par téléphone ou par mail, avec la référence cadastrale de la parcelle.</p></div>
+      <div><b class="mono">02</b><h3>Recherches</h3><p>Étude des titres de propriété, du cadastre et des documents d'arpentage existants.</p></div>
+      <div><b class="mono">03</b><h3>Sur le terrain</h3><p>Mesures et, pour un bornage, réunion avec les propriétaires voisins concernés.</p></div>
+      <div><b class="mono">04</b><h3>Documents remis</h3><p>Plan, procès-verbal ou document d'arpentage, transmis à vous et, si besoin, au notaire.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Bon à savoir</h2></div>
+    <div class="facts">
+      <div class="fact reveal"><h3>Seul habilité à fixer les limites</h3><p>Le géomètre-expert est le seul professionnel autorisé à fixer les limites des propriétés foncières et à les borner.</p></div>
+      <div class="fact reveal"><h3>Terrain à bâtir en lotissement</h3><p>Pour la vente d'un terrain à bâtir issu d'un lotissement, le bornage est obligatoire avant la vente.</p></div>
+      <div class="fact reveal"><h3>Vente d'un lot de copropriété</h3><p>La superficie « loi Carrez » du lot doit figurer dans la promesse et dans l'acte de vente.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap cabinet">
+    <div class="ph reveal"><div><b>Photo du cabinet ou de l'équipe sur le terrain</b>à fournir par le client</div></div>
+    <div class="reveal">
+      <p class="eyebrow">Le cabinet</p>
+      <h2>Un géomètre-expert installé à Riorges</h2>
+      <p style="margin-top:18px">Jérôme Perey est géomètre-expert inscrit à l'Ordre des géomètres-experts. Son cabinet, la SASU Jérôme Perey Géomètre-Expert, est installé rue Germaine de Staël à Riorges.</p>
+      <dl class="kv">
+        <dt>Adresse</dt><dd>7 rue Germaine de Staël, 42153 Riorges</dd>
+        <dt>Téléphone</dt><dd><a href="tel:+33477716874">04 77 71 68 74</a></dd>
+        <dt>Mail</dt><dd><a href="mailto:jerome.perey@geometre-expert.fr">jerome.perey@geometre-expert.fr</a></dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="eyebrow">Contact</p>
+      <h2>Parlons de votre terrain</h2>
+      <table class="hours" aria-label="Horaires d'ouverture">
+        <tbody id="hours"></tbody>
+      </table>
+      <div class="map"><iframe title="Plan d'accès au cabinet" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.020%2C46.030%2C4.060%2C46.055&amp;layer=mapnik"></iframe></div>
+    </div>
+    <form class="reveal" id="form">
+      <div class="row2">
+        <div class="field"><label for="nom">Nom</label><input id="nom" required autocomplete="name"></div>
+        <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+      </div>
+      <div class="field"><label for="mail">Mail</label><input id="mail" type="email" required autocomplete="email"></div>
+      <div class="row2">
+        <div class="field"><label for="type">Mission</label>
+          <select id="type"><option>Bornage</option><option>Division de terrain</option><option>Relevé topographique</option><option>Scanner laser 3D</option><option>Mise en copropriété</option><option>Mesurage loi Carrez</option><option>Autre</option></select></div>
+        <div class="field"><label for="commune">Commune du terrain</label><input id="commune"></div>
+      </div>
+      <div class="field"><label for="msg">Votre projet</label><textarea id="msg" rows="5" placeholder="Référence cadastrale si vous l'avez, délai souhaité…"></textarea></div>
+      <button class="btn btn-stake" type="submit">Envoyer la demande</button>
+      <p class="progress-note" id="formNote">Formulaire de démonstration : il ouvre votre messagerie avec la demande pré-remplie.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<a href="tel:+33477716874" class="btn btn-stake sticky-call">Appeler le cabinet · 04 77 71 68 74</a>
+
+<footer>
+  <div class="wrap">
+    <div><strong>Jérôme Perey Géomètre-Expert</strong> — SASU · 7 rue Germaine de Staël, 42153 Riorges · 04 77 71 68 74</div>
+    <div>Maquette de démonstration réalisée sans site existant : les couleurs, la mise en page et les textes sont une proposition, entièrement ajustables. Aucune photo réelle n'était disponible : l'emplacement photo est à fournir par le client. Les prestations reprennent celles affichées sur la fiche professionnelle du cabinet ; les rappels réglementaires sont donnés à titre informatif.</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header + menu
+  const header = document.querySelector('header');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), {passive:true});
+  const nav = document.querySelector('.nav'), burger = document.querySelector('.burger');
+  burger.addEventListener('click', () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  nav.querySelectorAll('ul a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+  // Reveals
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold:.15});
+    document.querySelectorAll('.reveal').forEach((el,i) => { el.style.transitionDelay = (i % 3) * 80 + 'ms'; io.observe(el); });
+  } else document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+
+  // Coordonnées qui défilent (décor)
+  const c = document.getElementById('coordLive');
+  if (!reduce) setInterval(() => {
+    const x = 1789420 + Math.floor(Math.random()*60), y = 5217630 + Math.floor(Math.random()*60);
+    c.textContent = 'X ' + x.toLocaleString('fr-FR') + ' · Y ' + y.toLocaleString('fr-FR');
+  }, 1400);
+
+  // Horaires
+  const days = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+  const today = (new Date().getDay() + 6) % 7;
+  document.getElementById('hours').innerHTML = days.map((d,i) =>
+    `<tr class="${i===today?'today':''}"><td>${d}</td><td>${i<5?'08:00 – 18:00':'Fermé'}</td></tr>`).join('');
+
+  // ===== Outil d'orientation =====
+  const Q = [
+    {k:'qui', q:'Vous êtes…', opts:[
+      ['part','Particulier','Propriétaire, acheteur, héritier'],
+      ['pro','Professionnel','Notaire, agence, architecte, constructeur'],
+      ['coll','Collectivité','Commune, syndicat, bailleur']]},
+    {k:'bien', q:'Votre projet concerne…', opts:[
+      ['terrain','Un terrain','Parcelle nue ou jardin'],
+      ['bati','Un bâtiment','Maison, immeuble, local'],
+      ['lot','Un appartement ou un lot','En copropriété']]},
+  ];
+  const Q3 = {
+    terrain:[['limite','Connaître ou fixer mes limites','Clôture à poser, doute avec un voisin'],
+             ['diviser','Diviser ou vendre une partie','Créer un ou plusieurs terrains à bâtir'],
+             ['construire','Construire ou aménager','Projet de maison, terrassement, lotissement']],
+    bati:[['copro','Créer une copropriété','Découper un immeuble en lots'],
+          ['scan3d','Relever l\'existant','Plans, façades, intérieur avant travaux'],
+          ['construire','Construire ou agrandir','Plan topographique du terrain d\'assiette']],
+    lot:[['carrez','Vendre mon lot','Surface privative à indiquer'],
+         ['copro','Modifier les lots','Division ou réunion de lots'],
+         ['scan3d','Faire des plans précis','Rénovation, aménagement intérieur']]
+  };
+  const R = {
+    limite:{t:'Bornage', d:'Le bornage fixe de façon contradictoire, avec vos voisins, la limite entre les propriétés. Des bornes sont posées et un procès-verbal est signé par les parties.',
+      law:'Seul un géomètre-expert peut fixer les limites de propriété.',
+      docs:['Titre de propriété (acte notarié)','Référence cadastrale de la parcelle','Coordonnées des propriétaires voisins concernés','Ancien plan ou procès-verbal de bornage s\'il existe'],
+      steps:['Recherches','Réunion sur place','Pose des bornes','Procès-verbal']},
+    diviser:{t:'Division de terrain', d:'Le cabinet étudie le découpage possible selon les règles d\'urbanisme, réalise le plan de division et le document d\'arpentage qui crée les nouvelles parcelles au cadastre.',
+      law:'Pour la vente d\'un terrain à bâtir issu d\'un lotissement, le bornage est obligatoire.',
+      docs:['Titre de propriété','Référence cadastrale','Projet envisagé (nombre de lots, accès)','Certificat d\'urbanisme s\'il a été demandé'],
+      steps:['Étude de faisabilité','Plan de division','Bornage des lots','Document d\'arpentage']},
+    construire:{t:'Relevé topographique', d:'Un plan précis du terrain (altitudes, limites, réseaux visibles, arbres, bâti voisin) sert de base à l\'architecte ou au constructeur, et au dossier de permis. Pour un lotissement, le cabinet monte aussi le permis d\'aménager.',
+      law:'Plan rattaché aux coordonnées officielles (géoréférencement) sur demande.',
+      docs:['Référence cadastrale','Plan de situation','Coordonnées de votre architecte ou constructeur','Échéance du dépôt de permis'],
+      steps:['Relevé sur place','Traitement des mesures','Plan topographique','Remise du plan']},
+    copro:{t:'Mise en copropriété', d:'Le cabinet relève l\'immeuble, découpe les lots, calcule les quotes-parts et prépare les documents que le notaire intègre à l\'état descriptif de division.',
+      law:'Documents établis en lien avec le notaire chargé de l\'acte.',
+      docs:['Titre de propriété de l\'immeuble','Plans existants s\'il y en a','Projet de découpage en lots','Coordonnées du notaire'],
+      steps:['Relevé de l\'immeuble','Découpage en lots','Calcul des quotes-parts','Transmission au notaire']},
+    scan3d:{t:'Scanner laser 3D et relevés', d:'Le scanner laser enregistre l\'existant en nuage de points : façades, intérieurs, volumes. Vous obtenez des plans exacts pour concevoir une rénovation ou un aménagement.',
+      law:'Relevés de façade et d\'intérieur réalisés par le cabinet.',
+      docs:['Adresse et accès au bâtiment','Surfaces ou niveaux concernés','Usage prévu des plans (rénovation, permis…)','Plans anciens si disponibles'],
+      steps:['Visite et calage','Scan sur place','Traitement du nuage','Plans 2D / 3D']},
+    carrez:{t:'Mesurage loi Carrez', d:'Mesure de la surface privative du lot, hors murs, cloisons, marches, gaines et parties de moins de 1,80 m de hauteur, avec un certificat à remettre à votre notaire.',
+      law:'La superficie « loi Carrez » doit figurer dans la promesse et l\'acte de vente.',
+      docs:['Adresse et numéro du lot','Règlement de copropriété si disponible','Coordonnées du notaire ou de l\'agence'],
+      steps:['Rendez-vous','Mesurage du lot','Certificat de surface']}
+  };
+
+  const box = document.getElementById('qBox'), res = document.getElementById('result');
+  const bars = document.querySelectorAll('.steps-bar i'), back = document.getElementById('back');
+  const ans = {}; let step = 0;
+
+  function render(){
+    bars.forEach((b,i) => b.classList.toggle('on', i <= step));
+    back.style.display = step ? 'block' : 'none';
+    const cur = step < 2 ? Q[step] : {k:'besoin', q:'Ce que vous souhaitez faire', opts:Q3[ans.bien]};
+    box.innerHTML = `<p class="q fadein">${cur.q}</p><div class="choices fadein">` +
+      cur.opts.map(([v,t,s],i) => `<button type="button" class="choice" data-v="${v}" aria-pressed="${ans[cur.k]===v}"><span class="ico">${String.fromCharCode(65+i)}</span><span><b>${t}</b><small>${s}</small></span></button>`).join('') + '</div>';
+    box.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+      ans[cur.k] = b.dataset.v;
+      if (step < 2) { step++; render(); } else { box.querySelectorAll('.choice').forEach(x => x.setAttribute('aria-pressed', x===b)); show(); }
+    });
+  }
+  back.querySelector('button').onclick = () => { step = Math.max(0, step-1); render(); };
+
+  function show(){
+    const r = R[ans.besoin];
+    const who = {part:'particulier', pro:'professionnel', coll:'collectivité'}[ans.qui];
+    res.innerHTML = `<div class="fadein" style="display:flex;flex-direction:column;height:100%">
+      <span class="tag">Mission conseillée</span>
+      <h3>${r.t}</h3>
+      <p>${r.d}</p>
+      <div class="law">${r.law}</div>
+      <h4>À préparer avant d'appeler</h4>
+      <ul class="checklist">${r.docs.map((d,i) => `<li><label><input type="checkbox" data-d="${i}"> ${d}</label></li>`).join('')}</ul>
+      <p class="progress-note" id="ready" style="margin-top:10px">0 / ${r.docs.length} pièce(s) prête(s)</p>
+      <h4>Déroulé</h4>
+      <div class="timeline">${r.steps.map(s => `<span>${s}</span>`).join('')}</div>
+      <div class="panel-foot">
+        <a class="btn btn-stake" id="send" href="#">Envoyer ma demande</a>
+        <a class="btn btn-ghost" href="tel:+33477716874">04 77 71 68 74</a>
+      </div></div>`;
+    const boxes = res.querySelectorAll('input[type=checkbox]'), ready = res.querySelector('#ready');
+    const upd = () => {
+      const ok = [...boxes].filter(b => b.checked);
+      ready.textContent = ok.length + ' / ' + boxes.length + ' pièce(s) prête(s)';
+      const body = `Bonjour,\n\nJe suis ${who} et je souhaite une mission : ${r.t}.\n\nPièces déjà rassemblées :\n` +
+        (ok.length ? ok.map(b => '- ' + r.docs[b.dataset.d]).join('\n') : '- (aucune pour l\'instant)') + '\n\nCommune du terrain / du bien : \n\nMerci de me recontacter.';
+      res.querySelector('#send').href = 'mailto:jerome.perey@geometre-expert.fr?subject=' + encodeURIComponent('Demande : ' + r.t) + '&body=' + encodeURIComponent(body);
+    };
+    boxes.forEach(b => b.onchange = upd); upd();
+    if (innerWidth < 960) res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
+  }
+  render();
+
+  // Formulaire -> mailto
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = id => document.getElementById(id).value;
+    const body = `Nom : ${v('nom')}\nTéléphone : ${v('tel')}\nMail : ${v('mail')}\nMission : ${v('type')}\nCommune : ${v('commune')}\n\n${v('msg')}`;
+    location.href = 'mailto:jerome.perey@geometre-expert.fr?subject=' + encodeURIComponent('Demande : ' + v('type')) + '&body=' + encodeURIComponent(body);
+  });
+})();
+</script>
+</body>
+</html>
