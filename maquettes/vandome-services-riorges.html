@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vandôme Services — Jardinier et entretien extérieur dans le Roannais | Riorges</title>
+<meta name="description" content="Entretien d'espaces verts, taille de haies, nettoyage haute pression et petit bricolage de Roanne à La Pacaudière. 50 % de crédit d'impôt, CESU acceptés.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Charte reprise du site actuel de Vandôme Services
+   (relevée dans le code du site en novembre 2026)
+   ========================================================= */
+:root{
+  --vert-nuit:#1c2826;   /* fond sombre / titres du site actuel */
+  --ardoise:#495351;     /* texte courant */
+  --lin:#dccec0;         /* beige des blocs */
+  --creme:#f7f5f0;       /* fond clair */
+  --cuivre:#b86b35;      /* accent / boutons */
+  --cuivre-clair:#d08a57;
+  --blanc:#ffffff;
+  --serif:'Spectral',Georgia,serif;          /* police des titres du site actuel */
+  --sans:'Familjen Grotesk',system-ui,sans-serif; /* police de texte du site actuel */
+  --r:18px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ardoise);background:var(--creme);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--serif);color:var(--vert-nuit);font-weight:500;line-height:1.12}
+.wrap{width:min(1200px,100% - 2.5rem);margin-inline:auto}
+.eyebrow{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cuivre);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.95rem 1.5rem;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font-family:var(--sans);font-size:1rem;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-cuivre{background:var(--cuivre);color:#fff;box-shadow:0 10px 24px -10px rgba(184,107,53,.7)}
+.btn-cuivre:hover{background:var(--cuivre-clair)}
+.btn-ligne{border:1.5px solid currentColor;background:transparent}
+:focus-visible{outline:3px solid var(--cuivre);outline-offset:3px;border-radius:6px}
+
+/* bandeau démo */
+.demo{background:var(--vert-nuit);color:var(--lin);text-align:center;font-size:.8rem;padding:.45rem 1rem;letter-spacing:.02em}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(247,245,240,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(28,40,38,.08);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 8px 30px -18px rgba(28,40,38,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.logo img{height:46px;width:auto}
+.logo span{font-family:var(--serif);font-size:1.35rem;color:var(--vert-nuit)}
+.nav ul{display:flex;gap:2rem;list-style:none}
+.nav ul a{text-decoration:none;font-weight:500;color:var(--vert-nuit);position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--cuivre);transition:width .3s var(--ease)}
+.nav ul a:hover::after{width:100%}
+.nav .btn{padding:.7rem 1.2rem}
+@media(max-width:860px){.nav ul{display:none}.logo span{display:none}}
+
+/* hero */
+.hero{position:relative;padding:clamp(3rem,7vw,6rem) 0 clamp(3rem,6vw,5rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.hero h1{font-size:clamp(2.4rem,1.6rem + 3.4vw,4.4rem);margin:.9rem 0 1.2rem}
+.hero h1 em{font-style:italic;color:var(--cuivre)}
+.hero p.lead{font-size:1.12rem;max-width:36ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.hero .btn-ligne{color:var(--vert-nuit)}
+.hero-visual{position:relative;aspect-ratio:4/5;border-radius:220px 220px var(--r) var(--r);overflow:hidden;box-shadow:0 40px 80px -40px rgba(28,40,38,.55)}
+.hero-visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.6s var(--ease)}
+.hero-visual.in img{transform:scale(1)}
+.hero-badge{position:absolute;left:-1.2rem;bottom:2.2rem;background:var(--vert-nuit);color:var(--creme);padding:1.1rem 1.3rem;border-radius:16px;max-width:230px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);animation:flotte 6s ease-in-out infinite}
+.hero-badge strong{display:block;font-family:var(--serif);font-size:2.2rem;color:var(--lin);line-height:1}
+.hero-badge small{font-size:.85rem;opacity:.85}
+@keyframes flotte{50%{transform:translateY(-8px)}}
+.feuille{position:absolute;width:90px;opacity:.12;pointer-events:none}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-visual{aspect-ratio:4/3.4;border-radius:160px 160px var(--r) var(--r)}.hero-badge{left:1rem}}
+
+/* chiffres annoncés par l'entreprise */
+.engagements{background:var(--vert-nuit);color:var(--creme)}
+.engagements .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:2.4rem 0}
+.eng{padding:.4rem 1rem;border-left:1px solid rgba(220,206,192,.25)}
+.eng:first-child{border-left:0}
+.eng b{font-family:var(--serif);font-size:clamp(2rem,1.5rem + 2vw,2.9rem);font-weight:500;color:var(--lin);display:block;line-height:1.05}
+.eng span{font-size:.92rem;opacity:.85}
+@media(max-width:700px){.engagements .wrap{grid-template-columns:1fr 1fr}.eng:nth-child(3){border-left:0}}
+
+section{padding:clamp(4rem,8vw,7rem) 0}
+.titre-sec{max-width:760px;margin-bottom:3rem}
+.titre-sec h2{font-size:clamp(2rem,1.5rem + 2vw,3.1rem);margin-top:.6rem}
+.titre-sec p{margin-top:1rem;font-size:1.06rem}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.svc{background:var(--blanc);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s}
+.svc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(28,40,38,.4)}
+.svc figure{aspect-ratio:4/3;overflow:hidden;position:relative}
+.svc figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.svc:hover figure img{transform:scale(1.06)}
+.svc .num{position:absolute;top:1rem;left:1rem;background:var(--creme);color:var(--vert-nuit);font-family:var(--serif);border-radius:999px;padding:.2rem .8rem;font-size:.9rem}
+.svc .vide{display:flex;align-items:center;justify-content:center;height:100%;background:repeating-linear-gradient(135deg,var(--lin) 0 12px,#e6dbcf 12px 24px);color:var(--vert-nuit);font-size:.9rem;text-align:center;padding:1rem}
+.svc-body{padding:1.5rem 1.5rem 1.7rem;flex:1;display:flex;flex-direction:column}
+.svc h3{font-size:1.55rem;margin-bottom:.6rem}
+.svc ul{list-style:none;margin-top:1rem;display:flex;flex-wrap:wrap;gap:.4rem}
+.svc li{font-size:.82rem;background:var(--creme);border:1px solid var(--lin);border-radius:999px;padding:.25rem .7rem;color:var(--vert-nuit)}
+@media(max-width:900px){.services{grid-template-columns:1fr}}
+
+/* simulateur */
+.simu-sec{background:var(--lin);position:relative}
+.simu{display:grid;grid-template-columns:1.25fr .9fr;gap:1.6rem;align-items:start}
+.panel{background:var(--creme);border-radius:var(--r);padding:clamp(1.3rem,3vw,2.2rem)}
+.ligne{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:1rem 0;border-bottom:1px solid rgba(28,40,38,.1)}
+.ligne:last-of-type{border-bottom:0}
+.ligne input[type=checkbox]{appearance:none;width:26px;height:26px;border:2px solid var(--vert-nuit);border-radius:8px;cursor:pointer;display:grid;place-items:center;transition:background .2s}
+.ligne input[type=checkbox]:checked{background:var(--vert-nuit)}
+.ligne input[type=checkbox]:checked::after{content:"";width:10px;height:6px;border:2.5px solid var(--lin);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.ligne label{font-weight:600;color:var(--vert-nuit);cursor:pointer}
+.ligne small{display:block;font-weight:400;color:var(--ardoise);font-size:.82rem}
+.reglages{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.stepper{display:flex;align-items:center;background:var(--blanc);border:1px solid var(--lin);border-radius:999px;overflow:hidden}
+.stepper button{width:34px;height:34px;border:0;background:transparent;font-size:1.1rem;cursor:pointer;color:var(--vert-nuit)}
+.stepper button:hover{background:var(--lin)}
+.stepper output{min-width:62px;text-align:center;font-size:.85rem;font-variant-numeric:tabular-nums}
+.ligne.off .reglages{opacity:.35;pointer-events:none}
+.taux{display:flex;align-items:center;gap:.7rem;margin-top:1.2rem;padding:1rem;border:1px dashed var(--cuivre);border-radius:12px;font-size:.88rem;flex-wrap:wrap}
+.taux input{width:84px;padding:.45rem .6rem;border:1px solid var(--lin);border-radius:8px;font:inherit;font-weight:600}
+.resultat{background:var(--vert-nuit);color:var(--creme);position:sticky;top:96px}
+.resultat h3{color:var(--lin);font-size:1.4rem}
+.res-ligne{display:flex;justify-content:space-between;padding:.7rem 0;border-bottom:1px solid rgba(220,206,192,.18);font-size:.95rem}
+.res-ligne b{font-variant-numeric:tabular-nums}
+.res-gros{margin:1.4rem 0 .4rem;font-size:.85rem;opacity:.8}
+.res-montant{font-family:var(--serif);font-size:clamp(2.6rem,2rem + 2vw,3.6rem);color:var(--lin);line-height:1;font-variant-numeric:tabular-nums}
+.res-montant small{font-size:1rem;opacity:.7}
+.jauge{height:10px;border-radius:99px;background:rgba(220,206,192,.18);overflow:hidden;margin:1.2rem 0 .5rem;display:flex}
+.jauge i{display:block;height:100%;transition:width .6s var(--ease)}
+.jauge .j1{background:var(--lin)}
+.jauge .j2{background:var(--cuivre)}
+.legende{display:flex;gap:1rem;font-size:.78rem;opacity:.85;flex-wrap:wrap}
+.legende span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.35rem;vertical-align:middle}
+.legende .l1::before{background:var(--lin)}.legende .l2::before{background:var(--cuivre)}
+.alerte{margin-top:1rem;font-size:.82rem;background:rgba(184,107,53,.18);border-left:3px solid var(--cuivre);padding:.6rem .8rem;border-radius:6px;display:none}
+.alerte.on{display:block}
+.resultat .btn{width:100%;justify-content:center;margin-top:1.4rem}
+.note-simu{font-size:.78rem;margin-top:1rem;opacity:.75;line-height:1.5}
+@media(max-width:900px){.simu{grid-template-columns:1fr}.resultat{position:static}.ligne{grid-template-columns:auto 1fr}.reglages{grid-column:1/-1;justify-content:flex-start}}
+
+/* avant / après */
+.aa{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:center}
+.onglets{display:flex;flex-direction:column;gap:.5rem;margin-top:2rem}
+.onglet{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:1rem 1.2rem;border-radius:14px;border:1px solid var(--lin);background:transparent;font:inherit;font-weight:600;color:var(--vert-nuit);cursor:pointer;transition:background .25s,color .25s,padding .3s var(--ease)}
+.onglet span{font-weight:400;font-size:.85rem;opacity:.7}
+.onglet[aria-selected=true]{background:var(--vert-nuit);color:var(--creme);padding-left:1.6rem}
+.comparateur{position:relative;aspect-ratio:3/4;max-height:640px;width:100%;border-radius:var(--r);overflow:hidden;user-select:none;touch-action:pan-y;box-shadow:0 40px 70px -40px rgba(28,40,38,.6);cursor:ew-resize;background:var(--lin)}
+.comparateur img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.comparateur .apres{clip-path:inset(0 0 0 var(--pos,50%))}
+.poignee{position:absolute;top:0;bottom:0;left:var(--pos,50%);width:2px;background:var(--creme);transform:translateX(-1px)}
+.poignee::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:var(--creme);color:var(--vert-nuit);display:grid;place-items:center;font-size:1.3rem;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.etiq{position:absolute;top:1rem;padding:.3rem .8rem;border-radius:99px;background:rgba(28,40,38,.75);color:var(--creme);font-size:.8rem;backdrop-filter:blur(6px)}
+.etiq.g{left:1rem}.etiq.d{right:1rem;background:var(--cuivre)}
+.comparateur input{position:absolute;inset:0;opacity:0;cursor:ew-resize;width:100%}
+@media(max-width:900px){.aa{grid-template-columns:1fr}.comparateur{aspect-ratio:4/5}}
+
+/* philosophie */
+.philo{background:var(--vert-nuit);color:var(--creme);overflow:hidden}
+.philo h2{color:var(--creme)}
+.philo .eyebrow{color:var(--cuivre-clair)}
+.philo-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.philo blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,1.1rem + 1vw,2rem);color:var(--lin);border-left:2px solid var(--cuivre);padding-left:1.4rem;margin:1.6rem 0}
+.mosaique{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.mosaique img{border-radius:14px;aspect-ratio:3/4;object-fit:cover;width:100%}
+.mosaique img:nth-child(2){margin-top:3rem}
+@media(max-width:900px){.philo-grid{grid-template-columns:1fr}}
+
+/* méthode */
+.etapes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;counter-reset:e;position:relative}
+.etape{background:var(--blanc);border-radius:var(--r);padding:2rem 1.6rem;position:relative}
+.etape b{font-family:var(--serif);font-size:3rem;color:var(--cuivre);line-height:1;display:block;margin-bottom:.8rem}
+.etape h3{font-size:1.4rem;margin-bottom:.5rem}
+@media(max-width:860px){.etapes{grid-template-columns:1fr}}
+
+/* zone */
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.carte{position:relative;aspect-ratio:1;max-width:460px;margin-inline:auto;width:100%}
+.carte svg{width:100%;height:100%}
+.carte .onde{transform-origin:200px 200px;animation:onde 3.6s ease-out infinite}
+.carte .onde.b{animation-delay:1.2s}.carte .onde.c{animation-delay:2.4s}
+@keyframes onde{0%{transform:scale(.2);opacity:.9}100%{transform:scale(1);opacity:0}}
+.communes{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.communes span{padding:.45rem 1rem;border-radius:99px;background:var(--blanc);border:1px solid var(--lin);color:var(--vert-nuit);font-weight:500}
+@media(max-width:860px){.zone-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--lin)}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:2rem}
+.coord{background:var(--vert-nuit);color:var(--creme);border-radius:var(--r);padding:2.2rem}
+.coord h3{color:var(--lin);font-size:1.6rem;margin-bottom:1.4rem}
+.coord a.l{display:flex;gap:.9rem;align-items:center;text-decoration:none;padding:1rem 0;border-bottom:1px solid rgba(220,206,192,.18);font-size:1.05rem;word-break:break-word}
+.coord a.l:hover{color:var(--lin)}
+.coord .ico{width:40px;height:40px;border-radius:50%;background:rgba(220,206,192,.12);display:grid;place-items:center;flex-shrink:0}
+.cesu{margin-top:1.6rem;background:var(--creme);border-radius:12px;padding:.8rem;display:flex;align-items:center;gap:1rem;color:var(--vert-nuit);font-size:.88rem}
+.cesu img{height:54px;width:auto}
+form.panel{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+form .full{grid-column:1/-1}
+form label{font-size:.85rem;font-weight:600;color:var(--vert-nuit);display:block;margin-bottom:.35rem}
+form input,form select,form textarea{width:100%;padding:.85rem 1rem;border:1px solid var(--lin);border-radius:12px;font:inherit;background:var(--blanc);color:var(--vert-nuit)}
+form textarea{min-height:120px;resize:vertical}
+@media(max-width:860px){.contact-grid,form.panel{grid-template-columns:1fr}}
+
+footer{background:var(--vert-nuit);color:rgba(247,245,240,.75);padding:3rem 0 2rem;font-size:.9rem}
+footer .f{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+footer strong{color:var(--creme);font-family:var(--serif);font-size:1.3rem;font-weight:500}
+.demo-note{border:1px dashed rgba(220,206,192,.3);border-radius:12px;padding:1rem 1.2rem;line-height:1.6;font-size:.82rem}
+
+/* barre d'appel mobile */
+.appel-mobile{display:none}
+@media(max-width:700px){.appel-mobile{display:flex;position:fixed;bottom:1rem;left:1rem;right:1rem;z-index:60;justify-content:center;transform:translateY(140%);transition:transform .4s var(--ease)}.appel-mobile.on{transform:none}body{padding-bottom:0}}
+
+/* révélations au défilement */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "name":"EURL Vandôme Services",
+  "description":"Entretien des espaces verts, nettoyage extérieur haute pression et petit bricolage pour particuliers et professionnels, de Roanne à La Pacaudière.",
+  "url":"https://vandôme-services.com/",
+  "telephone":"+33624482990",
+  "email":"sarluvandomeservices@gmail.com",
+  "address":{"@type":"PostalAddress","addressLocality":"Riorges","postalCode":"42120","addressCountry":"FR"},
+  "areaServed":[
+    {"@type":"City","name":"Roanne"},{"@type":"City","name":"Riorges"},{"@type":"City","name":"Mably"},{"@type":"City","name":"Le Coteau"},{"@type":"City","name":"La Pacaudière"},
+    {"@type":"GeoCircle","geoMidpoint":{"@type":"GeoCoordinates","latitude":46.0428,"longitude":4.0377},"geoRadius":"30000"}
+  ],
+  "paymentAccepted":"CESU",
+  "sameAs":["https://www.facebook.com/share/1DgAkwJTAs/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour Vandôme Services</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a class="logo" href="#haut"><img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=300/ABljTXB7t78MncSa/logo-transparent-png-PsU4wh4NWsjBAuHT.png" alt="Logo Vandôme Services"><span>Vandôme services</span></a>
+    <nav aria-label="Navigation principale"><ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#simulateur">Crédit d'impôt</a></li>
+      <li><a href="#avant-apres">Savoir-faire</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul></nav>
+    <a class="btn btn-cuivre" href="#contact">Devis gratuit</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <svg class="feuille" style="top:8%;right:46%" viewBox="0 0 100 100" aria-hidden="true"><path d="M10 90C10 40 40 10 90 10C90 60 60 90 10 90Z" fill="#1c2826"/></svg>
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow rv">Votre artisan de proximité</p>
+      <h1 class="rv d1">Jardinage et entretien d'espaces verts <em>à Roanne</em></h1>
+      <p class="lead rv d2">Vandôme Services assure l'entretien complet de vos espaces verts, la taille de haies, la tonte de pelouse et le soin de vos extérieurs, auprès des particuliers et professionnels de Roanne, Riorges, Mably, Le Coteau jusqu'à La Pacaudière.</p>
+      <div class="ctas rv d3">
+        <a class="btn btn-cuivre" href="#simulateur">Calculer mon reste à charge →</a>
+        <a class="btn btn-ligne" href="tel:0624482990">06 24 48 29 90</a>
+      </div>
+    </div>
+    <div class="hero-visual rv" id="heroVisual">
+      <img src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1200/ABljTXB7t78MncSa/7460-NjZyCUHx1s42Zmrl.jpg" alt="Pelouse tondue avec bordures nettes, chantier Vandôme Services">
+      <div class="hero-badge"><strong>50 %</strong><small>de crédit d'impôt grâce au statut de services à la personne</small></div>
+    </div>
+  </div>
+</section>
+
+<div class="engagements" aria-label="Nos engagements">
+  <div class="wrap">
+    <div class="eng rv"><b data-count="48">48</b><span>h — Devis rapide</span></div>
+    <div class="eng rv d1"><b data-count="100">100</b><span>% — Chantiers soignés</span></div>
+    <div class="eng rv d2"><b data-count="1">1</b><span>Interlocuteur unique</span></div>
+    <div class="eng rv d3"><b data-count="30">30</b><span>km autour de Roanne</span></div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <p class="eyebrow">Nos domaines d'action</p>
+      <h2>Des services complets pour votre tranquillité</h2>
+    </div>
+    <div class="services">
+      <article class="svc rv">
+        <figure><span class="num">01</span><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=900/ABljTXB7t78MncSa/7112-9cokPEOnoPuFemL8.jpg" alt="Haie taillée le long d'une allée"></figure>
+        <div class="svc-body"><h3>Espaces verts</h3><p>Tonte, taille de haies, désherbage. Un jardin impeccable toute l'année, avec un soin artisanal.</p>
+          <ul><li>Tonte et bordures</li><li>Haies et arbustes</li><li>Désherbage des massifs</li><li>Feuilles et déchets verts</li></ul></div>
+      </article>
+      <article class="svc rv d1">
+        <figure><span class="num">02</span><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=900/ABljTXB7t78MncSa/6576-t3h3inb3YDyj1UVU.jpg" alt="Terrasse en pierre après nettoyage haute pression"></figure>
+        <div class="svc-body"><h3>Nettoyage haute pression</h3><p>Terrasses, allées, dalles. Redonnez éclat et propreté à vos surfaces extérieures avec un matériel professionnel.</p>
+          <ul><li>Terrasses</li><li>Dalles et allées</li><li>Murets</li><li>Mousses incrustées</li></ul></div>
+      </article>
+      <article class="svc rv d2">
+        <figure><span class="num">03</span><div class="vide">Photo de chantier bricolage<br>à fournir par Vandôme Services</div></figure>
+        <div class="svc-body"><h3>Petits travaux &amp; bricolage</h3><p>Fixations, montage, retouches. L'homme toutes mains pour simplifier votre quotidien à domicile.</p>
+          <ul><li>Fixations murales</li><li>Montage de petits meubles</li><li>Réglages</li><li>Retouches</li></ul></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="simu-sec" id="simulateur">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <p class="eyebrow">Profitez de 50 % de crédit d'impôt</p>
+      <h2>Ce que votre jardin vous coûte vraiment, une fois le crédit d'impôt déduit</h2>
+      <p>Cochez les prestations, ajustez la durée et le nombre de passages dans l'année : le calcul applique le crédit d'impôt de 50 % et ses plafonds, et vous voyez tout de suite ce qu'il reste à payer avec l'avance immédiate.</p>
+    </div>
+    <div class="simu">
+      <div class="panel rv" id="lignes">
+        <div class="ligne" data-cat="jardin" data-h="2" data-n="10">
+          <input type="checkbox" id="c1" checked><label for="c1">Tonte de pelouse<small>finitions des bordures comprises</small></label>
+          <div class="reglages"><div class="stepper"><button type="button" data-k="h" data-d="-0.5" aria-label="Moins d'heures">−</button><output class="oh"></output><button type="button" data-k="h" data-d="0.5" aria-label="Plus d'heures">+</button></div><div class="stepper"><button type="button" data-k="n" data-d="-1" aria-label="Moins de passages">−</button><output class="on"></output><button type="button" data-k="n" data-d="1" aria-label="Plus de passages">+</button></div></div>
+        </div>
+        <div class="ligne" data-cat="jardin" data-h="4" data-n="2">
+          <input type="checkbox" id="c2" checked><label for="c2">Taille de haies et arbustes<small>avec évacuation des déchets verts</small></label>
+          <div class="reglages"><div class="stepper"><button type="button" data-k="h" data-d="-0.5" aria-label="Moins d'heures">−</button><output class="oh"></output><button type="button" data-k="h" data-d="0.5" aria-label="Plus d'heures">+</button></div><div class="stepper"><button type="button" data-k="n" data-d="-1" aria-label="Moins de passages">−</button><output class="on"></output><button type="button" data-k="n" data-d="1" aria-label="Plus de passages">+</button></div></div>
+        </div>
+        <div class="ligne off" data-cat="jardin" data-h="2" data-n="4">
+          <input type="checkbox" id="c3"><label for="c3">Désherbage et entretien de massifs<small>allées, gravier, pieds de murs</small></label>
+          <div class="reglages"><div class="stepper"><button type="button" data-k="h" data-d="-0.5" aria-label="Moins d'heures">−</button><output class="oh"></output><button type="button" data-k="h" data-d="0.5" aria-label="Plus d'heures">+</button></div><div class="stepper"><button type="button" data-k="n" data-d="-1" aria-label="Moins de passages">−</button><output class="on"></output><button type="button" data-k="n" data-d="1" aria-label="Plus de passages">+</button></div></div>
+        </div>
+        <div class="ligne off" data-cat="brico" data-h="2" data-n="2">
+          <input type="checkbox" id="c4"><label for="c4">Petits travaux de bricolage<small>interventions de 2 h maximum</small></label>
+          <div class="reglages"><div class="stepper"><button type="button" data-k="h" data-d="-0.5" aria-label="Moins d'heures">−</button><output class="oh"></output><button type="button" data-k="h" data-d="0.5" aria-label="Plus d'heures">+</button></div><div class="stepper"><button type="button" data-k="n" data-d="-1" aria-label="Moins de passages">−</button><output class="on"></output><button type="button" data-k="n" data-d="1" aria-label="Plus de passages">+</button></div></div>
+        </div>
+        <div class="taux">
+          <label for="taux">Tarif horaire utilisé pour le calcul</label>
+          <input id="taux" type="number" min="15" max="90" step="1" value="35"> €/h
+          <span style="opacity:.75">— valeur d'exemple, à remplacer par le tarif de Vandôme Services</span>
+        </div>
+      </div>
+
+      <aside class="panel resultat rv d1" aria-live="polite">
+        <h3>Votre estimation annuelle</h3>
+        <div class="res-ligne"><span>Coût des prestations</span><b id="rTotal">0 €</b></div>
+        <div class="res-ligne"><span>Crédit d'impôt (50 %)</span><b id="rCredit">0 €</b></div>
+        <div class="res-ligne"><span>Heures d'intervention</span><b id="rHeures">0 h</b></div>
+        <p class="res-gros">Reste à votre charge sur l'année</p>
+        <p class="res-montant" id="rReste">0 €</p>
+        <p style="font-size:.85rem;opacity:.8;margin-top:.4rem">soit <b id="rMois">0 €</b> par mois en moyenne</p>
+        <div class="jauge"><i class="j1" id="j1"></i><i class="j2" id="j2"></i></div>
+        <div class="legende"><span class="l1">Vous payez</span><span class="l2">Pris en charge par le crédit d'impôt</span></div>
+        <p class="alerte" id="alerte"></p>
+        <a class="btn btn-cuivre" id="envoyer" href="#">Envoyer cette estimation pour un devis</a>
+        <p class="note-simu">Calcul indicatif. Crédit d'impôt de 50 % pour les services à la personne : dépenses retenues dans la limite de 5 000 € par an pour les petits travaux de jardinage et de 500 € par an pour le petit bricolage (interventions de 2 h maximum). Avec l'avance immédiate, vous ne réglez que la moitié au moment du paiement. Seul le devis de Vandôme Services fait foi.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="avant-apres">
+  <div class="wrap aa">
+    <div class="rv">
+      <p class="eyebrow">Avant / Après</p>
+      <h2 style="font-size:clamp(2rem,1.5rem + 2vw,3.1rem);margin-top:.6rem">La métamorphose de vos extérieurs</h2>
+      <p style="margin-top:1rem">Découvrez l'impact concret de nos interventions de taille et de nettoyage. Faites glisser la poignée sur la photo.</p>
+      <div class="onglets" role="tablist" aria-label="Chantiers avant après">
+        <button class="onglet" role="tab" aria-selected="true" data-av="6549-MI68197lilj1H79T" data-ap="6576-t3h3inb3YDyj1UVU">Terrasse en pierre <span>Nettoyage haute pression</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-av="7096-V94e7NFXf0R7KpEG" data-ap="7112-9cokPEOnoPuFemL8">Haie le long de l'allée <span>Taille</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-av="7459-YKQcpsA43xI9nztQ" data-ap="7460-NjZyCUHx1s42Zmrl">Pelouse <span>Tonte et bordures</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-av="7016-3rKQjIzQmB8yHlRX" data-ap="7017-PuGFRDSrhyiot1u4">Arbuste en nuages <span>Taille</span></button>
+        <button class="onglet" role="tab" aria-selected="false" data-av="9921-5zbSD17u9TpKM5ZS" data-ap="9923-y1vmbPE7nNd08KdZ">Allée gravillonnée <span>Désherbage</span></button>
+      </div>
+    </div>
+    <div class="comparateur rv d1" id="comp" style="--pos:50%">
+      <img class="avant" id="imgAv" alt="Avant intervention" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1100/ABljTXB7t78MncSa/6549-MI68197lilj1H79T.jpg">
+      <img class="apres" id="imgAp" alt="Après intervention" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1100/ABljTXB7t78MncSa/6576-t3h3inb3YDyj1UVU.jpg">
+      <div class="poignee"></div>
+      <span class="etiq g">Avant</span><span class="etiq d">Après</span>
+      <input type="range" min="0" max="100" value="50" id="range" aria-label="Comparer avant et après">
+    </div>
+  </div>
+</section>
+
+<section class="philo">
+  <div class="wrap philo-grid">
+    <div class="rv">
+      <p class="eyebrow">Notre philosophie</p>
+      <h2 style="font-size:clamp(2rem,1.5rem + 2vw,3.1rem);margin-top:.6rem">La rigueur du travail bien fait</h2>
+      <blockquote>« Nous inspectons toujours les bordures une fois la tonte finie : un travail propre est notre signature. »</blockquote>
+      <p>Chez Vandôme Services, chaque intervention est menée avec le même souci du détail. De la première tonte à la remise en état de votre terrasse, nous nous engageons sur la propreté du chantier et le respect des délais. Basés à Riorges, nous connaissons parfaitement le secteur, ce qui nous permet d'être réactifs et de tenir nos engagements d'horaires et de devis.</p>
+      <a class="btn btn-cuivre" href="#contact" style="margin-top:2rem">Discuter de votre projet</a>
+    </div>
+    <div class="mosaique">
+      <img class="rv" loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=700/ABljTXB7t78MncSa/7017-PuGFRDSrhyiot1u4.jpg" alt="Arbuste taillé en nuages">
+      <img class="rv d2" loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=700/ABljTXB7t78MncSa/9923-y1vmbPE7nNd08KdZ.jpg" alt="Allée gravillonnée désherbée">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <p class="eyebrow">Notre méthode</p>
+      <h2>Un service simple et efficace</h2>
+    </div>
+    <div class="etapes">
+      <div class="etape rv"><b>01</b><h3>Votre demande</h3><p>Contactez-nous par téléphone ou via le formulaire pour décrire vos besoins en entretien ou bricolage. Nous écoutons attentivement votre projet.</p></div>
+      <div class="etape rv d1"><b>02</b><h3>Devis personnalisé</h3><p>Nous évaluons l'intervention nécessaire et vous fournissons un devis clair et détaillé, sans surprise.</p></div>
+      <div class="etape rv d2"><b>03</b><h3>Intervention soignée</h3><p>Les travaux sont réalisés avec rigueur et propreté, en respectant les délais convenus. Le site est laissé impeccable après notre passage.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap zone-grid">
+    <div class="carte rv" aria-hidden="true">
+      <svg viewBox="0 0 400 400">
+        <circle cx="200" cy="200" r="190" fill="none" stroke="#dccec0" stroke-dasharray="4 6"/>
+        <circle class="onde" cx="200" cy="200" r="190" fill="none" stroke="#b86b35" stroke-width="2"/>
+        <circle class="onde b" cx="200" cy="200" r="190" fill="none" stroke="#b86b35" stroke-width="2"/>
+        <circle class="onde c" cx="200" cy="200" r="190" fill="none" stroke="#b86b35" stroke-width="2"/>
+        <circle cx="200" cy="200" r="9" fill="#1c2826"/>
+        <text x="200" y="228" text-anchor="middle" font-family="Spectral" font-size="17" fill="#1c2826">Riorges</text>
+        <circle cx="232" cy="206" r="5" fill="#495351"/><text x="242" y="196" font-family="Familjen Grotesk" font-size="13" fill="#495351">Roanne</text>
+        <circle cx="244" cy="232" r="4" fill="#495351"/><text x="252" y="248" font-family="Familjen Grotesk" font-size="13" fill="#495351">Le Coteau</text>
+        <circle cx="214" cy="160" r="4" fill="#495351"/><text x="222" y="156" font-family="Familjen Grotesk" font-size="13" fill="#495351">Mably</text>
+        <circle cx="150" cy="40" r="5" fill="#b86b35"/><text x="160" y="36" font-family="Familjen Grotesk" font-size="13" fill="#b86b35">La Pacaudière</text>
+        <text x="200" y="385" text-anchor="middle" font-family="Familjen Grotesk" font-size="12" fill="#495351">≈ 30 km</text>
+      </svg>
+    </div>
+    <div class="rv d1">
+      <p class="eyebrow">Zone d'intervention</p>
+      <h2 style="font-size:clamp(2rem,1.5rem + 2vw,3.1rem);margin-top:.6rem">De Roanne jusqu'à La Pacaudière, et 30 km autour</h2>
+      <p style="margin-top:1rem">Basés à Riorges, nous intervenons rapidement auprès des particuliers et des professionnels du Roannais, du lundi au samedi.</p>
+      <div class="communes"><span>Roanne</span><span>Riorges</span><span>Mably</span><span>Le Coteau</span><span>La Pacaudière</span><span>et environs</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <p class="eyebrow">Contact &amp; devis gratuit</p>
+      <h2>Prêt à retrouver un jardin impeccable ?</h2>
+      <p>Décrivez votre besoin et nous vous recontacterons sous 24 à 48 h pour planifier l'intervention.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="coord rv">
+        <h3>EURL Vandôme Services</h3>
+        <a class="l" href="tel:0624482990"><span class="ico">☎</span>06 24 48 29 90</a>
+        <a class="l" href="mailto:sarluvandomeservices@gmail.com"><span class="ico">✉</span>sarluvandomeservices@gmail.com</a>
+        <a class="l" href="https://www.facebook.com/share/1DgAkwJTAs/" target="_blank" rel="noopener"><span class="ico">f</span>Suivre nos chantiers sur Facebook</a>
+        <p class="l" style="display:flex;gap:.9rem;align-items:center;padding:1rem 0"><span class="ico">⌖</span>42120 Riorges — interventions du lundi au samedi</p>
+        <div class="cesu"><img loading="lazy" src="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=300/ABljTXB7t78MncSa/cesuaccepte2_rvb-TphPyfQKWmTc2TEg.png" alt="CESU accepté"><span>Chèques CESU acceptés et avance immédiate du crédit d'impôt gérée pour vous.</span></div>
+      </div>
+      <form class="panel rv d1" id="form">
+        <div><label for="fn">Votre nom et prénom</label><input id="fn" autocomplete="name"></div>
+        <div><label for="ft">Votre téléphone*</label><input id="ft" required type="tel" autocomplete="tel"></div>
+        <div class="full"><label for="fe">Votre e-mail*</label><input id="fe" required type="email" autocomplete="email"></div>
+        <div class="full"><label for="fp">Type de prestation</label>
+          <select id="fp"><option>Tonte et entretien de pelouse</option><option>Taille de haies et arbustes</option><option>Désherbage et entretien de massifs</option><option>Nettoyage haute pression</option><option>Dépannage / Petits travaux de maison</option></select></div>
+        <div class="full"><label for="fm">Votre message*</label><textarea id="fm" required></textarea></div>
+        <div class="full"><button class="btn btn-cuivre" type="submit">Envoyer le message</button></div>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f">
+      <div><strong>EURL Vandôme Services</strong><p>Entretien des espaces verts, nettoyage extérieur et bricolage à Riorges et Roanne.</p></div>
+      <div><p>Téléphone : 06 24 48 29 90<br>E-mail : sarluvandomeservices@gmail.com<br>Interventions du lundi au samedi</p></div>
+    </div>
+    <p class="demo-note">Maquette de démonstration non contractuelle, réalisée à partir du site actuel de Vandôme Services. Textes, couleurs, polices, logo et photos de chantiers (avant / après) sont repris du site actuel ; l'emplacement photo « bricolage » reste à fournir. Le tarif horaire du simulateur est une valeur d'exemple à remplacer par le vrai tarif ; les plafonds du crédit d'impôt sont ceux en vigueur en novembre 2026 et restent à confirmer selon la situation de chaque client.</p>
+  </div>
+</footer>
+
+<div class="appel-mobile" id="appelMobile"><a class="btn btn-cuivre" href="tel:0624482990">Appeler — 06 24 48 29 90</a></div>
+
+<script>
+(function(){
+  const fmt=n=>Math.round(n).toLocaleString('fr-FR')+' €';
+  const IMG='https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=1100/ABljTXB7t78MncSa/';
+
+  // en-tête et barre mobile
+  const header=document.querySelector('header'),appel=document.getElementById('appelMobile');
+  addEventListener('scroll',()=>{header.classList.toggle('scrolled',scrollY>10);appel.classList.toggle('on',scrollY>500)},{passive:true});
+
+  // révélations + compteurs
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+    e.target.querySelectorAll('[data-count]').forEach(c=>{const end=+c.dataset.count;let t0=null;const step=t=>{t0=t0||t;const p=Math.min((t-t0)/1200,1);c.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)})}}),{threshold:.15});
+  document.querySelectorAll('.rv,#heroVisual').forEach(el=>io.observe(el));
+
+  // simulateur
+  const lignes=[...document.querySelectorAll('.ligne')],taux=document.getElementById('taux');
+  lignes.forEach(l=>{
+    const maj=()=>{l.querySelector('.oh').textContent=String(l.dataset.h).replace('.',',')+' h';l.querySelector('.on').textContent=l.dataset.n+(l.dataset.n>1?' fois':' fois')};
+    maj();
+    l.querySelectorAll('.stepper button').forEach(b=>b.addEventListener('click',()=>{
+      const k=b.dataset.k,d=+b.dataset.d;let v=+l.dataset[k]+d;
+      if(k==='h')v=Math.max(.5,Math.min(12,v));else v=Math.max(1,Math.min(40,v));
+      l.dataset[k]=v;maj();calc();}));
+    l.querySelector('input').addEventListener('change',e=>{l.classList.toggle('off',!e.target.checked);calc()});
+  });
+  taux.addEventListener('input',calc);
+  function calc(){
+    const t=Math.max(0,+taux.value||0);let jard=0,brico=0,h=0,alertes=[];
+    lignes.forEach(l=>{if(!l.querySelector('input').checked)return;const c=l.dataset.h*l.dataset.n*t;h+=l.dataset.h*l.dataset.n;
+      if(l.dataset.cat==='brico'){brico+=c;if(+l.dataset.h>2)alertes.push("Le petit bricolage n'ouvre droit au crédit d'impôt que pour des interventions de 2 h maximum.")}else jard+=c});
+    const bricoRet=(+document.querySelector('[data-cat=brico]').dataset.h>2)?0:Math.min(brico,500);
+    const jardRet=Math.min(jard,5000);
+    if(jard>5000)alertes.push("Au-delà de 5 000 € de jardinage par an, la part supplémentaire n'ouvre plus droit au crédit d'impôt.");
+    if(brico>500&&bricoRet>0)alertes.push("Le bricolage est retenu dans la limite de 500 € de dépenses par an.");
+    const total=jard+brico,credit=(jardRet+bricoRet)*.5,reste=total-credit;
+    document.getElementById('rTotal').textContent=fmt(total);
+    document.getElementById('rCredit').textContent='− '+fmt(credit);
+    document.getElementById('rHeures').textContent=String(h).replace('.',',')+' h';
+    document.getElementById('rReste').innerHTML=fmt(reste)+' <small>/ an</small>';
+    document.getElementById('rMois').textContent=fmt(reste/12);
+    const p=total?reste/total*100:100;
+    document.getElementById('j1').style.width=p+'%';document.getElementById('j2').style.width=(total?100-p:0)+'%';
+    const a=document.getElementById('alerte');a.classList.toggle('on',alertes.length>0);a.textContent=alertes.join(' ');
+    const det=lignes.filter(l=>l.querySelector('input').checked).map(l=>'- '+l.querySelector('label').childNodes[0].textContent.trim()+' : '+String(l.dataset.h).replace('.',',')+' h x '+l.dataset.n+' passage(s)').join('\n');
+    document.getElementById('envoyer').href='mailto:sarluvandomeservices@gmail.com?subject='+encodeURIComponent('Demande de devis - entretien extérieur')+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais un devis pour les prestations suivantes :\n'+det+'\n\nAdresse du terrain :\nTéléphone :\n\nMerci.');
+  }
+  calc();
+
+  // avant / après
+  const comp=document.getElementById('comp'),range=document.getElementById('range');
+  range.addEventListener('input',()=>comp.style.setProperty('--pos',range.value+'%'));
+  document.querySelectorAll('.onglet').forEach(o=>o.addEventListener('click',()=>{
+    document.querySelectorAll('.onglet').forEach(x=>x.setAttribute('aria-selected','false'));o.setAttribute('aria-selected','true');
+    document.getElementById('imgAv').src=IMG+o.dataset.av+'.jpg';document.getElementById('imgAp').src=IMG+o.dataset.ap+'.jpg';
+    let v=15;range.value=v;comp.style.setProperty('--pos',v+'%');
+    const anim=()=>{v+=2.2;if(v<=50){range.value=v;comp.style.setProperty('--pos',v+'%');requestAnimationFrame(anim)}};
+    if(!matchMedia('(prefers-reduced-motion: reduce)').matches)requestAnimationFrame(anim);else{range.value=50;comp.style.setProperty('--pos','50%')}
+  }));
+
+  // formulaire de démonstration
+  document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();
+    const b=e.target.querySelector('button');b.textContent='Message prêt — démonstration';b.disabled=true;});
+})();
+</script>
+</body>
+</html>
