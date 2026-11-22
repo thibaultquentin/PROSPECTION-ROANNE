@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Pomme d'Amour — Restaurant et Hôtel du Centre à Gueugnon | Carte, pizzas</title>
+<meta name="description" content="Restaurant La Pomme d'Amour à Gueugnon : entrecôte charolaise sur fonte, pizzas maison, pâtes à l'italienne, produits de producteurs locaux et soirées à thème.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Questrial&family=Roboto:wght@300;400;500;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise du logo et du site actuel de La Pomme d'Amour
+   Rouge pomme et brun du logo, fond crème de la pomme croquée,
+   Roboto (police du site actuel), titres en grotesque géométrique
+   proche du lettrage du logo. Couleurs relevées à l'œil sur le
+   logo : à ajuster avec les codes exacts si le client les fournit.
+   ========================================================= */
+:root{
+  --rouge:#bf2a2a;        /* rouge pomme du logo */
+  --rouge-fonce:#9b1f1f;
+  --brun:#4a3a2e;         /* "La Pomme" du logo */
+  --creme:#f3eddf;        /* contour crème de la pomme */
+  --creme-2:#faf6ee;
+  --gris-facade:#3d4248;  /* gris anthracite de la façade */
+  --vert-prix:#1fae5b;    /* pastilles prix des cartes actuelles */
+  --texte:#2a221c;
+  --font-titre:'Questrial', 'Century Gothic', sans-serif;
+  --font-texte:'Roboto', system-ui, sans-serif;
+  --font-script:'Dancing Script', cursive;
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --radius:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--creme-2);line-height:1.6;overflow-x:clip}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--brun);color:var(--creme);font-size:.8rem;text-align:center;padding:6px 16px;letter-spacing:.02em}
+
+/* Topbar + header */
+.topbar{background:var(--rouge);color:#fff;font-size:.88rem}
+.topbar .wrap{display:flex;gap:22px;justify-content:flex-end;padding:6px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none;opacity:.95}
+.topbar a:hover{opacity:1;text-decoration:underline}
+header.nav{position:sticky;top:0;z-index:50;background:rgba(250,246,238,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(74,58,46,.08);transition:box-shadow .3s}
+header.nav.scrolled{box-shadow:0 8px 30px rgba(74,58,46,.12)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:78px;transition:height .3s var(--ease)}
+header.nav.scrolled .wrap{height:62px}
+.logo img{height:56px;width:auto;transition:height .3s var(--ease)}
+header.nav.scrolled .logo img{height:44px}
+nav ul{display:flex;gap:4px;list-style:none}
+nav a{display:block;padding:10px 14px;text-decoration:none;font-family:var(--font-titre);font-size:.98rem;color:var(--brun);border-radius:999px;position:relative;transition:color .2s,background .2s}
+nav a:hover,nav a.active{color:var(--rouge);background:rgba(191,42,42,.07)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;font-family:var(--font-titre);font-size:1rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,background .25s,color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-rouge{background:var(--rouge);color:#fff;box-shadow:0 10px 24px rgba(191,42,42,.28)}
+.btn-rouge:hover{background:var(--rouge-fonce)}
+.btn-ligne{border-color:currentColor;color:#fff}
+.btn-ligne:hover{background:#fff;color:var(--rouge)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--brun);margin:5px auto;transition:.3s}
+.nav-cta{display:inline-flex}
+@media (max-width:980px){
+  nav{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);background:var(--creme-2);transform:translateX(100%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s;padding:90px 20px 20px;box-shadow:-20px 0 40px rgba(0,0,0,.12)}
+  nav.open{transform:none;visibility:visible}
+  nav ul{flex-direction:column}
+  .burger{display:block;z-index:60}
+  .nav-cta{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:min(88vh,760px);display:grid;align-items:end;color:#fff;overflow:hidden}
+.hero-bg{position:absolute;inset:-6% 0 0 0;background:url('https://lapommedamour.fr/wp-content/uploads/2025/11/Devant-restau.jpg') center 45%/cover no-repeat;transform:scale(1.08);animation:heroZoom 14s var(--ease) forwards;will-change:transform}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,22,17,.15) 0%,rgba(30,22,17,.35) 45%,rgba(30,22,17,.85) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 0 70px}
+.hero .kicker{font-family:var(--font-script);font-size:clamp(1.6rem,1.2rem + 1.6vw,2.4rem);color:#ffd9d0}
+.hero h1{font-family:var(--font-titre);font-weight:400;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:1;letter-spacing:-.01em;margin:6px 0 14px}
+.hero h1 span{color:#ff8f86}
+.hero p.lead{max-width:620px;font-size:clamp(1rem,.9rem + .4vw,1.2rem);opacity:.92}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.hero .chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.chip{background:rgba(255,255,255,.14);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);padding:7px 14px;border-radius:999px;font-size:.85rem}
+.split span{display:inline-block;opacity:0;transform:translateY(40%);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.fade-in{opacity:0;animation:up .9s var(--ease) forwards}
+
+/* Marquee */
+.marquee{background:var(--rouge);color:#fff;overflow:hidden;white-space:nowrap;padding:16px 0;font-family:var(--font-titre);font-size:clamp(1.1rem,1rem + .6vw,1.5rem)}
+.marquee .track{display:inline-flex;gap:48px;animation:defile 38s linear infinite;padding-left:48px}
+.marquee .track span::after{content:"●";margin-left:48px;font-size:.6em;vertical-align:middle;color:#ffc3bd}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(64px,8vw,110px) 0}
+.eyebrow{font-family:var(--font-script);color:var(--rouge);font-size:1.6rem;line-height:1}
+h2{font-family:var(--font-titre);font-weight:400;font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);line-height:1.08;color:var(--brun);margin:8px 0 16px}
+.intro{max-width:640px;color:#5b4d42}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.1s}.reveal[data-d="2"]{transition-delay:.2s}.reveal[data-d="3"]{transition-delay:.3s}
+
+/* Accueil : bloc présentation */
+.about{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.about-photos{position:relative;aspect-ratio:1/1}
+.about-photos figure{position:absolute;border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 60px rgba(74,58,46,.22)}
+.about-photos figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.about-photos figure:hover img{transform:scale(1.06)}
+.about-photos .p1{inset:0 18% 22% 0}
+.about-photos .p2{inset:40% 0 0 34%;border:8px solid var(--creme-2)}
+.badge-pomme{position:absolute;left:-10px;bottom:4%;width:120px;height:120px;border-radius:50%;background:var(--rouge);color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--font-titre);font-size:.85rem;line-height:1.2;padding:14px;box-shadow:0 14px 30px rgba(191,42,42,.35);animation:flotte 5s ease-in-out infinite}
+@keyframes flotte{50%{transform:translateY(-10px) rotate(-4deg)}}
+.services{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+.service{background:#fff;border-radius:14px;padding:18px;border:1px solid rgba(74,58,46,.08);transition:transform .3s var(--ease),box-shadow .3s}
+.service:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(74,58,46,.12)}
+.service b{font-family:var(--font-titre);font-weight:400;font-size:1.15rem;color:var(--rouge);display:block}
+.service small{color:#6b5d51}
+@media (max-width:860px){.about{grid-template-columns:1fr}.about-photos{max-width:520px}}
+
+/* Carte interactive */
+#carte{background:var(--creme)}
+.carte-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap}
+.outils{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 14px;align-items:center}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:0;background:#fff;color:var(--brun);padding:10px 18px;border-radius:999px;font-family:var(--font-titre);font-size:.98rem;cursor:pointer;transition:background .25s,color .25s,transform .2s;min-height:44px}
+.tab:hover{transform:translateY(-2px)}
+.tab[aria-selected="true"]{background:var(--rouge);color:#fff}
+.filtres{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px;align-items:center}
+.filtre{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.7);border:1px solid rgba(74,58,46,.14);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:.9rem;min-height:40px;user-select:none}
+.filtre input{accent-color:var(--rouge)}
+.recherche{flex:1;min-width:200px;max-width:320px;padding:11px 16px;border-radius:999px;border:1px solid rgba(74,58,46,.18);font:inherit;background:#fff}
+.carte-grid{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+.plats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.plat{background:#fff;border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:6px;border:1px solid transparent;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s,opacity .35s;animation:up .5s var(--ease) both}
+.plat:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(74,58,46,.1);border-color:rgba(191,42,42,.25)}
+.plat-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.plat h3{font-family:var(--font-titre);font-weight:400;font-size:1.12rem;color:var(--brun);line-height:1.25}
+.prix{background:var(--vert-prix);color:#fff;font-weight:700;font-size:.88rem;padding:3px 10px;border-radius:8px;white-space:nowrap}
+.plat p{font-size:.9rem;color:#6b5d51}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.tag{font-size:.72rem;padding:3px 9px;border-radius:999px;background:var(--creme);color:var(--brun)}
+.tag.local{background:#fde5e2;color:var(--rouge-fonce)}
+.tag.vege{background:#e3f4e8;color:#1d6b3a}
+.ajout{align-self:flex-start;margin-top:8px;border:1.5px solid var(--rouge);background:none;color:var(--rouge);border-radius:999px;padding:6px 14px;font-size:.85rem;cursor:pointer;transition:background .2s,color .2s,transform .2s;min-height:36px}
+.ajout:hover{background:var(--rouge);color:#fff}
+.ajout.pop{animation:pop .4s var(--ease)}
+@keyframes pop{50%{transform:scale(1.15)}}
+.vide{grid-column:1/-1;text-align:center;padding:40px;color:#6b5d51}
+.selection{position:sticky;top:90px;background:var(--brun);color:var(--creme);border-radius:var(--radius);padding:24px;box-shadow:0 24px 50px rgba(74,58,46,.3)}
+.selection h3{font-family:var(--font-titre);font-weight:400;font-size:1.4rem;color:#fff}
+.selection .sous{font-size:.85rem;opacity:.75;margin-bottom:14px}
+.selection ul{list-style:none;max-height:260px;overflow:auto;margin-bottom:14px}
+.selection li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed rgba(243,237,223,.2);font-size:.92rem;animation:up .35s var(--ease) both}
+.qte{display:flex;align-items:center;gap:6px}
+.qte button{width:26px;height:26px;border-radius:50%;border:1px solid rgba(243,237,223,.4);background:none;color:#fff;cursor:pointer}
+.total{display:flex;justify-content:space-between;font-family:var(--font-titre);font-size:1.5rem;color:#fff;border-top:1px solid rgba(243,237,223,.3);padding-top:12px}
+.selection .note{font-size:.75rem;opacity:.7;margin-top:8px}
+.selection .btn{width:100%;justify-content:center;margin-top:14px}
+@media (max-width:980px){.carte-grid{grid-template-columns:1fr}.selection{position:static}}
+@media (max-width:620px){.plats{grid-template-columns:1fr}}
+
+/* Menu du jour */
+.mdj{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ardoise{background:var(--gris-facade);color:#f4f1ea;border-radius:var(--radius);padding:34px;position:relative;box-shadow:inset 0 0 0 10px #2f3338,0 30px 60px rgba(0,0,0,.2)}
+.ardoise h3{font-family:var(--font-script);font-size:2.4rem;color:#ffb3ab;text-align:center}
+.ardoise .ligne{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.2);padding:12px 0;gap:12px}
+.ardoise .ligne b{font-family:var(--font-titre);font-weight:400}
+.ardoise .attente{text-align:center;font-size:.9rem;opacity:.75;margin:14px 0 4px;font-style:italic}
+.ardoise .cond{text-align:center;font-size:.85rem;opacity:.8;margin-top:14px}
+@media (max-width:860px){.mdj{grid-template-columns:1fr}}
+
+/* Soirées */
+#soirees{background:var(--brun);color:var(--creme)}
+#soirees h2{color:#fff}
+#soirees .intro{color:rgba(243,237,223,.85)}
+.soirees{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center}
+.affiche{border-radius:var(--radius);overflow:hidden;transform:rotate(-2deg);box-shadow:0 30px 60px rgba(0,0,0,.4);transition:transform .6s var(--ease);max-width:420px;justify-self:center}
+.affiche:hover{transform:rotate(0) scale(1.02)}
+.prochaine{margin-top:26px;background:rgba(255,255,255,.07);border:1px solid rgba(243,237,223,.18);border-radius:14px;padding:20px}
+.prochaine b{font-family:var(--font-titre);font-weight:400;font-size:1.2rem;color:#fff}
+.timeline{list-style:none;margin-top:14px}
+.timeline li{display:flex;gap:14px;padding:8px 0}
+.timeline time{font-family:var(--font-titre);color:#ff9d94;min-width:110px}
+@media (max-width:860px){.soirees{grid-template-columns:1fr}}
+
+/* Partenaires */
+.partenaires{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:34px}
+.part{background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid rgba(74,58,46,.08);transition:transform .4s var(--ease),box-shadow .4s;display:flex;flex-direction:column}
+.part:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(74,58,46,.14)}
+.part .visuel{aspect-ratio:16/10;background:var(--creme);display:grid;place-items:center;overflow:hidden;position:relative}
+.part .visuel img{width:100%;height:100%;object-fit:cover}
+.part .visuel .initiale{font-family:var(--font-script);font-size:3.4rem;color:var(--rouge)}
+.part .corps{padding:18px}
+.part h3{font-family:var(--font-titre);font-weight:400;color:var(--brun);font-size:1.15rem}
+.part .lieu{font-size:.8rem;color:var(--rouge);margin:2px 0 8px}
+.part p{font-size:.88rem;color:#6b5d51}
+.part .dans{font-size:.8rem;margin-top:10px;color:var(--brun);font-weight:500}
+
+/* Réception / location */
+#reception{background:var(--creme)}
+.recep{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.recep figure{border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 50px rgba(74,58,46,.18)}
+form.demande{background:#fff;border-radius:var(--radius);padding:28px;display:grid;gap:14px;box-shadow:0 20px 40px rgba(74,58,46,.08)}
+form.demande .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+label{font-size:.85rem;color:var(--brun);font-weight:500;display:grid;gap:6px}
+input,select,textarea{font:inherit;padding:12px 14px;border-radius:10px;border:1px solid rgba(74,58,46,.2);background:var(--creme-2);transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--rouge);box-shadow:0 0 0 3px rgba(191,42,42,.15)}
+.types{display:flex;gap:8px;flex-wrap:wrap}
+.types label{display:inline-flex;flex-direction:row;align-items:center;gap:6px;background:var(--creme-2);padding:8px 12px;border-radius:999px;border:1px solid rgba(74,58,46,.15);cursor:pointer;font-weight:400}
+.types input{accent-color:var(--rouge);padding:0}
+.ok{display:none;background:#e3f4e8;color:#1d6b3a;padding:12px;border-radius:10px;font-size:.9rem}
+@media (max-width:860px){.recep{grid-template-columns:1fr}form.demande .row{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:stretch}
+.coord{display:grid;gap:16px}
+.coord .item{background:#fff;border-radius:14px;padding:18px 20px;border-left:4px solid var(--rouge)}
+.coord .item b{font-family:var(--font-titre);font-weight:400;color:var(--brun);display:block;font-size:1.1rem}
+.coord a{color:var(--rouge);text-decoration:none;font-weight:500}
+.carte-map{border-radius:var(--radius);overflow:hidden;min-height:360px;box-shadow:0 20px 40px rgba(74,58,46,.12)}
+.carte-map iframe{width:100%;height:100%;min-height:360px;border:0}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+
+footer{background:#2a211b;color:rgba(243,237,223,.8);padding:50px 0 30px;font-size:.88rem}
+footer .wrap{display:grid;gap:20px}
+footer .logo-f{background:#fff;border-radius:12px;padding:10px 14px;width:max-content}
+footer .logo-f img{height:48px}
+footer .mention{font-size:.78rem;opacity:.7;border-top:1px solid rgba(243,237,223,.15);padding-top:18px}
+
+/* Bouton flottant mobile */
+.appel{position:fixed;right:16px;bottom:16px;z-index:40;display:none;width:58px;height:58px;border-radius:50%;background:var(--rouge);color:#fff;place-items:center;box-shadow:0 12px 28px rgba(191,42,42,.4);text-decoration:none;font-size:1.5rem}
+.appel::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rouge);animation:onde 2s infinite}
+@keyframes onde{to{transform:scale(1.6);opacity:0}}
+@media (max-width:760px){.appel{display:grid}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"La Pomme d'Amour",
+  "alternateName":"Hôtel du Centre — La Pomme d'Amour",
+  "image":"https://lapommedamour.fr/wp-content/uploads/2025/11/Devant-restau.jpg",
+  "logo":"https://lapommedamour.fr/wp-content/uploads/2025/11/cropped-1761500053673.png",
+  "url":"https://lapommedamour.fr/",
+  "telephone":"+33385706626",
+  "email":"contact@lapommedamour.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"34 rue de la Liberté","postalCode":"71130","addressLocality":"Gueugnon","addressRegion":"Saône-et-Loire","addressCountry":"FR"},
+  "areaServed":"Gueugnon",
+  "servesCuisine":["Cuisine traditionnelle","Pizzas","Pâtes","Spécialités bourguignonnes"],
+  "priceRange":"€€",
+  "hasMenu":"https://lapommedamour.fr/menu/"
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte du site de La Pomme d'Amour, non officielle.</div>
+
+<div class="topbar"><div class="wrap">
+  <a href="tel:+33385706626">03 85 70 66 26</a>
+  <a href="mailto:contact@lapommedamour.fr">contact@lapommedamour.fr</a>
+</div></div>
+
+<header class="nav" id="haut">
+  <div class="wrap">
+    <a href="#accueil" class="logo" aria-label="La Pomme d'Amour, accueil"><img src="https://lapommedamour.fr/wp-content/uploads/2025/11/cropped-1761500053673-768x340.png" alt="La Pomme d'Amour"></a>
+    <nav id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#carte">Notre Carte</a></li>
+        <li><a href="#menu-du-jour">Menu du jour</a></li>
+        <li><a href="#soirees">Nos soirées à Thèmes</a></li>
+        <li><a href="#partenaires">Nos partenaires</a></li>
+        <li><a href="#reception">Location de Salle</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-rouge nav-cta" href="tel:+33385706626">Réserver une table</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero-bg" role="img" aria-label="Façade de l'Hôtel du Centre et du restaurant La Pomme d'Amour, rue de la Liberté à Gueugnon"></div>
+  <div class="wrap hero-content">
+    <div class="kicker fade-in" style="animation-delay:.1s">Hôtel du Centre · Restaurant</div>
+    <h1 class="split" aria-label="La Pomme d'Amour à Gueugnon"><span style="animation-delay:.2s">La&nbsp;Pomme</span> <span style="animation-delay:.35s">d'Amour</span><br><span style="animation-delay:.5s;font-size:.42em;color:#fff;letter-spacing:.02em">Restaurant à Gueugnon</span></h1>
+    <p class="lead fade-in" style="animation-delay:.7s">En plein cœur de ville : cuisine traditionnelle, pizza maison, escargots de Bourgogne, grenouilles, et notre spécialité, l'entrecôte charolaise servie sur plaque en fonte. Ouvert toute l'année.</p>
+    <div class="ctas fade-in" style="animation-delay:.85s">
+      <a class="btn btn-rouge" href="#carte">Découvrir la carte</a>
+      <a class="btn btn-ligne" href="tel:+33385706626">Réserver au 03 85 70 66 26</a>
+    </div>
+    <div class="chips fade-in" style="animation-delay:1s">
+      <span class="chip">Repas à emporter</span><span class="chip">Soirées à thème</span><span class="chip">Pizza &amp; Pasta</span><span class="chip">Réception de groupe</span>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>Entrecôte charolaise sur fonte</span><span>Pizzas maison</span><span>Escargots de la ferme d'Estelle</span><span>Grenouilles du chef</span><span>Pâtes à l'italienne</span><span>Menu du jour le midi</span>
+  <span>Entrecôte charolaise sur fonte</span><span>Pizzas maison</span><span>Escargots de la ferme d'Estelle</span><span>Grenouilles du chef</span><span>Pâtes à l'italienne</span><span>Menu du jour le midi</span>
+</div></div>
+
+<section id="presentation">
+  <div class="wrap about">
+    <div class="about-photos reveal">
+      <figure class="p1"><img src="https://lapommedamour.fr/wp-content/uploads/2025/11/salle-a.jpg" alt="Salle du restaurant La Pomme d'Amour, poutres et chaises moutarde" loading="lazy"></figure>
+      <figure class="p2"><img src="https://lapommedamour.fr/wp-content/uploads/2025/11/salle-b.jpg" alt="Salle de restaurant" loading="lazy"></figure>
+      <div class="badge-pomme">Ouvert<br>toute l'année</div>
+    </div>
+    <div>
+      <div class="eyebrow reveal">Bienvenue</div>
+      <h2 class="reveal" data-d="1">Nous sommes à l'écoute pour vous satisfaire</h2>
+      <p class="intro reveal" data-d="2">Hôtel restaurant situé en plein cœur de ville, à proximité de tous commerces. Notre salle de réception et notre service buffet s'adaptent à vos besoins : réceptions privées, soirées à thème ou repas en groupe, avec des menus faits sur mesure.</p>
+      <div class="services">
+        <div class="service reveal" data-d="1"><b>Repas à Emporter</b><small>Pizzas, pâtes et plats de la carte</small></div>
+        <div class="service reveal" data-d="2"><b>Soirée à Thème</b><small>Karaoké, fête de la musique…</small></div>
+        <div class="service reveal" data-d="1"><b>Pizza &amp; Pasta</b><small>Pâte maison, pâtes à l'italienne</small></div>
+        <div class="service reveal" data-d="2"><b>Réception de groupe</b><small>Salle et service buffet</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="carte">
+  <div class="wrap">
+    <div class="carte-head">
+      <div>
+        <div class="eyebrow reveal">Notre carte</div>
+        <h2 class="reveal" data-d="1">Toute la carte, lisible sur téléphone</h2>
+        <p class="intro reveal" data-d="2">Parcourez les plats, filtrez les propositions végétariennes ou les produits de nos partenaires locaux, et composez votre repas : le total s'affiche au fur et à mesure.</p>
+      </div>
+    </div>
+
+    <div class="outils reveal">
+      <div class="tabs" role="tablist" aria-label="Rubriques de la carte" id="tabs"></div>
+    </div>
+    <div class="filtres reveal">
+      <label class="filtre"><input type="checkbox" id="fLocal"> Produits de nos partenaires</label>
+      <label class="filtre"><input type="checkbox" id="fVege"> Végétarien</label>
+      <input class="recherche" id="fTexte" type="search" placeholder="Rechercher : chèvre, burrata, charolais…" aria-label="Rechercher un plat">
+    </div>
+
+    <div class="carte-grid">
+      <div class="plats" id="plats" aria-live="polite"></div>
+      <aside class="selection" aria-label="Ma sélection">
+        <h3>Ma sélection</h3>
+        <p class="sous">Préparez votre commande à emporter ou votre repas de groupe.</p>
+        <ul id="selListe"><li style="opacity:.7">Ajoutez des plats avec « + Ajouter ».</li></ul>
+        <div class="total"><span>Total</span><span id="selTotal">0,00 €</span></div>
+        <p class="note">Prix TTC, service compris, tels qu'affichés sur la carte actuelle. Total indicatif.</p>
+        <a class="btn btn-rouge" id="selMail" href="mailto:contact@lapommedamour.fr">Envoyer ma demande</a>
+        <a class="btn btn-ligne" href="tel:+33385706626" style="color:var(--creme)">Commander par téléphone</a>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="menu-du-jour">
+  <div class="wrap mdj">
+    <div>
+      <div class="eyebrow reveal">Le midi en semaine</div>
+      <h2 class="reveal" data-d="1">Menu du jour</h2>
+      <p class="intro reveal" data-d="2">Le menu de la semaine se met à jour en quelques secondes depuis un téléphone : l'entrée, le plat et le dessert du jour apparaissent ici dès qu'ils sont saisis.</p>
+      <p class="intro reveal" data-d="3" style="margin-top:12px"><strong>À la Pomme d'Amour — Hôtel du Centre.</strong> Menu du jour disponible le midi, sauf soir et week-end.</p>
+    </div>
+    <div class="ardoise reveal" data-d="1">
+      <h3>Menu de la Semaine</h3>
+      <p class="attente">Entrée, plat et dessert du jour : à saisir par le restaurant</p>
+      <div class="ligne"><b>Entrée + Plat + Dessert</b><span>17,90 €</span></div>
+      <div class="ligne"><b>Entrée + Plat</b><span>15,00 €</span></div>
+      <div class="ligne"><b>Plat + Dessert</b><span>15,00 €</span></div>
+      <p class="cond">Disponible le midi, sauf soir et week-end</p>
+    </div>
+  </div>
+</section>
+
+<section id="soirees">
+  <div class="wrap soirees">
+    <figure class="affiche reveal"><img src="https://lapommedamour.fr/wp-content/uploads/2026/05/1000006690-683x1024.png" alt="Affiche de la soirée karaoké de La Pomme d'Amour" loading="lazy"></figure>
+    <div>
+      <div class="eyebrow reveal" style="color:#ff9d94">Découvrez, partagez et amusez-vous !</div>
+      <h2 class="reveal" data-d="1">Nos soirées à Thèmes</h2>
+      <p class="intro reveal" data-d="2">Venez partager de vrais bons moments lors de nos soirées à thème ! Chaque événement est pensé pour vous offrir une parenthèse chaleureuse et conviviale, autour d'une cuisine soignée et d'une ambiance détendue, en famille ou entre amis.</p>
+      <div class="prochaine reveal" data-d="3">
+        <b>Agenda des soirées</b>
+        <ul class="timeline">
+          <li><time>Vendredi 12 juin</time><span>Soirée karaoké — blind test et happy hour de 18 h à 19 h, karaoké de 19 h à 23 h</span></li>
+          <li><time>Vendredi 19 juin</time><span>Fête de la musique</span></li>
+          <li><time>Prochaine date</time><span>À annoncer : chaque nouvelle soirée s'ajoute ici et les dates passées s'archivent automatiquement.</span></li>
+        </ul>
+        <a class="btn btn-rouge" href="tel:+33385706626" style="margin-top:14px">Réserver ma place</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partenaires">
+  <div class="wrap">
+    <div class="eyebrow reveal">Circuit court</div>
+    <h2 class="reveal" data-d="1">Nos partenaires</h2>
+    <p class="intro reveal" data-d="2">Les produits de la carte viennent en partie de producteurs et artisans du coin. Dans la carte ci-dessus, le filtre « Produits de nos partenaires » montre où on les retrouve.</p>
+    <div class="partenaires">
+      <article class="part reveal"><div class="visuel"><span class="initiale">B</span></div><div class="corps"><h3>La Boucherie de l'Arroux</h3><div class="lieu">13 rue de la Liberté, Gueugnon</div><p>Des viandes sélectionnées auprès d'éleveurs locaux.</p><div class="dans">Dans : entrecôte charolaise, pièce du boucher</div></div></article>
+      <article class="part reveal" data-d="1"><div class="visuel"><span class="initiale">G</span></div><div class="corps"><h3>La Gourmandise des Pains</h3><div class="lieu">25-1 rue Jean Jaurès, Gueugnon</div><p>Le boulanger confectionne nos pains à burger, qui évoluent au fil des saisons.</p><div class="dans">Dans : burger curry, burger végétarien</div></div></article>
+      <article class="part reveal" data-d="2"><div class="visuel"><img src="https://lapommedamour.fr/wp-content/uploads/2026/01/1000005189-768x512.png" alt="Le Rucher des Miquets" loading="lazy"></div><div class="corps"><h3>Le Rucher des Miquets</h3><div class="lieu">Paray-le-Monial · boutique partagée, Gueugnon</div><p>Des miels authentiques, selon les saisons et l'emplacement des ruches.</p><div class="dans">Dans : salade Biquette</div></div></article>
+      <article class="part reveal" data-d="1"><div class="visuel"><span class="initiale">E</span></div><div class="corps"><h3>Les Escargots d'Estelle</h3><div class="lieu">Ocle, Blanzy · boutique partagée, Gueugnon</div><p>Ferme hélicicole installée depuis 2020, ouverte à la visite.</p><div class="dans">Dans : caquelon d'escargots</div></div></article>
+      <article class="part reveal" data-d="2"><div class="visuel"><img src="https://lapommedamour.fr/wp-content/uploads/2026/02/1000005675-edited-768x432.jpg" alt="Chèvres de la ferme du Montot" loading="lazy"></div><div class="corps"><h3>La ferme GAEC Rizet</h3><div class="lieu">Château du Montot, Oudry</div><p>Fromages de chèvre fermiers au lait cru, dont l'AOP Charolais.</p><div class="dans">Dans : salade Biquette, assiette de fromages</div></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="reception">
+  <div class="wrap recep">
+    <div>
+      <div class="eyebrow reveal">Location de Salle &amp; Services</div>
+      <h2 class="reveal" data-d="1">Réception de groupe</h2>
+      <p class="intro reveal" data-d="2">Nous mettons à votre disposition notre salle de réception ainsi qu'un service buffet adapté à vos besoins. Notre équipe est là pour vous aider à accueillir vos invités, avec des menus faits sur mesure adaptés à vos envies.</p>
+      <figure class="reveal" data-d="3" style="margin-top:24px"><img src="https://lapommedamour.fr/wp-content/uploads/2025/11/salle-b.jpg" alt="Salle de réception" loading="lazy"></figure>
+    </div>
+    <form class="demande reveal" data-d="1" id="formRecep">
+      <h3 style="font-family:var(--font-titre);font-weight:400;color:var(--brun);font-size:1.4rem">Demander une réception</h3>
+      <div>
+        <span style="font-size:.85rem;color:var(--brun);font-weight:500">Type d'événement</span>
+        <div class="types" style="margin-top:6px">
+          <label><input type="radio" name="type" value="Repas de groupe" checked> Repas de groupe</label>
+          <label><input type="radio" name="type" value="Réception privée"> Réception privée</label>
+          <label><input type="radio" name="type" value="Buffet"> Buffet</label>
+          <label><input type="radio" name="type" value="Soirée à thème"> Soirée à thème</label>
+        </div>
+      </div>
+      <div class="row">
+        <label>Date souhaitée<input type="date" name="date" required></label>
+        <label>Nombre de personnes<input type="number" name="nb" min="2" value="20" required></label>
+      </div>
+      <div class="row">
+        <label>Nom<input type="text" name="nom" required autocomplete="name"></label>
+        <label>Téléphone<input type="tel" name="tel" required autocomplete="tel"></label>
+      </div>
+      <label>Vos envies (menu, allergies, déroulé…)<textarea name="msg" rows="3"></textarea></label>
+      <button class="btn btn-rouge" type="submit">Préparer ma demande</button>
+      <div class="ok" id="okRecep" role="status">Votre messagerie s'ouvre avec la demande pré-remplie. Ajoutez un .ics à votre agenda : <a href="#" id="icsLien">télécharger</a>.</div>
+    </form>
+  </div>
+</section>
+
+<section id="contact" style="background:#fff">
+  <div class="wrap">
+    <div class="eyebrow reveal">Contactez-nous pour toute question !</div>
+    <h2 class="reveal" data-d="1">Nous trouver</h2>
+    <div class="contact" style="margin-top:26px">
+      <div class="coord">
+        <div class="item reveal"><b>Adresse</b>34, rue de la Liberté<br>71130 Gueugnon</div>
+        <div class="item reveal" data-d="1"><b>Téléphone</b><a href="tel:+33385706626">03 85 70 66 26</a></div>
+        <div class="item reveal" data-d="2"><b>Email</b><a href="mailto:contact@lapommedamour.fr">contact@lapommedamour.fr</a></div>
+        <div class="item reveal" data-d="3"><b>Ouverture</b>Ouvert toute l'année · menu du jour le midi en semaine.<br><small style="color:#7a6a5d">Horaires détaillés à compléter par le restaurant.</small></div>
+      </div>
+      <div class="carte-map reveal" data-d="1">
+        <iframe title="Plan d'accès La Pomme d'Amour, Gueugnon" loading="lazy" src="https://www.google.com/maps?q=34+rue+de+la+Libert%C3%A9+71130+Gueugnon&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo-f"><img src="https://lapommedamour.fr/wp-content/uploads/2025/11/cropped-1761500053673-300x133.png" alt="La Pomme d'Amour"></div>
+    <div>La Pomme d'Amour — Hôtel du Centre · 34, rue de la Liberté, 71130 Gueugnon · 03 85 70 66 26 · contact@lapommedamour.fr</div>
+    <p class="mention">Maquette de démonstration non contractuelle, réalisée à partir des informations publiques du site lapommedamour.fr. Toutes les photos, le logo, l'affiche et les textes proviennent du site actuel du restaurant ; aucune photo d'illustration n'a été ajoutée. Plats et prix repris des cartes publiées (février 2026), indicatifs et non contractuels. Couleurs relevées sur le logo, ajustables. Horaires détaillés et contenu du menu du jour à fournir par le restaurant.</p>
+  </div>
+</footer>
+
+<a class="appel" href="tel:+33385706626" aria-label="Appeler le restaurant">&#9742;</a>
+
+<script>
+/* ===== Données de la carte (reprises des cartes publiées sur lapommedamour.fr) ===== */
+const CARTE = [
+ {r:'Entrées', n:'Camembert Buffala rôti au pesto', d:'salade, parmesan, oignon fries et coppa', p:16.90},
+ {r:'Entrées', n:"Le Grand Caquelon d'Escargots", d:"12 pièces, beurre maître d'hôtel", p:14.90, l:"Escargots de la ferme d'Estelle, Blanzy"},
+ {r:'Entrées', n:"L'Œuf Meurette", d:'œuf poché, carottes, vin rouge, lardons, oignons, toasts briochés', p:14.90},
+ {r:'Entrées', n:'Les Croquetas Serrano', d:'croustillant de mornay au parmesan et jambon serrano, servi sur salade', p:13.90},
+ {r:'Entrées', n:'La Burrata & Gravlax', d:"saumon gravlax, huile parfumée à l'aneth, pickles d'oignons, accompagné de sa burrata", p:15.90},
+ {r:'Plats', n:'Burger Curry', d:"pain brioché curry, steak charolais, pickles d'oignon, tomates confites, crémeux de Bourgogne", p:15.90, l:'Pain : La Gourmandise des Pains'},
+ {r:'Plats', n:'La Pièce du Boucher Charolaise', d:"beurre maître d'hôtel, sauce poivre ou gorgonzola", p:18.90, l:"Boucherie de l'Arroux"},
+ {r:'Plats', n:"L'Entrecôte Charolaise", d:"servie sur fonte, beurre maître d'hôtel, sauce au choix (roquefort, poivre vert ou nature)", p:28.90, l:"Boucherie de l'Arroux", star:1},
+ {r:'Plats', n:"La Souris d'Agneau", d:'cuite basse température au thym, et son jus réduit', p:21.90},
+ {r:'Plats', n:'Truite rôtie aux herbes', d:'truite entière cuite au four, nappée de sauce vierge', p:18.90},
+ {r:'Plats', n:'Les Grenouilles du Chef', d:'12 pièces de grenouilles grillées en persillade, servies avec des frites', p:18.50},
+ {r:'Pizzas', n:'Reine', d:'sauce tomate, mozzarella, jambon blanc, champignons frais', p:11.00},
+ {r:'Pizzas', n:'Biquette', d:'crème fraîche ou sauce tomate, mozzarella, bûche de chèvre, miel, noix', p:13.90},
+ {r:'Pizzas', n:'Quatre fromages', d:'crème fraîche ou sauce tomate, mozzarella, roquefort, chèvre, reblochon', p:13.90, v:1},
+ {r:'Pizzas', n:'César revisitée', d:'crème fraîche ou sauce tomate, curry, mozzarella, aiguillettes de poulet rôti, champignons frais, roquette, Grana Padano', p:13.90},
+ {r:'Pizzas', n:"Pomme d'amour", d:'crème fraîche ou sauce tomate, mozzarella, roquette, jambon cru, tomates cerises, burrata, Grana Padano', p:13.90, star:1},
+ {r:'Pizzas', n:'Orientale', d:'sauce tomate, mozzarella, merguez, chorizo', p:13.90},
+ {r:'Pizzas', n:'Savoyarde', d:'crème fraîche, mozzarella, lardons fumés, pommes de terre, reblochon au lait cru', p:13.90},
+ {r:'Pizzas', n:'Norvégienne', d:'crème fraîche, mozzarella, saumon fumé après cuisson', p:13.90},
+ {r:'Pizzas', n:'Raviole', d:'crème fraîche, mozzarella, ravioles de Romans, coppa, roquette, Grana Padano', p:13.90},
+ {r:'Pizzas', n:'Cannibale', d:'sauce tomate, mozzarella, viande de bœuf haché, œuf, sauce barbecue', p:13.90},
+ {r:'Pâtes', n:'Tagliatelles au saumon', d:'crème, saumon fumé, copeaux de parmesan', p:14.50},
+ {r:'Pâtes', n:'Tagliatelles à la bolognaise', d:'boulettes de bœuf, sauce tomate, basilic, copeaux de parmesan', p:14.50},
+ {r:'Pâtes', n:'Penne aux quatre fromages', d:'crème, gorgonzola, mozzarella, philadelphia, copeaux de parmesan', p:14.50, v:1},
+ {r:'Pâtes', n:'Orecchiette César', d:'crème, aiguillettes de poulet, champignons forestiers, copeaux de parmesan', p:15.90},
+ {r:'Pâtes', n:'Raviolis « parm »', d:'crème au parmesan, roquette, tomates séchées, jambon cru', p:15.90},
+ {r:'Pâtes', n:'Tagliatelles au pesto', d:'pesto, copeaux de parmesan', p:12.90, v:1},
+ {r:'Végé & salades', n:'Le Camembert di Buffala rôti', d:'pesto, salade parmesan, pommes de terre grenaille', p:17.90, v:1},
+ {r:'Végé & salades', n:'Burger végétarien', d:"pain brioché au curry, galette de légumes, pickles d'oignon, tomates confites, crémeux de Bourgogne", p:15.90, v:1, l:'Pain : La Gourmandise des Pains'},
+ {r:'Végé & salades', n:'La Salade Biquette', d:'chèvre frais, miel floral du bocage charollais, toasts briochés, noix, oignons frits, tomates cerises', p:15.90, v:1, l:'GAEC Rizet · Rucher des Miquets'},
+ {r:'Végé & salades', n:'La César au Curry', d:'aiguillettes panées, Grana Padano, croûtons, oignons frits, tomates cerises, sauce curry', p:15.90},
+ {r:'Desserts', n:'Assiette de fromages', d:'sélection de trois fromages affinés dont les fromages de la ferme Rizet', p:7.50, v:1, l:'GAEC Rizet'},
+ {r:'Desserts', n:'La Brioche Perdue', d:'caramel beurre salé, glace vanille', p:7.50, v:1},
+ {r:'Desserts', n:'La Crème Brûlée Bourguignonne', d:"parfum pain d'épices de Dijon", p:7.50, v:1},
+ {r:'Desserts', n:'Le Tiramisu Tradition', d:'éclats de spéculoos', p:8.00, v:1},
+ {r:'Desserts', n:'Le Fondant Noir & Cassis', d:'cœur coulant au cassis de Bourgogne', p:8.00, v:1},
+ {r:'Menus', n:'Menu Le Bourguignon', d:"Caquelon d'escargots ou œuf meurette · entrecôte charolaise sur fonte ou grenouilles du chef · crème brûlée bourguignonne ou fondant noir & cassis", p:38.00, l:"Escargots d'Estelle · Boucherie de l'Arroux", star:1},
+ {r:'Menus', n:'Menu Saveurs du Chef', d:"Croquetas serrano ou burrata & saumon gravlax · souris d'agneau ou truite rôtie aux herbes · tiramisu ou brioche perdue", p:32.00},
+ {r:'Menus', n:'Menu Enfants — Les Petits Gourmands', d:'hamburger enfant, steak haché du boucher ou tenders de poulet, servis avec frites · boule de glace ou crème brûlée vanille', p:12.00, l:'Pain : La Gourmandise des Pains'}
+];
+const RUBS = ['Tout','Entrées','Plats','Pizzas','Pâtes','Végé & salades','Desserts','Menus'];
+let rub='Tout'; const sel={};
+const eur=x=>x.toFixed(2).replace('.',',')+' €';
+const tabs=document.getElementById('tabs'), plats=document.getElementById('plats');
+RUBS.forEach(r=>{const b=document.createElement('button');b.className='tab';b.role='tab';b.textContent=r;b.setAttribute('aria-selected',r===rub);b.onclick=()=>{rub=r;[...tabs.children].forEach(t=>t.setAttribute('aria-selected',t===b));rendu()};tabs.appendChild(b)});
+function rendu(){
+  const fl=document.getElementById('fLocal').checked, fv=document.getElementById('fVege').checked, q=document.getElementById('fTexte').value.trim().toLowerCase();
+  const liste=CARTE.filter(x=>(rub==='Tout'||x.r===rub)&&(!fl||x.l)&&(!fv||x.v)&&(!q||(x.n+' '+x.d+' '+(x.l||'')).toLowerCase().includes(q)));
+  plats.innerHTML='';
+  if(!liste.length){plats.innerHTML='<div class="vide">Aucun plat ne correspond à ces filtres.</div>';return}
+  liste.forEach((x,i)=>{
+    const el=document.createElement('article');el.className='plat';el.style.animationDelay=(i*0.03)+'s';
+    const vege=x.v;
+    el.innerHTML=`<div class="plat-top"><h3>${x.n}</h3><span class="prix">${eur(x.p)}</span></div><p>${x.d}</p><div class="tags">${x.star?'<span class="tag">Spécialité</span>':''}${x.l?`<span class="tag local">${x.l}</span>`:''}${vege?'<span class="tag vege">Végétarien</span>':''}<span class="tag">${x.r}</span></div>`;
+    const b=document.createElement('button');b.className='ajout';b.textContent='+ Ajouter';b.setAttribute('aria-label','Ajouter '+x.n);
+    b.onclick=()=>{sel[x.n]=(sel[x.n]||{p:x.p,q:0});sel[x.n].q++;b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');majSel()};
+    el.appendChild(b);plats.appendChild(el);
+  });
+}
+function majSel(){
+  const ul=document.getElementById('selListe');ul.innerHTML='';let t=0;const lignes=[];
+  Object.entries(sel).forEach(([n,o])=>{if(!o.q)return;t+=o.p*o.q;lignes.push(o.q+' x '+n);
+    const li=document.createElement('li');li.innerHTML=`<span>${n}</span>`;const qd=document.createElement('span');qd.className='qte';
+    const m=document.createElement('button');m.textContent='−';m.setAttribute('aria-label','Retirer');m.onclick=()=>{o.q--;majSel()};
+    const p=document.createElement('button');p.textContent='+';p.setAttribute('aria-label','Ajouter');p.onclick=()=>{o.q++;majSel()};
+    qd.append(m,document.createTextNode(o.q),p);li.appendChild(qd);ul.appendChild(li)});
+  if(!lignes.length)ul.innerHTML='<li style="opacity:.7">Ajoutez des plats avec « + Ajouter ».</li>';
+  document.getElementById('selTotal').textContent=eur(t);
+  document.getElementById('selMail').href='mailto:contact@lapommedamour.fr?subject='+encodeURIComponent('Commande / réservation')+'&body='+encodeURIComponent('Bonjour,\n\nJe souhaiterais :\n'+lignes.join('\n')+'\n\nTotal indicatif : '+eur(t)+'\n\nMerci !');
+}
+['fLocal','fVege'].forEach(id=>document.getElementById(id).onchange=rendu);
+document.getElementById('fTexte').oninput=rendu;
+rendu();
+
+/* Formulaire de réception -> mailto + .ics */
+document.getElementById('formRecep').addEventListener('submit',e=>{
+  e.preventDefault();const f=new FormData(e.target);
+  const corps=`Bonjour,\n\nType : ${f.get('type')}\nDate souhaitée : ${f.get('date')}\nNombre de personnes : ${f.get('nb')}\nNom : ${f.get('nom')}\nTéléphone : ${f.get('tel')}\n\n${f.get('msg')||''}`;
+  window.location.href='mailto:contact@lapommedamour.fr?subject='+encodeURIComponent('Demande de réception – '+f.get('type'))+'&body='+encodeURIComponent(corps);
+  const d=(f.get('date')||'').replace(/-/g,'');
+  const ics=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//La Pomme d'Amour//FR\r\nBEGIN:VEVENT\r\nUID:${Date.now()}@lapommedamour\r\nDTSTAMP:${new Date().toISOString().replace(/[-:]/g,'').split('.')[0]}Z\r\nDTSTART;VALUE=DATE:${d}\r\nSUMMARY:${f.get('type')} – La Pomme d'Amour\r\nLOCATION:34 rue de la Liberté, 71130 Gueugnon\r\nDESCRIPTION:Demande envoyée – à confirmer par le restaurant (03 85 70 66 26)\r\nEND:VEVENT\r\nEND:VCALENDAR`;
+  const a=document.getElementById('icsLien');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='reception-pomme-damour.ics';
+  document.getElementById('okRecep').style.display='block';
+});
+
+/* Header, menu mobile, reveals, lien actif */
+const header=document.querySelector('header.nav');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>30),{passive:true});
+const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+burger.onclick=()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+menu.querySelectorAll('a').forEach(a=>a.onclick=()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}});
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('vu');io.unobserve(en.target)}}),{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const liens=[...menu.querySelectorAll('a')];
+  const so=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){liens.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+en.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(s=>so.observe(s));
+}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('vu'))}
+/* léger parallaxe du hero */
+const bg=document.querySelector('.hero-bg');
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){addEventListener('scroll',()=>{if(scrollY<900)bg.style.translate='0 '+(scrollY*0.25)+'px'},{passive:true})}
+</script>
+</body>
+</html>
