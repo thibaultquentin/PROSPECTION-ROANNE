@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Saveurs du Truchet — Yaourts et fromages fermiers bio | Machézal, Loire</title>
+<meta name="description" content="Yaourts et fromages fermiers bio fabriqués à la ferme du Truchet, à Machézal (Loire). Vente le vendredi matin au village et à la ferme sur commande.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — Les Saveurs du Truchet n'a pas de site ni de charte
+   publique connue : couleurs et polices PROPOSÉES, à remplacer
+   en quelques lignes dès que le logo / les étiquettes sont fournis.
+   ========================================================= */
+:root{
+  --lait:#fbfbf7;        /* fond : blanc lait */
+  --lait-2:#f1f3ea;      /* fond alterné */
+  --pre:#2e5b3b;         /* vert prairie : couleur principale */
+  --pre-fonce:#1d3d27;
+  --ciel:#3f6fa0;        /* bleu ciel du Pays entre Loire et Rhône : accent */
+  --fruit:#c2416b;       /* rouge fruits rouges : touches ponctuelles */
+  --texte:#1f2a22;
+  --texte-doux:#55614f;
+  --trait:#dfe3d5;
+  --f-titre:"Fraunces", Georgia, serif;
+  --f-texte:"Figtree", system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--texte);background:var(--lait);line-height:1.6;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ciel);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1160px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--f-titre);font-weight:700;line-height:1.1;color:var(--pre-fonce)}
+h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);letter-spacing:-.01em}
+.eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ciel);margin-bottom:.8rem;display:block}
+.lead{font-size:1.12rem;color:var(--texte-doux);max-width:60ch}
+section{padding:clamp(4rem,3rem + 5vw,7.5rem) 0}
+
+/* bandeau démo */
+.demo{background:var(--pre-fonce);color:#e9efe3;font-size:.82rem;text-align:center;padding:.45rem 16px}
+
+/* en-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(251,251,247,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--trait);box-shadow:0 6px 24px rgba(29,61,39,.06)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo svg{width:40px;height:40px}
+.logo b{font-family:var(--f-titre);font-size:1.25rem;color:var(--pre-fonce);line-height:1}
+.logo small{display:block;font-size:.72rem;color:var(--texte-doux);letter-spacing:.06em;text-transform:uppercase}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--ciel);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;text-decoration:none;border-radius:999px;padding:.85rem 1.5rem;border:2px solid var(--pre);background:var(--pre);color:#fff;cursor:pointer;font-size:1rem;font-family:inherit;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:48px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(46,91,59,.25);background:var(--pre-fonce)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--pre)}
+.btn.ghost:hover{background:var(--pre);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--pre-fonce);margin:6px 10px;transition:.3s}
+@media (max-width:880px){
+  .menu{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--lait);padding:1.5rem 16px 2rem;gap:1rem;border-bottom:1px solid var(--trait);transform:translateY(-130%);transition:transform .4s var(--ease)}
+  .menu.ouvert{transform:none}
+  .burger{display:block}
+  .nav .btn{display:none}
+}
+
+/* hero */
+.hero{padding:clamp(2.5rem,2rem + 3vw,5rem) 0 clamp(4rem,3rem+4vw,6rem);position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 4.4vw,5rem);letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--ciel)}
+.hero .lead{margin:1.4rem 0 2rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.badges{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2rem}
+.badge{font-size:.85rem;font-weight:600;padding:.45rem .9rem;border-radius:999px;background:var(--lait-2);border:1px solid var(--trait);color:var(--pre-fonce)}
+.badge.live{background:#e6eff8;border-color:#c7d8ea;color:#244d75;display:inline-flex;align-items:center;gap:.5rem}
+.badge.live i{width:8px;height:8px;border-radius:50%;background:var(--ciel);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,111,160,.55)}70%{box-shadow:0 0 0 10px rgba(63,111,160,0)}100%{box-shadow:0 0 0 0 rgba(63,111,160,0)}}
+.hero-visuel{position:relative;aspect-ratio:4/4.6;border-radius:220px 220px var(--r) var(--r);overflow:hidden;box-shadow:0 30px 60px rgba(29,61,39,.18)}
+.hero-visuel img{width:100%;height:115%;object-fit:cover;will-change:transform}
+.illus{position:absolute;left:12px;bottom:12px;background:rgba(20,30,22,.66);color:#fff;font-size:.72rem;padding:.25rem .6rem;border-radius:6px;letter-spacing:.02em;z-index:2}
+.pot-flottant{position:absolute;right:-14px;top:18%;background:#fff;border-radius:16px;padding:.9rem 1.1rem;box-shadow:0 18px 40px rgba(0,0,0,.12);font-size:.9rem;max-width:210px;animation:flotte 6s ease-in-out infinite}
+.pot-flottant b{font-family:var(--f-titre);color:var(--pre-fonce);display:block;font-size:1.05rem}
+@keyframes flotte{50%{transform:translateY(-10px)}}
+.vague{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:70px}
+@media (max-width:880px){.hero-grid{grid-template-columns:1fr}.hero-visuel{max-width:460px;width:100%;margin-inline:auto}.pot-flottant{right:8px}}
+
+/* ferme */
+.ferme{background:var(--lait-2)}
+.ferme-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.faits{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2rem}
+.fait{background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:1.2rem}
+.fait b{display:block;font-family:var(--f-titre);font-size:1.15rem;color:var(--pre)}
+.fait span{font-size:.92rem;color:var(--texte-doux)}
+.a-fournir{border:2px dashed #b9c2ad;border-radius:var(--r);aspect-ratio:4/3.4;display:grid;place-items:center;text-align:center;color:var(--texte-doux);padding:2rem;background:repeating-linear-gradient(-45deg,transparent 0 14px,rgba(46,91,59,.04) 14px 28px)}
+.a-fournir svg{width:56px;margin:0 auto .8rem;opacity:.6}
+@media (max-width:880px){.ferme-grid{grid-template-columns:1fr}}
+
+/* produits */
+.produits-tete{display:flex;justify-content:space-between;align-items:end;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filtres{display:flex;gap:.5rem;flex-wrap:wrap}
+.filtre{border:1.5px solid var(--trait);background:#fff;border-radius:999px;padding:.55rem 1.1rem;font:600 .92rem var(--f-texte);cursor:pointer;color:var(--texte);transition:.25s;min-height:44px}
+.filtre[aria-pressed="true"]{background:var(--pre);border-color:var(--pre);color:#fff}
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.carte{background:#fff;border:1px solid var(--trait);border-radius:var(--r);overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;display:flex;flex-direction:column}
+.carte:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(29,61,39,.12)}
+.carte figure{position:relative;aspect-ratio:16/11;overflow:hidden}
+.carte figure img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.carte:hover figure img{transform:scale(1.06)}
+.carte .corps{padding:1.4rem;flex:1;display:flex;flex-direction:column}
+.carte h3{font-size:1.45rem;margin-bottom:.4rem}
+.carte p{color:var(--texte-doux);font-size:.96rem}
+.parfums{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.parfums span{font-size:.8rem;padding:.25rem .65rem;border-radius:999px;background:var(--lait-2);border:1px solid var(--trait)}
+.carte.cache{display:none}
+.note{font-size:.85rem;color:var(--texte-doux);margin-top:1.4rem}
+@media (max-width:980px){.cartes{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.cartes{grid-template-columns:1fr}}
+
+/* commande : outil central */
+.commande{background:var(--pre-fonce);color:#eef3ea;position:relative;overflow:hidden}
+.commande h2{color:#fff}
+.commande .lead{color:#c9d6c4}
+.commande .eyebrow{color:#9fc0e2}
+.cmd-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:2rem;margin-top:2.5rem;align-items:start}
+.panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:clamp(1.2rem,2.5vw,2rem)}
+.etapes{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.etape{font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.35rem .8rem;border-radius:999px;background:rgba(255,255,255,.08);color:#c9d6c4}
+.etape.on{background:#fff;color:var(--pre-fonce)}
+.groupe{margin-bottom:1.6rem}
+.groupe h3{color:#fff;font-size:1.2rem;margin-bottom:.8rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.groupe h3 small{font:500 .82rem var(--f-texte);color:#a9bba4}
+.ligne{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.ligne label{font-weight:500}
+.compteur{display:flex;align-items:center;gap:.2rem;background:rgba(255,255,255,.08);border-radius:999px;padding:3px}
+.compteur button{width:38px;height:38px;border-radius:50%;border:0;background:transparent;color:#fff;font-size:1.25rem;cursor:pointer;transition:background .2s,transform .15s}
+.compteur button:hover{background:rgba(255,255,255,.16)}
+.compteur button:active{transform:scale(.9)}
+.compteur output{min-width:2ch;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.compteur output.bump{animation:bump .3s var(--ease)}
+@keyframes bump{50%{transform:scale(1.35);color:#9fc0e2}}
+.retraits{display:grid;gap:.7rem}
+.retrait{display:flex;gap:.8rem;align-items:flex-start;padding:1rem;border-radius:14px;border:1.5px solid rgba(255,255,255,.14);cursor:pointer;transition:.25s}
+.retrait:has(input:checked){border-color:#9fc0e2;background:rgba(159,192,226,.12)}
+.retrait input{margin-top:.3rem;accent-color:#9fc0e2;width:18px;height:18px}
+.retrait b{display:block;color:#fff}
+.retrait span{font-size:.9rem;color:#b9c8b4}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1rem}
+.champs input,.champs textarea{width:100%;padding:.8rem 1rem;border-radius:12px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:.95rem}
+.champs input::placeholder,.champs textarea::placeholder{color:#93a58e}
+.champs textarea{grid-column:1/-1;min-height:80px;resize:vertical}
+@media (max-width:560px){.champs{grid-template-columns:1fr}}
+.panier{position:sticky;top:96px;background:var(--lait);color:var(--texte);border-radius:22px;padding:1.6rem;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.panier h3{font-size:1.4rem;margin-bottom:.3rem}
+.bocal{display:flex;align-items:center;gap:1rem;margin:1rem 0 1.2rem}
+.bocal svg{width:64px;flex:none}
+.bocal #niveau{transition:y .6s var(--ease),height .6s var(--ease)}
+.bocal p{font-size:.92rem;color:var(--texte-doux)}
+.bocal strong{font-family:var(--f-titre);font-size:2rem;color:var(--pre);display:block;line-height:1}
+.recap{list-style:none;font-size:.93rem;max-height:220px;overflow:auto;margin-bottom:1rem}
+.recap li{display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--trait)}
+.recap .vide{color:var(--texte-doux);font-style:italic;border:0}
+.quand{background:#e6eff8;color:#244d75;border-radius:12px;padding:.8rem 1rem;font-size:.9rem;margin-bottom:1rem}
+.actions{display:grid;gap:.6rem}
+.actions .btn{justify-content:center;width:100%}
+.actions .btn.bleu{background:var(--ciel);border-color:var(--ciel)}
+.actions .btn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.petit{font-size:.8rem;color:var(--texte-doux);margin-top:.8rem}
+@media (max-width:980px){.cmd-grid{grid-template-columns:1fr}.panier{position:static}}
+
+/* où nous trouver */
+.lieux{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;margin-top:2.5rem}
+.vendredi{background:#fff;border:1px solid var(--trait);border-radius:22px;padding:2rem;position:relative;overflow:hidden}
+.vendredi .jour{font-family:var(--f-titre);font-size:clamp(2.4rem,2rem+2vw,3.4rem);color:var(--pre);line-height:1}
+.vendredi .heure{font-size:1.3rem;font-weight:700;margin:.4rem 0 1rem}
+.decompte{display:flex;gap:.6rem;margin-top:1.4rem}
+.decompte div{background:var(--lait-2);border-radius:12px;padding:.7rem .9rem;text-align:center;min-width:72px}
+.decompte b{display:block;font-family:var(--f-titre);font-size:1.6rem;color:var(--pre-fonce);font-variant-numeric:tabular-nums}
+.decompte span{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--texte-doux)}
+.points{list-style:none;display:grid;gap:.8rem}
+.points li{background:#fff;border:1px solid var(--trait);border-radius:16px;padding:1rem 1.2rem;display:flex;gap:1rem;align-items:center;transition:transform .3s var(--ease)}
+.points li:hover{transform:translateX(6px)}
+.points .pin{width:40px;height:40px;border-radius:50%;background:var(--lait-2);display:grid;place-items:center;flex:none;color:var(--pre)}
+.points b{display:block}
+.points span{font-size:.88rem;color:var(--texte-doux)}
+@media (max-width:880px){.lieux{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--lait-2)}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem}
+.coord{background:#fff;border:1px solid var(--trait);border-radius:var(--r);padding:1.6rem;text-decoration:none;transition:transform .3s var(--ease),box-shadow .3s;display:block}
+.coord:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(29,61,39,.1)}
+.coord small{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ciel);font-weight:700;margin-bottom:.5rem}
+.coord b{font-size:1.1rem;word-break:break-word}
+@media (max-width:880px){.contact-grid{grid-template-columns:1fr}}
+
+footer{background:var(--pre-fonce);color:#c9d6c4;padding:3rem 0 2rem;font-size:.88rem}
+footer .wrap{display:grid;gap:1.2rem}
+footer b{color:#fff}
+.mentions{border-top:1px solid rgba(255,255,255,.12);padding-top:1.2rem;font-size:.8rem;color:#9fb09a}
+
+/* apparition au scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+.reveal.d1{transition-delay:.1s}.reveal.d2{transition-delay:.2s}.reveal.d3{transition-delay:.3s}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--pre-fonce);color:#fff;padding:.8rem 1.3rem;border-radius:999px;font-weight:600;z-index:90;transition:transform .45s var(--ease);box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.toast.on{transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["LocalBusiness","FoodEstablishment"],
+  "name":"Les Saveurs du Truchet",
+  "legalName":"GAEC des Saveurs du Truchet",
+  "description":"Yaourts et fromages fermiers bio, fabriqués à la ferme à Machézal (Loire).",
+  "address":{"@type":"PostalAddress","streetAddress":"157 petit chemin du Truchet","postalCode":"42114","addressLocality":"Machézal","addressRegion":"Loire","addressCountry":"FR"},
+  "telephone":"+33645858262",
+  "email":"lessaveursdutruchet@orange.fr",
+  "areaServed":["Machézal","Saint-Symphorien-de-Lay","Pays entre Loire et Rhône","Loire"],
+  "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"10:30","closes":"12:00","description":"Vente à Machézal, local communal en face de l'église"}]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de site pour Les Saveurs du Truchet</div>
+
+<header id="haut">
+  <div class="wrap nav">
+    <a href="#accueil" class="logo" aria-label="Les Saveurs du Truchet, accueil">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#2e5b3b"/><path d="M15 19h18l-2 17a3 3 0 0 1-3 2.6h-8A3 3 0 0 1 17 36z" fill="#fbfbf7"/><path d="M14 16h20v3H14z" fill="#9fc0e2"/><path d="M17.6 27c2.5-1.6 4.4-1.6 6.4 0s4 1.6 6.4 0" stroke="#2e5b3b" stroke-width="1.8" fill="none"/></svg>
+      <span><b>Les Saveurs du Truchet</b><small>Ferme bio · Machézal</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#produits">Nos produits</a></li>
+      <li><a href="#commander">Commander</a></li>
+      <li><a href="#trouver">Où nous trouver</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#commander" class="btn">Préparer ma commande</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="accueil">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow reveal">GAEC · Machézal, Loire</span>
+      <h1 class="reveal d1">Yaourts et fromages <em>fermiers bio</em>, faits au Truchet.</h1>
+      <p class="lead reveal d2">Le lait de nos vaches, transformé à la ferme par Anthony et Christophe Laurent. On vous retrouve le vendredi matin à Machézal, et à la ferme sur commande.</p>
+      <div class="hero-cta reveal d3">
+        <a href="#commander" class="btn">Préparer ma commande</a>
+        <a href="tel:+33645858262" class="btn ghost">06 45 85 82 62</a>
+      </div>
+      <div class="badges reveal d3">
+        <span class="badge">Agriculture biologique</span>
+        <span class="badge">Lait de la ferme</span>
+        <span class="badge live" id="badge-live"><i></i><span>Prochaine vente : vendredi 10h30</span></span>
+      </div>
+    </div>
+    <div class="hero-visuel reveal d2">
+      <img id="hero-img" src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=1100&q=75" alt="Vache laitière dans un pré" fetchpriority="high">
+      <span class="illus">Photo d'illustration</span>
+      <div class="pot-flottant"><b>Vente du vendredi</b>10h30 – 12h, local communal en face de l'église</div>
+    </div>
+  </div>
+  <svg class="vague" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path id="vague-path" fill="#f1f3ea" d="M0 40 C 240 10 480 70 720 40 S 1200 10 1440 40 V70 H0Z"/></svg>
+</section>
+
+<section class="ferme" id="ferme">
+  <div class="wrap ferme-grid">
+    <div>
+      <span class="eyebrow reveal">La ferme</span>
+      <h2 class="reveal d1">Du pré au pot, sans détour.</h2>
+      <p class="lead reveal d2" style="margin-top:1.2rem">Au Truchet, à Machézal, le GAEC élève des vaches laitières en agriculture biologique et transforme son lait sur place en yaourts et en fromages fermiers.</p>
+      <div class="faits">
+        <div class="fait reveal d1"><b>Élevage laitier</b><span>Vaches laitières, conduites en bio</span></div>
+        <div class="fait reveal d2"><b>Transformation à la ferme</b><span>Yaourts et fromages faits sur place</span></div>
+        <div class="fait reveal d2"><b>Vente directe</b><span>Le vendredi à Machézal, à la ferme sur commande</span></div>
+        <div class="fait reveal d3"><b>Deux associés</b><span>Anthony et Christophe Laurent</span></div>
+      </div>
+    </div>
+    <div class="a-fournir reveal d2">
+      <div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 7"/></svg>
+        <b>Photo de la ferme et du troupeau</b><br>à fournir par le client
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="produits">
+  <div class="wrap">
+    <div class="produits-tete">
+      <div>
+        <span class="eyebrow reveal">Nos produits</span>
+        <h2 class="reveal d1">Nature, parfumés ou aux fruits.</h2>
+      </div>
+      <div class="filtres reveal d2" role="group" aria-label="Filtrer les produits">
+        <button class="filtre" data-f="tout" aria-pressed="true">Tout</button>
+        <button class="filtre" data-f="yaourt" aria-pressed="false">Yaourts</button>
+        <button class="filtre" data-f="fromage" aria-pressed="false">Fromages</button>
+      </div>
+    </div>
+    <div class="cartes">
+      <article class="carte reveal" data-c="yaourt">
+        <figure><img loading="lazy" src="https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?w=800&q=70" alt="Pot de lait"><span class="illus">Photo d'illustration</span></figure>
+        <div class="corps"><h3>Yaourts nature</h3><p>Le goût du lait de la ferme, sans rien ajouter.</p></div>
+      </article>
+      <article class="carte reveal d1" data-c="yaourt">
+        <figure><img loading="lazy" src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=70" alt="Yaourts aux fruits rouges"><span class="illus">Photo d'illustration</span></figure>
+        <div class="corps"><h3>Yaourts parfumés et aux fruits</h3><p>Parfumés ou avec des morceaux de fruits, selon la saison.</p>
+          <div class="parfums"><span>Vanille</span><span>Citron</span><span>Noix de coco</span><span>Fraise</span><span>Framboise</span><span>Châtaigne</span><span>Abricot</span><span>Myrtille</span><span>Pêche</span><span>Fruits des bois</span><span>Cerise</span><span>Cassis</span><span>Poire</span></div>
+        </div>
+      </article>
+      <article class="carte reveal d2" data-c="fromage">
+        <figure><img loading="lazy" src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=800&q=70" alt="Fromages fermiers"><span class="illus">Photo d'illustration</span></figure>
+        <div class="corps"><h3>Fromages fermiers bio</h3><p>Fromages au lait de la ferme, vendus le vendredi à Machézal et à la ferme sur commande.</p></div>
+      </article>
+    </div>
+    <p class="note">Parfums repris de la liste publiée par la ferme dans le guide des producteurs bio du Roannais. La gamme du moment et le détail des fromages sont à confirmer avec vous.</p>
+  </div>
+</section>
+
+<section class="commande" id="commander">
+  <div class="wrap">
+    <span class="eyebrow reveal">Commander</span>
+    <h2 class="reveal d1">Votre commande, prête vendredi.</h2>
+    <p class="lead reveal d2" style="margin-top:1rem">Choisissez vos pots, dites où vous passez les chercher : la ferme reçoit votre liste par mail ou par SMS, et n'a plus qu'à la préparer.</p>
+
+    <div class="cmd-grid">
+      <div class="panneau reveal">
+        <div class="etapes"><span class="etape on">1 · Vos produits</span><span class="etape" id="et2">2 · Le retrait</span><span class="etape" id="et3">3 · Envoi</span></div>
+
+        <div class="groupe">
+          <h3>Yaourts nature <small>à l'unité</small></h3>
+          <div id="g-nature"></div>
+        </div>
+        <div class="groupe">
+          <h3>Yaourts parfumés <small>à l'unité</small></h3>
+          <div id="g-parfum"></div>
+        </div>
+        <div class="groupe">
+          <h3>Yaourts aux fruits <small>à l'unité</small></h3>
+          <div id="g-fruit"></div>
+        </div>
+        <div class="groupe">
+          <h3>Fromages fermiers <small>précisez dans la note</small></h3>
+          <div id="g-fromage"></div>
+        </div>
+
+        <div class="groupe">
+          <h3>Où récupérer votre commande ?</h3>
+          <div class="retraits">
+            <label class="retrait"><input type="radio" name="retrait" value="vente" checked><div><b>Vente du vendredi à Machézal</b><span>10h30 – 12h, local communal en face de l'église</span></div></label>
+            <label class="retrait"><input type="radio" name="retrait" value="ferme"><div><b>À la ferme, sur commande</b><span>157 petit chemin du Truchet — créneau à convenir</span></div></label>
+          </div>
+          <div class="champs">
+            <input id="nom" placeholder="Votre nom" autocomplete="name">
+            <input id="tel" placeholder="Votre téléphone" autocomplete="tel" inputmode="tel">
+            <textarea id="noteCmd" placeholder="Une précision ? (fromages souhaités, créneau…)"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panier reveal d1" aria-live="polite">
+        <h3>Votre panier</h3>
+        <div class="bocal">
+          <svg viewBox="0 0 64 80" aria-hidden="true">
+            <defs><clipPath id="pot"><path d="M10 14h44l-4 58a6 6 0 0 1-6 5H20a6 6 0 0 1-6-5z"/></clipPath></defs>
+            <rect x="6" y="6" width="52" height="9" rx="3" fill="#3f6fa0"/>
+            <g clip-path="url(#pot)"><rect x="0" y="0" width="64" height="80" fill="#eef1e6"/><rect id="niveau" x="0" y="80" width="64" height="80" fill="#2e5b3b"/></g>
+            <path d="M10 14h44l-4 58a6 6 0 0 1-6 5H20a6 6 0 0 1-6-5z" fill="none" stroke="#1d3d27" stroke-width="2"/>
+          </svg>
+          <p><strong id="total">0</strong>pot(s) de yaourt</p>
+        </div>
+        <ul class="recap" id="recap"><li class="vide">Ajoutez des produits avec les boutons +</li></ul>
+        <div class="quand" id="quand"></div>
+        <div class="actions">
+          <a class="btn" id="envoiMail" aria-disabled="true" href="#">Envoyer par mail</a>
+          <a class="btn bleu" id="envoiSms" aria-disabled="true" href="#">Envoyer par SMS</a>
+          <button class="btn ghost" id="copier" type="button">Copier ma liste</button>
+        </div>
+        <p class="petit">Aucun paiement en ligne : la commande est réglée au retrait. Tarifs non affichés, à communiquer par la ferme.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="trouver">
+  <div class="wrap">
+    <span class="eyebrow reveal">Où nous trouver</span>
+    <h2 class="reveal d1">Le vendredi matin, au village.</h2>
+    <div class="lieux">
+      <div class="vendredi reveal">
+        <span class="eyebrow">Vente à Machézal</span>
+        <div class="jour">Vendredi</div>
+        <div class="heure">10h30 – 12h</div>
+        <p>Local communal, en face de l'église de Machézal. Yaourts et fromages bio.</p>
+        <div class="decompte" aria-label="Temps avant la prochaine vente">
+          <div><b id="cj">–</b><span>jours</span></div>
+          <div><b id="ch">–</b><span>heures</span></div>
+          <div><b id="cm">–</b><span>min</span></div>
+        </div>
+        <p class="petit" id="statut-vente"></p>
+      </div>
+      <div class="reveal d1">
+        <ul class="points">
+          <li><span class="pin">⌂</span><div><b>À la ferme, sur commande</b><span>157 petit chemin du Truchet, 42114 Machézal</span></div></li>
+          <li><span class="pin">◎</span><div><b>L'Échoppe</b><span>Épicerie à Saint-Symphorien-de-Lay</span></div></li>
+          <li><span class="pin">◎</span><div><b>La Grange Paysanne</b><span>Magasin de producteurs à Montbrison</span></div></li>
+          <li><span class="pin">◎</span><div><b>L'Escale Paysanne</b><span>Magasin de producteurs à Veauche</span></div></li>
+        </ul>
+        <p class="note">Points de vente repris d'une liste publiée par les producteurs bio du Roannais : à mettre à jour avec vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow reveal">Contact</span>
+    <h2 class="reveal d1">Une question, une commande ?</h2>
+    <div class="contact-grid">
+      <a class="coord reveal" href="tel:+33645858262"><small>Téléphone</small><b>06 45 85 82 62</b></a>
+      <a class="coord reveal d1" href="mailto:lessaveursdutruchet@orange.fr"><small>Mail</small><b>lessaveursdutruchet@orange.fr</b></a>
+      <a class="coord reveal d2" href="https://www.google.com/maps/search/?api=1&query=157+petit+chemin+du+Truchet+42114+Mach%C3%A9zal" target="_blank" rel="noopener"><small>Adresse</small><b>157 petit chemin du Truchet<br>42114 Machézal</b></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><b>Les Saveurs du Truchet</b> — GAEC des Saveurs du Truchet · Yaourts et fromages fermiers bio · Machézal (Loire)</div>
+    <div class="mentions">Maquette de démonstration, non contractuelle. La ferme n'ayant pas de site ni de charte graphique publique, les couleurs, le logo et les polices sont une proposition, ajustable. Toutes les photos sont des photos d'illustration (Unsplash) : aucune photo de la ferme n'a été trouvée en ligne ; les photos de la ferme, du troupeau et des produits sont à fournir. Gamme, parfums et points de vente repris de guides de producteurs publiés, à confirmer. Aucun tarif n'est affiché.</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* en-tête + menu mobile */
+  const header = document.getElementById('haut');
+  addEventListener('scroll', () => header.classList.toggle('scrolled', scrollY > 10), {passive:true});
+  const burger = document.getElementById('burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', false); }));
+
+  /* lien actif selon la section */
+  const liens = [...menu.querySelectorAll('a')];
+  const obsNav = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) liens.forEach(l => l.classList.toggle('actif', l.getAttribute('href') === '#' + e.target.id));
+  }), {rootMargin:'-45% 0px -50% 0px'});
+  ['ferme','produits','commander','trouver','contact'].forEach(id => obsNav.observe(document.getElementById(id)));
+
+  /* apparitions */
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); obs.unobserve(e.target); } }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  /* parallaxe douce du visuel + vague animée */
+  const img = document.getElementById('hero-img'), vague = document.getElementById('vague-path');
+  if (!reduit) {
+    let t = 0;
+    const boucle = () => {
+      t += 0.012;
+      const a = 40 + Math.sin(t) * 12, b = 40 + Math.cos(t * 1.3) * 12;
+      vague.setAttribute('d', `M0 40 C 240 ${a-30} 480 ${b+30} 720 40 S 1200 ${a-30} 1440 40 V70 H0Z`);
+      img.style.transform = `translateY(${Math.min(scrollY, 700) * -0.08}px)`;
+      requestAnimationFrame(boucle);
+    };
+    boucle();
+  }
+
+  /* filtres produits */
+  document.querySelectorAll('.filtre').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.filtre').forEach(x => x.setAttribute('aria-pressed', x === b));
+    document.querySelectorAll('.carte').forEach(c => c.classList.toggle('cache', b.dataset.f !== 'tout' && c.dataset.c !== b.dataset.f));
+  }));
+
+  /* prochaine vente : vendredi 10h30 */
+  function prochaineVente(d = new Date()) {
+    const r = new Date(d); r.setHours(10,30,0,0);
+    let ecart = (5 - r.getDay() + 7) % 7;
+    const fin = new Date(d); fin.setHours(12,0,0,0);
+    if (ecart === 0 && d > fin) ecart = 7;
+    r.setDate(r.getDate() + ecart);
+    return r;
+  }
+  const fmt = d => d.toLocaleDateString('fr-FR', {weekday:'long', day:'numeric', month:'long'});
+  function majDecompte() {
+    const now = new Date(), v = prochaineVente(now), fin = new Date(v); fin.setHours(12,0,0,0);
+    const enCours = now >= v && now <= fin;
+    const ms = Math.max(0, v - now);
+    document.getElementById('cj').textContent = Math.floor(ms / 864e5);
+    document.getElementById('ch').textContent = Math.floor(ms / 36e5) % 24;
+    document.getElementById('cm').textContent = Math.floor(ms / 6e4) % 60;
+    document.getElementById('statut-vente').textContent = enCours ? 'La vente est en cours, jusqu’à midi.' : 'Prochaine vente : ' + fmt(v) + ', 10h30.';
+    document.querySelector('#badge-live span').textContent = enCours ? 'Vente en cours jusqu’à 12h' : 'Prochaine vente : ' + fmt(v);
+    return v;
+  }
+  majDecompte(); setInterval(majDecompte, 30000);
+
+  /* outil de commande */
+  const produits = {
+    'g-nature': ['Yaourt nature'],
+    'g-parfum': ['Vanille','Citron','Noix de coco','Fraise','Framboise'].map(p => 'Yaourt ' + p.toLowerCase()),
+    'g-fruit': ['Châtaigne','Abricot','Myrtille','Pêche','Fruits des bois','Cerise','Cassis','Fraise','Framboise','Poire'].map(p => 'Yaourt aux fruits ' + p.toLowerCase()),
+    'g-fromage': ['Fromage fermier']
+  };
+  const qte = {};
+  Object.entries(produits).forEach(([g, liste]) => {
+    const box = document.getElementById(g);
+    liste.forEach(nom => {
+      qte[nom] = 0;
+      const libelle = nom.replace('Yaourt aux fruits ', '').replace(/^Yaourt (?!nature)/, '');
+      const l = document.createElement('div'); l.className = 'ligne';
+      const id = 'p' + Math.random().toString(36).slice(2, 8);
+      l.innerHTML = `<label id="${id}">${libelle.charAt(0).toUpperCase() + libelle.slice(1)}</label>
+        <div class="compteur" role="group" aria-labelledby="${id}">
+          <button type="button" aria-label="Retirer">−</button><output>0</output><button type="button" aria-label="Ajouter">+</button>
+        </div>`;
+      const [moins, plus] = l.querySelectorAll('button'), out = l.querySelector('output');
+      const maj = d => { qte[nom] = Math.max(0, qte[nom] + d); out.textContent = qte[nom]; out.classList.remove('bump'); void out.offsetWidth; out.classList.add('bump'); rendu(); };
+      moins.onclick = () => maj(-1); plus.onclick = () => maj(1);
+      box.appendChild(l);
+    });
+  });
+  ['nom','tel','noteCmd'].forEach(id => document.getElementById(id).addEventListener('input', rendu));
+  document.querySelectorAll('input[name=retrait]').forEach(r => r.addEventListener('change', rendu));
+
+  function message() {
+    const lignes = Object.entries(qte).filter(([,n]) => n > 0).map(([p,n]) => `- ${n} × ${p}`);
+    const retrait = document.querySelector('input[name=retrait]:checked').value;
+    const v = prochaineVente();
+    const ou = retrait === 'vente' ? `Retrait à la vente du ${fmt(v)} (10h30-12h, Machézal)` : 'Retrait à la ferme, créneau à convenir';
+    const nom = document.getElementById('nom').value.trim(), tel = document.getElementById('tel').value.trim(), note = document.getElementById('noteCmd').value.trim();
+    return `Bonjour,\nJe souhaite commander :\n${lignes.join('\n')}\n${ou}.${note ? '\nPrécision : ' + note : ''}\n${nom ? 'Nom : ' + nom : ''}${tel ? '\nTél : ' + tel : ''}\nMerci !`;
+  }
+
+  function rendu() {
+    const yaourts = Object.entries(qte).filter(([p]) => p.startsWith('Yaourt')).reduce((s,[,n]) => s + n, 0);
+    const actifs = Object.entries(qte).filter(([,n]) => n > 0);
+    document.getElementById('total').textContent = yaourts;
+    const h = Math.min(yaourts / 24, 1) * 64;
+    const niv = document.getElementById('niveau'); niv.setAttribute('y', 78 - h); niv.setAttribute('height', h + 2);
+    const recap = document.getElementById('recap');
+    recap.innerHTML = actifs.length ? actifs.map(([p,n]) => `<li><span>${p}</span><b>× ${n}</b></li>`).join('') : '<li class="vide">Ajoutez des produits avec les boutons +</li>';
+    const retrait = document.querySelector('input[name=retrait]:checked').value;
+    document.getElementById('quand').textContent = retrait === 'vente' ? 'À retirer le ' + fmt(prochaineVente()) + ', entre 10h30 et 12h, à Machézal.' : 'À retirer à la ferme, la ferme vous rappelle pour convenir du créneau.';
+    document.getElementById('et2').classList.toggle('on', actifs.length > 0);
+    document.getElementById('et3').classList.toggle('on', actifs.length > 0 && document.getElementById('nom').value.trim() !== '');
+    const ok = actifs.length > 0, m = encodeURIComponent(message());
+    const mail = document.getElementById('envoiMail'), sms = document.getElementById('envoiSms');
+    mail.href = ok ? `mailto:lessaveursdutruchet@orange.fr?subject=${encodeURIComponent('Commande yaourts et fromages')}&body=${m}` : '#';
+    sms.href = ok ? `sms:+33645858262?body=${m}` : '#';
+    [mail, sms].forEach(a => a.setAttribute('aria-disabled', !ok));
+  }
+  rendu();
+
+  const toast = document.getElementById('toast');
+  const montrer = t => { toast.textContent = t; toast.classList.add('on'); setTimeout(() => toast.classList.remove('on'), 2200); };
+  document.getElementById('copier').addEventListener('click', async () => {
+    if (!Object.values(qte).some(n => n > 0)) return montrer('Votre panier est vide');
+    try { await navigator.clipboard.writeText(message()); montrer('Liste copiée'); } catch { montrer('Copie impossible sur ce navigateur'); }
+  });
+})();
+</script>
+</body>
+</html>
