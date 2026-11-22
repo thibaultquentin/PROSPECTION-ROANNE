@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Les Bons Vivants — Restaurant, bar et gîte à Perrigny-sur-Loire | Bourbon-Lancy, Digoin</title>
+<meta name="description" content="Restaurant, bar et gîte dans l'ancienne école de Perrigny-sur-Loire, près de Bourbon-Lancy et Digoin : cuisine maison, produits locaux, formule du midi à 18 € et dîners du vendredi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sniglet:wght@400;800&family=Patrick+Hand&family=Lora:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE — reprise de l'identité existante des Bons Vivants
+   - Rouge vin : la tache de vin du logo (teinte approchée, à confirmer)
+   - Noir : le lettrage manuscrit du logo
+   - Bleu : les affiches des dîners du vendredi (« Le Sud Ouest – La Carte »)
+   - Bois clair / blanc : la salle (claustras bois, murs clairs)
+   Polices : Sniglet + Patrick Hand = proches des affiches du vendredi ;
+   Lora / Work Sans pour le texte courant (à ajuster).
+   ========================================================= */
+:root{
+  --vin:#8c2433;        /* tache de vin du logo (approché) */
+  --vin-fonce:#5e1622;
+  --vin-clair:#f4e4e6;
+  --encre:#1d1a1a;      /* lettrage du logo */
+  --bleu:#0b4aa8;       /* affiches des vendredis */
+  --bleu-clair:#e8eefa;
+  --bois:#d9b98d;       /* claustras de la salle */
+  --craie:#f7f4ef;      /* fond papier des affiches */
+  --blanc:#ffffff;
+  --gris:#6b6464;
+  --f-titre:'Lora',Georgia,serif;
+  --f-texte:'Work Sans',system-ui,sans-serif;
+  --f-main:'Patrick Hand',cursive;
+  --f-affiche:'Sniglet',cursive;
+  --r:18px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--craie);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--bleu);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--encre);color:#fff;font-size:.8rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+.demo b{color:var(--bois)}
+
+/* Barre d'info */
+.infobar{background:var(--vin);color:#fff;font-size:.85rem}
+.infobar .wrap{display:flex;justify-content:space-between;gap:12px;padding:7px 0;flex-wrap:wrap}
+.infobar a{text-decoration:none}
+.status{display:inline-flex;align-items:center;gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;background:#7be08f;box-shadow:0 0 0 0 rgba(123,224,143,.7);animation:pulse 2s infinite}
+.dot.off{background:#f3a3ac;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(123,224,143,0)}100%{box-shadow:0 0 0 0 rgba(123,224,143,0)}}
+
+/* En-tête */
+header.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.97);border-bottom:1px solid #eee;transition:box-shadow .3s}
+header.top.scrolled{box-shadow:0 8px 24px rgba(0,0,0,.07)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0}
+.logo img{height:78px;width:auto;transition:height .3s var(--ease)}
+header.scrolled .logo img{height:58px}
+.menu{display:flex;gap:4px;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;padding:8px 12px;border-radius:999px;position:relative}
+.menu a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--vin);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.active::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;cursor:pointer;font:600 .95rem var(--f-texte);padding:12px 20px;border-radius:999px;text-decoration:none;transition:transform .2s var(--ease),box-shadow .2s,background .2s;min-height:44px}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-vin{background:var(--vin);color:#fff;box-shadow:0 6px 18px rgba(140,36,51,.3)}
+.btn-vin:hover{background:var(--vin-fonce)}
+.btn-ligne{background:transparent;border:2px solid currentColor}
+.btn-blanc{background:#fff;color:var(--vin)}
+.burger{display:none;background:none;border:0;font-size:1.6rem;cursor:pointer;width:44px;height:44px}
+@media (max-width:960px){
+  .menu{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);flex-direction:column;background:#fff;padding:90px 24px;transform:translateX(100%);visibility:hidden;transition:transform .35s var(--ease),visibility .35s;box-shadow:-10px 0 40px rgba(0,0,0,.15)}
+  .menu.open{transform:none;visibility:visible}
+  .menu a{font-size:1.15rem;display:block}
+  .burger{display:block;z-index:60}
+  .nav .btn-vin{display:none}
+}
+
+/* Héros */
+.hero{position:relative;min-height:88vh;display:grid;align-items:end;color:#fff;overflow:hidden;isolation:isolate}
+.hero .bg{position:absolute;inset:0;z-index:-2}
+.hero .bg img{width:100%;height:100%;object-fit:cover;animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04)}to{transform:scale(1.16) translate(-2%,-1%)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(29,26,26,.15) 0%,rgba(29,26,26,.25) 40%,rgba(60,14,22,.85) 100%)}
+.hero .wrap{padding:0 0 70px}
+.stain{position:absolute;right:-60px;top:40px;width:340px;opacity:.55;z-index:-1;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.kicker{font-family:var(--f-main);font-size:1.4rem;color:var(--bois)}
+.hero h1{font-family:var(--f-titre);font-weight:600;font-size:clamp(2.3rem,1.4rem + 4vw,4.6rem);line-height:1.05;max-width:16ch;margin:6px 0 18px}
+.hero h1 em{font-style:italic;color:#ffd9de}
+.hero p.lead{max-width:56ch;font-size:clamp(1rem,.95rem + .4vw,1.2rem);opacity:.95}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.split span{display:inline-block;opacity:0;transform:translateY(40%);animation:up .8s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+
+/* Bande défilante */
+.ticker{background:var(--bleu);color:#fff;overflow:hidden;white-space:nowrap;font-family:var(--f-affiche);font-size:1.15rem}
+.ticker .track{display:inline-flex;gap:46px;padding:14px 0;animation:tick 32s linear infinite}
+.ticker .track span::before{content:"✦";margin-right:46px;opacity:.6}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+section{padding:clamp(64px,8vw,110px) 0}
+.eyebrow{font-family:var(--f-main);color:var(--vin);font-size:1.3rem}
+h2{font-family:var(--f-titre);font-size:clamp(1.9rem,1.3rem + 2.4vw,3rem);line-height:1.15;font-weight:600;margin:4px 0 16px}
+.sub{color:var(--gris);max-width:62ch}
+
+/* Révélations au scroll */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* Histoire */
+.histoire{background:#fff}
+.h-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+.h-photos{position:relative;min-height:480px}
+.h-photos figure{position:absolute;border-radius:var(--r);overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.16)}
+.h-photos .p1{inset:0 22% 18% 0}
+.h-photos .p2{width:52%;right:0;bottom:0;border:6px solid #fff}
+.h-photos img{width:100%;height:100%;object-fit:cover}
+.h-photos .tag{position:absolute;left:-14px;bottom:40px;background:var(--vin);color:#fff;font-family:var(--f-main);font-size:1.2rem;padding:8px 16px;border-radius:12px;transform:rotate(-4deg);z-index:2}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.duo div{background:var(--craie);border-radius:14px;padding:16px;border-left:4px solid var(--vin)}
+.duo strong{font-family:var(--f-main);font-size:1.35rem;display:block;color:var(--vin)}
+@media (max-width:860px){.h-grid{grid-template-columns:1fr}.h-photos{min-height:380px}.duo{grid-template-columns:1fr}}
+
+/* Notre table */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:26px 0}
+.tab{border:2px solid var(--encre);background:transparent;border-radius:999px;padding:9px 18px;font:500 .95rem var(--f-texte);cursor:pointer;min-height:44px;transition:.25s}
+.tab[aria-selected="true"]{background:var(--encre);color:#fff}
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:12px}
+.gal figure{border-radius:14px;overflow:hidden;position:relative;transition:opacity .4s,transform .4s var(--ease)}
+.gal figure.big{grid-column:span 2;grid-row:span 2}
+.gal figure.tall{grid-row:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.gal figure:hover img{transform:scale(1.07)}
+.gal figure.hide{display:none}
+@media (max-width:760px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:160px}}
+.formule{margin-top:34px;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;background:#fff;border-radius:var(--r);padding:22px 26px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.formule .prix{font-family:var(--f-affiche);font-weight:800;font-size:3rem;color:var(--vin);line-height:1}
+.formule .prix small{font-size:1rem;display:block;font-family:var(--f-texte);color:var(--gris);font-weight:500}
+@media (max-width:700px){.formule{grid-template-columns:1fr}}
+
+/* Vendredis */
+.vendredis{background:var(--bleu-clair);position:relative;overflow:hidden}
+.vendredis h2,.vendredis .eyebrow{color:var(--bleu)}
+.vendredis h2{font-family:var(--f-affiche);font-weight:800}
+.v-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start;margin-top:20px}
+.carnet{display:grid;gap:14px}
+.etape{background:#fff;border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:70px 1fr auto;gap:16px;align-items:center;cursor:pointer;border:2px solid transparent;transition:.3s var(--ease);text-align:left;font:inherit;color:inherit;width:100%}
+.etape:hover{transform:translateX(6px)}
+.etape[aria-pressed="true"]{border-color:var(--bleu);box-shadow:0 10px 26px rgba(11,74,168,.16)}
+.tampon{width:70px;height:70px;border-radius:50%;border:3px dashed var(--bleu);display:grid;place-items:center;font-family:var(--f-affiche);color:var(--bleu);font-size:.8rem;text-align:center;line-height:1.1;transform:rotate(-8deg)}
+.etape.futur .tampon{border-color:#9db3d8;color:#9db3d8}
+.etape h3{font-family:var(--f-affiche);color:var(--bleu);font-size:1.35rem}
+.etape p{font-size:.9rem;color:var(--gris)}
+.chip{font-size:.75rem;font-weight:600;border-radius:999px;padding:4px 10px;background:var(--bleu-clair);color:var(--bleu);white-space:nowrap}
+.affiche{background:var(--craie);border-radius:8px;padding:34px 34px 40px;box-shadow:0 30px 60px rgba(11,74,168,.18);position:relative;transform:rotate(1.2deg);transition:transform .5s var(--ease);min-height:420px}
+.affiche:hover{transform:rotate(0)}
+.affiche::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:26px;background:rgba(217,185,141,.75);transform:translateX(-50%) rotate(-3deg)}
+.affiche .titre{font-family:var(--f-affiche);font-weight:800;color:var(--bleu);font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);text-align:center;line-height:1}
+.affiche .carte{font-family:var(--f-main);color:var(--bleu);text-align:center;font-size:1.8rem;margin:10px 0 18px}
+.affiche ul{list-style:none;font-family:var(--f-main);font-size:1.3rem}
+.affiche li{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+.affiche li.sep{justify-content:center;color:var(--gris);letter-spacing:4px}
+.affiche .note{font-family:var(--f-texte);font-size:.85rem;color:var(--gris);text-align:center;margin-top:18px}
+.affiche.swap{animation:flip .55s var(--ease)}
+@keyframes flip{0%{transform:rotate(1.2deg) rotateY(0)}50%{transform:rotate(1.2deg) rotateY(90deg)}100%{transform:rotate(1.2deg) rotateY(0)}}
+@media (max-width:900px){.v-grid{grid-template-columns:1fr}}
+
+/* Fournisseurs */
+.fourn{background:#fff}
+.f-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.f-card{background:var(--craie);border-radius:16px;padding:22px;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s}
+.f-card:hover{transform:translateY(-6px);box-shadow:0 16px 30px rgba(0,0,0,.08)}
+.f-card .ico{font-size:1.8rem}
+.f-card h3{font-family:var(--f-main);font-size:1.5rem;color:var(--vin);margin:6px 0 8px}
+.f-card li{list-style:none;font-size:.92rem;padding:5px 0;border-bottom:1px dashed #ddd}
+.f-card li span{display:block;color:var(--gris);font-size:.8rem}
+@media (max-width:900px){.f-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.f-grid{grid-template-columns:1fr}}
+
+/* Outil : préparer ma venue */
+.outil{background:var(--encre);color:#fff;position:relative;overflow:hidden}
+.outil .eyebrow{color:var(--bois)}
+.outil .sub{color:#cfc8c8}
+.o-box{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:26px;margin-top:30px}
+.o-box>*{min-width:0}
+.panel{background:#2a2526;border-radius:var(--r);padding:26px}
+.step{margin-bottom:26px}
+.step h3{font-family:var(--f-main);font-size:1.35rem;color:var(--bois);margin-bottom:12px;display:flex;gap:10px;align-items:center}
+.step h3 i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--vin);color:#fff;display:grid;place-items:center;font-family:var(--f-texte);font-size:.85rem}
+.choix{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opt{background:#353031;border:2px solid transparent;border-radius:14px;padding:14px;text-align:left;color:#fff;cursor:pointer;font:inherit;transition:.25s var(--ease);min-height:44px}
+.opt:hover{border-color:#5a5152}
+.opt[aria-pressed="true"]{border-color:var(--bois);background:#3d3233}
+.opt b{display:block;font-size:1rem}
+.opt small{color:#bdb4b4;font-size:.82rem}
+.jours{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.jour{flex:0 0 74px;scroll-snap-align:start;background:#353031;border:2px solid transparent;border-radius:14px;padding:10px 6px;text-align:center;color:#fff;cursor:pointer;font:inherit;transition:.2s}
+.jour .dj{font-size:.75rem;text-transform:uppercase;color:#bdb4b4}
+.jour .nb{font-family:var(--f-affiche);font-size:1.5rem;display:block}
+.jour .et{font-size:.68rem}
+.jour.ok .et{color:#8fe0a0}
+.jour.tel .et{color:#ffd28a}
+.jour.ferme{opacity:.38;cursor:not-allowed}
+.jour[aria-pressed="true"]{border-color:var(--bois);background:#3d3233}
+.compteur{display:flex;align-items:center;gap:16px}
+.compteur button{width:44px;height:44px;border-radius:50%;border:2px solid #5a5152;background:none;color:#fff;font-size:1.3rem;cursor:pointer}
+.compteur output{font-family:var(--f-affiche);font-size:2rem;min-width:48px;text-align:center}
+.recap{background:var(--craie);color:var(--encre);border-radius:var(--r);padding:26px;position:sticky;top:100px;align-self:start}
+.recap h3{font-family:var(--f-main);font-size:1.6rem;color:var(--vin)}
+.recap dl{margin:14px 0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.95rem}
+.recap dt{color:var(--gris)}
+.recap .msg{border-radius:12px;padding:12px 14px;font-size:.9rem;margin:12px 0;background:var(--bleu-clair);color:var(--bleu)}
+.recap .msg.warn{background:#fff3df;color:#8a5a00}
+.recap .actions{display:grid;gap:10px;margin-top:14px}
+.recap .btn{justify-content:center}
+.recap .total{font-family:var(--f-affiche);font-size:1.6rem;color:var(--vin)}
+@media (max-width:900px){.o-box{grid-template-columns:1fr}.recap{position:static}.choix{grid-template-columns:1fr}}
+
+/* Gîte */
+.gite-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,60px);align-items:center}
+.g-photos{display:grid;grid-template-columns:1.2fr 1fr;grid-template-rows:200px 200px;gap:12px}
+.g-photos figure{border-radius:14px;overflow:hidden}
+.g-photos figure:first-child{grid-row:span 2}
+.g-photos img{width:100%;height:100%;object-fit:cover}
+.facts{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+.fact{background:#fff;border-radius:14px;padding:12px 16px;text-align:center;min-width:92px}
+.fact b{font-family:var(--f-affiche);font-size:1.6rem;color:var(--vin);display:block;line-height:1}
+.fact span{font-size:.8rem;color:var(--gris)}
+.g-list{list-style:none;display:grid;gap:8px;margin-top:10px}
+.g-list li{padding-left:26px;position:relative}
+.g-list li::before{content:"";position:absolute;left:0;top:.55em;width:12px;height:12px;border-radius:50%;border:3px solid var(--vin)}
+@media (max-width:860px){.gite-grid{grid-template-columns:1fr}}
+
+/* Infos pratiques */
+.infos{background:#fff}
+.i-grid{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:22px;margin-top:26px}
+.card{background:var(--craie);border-radius:var(--r);padding:24px}
+.card h3{font-family:var(--f-main);font-size:1.45rem;color:var(--vin);margin-bottom:10px}
+table.h{width:100%;border-collapse:collapse;font-size:.95rem}
+table.h td{padding:7px 0;border-bottom:1px dashed #ddd}
+table.h td:last-child{text-align:right}
+table.h tr.today td{font-weight:700;color:var(--vin)}
+.map{border-radius:var(--r);overflow:hidden;min-height:300px}
+.map iframe{width:100%;height:100%;min-height:300px;border:0}
+@media (max-width:900px){.i-grid{grid-template-columns:1fr}}
+
+/* CTA final */
+.final{background:var(--vin);color:#fff;text-align:center;position:relative;overflow:hidden}
+.final h2{font-family:var(--f-main);font-weight:400;font-size:clamp(2.2rem,1.5rem + 3vw,3.6rem)}
+.final .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+
+footer{background:var(--encre);color:#cfc8c8;padding:46px 0 30px;font-size:.88rem}
+.f-cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:26px}
+footer h4{color:#fff;font-family:var(--f-main);font-size:1.3rem;margin-bottom:8px;font-weight:400}
+footer a{color:#fff}
+.mention{margin-top:30px;border-top:1px solid #3a3434;padding-top:18px;font-size:.8rem;color:#a39a9a}
+@media (max-width:800px){.f-cols{grid-template-columns:1fr}}
+
+/* Barre mobile */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:grid;grid-template-columns:1fr 1fr;position:fixed;left:0;right:0;bottom:0;z-index:70;background:#fff;box-shadow:0 -6px 20px rgba(0,0,0,.1)}
+  .mbar a{padding:14px;text-align:center;font-weight:600;text-decoration:none}
+  .mbar a:last-child{background:var(--vin);color:#fff}
+  body{padding-bottom:52px}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv,.split span{opacity:1!important;transform:none!important}}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":"Restaurant",
+ "name":"Les Bons Vivants",
+ "description":"Restaurant, bar et gîte dans l'ancienne école communale de Perrigny-sur-Loire. Cuisine traditionnelle française faite maison, produits frais et locaux.",
+ "url":"https://www.lesbonsvivants-perrigny.fr",
+ "telephone":"+33385849727",
+ "email":"contact@lesbonsvivants-perrigny.fr",
+ "servesCuisine":"Cuisine traditionnelle française",
+ "address":{"@type":"PostalAddress","streetAddress":"598 route de l'Ouche","postalCode":"71160","addressLocality":"Perrigny-sur-Loire","addressCountry":"FR"},
+ "geo":{"@type":"GeoCoordinates","latitude":46.53894,"longitude":3.83764},
+ "areaServed":["Perrigny-sur-Loire","Bourbon-Lancy","Digoin","Gueugnon"],
+ "openingHoursSpecification":[
+  {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Thursday","Friday","Sunday"],"opens":"10:00","closes":"16:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"15:00"},
+  {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"18:00","closes":"22:00"}
+ ],
+ "sameAs":["https://www.instagram.com/les_bons_vivants_perrigny/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de refonte</b> du site des Bons Vivants. Contenus repris du site actuel.</div>
+
+<div class="infobar">
+  <div class="wrap">
+    <span class="status"><span class="dot" id="dot"></span><span id="statusTxt">Horaires du jour…</span></span>
+    <span><a href="tel:+33385849727">03 85 84 97 27</a> · 598 route de l'Ouche, Perrigny-sur-Loire</span>
+  </div>
+</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="Les Bons Vivants — accueil"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/103_9f96437/image_large" alt="Les Bons Vivants — Restaurant, Bar, Gîte"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#table">Notre Table</a></li>
+      <li><a href="#vendredis">Les vendredis</a></li>
+      <li><a href="#gite">Mon Hébergement</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <a class="btn btn-vin" href="#venue">Réserver</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="bg"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/42_7418b10/image_large" alt="La salle du restaurant Les Bons Vivants"></div>
+  <svg class="stain" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" fill="none" stroke="#8c2433" stroke-width="9" stroke-dasharray="210 18 60 12 140 30" stroke-linecap="round" opacity=".8"/><circle cx="30" cy="40" r="5" fill="#8c2433"/><circle cx="45" cy="22" r="3" fill="#8c2433"/></svg>
+  <div class="wrap">
+    <p class="kicker">Restaurant · Bar · Gîte — Perrigny-sur-Loire</p>
+    <h1 class="split" data-split>Le restaurant où l'on se <em>sent bien</em></h1>
+    <p class="lead rv">Dans l'ancienne école communale du village, Alice et Julien servent une cuisine traditionnelle française, préparée chaque jour sur place à partir de produits frais et locaux.</p>
+    <div class="ctas rv d1">
+      <a class="btn btn-vin" href="#venue">Préparer ma venue</a>
+      <a class="btn btn-ligne" href="tel:+33385849727">Appeler le 03 85 84 97 27</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="track" id="track">
+  <span>Formule du midi en semaine à 18 €</span><span>Entrée + plat ou plat + dessert</span><span>Le dîner du vendredi : une région chaque mois</span><span>Pain fait maison</span><span>Produits d'origine France</span><span>Fêtes d'anniversaire, famille, business, fin d'année</span>
+</div></div>
+
+<section class="histoire" id="histoire">
+  <div class="wrap h-grid">
+    <div class="h-photos rv">
+      <figure class="p1"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/38_7418b10/image_large" alt="L'ancienne école de Perrigny-sur-Loire, aujourd'hui Les Bons Vivants" loading="lazy"></figure>
+      <figure class="p2"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/48_7418b10/image_large" alt="Alice et Julien en cuisine" loading="lazy"></figure>
+      <span class="tag">L'ancienne école du village</span>
+    </div>
+    <div>
+      <p class="eyebrow rv">À propos</p>
+      <h2 class="rv d1">Faire revivre le village, une assiette après l'autre</h2>
+      <p class="rv d2">C'est à Perrigny-sur-Loire, au cœur d'un charmant bourg de la Saône-et-Loire, que l'ancienne école communale abrite « Les Bons Vivants ». Alice et Julien s'y sont installés dans le but de faire revivre le village.</p>
+      <p class="rv d2" style="margin-top:10px">En salle l'hiver ou en terrasse à partir des beaux jours, venez déguster nos spécialités traditionnelles françaises. Fidèles à nos valeurs de proximité et de soutien aux petits producteurs, nous privilégions avant tout les circuits courts.</p>
+      <div class="duo rv d3">
+        <div><strong>Alice, en salle</strong>15 ans en Angleterre avant de revenir dans sa région natale, avec l'envie de partager sa passion pour la cuisine et le vin.</div>
+        <div><strong>Julien, en cuisine</strong>Il a travaillé entre Paris et Londres. Passionné de pains, que vous retrouverez à table à chaque service.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="table">
+  <div class="wrap">
+    <p class="eyebrow rv">Notre Table</p>
+    <h2 class="rv d1">Fait maison, chaque jour</h2>
+    <p class="sub rv d2">Une cuisine de tradition française, généreuse, 100 % maison, avec une carte de vins originaux. Quelques assiettes et moments de la maison :</p>
+    <div class="tabs" role="tablist" aria-label="Filtrer la galerie">
+      <button class="tab" role="tab" aria-selected="true" data-f="tout">Tout</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="assiette">Assiettes</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="douceur">Douceurs</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="pain">Pain & vins</button>
+      <button class="tab" role="tab" aria-selected="false" data-f="salle">La salle</button>
+    </div>
+    <div class="gal" id="gal">
+      <figure class="big" data-c="assiette"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/45_7418b10/image_large" alt="Assiette de la maison" loading="lazy"></figure>
+      <figure data-c="pain"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/39_7418b10/image_large" alt="Pain au levain fait maison" loading="lazy"></figure>
+      <figure data-c="douceur"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/37_7418b10/image_large" alt="Macarons maison" loading="lazy"></figure>
+      <figure class="tall" data-c="salle"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/44_7418b10/image_large" alt="Tables dressées" loading="lazy"></figure>
+      <figure data-c="assiette"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/41_7418b10/image_large" alt="Assiette et vin blanc" loading="lazy"></figure>
+      <figure data-c="douceur"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/46_7418b10/image_large" alt="Tarte maison" loading="lazy"></figure>
+      <figure data-c="douceur"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/40_7418b10/image_large" alt="Dessert et café" loading="lazy"></figure>
+      <figure data-c="pain"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/47_7418b10/image_large" alt="Une bouteille de la carte des vins" loading="lazy"></figure>
+      <figure data-c="salle"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/49_7418b10/image_large" alt="La salle prête pour un repas de groupe" loading="lazy"></figure>
+      <figure data-c="salle"><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/50_7418b10/image_large" alt="L'ardoise du jour" loading="lazy"></figure>
+    </div>
+    <div class="formule rv">
+      <div class="prix">18 €<small>le midi en semaine</small></div>
+      <div><strong style="font-family:var(--f-main);font-size:1.4rem;color:var(--vin)">Formule du midi</strong><br>Entrée + plat ou plat + dessert, servie le midi en semaine. Repas à emporter possible : demandez-nous.</div>
+      <a class="btn btn-vin" href="#venue" data-preset="midi">Réserver un midi</a>
+    </div>
+  </div>
+</section>
+
+<section class="vendredis" id="vendredis">
+  <div class="wrap">
+    <p class="eyebrow rv">Le dîner du vendredi</p>
+    <h2 class="rv d1">Une région différente chaque mois</h2>
+    <p class="sub rv d2">Le dîner du vendredi vous emmène dans une région différente chaque mois. Feuilletez le carnet de route : chaque étape garde sa carte.</p>
+    <div class="v-grid">
+      <div class="carnet" id="carnet">
+        <button class="etape" aria-pressed="true" data-k="so">
+          <span class="tampon">Ven.<br>9 oct.</span>
+          <span><h3>Le Sud-Ouest</h3><p>Foie gras, canard confit, cheesecake basque…</p></span>
+          <span class="chip">Carte</span>
+        </button>
+        <button class="etape" aria-pressed="false" data-k="rh">
+          <span class="tampon">Ven.<br>20 nov.</span>
+          <span><h3>Le Rhône</h3><p>Carte à reprendre depuis l'affiche de la soirée.</p></span>
+          <span class="chip">Passée</span>
+        </button>
+        <button class="etape futur" aria-pressed="false" data-k="next">
+          <span class="tampon">Déc.</span>
+          <span><h3>Prochaine étape</h3><p>Région à annoncer — réservation au 03 85 84 97 27.</p></span>
+          <span class="chip">Bientôt</span>
+        </button>
+      </div>
+      <div class="affiche" id="affiche" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="fourn" id="producteurs">
+  <div class="wrap">
+    <p class="eyebrow rv">Les fournisseurs</p>
+    <h2 class="rv d1">Ce qu'il y a dans l'assiette, et d'où ça vient</h2>
+    <p class="sub rv d2">Nous utilisons exclusivement des produits d'origine française, en circuit court dès que possible.</p>
+    <div class="f-grid">
+      <div class="f-card rv"><div class="ico">🌾</div><h3>Farine</h3><ul><li>Minoterie Carnat<span>Neuvy-Grandchamp</span></li></ul></div>
+      <div class="f-card rv d1"><div class="ico">🥕</div><h3>Légumes & fruits</h3><ul><li>Jardin de Chazey<span>Gueugnon</span></li><li>Marroig Primeur<span>Paray-le-Monial</span></li><li>Les Champioux<span>Paray-le-Frésil</span></li></ul></div>
+      <div class="f-card rv d2"><div class="ico">🧀</div><h3>Fromages</h3><ul><li>Chèvrerie du Mont Sombet<span>Les Guerreaux</span></li><li>Les Bêelles Morvandelles</li><li>Fruitière d'Arinthod<span>Jura</span></li></ul></div>
+      <div class="f-card rv d3"><div class="ico">🥩</div><h3>Viandes</h3><ul><li>Gaec des Grands Bois<span>Bœuf, agneau, œufs</span></li><li>Ferme de la Limaye<span>Porc</span></li><li>Charolais Viande<span>Paray-le-Monial</span></li><li>Ferme des Hôpitaux<span>Beaulon — bœuf</span></li><li>Volaille Laurent<span>Digoin — volaille, lapin</span></li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="outil" id="venue">
+  <div class="wrap">
+    <p class="eyebrow rv">Préparer ma venue</p>
+    <h2 class="rv d1" style="color:#fff">Midi, vendredi soir, fête ou nuit au gîte</h2>
+    <p class="sub rv d2">Choisissez votre formule et votre jour : les jours d'ouverture s'affichent directement, et votre demande part prête à envoyer.</p>
+    <div class="o-box">
+      <div class="panel">
+        <div class="step">
+          <h3><i>1</i> Ce qui vous amène</h3>
+          <div class="choix" id="types">
+            <button class="opt" aria-pressed="true" data-t="midi"><b>Formule du midi</b><small>18 € · entrée + plat ou plat + dessert</small></button>
+            <button class="opt" aria-pressed="false" data-t="vendredi"><b>Dîner du vendredi</b><small>Une région chaque mois</small></button>
+            <button class="opt" aria-pressed="false" data-t="fete"><b>Fête ou repas de groupe</b><small>Anniversaire, famille, business, fin d'année</small></button>
+            <button class="opt" aria-pressed="false" data-t="gite"><b>Nuit au gîte</b><small>Appartement 50 m² · jusqu'à 5 personnes</small></button>
+          </div>
+        </div>
+        <div class="step">
+          <h3><i>2</i> Le jour</h3>
+          <div class="jours" id="jours" role="group" aria-label="Choisir un jour"></div>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <h3><i>3</i> Combien serez-vous ?</h3>
+          <div class="compteur"><button id="moins" aria-label="Une personne de moins">−</button><output id="nb">2</output><button id="plus" aria-label="Une personne de plus">+</button><span id="nbTxt" style="color:#bdb4b4;font-size:.9rem">personnes</span></div>
+        </div>
+      </div>
+      <aside class="recap" aria-live="polite">
+        <h3>Votre demande</h3>
+        <dl><dt>Formule</dt><dd id="rType">—</dd><dt>Jour</dt><dd id="rJour">Choisissez un jour</dd><dt>Personnes</dt><dd id="rNb">2</dd></dl>
+        <div id="rTotal"></div>
+        <div class="msg" id="rMsg"></div>
+        <div class="actions">
+          <a class="btn btn-vin" id="mailBtn" href="#">Envoyer la demande par mail</a>
+          <a class="btn btn-ligne" href="tel:+33385849727" style="color:var(--vin)">Appeler le 03 85 84 97 27</a>
+        </div>
+        <p style="font-size:.78rem;color:var(--gris);margin-top:12px">La demande est confirmée par le restaurant. Prix indicatifs repris du site actuel.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="gite">
+  <div class="wrap gite-grid">
+    <div class="g-photos rv">
+      <figure><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/133_1b25103/image_large" alt="Le salon du gîte" loading="lazy"></figure>
+      <figure><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/136_1b25103/image_large" alt="La cuisine du gîte" loading="lazy"></figure>
+      <figure><img src="https://www.lesbonsvivants-perrigny.fr/website/image/bnb.image/134_1b25103/image_large" alt="L'ancienne école et sa terrasse" loading="lazy"></figure>
+    </div>
+    <div>
+      <p class="eyebrow rv">Mon Hébergement</p>
+      <h2 class="rv d1">Dormir dans l'appartement du maître d'école</h2>
+      <p class="rv d2">La cuisine du restaurant se trouve dans l'ancienne salle de classe, et vous prendrez les escaliers que le maître ou la maîtresse prenait à l'époque pour monter dans leur appartement. Proche du Pal, des thermes de Bourbon-Lancy et du port de Digoin.</p>
+      <div class="facts rv d2">
+        <div class="fact"><b>5</b><span>personnes</span></div>
+        <div class="fact"><b>1</b><span>chambre</span></div>
+        <div class="fact"><b>50</b><span>m²</span></div>
+        <div class="fact"><b>15 €</b><span>plateau petit-déj.</span></div>
+      </div>
+      <ul class="g-list rv d3">
+        <li>Chambre avec un lit simple et un lit double, canapé convertible au salon</li>
+        <li>Cuisine équipée : plaque, four, frigo, machine à espresso</li>
+        <li>Arrivée à partir de 14 h, départ avant 10 h</li>
+        <li>Plateau petit-déjeuner : jus de fruit bio, confiture locale, pain maison</li>
+        <li>Lit bébé sur réservation · animaux non admis au gîte</li>
+      </ul>
+      <a class="btn btn-vin rv" href="#venue" data-preset="gite" style="margin-top:22px">Demander les disponibilités</a>
+    </div>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap">
+    <p class="eyebrow rv">Infos pratiques</p>
+    <h2 class="rv d1">Nous trouver</h2>
+    <div class="i-grid">
+      <div class="card rv">
+        <h3>Horaire d'ouverture</h3>
+        <table class="h" id="horaires"></table>
+        <p style="font-size:.8rem;color:var(--gris);margin-top:10px">Fermeture annuelle la première semaine de janvier.</p>
+      </div>
+      <div class="card rv d1">
+        <h3>Contact</h3>
+        <p><strong>Les Bons Vivants</strong><br>598 route de l'Ouche<br>71160 Perrigny-sur-Loire</p>
+        <p style="margin-top:10px"><a href="tel:+33385849727">03 85 84 97 27</a><br><a href="mailto:contact@lesbonsvivants-perrigny.fr">contact@lesbonsvivants-perrigny.fr</a></p>
+        <p style="margin-top:10px"><a href="https://www.instagram.com/les_bons_vivants_perrigny/" target="_blank" rel="noopener">Instagram @les_bons_vivants_perrigny</a></p>
+        <p style="margin-top:10px;font-size:.9rem;color:var(--gris)">Animaux acceptés au restaurant. Accueil en français ou en anglais.</p>
+      </div>
+      <div class="map rv d2"><iframe title="Plan d'accès" loading="lazy" src="https://maps.google.com/maps?q=46.53894,3.83764&z=13&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="rv">À très vite autour d'une bonne assiette !</h2>
+    <div class="ctas rv d1"><a class="btn btn-blanc" href="#venue">Préparer ma venue</a><a class="btn btn-ligne" href="tel:+33385849727">03 85 84 97 27</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-cols">
+      <div><h4>Les Bons Vivants</h4><p>Restaurant · Bar · Gîte<br>Alice Bernigaud et Julien Faruch<br>598 route de l'Ouche, 71160 Perrigny-sur-Loire</p></div>
+      <div><h4>Le site</h4><p><a href="#table">Notre Table</a><br><a href="#vendredis">Les vendredis</a><br><a href="#gite">Mon Hébergement</a><br><a href="#venue">Réserver</a></p></div>
+      <div><h4>Partenaire</h4><p>Office de Tourisme & du Thermalisme de Bourbon-Lancy</p></div>
+    </div>
+    <p class="mention">Maquette de démonstration non contractuelle, réalisée à partir des informations publiques du site actuel. Toutes les photos sont celles déjà publiées par Les Bons Vivants. Couleurs reprises du logo (tache de vin) et des affiches du vendredi : teintes approchées, ajustables. Prix indicatifs. La carte de la soirée « Rhône » et la prochaine région sont à compléter par le restaurant.</p>
+  </div>
+</footer>
+
+<nav class="mbar" aria-label="Actions rapides"><a href="tel:+33385849727">Appeler</a><a href="#venue">Réserver</a></nav>
+
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Titre animé mot à mot */
+$$('[data-split]').forEach(el=>{const w=el.innerHTML.split(/(<em>.*?<\/em>|\s+)/).filter(x=>x&&x.trim());el.innerHTML=w.map((x,i)=>`<span style="animation-delay:${.15+i*.08}s">${x}</span>`).join(' ')});
+
+/* Bande défilante en boucle */
+const tr=$('#track');tr.innerHTML+=tr.innerHTML;
+
+/* En-tête et menu */
+addEventListener('scroll',()=>$('#top').classList.toggle('scrolled',scrollY>30),{passive:true});
+$('#burger').onclick=()=>{const o=$('#menu').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o);$('#burger').textContent=o?'✕':'☰'};
+$$('#menu a').forEach(a=>a.onclick=()=>{$('#menu').classList.remove('open');$('#burger').textContent='☰'});
+
+/* Révélations */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+$$('.rv').forEach(el=>RM?el.classList.add('in'):io.observe(el));
+
+/* Lien actif */
+const secs=$$('main section[id]');
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)$$('#menu a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>so.observe(s));
+
+/* Horaires (repris du site actuel) */
+const H=[ // 0 = dimanche
+ {j:'Dimanche',p:[[10,16]]},{j:'Lundi',p:[]},{j:'Mardi',p:[[10,16]]},{j:'Mercredi',p:[]},
+ {j:'Jeudi',p:[[10,16]]},{j:'Vendredi',p:[[10,16]]},{j:'Samedi',p:[[10,15],[18,22]]}];
+const fmt=p=>p.length?p.map(([a,b])=>`${a}:00–${b}:00`).join(' / '):'Fermé';
+const now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60;
+const order=[1,2,3,4,5,6,0];
+$('#horaires').innerHTML=order.map(i=>`<tr class="${i===d?'today':''}"><td>${H[i].j}</td><td>${fmt(H[i].p)}</td></tr>`).join('');
+const open=H[d].p.some(([a,b])=>h>=a&&h<b);
+let txt;
+if(open){const end=H[d].p.find(([a,b])=>h>=a&&h<b)[1];txt=`Ouvert maintenant · jusqu'à ${end}:00`}
+else{let k=0,found=null;for(k=0;k<8;k++){const dd=(d+k)%7;const nx=H[dd].p.find(([a])=>k>0||a>h);if(nx){found={dd,a:nx[0],k};break}}
+ txt=found?`Fermé · réouverture ${found.k===0?"aujourd'hui":found.k===1?'demain':H[found.dd].j.toLowerCase()} à ${found.a}:00`:'Fermé';$('#dot').classList.add('off')}
+$('#statusTxt').textContent=txt;
+
+/* Galerie filtrable */
+$$('.tab').forEach(t=>t.onclick=()=>{$$('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));const f=t.dataset.f;$$('#gal figure').forEach(fg=>fg.classList.toggle('hide',f!=='tout'&&fg.dataset.c!==f))});
+
+/* Carnet des vendredis */
+const CARTES={
+ so:{t:'Le Sud Ouest',l:[['Foie gras, chutney aux figues','16'],['Salade de gésiers confits','8'],'sep',['Cuisse de canard confite façon cassoulet','17'],['Pavé de merlu, risotto aux cèpes','15'],'sep',['Cheesecake basque','7']],n:'Carte du vendredi 9 octobre, reprise de l\'affiche publiée par le restaurant.'},
+ rh:{t:'Le Rhône',l:[],n:'Vendredi 20 novembre. La carte de cette soirée est à ajouter depuis l\'affiche du restaurant.'},
+ next:{t:'Décembre',l:[],n:'La prochaine région sera annoncée ici dès qu\'elle est choisie. Réservation au 03 85 84 97 27.'}};
+const aff=$('#affiche');
+function showCarte(k){const c=CARTES[k];aff.classList.remove('swap');void aff.offsetWidth;if(!RM)aff.classList.add('swap');
+ aff.innerHTML=`<div class="titre">${c.t}</div><div class="carte">La Carte</div>`+(c.l.length?`<ul>${c.l.map(x=>x==='sep'?'<li class="sep">∞∞∞∞∞</li>':`<li><span>${x[0]}</span><span>${x[1]}</span></li>`).join('')}</ul>`:`<p style="font-family:var(--f-main);font-size:1.4rem;text-align:center;color:var(--gris);margin-top:40px">À compléter par le restaurant</p>`)+`<p class="note">${c.n}</p>`}
+$$('.etape').forEach(b=>b.onclick=()=>{$$('.etape').forEach(x=>x.setAttribute('aria-pressed',x===b));showCarte(b.dataset.k)});
+showCarte('so');
+
+/* Outil : préparer ma venue */
+const T={midi:{n:'Formule du midi',prix:18},vendredi:{n:'Dîner du vendredi'},fete:{n:'Fête ou repas de groupe'},gite:{n:'Nuit au gîte',max:5}};
+let st={t:'midi',date:null,nb:2};
+const J=['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'];
+function etat(date,t){const w=date.getDay();
+ if(t==='gite')return w===0||w===6||w===5?{c:'ok',l:'Possible'}:{c:'ok',l:'Possible'};
+ if(t==='midi')return [2,4,5].includes(w)?{c:'ok',l:'Midi'}:{c:'ferme',l:w===6||w===0?'Week-end':'Fermé'};
+ if(t==='vendredi')return w===5?{c:'tel',l:'Soirée'}:{c:'ferme',l:'—'};
+ if(t==='fete')return H[w].p.length?{c:w===6?'ok':'tel',l:w===6?'Midi / soir':'Sur demande'}:{c:'tel',l:'Sur demande'};
+}
+function janvier(dt){return dt.getMonth()===0&&dt.getDate()<=7}
+function renderJours(){const box=$('#jours');box.innerHTML='';
+ for(let i=0;i<21;i++){const dt=new Date();dt.setHours(12,0,0,0);dt.setDate(dt.getDate()+i);
+  let e=etat(dt,st.t);if(janvier(dt))e={c:'ferme',l:'Congés'};
+  const b=document.createElement('button');b.className='jour '+e.c;b.type='button';
+  b.innerHTML=`<span class="dj">${J[dt.getDay()]}</span><span class="nb">${dt.getDate()}</span><span class="et">${e.l}</span>`;
+  b.setAttribute('aria-pressed',st.date&&st.date.toDateString()===dt.toDateString());
+  b.setAttribute('aria-label',dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+' : '+e.l);
+  if(e.c==='ferme'){b.disabled=true}else b.onclick=()=>{st.date=dt;renderJours();recap()};
+  box.appendChild(b)}}
+function recap(){const t=T[st.t];
+ $('#rType').textContent=t.n;$('#rNb').textContent=st.nb;$('#nb').textContent=st.nb;
+ $('#rJour').textContent=st.date?st.date.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'Choisissez un jour';
+ const m=$('#rMsg');m.className='msg';
+ const msgs={midi:'Formule servie le midi en semaine : entrée + plat ou plat + dessert.',
+  vendredi:'Chaque mois, une région à l\'honneur. La date exacte de la prochaine soirée est à confirmer par téléphone.',
+  fete:'Anniversaire, famille, business ou fin d\'année : le restaurant vous rappelle pour composer le menu.',
+  gite:'Arrivée à partir de 14 h, départ avant 10 h. Plateau petit-déjeuner à 15 € à commander lors de la réservation.'};
+ m.textContent=msgs[st.t];if(st.t==='vendredi'||st.t==='fete')m.classList.add('warn');
+ $('#rTotal').innerHTML=t.prix?`<p style="font-size:.9rem;color:var(--gris)">Estimation formule</p><div class="total">${t.prix*st.nb} €</div><p style="font-size:.78rem;color:var(--gris)">${st.nb} × ${t.prix} €, hors boissons</p>`:'';
+ const sujet=`Demande de réservation — ${t.n}`;
+ const corps=`Bonjour Alice et Julien,\n\nJe souhaiterais réserver :\n- ${t.n}\n- Date : ${st.date?st.date.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}):'à préciser'}\n- Nombre de personnes : ${st.nb}\n\nMerci de me confirmer la disponibilité.\n\nNom :\nTéléphone :`;
+ $('#mailBtn').href=`mailto:contact@lesbonsvivants-perrigny.fr?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(corps)}`;}
+function setType(k){st.t=k;st.date=null;const max=T[k].max||40;if(st.nb>max)st.nb=max;$$('#types .opt').forEach(o=>o.setAttribute('aria-pressed',o.dataset.t===k));renderJours();recap()}
+$$('#types .opt').forEach(o=>o.onclick=()=>setType(o.dataset.t));
+$('#plus').onclick=()=>{const max=T[st.t].max||40;if(st.nb<max)st.nb++;recap()};
+$('#moins').onclick=()=>{if(st.nb>1)st.nb--;recap()};
+$$('[data-preset]').forEach(a=>a.addEventListener('click',()=>setType(a.dataset.preset)));
+renderJours();recap();
+})();
+</script>
+</body>
+</html>
