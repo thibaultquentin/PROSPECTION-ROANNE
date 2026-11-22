@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gusto Freddo — Épicerie italienne au Coteau, près de Roanne | Planches & spritz</title>
+<meta name="description" content="Épicerie italienne et salon de thé au Coteau, à deux pas de Roanne : charcuteries, fromages, arancini, pâtes, sauces tomate, spritz et planches sur place ou à emporter.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!--
+   GUSTO FREDDO — maquette de démonstration
+   Aucune charte graphique n'existe encore en ligne (pas de site, pas de logo publié) :
+   la palette ci-dessous est une PROPOSITION, regroupée ici pour être remplacée en quelques lignes
+   le jour où la boutique fournit son logo, son enseigne ou ses couleurs.
+-->
+<style>
+:root{
+  /* ---- Couleurs proposées (à ajuster sur l'enseigne réelle) ---- */
+  --basilic:#1F3A2E;      /* vert profond, fond des sections fortes */
+  --basilic-2:#2C5140;
+  --tomate:#C8372D;       /* accent, appels à l'action */
+  --tomate-2:#A92A21;
+  --limone:#F2C94C;       /* touche citron (spritz, détails) */
+  --carta:#FBF8F2;        /* fond papier clair */
+  --carta-2:#F1EBDF;
+  --encre:#1B1B18;
+  --gris:#5B5B52;
+  --ligne:rgba(27,27,24,.12);
+  /* ---- Typographies ---- */
+  --display:"Fraunces", Georgia, serif;
+  --texte:"Manrope", system-ui, sans-serif;
+  /* ---- Mouvement ---- */
+  --ease:cubic-bezier(.22,.8,.24,1);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{font-family:var(--texte);color:var(--encre);background:var(--carta);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--limone);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* ---------- bandeau de démonstration ---------- */
+.demo-bar{background:var(--encre);color:#eee;font-size:.78rem;text-align:center;padding:.45rem 1rem;letter-spacing:.02em}
+.demo-bar strong{color:var(--limone)}
+
+/* ---------- en-tête ---------- */
+header{position:sticky;top:0;z-index:40;background:rgba(251,248,242,.86);backdrop-filter:blur(12px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.scrolled{border-color:var(--ligne);box-shadow:0 6px 24px rgba(0,0,0,.05)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:70px}
+.logo{display:flex;align-items:baseline;gap:.4rem;text-decoration:none}
+.logo b{font-family:var(--display);font-size:1.55rem;font-weight:700;color:var(--basilic);letter-spacing:-.01em}
+.logo i{font-family:var(--display);font-style:italic;font-size:1.55rem;color:var(--tomate)}
+.logo small{font-size:.68rem;text-transform:uppercase;letter-spacing:.16em;color:var(--gris);margin-left:.3rem}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:600;font-size:.92rem;position:relative;padding:.3rem 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--tomate);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+.status{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;font-weight:700;padding:.38rem .75rem;border-radius:99px;background:var(--carta-2);white-space:nowrap}
+.status .dot{width:8px;height:8px;border-radius:50%;background:#999}
+.status.open .dot{background:#2E9E5B;box-shadow:0 0 0 0 rgba(46,158,91,.6);animation:pulse 2s infinite}
+.status.closed .dot{background:var(--tomate)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,158,91,.55)}70%{box-shadow:0 0 0 9px rgba(46,158,91,0)}100%{box-shadow:0 0 0 0 rgba(46,158,91,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.75rem 1.35rem;border-radius:99px;font-weight:700;font-size:.95rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .25s var(--spring),background .25s,color .25s,box-shadow .25s;font-family:var(--texte)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn-tomate{background:var(--tomate);color:#fff;box-shadow:0 8px 20px rgba(200,55,45,.25)}
+.btn-tomate:hover{background:var(--tomate-2)}
+.btn-ghost{border-color:currentColor;background:transparent}
+.btn-small{min-height:40px;padding:.5rem 1rem;font-size:.85rem}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,6vw,5rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,4vw,4rem);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.18em;color:var(--tomate)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(2.7rem,1.6rem + 5vw,5.6rem);line-height:.98;letter-spacing:-.025em;color:var(--basilic);margin:1.1rem 0 1.3rem}
+.hero h1 em{font-style:italic;color:var(--tomate);font-weight:500}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;transform:translateY(105%);animation:rise 1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.12s}
+.hero h1 .line:nth-child(3) span{animation-delay:.24s}
+@keyframes rise{to{transform:none}}
+.hero p.lead{font-size:clamp(1.02rem,.95rem + .35vw,1.2rem);color:var(--gris);max-width:34rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.hero-meta{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:2rem;font-size:.88rem;color:var(--gris)}
+.hero-meta b{color:var(--encre);display:block;font-size:.95rem}
+.collage{position:relative;height:clamp(380px,44vw,560px)}
+.ph{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 24px 50px rgba(31,58,46,.22);background:var(--carta-2)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.ph:hover img{transform:scale(1.06)}
+.ph.a{inset:0 18% 18% 0;transform:rotate(-2deg)}
+.ph.b{width:46%;height:46%;right:0;bottom:0;transform:rotate(3deg);border:6px solid var(--carta)}
+.ph.c{width:30%;height:30%;right:4%;top:2%;border-radius:50%;border:6px solid var(--carta)}
+.tag{position:absolute;left:10px;bottom:10px;background:rgba(27,27,24,.72);color:#fff;font-size:.66rem;font-weight:600;letter-spacing:.04em;padding:.22rem .55rem;border-radius:6px;backdrop-filter:blur(4px)}
+.ph.a .tag{left:auto;right:14px;bottom:auto;top:14px}
+.ph.c .tag{left:50%;transform:translateX(-50%);bottom:14px;white-space:nowrap}
+.sticker{position:absolute;left:-14px;bottom:8%;z-index:3;width:118px;height:118px;border-radius:50%;background:var(--limone);color:var(--basilic);display:grid;place-items:center;text-align:center;font-family:var(--display);font-style:italic;font-weight:700;font-size:1rem;line-height:1.05;box-shadow:0 12px 26px rgba(0,0,0,.15);animation:spin 18s linear infinite}
+.sticker span{animation:spin 18s linear infinite reverse;display:block;padding:10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- bandeau défilant ---------- */
+.marquee-wrap{overflow:hidden;padding:1.2rem 0}
+.marquee{background:var(--basilic);color:var(--carta);overflow:hidden;padding:1rem 0;transform:rotate(-1.2deg) scaleX(1.04)}
+.marquee .track{display:flex;gap:2.4rem;width:max-content;animation:scroll 32s linear infinite;font-family:var(--display);font-size:clamp(1.3rem,1rem + 1.2vw,2rem);font-style:italic}
+.marquee .track span{display:flex;align-items:center;gap:2.4rem;white-space:nowrap}
+.marquee .track span::after{content:"✦";font-style:normal;color:var(--limone);font-size:.8em}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:80px}
+.sec{padding:clamp(4rem,8vw,7rem) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:clamp(2rem,4vw,3.2rem);flex-wrap:wrap}
+.sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);line-height:1.05;letter-spacing:-.02em;color:var(--basilic);max-width:16ch}
+.sec-head h2 em{color:var(--tomate);font-weight:500}
+.sec-head p{max-width:30rem;color:var(--gris)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
+
+/* épicerie */
+.rayons{display:grid;grid-template-columns:repeat(6,1fr);gap:1.1rem}
+.rayon{position:relative;border-radius:20px;overflow:hidden;background:#fff;border:1px solid var(--ligne);display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s}
+.rayon:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(31,58,46,.14)}
+.rayon.w3{grid-column:span 3}.rayon.w2{grid-column:span 2}
+.rayon .img{position:relative;height:220px;overflow:hidden}
+.rayon.w3 .img{height:280px}
+.rayon .img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.rayon:hover .img img{transform:scale(1.07)}
+.rayon .body{padding:1.2rem 1.3rem 1.4rem}
+.rayon h3{font-family:var(--display);font-size:1.45rem;color:var(--basilic);margin-bottom:.25rem}
+.rayon p{font-size:.92rem;color:var(--gris)}
+.rayon .num{position:absolute;top:12px;right:14px;font-family:var(--display);font-style:italic;color:#fff;font-size:1rem;text-shadow:0 2px 8px rgba(0,0,0,.4)}
+.rayon.typo{background:var(--tomate);color:#fff;border:0;justify-content:space-between}
+.rayon.typo .big{font-family:var(--display);font-style:italic;font-size:clamp(3rem,2rem + 3vw,4.5rem);line-height:.9;padding:1.4rem 1.3rem 0}
+.rayon.typo h3,.rayon.typo p{color:#fff}
+.rayon.typo p{opacity:.88}
+.rayon.more{background:var(--basilic);color:var(--carta);border:0;justify-content:center;padding:1.6rem}
+.rayon.more h3{color:var(--limone)}
+.rayon.more p{color:rgba(251,248,242,.8)}
+
+/* salon */
+.salon{background:var(--basilic);color:var(--carta);position:relative;overflow:hidden}
+.salon .sec-head h2{color:var(--carta)}
+.salon .sec-head h2 em{color:var(--limone)}
+.salon .sec-head p{color:rgba(251,248,242,.75)}
+.salon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.moment{border:1px solid rgba(251,248,242,.16);border-radius:22px;overflow:hidden;background:rgba(255,255,255,.03);transition:background .4s,transform .45s var(--ease)}
+.moment:hover{background:rgba(255,255,255,.07);transform:translateY(-5px)}
+.moment .img{height:240px;position:relative;overflow:hidden}
+.moment .img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.moment:hover .img img{transform:scale(1.06)}
+.moment .body{padding:1.3rem 1.4rem 1.5rem}
+.moment small{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--limone);font-weight:700}
+.moment h3{font-family:var(--display);font-size:1.6rem;margin:.3rem 0 .4rem}
+.moment p{font-size:.93rem;color:rgba(251,248,242,.78)}
+.quote{margin-top:3rem;text-align:center;font-family:var(--display);font-style:italic;font-size:clamp(1.4rem,1rem + 1.6vw,2.3rem);line-height:1.25;max-width:36ch;margin-inline:auto}
+.quote span{color:var(--limone)}
+
+/* ---------- outil : composer ma planche ---------- */
+.atelier{background:var(--carta-2)}
+.tool{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.2rem,3vw,2.2rem);align-items:start}
+.panel{background:#fff;border-radius:26px;padding:clamp(1.3rem,3vw,2.2rem);border:1px solid var(--ligne);box-shadow:0 18px 40px rgba(31,58,46,.07)}
+.step{padding:1.3rem 0;border-bottom:1px dashed var(--ligne)}
+.step:first-child{padding-top:0}
+.step:last-child{border-bottom:0;padding-bottom:0}
+.step h4{display:flex;align-items:center;gap:.7rem;font-size:1rem;margin-bottom:.9rem}
+.step h4 i{font-style:normal;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--basilic);color:var(--carta);font-size:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip label{display:inline-flex;align-items:center;gap:.45rem;min-height:44px;padding:.55rem 1rem;border-radius:99px;border:1.5px solid var(--ligne);cursor:pointer;font-weight:600;font-size:.9rem;transition:all .25s var(--ease);user-select:none;background:var(--carta)}
+.chip label:hover{border-color:var(--basilic)}
+.chip input:checked+label{background:var(--basilic);color:#fff;border-color:var(--basilic);transform:scale(1.03)}
+.chip input:focus-visible+label{outline:3px solid var(--limone);outline-offset:2px}
+.stepper{display:inline-flex;align-items:center;gap:.4rem;background:var(--carta);border:1.5px solid var(--ligne);border-radius:99px;padding:.25rem}
+.stepper button{width:40px;height:40px;border-radius:50%;border:0;background:#fff;font-size:1.3rem;cursor:pointer;color:var(--basilic);box-shadow:0 2px 6px rgba(0,0,0,.08);transition:transform .2s var(--spring)}
+.stepper button:active{transform:scale(.88)}
+.stepper output{min-width:110px;text-align:center;font-weight:700}
+.balance{margin-top:1rem}
+.balance .labels{display:flex;justify-content:space-between;font-size:.82rem;color:var(--gris);font-weight:600;margin-bottom:.35rem}
+input[type=range]{width:100%;accent-color:var(--tomate);height:28px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.field label{display:block;font-size:.8rem;font-weight:700;color:var(--gris);margin-bottom:.3rem}
+.field select,.field input[type=text],.field input[type=tel],.field textarea{width:100%;min-height:46px;border:1.5px solid var(--ligne);border-radius:12px;padding:.6rem .8rem;font:inherit;background:var(--carta);color:var(--encre)}
+.field textarea{min-height:80px;resize:vertical}
+.hint{font-size:.8rem;color:var(--gris);margin-top:.45rem}
+.hint.warn{color:var(--tomate-2);font-weight:600}
+
+/* aperçu de la planche */
+.preview{position:sticky;top:92px}
+.board-card{background:var(--basilic);color:var(--carta);border-radius:26px;padding:1.6rem;overflow:hidden;position:relative}
+.board-card h3{font-family:var(--display);font-size:1.7rem;line-height:1.1}
+.board-card h3 em{color:var(--limone)}
+.board{position:relative;margin:1.2rem auto .6rem;width:100%;max-width:330px;aspect-ratio:1.45;border-radius:50% / 46%;background:radial-gradient(ellipse at 40% 35%,#C79A63,#9D6E3E 70%,#7A5230);box-shadow:inset 0 -10px 0 rgba(0,0,0,.18),0 18px 30px rgba(0,0,0,.3)}
+.board::after{content:"";position:absolute;right:-26px;top:50%;width:46px;height:18px;border-radius:9px;background:#8A5F37;transform:translateY(-50%)}
+.piece{position:absolute;border-radius:50%;transform:scale(0);transition:transform .55s var(--spring);box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.piece.on{transform:scale(1)}
+.piece.ch{background:radial-gradient(circle at 35% 35%,#E58C8C,#B5484C);border:3px solid #F2C1C1}
+.piece.fr{background:linear-gradient(135deg,#FFE9A8,#F2C94C);border-radius:6px;transform:scale(0) rotate(20deg)}
+.piece.fr.on{transform:scale(1) rotate(20deg)}
+.piece.ar{background:radial-gradient(circle at 35% 30%,#F0B65C,#C27A24);border:2px solid #E0A24A}
+.piece.ol{background:#3E4A23;width:12px!important;height:12px!important}
+.piece.dr{border-radius:8px 8px 14px 14px;background:linear-gradient(#F59E3B,#E2572C);border:2px solid rgba(255,255,255,.6)}
+.recap{list-style:none;font-size:.92rem;margin-top:.6rem}
+.recap li{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid rgba(251,248,242,.12)}
+.recap li span:first-child{color:rgba(251,248,242,.65)}
+.recap li span:last-child{font-weight:700;text-align:right}
+.actions{display:grid;gap:.6rem;margin-top:1.2rem}
+.actions .btn{width:100%}
+.btn-limone{background:var(--limone);color:var(--basilic)}
+.btn-line{border-color:rgba(251,248,242,.4);color:var(--carta);background:transparent}
+.btn-line:hover{border-color:var(--carta)}
+.note{font-size:.76rem;color:rgba(251,248,242,.65);margin-top:.9rem;line-height:1.45}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,200%);visibility:hidden;background:var(--encre);color:#fff;padding:.8rem 1.2rem;border-radius:12px;font-size:.9rem;font-weight:600;z-index:60;transition:transform .45s var(--spring);max-width:calc(100% - 32px)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+
+/* ---------- infos pratiques ---------- */
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.card{background:#fff;border:1px solid var(--ligne);border-radius:24px;padding:clamp(1.3rem,3vw,2rem)}
+.card h3{font-family:var(--display);color:var(--basilic);font-size:1.6rem;margin-bottom:1rem}
+.hours{list-style:none}
+.hours li{display:flex;justify-content:space-between;gap:1rem;padding:.65rem .8rem;border-radius:10px;font-size:.95rem}
+.hours li:nth-child(odd){background:var(--carta)}
+.hours li.today{background:var(--basilic);color:#fff;font-weight:700}
+.hours li.today span:first-child::after{content:" · aujourd'hui";font-weight:500;opacity:.75;font-size:.85em}
+.hours .off{color:var(--tomate)}
+.hours li.today .off{color:var(--limone)}
+.contact-lines{display:grid;gap:.9rem}
+.cl{display:flex;gap:.9rem;align-items:flex-start;text-decoration:none;padding:.8rem;border-radius:14px;transition:background .25s}
+a.cl:hover{background:var(--carta)}
+.cl .ico{flex:none;width:44px;height:44px;border-radius:12px;background:var(--carta-2);display:grid;place-items:center;color:var(--tomate)}
+.cl small{display:block;font-size:.75rem;color:var(--gris);font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+.cl b{font-size:1.02rem}
+.facade{margin-top:1rem;border:2px dashed var(--ligne);border-radius:16px;padding:1.2rem;text-align:center;font-size:.85rem;color:var(--gris);background:repeating-linear-gradient(45deg,transparent 0 12px,rgba(31,58,46,.03) 12px 24px)}
+
+/* ---------- CTA final ---------- */
+.final{background:var(--tomate);color:#fff;text-align:center;border-radius:32px;padding:clamp(2.5rem,6vw,4.5rem) 1.5rem;position:relative;overflow:hidden}
+.final h2{font-family:var(--display);font-size:clamp(2rem,1.4rem + 2.8vw,3.6rem);line-height:1.05;margin-bottom:1rem}
+.final p{opacity:.9;max-width:34rem;margin:0 auto 1.6rem}
+.final .btn-white{background:#fff;color:var(--tomate-2)}
+.final .ring{position:absolute;border:2px solid rgba(255,255,255,.18);border-radius:50%}
+
+/* ---------- pied de page ---------- */
+footer{background:var(--encre);color:#cfcfc6;padding:3.5rem 0 2rem;margin-top:clamp(4rem,8vw,6rem);font-size:.9rem}
+.f-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-size:.8rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:.8rem}
+footer a{color:#fff;text-decoration:none}
+footer a:hover{color:var(--limone)}
+.f-logo{font-family:var(--display);font-size:1.8rem;color:#fff}
+.f-logo i{color:var(--limone)}
+.disclaimer{margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.12);font-size:.78rem;line-height:1.65;color:#a4a49a}
+.disclaimer strong{color:#e5e5dc}
+
+.mobile-call{display:none}
+
+@media (max-width:980px){
+  .hero-grid,.tool,.infos-grid{grid-template-columns:1fr}
+  .preview{position:static}
+  .rayons{grid-template-columns:repeat(2,1fr)}
+  .rayon.w3,.rayon.w2{grid-column:span 1}
+  .rayon.w3 .img{height:220px}
+  .salon-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .menu{display:none}
+  .menu.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:0;background:var(--carta);border-bottom:1px solid var(--ligne);padding:.5rem 16px 1rem}
+  .menu.open a{display:block;padding:.85rem 0;border-bottom:1px solid var(--ligne)}
+  .burger{display:block}
+  .nav-right .btn{display:none}
+}
+@media (max-width:600px){
+  .rayons{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .logo small{display:none}
+  .status{font-size:.7rem;padding:.3rem .6rem}
+  .collage{height:360px}
+  .sticker{width:96px;height:96px;font-size:.85rem;left:-6px}
+  .mobile-call{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:50;gap:.5rem}
+  .mobile-call .btn{flex:1;box-shadow:0 10px 24px rgba(0,0,0,.2)}
+  footer{padding-bottom:6rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero h1 .line span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["GroceryStore","CafeOrCoffeeShop"],
+  "name":"Gusto Freddo",
+  "description":"Épicerie aux saveurs italiennes et salon de thé : charcuteries, fromages, arancini, pâtes, sauces tomate, spritz, planches sur place ou à emporter.",
+  "telephone":"+33604513839",
+  "email":"gusto-freddo@outlook.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"126 avenue de la Libération","postalCode":"42120","addressLocality":"Le Coteau","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Le Coteau","Roanne"],
+  "servesCuisine":"Italienne",
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday"],"opens":"09:30","closes":"12:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday"],"opens":"15:30","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Thursday","opens":"09:30","closes":"12:30"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"09:30","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"09:30","closes":"18:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"09:30","closes":"12:30"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo-bar">Maquette de démonstration — <strong>Gusto Freddo</strong>, Le Coteau · proposition non contractuelle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a href="#top" class="logo" aria-label="Gusto Freddo, accueil"><b>Gusto</b><i>Freddo</i><small>Épicerie italienne</small></a>
+    <ul class="menu" id="menu">
+      <li><a href="#epicerie">L'épicerie</a></li>
+      <li><a href="#salon">Le salon</a></li>
+      <li><a href="#planche">Composer ma planche</a></li>
+      <li><a href="#infos">Infos pratiques</a></li>
+    </ul>
+    <div class="nav-right">
+      <span class="status" id="status" aria-live="polite"><span class="dot"></span><span id="status-txt">Horaires</span></span>
+      <a href="tel:+33604513839" class="btn btn-tomate btn-small">06 04 51 38 39</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Épicerie italienne · Salon de thé · Le Coteau</span>
+      <h1>
+        <span class="line"><span>Faites voyager</span></span>
+        <span class="line"><span>vos <em>papilles</em>,</span></span>
+        <span class="line"><span>sans quitter le Coteau.</span></span>
+      </h1>
+      <p class="lead">Charcuteries, fromages, arancini, pâtes, sauces tomate, spritz… Une épicerie aux saveurs italiennes, un salon pour un café ou un cocktail, et de généreuses planches à déguster sur place ou à emporter. Un petit air d'Italie à savourer&nbsp;!</p>
+      <div class="hero-ctas">
+        <a href="#planche" class="btn btn-tomate">Composer ma planche</a>
+        <a href="#infos" class="btn btn-ghost" style="color:var(--basilic)">Nous trouver</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>126 av. de la Libération</b>42120 Le Coteau</div>
+        <div><b>Du mardi au dimanche</b>dès 9h30</div>
+      </div>
+    </div>
+    <div class="collage reveal">
+      <div class="ph a"><img src="https://images.unsplash.com/photo-1616631124348-c63521eb484c?w=1100&q=75&auto=format&fit=crop" alt="Planche de charcuteries, fromages et olives" fetchpriority="high"><span class="tag">Photo d'illustration</span></div>
+      <div class="ph b"><img src="https://images.unsplash.com/photo-1560512823-829485b8bf24?w=700&q=75&auto=format&fit=crop" alt="Cocktail orangé servi dans un verre à pied" loading="lazy"><span class="tag">Photo d'illustration</span></div>
+      <div class="ph c"><img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=500&q=75&auto=format&fit=crop" alt="Tasse de café" loading="lazy"><span class="tag">Illustration</span></div>
+      <div class="sticker"><span>Sur place<br>ou à<br>emporter</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap"><div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Charcuteries</span><span>Fromages</span><span>Arancini</span><span>Pâtes</span><span>Sauces tomate</span><span>Spritz</span><span>Planches</span><span>Café</span><span>Cocktails</span>
+    <span>Charcuteries</span><span>Fromages</span><span>Arancini</span><span>Pâtes</span><span>Sauces tomate</span><span>Spritz</span><span>Planches</span><span>Café</span><span>Cocktails</span>
+  </div>
+</div></div>
+
+<section class="sec" id="epicerie">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="reveal">L'épicerie, <em>comme en Italie</em></h2>
+      <p class="reveal d1">Les spécialités gourmandes, les produits authentiques et les incontournables de la gastronomie transalpine, réunis dans une même boutique.</p>
+    </div>
+    <div class="rayons">
+      <article class="rayon w3 reveal">
+        <div class="img"><img src="https://images.unsplash.com/photo-1541529086526-db283c563270?w=1000&q=72&auto=format&fit=crop" alt="Assortiment de charcuteries et d'antipasti" loading="lazy"><span class="tag">Photo d'illustration</span><span class="num">01</span></div>
+        <div class="body"><h3>Charcuteries</h3><p>La sélection italienne à la coupe ou à emporter, pour l'apéritif comme pour la table.</p></div>
+      </article>
+      <article class="rayon w3 reveal d1">
+        <div class="img"><img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=1000&q=72&auto=format&fit=crop" alt="Fromages sur une planche avec figues et noix" loading="lazy"><span class="tag">Photo d'illustration</span><span class="num">02</span></div>
+        <div class="body"><h3>Fromages</h3><p>Les fromages d'Italie, pour compléter une planche ou un plat de pâtes.</p></div>
+      </article>
+      <article class="rayon w2 typo reveal">
+        <div class="big">Aran&shy;cini</div>
+        <div class="body"><h3>Arancini</h3><p>Les boulettes de riz siciliennes, à croquer sur place ou à rapporter.</p></div>
+      </article>
+      <article class="rayon w2 reveal d1">
+        <div class="img"><img src="https://images.unsplash.com/photo-1551462147-ff29053bfc14?w=800&q=72&auto=format&fit=crop" alt="Pâtes sèches dans un bocal" loading="lazy"><span class="tag">Photo d'illustration</span><span class="num">04</span></div>
+        <div class="body"><h3>Pâtes</h3><p>De quoi cuisiner à l'italienne toute la semaine.</p></div>
+      </article>
+      <article class="rayon w2 reveal d2">
+        <div class="img"><img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&q=72&auto=format&fit=crop" alt="Tomates en grappe" loading="lazy"><span class="tag">Photo d'illustration</span><span class="num">05</span></div>
+        <div class="body"><h3>Sauces tomate</h3><p>La base de toute bonne assiette de pâtes.</p></div>
+      </article>
+      <article class="rayon w3 reveal">
+        <div class="img"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1000&q=72&auto=format&fit=crop" alt="Cocktail ambré servi sur un comptoir" loading="lazy"><span class="tag">Photo d'illustration</span><span class="num">06</span></div>
+        <div class="body"><h3>Spritz</h3><p>Pour retrouver l'heure de l'apéritif à l'italienne, chez soi ou au salon.</p></div>
+      </article>
+      <article class="rayon w3 more reveal d1">
+        <h3>… et bien d'autres spécialités</h3>
+        <p>Le rayon évolue au fil des arrivages : la liste complète des produits reste à compléter avec la boutique. Le plus simple pour découvrir, c'est encore de pousser la porte.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec salon" id="salon">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="reveal">Le salon, <em>pour s'attarder</em></h2>
+      <p class="reveal d1">Installez-vous au salon de thé pour savourer un café ou un cocktail, ou craquez pour une planche à partager.</p>
+    </div>
+    <div class="salon-grid">
+      <article class="moment reveal">
+        <div class="img"><img src="https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=900&q=72&auto=format&fit=crop" alt="Tasse de café" loading="lazy"><span class="tag">Photo d'illustration</span></div>
+        <div class="body"><small>Le matin</small><h3>Un café</h3><p>Dès 9h30, une pause au comptoir avant de faire ses courses.</p></div>
+      </article>
+      <article class="moment reveal d1">
+        <div class="img"><img src="https://images.unsplash.com/photo-1616631124348-c63521eb484c?w=900&q=72&auto=format&fit=crop" alt="Planche de charcuteries et fromages" loading="lazy"><span class="tag">Photo d'illustration</span></div>
+        <div class="body"><small>À partager</small><h3>Les planches</h3><p>Généreuses, à déguster sur place ou à emporter pour l'apéritif à la maison.</p></div>
+      </article>
+      <article class="moment reveal d2">
+        <div class="img"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=900&q=72&auto=format&fit=crop" alt="Trois cocktails colorés sur un bar" loading="lazy"><span class="tag">Photo d'illustration</span></div>
+        <div class="body"><small>En fin de journée</small><h3>Un cocktail</h3><p>Le spritz et les cocktails, pour prolonger le voyage.</p></div>
+      </article>
+    </div>
+    <p class="quote reveal">« Un véritable voyage gourmand <span>aux saveurs de l'Italie</span>&nbsp;! »</p>
+  </div>
+</section>
+
+<section class="sec atelier" id="planche">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="reveal">Composez <em>votre planche</em></h2>
+      <p class="reveal d1">Choisissez sur place ou à emporter, le nombre de convives et ce qu'il y a dessus : la demande part directement à la boutique, avec un créneau qui tombe forcément pendant les heures d'ouverture.</p>
+    </div>
+
+    <div class="tool">
+      <form class="panel reveal" id="planche-form" onsubmit="return false">
+        <div class="step">
+          <h4><i>1</i>Sur place ou à emporter ?</h4>
+          <div class="chips">
+            <div class="chip"><input type="radio" name="mode" id="m-emp" value="À emporter" checked><label for="m-emp">À emporter</label></div>
+            <div class="chip"><input type="radio" name="mode" id="m-sp" value="Sur place, au salon"><label for="m-sp">Sur place, au salon</label></div>
+          </div>
+        </div>
+        <div class="step">
+          <h4><i>2</i>Pour combien de personnes ?</h4>
+          <div class="stepper" role="group" aria-label="Nombre de personnes">
+            <button type="button" id="minus" aria-label="Une personne de moins">−</button>
+            <output id="pers" aria-live="polite">2 personnes</output>
+            <button type="button" id="plus" aria-label="Une personne de plus">+</button>
+          </div>
+        </div>
+        <div class="step">
+          <h4><i>3</i>Sur la planche</h4>
+          <div class="chips">
+            <div class="chip"><input type="checkbox" id="c-ch" value="Charcuteries" checked><label for="c-ch">Charcuteries</label></div>
+            <div class="chip"><input type="checkbox" id="c-fr" value="Fromages" checked><label for="c-fr">Fromages</label></div>
+            <div class="chip"><input type="checkbox" id="c-ar" value="Arancini"><label for="c-ar">Arancini</label></div>
+          </div>
+          <div class="balance" id="balance-wrap">
+            <div class="labels"><span>Plutôt charcuterie</span><span>Plutôt fromage</span></div>
+            <input type="range" id="balance" min="0" max="100" value="50" aria-label="Équilibre entre charcuteries et fromages">
+          </div>
+          <div class="field" style="margin-top:1rem"><label for="envies">Une envie, une allergie, un produit à ne pas oublier ?</label><textarea id="envies" placeholder="Ex. : sans porc, un fromage plus doux pour les enfants…"></textarea></div>
+        </div>
+        <div class="step" id="step-boisson">
+          <h4><i>4</i>Pour accompagner <span style="font-weight:500;color:var(--gris);font-size:.85rem">(facultatif)</span></h4>
+          <div class="chips">
+            <div class="chip"><input type="checkbox" id="b-sp" value="Spritz"><label for="b-sp">Spritz</label></div>
+            <div class="chip"><input type="checkbox" id="b-co" value="Cocktail"><label for="b-co">Cocktail</label></div>
+            <div class="chip"><input type="checkbox" id="b-ca" value="Café"><label for="b-ca">Café</label></div>
+          </div>
+        </div>
+        <div class="step">
+          <h4><i>5</i>Quand ?</h4>
+          <div class="row2">
+            <div class="field"><label for="jour">Jour</label><select id="jour"></select></div>
+            <div class="field"><label for="heure">Heure</label><select id="heure"></select></div>
+          </div>
+          <p class="hint" id="jour-hint">Seuls les jours et créneaux d'ouverture sont proposés (fermé le lundi).</p>
+          <div class="row2" style="margin-top:1rem">
+            <div class="field"><label for="nom">Votre nom</label><input type="text" id="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+            <div class="field"><label for="tel">Votre téléphone</label><input type="tel" id="tel" autocomplete="tel" placeholder="06 …"></div>
+          </div>
+        </div>
+      </form>
+
+      <aside class="preview reveal d1" aria-label="Récapitulatif de la planche">
+        <div class="board-card">
+          <h3>Votre planche <em id="titre-mode">à emporter</em></h3>
+          <div class="board" id="board" aria-hidden="true"></div>
+          <ul class="recap">
+            <li><span>Format</span><span id="r-mode">À emporter</span></li>
+            <li><span>Convives</span><span id="r-pers">2 personnes</span></li>
+            <li><span>Sur la planche</span><span id="r-compo">Charcuteries, fromages</span></li>
+            <li><span>Accompagnement</span><span id="r-boisson">—</span></li>
+            <li><span>Créneau</span><span id="r-quand">—</span></li>
+          </ul>
+          <div class="actions">
+            <button type="button" class="btn btn-limone" id="send">Envoyer la demande à la boutique</button>
+            <button type="button" class="btn btn-line" id="ics">Ajouter le créneau à mon agenda</button>
+            <a href="tel:+33604513839" class="btn btn-line">Ou appeler : 06 04 51 38 39</a>
+          </div>
+          <p class="note">Maquette : le bouton prépare un mail à <strong>gusto-freddo@outlook.fr</strong>. Le contenu et le prix de la planche sont confirmés par la boutique, aucun tarif n'est affiché ici.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="infos">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="reveal">Infos <em>pratiques</em></h2>
+      <p class="reveal d1">Sur l'avenue de la Libération au Coteau, à deux pas de Roanne.</p>
+    </div>
+    <div class="infos-grid">
+      <div class="card reveal">
+        <h3>Horaires</h3>
+        <ul class="hours" id="hours"></ul>
+        <p class="hint">Horaires relevés sur la fiche de Roannais Tourisme (mise à jour du 18/11/2026).</p>
+      </div>
+      <div class="card reveal d1">
+        <h3>Nous trouver</h3>
+        <div class="contact-lines">
+          <a class="cl" href="https://www.google.com/maps/search/?api=1&query=126+avenue+de+la+Lib%C3%A9ration+42120+Le+Coteau" target="_blank" rel="noopener"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span><span><small>Adresse</small><b>126 avenue de la Libération<br>42120 Le Coteau</b></span></a>
+          <a class="cl" href="tel:+33604513839"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span><small>Téléphone</small><b>06 04 51 38 39</b></span></a>
+          <a class="cl" href="mailto:gusto-freddo@outlook.fr"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg></span><span><small>Mail</small><b>gusto-freddo@outlook.fr</b></span></a>
+        </div>
+        <div class="facade">Emplacement réservé à une vraie photo de la devanture et du salon — <strong>à fournir par la boutique</strong>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="final reveal">
+    <span class="ring" style="width:320px;height:320px;left:-90px;top:-120px"></span>
+    <span class="ring" style="width:220px;height:220px;right:-60px;bottom:-80px"></span>
+    <h2>Un petit air d'Italie,<br>au coin de la rue.</h2>
+    <p>Passez à la boutique, ou préparez votre planche à l'avance pour l'apéritif de ce week-end.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a href="#planche" class="btn btn-white">Composer ma planche</a>
+      <a href="tel:+33604513839" class="btn btn-ghost">Appeler la boutique</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <div class="f-logo">Gusto <i>Freddo</i></div>
+        <p style="margin-top:.6rem">Épicerie aux saveurs italiennes et salon de thé au Coteau.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>126 avenue de la Libération<br>42120 Le Coteau<br><a href="tel:+33604513839">06 04 51 38 39</a><br><a href="mailto:gusto-freddo@outlook.fr">gusto-freddo@outlook.fr</a></p>
+      </div>
+      <div>
+        <h4>Ouverture</h4>
+        <p>Du mardi au dimanche<br>Fermé le lundi<br><a href="#infos">Voir le détail des horaires</a></p>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>Maquette de démonstration</strong> réalisée à partir des informations publiques (fiche Roannais Tourisme, registre des entreprises). Ce n'est pas le site officiel de Gusto Freddo et elle n'a aucune valeur contractuelle.<br>
+      <strong>Couleurs et logo</strong> : aucune charte graphique n'était publiée en ligne ; la palette et le logotype sont une proposition, ajustables en quelques minutes sur l'enseigne réelle.<br>
+      <strong>Photos</strong> : aucune photo de la boutique n'était disponible. Les visuels sont des photos d'illustration libres de droits (Unsplash), signalées comme telles ; la devanture et le salon restent à photographier.<br>
+      <strong>Produits et prix</strong> : seuls les produits cités par la boutique sont mentionnés ; aucun tarif n'est affiché, le prix des planches est à confirmer par la boutique.
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-call">
+  <a href="tel:+33604513839" class="btn btn-tomate">Appeler</a>
+  <a href="#planche" class="btn" style="background:var(--basilic);color:#fff">Ma planche</a>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  /* ---------- horaires réels (fiche Roannais Tourisme) ---------- */
+  // 0 = dimanche … 6 = samedi ; plages en minutes
+  const H = {
+    0:[[570,750]],
+    1:[],
+    2:[[570,750],[930,1140]],
+    3:[[570,750],[930,1140]],
+    4:[[570,750]],
+    5:[[570,1140]],
+    6:[[570,1080]]
+  };
+  const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+  const fmt=m=>Math.floor(m/60)+'h'+(m%60?String(m%60).padStart(2,'0'):'');
+  const fmtR=r=>fmt(r[0])+' – '+fmt(r[1]);
+
+  // tableau des horaires
+  const order=[2,3,4,5,6,0,1], now=new Date(), today=now.getDay();
+  const ul=document.getElementById('hours');
+  order.forEach(d=>{
+    const li=document.createElement('li'); if(d===today) li.className='today';
+    li.innerHTML='<span>'+JOURS[d]+'</span><span>'+(H[d].length?H[d].map(fmtR).join(' · '):'<span class="off">Fermé</span>')+'</span>';
+    ul.appendChild(li);
+  });
+
+  // statut ouvert / fermé
+  function status(){
+    const n=new Date(), d=n.getDay(), m=n.getHours()*60+n.getMinutes();
+    const el=document.getElementById('status'), t=document.getElementById('status-txt');
+    const cur=H[d].find(r=>m>=r[0]&&m<r[1]);
+    if(cur){el.className='status open';t.textContent='Ouvert · jusqu\'à '+fmt(cur[1]);return;}
+    el.className='status closed';
+    const next=H[d].find(r=>m<r[0]);
+    if(next){t.textContent='Fermé · ouvre à '+fmt(next[0]);return;}
+    for(let i=1;i<8;i++){const dd=(d+i)%7;if(H[dd].length){t.textContent='Fermé · ouvre '+(i===1?'demain':JOURS[dd].toLowerCase())+' '+fmt(H[dd][0][0]);return;}}
+  }
+  status(); setInterval(status,60000);
+
+  /* ---------- en-tête ---------- */
+  const header=document.querySelector('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=document.getElementById('burger'), menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  /* ---------- apparitions au défilement ---------- */
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  } else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+
+  /* ---------- composer ma planche ---------- */
+  const $=id=>document.getElementById(id);
+  let pers=2;
+  const jourSel=$('jour'), heureSel=$('heure');
+
+  // jours proposés : 14 prochains jours d'ouverture
+  const days=[];
+  for(let i=0;days.length<14&&i<30;i++){
+    const dt=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i);
+    if(!H[dt.getDay()].length) continue;
+    if(i===0){const lim=now.getHours()*60+now.getMinutes()+60;if(!H[dt.getDay()].some(r=>r[1]-30>=lim)) continue;}
+    days.push(dt);
+  }
+  days.forEach((dt,i)=>{
+    const o=document.createElement('option'); o.value=i;
+    const diff=Math.round((dt-new Date(now.getFullYear(),now.getMonth(),now.getDate()))/864e5);
+    o.textContent=(diff===0?'Aujourd\'hui':diff===1?'Demain':JOURS[dt.getDay()])+' '+dt.getDate()+' '+MOIS[dt.getMonth()];
+    jourSel.appendChild(o);
+  });
+  function fillHours(){
+    const dt=days[+jourSel.value]; heureSel.innerHTML='';
+    const isToday=dt.toDateString()===new Date().toDateString();
+    const minNow=new Date().getHours()*60+new Date().getMinutes()+60; // une heure de préparation
+    let count=0;
+    H[dt.getDay()].forEach(r=>{
+      for(let m=r[0];m<=r[1]-30;m+=30){
+        if(isToday&&m<minNow) continue;
+        const o=document.createElement('option');o.value=m;o.textContent=fmt(m);heureSel.appendChild(o);count++;
+      }
+    });
+    const hint=$('jour-hint');
+    if(!count){
+      const o=document.createElement('option');o.textContent='Plus de créneau ce jour';o.value='';heureSel.appendChild(o);
+      hint.textContent='Plus de créneau disponible aujourd\'hui : choisissez un autre jour.';hint.className='hint warn';
+    } else {hint.textContent='Seuls les jours et créneaux d\'ouverture sont proposés (fermé le lundi), avec une heure de préparation minimum.';hint.className='hint';}
+    update();
+  }
+  jourSel.addEventListener('change',fillHours);
+
+  $('minus').onclick=()=>{pers=Math.max(1,pers-1);update()};
+  $('plus').onclick=()=>{pers=Math.min(20,pers+1);update()};
+
+  // pièces de la planche
+  const board=$('board');
+  const rnd=(s=>()=>(s=Math.sin(s)*10000,s-Math.floor(s)))(7);
+  const slots=[];
+  for(let i=0;i<40;i++){
+    let x,y; do{x=rnd();y=rnd();}while(((x-.5)/.46)**2+((y-.5)/.42)**2>1);
+    slots.push({x,y,s:16+rnd()*14});
+  }
+  function makePiece(cls,sl){const p=document.createElement('span');p.className='piece '+cls;p.style.left=(sl.x*100)+'%';p.style.top=(sl.y*100)+'%';p.style.width=sl.s+'px';p.style.height=sl.s+'px';p.style.marginLeft=(-sl.s/2)+'px';p.style.marginTop=(-sl.s/2)+'px';board.appendChild(p);return p;}
+  const pieces=slots.map((sl,i)=>makePiece(i%9===8?'ol':'ch',sl));
+  const drinks=[{x:.86,y:.18,s:24},{x:.12,y:.2,s:24},{x:.9,y:.78,s:24}].map(sl=>makePiece('dr',sl));
+
+  function update(){
+    const mode=document.querySelector('input[name=mode]:checked').value;
+    const ch=$('c-ch').checked, fr=$('c-fr').checked, ar=$('c-ar').checked;
+    const bal=+$('balance').value;
+    $('balance-wrap').style.opacity=(ch&&fr)?1:.35; $('balance').disabled=!(ch&&fr);
+    $('pers').textContent=pers+(pers>1?' personnes':' personne');
+    // pièces visibles : proportionnelles au nombre de convives
+    const total=Math.min(slots.length,10+pers*3);
+    const types=[];
+    if(ch) types.push('ch'); if(fr) types.push('fr'); if(ar) types.push('ar');
+    pieces.forEach((p,i)=>{
+      if(i>=total||!types.length){p.classList.remove('on');return;}
+      if(p.classList.contains('ol')){p.classList.add('on');return;}
+      let t;
+      const r=(i*37%100);
+      if(ar&&i%5===0) t='ar';
+      else if(ch&&fr) t=r<(100-bal)?'ch':'fr';
+      else t=ch?'ch':fr?'fr':'ar';
+      p.className='piece '+t+' on';
+    });
+    const boissons=['b-sp','b-co','b-ca'].filter(id=>$(id).checked).map(id=>$(id).value);
+    drinks.forEach((d,i)=>d.classList.toggle('on',i<boissons.length));
+    const compo=[ch&&'charcuteries',fr&&'fromages',ar&&'arancini'].filter(Boolean);
+    let compoTxt=compo.length?compo.join(', '):'à définir';
+    if(ch&&fr) compoTxt+=bal<35?' (plutôt charcuterie)':bal>65?' (plutôt fromage)':' (équilibrée)';
+    $('r-mode').textContent=mode; $('titre-mode').textContent=mode==='À emporter'?'à emporter':'au salon';
+    $('r-pers').textContent=pers+(pers>1?' personnes':' personne');
+    $('r-compo').textContent=compoTxt.charAt(0).toUpperCase()+compoTxt.slice(1);
+    $('r-boisson').textContent=boissons.length?boissons.join(', '):'—';
+    const dt=days[+jourSel.value], hm=heureSel.value;
+    $('r-quand').textContent=hm?jourSel.options[jourSel.selectedIndex].text+' à '+fmt(+hm):'à choisir';
+  }
+  document.querySelectorAll('#planche-form input').forEach(i=>i.addEventListener('input',update));
+  fillHours();
+
+  function message(){
+    update();
+    return 'Bonjour,\n\nJe souhaiterais réserver une planche :\n'+
+      '- Format : '+$('r-mode').textContent+'\n'+
+      '- Pour : '+$('r-pers').textContent+'\n'+
+      '- Composition : '+$('r-compo').textContent+'\n'+
+      '- Accompagnement : '+$('r-boisson').textContent+'\n'+
+      '- Créneau souhaité : '+$('r-quand').textContent+'\n'+
+      ($('envies').value.trim()?'- Précisions : '+$('envies').value.trim()+'\n':'')+
+      '\nMerci de me confirmer la disponibilité et le prix.\n\n'+($('nom').value||'')+'\n'+($('tel').value||'');
+  }
+  const toast=$('toast');
+  function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(()=>toast.classList.remove('show'),3800);}
+  $('send').onclick=()=>{
+    if(!heureSel.value){say('Choisissez d\'abord un jour avec un créneau disponible.');return;}
+    const sujet='Demande de planche – '+$('r-quand').textContent;
+    location.href='mailto:gusto-freddo@outlook.fr?subject='+encodeURIComponent(sujet)+'&body='+encodeURIComponent(message());
+    say('Votre messagerie s\'ouvre avec la demande déjà rédigée.');
+  };
+  $('ics').onclick=()=>{
+    if(!heureSel.value){say('Choisissez d\'abord un créneau.');return;}
+    const dt=days[+jourSel.value], m=+heureSel.value;
+    const p=n=>String(n).padStart(2,'0');
+    const st=dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate())+'T'+p(Math.floor(m/60))+p(m%60)+'00';
+    const en=dt.getFullYear()+p(dt.getMonth()+1)+p(dt.getDate())+'T'+p(Math.floor((m+30)/60))+p((m+30)%60)+'00';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Gusto Freddo//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@gusto-freddo','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z','DTSTART;TZID=Europe/Paris:'+st,'DTEND;TZID=Europe/Paris:'+en,'SUMMARY:Planche Gusto Freddo ('+$('r-mode').textContent+')','LOCATION:126 avenue de la Libération\\, 42120 Le Coteau','DESCRIPTION:'+$('r-pers').textContent+' – '+$('r-compo').textContent,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='planche-gusto-freddo.ics';document.body.appendChild(a);a.click();a.remove();
+    say('Créneau ajouté : ouvrez le fichier pour l\'enregistrer dans votre agenda.');
+  };
+})();
+</script>
+</body>
+</html>
