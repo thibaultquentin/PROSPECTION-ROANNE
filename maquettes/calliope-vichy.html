@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calliope — Magasin de décoration et luminaires à Vichy | Abat-jour sur mesure</title>
+<meta name="description" content="Calliope, boutique de décoration à Vichy depuis 1985 : luminaires, abat-jours sur mesure, meubles d'appoint, objets et idées cadeaux. Conseils personnalisés, 43 avenue Victoria.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kurale&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   CHARTE CALLIOPE — relevée sur calliope-decoration-vichy.fr
+   (variables Elementor du site : noir #000, accent #A50000,
+   gris #54595F / #7A7A7A, fond chaud #FFF7F1 ;
+   titres en Kurale, textes en Lato). Ajustable ici.
+   ========================================================== */
+:root{
+  --noir:#111111;
+  --encre:#000000;
+  --rouge:#A50000;        /* le « p » rouge du logo */
+  --rouge-vif:#C70000;
+  --gris:#54595F;
+  --gris-clair:#7A7A7A;
+  --filet:#E6E1DC;
+  --creme:#FFF7F1;        /* fond chaud utilisé sur le site */
+  --blanc:#FFFFFF;
+  --f-titre:"Kurale", Georgia, serif;
+  --f-texte:"Lato", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--noir);background:var(--blanc);line-height:1.65;font-size:17px;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-titre);font-weight:400;line-height:1.12}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--rouge);outline-offset:3px;border-radius:4px}
+
+/* Bandeau démo */
+.demo{background:var(--noir);color:#ddd;font-size:12.5px;text-align:center;padding:7px 16px;letter-spacing:.02em}
+.demo b{color:#fff}
+
+/* Navigation */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s, box-shadow .3s}
+header.nav.scrolled{border-color:var(--filet);box-shadow:0 6px 24px rgba(0,0,0,.05)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px;gap:20px}
+.nav .logo img{height:40px;width:auto}
+.nav ul{display:flex;gap:30px;list-style:none;font-size:15px}
+.nav ul a{text-decoration:none;position:relative;padding:4px 0}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--rouge);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after,.nav ul a.actif::after{transform:scaleX(1)}
+.nav .tel{font-weight:700;text-decoration:none;border:1.5px solid var(--noir);padding:9px 16px;border-radius:40px;font-size:14px;white-space:nowrap;transition:background .25s,color .25s}
+.nav .tel:hover{background:var(--noir);color:#fff}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--noir);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .nav ul{position:fixed;inset:74px 0 auto 0;flex-direction:column;background:#fff;padding:24px;gap:18px;border-bottom:1px solid var(--filet);transform:translateY(-12px);opacity:0;visibility:hidden;transition:transform .4s var(--ease),opacity .3s,visibility .3s}
+  .nav ul.ouvert{transform:none;opacity:1;visibility:visible}
+  .burger{display:block}
+  .nav .tel{display:none}
+}
+
+/* Hero : la lumière suit le curseur */
+.hero{position:relative;min-height:calc(100svh - 104px);display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:40px;padding:60px 0 80px;overflow:hidden}
+.hero-txt .sur{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gris)}
+.hero-txt h1{font-size:clamp(2.4rem,1.6rem + 3.6vw,4.6rem);margin:18px 0 22px}
+.hero-txt h1 em{font-style:normal;color:var(--rouge)}
+.hero-txt p{color:var(--gris);max-width:520px;font-size:1.08rem}
+.ctas{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:40px;font-weight:700;font-size:15px;text-decoration:none;border:1.5px solid var(--noir);cursor:pointer;transition:transform .25s var(--ease),background .25s,color .25s;font-family:var(--f-texte)}
+.btn:active{transform:scale(.96)}
+.btn-r{background:var(--rouge);border-color:var(--rouge);color:#fff}
+.btn-r:hover{background:var(--noir);border-color:var(--noir)}
+.btn-c{background:transparent}
+.btn-c:hover{background:var(--noir);color:#fff}
+.depuis{display:flex;align-items:center;gap:14px;margin-top:40px;font-size:14px;color:var(--gris)}
+.depuis strong{font-family:var(--f-titre);font-size:2.2rem;color:var(--noir);font-weight:400}
+.hero-visu{position:relative;height:min(78vh,640px);border-radius:300px 300px 18px 18px;overflow:hidden;isolation:isolate;background:#222}
+.hero-visu img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 1.6s var(--ease);filter:brightness(.78) saturate(1.05)}
+.hero-visu.vu img{transform:scale(1)}
+.hero-visu .halo{position:absolute;inset:0;background:radial-gradient(260px circle at var(--x,55%) var(--y,35%),rgba(255,236,200,.55),rgba(255,220,170,.12) 40%,transparent 70%);mix-blend-mode:screen;pointer-events:none;transition:opacity .4s}
+.hero-visu .etiq{position:absolute;left:18px;bottom:18px;background:rgba(255,255,255,.92);padding:10px 16px;border-radius:30px;font-size:13px}
+.hero-visu .etiq b{color:var(--rouge)}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-top:30px}.hero-visu{height:440px;order:-1}}
+
+/* Bandeau atouts (repris du site) */
+.atouts{background:var(--creme);border-block:1px solid var(--filet)}
+.atouts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.atout{padding:30px 22px;border-left:1px solid var(--filet)}
+.atout:first-child{border-left:0}
+.atout .n{font-family:var(--f-titre);color:var(--rouge);font-size:1.4rem}
+.atout p{font-size:15px;color:var(--gris);margin-top:4px}
+@media (max-width:800px){.atouts .wrap{grid-template-columns:1fr 1fr}.atout:nth-child(3){border-left:0}.atout{border-top:1px solid var(--filet)}}
+
+section{padding:100px 0}
+.titre-s{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:50px;flex-wrap:wrap}
+.titre-s .sur{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--rouge)}
+.titre-s h2{font-size:clamp(2rem,1.4rem + 2.4vw,3.2rem);margin-top:10px;max-width:700px}
+.titre-s p{color:var(--gris);max-width:420px}
+
+/* Univers */
+.univers{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--filet);border:1px solid var(--filet)}
+.u{background:#fff;padding:26px 20px 24px;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;transition:background .35s}
+.u .i{font-family:var(--f-titre);font-size:13px;color:var(--gris-clair)}
+.u h3{font-size:1.2rem;margin-top:30px;position:relative;z-index:1;transition:color .35s}
+.u::before{content:"";position:absolute;inset:auto -30% -60% auto;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(165,0,0,.18),transparent 70%);transform:scale(0);transition:transform .6s var(--ease)}
+.u:hover::before{transform:scale(1.6)}
+.u:hover h3{color:var(--rouge)}
+@media (max-width:1000px){.univers{grid-template-columns:repeat(2,1fr)}}
+
+/* Configurateur */
+.atelier{background:var(--noir);color:#eee;position:relative;overflow:hidden}
+.atelier .titre-s .sur{color:#ff8f8f}
+.atelier .titre-s p{color:#aaa}
+.config{display:grid;grid-template-columns:1fr 1.05fr;gap:50px;align-items:start}
+.scene{position:sticky;top:110px;background:radial-gradient(circle at 50% 30%,#2a2522,#151312 70%);border-radius:22px;padding:30px;min-height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #2c2826;transition:background .6s}
+.scene.allume{background:radial-gradient(circle at 50% 34%,#5b4632,#1d1915 72%)}
+.scene svg{width:100%;max-width:380px;height:auto;overflow:visible}
+.scene .interr{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:14px;color:#bbb}
+.switch{width:54px;height:30px;border-radius:30px;background:#3a3633;border:0;position:relative;cursor:pointer;transition:background .3s}
+.switch::after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .35s var(--ease)}
+.switch[aria-pressed="true"]{background:var(--rouge)}
+.switch[aria-pressed="true"]::after{transform:translateX(24px)}
+.cotes{font-size:13px;color:#9a948f;margin-top:10px;text-align:center}
+.etapes{display:flex;flex-direction:column;gap:30px}
+.etape h3{font-size:1.25rem;color:#fff;display:flex;gap:12px;align-items:baseline}
+.etape h3 span{font-family:var(--f-texte);font-size:12px;color:#ff8f8f;letter-spacing:.15em}
+.etape .aide{font-size:14px;color:#9a948f;margin:4px 0 12px}
+.choix{display:flex;flex-wrap:wrap;gap:10px}
+.choix button{background:transparent;border:1.5px solid #3d3936;color:#ddd;padding:10px 16px;border-radius:30px;cursor:pointer;font:inherit;font-size:14px;transition:border-color .25s,background .25s,color .25s}
+.choix button:hover{border-color:#888}
+.choix button[aria-pressed="true"]{background:#fff;color:var(--noir);border-color:#fff}
+.slider{display:grid;grid-template-columns:120px 1fr 64px;align-items:center;gap:14px;font-size:14px;color:#ccc;margin-bottom:8px}
+.slider output{font-weight:700;color:#fff;text-align:right}
+input[type=range]{accent-color:var(--rouge-vif);width:100%}
+.teintes{display:flex;gap:10px;flex-wrap:wrap}
+.teintes button{width:36px;height:36px;border-radius:50%;border:2px solid #3d3936;cursor:pointer;transition:transform .2s}
+.teintes button:hover{transform:scale(1.12)}
+.teintes button[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px var(--rouge)}
+.champ{display:flex;flex-direction:column;gap:6px;font-size:14px;color:#ccc}
+.champ input,.champ textarea,.champ select{background:#1d1a18;border:1.5px solid #3d3936;color:#fff;border-radius:10px;padding:12px 14px;font:inherit}
+.champ textarea{min-height:80px;resize:vertical}
+.grille2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.recap{background:#1d1a18;border:1px dashed #4a4542;border-radius:14px;padding:18px 20px;font-size:14px;color:#ccc;line-height:1.8}
+.recap b{color:#fff}
+.note-cfg{font-size:12.5px;color:#8a847f;margin-top:10px}
+@media (max-width:900px){.config{grid-template-columns:1fr}.scene{position:relative;top:0;min-height:400px}.grille2{grid-template-columns:1fr}.slider{grid-template-columns:96px 1fr 56px}}
+
+/* Réalisations abat-jour */
+.real{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+.real figure{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:4/3;background:#eee}
+.real img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.real figure:hover img{transform:scale(1.06)}
+.real figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.94);color:var(--noir);padding:6px 13px;border-radius:20px;font-size:13px}
+@media (max-width:800px){.real{grid-template-columns:1fr}}
+
+/* Histoire */
+.histoire{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.histoire .photos{position:relative;height:560px}
+.histoire .photos img{position:absolute;object-fit:cover;border-radius:14px;box-shadow:0 30px 60px rgba(0,0,0,.14)}
+.histoire .p1{width:62%;height:78%;left:0;top:0}
+.histoire .p2{width:52%;height:58%;right:0;bottom:0;border:8px solid #fff}
+.histoire h2{font-size:clamp(2rem,1.4rem + 2.4vw,3rem);margin:10px 0 20px}
+.histoire p{color:var(--gris);margin-bottom:16px}
+.muse{border-left:3px solid var(--rouge);padding:6px 0 6px 20px;margin-top:26px;font-family:var(--f-titre);font-size:1.15rem;color:var(--noir)}
+.cathy{display:flex;align-items:center;gap:16px;margin-top:30px}
+.cathy img{width:70px;height:70px;border-radius:50%;object-fit:cover}
+.cathy small{display:block;color:var(--gris-clair)}
+@media (max-width:900px){.histoire{grid-template-columns:1fr}.histoire .photos{height:420px}}
+
+/* Galerie défilante */
+.galerie{background:var(--creme);padding:90px 0;overflow:hidden}
+.piste{display:flex;gap:18px;width:max-content;animation:defile 60s linear infinite}
+.galerie:hover .piste{animation-play-state:paused}
+.piste figure{width:280px;height:360px;border-radius:14px;overflow:hidden;flex:none;background:#ddd}
+.piste img{width:100%;height:100%;object-fit:cover}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* Services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.srv{border:1px solid var(--filet);border-radius:18px;padding:34px 28px;transition:transform .35s var(--ease),box-shadow .35s,border-color .35s}
+.srv:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.08);border-color:transparent}
+.srv .ic{width:46px;height:46px;border-radius:50%;background:var(--creme);display:grid;place-items:center;color:var(--rouge);font-family:var(--f-titre);font-size:1.2rem}
+.srv h3{font-size:1.35rem;margin:22px 0 10px}
+.srv p{color:var(--gris);font-size:15.5px}
+@media (max-width:900px){.services{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--noir);color:#eee}
+.contact .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:stretch}
+.contact h2{font-size:clamp(2rem,1.4rem + 2.4vw,3rem);color:#fff;margin:10px 0 20px}
+.contact .sur{font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#ff8f8f}
+.coord{list-style:none;margin:26px 0 32px;display:flex;flex-direction:column;gap:16px}
+.coord li{display:flex;gap:14px}
+.coord span{color:#8a847f;min-width:90px;font-size:14px}
+.coord a{text-decoration:none;border-bottom:1px solid #555}
+.coord a:hover{border-color:#ff8f8f}
+.carte{border-radius:18px;overflow:hidden;min-height:380px;background:#222}
+.carte iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.85) contrast(1.05)}
+.contact .btn-c{border-color:#fff;color:#fff}
+.contact .btn-c:hover{background:#fff;color:var(--noir)}
+@media (max-width:900px){.contact .grid{grid-template-columns:1fr}}
+
+footer{background:#000;color:#8a847f;font-size:13px;padding:34px 0}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer .logo-f{font-family:var(--f-titre);font-size:1.6rem;color:#fff}
+footer .logo-f i{font-style:normal;color:var(--rouge-vif)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeGoodsStore",
+  "name":"Calliope",
+  "description":"Magasin de décoration et luminaires à Vichy depuis 1985 : abat-jours sur mesure, meubles d'appoint, objets de décoration, idées cadeaux.",
+  "url":"https://www.calliope-decoration-vichy.fr/",
+  "telephone":"+33470598906",
+  "email":"calliopesas@gmail.com",
+  "foundingDate":"1985",
+  "address":{"@type":"PostalAddress","streetAddress":"43 avenue Victoria","postalCode":"03200","addressLocality":"Vichy","addressCountry":"FR"},
+  "areaServed":"Vichy",
+  "sameAs":["https://www.facebook.com/calliope.decoration.vichy/"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo"><b>Maquette de démonstration</b> — proposition de refonte du site de Calliope, non officielle.</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#accueil" class="logo" aria-label="Calliope, accueil"><img src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/2024/01/logo-calliope-magasin-decoration-vichy.png" alt="Calliope" width="141" height="40"></a>
+    <ul id="menu">
+      <li><a href="#accueil" class="actif">Accueil</a></li>
+      <li><a href="#univers">Boutique</a></li>
+      <li><a href="#atelier">Abat-jour sur mesure</a></li>
+      <li><a href="#histoire">Portfolio</a></li>
+      <li><a href="#contact">Contact &amp; Accès</a></li>
+    </ul>
+    <a class="tel" href="tel:+33470598906">04 70 59 89 06</a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="wrap hero" id="accueil" style="padding-top:50px">
+  <div class="hero-txt reveal">
+    <span class="sur">Magasin décoration, luminaire, abat-jour à Vichy</span>
+    <h1>Calliope, le choix, <em>les conseils</em> en plus</h1>
+    <p>Luminaires et abat-jours sur mesure, objets de décoration, tableaux, horloges, meubles d'appoint, bougies et idées cadeaux. Une sélection de produits d'origine française ou européenne, au 43 avenue Victoria.</p>
+    <div class="ctas">
+      <a href="#atelier" class="btn btn-r">Composer mon abat-jour <span aria-hidden="true">→</span></a>
+      <a href="#contact" class="btn btn-c">Venir à la boutique</a>
+    </div>
+    <div class="depuis"><strong>1985</strong><span>l'une des plus anciennes<br>boutiques de Vichy</span></div>
+  </div>
+  <div class="hero-visu reveal" id="heroVisu">
+    <img src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/Luminaire-Boutique-Calliope--scaled-22spqx4p5gg3aqys16t3ou8ltd8ybht7hx2.jpg" alt="Luminaires et objets de décoration dans la boutique Calliope à Vichy">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="etiq" id="etiq">Passez la souris : <b>la lumière vous suit</b></div>
+  </div>
+</section>
+
+<div class="atouts">
+  <div class="wrap">
+    <div class="atout reveal"><div class="n">Conseils</div><p>Accompagnement dans vos recherches</p></div>
+    <div class="atout reveal"><div class="n">France &amp; Europe</div><p>Origine des produits, principalement</p></div>
+    <div class="atout reveal"><div class="n">Sur-mesure</div><p>Commande et livraison en magasin</p></div>
+    <div class="atout reveal"><div class="n">Depuis 1985</div><p>43 avenue Victoria, Vichy</p></div>
+  </div>
+</div>
+
+<section id="univers">
+  <div class="wrap">
+    <div class="titre-s reveal">
+      <div><span class="sur">Nos univers de décoration</span><h2>Un aperçu de ce qui vous attend en boutique</h2></div>
+      <p>Des pièces originales à tous les prix, en magasin ou sur catalogue : il suffit de nous solliciter pour vos recherches.</p>
+    </div>
+    <div class="univers">
+      <div class="u reveal"><span class="i">01</span><h3>Lampes, luminaires, lampadaires</h3></div>
+      <div class="u reveal"><span class="i">02</span><h3>Suspensions, plafonniers, appliques</h3></div>
+      <div class="u reveal"><span class="i">03</span><h3>Abat-jour détail et sur-mesure</h3></div>
+      <div class="u reveal"><span class="i">04</span><h3>Tableaux, cadres, miroirs</h3></div>
+      <div class="u reveal"><span class="i">05</span><h3>Meubles, étagères, tables</h3></div>
+      <div class="u reveal"><span class="i">06</span><h3>Pendules, horloges</h3></div>
+      <div class="u reveal"><span class="i">07</span><h3>Décoration, statues, bibelots</h3></div>
+      <div class="u reveal"><span class="i">08</span><h3>Vases, coupes, bougeoirs</h3></div>
+      <div class="u reveal"><span class="i">09</span><h3>Porte-parapluies, porte-revues</h3></div>
+      <div class="u reveal"><span class="i">10</span><h3>Idées cadeaux</h3></div>
+    </div>
+  </div>
+</section>
+
+<section class="atelier" id="atelier">
+  <div class="wrap">
+    <div class="titre-s reveal">
+      <div><span class="sur">Conception d'abats-jours sur mesure à Vichy</span><h2>Composez votre abat-jour, on s'occupe du reste</h2></div>
+      <p>Forme, taille, teinte, motif ou texte : esquissez votre idée ici, puis envoyez-la à la boutique. Cathy vous recontacte pour affiner le projet et vous donner un prix.</p>
+    </div>
+
+    <div class="config">
+      <div class="scene" id="scene">
+        <svg viewBox="0 0 400 440" role="img" aria-label="Aperçu de l'abat-jour composé">
+          <defs>
+            <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+              <stop offset="0" stop-color="#ffe7b8" stop-opacity=".9"/>
+              <stop offset="1" stop-color="#ffe7b8" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="ombre" x1="0" x2="1">
+              <stop offset="0" stop-color="#000" stop-opacity=".28"/>
+              <stop offset=".45" stop-color="#000" stop-opacity="0"/>
+              <stop offset="1" stop-color="#000" stop-opacity=".32"/>
+            </linearGradient>
+            <pattern id="motif" width="26" height="26" patternUnits="userSpaceOnUse">
+              <circle cx="7" cy="7" r="3.2" fill="#fff" fill-opacity=".55"/>
+              <path d="M17 19c2-4 6-4 6 0-2 3-4 3-6 0z" fill="#fff" fill-opacity=".45"/>
+            </pattern>
+            <clipPath id="clipAJ"><path id="clipForme" d=""/></clipPath>
+          </defs>
+          <ellipse id="halo" cx="200" cy="170" rx="210" ry="190" fill="url(#glow)" opacity="0"/>
+          <!-- pied (fixe) -->
+          <g id="pied">
+            <rect x="196" y="250" width="8" height="120" fill="#c9a86a"/>
+            <ellipse cx="200" cy="300" rx="34" ry="38" fill="#c9a86a" opacity=".9"/>
+            <ellipse cx="200" cy="300" rx="34" ry="38" fill="url(#ombre)"/>
+            <ellipse cx="200" cy="384" rx="62" ry="12" fill="#b8955a"/>
+          </g>
+          <!-- abat-jour -->
+          <g id="abatjour">
+            <path id="forme" d="" fill="#f3ece2"/>
+            <rect id="couche-motif" x="0" y="0" width="400" height="440" fill="url(#motif)" clip-path="url(#clipAJ)" opacity="0"/>
+            <text id="texte-aj" x="200" y="165" text-anchor="middle" font-family="Kurale, serif" font-size="22" fill="#A50000" clip-path="url(#clipAJ)"></text>
+            <path id="forme-ombre" d="" fill="url(#ombre)"/>
+            <path id="lumiere" d="" fill="#fff6dc" opacity="0"/>
+          </g>
+        </svg>
+        <div class="interr"><button class="switch" id="switch" aria-pressed="false" aria-label="Allumer la lampe"></button><span id="etatLampe">Lampe éteinte</span></div>
+        <div class="cotes" id="cotes"></div>
+      </div>
+
+      <form class="etapes" id="formAJ" onsubmit="return false">
+        <div class="etape reveal">
+          <h3><span>01</span>La forme</h3>
+          <p class="aide">D'autres formes sont possibles : précisez-le dans votre message.</p>
+          <div class="choix" data-groupe="forme">
+            <button type="button" data-v="cylindre" aria-pressed="true">Cylindre</button>
+            <button type="button" data-v="conique">Conique</button>
+            <button type="button" data-v="empire">Empire (galbé)</button>
+            <button type="button" data-v="carre">Carré</button>
+          </div>
+        </div>
+
+        <div class="etape reveal">
+          <h3><span>02</span>Les dimensions</h3>
+          <p class="aide">Cotes indicatives, à vérifier ensemble selon votre pied de lampe.</p>
+          <div class="slider"><label for="dBas">Ø bas</label><input type="range" id="dBas" min="15" max="60" value="35"><output id="oBas">35 cm</output></div>
+          <div class="slider"><label for="dHaut">Ø haut</label><input type="range" id="dHaut" min="10" max="60" value="35"><output id="oHaut">35 cm</output></div>
+          <div class="slider"><label for="haut">Hauteur</label><input type="range" id="haut" min="12" max="45" value="25"><output id="oHt">25 cm</output></div>
+        </div>
+
+        <div class="etape reveal">
+          <h3><span>03</span>Teinte et finition</h3>
+          <p class="aide">Une couleur de départ, pour situer l'ambiance : le choix des tissus se fait en boutique.</p>
+          <div class="teintes" data-groupe="teinte">
+            <button type="button" data-v="#f3ece2" data-n="Écru" style="background:#f3ece2" aria-pressed="true" aria-label="Écru"></button>
+            <button type="button" data-v="#d9d4cf" data-n="Gris perle" style="background:#d9d4cf" aria-label="Gris perle"></button>
+            <button type="button" data-v="#1d1d1d" data-n="Noir" style="background:#1d1d1d" aria-label="Noir"></button>
+            <button type="button" data-v="#A50000" data-n="Rouge" style="background:#A50000" aria-label="Rouge"></button>
+            <button type="button" data-v="#2f5d50" data-n="Vert sapin" style="background:#2f5d50" aria-label="Vert sapin"></button>
+            <button type="button" data-v="#c9a86a" data-n="Doré" style="background:#c9a86a" aria-label="Doré"></button>
+            <button type="button" data-v="#e8b7b0" data-n="Rose poudré" style="background:#e8b7b0" aria-label="Rose poudré"></button>
+          </div>
+          <div class="choix" data-groupe="finition" style="margin-top:14px">
+            <button type="button" data-v="Uni" aria-pressed="true">Uni</button>
+            <button type="button" data-v="Motif">Avec motif</button>
+            <button type="button" data-v="Texte">Avec un texte</button>
+          </div>
+          <div class="champ" id="champTexte" style="margin-top:14px;display:none">
+            <label for="texte">Votre texte (prénom, citation, date…)</label>
+            <input id="texte" maxlength="28" placeholder="ex. Maison Bellevue">
+          </div>
+        </div>
+
+        <div class="etape reveal">
+          <h3><span>04</span>Pour quel luminaire ?</h3>
+          <div class="choix" data-groupe="usage">
+            <button type="button" data-v="Lampe à poser" aria-pressed="true">Lampe à poser</button>
+            <button type="button" data-v="Lampadaire">Lampadaire</button>
+            <button type="button" data-v="Suspension">Suspension</button>
+          </div>
+          <div class="choix" data-groupe="pied" style="margin-top:12px">
+            <button type="button" data-v="J'ai déjà le pied" aria-pressed="true">J'ai déjà le pied</button>
+            <button type="button" data-v="Je cherche aussi un pied">Je cherche aussi un pied</button>
+          </div>
+        </div>
+
+        <div class="etape reveal">
+          <h3><span>05</span>Vos coordonnées</h3>
+          <div class="grille2">
+            <div class="champ"><label for="nom">Nom</label><input id="nom" autocomplete="name"></div>
+            <div class="champ"><label for="telc">Téléphone</label><input id="telc" type="tel" autocomplete="tel"></div>
+          </div>
+          <div class="champ" style="margin-top:14px"><label for="msg">Précisions (pièce, ambiance, photo à venir…)</label><textarea id="msg"></textarea></div>
+        </div>
+
+        <div class="recap" id="recap" aria-live="polite"></div>
+        <div class="ctas" style="margin-top:0">
+          <button type="button" class="btn btn-r" id="envoyer">Envoyer ma demande à la boutique</button>
+          <a href="tel:+33470598906" class="btn btn-c" style="border-color:#fff;color:#fff">Appeler</a>
+        </div>
+        <p class="note-cfg">L'envoi ouvre votre messagerie avec la demande pré-remplie, adressée à calliopesas@gmail.com. Aperçu purement indicatif : forme, tissu et prix sont définis avec la boutique.</p>
+      </form>
+    </div>
+
+    <div class="real">
+      <figure class="reveal"><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/abat-jour-personnalise-motif-7lndtcnrkqp9j2r323ksh2xc3yf4t0i1ia.png" alt="Abat-jour personnalisé à motif fleuri"><figcaption>Abat-jour personnalisé — motif</figcaption></figure>
+      <figure class="reveal"><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/abat-jour-atyique-7lndsyvd0cbfpvwpyv72yr6i19a8zrtixu.png" alt="Abat-jour de forme atypique"><figcaption>Forme, taille…</figcaption></figure>
+      <figure class="reveal"><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/abat-jour-interieure-zoom-7lndt2l0bdf5qtlieyu5oghvo4z3pn8fmq.png" alt="Détail de l'intérieur d'un abat-jour sur mesure"><figcaption>Le détail de l'intérieur</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="histoire">
+  <div class="wrap histoire">
+    <div class="photos reveal">
+      <img class="p1" loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/2024/02/magasin-decoration-vichy-calliope.jpg" alt="Lampe, horloge et sculpture en vitrine chez Calliope">
+      <img class="p2" loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/2024/02/magasin-deco-vichy.jpg" alt="Lampadaire doré et miroir feuillage dans la boutique">
+    </div>
+    <div class="reveal">
+      <span class="titre-s"><span class="sur">Un magasin de décoration historique à Vichy</span></span>
+      <h2>Depuis 1985, au 43 avenue Victoria</h2>
+      <p>Calliope, l'une des plus anciennes boutiques de Vichy, vieillit avec grâce. À travers le temps, elle a évolué, mais a préservé son charme et sa collection d'objets imprégnés d'histoires et de souvenirs.</p>
+      <p>On y vient pour faire plaisir ou se faire plaisir, et pour un conseil : lumière, design, harmonie d'une pièce, en respectant vos goûts.</p>
+      <div class="muse">« Calliope », Muse de la poésie épique et de l'éloquence : un nom choisi pour l'inspiration artistique qu'il porte.</div>
+      <div class="cathy">
+        <img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/2024/02/cathy-calliope-gerante-vichy.png" alt="Cathy, décoratrice et conseil en magasin chez Calliope">
+        <div><b>Cathy</b><small>Décoratrice, conseil en magasin</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="galerie" aria-label="Aperçu de la boutique">
+  <div class="piste" id="piste">
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/theiere-boutique-calliope-scaled-22spwj3r4pwmy8cwub6ihi4isqhy4svzrzq.jpg" alt="Théière verte en céramique"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/bibelot-statue-boutique-Calliope-scaled-22sqbe3ar1251xzi0bauay7kht0rrsvxenq.jpg" alt="Bibelot statue ange enfant"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/calliope-vichy-velo--scaled-22sqo6r8s2u3z7gi8jo7cyr8s3ogpoz9f1y.jpg" alt="Décoration argentée vélo"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/enceinte-boutique-calliope-vichy-scaled-22sugwo49l5ysg6mkh5eof7zv7pnx5m14l2.jpg" alt="Mini enceinte en bois"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/IMG_8402-scaled-22sqjtn3f3pjt14x5zamcvrtk7cs30hm5py.jpg" alt="Objet de décoration Calliope"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/IMG_2395-scaled-7mld8v5weihc1mwknpy96z0ca4ozzb7cty.jpeg" alt="Décoration en boutique"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/IMG_2808-scaled-7ksjkte42ffzwu2efw3rzbeyef5mmje6k6.jpeg" alt="Décoration en boutique"></figure>
+    <figure><img loading="lazy" src="https://www.calliope-decoration-vichy.fr/wp-content/uploads/apollo13_images/IMG_2831-scaled-7kskaevb1tm32tryvupf22xwdcl55mtq5y.jpeg" alt="Décoration en boutique"></figure>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="titre-s reveal">
+      <div><span class="sur">Nous vous accompagnons</span><h2>Les services Calliope</h2></div>
+      <p>En boutique à Vichy, ou chez vous aux alentours.</p>
+    </div>
+    <div class="services">
+      <div class="srv reveal"><div class="ic">1</div><h3>Décoration intérieure, recherche et conseil</h3><p>Objets, meubles, luminaires : nous cherchons à vos côtés, à partir du stock du magasin mais aussi sur catalogue.</p></div>
+      <div class="srv reveal"><div class="ic">2</div><h3>Abat-jour sur mesure</h3><p>Chaque abat-jour est conçu pour s'adapter à votre style et à vos besoins : une ambiance chaleureuse au salon, une touche d'élégance dans la chambre.</p></div>
+      <div class="srv reveal"><div class="ic">3</div><h3>Déplacement aux alentours</h3><p>Nous pouvons nous déplacer chez vous autour de Vichy. Vous pouvez aussi nous rendre visite directement au magasin.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap grid">
+    <div class="reveal">
+      <span class="sur">Contact &amp; Accès</span>
+      <h2>Venez nous rencontrer</h2>
+      <p style="color:#aaa">Une question sur un produit, un conseil déco ou une demande particulière ? Passez à la boutique ou échangeons à distance, selon vos préférences.</p>
+      <ul class="coord">
+        <li><span>Adresse</span><div>Calliope<br>43 avenue Victoria, 03200 Vichy</div></li>
+        <li><span>Téléphone</span><a href="tel:+33470598906">04 70 59 89 06</a></li>
+        <li><span>Mail</span><a href="mailto:calliopesas@gmail.com">calliopesas@gmail.com</a></li>
+        <li><span>Réseaux</span><div><a href="https://www.facebook.com/calliope.decoration.vichy/" target="_blank" rel="noopener">Facebook</a> · Instagram</div></li>
+        <li><span>Horaires</span><div style="color:#aaa">à compléter par la boutique</div></li>
+      </ul>
+      <div class="ctas">
+        <a href="https://www.google.com/maps/dir/?api=1&amp;destination=43+avenue+Victoria+03200+Vichy" target="_blank" rel="noopener" class="btn btn-r">Itinéraire</a>
+        <a href="#atelier" class="btn btn-c">Demande d'abat-jour</a>
+      </div>
+    </div>
+    <div class="carte reveal">
+      <iframe title="Plan d'accès Calliope, 43 avenue Victoria à Vichy" loading="lazy" src="https://maps.google.com/maps?q=43%20avenue%20Victoria%2C%2003200%20Vichy&amp;z=16&amp;output=embed"></iframe>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="logo-f">Callio<i>p</i>e</div>
+    <div>Calliope — 43 avenue Victoria, 03200 Vichy — 04 70 59 89 06 — calliopesas@gmail.com</div>
+    <div>Maquette de démonstration non officielle. Textes, couleurs (noir, blanc, rouge #A50000) et polices (Kurale, Lato) repris du site actuel de Calliope ; toutes les photos sont celles publiées par la boutique sur son site. L'aperçu du configurateur est indicatif : aucun prix n'est affiché, les tarifs restent à définir avec la boutique. Horaires à fournir.</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const reduit = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Nav */
+  const nav = document.getElementById('nav');
+  addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 10), {passive:true});
+  const burger = document.querySelector('.burger'), menu = document.getElementById('menu');
+  burger.addEventListener('click', () => { const o = menu.classList.toggle('ouvert'); burger.setAttribute('aria-expanded', o); });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('ouvert'); burger.setAttribute('aria-expanded', false); }));
+  const liens = [...menu.querySelectorAll('a')];
+  const secs = liens.map(a => document.querySelector(a.getAttribute('href')));
+  const so = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { liens.forEach(l => l.classList.toggle('actif', l.getAttribute('href') === '#' + e.target.id)); } }), {rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(s => s && so.observe(s));
+
+  /* Reveal */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vu'); io.unobserve(e.target); } }), {threshold:.12});
+  document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = (i % 5) * 70 + 'ms'; io.observe(el); });
+  const hv = document.getElementById('heroVisu');
+  requestAnimationFrame(() => hv.classList.add('vu'));
+
+  /* Halo du hero */
+  if (matchMedia('(hover: none)').matches) document.getElementById('etiq').innerHTML = 'Touchez la photo : <b>la lumière vous suit</b>';
+  if (!reduit) {
+    let tx = 55, ty = 35, cx = 55, cy = 35;
+    hv.addEventListener('pointermove', e => { const r = hv.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width * 100; ty = (e.clientY - r.top) / r.height * 100; });
+    (function boucle(){ cx += (tx - cx) * .08; cy += (ty - cy) * .08; hv.style.setProperty('--x', cx + '%'); hv.style.setProperty('--y', cy + '%'); requestAnimationFrame(boucle); })();
+  }
+
+  /* Galerie : duplication pour la boucle */
+  const piste = document.getElementById('piste');
+  piste.innerHTML += piste.innerHTML;
+
+  /* Configurateur */
+  const etat = { forme:'cylindre', teinte:'#f3ece2', teinteNom:'Écru', finition:'Uni', usage:'Lampe à poser', pied:"J'ai déjà le pied", allume:false };
+  const $ = id => document.getElementById(id);
+  const dBas = $('dBas'), dHaut = $('dHaut'), haut = $('haut');
+
+  document.querySelectorAll('[data-groupe]').forEach(g => {
+    g.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      g.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      const k = g.dataset.groupe;
+      if (k === 'teinte') { etat.teinte = b.dataset.v; etat.teinteNom = b.dataset.n; }
+      else etat[k] = b.dataset.v;
+      if (k === 'forme') presetForme();
+      $('champTexte').style.display = etat.finition === 'Texte' ? 'flex' : 'none';
+      dessine();
+    });
+  });
+
+  function presetForme(){
+    const p = { cylindre:[35,35,25], conique:[40,20,26], empire:[42,18,28], carre:[32,32,24] }[etat.forme];
+    dBas.value = p[0]; dHaut.value = p[1]; haut.value = p[2];
+  }
+  [dBas, dHaut, haut].forEach(i => i.addEventListener('input', () => { if (etat.forme === 'cylindre' || etat.forme === 'carre') { if (i === dBas) dHaut.value = dBas.value; if (i === dHaut) dBas.value = dHaut.value; } dessine(); }));
+  ['texte','nom','telc','msg'].forEach(id => $(id).addEventListener('input', dessine));
+
+  $('switch').addEventListener('click', e => {
+    etat.allume = !etat.allume;
+    e.currentTarget.setAttribute('aria-pressed', etat.allume);
+    e.currentTarget.setAttribute('aria-label', etat.allume ? 'Éteindre la lampe' : 'Allumer la lampe');
+    $('etatLampe').textContent = etat.allume ? 'Lampe allumée' : 'Lampe éteinte';
+    $('scene').classList.toggle('allume', etat.allume);
+    dessine();
+  });
+
+  function dessine(){
+    const b = +dBas.value, h = +dHaut.value, ht = +haut.value;
+    $('oBas').textContent = b + ' cm'; $('oHaut').textContent = h + ' cm'; $('oHt').textContent = ht + ' cm';
+    const k = 4.6;                       // échelle cm -> px
+    const wb = b * k / 2, wh = h * k / 2, H = ht * k;
+    const cx = 200, base = 255, top = base - H;
+    let d;
+    if (etat.forme === 'empire') {
+      d = `M${cx-wh},${top} Q${cx-wh-(wb-wh)*.15},${top+H*.55} ${cx-wb},${base} L${cx+wb},${base} Q${cx+wh+(wb-wh)*.15},${top+H*.55} ${cx+wh},${top} Z`;
+    } else if (etat.forme === 'carre') {
+      d = `M${cx-wh},${top} L${cx+wh},${top} L${cx+wb},${base} L${cx-wb},${base} Z`;
+    } else {
+      d = `M${cx-wh},${top} L${cx+wh},${top} L${cx+wb},${base} L${cx-wb},${base} Z`;
+    }
+    const forme = $('forme');
+    forme.setAttribute('d', d);
+    forme.setAttribute('fill', etat.teinte);
+    $('forme-ombre').setAttribute('d', d);
+    $('clipForme').setAttribute('d', d);
+    $('forme-ombre').setAttribute('opacity', etat.forme === 'carre' ? .55 : .9);
+    $('couche-motif').setAttribute('opacity', etat.finition === 'Motif' ? 1 : 0);
+    const clair = ['#f3ece2','#d9d4cf','#e8b7b0','#c9a86a'].includes(etat.teinte);
+    const t = $('texte-aj');
+    t.textContent = etat.finition === 'Texte' ? ($('texte').value || 'Votre texte') : '';
+    t.setAttribute('y', top + H * .58);
+    t.setAttribute('fill', clair ? '#A50000' : '#ffffff');
+    t.setAttribute('font-size', Math.max(11, Math.min(24, (Math.min(wb, wh) * 2 * 0.9) / Math.max(6, t.textContent.length) * 1.7)));
+    /* lumière */
+    $('halo').setAttribute('opacity', etat.allume ? 1 : 0);
+    $('halo').setAttribute('cy', top + H / 2);
+    const lum = $('lumiere');
+    lum.setAttribute('d', d);
+    lum.setAttribute('opacity', etat.allume ? (clair ? .45 : .18) : 0);
+    $('cotes').textContent = `Ø bas ${b} cm · Ø haut ${h} cm · hauteur ${ht} cm`;
+    recap(b, h, ht);
+  }
+
+  const nomsForme = { cylindre:'Cylindre', conique:'Conique', empire:'Empire (galbé)', carre:'Carré' };
+  function texteDemande(b, h, ht){
+    return [
+      `Forme : ${nomsForme[etat.forme]}`,
+      `Dimensions : Ø bas ${b} cm, Ø haut ${h} cm, hauteur ${ht} cm`,
+      `Teinte : ${etat.teinteNom} — finition : ${etat.finition}${etat.finition === 'Texte' && $('texte').value ? ' (« ' + $('texte').value + ' »)' : ''}`,
+      `Luminaire : ${etat.usage} — ${etat.pied}`
+    ];
+  }
+  function recap(b, h, ht){
+    $('recap').innerHTML = '<b>Votre demande</b><br>' + texteDemande(b, h, ht).map(l => l.replace(/&/g,'&amp;').replace(/</g,'&lt;')).join('<br>');
+  }
+  $('envoyer').addEventListener('click', () => {
+    const lignes = texteDemande(+dBas.value, +dHaut.value, +haut.value);
+    const corps = ['Bonjour,', '', "Je souhaiterais un abat-jour sur mesure :", ...lignes.map(l => '- ' + l), '', 'Précisions : ' + ($('msg').value || '—'), '', 'Nom : ' + ($('nom').value || '—'), 'Téléphone : ' + ($('telc').value || '—')].join('\n');
+    location.href = 'mailto:calliopesas@gmail.com?subject=' + encodeURIComponent('Demande d\'abat-jour sur mesure') + '&body=' + encodeURIComponent(corps);
+  });
+
+  presetForme(); dessine();
+})();
+</script>
+</body>
+</html>
