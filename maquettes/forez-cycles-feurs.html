@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forez Cycles — Magasin et atelier vélo à Feurs | Location VTTAE</title>
+<meta name="description" content="Forez Cycles à Feurs : vente de vélos Giant, Liv, Orbea et Bianchi, réparation toutes marques et location de VTT électriques à la demi-journée ou à la journée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE FOREZ CYCLES — relevée sur l'enseigne lumineuse du magasin
+   (photo publiée par l'Office de Tourisme Forez Est).
+   Aucune charte numérique n'existe : couleurs approchées, ajustables ici.
+   ============================================================ */
+:root{
+  --nuit:#141a26;        /* bardage anthracite de la façade */
+  --nuit-2:#1d2535;
+  --nuit-3:#2a3446;
+  --blanc:#ffffff;       /* lettres "CYCLES" / roues du pictogramme */
+  --ambre:#f4b942;       /* "FOREZ" et cadre du vélo lumineux */
+  --ambre-2:#ffd27a;
+  --acier:#93a6c6;       /* "VENTE | LOCATION | RÉPARATION — TOUTES MARQUES" */
+  --rouge:#d4463c;       /* petit tiret rouge de l'enseigne */
+  --papier:#f5f3ee;
+  --texte:#1b2230;
+  --gris:#5d6779;
+  --titre:'Nunito', system-ui, sans-serif;      /* lettrage arrondi de l'enseigne */
+  --corps:'Nunito Sans', system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--corps);color:var(--texte);background:var(--papier);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ambre);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* bandeau démo */
+.demo{background:var(--ambre);color:var(--nuit);font-size:.8rem;font-weight:700;text-align:center;padding:6px 16px}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(20,26,38,.86);backdrop-filter:blur(12px) saturate(160%);color:#fff;border-bottom:1px solid rgba(255,255,255,.06);transition:background .3s}
+header.scrolled{background:rgba(20,26,38,.97)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--titre);font-weight:900;font-size:1.35rem;letter-spacing:.02em}
+.logo .f{color:var(--ambre);text-shadow:0 0 14px rgba(244,185,66,.55)}
+.logo .c{color:#fff;text-shadow:0 0 14px rgba(255,255,255,.35)}
+.logo svg{width:44px;height:28px}
+.menu{display:flex;gap:26px;list-style:none;font-weight:700;font-size:.95rem}
+.menu a{text-decoration:none;opacity:.82;transition:opacity .2s,color .2s}
+.menu a:hover{opacity:1;color:var(--ambre)}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.07);white-space:nowrap}
+.status i{width:8px;height:8px;border-radius:50%;background:#8a93a3}
+.status.open i{background:#4bd18b;box-shadow:0 0 0 0 rgba(75,209,139,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(75,209,139,0)}100%{box-shadow:0 0 0 0 rgba(75,209,139,0)}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--titre);font-weight:800;text-decoration:none;border:0;cursor:pointer;border-radius:99px;padding:13px 24px;font-size:1rem;transition:transform .2s var(--ease),box-shadow .2s,background .2s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-ambre{background:var(--ambre);color:var(--nuit);box-shadow:0 6px 24px -6px rgba(244,185,66,.7)}
+.btn-ambre:hover{background:var(--ambre-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35)}
+.btn-ghost:hover{border-color:#fff}
+.burger{display:none;background:none;border:0;color:#fff;width:44px;height:44px;cursor:pointer}
+
+/* hero */
+.hero{position:relative;background:var(--nuit);color:#fff;overflow:hidden;min-height:calc(100vh - 100px);display:grid;align-items:end}
+.hero-img{position:absolute;inset:0}
+.hero-img img{width:100%;height:100%;object-fit:cover;object-position:center 40%;transform:scale(1.08);transition:transform 1.6s var(--ease)}
+.loaded .hero-img img{transform:scale(1)}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,38,.15) 0%,rgba(20,26,38,.35) 45%,rgba(20,26,38,.96) 100%)}
+.hero-content{position:relative;padding:120px 0 64px}
+.kicker{display:inline-flex;flex-wrap:wrap;gap:8px 10px;align-items:center;background:rgba(20,26,38,.78);backdrop-filter:blur(6px);padding:8px 14px;border-radius:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;color:var(--acier)}
+.kicker b{color:var(--rouge)}
+.hero h1{font-family:var(--titre);font-weight:900;font-size:clamp(2.6rem,1.6rem + 5vw,5.6rem);line-height:.98;margin:14px 0 18px;letter-spacing:-.01em}
+.hero h1 .f{color:var(--ambre);text-shadow:0 0 30px rgba(244,185,66,.45)}
+.hero p.lead{font-size:clamp(1.05rem,.95rem + .5vw,1.3rem);max-width:600px;color:#dfe5ef}
+.hero .ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.reveal-line{display:block;overflow:hidden}
+.reveal-line>span{display:block;transform:translateY(105%);transition:transform 1s var(--ease)}
+.loaded .reveal-line>span{transform:none}
+.loaded .reveal-line:nth-child(2)>span{transition-delay:.12s}
+.hero-strip{position:relative;background:var(--nuit-2);border-top:1px solid rgba(255,255,255,.06)}
+.hero-strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.hero-strip div{padding:20px 18px;border-right:1px solid rgba(255,255,255,.06);font-size:.92rem;color:#c9d2e0}
+.hero-strip div:last-child{border:0}
+.hero-strip strong{display:block;color:#fff;font-family:var(--titre);font-size:1.05rem}
+
+/* marquee marques */
+.marquee{background:var(--ambre);color:var(--nuit);overflow:hidden;white-space:nowrap;padding:14px 0;font-family:var(--titre);font-weight:900;font-size:1.4rem}
+.marquee .track{display:inline-flex;gap:46px;animation:defile 26s linear infinite;padding-left:46px}
+.marquee span.dot{opacity:.4}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:96px 0}
+.eyebrow{font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;color:#b07a10;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:26px;height:3px;background:var(--rouge);border-radius:3px}
+h2{font-family:var(--titre);font-weight:900;font-size:clamp(2rem,1.5rem + 2vw,3.2rem);line-height:1.05;margin:12px 0 16px}
+.intro{max-width:640px;color:var(--gris);font-size:1.08rem}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.card{position:relative;background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05),0 18px 40px -24px rgba(20,26,38,.35);transition:transform .35s var(--ease),box-shadow .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 1px 2px rgba(0,0,0,.05),0 30px 60px -28px rgba(20,26,38,.5)}
+.card .vis{height:190px;background:var(--nuit);position:relative;display:grid;place-items:center;overflow:hidden}
+.card .vis img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .vis img{transform:scale(1.06)}
+.card .vis svg{width:150px;color:var(--ambre)}
+.illus{position:absolute;right:10px;bottom:10px;background:rgba(20,26,38,.75);color:#fff;font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.02em}
+.card .body{padding:24px}
+.card h3{font-family:var(--titre);font-weight:900;font-size:1.45rem;margin-bottom:6px}
+.card p{color:var(--gris)}
+.card .tag{display:inline-block;margin-top:14px;font-weight:800;font-size:.85rem;color:var(--nuit);text-decoration:none;border-bottom:2px solid var(--ambre)}
+.spin{transform-origin:center;transform-box:fill-box;animation:roue 6s linear infinite}
+@keyframes roue{to{transform:rotate(360deg)}}
+
+/* location tool */
+.loc{background:var(--nuit);color:#fff;position:relative;overflow:hidden}
+.loc::before{content:"";position:absolute;width:640px;height:640px;border-radius:50%;right:-220px;top:-220px;background:radial-gradient(circle,rgba(244,185,66,.18),transparent 65%)}
+.loc .eyebrow{color:var(--ambre)}
+.loc .intro{color:#b9c3d3}
+.tool{position:relative;display:grid;grid-template-columns:1.25fr .9fr;gap:26px;margin-top:44px}
+.panel{background:var(--nuit-2);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:28px}
+.step{margin-bottom:26px}
+.step-t{display:flex;align-items:center;gap:10px;font-family:var(--titre);font-weight:800;font-size:1.05rem;margin-bottom:12px}
+.step-t span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--ambre);color:var(--nuit);font-size:.85rem}
+.formules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.formule{position:relative;cursor:pointer}
+.formule input{position:absolute;opacity:0}
+.formule .box{border:2px solid rgba(255,255,255,.12);border-radius:16px;padding:16px 14px;transition:border-color .2s,background .2s,transform .2s var(--ease);height:100%}
+.formule:hover .box{transform:translateY(-2px)}
+.formule input:checked+.box{border-color:var(--ambre);background:rgba(244,185,66,.08)}
+.formule input:focus-visible+.box{outline:3px solid var(--ambre);outline-offset:2px}
+.formule .n{font-weight:700;font-size:.9rem;color:#c9d2e0}
+.formule .p{font-family:var(--titre);font-weight:900;font-size:1.9rem;color:#fff}
+.formule .p small{font-size:.9rem;color:var(--acier);font-weight:700}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.counter{display:flex;align-items:center;gap:6px;background:var(--nuit-3);border-radius:99px;padding:5px}
+.counter button{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:#fff;font-size:1.3rem;cursor:pointer;transition:background .2s}
+.counter button:hover{background:var(--ambre);color:var(--nuit)}
+.counter output{min-width:46px;text-align:center;font-family:var(--titre);font-weight:900;font-size:1.4rem}
+.bikes{display:flex;gap:6px;flex-wrap:wrap}
+.bikes svg{width:40px;color:var(--ambre);transition:transform .35s var(--ease),opacity .3s}
+.bikes svg.off{opacity:.15;transform:scale(.85)}
+input[type=date],input[type=text],input[type=tel],input[type=email],select,textarea{width:100%;font:inherit;color:inherit;background:var(--nuit-3);border:2px solid transparent;border-radius:12px;padding:12px 14px;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--ambre);outline:none}
+input[type=date]{color-scheme:dark;max-width:240px}
+.hint{font-size:.85rem;color:var(--acier);margin-top:8px;min-height:1.3em}
+.hint.warn{color:#ffb4a8}
+.recap{display:flex;flex-direction:column;justify-content:space-between}
+.recap h3{font-family:var(--titre);font-size:1.2rem;margin-bottom:14px}
+.recap dl{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;font-size:.95rem}
+.recap dt{color:var(--acier)}
+.recap dd{text-align:right;font-weight:700}
+.total{border-top:1px dashed rgba(255,255,255,.18);margin-top:20px;padding-top:18px;display:flex;justify-content:space-between;align-items:baseline}
+.total b{font-family:var(--titre);font-weight:900;font-size:2.8rem;color:var(--ambre);line-height:1}
+.recap .btns{display:grid;gap:10px;margin-top:22px}
+.small{font-size:.8rem;color:var(--acier);margin-top:12px}
+.route{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.route div{background:var(--nuit-3);border-radius:14px;padding:14px 16px}
+.route b{font-family:var(--titre);font-size:1.5rem;color:#fff}
+.route span{display:block;font-size:.85rem;color:var(--acier)}
+
+/* atelier */
+.atelier{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 4px}
+.chip{position:relative}
+.chip input{position:absolute;opacity:0}
+.chip span{display:inline-block;padding:10px 16px;border-radius:99px;border:2px solid #dcd8cf;font-weight:700;font-size:.92rem;cursor:pointer;transition:all .2s;background:#fff}
+.chip input:checked+span{background:var(--nuit);border-color:var(--nuit);color:#fff}
+.chip input:focus-visible+span{outline:3px solid var(--ambre);outline-offset:2px}
+.form{background:#fff;border-radius:22px;padding:30px;box-shadow:0 24px 60px -36px rgba(20,26,38,.5)}
+.form label.l{display:block;font-weight:800;font-family:var(--titre);margin:18px 0 8px}
+.form input,.form select,.form textarea{background:var(--papier);color:var(--texte)}
+.form textarea{min-height:96px;resize:vertical}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.slot{padding:10px;border-radius:12px;border:2px solid #e4e0d7;background:#fff;font-weight:700;cursor:pointer;font-size:.88rem;transition:all .2s}
+.slot:hover{border-color:var(--ambre)}
+.slot[aria-pressed=true]{background:var(--ambre);border-color:var(--ambre);color:var(--nuit)}
+.slot:disabled{opacity:.35;cursor:not-allowed}
+.ok{display:none;margin-top:16px;padding:14px 16px;border-radius:12px;background:#e8f6ee;color:#185c37;font-weight:700}
+.ok.show{display:block;animation:pop .4s var(--ease)}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+.points{list-style:none;margin-top:28px;display:grid;gap:16px}
+.points li{display:flex;gap:14px;align-items:flex-start}
+.points svg{flex:0 0 40px;width:40px;height:40px;padding:9px;border-radius:12px;background:var(--nuit);color:var(--ambre)}
+.points b{font-family:var(--titre);display:block;font-size:1.05rem}
+.points p{color:var(--gris);font-size:.95rem}
+
+/* facade / infos */
+.infos{background:#fff}
+.infos-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:stretch}
+.horaires{list-style:none;margin-top:12px}
+.horaires li{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #ece8df;font-weight:600}
+.horaires li.today{color:#9a6400;font-weight:800}
+.horaires li.today{background:rgba(244,185,66,.14);border-radius:10px;padding-inline:12px;border-bottom-color:transparent}
+.coord{margin-top:26px;display:grid;gap:12px}
+.coord a,.coord div{display:flex;gap:12px;align-items:center;text-decoration:none;font-weight:700}
+.coord svg{width:22px;height:22px;color:#b07a10;flex:0 0 22px}
+.map{border-radius:22px;overflow:hidden;min-height:380px;background:var(--papier);position:relative}
+.map iframe{width:100%;height:100%;min-height:380px;border:0;filter:grayscale(.3)}
+
+.cta-final{background:var(--nuit);color:#fff;text-align:center;padding:90px 0}
+.cta-final h2{max-width:760px;margin-inline:auto}
+.cta-final h2 em{font-style:normal;color:var(--ambre)}
+.cta-final p{color:#b9c3d3;margin-bottom:28px}
+.cta-final .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+footer{background:#0d121b;color:#8d97a8;font-size:.86rem;padding:40px 0 90px}
+footer .wrap{display:grid;gap:12px}
+footer strong{color:#fff}
+
+.mobile-bar{display:none}
+@media (max-width:980px){
+  .menu{display:none}
+  .menu.open{display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;background:var(--nuit);padding:20px 24px;gap:16px}
+  .burger{display:grid;place-items:center}
+  .services,.tool,.atelier,.infos-grid{grid-template-columns:1fr}
+  .hero-strip .wrap{grid-template-columns:1fr 1fr}
+  .hero-strip div:nth-child(2){border-right:0}
+  .nav-cta .btn{display:none}
+}
+@media (max-width:640px){
+  section{padding:68px 0}
+  .formules{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  .status{display:none}
+  .mobile-bar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;padding:10px 12px;background:rgba(20,26,38,.96);z-index:60}
+  .mobile-bar .btn{padding:11px 10px;font-size:.92rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .reveal-line>span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BikeStore",
+  "name":"Forez Cycles",
+  "description":"Vente, location et réparation de vélos toutes marques. Location de VTT à assistance électrique à la demi-journée ou à la journée.",
+  "telephone":"+33 9 81 71 30 35",
+  "email":"forez.cycles42@gmail.com",
+  "address":{"@type":"PostalAddress","streetAddress":"4 bis rue du Capitole, ZI du Forum","postalCode":"42110","addressLocality":"Feurs","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.723130,"longitude":4.225404},
+  "areaServed":"Feurs et le Forez",
+  "brand":[{"@type":"Brand","name":"Giant"},{"@type":"Brand","name":"Liv"},{"@type":"Brand","name":"Orbea"},{"@type":"Brand","name":"Bianchi"}],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Monday","opens":"14:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Tuesday","Wednesday","Thursday","Friday"],"opens":"10:00","closes":"19:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"10:00","closes":"18:00"}
+  ],
+  "makesOffer":[
+    {"@type":"Offer","name":"Location VTTAE demi-journée","price":"30","priceCurrency":"EUR"},
+    {"@type":"Offer","name":"Location VTTAE journée","price":"50","priceCurrency":"EUR"},
+    {"@type":"Offer","name":"Location VTTAE journée en week-end","price":"80","priceCurrency":"EUR"}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="demo">Maquette de démonstration — proposition de site pour Forez Cycles, non officielle</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Forez Cycles, accueil">
+      <svg viewBox="0 0 64 40" fill="none" aria-hidden="true"><circle cx="14" cy="26" r="11" stroke="#fff" stroke-width="3.5"/><circle cx="50" cy="26" r="11" stroke="#fff" stroke-width="3.5"/><path d="M14 26 L25 9 H43 L50 26 M25 9 L33 26 L43 9 M22 4 H29 M40 4 L45 4" stroke="#f4b942" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span><span class="f">FOREZ</span> <span class="c">CYCLES</span></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#services">Le magasin</a></li>
+      <li><a href="#location">Location VTTAE</a></li>
+      <li><a href="#atelier">L'atelier</a></li>
+      <li><a href="#infos">Horaires & accès</a></li>
+    </ul>
+    <div class="nav-cta">
+      <span class="status" id="status"><i></i><span>…</span></span>
+      <a class="btn btn-ambre" href="#location">Réserver un VTTAE</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" style="padding:0">
+  <div class="hero-img"><img src="assets/forez-cycles-feurs/facade.jpg" alt="Façade éclairée du magasin Forez Cycles à Feurs, vélos en vitrine" fetchpriority="high"></div>
+  <div class="hero-content wrap">
+    <div class="kicker">Vente | Location | Réparation <b>—</b> Toutes marques</div>
+    <h1><span class="reveal-line"><span>Votre magasin vélo</span></span><span class="reveal-line"><span>à <span class="f">Feurs</span>.</span></span></h1>
+    <p class="lead">Vélos Giant, Liv, Orbea et Bianchi, atelier de réparation toutes marques et VTT à assistance électrique à louer pour une demi-journée ou une journée.</p>
+    <div class="ctas">
+      <a class="btn btn-ambre" href="#location">Réserver un VTTAE</a>
+      <a class="btn btn-ghost" href="#atelier">Déposer mon vélo à l'atelier</a>
+    </div>
+  </div>
+</section>
+<div class="hero-strip">
+  <div class="wrap">
+    <div><strong>4 bis rue du Capitole</strong>ZI du Forum, Feurs</div>
+    <div><strong>Lun. → Sam.</strong>Fermé le dimanche</div>
+    <div><strong>Dès 30 €</strong>la demi-journée en VTTAE</div>
+    <div><strong>09 81 71 30 35</strong>Appel direct au magasin</div>
+  </div>
+</div>
+
+<div class="marquee" aria-label="Marques : Giant, Liv, Orbea, Bianchi">
+  <div class="track" aria-hidden="true">
+    <span>GIANT</span><span class="dot">●</span><span>LIV</span><span class="dot">●</span><span>ORBEA</span><span class="dot">●</span><span>BIANCHI</span><span class="dot">●</span><span>RÉPARATION TOUTES MARQUES</span><span class="dot">●</span><span>LOCATION VTTAE</span><span class="dot">●</span>
+    <span>GIANT</span><span class="dot">●</span><span>LIV</span><span class="dot">●</span><span>ORBEA</span><span class="dot">●</span><span>BIANCHI</span><span class="dot">●</span><span>RÉPARATION TOUTES MARQUES</span><span class="dot">●</span><span>LOCATION VTTAE</span><span class="dot">●</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">Le magasin</div>
+    <h2 class="reveal">Vente, location, réparation.</h2>
+    <p class="intro reveal">Les trois métiers affichés sur l'enseigne, réunis au même endroit dans la zone du Forum.</p>
+    <div class="services">
+      <article class="card reveal">
+        <div class="vis"><img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?w=900&q=70&auto=format&fit=crop" alt="" loading="lazy"><span class="illus">Photo d'illustration</span></div>
+        <div class="body">
+          <h3>Vente</h3>
+          <p>Vélos des marques Giant, Liv, Orbea et Bianchi, à voir et à essayer en magasin.</p>
+          <a class="tag" href="tel:+33981713035">Demander un modèle</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="vis">
+          <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="spin"><circle cx="26" cy="46" r="18"/><path d="M26 28v36M8 46h36" stroke-width="1.5"/></g><g class="spin"><circle cx="94" cy="46" r="18"/><path d="M94 28v36M76 46h36" stroke-width="1.5"/></g><path d="M26 46 L46 16 H78 L94 46 M46 16 L60 46 L78 16 M40 8 H52" stroke="#fff"/><rect x="52" y="22" width="16" height="9" rx="3" fill="#f4b942" stroke="none"/></svg>
+        </div>
+        <div class="body">
+          <h3>Location VTTAE</h3>
+          <p>VTT à assistance électrique loués à la demi-journée (30 €), à la journée (50 €) ou à la journée en week-end (80 €).</p>
+          <a class="tag" href="#location">Réserver en ligne</a>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="vis">
+          <svg viewBox="0 0 120 70" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g class="spin" style="animation-duration:9s"><circle cx="60" cy="35" r="24" stroke="#fff"/><path d="M60 11v48M36 35h48M43 18l34 34M77 18 43 52" stroke="#fff" stroke-width="1.4"/></g><path d="M86 56 L104 38 a8 8 0 1 0 -10 -10 L76 46" /></svg>
+        </div>
+        <div class="body">
+          <h3>Réparation</h3>
+          <p>Atelier de réparation toutes marques, gonflage et kit de réparation à disposition.</p>
+          <a class="tag" href="#atelier">Prendre rendez-vous</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="loc" id="location">
+  <div class="wrap" style="position:relative">
+    <div class="eyebrow reveal">Location de VTT à assistance électrique</div>
+    <h2 class="reveal">Réservez votre VTTAE<br>en trois clics.</h2>
+    <p class="intro reveal">Choisissez la formule, le nombre de vélos et la date : le prix s'affiche tout de suite et la demande part au magasin, qui vous confirme la disponibilité.</p>
+
+    <div class="tool">
+      <div class="panel reveal">
+        <div class="step">
+          <div class="step-t"><span>1</span>Formule</div>
+          <div class="formules" role="radiogroup">
+            <label class="formule"><input type="radio" name="f" value="30" data-nom="Demi-journée" checked><div class="box"><div class="n">Demi-journée</div><div class="p">30 €<small> /vélo</small></div></div></label>
+            <label class="formule"><input type="radio" name="f" value="50" data-nom="Journée"><div class="box"><div class="n">Journée</div><div class="p">50 €<small> /vélo</small></div></div></label>
+            <label class="formule"><input type="radio" name="f" value="80" data-nom="Journée en week-end"><div class="box"><div class="n">Journée week-end</div><div class="p">80 €<small> /vélo</small></div></div></label>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-t"><span>2</span>Nombre de vélos</div>
+          <div class="row">
+            <div class="counter"><button type="button" id="moins" aria-label="Un vélo de moins">−</button><output id="nb" aria-live="polite">1</output><button type="button" id="plus" aria-label="Un vélo de plus">+</button></div>
+            <div class="bikes" id="bikes" aria-hidden="true"></div>
+          </div>
+          <p class="hint">Groupes jusqu'à 6 personnes.</p>
+        </div>
+        <div class="step" style="margin-bottom:0">
+          <div class="step-t"><span>3</span>Date</div>
+          <div class="row">
+            <input type="date" id="date" aria-label="Date de location">
+            <select id="creneau" aria-label="Créneau" style="max-width:220px"></select>
+          </div>
+          <p class="hint" id="dateHint"></p>
+        </div>
+        <div class="route">
+          <div><b>14,5 km</b><span>Feurs → Montrond-les-Bains par la Véloire</span></div>
+          <div><b>11,5 km</b><span>Feurs → Balbigny par la Véloire</span></div>
+        </div>
+      </div>
+
+      <aside class="panel recap reveal" aria-live="polite">
+        <div>
+          <h3>Votre réservation</h3>
+          <dl>
+            <dt>Formule</dt><dd id="rF">Demi-journée</dd>
+            <dt>Vélos</dt><dd id="rN">1 VTTAE</dd>
+            <dt>Date</dt><dd id="rD">—</dd>
+            <dt>Créneau</dt><dd id="rC">—</dd>
+          </dl>
+          <div class="total"><span>Total indicatif</span><b id="rT">30 €</b></div>
+        </div>
+        <div>
+          <div class="btns">
+            <a class="btn btn-ambre" id="send" href="#">Envoyer la demande</a>
+            <button class="btn btn-ghost" id="ics" type="button">Ajouter à mon agenda</button>
+          </div>
+          <p class="small">Démonstration : la demande ouvre un mail pré-rempli vers le magasin. Tarifs publiés par l'Office de Tourisme Forez Est, à confirmer.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="atelier">
+  <div class="wrap atelier">
+    <div>
+      <div class="eyebrow reveal">L'atelier</div>
+      <h2 class="reveal">Un souci de vélo ?<br>Prévenez l'atelier avant de passer.</h2>
+      <p class="intro reveal">Réparation toutes marques, quel que soit l'endroit où le vélo a été acheté. Décrivez la panne et choisissez un créneau de dépôt pendant les heures d'ouverture.</p>
+      <ul class="points">
+        <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>Créneaux réels</b><p>Seuls les horaires d'ouverture du magasin sont proposés.</p></div></li>
+        <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg><div><b>Toutes marques</b><p>Vélo de route, VTT, vélo électrique, vélo de ville.</p></div></li>
+        <li class="reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><div><b>Rappel du magasin</b><p>Le magasin confirme le rendez-vous par téléphone ou par mail.</p></div></li>
+      </ul>
+    </div>
+    <form class="form reveal" id="formAtelier" novalidate>
+      <label class="l">Type de vélo</label>
+      <div class="chips" id="types">
+        <label class="chip"><input type="radio" name="type" value="Vélo de route" checked><span>Route</span></label>
+        <label class="chip"><input type="radio" name="type" value="VTT"><span>VTT</span></label>
+        <label class="chip"><input type="radio" name="type" value="Vélo électrique"><span>Électrique</span></label>
+        <label class="chip"><input type="radio" name="type" value="Vélo de ville"><span>Ville</span></label>
+        <label class="chip"><input type="radio" name="type" value="Vélo enfant"><span>Enfant</span></label>
+      </div>
+      <label class="l" for="panne">Ce qui ne va pas</label>
+      <textarea id="panne" placeholder="Ex. : les freins grincent, la chaîne saute, révision avant la saison…"></textarea>
+      <label class="l">Jour de dépôt</label>
+      <div class="slots" id="jours"></div>
+      <div class="grid2">
+        <div><label class="l" for="nom">Nom</label><input id="nom" type="text" autocomplete="name"></div>
+        <div><label class="l" for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+      </div>
+      <button class="btn btn-ambre" style="width:100%;margin-top:22px" type="submit">Envoyer à l'atelier</button>
+      <div class="ok" id="ok" role="status">Demande préparée : votre messagerie s'ouvre avec le récapitulatif pour le magasin.</div>
+    </form>
+  </div>
+</section>
+
+<section class="infos" id="infos">
+  <div class="wrap infos-grid">
+    <div>
+      <div class="eyebrow reveal">Horaires & accès</div>
+      <h2 class="reveal">Ouvert du lundi au samedi.</h2>
+      <ul class="horaires reveal" id="horaires">
+        <li data-d="1"><span>Lundi</span><span>14h – 19h</span></li>
+        <li data-d="2"><span>Mardi</span><span>10h – 19h</span></li>
+        <li data-d="3"><span>Mercredi</span><span>10h – 19h</span></li>
+        <li data-d="4"><span>Jeudi</span><span>10h – 19h</span></li>
+        <li data-d="5"><span>Vendredi</span><span>10h – 19h</span></li>
+        <li data-d="6"><span>Samedi</span><span>10h – 18h</span></li>
+        <li data-d="0"><span>Dimanche</span><span>Fermé</span></li>
+      </ul>
+      <div class="coord reveal">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>4 bis rue du Capitole, ZI du Forum — 42110 Feurs</div>
+        <a href="tel:+33981713035"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>09 81 71 30 35</a>
+        <a href="mailto:forez.cycles42@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>forez.cycles42@gmail.com</a>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="8" rx="2"/><path d="M7 11V7h10v4"/></svg>Parking sur place</div>
+      </div>
+    </div>
+    <div class="map reveal">
+      <iframe title="Plan d'accès Forez Cycles" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=4.2154%2C45.7181%2C4.2354%2C45.7281&amp;layer=mapnik&amp;marker=45.72313%2C4.225404"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="wrap">
+    <h2 class="reveal">Une balade sur la <em>Véloire</em>, une révision avant la saison, un nouveau vélo ?</h2>
+    <p class="reveal">Le magasin est à Feurs, du lundi au samedi.</p>
+    <div class="ctas reveal">
+      <a class="btn btn-ambre" href="#location">Réserver un VTTAE</a>
+      <a class="btn btn-ghost" href="tel:+33981713035">Appeler le magasin</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>Forez Cycles</strong> — Vente, location et réparation de vélos toutes marques — 4 bis rue du Capitole, ZI du Forum, 42110 Feurs — 09 81 71 30 35</div>
+    <div>Maquette de démonstration réalisée sans engagement, non officielle. Informations (adresse, horaires, tarifs de location, marques) reprises des fiches publiées par l'Office de Tourisme Forez Est ; tarifs indicatifs, non contractuels. Les couleurs sont approchées d'après l'enseigne du magasin, faute de charte numérique : elles sont ajustables. Photo de la façade : photo du magasin publiée sur sa fiche touristique. Photo « Vente » : photo d'illustration libre de droits (Unsplash), à remplacer par des photos du magasin à fournir. Distances Véloire : Office de Tourisme Forez Est.</div>
+  </div>
+</footer>
+
+<div class="mobile-bar">
+  <a class="btn btn-ghost" href="tel:+33981713035">Appeler</a>
+  <a class="btn btn-ambre" href="#location">Réserver</a>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  requestAnimationFrame(()=>document.body.classList.add('loaded'));
+
+  // header scroll + menu
+  addEventListener('scroll',()=>$('header').classList.toggle('scrolled',scrollY>30),{passive:true});
+  $('#burger').addEventListener('click',e=>{const m=$('#menu');m.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',m.classList.contains('open'))});
+  document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',()=>$('#menu').classList.remove('open')));
+
+  // reveal
+  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12}):null;
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%3)*80+'ms';io?io.observe(el):el.classList.add('in')});
+
+  // horaires réels : [jour] = [ouverture, fermeture] en minutes
+  const H={0:null,1:[840,1140],2:[600,1140],3:[600,1140],4:[600,1140],5:[600,1140],6:[600,1080]};
+  const jours=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+  function statut(){
+    const n=new Date(),d=n.getDay(),m=n.getHours()*60+n.getMinutes(),h=H[d],s=$('#status');
+    let txt;
+    if(h&&m>=h[0]&&m<h[1]){s.classList.add('open');txt='Ouvert · ferme à '+(h[1]/60)+'h'}
+    else{s.classList.remove('open');let k=d,add=0;if(h&&m<h[0]){txt='Ouvre à '+(h[0]/60)+'h'}else{do{k=(k+1)%7;add++}while(!H[k]);txt='Fermé · ouvre '+(add===1?'demain':jours[k])+' à '+(H[k][0]/60)+'h'}}
+    s.querySelector('span').textContent=txt;
+    document.querySelectorAll('#horaires li').forEach(li=>li.classList.toggle('today',+li.dataset.d===d));
+  }
+  statut();setInterval(statut,60000);
+
+  // ---- outil de location ----
+  let nb=1;const fr=n=>n.toLocaleString('fr-FR');
+  const bikeSvg='<svg viewBox="0 0 48 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="20" r="8"/><circle cx="38" cy="20" r="8"/><path d="M10 20 18 6h14l6 14M18 6l7 14 7-14"/></svg>';
+  $('#bikes').innerHTML=bikeSvg.repeat(6);
+  const date=$('#date'),cr=$('#creneau');
+  const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  const t=new Date();date.min=iso(t);
+  let first=new Date(t);first.setDate(first.getDate()+1);while(!H[first.getDay()])first.setDate(first.getDate()+1);date.value=iso(first);
+
+  function creneaux(){
+    const f=document.querySelector('input[name=f]:checked'),d=new Date(date.value+'T12:00'),h=H[d.getDay()];
+    cr.innerHTML='';const hint=$('#dateHint');hint.classList.remove('warn');
+    if(!date.value||isNaN(d)){return}
+    if(!h){hint.textContent='Le magasin est fermé le dimanche : retrait possible la veille, à confirmer avec le magasin.';hint.classList.add('warn');cr.disabled=true;return}
+    cr.disabled=false;
+    const opts=f.value==='30'?(h[0]<720?['Matin (dès '+h[0]/60+'h)','Après-midi (dès 14h)']:['Après-midi (dès 14h)']):['Journée complète ('+h[0]/60+'h – '+h[1]/60+'h)'];
+    opts.forEach(o=>cr.add(new Option(o,o)));
+    hint.textContent=d.getDay()===6&&f.value!=='80'?'Samedi : pensez à la formule « Journée en week-end ».':'Retrait et retour au magasin, 4 bis rue du Capitole.';
+  }
+  function maj(){
+    const f=document.querySelector('input[name=f]:checked');
+    $('#nb').value=nb;$('#nb').textContent=nb;
+    document.querySelectorAll('#bikes svg').forEach((s,i)=>s.classList.toggle('off',i>=nb));
+    $('#rF').textContent=f.dataset.nom;$('#rN').textContent=nb+' VTTAE';
+    const d=new Date(date.value+'T12:00');
+    $('#rD').textContent=isNaN(d)?'—':d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+    $('#rC').textContent=cr.value||'—';
+    animer($('#rT'),nb*f.value);
+    const corps='Bonjour,\n\nJe souhaite réserver '+nb+' VTTAE, formule '+f.dataset.nom+', le '+$('#rD').textContent+' ('+($('#rC').textContent)+').\nTotal indicatif : '+nb*f.value+' €.\n\nMerci de me confirmer la disponibilité.\n';
+    $('#send').href='mailto:forez.cycles42@gmail.com?subject='+encodeURIComponent('Réservation VTTAE – '+$('#rD').textContent)+'&body='+encodeURIComponent(corps);
+  }
+  let cur=30;
+  function animer(el,to){const from=cur;cur=to;const t0=performance.now();(function step(t){const p=Math.min(1,(t-t0)/380),v=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));el.textContent=fr(v)+' €';if(p<1)requestAnimationFrame(step)})(t0)}
+  document.querySelectorAll('input[name=f]').forEach(r=>r.addEventListener('change',()=>{creneaux();maj()}));
+  $('#plus').onclick=()=>{if(nb<6){nb++;maj()}};
+  $('#moins').onclick=()=>{if(nb>1){nb--;maj()}};
+  date.addEventListener('change',()=>{creneaux();maj()});cr.addEventListener('change',maj);
+  creneaux();maj();
+
+  $('#ics').onclick=()=>{
+    if(!date.value)return;const f=document.querySelector('input[name=f]:checked'),d=date.value.replace(/-/g,''),h=H[new Date(date.value+'T12:00').getDay()]||[600,1080];
+    const pm=cr.value&&cr.value.startsWith('Après');const s=f.value==='30'?(pm?840:h[0]):h[0],e=f.value==='30'?(pm?h[1]:720):h[1];
+    const hh=m=>String(Math.floor(m/60)).padStart(2,'0')+String(m%60).padStart(2,'0')+'00';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Forez Cycles//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@forez-cycles','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z','DTSTART:'+d+'T'+hh(s),'DTEND:'+d+'T'+hh(e),'SUMMARY:Location VTTAE – Forez Cycles ('+nb+' vélo'+(nb>1?'s':'')+')','LOCATION:4 bis rue du Capitole\\, ZI du Forum\\, 42110 Feurs','DESCRIPTION:Formule '+f.dataset.nom+' – total indicatif '+nb*f.value+' €. Tél. 09 81 71 30 35','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='location-vttae-forez-cycles.ics';a.click();
+  };
+
+  // ---- atelier : 6 prochains jours ouverts ----
+  const box=$('#jours');let d0=new Date();let c=0;
+  while(c<6){d0.setDate(d0.getDate()+1);const h=H[d0.getDay()];if(!h)continue;const b=document.createElement('button');b.type='button';b.className='slot';b.setAttribute('aria-pressed','false');
+    b.textContent=d0.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+' · dès '+h[0]/60+'h';b.dataset.v=b.textContent;
+    b.onclick=()=>{box.querySelectorAll('.slot').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true')};box.appendChild(b);c++}
+  $('#formAtelier').addEventListener('submit',e=>{
+    e.preventDefault();const type=document.querySelector('input[name=type]:checked').value,j=box.querySelector('[aria-pressed=true]');
+    const corps='Bonjour,\n\nType de vélo : '+type+'\nProblème : '+($('#panne').value||'à préciser')+'\nDépôt souhaité : '+(j?j.dataset.v:'à convenir')+'\nNom : '+$('#nom').value+'\nTéléphone : '+$('#tel').value+'\n';
+    $('#ok').classList.add('show');
+    location.href='mailto:forez.cycles42@gmail.com?subject='+encodeURIComponent('Demande atelier – '+type)+'&body='+encodeURIComponent(corps);
+  });
+})();
+</script>
+</body>
+</html>
