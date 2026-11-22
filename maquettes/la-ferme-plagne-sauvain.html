@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Ferme Plagne — Fourme de Montbrison fermière AOP à Sauvain | Monts du Forez</title>
+<meta name="description" content="Fromagerie fermière à 1030 m, à 2 km de Chalmazel : fourme de Montbrison AOP, tommes et fromages de chèvre. Vente à la ferme à Sauvain et au marché de Montbrison.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE — La Ferme Plagne n'a pas de site internet ni de charte
+   en ligne : palette PROPOSÉE (à remplacer par les vraies couleurs
+   le jour où la ferme fournit un logo ou une étiquette).
+   Inspiration : le persillé bleu de la fourme, la croûte, les
+   prairies d'altitude des Hautes-Chaumes.
+   ============================================================ */
+:root{
+  --bleu:#2f4a5c;        /* persillé de la fourme : couleur principale */
+  --bleu-fonce:#1d2f3b;
+  --croute:#b98a4e;      /* croûte fleurie : accent */
+  --pre:#5b7a4a;         /* prairies d'altitude */
+  --creme:#f6f1e6;       /* pâte : fond */
+  --creme-2:#ece4d3;
+  --encre:#1f2a30;
+  --gris:#5d6a70;
+  --titre:'Fraunces', Georgia, serif;
+  --texte:'Work Sans', system-ui, sans-serif;
+  --r:18px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--texte);color:var(--encre);background:var(--creme);line-height:1.6;font-size:clamp(1rem,.95rem + .2vw,1.1rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--croute);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--titre);line-height:1.1;font-weight:600;letter-spacing:-.01em}
+h2{font-size:clamp(2rem,1.5rem + 2.2vw,3.2rem)}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--croute);font-weight:600;display:inline-flex;align-items:center;gap:.6em}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.5em;border-radius:999px;font-weight:600;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:600;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn-plein{background:var(--bleu);color:#fff;box-shadow:0 8px 24px -10px var(--bleu)}
+.btn-plein:hover{background:var(--bleu-fonce)}
+.btn-clair{background:#fff;color:var(--bleu)}
+.btn-ligne{background:transparent;color:var(--bleu);box-shadow:inset 0 0 0 1.5px var(--bleu)}
+
+/* Bandeau démo */
+.demo{background:var(--bleu-fonce);color:#dfe7ea;font-size:.78rem;text-align:center;padding:.45em 16px}
+
+/* Header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(246,241,230,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.top.scrolled{border-color:var(--creme-2);box-shadow:0 6px 24px -18px rgba(0,0,0,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+.logo{display:flex;align-items:center;gap:.65em;text-decoration:none}
+.logo svg{width:40px;height:40px}
+.logo b{font-family:var(--titre);font-size:1.25rem;font-weight:800;color:var(--bleu);display:block;line-height:1}
+.logo small{font-size:.72rem;color:var(--gris);letter-spacing:.06em}
+.menu{display:flex;gap:1.6rem;list-style:none}
+.menu a{text-decoration:none;font-weight:500;font-size:.95rem;position:relative;padding:.3em 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--croute);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.statut-mini{font-size:.82rem;display:flex;align-items:center;gap:.45em;white-space:nowrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#9aa3a7;position:relative}
+.dot.ouvert{background:#3f8f4e}
+.dot.ouvert::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #3f8f4e;animation:pulse 1.8s infinite}
+@keyframes pulse{from{opacity:.8;transform:scale(.6)}to{opacity:0;transform:scale(1.6)}}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;width:24px;height:2px;background:var(--encre);margin:5px auto;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:72px 0 auto 0;flex-direction:column;background:var(--creme);padding:24px 16px;gap:1rem;transform:translateY(-130%);transition:transform .4s var(--ease);box-shadow:0 20px 30px -20px rgba(0,0,0,.3)}
+  .menu.open{transform:none}
+  .burger{display:block}
+  .statut-mini{display:none}
+}
+
+/* Hero */
+.hero{position:relative;min-height:calc(100svh - 100px);display:grid;align-items:center;overflow:hidden;padding:60px 0 0}
+.hero-txt{position:relative;z-index:3;max-width:640px;padding-bottom:200px}
+.hero h1{font-size:clamp(2.6rem,1.6rem + 5vw,5.4rem);font-weight:800;color:var(--bleu-fonce)}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--croute)}
+.hero p.lead{font-size:clamp(1.05rem,1rem + .4vw,1.3rem);color:var(--gris);margin:1.2rem 0 2rem;max-width:520px}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.mont{position:absolute;inset:auto 0 0 0;width:100%;height:clamp(150px,30vh,300px);z-index:1;pointer-events:none}
+.mont path{transition:transform .1s linear}
+.altitude{position:absolute;right:6%;top:18%;z-index:2;text-align:right;font-family:var(--titre)}
+.altitude b{display:block;font-size:clamp(3rem,2rem + 6vw,7.5rem);font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--bleu);line-height:.9;opacity:.35}
+.altitude span{font-size:.85rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);font-family:var(--texte)}
+@media (max-width:900px){.altitude{position:static;text-align:left;margin-bottom:1rem}.altitude b{font-size:3.2rem;opacity:.5}.hero-txt{padding-bottom:140px}}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* Chiffres */
+.chiffres{background:var(--bleu);color:#fff;padding:48px 0}
+.chiffres .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.chiffres div b{font-family:var(--titre);font-size:clamp(2.2rem,1.6rem + 2vw,3.4rem);font-weight:800;display:block;line-height:1}
+.chiffres div span{font-size:.9rem;opacity:.8}
+@media (max-width:760px){.chiffres .wrap{grid-template-columns:1fr 1fr}}
+
+section{padding:clamp(72px,8vw,130px) 0}
+
+/* La ferme */
+.ferme{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,80px);align-items:center}
+.ferme p{color:var(--gris);margin-top:1rem}
+.ferme .citation{font-family:var(--titre);font-size:clamp(1.3rem,1.1rem + .8vw,1.8rem);font-style:italic;color:var(--bleu);border-left:3px solid var(--croute);padding-left:1rem;margin:1.6rem 0}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;background:var(--creme-2)}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo:hover img{transform:scale(1.04)}
+.illus{position:absolute;left:10px;bottom:10px;background:rgba(0,0,0,.55);color:#fff;font-size:.7rem;padding:.25em .6em;border-radius:6px;letter-spacing:.03em}
+.afournir{display:grid;place-items:center;text-align:center;border:2px dashed #c7bda8;color:var(--gris);font-size:.9rem;padding:24px;min-height:220px;border-radius:var(--r)}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.duo .photo{aspect-ratio:3/4}
+.duo .photo:last-child{margin-top:48px}
+@media (max-width:860px){.ferme{grid-template-columns:1fr}}
+
+/* Fromages */
+.fromages{background:var(--creme-2)}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.head p{max-width:440px;color:var(--gris)}
+.vedette{display:grid;grid-template-columns:1.1fr 1fr;gap:0;background:#fff;border-radius:calc(var(--r) + 6px);overflow:hidden;margin-bottom:28px;box-shadow:0 30px 60px -40px rgba(31,42,48,.45)}
+.vedette .photo{border-radius:0;min-height:360px}
+.vedette .txt{padding:clamp(28px,4vw,56px)}
+.badge{display:inline-block;background:var(--bleu);color:#fff;font-size:.72rem;font-weight:600;padding:.35em .8em;border-radius:999px;letter-spacing:.08em;margin-bottom:1rem}
+.vedette h3{font-size:clamp(1.8rem,1.4rem + 1.5vw,2.6rem);color:var(--bleu-fonce)}
+.vedette p{color:var(--gris);margin:1rem 0 1.5rem}
+@media (max-width:860px){.vedette{grid-template-columns:1fr}.vedette .photo{min-height:240px}}
+.grille{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.carte{background:#fff;border-radius:var(--r);padding:22px;position:relative;overflow:hidden;transition:transform .35s var(--ease),box-shadow .35s;cursor:default}
+.carte:hover{transform:translateY(-6px);box-shadow:0 20px 40px -24px rgba(31,42,48,.5)}
+.carte .lait{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pre);font-weight:600}
+.carte h4{font-family:var(--titre);font-size:1.3rem;font-weight:600;margin:.4rem 0 .5rem;color:var(--bleu-fonce)}
+.carte p{font-size:.9rem;color:var(--gris)}
+.carte .rond{position:absolute;right:-26px;top:-26px;width:86px;height:86px;border-radius:50%;background:var(--creme);transition:transform .5s var(--ease)}
+.carte:hover .rond{transform:scale(1.4)}
+.carte.chevre .lait{color:var(--croute)}
+@media (max-width:980px){.grille{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.grille{grid-template-columns:1fr}}
+
+/* Outil */
+.outil{background:var(--bleu-fonce);color:#eef2f3;position:relative;overflow:hidden}
+.outil .eyebrow{color:#e2c193}
+.outil h2{color:#fff}
+.outil .intro{color:#b9c6cc;max-width:620px;margin-top:1rem}
+.statut{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:18px 22px;margin:36px 0 28px}
+.statut .dot{width:14px;height:14px}
+.statut b{font-family:var(--titre);font-size:1.25rem}
+.statut small{display:block;color:#b9c6cc;font-size:.85rem}
+.app{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+@media (max-width:920px){.app{grid-template-columns:1fr}}
+.panneau{background:#fff;color:var(--encre);border-radius:calc(var(--r) + 4px);padding:clamp(20px,3vw,34px)}
+.etape{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--croute);font-weight:600;margin:0 0 .8rem}
+.etape+.etape,.bloc+.etape{margin-top:1.8rem}
+.liste{display:grid;gap:8px}
+.ligne{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border-radius:12px;background:var(--creme);transition:background .25s}
+.ligne.choisi{background:#e3ebef}
+.ligne .nom{font-weight:500}
+.ligne .nom small{display:block;color:var(--gris);font-weight:400;font-size:.8rem}
+.qte{display:flex;align-items:center;gap:6px}
+.qte button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--bleu);background:#fff;color:var(--bleu);font-size:1.1rem;cursor:pointer;transition:.2s}
+.qte button:hover{background:var(--bleu);color:#fff}
+.qte output{min-width:2.2em;text-align:center;font-weight:600}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choix label{border:1.5px solid var(--creme-2);border-radius:14px;padding:14px;cursor:pointer;transition:.25s;display:block}
+.choix input{position:absolute;opacity:0}
+.choix label:has(input:checked){border-color:var(--bleu);background:#eef3f6}
+.choix b{display:block;font-size:.98rem}
+.choix small{color:var(--gris);font-size:.8rem}
+.champs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.champs label{font-size:.82rem;color:var(--gris);display:grid;gap:4px}
+.champs input,.champs select{font:inherit;padding:.7em .8em;border:1.5px solid var(--creme-2);border-radius:10px;background:#fff;width:100%}
+@media (max-width:520px){.champs,.choix{grid-template-columns:1fr}}
+.recap{position:sticky;top:90px;align-self:start}
+.recap h3{font-size:1.5rem;color:var(--bleu-fonce);margin-bottom:.8rem}
+.recap ul{list-style:none;display:grid;gap:6px;margin-bottom:1rem;min-height:40px}
+.recap li{display:flex;justify-content:space-between;border-bottom:1px dashed var(--creme-2);padding-bottom:6px;font-size:.95rem;animation:entre .4s var(--ease)}
+@keyframes entre{from{opacity:0;transform:translateX(-8px)}}
+.recap .vide{color:var(--gris);font-size:.9rem;border:0}
+.recap .rdv{background:var(--creme);border-radius:12px;padding:12px 14px;font-size:.9rem;margin-bottom:1rem}
+.recap .rdv.alerte{background:#fbeee0;color:#7a4a14}
+.recap .actions{display:grid;gap:8px}
+.recap .note{font-size:.75rem;color:var(--gris);margin-top:.8rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--encre);color:#fff;padding:.8em 1.2em;border-radius:12px;z-index:90;transition:transform .4s var(--ease);font-size:.9rem;max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+
+/* Venir */
+.venir{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:stretch}
+.carte-map{border-radius:var(--r);overflow:hidden;min-height:380px;background:var(--creme-2)}
+.carte-map iframe{width:100%;height:100%;min-height:380px;border:0}
+.horaires{margin-top:1.4rem;display:grid;gap:10px}
+.horaires div{display:flex;justify-content:space-between;gap:12px;background:#fff;padding:14px 18px;border-radius:14px}
+.horaires div b{font-weight:600}
+.horaires div.auj{box-shadow:inset 0 0 0 2px var(--bleu)}
+.lieux{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:1.4rem}
+.lieux div{background:var(--bleu);color:#fff;border-radius:14px;padding:16px}
+.lieux div:last-child{background:var(--pre)}
+.lieux small{opacity:.8;display:block;font-size:.8rem}
+@media (max-width:860px){.venir{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{background:var(--croute);color:#fff;text-align:center}
+.contact h2{color:#fff}
+.contact p{max-width:560px;margin:1rem auto 2rem;opacity:.92}
+.contact .ctas{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.contact .btn-plein{background:var(--bleu-fonce)}
+
+footer{background:var(--encre);color:#b9c6cc;padding:56px 0 90px;font-size:.88rem}
+footer .cols{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:32px}
+footer b{color:#fff;font-family:var(--titre);font-size:1.1rem}
+footer .mention{margin-top:36px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:.78rem;line-height:1.7}
+@media (max-width:760px){footer .cols{grid-template-columns:1fr}}
+
+/* Barre mobile */
+.barre{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;grid-template-columns:1fr 1fr;gap:8px;padding:10px 16px;background:rgba(246,241,230,.95);backdrop-filter:blur(8px);border-top:1px solid var(--creme-2)}
+.barre .btn{justify-content:center;padding:.8em}
+@media (max-width:760px){.barre{display:grid}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "additionalType":"https://schema.org/Store",
+  "name":"La Ferme Plagne - Fromagerie Fermière",
+  "description":"Fromagerie fermière à 1030 m d'altitude dans les Monts du Forez : fourme de Montbrison fermière AOP, tommes et fromages de chèvre.",
+  "telephone":["+33477768785","+33636893738"],
+  "email":"rene.plagne@orange.fr",
+  "address":{"@type":"PostalAddress","streetAddress":"350 chemin des Champas","postalCode":"42990","addressLocality":"Sauvain","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.677991,"longitude":3.857368},
+  "areaServed":["Sauvain","Chalmazel","Montbrison","Monts du Forez"],
+  "openingHoursSpecification":[
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"11:00","closes":"12:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"15:00","closes":"17:30"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de site pour La Ferme Plagne, non contractuelle.</div>
+
+<header class="top" id="top">
+  <div class="wrap nav">
+    <a href="#accueil" class="logo" aria-label="La Ferme Plagne, accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#2f4a5c"/><path d="M5 27 L14 16 L19 21 L25 12 L35 27 Z" fill="#f6f1e6"/><circle cx="16" cy="25" r="1.6" fill="#2f4a5c"/><circle cx="23" cy="23" r="1.2" fill="#2f4a5c"/><circle cx="27" cy="25.5" r="1.4" fill="#2f4a5c"/></svg>
+      <span><b>La Ferme Plagne</b><small>Fromagerie fermière · Sauvain</small></span>
+    </a>
+    <ul class="menu" id="menu">
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#fromages">Nos fromages</a></li>
+      <li><a href="#commander">Réserver</a></li>
+      <li><a href="#venir">Venir</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="statut-mini" aria-live="polite"><span class="dot" id="dotMini"></span><span id="txtMini">…</span></div>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="altitude rv"><b>1030 m</b><span>d'altitude · Monts du Forez</span></div>
+    <div class="hero-txt">
+      <span class="eyebrow rv">Fourme de Montbrison fermière AOP</span>
+      <h1 class="rv d1">La fourme<br>de la ferme, <em>à 1030 m.</em></h1>
+      <p class="lead rv d2">À 2 km de la station de Chalmazel, Marie-Agnès et René Plagne produisent la fourme de Montbrison fermière AOP et des fromages de vache et de chèvre, sur une ferme typique des Monts du Forez tenue par la famille depuis 7 générations.</p>
+      <div class="ctas rv d3">
+        <a class="btn btn-plein" href="#commander">Réserver mes fromages</a>
+        <a class="btn btn-ligne" href="#venir">Venir à la ferme</a>
+      </div>
+    </div>
+  </div>
+  <!-- Signature : les crêtes du Forez en parallaxe douce -->
+  <svg class="mont" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <path id="m1" d="M0 190 L120 150 L230 175 L360 110 L470 150 L600 95 L720 140 L860 80 L980 130 L1110 90 L1240 140 L1360 105 L1440 125 L1440 320 L0 320Z" fill="#cfd8d6"/>
+    <path id="m2" d="M0 240 L140 200 L260 225 L400 170 L540 215 L660 180 L800 220 L940 165 L1080 210 L1220 175 L1340 205 L1440 190 L1440 320 L0 320Z" fill="#8fa596"/>
+    <path id="m3" d="M0 285 L180 255 L340 275 L520 240 L700 270 L880 245 L1060 272 L1240 248 L1440 265 L1440 320 L0 320Z" fill="#5b7a4a"/>
+  </svg>
+</section>
+
+<div class="chiffres">
+  <div class="wrap">
+    <div class="rv"><b data-compte="1030">0</b><span>mètres d'altitude</span></div>
+    <div class="rv d1"><b data-compte="7">0</b><span>générations sur la ferme</span></div>
+    <div class="rv d2"><b data-compte="2">0</b><span>km de la station de Chalmazel</span></div>
+    <div class="rv d3"><b data-compte="7">0</b><span>jours sur 7, vente à la ferme</span></div>
+  </div>
+</div>
+
+<section id="ferme">
+  <div class="wrap ferme">
+    <div>
+      <span class="eyebrow rv">La ferme</span>
+      <h2 class="rv d1">Une ferme du Haut-Forez, des bêtes à cornes et du lait transformé sur place.</h2>
+      <p class="rv d2">Une ferme typique des Monts du Forez, tenue depuis 7 générations, avec deux paysans fiers et heureux au milieu de leurs bêtes à cornes, vaches et chèvres. Le lait de la ferme devient fourme de Montbrison fermière AOP, tommes, crottins et fourme de chèvre.</p>
+      <p class="citation rv d2">« Une ferme où l'on lit et comprend vaches et chèvres, en écoutant Terre Mère. »</p>
+      <p class="rv d3">On trouve les fromages à la ferme, à Sauvain, tous les jours, et au marché de Montbrison tous les samedis matins.</p>
+    </div>
+    <div class="duo">
+      <div class="afournir rv">Photo de la ferme et du troupeau<br><small>à fournir par la ferme</small></div>
+      <div class="photo rv d2"><img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=70&auto=format&fit=crop" alt="Vaches au pâturage au soleil couchant" loading="lazy"><span class="illus">Photo d'illustration</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="fromages" id="fromages">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow rv">Nos fromages</span><h2 class="rv d1">Fabriqués à la ferme.</h2></div>
+      <p class="rv d2">Vache et chèvre, du frais à l'affiné. La gamme varie selon les saisons et la production : la ferme confirme les disponibilités à la réservation.</p>
+    </div>
+    <article class="vedette rv">
+      <div class="photo"><img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=1100&q=72&auto=format&fit=crop" alt="Fromage à pâte persillée" loading="lazy"><span class="illus">Photo d'illustration</span></div>
+      <div class="txt">
+        <span class="badge">AOP · Fermière</span>
+        <h3>La Traditionnelle Fourme de Montbrison</h3>
+        <p>Le fromage du Haut-Forez, fabriqué à la ferme avec le lait du troupeau.</p>
+        <a class="btn btn-plein" href="#commander" data-ajout="fourme">Ajouter à ma réservation</a>
+      </div>
+    </article>
+    <div class="grille">
+      <div class="carte rv"><span class="rond"></span><span class="lait">Vache</span><h4>Tomme « La Plagnette »</h4><p>La tomme qui porte le nom de la ferme.</p></div>
+      <div class="carte rv d1"><span class="rond"></span><span class="lait">Vache</span><h4>Tomme des Jasseries</h4><p>Le nom des jasseries, les fermes d'estive des Hautes-Chaumes.</p></div>
+      <div class="carte rv d2"><span class="rond"></span><span class="lait">Fromage fermier</span><h4>Saint-Augustin</h4><p>Fabriqué à la ferme.</p></div>
+      <div class="carte rv d3"><span class="rond"></span><span class="lait">Fromage fermier</span><h4>Marcelinou</h4><p>Fabriqué à la ferme.</p></div>
+      <div class="carte chevre rv"><span class="rond"></span><span class="lait">Chèvre</span><h4>Fourme de chèvre</h4><p>La fourme, version lait de chèvre.</p></div>
+      <div class="carte chevre rv d1"><span class="rond"></span><span class="lait">Chèvre</span><h4>Brique chèvre</h4><p>Fabriquée à la ferme.</p></div>
+      <div class="carte chevre rv d2"><span class="rond"></span><span class="lait">Chèvre</span><h4>Crottin</h4><p>Fabriqué à la ferme.</p></div>
+      <div class="carte rv d3"><span class="rond"></span><span class="lait">Fromage fermier</span><h4>Philomène</h4><p>Fabriqué à la ferme.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="outil" id="commander">
+  <div class="wrap">
+    <span class="eyebrow rv">Réserver et passer prendre</span>
+    <h2 class="rv d1">Vos fromages vous attendent.</h2>
+    <p class="intro rv d2">Choisissez vos fromages, puis l'endroit où les récupérer : à la ferme sur les horaires du magasin, ou au marché de Montbrison le samedi matin. La demande part directement à la ferme, et le rendez-vous s'ajoute à votre agenda.</p>
+
+    <div class="statut rv" aria-live="polite"><span class="dot" id="dotBig"></span><div><b id="txtBig">…</b><small id="subBig"></small></div></div>
+
+    <div class="app">
+      <div class="panneau rv">
+        <p class="etape">1 · Mes fromages</p>
+        <div class="liste" id="liste"></div>
+
+        <p class="etape">2 · Où les récupérer</p>
+        <div class="choix bloc">
+          <label><input type="radio" name="lieu" value="ferme" checked><b>À la ferme, Sauvain</b><small>Tous les jours · 11h–12h et 15h–17h30</small></label>
+          <label><input type="radio" name="lieu" value="marche"><b>Marché de Montbrison</b><small>Le samedi matin</small></label>
+        </div>
+
+        <p class="etape">3 · Quand</p>
+        <div class="champs bloc">
+          <label>Jour<input type="date" id="jour"></label>
+          <label id="lCreneau">Créneau<select id="creneau"><option value="11:00-12:00">11h – 12h</option><option value="15:00-17:30">15h – 17h30</option></select></label>
+          <label>Votre nom<input type="text" id="nom" autocomplete="name" placeholder="Prénom Nom"></label>
+          <label>Votre téléphone<input type="tel" id="tel" autocomplete="tel" placeholder="06 …"></label>
+        </div>
+      </div>
+
+      <aside class="panneau recap rv d2" aria-live="polite">
+        <h3>Ma réservation</h3>
+        <ul id="recap"><li class="vide">Aucun fromage pour l'instant.</li></ul>
+        <div class="rdv" id="rdv"></div>
+        <div class="actions">
+          <button class="btn btn-plein" id="envoyer">Envoyer ma demande à la ferme</button>
+          <button class="btn btn-ligne" id="ics">Ajouter à mon agenda</button>
+        </div>
+        <p class="note">Quantités en pièces ou en morceaux : la ferme confirme la disponibilité et le prix. Aucun paiement en ligne.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="venir">
+  <div class="wrap venir">
+    <div>
+      <span class="eyebrow rv">Venir à la ferme</span>
+      <h2 class="rv d1">350 chemin des Champas, Sauvain.</h2>
+      <p class="rv d2" style="color:var(--gris);margin-top:1rem">À 1030 m d'altitude, à 2 km de la station de ski de Chalmazel. Entrée libre, animaux acceptés en laisse.</p>
+      <div class="horaires rv d2" id="horaires"></div>
+      <div class="lieux rv d3">
+        <div><small>Magasin de la ferme</small><b>Tous les jours</b></div>
+        <div><small>Marché de Montbrison</small><b>Samedi matin</b></div>
+      </div>
+      <p class="rv d3" style="margin-top:1.4rem"><a class="btn btn-plein" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=45.677991,3.857368">Itinéraire jusqu'à la ferme</a></p>
+    </div>
+    <div class="carte-map rv d1">
+      <iframe title="Carte : La Ferme Plagne à Sauvain" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=3.8274%2C45.6630%2C3.8874%2C45.6930&layer=mapnik&marker=45.677991%2C3.857368"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow rv" style="color:#fff">Contact</span>
+    <h2 class="rv d1">Une question, une commande pour une fête ?</h2>
+    <p class="rv d2">Appelez la ferme ou écrivez-nous : René et Marie-Agnès vous répondent.</p>
+    <div class="ctas rv d3">
+      <a class="btn btn-plein" href="tel:+33477768785">04 77 76 87 85</a>
+      <a class="btn btn-clair" href="tel:+33636893738">06 36 89 37 38</a>
+      <a class="btn btn-clair" href="mailto:rene.plagne@orange.fr">rene.plagne@orange.fr</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><b>La Ferme Plagne</b><p style="margin-top:.6rem">Fromagerie fermière · Fourme de Montbrison fermière AOP<br>350 chemin des Champas, 42990 Sauvain</p></div>
+      <div><b>Horaires du magasin</b><p style="margin-top:.6rem">Tous les jours<br>11h – 12h et 15h – 17h30<br>Marché de Montbrison le samedi matin</p></div>
+      <div><b>Contact</b><p style="margin-top:.6rem">04 77 76 87 85<br>06 36 89 37 38<br>rene.plagne@orange.fr</p></div>
+    </div>
+    <p class="mention">Maquette de démonstration réalisée pour La Ferme Plagne, non contractuelle. Les informations (adresse, horaires, gamme de fromages, téléphones) proviennent de la fiche de l'Office de Tourisme Loire Forez. La ferme n'ayant pas de site ni de charte graphique en ligne, les couleurs, le logo et la typographie sont des propositions, ajustables. Les photos marquées « Photo d'illustration » sont des images libres de droits (Unsplash) et ne montrent pas la ferme ; les photos de la ferme, du troupeau et des fromages sont à fournir. La réservation ne comporte ni prix ni paiement en ligne.</p>
+  </div>
+</footer>
+
+<div class="barre"><a class="btn btn-plein" href="tel:+33477768785">Appeler</a><a class="btn btn-ligne" href="#commander">Réserver</a></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const FROMAGES=[
+  {id:'fourme',nom:'Fourme de Montbrison AOP',sous:'fermière · vache',u:'morceau'},
+  {id:'plagnette',nom:'Tomme « La Plagnette »',sous:'vache',u:'pièce'},
+  {id:'jasseries',nom:'Tomme des Jasseries',sous:'vache',u:'pièce'},
+  {id:'augustin',nom:'Saint-Augustin',sous:'fermier',u:'pièce'},
+  {id:'marcelinou',nom:'Marcelinou',sous:'fermier',u:'pièce'},
+  {id:'philomene',nom:'Philomène',sous:'fermier',u:'pièce'},
+  {id:'fourmechevre',nom:'Fourme de chèvre',sous:'chèvre',u:'morceau'},
+  {id:'brique',nom:'Brique chèvre',sous:'chèvre',u:'pièce'},
+  {id:'crottin',nom:'Crottin',sous:'chèvre',u:'pièce'}
+];
+const q={};FROMAGES.forEach(f=>q[f.id]=0);
+const $=s=>document.querySelector(s);
+const reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---- Ouvert maintenant ? (heure de Paris) ---- */
+const JOURS=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+function maintenant(){const s=new Date().toLocaleString('en-US',{timeZone:'Europe/Paris'});return new Date(s)}
+function etat(){
+  const d=maintenant(),m=d.getHours()*60+d.getMinutes();
+  const plages=[[660,720],[900,1050]];
+  for(const[a,b] of plages){if(m>=a&&m<b)return{ouvert:true,txt:'Le magasin de la ferme est ouvert',sub:'Jusqu\'à '+(b===720?'12h':'17h30')+' aujourd\'hui'}}
+  let prochain=plages.find(([a])=>m<a);
+  const sub=prochain?'Réouverture aujourd\'hui à '+(prochain[0]===660?'11h':'15h'):'Réouverture demain à 11h';
+  let extra=(d.getDay()===6&&m<780)?' · Ce matin, la ferme est au marché de Montbrison':'';
+  return{ouvert:false,txt:'Le magasin est fermé pour le moment',sub:sub+extra};
+}
+function majEtat(){
+  const e=etat();
+  ['dotMini','dotBig'].forEach(i=>$('#'+i).classList.toggle('ouvert',e.ouvert));
+  $('#txtMini').textContent=e.ouvert?'Ouvert maintenant':'Fermé';
+  $('#txtBig').textContent=e.txt;$('#subBig').textContent=e.sub;
+  const h=$('#horaires');const auj=maintenant().getDay();
+  h.innerHTML=[1,2,3,4,5,6,0].map(j=>`<div class="${j===auj?'auj':''}"><b>${JOURS[j]}${j===auj?' · aujourd\'hui':''}</b><span>11h–12h · 15h–17h30</span></div>`).join('');
+}
+majEtat();setInterval(majEtat,60000);
+
+/* ---- Liste et quantités ---- */
+const liste=$('#liste');
+liste.innerHTML=FROMAGES.map(f=>`<div class="ligne" id="l-${f.id}"><span class="nom">${f.nom}<small>${f.sous} · à la ${f.u}</small></span><span class="qte"><button type="button" aria-label="Retirer ${f.nom}" data-m="${f.id}">−</button><output id="q-${f.id}">0</output><button type="button" aria-label="Ajouter ${f.nom}" data-p="${f.id}">+</button></span></div>`).join('');
+liste.addEventListener('click',e=>{const p=e.target.dataset.p,m=e.target.dataset.m;if(p)q[p]=Math.min(20,q[p]+1);if(m)q[m]=Math.max(0,q[m]-1);if(p||m)maj()});
+document.querySelectorAll('[data-ajout]').forEach(b=>b.addEventListener('click',()=>{q[b.dataset.ajout]++;maj();toast('Fourme de Montbrison ajoutée à votre réservation')}));
+
+/* ---- Date ---- */
+const jour=$('#jour');
+function iso(d){return d.toISOString().slice(0,10)}
+const demain=maintenant();demain.setDate(demain.getDate()+1);jour.min=iso(maintenant());jour.value=iso(demain);
+document.querySelectorAll('input[name=lieu]').forEach(r=>r.addEventListener('change',()=>{
+  if(lieu()==='marche'){const d=maintenant();d.setDate(d.getDate()+((6-d.getDay()+7)%7||7));jour.value=iso(d)}
+  maj()}));
+['change','input'].forEach(ev=>{jour.addEventListener(ev,maj);$('#creneau').addEventListener(ev,maj)});
+function lieu(){return document.querySelector('input[name=lieu]:checked').value}
+
+function maj(){
+  FROMAGES.forEach(f=>{$('#q-'+f.id).textContent=q[f.id];$('#l-'+f.id).classList.toggle('choisi',q[f.id]>0)});
+  const choisis=FROMAGES.filter(f=>q[f.id]>0);
+  $('#recap').innerHTML=choisis.length?choisis.map(f=>`<li><span>${f.nom}</span><b>× ${q[f.id]}</b></li>`).join(''):'<li class="vide">Aucun fromage pour l\'instant.</li>';
+  $('#lCreneau').style.display=lieu()==='marche'?'none':'';
+  const r=$('#rdv');const d=jour.value?new Date(jour.value+'T12:00'):null;
+  let txt='',alerte=false;
+  if(!d){txt='Choisissez un jour.';alerte=true}
+  else{
+    const jl=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+    if(lieu()==='marche'){
+      if(d.getDay()!==6){txt='Le marché de Montbrison a lieu le samedi matin : choisissez un samedi.';alerte=true}
+      else txt='Retrait au marché de Montbrison, '+jl+' (matin).';
+    }else{
+      const c=$('#creneau').value.replace(':00','h').replace('-',' – ').replace(':00','h').replace(':30','h30');
+      txt='Retrait à la ferme, '+jl+', entre '+c+'.';
+    }
+  }
+  r.textContent=txt;r.classList.toggle('alerte',alerte);
+}
+maj();
+
+function resume(){
+  const c=FROMAGES.filter(f=>q[f.id]>0).map(f=>'- '+f.nom+' : '+q[f.id]+' '+f.u+(q[f.id]>1?'s':'')).join('\n');
+  return 'Bonjour,\n\nJe souhaite réserver :\n'+c+'\n\n'+$('#rdv').textContent+'\n\nNom : '+($('#nom').value||'…')+'\nTéléphone : '+($('#tel').value||'…')+'\n\nMerci !';
+}
+function ok(){
+  if(!FROMAGES.some(f=>q[f.id]>0)){toast('Ajoutez au moins un fromage.');return false}
+  if($('#rdv').classList.contains('alerte')){toast($('#rdv').textContent);return false}
+  return true;
+}
+$('#envoyer').addEventListener('click',()=>{
+  if(!ok())return;
+  location.href='mailto:rene.plagne@orange.fr?subject='+encodeURIComponent('Réservation de fromages')+'&body='+encodeURIComponent(resume());
+  toast('Votre messagerie s\'ouvre avec la demande prête à envoyer.');
+});
+$('#ics').addEventListener('click',()=>{
+  if(!ok())return;
+  const j=jour.value.replace(/-/g,'');let deb,fin,loc;
+  if(lieu()==='marche'){deb='090000';fin='100000';loc='Marché de Montbrison'}
+  else{const[a,b]=$('#creneau').value.split('-');deb=a.replace(':','')+'00';fin=(a==='11:00'?'1200':'1730')+'00';loc='La Ferme Plagne, 350 chemin des Champas, 42990 Sauvain'}
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ferme Plagne//Maquette//FR','BEGIN:VEVENT','UID:'+Date.now()+'@ferme-plagne','DTSTAMP:'+new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z','DTSTART;TZID=Europe/Paris:'+j+'T'+deb,'DTEND;TZID=Europe/Paris:'+j+'T'+fin,'SUMMARY:Récupérer mes fromages - La Ferme Plagne','LOCATION:'+loc,'DESCRIPTION:'+resume().replace(/\n/g,'\\n'),'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='retrait-ferme-plagne.ics';a.click();
+  toast('Rendez-vous ajouté : ouvrez le fichier pour l\'enregistrer dans votre agenda.');
+});
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),3200)}
+
+/* ---- Apparitions et compteurs ---- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+const ioc=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,fin=+el.dataset.compte;ioc.unobserve(el);
+  if(reduit){el.textContent=fin;return}const t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/1600);el.textContent=Math.round(fin*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)}),{threshold:.6});
+document.querySelectorAll('[data-compte]').forEach(el=>ioc.observe(el));
+
+/* ---- Parallaxe des crêtes ---- */
+const m1=$('#m1'),m2=$('#m2'),m3=$('#m3');
+if(!reduit)addEventListener('scroll',()=>{const y=scrollY;if(y>900)return;m1.style.transform=`translateY(${y*.25}px)`;m2.style.transform=`translateY(${y*.14}px)`;m3.style.transform=`translateY(${y*.05}px)`},{passive:true});
+
+/* ---- Header, menu, section active ---- */
+const header=$('#top');addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>10),{passive:true});
+const burger=$('#burger'),menu=$('#menu');
+burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+const liens=[...menu.querySelectorAll('a')];
+const ios=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)liens.forEach(a=>a.classList.toggle('actif',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>ios.observe(s));
+})();
+</script>
+</body>
+</html>
