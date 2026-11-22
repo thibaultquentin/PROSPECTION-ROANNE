@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Géoclim Loire — Pompe à chaleur, géothermie et solaire dans la Loire | Feurs</title>
+<meta name="description" content="Géoclim Loire, artisan installateur RGE à Feurs : pompes à chaleur air-eau, géothermie, climatisation et panneaux photovoltaïques dans la Loire, du conseil à l'entretien.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CHARTE GÉOCLIM LOIRE — reprise du site actuel (geoclimloire.com)
+   Vert et bleu marine relevés dans le CSS du site, polices Nunito Sans / Open Sans.
+   Ajuster ici en quelques lignes si besoin.
+   ========================================================= */
+:root{
+  --vert:#95b442;        /* vert Géoclim (boutons, accents) */
+  --vert-fonce:#7a9634;
+  --marine:#192e59;      /* bleu marine Géoclim (titres, fonds) */
+  --marine-2:#22396b;
+  --texte:#454545;
+  --fond:#ffffff;
+  --fond-doux:#f4f7ef;
+  --gris:#e9ecf2;
+  --font-titre:'Nunito Sans',system-ui,sans-serif;
+  --font-texte:'Open Sans',system-ui,sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--texte);background:var(--fond);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-titre);color:var(--marine);line-height:1.15}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.demo{background:var(--marine);color:#fff;font-size:.8rem;text-align:center;padding:6px 12px}
+.demo b{color:var(--vert)}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+header.nav.scrolled{border-color:var(--gris);box-shadow:0 6px 24px rgba(25,46,89,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+.logo img{height:52px;width:auto}
+.menu{display:flex;gap:26px;list-style:none;font-family:var(--font-titre);font-weight:700;font-size:.95rem}
+.menu a{text-decoration:none;color:var(--marine);position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:100%;background:var(--vert);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.actif::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-titre);font-weight:800;text-decoration:none;border:0;cursor:pointer;border-radius:999px;padding:13px 24px;font-size:.95rem;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+.btn:active{transform:scale(.96)}
+.btn-vert{background:var(--vert);color:#fff;box-shadow:0 8px 20px rgba(149,180,66,.35)}
+.btn-vert:hover{background:var(--vert-fonce);transform:translateY(-2px)}
+.btn-ligne{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.btn-ligne:hover{background:#fff;color:var(--marine)}
+.tel{font-family:var(--font-titre);font-weight:800;color:var(--marine);text-decoration:none;white-space:nowrap}
+.burger{display:none;background:none;border:0;font-size:1.6rem;color:var(--marine);cursor:pointer}
+
+/* HERO — structure inspirée de la référence "Industrie / BTP" : visuel + 3 tuiles métiers */
+.hero{position:relative;min-height:calc(100vh - 106px);display:grid;grid-template-columns:1.5fr 1fr;background:var(--marine);overflow:hidden}
+.hero-visuel{position:relative;overflow:hidden}
+.hero-visuel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1.2s ease,transform 7s linear}
+.hero-visuel img.on{opacity:1;transform:scale(1)}
+.hero-visuel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,46,89,.88) 0%,rgba(25,46,89,.55) 55%,rgba(25,46,89,.15) 100%)}
+.hero-txt{position:absolute;z-index:2;left:0;top:50%;transform:translateY(-50%);padding:0 clamp(16px,5vw,72px);max-width:720px;color:#fff}
+.sur{font-family:var(--font-titre);font-weight:800;letter-spacing:.18em;font-size:.78rem;color:var(--vert);text-transform:uppercase}
+.hero h1{color:#fff;font-size:clamp(2.1rem,4.4vw,3.7rem);margin:14px 0 16px;font-weight:800}
+.hero h1 .acc{color:var(--vert)}
+.hero p.lead{font-size:clamp(1rem,1.3vw,1.15rem);opacity:.9;max-width:520px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.reveal-mot{display:inline-block;opacity:0;transform:translateY(24px);animation:mot .8s var(--ease) forwards}
+@keyframes mot{to{opacity:1;transform:none}}
+.tuiles{display:grid;grid-template-rows:repeat(3,1fr)}
+.tuile{position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px 26px;text-decoration:none;color:#fff;border-left:4px solid transparent;transition:border-color .3s}
+.tuile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.tuile::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(25,46,89,.92),rgba(25,46,89,.25));z-index:1;transition:background .4s}
+.tuile:hover img{transform:scale(1.08)}
+.tuile:hover{border-color:var(--vert)}
+.tuile:hover::before{background:linear-gradient(0deg,rgba(25,46,89,.95),rgba(149,180,66,.25))}
+.tuile div{position:relative;z-index:2}
+.tuile h3{color:#fff;font-size:1.15rem}
+.tuile small{opacity:.85}
+.tuile .fl{display:inline-block;transition:transform .3s}
+.tuile:hover .fl{transform:translateX(6px)}
+
+/* CHIFFRES */
+.chiffres{background:var(--fond-doux);padding:56px 0}
+.chiffres .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.chiffre b{display:block;font-family:var(--font-titre);font-size:clamp(2.2rem,4vw,3.2rem);color:var(--marine);font-weight:800}
+.chiffre b em{font-style:normal;color:var(--vert)}
+.chiffre span{font-size:.92rem}
+
+section{padding:clamp(64px,9vw,110px) 0}
+.titre-sec{max-width:720px;margin-bottom:44px}
+.titre-sec h2{font-size:clamp(1.8rem,3.2vw,2.6rem);margin:10px 0 12px}
+
+/* SERVICES */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.carte{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 10px 34px rgba(25,46,89,.08);display:flex;flex-direction:column;transition:transform .35s var(--ease),box-shadow .35s}
+.carte:hover{transform:translateY(-6px);box-shadow:0 18px 44px rgba(25,46,89,.14)}
+.carte .img{aspect-ratio:16/10;overflow:hidden}
+.carte .img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.carte:hover .img img{transform:scale(1.06)}
+.carte .corps{padding:24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.carte ul{list-style:none;font-size:.93rem}
+.carte li{padding-left:22px;position:relative;margin:4px 0}
+.carte li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--vert)}
+.carte .ico{width:44px;height:44px}
+.carte a.lien{margin-top:auto;font-family:var(--font-titre);font-weight:800;color:var(--vert-fonce);text-decoration:none}
+
+/* ORIENTEUR — outil central */
+.orienteur{background:var(--marine);color:#fff;position:relative;overflow:hidden}
+.orienteur::before{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(149,180,66,.28),transparent 70%);right:-160px;top:-160px;animation:flotte 12s ease-in-out infinite alternate}
+@keyframes flotte{to{transform:translate(-80px,90px)}}
+.orienteur h2{color:#fff}
+.orienteur .titre-sec p{opacity:.85}
+.or-grille{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;position:relative}
+.panneau{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:clamp(20px,3vw,34px)}
+.progression{height:6px;background:rgba(255,255,255,.12);border-radius:9px;overflow:hidden;margin-bottom:22px}
+.progression i{display:block;height:100%;width:20%;background:var(--vert);transition:width .5s var(--ease)}
+.etape{display:none;animation:entre .45s var(--ease)}
+.etape.on{display:block}
+@keyframes entre{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.etape h3{color:#fff;font-size:1.25rem;margin-bottom:6px}
+.etape p.aide{font-size:.88rem;opacity:.75;margin-bottom:16px}
+.choix{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.choix button{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.16);color:#fff;border-radius:12px;padding:14px;text-align:left;font:600 .95rem var(--font-texte);cursor:pointer;transition:border-color .2s,background .2s,transform .15s;min-height:56px}
+.choix button:hover{border-color:var(--vert);transform:translateY(-2px)}
+.choix button.sel{background:var(--vert);border-color:var(--vert)}
+.choix button small{display:block;font-weight:400;opacity:.8;font-size:.8rem}
+.nav-etapes{display:flex;justify-content:space-between;margin-top:20px}
+.nav-etapes button{background:none;border:0;color:#fff;opacity:.75;cursor:pointer;font:700 .9rem var(--font-titre)}
+.nav-etapes button:hover{opacity:1}
+.resultat h3{color:#fff;font-size:1.4rem}
+.reco{background:#fff;color:var(--texte);border-radius:16px;padding:20px;margin:14px 0;display:flex;gap:16px;align-items:flex-start;animation:entre .5s var(--ease) both}
+.reco img{width:46px;height:46px;flex:none}
+.reco h4{font-size:1.08rem;margin-bottom:4px}
+.reco p{font-size:.92rem}
+.reco .rge{display:inline-block;margin-top:8px;background:var(--fond-doux);color:var(--vert-fonce);font:800 .75rem var(--font-titre);padding:4px 10px;border-radius:99px}
+.recap{list-style:none;font-size:.9rem}
+.recap li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dashed rgba(255,255,255,.18);padding:9px 0}
+.recap li span:last-child{font-weight:600;text-align:right}
+.recap li.vide span:last-child{opacity:.45}
+.cote h3{color:#fff;margin-bottom:12px}
+.cote .note{font-size:.82rem;opacity:.7;margin-top:14px}
+
+/* RGE */
+.rge-bande{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:center}
+.rge-liste{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.rge-item{border:1px solid var(--gris);border-radius:12px;padding:16px;background:#fff;transition:border-color .3s,transform .3s}
+.rge-item:hover{border-color:var(--vert);transform:translateY(-3px)}
+.rge-item b{font-family:var(--font-titre);color:var(--marine);display:block}
+.rge-item small{font-size:.8rem}
+.logos-q{display:flex;gap:18px;align-items:center;margin-top:20px;flex-wrap:wrap}
+.logos-q img{height:64px;width:auto}
+
+/* DÉMARCHE */
+.demarche{background:var(--fond-doux)}
+.etapes4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;counter-reset:e}
+.e4{background:#fff;border-radius:var(--r);padding:26px;position:relative}
+.e4::before{counter-increment:e;content:"0" counter(e);font:800 2.4rem var(--font-titre);color:var(--vert);opacity:.35;position:absolute;right:18px;top:10px}
+.e4 img{width:46px;height:46px;margin-bottom:14px}
+.e4 h3{font-size:1.1rem;margin-bottom:6px}
+
+/* RÉALISATIONS */
+.filtres{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.filtres button{border:2px solid var(--gris);background:#fff;border-radius:99px;padding:9px 18px;font:700 .9rem var(--font-titre);color:var(--marine);cursor:pointer;transition:all .2s}
+.filtres button.on,.filtres button:hover{background:var(--marine);border-color:var(--marine);color:#fff}
+.galerie{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:12px}
+.galerie figure{overflow:hidden;border-radius:12px;position:relative;transition:opacity .35s,transform .35s}
+.galerie figure.cache{display:none}
+.galerie figure.haut{grid-row:span 2}
+.galerie img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.galerie figure:hover img{transform:scale(1.07)}
+.galerie figcaption{position:absolute;left:10px;bottom:10px;background:rgba(25,46,89,.85);color:#fff;font:700 .75rem var(--font-titre);padding:4px 10px;border-radius:99px}
+
+/* PARTENAIRES */
+.partenaires{padding:50px 0;border-top:1px solid var(--gris)}
+.defile{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.piste{display:flex;gap:70px;width:max-content;animation:defile 28s linear infinite;align-items:center}
+.piste img{height:42px;width:auto;opacity:.75;filter:grayscale(1);transition:all .3s}
+.piste img:hover{opacity:1;filter:none}
+@keyframes defile{to{transform:translateX(-50%)}}
+
+/* CONTACT */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:20px;overflow:hidden;box-shadow:0 20px 50px rgba(25,46,89,.14)}
+.contact-info{background:var(--marine);color:#fff;padding:clamp(26px,4vw,50px)}
+.contact-info h2{color:#fff;margin-bottom:16px}
+.contact-info p{margin:10px 0}
+.contact-info a{color:#fff;font-weight:600}
+.contact-info .gros{font:800 1.8rem var(--font-titre);color:var(--vert);text-decoration:none;display:block;margin:16px 0}
+.contact-photo{position:relative;min-height:320px}
+.contact-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+footer{background:#0f1d3b;color:rgba(255,255,255,.75);font-size:.85rem;padding:36px 0;margin-top:80px}
+footer .wrap{display:flex;flex-direction:column;gap:10px}
+footer b{color:#fff}
+
+/* apparitions au scroll */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.vu{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+.flottant{position:fixed;right:18px;bottom:18px;z-index:60;opacity:0;transform:translateY(20px);pointer-events:none;transition:all .35s var(--ease)}
+.flottant.on{opacity:1;transform:none;pointer-events:auto}
+
+@media (max-width:980px){
+  .menu,.nav .tel{display:none}
+  .burger{display:block}
+  .menu.ouvert{display:flex;flex-direction:column;position:absolute;top:76px;left:0;right:0;background:#fff;padding:20px 16px;box-shadow:0 10px 20px rgba(0,0,0,.08)}
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-visuel{min-height:560px}
+  .tuiles{grid-template-columns:repeat(3,1fr);grid-template-rows:none}
+  .tuile{min-height:150px;padding:16px}
+  .services,.or-grille,.rge-bande,.contact{grid-template-columns:1fr}
+  .etapes4{grid-template-columns:repeat(2,1fr)}
+  .galerie{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  .chiffres .wrap{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  .tuiles{grid-template-columns:1fr}
+  .choix,.rge-liste,.etapes4{grid-template-columns:1fr}
+  .nav .btn-vert{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+:focus-visible{outline:3px solid var(--vert);outline-offset:2px}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HVACBusiness",
+  "name":"Géoclim Loire",
+  "legalName":"SARL GEOCLIM-LOIRE",
+  "url":"https://www.geoclimloire.com/",
+  "logo":"https://www.geoclimloire.com/wp-content/uploads/2021/11/logo-geoclim-loire.png",
+  "telephone":"+33477260607",
+  "email":"contact@geoclimloire.com",
+  "address":{"@type":"PostalAddress","streetAddress":"2 impasse du Palatin, ZAC du Forum II","postalCode":"42110","addressLocality":"Feurs","addressCountry":"FR"},
+  "areaServed":{"@type":"AdministrativeArea","name":"Loire (42)"},
+  "founder":{"@type":"Person","name":"Patrice Dupin"},
+  "knowsAbout":["Pompe à chaleur air-eau","Pompe à chaleur air-air","Géothermie","Climatisation","Panneaux photovoltaïques","Chauffe-eau thermodynamique"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — proposition de refonte pour <b>Géoclim Loire</b>, non publiée par l'entreprise</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#accueil" aria-label="Géoclim Loire, accueil"><img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/logo-geoclim-loire-300x183.png" alt="Géoclim Loire"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil" class="actif">Accueil</a></li>
+      <li><a href="#services">Pompes à chaleur</a></li>
+      <li><a href="#services">Géothermie</a></li>
+      <li><a href="#services">Climatisation</a></li>
+      <li><a href="#services">Panneaux photovoltaïques</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="tel" href="tel:+33477260607">04 77 26 06 07</a>
+    <a class="btn btn-vert" href="#orienteur">Votre devis en 1 clic</a>
+    <button class="burger" aria-label="Ouvrir le menu" onclick="document.getElementById('menu').classList.toggle('ouvert')">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="hero-visuel">
+    <img class="on" src="https://www.geoclimloire.com/wp-content/uploads/2021/11/hero-1.jpg" alt="">
+    <img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/hero-2.jpg" alt="">
+    <img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/hero-3.jpg" alt="">
+    <img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/hero-4.jpg" alt="">
+    <div class="hero-txt">
+      <span class="sur">Geoclim Loire · Feurs · Loire (42)</span>
+      <h1><span class="reveal-mot" style="animation-delay:.1s">Nous transformons</span> <span class="reveal-mot" style="animation-delay:.25s">l'énergie</span> <span class="reveal-mot" style="animation-delay:.4s">en <span class="acc">confort</span></span></h1>
+      <p class="lead reveal-mot" style="animation-delay:.6s">Pompes à chaleur, géothermie, climatisation et panneaux solaires. Pour s'assurer d'un logement confortablement chauffé et climatisé.</p>
+      <div class="ctas reveal-mot" style="animation-delay:.8s">
+        <a class="btn btn-vert" href="#orienteur">Trouver la solution pour ma maison →</a>
+        <a class="btn btn-ligne" href="tel:+33477260607">04 77 26 06 07</a>
+      </div>
+    </div>
+  </div>
+  <div class="tuiles">
+    <a class="tuile" href="#services"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geothermie_illu.jpg" alt=""><div><h3>Pompe à chaleur et Géothermie <span class="fl">→</span></h3><small>Chauffage central et eau chaude</small></div></a>
+    <a class="tuile" href="#services"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/02/photo_climatiseur.jpg" alt=""><div><h3>Climatisation <span class="fl">→</span></h3><small>Murale, console ou gainable</small></div></a>
+    <a class="tuile" href="#services"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/02/photo_photovoltaique.jpg" alt=""><div><h3>Photovoltaïque <span class="fl">→</span></h3><small>Produire, consommer ou revendre</small></div></a>
+  </div>
+</section>
+
+<div class="chiffres">
+  <div class="wrap">
+    <div class="chiffre rv"><b><em>+</em><span data-compte="20">0</span></b><span>ans d'expérience</span></div>
+    <div class="chiffre rv d1"><b><em>+</em><span data-compte="2800">0</span></b><span>installations dans la Loire</span></div>
+    <div class="chiffre rv d2"><b><em>+</em><span data-compte="500">0</span></b><span>installations photovoltaïques</span></div>
+    <div class="chiffre rv d3"><b>A <em>→</em> Z</b><span>du conseil à l'entretien, sans sous-traitance</span></div>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="sur">Le spécialiste des énergies renouvelables</span>
+      <h2>Spécialiste de la pompe à chaleur, de la géothermie et de la climatisation</h2>
+      <p>Plus de 20 ans d'expérience au service de projets de construction et de rénovation dans le domaine de la pompe à chaleur, de la géothermie, de la climatisation et des panneaux photovoltaïques.</p>
+    </div>
+    <div class="services">
+      <article class="carte rv">
+        <div class="img"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/photo-2.jpg" alt="Pompe à chaleur installée par Géoclim Loire" loading="lazy"></div>
+        <div class="corps">
+          <img class="ico" src="https://www.geoclimloire.com/wp-content/uploads/2021/11/geothermie.svg" alt="">
+          <h3>Pompe à chaleur et Géothermie</h3>
+          <p>Pour bénéficier d'une source d'énergie renouvelable et propre en alimentant le chauffage central et l'arrivée d'eau chaude.</p>
+          <ul>
+            <li>PAC air-eau : radiateurs, plancher chauffant, ballon d'eau chaude</li>
+            <li>Géothermie : captage par forage ou captage horizontal</li>
+            <li>Neuf ou remplacement de votre système actuel</li>
+          </ul>
+          <a class="lien" href="#orienteur">Est-ce adapté à ma maison ? →</a>
+        </div>
+      </article>
+      <article class="carte rv d1">
+        <div class="img"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/clim-murale-2.jpg" alt="Climatisation murale" loading="lazy"></div>
+        <div class="corps">
+          <img class="ico" src="https://www.geoclimloire.com/wp-content/uploads/2021/11/clim.svg" alt="">
+          <h3>Climatisation</h3>
+          <p>Nous étudions le confort, le dimensionnement et l'esthétique de l'installation.</p>
+          <ul>
+            <li>Murale : la plus économique et la plus facile à installer</li>
+            <li>Console : diffusion homogène, partiellement encastrable</li>
+            <li>Gainable : dissimulée en faux-plafond ou combles</li>
+          </ul>
+          <a class="lien" href="#orienteur">Quel modèle choisir ? →</a>
+        </div>
+      </article>
+      <article class="carte rv d2">
+        <div class="img"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/02/photo_panneaux_solaires.jpg" alt="Panneaux photovoltaïques en toiture" loading="lazy"></div>
+        <div class="corps">
+          <img class="ico" src="https://www.geoclimloire.com/wp-content/uploads/2021/11/solar-panel.svg" alt="">
+          <h3>Photovoltaïque</h3>
+          <p>Installer des panneaux pour produire son électricité, la consommer ou la revendre, en conservant une harmonie visuelle.</p>
+          <ul>
+            <li>Sur toiture, pergola ou terrain</li>
+            <li>Autoconsommation et aérovoltaïque</li>
+            <li>Installation conforme aux exigences de revente</li>
+          </ul>
+          <a class="lien" href="#orienteur">Mon toit s'y prête-t-il ? →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- OUTIL CENTRAL -->
+<section class="orienteur" id="orienteur">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="sur">Votre devis en 1 clic</span>
+      <h2>Quelle solution pour votre logement ?</h2>
+      <p>Cinq questions, et vous savez par quoi commencer. Votre demande arrive chez Géoclim Loire déjà complète, sans avoir à tout réexpliquer au téléphone.</p>
+    </div>
+    <div class="or-grille">
+      <div class="panneau">
+        <div class="progression"><i id="barre"></i></div>
+
+        <div class="etape on" data-q="projet">
+          <h3>1. Votre projet concerne…</h3>
+          <p class="aide">Géoclim Loire intervient en construction neuve comme en rénovation.</p>
+          <div class="choix">
+            <button data-v="Construction neuve">Une construction neuve</button>
+            <button data-v="Rénovation">Une maison existante<small>rénovation, remplacement</small></button>
+          </div>
+        </div>
+
+        <div class="etape" data-q="besoin">
+          <h3>2. Votre besoin principal</h3>
+          <p class="aide">Vous pourrez préciser le reste par téléphone.</p>
+          <div class="choix">
+            <button data-v="Chauffage et eau chaude">Me chauffer<small>et produire l'eau chaude</small></button>
+            <button data-v="Rafraîchir en été">Rafraîchir en été<small>et chauffer en mi-saison</small></button>
+            <button data-v="Produire mon électricité">Produire mon électricité</button>
+            <button data-v="Plusieurs besoins">Un peu de tout</button>
+          </div>
+        </div>
+
+        <div class="etape" data-q="actuel">
+          <h3>3. Votre chauffage actuel</h3>
+          <p class="aide">Pour savoir ce qu'on remplace, ou ce qu'on complète.</p>
+          <div class="choix">
+            <button data-v="Fioul">Fioul</button>
+            <button data-v="Gaz">Gaz</button>
+            <button data-v="Électrique">Radiateurs électriques</button>
+            <button data-v="Bois / autre">Bois ou autre</button>
+            <button data-v="Aucun (neuf)">Aucun, c'est du neuf</button>
+          </div>
+        </div>
+
+        <div class="etape" data-q="emetteurs">
+          <h3>4. Dans la maison, la chaleur passe par…</h3>
+          <p class="aide">Une PAC air-eau ou une géothermie alimente un réseau d'eau chaude.</p>
+          <div class="choix">
+            <button data-v="Radiateurs à eau">Des radiateurs à eau</button>
+            <button data-v="Plancher chauffant">Un plancher chauffant</button>
+            <button data-v="Pas de réseau d'eau">Pas de réseau d'eau<small>radiateurs électriques, poêle…</small></button>
+            <button data-v="À définir">À définir</button>
+          </div>
+        </div>
+
+        <div class="etape" data-q="terrain">
+          <h3>5. Côté extérieur</h3>
+          <p class="aide">Utile pour la géothermie (captage horizontal ou forage) et pour le solaire.</p>
+          <div class="choix">
+            <button data-v="Grand terrain dégagé">Un grand terrain dégagé</button>
+            <button data-v="Petit terrain">Un petit terrain</button>
+            <button data-v="Toiture bien exposée">Surtout une toiture bien exposée</button>
+            <button data-v="Je ne sais pas">Je ne sais pas</button>
+          </div>
+        </div>
+
+        <div class="etape resultat" data-q="fin">
+          <h3>Nos pistes pour votre logement</h3>
+          <div id="recos"></div>
+          <p style="font-size:.85rem;opacity:.75;margin-top:6px">Une orientation, pas un diagnostic : Géoclim Loire étudie toujours votre consommation et vos besoins avant de proposer une installation.</p>
+          <div class="ctas" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+            <a class="btn btn-vert" id="envoi" href="#">Envoyer ma demande de devis</a>
+            <a class="btn btn-ligne" href="tel:+33477260607">Appeler le 04 77 26 06 07</a>
+          </div>
+        </div>
+
+        <div class="nav-etapes"><button id="retour">← Retour</button><button id="recommencer">Recommencer</button></div>
+      </div>
+
+      <aside class="panneau cote">
+        <h3>Votre demande</h3>
+        <ul class="recap" id="recap">
+          <li class="vide" data-k="projet"><span>Projet</span><span>—</span></li>
+          <li class="vide" data-k="besoin"><span>Besoin</span><span>—</span></li>
+          <li class="vide" data-k="actuel"><span>Chauffage actuel</span><span>—</span></li>
+          <li class="vide" data-k="emetteurs"><span>Émetteurs</span><span>—</span></li>
+          <li class="vide" data-k="terrain"><span>Extérieur</span><span>—</span></li>
+        </ul>
+        <p class="note">Rien n'est envoyé sans votre accord : le bouton final ouvre simplement un mail prérempli vers contact@geoclimloire.com.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="rge">
+  <div class="wrap rge-bande">
+    <div class="rv">
+      <span class="sur">Qualifications</span>
+      <h2 style="font-size:clamp(1.7rem,3vw,2.4rem);margin:10px 0 14px">Un artisan reconnu garant de l'environnement (RGE)</h2>
+      <p>Géoclim Loire est une société d'artisan : tout est fait par nos soins, sans les effets de la sous-traitance. Nos qualifications RGE couvrent chacun de nos métiers, une condition pour que vos travaux puissent ouvrir droit aux aides publiques à la rénovation énergétique, selon votre situation.</p>
+      <div class="logos-q">
+        <img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/quali_pac_2.jpg" alt="QualiPAC" loading="lazy">
+        <img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/quali_pv_2.jpg" alt="QualiPV" loading="lazy">
+        <img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/logo-qualibat.svg" alt="Qualibat" loading="lazy">
+      </div>
+    </div>
+    <div class="rge-liste">
+      <div class="rge-item rv"><b>QualiPAC Chauffage</b><small>Pompe à chaleur aérothermique ou géothermique, chauffe-eau thermodynamique</small></div>
+      <div class="rge-item rv d1"><b>QualiPV Elec</b><small>Générateur photovoltaïque raccordé au réseau</small></div>
+      <div class="rge-item rv d2"><b>Qualisol</b><small>Chauffe-eau solaire individuel</small></div>
+      <div class="rge-item rv d3"><b>Qualibat</b><small>Pompe à chaleur et groupe froid, photovoltaïque ≤ 36 kVA, chauffe-eau thermodynamique</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="demarche">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="sur">Vous saurez quoi faire et comment le faire</span>
+      <h2>Nous assurons votre chantier de A à Z</h2>
+    </div>
+    <div class="etapes4">
+      <div class="e4 rv"><img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/discuss.svg" alt=""><h3>Conseil</h3><p>Étude de votre consommation et de vos besoins énergétiques.</p></div>
+      <div class="e4 rv d1"><img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/worker.svg" alt=""><h3>Installation</h3><p>Pose par nos équipes, avec des partenaires matériels éprouvés.</p></div>
+      <div class="e4 rv d2"><img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/key.svg" alt=""><h3>Mise en service</h3><p>Une intervention clés en main, réglée pour votre logement.</p></div>
+      <div class="e4 rv d3"><img src="https://www.geoclimloire.com/wp-content/uploads/2021/11/rouages.svg" alt=""><h3>Entretien</h3><p>Nous installons et entretenons votre équipement dans la durée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="realisations">
+  <div class="wrap">
+    <div class="titre-sec rv">
+      <span class="sur">Réalisations</span>
+      <h2>Des installations de qualité adaptées à tout budget et à tout chantier</h2>
+    </div>
+    <div class="filtres" role="tablist">
+      <button class="on" data-f="tout">Tout</button>
+      <button data-f="geo">Géothermie</button>
+      <button data-f="clim">Climatisation</button>
+      <button data-f="pac">Pompes à chaleur</button>
+    </div>
+    <div class="galerie">
+      <figure class="haut" data-c="geo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geo_rea_5_vert.jpg" alt="Réalisation géothermie" loading="lazy"><figcaption>Géothermie</figcaption></figure>
+      <figure data-c="geo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geo_rea_1.jpg" alt="Réalisation géothermie" loading="lazy"><figcaption>Géothermie</figcaption></figure>
+      <figure data-c="clim"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea_clim_1.jpg" alt="Réalisation climatisation" loading="lazy"><figcaption>Climatisation</figcaption></figure>
+      <figure class="haut" data-c="pac"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea-1.jpg" alt="Réalisation pompe à chaleur" loading="lazy"><figcaption>Pompe à chaleur</figcaption></figure>
+      <figure data-c="geo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geo_rea_2.jpg" alt="Réalisation géothermie" loading="lazy"><figcaption>Géothermie</figcaption></figure>
+      <figure data-c="clim"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea_clim_2.jpg" alt="Réalisation climatisation" loading="lazy"><figcaption>Climatisation</figcaption></figure>
+      <figure data-c="pac"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea-2.jpg" alt="Réalisation pompe à chaleur" loading="lazy"><figcaption>Pompe à chaleur</figcaption></figure>
+      <figure data-c="geo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geo_rea_3.jpg" alt="Réalisation géothermie" loading="lazy"><figcaption>Géothermie</figcaption></figure>
+      <figure data-c="clim"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea_clim_3.jpg" alt="Réalisation climatisation" loading="lazy"><figcaption>Climatisation</figcaption></figure>
+      <figure data-c="pac"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea-4.jpg" alt="Réalisation pompe à chaleur" loading="lazy"><figcaption>Pompe à chaleur</figcaption></figure>
+      <figure data-c="geo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/geo_rea_4.jpg" alt="Réalisation géothermie" loading="lazy"><figcaption>Géothermie</figcaption></figure>
+      <figure data-c="pac"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/01/rea-9.jpg" alt="Réalisation pompe à chaleur" loading="lazy"><figcaption>Pompe à chaleur</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<div class="partenaires">
+  <div class="wrap">
+    <p class="sur" style="text-align:center;margin-bottom:22px">Partenaires</p>
+    <div class="defile"><div class="piste" id="piste">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-panasonic-2.svg" alt="Panasonic">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-toshiba-2.svg" alt="Toshiba">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-enphase-2.svg" alt="Enphase">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-sunpower-2.svg" alt="SunPower">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-voltaneo-2.svg" alt="Voltaneo">
+      <img src="https://www.geoclimloire.com/wp-content/uploads/2021/12/logo-psa-2.svg" alt="Partenaire">
+    </div></div>
+  </div>
+</div>
+
+<section id="contact" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="contact rv">
+      <div class="contact-info">
+        <span class="sur">Nous contacter</span>
+        <h2>Géoclim Loire est situé dans le département de la Loire</h2>
+        <a class="gros" href="tel:+33477260607">04 77 26 06 07</a>
+        <p>2 impasse du Palatin, ZAC du Forum II<br>42110 Feurs</p>
+        <p><a href="mailto:contact@geoclimloire.com">contact@geoclimloire.com</a></p>
+        <div style="margin-top:22px"><a class="btn btn-vert" href="#orienteur">Préparer ma demande de devis</a></div>
+      </div>
+      <div class="contact-photo"><img src="https://www.geoclimloire.com/wp-content/uploads/2022/02/contact-prefooter_2.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<a class="btn btn-vert flottant" id="flottant" href="#orienteur">Votre devis en 1 clic</a>
+
+<footer>
+  <div class="wrap">
+    <div><b>SARL Géoclim Loire</b> · 2 impasse du Palatin, ZAC du Forum II, 42110 Feurs · 04 77 26 06 07</div>
+    <div>Maquette de démonstration réalisée sans engagement. Textes, logo, logos de partenaires et photos repris du site actuel geoclimloire.com (aucune photo d'illustration ajoutée). Couleurs et polices relevées sur le site actuel, ajustables. Qualifications RGE issues de l'annuaire public ADEME (novembre 2026). L'outil d'orientation donne des pistes indicatives et ne remplace pas l'étude réalisée par l'entreprise.</div>
+  </div>
+</footer>
+
+<script>
+// Nav au scroll + bouton flottant
+const nav=document.getElementById('nav'),flot=document.getElementById('flottant'),ori=document.getElementById('orienteur');
+addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',scrollY>10);
+  const r=ori.getBoundingClientRect();
+  flot.classList.toggle('on',scrollY>700&&(r.top>innerHeight||r.bottom<0));
+},{passive:true});
+
+// Diaporama hero (photos réelles du site)
+const slides=[...document.querySelectorAll('.hero-visuel img')];let s=0;
+setInterval(()=>{slides[s].classList.remove('on');s=(s+1)%slides.length;slides[s].classList.add('on')},5500);
+
+// Apparitions + compteurs
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('vu');
+  e.target.querySelectorAll('[data-compte]').forEach(c=>{const fin=+c.dataset.compte,t0=performance.now();
+    (function f(t){const p=Math.min(1,(t-t0)/1600),v=Math.round(fin*(1-Math.pow(1-p,3)));c.textContent=v.toLocaleString('fr-FR');if(p<1)requestAnimationFrame(f)})(t0)});
+  io.unobserve(e.target)}),{threshold:.2});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// Défilement partenaires (duplication pour boucle)
+const piste=document.getElementById('piste');piste.innerHTML+=piste.innerHTML;
+
+// Galerie filtrable
+document.querySelectorAll('.filtres button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.filtres button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  document.querySelectorAll('.galerie figure').forEach(f=>f.classList.toggle('cache',b.dataset.f!=='tout'&&f.dataset.c!==b.dataset.f));
+});
+
+// ORIENTEUR
+const etapes=[...document.querySelectorAll('.etape')],rep={};let i=0;
+const barre=document.getElementById('barre');
+const ICO='https://www.geoclimloire.com/wp-content/uploads/2021/11/';
+function montre(n){etapes.forEach((e,k)=>e.classList.toggle('on',k===n));i=n;barre.style.width=((n+1)/etapes.length*100)+'%';
+  document.getElementById('retour').style.visibility=n?'visible':'hidden';}
+function recap(){document.querySelectorAll('#recap li').forEach(li=>{const v=rep[li.dataset.k];li.classList.toggle('vide',!v);li.lastElementChild.textContent=v||'—'})}
+etapes.forEach((e,k)=>e.querySelectorAll('.choix button').forEach(b=>b.onclick=()=>{
+  e.querySelectorAll('button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');
+  rep[e.dataset.q]=b.dataset.v;recap();
+  setTimeout(()=>{if(k===etapes.length-2)resultat();montre(k+1)},260);
+}));
+document.getElementById('retour').onclick=()=>i>0&&montre(i-1);
+document.getElementById('recommencer').onclick=()=>{for(const k in rep)delete rep[k];document.querySelectorAll('.choix .sel').forEach(x=>x.classList.remove('sel'));recap();montre(0)};
+
+function resultat(){
+  const r=[],b=rep.besoin,em=rep.emetteurs,t=rep.terrain;
+  const eau=em==='Radiateurs à eau'||em==='Plancher chauffant'||(rep.projet==='Construction neuve'&&em==='À définir');
+  if(b==='Chauffage et eau chaude'||b==='Plusieurs besoins'){
+    if(eau||em==='À définir'){
+      if(t==='Grand terrain dégagé')r.push(['geothermie.svg','Géothermie, captage horizontal','Votre terrain permet d\'envisager un captage horizontal : une énergie naturelle disponible toute l\'année, sans stockage de combustible, ni odeur ni particules.','QualiPAC Chauffage']);
+      else if(t==='Petit terrain')r.push(['geothermie.svg','Géothermie par forage, ou PAC air-eau','Sur un petit terrain, la géothermie passe par un captage par forage. La PAC air-eau reste l\'option la plus simple à installer.','QualiPAC Chauffage']);
+      r.push(['eco.svg','Pompe à chaleur air-eau','Elle alimente vos radiateurs ou votre plancher chauffant et l\'eau chaude sanitaire, comme une chaudière. Peu de travaux, rapide à installer'+(rep.actuel==='Fioul'||rep.actuel==='Gaz'?' pour remplacer votre chaudière '+rep.actuel.toLowerCase()+'.':'.'),'QualiPAC Chauffage']);
+    } else {
+      r.push(['clim.svg','Pompe à chaleur air-air (climatisation réversible)','Sans réseau d\'eau chaude, une PAC air-air murale, console ou gainable chauffe en hiver et rafraîchit en été.','Qualibat PAC']);
+    }
+  }
+  if(b==='Rafraîchir en été'||(b==='Plusieurs besoins'&&!r.some(x=>x[1].includes('air-air')))){
+    r.push(['clim.svg','Climatisation murale, console ou gainable','La murale est la plus économique, la console diffuse de façon homogène, la gainable se dissimule en faux-plafond ou en combles. Nous étudions aussi l\'esthétique de l\'installation.','Qualibat PAC']);
+  }
+  if(b==='Produire mon électricité'||b==='Plusieurs besoins'||t==='Toiture bien exposée'){
+    r.push(['solar-panel.svg','Panneaux photovoltaïques','Sur toiture, pergola ou terrain : consommer votre électricité ou la revendre. Géoclim Loire analyse l\'ensoleillement et l\'environnement avant de dimensionner.','QualiPV Elec']);
+  }
+  if(!r.length)r.push(['discuss.svg','Un échange avec Géoclim Loire','Votre projet mérite une étude de votre consommation et de vos besoins énergétiques.','RGE']);
+  document.getElementById('recos').innerHTML=r.slice(0,3).map((x,k)=>`<div class="reco" style="animation-delay:${k*.12}s"><img src="${ICO+x[0]}" alt=""><div><h4>${x[1]}</h4><p>${x[2]}</p><span class="rge">✓ ${x[3]}</span></div></div>`).join('');
+  const corps='Bonjour,\n\nJe souhaite un devis.\n\n'+Object.entries({Projet:rep.projet,Besoin:rep.besoin,'Chauffage actuel':rep.actuel,'Émetteurs':rep.emetteurs,'Extérieur':rep.terrain}).map(([k,v])=>k+' : '+(v||'-')).join('\n')+'\n\nPistes proposées : '+r.slice(0,3).map(x=>x[1]).join(', ')+'\n\nNom :\nCommune :\nTéléphone :\n';
+  document.getElementById('envoi').href='mailto:contact@geoclimloire.com?subject='+encodeURIComponent('Demande de devis - '+(rep.besoin||''))+'&body='+encodeURIComponent(corps);
+}
+montre(0);
+</script>
+</body>
+</html>
