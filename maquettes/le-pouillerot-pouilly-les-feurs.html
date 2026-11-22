@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Pouillerot — Restaurant traditionnel à Pouilly-lès-Feurs | Cuisine du terroir</title>
+<meta name="description" content="Bar-restaurant traditionnel à Pouilly-lès-Feurs (Loire) : cuisine généreuse et faite maison, produits du terroir, gratin à la fourme de Sauvain, menus de semaine, du dimanche et repas de groupe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Suranna&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise du site actuel lepouillerot.fr (thème « Royal Plate »)
+   Fond nuit des en-têtes, accent vieux rose des titres, titres Suranna,
+   texte Montserrat. Tout ajustement de charte se fait ici.
+   ===================================================================== */
+:root{
+  --nuit:#0b0e13;          /* fond des en-têtes du site actuel */
+  --nuit-2:#161d27;        /* fond secondaire du site actuel */
+  --rose:#b48c80;          /* couleur des titres de menus du site actuel */
+  --rose-clair:#d9bfb6;
+  --rouge-logo:#e2352b;    /* rouge du logo « Le Pouillerot » */
+  --vert-logo:#6aa84f;     /* vert du logo */
+  --texte:#4a4a4a;
+  --gris:#777777;          /* gris du texte courant du site actuel */
+  --creme:#f7f3ef;
+  --blanc:#ffffff;
+  --titre:'Suranna', Georgia, serif;
+  --corps:'Montserrat', system-ui, sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{font-family:var(--corps);color:var(--texte);background:var(--blanc);font-size:16px;line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+
+/* Bandeau démo */
+.demo{background:var(--rose);color:var(--nuit);font-size:.78rem;text-align:center;padding:6px 12px;letter-spacing:.02em}
+
+/* En-tête */
+header{position:sticky;top:0;z-index:50;background:rgba(11,14,19,.92);backdrop-filter:blur(8px);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:10px 0}
+.logo img{height:64px;width:auto;border-radius:2px;transition:height .3s var(--ease)}
+header.scrolled .logo img{height:48px}
+.menu{display:flex;gap:26px;list-style:none}
+.menu a{color:#fff;text-decoration:none;text-transform:uppercase;font-size:.8rem;letter-spacing:.06em;position:relative;padding:6px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--rose);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--rose);color:var(--nuit);border:0;border-radius:40px;padding:12px 24px;font:600 .82rem var(--corps);letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),background .25s}
+.btn:hover{background:var(--rose-clair);transform:translateY(-2px)}
+.btn:active{transform:scale(.96)}
+.btn.ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.btn.ghost:hover{background:rgba(255,255,255,.1)}
+.burger{display:none;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;min-width:44px;min-height:44px}
+
+/* Héros */
+.hero{position:relative;min-height:calc(100vh - 110px);display:grid;place-items:center;color:#fff;overflow:hidden;background:var(--nuit)}
+.hero .bg{position:absolute;inset:0;background:url("https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_3520-1000x500.jpg") center/cover;animation:kb 22s ease-in-out infinite alternate;opacity:.55}
+@keyframes kb{from{transform:scale(1.05)}to{transform:scale(1.18) translate(-2%,1%)}}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,19,.35),rgba(11,14,19,.85))}
+.hero-in{position:relative;z-index:2;text-align:center;padding:80px 0}
+.kicker{font-size:.8rem;letter-spacing:.28em;text-transform:uppercase;color:var(--rose-clair)}
+.hero h1{font-family:var(--titre);font-weight:400;font-size:clamp(3rem,2rem + 6vw,7rem);line-height:1;margin:18px 0}
+.hero h1 span{display:inline-block;opacity:0;transform:translateY(40px);animation:up .9s var(--ease) forwards}
+@keyframes up{to{opacity:1;transform:none}}
+.hero p.lead{max-width:640px;margin:0 auto 30px;color:#e9e4e0;font-weight:300;font-size:1.08rem}
+.hero .ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.status{display:inline-flex;align-items:center;gap:10px;margin-top:34px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:10px 18px;border-radius:40px;font-size:.85rem}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--vert-logo);box-shadow:0 0 0 0 rgba(106,168,79,.7);animation:pulse 2s infinite}
+.dot.off{background:var(--rouge-logo);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(106,168,79,0)}100%{box-shadow:0 0 0 0 rgba(106,168,79,0)}}
+.scroll-ind{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:2;width:22px;height:36px;border:1px solid rgba(255,255,255,.5);border-radius:12px}
+.scroll-ind::after{content:"";position:absolute;left:50%;top:7px;width:3px;height:7px;background:#fff;border-radius:2px;transform:translateX(-50%);animation:sc 1.6s infinite}
+@keyframes sc{to{transform:translate(-50%,12px);opacity:0}}
+
+/* Bande défilante */
+.marquee{background:var(--nuit-2);color:var(--rose-clair);overflow:hidden;white-space:nowrap;border-block:1px solid rgba(180,140,128,.25)}
+.marquee div{display:inline-block;padding:16px 0;animation:mq 38s linear infinite;font-family:var(--titre);font-size:1.35rem}
+.marquee span{margin:0 28px}
+.marquee i{color:var(--rose);font-style:normal}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* Sections */
+section{padding:clamp(70px,9vw,120px) 0}
+.h2{font-family:var(--titre);font-weight:400;font-size:clamp(2.2rem,1.6rem + 2.4vw,3.6rem);line-height:1.05;color:var(--nuit);text-transform:uppercase}
+.h2 em{color:var(--rose);font-style:normal}
+.sub{color:var(--rose);text-transform:uppercase;letter-spacing:.2em;font-size:.78rem;font-weight:600;margin-bottom:10px}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* Qui sommes-nous */
+.about{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.about-img{position:relative}
+.about-img img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:4px;filter:saturate(1.05)}
+.about-img .tag{position:absolute;right:-14px;bottom:30px;background:var(--nuit);color:#fff;padding:18px 22px;border-left:3px solid var(--rose);font-family:var(--titre);font-size:1.3rem;line-height:1.2}
+.about-img .tag small{display:block;font-family:var(--corps);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rose-clair)}
+.about p{margin-top:16px}
+.timeline{list-style:none;margin-top:26px;border-left:1px solid #e3d6d0;padding-left:22px}
+.timeline li{position:relative;margin-bottom:14px;font-size:.94rem}
+.timeline li::before{content:"";position:absolute;left:-27px;top:9px;width:9px;height:9px;border-radius:50%;background:var(--rose)}
+.timeline b{color:var(--nuit);font-weight:600}
+
+/* Spécialités */
+.spec{background:var(--creme)}
+.spec-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:44px}
+.card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 0 rgba(0,0,0,.03);transition:transform .45s var(--ease),box-shadow .45s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(11,14,19,.12)}
+.card .ph{aspect-ratio:4/3;overflow:hidden;background:var(--nuit-2)}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.card:hover .ph img{transform:scale(1.08)}
+.card .ph.txt{display:grid;place-items:center;color:var(--rose-clair);font-family:var(--titre);font-size:1.6rem;text-align:center;padding:20px;background:radial-gradient(circle at 30% 30%,#2a2f38,var(--nuit))}
+.card .bd{padding:20px}
+.card h3{font-family:var(--titre);font-weight:400;font-size:1.35rem;color:var(--nuit);line-height:1.2}
+.card p{font-size:.88rem;margin-top:8px}
+.badge{display:inline-block;font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--rose);border:1px solid var(--rose-clair);border-radius:20px;padding:2px 10px;margin-top:10px}
+
+/* OUTIL — Composeur de menus */
+.tool{background:var(--nuit);color:#e9e4e0;position:relative;overflow:hidden}
+.tool .h2{color:#fff}
+.tool .intro{max-width:700px;margin-top:14px;color:#c9c2bd;font-weight:300}
+.step{margin-top:38px}
+.step-t{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-clair);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.step-t b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--rose);color:var(--nuit);font-size:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:40px;padding:10px 18px;font:500 .85rem var(--corps);cursor:pointer;min-height:44px;transition:all .25s var(--ease)}
+.chip:hover:not(:disabled){border-color:var(--rose)}
+.chip.on{background:var(--rose);border-color:var(--rose);color:var(--nuit)}
+.chip:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.svc-note{font-size:.82rem;color:#a9a19b;margin-top:10px;min-height:1.4em}
+.menus{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.mcard{text-align:left;background:var(--nuit-2);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:18px;color:#fff;cursor:pointer;font-family:var(--corps);transition:transform .3s var(--ease),border-color .3s,background .3s;position:relative}
+.mcard:hover{transform:translateY(-3px);border-color:rgba(180,140,128,.6)}
+.mcard.on{border-color:var(--rose);background:#1e2631}
+.mcard .p{font-family:var(--titre);font-size:2rem;color:var(--rose-clair);line-height:1}
+.mcard .n{font-weight:600;font-size:.92rem;margin-top:6px}
+.mcard .w{font-size:.75rem;color:#a9a19b;margin-top:6px}
+.mcard .resa{display:inline-block;margin-bottom:10px;font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;background:rgba(180,140,128,.18);color:var(--rose-clair);padding:3px 8px;border-radius:10px}
+.compose{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;margin-top:20px}
+.courses{background:#fff;color:var(--texte);border-radius:6px;padding:26px}
+.courses h4{font-family:var(--titre);font-weight:400;font-size:1.7rem;color:var(--nuit);line-height:1.1}
+.courses .inc{font-size:.8rem;color:var(--gris);margin-top:4px}
+.course{margin-top:20px}
+.course .cl{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:8px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1px solid #eee;border-radius:5px;margin-bottom:6px;cursor:pointer;font-size:.9rem;transition:border-color .2s,background .2s}
+.opt:hover{border-color:var(--rose-clair)}
+.opt input{accent-color:var(--rose);margin-top:5px}
+.opt.sel{border-color:var(--rose);background:#fbf6f4}
+.terroir{font-size:.66rem;color:var(--vert-logo);border:1px solid #cfe3c6;border-radius:10px;padding:0 7px;margin-left:6px;white-space:nowrap}
+.fixed{font-size:.9rem;padding:4px 0;color:var(--texte)}
+.ticket{background:var(--creme);color:var(--texte);border-radius:6px;padding:26px;position:sticky;top:100px;align-self:start}
+.ticket h4{font-family:var(--titre);font-weight:400;font-size:1.6rem;color:var(--nuit)}
+.cnt{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:.9rem}
+.cnt div{display:flex;align-items:center;gap:8px}
+.cnt button{width:36px;height:36px;border-radius:50%;border:1px solid var(--rose);background:#fff;color:var(--nuit);font-size:1.1rem;cursor:pointer}
+.cnt output{min-width:22px;text-align:center;font-weight:600}
+.lines{border-top:1px dashed #d7c8c2;margin-top:18px;padding-top:14px;font-size:.85rem}
+.lines div{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #d7c8c2;margin-top:12px;padding-top:12px}
+.total span{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+.total strong{font-family:var(--titre);font-size:2.3rem;color:var(--nuit);font-weight:400}
+.ticket .btn{width:100%;justify-content:center;margin-top:12px}
+.ticket .btn.dark{background:var(--nuit);color:#fff}
+.ticket small{display:block;font-size:.72rem;color:var(--gris);margin-top:10px;line-height:1.5}
+.ticket input[type=date],.ticket input[type=text]{width:100%;margin-top:6px;padding:10px;border:1px solid #ddd;border-radius:5px;font:inherit;font-size:.88rem}
+.ticket label{display:block;font-size:.78rem;margin-top:12px;color:var(--gris)}
+.bump{animation:bump .4s var(--ease)}
+@keyframes bump{50%{transform:scale(1.08)}}
+
+/* Cartes (onglets) */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:34px;border-bottom:1px solid #eee}
+.tab{background:none;border:0;padding:14px 18px;font:500 .82rem var(--corps);text-transform:uppercase;letter-spacing:.08em;color:var(--gris);cursor:pointer;position:relative;min-height:44px}
+.tab.on{color:var(--nuit)}
+.tab.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--rose)}
+.panel{display:none;padding-top:26px;columns:2;column-gap:60px}
+.panel.on{display:block;animation:fade .5s var(--ease)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}}
+.dish{break-inside:avoid;display:flex;align-items:baseline;gap:10px;padding:12px 0;border-bottom:1px solid #f1ebe8}
+.dish .dn{font-weight:500;color:var(--nuit)}
+.dish .dd{font-size:.8rem;color:var(--gris);display:block;font-weight:400}
+.dish .lead{flex:1;border-bottom:1px dotted #d4c3bc;transform:translateY(-4px)}
+.dish .pr{font-family:var(--titre);font-size:1.25rem;color:var(--rose);white-space:nowrap}
+.panel-note{column-span:all;font-size:.82rem;color:var(--gris);margin-top:14px;font-style:italic}
+
+/* Galerie */
+.gal{background:var(--nuit);padding:0}
+.gal-track{display:flex;gap:6px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gal-track::-webkit-scrollbar{display:none}
+.gal-track figure{flex:0 0 clamp(260px,34vw,480px);scroll-snap-align:start;position:relative;overflow:hidden;aspect-ratio:2/1.3}
+.gal-track img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.gal-track figure:hover img{transform:scale(1.06)}
+.gal-track figcaption{position:absolute;left:14px;bottom:12px;color:#fff;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+
+/* Groupes */
+.groupes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);align-items:center}
+.occ{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.occ span{border:1px solid #e3d6d0;border-radius:20px;padding:6px 14px;font-size:.82rem}
+.gmenu{background:var(--nuit);color:#e9e4e0;padding:34px;border-radius:4px;position:relative}
+.gmenu .p{font-family:var(--titre);font-size:3rem;color:var(--rose-clair);line-height:1}
+.gmenu ul{list-style:none;margin-top:16px}
+.gmenu li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.92rem}
+.gmenu small{display:block;margin-top:14px;color:#a9a19b;font-size:.78rem}
+
+/* Vins & partenaires */
+.vins{background:var(--creme)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px)}
+.wine{padding:16px 0;border-bottom:1px solid #e7dcd7}
+.wine b{color:var(--nuit);font-weight:600}
+.wine .r{font-size:.78rem;color:var(--rose);text-transform:uppercase;letter-spacing:.1em}
+.wine p{font-size:.86rem;margin-top:4px}
+.partners{list-style:none;margin-top:10px}
+.partners li{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #e7dcd7;font-size:.9rem}
+.partners li b{color:var(--nuit);font-weight:600;min-width:170px}
+
+/* Infos pratiques */
+.infos{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.info{border-top:2px solid var(--rose);padding-top:18px}
+.info h3{font-family:var(--titre);font-weight:400;font-size:1.5rem;color:var(--nuit)}
+.week{list-style:none;margin-top:10px;font-size:.9rem}
+.week li{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1ebe8}
+.week li.today{color:var(--nuit);font-weight:600}
+.week li .c{color:var(--rouge-logo)}
+.map{margin-top:40px;border-radius:4px;overflow:hidden;filter:grayscale(.3)}
+.map iframe{width:100%;height:340px;border:0;display:block}
+
+/* Pied */
+footer{background:var(--nuit);color:#a9a19b;padding:60px 0 30px;font-size:.85rem}
+.foot{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:30px}
+footer h4{font-family:var(--titre);font-weight:400;color:#fff;font-size:1.4rem;margin-bottom:10px}
+footer a{color:var(--rose-clair)}
+.legal{border-top:1px solid rgba(255,255,255,.1);margin-top:40px;padding-top:20px;font-size:.75rem;line-height:1.6}
+
+/* Mobile */
+.callbar{display:none}
+@media (max-width:1000px){
+  .spec-grid{grid-template-columns:repeat(2,1fr)}
+  .compose{grid-template-columns:1fr}
+  .ticket{position:static}
+}
+@media (max-width:860px){
+  .menu{position:fixed;inset:0 0 0 auto;width:min(320px,85vw);flex-direction:column;background:var(--nuit);padding:100px 30px;gap:18px;transform:translateX(100%);visibility:hidden;transition:transform .4s var(--ease),visibility .4s}
+  .menu.open{transform:none;visibility:visible}
+  .burger{display:block;z-index:60}
+  .nav .btn{display:none}
+  .about,.groupes,.two{grid-template-columns:1fr}
+  .about-img .tag{right:10px}
+  .infos,.foot{grid-template-columns:1fr}
+  .panel{columns:1}
+  .partners li{flex-direction:column;gap:2px}
+  .callbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:70;gap:8px}
+  .callbar a{flex:1;justify-content:center}
+  footer{padding-bottom:90px}
+}
+@media (max-width:520px){.spec-grid{grid-template-columns:1fr}.logo img{height:50px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}.hero h1 span{opacity:1;transform:none}}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Restaurant",
+  "name":"Le Pouillerot",
+  "description":"Bar-restaurant traditionnel : cuisine d'antan, soignée et généreuse, produits du terroir et fournisseurs locaux.",
+  "url":"https://lepouillerot.fr/",
+  "telephone":"+33477281783",
+  "email":"lepouillerot@gmail.com",
+  "image":"https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_3520-1000x500.jpg",
+  "logo":"https://lepouillerot.fr/wp-content/uploads/2018/02/LOGO-LE-POUILLEROT-e1517937302156.jpg",
+  "address":{"@type":"PostalAddress","streetAddress":"14 rue des Tisseurs, Le Bourg","postalCode":"42110","addressLocality":"Pouilly-lès-Feurs","addressRegion":"Loire","addressCountry":"FR"},
+  "areaServed":["Pouilly-lès-Feurs","Feurs","Forez"],
+  "servesCuisine":["Cuisine traditionnelle","Cuisine du terroir forézien"],
+  "priceRange":"13 € – 38,50 €",
+  "acceptsReservations":"True",
+  "founder":{"@type":"Person","name":"Franck Grivot"}
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration réalisée pour Le Pouillerot — non officielle, contenus repris du site actuel</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#accueil" aria-label="Le Pouillerot, accueil"><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/LOGO-LE-POUILLEROT-e1517937302156.jpg" alt="Logo Le Pouillerot, bar-restaurant"></a>
+    <ul class="menu" id="menu">
+      <li><a href="#accueil" class="on">Accueil</a></li>
+      <li><a href="#qui">Qui sommes-nous ?</a></li>
+      <li><a href="#menus">Mes menus</a></li>
+      <li><a href="#cartes">Mes cartes</a></li>
+      <li><a href="#vins">Carte des vins</a></li>
+      <li><a href="#partenaires">Partenaires</a></li>
+    </ul>
+    <a class="btn" href="#menus">Réserver</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="accueil" style="padding:0">
+  <div class="bg" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div class="kicker">Bar-restaurant · Pouilly-lès-Feurs · Loire</div>
+    <h1><span>Venez</span> <span style="animation-delay:.12s">nous</span> <span style="animation-delay:.24s">découvrir</span></h1>
+    <p class="lead">Restaurant traditionnel à Pouilly-lès-Feurs avec une cuisine soignée et généreuse, un service avec le sourire et professionnel.</p>
+    <div class="ctas">
+      <a class="btn" href="#menus">Composer mon repas</a>
+      <a class="btn ghost" href="tel:+33477281783">04 77 28 17 83</a>
+    </div>
+    <div class="status" id="status"><span class="dot" id="dot"></span><span id="statusTxt">Horaires du jour</span></div>
+  </div>
+  <div class="scroll-ind" aria-hidden="true"></div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div>
+  <span>Gratin à la fourme de Sauvain</span><i>✦</i><span>Terrine de foie gras à la figue</span><i>✦</i><span>Fondant de bœuf au vinaigre de cidre</span><i>✦</i><span>Omelette norvégienne flambée</span><i>✦</i><span>Cuisses de grenouilles</span><i>✦</i><span>Fait maison</span><i>✦</i>
+  <span>Gratin à la fourme de Sauvain</span><i>✦</i><span>Terrine de foie gras à la figue</span><i>✦</i><span>Fondant de bœuf au vinaigre de cidre</span><i>✦</i><span>Omelette norvégienne flambée</span><i>✦</i><span>Cuisses de grenouilles</span><i>✦</i><span>Fait maison</span><i>✦</i>
+</div></div>
+
+<section id="qui">
+  <div class="wrap about">
+    <div class="about-img reveal">
+      <img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_3517-e1517583684826-768x1024.jpg" alt="Franck et Françoise Grivot" loading="lazy">
+      <div class="tag"><small>Depuis 2013</small>Franck &amp; Françoise Grivot</div>
+    </div>
+    <div class="reveal">
+      <div class="sub">Qui sommes-nous ?</div>
+      <h2 class="h2">Le chef cuisinier : <em>Franck Grivot</em></h2>
+      <p>Originaire de Pouilly-lès-Feurs et cuisinier de métier, Franck Grivot a pris en 2013 la gérance du restaurant de la commune et créé <strong>Le Pouillerot</strong>, avec sa cuisine traditionnelle, d'antan, soignée, copieuse, généreuse et de qualité.</p>
+      <p>Pour le seconder, son épouse <strong>Françoise</strong> gère l'accueil, le service et l'entretien — bien connue pour sa gentillesse et sa convivialité.</p>
+      <ul class="timeline">
+        <li><b>13 ans</b> — apprentissage au LEP de Verrières-en-Forez, CAP de cuisine, puis CFA de Saint-Étienne.</li>
+        <li><b>17 ans</b> — commis au « Cap Martin », près de Menton.</li>
+        <li><b>Monaco</b> — l'Hôtel de Paris, puis chef de partie au « Saint Hubert ».</li>
+        <li><b>Chef de cuisine</b> — Alpes-Maritimes, Ardèche, Haute-Savoie et Loire.</li>
+        <li><b>2013</b> — ouverture du Pouillerot, au cœur du bourg.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="spec">
+  <div class="wrap">
+    <div class="reveal"><div class="sub">Mes spécialités</div><h2 class="h2">Ce qu'on vient <em>chercher ici</em></h2></div>
+    <div class="spec-grid">
+      <article class="card reveal"><div class="ph txt">Gratin<br>à la fourme<br>de Sauvain</div><div class="bd"><h3>Le gratin à la fourme</h3><p>Devenu incontournable : il accompagne tous les plats chauds, ou nature sur demande.</p><span class="badge">Spécialité maison</span></div></article>
+      <article class="card reveal"><div class="ph"><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2443-1000x500.jpg" alt="Plat en sauce maison du Pouillerot" loading="lazy"></div><div class="bd"><h3>Fondant de bœuf</h3><p>Sauce au vinaigre de cidre, servi avec le gratin et un légume.</p><span class="badge">Meilleure vente</span></div></article>
+      <article class="card reveal"><div class="ph txt">Terrine<br>de foie gras<br>à la figue</div><div class="bd"><h3>Foie gras à la figue</h3><p>Terrine de foie gras de canard fait maison, sur place ou à emporter.</p><span class="badge">Fait maison</span></div></article>
+      <article class="card reveal"><div class="ph"><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2435-1000x500.jpg" alt="Douzaine d'escargots de Bourgogne" loading="lazy"></div><div class="bd"><h3>Escargots de Bourgogne</h3><p>La douzaine, ail et persil, préparée maison.</p><span class="badge">Fait maison</span></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTIL CENTRAL ============ -->
+<section class="tool" id="menus">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="sub" style="color:var(--rose-clair)">Mes menus</div>
+      <h2 class="h2">Composez votre repas, <em>réservez en une fois</em></h2>
+      <p class="intro">Choisissez votre jour : seuls les menus servis ce jour-là s'affichent. Composez entrée, plat et dessert, indiquez le nombre de convives, et votre demande de réservation est prête à envoyer.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-t"><b>1</b> Quel jour venez-vous ?</div>
+      <div class="chips" id="days"></div>
+      <div class="chips" id="svc" style="margin-top:10px"></div>
+      <div class="svc-note" id="svcNote"></div>
+    </div>
+
+    <div class="step">
+      <div class="step-t"><b>2</b> Choisissez un menu</div>
+      <div class="menus" id="menuList"></div>
+    </div>
+
+    <div class="step">
+      <div class="step-t"><b>3</b> Composez et réservez</div>
+      <div class="compose">
+        <div class="courses" id="courses"></div>
+        <aside class="ticket" aria-live="polite">
+          <h4>Votre réservation</h4>
+          <div class="cnt"><span>Adultes</span><div><button type="button" data-c="a" data-d="-1" aria-label="Retirer un adulte">−</button><output id="nA">2</output><button type="button" data-c="a" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+          <div class="cnt"><span>Enfants (-10 ans)</span><div><button type="button" data-c="k" data-d="-1" aria-label="Retirer un enfant">−</button><output id="nK">0</output><button type="button" data-c="k" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+          <label for="date">Date souhaitée</label><input type="date" id="date">
+          <label for="nom">Votre nom</label><input type="text" id="nom" placeholder="Nom pour la réservation">
+          <div class="lines" id="lines"></div>
+          <div class="total"><span>Total indicatif</span><strong id="tot">0 €</strong></div>
+          <a class="btn" id="send" href="#">Envoyer ma demande</a>
+          <a class="btn dark" href="tel:+33477281783">Appeler le 04 77 28 17 83</a>
+          <small>Prix repris du site actuel, indicatifs et non contractuels. La réservation est confirmée par le restaurant. Gourmet bag offert : emportez ce que vous n'avez pas terminé.</small>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cartes">
+  <div class="wrap">
+    <div class="reveal"><div class="sub">Mes cartes</div><h2 class="h2">À la <em>carte</em></h2></div>
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-p="p1" role="tab">Entrées</button>
+      <button class="tab" data-p="p2" role="tab">Plats chauds</button>
+      <button class="tab" data-p="p3" role="tab">Fromages</button>
+      <button class="tab" data-p="p4" role="tab">Desserts &amp; glaces</button>
+    </div>
+    <div class="panel on" id="p1">
+      <div class="dish"><span class="dn">Salade du chef<span class="dd">salade, tomate, croûton, œuf, jambon cru et mousse de canard</span></span><span class="lead"></span><span class="pr">10 / 12 €</span></div>
+      <div class="dish"><span class="dn">Salade de la mer<span class="dd">poivron mariné, asperge, saumon fumé, crevette rose</span></span><span class="lead"></span><span class="pr">10 / 12 €</span></div>
+      <div class="dish"><span class="dn">Pâté en croûte de lapin aux noisettes</span><span class="lead"></span><span class="pr">10 / 12 €</span></div>
+      <div class="dish"><span class="dn">Terrine grand-mère et sa salade</span><span class="lead"></span><span class="pr">10 / 12 €</span></div>
+      <div class="dish"><span class="dn">Assiette de saumon fumé<span class="dd">fait maison</span></span><span class="lead"></span><span class="pr">15 €</span></div>
+      <div class="dish"><span class="dn">Assiette terre / mer<span class="dd">foie gras maison, saumon fumé maison, magret fumé, crevettes</span></span><span class="lead"></span><span class="pr">18,50 €</span></div>
+      <div class="dish"><span class="dn">Terrine de foie gras à la figue<span class="dd">gelée au porto, salade mesclun</span></span><span class="lead"></span><span class="pr">17,50 €</span></div>
+      <div class="dish"><span class="dn">La douzaine d'escargots de Bourgogne</span><span class="lead"></span><span class="pr">15 €</span></div>
+      <p class="panel-note">Entrées du haut de carte : petite assiette 10 € / grande assiette 12 €.</p>
+    </div>
+    <div class="panel" id="p2">
+      <div class="dish"><span class="dn">Fondant de bœuf sauce vinaigre de cidre<span class="dd">ma spécialité</span></span><span class="lead"></span><span class="pr">24,50 €</span></div>
+      <div class="dish"><span class="dn">Entrecôte de bœuf grillée<span class="dd">produit du terroir</span></span><span class="lead"></span><span class="pr">25,50 €</span></div>
+      <div class="dish"><span class="dn">Steak de bœuf grillé<span class="dd">produit du terroir</span></span><span class="lead"></span><span class="pr">23 €</span></div>
+      <div class="dish"><span class="dn">Tête de veau sauce gribiche<span class="dd">produit du terroir</span></span><span class="lead"></span><span class="pr">23 €</span></div>
+      <div class="dish"><span class="dn">Filet de raie sauce aux câpres</span><span class="lead"></span><span class="pr">23 €</span></div>
+      <div class="dish"><span class="dn">Andouillette panée au vin blanc, moutarde et échalotes</span><span class="lead"></span><span class="pr">19,50 €</span></div>
+      <div class="dish"><span class="dn">Pied de porc pané au vin blanc, moutarde et échalotes</span><span class="lead"></span><span class="pr">19,50 €</span></div>
+      <div class="dish"><span class="dn">Crozets à la fourme de Sauvain, chorizo et salade verte</span><span class="lead"></span><span class="pr">19,50 €</span></div>
+      <div class="dish"><span class="dn">Plat de gratin à la fourme de Sauvain</span><span class="lead"></span><span class="pr">10 €</span></div>
+      <p class="panel-note">Toutes nos viandes et poissons sont garnis du gratin à la fourme de Sauvain (ou nature sur demande) et d'un légume.</p>
+    </div>
+    <div class="panel" id="p3">
+      <div class="dish"><span class="dn">Fromages secs</span><span class="lead"></span><span class="pr">6 €</span></div>
+      <div class="dish"><span class="dn">Fromage blanc fermier<span class="dd">coulis de fruits rouges ou crème — produit du terroir</span></span><span class="lead"></span><span class="pr">4,80 €</span></div>
+    </div>
+    <div class="panel" id="p4">
+      <div class="dish"><span class="dn">Desserts fait-maison<span class="dd">mousse chocolat, moelleux au chocolat, crème brûlée vanille des îles, crème caramel façon grand-mère, salade de fruits frais, île flottante, tiramisu glacé</span></span><span class="lead"></span><span class="pr">6,50 €</span></div>
+      <div class="dish"><span class="dn">Vacherin glacé à la framboise</span><span class="lead"></span><span class="pr">6,50 €</span></div>
+      <div class="dish"><span class="dn">Palet glacé caramel</span><span class="lead"></span><span class="pr">6,50 €</span></div>
+      <div class="dish"><span class="dn">Glace enfant + surprise</span><span class="lead"></span><span class="pr">6,50 €</span></div>
+      <div class="dish"><span class="dn">Glace 1 / 2 / 3 boules</span><span class="lead"></span><span class="pr">4 / 5 / 6 €</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="gal" aria-label="Galerie">
+  <div class="gal-track">
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_3521-1000x500.jpg" alt="Salle du restaurant dressée" loading="lazy"><figcaption>La salle</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2429-1000x500.jpg" alt="Salade composée" loading="lazy"><figcaption>Salade du chef</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_1272-1000x500.jpg" alt="Terrasse le soir" loading="lazy"><figcaption>La terrasse</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2430-1000x500.jpg" alt="Assiette de charcuterie et fromage chaud" loading="lazy"><figcaption>Le terroir</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_3526-1000x500.jpg" alt="Espace bar" loading="lazy"><figcaption>Le bar</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2428-1000x500.jpg" alt="Assiette de charcuterie" loading="lazy"><figcaption>Charcuterie</figcaption></figure>
+    <figure><img src="https://lepouillerot.fr/wp-content/uploads/2018/02/IMG_2437-1000x500.jpg" alt="Salade de la mer" loading="lazy"><figcaption>Salade de la mer</figcaption></figure>
+  </div>
+</section>
+
+<section id="groupes">
+  <div class="wrap groupes">
+    <div class="reveal">
+      <div class="sub">Menu groupe</div>
+      <h2 class="h2">Vos repas <em>de groupe</em></h2>
+      <p style="margin-top:16px">Des tarifs adaptés à tous les budgets, aussi bien pour les groupes que pour les petits comités. Possibilité d'ouvrir les jours de fermeture pour les groupes.</p>
+      <div class="occ"><span>Repas de famille</span><span>Réunion</span><span>Apéritif dînatoire</span><span>Club</span><span>Association</span><span>Repas d'affaires</span><span>Anniversaire</span><span>Départ en retraite</span></div>
+      <p style="margin-top:20px">Ouvert tous les jours fériés de l'année, avec des menus spéciaux pour la Saint-Valentin, la fête des mères et Noël.</p>
+      <a class="btn" style="margin-top:24px" href="tel:+33477281783">Parler de votre groupe</a>
+    </div>
+    <div class="gmenu reveal">
+      <div class="p">29 €</div><div style="text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;margin-top:6px">Tout compris — menu type</div>
+      <ul><li>Kir ou jus de fruits</li><li>Salade du Pouillerot (lardons, œuf poché)</li><li>Noix de jambon et son jus, tomate provençale et gratiné de pommes de terre</li><li>Fromage sec ou blanc fermier</li><li>Brownies chocolat / noix</li><li>Café · vin en pichet</li></ul>
+      <small>Menu type pouvant être modifié suivant vos envies. Nous contacter pour tout renseignement sur les tarifs.</small>
+    </div>
+  </div>
+</section>
+
+<section class="vins" id="vins">
+  <div class="wrap two">
+    <div class="reveal">
+      <div class="sub">Carte des vins</div>
+      <h2 class="h2">Une large <em>carte des vins</em></h2>
+      <p style="margin-top:14px">Parmi lesquels les vins du Forez du Clos de Chozieux.</p>
+      <div class="wine"><span class="r">Côtes du Rhône septentrionaux</span><br><b>Saint-Joseph — Chapoutier Deschants</b> · 39 € (75 cl) / 26 € (37,5 cl)<p>Syrah, arômes de fruits noirs confits et de violette. Bœuf et agneau.</p></div>
+      <div class="wine"><span class="r">Côtes du Rhône septentrionaux</span><br><b>Crozes-Hermitage — Brunel de la Gardine</b> · 35 €<p>Élégant, sous-bois et fruits rouges. Charcuteries, volailles, fromages affinés.</p></div>
+      <div class="wine"><span class="r">Côtes du Rhône méridionaux</span><br><b>Vacqueyras — Seigneur de Fontimple</b> · 31 € / 23 €<p>Grenache noir, syrah, mourvèdre. Idéal sur le bœuf ou l'agneau.</p></div>
+      <div class="wine"><span class="r">Vin de Loire</span><br><b>Saumur-Champigny</b> · 25 €<p>Rouge grenat, tanins fins et veloutés.</p></div>
+    </div>
+    <div class="reveal" id="partenaires">
+      <div class="sub">Partenaires</div>
+      <h2 class="h2">Nos <em>producteurs</em></h2>
+      <ul class="partners">
+        <li><b>Vin du Forez</b>Clos de Chozieux</li>
+        <li><b>Boucherie-charcuterie</b>Boucherie Crozet</li>
+        <li><b>Boulangeries</b>Le Goût de l'Authentique · Bruno Guerpillon</li>
+        <li><b>Charcuterie</b>Ferme de Cruzolle</li>
+        <li><b>Fromage blanc</b>Ferme de Chamaron</li>
+        <li><b>Fourme</b>Fourme de Sauvain</li>
+        <li><b>Huile</b>Moulin à huile Paul Laurent, Savigneux</li>
+        <li><b>Fruits rouges</b>La Ferme des Brindilles</li>
+        <li><b>Fromage, viande</b>Les Délices Fermiers Roannais</li>
+        <li><b>Fruits et légumes</b>Au Marché Provençal, Balbigny</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="reveal"><div class="sub">Infos pratiques</div><h2 class="h2">Nous <em>trouver</em></h2></div>
+    <div class="infos">
+      <div class="info reveal"><h3>Adresse</h3><p>14 rue des Tisseurs<br>Le Bourg<br>42110 Pouilly-lès-Feurs</p><p style="margin-top:10px"><a href="https://www.google.com/maps/search/?api=1&query=14+rue+des+Tisseurs+42110+Pouilly-l%C3%A8s-Feurs">Itinéraire →</a></p></div>
+      <div class="info reveal"><h3>Jours d'ouverture</h3><ul class="week" id="week"></ul><p style="font-size:.8rem;margin-top:8px">Autres soirs de semaine sur réservation. Il est conseillé de réserver.</p></div>
+      <div class="info reveal"><h3>Contact</h3><p><a href="tel:+33477281783">04 77 28 17 83</a><br><a href="mailto:lepouillerot@gmail.com">lepouillerot@gmail.com</a><br>Facebook : @lepouillerot2018</p></div>
+    </div>
+    <div class="map reveal"><iframe title="Plan d'accès" loading="lazy" src="https://www.google.com/maps?q=14+rue+des+Tisseurs+42110+Pouilly-l%C3%A8s-Feurs&output=embed"></iframe></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4>Le Pouillerot</h4><p>Bar-restaurant traditionnel à Pouilly-lès-Feurs. Cuisine d'antan, soignée et généreuse, produits du terroir et fournisseurs locaux.</p></div>
+      <div><h4>Contact</h4><p>14 rue des Tisseurs, 42110 Pouilly-lès-Feurs<br><a href="tel:+33477281783">04 77 28 17 83</a></p></div>
+      <div><h4>Navigation</h4><p><a href="#menus">Mes menus</a> · <a href="#cartes">Mes cartes</a> · <a href="#vins">Carte des vins</a> · <a href="#partenaires">Partenaires</a></p></div>
+    </div>
+    <div class="legal">Maquette de démonstration non officielle, réalisée à titre de proposition pour Le Pouillerot. Textes, menus, prix et photos repris du site actuel lepouillerot.fr : prix indicatifs et non contractuels, à mettre à jour par le restaurant. Toutes les photos sont celles du site actuel ; des photos du gratin à la fourme et de la terrine de foie gras restent à fournir. Couleurs et typographies reprises du site actuel, ajustables. Le formulaire prépare un e-mail : aucune donnée n'est enregistrée.</div>
+  </div>
+</footer>
+
+<div class="callbar"><a class="btn dark" style="background:var(--nuit);color:#fff" href="tel:+33477281783">Appeler</a><a class="btn" href="#menus">Réserver</a></div>
+
+<script>
+/* ---------- Données reprises du site actuel ---------- */
+const T='terroir';
+const MENUS=[
+ {id:'jour',n:'Menu du jour',p:16.5,days:['lun','mar','jeu','ven'],svc:['midi'],w:'Le midi en semaine',inc:'Entrée, plat et dessert du jour, ¼ de vin et café',c:[]},
+ {id:'formule',n:'Formule du jour',p:13,days:['lun','mar','jeu','ven'],svc:['midi'],w:'Le midi en semaine',inc:'Plat du jour + entrée ou dessert du jour',c:[]},
+ {id:'forez',n:'Menu forézien',p:17.5,days:['lun','mar','jeu','ven','sam'],svc:['midi','soir'],w:'Menu de semaine',c:[
+   {l:'Entrée',o:[['Planche forézienne (salade, noix, tomate, jambon cru, terrine grand-mère, chorizo)']]},
+   {l:'Plat',o:[['Râpée de pommes de terre gratinée à la fourme de Sauvain',T],['Râpée de pommes de terre nature']]},
+   {l:'Dessert',o:[['Vacherin vanille / framboise'],['Fromage blanc']]}]},
+ {id:'m26',n:'Menu à 26,50 €',p:26.5,days:['lun','mar','jeu','ven','sam'],svc:['midi','soir'],resa:true,w:'Sur réservation le midi en semaine',c:[
+   {l:'Entrée',o:[['Terrine grand-mère et sa salade'],['Salade du chef']]},
+   {l:'Plat',o:[['Pied de porc pané au vin blanc et moutarde',T],['Crozets à la fourme de Sauvain et chorizo',T],['Filet de raie sauce câpres'],['Andouillette panée au vin blanc et moutarde',T]]},
+   {l:'Fromage',o:[['Fromage sec',T],['Fromage blanc fermier',T]]},
+   {l:'Dessert',o:[['Dessert fait maison'],['Glace']]}]},
+ {id:'m29',n:'Menu à 29,50 €',p:29.5,days:['lun','mar','jeu','ven','sam'],svc:['midi','soir'],resa:true,w:'Sur réservation le midi en semaine',c:[
+   {l:'Entrée',o:[['Pâté en croûte de lapin aux noisettes'],['Salade de la mer'],["La douzaine d'escargots de Bourgogne (fait maison)"]]},
+   {l:'Plat',o:[['Tête de veau sauce gribiche',T],['Entrecôte de bœuf grillée',T],['Filet de raie sauce aux câpres']]},
+   {l:'Fromage',o:[['Fromage sec',T],['Fromage blanc fermier',T]]},
+   {l:'Dessert',o:[['Dessert fait maison'],['Glace']]}]},
+ {id:'gren',n:'Menu grenouilles',p:29.5,days:['lun','mar','jeu','ven','sam'],svc:['midi','soir'],resa:true,w:'Sauf dimanche et jours fériés, uniquement sur réservation',c:[
+   {l:'Entrée',o:[['Pâté en croûte de lapin aux noisettes'],['Salade de la mer']]},
+   {l:'Plat',o:[['Cuisses de grenouilles persillées pur beurre, gratin à la fourme de Sauvain',T],['Cuisses de grenouilles persillées pur beurre, gratin nature']]},
+   {l:'Fromage',o:[['Fromage blanc fermier',T],['Fromage sec',T]]},
+   {l:'Dessert',o:[['Vacherin framboise'],['Palet glacé caramel']]}]},
+ {id:'m38',n:'Menu à 38,50 €',p:38.5,days:['lun','mar','jeu','ven','sam'],svc:['midi','soir'],resa:true,w:'Sur réservation le midi en semaine',c:[
+   {l:'Entrée',o:[['Terrine de foie gras de canard maison à la figue'],['Assiette de saumon fumé maison']]},
+   {l:'Plat',o:[['Fondant de bœuf sauce vinaigre de cidre (spécialité)'],['Pavé de merlu sauce citronnée'],['Civet de sanglier']]},
+   {l:'Fromage',o:[['Fromage sec',T],['Fromage blanc fermier',T]]},
+   {l:'Dessert',o:[['Assiette gourmande fait maison']]}]},
+ {id:'d33',n:'Menu du dimanche',p:33,days:['dim'],svc:['midi'],w:'Dimanche uniquement',c:[
+   {l:'Entrée',o:[['Salade du chef'],['Terrine de gibier'],["La douzaine d'escargots de Bourgogne (fait maison)"]]},
+   {l:'Plat',o:[['Fondant de bœuf sauce vinaigre de cidre (spécialité)'],['Pavé de merlu sauce citronnée'],['Civet de sanglier']]},
+   {l:'Fromage',o:[['Assiette de fromages secs',T],['Fromage blanc fermier',T]]},
+   {l:'Dessert',o:[['Chariot de desserts fait maison']]}]},
+ {id:'d38',n:'Menu du dimanche',p:38.5,days:['dim'],svc:['midi'],w:'Dimanche uniquement',c:[
+   {l:'Entrée',o:[['Assiette de saumon fumé maison'],['Terrine de foie gras de canard maison aux figues'],["L'assiette terre / mer"]]},
+   {l:'Plat',o:[['Fondant de bœuf sauce vinaigre de cidre (spécialité)'],['Pavé de merlu sauce citronnée'],['Civet de sanglier']]},
+   {l:'Fromage',o:[['Assiette de fromages secs',T],['Fromage blanc fermier',T]]},
+   {l:'Dessert',o:[['Chariot de desserts fait maison']]}]}
+];
+const KIDS={sem:{p:12.5,n:'Menu enfant',d:'Steak de bœuf du boucher grillé, frites maison, mousse au chocolat ou glace'},dim:{p:13,n:'Menu enfant du dimanche',d:'Steak de bœuf du boucher poêlé, frites maison, chariot de desserts ou glace'}};
+/* Ouverture (site actuel) : tous les jours sauf mardi soir, mercredi et dimanche soir ; autres soirs de semaine sur réservation */
+const DAYS=[['lun','Lundi'],['mar','Mardi'],['mer','Mercredi'],['jeu','Jeudi'],['ven','Vendredi'],['sam','Samedi'],['dim','Dimanche']];
+const OPEN={lun:{midi:'o',soir:'r'},mar:{midi:'o',soir:'f'},mer:{midi:'f',soir:'f'},jeu:{midi:'o',soir:'r'},ven:{midi:'o',soir:'r'},sam:{midi:'o',soir:'o'},dim:{midi:'o',soir:'f'}};
+const fmt=v=>v.toFixed(2).replace('.',',').replace(',00','')+' €';
+let st={day:null,svc:'midi',menu:null,pick:{},a:2,k:0};
+
+/* Jour courant */
+const jsDay=['dim','lun','mar','mer','jeu','ven','sam'][new Date().getDay()];
+(function status(){
+  const o=OPEN[jsDay],h=new Date().getHours();
+  const lbl={o:'ouvert',r:'sur réservation',f:'fermé'};
+  const dot=document.getElementById('dot');
+  document.getElementById('statusTxt').textContent=`Aujourd'hui : midi ${lbl[o.midi]} · soir ${lbl[o.soir]}`;
+  if(o.midi==='f'&&o.soir==='f')dot.classList.add('off');
+  const wk=document.getElementById('week');
+  DAYS.forEach(([k,n])=>{const x=OPEN[k];const li=document.createElement('li');if(k===jsDay)li.className='today';
+    li.innerHTML=`<span>${n}</span><span>${x.midi==='f'&&x.soir==='f'?'<span class="c">Fermé</span>':'Midi'+(x.soir==='o'?' et soir':x.soir==='r'?' · soir sur résa':'')}</span>`;wk.appendChild(li)});
+})();
+
+const $=id=>document.getElementById(id);
+function renderDays(){
+  $('days').innerHTML='';
+  DAYS.forEach(([k,n])=>{const b=document.createElement('button');b.className='chip'+(st.day===k?' on':'');b.textContent=n;
+    if(OPEN[k].midi==='f'&&OPEN[k].soir==='f'){b.disabled=true;b.title='Fermé'}
+    b.onclick=()=>{st.day=k;if(OPEN[k][st.svc]==='f')st.svc='midi';st.menu=null;render()};$('days').appendChild(b)});
+  $('svc').innerHTML='';
+  if(!st.day)return;
+  ['midi','soir'].forEach(s=>{const b=document.createElement('button');b.className='chip'+(st.svc===s?' on':'');b.textContent=s==='midi'?'Midi':'Soir';
+    if(OPEN[st.day][s]==='f'){b.disabled=true}
+    b.onclick=()=>{st.svc=s;st.menu=null;render()};$('svc').appendChild(b)});
+  const o=OPEN[st.day][st.svc];
+  $('svcNote').textContent=o==='r'?'Ce soir-là, le restaurant ouvre sur réservation : envoyez votre demande ou appelez.':(st.day==='dim'?'Le dimanche, deux menus spéciaux vous attendent.':'');
+}
+function avail(){if(!st.day)return[];return MENUS.filter(m=>m.days.includes(st.day)&&m.svc.includes(st.svc))}
+function renderMenus(){
+  const L=$('menuList');L.innerHTML='';
+  const list=avail();
+  if(!st.day){L.innerHTML='<p style="color:#a9a19b">Choisissez d\'abord un jour.</p>';return}
+  list.forEach(m=>{const b=document.createElement('button');b.className='mcard'+(st.menu===m.id?' on':'');
+    b.innerHTML=`${m.resa?'<span class="resa">Réservation</span>':''}<div class="p">${fmt(m.p)}</div><div class="n">${m.n}</div><div class="w">${m.w}</div>`;
+    b.onclick=()=>{st.menu=m.id;st.pick={};render();setTimeout(()=>$('courses').scrollIntoView({behavior:'smooth',block:'nearest'}),50)};L.appendChild(b)});
+}
+function renderCourses(){
+  const C=$('courses');const m=MENUS.find(x=>x.id===st.menu);
+  if(!m){C.innerHTML='<h4>Votre menu</h4><p class="inc">Sélectionnez un menu pour le composer plat par plat.</p>';return}
+  let h=`<h4>${m.n} — ${fmt(m.p)}</h4><p class="inc">${m.w}</p>`;
+  if(m.inc)h+=`<div class="course"><div class="cl">Au programme</div><p class="fixed">${m.inc}. Le détail change chaque jour : demandez-le au restaurant.</p></div>`;
+  m.c.forEach((c,i)=>{h+=`<div class="course"><div class="cl">${c.l}</div>`;
+    if(c.o.length===1){st.pick[i]=0;h+=`<p class="fixed">${c.o[0][0]}${c.o[0][1]?'<span class="terroir">terroir</span>':''}</p>`}
+    else c.o.forEach((o,j)=>{const on=st.pick[i]===j;h+=`<label class="opt${on?' sel':''}"><input type="radio" name="c${i}" ${on?'checked':''} data-i="${i}" data-j="${j}"><span>${o[0]}${o[1]?'<span class="terroir">terroir</span>':''}</span></label>`});
+    h+='</div>'});
+  if(m.c.some(c=>/Plat/.test(c.l)))h+='<p class="inc" style="margin-top:14px">Plat chaud servi avec le gratin à la fourme de Sauvain (ou nature sur demande) et un légume.</p>';
+  C.innerHTML=h;
+  C.querySelectorAll('input[type=radio]').forEach(r=>r.onchange=()=>{st.pick[r.dataset.i]=+r.dataset.j;renderCourses();renderTicket()});
+}
+function renderTicket(){
+  const m=MENUS.find(x=>x.id===st.menu);const kid=st.day==='dim'?KIDS.dim:KIDS.sem;
+  $('nA').textContent=st.a;$('nK').textContent=st.k;
+  let tot=0,h='';
+  if(m){tot+=m.p*st.a;h+=`<div><span>${st.a} × ${m.n}</span><span>${fmt(m.p*st.a)}</span></div>`}
+  if(st.k){tot+=kid.p*st.k;h+=`<div><span>${st.k} × ${kid.n}</span><span>${fmt(kid.p*st.k)}</span></div>`}
+  if(!h)h='<div><span>Aucun menu choisi</span><span>—</span></div>';
+  $('lines').innerHTML=h;
+  const t=$('tot');t.textContent=fmt(tot);t.classList.remove('bump');void t.offsetWidth;t.classList.add('bump');
+  /* mail */
+  const dn=st.day?DAYS.find(d=>d[0]===st.day)[1]:'';
+  let body=`Bonjour,%0D%0A%0D%0AJe souhaite réserver une table au Pouillerot :%0D%0A- Jour : ${dn} ${st.svc}${$('date').value?' ('+$('date').value+')':''}%0D%0A- Convives : ${st.a} adulte(s)${st.k?', '+st.k+' enfant(s)':''}%0D%0A`;
+  if(m){body+=`- Menu : ${m.n} (${fmt(m.p)})%0D%0A`;m.c.forEach((c,i)=>{if(st.pick[i]!=null)body+=`   ${c.l} : ${c.o[st.pick[i]][0]}%0D%0A`})}
+  body+=`%0D%0ANom : ${$('nom').value||''}%0D%0A%0D%0AMerci de me confirmer la réservation.`;
+  $('send').href=`mailto:lepouillerot@gmail.com?subject=${encodeURIComponent('Demande de réservation'+(dn?' – '+dn:''))}&body=${body.replace(/ /g,'%20').replace(/'/g,'%27')}`;
+}
+document.querySelectorAll('.cnt button').forEach(b=>b.onclick=()=>{const k=b.dataset.c,d=+b.dataset.d;st[k]=Math.max(k==='a'?1:0,Math.min(40,st[k]+d));renderTicket()});
+['date','nom'].forEach(i=>$(i).addEventListener('input',renderTicket));
+$('date').min=new Date().toISOString().slice(0,10);
+$('date').addEventListener('change',()=>{const v=$('date').value;if(!v)return;const k=['dim','lun','mar','mer','jeu','ven','sam'][new Date(v+'T12:00').getDay()];
+  if(OPEN[k].midi==='f'&&OPEN[k].soir==='f'){alert('Le restaurant est fermé le mercredi.');$('date').value='';return}
+  if(st.day!==k){st.day=k;if(OPEN[k][st.svc]==='f')st.svc='midi';st.menu=null;render()}});
+function render(){renderDays();renderMenus();renderCourses();renderTicket()}
+st.day=(OPEN[jsDay].midi==='f')?'jeu':jsDay;render();
+
+/* Onglets cartes */
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('on'));t.classList.add('on');$(t.dataset.p).classList.add('on')});
+
+/* Révélations au scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
+
+/* En-tête + menu actif */
+const hd=document.querySelector('header');
+const links=[...document.querySelectorAll('.menu a')];
+addEventListener('scroll',()=>{hd.classList.toggle('scrolled',scrollY>40);
+  let cur='accueil';document.querySelectorAll('main section[id]').forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});
+  links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur))},{passive:true});
+/* Burger */
+$('burger').onclick=()=>{const m=$('menu');const o=m.classList.toggle('open');$('burger').setAttribute('aria-expanded',o);$('burger').textContent=o?'✕':'☰'};
+links.forEach(a=>a.onclick=()=>{$('menu').classList.remove('open');$('burger').textContent='☰'});
+</script>
+</body>
+</html>
