@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ferme des Bisons des Monts de la Madeleine — Visite en chariot et viande de bison | Saint-Rirand</title>
+<meta name="description" content="Élevage de bisons des plaines à Saint-Rirand, dans les Monts de la Madeleine : visite en chariot bâché sur réservation, dégustation et vente directe de viande à la ferme.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CHARTE — à ajuster en quelques lignes
+   La ferme n'a plus de site propre (ancienne adresse reprise par un tiers) :
+   aucune charte n'a pu être relevée. Palette proposée d'après le lieu
+   (sapins des Monts de la Madeleine, laine du bison, herbe sèche d'altitude).
+   Remplacer ces valeurs dès que le logo / les couleurs de la ferme sont fournis.
+   ============================================================ */
+:root{
+  --sapin:#1d2b22;        /* fond sombre, textes forts */
+  --sapin-2:#2c3f32;
+  --laine:#6e4529;        /* brun du bison */
+  --laine-2:#8a5a37;
+  --paille:#d8b45f;       /* accent : herbe sèche, lumière de fin de journée */
+  --granit:#eef0ea;       /* fond clair */
+  --granit-2:#e2e5dc;
+  --encre:#1b1f1c;
+  --gris:#5d645e;
+  --blanc:#ffffff;
+  --f-titre:'Bitter', Georgia, serif;
+  --f-texte:'Work Sans', system-ui, sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.22,.8,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--f-texte);color:var(--encre);background:var(--granit);line-height:1.6;font-size:clamp(1rem,.95rem + .25vw,1.1rem);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-titre);line-height:1.12;letter-spacing:-.01em}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--paille);outline-offset:3px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* bandeau démo */
+.demo{background:var(--encre);color:#cfd3cc;font-size:.8rem;text-align:center;padding:7px 16px}
+.demo b{color:var(--paille);font-weight:600}
+
+/* barre infos */
+.topbar{background:var(--sapin);color:#dfe4dc;font-size:.88rem}
+.topbar .wrap{display:flex;justify-content:space-between;gap:12px;padding:8px 0;flex-wrap:wrap}
+.topbar a{text-decoration:none}
+.topbar .tels{display:flex;gap:18px;flex-wrap:wrap}
+.topbar .saison{display:flex;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#c9853b;box-shadow:0 0 0 0 rgba(201,133,59,.6);animation:pulse 2.4s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(201,133,59,0)}100%{box-shadow:0 0 0 0 rgba(201,133,59,0)}}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(238,240,234,.86);backdrop-filter:blur(10px) saturate(160%);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+header.nav.scrolled{border-color:var(--granit-2);background:rgba(238,240,234,.96)}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:12px 0;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:44px;height:44px;flex:none}
+.brand strong{font-family:var(--f-titre);font-size:1.05rem;line-height:1.1;display:block}
+.brand small{font-size:.75rem;color:var(--gris);letter-spacing:.06em;text-transform:uppercase}
+.menu{display:flex;gap:26px;list-style:none;font-weight:500;font-size:.95rem}
+.menu a{text-decoration:none;position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;background:var(--laine);transition:right .35s var(--ease)}
+.menu a:hover::after,.menu a.on::after{right:0}
+.btn{display:inline-flex;align-items:center;gap:10px;border:0;cursor:pointer;font:600 .95rem var(--f-texte);padding:13px 22px;border-radius:999px;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s;min-height:46px}
+.btn:active{transform:scale(.96)}
+.btn-main{background:var(--laine);color:#fff}
+.btn-main:hover{background:var(--sapin);transform:translateY(-2px);box-shadow:0 10px 24px rgba(29,43,34,.25)}
+.btn-ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+.btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+.burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer}
+.burger span{display:block;height:2px;background:var(--encre);margin:6px 10px;transition:.3s}
+@media (max-width:900px){
+  .menu{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;background:var(--granit);padding:90px 24px 30px;gap:18px;font-size:1.2rem;transform:translateY(-105%);transition:transform .45s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.12)}
+  .menu.open{transform:none}
+  .burger{display:block;z-index:60}
+  .nav .btn-main{display:none}
+}
+
+/* hero */
+.hero{position:relative;min-height:min(88vh,820px);display:flex;align-items:flex-end;color:#fff;overflow:hidden;background:var(--sapin)}
+.hero__img{position:absolute;inset:-6% 0 0 0;background:url("https://images.pexels.com/photos/3640871/pexels-photo-3640871.jpeg?auto=compress&cs=tinysrgb&w=1800") center 40%/cover;transform:scale(1.08);will-change:transform;animation:zoomin 2.4s var(--ease) forwards}
+@keyframes zoomin{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(29,43,34,.15) 0%,rgba(29,43,34,.2) 40%,rgba(20,28,22,.88) 100%)}
+.hero__content{position:relative;z-index:2;padding:0 0 clamp(40px,8vh,90px)}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--paille)}
+.kicker::before{content:"";width:28px;height:2px;background:currentColor}
+.hero h1{font-size:clamp(2.4rem,1.4rem + 5vw,5.6rem);font-weight:800;margin:14px 0 18px;max-width:15ch}
+.hero h1 .l{display:block;overflow:hidden}
+.hero h1 .l span{display:block;transform:translateY(105%);animation:up 1s var(--ease) forwards}
+.hero h1 .l:nth-child(2) span{animation-delay:.12s}
+.hero h1 .l:nth-child(3) span{animation-delay:.24s}
+@keyframes up{to{transform:none}}
+.hero p.lead{max-width:56ch;font-size:clamp(1.05rem,1rem + .4vw,1.3rem);color:#e7ebe4;opacity:0;animation:fade .9s .5s forwards}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;opacity:0;animation:fade .9s .7s forwards}
+@keyframes fade{to{opacity:1}}
+.illus{position:absolute;z-index:3;right:16px;bottom:14px;font-size:.72rem;background:rgba(0,0,0,.45);color:#eee;padding:4px 9px;border-radius:6px;letter-spacing:.02em}
+.scroll-hint{position:absolute;z-index:3;left:50%;bottom:18px;width:26px;height:42px;border:2px solid rgba(255,255,255,.6);border-radius:14px;transform:translateX(-50%)}
+.scroll-hint::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:wheel 1.8s infinite}
+@keyframes wheel{0%{opacity:1;transform:none}80%{opacity:0;transform:translateY(12px)}100%{opacity:0}}
+@media (max-width:640px){.scroll-hint{display:none}}
+
+/* bande chiffres réels */
+.facts{background:var(--sapin);color:#fff}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.08)}
+.fact{background:var(--sapin);padding:28px 20px}
+.fact b{font-family:var(--f-titre);font-size:clamp(1.8rem,1.4rem + 1.5vw,2.6rem);color:var(--paille);display:block;line-height:1}
+.fact span{font-size:.9rem;color:#cfd6cc}
+@media (max-width:760px){.facts .wrap{grid-template-columns:1fr 1fr}}
+
+section{padding:clamp(64px,9vw,120px) 0}
+.head{max-width:720px;margin-bottom:46px}
+.head h2{font-size:clamp(2rem,1.5rem + 2.2vw,3.3rem);margin:12px 0 14px}
+.head p{color:var(--gris);font-size:1.08rem}
+.kicker.dark{color:var(--laine)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+/* la visite : parcours */
+.parcours{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,70px);align-items:start}
+.parcours>*,.resa-grid>*,.infos>*,.contact>*{min-width:0}
+.steps{position:relative;list-style:none;padding-left:46px}
+.steps::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:var(--granit-2)}
+.steps .track{position:absolute;left:15px;top:8px;width:2px;height:0;background:var(--laine);transition:height .2s linear}
+.step{position:relative;padding:0 0 38px}
+.step::before{content:attr(data-n);position:absolute;left:-46px;top:0;width:32px;height:32px;border-radius:50%;background:var(--granit);border:2px solid var(--laine);color:var(--laine);font:700 .9rem var(--f-titre);display:grid;place-items:center}
+.step h3{font-size:1.35rem;margin-bottom:6px}
+.step p{color:var(--gris)}
+.step .tag{display:inline-block;margin-top:8px;font-size:.78rem;font-weight:600;letter-spacing:.04em;background:var(--granit-2);padding:4px 10px;border-radius:999px;color:var(--sapin-2)}
+.photo{position:relative;border-radius:var(--r);overflow:hidden;background:var(--granit-2)}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.photo:hover img{transform:scale(1.04)}
+.photo .illus{right:10px;bottom:10px}
+.stack{display:grid;gap:16px;position:sticky;top:96px}
+.stack .photo{aspect-ratio:4/3}
+.placeholder{aspect-ratio:16/7;border:2px dashed #b8bdb3;border-radius:var(--r);display:grid;place-items:center;text-align:center;color:var(--gris);font-size:.9rem;padding:16px;background:repeating-linear-gradient(135deg,transparent 0 12px,rgba(0,0,0,.025) 12px 24px)}
+.placeholder b{display:block;color:var(--encre);font-family:var(--f-titre);font-size:1.05rem}
+@media (max-width:900px){.parcours{grid-template-columns:1fr}.stack{position:static}}
+
+/* outil réservation */
+.resa{background:var(--sapin);color:#eef1ea;position:relative;overflow:hidden}
+.resa .head p{color:#c4ccc1}
+.resa .kicker{color:var(--paille)}
+.resa-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:24px}
+.card{background:var(--sapin-2);border-radius:18px;padding:clamp(20px,3vw,32px);border:1px solid rgba(255,255,255,.06)}
+.card h3{font-size:1.15rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.card h3 i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--paille);color:var(--sapin);display:grid;place-items:center;font-size:.85rem}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-head button{background:rgba(255,255,255,.08);border:0;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:background .2s}
+.cal-head button:hover{background:rgba(255,255,255,.18)}
+.cal-head button:disabled{opacity:.3;cursor:default}
+.cal-head strong{font-family:var(--f-titre);font-size:1.15rem;text-transform:capitalize}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}
+.cal .dow{font-size:.72rem;color:#9fab9c;text-transform:uppercase;letter-spacing:.06em;padding-bottom:4px}
+.cal button{aspect-ratio:1;border:0;border-radius:10px;background:transparent;color:#6f7d6f;font:500 .92rem var(--f-texte);cursor:default}
+.cal button.open{background:rgba(216,180,95,.14);color:#fff;cursor:pointer;transition:background .2s,transform .2s}
+.cal button.open:hover{background:rgba(216,180,95,.32);transform:translateY(-2px)}
+.cal button.sel{background:var(--paille)!important;color:var(--sapin)!important;font-weight:700}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.8rem;color:#b8c2b5;margin-top:12px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:rgba(216,180,95,.35)}
+.legend span.f::before{background:var(--paille)}
+.slots{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 4px}
+.slot{border:1.5px solid rgba(255,255,255,.25);background:none;color:#fff;border-radius:999px;padding:9px 16px;font:600 .9rem var(--f-texte);cursor:pointer;min-height:42px;transition:.2s}
+.slot:hover{border-color:var(--paille)}
+.slot.sel{background:var(--paille);border-color:var(--paille);color:var(--sapin)}
+.muted{color:#9fab9c;font-size:.85rem}
+.qty{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.qty:last-of-type{border:0}
+.qty small{display:block;color:#9fab9c;font-size:.8rem}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);background:none;color:#fff;font-size:1.1rem;cursor:pointer;transition:.2s}
+.stepper button:hover{border-color:var(--paille);color:var(--paille)}
+.stepper output{min-width:30px;text-align:center;font:700 1.1rem var(--f-titre)}
+.toggle{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:.9rem;cursor:pointer}
+.toggle input{width:20px;height:20px;accent-color:var(--paille)}
+.total{margin-top:18px;padding-top:18px;border-top:1px dashed rgba(255,255,255,.2)}
+.total .big{font:800 clamp(2.2rem,1.8rem + 1.5vw,3rem) var(--f-titre);color:var(--paille);line-height:1;display:block;transition:transform .3s var(--ease)}
+.total .big.bump{transform:scale(1.08)}
+.recap{font-size:.92rem;color:#d4dbd1;margin:10px 0 16px;min-height:3em}
+.resa .btn-main{background:var(--paille);color:var(--sapin);width:100%;justify-content:center}
+.resa .btn-main:hover{background:#fff}
+.resa .btn-ghost{width:100%;justify-content:center;margin-top:10px;color:#e7ece4}
+.warn{margin-top:16px;font-size:.8rem;color:#a9b4a6;line-height:1.5}
+.fields{display:grid;gap:10px;margin-top:14px}
+.fields input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;color:#fff;font:inherit;font-size:.95rem}
+.fields input:focus{outline:none;border-color:var(--paille)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140%);background:var(--encre);color:#fff;padding:12px 20px;border-radius:12px;z-index:90;font-size:.92rem;transition:transform .45s var(--ease);max-width:calc(100% - 32px)}
+.toast.on{transform:translate(-50%,0)}
+@media (max-width:900px){.resa-grid{grid-template-columns:1fr}}
+
+/* produits */
+.prods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.prod{background:var(--blanc);border-radius:var(--r);padding:24px 22px;border:1px solid var(--granit-2);position:relative;transition:transform .35s var(--ease),box-shadow .35s;display:flex;flex-direction:column}
+.prod:hover{transform:translateY(-6px);box-shadow:0 18px 36px rgba(29,43,34,.1)}
+.prod .ico{width:46px;height:46px;border-radius:12px;background:var(--granit);display:grid;place-items:center;margin-bottom:14px}
+.prod h3{font-size:1.2rem;margin-bottom:6px}
+.prod p{color:var(--gris);font-size:.93rem;flex:1}
+.prod label{margin-top:14px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:.9rem;cursor:pointer;padding:10px 12px;border-radius:10px;background:var(--granit);transition:background .2s}
+.prod label:hover{background:var(--granit-2)}
+.prod input{width:18px;height:18px;accent-color:var(--laine)}
+.prod.on{border-color:var(--laine);box-shadow:0 0 0 2px var(--laine) inset}
+.order-bar{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--blanc);border:1px solid var(--granit-2);border-radius:var(--r);padding:18px 22px}
+.order-bar p{color:var(--gris);font-size:.95rem}
+.order-bar p b{color:var(--encre)}
+.where{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.where div{border-left:3px solid var(--paille);padding:4px 0 4px 16px}
+.where b{font-family:var(--f-titre);display:block;font-size:1.05rem}
+.where span{color:var(--gris);font-size:.93rem}
+@media (max-width:1000px){.prods{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.prods,.where{grid-template-columns:1fr}}
+
+/* bandeau photo */
+.band{position:relative;height:min(70vh,560px);overflow:hidden;background:var(--sapin)}
+.band .bg{position:absolute;inset:-15% 0;background:url("https://images.pexels.com/photos/2416596/pexels-photo-2416596.jpeg?auto=compress&cs=tinysrgb&w=1800") center/cover;will-change:transform}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,28,22,.82),rgba(20,28,22,.15) 70%)}
+.band .wrap{position:relative;z-index:2;height:100%;display:flex;align-items:center;color:#fff}
+.band blockquote{font-family:var(--f-titre);font-size:clamp(1.6rem,1.2rem + 2vw,2.8rem);max-width:20ch;line-height:1.2}
+.band blockquote small{display:block;font-family:var(--f-texte);font-size:.9rem;color:var(--paille);margin-top:14px;letter-spacing:.04em}
+
+/* groupes */
+.groupes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.g{background:var(--blanc);border-radius:var(--r);padding:28px;border:1px solid var(--granit-2)}
+.g .price{font:800 2rem var(--f-titre);color:var(--laine)}
+.g .price small{font:500 .9rem var(--f-texte);color:var(--gris)}
+.g h3{font-size:1.2rem;margin:4px 0 10px}
+.g ul{list-style:none;color:var(--gris);font-size:.93rem;display:grid;gap:6px}
+.g ul li::before{content:"— ";color:var(--paille)}
+@media (max-width:900px){.groupes{grid-template-columns:1fr}}
+
+/* infos pratiques */
+.infos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.acc{background:var(--blanc);border-radius:var(--r);border:1px solid var(--granit-2);overflow:hidden}
+.acc details{border-bottom:1px solid var(--granit-2)}
+.acc details:last-child{border:0}
+.acc summary{cursor:pointer;list-style:none;padding:20px 22px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary::after{content:"+";font:700 1.4rem var(--f-titre);color:var(--laine);transition:transform .3s}
+.acc details[open] summary::after{transform:rotate(45deg)}
+.acc details p{padding:0 22px 20px;color:var(--gris)}
+.mapcard{background:var(--sapin);color:#fff;border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.mapcard svg.topo{position:absolute;right:-40px;bottom:-40px;width:320px;opacity:.18}
+.mapcard h3{font-size:1.4rem}
+.mapcard p{color:#cdd5ca}
+.mapcard .route{background:rgba(216,180,95,.14);border-left:3px solid var(--paille);padding:12px 14px;border-radius:0 10px 10px 0;font-size:.93rem}
+@media (max-width:900px){.infos{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.coord{display:grid;gap:14px}
+.coord a,.coord div{display:flex;gap:14px;align-items:flex-start;text-decoration:none;background:var(--blanc);border:1px solid var(--granit-2);padding:18px 20px;border-radius:var(--r);transition:transform .3s var(--ease),border-color .3s}
+.coord a:hover{transform:translateX(6px);border-color:var(--laine)}
+.coord b{display:block}
+.coord span{color:var(--gris);font-size:.93rem}
+.coord svg{flex:none;width:22px;height:22px;margin-top:2px;color:var(--laine)}
+@media (max-width:900px){.contact{grid-template-columns:1fr}}
+
+footer{background:var(--encre);color:#aeb5ac;font-size:.86rem;padding:40px 0 90px}
+footer .wrap{display:grid;gap:14px}
+footer strong{color:#fff;font-family:var(--f-titre);font-size:1.05rem}
+footer p{max-width:90ch}
+
+/* barre mobile */
+.mbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:80;display:none;gap:8px}
+.mbar a{flex:1;justify-content:center}
+@media (max-width:760px){.mbar{display:flex}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .hero h1 .l span{transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org",
+ "@type":["LocalBusiness","TouristAttraction"],
+ "name":"Ferme des Bisons des Monts de la Madeleine",
+ "description":"Élevage de bisons des plaines d'Amérique du Nord. Visite commentée en chariot bâché sur réservation, dégustation au retour, vente directe de viande à la ferme.",
+ "address":{"@type":"PostalAddress","streetAddress":"3082 route des Noës, hameau Préfol","postalCode":"42370","addressLocality":"Saint-Rirand","addressRegion":"Loire","addressCountry":"FR"},
+ "telephone":"+33477657688",
+ "email":"bisons.madeleine@gmail.com",
+ "areaServed":["Monts de la Madeleine","Côte roannaise","Roannais"],
+ "touristType":["Familles","Groupes"]
+}
+</script>
+</head>
+<body>
+
+<div class="demo">Maquette de démonstration — <b>proposition de site</b> pour la Ferme des Bisons des Monts de la Madeleine. Tarifs et dates indicatifs, à confirmer par la ferme.</div>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="tels">
+      <a href="tel:+33477657688">04 77 65 76 88</a>
+      <a href="tel:+33670036888">06 70 03 68 88</a>
+      <a href="mailto:bisons.madeleine@gmail.com">bisons.madeleine@gmail.com</a>
+    </div>
+    <div class="saison"><span class="dot" aria-hidden="true"></span><span id="etat-saison">Saison de visites terminée — réservations pour le printemps</span></div>
+  </div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Accueil">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="31" fill="#1d2b22"/><path d="M12 44c2-9 7-15 14-17 3-6 9-9 15-8 6 1 10 5 11 11 1 3 0 6-1 8l-3 1v5h-4l-1-4h-14l-1 4h-4l-1-5c-3 0-6 1-8 3l-3 2z" fill="#d8b45f"/><path d="M41 20c2-3 5-4 7-3-2 1-3 3-3 5" stroke="#d8b45f" stroke-width="2" fill="none"/><path d="M6 50l12-14 8 8 10-12 22 18" stroke="#eef0ea" stroke-width="2" fill="none" opacity=".5"/></svg>
+      <span><strong>Ferme des Bisons</strong><small>Monts de la Madeleine</small></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul class="menu" id="menu">
+        <li><a href="#visite">La visite</a></li>
+        <li><a href="#reserver">Réserver</a></li>
+        <li><a href="#viande">Viande à la ferme</a></li>
+        <li><a href="#groupes">Groupes</a></li>
+        <li><a href="#infos">Infos pratiques</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-main" href="#reserver">Réserver une visite</a>
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" aria-label="Présentation">
+  <div class="hero__img" id="heroImg" role="img" aria-label="Bisons dans une prairie à la lumière du soir"></div>
+  <div class="wrap hero__content">
+    <span class="kicker">Saint-Rirand · Monts de la Madeleine</span>
+    <h1><span class="l"><span>Des bisons</span></span><span class="l"><span>à 700 m d'altitude,</span></span><span class="l"><span>à deux pas du Roannais.</span></span></h1>
+    <p class="lead">Nicole et Didier Mouiller élèvent des bisons des plaines d'Amérique du Nord. On monte dans le chariot bâché, on traverse les pâtures, on écoute l'éleveur, et on goûte la charcuterie de la ferme au retour.</p>
+    <div class="ctas">
+      <a class="btn btn-main" href="#reserver">Choisir une date de visite</a>
+      <a class="btn btn-ghost" href="#viande">Acheter de la viande</a>
+    </div>
+  </div>
+  <span class="illus">Photo d'illustration</span>
+  <span class="scroll-hint" aria-hidden="true"></span>
+</section>
+
+<div class="facts">
+  <div class="wrap">
+    <div class="fact rv"><b>≈ 45 min</b><span>de visite en chariot bâché</span></div>
+    <div class="fact rv d1"><b>700 m</b><span>d'altitude : prévoir une veste</span></div>
+    <div class="fact rv d2"><b>Avr. → 11 nov.</b><span>week-ends, fériés et vacances</span></div>
+    <div class="fact rv d3"><b>Dès 20</b><span>personnes : tarif groupe</span></div>
+  </div>
+</div>
+
+<section id="visite">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker dark">La visite</span>
+      <h2>Trois quarts d'heure au milieu du troupeau</h2>
+      <p>La visite se fait uniquement sur réservation, pour garder des petits groupes et laisser le temps aux questions.</p>
+    </div>
+    <div class="parcours">
+      <ol class="steps" id="steps">
+        <span class="track" id="track" aria-hidden="true"></span>
+        <li class="step rv" data-n="1"><h3>L'exposition, avant de partir</h3><p>Une exposition à parcourir librement pour comprendre l'animal : son histoire, son mode de vie, ce qui le distingue d'un bovin.</p><span class="tag">Autoguidée</span></li>
+        <li class="step rv" data-n="2"><h3>Le chariot bâché dans les pâtures</h3><p>L'éleveur conduit le chariot au plus près des bisons. Les arrêts sont commentés et interactifs : chacun peut poser ses questions.</p><span class="tag">≈ 45 minutes</span></li>
+        <li class="step rv" data-n="3"><h3>La dégustation au retour</h3><p>Une petite dégustation de la charcuterie de la ferme, et la possibilité d'acheter de la viande sous vide sur place.</p><span class="tag">Vente directe</span></li>
+      </ol>
+      <div class="stack">
+        <figure class="photo rv"><img src="https://images.pexels.com/photos/3640872/pexels-photo-3640872.jpeg?auto=compress&cs=tinysrgb&w=1100" alt="Bisons dans les herbes hautes" loading="lazy"><span class="illus">Photo d'illustration</span></figure>
+        <div class="placeholder rv"><div><b>Photo du chariot bâché</b>à fournir par la ferme</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="resa" id="reserver" aria-labelledby="resa-t">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker">Réservation en ligne</span>
+      <h2 id="resa-t">Choisissez votre jour, votre départ, et voyez le prix tout de suite</h2>
+      <p>Les jours ouverts s'affichent d'eux-mêmes, les horaires changent seuls en juillet-août, et la demande arrive à la ferme toute prête. Plus besoin d'appeler pour savoir si c'est ouvert.</p>
+    </div>
+    <div class="resa-grid">
+      <div class="card rv">
+        <h3><i>1</i>Le jour</h3>
+        <div class="cal-head">
+          <button type="button" id="prev" aria-label="Mois précédent">‹</button>
+          <strong id="mois" aria-live="polite"></strong>
+          <button type="button" id="next" aria-label="Mois suivant">›</button>
+        </div>
+        <div class="cal" id="cal" role="grid"></div>
+        <div class="legend"><span>Jour de visite</span><span class="f">Votre choix</span></div>
+        <h3 style="margin-top:24px"><i>2</i>Le départ</h3>
+        <div class="slots" id="slots"><span class="muted">Choisissez d'abord un jour.</span></div>
+      </div>
+      <div class="card rv d1">
+        <h3><i>3</i>Qui vient ?</h3>
+        <div class="qty"><div>Adultes<small id="pa">6,50 €</small></div><div class="stepper"><button type="button" data-k="ad" data-d="-1" aria-label="Retirer un adulte">−</button><output id="ad">2</output><button type="button" data-k="ad" data-d="1" aria-label="Ajouter un adulte">+</button></div></div>
+        <div class="qty"><div>Enfants 3 à 12 ans<small id="pe">4,60 €</small></div><div class="stepper"><button type="button" data-k="en" data-d="-1" aria-label="Retirer un enfant">−</button><output id="en">2</output><button type="button" data-k="en" data-d="1" aria-label="Ajouter un enfant">+</button></div></div>
+        <div class="qty"><div>Moins de 3 ans<small>non facturé</small></div><div class="stepper"><button type="button" data-k="bb" data-d="-1" aria-label="Retirer un tout-petit">−</button><output id="bb">0</output><button type="button" data-k="bb" data-d="1" aria-label="Ajouter un tout-petit">+</button></div></div>
+        <label class="toggle"><input type="checkbox" id="inclu"> Groupe inclusion / handicap (tarif mini-groupe)</label>
+        <div class="total">
+          <span class="muted">Total estimé</span>
+          <span class="big" id="total">22,20 €</span>
+          <p class="recap" id="recap">Choisissez un jour et un horaire.</p>
+          <div class="fields">
+            <label class="sr" for="nom">Votre nom</label><input id="nom" placeholder="Votre nom" autocomplete="name">
+            <label class="sr" for="tel">Votre téléphone</label><input id="tel" placeholder="Votre téléphone" autocomplete="tel" inputmode="tel">
+          </div>
+          <button type="button" class="btn btn-main" id="send" style="margin-top:14px">Envoyer ma demande à la ferme</button>
+          <button type="button" class="btn btn-ghost" id="ics">Ajouter à mon agenda (.ics)</button>
+          <p class="warn">Tarifs 2024 publiés par l'office de tourisme, à confirmer par la ferme pour la saison prochaine. Dates d'ouverture reprises du dernier calendrier connu (6 avril → 11 novembre, week-ends et jours fériés) ; les vacances scolaires s'ajoutent sur demande. La ferme confirme chaque réservation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="viande">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker dark">Viande à la ferme</span>
+      <h2>Ce qui sort de la ferme, sous vide</h2>
+      <p>Vente directe à la ferme les jours de visite, ou sur appel. Cochez ce qui vous intéresse : la ferme vous rappelle pour les disponibilités et les quantités.</p>
+    </div>
+    <div class="prods" id="prods">
+      <article class="prod rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6e4529" stroke-width="1.8"><path d="M4 16c1-5 4-8 8-9 2-3 5-4 8-3-1 2-1 4 0 6 0 4-3 7-7 8H6z"/></svg></div><h3>Bison</h3><p>Viande et charcuterie de bison, issues du troupeau de la ferme.</p><label><input type="checkbox" value="Bison (viande / charcuterie)"> Ça m'intéresse</label></article>
+      <article class="prod rv d1"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6e4529" stroke-width="1.8"><circle cx="12" cy="12" r="7"/><path d="M9 12h6M12 9v6"/></svg></div><h3>Veau de lait</h3><p>Veau élevé sous la mère.</p><label><input type="checkbox" value="Veau de lait"> Ça m'intéresse</label></article>
+      <article class="prod rv d2"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6e4529" stroke-width="1.8"><path d="M5 9c0-3 3-5 7-5s7 2 7 5-3 9-7 11C8 18 5 12 5 9z"/></svg></div><h3>Bœuf Salers</h3><p>Bœuf de race Salers.</p><label><input type="checkbox" value="Bœuf Salers"> Ça m'intéresse</label></article>
+      <article class="prod rv d3"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#6e4529" stroke-width="1.8"><rect x="4" y="7" width="16" height="11" rx="5"/><path d="M8 7V5M16 7V5"/></svg></div><h3>Porc</h3><p>Viande de porc, selon la saison.</p><label><input type="checkbox" value="Porc"> Ça m'intéresse</label></article>
+    </div>
+    <div class="order-bar rv">
+      <p id="order-txt"><b>Aucun produit coché.</b> Les quantités se décident au téléphone.</p>
+      <button type="button" class="btn btn-main" id="order">Demander les disponibilités</button>
+    </div>
+    <div class="where">
+      <div class="rv"><b>À la ferme</b><span>Les jours de visite, à la boutique.</span></div>
+      <div class="rv d1"><b>Sur appel</b><span>Au 04 77 65 76 88 ou au 06 70 03 68 88, hors jours de visite.</span></div>
+      <div class="rv d2"><b>Marchés et foires</b><span>Marchés gourmands et foires de la région (dates à publier ici).</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="false">
+  <div class="bg" id="bandBg" role="img" aria-label="Troupeau de bisons dans une prairie d'altitude"></div>
+  <div class="wrap"><blockquote class="rv">Ici, on ne regarde pas les bisons derrière une vitre. On passe au milieu.<small>Visite en chariot · sur réservation</small></blockquote></div>
+  <span class="illus">Photo d'illustration</span>
+</div>
+
+<section id="groupes">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker dark">Groupes, écoles, associations</span>
+      <h2>Venir à plusieurs</h2>
+      <p>Les groupes sont accueillis sur réservation préalable, avec des tarifs dédiés.</p>
+    </div>
+    <div class="groupes">
+      <div class="g rv"><span class="price">6,50 € <small>/ adulte</small></span><h3>Particuliers et familles</h3><ul><li>Enfant de 3 à 12 ans : 4,60 €</li><li>Week-ends, fériés, vacances scolaires</li><li>Sur réservation uniquement</li></ul></div>
+      <div class="g rv d1"><span class="price">5,70 € <small>/ adulte</small></span><h3>Groupes dès 20 personnes</h3><ul><li>Enfant de 3 à 12 ans : 4,10 €</li><li>Date à convenir avec la ferme</li><li>Réservation préalable obligatoire</li></ul></div>
+      <div class="g rv d2"><span class="price">6 € <small>/ adulte</small></span><h3>Mini-groupes inclusion / handicap</h3><ul><li>Enfant de 2 à 12 ans : 4,50 €</li><li>Accueil adapté, à préciser à la réservation</li><li>Réservation préalable obligatoire</li></ul></div>
+    </div>
+    <p class="muted rv" style="margin-top:16px;color:var(--gris)">Tarifs 2024 publiés par Roannais Tourisme, à mettre à jour par la ferme.</p>
+  </div>
+</section>
+
+<section id="infos" style="padding-top:0">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="kicker dark">Infos pratiques</span>
+      <h2>Avant de monter à Préfol</h2>
+    </div>
+    <div class="infos">
+      <div class="acc rv">
+        <details open><summary>Quand peut-on venir ?</summary><p>Du début avril au 11 novembre, les samedis, dimanches, jours fériés et pendant les vacances scolaires, uniquement sur réservation. Départs à 15 h et 16 h d'avril à juin et de septembre à novembre ; 15 h 30, 16 h 30 et 17 h 30 en juillet et août.</p></details>
+        <details><summary>Comment s'habiller ?</summary><p>La ferme est à environ 700 m d'altitude : même en été, une veste chaude est la bienvenue dans le chariot.</p></details>
+        <details><summary>La visite convient-elle aux jeunes enfants ?</summary><p>Oui, la visite est pensée pour les familles. Les enfants de 3 à 12 ans bénéficient d'un tarif réduit.</p></details>
+        <details><summary>Peut-on acheter de la viande sans faire la visite ?</summary><p>Oui : à la ferme les jours de visite, ou sur appel le reste du temps. Il est conseillé de téléphoner avant de se déplacer pour vérifier les disponibilités.</p></details>
+      </div>
+      <div class="mapcard rv d1">
+        <svg class="topo" viewBox="0 0 200 200" fill="none" stroke="#d8b45f" stroke-width="1.5" aria-hidden="true"><path d="M20 150c30-40 60-60 90-50s50-30 70-60"/><path d="M10 170c40-40 70-55 100-45s55-25 80-55"/><path d="M30 130c25-30 50-45 75-38s40-25 55-50"/><path d="M45 112c18-20 38-30 58-25s30-18 40-36"/></svg>
+        <span class="kicker">Accès</span>
+        <h3>3082 route des Noës<br>Hameau Préfol, 42370 Saint-Rirand</h3>
+        <p class="route"><b>Conseil de la ferme :</b> passez exclusivement par Les Noës, c'est le chemin le plus simple.</p>
+        <a class="btn btn-main" style="align-self:flex-start;background:var(--paille);color:var(--sapin)" href="https://www.google.com/maps/search/?api=1&query=3082+route+des+No%C3%ABs+42370+Saint-Rirand" target="_blank" rel="noopener">Ouvrir l'itinéraire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap contact">
+    <div class="rv">
+      <span class="kicker dark">Contact</span>
+      <h2 style="font-size:clamp(2rem,1.5rem + 2vw,3rem);margin:12px 0">Une question, une date pour un groupe ?</h2>
+      <p style="color:var(--gris)">Nicole et Didier Mouiller répondent par téléphone ou par mail.</p>
+      <div class="placeholder" style="margin-top:22px;aspect-ratio:16/9"><div><b>Photo de la ferme</b>à fournir par la ferme</div></div>
+    </div>
+    <div class="coord rv d1">
+      <a href="tel:+33477657688"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><b>04 77 65 76 88</b><span>Téléphone fixe</span></span></a>
+      <a href="tel:+33670036888"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg><span><b>06 70 03 68 88</b><span>Portable</span></span></a>
+      <a href="mailto:bisons.madeleine@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7 10-7"/></svg><span><b>bisons.madeleine@gmail.com</b><span>Réponse par la ferme</span></span></a>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b>Hameau Préfol</b><span>3082 route des Noës, 42370 Saint-Rirand</span></span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Ferme des Bisons des Monts de la Madeleine</strong>
+    <p>3082 route des Noës, hameau Préfol, 42370 Saint-Rirand · 04 77 65 76 88 · 06 70 03 68 88</p>
+    <p>Maquette de démonstration non contractuelle. Les tarifs et les horaires reprennent les dernières informations publiées par Roannais Tourisme (tarifs 2024) et doivent être confirmés par la ferme. Les couleurs sont une proposition, faute de charte disponible, et s'ajustent au logo de la ferme. Photos : bisons = photos d'illustration libres de droits (Pexels) ; photos du chariot et de la ferme à fournir par la ferme.</p>
+  </div>
+</footer>
+
+<div class="mbar"><a class="btn btn-main" href="#reserver">Réserver</a><a class="btn btn-main" style="background:var(--sapin)" href="tel:+33477657688">Appeler</a></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* nav */
+  const nav=$('#nav'), burger=$('#burger'), menu=$('#menu');
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  $$('.menu a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  /* reveals */
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15,rootMargin:'0px 0px -40px'});
+    $$('.rv').forEach(el=>io.observe(el));
+    const secs=$$('main section[id]');
+    const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$$('.menu a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50%'});
+    secs.forEach(s=>so.observe(s));
+  } else $$('.rv').forEach(el=>el.classList.add('in'));
+
+  /* parallax + parcours */
+  const heroImg=$('#heroImg'), bandBg=$('#bandBg'), steps=$('#steps'), track=$('#track');
+  let tick=false;
+  function onScroll(){
+    if(!reduce){
+      const y=scrollY; if(y<innerHeight*1.2) heroImg.style.transform='translateY('+(y*.25)+'px) scale(1)';
+      const r=bandBg.parentElement.getBoundingClientRect();
+      if(r.bottom>0&&r.top<innerHeight){bandBg.style.transform='translateY('+((r.top-innerHeight/2)*-.12)+'px)'}
+    }
+    const sr=steps.getBoundingClientRect(); const p=Math.min(1,Math.max(0,(innerHeight*.7-sr.top)/sr.height));
+    track.style.height=(p*(sr.height-16))+'px';
+    tick=false;
+  }
+  addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(onScroll);tick=true}},{passive:true});
+  heroImg.addEventListener('animationend',()=>{heroImg.style.animation='none';onScroll()});
+
+  /* ===== Réservation ===== */
+  const MOIS=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  function paques(y){const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;return new Date(y,mo-1,da)}
+  function feries(y){const p=paques(y),add=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+    return [new Date(y,0,1),add(p,1),new Date(y,4,1),new Date(y,4,8),add(p,39),add(p,50),new Date(y,6,14),new Date(y,7,15),new Date(y,10,1),new Date(y,10,11),new Date(y,11,25)].map(d=>d.toDateString())}
+  const key=d=>d.toDateString();
+  function ouvert(d){
+    const y=d.getFullYear(), deb=new Date(y,3,6), fin=new Date(y,10,11);
+    if(d<deb||d>fin) return false;
+    const today=new Date();today.setHours(0,0,0,0); if(d<today) return false;
+    return d.getDay()===0||d.getDay()===6||feries(y).includes(key(d));
+  }
+  const ete=d=>d.getMonth()===6||d.getMonth()===7;
+  const now=new Date(); now.setHours(0,0,0,0);
+  // saison
+  (function(){const y=now.getFullYear();const deb=new Date(y,3,6),fin=new Date(y,10,11);
+    $('#etat-saison').textContent=(now>=deb&&now<=fin)?'Saison ouverte — visites sur réservation':'Saison terminée — réservations ouvertes pour le printemps'})();
+  let cur=new Date(now.getFullYear(),now.getMonth(),1);
+  if(now>new Date(now.getFullYear(),10,11)||now<new Date(now.getFullYear(),3,1)){cur=new Date(now>new Date(now.getFullYear(),10,11)?now.getFullYear()+1:now.getFullYear(),3,1)}
+  let sel=null, slot=null; const n={ad:2,en:2,bb:0};
+  function renderCal(){
+    const cal=$('#cal'); cal.innerHTML='';
+    ['L','M','M','J','V','S','D'].forEach(x=>{const s=document.createElement('span');s.className='dow';s.textContent=x;cal.appendChild(s)});
+    $('#mois').textContent=MOIS[cur.getMonth()]+' '+cur.getFullYear();
+    const first=(cur.getDay()+6)%7, days=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+    for(let i=0;i<first;i++)cal.appendChild(document.createElement('span'));
+    for(let d=1;d<=days;d++){const dt=new Date(cur.getFullYear(),cur.getMonth(),d);const b=document.createElement('button');b.type='button';b.textContent=d;
+      if(ouvert(dt)){b.className='open';b.setAttribute('aria-label',dt.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+', visite possible');
+        if(sel&&key(sel)===key(dt))b.classList.add('sel');
+        b.addEventListener('click',()=>{sel=dt;slot=null;renderCal();renderSlots();calc()});}
+      else {b.disabled=true;b.setAttribute('aria-hidden','true')}
+      cal.appendChild(b)}
+    $('#prev').disabled=cur<=new Date(now.getFullYear(),now.getMonth(),1);
+  }
+  $('#prev').onclick=()=>{cur=new Date(cur.getFullYear(),cur.getMonth()-1,1);renderCal()};
+  $('#next').onclick=()=>{cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);renderCal()};
+  function renderSlots(){
+    const box=$('#slots'); box.innerHTML='';
+    const h=ete(sel)?['15h30','16h30','17h30']:['15h00','16h00'];
+    h.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='slot'+(slot===t?' sel':'');b.textContent=t;b.onclick=()=>{slot=t;renderSlots();calc()};box.appendChild(b)});
+    const m=document.createElement('span');m.className='muted';m.style.width='100%';m.textContent=ete(sel)?'Horaires d\'été (juillet-août)':'Horaires d\'avril à juin et de septembre à novembre';box.appendChild(m);
+  }
+  const eur=v=>v.toFixed(2).replace('.',',')+' €';
+  function tarifs(){const pers=n.ad+n.en;
+    if($('#inclu').checked) return {a:6,e:4.5,t:'mini-groupe inclusion / handicap'};
+    if(pers>=20) return {a:5.7,e:4.1,t:'tarif groupe (20 personnes et plus)'};
+    return {a:6.5,e:4.6,t:'tarif individuel'}}
+  function calc(){
+    const t=tarifs(); $('#pa').textContent=eur(t.a); $('#pe').textContent=eur(t.e);
+    const tot=n.ad*t.a+n.en*t.e; const el=$('#total'); el.textContent=eur(tot); el.classList.add('bump'); setTimeout(()=>el.classList.remove('bump'),250);
+    let r=(n.ad+n.en+n.bb)+' personne'+((n.ad+n.en+n.bb)>1?'s':'')+' · '+t.t;
+    if(sel) r=sel.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+(slot?' à '+slot:' — choisissez un horaire')+' · '+r;
+    $('#recap').textContent=r;
+  }
+  $$('.stepper button').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.k;n[k]=Math.max(k==='ad'?1:0,Math.min(80,n[k]+(+b.dataset.d)));$('#'+k).textContent=n[k];calc()}));
+  $('#inclu').addEventListener('change',calc);
+  function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),3200)}
+  $('#send').onclick=()=>{
+    if(!sel||!slot){toast('Choisissez un jour et un horaire de départ.');return}
+    const t=tarifs(), body='Bonjour,\n\nJe souhaite réserver une visite en chariot :\n- Date : '+sel.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' à '+slot+'\n- Adultes : '+n.ad+'\n- Enfants (3-12 ans) : '+n.en+'\n- Moins de 3 ans : '+n.bb+'\n- Tarif : '+t.t+' — total estimé '+eur(n.ad*t.a+n.en*t.e)+'\n\nNom : '+($('#nom').value||'')+'\nTéléphone : '+($('#tel').value||'')+'\n\nMerci de me confirmer la réservation.';
+    location.href='mailto:bisons.madeleine@gmail.com?subject='+encodeURIComponent('Réservation visite en chariot')+'&body='+encodeURIComponent(body);
+    toast('Votre messagerie s\'ouvre avec la demande prête à envoyer.');
+  };
+  $('#ics').onclick=()=>{
+    if(!sel||!slot){toast('Choisissez un jour et un horaire de départ.');return}
+    const [hh,mm]=slot.replace('h',':').split(':').map(Number);const s=new Date(sel);s.setHours(hh,mm||0);const e=new Date(s.getTime()+75*60000);
+    const f=d=>d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+'00';
+    const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Ferme des Bisons//FR','BEGIN:VEVENT','UID:'+Date.now()+'@bisons','DTSTAMP:'+f(new Date()),'DTSTART:'+f(s),'DTEND:'+f(e),'SUMMARY:Visite en chariot — Ferme des Bisons','LOCATION:3082 route des Noës\\, hameau Préfol\\, 42370 Saint-Rirand','DESCRIPTION:Passer par Les Noës. Prévoir une veste chaude (700 m d\'altitude). Réservation à confirmer par la ferme : 04 77 65 76 88.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+    const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'}));a.download='visite-ferme-des-bisons.ics';a.click();
+    toast('Rappel ajouté : pensez à attendre la confirmation de la ferme.');
+  };
+  renderCal(); calc();
+
+  /* ===== Produits ===== */
+  const boxes=$$('#prods input');
+  function upd(){const c=boxes.filter(b=>b.checked);boxes.forEach(b=>b.closest('.prod').classList.toggle('on',b.checked));
+    $('#order-txt').innerHTML=c.length?'<b>'+c.map(b=>b.value).join(', ')+'</b> — la ferme vous rappelle pour les disponibilités.':'<b>Aucun produit coché.</b> Les quantités se décident au téléphone.'}
+  boxes.forEach(b=>b.addEventListener('change',upd));
+  $('#order').onclick=()=>{const c=boxes.filter(b=>b.checked).map(b=>'- '+b.value);
+    if(!c.length){toast('Cochez au moins un produit.');return}
+    location.href='mailto:bisons.madeleine@gmail.com?subject='+encodeURIComponent('Demande de viande à la ferme')+'&body='+encodeURIComponent('Bonjour,\n\nJe serais intéressé(e) par :\n'+c.join('\n')+'\n\nPouvez-vous me dire ce qui est disponible et quand passer ?\n\nMerci.');};
+})();
+</script>
+</body>
+</html>
