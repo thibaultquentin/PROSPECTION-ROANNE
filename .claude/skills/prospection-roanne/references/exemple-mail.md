@@ -22,7 +22,7 @@ Elle vous appartient dans tous les cas, et tout reste modifiable selon vos retou
 
 Si nous allons plus loin, je travaille en direct, sans structure d'agence, ce qui me permet un tarif bien en dessous du marché pour un site entièrement sur mesure. Je peux aussi proposer un suivi dans la durée, avec mises à jour et évolutions au fil de vos besoins.
 
-Je reste à votre disposition par mail ou par téléphone.
+Si cela vous intéresse, vous pouvez me répondre par mail ou me proposer un créneau pour qu'on s'appelle.
 
 Bien cordialement,
 
@@ -40,6 +40,6 @@ Roanne
 - **Un seul paragraphe** pour annoncer la maquette et décrire son cœur, terminé par « Vous la trouverez ici : ».
 - **Le lien est seul sur sa ligne** (ligne vide avant et après), cliquable, jamais l'URL brute : le texte visible est toujours « Maquette – [Nom entreprise] », jamais l'adresse GitHub ni le nom du dépôt.
 - **La tempérance en deux temps** : la maquette leur appartient et reste modifiable selon leurs retours ; puis tarif bien en dessous du marché (justifié à peine : « je travaille en direct, sans structure d'agence », site entièrement sur mesure) et suivi dans la durée proposé comme option.
-- **L'appel à l'action va droit au but** : une phrase, mail ou téléphone.
+- **L'appel à l'action reste doux et conditionnel** : une seule phrase qui commence par « Si cela vous intéresse, vous pouvez… » (réponse par mail ou créneau pour un appel). Jamais d'ordre du type « répondez-moi » ou « dites-moi ce que vous en pensez », qui paraît autoritaire.
 - **La signature est courte** : « Bien cordialement, » puis prénom, nom, téléphone, ville — chacun sur sa propre ligne (jamais regroupés sur une seule ligne ni séparés par des virgules).
 - **Le ton est professionnel** : vouvoiement, sobre et direct, sans jargon commercial ni superlatifs, sans tomber dans le familier.
