@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GAEC Subrin — Ferme bio et bière Champ Brassé à Vendranges | Bœuf bio en direct</title>
+<meta name="description" content="À Vendranges, Marine et Mathieu Subrin élèvent en bio et brassent Champ Brassé avec les céréales de la ferme. Bœuf bio en vente directe, bières blonde et ambrée.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CHARTE — reprise de l'étiquette Champ Brassé (papier kraft, vache au
+   trait, bandeau jaune pour la blonde, orange pour l'ambrée, lettrage
+   brun dessiné à la main). Codes exacts non communiqués : couleurs
+   relevées à l'œil sur les photos d'étiquette, ajustables ici.
+   ===================================================================== */
+:root{
+  --kraft:#cdb083;        /* fond d'étiquette papier kraft */
+  --kraft-clair:#efe3cc;  /* kraft éclairci pour les grands fonds */
+  --creme:#faf5ea;
+  --encre:#2b2119;        /* lettrage brun-noir de l'étiquette */
+  --encre-doux:#5a4a3c;
+  --blonde:#f2df1f;       /* bandeau jaune — bière blonde */
+  --ambree:#ef8a1d;       /* bandeau orange — bière ambrée */
+  --rose:#e2559b;         /* fleurs de la couronne de la vache */
+  --pre:#5d7d3a;          /* vert des prés de Vendranges */
+  --font-titre:"Fredoka", system-ui, sans-serif;  /* approche du lettrage arrondi */
+  --font-texte:"Nunito", system-ui, sans-serif;
+  --font-main:"Caveat", cursive;                   /* annotations « à la main » */
+  --radius:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-texte);color:var(--encre);background:var(--creme);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ambree);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1160px,100% - 2rem);margin-inline:auto}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* bandeau de démonstration */
+.demo{background:var(--encre);color:#e9dcc6;font-size:.78rem;text-align:center;padding:.45rem 1rem}
+.demo b{color:var(--blonde)}
+
+/* navigation */
+header{position:sticky;top:0;z-index:50;background:rgba(250,245,234,.86);backdrop-filter:blur(10px);border-bottom:1px solid rgba(43,33,25,.08);transition:box-shadow .3s}
+header.scrolled{box-shadow:0 6px 24px rgba(43,33,25,.08)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo svg{width:44px;height:44px}
+.logo span{font-family:var(--font-titre);font-weight:700;font-size:1.15rem;line-height:1.05}
+.logo small{display:block;font-family:var(--font-texte);font-weight:600;font-size:.72rem;color:var(--encre-doux);letter-spacing:.04em}
+.nav ul{display:flex;gap:1.4rem;list-style:none}
+.nav ul a{text-decoration:none;font-weight:700;font-size:.93rem;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:3px;border-radius:3px;background:var(--blonde);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-titre);font-weight:600;font-size:1rem;padding:.8rem 1.35rem;border-radius:999px;border:2px solid var(--encre);text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,background .25s;background:var(--blonde);color:var(--encre);box-shadow:3px 3px 0 var(--encre)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--encre)}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--encre)}
+.btn.ghost{background:transparent}
+.btn.amb{background:var(--ambree)}
+.burger{display:none;background:none;border:2px solid var(--encre);border-radius:10px;width:44px;height:44px;cursor:pointer;font-size:1.2rem}
+
+/* hero */
+.hero{position:relative;padding:clamp(2.5rem,6vw,5rem) 0 clamp(3rem,7vw,6rem);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,4vw,4rem);align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:2px solid var(--encre);border-radius:999px;padding:.3rem .85rem;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.eyebrow i{width:10px;height:10px;border-radius:50%;background:var(--pre);box-shadow:0 0 0 0 rgba(93,125,58,.6);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(93,125,58,0)}100%{box-shadow:0 0 0 0 rgba(93,125,58,0)}}
+h1{font-family:var(--font-titre);font-weight:700;font-size:clamp(2.5rem,1.6rem + 4.4vw,5.1rem);line-height:.98;margin:1.1rem 0 1.2rem;letter-spacing:-.01em}
+h1 .hl{position:relative;display:inline-block;z-index:0}
+h1 .hl::before{content:"";position:absolute;left:-.12em;right:-.12em;bottom:.08em;height:.42em;background:var(--blonde);z-index:-1;transform:skew(-6deg) scaleX(0);transform-origin:left;animation:mark 1s .6s var(--ease) forwards}
+@keyframes mark{to{transform:skew(-6deg) scaleX(1)}}
+.lead{font-size:clamp(1.05rem,1rem + .35vw,1.25rem);color:var(--encre-doux);max-width:36rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem}
+.chip{font-size:.85rem;font-weight:700;padding:.35rem .8rem;border-radius:999px;background:var(--kraft-clair);border:1.5px dashed var(--encre-doux)}
+.hero-visual{position:relative;aspect-ratio:4/5}
+.hero-visual .ph{position:absolute;border-radius:var(--radius);overflow:hidden;border:3px solid var(--encre);box-shadow:8px 8px 0 var(--encre);background:var(--kraft)}
+.hero-visual .ph img{width:100%;height:100%;object-fit:cover}
+.ph.a{inset:0 18% 22% 0;transform:rotate(-2.5deg)}
+.ph.b{width:46%;height:52%;right:0;bottom:0;transform:rotate(3deg)}
+.sticker{position:absolute;left:-1rem;bottom:8%;z-index:3;width:118px;height:118px;border-radius:50%;background:var(--rose);color:#fff;display:grid;place-items:center;text-align:center;font-family:var(--font-titre);font-weight:700;font-size:.95rem;line-height:1.05;border:3px solid var(--encre);animation:spin 18s linear infinite}
+.sticker span{transform:rotate(-8deg)}
+@keyframes spin{from{rotate:0deg}to{rotate:360deg}}
+.sticker span{animation:spin 18s linear infinite reverse}
+.note-main{position:absolute;right:20%;top:-2.6rem;font-family:var(--font-main);font-size:1.6rem;color:var(--encre-doux);transform:rotate(6deg)}
+
+/* bandeau défilant */
+.ticker{background:var(--encre);color:var(--kraft-clair);overflow:hidden;border-block:3px solid var(--encre)}
+.ticker-track{display:flex;gap:2.5rem;width:max-content;padding:.85rem 0;animation:tick 32s linear infinite;font-family:var(--font-titre);font-weight:600;font-size:1.15rem;white-space:nowrap}
+.ticker-track span::after{content:"✳";margin-left:2.5rem;color:var(--blonde)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:clamp(3.5rem,8vw,6.5rem) 0}
+.kicker{font-family:var(--font-main);font-size:1.7rem;color:var(--ambree);line-height:1}
+h2{font-family:var(--font-titre);font-weight:700;font-size:clamp(2rem,1.4rem + 2.6vw,3.4rem);line-height:1.02;margin:.3rem 0 1rem}
+.sub{color:var(--encre-doux);max-width:40rem;font-size:1.08rem}
+
+/* ferme */
+.ferme{background:var(--kraft-clair);position:relative}
+.ferme-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.ferme-photos{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.ferme-photos figure{border-radius:var(--radius);overflow:hidden;border:3px solid var(--encre);position:relative}
+.ferme-photos figure:first-child{grid-column:1/-1;aspect-ratio:16/9}
+.ferme-photos figure:not(:first-child){aspect-ratio:1}
+.ferme-photos img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.ferme-photos figure:hover img{transform:scale(1.06)}
+.ferme-photos figcaption{position:absolute;left:.6rem;bottom:.6rem;background:var(--creme);border:2px solid var(--encre);border-radius:999px;font-size:.78rem;font-weight:800;padding:.15rem .6rem}
+.quote{font-family:var(--font-titre);font-weight:600;font-size:clamp(1.25rem,1rem + .9vw,1.7rem);line-height:1.25;border-left:6px solid var(--blonde);padding-left:1rem;margin:1.4rem 0}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.6rem}
+.fact{background:var(--creme);border:2px solid var(--encre);border-radius:14px;padding:.9rem;text-align:center}
+.fact b{display:block;font-family:var(--font-titre);font-size:1.5rem;line-height:1.1}
+.fact small{font-weight:700;color:var(--encre-doux);font-size:.8rem}
+
+/* du champ au verre */
+.chemin{position:relative}
+.steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.steps svg.line{position:absolute;left:0;right:0;top:56px;width:100%;height:40px;z-index:0;overflow:visible}
+.steps svg.line path{fill:none;stroke:var(--encre);stroke-width:3;stroke-dasharray:8 10;stroke-linecap:round}
+.step{position:relative;z-index:1;text-align:center;padding:0 .5rem}
+.step .ico{width:112px;height:112px;margin:0 auto 1rem;border-radius:50%;background:var(--creme);border:3px solid var(--encre);display:grid;place-items:center;transition:transform .5s var(--ease),background .5s}
+.step.on .ico{background:var(--blonde);transform:rotate(-6deg) scale(1.05)}
+.step:nth-child(4).on .ico{background:var(--ambree)}
+.step .ico svg{width:58px;height:58px}
+.step h3{font-family:var(--font-titre);font-size:1.35rem;margin-bottom:.35rem}
+.step p{color:var(--encre-doux);font-size:.98rem}
+
+/* produits */
+.produits{background:var(--encre);color:var(--creme)}
+.produits .sub{color:#d8c8ad}
+.produits .kicker{color:var(--blonde)}
+.prod-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1.5rem;margin-top:2.5rem}
+.card{background:var(--creme);color:var(--encre);border-radius:22px;overflow:hidden;border:3px solid var(--creme);position:relative}
+.card.biere{display:grid;grid-template-columns:.9fr 1.1fr}
+.bottle-stage{position:relative;background:radial-gradient(circle at 50% 40%,#e9c88c,#9b6a33 80%);display:grid;place-items:center;min-height:420px;overflow:hidden}
+.bottle-stage img{height:100%;width:100%;object-fit:cover;position:absolute;inset:0;transition:opacity .6s var(--ease),transform .8s var(--ease)}
+.bottle-stage img.hide{opacity:0;transform:scale(1.06)}
+.bubbles span{position:absolute;bottom:-12px;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.55);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-460px);opacity:0}}
+.biere-body{padding:1.6rem}
+.toggle{display:inline-flex;border:2px solid var(--encre);border-radius:999px;padding:4px;gap:4px;margin-bottom:1.1rem}
+.toggle button{font-family:var(--font-titre);font-weight:600;font-size:.95rem;border:0;border-radius:999px;padding:.45rem 1rem;cursor:pointer;background:transparent;color:var(--encre);transition:background .3s}
+.toggle button[aria-pressed="true"][data-b="blonde"]{background:var(--blonde)}
+.toggle button[aria-pressed="true"][data-b="ambree"]{background:var(--ambree)}
+.biere-body h3{font-family:var(--font-titre);font-size:1.9rem;line-height:1.05}
+.band{display:inline-block;margin:.5rem 0 .9rem;padding:.2rem .7rem;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--encre);background:var(--blonde);transition:background .4s}
+.band.amb{background:var(--ambree)}
+.price-row{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0}
+.price{border:2px dashed var(--encre-doux);border-radius:12px;padding:.5rem .8rem;font-weight:700;font-size:.92rem}
+.price b{font-family:var(--font-titre);font-size:1.25rem}
+.small{font-size:.82rem;color:var(--encre-doux)}
+.card.viande img{aspect-ratio:4/3;width:100%;object-fit:cover}
+.card.viande .in{padding:1.5rem}
+.card.viande h3{font-family:var(--font-titre);font-size:1.7rem;line-height:1.05;margin-bottom:.5rem}
+.tag{position:absolute;top:1rem;left:1rem;background:var(--pre);color:#fff;font-weight:800;font-size:.75rem;padding:.25rem .65rem;border-radius:999px;border:2px solid var(--creme);letter-spacing:.05em}
+
+/* commande — outil central */
+.commande{background:linear-gradient(180deg,var(--kraft-clair),var(--creme))}
+.cmd{display:grid;grid-template-columns:1.25fr .75fr;gap:1.5rem;margin-top:2.2rem;align-items:start}
+.panel{background:#fff;border:3px solid var(--encre);border-radius:22px;padding:1.4rem;box-shadow:6px 6px 0 var(--encre)}
+.panel h3{font-family:var(--font-titre);font-size:1.3rem;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.panel h3 em{font-style:normal;width:30px;height:30px;border-radius:50%;background:var(--blonde);border:2px solid var(--encre);display:grid;place-items:center;font-size:.95rem}
+.line-item{display:grid;grid-template-columns:56px 1fr auto;gap:.8rem;align-items:center;padding:.7rem 0;border-bottom:1.5px dashed #dccfb8}
+.line-item:last-of-type{border-bottom:0}
+.line-item img{width:56px;height:56px;border-radius:12px;object-fit:cover;border:2px solid var(--encre)}
+.line-item .ph-mini{width:56px;height:56px;border-radius:12px;border:2px solid var(--encre);background:var(--kraft);display:grid;place-items:center;font-size:1.4rem}
+.line-item strong{display:block;font-size:.98rem}
+.line-item span{font-size:.82rem;color:var(--encre-doux)}
+.qty{display:flex;align-items:center;border:2px solid var(--encre);border-radius:999px;overflow:hidden}
+.qty button{width:36px;height:36px;border:0;background:var(--kraft-clair);font-size:1.15rem;font-weight:800;cursor:pointer;color:var(--encre)}
+.qty button:active{background:var(--blonde)}
+.qty output{min-width:34px;text-align:center;font-weight:800}
+.block{margin-top:1.3rem}
+.points{display:grid;gap:.55rem}
+.point{display:flex;gap:.7rem;align-items:flex-start;border:2px solid #dccfb8;border-radius:14px;padding:.7rem .85rem;cursor:pointer;transition:border-color .25s,background .25s}
+.point:hover{border-color:var(--encre)}
+.point input{margin-top:.3rem;accent-color:var(--encre);width:18px;height:18px}
+.point.sel{border-color:var(--encre);background:#fffbe0}
+.point b{display:block;font-size:.95rem}
+.point small{color:var(--encre-doux)}
+textarea,input[type=text]{width:100%;font:inherit;border:2px solid #dccfb8;border-radius:12px;padding:.65rem .8rem;background:var(--creme);color:var(--encre)}
+textarea:focus,input[type=text]:focus{border-color:var(--encre);outline:none}
+.recap{position:sticky;top:90px}
+.recap .total{font-family:var(--font-titre);font-size:2.6rem;line-height:1;margin:.4rem 0}
+.recap ul{list-style:none;margin:.8rem 0;display:grid;gap:.35rem;font-size:.92rem}
+.recap li{display:flex;justify-content:space-between;gap:.5rem}
+.recap li.neg{color:var(--pre);font-weight:700}
+.recap .empty{color:var(--encre-doux);font-style:italic}
+.recap .btn{width:100%;justify-content:center;margin-top:.6rem}
+.verre{width:70px;height:92px;margin:0 auto .4rem;position:relative}
+.verre .fill{position:absolute;left:8px;right:8px;bottom:6px;height:0;background:var(--blonde);border-radius:0 0 10px 10px;transition:height .6s var(--ease),background .4s}
+.verre svg{position:absolute;inset:0}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,150%);background:var(--encre);color:var(--creme);padding:.8rem 1.2rem;border-radius:14px;font-weight:700;z-index:60;transition:transform .45s var(--ease);max-width:calc(100% - 2rem)}
+.toast.show{transform:translate(-50%,0)}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.info{background:var(--kraft-clair);border:3px solid var(--encre);border-radius:22px;padding:1.6rem}
+.info dl{display:grid;gap:1rem}
+.info dt{font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--encre-doux)}
+.info dd{font-size:1.08rem;font-weight:600}
+.info dd a{text-decoration:none;border-bottom:3px solid var(--blonde)}
+.map{border:3px solid var(--encre);border-radius:22px;overflow:hidden;min-height:340px;background:var(--kraft)}
+.map iframe{width:100%;height:100%;min-height:340px;border:0;filter:sepia(.25) saturate(.9)}
+
+footer{background:var(--encre);color:#d8c8ad;padding:3rem 0 2rem;font-size:.9rem}
+footer .f{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem}
+footer h4{font-family:var(--font-titre);color:var(--creme);font-size:1.3rem;margin-bottom:.5rem}
+.disclaimer{margin-top:2rem;padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;line-height:1.55}
+
+/* révélations au défilement */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+
+@media (max-width:960px){
+  .hero-grid,.ferme-grid,.prod-grid,.cmd,.contact-grid,footer .f{grid-template-columns:1fr}
+  .card.biere{grid-template-columns:1fr}
+  .bottle-stage{min-height:340px}
+  .recap{position:static}
+  .hero-visual{max-width:460px;margin-inline:auto;width:100%}
+}
+@media (max-width:760px){
+  .nav ul{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--creme);border-bottom:2px solid var(--encre);padding:.5rem 1rem}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:.75rem 0}
+  .burger{display:block}
+  .nav .btn.nav-cta{display:none}
+  .steps{grid-template-columns:1fr;gap:2rem}
+  .steps svg.line{display:none}
+  .facts{grid-template-columns:1fr 1fr 1fr}
+  .fact b{font-size:1.2rem}
+  .sticker{width:96px;height:96px;font-size:.8rem;left:-.3rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "additionalType":"https://schema.org/Farm",
+  "name":"GAEC Subrin — Champ Brassé",
+  "description":"Éleveurs bio à Vendranges : lait livré en coopérative, viande de bœuf bio en vente directe à la ferme, bières bio brassées avec les céréales de la ferme.",
+  "address":{"@type":"PostalAddress","streetAddress":"112 chemin du Creux","postalCode":"42590","addressLocality":"Vendranges","addressRegion":"Loire","addressCountry":"FR"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.947479,"longitude":4.134158},
+  "telephone":"+33615392350",
+  "email":"marine.subrin@gmail.com",
+  "areaServed":["Vendranges","Saint-Symphorien-de-Lay","Neulise","Saint-Just-la-Pendue","Pays entre Loire et Rhône","Roannais"],
+  "makesOffer":[
+    {"@type":"Offer","name":"Champ Brassé — bière blonde 75 cl","price":"6.30","priceCurrency":"EUR"},
+    {"@type":"Offer","name":"Champ Brassé — bière ambrée 75 cl","price":"6.30","priceCurrency":"EUR"},
+    {"@type":"Offer","name":"Carton de 6 bouteilles de bière blonde","price":"37.00","priceCurrency":"EUR"}
+  ]
+}
+</script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="demo">Maquette de démonstration réalisée pour le <b>GAEC Subrin — Champ Brassé</b> · informations reprises des fiches publiques de la ferme · prix indicatifs</div>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="GAEC Subrin, accueil">
+      <!-- pictogramme « vache au trait » inspiré de l'étiquette, à remplacer par le vrai logo -->
+      <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#cdb083" stroke="#2b2119" stroke-width="3"/><path d="M18 24c-5-1-8-4-8-7 5 0 8 2 10 4M46 24c5-1 8-4 8-7-5 0-8 2-10 4M20 22c2-5 7-7 12-7s10 2 12 7c1 4 0 9-2 13-1 6-5 11-10 11s-9-5-10-11c-2-4-3-9-2-13z" fill="#faf5ea" stroke="#2b2119" stroke-width="2.4" stroke-linejoin="round"/><ellipse cx="32" cy="40" rx="7" ry="5" fill="#e2559b" opacity=".35" stroke="#2b2119" stroke-width="2"/><circle cx="26" cy="29" r="2" fill="#2b2119"/><circle cx="38" cy="29" r="2" fill="#2b2119"/><circle cx="20" cy="15" r="3" fill="#f2df1f" stroke="#2b2119" stroke-width="1.5"/><circle cx="44" cy="15" r="3" fill="#e2559b" stroke="#2b2119" stroke-width="1.5"/></svg>
+      <span>GAEC Subrin<small>Champ Brassé · Vendranges</small></span>
+    </a>
+    <button class="burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <ul id="menu">
+      <li><a href="#ferme">La ferme</a></li>
+      <li><a href="#chemin">Du champ au verre</a></li>
+      <li><a href="#produits">Nos produits</a></li>
+      <li><a href="#commande">Commander</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn nav-cta" href="#commande">Préparer ma commande</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rv"><i></i> Agriculture biologique · Vendranges (42)</span>
+      <h1 class="rv d1">Du bœuf bio et une bière <span class="hl">brassée avec nos céréales</span></h1>
+      <p class="lead rv d2">Éleveurs à Vendranges, nous produisons du lait et de la viande de bœuf bio. Le lait est livré en coopérative, la viande est vendue en direct à la ferme — et nos bières Champ Brassé naissent de la céréale que nous cultivons.</p>
+      <div class="hero-cta rv d3">
+        <a class="btn" href="#commande">Préparer ma commande</a>
+        <a class="btn ghost" href="tel:+33615392350">06 15 39 23 50</a>
+      </div>
+      <div class="chips rv d3">
+        <span class="chip">Vente à la ferme, sur rendez-vous</span>
+        <span class="chip">Steaks hachés sur commande</span>
+        <span class="chip">Bouteilles consignées</span>
+      </div>
+    </div>
+    <div class="hero-visual rv d2">
+      <span class="note-main" aria-hidden="true">nos prés, nos céréales ↓</span>
+      <div class="ph a"><img src="assets/gaec-subrin-vendranges/paysage-troupeau.webp" alt="Le troupeau dans les prés de la ferme à Vendranges" fetchpriority="high"></div>
+      <div class="ph b"><img src="assets/gaec-subrin-vendranges/biere-1.webp" alt="Bouteille de bière Champ Brassé, étiquette kraft à la vache"></div>
+      <div class="sticker" aria-hidden="true"><span>Brassée<br>à la<br>ferme</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Lait bio livré en coopérative</span><span>Viande de bœuf bio en vente directe</span><span>Champ Brassé blonde · 5,1°</span><span>Champ Brassé ambrée douce</span><span>Bouteilles consignées 0,50 €</span><span>112 chemin du Creux · Vendranges</span>
+    <span>Lait bio livré en coopérative</span><span>Viande de bœuf bio en vente directe</span><span>Champ Brassé blonde · 5,1°</span><span>Champ Brassé ambrée douce</span><span>Bouteilles consignées 0,50 €</span><span>112 chemin du Creux · Vendranges</span>
+  </div>
+</div>
+
+<section class="ferme" id="ferme">
+  <div class="wrap ferme-grid">
+    <div>
+      <p class="kicker rv">La ferme</p>
+      <h2 class="rv d1">Éleveurs à Vendranges, en bio</h2>
+      <p class="sub rv d2">Marine et Mathieu Subrin mènent le GAEC au 112 chemin du Creux, entre les prés du troupeau et les parcelles de céréales. Une ferme laitière qui a choisi d'aller plus loin : vendre sa viande en direct, puis brasser sa propre bière.</p>
+      <p class="quote rv d2">« Des bières bio et très locales, car produites à partir de la céréale que nous cultivons. »</p>
+      <div class="facts">
+        <div class="fact rv"><b>Bio</b><small>Agriculture biologique</small></div>
+        <div class="fact rv d1"><b>Lait</b><small>livré en coopérative</small></div>
+        <div class="fact rv d2"><b>Bœuf</b><small>vendu en direct</small></div>
+      </div>
+    </div>
+    <div class="ferme-photos">
+      <figure class="rv"><img src="assets/gaec-subrin-vendranges/paysage-cereales.webp" alt="Parcelle de céréales au coucher du soleil, à la ferme" loading="lazy"><figcaption>Les céréales de la ferme</figcaption></figure>
+      <figure class="rv d1"><img src="assets/gaec-subrin-vendranges/ferme-vache.webp" alt="Un bovin de la ferme dans les prés de Vendranges" loading="lazy"><figcaption>Dans les prés</figcaption></figure>
+      <figure class="rv d2"><img src="assets/gaec-subrin-vendranges/viande.webp" alt="Pièces de viande de bœuf de la ferme sur une planche" loading="lazy"><figcaption>Le bœuf de la ferme</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="chemin" id="chemin">
+  <div class="wrap">
+    <p class="kicker rv">Du champ au verre</p>
+    <h2 class="rv d1">Une bière qui ne quitte pas la ferme</h2>
+    <p class="sub rv d2">Champ Brassé porte bien son nom : la céréale est cultivée sur nos parcelles, puis brassée à la ferme. Faites défiler, le chemin se dessine.</p>
+    <div class="steps" id="steps">
+      <svg class="line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true"><path id="linePath" d="M120 20 C 300 -10, 420 50, 500 20 S 760 -10, 880 20"/></svg>
+      <div class="step">
+        <div class="ico"><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#2b2119" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M32 58V14"/><path d="M32 22c-6-1-9-5-9-10 6 0 9 4 9 10zM32 22c6-1 9-5 9-10-6 0-9 4-9 10zM32 34c-6-1-9-5-9-10 6 0 9 4 9 10zM32 34c6-1 9-5 9-10-6 0-9 4-9 10zM32 46c-6-1-9-5-9-10 6 0 9 4 9 10zM32 46c6-1 9-5 9-10-6 0-9 4-9 10z"/></svg></div>
+        <h3>On cultive</h3>
+        <p>La céréale pousse sur les parcelles de la ferme, en agriculture biologique.</p>
+      </div>
+      <div class="step">
+        <div class="ico"><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#2b2119" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22h36v28a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z"/><path d="M50 28h4a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4h-4"/><path d="M22 14c0-4 4-4 4-8M32 14c0-4 4-4 4-8M42 14c0-4 4-4 4-8"/></svg></div>
+        <h3>On brasse</h3>
+        <p>Brassée à la ferme : une blonde douce à 5,1° et une ambrée douce, bio et paysanne.</p>
+      </div>
+      <div class="step">
+        <div class="ico"><svg viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#2b2119" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M26 6h12v10c0 3 6 6 6 14v26a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4V30c0-8 6-11 6-14z"/><path d="M20 36h24v12H20z"/><path d="M26 6h12"/></svg></div>
+        <h3>On reprend la bouteille</h3>
+        <p>Les bouteilles de 75 cl sont consignées : 0,50 € rendus pour chaque bouteille rapportée.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="produits" id="produits">
+  <div class="wrap">
+    <p class="kicker rv">Nos produits</p>
+    <h2 class="rv d1">Ce qui sort de la ferme</h2>
+    <p class="sub rv d2">Prix relevés sur la boutique en ligne Nos Produits Locaux CoPLER, où la ferme vend aujourd'hui en Click &amp; Collect.</p>
+    <div class="prod-grid">
+      <article class="card biere rv">
+        <div class="bottle-stage">
+          <img id="imgBlonde" src="assets/gaec-subrin-vendranges/blonde-75cl.jpg" alt="Champ Brassé bière blonde, bouteille de 75 cl">
+          <img id="imgAmbree" class="hide" src="assets/gaec-subrin-vendranges/ambree-75cl.jpg" alt="Champ Brassé bière ambrée, bouteille de 75 cl">
+          <div class="bubbles" aria-hidden="true"></div>
+        </div>
+        <div class="biere-body">
+          <div class="toggle" role="group" aria-label="Choisir la bière">
+            <button data-b="blonde" aria-pressed="true">Blonde</button>
+            <button data-b="ambree" aria-pressed="false">Ambrée</button>
+          </div>
+          <h3 id="bName">Champ Brassé blonde</h3>
+          <span class="band" id="bBand">Bière blonde bio · 5,1°</span>
+          <p id="bDesc">Bière blonde et douce, brassée avec les céréales cultivées sur notre ferme.</p>
+          <div class="price-row" id="bPrices">
+            <span class="price"><b>6,30 €</b> la bouteille de 75 cl</span>
+            <span class="price"><b>37,00 €</b> le carton de 6</span>
+          </div>
+          <p class="small">À conserver debout, à déguster fraîche. Bouteilles de 75 cl consignées, reprises 0,50 €. Contient du gluten. L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+        </div>
+      </article>
+      <article class="card viande rv d1">
+        <span class="tag">BIO</span>
+        <img src="assets/gaec-subrin-vendranges/viande.webp" alt="Viande de bœuf bio de la ferme" loading="lazy">
+        <div class="in">
+          <h3>Viande de bœuf bio</h3>
+          <p>Issue de notre élevage, vendue en direct à la ferme. Steaks hachés préparés sur commande.</p>
+          <p class="small" style="margin-top:.6rem">Morceaux, colis et tarifs : à compléter par la ferme.</p>
+          <a class="btn amb" href="#commande" style="margin-top:1rem">Réserver de la viande</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="commande" id="commande">
+  <div class="wrap">
+    <p class="kicker rv">Commander</p>
+    <h2 class="rv d1">Préparez votre commande, on vous la met de côté</h2>
+    <p class="sub rv d2">Choisissez vos bières, ajoutez une demande de viande, indiquez les bouteilles que vous rapportez et le lieu de retrait. La demande part directement à la ferme, avec le total déjà calculé.</p>
+    <div class="cmd">
+      <div class="panel rv">
+        <h3><em>1</em> Vos produits</h3>
+        <div class="line-item" data-id="blonde" data-price="6.30" data-bottles="1">
+          <img src="assets/gaec-subrin-vendranges/blonde-75cl.jpg" alt="">
+          <div><strong>Champ Brassé blonde · 75 cl</strong><span>6,30 € la bouteille</span></div>
+          <div class="qty"><button type="button" aria-label="Retirer une blonde">−</button><output>0</output><button type="button" aria-label="Ajouter une blonde">+</button></div>
+        </div>
+        <div class="line-item" data-id="carton" data-price="37.00" data-bottles="6">
+          <img src="assets/gaec-subrin-vendranges/carton-6-blondes.jpg" alt="">
+          <div><strong>Carton de 6 blondes</strong><span>37,00 € le carton</span></div>
+          <div class="qty"><button type="button" aria-label="Retirer un carton">−</button><output>0</output><button type="button" aria-label="Ajouter un carton">+</button></div>
+        </div>
+        <div class="line-item" data-id="ambree" data-price="6.30" data-bottles="1">
+          <img src="assets/gaec-subrin-vendranges/ambree-75cl.jpg" alt="">
+          <div><strong>Champ Brassé ambrée · 75 cl</strong><span>6,30 € la bouteille</span></div>
+          <div class="qty"><button type="button" aria-label="Retirer une ambrée">−</button><output>0</output><button type="button" aria-label="Ajouter une ambrée">+</button></div>
+        </div>
+        <div class="line-item" data-id="retour" data-price="-0.50" data-bottles="0">
+          <div class="ph-mini" aria-hidden="true">♻</div>
+          <div><strong>Bouteilles vides rapportées</strong><span>0,50 € rendus par bouteille consignée</span></div>
+          <div class="qty"><button type="button" aria-label="Une bouteille rapportée de moins">−</button><output>0</output><button type="button" aria-label="Une bouteille rapportée de plus">+</button></div>
+        </div>
+
+        <div class="block">
+          <h3><em>2</em> Viande de bœuf bio <small class="small" style="font-family:var(--font-texte)">(sur demande)</small></h3>
+          <label class="small" for="viande">Steaks hachés, morceaux… la ferme vous confirme disponibilité et prix.</label>
+          <textarea id="viande" rows="2" placeholder="Ex. : 10 steaks hachés pour samedi"></textarea>
+        </div>
+
+        <div class="block">
+          <h3><em>3</em> Où récupérer ?</h3>
+          <div class="points" id="points">
+            <label class="point sel"><input type="radio" name="pt" value="À la ferme, 112 chemin du Creux, Vendranges (sur rendez-vous)" checked><span><b>À la ferme — Vendranges</b><small>112 chemin du Creux · sur rendez-vous</small></span></label>
+            <label class="point"><input type="radio" name="pt" value="Saint-Symphorien-de-Lay, Maison Bécaud (jeudi)"><span><b>Saint-Symphorien-de-Lay</b><small>Maison Bécaud · jeudi</small></span></label>
+            <label class="point"><input type="radio" name="pt" value="Hôpital-sur-Rhins, FabLab (jeudi / samedi)"><span><b>Hôpital-sur-Rhins</b><small>FabLab · jeudi / samedi</small></span></label>
+            <label class="point"><input type="radio" name="pt" value="Neulise, Les Légumes de Neulise (jeudi)"><span><b>Neulise</b><small>Les Légumes de Neulise · jeudi</small></span></label>
+          </div>
+        </div>
+        <div class="block">
+          <label class="small" for="nom"><b>Votre nom et téléphone</b></label>
+          <input id="nom" type="text" placeholder="Prénom Nom · 06 …" autocomplete="name">
+        </div>
+      </div>
+
+      <aside class="panel recap rv d1" aria-live="polite">
+        <div class="verre" aria-hidden="true">
+          <div class="fill" id="fill"></div>
+          <svg viewBox="0 0 70 92"><path d="M6 4h58l-6 80a6 6 0 0 1-6 5H18a6 6 0 0 1-6-5z" fill="none" stroke="#2b2119" stroke-width="3"/></svg>
+        </div>
+        <h3 style="justify-content:center">Votre commande</h3>
+        <p class="total" id="total" style="text-align:center">0,00 €</p>
+        <p class="small" style="text-align:center" id="nbBout">0 bouteille</p>
+        <ul id="lines"><li class="empty">Ajoutez une bière ou une demande de viande.</li></ul>
+        <a class="btn" id="send" href="#">Envoyer ma demande à la ferme</a>
+        <a class="btn ghost" href="tel:+33615392350">Appeler la ferme</a>
+        <p class="small" style="margin-top:.8rem">Bière : prix affichés sur la boutique en ligne actuelle. Viande : prix confirmé par la ferme. Total indicatif, réglé au retrait.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="kicker rv">Venir à la ferme</p>
+    <h2 class="rv d1">On vous accueille sur rendez-vous</h2>
+    <div class="contact-grid">
+      <div class="info rv">
+        <dl>
+          <div><dt>Adresse</dt><dd>GAEC Subrin<br>112 chemin du Creux<br>42590 Vendranges</dd></div>
+          <div><dt>Téléphone</dt><dd><a href="tel:+33615392350">06 15 39 23 50</a></dd></div>
+          <div><dt>Mail</dt><dd><a href="mailto:marine.subrin@gmail.com">marine.subrin@gmail.com</a></dd></div>
+          <div><dt>Vente à la ferme</dt><dd>Toute l'année, sur rendez-vous</dd></div>
+          <div><dt>Aussi en Click &amp; Collect</dt><dd>Saint-Symphorien-de-Lay (jeudi) · Hôpital-sur-Rhins (jeudi / samedi) · Neulise (jeudi)</dd></div>
+        </dl>
+        <div class="hero-cta"><a class="btn" href="tel:+33615392350">Prendre rendez-vous</a><a class="btn ghost" href="https://maps.google.fr/?daddr=45.947479,4.134158" target="_blank" rel="noopener">Itinéraire</a></div>
+      </div>
+      <div class="map rv d1"><iframe title="Carte : GAEC Subrin à Vendranges" loading="lazy" src="https://maps.google.com/maps?q=45.947479,4.134158&z=13&output=embed"></iframe></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f">
+      <div>
+        <h4>GAEC Subrin · Champ Brassé</h4>
+        <p>Éleveurs bio à Vendranges. Lait, viande de bœuf bio en vente directe, bières brassées avec les céréales de la ferme.</p>
+      </div>
+      <div>
+        <p>112 chemin du Creux, 42590 Vendranges<br>06 15 39 23 50 · marine.subrin@gmail.com</p>
+      </div>
+    </div>
+    <p class="disclaimer"><b>Maquette de démonstration</b> préparée pour le GAEC Subrin. Textes, produits, prix, points de retrait et coordonnées repris des fiches publiques de la ferme (Roannais Tourisme et boutique Nos Produits Locaux CoPLER, novembre 2026) ; prix indicatifs, non contractuels. Toutes les photos sont celles publiées par la ferme sur ces fiches. La ferme n'ayant pas encore de site, couleurs et polices sont approchées à partir de l'étiquette Champ Brassé et ajustables ; le pictogramme de vache est provisoire, en attendant le vrai logo. Morceaux et tarifs de viande à fournir par la ferme. L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(()=>{
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // en-tête
+  const hd=document.querySelector('header');
+  addEventListener('scroll',()=>hd.classList.toggle('scrolled',scrollY>10),{passive:true});
+  const burger=document.querySelector('.burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>{const o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');burger.setAttribute('aria-expanded',false)}));
+
+  // révélations
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+  // chemin du champ au verre : tracé lié au défilement
+  const path=document.getElementById('linePath'),steps=[...document.querySelectorAll('.step')],box=document.getElementById('steps');
+  const len=path.getTotalLength();path.style.strokeDasharray=len;path.style.strokeDashoffset=len;
+  const onScroll=()=>{
+    const r=box.getBoundingClientRect(),vh=innerHeight;
+    let p=(vh*.85-r.top)/(r.height+vh*.35);p=Math.max(0,Math.min(1,p));
+    path.style.strokeDashoffset=len*(1-p);
+    steps.forEach((s,i)=>s.classList.toggle('on',p>i/3+.05));
+  };
+  if(reduce){path.style.strokeDashoffset=0;steps.forEach(s=>s.classList.add('on'))}else{addEventListener('scroll',onScroll,{passive:true});onScroll()}
+
+  // bulles
+  const bub=document.querySelector('.bubbles');
+  if(!reduce)for(let i=0;i<14;i++){const s=document.createElement('span');s.style.left=(5+Math.random()*90)+'%';s.style.animationDuration=(4+Math.random()*5)+'s';s.style.animationDelay=(-Math.random()*8)+'s';const z=4+Math.random()*7;s.style.width=s.style.height=z+'px';bub.appendChild(s)}
+
+  // bascule blonde / ambrée
+  const data={
+    blonde:{n:'Champ Brassé blonde',b:'Bière blonde bio · 5,1°',d:'Bière blonde et douce, brassée avec les céréales cultivées sur notre ferme.',p:'<span class="price"><b>6,30 €</b> la bouteille de 75 cl</span><span class="price"><b>37,00 €</b> le carton de 6</span>'},
+    ambree:{n:'Champ Brassé ambrée',b:'Bière bio paysanne ambrée',d:'Bière ambrée douce. Brassée à la ferme, avec les céréales cultivées à la ferme.',p:'<span class="price"><b>6,30 €</b> la bouteille de 75 cl</span>'}
+  };
+  document.querySelectorAll('.toggle button').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.b;document.querySelectorAll('.toggle button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    document.getElementById('imgBlonde').classList.toggle('hide',k!=='blonde');document.getElementById('imgAmbree').classList.toggle('hide',k!=='ambree');
+    bName.textContent=data[k].n;bBand.textContent=data[k].b;bBand.classList.toggle('amb',k==='ambree');bDesc.textContent=data[k].d;bPrices.innerHTML=data[k].p;
+  }));
+
+  // outil de commande
+  const fmt=v=>v.toFixed(2).replace('.',',')+' €';
+  const items=[...document.querySelectorAll('.line-item')];
+  const q={};items.forEach(it=>q[it.dataset.id]=0);
+  const toast=document.getElementById('toast');let tt;
+  const say=m=>{toast.textContent=m;toast.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('show'),2600)};
+  function render(){
+    let total=0,bottles=0,amb=0;const lines=[];
+    items.forEach(it=>{const n=q[it.dataset.id];if(!n)return;const pr=parseFloat(it.dataset.price);total+=pr*n;bottles+=n*+it.dataset.bottles;if(it.dataset.id==='ambree')amb+=n;
+      const lab=it.querySelector('strong').textContent;lines.push(`<li class="${pr<0?'neg':''}"><span>${n} × ${lab}</span><span>${fmt(pr*n)}</span></li>`)});
+    const v=document.getElementById('viande').value.trim();
+    if(v)lines.push(`<li><span>Viande : ${v.replace(/</g,'&lt;')}</span><span>à confirmer</span></li>`);
+    document.getElementById('lines').innerHTML=lines.length?lines.join(''):'<li class="empty">Ajoutez une bière ou une demande de viande.</li>';
+    document.getElementById('total').textContent=fmt(Math.max(total,0));
+    document.getElementById('nbBout').textContent=bottles+' bouteille'+(bottles>1?'s':'')+' de 75 cl';
+    const fill=document.getElementById('fill');fill.style.height=Math.min(78,bottles*7)+'px';fill.style.background=amb&&amb*2>=bottles?'var(--ambree)':'var(--blonde)';
+    return {total,bottles,lines,v};
+  }
+  items.forEach(it=>{const [m,p]=it.querySelectorAll('button'),o=it.querySelector('output');
+    p.addEventListener('click',()=>{const id=it.dataset.id;
+      if(id==='retour'){const max=Object.entries(q).reduce((a,[k,n])=>a+(k==='retour'?0:n*+document.querySelector(`[data-id="${k}"]`).dataset.bottles),0);if(q.retour>=max){say('Vous ne pouvez pas rapporter plus de bouteilles que vous n\'en prenez.');return}}
+      q[id]++;o.value=q[id];o.textContent=q[id];render()});
+    m.addEventListener('click',()=>{if(q[it.dataset.id]>0){q[it.dataset.id]--;o.textContent=q[it.dataset.id];render()}});
+  });
+  document.getElementById('viande').addEventListener('input',render);
+  document.querySelectorAll('.point input').forEach(r=>r.addEventListener('change',()=>document.querySelectorAll('.point').forEach(p=>p.classList.toggle('sel',p.contains(r)&&r.checked))));
+  document.getElementById('send').addEventListener('click',e=>{
+    e.preventDefault();const r=render();
+    if(!r.lines.length){say('Votre commande est vide.');return}
+    const pt=document.querySelector('.point input:checked').value,nom=document.getElementById('nom').value.trim();
+    let body='Bonjour,\n\nJe souhaite commander :\n';
+    items.forEach(it=>{const n=q[it.dataset.id];if(n)body+=`- ${n} × ${it.querySelector('strong').textContent}\n`});
+    if(r.v)body+=`- Viande de bœuf bio : ${r.v}\n`;
+    body+=`\nTotal indicatif bière : ${fmt(Math.max(r.total,0))}\nRetrait : ${pt}\n\n${nom||'(nom et téléphone)'}\n`;
+    location.href='mailto:marine.subrin@gmail.com?subject='+encodeURIComponent('Commande ferme — Champ Brassé')+'&body='+encodeURIComponent(body);
+    say('Votre messagerie s\'ouvre avec la commande prête à envoyer.');
+  });
+  render();
+})();
+</script>
+</body>
+</html>
